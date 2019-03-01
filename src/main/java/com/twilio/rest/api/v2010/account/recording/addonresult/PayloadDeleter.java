@@ -26,9 +26,11 @@ public class PayloadDeleter extends Deleter<Payload> {
     /**
      * Construct a new PayloadDeleter.
      * 
-     * @param pathReferenceSid The reference_sid
-     * @param pathAddOnResultSid The add_on_result_sid
-     * @param pathSid Delete by unique payload Sid
+     * @param pathReferenceSid The SID of the recording to which the AddOnResult
+     *                         resource that contains the payloads to delete belongs
+     * @param pathAddOnResultSid The SID of the AddOnResult to which the payloads
+     *                           to delete belongs
+     * @param pathSid The unique string that identifies the resource
      */
     public PayloadDeleter(final String pathReferenceSid, 
                           final String pathAddOnResultSid, 
@@ -41,10 +43,13 @@ public class PayloadDeleter extends Deleter<Payload> {
     /**
      * Construct a new PayloadDeleter.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathReferenceSid The reference_sid
-     * @param pathAddOnResultSid The add_on_result_sid
-     * @param pathSid Delete by unique payload Sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathReferenceSid The SID of the recording to which the AddOnResult
+     *                         resource that contains the payloads to delete belongs
+     * @param pathAddOnResultSid The SID of the AddOnResult to which the payloads
+     *                           to delete belongs
+     * @param pathSid The unique string that identifies the resource
      */
     public PayloadDeleter(final String pathAccountSid, 
                           final String pathReferenceSid, 

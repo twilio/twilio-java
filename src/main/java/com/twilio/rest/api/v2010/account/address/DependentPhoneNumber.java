@@ -93,8 +93,10 @@ public class DependentPhoneNumber extends Resource {
     /**
      * Create a DependentPhoneNumberReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathAddressSid The address_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathAddressSid The SID of the Address resource associated with the
+     *                       phone number
      * @return DependentPhoneNumberReader capable of executing the read
      */
     public static DependentPhoneNumberReader reader(final String pathAccountSid, 
@@ -105,7 +107,8 @@ public class DependentPhoneNumber extends Resource {
     /**
      * Create a DependentPhoneNumberReader to execute read.
      * 
-     * @param pathAddressSid The address_sid
+     * @param pathAddressSid The SID of the Address resource associated with the
+     *                       phone number
      * @return DependentPhoneNumberReader capable of executing the read
      */
     public static DependentPhoneNumberReader reader(final String pathAddressSid) {
@@ -259,234 +262,243 @@ public class DependentPhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return The sid
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return The friendly_name
+     * @return The string that you assigned to describe the resource
      */
     public final com.twilio.type.PhoneNumber getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The phone_number.
+     * Returns The The phone number in E.164 format.
      * 
-     * @return The phone_number
+     * @return The phone number in E.164 format
      */
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 
     /**
-     * Returns The The voice_url.
+     * Returns The The URL we call when the phone number receives a call.
      * 
-     * @return The voice_url
+     * @return The URL we call when the phone number receives a call
      */
     public final URI getVoiceUrl() {
         return this.voiceUrl;
     }
 
     /**
-     * Returns The The voice_method.
+     * Returns The The HTTP method used with the voice_url.
      * 
-     * @return The voice_method
+     * @return The HTTP method used with the voice_url
      */
     public final HttpMethod getVoiceMethod() {
         return this.voiceMethod;
     }
 
     /**
-     * Returns The The voice_fallback_method.
+     * Returns The The HTTP method used with voice_fallback_url.
      * 
-     * @return The voice_fallback_method
+     * @return The HTTP method used with voice_fallback_url
      */
     public final HttpMethod getVoiceFallbackMethod() {
         return this.voiceFallbackMethod;
     }
 
     /**
-     * Returns The The voice_fallback_url.
+     * Returns The The URL we call when an error occurs in TwiML.
      * 
-     * @return The voice_fallback_url
+     * @return The URL we call when an error occurs in TwiML
      */
     public final URI getVoiceFallbackUrl() {
         return this.voiceFallbackUrl;
     }
 
     /**
-     * Returns The The voice_caller_id_lookup.
+     * Returns The Whether to lookup the caller's name.
      * 
-     * @return The voice_caller_id_lookup
+     * @return Whether to lookup the caller's name
      */
     public final Boolean getVoiceCallerIdLookup() {
         return this.voiceCallerIdLookup;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The RFC 2822 date and time in GMT that the resource was created.
      * 
-     * @return The date_created
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The RFC 2822 date and time in GMT that the resource was last
+     * updated.
      * 
-     * @return The date_updated
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The sms_fallback_method.
+     * Returns The The HTTP method used with sms_fallback_url.
      * 
-     * @return The sms_fallback_method
+     * @return The HTTP method used with sms_fallback_url
      */
     public final HttpMethod getSmsFallbackMethod() {
         return this.smsFallbackMethod;
     }
 
     /**
-     * Returns The The sms_fallback_url.
+     * Returns The The URL that we call when an error occurs while retrieving or
+     * executing the TwiML.
      * 
-     * @return The sms_fallback_url
+     * @return The URL that we call when an error occurs while retrieving or
+     *         executing the TwiML
      */
     public final URI getSmsFallbackUrl() {
         return this.smsFallbackUrl;
     }
 
     /**
-     * Returns The The sms_method.
+     * Returns The The HTTP method to use with sms_url.
      * 
-     * @return The sms_method
+     * @return The HTTP method to use with sms_url
      */
     public final HttpMethod getSmsMethod() {
         return this.smsMethod;
     }
 
     /**
-     * Returns The The sms_url.
+     * Returns The The URL we call when the phone number receives an incoming SMS
+     * message.
      * 
-     * @return The sms_url
+     * @return The URL we call when the phone number receives an incoming SMS
+     *         message
      */
     public final URI getSmsUrl() {
         return this.smsUrl;
     }
 
     /**
-     * Returns The The address_requirements.
+     * Returns The Whether the phone number requires an Address registered with
+     * Twilio.
      * 
-     * @return The address_requirements
+     * @return Whether the phone number requires an Address registered with Twilio
      */
     public final DependentPhoneNumber.AddressRequirement getAddressRequirements() {
         return this.addressRequirements;
     }
 
     /**
-     * Returns The The capabilities.
+     * Returns The Indicate if a phone can receive calls or messages.
      * 
-     * @return The capabilities
+     * @return Indicate if a phone can receive calls or messages
      */
     public final Map<String, Object> getCapabilities() {
         return this.capabilities;
     }
 
     /**
-     * Returns The The status_callback.
+     * Returns The The URL to send status information to your application.
      * 
-     * @return The status_callback
+     * @return The URL to send status information to your application
      */
     public final URI getStatusCallback() {
         return this.statusCallback;
     }
 
     /**
-     * Returns The The status_callback_method.
+     * Returns The The HTTP method we use to call status_callback.
      * 
-     * @return The status_callback_method
+     * @return The HTTP method we use to call status_callback
      */
     public final HttpMethod getStatusCallbackMethod() {
         return this.statusCallbackMethod;
     }
 
     /**
-     * Returns The The api_version.
+     * Returns The The API version used to start a new TwiML session.
      * 
-     * @return The api_version
+     * @return The API version used to start a new TwiML session
      */
     public final String getApiVersion() {
         return this.apiVersion;
     }
 
     /**
-     * Returns The The sms_application_sid.
+     * Returns The The SID of the application that handles SMS messages sent to the
+     * phone number.
      * 
-     * @return The sms_application_sid
+     * @return The SID of the application that handles SMS messages sent to the
+     *         phone number
      */
     public final String getSmsApplicationSid() {
         return this.smsApplicationSid;
     }
 
     /**
-     * Returns The The voice_application_sid.
+     * Returns The The SID of the application that handles calls to the phone
+     * number.
      * 
-     * @return The voice_application_sid
+     * @return The SID of the application that handles calls to the phone number
      */
     public final String getVoiceApplicationSid() {
         return this.voiceApplicationSid;
     }
 
     /**
-     * Returns The The trunk_sid.
+     * Returns The The SID of the Trunk that handles calls to the phone number.
      * 
-     * @return The trunk_sid
+     * @return The SID of the Trunk that handles calls to the phone number
      */
     public final String getTrunkSid() {
         return this.trunkSid;
     }
 
     /**
-     * Returns The The emergency_status.
+     * Returns The Whether the phone number is enabled for emergency calling.
      * 
-     * @return The emergency_status
+     * @return Whether the phone number is enabled for emergency calling
      */
     public final DependentPhoneNumber.EmergencyStatus getEmergencyStatus() {
         return this.emergencyStatus;
     }
 
     /**
-     * Returns The The emergency_address_sid.
+     * Returns The The emergency address configuration to use for emergency calling.
      * 
-     * @return The emergency_address_sid
+     * @return The emergency address configuration to use for emergency calling
      */
     public final String getEmergencyAddressSid() {
         return this.emergencyAddressSid;
     }
 
     /**
-     * Returns The The uri.
+     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
      * 
-     * @return The uri
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;

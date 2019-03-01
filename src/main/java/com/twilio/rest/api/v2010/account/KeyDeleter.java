@@ -24,7 +24,7 @@ public class KeyDeleter extends Deleter<Key> {
     /**
      * Construct a new KeyDeleter.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      */
     public KeyDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class KeyDeleter extends Deleter<Key> {
     /**
      * Construct a new KeyDeleter.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathSid The unique string that identifies the resource
      */
     public KeyDeleter(final String pathAccountSid, 
                       final String pathSid) {

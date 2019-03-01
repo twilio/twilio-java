@@ -40,7 +40,7 @@ public class RecordingReader extends Reader<Recording> {
     /**
      * Construct a new RecordingReader.
      * 
-     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     * @param pathAccountSid The SID of the Account that created the resources to
      *                       read
      * @param pathConferenceSid Read by unique Conference SID for the recording
      */
@@ -52,12 +52,12 @@ public class RecordingReader extends Reader<Recording> {
 
     /**
      * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
-     * read. For recordings made on or before midnight on a date, use
-     * `&lt;=YYYY-MM-DD` and for recordings made on or after midnight on a date, use
-     * `&gt;=YYYY-MM-DD`..
+     * read. You can also specify inequality: `DateCreated&lt;=YYYY-MM-DD` will
+     * return recordings generated at or before midnight on a given date, and
+     * `DateCreated&gt;=YYYY-MM-DD` returns recordings generated at or after
+     * midnight on a date..
      * 
-     * @param absoluteDateCreated The `date_created` value, specified as
-     *                            `YYYY-MM-DD`, of the resources to read
+     * @param absoluteDateCreated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
     public RecordingReader setDateCreated(final LocalDate absoluteDateCreated) {
@@ -68,12 +68,12 @@ public class RecordingReader extends Reader<Recording> {
 
     /**
      * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
-     * read. For recordings made on or before midnight on a date, use
-     * `&lt;=YYYY-MM-DD` and for recordings made on or after midnight on a date, use
-     * `&gt;=YYYY-MM-DD`..
+     * read. You can also specify inequality: `DateCreated&lt;=YYYY-MM-DD` will
+     * return recordings generated at or before midnight on a given date, and
+     * `DateCreated&gt;=YYYY-MM-DD` returns recordings generated at or after
+     * midnight on a date..
      * 
-     * @param rangeDateCreated The `date_created` value, specified as `YYYY-MM-DD`,
-     *                         of the resources to read
+     * @param rangeDateCreated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
     public RecordingReader setDateCreated(final Range<LocalDate> rangeDateCreated) {

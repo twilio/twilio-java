@@ -31,7 +31,7 @@ public class RecordingReader extends Reader<Recording> {
     /**
      * Construct a new RecordingReader.
      * 
-     * @param pathCallSid The Call SID of the resource(s) to read
+     * @param pathCallSid The Call SID of the resources to read
      */
     public RecordingReader(final String pathCallSid) {
         this.pathCallSid = pathCallSid;
@@ -40,9 +40,9 @@ public class RecordingReader extends Reader<Recording> {
     /**
      * Construct a new RecordingReader.
      * 
-     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     * @param pathAccountSid The SID of the Account that created the resources to
      *                       read
-     * @param pathCallSid The Call SID of the resource(s) to read
+     * @param pathCallSid The Call SID of the resources to read
      */
     public RecordingReader(final String pathAccountSid, 
                            final String pathCallSid) {
@@ -52,9 +52,10 @@ public class RecordingReader extends Reader<Recording> {
 
     /**
      * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
-     * read. You can also specify inequality, such as `&lt;=YYYY-MM-DD` for
-     * recordings generated at or before midnight on a date, and `&gt;=YYYY-MM-DD`
-     * for recordings generated at or after midnight on a date..
+     * read. You can also specify inequality: `DateCreated&lt;=YYYY-MM-DD` will
+     * return recordings generated at or before midnight on a given date, and
+     * `DateCreated&gt;=YYYY-MM-DD` returns recordings generated at or after
+     * midnight on a date..
      * 
      * @param absoluteDateCreated The `YYYY-MM-DD` value of the resources to read
      * @return this
@@ -67,9 +68,10 @@ public class RecordingReader extends Reader<Recording> {
 
     /**
      * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
-     * read. You can also specify inequality, such as `&lt;=YYYY-MM-DD` for
-     * recordings generated at or before midnight on a date, and `&gt;=YYYY-MM-DD`
-     * for recordings generated at or after midnight on a date..
+     * read. You can also specify inequality: `DateCreated&lt;=YYYY-MM-DD` will
+     * return recordings generated at or before midnight on a given date, and
+     * `DateCreated&gt;=YYYY-MM-DD` returns recordings generated at or after
+     * midnight on a date..
      * 
      * @param rangeDateCreated The `YYYY-MM-DD` value of the resources to read
      * @return this

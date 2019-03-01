@@ -24,7 +24,7 @@ public class KeyFetcher extends Fetcher<Key> {
     /**
      * Construct a new KeyFetcher.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      */
     public KeyFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class KeyFetcher extends Fetcher<Key> {
     /**
      * Construct a new KeyFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      */
     public KeyFetcher(final String pathAccountSid, 
                       final String pathSid) {

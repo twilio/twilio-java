@@ -38,20 +38,21 @@ public class RecordingReader extends Reader<Recording> {
     /**
      * Construct a new RecordingReader.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      */
     public RecordingReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
     /**
-     * Only show recordings created on the given date. Should be formatted
-     * `YYYY-MM-DD`. You can also specify inequality: `DateCreated&lt;=YYYY-MM-DD`
-     * will return recordings generated at or before midnight on a given date, and
+     * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
+     * read. You can also specify inequality: `DateCreated&lt;=YYYY-MM-DD` will
+     * return recordings generated at or before midnight on a given date, and
      * `DateCreated&gt;=YYYY-MM-DD` returns recordings generated at or after
      * midnight on a date..
      * 
-     * @param absoluteDateCreated Filter by date created
+     * @param absoluteDateCreated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
     public RecordingReader setDateCreated(final DateTime absoluteDateCreated) {
@@ -61,13 +62,13 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * Only show recordings created on the given date. Should be formatted
-     * `YYYY-MM-DD`. You can also specify inequality: `DateCreated&lt;=YYYY-MM-DD`
-     * will return recordings generated at or before midnight on a given date, and
+     * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
+     * read. You can also specify inequality: `DateCreated&lt;=YYYY-MM-DD` will
+     * return recordings generated at or before midnight on a given date, and
      * `DateCreated&gt;=YYYY-MM-DD` returns recordings generated at or after
      * midnight on a date..
      * 
-     * @param rangeDateCreated Filter by date created
+     * @param rangeDateCreated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
     public RecordingReader setDateCreated(final Range<DateTime> rangeDateCreated) {
@@ -77,9 +78,10 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * Only show recordings made during the call indicated by this call SID.
+     * The [Call](https://www.twilio.com/docs/api/voice/call) SID of the resources
+     * to read..
      * 
-     * @param callSid Filter by call_sid
+     * @param callSid The Call SID of the resources to read
      * @return this
      */
     public RecordingReader setCallSid(final String callSid) {
@@ -88,11 +90,10 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * The unique ID for the conference associated with the recording, if the
-     * recording is of a conference..
+     * The Conference SID that identifies the conference associated with the
+     * recording to read..
      * 
-     * @param conferenceSid The unique ID for the conference associated with the
-     *                      recording.
+     * @param conferenceSid Read by unique Conference SID for the recording
      * @return this
      */
     public RecordingReader setConferenceSid(final String conferenceSid) {

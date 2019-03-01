@@ -153,11 +153,11 @@ public class Message extends Resource {
     /**
      * Create a MessageCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
-     * @param to The phone number to receive the message
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param to The destination phone number
      * @param from The phone number that initiated the message
-     * @param body The text of the message you want to send, limited to 1600
-     *             characters.
+     * @param body The text of the message you want to send. Can be up to 1,600
+     *             characters in length.
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator creator(final String pathAccountSid, 
@@ -170,10 +170,10 @@ public class Message extends Resource {
     /**
      * Create a MessageCreator to execute create.
      * 
-     * @param to The phone number to receive the message
+     * @param to The destination phone number
      * @param from The phone number that initiated the message
-     * @param body The text of the message you want to send, limited to 1600
-     *             characters.
+     * @param body The text of the message you want to send. Can be up to 1,600
+     *             characters in length.
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator creator(final com.twilio.type.PhoneNumber to, 
@@ -185,10 +185,10 @@ public class Message extends Resource {
     /**
      * Create a MessageCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
-     * @param to The phone number to receive the message
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param to The destination phone number
      * @param from The phone number that initiated the message
-     * @param mediaUrl The URL of the media you wish to send out with the message.
+     * @param mediaUrl The URL of the media to send with the message
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator creator(final String pathAccountSid, 
@@ -201,9 +201,9 @@ public class Message extends Resource {
     /**
      * Create a MessageCreator to execute create.
      * 
-     * @param to The phone number to receive the message
+     * @param to The destination phone number
      * @param from The phone number that initiated the message
-     * @param mediaUrl The URL of the media you wish to send out with the message.
+     * @param mediaUrl The URL of the media to send with the message
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator creator(final com.twilio.type.PhoneNumber to, 
@@ -215,12 +215,12 @@ public class Message extends Resource {
     /**
      * Create a MessageCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
-     * @param to The phone number to receive the message
-     * @param messagingServiceSid The 34 character unique id of the Messaging
-     *                            Service you want to associate with this Message.
-     * @param body The text of the message you want to send, limited to 1600
-     *             characters.
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param to The destination phone number
+     * @param messagingServiceSid The SID of the Messaging Service you want to
+     *                            associate with the message.
+     * @param body The text of the message you want to send. Can be up to 1,600
+     *             characters in length.
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator creator(final String pathAccountSid, 
@@ -233,11 +233,11 @@ public class Message extends Resource {
     /**
      * Create a MessageCreator to execute create.
      * 
-     * @param to The phone number to receive the message
-     * @param messagingServiceSid The 34 character unique id of the Messaging
-     *                            Service you want to associate with this Message.
-     * @param body The text of the message you want to send, limited to 1600
-     *             characters.
+     * @param to The destination phone number
+     * @param messagingServiceSid The SID of the Messaging Service you want to
+     *                            associate with the message.
+     * @param body The text of the message you want to send. Can be up to 1,600
+     *             characters in length.
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator creator(final com.twilio.type.PhoneNumber to, 
@@ -249,11 +249,11 @@ public class Message extends Resource {
     /**
      * Create a MessageCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
-     * @param to The phone number to receive the message
-     * @param messagingServiceSid The 34 character unique id of the Messaging
-     *                            Service you want to associate with this Message.
-     * @param mediaUrl The URL of the media you wish to send out with the message.
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param to The destination phone number
+     * @param messagingServiceSid The SID of the Messaging Service you want to
+     *                            associate with the message.
+     * @param mediaUrl The URL of the media to send with the message
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator creator(final String pathAccountSid, 
@@ -266,10 +266,10 @@ public class Message extends Resource {
     /**
      * Create a MessageCreator to execute create.
      * 
-     * @param to The phone number to receive the message
-     * @param messagingServiceSid The 34 character unique id of the Messaging
-     *                            Service you want to associate with this Message.
-     * @param mediaUrl The URL of the media you wish to send out with the message.
+     * @param to The destination phone number
+     * @param messagingServiceSid The SID of the Messaging Service you want to
+     *                            associate with the message.
+     * @param mediaUrl The URL of the media to send with the message
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator creator(final com.twilio.type.PhoneNumber to, 
@@ -281,8 +281,9 @@ public class Message extends Resource {
     /**
      * Create a MessageDeleter to execute delete.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The message to delete
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathSid The unique string that identifies the resource
      * @return MessageDeleter capable of executing the delete
      */
     public static MessageDeleter deleter(final String pathAccountSid, 
@@ -293,7 +294,7 @@ public class Message extends Resource {
     /**
      * Create a MessageDeleter to execute delete.
      * 
-     * @param pathSid The message to delete
+     * @param pathSid The unique string that identifies the resource
      * @return MessageDeleter capable of executing the delete
      */
     public static MessageDeleter deleter(final String pathSid) {
@@ -303,8 +304,9 @@ public class Message extends Resource {
     /**
      * Create a MessageFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique message Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      * @return MessageFetcher capable of executing the fetch
      */
     public static MessageFetcher fetcher(final String pathAccountSid, 
@@ -315,7 +317,7 @@ public class Message extends Resource {
     /**
      * Create a MessageFetcher to execute fetch.
      * 
-     * @param pathSid Fetch by unique message Sid
+     * @param pathSid The unique string that identifies the resource
      * @return MessageFetcher capable of executing the fetch
      */
     public static MessageFetcher fetcher(final String pathSid) {
@@ -325,7 +327,8 @@ public class Message extends Resource {
     /**
      * Create a MessageReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      * @return MessageReader capable of executing the read
      */
     public static MessageReader reader(final String pathAccountSid) {
@@ -344,10 +347,10 @@ public class Message extends Resource {
     /**
      * Create a MessageUpdater to execute update.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The message to redact
-     * @param body The text of the message you want to send, limited to 1600
-     *             characters.
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       update
+     * @param pathSid The unique string that identifies the resource
+     * @param body The text of the message you want to send
      * @return MessageUpdater capable of executing the update
      */
     public static MessageUpdater updater(final String pathAccountSid, 
@@ -359,9 +362,8 @@ public class Message extends Resource {
     /**
      * Create a MessageUpdater to execute update.
      * 
-     * @param pathSid The message to redact
-     * @param body The text of the message you want to send, limited to 1600
-     *             characters.
+     * @param pathSid The unique string that identifies the resource
+     * @param body The text of the message you want to send
      * @return MessageUpdater capable of executing the update
      */
     public static MessageUpdater updater(final String pathSid, 
@@ -492,54 +494,55 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique sid that identifies this account
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The version of the Twilio API used to process the message..
+     * Returns The The API version used to process the message.
      * 
-     * @return The version of the Twilio API used to process the message.
+     * @return The API version used to process the message
      */
     public final String getApiVersion() {
         return this.apiVersion;
     }
 
     /**
-     * Returns The The text body of the message. Up to 1600 characters long..
+     * Returns The The message text.
      * 
-     * @return The text body of the message. Up to 1600 characters long.
+     * @return The message text
      */
     public final String getBody() {
         return this.body;
     }
 
     /**
-     * Returns The The date this resource was created.
+     * Returns The The RFC 2822 date and time in GMT that the resource was created.
      * 
-     * @return The date this resource was created
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT that the resource was last
+     * updated.
      * 
-     * @return The date this resource was last updated
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The date the message was sent.
+     * Returns The The RFC 2822 date and time in GMT when the message was sent.
      * 
-     * @return The date the message was sent
+     * @return The RFC 2822 date and time in GMT when the message was sent
      */
     public final DateTime getDateSent() {
         return this.dateSent;
@@ -564,9 +567,9 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The Human readable description of the ErrorCode.
+     * Returns The The description of the error_code.
      * 
-     * @return Human readable description of the ErrorCode
+     * @return The description of the error_code
      */
     public final String getErrorMessage() {
         return this.errorMessage;
@@ -582,27 +585,27 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The unique id of the Messaging Service used with the message..
+     * Returns The The SID of the Messaging Service used with the message..
      * 
-     * @return The unique id of the Messaging Service used with the message.
+     * @return The SID of the Messaging Service used with the message.
      */
     public final String getMessagingServiceSid() {
         return this.messagingServiceSid;
     }
 
     /**
-     * Returns The Number of media files associated with the message.
+     * Returns The The number of media files associated with the message.
      * 
-     * @return Number of media files associated with the message
+     * @return The number of media files associated with the message
      */
     public final String getNumMedia() {
         return this.numMedia;
     }
 
     /**
-     * Returns The Indicates number of messages used to delivery the body.
+     * Returns The The number of messages used to deliver the message body.
      * 
-     * @return Indicates number of messages used to delivery the body
+     * @return The number of messages used to deliver the message body
      */
     public final String getNumSegments() {
         return this.numSegments;
@@ -618,36 +621,36 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The currency in which Price is measured.
+     * Returns The The currency in which price is measured.
      * 
-     * @return The currency in which Price is measured
+     * @return The currency in which price is measured
      */
     public final Currency getPriceUnit() {
         return this.priceUnit;
     }
 
     /**
-     * Returns The A string that uniquely identifies this message.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies this message
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The status of this message.
+     * Returns The The status of the message.
      * 
-     * @return The status of this message
+     * @return The status of the message
      */
     public final Message.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The URI for any subresources.
+     * Returns The A list of related resources identified by their relative URIs.
      * 
-     * @return The URI for any subresources
+     * @return A list of related resources identified by their relative URIs
      */
     public final Map<String, String> getSubresourceUris() {
         return this.subresourceUris;
@@ -663,9 +666,9 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The URI for this resource.
+     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
      * 
-     * @return The URI for this resource
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;

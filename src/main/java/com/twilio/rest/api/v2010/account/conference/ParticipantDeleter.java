@@ -25,8 +25,9 @@ public class ParticipantDeleter extends Deleter<Participant> {
     /**
      * Construct a new ParticipantDeleter.
      * 
-     * @param pathConferenceSid The string that uniquely identifies this conference
-     * @param pathCallSid Delete by unique participant Call Sid
+     * @param pathConferenceSid The SID of the conference with the participants to
+     *                          delete
+     * @param pathCallSid The Call SID of the resources to delete
      */
     public ParticipantDeleter(final String pathConferenceSid, 
                               final String pathCallSid) {
@@ -37,9 +38,11 @@ public class ParticipantDeleter extends Deleter<Participant> {
     /**
      * Construct a new ParticipantDeleter.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
-     * @param pathConferenceSid The string that uniquely identifies this conference
-     * @param pathCallSid Delete by unique participant Call Sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathConferenceSid The SID of the conference with the participants to
+     *                          delete
+     * @param pathCallSid The Call SID of the resources to delete
      */
     public ParticipantDeleter(final String pathAccountSid, 
                               final String pathConferenceSid, 

@@ -48,7 +48,7 @@ public class PublicKey extends Resource {
     /**
      * Create a PublicKeyCreator to execute create.
      * 
-     * @param publicKey URL encoded representation of the public key
+     * @param publicKey A URL encoded representation of the public key
      * @return PublicKeyCreator capable of executing the create
      */
     public static PublicKeyCreator creator(final String publicKey) {
@@ -58,7 +58,7 @@ public class PublicKey extends Resource {
     /**
      * Create a PublicKeyFetcher to execute fetch.
      * 
-     * @param pathSid Fetch by unique Credential Sid
+     * @param pathSid The unique string that identifies the resource
      * @return PublicKeyFetcher capable of executing the fetch
      */
     public static PublicKeyFetcher fetcher(final String pathSid) {
@@ -68,7 +68,7 @@ public class PublicKey extends Resource {
     /**
      * Create a PublicKeyUpdater to execute update.
      * 
-     * @param pathSid Fetch by unique Credential Sid
+     * @param pathSid The unique string that identifies the resource
      * @return PublicKeyUpdater capable of executing the update
      */
     public static PublicKeyUpdater updater(final String pathSid) {
@@ -78,7 +78,7 @@ public class PublicKey extends Resource {
     /**
      * Create a PublicKeyDeleter to execute delete.
      * 
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSid The unique string that identifies the resource
      * @return PublicKeyDeleter capable of executing the delete
      */
     public static PublicKeyDeleter deleter(final String pathSid) {
@@ -152,45 +152,48 @@ public class PublicKey extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The AccountSid the Credential resource belongs to.
+     * Returns The The SID of the Account that created the Credential that the
+     * PublicKey resource belongs to.
      * 
-     * @return AccountSid the Credential resource belongs to
+     * @return The SID of the Account that created the Credential that the
+     *         PublicKey resource belongs to
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The A human readable description of this resource.
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return A human readable description of this resource
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date this resource was created.
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date this resource was created
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date this resource was last updated
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;

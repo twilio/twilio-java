@@ -29,7 +29,7 @@ public class FaxMediaReader extends Reader<FaxMedia> {
     /**
      * Construct a new FaxMediaReader.
      * 
-     * @param pathFaxSid Fax SID
+     * @param pathFaxSid The SID of the fax with the FaxMedia resources to read
      */
     public FaxMediaReader(final String pathFaxSid) {
         this.pathFaxSid = pathFaxSid;

@@ -39,9 +39,10 @@ public class Notification extends Resource {
     /**
      * Create a NotificationFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCallSid The call_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathCallSid The Call SID of the resource to fetch
+     * @param pathSid The unique string that identifies the resource
      * @return NotificationFetcher capable of executing the fetch
      */
     public static NotificationFetcher fetcher(final String pathAccountSid, 
@@ -53,8 +54,8 @@ public class Notification extends Resource {
     /**
      * Create a NotificationFetcher to execute fetch.
      * 
-     * @param pathCallSid The call_sid
-     * @param pathSid The sid
+     * @param pathCallSid The Call SID of the resource to fetch
+     * @param pathSid The unique string that identifies the resource
      * @return NotificationFetcher capable of executing the fetch
      */
     public static NotificationFetcher fetcher(final String pathCallSid, 
@@ -65,9 +66,10 @@ public class Notification extends Resource {
     /**
      * Create a NotificationDeleter to execute delete.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCallSid The call_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathCallSid The Call SID of the resources to delete
+     * @param pathSid The unique string that identifies the resource
      * @return NotificationDeleter capable of executing the delete
      */
     public static NotificationDeleter deleter(final String pathAccountSid, 
@@ -79,8 +81,8 @@ public class Notification extends Resource {
     /**
      * Create a NotificationDeleter to execute delete.
      * 
-     * @param pathCallSid The call_sid
-     * @param pathSid The sid
+     * @param pathCallSid The Call SID of the resources to delete
+     * @param pathSid The unique string that identifies the resource
      * @return NotificationDeleter capable of executing the delete
      */
     public static NotificationDeleter deleter(final String pathCallSid, 
@@ -91,8 +93,9 @@ public class Notification extends Resource {
     /**
      * Create a NotificationReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCallSid The call_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathCallSid The Call SID of the resources to read
      * @return NotificationReader capable of executing the read
      */
     public static NotificationReader reader(final String pathAccountSid, 
@@ -103,7 +106,7 @@ public class Notification extends Resource {
     /**
      * Create a NotificationReader to execute read.
      * 
-     * @param pathCallSid The call_sid
+     * @param pathCallSid The Call SID of the resources to read
      * @return NotificationReader capable of executing the read
      */
     public static NotificationReader reader(final String pathCallSid) {
@@ -221,153 +224,154 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The api_version.
+     * Returns The The API version used to create the Call Notification resource.
      * 
-     * @return The api_version
+     * @return The API version used to create the Call Notification resource
      */
     public final String getApiVersion() {
         return this.apiVersion;
     }
 
     /**
-     * Returns The The call_sid.
+     * Returns The The SID of the Call the resource is associated with.
      * 
-     * @return The call_sid
+     * @return The SID of the Call the resource is associated with
      */
     public final String getCallSid() {
         return this.callSid;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The RFC 2822 date and time in GMT that the resource was created.
      * 
-     * @return The date_created
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The RFC 2822 date and time in GMT that the resource was last
+     * updated.
      * 
-     * @return The date_updated
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The error_code.
+     * Returns The A unique error code corresponding to the notification.
      * 
-     * @return The error_code
+     * @return A unique error code corresponding to the notification
      */
     public final String getErrorCode() {
         return this.errorCode;
     }
 
     /**
-     * Returns The The log.
+     * Returns The An integer log level.
      * 
-     * @return The log
+     * @return An integer log level
      */
     public final String getLog() {
         return this.log;
     }
 
     /**
-     * Returns The The message_date.
+     * Returns The The date the notification was generated.
      * 
-     * @return The message_date
+     * @return The date the notification was generated
      */
     public final DateTime getMessageDate() {
         return this.messageDate;
     }
 
     /**
-     * Returns The The message_text.
+     * Returns The The text of the notification.
      * 
-     * @return The message_text
+     * @return The text of the notification
      */
     public final String getMessageText() {
         return this.messageText;
     }
 
     /**
-     * Returns The The more_info.
+     * Returns The A URL for more information about the error code.
      * 
-     * @return The more_info
+     * @return A URL for more information about the error code
      */
     public final URI getMoreInfo() {
         return this.moreInfo;
     }
 
     /**
-     * Returns The The request_method.
+     * Returns The HTTP method used with the request url.
      * 
-     * @return The request_method
+     * @return HTTP method used with the request url
      */
     public final HttpMethod getRequestMethod() {
         return this.requestMethod;
     }
 
     /**
-     * Returns The The request_url.
+     * Returns The URL of the resource that generated the notification.
      * 
-     * @return The request_url
+     * @return URL of the resource that generated the notification
      */
     public final URI getRequestUrl() {
         return this.requestUrl;
     }
 
     /**
-     * Returns The The request_variables.
+     * Returns The Twilio-generated HTTP variables sent to the server.
      * 
-     * @return The request_variables
+     * @return Twilio-generated HTTP variables sent to the server
      */
     public final String getRequestVariables() {
         return this.requestVariables;
     }
 
     /**
-     * Returns The The response_body.
+     * Returns The The HTTP body returned by your server.
      * 
-     * @return The response_body
+     * @return The HTTP body returned by your server
      */
     public final String getResponseBody() {
         return this.responseBody;
     }
 
     /**
-     * Returns The The response_headers.
+     * Returns The The HTTP headers returned by your server.
      * 
-     * @return The response_headers
+     * @return The HTTP headers returned by your server
      */
     public final String getResponseHeaders() {
         return this.responseHeaders;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return The sid
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The uri.
+     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
      * 
-     * @return The uri
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;

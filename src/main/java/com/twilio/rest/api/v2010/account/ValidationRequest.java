@@ -36,8 +36,9 @@ public class ValidationRequest extends Resource {
     /**
      * Create a ValidationRequestCreator to execute create.
      * 
-     * @param pathAccountSid The account_sid
-     * @param phoneNumber The phone number to verify.
+     * @param pathAccountSid The SID of the Account responsible for the new Caller
+     *                       ID
+     * @param phoneNumber The phone number to verify in E.164 format
      * @return ValidationRequestCreator capable of executing the create
      */
     public static ValidationRequestCreator creator(final String pathAccountSid, 
@@ -48,7 +49,7 @@ public class ValidationRequest extends Resource {
     /**
      * Create a ValidationRequestCreator to execute create.
      * 
-     * @param phoneNumber The phone number to verify.
+     * @param phoneNumber The phone number to verify in E.164 format
      * @return ValidationRequestCreator capable of executing the create
      */
     public static ValidationRequestCreator creator(final com.twilio.type.PhoneNumber phoneNumber) {
@@ -118,49 +119,47 @@ public class ValidationRequest extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account responsible for this Caller Id..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique ID of the Account responsible for this Caller Id.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The incoming phone number..
+     * Returns The The phone number to verify in E.164 format.
      * 
-     * @return The incoming phone number.
+     * @return The phone number to verify in E.164 format
      */
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 
     /**
-     * Returns The A human readable descriptive text for this resource, up to 64
-     * characters long..
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return A human readable descriptive text for this resource, up to 64
-     *         characters long.
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The 6 digit validation code that must be entered via the phone to
-     * validate this phone number for Caller ID..
+     * Returns The The 6 digit validation code that someone must enter to validate
+     * the Caller ID  when `phone_number` is called.
      * 
-     * @return The 6 digit validation code that must be entered via the phone to
-     *         validate this phone number for Caller ID.
+     * @return The 6 digit validation code that someone must enter to validate the
+     *         Caller ID  when `phone_number` is called
      */
     public final Integer getValidationCode() {
         return this.validationCode;
     }
 
     /**
-     * Returns The The unique id of the Call created for this validation attempt..
+     * Returns The The SID of the Call the resource is associated with.
      * 
-     * @return The unique id of the Call created for this validation attempt.
+     * @return The SID of the Call the resource is associated with
      */
     public final String getCallSid() {
         return this.callSid;

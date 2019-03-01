@@ -24,7 +24,7 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
     /**
      * Construct a new TranscriptionFetcher.
      * 
-     * @param pathSid Fetch by unique transcription SID
+     * @param pathSid The unique string that identifies the resource
      */
     public TranscriptionFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
     /**
      * Construct a new TranscriptionFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique transcription SID
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      */
     public TranscriptionFetcher(final String pathAccountSid, 
                                 final String pathSid) {

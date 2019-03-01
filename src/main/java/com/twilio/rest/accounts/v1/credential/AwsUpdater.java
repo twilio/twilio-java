@@ -24,16 +24,17 @@ public class AwsUpdater extends Updater<Aws> {
     /**
      * Construct a new AwsUpdater.
      * 
-     * @param pathSid Fetch by unique Credential Sid
+     * @param pathSid The unique string that identifies the resource
      */
     public AwsUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
     /**
-     * A human readable description of this resource, up to 64 characters..
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
      * 
-     * @param friendlyName A human readable description of this resource
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public AwsUpdater setFriendlyName(final String friendlyName) {

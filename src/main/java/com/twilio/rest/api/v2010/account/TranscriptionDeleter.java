@@ -24,7 +24,7 @@ public class TranscriptionDeleter extends Deleter<Transcription> {
     /**
      * Construct a new TranscriptionDeleter.
      * 
-     * @param pathSid Delete by unique transcription SID
+     * @param pathSid The unique string that identifies the resource
      */
     public TranscriptionDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class TranscriptionDeleter extends Deleter<Transcription> {
     /**
      * Construct a new TranscriptionDeleter.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Delete by unique transcription SID
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathSid The unique string that identifies the resource
      */
     public TranscriptionDeleter(final String pathAccountSid, 
                                 final String pathSid) {

@@ -25,8 +25,9 @@ public class TranscriptionDeleter extends Deleter<Transcription> {
     /**
      * Construct a new TranscriptionDeleter.
      * 
-     * @param pathRecordingSid The recording_sid
-     * @param pathSid The sid
+     * @param pathRecordingSid The SID of the recording that created the
+     *                         transcription to delete
+     * @param pathSid The unique string that identifies the resource
      */
     public TranscriptionDeleter(final String pathRecordingSid, 
                                 final String pathSid) {
@@ -37,9 +38,11 @@ public class TranscriptionDeleter extends Deleter<Transcription> {
     /**
      * Construct a new TranscriptionDeleter.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathRecordingSid The recording_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathRecordingSid The SID of the recording that created the
+     *                         transcription to delete
+     * @param pathSid The unique string that identifies the resource
      */
     public TranscriptionDeleter(final String pathAccountSid, 
                                 final String pathRecordingSid, 

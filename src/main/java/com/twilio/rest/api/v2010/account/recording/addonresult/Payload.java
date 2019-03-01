@@ -38,10 +38,13 @@ public class Payload extends Resource {
     /**
      * Create a PayloadFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathReferenceSid The reference_sid
-     * @param pathAddOnResultSid The add_on_result_sid
-     * @param pathSid Fetch by unique payload Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathReferenceSid The SID of the recording to which the AddOnResult
+     *                         resource that contains the payload to fetch belongs
+     * @param pathAddOnResultSid The SID of the AddOnResult to which the payload to
+     *                           fetch belongs
+     * @param pathSid The unique string that identifies the resource to fetch
      * @return PayloadFetcher capable of executing the fetch
      */
     public static PayloadFetcher fetcher(final String pathAccountSid, 
@@ -54,9 +57,11 @@ public class Payload extends Resource {
     /**
      * Create a PayloadFetcher to execute fetch.
      * 
-     * @param pathReferenceSid The reference_sid
-     * @param pathAddOnResultSid The add_on_result_sid
-     * @param pathSid Fetch by unique payload Sid
+     * @param pathReferenceSid The SID of the recording to which the AddOnResult
+     *                         resource that contains the payload to fetch belongs
+     * @param pathAddOnResultSid The SID of the AddOnResult to which the payload to
+     *                           fetch belongs
+     * @param pathSid The unique string that identifies the resource to fetch
      * @return PayloadFetcher capable of executing the fetch
      */
     public static PayloadFetcher fetcher(final String pathReferenceSid, 
@@ -68,9 +73,12 @@ public class Payload extends Resource {
     /**
      * Create a PayloadReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathReferenceSid The reference_sid
-     * @param pathAddOnResultSid The add_on_result_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathReferenceSid The SID of the recording to which the AddOnResult
+     *                         resource that contains the payloads to read belongs
+     * @param pathAddOnResultSid The SID of the AddOnResult to which the payloads
+     *                           to read belongs
      * @return PayloadReader capable of executing the read
      */
     public static PayloadReader reader(final String pathAccountSid, 
@@ -82,8 +90,10 @@ public class Payload extends Resource {
     /**
      * Create a PayloadReader to execute read.
      * 
-     * @param pathReferenceSid The reference_sid
-     * @param pathAddOnResultSid The add_on_result_sid
+     * @param pathReferenceSid The SID of the recording to which the AddOnResult
+     *                         resource that contains the payloads to read belongs
+     * @param pathAddOnResultSid The SID of the AddOnResult to which the payloads
+     *                           to read belongs
      * @return PayloadReader capable of executing the read
      */
     public static PayloadReader reader(final String pathReferenceSid, 
@@ -94,10 +104,13 @@ public class Payload extends Resource {
     /**
      * Create a PayloadDeleter to execute delete.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathReferenceSid The reference_sid
-     * @param pathAddOnResultSid The add_on_result_sid
-     * @param pathSid Delete by unique payload Sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathReferenceSid The SID of the recording to which the AddOnResult
+     *                         resource that contains the payloads to delete belongs
+     * @param pathAddOnResultSid The SID of the AddOnResult to which the payloads
+     *                           to delete belongs
+     * @param pathSid The unique string that identifies the resource
      * @return PayloadDeleter capable of executing the delete
      */
     public static PayloadDeleter deleter(final String pathAccountSid, 
@@ -110,9 +123,11 @@ public class Payload extends Resource {
     /**
      * Create a PayloadDeleter to execute delete.
      * 
-     * @param pathReferenceSid The reference_sid
-     * @param pathAddOnResultSid The add_on_result_sid
-     * @param pathSid Delete by unique payload Sid
+     * @param pathReferenceSid The SID of the recording to which the AddOnResult
+     *                         resource that contains the payloads to delete belongs
+     * @param pathAddOnResultSid The SID of the AddOnResult to which the payloads
+     *                           to delete belongs
+     * @param pathSid The unique string that identifies the resource
      * @return PayloadDeleter capable of executing the delete
      */
     public static PayloadDeleter deleter(final String pathReferenceSid, 
@@ -207,99 +222,102 @@ public class Payload extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this payload.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies this payload
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A string that uniquely identifies the result.
+     * Returns The The SID of the AddOnResult to which the payload belongs.
      * 
-     * @return A string that uniquely identifies the result
+     * @return The SID of the AddOnResult to which the payload belongs
      */
     public final String getAddOnResultSid() {
         return this.addOnResultSid;
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique sid that identifies this account
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The A string that describes the payload..
+     * Returns The The string that describes the payload.
      * 
-     * @return A string that describes the payload.
+     * @return The string that describes the payload
      */
     public final String getLabel() {
         return this.label;
     }
 
     /**
-     * Returns The A string that uniquely identifies the Add-on..
+     * Returns The The SID of the Add-on to which the result belongs.
      * 
-     * @return A string that uniquely identifies the Add-on.
+     * @return The SID of the Add-on to which the result belongs
      */
     public final String getAddOnSid() {
         return this.addOnSid;
     }
 
     /**
-     * Returns The A string that uniquely identifies the Add-on configuration..
+     * Returns The The SID of the Add-on configuration.
      * 
-     * @return A string that uniquely identifies the Add-on configuration.
+     * @return The SID of the Add-on configuration
      */
     public final String getAddOnConfigurationSid() {
         return this.addOnConfigurationSid;
     }
 
     /**
-     * Returns The The MIME type of the payload..
+     * Returns The The MIME type of the payload.
      * 
-     * @return The MIME type of the payload.
+     * @return The MIME type of the payload
      */
     public final String getContentType() {
         return this.contentType;
     }
 
     /**
-     * Returns The The date this resource was created.
+     * Returns The The RFC 2822 date and time in GMT that the resource was created.
      * 
-     * @return The date this resource was created
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT that the resource was last
+     * updated.
      * 
-     * @return The date this resource was last updated
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The A string that uniquely identifies the recording..
+     * Returns The The SID of the recording to which the AddOnResult resource that
+     * contains the payload belongs.
      * 
-     * @return A string that uniquely identifies the recording.
+     * @return The SID of the recording to which the AddOnResult resource that
+     *         contains the payload belongs
      */
     public final String getReferenceSid() {
         return this.referenceSid;
     }
 
     /**
-     * Returns The A dictionary of URIs for related resources.
+     * Returns The A list of related resources identified by their relative URIs.
      * 
-     * @return A dictionary of URIs for related resources
+     * @return A list of related resources identified by their relative URIs
      */
     public final Map<String, String> getSubresourceUris() {
         return this.subresourceUris;

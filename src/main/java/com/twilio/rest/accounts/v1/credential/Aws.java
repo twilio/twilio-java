@@ -48,7 +48,8 @@ public class Aws extends Resource {
     /**
      * Create a AwsCreator to execute create.
      * 
-     * @param credentials String containing AWS access credentials with format
+     * @param credentials A string that contains the AWS access credentials in the
+     *                    format
      *                    &lt;AWS_ACCESS_KEY_ID&gt;:&lt;AWS_SECRET_ACCESS_KEY&gt;
      * @return AwsCreator capable of executing the create
      */
@@ -59,7 +60,7 @@ public class Aws extends Resource {
     /**
      * Create a AwsFetcher to execute fetch.
      * 
-     * @param pathSid Fetch by unique Credential Sid
+     * @param pathSid The unique string that identifies the resource
      * @return AwsFetcher capable of executing the fetch
      */
     public static AwsFetcher fetcher(final String pathSid) {
@@ -69,7 +70,7 @@ public class Aws extends Resource {
     /**
      * Create a AwsUpdater to execute update.
      * 
-     * @param pathSid Fetch by unique Credential Sid
+     * @param pathSid The unique string that identifies the resource
      * @return AwsUpdater capable of executing the update
      */
     public static AwsUpdater updater(final String pathSid) {
@@ -79,7 +80,7 @@ public class Aws extends Resource {
     /**
      * Create a AwsDeleter to execute delete.
      * 
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSid The unique string that identifies the resource
      * @return AwsDeleter capable of executing the delete
      */
     public static AwsDeleter deleter(final String pathSid) {
@@ -152,45 +153,46 @@ public class Aws extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The AccountSid the Credential resource belongs to.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return AccountSid the Credential resource belongs to
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The A human readable description of this resource.
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return A human readable description of this resource
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date this resource was created.
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date this resource was created
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date this resource was last updated
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;

@@ -27,7 +27,7 @@ public class FaxFetcher extends Fetcher<Fax> {
     /**
      * Construct a new FaxFetcher.
      * 
-     * @param pathSid A string that uniquely identifies this fax.
+     * @param pathSid The unique string that identifies the resource
      */
     public FaxFetcher(final String pathSid) {
         this.pathSid = pathSid;

@@ -25,8 +25,9 @@ public class AddOnResultFetcher extends Fetcher<AddOnResult> {
     /**
      * Construct a new AddOnResultFetcher.
      * 
-     * @param pathReferenceSid The reference_sid
-     * @param pathSid Fetch by unique result Sid
+     * @param pathReferenceSid The SID of the recording to which the result to
+     *                         fetch belongs
+     * @param pathSid The unique string that identifies the resource to fetch
      */
     public AddOnResultFetcher(final String pathReferenceSid, 
                               final String pathSid) {
@@ -37,9 +38,11 @@ public class AddOnResultFetcher extends Fetcher<AddOnResult> {
     /**
      * Construct a new AddOnResultFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathReferenceSid The reference_sid
-     * @param pathSid Fetch by unique result Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathReferenceSid The SID of the recording to which the result to
+     *                         fetch belongs
+     * @param pathSid The unique string that identifies the resource to fetch
      */
     public AddOnResultFetcher(final String pathAccountSid, 
                               final String pathReferenceSid, 

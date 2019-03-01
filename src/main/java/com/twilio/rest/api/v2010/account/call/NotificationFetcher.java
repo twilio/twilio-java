@@ -25,8 +25,8 @@ public class NotificationFetcher extends Fetcher<Notification> {
     /**
      * Construct a new NotificationFetcher.
      * 
-     * @param pathCallSid The call_sid
-     * @param pathSid The sid
+     * @param pathCallSid The Call SID of the resource to fetch
+     * @param pathSid The unique string that identifies the resource
      */
     public NotificationFetcher(final String pathCallSid, 
                                final String pathSid) {
@@ -37,9 +37,10 @@ public class NotificationFetcher extends Fetcher<Notification> {
     /**
      * Construct a new NotificationFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCallSid The call_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathCallSid The Call SID of the resource to fetch
+     * @param pathSid The unique string that identifies the resource
      */
     public NotificationFetcher(final String pathAccountSid, 
                                final String pathCallSid, 

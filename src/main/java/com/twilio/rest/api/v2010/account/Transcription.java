@@ -68,8 +68,9 @@ public class Transcription extends Resource {
     /**
      * Create a TranscriptionFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique transcription SID
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      * @return TranscriptionFetcher capable of executing the fetch
      */
     public static TranscriptionFetcher fetcher(final String pathAccountSid, 
@@ -80,7 +81,7 @@ public class Transcription extends Resource {
     /**
      * Create a TranscriptionFetcher to execute fetch.
      * 
-     * @param pathSid Fetch by unique transcription SID
+     * @param pathSid The unique string that identifies the resource
      * @return TranscriptionFetcher capable of executing the fetch
      */
     public static TranscriptionFetcher fetcher(final String pathSid) {
@@ -90,8 +91,9 @@ public class Transcription extends Resource {
     /**
      * Create a TranscriptionDeleter to execute delete.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Delete by unique transcription SID
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathSid The unique string that identifies the resource
      * @return TranscriptionDeleter capable of executing the delete
      */
     public static TranscriptionDeleter deleter(final String pathAccountSid, 
@@ -102,7 +104,7 @@ public class Transcription extends Resource {
     /**
      * Create a TranscriptionDeleter to execute delete.
      * 
-     * @param pathSid Delete by unique transcription SID
+     * @param pathSid The unique string that identifies the resource
      * @return TranscriptionDeleter capable of executing the delete
      */
     public static TranscriptionDeleter deleter(final String pathSid) {
@@ -112,7 +114,8 @@ public class Transcription extends Resource {
     /**
      * Create a TranscriptionReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      * @return TranscriptionReader capable of executing the read
      */
     public static TranscriptionReader reader(final String pathAccountSid) {
@@ -224,81 +227,82 @@ public class Transcription extends Resource {
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique sid that identifies this account
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The api_version.
+     * Returns The The API version used to create the transcription.
      * 
-     * @return The api_version
+     * @return The API version used to create the transcription
      */
     public final String getApiVersion() {
         return this.apiVersion;
     }
 
     /**
-     * Returns The The date this resource was created.
+     * Returns The The RFC 2822 date and time in GMT that the resource was created.
      * 
-     * @return The date this resource was created
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT that the resource was last
+     * updated.
      * 
-     * @return The date this resource was last updated
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The duration of the transcribed audio, in seconds..
+     * Returns The The duration of the transcribed audio in seconds..
      * 
-     * @return The duration of the transcribed audio, in seconds.
+     * @return The duration of the transcribed audio in seconds.
      */
     public final String getDuration() {
         return this.duration;
     }
 
     /**
-     * Returns The The charge for this transcription.
+     * Returns The The charge for the transcription.
      * 
-     * @return The charge for this transcription
+     * @return The charge for the transcription
      */
     public final BigDecimal getPrice() {
         return this.price;
     }
 
     /**
-     * Returns The The currency in which Price is measured.
+     * Returns The The currency in which price is measured.
      * 
-     * @return The currency in which Price is measured
+     * @return The currency in which price is measured
      */
     public final Currency getPriceUnit() {
         return this.priceUnit;
     }
 
     /**
-     * Returns The The string that uniquely identifies the recording.
+     * Returns The The SID that identifies the transcription's recording.
      * 
-     * @return The string that uniquely identifies the recording
+     * @return The SID that identifies the transcription's recording
      */
     public final String getRecordingSid() {
         return this.recordingSid;
     }
 
     /**
-     * Returns The A string that uniquely identifies this transcription.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies this transcription
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
@@ -323,18 +327,18 @@ public class Transcription extends Resource {
     }
 
     /**
-     * Returns The The type.
+     * Returns The The transcription type.
      * 
-     * @return The type
+     * @return The transcription type
      */
     public final String getType() {
         return this.type;
     }
 
     /**
-     * Returns The The URI for this resource.
+     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
      * 
-     * @return The URI for this resource
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;

@@ -31,7 +31,8 @@ public class KeyReader extends Reader<Key> {
     /**
      * Construct a new KeyReader.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      */
     public KeyReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;

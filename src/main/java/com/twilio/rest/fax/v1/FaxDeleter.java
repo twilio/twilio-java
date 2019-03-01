@@ -27,7 +27,7 @@ public class FaxDeleter extends Deleter<Fax> {
     /**
      * Construct a new FaxDeleter.
      * 
-     * @param pathSid A string that uniquely identifies this fax.
+     * @param pathSid The unique string that identifies the resource
      */
     public FaxDeleter(final String pathSid) {
         this.pathSid = pathSid;

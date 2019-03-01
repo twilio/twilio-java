@@ -25,16 +25,17 @@ public class PublicKeyCreator extends Creator<PublicKey> {
     /**
      * Construct a new PublicKeyCreator.
      * 
-     * @param publicKey URL encoded representation of the public key
+     * @param publicKey A URL encoded representation of the public key
      */
     public PublicKeyCreator(final String publicKey) {
         this.publicKey = publicKey;
     }
 
     /**
-     * A human readable description of this resource, up to 64 characters..
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
      * 
-     * @param friendlyName A human readable description of this resource
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public PublicKeyCreator setFriendlyName(final String friendlyName) {
@@ -43,8 +44,8 @@ public class PublicKeyCreator extends Creator<PublicKey> {
     }
 
     /**
-     * The Subaccount this Credential should be associated with. Needs to be a valid
-     * Subaccount of the account issuing the request.
+     * The SID of the Subaccount that this Credential should be associated with.
+     * Must be a valid Subaccount of the account issuing the request.
      * 
      * @param accountSid The Subaccount this Credential should be associated with.
      * @return this

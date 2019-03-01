@@ -24,7 +24,7 @@ public class MessageFetcher extends Fetcher<Message> {
     /**
      * Construct a new MessageFetcher.
      * 
-     * @param pathSid Fetch by unique message Sid
+     * @param pathSid The unique string that identifies the resource
      */
     public MessageFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class MessageFetcher extends Fetcher<Message> {
     /**
      * Construct a new MessageFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique message Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      */
     public MessageFetcher(final String pathAccountSid, 
                           final String pathSid) {

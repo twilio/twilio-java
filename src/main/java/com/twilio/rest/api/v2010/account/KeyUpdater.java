@@ -25,7 +25,7 @@ public class KeyUpdater extends Updater<Key> {
     /**
      * Construct a new KeyUpdater.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      */
     public KeyUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -34,8 +34,9 @@ public class KeyUpdater extends Updater<Key> {
     /**
      * Construct a new KeyUpdater.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       update
+     * @param pathSid The unique string that identifies the resource
      */
     public KeyUpdater(final String pathAccountSid, 
                       final String pathSid) {
@@ -44,11 +45,10 @@ public class KeyUpdater extends Updater<Key> {
     }
 
     /**
-     * A descriptive string for this resource, chosen by your application, up to 64
-     * characters long..
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
      * 
-     * @param friendlyName A descriptive string for this resource, chosen by your
-     *                     application, up to 64 characters long.
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public KeyUpdater setFriendlyName(final String friendlyName) {

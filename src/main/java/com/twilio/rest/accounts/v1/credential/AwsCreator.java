@@ -25,7 +25,8 @@ public class AwsCreator extends Creator<Aws> {
     /**
      * Construct a new AwsCreator.
      * 
-     * @param credentials String containing AWS access credentials with format
+     * @param credentials A string that contains the AWS access credentials in the
+     *                    format
      *                    &lt;AWS_ACCESS_KEY_ID&gt;:&lt;AWS_SECRET_ACCESS_KEY&gt;
      */
     public AwsCreator(final String credentials) {
@@ -33,9 +34,10 @@ public class AwsCreator extends Creator<Aws> {
     }
 
     /**
-     * A human readable description of this resource, up to 64 characters..
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
      * 
-     * @param friendlyName A human readable description of this resource
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public AwsCreator setFriendlyName(final String friendlyName) {
@@ -44,8 +46,8 @@ public class AwsCreator extends Creator<Aws> {
     }
 
     /**
-     * The Subaccount this Credential should be associated with. Needs to be a valid
-     * Subaccount of the account issuing the request.
+     * The SID of the Subaccount that this Credential should be associated with.
+     * Must be a valid Subaccount of the account issuing the request..
      * 
      * @param accountSid The Subaccount this Credential should be associated with.
      * @return this

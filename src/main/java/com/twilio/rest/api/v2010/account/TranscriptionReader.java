@@ -31,7 +31,8 @@ public class TranscriptionReader extends Reader<Transcription> {
     /**
      * Construct a new TranscriptionReader.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      */
     public TranscriptionReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;

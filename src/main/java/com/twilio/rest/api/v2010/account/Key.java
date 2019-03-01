@@ -38,8 +38,9 @@ public class Key extends Resource {
     /**
      * Create a KeyFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      * @return KeyFetcher capable of executing the fetch
      */
     public static KeyFetcher fetcher(final String pathAccountSid, 
@@ -50,7 +51,7 @@ public class Key extends Resource {
     /**
      * Create a KeyFetcher to execute fetch.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      * @return KeyFetcher capable of executing the fetch
      */
     public static KeyFetcher fetcher(final String pathSid) {
@@ -60,8 +61,9 @@ public class Key extends Resource {
     /**
      * Create a KeyUpdater to execute update.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       update
+     * @param pathSid The unique string that identifies the resource
      * @return KeyUpdater capable of executing the update
      */
     public static KeyUpdater updater(final String pathAccountSid, 
@@ -72,7 +74,7 @@ public class Key extends Resource {
     /**
      * Create a KeyUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      * @return KeyUpdater capable of executing the update
      */
     public static KeyUpdater updater(final String pathSid) {
@@ -82,8 +84,9 @@ public class Key extends Resource {
     /**
      * Create a KeyDeleter to execute delete.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathSid The unique string that identifies the resource
      * @return KeyDeleter capable of executing the delete
      */
     public static KeyDeleter deleter(final String pathAccountSid, 
@@ -94,7 +97,7 @@ public class Key extends Resource {
     /**
      * Create a KeyDeleter to execute delete.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      * @return KeyDeleter capable of executing the delete
      */
     public static KeyDeleter deleter(final String pathSid) {
@@ -104,7 +107,8 @@ public class Key extends Resource {
     /**
      * Create a KeyReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      * @return KeyReader capable of executing the read
      */
     public static KeyReader reader(final String pathAccountSid) {
@@ -178,42 +182,37 @@ public class Key extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this API Key..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A 34 character string that uniquely identifies this API Key.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A descriptive string for this resource, chosen by your
-     * application, up to 64 characters long..
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return A descriptive string for this resource, chosen by your application,
-     *         up to 64 characters long.
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date-time this API Key was created, given as a RFC 2822
-     * Timestamp..
+     * Returns The The RFC 2822 date and time in GMT that the resource was created.
      * 
-     * @return The date-time this API Key was created, given as a RFC 2822
-     *         Timestamp.
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date-time this API Key was most recently updated, given as a 
-     * RFC 2822 Timestamp..
+     * Returns The The RFC 2822 date and time in GMT that the resource was last
+     * updated.
      * 
-     * @return The date-time this API Key was most recently updated, given as a 
-     *         RFC 2822 Timestamp.
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;

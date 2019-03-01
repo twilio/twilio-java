@@ -27,8 +27,8 @@ public class RecordingUpdater extends Updater<Recording> {
     /**
      * Construct a new RecordingUpdater.
      * 
-     * @param pathCallSid The Call SID of the resource(s) to update
-     * @param pathSid The unique string that identifies this resource
+     * @param pathCallSid The Call SID of the resource to update
+     * @param pathSid The unique string that identifies the resource
      * @param status The new status of the recording
      */
     public RecordingUpdater(final String pathCallSid, 
@@ -42,10 +42,10 @@ public class RecordingUpdater extends Updater<Recording> {
     /**
      * Construct a new RecordingUpdater.
      * 
-     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     * @param pathAccountSid The SID of the Account that created the resource to
      *                       update
-     * @param pathCallSid The Call SID of the resource(s) to update
-     * @param pathSid The unique string that identifies this resource
+     * @param pathCallSid The Call SID of the resource to update
+     * @param pathSid The unique string that identifies the resource
      * @param status The new status of the recording
      */
     public RecordingUpdater(final String pathAccountSid, 

@@ -24,7 +24,7 @@ public class RecordingDeleter extends Deleter<Recording> {
     /**
      * Construct a new RecordingDeleter.
      * 
-     * @param pathSid Delete by unique recording SID
+     * @param pathSid The unique string that identifies the resource
      */
     public RecordingDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class RecordingDeleter extends Deleter<Recording> {
     /**
      * Construct a new RecordingDeleter.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
-     * @param pathSid Delete by unique recording SID
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathSid The unique string that identifies the resource
      */
     public RecordingDeleter(final String pathAccountSid, 
                             final String pathSid) {

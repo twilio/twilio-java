@@ -38,8 +38,8 @@ public class FaxCreator extends Creator<Fax> {
     /**
      * Construct a new FaxCreator.
      * 
-     * @param to The phone number or SIP address to send the fax to
-     * @param mediaUrl URL that points to the fax media
+     * @param to The phone number to receive the fax
+     * @param mediaUrl The Twilio-hosted URL of the PDF that contains the fax
      */
     public FaxCreator(final String to, 
                       final URI mediaUrl) {
@@ -48,9 +48,10 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * A [quality
-     * value](https://www.twilio.com/docs/api/fax/rest/faxes#fax-quality-values),
-     * which defaults to `fine`.
+     * The [Fax Quality
+     * value](https://www.twilio.com/docs/api/fax/rest/faxes#fax-quality-values)
+     * that describes the fax quality. Can be: `standard`, `fine`, or `superfine`
+     * and defaults to `fine`..
      * 
      * @param quality The quality of this fax
      * @return this
@@ -61,11 +62,11 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * A [status
-     * callback](https://www.twilio.com/docs/api/fax/rest/faxes#fax-status-callback)
-     * URL that will receive a POST when the status of the fax changes.
+     * The URL we should call using the `POST` method to send status information to
+     * your application when the status of the fax changes..
      * 
-     * @param statusCallback URL for fax status callbacks
+     * @param statusCallback The URL we should call to send status information to
+     *                       your application
      * @return this
      */
     public FaxCreator setStatusCallback(final URI statusCallback) {
@@ -74,11 +75,11 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * A [status
-     * callback](https://www.twilio.com/docs/api/fax/rest/faxes#fax-status-callback)
-     * URL that will receive a POST when the status of the fax changes.
+     * The URL we should call using the `POST` method to send status information to
+     * your application when the status of the fax changes..
      * 
-     * @param statusCallback URL for fax status callbacks
+     * @param statusCallback The URL we should call to send status information to
+     *                       your application
      * @return this
      */
     public FaxCreator setStatusCallback(final String statusCallback) {
@@ -86,13 +87,15 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * The phone number to use as the caller id, E.164-formatted. If using a phone
-     * number, it must be a Twilio number or a verified outgoing caller id for your
-     * account. If sending to a SIP address, this can be any alphanumeric string
-     * (plus the characters `+`, `_`, `.`, and `-`) to use in the From header of the
-     * SIP request..
+     * The number the fax was sent from. Can be the phone number in
+     * [E.164](https://www.twilio.com/docs/glossary/what-e164) format or the SIP
+     * `from` value. The caller ID displayed to the recipient uses this value. If
+     * this is a phone number, it must be a Twilio number or a verified outgoing
+     * caller id from your account. If `to` is a SIP address, this can be any
+     * alphanumeric string (and also the characters `+`, `_`, `.`, and `-`), which
+     * will be used in the `from` header of the SIP request..
      * 
-     * @param from Twilio number from which to originate the fax
+     * @param from The number the fax was sent from
      * @return this
      */
     public FaxCreator setFrom(final String from) {
@@ -101,9 +104,10 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * The username to use for authentication when sending to a SIP address..
+     * The username to use with the `sip_auth_password` to authenticate faxes sent
+     * to a SIP address..
      * 
-     * @param sipAuthUsername Username for SIP authentication
+     * @param sipAuthUsername The username for SIP authentication
      * @return this
      */
     public FaxCreator setSipAuthUsername(final String sipAuthUsername) {
@@ -112,9 +116,10 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * The password to use for authentication when sending to a SIP address..
+     * The password to use with `sip_auth_username` to authenticate faxes sent to a
+     * SIP address..
      * 
-     * @param sipAuthPassword Password for SIP authentication
+     * @param sipAuthPassword The password for SIP authentication
      * @return this
      */
     public FaxCreator setSipAuthPassword(final String sipAuthPassword) {
@@ -123,10 +128,10 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * Whether or not to store a copy of the sent media on Twilio's servers for
-     * later retrieval (defaults to `true`).
+     * Whether to store a copy of the sent media on our servers for later retrieval.
+     * Can be: `true` or `false` and the default is `true`..
      * 
-     * @param storeMedia Whether or not to store media
+     * @param storeMedia Whether to store a copy of the sent media
      * @return this
      */
     public FaxCreator setStoreMedia(final Boolean storeMedia) {
@@ -135,10 +140,10 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * How many minutes from when a fax was initiated should Twilio attempt to send
-     * a fax..
+     * How long in minutes from when the fax is initiated that we should try to send
+     * the fax..
      * 
-     * @param ttl How many minutes to attempt a fax
+     * @param ttl How long in minutes to try to send the fax
      * @return this
      */
     public FaxCreator setTtl(final Integer ttl) {

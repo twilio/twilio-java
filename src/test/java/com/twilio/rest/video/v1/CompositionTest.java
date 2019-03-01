@@ -89,6 +89,18 @@ public class CompositionTest {
     }
 
     @Test
+    public void testReadEnqueuedResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"compositions\": [],\"meta\": {\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://video.twilio.com/v1/Compositions?PageSize=50&Page=0\",\"previous_page_url\": null,\"url\": \"https://video.twilio.com/v1/Compositions?PageSize=50&Page=0\",\"next_page_url\": null,\"key\": \"compositions\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        assertNotNull(Composition.reader().read());
+    }
+
+    @Test
     public void testReadEmptyResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
@@ -150,7 +162,7 @@ public class CompositionTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.VIDEO.toString(),
                                           "/v1/Compositions");
-            
+            request.addPostParam("RoomSid", serialize("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -159,7 +171,7 @@ public class CompositionTest {
         }};
 
         try {
-            Composition.creator().create();
+            Composition.creator("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -173,6 +185,6 @@ public class CompositionTest {
             result = new ObjectMapper();
         }};
 
-        Composition.creator().create();
+        Composition.creator("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
     }
 }

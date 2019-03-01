@@ -24,11 +24,13 @@ public class ParticipantReader extends Reader<Participant> {
     private final String pathConferenceSid;
     private Boolean muted;
     private Boolean hold;
+    private Boolean coaching;
 
     /**
      * Construct a new ParticipantReader.
      * 
-     * @param pathConferenceSid The string that uniquely identifies this conference
+     * @param pathConferenceSid The SID of the conference with the participants to
+     *                          read
      */
     public ParticipantReader(final String pathConferenceSid) {
         this.pathConferenceSid = pathConferenceSid;
@@ -37,8 +39,10 @@ public class ParticipantReader extends Reader<Participant> {
     /**
      * Construct a new ParticipantReader.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
-     * @param pathConferenceSid The string that uniquely identifies this conference
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathConferenceSid The SID of the conference with the participants to
+     *                          read
      */
     public ParticipantReader(final String pathAccountSid, 
                              final String pathConferenceSid) {
@@ -47,10 +51,10 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * Only return participants that are muted or unmuted. Either `true` or
+     * Whether to return only participants that are muted. Can be: `true` or
      * `false`..
      * 
-     * @param muted Filter by muted participants
+     * @param muted Whether to return only participants that are muted
      * @return this
      */
     public ParticipantReader setMuted(final Boolean muted) {
@@ -59,14 +63,27 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * Only return participants that are on hold or not on hold. Either `true` or
+     * Whether to return only participants that are on hold. Can be: `true` or
      * `false`..
      * 
-     * @param hold Only show participants that are held or unheld.
+     * @param hold Whether to return only participants that are on hold
      * @return this
      */
     public ParticipantReader setHold(final Boolean hold) {
         this.hold = hold;
+        return this;
+    }
+
+    /**
+     * Whether to return only participants who are coaching another call. Can be:
+     * `true` or `false`..
+     * 
+     * @param coaching Whether to return only participants who are coaching another
+     *                 call
+     * @return this
+     */
+    public ParticipantReader setCoaching(final Boolean coaching) {
+        this.coaching = coaching;
         return this;
     }
 
@@ -208,6 +225,10 @@ public class ParticipantReader extends Reader<Participant> {
 
         if (hold != null) {
             request.addQueryParam("Hold", hold.toString());
+        }
+
+        if (coaching != null) {
+            request.addQueryParam("Coaching", coaching.toString());
         }
 
         if (getPageSize() != null) {

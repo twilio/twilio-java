@@ -32,7 +32,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     /**
      * Construct a new ValidationRequestCreator.
      * 
-     * @param phoneNumber The phone number to verify.
+     * @param phoneNumber The phone number to verify in E.164 format
      */
     public ValidationRequestCreator(final com.twilio.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
@@ -41,8 +41,9 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     /**
      * Construct a new ValidationRequestCreator.
      * 
-     * @param pathAccountSid The account_sid
-     * @param phoneNumber The phone number to verify.
+     * @param pathAccountSid The SID of the Account responsible for the new Caller
+     *                       ID
+     * @param phoneNumber The phone number to verify in E.164 format
      */
     public ValidationRequestCreator(final String pathAccountSid, 
                                     final com.twilio.type.PhoneNumber phoneNumber) {
@@ -51,11 +52,11 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     }
 
     /**
-     * A human readable description for the new caller ID with maximum length 64
-     * characters. Defaults to a nicely formatted version of the number..
+     * A descriptive string that you create to describe the new caller ID resource.
+     * It can be up to 64 characters long. The default value is a formatted version
+     * of the phone number..
      * 
-     * @param friendlyName A human readable description for the new caller ID with
-     *                     maximum length 64 characters.
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public ValidationRequestCreator setFriendlyName(final String friendlyName) {
@@ -64,11 +65,11 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     }
 
     /**
-     * The number of seconds, between 0 and 60, to delay before initiating the
-     * verification call. Defaults to 0..
+     * The number of seconds to delay before initiating the verification call. Can
+     * be an integer between `0` and `60`, inclusive. The default is `0`..
      * 
-     * @param callDelay The number of seconds, between 0 and 60, to delay before
-     *                  initiating the verification call.
+     * @param callDelay The number of seconds to delay before initiating the
+     *                  verification call
      * @return this
      */
     public ValidationRequestCreator setCallDelay(final Integer callDelay) {
@@ -77,9 +78,9 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     }
 
     /**
-     * Digits to dial after connecting the verification call..
+     * The digits to dial after connecting the verification call..
      * 
-     * @param extension Digits to dial after connecting the verification call.
+     * @param extension The digits to dial after connecting the verification call
      * @return this
      */
     public ValidationRequestCreator setExtension(final String extension) {
@@ -88,13 +89,11 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     }
 
     /**
-     * A URL that Twilio will request when the verification call ends to notify your
-     * app if the verification process was successful or not. See [StatusCallback
-     * parameter](https://www.twilio.com/docs/api/voice/outgoing-caller-ids#statuscallback-parameter) below..
+     * The URL we should call using the `status_callback_method` to send status
+     * information about the verification process to your application..
      * 
-     * @param statusCallback A URL that Twilio will request when the verification
-     *                       call ends to notify your app if the verification
-     *                       process was successful or not.
+     * @param statusCallback The URL we should call to send status information to
+     *                       your application
      * @return this
      */
     public ValidationRequestCreator setStatusCallback(final URI statusCallback) {
@@ -103,13 +102,11 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     }
 
     /**
-     * A URL that Twilio will request when the verification call ends to notify your
-     * app if the verification process was successful or not. See [StatusCallback
-     * parameter](https://www.twilio.com/docs/api/voice/outgoing-caller-ids#statuscallback-parameter) below..
+     * The URL we should call using the `status_callback_method` to send status
+     * information about the verification process to your application..
      * 
-     * @param statusCallback A URL that Twilio will request when the verification
-     *                       call ends to notify your app if the verification
-     *                       process was successful or not.
+     * @param statusCallback The URL we should call to send status information to
+     *                       your application
      * @return this
      */
     public ValidationRequestCreator setStatusCallback(final String statusCallback) {
@@ -117,11 +114,11 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     }
 
     /**
-     * The HTTP method Twilio should use when requesting the above URL. Defaults to
-     * POST..
+     * The HTTP method we should use to call `status_callback`. Can be: `GET` or
+     * `POST`, and the default is `POST`..
      * 
-     * @param statusCallbackMethod The HTTP method Twilio should use when
-     *                             requesting the above URL.
+     * @param statusCallbackMethod The HTTP method we should use to call
+     *                             status_callback
      * @return this
      */
     public ValidationRequestCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {

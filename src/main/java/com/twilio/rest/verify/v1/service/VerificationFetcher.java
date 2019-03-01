@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.accounts.v1.credential;
+package com.twilio.rest.verify.v1.service;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -17,15 +17,23 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class AwsFetcher extends Fetcher<Aws> {
+/**
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
+ */
+public class VerificationFetcher extends Fetcher<Verification> {
+    private final String pathServiceSid;
     private final String pathSid;
 
     /**
-     * Construct a new AwsFetcher.
+     * Construct a new VerificationFetcher.
      * 
-     * @param pathSid The unique string that identifies the resource
+     * @param pathServiceSid Service Sid.
+     * @param pathSid A string that uniquely identifies this Verification.
      */
-    public AwsFetcher(final String pathSid) {
+    public VerificationFetcher(final String pathServiceSid, 
+                               final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
     }
 
@@ -33,22 +41,22 @@ public class AwsFetcher extends Fetcher<Aws> {
      * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Aws
+     * @return Fetched Verification
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Aws fetch(final TwilioRestClient client) {
+    public Verification fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.ACCOUNTS.toString(),
-            "/v1/Credentials/AWS/" + this.pathSid + "",
+            Domains.VERIFY.toString(),
+            "/v1/Services/" + this.pathServiceSid + "/Verifications/" + this.pathSid + "",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Aws fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("Verification fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -64,6 +72,6 @@ public class AwsFetcher extends Fetcher<Aws> {
             );
         }
 
-        return Aws.fromJson(response.getStream(), client.getObjectMapper());
+        return Verification.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

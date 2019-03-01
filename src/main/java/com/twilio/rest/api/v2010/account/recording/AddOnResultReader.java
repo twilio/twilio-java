@@ -26,7 +26,8 @@ public class AddOnResultReader extends Reader<AddOnResult> {
     /**
      * Construct a new AddOnResultReader.
      * 
-     * @param pathReferenceSid The reference_sid
+     * @param pathReferenceSid The SID of the recording to which the result to read
+     *                         belongs
      */
     public AddOnResultReader(final String pathReferenceSid) {
         this.pathReferenceSid = pathReferenceSid;
@@ -35,8 +36,10 @@ public class AddOnResultReader extends Reader<AddOnResult> {
     /**
      * Construct a new AddOnResultReader.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathReferenceSid The reference_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathReferenceSid The SID of the recording to which the result to read
+     *                         belongs
      */
     public AddOnResultReader(final String pathAccountSid, 
                              final String pathReferenceSid) {

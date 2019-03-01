@@ -23,7 +23,7 @@ public class PublicKeyFetcher extends Fetcher<PublicKey> {
     /**
      * Construct a new PublicKeyFetcher.
      * 
-     * @param pathSid Fetch by unique Credential Sid
+     * @param pathSid The unique string that identifies the resource
      */
     public PublicKeyFetcher(final String pathSid) {
         this.pathSid = pathSid;

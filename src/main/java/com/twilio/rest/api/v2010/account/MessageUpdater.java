@@ -25,9 +25,8 @@ public class MessageUpdater extends Updater<Message> {
     /**
      * Construct a new MessageUpdater.
      * 
-     * @param pathSid The message to redact
-     * @param body The text of the message you want to send, limited to 1600
-     *             characters.
+     * @param pathSid The unique string that identifies the resource
+     * @param body The text of the message you want to send
      */
     public MessageUpdater(final String pathSid, 
                           final String body) {
@@ -38,10 +37,10 @@ public class MessageUpdater extends Updater<Message> {
     /**
      * Construct a new MessageUpdater.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The message to redact
-     * @param body The text of the message you want to send, limited to 1600
-     *             characters.
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       update
+     * @param pathSid The unique string that identifies the resource
+     * @param body The text of the message you want to send
      */
     public MessageUpdater(final String pathAccountSid, 
                           final String pathSid, 

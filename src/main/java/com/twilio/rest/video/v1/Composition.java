@@ -45,6 +45,7 @@ public class Composition extends Resource {
     private static final long serialVersionUID = 61658716109908L;
 
     public enum Status {
+        ENQUEUED("enqueued"),
         PROCESSING("processing"),
         COMPLETED("completed"),
         DELETED("deleted"),
@@ -130,10 +131,11 @@ public class Composition extends Resource {
     /**
      * Create a CompositionCreator to execute create.
      * 
+     * @param roomSid Twilio Room SID.
      * @return CompositionCreator capable of executing the create
      */
-    public static CompositionCreator creator() {
-        return new CompositionCreator();
+    public static CompositionCreator creator(final String roomSid) {
+        return new CompositionCreator(roomSid);
     }
 
     /**

@@ -26,7 +26,8 @@ public class TranscriptionReader extends Reader<Transcription> {
     /**
      * Construct a new TranscriptionReader.
      * 
-     * @param pathRecordingSid The recording_sid
+     * @param pathRecordingSid The SID of the recording that created the
+     *                         transcriptions to read
      */
     public TranscriptionReader(final String pathRecordingSid) {
         this.pathRecordingSid = pathRecordingSid;
@@ -35,8 +36,10 @@ public class TranscriptionReader extends Reader<Transcription> {
     /**
      * Construct a new TranscriptionReader.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathRecordingSid The recording_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathRecordingSid The SID of the recording that created the
+     *                         transcriptions to read
      */
     public TranscriptionReader(final String pathAccountSid, 
                                final String pathRecordingSid) {

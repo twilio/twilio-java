@@ -70,9 +70,11 @@ public class AddOnResult extends Resource {
     /**
      * Create a AddOnResultFetcher to execute fetch.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathReferenceSid The reference_sid
-     * @param pathSid Fetch by unique result Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathReferenceSid The SID of the recording to which the result to
+     *                         fetch belongs
+     * @param pathSid The unique string that identifies the resource to fetch
      * @return AddOnResultFetcher capable of executing the fetch
      */
     public static AddOnResultFetcher fetcher(final String pathAccountSid, 
@@ -84,8 +86,9 @@ public class AddOnResult extends Resource {
     /**
      * Create a AddOnResultFetcher to execute fetch.
      * 
-     * @param pathReferenceSid The reference_sid
-     * @param pathSid Fetch by unique result Sid
+     * @param pathReferenceSid The SID of the recording to which the result to
+     *                         fetch belongs
+     * @param pathSid The unique string that identifies the resource to fetch
      * @return AddOnResultFetcher capable of executing the fetch
      */
     public static AddOnResultFetcher fetcher(final String pathReferenceSid, 
@@ -96,8 +99,10 @@ public class AddOnResult extends Resource {
     /**
      * Create a AddOnResultReader to execute read.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathReferenceSid The reference_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathReferenceSid The SID of the recording to which the result to read
+     *                         belongs
      * @return AddOnResultReader capable of executing the read
      */
     public static AddOnResultReader reader(final String pathAccountSid, 
@@ -108,7 +113,8 @@ public class AddOnResult extends Resource {
     /**
      * Create a AddOnResultReader to execute read.
      * 
-     * @param pathReferenceSid The reference_sid
+     * @param pathReferenceSid The SID of the recording to which the result to read
+     *                         belongs
      * @return AddOnResultReader capable of executing the read
      */
     public static AddOnResultReader reader(final String pathReferenceSid) {
@@ -118,9 +124,11 @@ public class AddOnResult extends Resource {
     /**
      * Create a AddOnResultDeleter to execute delete.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathReferenceSid The reference_sid
-     * @param pathSid Delete by unique result Sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathReferenceSid The SID of the recording to which the result to
+     *                         delete belongs
+     * @param pathSid The unique string that identifies the resource to delete
      * @return AddOnResultDeleter capable of executing the delete
      */
     public static AddOnResultDeleter deleter(final String pathAccountSid, 
@@ -132,8 +140,9 @@ public class AddOnResult extends Resource {
     /**
      * Create a AddOnResultDeleter to execute delete.
      * 
-     * @param pathReferenceSid The reference_sid
-     * @param pathSid Delete by unique result Sid
+     * @param pathReferenceSid The SID of the recording to which the result to
+     *                         delete belongs
+     * @param pathSid The unique string that identifies the resource to delete
      * @return AddOnResultDeleter capable of executing the delete
      */
     public static AddOnResultDeleter deleter(final String pathReferenceSid, 
@@ -224,90 +233,92 @@ public class AddOnResult extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this result.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies this result
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique sid that identifies this account
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The status of this result..
+     * Returns The The status of the result.
      * 
-     * @return The status of this result.
+     * @return The status of the result
      */
     public final AddOnResult.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The A string that uniquely identifies the Add-on..
+     * Returns The The SID of the Add-on to which the result belongs.
      * 
-     * @return A string that uniquely identifies the Add-on.
+     * @return The SID of the Add-on to which the result belongs
      */
     public final String getAddOnSid() {
         return this.addOnSid;
     }
 
     /**
-     * Returns The A string that uniquely identifies the Add-on configuration..
+     * Returns The The SID of the Add-on configuration.
      * 
-     * @return A string that uniquely identifies the Add-on configuration.
+     * @return The SID of the Add-on configuration
      */
     public final String getAddOnConfigurationSid() {
         return this.addOnConfigurationSid;
     }
 
     /**
-     * Returns The The date this resource was created.
+     * Returns The The RFC 2822 date and time in GMT that the resource was created.
      * 
-     * @return The date this resource was created
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT that the resource was last
+     * updated.
      * 
-     * @return The date this resource was last updated
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The date this result was completed..
+     * Returns The The date and time in GMT that the result was completed.
      * 
-     * @return The date this result was completed.
+     * @return The date and time in GMT that the result was completed
      */
     public final DateTime getDateCompleted() {
         return this.dateCompleted;
     }
 
     /**
-     * Returns The A string that uniquely identifies the recording..
+     * Returns The The SID of the recording to which the AddOnResult resource
+     * belongs.
      * 
-     * @return A string that uniquely identifies the recording.
+     * @return The SID of the recording to which the AddOnResult resource belongs
      */
     public final String getReferenceSid() {
         return this.referenceSid;
     }
 
     /**
-     * Returns The A dictionary of URIs for related resources.
+     * Returns The A list of related resources identified by their relative URIs.
      * 
-     * @return A dictionary of URIs for related resources
+     * @return A list of related resources identified by their relative URIs
      */
     public final Map<String, String> getSubresourceUris() {
         return this.subresourceUris;

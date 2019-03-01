@@ -25,8 +25,9 @@ public class AddOnResultDeleter extends Deleter<AddOnResult> {
     /**
      * Construct a new AddOnResultDeleter.
      * 
-     * @param pathReferenceSid The reference_sid
-     * @param pathSid Delete by unique result Sid
+     * @param pathReferenceSid The SID of the recording to which the result to
+     *                         delete belongs
+     * @param pathSid The unique string that identifies the resource to delete
      */
     public AddOnResultDeleter(final String pathReferenceSid, 
                               final String pathSid) {
@@ -37,9 +38,11 @@ public class AddOnResultDeleter extends Deleter<AddOnResult> {
     /**
      * Construct a new AddOnResultDeleter.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathReferenceSid The reference_sid
-     * @param pathSid Delete by unique result Sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathReferenceSid The SID of the recording to which the result to
+     *                         delete belongs
+     * @param pathSid The unique string that identifies the resource to delete
      */
     public AddOnResultDeleter(final String pathAccountSid, 
                               final String pathReferenceSid, 

@@ -28,8 +28,8 @@ public class FaxMediaDeleter extends Deleter<FaxMedia> {
     /**
      * Construct a new FaxMediaDeleter.
      * 
-     * @param pathFaxSid Fax SID
-     * @param pathSid A string that uniquely identifies this fax media
+     * @param pathFaxSid The SID of the fax with the FaxMedia resource to delete
+     * @param pathSid The unique string that identifies the resource
      */
     public FaxMediaDeleter(final String pathFaxSid, 
                            final String pathSid) {

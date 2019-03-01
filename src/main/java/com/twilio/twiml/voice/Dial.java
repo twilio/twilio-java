@@ -532,6 +532,14 @@ public class Dial extends TwiML {
         }
 
         /**
+         * Phone number to dial
+         */
+        public Builder number(String number) {
+            this.number = number;
+            return this;
+        }
+
+        /**
          * Add a child {@code <Client>} element
          */
         public Builder client(Client client) {

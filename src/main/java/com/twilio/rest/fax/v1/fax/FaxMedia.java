@@ -43,8 +43,8 @@ public class FaxMedia extends Resource {
     /**
      * Create a FaxMediaFetcher to execute fetch.
      * 
-     * @param pathFaxSid Fax SID
-     * @param pathSid A string that uniquely identifies this fax media
+     * @param pathFaxSid The SID of the fax with the FaxMedia resource to fetch
+     * @param pathSid The unique string that identifies the resource to fetch
      * @return FaxMediaFetcher capable of executing the fetch
      */
     public static FaxMediaFetcher fetcher(final String pathFaxSid, 
@@ -55,7 +55,7 @@ public class FaxMedia extends Resource {
     /**
      * Create a FaxMediaReader to execute read.
      * 
-     * @param pathFaxSid Fax SID
+     * @param pathFaxSid The SID of the fax with the FaxMedia resources to read
      * @return FaxMediaReader capable of executing the read
      */
     public static FaxMediaReader reader(final String pathFaxSid) {
@@ -65,8 +65,8 @@ public class FaxMedia extends Resource {
     /**
      * Create a FaxMediaDeleter to execute delete.
      * 
-     * @param pathFaxSid Fax SID
-     * @param pathSid A string that uniquely identifies this fax media
+     * @param pathFaxSid The SID of the fax with the FaxMedia resource to delete
+     * @param pathSid The unique string that identifies the resource
      * @return FaxMediaDeleter capable of executing the delete
      */
     public static FaxMediaDeleter deleter(final String pathFaxSid, 
@@ -145,63 +145,64 @@ public class FaxMedia extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this fax media.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies this fax media
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Account SID.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return Account SID
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Fax SID.
+     * Returns The The SID of the fax the FaxMedia resource is associated with.
      * 
-     * @return Fax SID
+     * @return The SID of the fax the FaxMedia resource is associated with
      */
     public final String getFaxSid() {
         return this.faxSid;
     }
 
     /**
-     * Returns The Media content type.
+     * Returns The The content type of the stored fax media.
      * 
-     * @return Media content type
+     * @return The content type of the stored fax media
      */
     public final String getContentType() {
         return this.contentType;
     }
 
     /**
-     * Returns The The date this fax media was created.
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      * 
-     * @return The date this fax media was created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this fax media was updated.
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date this fax media was updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL of this resource.
+     * Returns The The absolute URL of the FaxMedia resource.
      * 
-     * @return The URL of this resource
+     * @return The absolute URL of the FaxMedia resource
      */
     public final URI getUrl() {
         return this.url;

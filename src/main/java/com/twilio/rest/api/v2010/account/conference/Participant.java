@@ -68,9 +68,11 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantFetcher to execute fetch.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
-     * @param pathConferenceSid The string that uniquely identifies this conference
-     * @param pathCallSid Fetch by unique participant Call SID
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathConferenceSid The SID of the conference with the participant to
+     *                          fetch
+     * @param pathCallSid The Call SID of the resource to fetch
      * @return ParticipantFetcher capable of executing the fetch
      */
     public static ParticipantFetcher fetcher(final String pathAccountSid, 
@@ -82,8 +84,9 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantFetcher to execute fetch.
      * 
-     * @param pathConferenceSid The string that uniquely identifies this conference
-     * @param pathCallSid Fetch by unique participant Call SID
+     * @param pathConferenceSid The SID of the conference with the participant to
+     *                          fetch
+     * @param pathCallSid The Call SID of the resource to fetch
      * @return ParticipantFetcher capable of executing the fetch
      */
     public static ParticipantFetcher fetcher(final String pathConferenceSid, 
@@ -94,9 +97,11 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantUpdater to execute update.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
-     * @param pathConferenceSid The string that uniquely identifies this conference
-     * @param pathCallSid Update a participant by their Call SID
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       update
+     * @param pathConferenceSid The SID of the conference with the participant to
+     *                          update
+     * @param pathCallSid The Call SID of the resources to update
      * @return ParticipantUpdater capable of executing the update
      */
     public static ParticipantUpdater updater(final String pathAccountSid, 
@@ -108,8 +113,9 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantUpdater to execute update.
      * 
-     * @param pathConferenceSid The string that uniquely identifies this conference
-     * @param pathCallSid Update a participant by their Call SID
+     * @param pathConferenceSid The SID of the conference with the participant to
+     *                          update
+     * @param pathCallSid The Call SID of the resources to update
      * @return ParticipantUpdater capable of executing the update
      */
     public static ParticipantUpdater updater(final String pathConferenceSid, 
@@ -120,10 +126,10 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantCreator to execute create.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
-     * @param pathConferenceSid The string that uniquely identifies this conference
-     * @param from The `from` phone number used to invite a participant.
-     * @param to The number, client id, or sip address of the new participant.
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param pathConferenceSid The SID of the participant's conference
+     * @param from The `from` phone number used to invite a participant
+     * @param to The number, client id, or sip address of the new participant
      * @return ParticipantCreator capable of executing the create
      */
     public static ParticipantCreator creator(final String pathAccountSid, 
@@ -136,9 +142,9 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantCreator to execute create.
      * 
-     * @param pathConferenceSid The string that uniquely identifies this conference
-     * @param from The `from` phone number used to invite a participant.
-     * @param to The number, client id, or sip address of the new participant.
+     * @param pathConferenceSid The SID of the participant's conference
+     * @param from The `from` phone number used to invite a participant
+     * @param to The number, client id, or sip address of the new participant
      * @return ParticipantCreator capable of executing the create
      */
     public static ParticipantCreator creator(final String pathConferenceSid, 
@@ -150,9 +156,11 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantDeleter to execute delete.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
-     * @param pathConferenceSid The string that uniquely identifies this conference
-     * @param pathCallSid Delete by unique participant Call Sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathConferenceSid The SID of the conference with the participants to
+     *                          delete
+     * @param pathCallSid The Call SID of the resources to delete
      * @return ParticipantDeleter capable of executing the delete
      */
     public static ParticipantDeleter deleter(final String pathAccountSid, 
@@ -164,8 +172,9 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantDeleter to execute delete.
      * 
-     * @param pathConferenceSid The string that uniquely identifies this conference
-     * @param pathCallSid Delete by unique participant Call Sid
+     * @param pathConferenceSid The SID of the conference with the participants to
+     *                          delete
+     * @param pathCallSid The Call SID of the resources to delete
      * @return ParticipantDeleter capable of executing the delete
      */
     public static ParticipantDeleter deleter(final String pathConferenceSid, 
@@ -176,8 +185,10 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantReader to execute read.
      * 
-     * @param pathAccountSid The unique sid that identifies this account
-     * @param pathConferenceSid The string that uniquely identifies this conference
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathConferenceSid The SID of the conference with the participants to
+     *                          read
      * @return ParticipantReader capable of executing the read
      */
     public static ParticipantReader reader(final String pathAccountSid, 
@@ -188,7 +199,8 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantReader to execute read.
      * 
-     * @param pathConferenceSid The string that uniquely identifies this conference
+     * @param pathConferenceSid The SID of the conference with the participants to
+     *                          read
      * @return ParticipantReader capable of executing the read
      */
     public static ParticipantReader reader(final String pathConferenceSid) {
@@ -235,6 +247,8 @@ public class Participant extends Resource {
 
     private final String accountSid;
     private final String callSid;
+    private final String callSidToCoach;
+    private final Boolean coaching;
     private final String conferenceSid;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
@@ -250,6 +264,10 @@ public class Participant extends Resource {
                         final String accountSid, 
                         @JsonProperty("call_sid")
                         final String callSid, 
+                        @JsonProperty("call_sid_to_coach")
+                        final String callSidToCoach, 
+                        @JsonProperty("coaching")
+                        final Boolean coaching, 
                         @JsonProperty("conference_sid")
                         final String conferenceSid, 
                         @JsonProperty("date_created")
@@ -270,6 +288,8 @@ public class Participant extends Resource {
                         final String uri) {
         this.accountSid = accountSid;
         this.callSid = callSid;
+        this.callSidToCoach = callSidToCoach;
+        this.coaching = coaching;
         this.conferenceSid = conferenceSid;
         this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
@@ -282,99 +302,120 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique sid that identifies this account
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The A string that uniquely identifies this call.
+     * Returns The The SID of the Call the resource is associated with.
      * 
-     * @return A string that uniquely identifies this call
+     * @return The SID of the Call the resource is associated with
      */
     public final String getCallSid() {
         return this.callSid;
     }
 
     /**
-     * Returns The A string that uniquely identifies this conference.
+     * Returns The The SID of the participant who is being `coached`.
      * 
-     * @return A string that uniquely identifies this conference
+     * @return The SID of the participant who is being `coached`
+     */
+    public final String getCallSidToCoach() {
+        return this.callSidToCoach;
+    }
+
+    /**
+     * Returns The Indicates if the participant changed to coach.
+     * 
+     * @return Indicates if the participant changed to coach
+     */
+    public final Boolean getCoaching() {
+        return this.coaching;
+    }
+
+    /**
+     * Returns The The SID of the conference the participant is in.
+     * 
+     * @return The SID of the conference the participant is in
      */
     public final String getConferenceSid() {
         return this.conferenceSid;
     }
 
     /**
-     * Returns The The date this resource was created.
+     * Returns The The RFC 2822 date and time in GMT that the resource was created.
      * 
-     * @return The date this resource was created
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT that the resource was last
+     * updated.
      * 
-     * @return The date this resource was last updated
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The Indicates if the endConferenceOnExit was set.
+     * Returns The Whether the conference ends when the participant leaves.
      * 
-     * @return Indicates if the endConferenceOnExit was set
+     * @return Whether the conference ends when the participant leaves
      */
     public final Boolean getEndConferenceOnExit() {
         return this.endConferenceOnExit;
     }
 
     /**
-     * Returns The Indicates if the participant is muted.
+     * Returns The Whether the participant is muted.
      * 
-     * @return Indicates if the participant is muted
+     * @return Whether the participant is muted
      */
     public final Boolean getMuted() {
         return this.muted;
     }
 
     /**
-     * Returns The true if this participant is currently held..
+     * Returns The Whether the participant is on hold.
      * 
-     * @return true if this participant is currently held.
+     * @return Whether the participant is on hold
      */
     public final Boolean getHold() {
         return this.hold;
     }
 
     /**
-     * Returns The Indicates if the startConferenceOnEnter attribute was set.
+     * Returns The Whether the conference starts when the participant joins the
+     * conference.
      * 
-     * @return Indicates if the startConferenceOnEnter attribute was set
+     * @return Whether the conference starts when the participant joins the
+     *         conference
      */
     public final Boolean getStartConferenceOnEnter() {
         return this.startConferenceOnEnter;
     }
 
     /**
-     * Returns The The status.
+     * Returns The The status of the participant's call in a session.
      * 
-     * @return The status
+     * @return The status of the participant's call in a session
      */
     public final Participant.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The URI for this resource.
+     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
      * 
-     * @return The URI for this resource
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;
@@ -394,6 +435,8 @@ public class Participant extends Resource {
 
         return Objects.equals(accountSid, other.accountSid) && 
                Objects.equals(callSid, other.callSid) && 
+               Objects.equals(callSidToCoach, other.callSidToCoach) && 
+               Objects.equals(coaching, other.coaching) && 
                Objects.equals(conferenceSid, other.conferenceSid) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
@@ -409,6 +452,8 @@ public class Participant extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid,
                             callSid,
+                            callSidToCoach,
+                            coaching,
                             conferenceSid,
                             dateCreated,
                             dateUpdated,
@@ -425,6 +470,8 @@ public class Participant extends Resource {
         return MoreObjects.toStringHelper(this)
                           .add("accountSid", accountSid)
                           .add("callSid", callSid)
+                          .add("callSidToCoach", callSidToCoach)
+                          .add("coaching", coaching)
                           .add("conferenceSid", conferenceSid)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)

@@ -30,6 +30,7 @@ import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
@@ -39,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Verification extends Resource {
-    private static final long serialVersionUID = 110706069064815L;
+    private static final long serialVersionUID = 203139503984797L;
 
     public enum Channel {
         SMS("sms"),
@@ -66,6 +67,30 @@ public class Verification extends Resource {
         }
     }
 
+    public enum Status {
+        CANCELED("canceled");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a Status from a string.
+         * @param value string value
+         * @return generated Status
+         */
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
     /**
      * Create a VerificationCreator to execute create.
      * 
@@ -78,6 +103,32 @@ public class Verification extends Resource {
                                               final String to, 
                                               final String channel) {
         return new VerificationCreator(pathServiceSid, to, channel);
+    }
+
+    /**
+     * Create a VerificationUpdater to execute update.
+     * 
+     * @param pathServiceSid Service Sid.
+     * @param pathSid A string that uniquely identifies this Verification.
+     * @param status New status to set for the Verification.
+     * @return VerificationUpdater capable of executing the update
+     */
+    public static VerificationUpdater updater(final String pathServiceSid, 
+                                              final String pathSid, 
+                                              final Verification.Status status) {
+        return new VerificationUpdater(pathServiceSid, pathSid, status);
+    }
+
+    /**
+     * Create a VerificationFetcher to execute fetch.
+     * 
+     * @param pathServiceSid Service Sid.
+     * @param pathSid A string that uniquely identifies this Verification.
+     * @return VerificationFetcher capable of executing the fetch
+     */
+    public static VerificationFetcher fetcher(final String pathServiceSid, 
+                                              final String pathSid) {
+        return new VerificationFetcher(pathServiceSid, pathSid);
     }
 
     /**
@@ -130,6 +181,7 @@ public class Verification extends Resource {
     private final String payee;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
+    private final URI url;
 
     @JsonCreator
     private Verification(@JsonProperty("sid")
@@ -155,7 +207,9 @@ public class Verification extends Resource {
                          @JsonProperty("date_created")
                          final String dateCreated, 
                          @JsonProperty("date_updated")
-                         final String dateUpdated) {
+                         final String dateUpdated, 
+                         @JsonProperty("url")
+                         final URI url) {
         this.sid = sid;
         this.serviceSid = serviceSid;
         this.accountSid = accountSid;
@@ -168,6 +222,7 @@ public class Verification extends Resource {
         this.payee = payee;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.url = url;
     }
 
     /**
@@ -278,6 +333,15 @@ public class Verification extends Resource {
         return this.dateUpdated;
     }
 
+    /**
+     * Returns The The URL of this resource..
+     * 
+     * @return The URL of this resource.
+     */
+    public final URI getUrl() {
+        return this.url;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -301,7 +365,8 @@ public class Verification extends Resource {
                Objects.equals(amount, other.amount) && 
                Objects.equals(payee, other.payee) && 
                Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated);
+               Objects.equals(dateUpdated, other.dateUpdated) && 
+               Objects.equals(url, other.url);
     }
 
     @Override
@@ -317,7 +382,8 @@ public class Verification extends Resource {
                             amount,
                             payee,
                             dateCreated,
-                            dateUpdated);
+                            dateUpdated,
+                            url);
     }
 
     @Override
@@ -335,6 +401,7 @@ public class Verification extends Resource {
                           .add("payee", payee)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
+                          .add("url", url)
                           .toString();
     }
 }

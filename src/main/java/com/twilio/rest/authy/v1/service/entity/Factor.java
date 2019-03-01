@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Factor extends Resource {
-    private static final long serialVersionUID = 171608504161461L;
+    private static final long serialVersionUID = 26981471070246L;
 
     public enum FactorStatuses {
         UNVERIFIED("unverified"),
@@ -90,6 +90,35 @@ public class Factor extends Resource {
         @JsonCreator
         public static FactorTypes forValue(final String value) {
             return Promoter.enumFromString(value, FactorTypes.values());
+        }
+    }
+
+    public enum FactorStrengths {
+        UNKNOWN("unknown"),
+        VERY_LOW("very_low"),
+        LOW("low"),
+        MEDIUM("medium"),
+        HIGH("high"),
+        VERY_HIGH("very_high");
+
+        private final String value;
+
+        private FactorStrengths(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a FactorStrengths from a string.
+         * @param value string value
+         * @return generated FactorStrengths
+         */
+        @JsonCreator
+        public static FactorStrengths forValue(final String value) {
+            return Promoter.enumFromString(value, FactorStrengths.values());
         }
     }
 
@@ -212,6 +241,7 @@ public class Factor extends Resource {
     private final String friendlyName;
     private final Factor.FactorStatuses status;
     private final Factor.FactorTypes factorType;
+    private final Factor.FactorStrengths factorStrength;
     private final URI url;
     private final Map<String, String> links;
 
@@ -236,6 +266,8 @@ public class Factor extends Resource {
                    final Factor.FactorStatuses status, 
                    @JsonProperty("factor_type")
                    final Factor.FactorTypes factorType, 
+                   @JsonProperty("factor_strength")
+                   final Factor.FactorStrengths factorStrength, 
                    @JsonProperty("url")
                    final URI url, 
                    @JsonProperty("links")
@@ -250,6 +282,7 @@ public class Factor extends Resource {
         this.friendlyName = friendlyName;
         this.status = status;
         this.factorType = factorType;
+        this.factorStrength = factorStrength;
         this.url = url;
         this.links = links;
     }
@@ -345,6 +378,15 @@ public class Factor extends Resource {
     }
 
     /**
+     * Returns The The Strength of this Factor.
+     * 
+     * @return The Strength of this Factor
+     */
+    public final Factor.FactorStrengths getFactorStrength() {
+        return this.factorStrength;
+    }
+
+    /**
      * Returns The The URL of this resource..
      * 
      * @return The URL of this resource.
@@ -384,6 +426,7 @@ public class Factor extends Resource {
                Objects.equals(friendlyName, other.friendlyName) && 
                Objects.equals(status, other.status) && 
                Objects.equals(factorType, other.factorType) && 
+               Objects.equals(factorStrength, other.factorStrength) && 
                Objects.equals(url, other.url) && 
                Objects.equals(links, other.links);
     }
@@ -400,6 +443,7 @@ public class Factor extends Resource {
                             friendlyName,
                             status,
                             factorType,
+                            factorStrength,
                             url,
                             links);
     }
@@ -417,6 +461,7 @@ public class Factor extends Resource {
                           .add("friendlyName", friendlyName)
                           .add("status", status)
                           .add("factorType", factorType)
+                          .add("factorStrength", factorStrength)
                           .add("url", url)
                           .add("links", links)
                           .toString();

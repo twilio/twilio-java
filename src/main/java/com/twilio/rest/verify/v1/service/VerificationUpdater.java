@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.accounts.v1.credential;
+package com.twilio.rest.verify.v1.service;
 
 import com.twilio.base.Updater;
 import com.twilio.exception.ApiConnectionException;
@@ -17,44 +17,43 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class PublicKeyUpdater extends Updater<PublicKey> {
+/**
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
+ */
+public class VerificationUpdater extends Updater<Verification> {
+    private final String pathServiceSid;
     private final String pathSid;
-    private String friendlyName;
+    private final Verification.Status status;
 
     /**
-     * Construct a new PublicKeyUpdater.
+     * Construct a new VerificationUpdater.
      * 
-     * @param pathSid The unique string that identifies the resource
+     * @param pathServiceSid Service Sid.
+     * @param pathSid A string that uniquely identifies this Verification.
+     * @param status New status to set for the Verification.
      */
-    public PublicKeyUpdater(final String pathSid) {
+    public VerificationUpdater(final String pathServiceSid, 
+                               final String pathSid, 
+                               final Verification.Status status) {
+        this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
-    }
-
-    /**
-     * A descriptive string that you create to describe the resource. It can be up
-     * to 64 characters long..
-     * 
-     * @param friendlyName A string to describe the resource
-     * @return this
-     */
-    public PublicKeyUpdater setFriendlyName(final String friendlyName) {
-        this.friendlyName = friendlyName;
-        return this;
+        this.status = status;
     }
 
     /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Updated PublicKey
+     * @return Updated Verification
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public PublicKey update(final TwilioRestClient client) {
+    public Verification update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            Domains.ACCOUNTS.toString(),
-            "/v1/Credentials/PublicKeys/" + this.pathSid + "",
+            Domains.VERIFY.toString(),
+            "/v1/Services/" + this.pathServiceSid + "/Verifications/" + this.pathSid + "",
             client.getRegion()
         );
 
@@ -62,7 +61,7 @@ public class PublicKeyUpdater extends Updater<PublicKey> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("PublicKey update failed: Unable to connect to server");
+            throw new ApiConnectionException("Verification update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -78,7 +77,7 @@ public class PublicKeyUpdater extends Updater<PublicKey> {
             );
         }
 
-        return PublicKey.fromJson(response.getStream(), client.getObjectMapper());
+        return Verification.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -87,8 +86,8 @@ public class PublicKeyUpdater extends Updater<PublicKey> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+        if (status != null) {
+            request.addPostParam("Status", status.toString());
         }
     }
 }

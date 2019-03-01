@@ -25,8 +25,9 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
     /**
      * Construct a new TranscriptionFetcher.
      * 
-     * @param pathRecordingSid The recording_sid
-     * @param pathSid The sid
+     * @param pathRecordingSid The SID of the recording that created the
+     *                         transcriptions to fetch
+     * @param pathSid The unique string that identifies the resource
      */
     public TranscriptionFetcher(final String pathRecordingSid, 
                                 final String pathSid) {
@@ -37,9 +38,11 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
     /**
      * Construct a new TranscriptionFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathRecordingSid The recording_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathRecordingSid The SID of the recording that created the
+     *                         transcriptions to fetch
+     * @param pathSid The unique string that identifies the resource
      */
     public TranscriptionFetcher(final String pathAccountSid, 
                                 final String pathRecordingSid, 

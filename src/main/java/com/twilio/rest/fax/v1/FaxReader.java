@@ -32,10 +32,10 @@ public class FaxReader extends Reader<Fax> {
     private DateTime dateCreatedAfter;
 
     /**
-     * Filters the returned list to only include faxes sent from the supplied
-     * number, given in E.164 format..
+     * Retrieve only those faxes sent from this phone number, specified in
+     * [E.164](https://www.twilio.com/docs/glossary/what-e164) format..
      * 
-     * @param from Include only faxes sent from
+     * @param from Retrieve only those faxes sent from this phone number
      * @return this
      */
     public FaxReader setFrom(final String from) {
@@ -44,10 +44,10 @@ public class FaxReader extends Reader<Fax> {
     }
 
     /**
-     * Filters the returned list to only include faxes sent to the supplied number,
-     * given in E.164 format..
+     * Retrieve only those faxes sent to this phone number, specified in
+     * [E.164](https://www.twilio.com/docs/glossary/what-e164) format..
      * 
-     * @param to Include only faxes sent to
+     * @param to Retrieve only those faxes sent to this phone number
      * @return this
      */
     public FaxReader setTo(final String to) {
@@ -56,10 +56,12 @@ public class FaxReader extends Reader<Fax> {
     }
 
     /**
-     * Filters the returned list to only include faxes created on or before the
-     * supplied date, given in ISO 8601 format..
+     * Retrieve only those faxes with a `date_created` that is before or equal to
+     * this value, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format..
      * 
-     * @param dateCreatedOnOrBefore Include only faxes created on or before
+     * @param dateCreatedOnOrBefore Retrieve only faxes created on or before this
+     *                              date
      * @return this
      */
     public FaxReader setDateCreatedOnOrBefore(final DateTime dateCreatedOnOrBefore) {
@@ -68,10 +70,11 @@ public class FaxReader extends Reader<Fax> {
     }
 
     /**
-     * Filters the returned list to only include faxes created after the supplied
-     * date, given in ISO 8601 format..
+     * Retrieve only those faxes with a `date_created` that is later than this
+     * value, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format..
      * 
-     * @param dateCreatedAfter Include only faxes created after
+     * @param dateCreatedAfter Retrieve only faxes created after this date
      * @return this
      */
     public FaxReader setDateCreatedAfter(final DateTime dateCreatedAfter) {

@@ -33,7 +33,7 @@ public class RecordingCreator extends Creator<Recording> {
     /**
      * Construct a new RecordingCreator.
      * 
-     * @param pathCallSid The SID of the Call to associate this resource with
+     * @param pathCallSid The SID of the Call to associate the resource with
      */
     public RecordingCreator(final String pathCallSid) {
         this.pathCallSid = pathCallSid;
@@ -43,7 +43,7 @@ public class RecordingCreator extends Creator<Recording> {
      * Construct a new RecordingCreator.
      * 
      * @param pathAccountSid The SID of the Account that will create the resource
-     * @param pathCallSid The SID of the Call to associate this resource with
+     * @param pathCallSid The SID of the Call to associate the resource with
      */
     public RecordingCreator(final String pathAccountSid, 
                             final String pathCallSid) {
@@ -55,7 +55,7 @@ public class RecordingCreator extends Creator<Recording> {
      * The recording status events on which we should call the
      * `recording_status_callback` URL. Can be: `in-progress`, `completed` and
      * `absent` and the default is `completed`. Separate multiple event values with
-     * a space. .
+     * a space..
      * 
      * @param recordingStatusCallbackEvent The recording status changes that should
      *                                     generate a callback
@@ -70,7 +70,7 @@ public class RecordingCreator extends Creator<Recording> {
      * The recording status events on which we should call the
      * `recording_status_callback` URL. Can be: `in-progress`, `completed` and
      * `absent` and the default is `completed`. Separate multiple event values with
-     * a space. .
+     * a space..
      * 
      * @param recordingStatusCallbackEvent The recording status changes that should
      *                                     generate a callback
@@ -81,7 +81,7 @@ public class RecordingCreator extends Creator<Recording> {
     }
 
     /**
-     * The URL we call using the `recording_status_callback_method` on each
+     * The URL we should call using the `recording_status_callback_method` on each
      * recording event specified in  `recording_status_callback_event`. For more
      * information, see [RecordingStatusCallback
      * parameters](https://www.twilio.com/docs/voice/api/recording#recordingstatuscallback)..
@@ -96,7 +96,7 @@ public class RecordingCreator extends Creator<Recording> {
     }
 
     /**
-     * The URL we call using the `recording_status_callback_method` on each
+     * The URL we should call using the `recording_status_callback_method` on each
      * recording event specified in  `recording_status_callback_event`. For more
      * information, see [RecordingStatusCallback
      * parameters](https://www.twilio.com/docs/voice/api/recording#recordingstatuscallback)..
@@ -110,12 +110,11 @@ public class RecordingCreator extends Creator<Recording> {
     }
 
     /**
-     * The HTTP method we should use when calling the `recording_status_callback`
-     * URL. Can be: `GET`, `POST` and the default is `POST`..
+     * The HTTP method we should use to call `recording_status_callback`. Can be:
+     * `GET` or `POST` and the default is `POST`..
      * 
-     * @param recordingStatusCallbackMethod The HTTP method we should use when
-     *                                      calling the recording_status_callback
-     *                                      URL
+     * @param recordingStatusCallbackMethod The HTTP method we should use to call
+     *                                      `recording_status_callback`
      * @return this
      */
     public RecordingCreator setRecordingStatusCallbackMethod(final HttpMethod recordingStatusCallbackMethod) {

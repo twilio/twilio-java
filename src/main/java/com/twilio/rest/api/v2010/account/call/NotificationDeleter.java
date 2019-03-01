@@ -25,8 +25,8 @@ public class NotificationDeleter extends Deleter<Notification> {
     /**
      * Construct a new NotificationDeleter.
      * 
-     * @param pathCallSid The call_sid
-     * @param pathSid The sid
+     * @param pathCallSid The Call SID of the resources to delete
+     * @param pathSid The unique string that identifies the resource
      */
     public NotificationDeleter(final String pathCallSid, 
                                final String pathSid) {
@@ -37,9 +37,10 @@ public class NotificationDeleter extends Deleter<Notification> {
     /**
      * Construct a new NotificationDeleter.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCallSid The call_sid
-     * @param pathSid The sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathCallSid The Call SID of the resources to delete
+     * @param pathSid The unique string that identifies the resource
      */
     public NotificationDeleter(final String pathAccountSid, 
                                final String pathCallSid, 

@@ -32,7 +32,7 @@ public class NotificationReader extends Reader<Notification> {
     /**
      * Construct a new NotificationReader.
      * 
-     * @param pathCallSid The call_sid
+     * @param pathCallSid The Call SID of the resources to read
      */
     public NotificationReader(final String pathCallSid) {
         this.pathCallSid = pathCallSid;
@@ -41,8 +41,9 @@ public class NotificationReader extends Reader<Notification> {
     /**
      * Construct a new NotificationReader.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathCallSid The call_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathCallSid The Call SID of the resources to read
      */
     public NotificationReader(final String pathAccountSid, 
                               final String pathCallSid) {
@@ -51,9 +52,11 @@ public class NotificationReader extends Reader<Notification> {
     }
 
     /**
-     * The log.
+     * Only read notifications of the specified log level. Can be:  `0` to read only
+     * ERROR notifications or `1` to read only WARNING notifications. By default,
+     * all notifications are read..
      * 
-     * @param log The log
+     * @param log Filter by log level
      * @return this
      */
     public NotificationReader setLog(final Integer log) {
@@ -62,9 +65,12 @@ public class NotificationReader extends Reader<Notification> {
     }
 
     /**
-     * The absolute_message_date.
+     * Only show notifications for the specified date, formatted as `YYYY-MM-DD`.
+     * You can also specify an inequality, such as `&lt;=YYYY-MM-DD` for messages
+     * logged at or before midnight on a date, or `&gt;=YYYY-MM-DD` for messages
+     * logged at or after midnight on a date..
      * 
-     * @param absoluteMessageDate The absolute_message_date
+     * @param absoluteMessageDate Filter by date
      * @return this
      */
     public NotificationReader setMessageDate(final LocalDate absoluteMessageDate) {
@@ -74,9 +80,12 @@ public class NotificationReader extends Reader<Notification> {
     }
 
     /**
-     * The range_message_date.
+     * Only show notifications for the specified date, formatted as `YYYY-MM-DD`.
+     * You can also specify an inequality, such as `&lt;=YYYY-MM-DD` for messages
+     * logged at or before midnight on a date, or `&gt;=YYYY-MM-DD` for messages
+     * logged at or after midnight on a date..
      * 
-     * @param rangeMessageDate The range_message_date
+     * @param rangeMessageDate Filter by date
      * @return this
      */
     public NotificationReader setMessageDate(final Range<LocalDate> rangeMessageDate) {

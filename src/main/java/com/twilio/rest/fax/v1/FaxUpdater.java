@@ -28,17 +28,17 @@ public class FaxUpdater extends Updater<Fax> {
     /**
      * Construct a new FaxUpdater.
      * 
-     * @param pathSid A string that uniquely identifies this fax.
+     * @param pathSid The unique string that identifies the resource
      */
     public FaxUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
     /**
-     * The updated status of this fax. The only valid option is `canceled`. This may
-     * fail if the status has already started transmission..
+     * The new status of the resource. Can be only `canceled`. This may fail if
+     * transmission has already started..
      * 
-     * @param status The updated status of this fax
+     * @param status The new status of the resource
      * @return this
      */
     public FaxUpdater setStatus(final Fax.UpdateStatus status) {

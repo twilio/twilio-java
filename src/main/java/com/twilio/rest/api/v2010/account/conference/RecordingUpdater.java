@@ -28,8 +28,8 @@ public class RecordingUpdater extends Updater<Recording> {
      * Construct a new RecordingUpdater.
      * 
      * @param pathConferenceSid Update by unique Conference SID for the recording
-     * @param pathSid The unique string that identifies this resource
-     * @param status The new status of the resource
+     * @param pathSid The unique string that identifies the resource
+     * @param status The new status of the recording
      */
     public RecordingUpdater(final String pathConferenceSid, 
                             final String pathSid, 
@@ -42,11 +42,11 @@ public class RecordingUpdater extends Updater<Recording> {
     /**
      * Construct a new RecordingUpdater.
      * 
-     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     * @param pathAccountSid The SID of the Account that created the resource to
      *                       update
      * @param pathConferenceSid Update by unique Conference SID for the recording
-     * @param pathSid The unique string that identifies this resource
-     * @param status The new status of the resource
+     * @param pathSid The unique string that identifies the resource
+     * @param status The new status of the recording
      */
     public RecordingUpdater(final String pathAccountSid, 
                             final String pathConferenceSid, 
@@ -60,9 +60,9 @@ public class RecordingUpdater extends Updater<Recording> {
 
     /**
      * Whether to record during a pause. Can be: `skip` or `silence` and the default
-     * is `silence`.  `skip` does not record during the pause period, while
-     * `silence` will replace the actual audio of the call with silence during the
-     * pause period. This parameter only applies when setting `status` is set to
+     * is `silence`. `skip` does not record during the pause period, while `silence`
+     * will replace the actual audio of the call with silence during the pause
+     * period. This parameter only applies when setting `status` is set to
      * `paused`..
      * 
      * @param pauseBehavior Whether to record during a pause

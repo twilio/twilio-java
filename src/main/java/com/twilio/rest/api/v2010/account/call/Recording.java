@@ -103,7 +103,7 @@ public class Recording extends Resource {
      * Create a RecordingCreator to execute create.
      * 
      * @param pathAccountSid The SID of the Account that will create the resource
-     * @param pathCallSid The SID of the Call to associate this resource with
+     * @param pathCallSid The SID of the Call to associate the resource with
      * @return RecordingCreator capable of executing the create
      */
     public static RecordingCreator creator(final String pathAccountSid, 
@@ -114,7 +114,7 @@ public class Recording extends Resource {
     /**
      * Create a RecordingCreator to execute create.
      * 
-     * @param pathCallSid The SID of the Call to associate this resource with
+     * @param pathCallSid The SID of the Call to associate the resource with
      * @return RecordingCreator capable of executing the create
      */
     public static RecordingCreator creator(final String pathCallSid) {
@@ -124,10 +124,10 @@ public class Recording extends Resource {
     /**
      * Create a RecordingUpdater to execute update.
      * 
-     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     * @param pathAccountSid The SID of the Account that created the resource to
      *                       update
-     * @param pathCallSid The Call SID of the resource(s) to update
-     * @param pathSid The unique string that identifies this resource
+     * @param pathCallSid The Call SID of the resource to update
+     * @param pathSid The unique string that identifies the resource
      * @param status The new status of the recording
      * @return RecordingUpdater capable of executing the update
      */
@@ -141,8 +141,8 @@ public class Recording extends Resource {
     /**
      * Create a RecordingUpdater to execute update.
      * 
-     * @param pathCallSid The Call SID of the resource(s) to update
-     * @param pathSid The unique string that identifies this resource
+     * @param pathCallSid The Call SID of the resource to update
+     * @param pathSid The unique string that identifies the resource
      * @param status The new status of the recording
      * @return RecordingUpdater capable of executing the update
      */
@@ -155,10 +155,10 @@ public class Recording extends Resource {
     /**
      * Create a RecordingFetcher to execute fetch.
      * 
-     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     * @param pathAccountSid The SID of the Account that created the resource to
      *                       fetch
-     * @param pathCallSid The Call SID of the resource(s) to fetch
-     * @param pathSid The unique string that identifies this resource
+     * @param pathCallSid The Call SID of the resource to fetch
+     * @param pathSid The unique string that identifies the resource
      * @return RecordingFetcher capable of executing the fetch
      */
     public static RecordingFetcher fetcher(final String pathAccountSid, 
@@ -170,8 +170,8 @@ public class Recording extends Resource {
     /**
      * Create a RecordingFetcher to execute fetch.
      * 
-     * @param pathCallSid The Call SID of the resource(s) to fetch
-     * @param pathSid The unique string that identifies this resource
+     * @param pathCallSid The Call SID of the resource to fetch
+     * @param pathSid The unique string that identifies the resource
      * @return RecordingFetcher capable of executing the fetch
      */
     public static RecordingFetcher fetcher(final String pathCallSid, 
@@ -182,10 +182,10 @@ public class Recording extends Resource {
     /**
      * Create a RecordingDeleter to execute delete.
      * 
-     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     * @param pathAccountSid The SID of the Account that created the resources to
      *                       delete
-     * @param pathCallSid The Call SID of the resource(s) to delete
-     * @param pathSid The unique string that identifies this resource
+     * @param pathCallSid The Call SID of the resources to delete
+     * @param pathSid The unique string that identifies the resource
      * @return RecordingDeleter capable of executing the delete
      */
     public static RecordingDeleter deleter(final String pathAccountSid, 
@@ -197,8 +197,8 @@ public class Recording extends Resource {
     /**
      * Create a RecordingDeleter to execute delete.
      * 
-     * @param pathCallSid The Call SID of the resource(s) to delete
-     * @param pathSid The unique string that identifies this resource
+     * @param pathCallSid The Call SID of the resources to delete
+     * @param pathSid The unique string that identifies the resource
      * @return RecordingDeleter capable of executing the delete
      */
     public static RecordingDeleter deleter(final String pathCallSid, 
@@ -209,9 +209,9 @@ public class Recording extends Resource {
     /**
      * Create a RecordingReader to execute read.
      * 
-     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     * @param pathAccountSid The SID of the Account that created the resources to
      *                       read
-     * @param pathCallSid The Call SID of the resource(s) to read
+     * @param pathCallSid The Call SID of the resources to read
      * @return RecordingReader capable of executing the read
      */
     public static RecordingReader reader(final String pathAccountSid, 
@@ -222,7 +222,7 @@ public class Recording extends Resource {
     /**
      * Create a RecordingReader to execute read.
      * 
-     * @param pathCallSid The Call SID of the resource(s) to read
+     * @param pathCallSid The Call SID of the resources to read
      * @return RecordingReader capable of executing the read
      */
     public static RecordingReader reader(final String pathCallSid) {
@@ -341,9 +341,9 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created this resource.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The SID of the Account that created this resource
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
@@ -359,9 +359,9 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The SID of the Call this resource is associated with.
+     * Returns The The SID of the Call the resource is associated with.
      * 
-     * @return The SID of the Call this resource is associated with
+     * @return The SID of the Call the resource is associated with
      */
     public final String getCallSid() {
         return this.callSid;
@@ -379,19 +379,19 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that this resource was created.
+     * Returns The The RFC 2822 date and time in GMT that the resource was created.
      * 
-     * @return The RFC 2822 date and time in GMT that this resource was created
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that this resource was last
+     * Returns The The RFC 2822 date and time in GMT that the resource was last
      * updated.
      * 
-     * @return The RFC 2822 date and time in GMT that this resource was last updated
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
@@ -416,72 +416,72 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies this resource.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return The unique string that identifies this resource
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The one-time cost of creating this recording..
+     * Returns The The one-time cost of creating the recording..
      * 
-     * @return The one-time cost of creating this recording.
+     * @return The one-time cost of creating the recording.
      */
     public final BigDecimal getPrice() {
         return this.price;
     }
 
     /**
-     * Returns The The URI of this resource, relative to `https://api.twilio.com`.
+     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
      * 
-     * @return The URI of this resource, relative to `https://api.twilio.com`
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;
     }
 
     /**
-     * Returns The Details about how to decrypt the recording.
+     * Returns The How to decrypt the recording..
      * 
-     * @return Details about how to decrypt the recording
+     * @return How to decrypt the recording.
      */
     public final Map<String, Object> getEncryptionDetails() {
         return this.encryptionDetails;
     }
 
     /**
-     * Returns The The currency used in the Price property.
+     * Returns The The currency used in the price property..
      * 
-     * @return The currency used in the Price property
+     * @return The currency used in the price property.
      */
     public final Currency getPriceUnit() {
         return this.priceUnit;
     }
 
     /**
-     * Returns The The status of this recording.
+     * Returns The The status of the recording.
      * 
-     * @return The status of this recording
+     * @return The status of the recording
      */
     public final Recording.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The number of channels in the final recording file as an integer.
+     * Returns The The number of channels in the final recording file.
      * 
-     * @return The number of channels in the final recording file as an integer
+     * @return The number of channels in the final recording file
      */
     public final Integer getChannels() {
         return this.channels;
     }
 
     /**
-     * Returns The How this recording was created.
+     * Returns The How the recording was created.
      * 
-     * @return How this recording was created
+     * @return How the recording was created
      */
     public final Recording.Source getSource() {
         return this.source;
@@ -489,10 +489,10 @@ public class Recording extends Resource {
 
     /**
      * Returns The More information about why the recording is missing, if status is
-     * `absent`.
+     * `absent`..
      * 
      * @return More information about why the recording is missing, if status is
-     *         `absent`
+     *         `absent`.
      */
     public final Integer getErrorCode() {
         return this.errorCode;

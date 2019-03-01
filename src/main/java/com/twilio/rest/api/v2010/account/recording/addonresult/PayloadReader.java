@@ -27,8 +27,10 @@ public class PayloadReader extends Reader<Payload> {
     /**
      * Construct a new PayloadReader.
      * 
-     * @param pathReferenceSid The reference_sid
-     * @param pathAddOnResultSid The add_on_result_sid
+     * @param pathReferenceSid The SID of the recording to which the AddOnResult
+     *                         resource that contains the payloads to read belongs
+     * @param pathAddOnResultSid The SID of the AddOnResult to which the payloads
+     *                           to read belongs
      */
     public PayloadReader(final String pathReferenceSid, 
                          final String pathAddOnResultSid) {
@@ -39,9 +41,12 @@ public class PayloadReader extends Reader<Payload> {
     /**
      * Construct a new PayloadReader.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathReferenceSid The reference_sid
-     * @param pathAddOnResultSid The add_on_result_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathReferenceSid The SID of the recording to which the AddOnResult
+     *                         resource that contains the payloads to read belongs
+     * @param pathAddOnResultSid The SID of the AddOnResult to which the payloads
+     *                           to read belongs
      */
     public PayloadReader(final String pathAccountSid, 
                          final String pathReferenceSid, 

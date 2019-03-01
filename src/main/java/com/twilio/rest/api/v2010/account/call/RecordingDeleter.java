@@ -25,8 +25,8 @@ public class RecordingDeleter extends Deleter<Recording> {
     /**
      * Construct a new RecordingDeleter.
      * 
-     * @param pathCallSid The Call SID of the resource(s) to delete
-     * @param pathSid The unique string that identifies this resource
+     * @param pathCallSid The Call SID of the resources to delete
+     * @param pathSid The unique string that identifies the resource
      */
     public RecordingDeleter(final String pathCallSid, 
                             final String pathSid) {
@@ -37,10 +37,10 @@ public class RecordingDeleter extends Deleter<Recording> {
     /**
      * Construct a new RecordingDeleter.
      * 
-     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     * @param pathAccountSid The SID of the Account that created the resources to
      *                       delete
-     * @param pathCallSid The Call SID of the resource(s) to delete
-     * @param pathSid The unique string that identifies this resource
+     * @param pathCallSid The Call SID of the resources to delete
+     * @param pathSid The unique string that identifies the resource
      */
     public RecordingDeleter(final String pathAccountSid, 
                             final String pathCallSid, 

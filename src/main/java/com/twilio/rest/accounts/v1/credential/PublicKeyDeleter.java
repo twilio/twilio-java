@@ -23,7 +23,7 @@ public class PublicKeyDeleter extends Deleter<PublicKey> {
     /**
      * Construct a new PublicKeyDeleter.
      * 
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSid The unique string that identifies the resource
      */
     public PublicKeyDeleter(final String pathSid) {
         this.pathSid = pathSid;

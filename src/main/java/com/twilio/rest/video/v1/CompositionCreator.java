@@ -29,7 +29,7 @@ import java.util.Map;
  * access, please contact help@twilio.com.
  */
 public class CompositionCreator extends Creator<Composition> {
-    private String roomSid;
+    private final String roomSid;
     private Map<String, Object> videoLayout;
     private List<String> audioSources;
     private List<String> audioSourcesExcluded;
@@ -40,14 +40,12 @@ public class CompositionCreator extends Creator<Composition> {
     private Boolean trim;
 
     /**
-     * Group Room SID owning the media tracks to be used as Composition sources..
+     * Construct a new CompositionCreator.
      * 
      * @param roomSid Twilio Room SID.
-     * @return this
      */
-    public CompositionCreator setRoomSid(final String roomSid) {
+    public CompositionCreator(final String roomSid) {
         this.roomSid = roomSid;
-        return this;
     }
 
     /**

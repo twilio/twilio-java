@@ -24,7 +24,7 @@ public class MessageDeleter extends Deleter<Message> {
     /**
      * Construct a new MessageDeleter.
      * 
-     * @param pathSid The message to delete
+     * @param pathSid The unique string that identifies the resource
      */
     public MessageDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,8 +33,9 @@ public class MessageDeleter extends Deleter<Message> {
     /**
      * Construct a new MessageDeleter.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The message to delete
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathSid The unique string that identifies the resource
      */
     public MessageDeleter(final String pathAccountSid, 
                           final String pathSid) {

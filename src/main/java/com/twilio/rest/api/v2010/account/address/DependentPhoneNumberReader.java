@@ -26,7 +26,8 @@ public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
     /**
      * Construct a new DependentPhoneNumberReader.
      * 
-     * @param pathAddressSid The address_sid
+     * @param pathAddressSid The SID of the Address resource associated with the
+     *                       phone number
      */
     public DependentPhoneNumberReader(final String pathAddressSid) {
         this.pathAddressSid = pathAddressSid;
@@ -35,8 +36,10 @@ public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
     /**
      * Construct a new DependentPhoneNumberReader.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathAddressSid The address_sid
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathAddressSid The SID of the Address resource associated with the
+     *                       phone number
      */
     public DependentPhoneNumberReader(final String pathAccountSid, 
                                       final String pathAddressSid) {

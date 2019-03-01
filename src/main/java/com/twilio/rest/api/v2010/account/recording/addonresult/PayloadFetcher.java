@@ -26,9 +26,11 @@ public class PayloadFetcher extends Fetcher<Payload> {
     /**
      * Construct a new PayloadFetcher.
      * 
-     * @param pathReferenceSid The reference_sid
-     * @param pathAddOnResultSid The add_on_result_sid
-     * @param pathSid Fetch by unique payload Sid
+     * @param pathReferenceSid The SID of the recording to which the AddOnResult
+     *                         resource that contains the payload to fetch belongs
+     * @param pathAddOnResultSid The SID of the AddOnResult to which the payload to
+     *                           fetch belongs
+     * @param pathSid The unique string that identifies the resource to fetch
      */
     public PayloadFetcher(final String pathReferenceSid, 
                           final String pathAddOnResultSid, 
@@ -41,10 +43,13 @@ public class PayloadFetcher extends Fetcher<Payload> {
     /**
      * Construct a new PayloadFetcher.
      * 
-     * @param pathAccountSid The account_sid
-     * @param pathReferenceSid The reference_sid
-     * @param pathAddOnResultSid The add_on_result_sid
-     * @param pathSid Fetch by unique payload Sid
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathReferenceSid The SID of the recording to which the AddOnResult
+     *                         resource that contains the payload to fetch belongs
+     * @param pathAddOnResultSid The SID of the AddOnResult to which the payload to
+     *                           fetch belongs
+     * @param pathSid The unique string that identifies the resource to fetch
      */
     public PayloadFetcher(final String pathAccountSid, 
                           final String pathReferenceSid, 

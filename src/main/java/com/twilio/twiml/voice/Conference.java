@@ -59,7 +59,8 @@ public class Conference extends TwiML {
         SG1("sg1"),
         BR1("br1"),
         AU1("au1"),
-        JP1("jp1");
+        JP1("jp1"),
+        DE1("de1");
 
         private final String value;
 

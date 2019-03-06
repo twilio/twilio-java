@@ -264,11 +264,11 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * The action to take if an answering machine is detected. Can be: `Continue`,
-     * `Hangup`, or `False`. `False` disables the detection of an answering
-     * machine..
+     * Deprecated. Tell Twilio to try and determine if a machine (like voicemail) or
+     * a human has answered the call. Possible value are `Continue` and `Hangup`..
      * 
-     * @param ifMachine The action to take if an answering machine is detected
+     * @param ifMachine Deprecated. Action to take if a machine has answered the
+     *                  call
      * @return this
      */
     public CallCreator setIfMachine(final String ifMachine) {

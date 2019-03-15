@@ -25,10 +25,10 @@ public class MessageFetcher extends Fetcher<Message> {
     /**
      * Construct a new MessageFetcher.
      * 
-     * @param pathServiceSid Sid of the Service this message belongs to.
-     * @param pathChannelSid Key that uniquely defines the channel this message
-     *                       belongs to.
-     * @param pathSid Key that uniquely defines the message to fetch.
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathChannelSid The unique ID of the Channel the message to fetch
+     *                       belongs to
+     * @param pathSid The unique string that identifies the resource
      */
     public MessageFetcher(final String pathServiceSid, 
                           final String pathChannelSid, 

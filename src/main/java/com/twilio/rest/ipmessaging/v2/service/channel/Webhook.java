@@ -92,8 +92,8 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
+     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathChannelSid The SID of the Channel the resources to read belong to
      * @return WebhookReader capable of executing the read
      */
     public static WebhookReader reader(final String pathServiceSid, 
@@ -104,9 +104,9 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathChannelSid The SID of the Channel the resource to fetch belongs to
+     * @param pathSid The unique string that identifies the resource
      * @return WebhookFetcher capable of executing the fetch
      */
     public static WebhookFetcher fetcher(final String pathServiceSid, 
@@ -118,9 +118,9 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookCreator to execute create.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param type The type
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param pathChannelSid The SID of the Channel the new resource belongs to
+     * @param type The type of webhook
      * @return WebhookCreator capable of executing the create
      */
     public static WebhookCreator creator(final String pathServiceSid, 
@@ -132,9 +132,10 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookUpdater to execute update.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathChannelSid The SID of the Channel the resource to update belongs
+     *                       to
+     * @param pathSid The unique string that identifies the resource
      * @return WebhookUpdater capable of executing the update
      */
     public static WebhookUpdater updater(final String pathServiceSid, 
@@ -146,9 +147,10 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookDeleter to execute delete.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathChannelSid The SID of the channel the resource to delete belongs
+     *                       to
+     * @param pathSid The unique string that identifies the resource
      * @return WebhookDeleter capable of executing the delete
      */
     public static WebhookDeleter deleter(final String pathServiceSid, 
@@ -235,81 +237,84 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return The sid
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The service_sid.
+     * Returns The The SID of the Service that the resource is associated with.
      * 
-     * @return The service_sid
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The channel_sid.
+     * Returns The The SID of the Channel the ChannelWebhook resource belongs to.
      * 
-     * @return The channel_sid
+     * @return The SID of the Channel the ChannelWebhook resource belongs to
      */
     public final String getChannelSid() {
         return this.channelSid;
     }
 
     /**
-     * Returns The The type.
+     * Returns The The type of webhook.
      * 
-     * @return The type
+     * @return The type of webhook
      */
     public final String getType() {
         return this.type;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the resource.
      * 
-     * @return The url
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The configuration.
+     * Returns The The JSON string that describes the configuration object for the
+     * channel webhook.
      * 
-     * @return The configuration
+     * @return The JSON string that describes the configuration object for the
+     *         channel webhook
      */
     public final Map<String, Object> getConfiguration() {
         return this.configuration;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date_created
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date_updated
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;

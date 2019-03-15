@@ -66,8 +66,8 @@ public class Role extends Resource {
     /**
      * Create a RoleFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathSid The unique string that identifies the resource
      * @return RoleFetcher capable of executing the fetch
      */
     public static RoleFetcher fetcher(final String pathServiceSid, 
@@ -78,8 +78,8 @@ public class Role extends Resource {
     /**
      * Create a RoleDeleter to execute delete.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathSid The unique string that identifies the resource
      * @return RoleDeleter capable of executing the delete
      */
     public static RoleDeleter deleter(final String pathServiceSid, 
@@ -90,10 +90,10 @@ public class Role extends Resource {
     /**
      * Create a RoleCreator to execute create.
      * 
-     * @param pathServiceSid The service_sid
-     * @param friendlyName The human-readable name of this role.
-     * @param type What kind of role this is.
-     * @param permission A permission this role should have.
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param friendlyName A string to describe the new resource
+     * @param type The type of role
+     * @param permission A permission the role should have
      * @return RoleCreator capable of executing the create
      */
     public static RoleCreator creator(final String pathServiceSid, 
@@ -106,7 +106,7 @@ public class Role extends Resource {
     /**
      * Create a RoleReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid The SID of the Service to read the resources from
      * @return RoleReader capable of executing the read
      */
     public static RoleReader reader(final String pathServiceSid) {
@@ -116,9 +116,9 @@ public class Role extends Resource {
     /**
      * Create a RoleUpdater to execute update.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
-     * @param permission A permission this role should have.
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathSid The unique string that identifies the resource
+     * @param permission A permission the role should have
      * @return RoleUpdater capable of executing the update
      */
     public static RoleUpdater updater(final String pathServiceSid, 
@@ -205,81 +205,82 @@ public class Role extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this role..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique id of the Account responsible for this role.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique id of the Service this role belongs to..
+     * Returns The The SID of the Service that the resource is associated with.
      * 
-     * @return The unique id of the Service this role belongs to.
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The human-readable name of this role..
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return The human-readable name of this role.
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The What kind of role this is..
+     * Returns The The type of role.
      * 
-     * @return What kind of role this is.
+     * @return The type of role
      */
     public final Role.RoleType getType() {
         return this.type;
     }
 
     /**
-     * Returns The A JSON array of the permissions this role has..
+     * Returns The An array of the permissions the role has been granted.
      * 
-     * @return A JSON array of the permissions this role has.
+     * @return An array of the permissions the role has been granted
      */
     public final List<String> getPermissions() {
         return this.permissions;
     }
 
     /**
-     * Returns The The date that this resource was created in ISO 8601 format..
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date that this resource was created in ISO 8601 format.
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated in ISO 8601 format..
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date that this resource was last updated in ISO 8601 format.
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The An absolute URL for this role..
+     * Returns The The absolute URL of the Role resource.
      * 
-     * @return An absolute URL for this role.
+     * @return The absolute URL of the Role resource
      */
     public final URI getUrl() {
         return this.url;

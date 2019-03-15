@@ -30,8 +30,8 @@ public class UserBindingReader extends Reader<UserBinding> {
     /**
      * Construct a new UserBindingReader.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathUserSid The user_sid
+     * @param pathServiceSid The SID of the Service to read the resource from
+     * @param pathUserSid The SID of the User of the User Bindings to read
      */
     public UserBindingReader(final String pathServiceSid, 
                              final String pathUserSid) {
@@ -40,11 +40,12 @@ public class UserBindingReader extends Reader<UserBinding> {
     }
 
     /**
-     * The push technology used for the returned Bindings.  Supported values are
-     * apn, gcm and fcm.  See [push notification
+     * The push technology used by the User Binding resources to read. Can be:
+     * `apn`, `gcm`, or `fcm`.  See [push notification
      * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information..
      * 
-     * @param bindingType The push technology used for the bindings returned.
+     * @param bindingType The push technology used by the User Binding resources to
+     *                    read
      * @return this
      */
     public UserBindingReader setBindingType(final List<UserBinding.BindingType> bindingType) {
@@ -53,11 +54,12 @@ public class UserBindingReader extends Reader<UserBinding> {
     }
 
     /**
-     * The push technology used for the returned Bindings.  Supported values are
-     * apn, gcm and fcm.  See [push notification
+     * The push technology used by the User Binding resources to read. Can be:
+     * `apn`, `gcm`, or `fcm`.  See [push notification
      * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information..
      * 
-     * @param bindingType The push technology used for the bindings returned.
+     * @param bindingType The push technology used by the User Binding resources to
+     *                    read
      * @return this
      */
     public UserBindingReader setBindingType(final UserBinding.BindingType bindingType) {

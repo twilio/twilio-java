@@ -24,8 +24,8 @@ public class ChannelDeleter extends Deleter<Channel> {
     /**
      * Construct a new ChannelDeleter.
      * 
-     * @param pathServiceSid Sid of the Service this channel belongs to.
-     * @param pathSid Key that uniquely defines the channel to delete.
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathSid The unique string that identifies the resource
      */
     public ChannelDeleter(final String pathServiceSid, 
                           final String pathSid) {

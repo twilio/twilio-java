@@ -24,8 +24,8 @@ public class ChannelFetcher extends Fetcher<Channel> {
     /**
      * Construct a new ChannelFetcher.
      * 
-     * @param pathServiceSid Sid of the Service this channel belongs to.
-     * @param pathSid Key that uniquely defines the channel to fetch.
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathSid The unique string that identifies the resource
      */
     public ChannelFetcher(final String pathServiceSid, 
                           final String pathSid) {

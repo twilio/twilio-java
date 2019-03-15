@@ -33,10 +33,10 @@ public class MemberUpdater extends Updater<Member> {
     /**
      * Construct a new MemberUpdater.
      * 
-     * @param pathServiceSid Sid of the Service this member belongs to.
-     * @param pathChannelSid Key that uniquely defines the channel this member
-     *                       belongs to.
-     * @param pathSid Key that uniquely defines the member to update.
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param pathChannelSid The unique ID of the channel the member to update
+     *                       belongs to
+     * @param pathSid The unique string that identifies the resource
      */
     public MemberUpdater(final String pathServiceSid, 
                          final String pathChannelSid, 
@@ -47,10 +47,11 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The role to be assigned to this member. Defaults to the roles specified on
-     * the [Service](https://www.twilio.com/docs/chat/api/services)..
+     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/roles) to assign
+     * to the member. The default roles are those specified on the
+     * [Service](https://www.twilio.com/docs/chat/api/services)..
      * 
-     * @param roleSid The role to be assigned to this member.
+     * @param roleSid The SID of the Role to assign to the member
      * @return this
      */
     public MemberUpdater setRoleSid(final String roleSid) {
@@ -59,13 +60,12 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * Field used to specify the last consumed Message index for the Channel for
-     * this Member.  Should only be used when recreating a Member from a
-     * backup/separate source..
+     * The index of the last
+     * [Message](https://www.twilio.com/docs/chat/rest/messages) that the Member has
+     * read within the [Channel](https://www.twilio.com/docs/chat/channels)..
      * 
-     * @param lastConsumedMessageIndex Field used to specify the last consumed
-     *                                 Message index for the Channel for this
-     *                                 Member.
+     * @param lastConsumedMessageIndex The index of the last consumed Message for
+     *                                 the Channel for the Member
      * @return this
      */
     public MemberUpdater setLastConsumedMessageIndex(final Integer lastConsumedMessageIndex) {
@@ -74,12 +74,14 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * ISO8601 time indicating the last datetime the Member consumed a Message in
-     * the Channel.  Should only be used when recreating a Member from a
-     * backup/separate source.
+     * The ISO 8601 timestamp string that represents the date-time of the last
+     * [Message](https://www.twilio.com/docs/chat/rest/messages) read event for the
+     * Member within the [Channel](https://www.twilio.com/docs/chat/channels)..
      * 
-     * @param lastConsumptionTimestamp ISO8601 time indicating the last datetime
-     *                                 the Member consumed a Message in the Channel.
+     * @param lastConsumptionTimestamp The ISO 8601 based timestamp string
+     *                                 representing the date-time of the last
+     *                                 Message read event for the Member within the
+     *                                 Channel
      * @return this
      */
     public MemberUpdater setLastConsumptionTimestamp(final DateTime lastConsumptionTimestamp) {
@@ -88,13 +90,13 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The ISO8601 time specifying the datetime the Members should be set as being
-     * created.  Will be set to the current time by the Chat service if not
-     * specified.  Note that this should only be used in cases where a Member is
-     * being recreated from a backup/separate source.
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was created. The default is
+     * the current time set by the Chat service.  Note that this parameter should
+     * only be used when a Member is being recreated from a backup/separate source..
      * 
-     * @param dateCreated The ISO8601 time specifying the datetime the Members
-     *                    should be set as being created.
+     * @param dateCreated The ISO 8601 date and time in GMT when the resource was
+     *                    created
      * @return this
      */
     public MemberUpdater setDateCreated(final DateTime dateCreated) {
@@ -103,14 +105,13 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The ISO8601 time specifying the datetime the Member should be set as having
-     * been last updated.  Will be set to the `null` by the Chat service if not
-     * specified.  Note that this should only be used in cases where a Member is
-     * being recreated from a backup/separate source  and where a Member was
-     * previously updated..
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was last updated. Note that
+     * this parameter should only be used when a Member is being recreated from a
+     * backup/separate source and where a Member was previously updated..
      * 
-     * @param dateUpdated The ISO8601 time specifying the datetime the Member
-     *                    should be set as having been last updated.
+     * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
+     *                    updated
      * @return this
      */
     public MemberUpdater setDateUpdated(final DateTime dateUpdated) {
@@ -119,12 +120,9 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * An optional string metadata field you can use to store any data you wish. The
-     * string value must contain structurally valid JSON if specified.  **Note**
-     * that if the attributes are not set "{}" will be returned..
+     * A valid JSON string that contains application-specific data..
      * 
-     * @param attributes An optional string metadata field you can use to store any
-     *                   data you wish.
+     * @param attributes A valid JSON string that contains application-specific data
      * @return this
      */
     public MemberUpdater setAttributes(final String attributes) {

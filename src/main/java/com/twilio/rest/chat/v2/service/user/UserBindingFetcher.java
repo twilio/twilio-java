@@ -25,9 +25,9 @@ public class UserBindingFetcher extends Fetcher<UserBinding> {
     /**
      * Construct a new UserBindingFetcher.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathUserSid The user_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathUserSid The SID of the User for the binding
+     * @param pathSid The unique string that identifies the resource
      */
     public UserBindingFetcher(final String pathServiceSid, 
                               final String pathUserSid, 

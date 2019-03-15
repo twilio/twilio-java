@@ -30,18 +30,18 @@ public class BindingReader extends Reader<Binding> {
     /**
      * Construct a new BindingReader.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid The SID of the Service to read the resources from
      */
     public BindingReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
     /**
-     * The push technology used for the returned Bindings.  Supported values are
-     * apn, gcm and fcm.  See [push notification
+     * The push technology used by the Binding resources to read.  Can be: `apn`,
+     * `gcm`, or `fcm`.  See [push notification
      * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information..
      * 
-     * @param bindingType The push technology used for the bindings returned.
+     * @param bindingType The push technology used by the Binding resources to read
      * @return this
      */
     public BindingReader setBindingType(final List<Binding.BindingType> bindingType) {
@@ -50,11 +50,11 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The push technology used for the returned Bindings.  Supported values are
-     * apn, gcm and fcm.  See [push notification
+     * The push technology used by the Binding resources to read.  Can be: `apn`,
+     * `gcm`, or `fcm`.  See [push notification
      * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information..
      * 
-     * @param bindingType The push technology used for the bindings returned.
+     * @param bindingType The push technology used by the Binding resources to read
      * @return this
      */
     public BindingReader setBindingType(final Binding.BindingType bindingType) {
@@ -62,9 +62,11 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The identity.
+     * The [User](https://www.twilio.com/docs/chat/rest/users)'s `identity` value of
+     * the resources to read. See [access
+     * tokens](https://www.twilio.com/docs/chat/create-tokens) for more details..
      * 
-     * @param identity The identity
+     * @param identity The `identity` value of the resources to read
      * @return this
      */
     public BindingReader setIdentity(final List<String> identity) {
@@ -73,9 +75,11 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The identity.
+     * The [User](https://www.twilio.com/docs/chat/rest/users)'s `identity` value of
+     * the resources to read. See [access
+     * tokens](https://www.twilio.com/docs/chat/create-tokens) for more details..
      * 
-     * @param identity The identity
+     * @param identity The `identity` value of the resources to read
      * @return this
      */
     public BindingReader setIdentity(final String identity) {

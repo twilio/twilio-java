@@ -25,7 +25,6 @@ public class VerificationCreator extends Creator<Verification> {
     private final String pathServiceSid;
     private final String to;
     private final String channel;
-    private String customMessage;
     private String sendDigits;
     private String locale;
     private String customCode;
@@ -45,17 +44,6 @@ public class VerificationCreator extends Creator<Verification> {
         this.pathServiceSid = pathServiceSid;
         this.to = to;
         this.channel = channel;
-    }
-
-    /**
-     * A character string containing a custom message for this verification.
-     * 
-     * @param customMessage A custom message for this verification
-     * @return this
-     */
-    public VerificationCreator setCustomMessage(final String customMessage) {
-        this.customMessage = customMessage;
-        return this;
     }
 
     /**
@@ -169,10 +157,6 @@ public class VerificationCreator extends Creator<Verification> {
 
         if (channel != null) {
             request.addPostParam("Channel", channel);
-        }
-
-        if (customMessage != null) {
-            request.addPostParam("CustomMessage", customMessage);
         }
 
         if (sendDigits != null) {

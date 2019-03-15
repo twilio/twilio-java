@@ -24,8 +24,8 @@ public class UserFetcher extends Fetcher<User> {
     /**
      * Construct a new UserFetcher.
      * 
-     * @param pathServiceSid Sid of the Service this user belongs to.
-     * @param pathSid Key that uniquely defines the user to fetch.
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathSid The unique string that identifies the resource
      */
     public UserFetcher(final String pathServiceSid, 
                        final String pathSid) {

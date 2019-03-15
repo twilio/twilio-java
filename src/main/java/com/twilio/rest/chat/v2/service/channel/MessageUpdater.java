@@ -33,10 +33,9 @@ public class MessageUpdater extends Updater<Message> {
     /**
      * Construct a new MessageUpdater.
      * 
-     * @param pathServiceSid Sid of the Service this message belongs to.
-     * @param pathChannelSid Key that uniquely defines the channel this message
-     *                       belongs to.
-     * @param pathSid Key that uniquely defines the message to update.
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathChannelSid The unique ID of the Channel the message belongs to
+     * @param pathSid The unique string that identifies the resource
      */
     public MessageUpdater(final String pathServiceSid, 
                           final String pathChannelSid, 
@@ -47,11 +46,11 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The message body string. You can also send structured data by serializing it
-     * into a string. May be updated to empty string or `null`, will be set as empty
-     * string as a result in this cases..
+     * The message to send to the channel. Can also be an empty string or `null`,
+     * which sets the value as an empty string. You can send structured data in the
+     * body by serializing it as a string..
      * 
-     * @param body The message body string.
+     * @param body The message to send to the channel
      * @return this
      */
     public MessageUpdater setBody(final String body) {
@@ -60,13 +59,9 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * A string metadata field you can use to store any data you wish. The string
-     * value must contain structurally valid JSON if specified. **Note** that this
-     * will always be null for resources returned via LIST GET operations, but will
-     * be present for single GET operations..
+     * A valid JSON string that contains application-specific data..
      * 
-     * @param attributes The attributes metadata field you can use to store any
-     *                   data you wish.
+     * @param attributes A valid JSON string that contains application-specific data
      * @return this
      */
     public MessageUpdater setAttributes(final String attributes) {
@@ -75,11 +70,11 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The ISO8601 time specifying the datetime the Message should be set as being
-     * created..
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was created..
      * 
-     * @param dateCreated The ISO8601 time specifying the datetime the Message
-     *                    should be set as being created.
+     * @param dateCreated The ISO 8601 date and time in GMT when the resource was
+     *                    created
      * @return this
      */
     public MessageUpdater setDateCreated(final DateTime dateCreated) {
@@ -88,11 +83,11 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The ISO8601 time specifying the datetime the Message should be set as having
-     * been last updated..
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was last updated..
      * 
-     * @param dateUpdated The ISO8601 time specifying the datetime the Message
-     *                    should be set as having been last updated.
+     * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
+     *                    updated
      * @return this
      */
     public MessageUpdater setDateUpdated(final DateTime dateUpdated) {
@@ -101,10 +96,11 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * Specify the Identity of the User that last updated the Message (if relevant).
+     * The [Identity](https://www.twilio.com/docs/chat/identity) of the User who
+     * last updated the Message, if applicable..
      * 
-     * @param lastUpdatedBy Specify the Identity of the User that last updated the
-     *                      Message
+     * @param lastUpdatedBy The Identity of the User who last updated the Message,
+     *                      if applicable
      * @return this
      */
     public MessageUpdater setLastUpdatedBy(final String lastUpdatedBy) {
@@ -113,10 +109,10 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the
-     * message's author..
+     * The [Identity](https://www.twilio.com/docs/chat/identity) of the message's
+     * author..
      * 
-     * @param from The identity of the message's author.
+     * @param from The identity of the message's author
      * @return this
      */
     public MessageUpdater setFrom(final String from) {

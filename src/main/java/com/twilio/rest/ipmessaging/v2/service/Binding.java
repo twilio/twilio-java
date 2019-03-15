@@ -67,7 +67,7 @@ public class Binding extends Resource {
     /**
      * Create a BindingReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid The SID of the Service to read the resources from
      * @return BindingReader capable of executing the read
      */
     public static BindingReader reader(final String pathServiceSid) {
@@ -77,8 +77,8 @@ public class Binding extends Resource {
     /**
      * Create a BindingFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathSid The unique string that identifies the resource
      * @return BindingFetcher capable of executing the fetch
      */
     public static BindingFetcher fetcher(final String pathServiceSid, 
@@ -89,8 +89,8 @@ public class Binding extends Resource {
     /**
      * Create a BindingDeleter to execute delete.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathSid The unique string that identifies the resource
      * @return BindingDeleter capable of executing the delete
      */
     public static BindingDeleter deleter(final String pathServiceSid, 
@@ -188,110 +188,109 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this binding..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique id of the Account responsible for this binding.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique id of the Service this binding belongs to..
+     * Returns The The SID of the Service that the resource is associated with.
      * 
-     * @return The unique id of the Service this binding belongs to.
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The date that this resource was created..
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date that this resource was created.
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated..
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date that this resource was last updated.
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The unique endpoint identifier for this Binding..
+     * Returns The The unique endpoint identifier for the Binding.
      * 
-     * @return The unique endpoint identifier for this Binding.
+     * @return The unique endpoint identifier for the Binding
      */
     public final String getEndpoint() {
         return this.endpoint;
     }
 
     /**
-     * Returns The A unique string identifier for the Binding for this User in this
-     * Service..
+     * Returns The The string that identifies the resource's User.
      * 
-     * @return A unique string identifier for the Binding for this User in this
-     *         Service.
+     * @return The string that identifies the resource's User
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns The The unique id of the Credential for this binding..
+     * Returns The The SID of the Credential for the binding.
      * 
-     * @return The unique id of the Credential for this binding.
+     * @return The SID of the Credential for the binding
      */
     public final String getCredentialSid() {
         return this.credentialSid;
     }
 
     /**
-     * Returns The The push technology to use for this binding..
+     * Returns The The push technology to use for the binding.
      * 
-     * @return The push technology to use for this binding.
+     * @return The push technology to use for the binding
      */
     public final Binding.BindingType getBindingType() {
         return this.bindingType;
     }
 
     /**
-     * Returns The List of message types for this binding..
+     * Returns The The Programmable Chat message types the binding is subscribed to.
      * 
-     * @return List of message types for this binding.
+     * @return The Programmable Chat message types the binding is subscribed to
      */
     public final List<String> getMessageTypes() {
         return this.messageTypes;
     }
 
     /**
-     * Returns The An absolute URL for this binding..
+     * Returns The The absolute URL of the Binding resource.
      * 
-     * @return An absolute URL for this binding.
+     * @return The absolute URL of the Binding resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Absolute URLs to access the Users for this Binding..
+     * Returns The The absolute URLs of the Users for the Binding.
      * 
-     * @return Absolute URLs to access the Users for this Binding.
+     * @return The absolute URLs of the Users for the Binding
      */
     public final Map<String, String> getLinks() {
         return this.links;

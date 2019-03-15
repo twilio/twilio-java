@@ -65,10 +65,9 @@ public class Member extends Resource {
     /**
      * Create a MemberFetcher to execute fetch.
      * 
-     * @param pathServiceSid Sid of the Service this member belongs to.
-     * @param pathChannelSid Key that uniquely defines the channel this member
-     *                       belongs to.
-     * @param pathSid Key that uniquely defines the member to fetch.
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathChannelSid The unique ID of the channel the member belongs to
+     * @param pathSid The unique string that identifies the resource
      * @return MemberFetcher capable of executing the fetch
      */
     public static MemberFetcher fetcher(final String pathServiceSid, 
@@ -80,11 +79,9 @@ public class Member extends Resource {
     /**
      * Create a MemberCreator to execute create.
      * 
-     * @param pathServiceSid Sid of the Service this member belongs to.
-     * @param pathChannelSid Key that uniquely defines the channel this member
-     *                       belongs to.
-     * @param identity A unique string identifier for this User in this Service.
-     *                 See the access tokens docs for more details.
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param pathChannelSid The unique ID of the channel the new member belongs to
+     * @param identity The `identity` value that identifies the new resource's User
      * @return MemberCreator capable of executing the create
      */
     public static MemberCreator creator(final String pathServiceSid, 
@@ -96,9 +93,8 @@ public class Member extends Resource {
     /**
      * Create a MemberReader to execute read.
      * 
-     * @param pathServiceSid Sid of the Service this member belongs to.
-     * @param pathChannelSid Key that uniquely defines the channel this member
-     *                       belongs to.
+     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathChannelSid The unique ID of the channel the member belongs to
      * @return MemberReader capable of executing the read
      */
     public static MemberReader reader(final String pathServiceSid, 
@@ -109,10 +105,10 @@ public class Member extends Resource {
     /**
      * Create a MemberDeleter to execute delete.
      * 
-     * @param pathServiceSid Sid of the Service this member belongs to.
-     * @param pathChannelSid Key that uniquely defines the channel this member
-     *                       belongs to.
-     * @param pathSid Key that uniquely defines the member to delete.
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathChannelSid The unique ID of the channel the message to delete
+     *                       belongs to
+     * @param pathSid The unique string that identifies the resource
      * @return MemberDeleter capable of executing the delete
      */
     public static MemberDeleter deleter(final String pathServiceSid, 
@@ -124,10 +120,10 @@ public class Member extends Resource {
     /**
      * Create a MemberUpdater to execute update.
      * 
-     * @param pathServiceSid Sid of the Service this member belongs to.
-     * @param pathChannelSid Key that uniquely defines the channel this member
-     *                       belongs to.
-     * @param pathSid Key that uniquely defines the member to update.
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param pathChannelSid The unique ID of the channel the member to update
+     *                       belongs to
+     * @param pathSid The unique string that identifies the resource
      * @return MemberUpdater capable of executing the update
      */
     public static MemberUpdater updater(final String pathServiceSid, 
@@ -226,114 +222,113 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this member..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique id of the Account responsible for this member.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique id of the Channel for this member..
+     * Returns The The unique ID of the Channel for the member.
      * 
-     * @return The unique id of the Channel for this member.
+     * @return The unique ID of the Channel for the member
      */
     public final String getChannelSid() {
         return this.channelSid;
     }
 
     /**
-     * Returns The The unique id of the Service this member belongs to..
+     * Returns The The SID of the Service that the resource is associated with.
      * 
-     * @return The unique id of the Service this member belongs to.
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The A unique string identifier for this User in this Service..
+     * Returns The The string that identifies the resource's User.
      * 
-     * @return A unique string identifier for this User in this Service.
+     * @return The string that identifies the resource's User
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns The The date that this resource was created..
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date that this resource was created.
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated..
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date that this resource was last updated.
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The Role assigned to this member..
+     * Returns The The SID of the Role assigned to the member.
      * 
-     * @return The Role assigned to this member.
+     * @return The SID of the Role assigned to the member
      */
     public final String getRoleSid() {
         return this.roleSid;
     }
 
     /**
-     * Returns The An Integer representing index of the last Message this Member has
-     * read within this Channel.
+     * Returns The The index of the last Message that the Member has read within the
+     * Channel.
      * 
-     * @return An Integer representing index of the last Message this Member has
-     *         read within this Channel
+     * @return The index of the last Message that the Member has read within the
+     *         Channel
      */
     public final Integer getLastConsumedMessageIndex() {
         return this.lastConsumedMessageIndex;
     }
 
     /**
-     * Returns The An ISO8601 based timestamp string representing the datetime of
-     * the last Message read event for this Member within this Channel.
+     * Returns The The ISO 8601 based timestamp string that represents the date-time
+     * of the last Message read event for the Member within the Channel.
      * 
-     * @return An ISO8601 based timestamp string representing the datetime of the
-     *         last Message read event for this Member within this Channel
+     * @return The ISO 8601 based timestamp string that represents the date-time of
+     *         the last Message read event for the Member within the Channel
      */
     public final DateTime getLastConsumptionTimestamp() {
         return this.lastConsumptionTimestamp;
     }
 
     /**
-     * Returns The An absolute URL for this member..
+     * Returns The The absolute URL of the Member resource.
      * 
-     * @return An absolute URL for this member.
+     * @return The absolute URL of the Member resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The An optional string metadata field you can use to store any data
-     * you wish..
+     * Returns The The JSON string that stores application-specific data.
      * 
-     * @return An optional string metadata field you can use to store any data you
-     *         wish.
+     * @return The JSON string that stores application-specific data
      */
     public final String getAttributes() {
         return this.attributes;

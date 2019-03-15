@@ -32,8 +32,8 @@ public class ChannelUpdater extends Updater<Channel> {
     /**
      * Construct a new ChannelUpdater.
      * 
-     * @param pathServiceSid Sid of the Service this channel belongs to.
-     * @param pathSid Key that uniquely defines the channel to fetch.
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathSid The unique string that identifies the resource
      */
     public ChannelUpdater(final String pathServiceSid, 
                           final String pathSid) {
@@ -42,9 +42,10 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * A human-readable name for the Channel. Optional..
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
      * 
-     * @param friendlyName A human-readable name for the Channel.
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public ChannelUpdater setFriendlyName(final String friendlyName) {
@@ -53,9 +54,13 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * A unique, addressable name for the Channel.  Optional..
+     * An application-defined string that uniquely identifies the resource. It can
+     * be used to address the resource in place of the resource's `sid` in the URL.
+     * This value must be 64 characters or less in length and be unique within the
+     * Service..
      * 
-     * @param uniqueName A unique, addressable name for the Channel.
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      * @return this
      */
     public ChannelUpdater setUniqueName(final String uniqueName) {
@@ -64,12 +69,9 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * An optional string metadata field you can use to store any data you wish. The
-     * string value must contain structurally valid JSON if specified.  **Note**
-     * that if the attributes are not set "{}" will be returned..
+     * A valid JSON string that contains application-specific data..
      * 
-     * @param attributes An optional string metadata field you can use to store any
-     *                   data you wish.
+     * @param attributes A valid JSON string that contains application-specific data
      * @return this
      */
     public ChannelUpdater setAttributes(final String attributes) {
@@ -78,11 +80,11 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * The optional ISO8601 time specifying the datetime the Channel should be set
-     * as being created..
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was created..
      * 
-     * @param dateCreated The optional ISO8601 time specifying the datetime the
-     *                    Channel should be set as being created.
+     * @param dateCreated The ISO 8601 date and time in GMT when the resource was
+     *                    created
      * @return this
      */
     public ChannelUpdater setDateCreated(final DateTime dateCreated) {
@@ -91,11 +93,11 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * The optional ISO8601 time specifying the datetime the Channel should be set
-     * as having been last updated..
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was last updated..
      * 
-     * @param dateUpdated The optional ISO8601 time specifying the datetime the
-     *                    Channel should be set as having been last updated.
+     * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
+     *                    updated
      * @return this
      */
     public ChannelUpdater setDateUpdated(final DateTime dateUpdated) {
@@ -104,10 +106,9 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * Optional field to specify the Identity of the User that created the Channel..
+     * The `identity` of the User that created the channel. Default is: `system`..
      * 
-     * @param createdBy Optional field to specify the Identity of the User that
-     *                  created the Channel.
+     * @param createdBy The identity of the User that created the Channel
      * @return this
      */
     public ChannelUpdater setCreatedBy(final String createdBy) {

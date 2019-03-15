@@ -56,7 +56,8 @@ public class FeedbackUpdater extends Updater<Feedback> {
     /**
      * One or more issues experienced during the call. The issues can be:
      * `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`,
-     * `digits-not-captured`, `audio-latency`, or `one-way-audio`..
+     * `digits-not-captured`, `audio-latency`, `unsolicited-call`, or
+     * `one-way-audio`..
      * 
      * @param issue Issues experienced during the call
      * @return this
@@ -69,7 +70,8 @@ public class FeedbackUpdater extends Updater<Feedback> {
     /**
      * One or more issues experienced during the call. The issues can be:
      * `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`,
-     * `digits-not-captured`, `audio-latency`, or `one-way-audio`..
+     * `digits-not-captured`, `audio-latency`, `unsolicited-call`, or
+     * `one-way-audio`..
      * 
      * @param issue Issues experienced during the call
      * @return this

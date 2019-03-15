@@ -26,8 +26,8 @@ public class WebhookReader extends Reader<Webhook> {
     /**
      * Construct a new WebhookReader.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
+     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathChannelSid The SID of the Channel the resources to read belong to
      */
     public WebhookReader(final String pathServiceSid, 
                          final String pathChannelSid) {

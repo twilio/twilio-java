@@ -41,7 +41,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceFetcher to execute fetch.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      * @return ServiceFetcher capable of executing the fetch
      */
     public static ServiceFetcher fetcher(final String pathSid) {
@@ -51,7 +51,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceDeleter to execute delete.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      * @return ServiceDeleter capable of executing the delete
      */
     public static ServiceDeleter deleter(final String pathSid) {
@@ -61,7 +61,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceCreator to execute create.
      * 
-     * @param friendlyName Human-readable name for this service instance
+     * @param friendlyName A string to describe the resource
      * @return ServiceCreator capable of executing the create
      */
     public static ServiceCreator creator(final String friendlyName) {
@@ -80,7 +80,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      * @return ServiceUpdater capable of executing the update
      */
     public static ServiceUpdater updater(final String pathSid) {
@@ -221,45 +221,46 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this service..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique id of the Account responsible for this service.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The human-readable name of this service..
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return The human-readable name of this service.
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date that this resource was created.
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date that this resource was created
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date that this resource was last updated
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
@@ -267,10 +268,9 @@ public class Service extends Resource {
 
     /**
      * Returns The The service role assigned to users when they are added to the
-     * service..
+     * service.
      * 
-     * @return The service role assigned to users when they are added to the
-     *         service.
+     * @return The service role assigned to users when they are added to the service
      */
     public final String getDefaultServiceRoleSid() {
         return this.defaultServiceRoleSid;
@@ -278,99 +278,96 @@ public class Service extends Resource {
 
     /**
      * Returns The The channel role assigned to users when they are added to a
-     * channel..
+     * channel.
      * 
-     * @return The channel role assigned to users when they are added to a channel.
+     * @return The channel role assigned to users when they are added to a channel
      */
     public final String getDefaultChannelRoleSid() {
         return this.defaultChannelRoleSid;
     }
 
     /**
-     * Returns The The channel role assigned to a channel creator when joining a new
-     * channel..
+     * Returns The The channel role assigned to a channel creator when they join a
+     * new channel.
      * 
-     * @return The channel role assigned to a channel creator when joining a new
-     *         channel.
+     * @return The channel role assigned to a channel creator when they join a new
+     *         channel
      */
     public final String getDefaultChannelCreatorRoleSid() {
         return this.defaultChannelCreatorRoleSid;
     }
 
     /**
-     * Returns The Enable the Message Consumption Horizon feature..
+     * Returns The Whether the Message Consumption Horizon feature is enabled.
      * 
-     * @return Enable the Message Consumption Horizon feature.
+     * @return Whether the Message Consumption Horizon feature is enabled
      */
     public final Boolean getReadStatusEnabled() {
         return this.readStatusEnabled;
     }
 
     /**
-     * Returns The Indicates whether the  the Reachability feature is enabled for
-     * this Service instance..
+     * Returns The Whether the Reachability Indicator feature is enabled for this
+     * Service instance.
      * 
-     * @return Indicates whether the  the Reachability feature is enabled for this
-     *         Service instance.
+     * @return Whether the Reachability Indicator feature is enabled for this
+     *         Service instance
      */
     public final Boolean getReachabilityEnabled() {
         return this.reachabilityEnabled;
     }
 
     /**
-     * Returns The The amount of time in seconds after a "started typing" event when
-     * clients should assume that user is no longer typing, even if no "ended
-     * typing" message was received..
+     * Returns The How long in seconds to wait before assuming the user is no longer
+     * typing.
      * 
-     * @return The amount of time in seconds after a "started typing" event when
-     *         clients should assume that user is no longer typing, even if no
-     *         "ended typing" message was received.
+     * @return How long in seconds to wait before assuming the user is no longer
+     *         typing
      */
     public final Integer getTypingIndicatorTimeout() {
         return this.typingIndicatorTimeout;
     }
 
     /**
-     * Returns The DEPRECATED..
+     * Returns The DEPRECATED.
      * 
-     * @return DEPRECATED.
+     * @return DEPRECATED
      */
     public final Integer getConsumptionReportInterval() {
         return this.consumptionReportInterval;
     }
 
     /**
-     * Returns The Configuration for service instance level limits..
+     * Returns The An object that describes the limits of the service instance.
      * 
-     * @return Configuration for service instance level limits.
+     * @return An object that describes the limits of the service instance
      */
     public final Map<String, Object> getLimits() {
         return this.limits;
     }
 
     /**
-     * Returns The The webhook URL for PRE-Event webhooks..
+     * Returns The The webhook URL for pre-event webhooks.
      * 
-     * @return The webhook URL for PRE-Event webhooks.
+     * @return The webhook URL for pre-event webhooks
      */
     public final String getPreWebhookUrl() {
         return this.preWebhookUrl;
     }
 
     /**
-     * Returns The The webhook URL for POST-Event webhooks..
+     * Returns The The URL for post-event webhooks.
      * 
-     * @return The webhook URL for POST-Event webhooks.
+     * @return The URL for post-event webhooks
      */
     public final String getPostWebhookUrl() {
         return this.postWebhookUrl;
     }
 
     /**
-     * Returns The The webhook request format to use for both PRE and POST
-     * webhooks..
+     * Returns The The HTTP method  to use for both PRE and POST webhooks.
      * 
-     * @return The webhook request format to use for both PRE and POST webhooks.
+     * @return The HTTP method  to use for both PRE and POST webhooks
      */
     public final String getWebhookMethod() {
         return this.webhookMethod;
@@ -378,10 +375,9 @@ public class Service extends Resource {
 
     /**
      * Returns The The list of WebHook events that are enabled for this Service
-     * instance..
+     * instance.
      * 
-     * @return The list of WebHook events that are enabled for this Service
-     *         instance.
+     * @return The list of WebHook events that are enabled for this Service instance
      */
     public final List<String> getWebhookFilters() {
         return this.webhookFilters;
@@ -389,57 +385,56 @@ public class Service extends Resource {
 
     /**
      * Returns The Count of times webhook will be retried in case of timeout or
-     * 429/503/504 HTTP responses..
+     * 429/503/504 HTTP responses.
      * 
      * @return Count of times webhook will be retried in case of timeout or
-     *         429/503/504 HTTP responses.
+     *         429/503/504 HTTP responses
      */
     public final Integer getPreWebhookRetryCount() {
         return this.preWebhookRetryCount;
     }
 
     /**
-     * Returns The Count of times webhook will be retried in case of timeout or
-     * 429/503/504 HTTP responses..
+     * Returns The The number of times calls to the `post_webhook_url` will be
+     * retried.
      * 
-     * @return Count of times webhook will be retried in case of timeout or
-     *         429/503/504 HTTP responses.
+     * @return The number of times calls to the `post_webhook_url` will be retried
      */
     public final Integer getPostWebhookRetryCount() {
         return this.postWebhookRetryCount;
     }
 
     /**
-     * Returns The Notification configuration for the Service instance..
+     * Returns The The notification configuration for the Service instance.
      * 
-     * @return Notification configuration for the Service instance.
+     * @return The notification configuration for the Service instance
      */
     public final Map<String, Object> getNotifications() {
         return this.notifications;
     }
 
     /**
-     * Returns The The media.
+     * Returns The The properties of the media that the service supports.
      * 
-     * @return The media
+     * @return The properties of the media that the service supports
      */
     public final Map<String, Object> getMedia() {
         return this.media;
     }
 
     /**
-     * Returns The An absolute URL for this service..
+     * Returns The The absolute URL of the Service resource.
      * 
-     * @return An absolute URL for this service.
+     * @return The absolute URL of the Service resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The URLs to access the Channels, Roles, and Users for this service..
+     * Returns The The absolute URLs of the Service's Channels, Roles, and Users.
      * 
-     * @return URLs to access the Channels, Roles, and Users for this service.
+     * @return The absolute URLs of the Service's Channels, Roles, and Users
      */
     public final Map<String, String> getLinks() {
         return this.links;

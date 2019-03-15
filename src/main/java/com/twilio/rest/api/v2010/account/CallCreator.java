@@ -48,6 +48,9 @@ public class CallCreator extends Creator<Call> {
     private List<String> recordingStatusCallbackEvent;
     private String trim;
     private String callerId;
+    private Integer machineDetectionSpeechThreshold;
+    private Integer machineDetectionSpeechEndThreshold;
+    private Integer machineDetectionSilenceTimeout;
 
     /**
      * Construct a new CallCreator.
@@ -393,7 +396,7 @@ public class CallCreator extends Creator<Call> {
      * before timing out and sending a voice request with `AnsweredBy` of `unknown`.
      * The default timeout is 30 seconds..
      * 
-     * @param machineDetectionTimeout Number of milliseconds to wait for machine
+     * @param machineDetectionTimeout Number of seconds to wait for machine
      *                                detection
      * @return this
      */
@@ -458,6 +461,50 @@ public class CallCreator extends Creator<Call> {
      */
     public CallCreator setCallerId(final String callerId) {
         this.callerId = callerId;
+        return this;
+    }
+
+    /**
+     * The number of milliseconds that is used as the measuring stick for the length
+     * of the speech activity, where durations lower than this value will be
+     * interpreted as a human and longer than this value as a machine. Possible
+     * Values: 1000-6000. Default: 2400..
+     * 
+     * @param machineDetectionSpeechThreshold Number of milliseconds for measuring
+     *                                        stick for the length of the speech
+     *                                        activity
+     * @return this
+     */
+    public CallCreator setMachineDetectionSpeechThreshold(final Integer machineDetectionSpeechThreshold) {
+        this.machineDetectionSpeechThreshold = machineDetectionSpeechThreshold;
+        return this;
+    }
+
+    /**
+     * The number of milliseconds of silence after speech activity at which point
+     * the speech activity is considered complete. Possible Values: 500-5000.
+     * Default: 1200..
+     * 
+     * @param machineDetectionSpeechEndThreshold Number of milliseconds of silence
+     *                                           after speech activity
+     * @return this
+     */
+    public CallCreator setMachineDetectionSpeechEndThreshold(final Integer machineDetectionSpeechEndThreshold) {
+        this.machineDetectionSpeechEndThreshold = machineDetectionSpeechEndThreshold;
+        return this;
+    }
+
+    /**
+     * The number of milliseconds of initial silence after which an ‘unknown’
+     * AnsweredBy result will be returned. Possible Values: 2000-10000. Default:
+     * 5000..
+     * 
+     * @param machineDetectionSilenceTimeout Number of milliseconds of initial
+     *                                       silence
+     * @return this
+     */
+    public CallCreator setMachineDetectionSilenceTimeout(final Integer machineDetectionSilenceTimeout) {
+        this.machineDetectionSilenceTimeout = machineDetectionSilenceTimeout;
         return this;
     }
 
@@ -645,6 +692,18 @@ public class CallCreator extends Creator<Call> {
 
         if (callerId != null) {
             request.addPostParam("CallerId", callerId);
+        }
+
+        if (machineDetectionSpeechThreshold != null) {
+            request.addPostParam("MachineDetectionSpeechThreshold", machineDetectionSpeechThreshold.toString());
+        }
+
+        if (machineDetectionSpeechEndThreshold != null) {
+            request.addPostParam("MachineDetectionSpeechEndThreshold", machineDetectionSpeechEndThreshold.toString());
+        }
+
+        if (machineDetectionSilenceTimeout != null) {
+            request.addPostParam("MachineDetectionSilenceTimeout", machineDetectionSilenceTimeout.toString());
         }
     }
 }

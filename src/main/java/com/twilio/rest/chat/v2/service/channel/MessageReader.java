@@ -27,9 +27,9 @@ public class MessageReader extends Reader<Message> {
     /**
      * Construct a new MessageReader.
      * 
-     * @param pathServiceSid Sid of the Service this message belongs to.
-     * @param pathChannelSid Key that uniquely defines the channel this message
-     *                       belongs to.
+     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathChannelSid The unique ID of the Channel the message to read
+     *                       belongs to
      */
     public MessageReader(final String pathServiceSid, 
                          final String pathChannelSid) {
@@ -38,11 +38,10 @@ public class MessageReader extends Reader<Message> {
     }
 
     /**
-     * Specifies sorting order for messages list, possible values are: `asc` or
-     * `desc`. If no value is specified, then `asc` is used as the default..
+     * The sort order of the returned messages. Can be: `asc` (ascending) or `desc`
+     * (descending) with `asc` as the default..
      * 
-     * @param order Specifies sorting order for messages list, possible values are:
-     *              `asc` or `desc`.
+     * @param order The sort order of the returned messages
      * @return this
      */
     public MessageReader setOrder(final Message.OrderType order) {

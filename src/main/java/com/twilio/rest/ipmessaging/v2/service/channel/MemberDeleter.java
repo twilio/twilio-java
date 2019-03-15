@@ -25,10 +25,10 @@ public class MemberDeleter extends Deleter<Member> {
     /**
      * Construct a new MemberDeleter.
      * 
-     * @param pathServiceSid Sid of the Service this member belongs to.
-     * @param pathChannelSid Key that uniquely defines the channel this member
-     *                       belongs to.
-     * @param pathSid Key that uniquely defines the member to delete.
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathChannelSid The unique ID of the channel the message to delete
+     *                       belongs to
+     * @param pathSid The unique string that identifies the resource
      */
     public MemberDeleter(final String pathServiceSid, 
                          final String pathChannelSid, 

@@ -23,7 +23,7 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * Construct a new ServiceCreator.
      * 
-     * @param friendlyName Human-readable name for this service instance
+     * @param friendlyName A string to describe the resource
      */
     public ServiceCreator(final String friendlyName) {
         this.friendlyName = friendlyName;

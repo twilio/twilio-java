@@ -26,11 +26,13 @@ public class UserChannelUpdater extends Updater<UserChannel> {
     /**
      * Construct a new UserChannelUpdater.
      * 
-     * @param pathServiceSid The unique id of the Service those channels belong to.
-     * @param pathUserSid The unique id of a User.
-     * @param pathChannelSid The unique id of a Channel.
-     * @param notificationLevel Push notification level to be assigned to Channel
-     *                          of the User.
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathUserSid The SID of the User to update the User Channel resource
+     *                    from
+     * @param pathChannelSid The SID of the Channel with the User Channel resource
+     *                       to update
+     * @param notificationLevel The push notification level to assign to the User
+     *                          Channel
      */
     public UserChannelUpdater(final String pathServiceSid, 
                               final String pathUserSid, 

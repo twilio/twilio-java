@@ -89,8 +89,9 @@ public class UserChannel extends Resource {
     /**
      * Create a UserChannelReader to execute read.
      * 
-     * @param pathServiceSid The unique id of the Service those channels belong to.
-     * @param pathUserSid The unique id of a User.
+     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathUserSid The SID of the User to fetch the User Channel resources
+     *                    from
      * @return UserChannelReader capable of executing the read
      */
     public static UserChannelReader reader(final String pathServiceSid, 
@@ -101,9 +102,12 @@ public class UserChannel extends Resource {
     /**
      * Create a UserChannelFetcher to execute fetch.
      * 
-     * @param pathServiceSid The unique id of the Service those channels belong to.
-     * @param pathUserSid The unique id of a User.
-     * @param pathChannelSid The unique id of a Channel.
+     * @param pathServiceSid The SID of the Service to fetch the User Channel
+     *                       resource from
+     * @param pathUserSid The SID of the User to fetch the User Channel resource
+     *                    from
+     * @param pathChannelSid The SID of the Channel that has the User Channel to
+     *                       fetch
      * @return UserChannelFetcher capable of executing the fetch
      */
     public static UserChannelFetcher fetcher(final String pathServiceSid, 
@@ -115,11 +119,13 @@ public class UserChannel extends Resource {
     /**
      * Create a UserChannelUpdater to execute update.
      * 
-     * @param pathServiceSid The unique id of the Service those channels belong to.
-     * @param pathUserSid The unique id of a User.
-     * @param pathChannelSid The unique id of a Channel.
-     * @param notificationLevel Push notification level to be assigned to Channel
-     *                          of the User.
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathUserSid The SID of the User to update the User Channel resource
+     *                    from
+     * @param pathChannelSid The SID of the Channel with the User Channel resource
+     *                       to update
+     * @param notificationLevel The push notification level to assign to the User
+     *                          Channel
      * @return UserChannelUpdater capable of executing the update
      */
     public static UserChannelUpdater updater(final String pathServiceSid, 
@@ -216,100 +222,101 @@ public class UserChannel extends Resource {
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this channel..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique id of the Account responsible for this channel.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique id of the Service this channel belongs to..
+     * Returns The The SID of the Service that the resource is associated with.
      * 
-     * @return The unique id of the Service this channel belongs to.
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The unique id of a Channel..
+     * Returns The The SID of the Channel the resource belongs to.
      * 
-     * @return The unique id of a Channel.
+     * @return The SID of the Channel the resource belongs to
      */
     public final String getChannelSid() {
         return this.channelSid;
     }
 
     /**
-     * Returns The The unique id of the User this Channel belongs to..
+     * Returns The The SID of the User the User Channel belongs to.
      * 
-     * @return The unique id of the User this Channel belongs to.
+     * @return The SID of the User the User Channel belongs to
      */
     public final String getUserSid() {
         return this.userSid;
     }
 
     /**
-     * Returns The The unique id of this User as a Member in this Channel..
+     * Returns The The SID of the User as a Member in the Channel.
      * 
-     * @return The unique id of this User as a Member in this Channel.
+     * @return The SID of the User as a Member in the Channel
      */
     public final String getMemberSid() {
         return this.memberSid;
     }
 
     /**
-     * Returns The The status of the User on this Channel..
+     * Returns The The status of the User on the Channel.
      * 
-     * @return The status of the User on this Channel.
+     * @return The status of the User on the Channel
      */
     public final UserChannel.ChannelStatus getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The index of the last read Message in this Channel for this
-     * User..
+     * Returns The The index of the last Message in the Channel the Member has read.
      * 
-     * @return The index of the last read Message in this Channel for this User.
+     * @return The index of the last Message in the Channel the Member has read
      */
     public final Integer getLastConsumedMessageIndex() {
         return this.lastConsumedMessageIndex;
     }
 
     /**
-     * Returns The The count of unread Messages in this Channel for this User..
+     * Returns The The number of unread Messages in the Channel for the User.
      * 
-     * @return The count of unread Messages in this Channel for this User.
+     * @return The number of unread Messages in the Channel for the User
      */
     public final Integer getUnreadMessagesCount() {
         return this.unreadMessagesCount;
     }
 
     /**
-     * Returns The The links.
+     * Returns The Absolute URLs to access the Members, Messages , Invites and, if
+     * it exists, the last Message for the Channel.
      * 
-     * @return The links
+     * @return Absolute URLs to access the Members, Messages , Invites and, if it
+     *         exists, the last Message for the Channel
      */
     public final Map<String, String> getLinks() {
         return this.links;
     }
 
     /**
-     * Returns The An absolute URL for this User Channel..
+     * Returns The The absolute URL of the resource.
      * 
-     * @return An absolute URL for this User Channel.
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The notification level of the User for this Channel..
+     * Returns The The push notification level of the User for the Channel.
      * 
-     * @return The notification level of the User for this Channel.
+     * @return The push notification level of the User for the Channel
      */
     public final UserChannel.NotificationLevel getNotificationLevel() {
         return this.notificationLevel;

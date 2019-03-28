@@ -312,9 +312,9 @@ public class Credential extends Resource {
     }
 
     /**
-     * Returns The The URI for this resource, relative to https://api..
+     * Returns The The URI for this resource, relative to https://api.twilio.com.
      * 
-     * @return The URI for this resource, relative to https://api.
+     * @return The URI for this resource, relative to https://api.twilio.com
      */
     public final String getUri() {
         return this.uri;

@@ -60,7 +60,7 @@ public class WebhookTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"service_sid\": \"ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"pre_webhook_url\": \"http://pre.url\",\"post_webhook_url\": \"http://post.url\",\"webhook_method\": \"GET\",\"webhook_filters\": [\"onMessageSend\",\"onSessionAdded\"],\"pre_webhook_retry_count\": 1,\"post_webhook_retry_count\": 2,\"url\": \"https://messaging.twilio.com/v1/Sessions/Webhooks\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"service_sid\": \"ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"pre_webhook_url\": \"http://pre.url\",\"post_webhook_url\": \"http://post.url\",\"webhook_method\": \"GET\",\"webhook_filters\": [\"onMessageSend\",\"onSessionAdded\"],\"pre_webhook_retry_count\": 1,\"post_webhook_retry_count\": 2,\"target\": \"http\",\"url\": \"https://messaging.twilio.com/v1/Sessions/Webhooks\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -92,7 +92,7 @@ public class WebhookTest {
     public void testUpdateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"service_sid\": \"ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"pre_webhook_url\": \"http://pre.url\",\"post_webhook_url\": \"http://post.url\",\"webhook_method\": \"GET\",\"webhook_filters\": [\"onSessionAdded\"],\"pre_webhook_retry_count\": 1,\"post_webhook_retry_count\": 2,\"url\": \"https://messaging.twilio.com/v1/Sessions/Webhooks\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"service_sid\": \"ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"pre_webhook_url\": \"http://pre.url\",\"post_webhook_url\": \"http://post.url\",\"webhook_method\": \"GET\",\"webhook_filters\": [\"onSessionAdded\"],\"pre_webhook_retry_count\": 1,\"post_webhook_retry_count\": 2,\"target\": \"flex\",\"url\": \"https://messaging.twilio.com/v1/Sessions/Webhooks\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

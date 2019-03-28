@@ -32,6 +32,7 @@ public class WebhookUpdater extends Updater<Webhook> {
     private String postWebhookUrl;
     private Integer preWebhookRetryCount;
     private Integer postWebhookRetryCount;
+    private Webhook.Target target;
 
     /**
      * The HTTP method to be used when sending a webhook request..
@@ -119,6 +120,18 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
+     * The routing target of the webhook. Can be ordinary or route internally to
+     * Flex.
+     * 
+     * @param target The routing target of the webhook.
+     * @return this
+     */
+    public WebhookUpdater setTarget(final Webhook.Target target) {
+        this.target = target;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -187,6 +200,10 @@ public class WebhookUpdater extends Updater<Webhook> {
 
         if (postWebhookRetryCount != null) {
             request.addPostParam("PostWebhookRetryCount", postWebhookRetryCount.toString());
+        }
+
+        if (target != null) {
+            request.addPostParam("Target", target.toString());
         }
     }
 }

@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.voice.v1.voicepermission;
+package com.twilio.rest.voice.v1.dialingpermissions;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

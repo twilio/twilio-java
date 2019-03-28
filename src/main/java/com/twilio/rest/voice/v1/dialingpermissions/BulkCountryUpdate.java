@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.voice.v1.voicepermission.country;
+package com.twilio.rest.voice.v1.dialingpermissions;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -35,31 +35,31 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class HighriskSpecialPrefix extends Resource {
-    private static final long serialVersionUID = 211324910415647L;
+public class BulkCountryUpdate extends Resource {
+    private static final long serialVersionUID = 82168182663718L;
 
     /**
-     * Create a HighriskSpecialPrefixReader to execute read.
+     * Create a BulkCountryUpdateCreator to execute create.
      * 
-     * @param pathIsoCode The ISO 3166-1 country code
-     * @return HighriskSpecialPrefixReader capable of executing the read
+     * @param updateRequest URL encoded JSON array of update objects
+     * @return BulkCountryUpdateCreator capable of executing the create
      */
-    public static HighriskSpecialPrefixReader reader(final String pathIsoCode) {
-        return new HighriskSpecialPrefixReader(pathIsoCode);
+    public static BulkCountryUpdateCreator creator(final String updateRequest) {
+        return new BulkCountryUpdateCreator(updateRequest);
     }
 
     /**
-     * Converts a JSON String into a HighriskSpecialPrefix object using the provided
+     * Converts a JSON String into a BulkCountryUpdate object using the provided
      * ObjectMapper.
      * 
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
-     * @return HighriskSpecialPrefix object represented by the provided JSON
+     * @return BulkCountryUpdate object represented by the provided JSON
      */
-    public static HighriskSpecialPrefix fromJson(final String json, final ObjectMapper objectMapper) {
+    public static BulkCountryUpdate fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, HighriskSpecialPrefix.class);
+            return objectMapper.readValue(json, BulkCountryUpdate.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -68,17 +68,17 @@ public class HighriskSpecialPrefix extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a HighriskSpecialPrefix object using the
+     * Converts a JSON InputStream into a BulkCountryUpdate object using the
      * provided ObjectMapper.
      * 
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
-     * @return HighriskSpecialPrefix object represented by the provided JSON
+     * @return BulkCountryUpdate object represented by the provided JSON
      */
-    public static HighriskSpecialPrefix fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static BulkCountryUpdate fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, HighriskSpecialPrefix.class);
+            return objectMapper.readValue(json, BulkCountryUpdate.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -86,21 +86,34 @@ public class HighriskSpecialPrefix extends Resource {
         }
     }
 
-    private final String prefix;
+    private final Integer updateCount;
+    private final String updateRequest;
 
     @JsonCreator
-    private HighriskSpecialPrefix(@JsonProperty("prefix")
-                                  final String prefix) {
-        this.prefix = prefix;
+    private BulkCountryUpdate(@JsonProperty("update_count")
+                              final Integer updateCount, 
+                              @JsonProperty("update_request")
+                              final String updateRequest) {
+        this.updateCount = updateCount;
+        this.updateRequest = updateRequest;
     }
 
     /**
-     * Returns The A prefix that includes the E.164 assigned country code.
+     * Returns The The number of countries updated.
      * 
-     * @return A prefix that includes the E.164 assigned country code
+     * @return The number of countries updated
      */
-    public final String getPrefix() {
-        return this.prefix;
+    public final Integer getUpdateCount() {
+        return this.updateCount;
+    }
+
+    /**
+     * Returns The A URL encoded JSON array of update objects.
+     * 
+     * @return A URL encoded JSON array of update objects
+     */
+    public final String getUpdateRequest() {
+        return this.updateRequest;
     }
 
     @Override
@@ -113,20 +126,23 @@ public class HighriskSpecialPrefix extends Resource {
             return false;
         }
 
-        HighriskSpecialPrefix other = (HighriskSpecialPrefix) o;
+        BulkCountryUpdate other = (BulkCountryUpdate) o;
 
-        return Objects.equals(prefix, other.prefix);
+        return Objects.equals(updateCount, other.updateCount) && 
+               Objects.equals(updateRequest, other.updateRequest);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(prefix);
+        return Objects.hash(updateCount,
+                            updateRequest);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                          .add("prefix", prefix)
+                          .add("updateCount", updateCount)
+                          .add("updateRequest", updateRequest)
                           .toString();
     }
 }

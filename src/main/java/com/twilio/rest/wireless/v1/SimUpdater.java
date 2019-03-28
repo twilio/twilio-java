@@ -38,6 +38,7 @@ public class SimUpdater extends Updater<Sim> {
     private URI voiceFallbackUrl;
     private HttpMethod voiceMethod;
     private URI voiceUrl;
+    private Sim.ResetStatus resetStatus;
 
     /**
      * Construct a new SimUpdater.
@@ -343,6 +344,18 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
+     * Pass `resetting` to initiate a connectivity reset on a Sim, this is the only
+     * valid value for this parameter..
+     * 
+     * @param resetStatus Initiate a connectivity reset on a Sim.
+     * @return this
+     */
+    public SimUpdater setResetStatus(final Sim.ResetStatus resetStatus) {
+        this.resetStatus = resetStatus;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -449,6 +462,10 @@ public class SimUpdater extends Updater<Sim> {
 
         if (voiceUrl != null) {
             request.addPostParam("VoiceUrl", voiceUrl.toString());
+        }
+
+        if (resetStatus != null) {
+            request.addPostParam("ResetStatus", resetStatus.toString());
         }
     }
 }

@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.voice.v1.voicepermission;
+package com.twilio.rest.voice.v1.dialingpermissions.country;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;
@@ -27,7 +27,7 @@ import java.net.URI;
 import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;
 
-public class BulkCountryUpdateTest {
+public class HighriskSpecialPrefixTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
@@ -37,12 +37,12 @@ public class BulkCountryUpdateTest {
     }
 
     @Test
-    public void testCreateRequest() {
+    public void testReadRequest() {
         new NonStrictExpectations() {{
-            Request request = new Request(HttpMethod.POST,
+            Request request = new Request(HttpMethod.GET,
                                           Domains.VOICE.toString(),
-                                          "/v1/DialingPermissions/BulkCountryUpdates");
-            request.addPostParam("UpdateRequest", serialize("updateRequest"));
+                                          "/v1/DialingPermissions/Countries/US/HighRiskSpecialPrefixes");
+            
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -51,20 +51,20 @@ public class BulkCountryUpdateTest {
         }};
 
         try {
-            BulkCountryUpdate.creator("updateRequest").create();
+            HighriskSpecialPrefix.reader("US").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
 
     @Test
-    public void testCreateResponse() {
+    public void testReadLvResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"update_count\": 1,\"update_request\": \"accepted\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            result = new Response("{\"content\": [{\"prefix\": \"+37181\"},{\"prefix\": \"+3719000\"}],\"meta\": {\"first_page_url\": \"https://voice.twilio.com/v1/DialingPermissions/Countries/LV/HighRiskSpecialPrefixes?PageSize=50&Page=0\",\"key\": \"content\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://voice.twilio.com/v1/DialingPermissions/Countries/LV/HighRiskSpecialPrefixes?PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
 
-        BulkCountryUpdate.creator("updateRequest").create();
+        assertNotNull(HighriskSpecialPrefix.reader("US").read());
     }
 }

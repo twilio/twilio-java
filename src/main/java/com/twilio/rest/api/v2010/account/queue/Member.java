@@ -34,14 +34,14 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Member extends Resource {
-    private static final long serialVersionUID = 27782479642114L;
+    private static final long serialVersionUID = 8025703048462L;
 
     /**
      * Create a MemberFetcher to execute fetch.
      * 
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       fetch
-     * @param pathQueueSid The Queue in which to find the members
+     * @param pathQueueSid The SID of the Queue in which to find the members
      * @param pathCallSid The Call SID of the resource(s) to fetch
      * @return MemberFetcher capable of executing the fetch
      */
@@ -54,7 +54,7 @@ public class Member extends Resource {
     /**
      * Create a MemberFetcher to execute fetch.
      * 
-     * @param pathQueueSid The Queue in which to find the members
+     * @param pathQueueSid The SID of the Queue in which to find the members
      * @param pathCallSid The Call SID of the resource(s) to fetch
      * @return MemberFetcher capable of executing the fetch
      */
@@ -68,9 +68,9 @@ public class Member extends Resource {
      * 
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       update
-     * @param pathQueueSid The Queue in which to find the members
+     * @param pathQueueSid The SID of the Queue in which to find the members
      * @param pathCallSid The Call SID of the resource(s) to update
-     * @param url The absolute URL of this Queue resource
+     * @param url The absolute URL of the Queue resource
      * @param method How to pass the update request data
      * @return MemberUpdater capable of executing the update
      */
@@ -85,9 +85,9 @@ public class Member extends Resource {
     /**
      * Create a MemberUpdater to execute update.
      * 
-     * @param pathQueueSid The Queue in which to find the members
+     * @param pathQueueSid The SID of the Queue in which to find the members
      * @param pathCallSid The Call SID of the resource(s) to update
-     * @param url The absolute URL of this Queue resource
+     * @param url The absolute URL of the Queue resource
      * @param method How to pass the update request data
      * @return MemberUpdater capable of executing the update
      */
@@ -103,7 +103,7 @@ public class Member extends Resource {
      * 
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       read
-     * @param pathQueueSid The Queue in which to find members
+     * @param pathQueueSid The SID of the Queue in which to find the members
      * @return MemberReader capable of executing the read
      */
     public static MemberReader reader(final String pathAccountSid, 
@@ -114,7 +114,7 @@ public class Member extends Resource {
     /**
      * Create a MemberReader to execute read.
      * 
-     * @param pathQueueSid The Queue in which to find members
+     * @param pathQueueSid The SID of the Queue in which to find the members
      * @return MemberReader capable of executing the read
      */
     public static MemberReader reader(final String pathQueueSid) {
@@ -163,6 +163,7 @@ public class Member extends Resource {
     private final Integer position;
     private final String uri;
     private final Integer waitTime;
+    private final String queueSid;
 
     @JsonCreator
     private Member(@JsonProperty("call_sid")
@@ -174,18 +175,21 @@ public class Member extends Resource {
                    @JsonProperty("uri")
                    final String uri, 
                    @JsonProperty("wait_time")
-                   final Integer waitTime) {
+                   final Integer waitTime, 
+                   @JsonProperty("queue_sid")
+                   final String queueSid) {
         this.callSid = callSid;
         this.dateEnqueued = DateConverter.rfc2822DateTimeFromString(dateEnqueued);
         this.position = position;
         this.uri = uri;
         this.waitTime = waitTime;
+        this.queueSid = queueSid;
     }
 
     /**
-     * Returns The The SID of the Call this resource is associated with.
+     * Returns The The SID of the Call the resource is associated with.
      * 
-     * @return The SID of the Call this resource is associated with
+     * @return The SID of the Call the resource is associated with
      */
     public final String getCallSid() {
         return this.callSid;
@@ -210,9 +214,9 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The The URI of this resource, relative to `https://api.twilio.com`.
+     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
      * 
-     * @return The URI of this resource, relative to `https://api.twilio.com`
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;
@@ -225,6 +229,15 @@ public class Member extends Resource {
      */
     public final Integer getWaitTime() {
         return this.waitTime;
+    }
+
+    /**
+     * Returns The The SID of the Queue the member is in.
+     * 
+     * @return The SID of the Queue the member is in
+     */
+    public final String getQueueSid() {
+        return this.queueSid;
     }
 
     @Override
@@ -243,7 +256,8 @@ public class Member extends Resource {
                Objects.equals(dateEnqueued, other.dateEnqueued) && 
                Objects.equals(position, other.position) && 
                Objects.equals(uri, other.uri) && 
-               Objects.equals(waitTime, other.waitTime);
+               Objects.equals(waitTime, other.waitTime) && 
+               Objects.equals(queueSid, other.queueSid);
     }
 
     @Override
@@ -252,7 +266,8 @@ public class Member extends Resource {
                             dateEnqueued,
                             position,
                             uri,
-                            waitTime);
+                            waitTime,
+                            queueSid);
     }
 
     @Override
@@ -263,6 +278,7 @@ public class Member extends Resource {
                           .add("position", position)
                           .add("uri", uri)
                           .add("waitTime", waitTime)
+                          .add("queueSid", queueSid)
                           .toString();
     }
 }

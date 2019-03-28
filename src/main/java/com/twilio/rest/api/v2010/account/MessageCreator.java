@@ -34,6 +34,7 @@ public class MessageCreator extends Creator<Message> {
     private BigDecimal maxPrice;
     private Boolean provideFeedback;
     private Integer validityPeriod;
+    private Boolean forceDelivery;
     private Boolean smartEncoded;
     private String interactiveData;
     private Boolean forceOptIn;
@@ -286,6 +287,17 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
+     * Reserved.
+     * 
+     * @param forceDelivery Reserved
+     * @return this
+     */
+    public MessageCreator setForceDelivery(final Boolean forceDelivery) {
+        this.forceDelivery = forceDelivery;
+        return this;
+    }
+
+    /**
      * Whether to detect Unicode characters that have a similar GSM-7 character and
      * replace them. Can be: `true` or `false`..
      * 
@@ -510,6 +522,10 @@ public class MessageCreator extends Creator<Message> {
 
         if (validityPeriod != null) {
             request.addPostParam("ValidityPeriod", validityPeriod.toString());
+        }
+
+        if (forceDelivery != null) {
+            request.addPostParam("ForceDelivery", forceDelivery.toString());
         }
 
         if (smartEncoded != null) {

@@ -156,9 +156,9 @@ public class WorkspaceRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the longest waiting Task.
+     * Returns The The longest_task_waiting_sid.
      * 
-     * @return The SID of the longest waiting Task
+     * @return The longest_task_waiting_sid
      */
     public final String getLongestTaskWaitingSid() {
         return this.longestTaskWaitingSid;

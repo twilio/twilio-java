@@ -51,7 +51,7 @@ public class Country extends Resource {
     /**
      * Create a CountryFetcher to execute fetch.
      * 
-     * @param pathIsoCountry The iso_country
+     * @param pathIsoCountry The ISO country code
      * @return CountryFetcher capable of executing the fetch
      */
     public static CountryFetcher fetcher(final String pathIsoCountry) {
@@ -125,9 +125,9 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The Name of the country.
+     * Returns The The name of the country.
      * 
-     * @return Name of the country
+     * @return The name of the country
      */
     public final String getCountry() {
         return this.country;
@@ -143,18 +143,18 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The List of OutboundSMSPrice records.
+     * Returns The The list of OutboundSMSPrice records.
      * 
-     * @return List of OutboundSMSPrice records
+     * @return The list of OutboundSMSPrice records
      */
     public final List<OutboundSmsPrice> getOutboundSmsPrices() {
         return this.outboundSmsPrices;
     }
 
     /**
-     * Returns The List of InboundPrice records.
+     * Returns The The list of InboundPrice records.
      * 
-     * @return List of InboundPrice records
+     * @return The list of InboundPrice records
      */
     public final List<InboundSmsPrice> getInboundSmsPrices() {
         return this.inboundSmsPrices;
@@ -162,19 +162,19 @@ public class Country extends Resource {
 
     /**
      * Returns The The currency in which prices are measured, in ISO 4127 format
-     * (e.g. usd, eur, jpy)..
+     * (e.g. usd, eur, jpy).
      * 
      * @return The currency in which prices are measured, in ISO 4127 format (e.g.
-     *         usd, eur, jpy).
+     *         usd, eur, jpy)
      */
     public final Currency getPriceUnit() {
         return this.priceUnit;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the resource.
      * 
-     * @return The url
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;

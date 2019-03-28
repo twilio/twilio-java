@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.voice.v1.voicepermission;
+package com.twilio.rest.voice.v1.dialingpermissions;
 
-import com.twilio.base.Updater;
+import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -22,44 +22,27 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class SettingsUpdater extends Updater<Settings> {
-    private Boolean dialingPermissionsInheritance;
-
+public class SettingsFetcher extends Fetcher<Settings> {
     /**
-     * `true` for this sub-account to inherit voice dialing permissions from the
-     * Master Project; otherwise `false`..
-     * 
-     * @param dialingPermissionsInheritance `true` for this sub-account to inherit
-     *                                      voice dialing permissions from the
-     *                                      Master Project; otherwise `false`
-     * @return this
-     */
-    public SettingsUpdater setDialingPermissionsInheritance(final Boolean dialingPermissionsInheritance) {
-        this.dialingPermissionsInheritance = dialingPermissionsInheritance;
-        return this;
-    }
-
-    /**
-     * Make the request to the Twilio API to perform the update.
+     * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Updated Settings
+     * @return Fetched Settings
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Settings update(final TwilioRestClient client) {
+    public Settings fetch(final TwilioRestClient client) {
         Request request = new Request(
-            HttpMethod.POST,
+            HttpMethod.GET,
             Domains.VOICE.toString(),
             "/v1/Settings",
             client.getRegion()
         );
 
-        addPostParams(request);
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Settings update failed: Unable to connect to server");
+            throw new ApiConnectionException("Settings fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -76,16 +59,5 @@ public class SettingsUpdater extends Updater<Settings> {
         }
 
         return Settings.fromJson(response.getStream(), client.getObjectMapper());
-    }
-
-    /**
-     * Add the requested post parameters to the Request.
-     * 
-     * @param request Request to add post params to
-     */
-    private void addPostParams(final Request request) {
-        if (dialingPermissionsInheritance != null) {
-            request.addPostParam("DialingPermissionsInheritance", dialingPermissionsInheritance.toString());
-        }
     }
 }

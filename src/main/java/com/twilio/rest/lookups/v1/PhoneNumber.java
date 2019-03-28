@@ -65,7 +65,7 @@ public class PhoneNumber extends Resource {
     /**
      * Create a PhoneNumberFetcher to execute fetch.
      * 
-     * @param pathPhoneNumber The phone_number
+     * @param pathPhoneNumber The phone number to fetch in E.164 format
      * @return PhoneNumberFetcher capable of executing the fetch
      */
     public static PhoneNumberFetcher fetcher(final com.twilio.type.PhoneNumber pathPhoneNumber) {
@@ -143,65 +143,63 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The String indicating the name of the owner of the phone number..
+     * Returns The The name of the phone number's owner.
      * 
-     * @return String indicating the name of the owner of the phone number.
+     * @return The name of the phone number's owner
      */
     public final Map<String, String> getCallerName() {
         return this.callerName;
     }
 
     /**
-     * Returns The The ISO country code for the phone number..
+     * Returns The The ISO country code for the phone number.
      * 
-     * @return The ISO country code for the phone number.
+     * @return The ISO country code for the phone number
      */
     public final String getCountryCode() {
         return this.countryCode;
     }
 
     /**
-     * Returns The The phone number, in E..
+     * Returns The The phone number in E.164 format.
      * 
-     * @return The phone number, in E.
+     * @return The phone number in E.164 format
      */
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 
     /**
-     * Returns The The phone number, in national format..
+     * Returns The The phone number, in national format.
      * 
-     * @return The phone number, in national format.
+     * @return The phone number, in national format
      */
     public final String getNationalFormat() {
         return this.nationalFormat;
     }
 
     /**
-     * Returns The The carrier.
+     * Returns The The telecom company that provides the phone number.
      * 
-     * @return The carrier
+     * @return The telecom company that provides the phone number
      */
     public final Map<String, String> getCarrier() {
         return this.carrier;
     }
 
     /**
-     * Returns The Results of any Add-ons you have specified using the AddOn
-     * parameter in the request, as a JSON dictionary..
+     * Returns The A JSON string with the results of the Add-ons you specified.
      * 
-     * @return Results of any Add-ons you have specified using the AddOn parameter
-     *         in the request, as a JSON dictionary.
+     * @return A JSON string with the results of the Add-ons you specified
      */
     public final Map<String, Object> getAddOns() {
         return this.addOns;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the resource.
      * 
-     * @return The url
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;

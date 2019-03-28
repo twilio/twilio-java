@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Sim extends Resource {
-    private static final long serialVersionUID = 120029106133082L;
+    private static final long serialVersionUID = 225971057340770L;
 
     public enum Status {
         NEW("new"),
@@ -65,6 +65,30 @@ public class Sim extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum ResetStatus {
+        RESETTING("resetting");
+
+        private final String value;
+
+        private ResetStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a ResetStatus from a string.
+         * @param value string value
+         * @return generated ResetStatus
+         */
+        @JsonCreator
+        public static ResetStatus forValue(final String value) {
+            return Promoter.enumFromString(value, ResetStatus.values());
         }
     }
 
@@ -152,6 +176,7 @@ public class Sim extends Resource {
     private final String iccid;
     private final String eId;
     private final Sim.Status status;
+    private final Sim.ResetStatus resetStatus;
     private final URI commandsCallbackUrl;
     private final HttpMethod commandsCallbackMethod;
     private final HttpMethod smsFallbackMethod;
@@ -185,6 +210,8 @@ public class Sim extends Resource {
                 final String eId, 
                 @JsonProperty("status")
                 final Sim.Status status, 
+                @JsonProperty("reset_status")
+                final Sim.ResetStatus resetStatus, 
                 @JsonProperty("commands_callback_url")
                 final URI commandsCallbackUrl, 
                 @JsonProperty("commands_callback_method")
@@ -223,6 +250,7 @@ public class Sim extends Resource {
         this.iccid = iccid;
         this.eId = eId;
         this.status = status;
+        this.resetStatus = resetStatus;
         this.commandsCallbackUrl = commandsCallbackUrl;
         this.commandsCallbackMethod = commandsCallbackMethod;
         this.smsFallbackMethod = smsFallbackMethod;
@@ -312,6 +340,15 @@ public class Sim extends Resource {
      */
     public final Sim.Status getStatus() {
         return this.status;
+    }
+
+    /**
+     * Returns The A string representing the connectivity reset status of the Sim..
+     * 
+     * @return A string representing the connectivity reset status of the Sim.
+     */
+    public final Sim.ResetStatus getResetStatus() {
+        return this.resetStatus;
     }
 
     /**
@@ -490,6 +527,7 @@ public class Sim extends Resource {
                Objects.equals(iccid, other.iccid) && 
                Objects.equals(eId, other.eId) && 
                Objects.equals(status, other.status) && 
+               Objects.equals(resetStatus, other.resetStatus) && 
                Objects.equals(commandsCallbackUrl, other.commandsCallbackUrl) && 
                Objects.equals(commandsCallbackMethod, other.commandsCallbackMethod) && 
                Objects.equals(smsFallbackMethod, other.smsFallbackMethod) && 
@@ -517,6 +555,7 @@ public class Sim extends Resource {
                             iccid,
                             eId,
                             status,
+                            resetStatus,
                             commandsCallbackUrl,
                             commandsCallbackMethod,
                             smsFallbackMethod,
@@ -545,6 +584,7 @@ public class Sim extends Resource {
                           .add("iccid", iccid)
                           .add("eId", eId)
                           .add("status", status)
+                          .add("resetStatus", resetStatus)
                           .add("commandsCallbackUrl", commandsCallbackUrl)
                           .add("commandsCallbackMethod", commandsCallbackMethod)
                           .add("smsFallbackMethod", smsFallbackMethod)

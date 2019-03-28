@@ -56,7 +56,7 @@ public class CredentialUpdater extends Updater<Credential> {
     /**
      * The password that the username will use when authenticating SIP requests. The
      * password must be a minimum of 12 characters, contain at least 1 digit, and
-     * have mixed case. (eg “IWasAtSignal2018”).
+     * have mixed case. (eg `IWasAtSignal2018`).
      * 
      * @param password The password will not be returned in the response
      * @return this

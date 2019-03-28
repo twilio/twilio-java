@@ -26,7 +26,7 @@ public class MemberReader extends Reader<Member> {
     /**
      * Construct a new MemberReader.
      * 
-     * @param pathQueueSid The Queue in which to find members
+     * @param pathQueueSid The SID of the Queue in which to find the members
      */
     public MemberReader(final String pathQueueSid) {
         this.pathQueueSid = pathQueueSid;
@@ -37,7 +37,7 @@ public class MemberReader extends Reader<Member> {
      * 
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       read
-     * @param pathQueueSid The Queue in which to find members
+     * @param pathQueueSid The SID of the Queue in which to find the members
      */
     public MemberReader(final String pathAccountSid, 
                         final String pathQueueSid) {

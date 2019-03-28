@@ -33,7 +33,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Queue extends Resource {
-    private static final long serialVersionUID = 51300543687284L;
+    private static final long serialVersionUID = 115549588553968L;
 
     /**
      * Create a QueueFetcher to execute fetch.
@@ -107,8 +107,8 @@ public class Queue extends Resource {
     /**
      * Create a QueueReader to execute read.
      * 
-     * @param pathAccountSid The SID of the Account that created the resource(s) to
-     *                       read
+     * @param pathAccountSid The unique id of the Account responsible for creating
+     *                       this Call
      * @return QueueReader capable of executing the read
      */
     public static QueueReader reader(final String pathAccountSid) {
@@ -192,6 +192,7 @@ public class Queue extends Resource {
     private final Integer maxSize;
     private final String sid;
     private final String uri;
+    private final Map<String, String> subresourceUris;
 
     @JsonCreator
     private Queue(@JsonProperty("account_sid")
@@ -211,7 +212,9 @@ public class Queue extends Resource {
                   @JsonProperty("sid")
                   final String sid, 
                   @JsonProperty("uri")
-                  final String uri) {
+                  final String uri, 
+                  @JsonProperty("subresource_uris")
+                  final Map<String, String> subresourceUris) {
         this.accountSid = accountSid;
         this.averageWaitTime = averageWaitTime;
         this.currentSize = currentSize;
@@ -221,6 +224,7 @@ public class Queue extends Resource {
         this.maxSize = maxSize;
         this.sid = sid;
         this.uri = uri;
+        this.subresourceUris = subresourceUris;
     }
 
     /**
@@ -305,6 +309,15 @@ public class Queue extends Resource {
         return this.uri;
     }
 
+    /**
+     * Returns The Queue Instance Subresources.
+     * 
+     * @return Queue Instance Subresources
+     */
+    public final Map<String, String> getSubresourceUris() {
+        return this.subresourceUris;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -325,7 +338,8 @@ public class Queue extends Resource {
                Objects.equals(friendlyName, other.friendlyName) && 
                Objects.equals(maxSize, other.maxSize) && 
                Objects.equals(sid, other.sid) && 
-               Objects.equals(uri, other.uri);
+               Objects.equals(uri, other.uri) && 
+               Objects.equals(subresourceUris, other.subresourceUris);
     }
 
     @Override
@@ -338,7 +352,8 @@ public class Queue extends Resource {
                             friendlyName,
                             maxSize,
                             sid,
-                            uri);
+                            uri,
+                            subresourceUris);
     }
 
     @Override
@@ -353,6 +368,7 @@ public class Queue extends Resource {
                           .add("maxSize", maxSize)
                           .add("sid", sid)
                           .add("uri", uri)
+                          .add("subresourceUris", subresourceUris)
                           .toString();
     }
 }

@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -38,7 +39,32 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Webhook extends Resource {
-    private static final long serialVersionUID = 132444823213149L;
+    private static final long serialVersionUID = 124002729825564L;
+
+    public enum Target {
+        WEBHOOK("webhook"),
+        FLEX("flex");
+
+        private final String value;
+
+        private Target(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a Target from a string.
+         * @param value string value
+         * @return generated Target
+         */
+        @JsonCreator
+        public static Target forValue(final String value) {
+            return Promoter.enumFromString(value, Target.values());
+        }
+    }
 
     /**
      * Create a WebhookFetcher to execute fetch.
@@ -103,6 +129,7 @@ public class Webhook extends Resource {
     private final String postWebhookUrl;
     private final Integer preWebhookRetryCount;
     private final Integer postWebhookRetryCount;
+    private final Webhook.Target target;
     private final URI url;
 
     @JsonCreator
@@ -122,6 +149,8 @@ public class Webhook extends Resource {
                     final Integer preWebhookRetryCount, 
                     @JsonProperty("post_webhook_retry_count")
                     final Integer postWebhookRetryCount, 
+                    @JsonProperty("target")
+                    final Webhook.Target target, 
                     @JsonProperty("url")
                     final URI url) {
         this.accountSid = accountSid;
@@ -132,6 +161,7 @@ public class Webhook extends Resource {
         this.postWebhookUrl = postWebhookUrl;
         this.preWebhookRetryCount = preWebhookRetryCount;
         this.postWebhookRetryCount = postWebhookRetryCount;
+        this.target = target;
         this.url = url;
     }
 
@@ -213,6 +243,15 @@ public class Webhook extends Resource {
     }
 
     /**
+     * Returns The The routing target of the webhook..
+     * 
+     * @return The routing target of the webhook.
+     */
+    public final Webhook.Target getTarget() {
+        return this.target;
+    }
+
+    /**
      * Returns The An absolute URL for this webhook..
      * 
      * @return An absolute URL for this webhook.
@@ -241,6 +280,7 @@ public class Webhook extends Resource {
                Objects.equals(postWebhookUrl, other.postWebhookUrl) && 
                Objects.equals(preWebhookRetryCount, other.preWebhookRetryCount) && 
                Objects.equals(postWebhookRetryCount, other.postWebhookRetryCount) && 
+               Objects.equals(target, other.target) && 
                Objects.equals(url, other.url);
     }
 
@@ -254,6 +294,7 @@ public class Webhook extends Resource {
                             postWebhookUrl,
                             preWebhookRetryCount,
                             postWebhookRetryCount,
+                            target,
                             url);
     }
 
@@ -268,6 +309,7 @@ public class Webhook extends Resource {
                           .add("postWebhookUrl", postWebhookUrl)
                           .add("preWebhookRetryCount", preWebhookRetryCount)
                           .add("postWebhookRetryCount", postWebhookRetryCount)
+                          .add("target", target)
                           .add("url", url)
                           .toString();
     }

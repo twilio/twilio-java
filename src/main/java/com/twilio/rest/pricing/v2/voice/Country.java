@@ -51,7 +51,8 @@ public class Country extends Resource {
     /**
      * Create a CountryFetcher to execute fetch.
      * 
-     * @param pathIsoCountry Fetches voice prices for country
+     * @param pathIsoCountry The ISO country code of the pricing information to
+     *                       fetch
      * @return CountryFetcher capable of executing the fetch
      */
     public static CountryFetcher fetcher(final String pathIsoCountry) {
@@ -125,9 +126,9 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The Name of the country.
+     * Returns The The name of the country.
      * 
-     * @return Name of the country
+     * @return The name of the country
      */
     public final String getCountry() {
         return this.country;
@@ -143,18 +144,18 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The List of OutboundPrefixPriceWithOrigin records.
+     * Returns The The list of OutboundPrefixPriceWithOrigin records.
      * 
-     * @return List of OutboundPrefixPriceWithOrigin records
+     * @return The list of OutboundPrefixPriceWithOrigin records
      */
     public final List<OutboundPrefixPriceWithOrigin> getOutboundPrefixPrices() {
         return this.outboundPrefixPrices;
     }
 
     /**
-     * Returns The List of InboundCallPrice records.
+     * Returns The The list of InboundCallPrice records.
      * 
-     * @return List of InboundCallPrice records
+     * @return The list of InboundCallPrice records
      */
     public final List<InboundCallPrice> getInboundCallPrices() {
         return this.inboundCallPrices;
@@ -162,19 +163,19 @@ public class Country extends Resource {
 
     /**
      * Returns The The currency in which prices are measured, in ISO 4127 format
-     * (e.g. usd, eur, jpy)..
+     * (e.g. usd, eur, jpy).
      * 
      * @return The currency in which prices are measured, in ISO 4127 format (e.g.
-     *         usd, eur, jpy).
+     *         usd, eur, jpy)
      */
     public final Currency getPriceUnit() {
         return this.priceUnit;
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The The absolute URL of the resource.
      * 
-     * @return The URL of this resource.
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;

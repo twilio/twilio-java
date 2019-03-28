@@ -32,18 +32,18 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     /**
      * Construct a new PhoneNumberFetcher.
      * 
-     * @param pathPhoneNumber The phone_number
+     * @param pathPhoneNumber The phone number to fetch in E.164 format
      */
     public PhoneNumberFetcher(final com.twilio.type.PhoneNumber pathPhoneNumber) {
         this.pathPhoneNumber = pathPhoneNumber;
     }
 
     /**
-     * Optional [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-     * of the phone number. This is used to specify the country when the number is
-     * provided in a national format..
+     * The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of
+     * the phone number to fetch. This is used to specify the country when the phone
+     * number is provided in a national format..
      * 
-     * @param countryCode Optional ISO country code of the phone number.
+     * @param countryCode The ISO country code of the phone number
      * @return this
      */
     public PhoneNumberFetcher setCountryCode(final String countryCode) {
@@ -52,16 +52,14 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     }
 
     /**
-     * Indicates the type of information you would like returned with your request.
-     * Possible values are `carrier` or `caller-name`. If not specified, the default
-     * is null.  Carrier information costs $0.005 per phone number looked up. 
-     * Caller Name information costs $0.01 per phone number looked up, and is
-     * currently ONLY available in the US.  You can retrieve both types of
-     * information by including two `Type` arguments or making two separate
-     * requests..
+     * The type of information to return. Can be: `carrier` or `caller-name`. The
+     * default is null.  Carrier information costs $0.005 per phone number looked
+     * up.  Caller Name information is currently available only in the US and costs
+     * $0.01 per phone number looked up.  To retrieve both types on information,
+     * specify this parameter twice; once with `carrier` and once with `caller-name`
+     * as the value..
      * 
-     * @param type Indicates the type of information you would like returned with
-     *             your request.
+     * @param type The type of information to return
      * @return this
      */
     public PhoneNumberFetcher setType(final List<String> type) {
@@ -70,16 +68,14 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     }
 
     /**
-     * Indicates the type of information you would like returned with your request.
-     * Possible values are `carrier` or `caller-name`. If not specified, the default
-     * is null.  Carrier information costs $0.005 per phone number looked up. 
-     * Caller Name information costs $0.01 per phone number looked up, and is
-     * currently ONLY available in the US.  You can retrieve both types of
-     * information by including two `Type` arguments or making two separate
-     * requests..
+     * The type of information to return. Can be: `carrier` or `caller-name`. The
+     * default is null.  Carrier information costs $0.005 per phone number looked
+     * up.  Caller Name information is currently available only in the US and costs
+     * $0.01 per phone number looked up.  To retrieve both types on information,
+     * specify this parameter twice; once with `carrier` and once with `caller-name`
+     * as the value..
      * 
-     * @param type Indicates the type of information you would like returned with
-     *             your request.
+     * @param type The type of information to return
      * @return this
      */
     public PhoneNumberFetcher setType(final String type) {
@@ -87,16 +83,13 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     }
 
     /**
-     * Indicates the particular Add-on you would like to use to get more
-     * information. Possible values are the *Add-on Unique Names* of Add-ons
-     * installed on your account. You can specify multiple instances of this
-     * parameter to invoke different Add-ons. See [Add-ons
-     * documentation](https://www.twilio.com/docs/api/addons) for information on
-     * installing Add-ons. Add-on pricing is available in your list of Installed
-     * Add-ons in the Console..
+     * The `unique_name` of an Add-on you would like to invoke. Can be the
+     * `unique_name` of an Add-on that is installed on your account. You can specify
+     * multiple instances of this parameter to invoke multiple Add-ons. For more
+     * information about  Add-ons, see the [Add-ons
+     * documentation](https://www.twilio.com/docs/api/addons)..
      * 
-     * @param addOns Indicates the particular Add-on you would like to use to get
-     *               more information.
+     * @param addOns The unique_name of an Add-on you would like to invoke
      * @return this
      */
     public PhoneNumberFetcher setAddOns(final List<String> addOns) {
@@ -105,16 +98,13 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     }
 
     /**
-     * Indicates the particular Add-on you would like to use to get more
-     * information. Possible values are the *Add-on Unique Names* of Add-ons
-     * installed on your account. You can specify multiple instances of this
-     * parameter to invoke different Add-ons. See [Add-ons
-     * documentation](https://www.twilio.com/docs/api/addons) for information on
-     * installing Add-ons. Add-on pricing is available in your list of Installed
-     * Add-ons in the Console..
+     * The `unique_name` of an Add-on you would like to invoke. Can be the
+     * `unique_name` of an Add-on that is installed on your account. You can specify
+     * multiple instances of this parameter to invoke multiple Add-ons. For more
+     * information about  Add-ons, see the [Add-ons
+     * documentation](https://www.twilio.com/docs/api/addons)..
      * 
-     * @param addOns Indicates the particular Add-on you would like to use to get
-     *               more information.
+     * @param addOns The unique_name of an Add-on you would like to invoke
      * @return this
      */
     public PhoneNumberFetcher setAddOns(final String addOns) {
@@ -122,9 +112,10 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     }
 
     /**
-     * The add_ons_data.
+     * Data specific to the add-on you would like to invoke. The content and format
+     * of this value depends on the add-on..
      * 
-     * @param addOnsData The add_ons_data
+     * @param addOnsData Data specific to the add-on you would like to invoke
      * @return this
      */
     public PhoneNumberFetcher setAddOnsData(final Map<String, Object> addOnsData) {

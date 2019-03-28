@@ -42,7 +42,8 @@ public class Number extends Resource {
     /**
      * Create a NumberFetcher to execute fetch.
      * 
-     * @param pathDestinationNumber Fetches voice prices for number
+     * @param pathDestinationNumber The destination number for which to fetch
+     *                              pricing information
      * @return NumberFetcher capable of executing the fetch
      */
     public static NumberFetcher fetcher(final com.twilio.type.PhoneNumber pathDestinationNumber) {
@@ -124,27 +125,27 @@ public class Number extends Resource {
     }
 
     /**
-     * Returns The The destination phone number, in E.164.
+     * Returns The The destination phone number, in E.164 format.
      * 
-     * @return The destination phone number, in E.164
+     * @return The destination phone number, in E.164 format
      */
     public final com.twilio.type.PhoneNumber getDestinationNumber() {
         return this.destinationNumber;
     }
 
     /**
-     * Returns The The origination phone number, in E.164.
+     * Returns The The origination phone number, in E.164 format.
      * 
-     * @return The origination phone number, in E.164
+     * @return The origination phone number, in E.164 format
      */
     public final com.twilio.type.PhoneNumber getOriginationNumber() {
         return this.originationNumber;
     }
 
     /**
-     * Returns The Name of the country.
+     * Returns The The name of the country.
      * 
-     * @return Name of the country
+     * @return The name of the country
      */
     public final String getCountry() {
         return this.country;
@@ -160,18 +161,18 @@ public class Number extends Resource {
     }
 
     /**
-     * Returns The List of OutboundCallPriceWithOrigin records.
+     * Returns The The list of OutboundCallPriceWithOrigin records.
      * 
-     * @return List of OutboundCallPriceWithOrigin records
+     * @return The list of OutboundCallPriceWithOrigin records
      */
     public final List<OutboundCallPriceWithOrigin> getOutboundCallPrices() {
         return this.outboundCallPrices;
     }
 
     /**
-     * Returns The List of InboundCallPrice records.
+     * Returns The The InboundCallPrice record.
      * 
-     * @return List of InboundCallPrice records
+     * @return The InboundCallPrice record
      */
     public final InboundCallPrice getInboundCallPrice() {
         return this.inboundCallPrice;
@@ -179,19 +180,19 @@ public class Number extends Resource {
 
     /**
      * Returns The The currency in which prices are measured, in ISO 4127 format
-     * (e.g. usd, eur, jpy)..
+     * (e.g. usd, eur, jpy).
      * 
      * @return The currency in which prices are measured, in ISO 4127 format (e.g.
-     *         usd, eur, jpy).
+     *         usd, eur, jpy)
      */
     public final Currency getPriceUnit() {
         return this.priceUnit;
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The The absolute URL of the resource.
      * 
-     * @return The URL of this resource.
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;

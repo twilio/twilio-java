@@ -50,7 +50,7 @@ public class Country extends Resource {
     /**
      * Create a CountryFetcher to execute fetch.
      * 
-     * @param pathIsoCountry The iso_country
+     * @param pathIsoCountry The ISO country code
      * @return CountryFetcher capable of executing the fetch
      */
     public static CountryFetcher fetcher(final String pathIsoCountry) {
@@ -120,27 +120,27 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The Name of the country.
+     * Returns The The name of the country.
      * 
-     * @return Name of the country
+     * @return The name of the country
      */
     public final String getCountry() {
         return this.country;
     }
 
     /**
-     * Returns The The ISO country code of this number.
+     * Returns The The ISO country code .
      * 
-     * @return The ISO country code of this number
+     * @return The ISO country code 
      */
     public final String getIsoCountry() {
         return this.isoCountry;
     }
 
     /**
-     * Returns The List of PhoneNumberPrices records.
+     * Returns The The list of PhoneNumberPrices records.
      * 
-     * @return List of PhoneNumberPrices records
+     * @return The list of PhoneNumberPrices records
      */
     public final List<PhoneNumberPrice> getPhoneNumberPrices() {
         return this.phoneNumberPrices;
@@ -148,19 +148,19 @@ public class Country extends Resource {
 
     /**
      * Returns The The currency in which prices are measured, in ISO 4127 format
-     * (e.g. usd, eur, jpy)..
+     * (e.g. usd, eur, jpy).
      * 
      * @return The currency in which prices are measured, in ISO 4127 format (e.g.
-     *         usd, eur, jpy).
+     *         usd, eur, jpy)
      */
     public final Currency getPriceUnit() {
         return this.priceUnit;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the resource.
      * 
-     * @return The url
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;

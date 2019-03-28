@@ -23,7 +23,7 @@ public class CountryFetcher extends Fetcher<Country> {
     /**
      * Construct a new CountryFetcher.
      * 
-     * @param pathIsoCountry The iso_country
+     * @param pathIsoCountry The ISO country code
      */
     public CountryFetcher(final String pathIsoCountry) {
         this.pathIsoCountry = pathIsoCountry;

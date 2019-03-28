@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.voice.v1.voicepermission;
+package com.twilio.rest.verify.v2;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -18,42 +18,41 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
-public class CountryFetcher extends Fetcher<Country> {
-    private final String pathIsoCode;
+public class ServiceFetcher extends Fetcher<Service> {
+    private final String pathSid;
 
     /**
-     * Construct a new CountryFetcher.
+     * Construct a new ServiceFetcher.
      * 
-     * @param pathIsoCode The ISO country code
+     * @param pathSid Verification Service Instance SID.
      */
-    public CountryFetcher(final String pathIsoCode) {
-        this.pathIsoCode = pathIsoCode;
+    public ServiceFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
      * Make the request to the Twilio API to perform the fetch.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Country
+     * @return Fetched Service
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Country fetch(final TwilioRestClient client) {
+    public Service fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.VOICE.toString(),
-            "/v1/DialingPermissions/Countries/" + this.pathIsoCode + "",
+            Domains.VERIFY.toString(),
+            "/v2/Services/" + this.pathSid + "",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Country fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("Service fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -69,6 +68,6 @@ public class CountryFetcher extends Fetcher<Country> {
             );
         }
 
-        return Country.fromJson(response.getStream(), client.getObjectMapper());
+        return Service.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

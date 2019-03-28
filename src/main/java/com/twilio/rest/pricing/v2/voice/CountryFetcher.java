@@ -23,7 +23,8 @@ public class CountryFetcher extends Fetcher<Country> {
     /**
      * Construct a new CountryFetcher.
      * 
-     * @param pathIsoCountry Fetches voice prices for country
+     * @param pathIsoCountry The ISO country code of the pricing information to
+     *                       fetch
      */
     public CountryFetcher(final String pathIsoCountry) {
         this.pathIsoCountry = pathIsoCountry;

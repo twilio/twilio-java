@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.voice.v1.voicepermission.country;
+package com.twilio.rest.voice.v1.dialingpermissions;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;
@@ -27,7 +27,7 @@ import java.net.URI;
 import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;
 
-public class HighriskSpecialPrefixTest {
+public class SettingsTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
@@ -37,11 +37,11 @@ public class HighriskSpecialPrefixTest {
     }
 
     @Test
-    public void testReadRequest() {
+    public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.VOICE.toString(),
-                                          "/v1/DialingPermissions/Countries/US/HighRiskSpecialPrefixes");
+                                          "/v1/Settings");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,20 +51,52 @@ public class HighriskSpecialPrefixTest {
         }};
 
         try {
-            HighriskSpecialPrefix.reader("US").read();
+            Settings.fetcher().fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
 
     @Test
-    public void testReadUsResponse() {
+    public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"content\": [{\"prefix\": \"+37181\"},{\"prefix\": \"+3719000\"}],\"meta\": {\"first_page_url\": \"https://voice.twilio.com/v1/DialingPermissions/Countries/LV/HighRiskSpecialPrefixes?PageSize=50&Page=0\",\"key\": \"content\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://voice.twilio.com/v1/DialingPermissions/Countries/LV/HighRiskSpecialPrefixes?PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"dialing_permissions_inheritance\": true,\"url\": \"https://voice.twilio.com/v1/Settings\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
 
-        assertNotNull(HighriskSpecialPrefix.reader("US").read());
+        assertNotNull(Settings.fetcher().fetch());
+    }
+
+    @Test
+    public void testUpdateRequest() {
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          Domains.VOICE.toString(),
+                                          "/v1/Settings");
+            
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
+
+        try {
+            Settings.updater().update();
+            fail("Expected TwilioException to be thrown for 500");
+        } catch (TwilioException e) {}
+    }
+
+    @Test
+    public void testUpdateResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"dialing_permissions_inheritance\": true,\"url\": \"https://voice.twilio.com/v1/Settings\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        Settings.updater().update();
     }
 }

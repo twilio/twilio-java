@@ -35,7 +35,6 @@ public class CallCreator extends Creator<Call> {
     private List<String> statusCallbackEvent;
     private HttpMethod statusCallbackMethod;
     private String sendDigits;
-    private String ifMachine;
     private Integer timeout;
     private Boolean record;
     private String recordingChannels;
@@ -267,19 +266,6 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * Deprecated. Tell Twilio to try and determine if a machine (like voicemail) or
-     * a human has answered the call. Possible value are `Continue` and `Hangup`..
-     * 
-     * @param ifMachine Deprecated. Action to take if a machine has answered the
-     *                  call
-     * @return this
-     */
-    public CallCreator setIfMachine(final String ifMachine) {
-        this.ifMachine = ifMachine;
-        return this;
-    }
-
-    /**
      * The integer number of seconds that we should allow the phone to ring before
      * assuming there is no answer. The default is `60` seconds and the maximum is
      * `600` seconds. For some call flows, we will add a 5-second buffer to the
@@ -495,7 +481,7 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * The number of milliseconds of initial silence after which an ‘unknown’
+     * The number of milliseconds of initial silence after which an `unknown`
      * AnsweredBy result will be returned. Possible Values: 2000-10000. Default:
      * 5000..
      * 
@@ -638,10 +624,6 @@ public class CallCreator extends Creator<Call> {
 
         if (sendDigits != null) {
             request.addPostParam("SendDigits", sendDigits);
-        }
-
-        if (ifMachine != null) {
-            request.addPostParam("IfMachine", ifMachine);
         }
 
         if (timeout != null) {

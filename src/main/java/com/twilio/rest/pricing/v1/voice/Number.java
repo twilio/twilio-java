@@ -41,7 +41,7 @@ public class Number extends Resource {
     /**
      * Create a NumberFetcher to execute fetch.
      * 
-     * @param pathNumber The number
+     * @param pathNumber The phone number to fetch
      * @return NumberFetcher capable of executing the fetch
      */
     public static NumberFetcher fetcher(final com.twilio.type.PhoneNumber pathNumber) {
@@ -119,18 +119,18 @@ public class Number extends Resource {
     }
 
     /**
-     * Returns The The number.
+     * Returns The The phone number.
      * 
-     * @return The number
+     * @return The phone number
      */
     public final com.twilio.type.PhoneNumber getNumber() {
         return this.number;
     }
 
     /**
-     * Returns The Name of the country.
+     * Returns The The name of the country.
      * 
-     * @return Name of the country
+     * @return The name of the country
      */
     public final String getCountry() {
         return this.country;
@@ -146,20 +146,18 @@ public class Number extends Resource {
     }
 
     /**
-     * Returns The See OutboundCallPrice record.
+     * Returns The The OutboundCallPrice record.
      * 
-     * @return See OutboundCallPrice record
+     * @return The OutboundCallPrice record
      */
     public final OutboundCallPrice getOutboundCallPrice() {
         return this.outboundCallPrice;
     }
 
     /**
-     * Returns The See InboundCallPrice record (returned as null if the Phone Number
-     * provided is not a Twilio number owned by this account).
+     * Returns The The InboundCallPrice record.
      * 
-     * @return See InboundCallPrice record (returned as null if the Phone Number
-     *         provided is not a Twilio number owned by this account)
+     * @return The InboundCallPrice record
      */
     public final InboundCallPrice getInboundCallPrice() {
         return this.inboundCallPrice;
@@ -167,19 +165,19 @@ public class Number extends Resource {
 
     /**
      * Returns The The currency in which prices are measured, in ISO 4127 format
-     * (e.g. usd, eur, jpy)..
+     * (e.g. usd, eur, jpy).
      * 
      * @return The currency in which prices are measured, in ISO 4127 format (e.g.
-     *         usd, eur, jpy).
+     *         usd, eur, jpy)
      */
     public final Currency getPriceUnit() {
         return this.priceUnit;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the resource.
      * 
-     * @return The url
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;

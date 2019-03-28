@@ -29,9 +29,9 @@ public class MemberUpdater extends Updater<Member> {
     /**
      * Construct a new MemberUpdater.
      * 
-     * @param pathQueueSid The Queue in which to find the members
+     * @param pathQueueSid The SID of the Queue in which to find the members
      * @param pathCallSid The Call SID of the resource(s) to update
-     * @param url The absolute URL of this Queue resource
+     * @param url The absolute URL of the Queue resource
      * @param method How to pass the update request data
      */
     public MemberUpdater(final String pathQueueSid, 
@@ -49,9 +49,9 @@ public class MemberUpdater extends Updater<Member> {
      * 
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       update
-     * @param pathQueueSid The Queue in which to find the members
+     * @param pathQueueSid The SID of the Queue in which to find the members
      * @param pathCallSid The Call SID of the resource(s) to update
-     * @param url The absolute URL of this Queue resource
+     * @param url The absolute URL of the Queue resource
      * @param method How to pass the update request data
      */
     public MemberUpdater(final String pathAccountSid, 

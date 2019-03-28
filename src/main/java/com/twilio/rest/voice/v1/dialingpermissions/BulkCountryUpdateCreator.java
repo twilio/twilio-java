@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.voice.v1.voicepermission;
+package com.twilio.rest.voice.v1.dialingpermissions;
 
 import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;

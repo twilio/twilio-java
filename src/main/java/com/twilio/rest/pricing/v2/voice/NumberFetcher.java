@@ -25,16 +25,21 @@ public class NumberFetcher extends Fetcher<Number> {
     /**
      * Construct a new NumberFetcher.
      * 
-     * @param pathDestinationNumber Fetches voice prices for number
+     * @param pathDestinationNumber The destination number for which to fetch
+     *                              pricing information
      */
     public NumberFetcher(final com.twilio.type.PhoneNumber pathDestinationNumber) {
         this.pathDestinationNumber = pathDestinationNumber;
     }
 
     /**
-     * The origination_number.
+     * The origination phone number, in
+     * [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to
+     * fetch the origin-based voice pricing information. E.164 format consists of a
+     * + followed by the country code and subscriber number..
      * 
-     * @param originationNumber The origination_number
+     * @param originationNumber The origination number for which to fetch pricing
+     *                          information
      * @return this
      */
     public NumberFetcher setOriginationNumber(final com.twilio.type.PhoneNumber originationNumber) {
@@ -43,9 +48,13 @@ public class NumberFetcher extends Fetcher<Number> {
     }
 
     /**
-     * The origination_number.
+     * The origination phone number, in
+     * [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to
+     * fetch the origin-based voice pricing information. E.164 format consists of a
+     * + followed by the country code and subscriber number..
      * 
-     * @param originationNumber The origination_number
+     * @param originationNumber The origination number for which to fetch pricing
+     *                          information
      * @return this
      */
     public NumberFetcher setOriginationNumber(final String originationNumber) {

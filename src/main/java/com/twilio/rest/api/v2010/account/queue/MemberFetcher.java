@@ -25,7 +25,7 @@ public class MemberFetcher extends Fetcher<Member> {
     /**
      * Construct a new MemberFetcher.
      * 
-     * @param pathQueueSid The Queue in which to find the members
+     * @param pathQueueSid The SID of the Queue in which to find the members
      * @param pathCallSid The Call SID of the resource(s) to fetch
      */
     public MemberFetcher(final String pathQueueSid, 
@@ -39,7 +39,7 @@ public class MemberFetcher extends Fetcher<Member> {
      * 
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       fetch
-     * @param pathQueueSid The Queue in which to find the members
+     * @param pathQueueSid The SID of the Queue in which to find the members
      * @param pathCallSid The Call SID of the resource(s) to fetch
      */
     public MemberFetcher(final String pathAccountSid, 

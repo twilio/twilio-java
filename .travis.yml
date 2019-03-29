@@ -1,7 +1,10 @@
 language: java
 sudo: false
 jdk:
+  - oraclejdk11
+  - oraclejdk9
   - oraclejdk8
+  - openjdk8
   - openjdk7
 services:
   - docker

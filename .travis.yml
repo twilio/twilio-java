@@ -5,22 +5,22 @@ before_install:
 matrix:
   include:
 # OpenJDK
-    - env: JDK='OpenJDK 7'
+    - name: 'OpenJDK 7'
       jdk: openjdk7
-    - env: JDK='OpenJDK 8'
+    - name: 'OpenJDK 8'
       jdk: openjdk8
-    - env: JDK='OpenJDK 11'
+    - name: 'OpenJDK 11'
       install: . ./install-jdk.sh -L GPL -F 11
-    - env: JDK='OpenJDK 12'
+    - name: 'OpenJDK 12'
       install: . ./install-jdk.sh -L GPL -F 12
 # Oracle JDK
-    - env: JDK='Oracle JDK 7'
-      jdk: oraclejdk7
-    - env: JDK='Oracle JDK 8'
+    - name: 'Oracle JDK 7'
+      install: jdk_switcher oraclejdk7
+    - name: 'Oracle JDK 8'
       jdk: oraclejdk8
-    - env: JDK='Oracle JDK 11'
-      install: . ./install-jdk.sh -L BCL -F 11
-    - env: JDK='Oracle JDK 12'
+    - name: 'Oracle JDK 11'
+      jdk: oraclejdk11
+    - name: 'Oracle JDK 12'
       install: . ./install-jdk.sh -L BCL -F 12
   allow_failures:
     - env: JDK='OpenJDK 12'

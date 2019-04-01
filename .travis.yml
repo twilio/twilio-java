@@ -15,7 +15,7 @@ matrix:
       install: . ./install-jdk.sh -L GPL -F 12
 # Oracle JDK
     - name: 'Oracle JDK 7'
-      install: jdk_switcher oraclejdk7
+      install: jdk_switcher use oraclejdk7
     - name: 'Oracle JDK 8'
       jdk: oraclejdk8
     - name: 'Oracle JDK 11'

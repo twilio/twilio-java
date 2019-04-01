@@ -6,22 +6,22 @@ matrix:
   include:
 # OpenJDK
     - env: JDK='OpenJDK 7'
-      srcipt: source install-jdk.sh -L GPL -F 7
+      script: source install-jdk.sh -L GPL -F 7
     - env: JDK='OpenJDK 8'
-      srcipt: source install-jdk.sh -L GPL -F 8
+      script: source install-jdk.sh -L GPL -F 8
     - env: JDK='OpenJDK 11'
-      srcipt: source install-jdk.sh -L GPL -F 11
+      script: source install-jdk.sh -L GPL -F 11
     - env: JDK='OpenJDK 12'
-      srcipt: source install-jdk.sh -L GPL -F 12
+      script: source install-jdk.sh -L GPL -F 12
 # Oracle JDK
     - env: JDK='Oracle JDK 7'
-      srcipt: source install-jdk.sh -L BCL -F 7
+      script: source install-jdk.sh -L BCL -F 7
     - env: JDK='Oracle JDK 8'
-      srcipt: source install-jdk.sh -L BCL -F 8
+      script: source install-jdk.sh -L BCL -F 8
     - env: JDK='Oracle JDK 11'
-      srcipt: source install-jdk.sh -L BCL -F 11
+      script: source install-jdk.sh -L BCL -F 11
     - env: JDK='Oracle JDK 12'
-      srcipt: source install-jdk.sh -L BCL -F 12
+      script: source install-jdk.sh -L BCL -F 12
   allow_failures:
     - env: JDK='OpenJDK 12'
     - env: JDK='Oracle JDK 12'

@@ -21,8 +21,8 @@ matrix:
     - name: 'Oracle JDK 12'
       install: . ./install-jdk.sh -L BCL -F 12
   allow_failures:
-    - env: JDK='OpenJDK 12'
-    - env: JDK='Oracle JDK 12'
+    - name: 'OpenJDK 12'
+    - name: 'Oracle JDK 12'
 services:
   - docker
 notifications:

@@ -79,14 +79,10 @@ public class NetworkHttpClientTest {
             mockRequest.requiresAuthentication();
             result = requiresAuthentication;
 
-            if (requiresAuthentication) {
-                mockRequest.getAuthString();
-                result = "foo:bar";
-            }
+            mockRequest.getAuthString();
+            result = "foo:bar";
 
-            if (method == HttpMethod.POST) {
-                mockRequest.getPostParams();
-            }
+            mockRequest.getPostParams();
 
             mockClient.execute((HttpUriRequest) any);
             result = mockResponse;

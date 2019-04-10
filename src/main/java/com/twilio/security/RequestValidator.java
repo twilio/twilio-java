@@ -11,6 +11,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -36,8 +37,8 @@ public class RequestValidator {
     }
 
     public boolean validate(String url, String body, String expectedSignature) throws URISyntaxException {
-        Map<String, String> empty = new HashMap<String, String>();
-        List<NameValuePair> params = URLEncodedUtils.parse(new URI(url), StandardCharsets.UTF_8.toString());
+        Map<String, String> empty = new HashMap<>();
+        List<NameValuePair> params = URLEncodedUtils.parse(new URI(url), Charset.forName("UTF-8"));
 
         NameValuePair bodySHA256 = null;
         for (NameValuePair param : params) {

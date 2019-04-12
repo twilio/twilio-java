@@ -96,7 +96,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceFetcher to execute fetch.
      * 
-     * @param pathSid A string that uniquely identifies this Service.
+     * @param pathSid The unique string that identifies the resource
      * @return ServiceFetcher capable of executing the fetch
      */
     public static ServiceFetcher fetcher(final String pathSid) {
@@ -115,8 +115,8 @@ public class Service extends Resource {
     /**
      * Create a ServiceCreator to execute create.
      * 
-     * @param uniqueName The human-readable string that uniquely identifies this
-     *                   Service.
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      * @return ServiceCreator capable of executing the create
      */
     public static ServiceCreator creator(final String uniqueName) {
@@ -126,7 +126,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceDeleter to execute delete.
      * 
-     * @param pathSid A string that uniquely identifies this Service.
+     * @param pathSid The unique string that identifies the resource
      * @return ServiceDeleter capable of executing the delete
      */
     public static ServiceDeleter deleter(final String pathSid) {
@@ -136,7 +136,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceUpdater to execute update.
      * 
-     * @param pathSid A string that uniquely identifies this Service.
+     * @param pathSid The unique string that identifies the resource
      * @return ServiceUpdater capable of executing the update
      */
     public static ServiceUpdater updater(final String pathSid) {
@@ -241,128 +241,133 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Service..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies this Service.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A human-readable description of this resource..
+     * Returns The An application-defined string that uniquely identifies the
+     * resource.
      * 
-     * @return A human-readable description of this resource.
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return Account Sid.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The Chat Service Instance sid managed by Proxy Service.
+     * Returns The The SID of the Chat Service Instance.
      * 
-     * @return The Chat Service Instance sid managed by Proxy Service
+     * @return The SID of the Chat Service Instance
      */
     public final String getChatInstanceSid() {
         return this.chatInstanceSid;
     }
 
     /**
-     * Returns The URL Twilio will send callbacks to.
+     * Returns The The URL we call when the interaction status changes.
      * 
-     * @return URL Twilio will send callbacks to
+     * @return The URL we call when the interaction status changes
      */
     public final URI getCallbackUrl() {
         return this.callbackUrl;
     }
 
     /**
-     * Returns The Default TTL for a Session, in seconds..
+     * Returns The Default TTL for a Session, in seconds.
      * 
-     * @return Default TTL for a Session, in seconds.
+     * @return Default TTL for a Session, in seconds
      */
     public final Integer getDefaultTtl() {
         return this.defaultTtl;
     }
 
     /**
-     * Returns The What behavior to use when choosing a proxy number..
+     * Returns The The preference for Proxy Number selection for the Service
+     * instance.
      * 
-     * @return What behavior to use when choosing a proxy number.
+     * @return The preference for Proxy Number selection for the Service instance
      */
     public final Service.NumberSelectionBehavior getNumberSelectionBehavior() {
         return this.numberSelectionBehavior;
     }
 
     /**
-     * Returns The Whether proxy number selected must be in the same area code as
-     * the participant identifier..
+     * Returns The Where a proxy number must be located relative to the participant
+     * identifier.
      * 
-     * @return Whether proxy number selected must be in the same area code as the
-     *         participant identifier.
+     * @return Where a proxy number must be located relative to the participant
+     *         identifier
      */
     public final Service.GeoMatchLevel getGeoMatchLevel() {
         return this.geoMatchLevel;
     }
 
     /**
-     * Returns The A URL for Twilio call before each Interaction..
+     * Returns The The URL we call on each interaction.
      * 
-     * @return A URL for Twilio call before each Interaction.
+     * @return The URL we call on each interaction
      */
     public final URI getInterceptCallbackUrl() {
         return this.interceptCallbackUrl;
     }
 
     /**
-     * Returns The A URL for Twilio call when a new Interaction has no Session..
+     * Returns The The URL we call when an inbound call or SMS action occurs on a
+     * closed or non-existent Session.
      * 
-     * @return A URL for Twilio call when a new Interaction has no Session.
+     * @return The URL we call when an inbound call or SMS action occurs on a
+     *         closed or non-existent Session
      */
     public final URI getOutOfSessionCallbackUrl() {
         return this.outOfSessionCallbackUrl;
     }
 
     /**
-     * Returns The The date this Service was created.
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      * 
-     * @return The date this Service was created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Service was last updated.
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date this Service was last updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The The absolute URL of the Service resource.
      * 
-     * @return The URL of this resource.
+     * @return The absolute URL of the Service resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Nested resource URLs..
+     * Returns The The URLs of resources related to the Service.
      * 
-     * @return Nested resource URLs.
+     * @return The URLs of resources related to the Service
      */
     public final Map<String, String> getLinks() {
         return this.links;

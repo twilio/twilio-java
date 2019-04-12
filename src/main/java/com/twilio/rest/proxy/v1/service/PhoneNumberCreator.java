@@ -31,17 +31,17 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
     /**
      * Construct a new PhoneNumberCreator.
      * 
-     * @param pathServiceSid Service Sid.
+     * @param pathServiceSid The SID of the resource's parent Service
      */
     public PhoneNumberCreator(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
     /**
-     * A Twilio
-     * [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incoming-phone-numbers) Sid that represents the Twilio Number you would like to assign to your Proxy Service (e.g. `PN1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d`)..
+     * The SID of a Twilio
+     * [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incoming-phone-numbers) resource that represents the Twilio Number you would like to assign to your Proxy Service..
      * 
-     * @param sid Phone Number Sid of Twilio Number to assign to your Proxy Service
+     * @param sid The SID of a Twilio IncomingPhoneNumber resource
      * @return this
      */
     public PhoneNumberCreator setSid(final String sid) {
@@ -50,11 +50,11 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
     }
 
     /**
-     * A string that represents the Twilio Number you would like to assign to your
-     * Proxy Service. Provide number in [E.164](https://en.wikipedia.org/wiki/E.164)
-     * format (e.g. `+16175551212`)..
+     * The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164)
+     * format.  E.164 phone numbers consist of a + followed by the country code and
+     * subscriber number without punctuation characters. For example, +14155551234..
      * 
-     * @param phoneNumber Twilio Number to assign to your Proxy Service
+     * @param phoneNumber The phone number in E.164 format
      * @return this
      */
     public PhoneNumberCreator setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
@@ -63,11 +63,11 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
     }
 
     /**
-     * A string that represents the Twilio Number you would like to assign to your
-     * Proxy Service. Provide number in [E.164](https://en.wikipedia.org/wiki/E.164)
-     * format (e.g. `+16175551212`)..
+     * The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164)
+     * format.  E.164 phone numbers consist of a + followed by the country code and
+     * subscriber number without punctuation characters. For example, +14155551234..
      * 
-     * @param phoneNumber Twilio Number to assign to your Proxy Service
+     * @param phoneNumber The phone number in E.164 format
      * @return this
      */
     public PhoneNumberCreator setPhoneNumber(final String phoneNumber) {
@@ -75,12 +75,12 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
     }
 
     /**
-     * Whether or not the number should be excluded from being assigned to a
+     * Whether the new phone number should be reserved and not be assigned to a
      * participant using proxy pool logic. See [Reserved Phone
      * Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more
      * information..
      * 
-     * @param isReserved Reserve for manual assignment to participants only.
+     * @param isReserved Whether the new phone number should be reserved
      * @return this
      */
     public PhoneNumberCreator setIsReserved(final Boolean isReserved) {

@@ -37,7 +37,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Configuration extends Resource {
-    private static final long serialVersionUID = 271119667698976L;
+    private static final long serialVersionUID = 255908785798075L;
 
     public enum Status {
         OK("ok"),
@@ -158,6 +158,8 @@ public class Configuration extends Resource {
     private final URI crmFallbackUrl;
     private final Map<String, Object> crmAttributes;
     private final Map<String, Object> publicAttributes;
+    private final Boolean pluginServiceEnabled;
+    private final Map<String, Object> pluginServiceAttributes;
     private final URI url;
 
     @JsonCreator
@@ -217,6 +219,10 @@ public class Configuration extends Resource {
                           final Map<String, Object> crmAttributes, 
                           @JsonProperty("public_attributes")
                           final Map<String, Object> publicAttributes, 
+                          @JsonProperty("plugin_service_enabled")
+                          final Boolean pluginServiceEnabled, 
+                          @JsonProperty("plugin_service_attributes")
+                          final Map<String, Object> pluginServiceAttributes, 
                           @JsonProperty("url")
                           final URI url) {
         this.accountSid = accountSid;
@@ -247,6 +253,8 @@ public class Configuration extends Resource {
         this.crmFallbackUrl = crmFallbackUrl;
         this.crmAttributes = crmAttributes;
         this.publicAttributes = publicAttributes;
+        this.pluginServiceEnabled = pluginServiceEnabled;
+        this.pluginServiceAttributes = pluginServiceAttributes;
         this.url = url;
     }
 
@@ -508,6 +516,24 @@ public class Configuration extends Resource {
     }
 
     /**
+     * Returns The Is plugin service Enabled.
+     * 
+     * @return Is plugin service Enabled
+     */
+    public final Boolean getPluginServiceEnabled() {
+        return this.pluginServiceEnabled;
+    }
+
+    /**
+     * Returns The Plugin service Attributes.
+     * 
+     * @return Plugin service Attributes
+     */
+    public final Map<String, Object> getPluginServiceAttributes() {
+        return this.pluginServiceAttributes;
+    }
+
+    /**
      * Returns The The URL for this resource.
      * 
      * @return The URL for this resource
@@ -556,6 +582,8 @@ public class Configuration extends Resource {
                Objects.equals(crmFallbackUrl, other.crmFallbackUrl) && 
                Objects.equals(crmAttributes, other.crmAttributes) && 
                Objects.equals(publicAttributes, other.publicAttributes) && 
+               Objects.equals(pluginServiceEnabled, other.pluginServiceEnabled) && 
+               Objects.equals(pluginServiceAttributes, other.pluginServiceAttributes) && 
                Objects.equals(url, other.url);
     }
 
@@ -589,6 +617,8 @@ public class Configuration extends Resource {
                             crmFallbackUrl,
                             crmAttributes,
                             publicAttributes,
+                            pluginServiceEnabled,
+                            pluginServiceAttributes,
                             url);
     }
 
@@ -623,6 +653,8 @@ public class Configuration extends Resource {
                           .add("crmFallbackUrl", crmFallbackUrl)
                           .add("crmAttributes", crmAttributes)
                           .add("publicAttributes", publicAttributes)
+                          .add("pluginServiceEnabled", pluginServiceEnabled)
+                          .add("pluginServiceAttributes", pluginServiceAttributes)
                           .add("url", url)
                           .toString();
     }

@@ -43,9 +43,9 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantFetcher to execute fetch.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
-     * @param pathSid A string that uniquely identifies this Participant.
+     * @param pathServiceSid The SID of the parent Service of the resource to fetch
+     * @param pathSessionSid The SID of the parent Session of the resource to fetch
+     * @param pathSid The unique string that identifies the resource
      * @return ParticipantFetcher capable of executing the fetch
      */
     public static ParticipantFetcher fetcher(final String pathServiceSid, 
@@ -57,8 +57,8 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantReader to execute read.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
+     * @param pathServiceSid The SID of the parent Service of the resource to read
+     * @param pathSessionSid The SID of the parent Session of the resource to read
      * @return ParticipantReader capable of executing the read
      */
     public static ParticipantReader reader(final String pathServiceSid, 
@@ -69,9 +69,9 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantCreator to execute create.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
-     * @param identifier The phone number of this Participant.
+     * @param pathServiceSid The SID of the parent Service resource
+     * @param pathSessionSid The SID of the parent Session resource
+     * @param identifier The phone number of the Participant
      * @return ParticipantCreator capable of executing the create
      */
     public static ParticipantCreator creator(final String pathServiceSid, 
@@ -83,9 +83,9 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantDeleter to execute delete.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
-     * @param pathSid A string that uniquely identifies this Participant.
+     * @param pathServiceSid The SID of the parent Service of the resource to delete
+     * @param pathSessionSid The SID of the parent Session of the resource to delete
+     * @param pathSid The unique string that identifies the resource
      * @return ParticipantDeleter capable of executing the delete
      */
     public static ParticipantDeleter deleter(final String pathServiceSid, 
@@ -189,117 +189,118 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Participant..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies this Participant.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Session Sid..
+     * Returns The The SID of the resource's parent Session.
      * 
-     * @return Session Sid.
+     * @return The SID of the resource's parent Session
      */
     public final String getSessionSid() {
         return this.sessionSid;
     }
 
     /**
-     * Returns The Service Sid..
+     * Returns The The SID of the resource's parent Service.
      * 
-     * @return Service Sid.
+     * @return The SID of the resource's parent Service
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return Account Sid.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The A human-readable description of this resource..
+     * Returns The The string that you assigned to describe the participant.
      * 
-     * @return A human-readable description of this resource.
+     * @return The string that you assigned to describe the participant
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The phone number of this Participant..
+     * Returns The The phone number of the Participant.
      * 
-     * @return The phone number of this Participant.
+     * @return The phone number of the Participant
      */
     public final String getIdentifier() {
         return this.identifier;
     }
 
     /**
-     * Returns The Proxy Identifier..
+     * Returns The The phone number or short code of the participant's partner.
      * 
-     * @return Proxy Identifier.
+     * @return The phone number or short code of the participant's partner
      */
     public final String getProxyIdentifier() {
         return this.proxyIdentifier;
     }
 
     /**
-     * Returns The Proxy Identifier Sid..
+     * Returns The The SID of the Proxy Identifier assigned to the Participant.
      * 
-     * @return Proxy Identifier Sid.
+     * @return The SID of the Proxy Identifier assigned to the Participant
      */
     public final String getProxyIdentifierSid() {
         return this.proxyIdentifierSid;
     }
 
     /**
-     * Returns The The date this Participant was removed.
+     * Returns The The ISO 8601 date the Participant was removed.
      * 
-     * @return The date this Participant was removed
+     * @return The ISO 8601 date the Participant was removed
      */
     public final DateTime getDateDeleted() {
         return this.dateDeleted;
     }
 
     /**
-     * Returns The The date this Participant was created.
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      * 
-     * @return The date this Participant was created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Participant was last updated.
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date this Participant was last updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The The absolute URL of the Participant resource.
      * 
-     * @return The URL of this resource.
+     * @return The absolute URL of the Participant resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Nested resource URLs..
+     * Returns The The URLs to resources related the participant.
      * 
-     * @return Nested resource URLs.
+     * @return The URLs to resources related the participant
      */
     public final Map<String, String> getLinks() {
         return this.links;

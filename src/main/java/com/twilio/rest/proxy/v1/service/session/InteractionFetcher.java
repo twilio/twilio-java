@@ -29,9 +29,9 @@ public class InteractionFetcher extends Fetcher<Interaction> {
     /**
      * Construct a new InteractionFetcher.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
-     * @param pathSid A string that uniquely identifies this Interaction.
+     * @param pathServiceSid The SID of the parent Service of the resource to fetch
+     * @param pathSessionSid he SID of the parent Session of the resource to fetch
+     * @param pathSid The unique string that identifies the resource
      */
     public InteractionFetcher(final String pathServiceSid, 
                               final String pathSessionSid, 

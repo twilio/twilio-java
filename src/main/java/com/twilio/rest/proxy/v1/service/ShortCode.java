@@ -44,8 +44,8 @@ public class ShortCode extends Resource {
     /**
      * Create a ShortCodeCreator to execute create.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param sid A string that uniquely identifies this Short Code.
+     * @param pathServiceSid The SID of the parent Service resource
+     * @param sid The SID of a Twilio ShortCode resource
      * @return ShortCodeCreator capable of executing the create
      */
     public static ShortCodeCreator creator(final String pathServiceSid, 
@@ -56,8 +56,9 @@ public class ShortCode extends Resource {
     /**
      * Create a ShortCodeDeleter to execute delete.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Short Code.
+     * @param pathServiceSid The SID of the parent Service to delete the ShortCode
+     *                       resource from
+     * @param pathSid The unique string that identifies the resource
      * @return ShortCodeDeleter capable of executing the delete
      */
     public static ShortCodeDeleter deleter(final String pathServiceSid, 
@@ -68,7 +69,7 @@ public class ShortCode extends Resource {
     /**
      * Create a ShortCodeReader to execute read.
      * 
-     * @param pathServiceSid Service Sid.
+     * @param pathServiceSid The SID of the parent Service to read the resource from
      * @return ShortCodeReader capable of executing the read
      */
     public static ShortCodeReader reader(final String pathServiceSid) {
@@ -78,8 +79,9 @@ public class ShortCode extends Resource {
     /**
      * Create a ShortCodeFetcher to execute fetch.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Short Code.
+     * @param pathServiceSid The SID of the parent Service to fetch the resource
+     *                       from
+     * @param pathSid The unique string that identifies the resource
      * @return ShortCodeFetcher capable of executing the fetch
      */
     public static ShortCodeFetcher fetcher(final String pathServiceSid, 
@@ -90,8 +92,8 @@ public class ShortCode extends Resource {
     /**
      * Create a ShortCodeUpdater to execute update.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Short Code.
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathSid The unique string that identifies the resource
      * @return ShortCodeUpdater capable of executing the update
      */
     public static ShortCodeUpdater updater(final String pathServiceSid, 
@@ -182,90 +184,93 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Short Code..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies this Short Code.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return Account Sid.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Service Sid..
+     * Returns The The SID of the resource's parent Service.
      * 
-     * @return Service Sid.
+     * @return The SID of the resource's parent Service
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The date this Short Code was added to the service.
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      * 
-     * @return The date this Short Code was added to the service
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Short Code was updated.
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date this Short Code was updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The Shortcode..
+     * Returns The The short code's number.
      * 
-     * @return Shortcode.
+     * @return The short code's number
      */
     public final String getShortCode() {
         return this.shortCode;
     }
 
     /**
-     * Returns The ISO Country Code,.
+     * Returns The The ISO Country Code.
      * 
-     * @return ISO Country Code,
+     * @return The ISO Country Code
      */
     public final String getIsoCountry() {
         return this.isoCountry;
     }
 
     /**
-     * Returns The A list of capabilities..
+     * Returns The The capabilities of the short code.
      * 
-     * @return A list of capabilities.
+     * @return The capabilities of the short code
      */
     public final PhoneNumberCapabilities getCapabilities() {
         return this.capabilities;
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The The absolute URL of the ShortCode resource.
      * 
-     * @return The URL of this resource.
+     * @return The absolute URL of the ShortCode resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Reserve for manual assignment to participants only..
+     * Returns The Whether the short code should be reserved for manual assignment
+     * to participants only.
      * 
-     * @return Reserve for manual assignment to participants only.
+     * @return Whether the short code should be reserved for manual assignment to
+     *         participants only
      */
     public final Boolean getIsReserved() {
         return this.isReserved;

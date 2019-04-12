@@ -44,7 +44,7 @@ public class PhoneNumber extends Resource {
     /**
      * Create a PhoneNumberCreator to execute create.
      * 
-     * @param pathServiceSid Service Sid.
+     * @param pathServiceSid The SID of the resource's parent Service
      * @return PhoneNumberCreator capable of executing the create
      */
     public static PhoneNumberCreator creator(final String pathServiceSid) {
@@ -54,8 +54,9 @@ public class PhoneNumber extends Resource {
     /**
      * Create a PhoneNumberDeleter to execute delete.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Phone Number.
+     * @param pathServiceSid The SID of the parent Service resource of the
+     *                       PhoneNumber resource to delete
+     * @param pathSid The unique string that identifies the resource
      * @return PhoneNumberDeleter capable of executing the delete
      */
     public static PhoneNumberDeleter deleter(final String pathServiceSid, 
@@ -66,7 +67,8 @@ public class PhoneNumber extends Resource {
     /**
      * Create a PhoneNumberReader to execute read.
      * 
-     * @param pathServiceSid Service Sid.
+     * @param pathServiceSid The SID of the parent Service resource of the
+     *                       PhoneNumber resource to read
      * @return PhoneNumberReader capable of executing the read
      */
     public static PhoneNumberReader reader(final String pathServiceSid) {
@@ -76,8 +78,9 @@ public class PhoneNumber extends Resource {
     /**
      * Create a PhoneNumberFetcher to execute fetch.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Phone Number.
+     * @param pathServiceSid The SID of the parent Service resource of the
+     *                       PhoneNumber resource to fetch
+     * @param pathSid The unique string that identifies the resource
      * @return PhoneNumberFetcher capable of executing the fetch
      */
     public static PhoneNumberFetcher fetcher(final String pathServiceSid, 
@@ -88,8 +91,9 @@ public class PhoneNumber extends Resource {
     /**
      * Create a PhoneNumberUpdater to execute update.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Phone Number.
+     * @param pathServiceSid The SID of the parent Service resource of the
+     *                       PhoneNumber resource to update
+     * @param pathSid The unique string that identifies the resource
      * @return PhoneNumberUpdater capable of executing the update
      */
     public static PhoneNumberUpdater updater(final String pathServiceSid, 
@@ -184,99 +188,101 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Phone Number..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies this Phone Number.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return Account Sid.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Service Sid..
+     * Returns The The SID of the PhoneNumber resource's parent Service resource.
      * 
-     * @return Service Sid.
+     * @return The SID of the PhoneNumber resource's parent Service resource
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The date this Phone Number was added to the service.
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      * 
-     * @return The date this Phone Number was added to the service
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Phone Number was updated.
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date this Phone Number was updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The phone number..
+     * Returns The The phone number in E.164 format.
      * 
-     * @return The phone number.
+     * @return The phone number in E.164 format
      */
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 
     /**
-     * Returns The A human-readable description of this resource..
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return A human-readable description of this resource.
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The ISO Country Code,.
+     * Returns The The ISO Country Code.
      * 
-     * @return ISO Country Code,
+     * @return The ISO Country Code
      */
     public final String getIsoCountry() {
         return this.isoCountry;
     }
 
     /**
-     * Returns The A list of capabilities..
+     * Returns The The capabilities of the phone number.
      * 
-     * @return A list of capabilities.
+     * @return The capabilities of the phone number
      */
     public final PhoneNumberCapabilities getCapabilities() {
         return this.capabilities;
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The The absolute URL of the PhoneNumber resource.
      * 
-     * @return The URL of this resource.
+     * @return The absolute URL of the PhoneNumber resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Reserve for manual assignment to participants only..
+     * Returns The Reserve the phone number for manual assignment to participants
+     * only.
      * 
-     * @return Reserve for manual assignment to participants only.
+     * @return Reserve the phone number for manual assignment to participants only
      */
     public final Boolean getIsReserved() {
         return this.isReserved;

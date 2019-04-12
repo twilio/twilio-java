@@ -28,8 +28,9 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     /**
      * Construct a new PhoneNumberFetcher.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Phone Number.
+     * @param pathServiceSid The SID of the parent Service resource of the
+     *                       PhoneNumber resource to fetch
+     * @param pathSid The unique string that identifies the resource
      */
     public PhoneNumberFetcher(final String pathServiceSid, 
                               final String pathSid) {

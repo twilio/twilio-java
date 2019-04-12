@@ -68,8 +68,8 @@ public class VerificationCheck extends Resource {
     /**
      * Create a VerificationCheckCreator to execute create.
      * 
-     * @param pathServiceSid The SID of the Verify Service to be used to check a
-     *                       verification.
+     * @param pathServiceSid The SID of the verification Service to create the
+     *                       resource under
      * @param code The verification string
      * @return VerificationCheckCreator capable of executing the create
      */
@@ -165,99 +165,103 @@ public class VerificationCheck extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Verification Check..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies this Verification Check.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Service Sid..
+     * Returns The The SID of the Service that the resource is associated with.
      * 
-     * @return Service Sid.
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return Account Sid.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The To phone number.
+     * Returns The The phone number being verified.
      * 
-     * @return To phone number
+     * @return The phone number being verified
      */
     public final String getTo() {
         return this.to;
     }
 
     /**
-     * Returns The sms or call.
+     * Returns The The verification method to use.
      * 
-     * @return sms or call
+     * @return The verification method to use
      */
     public final VerificationCheck.Channel getChannel() {
         return this.channel;
     }
 
     /**
-     * Returns The pending, approved, denied or expired.
+     * Returns The The status of the verification resource.
      * 
-     * @return pending, approved, denied or expired
+     * @return The status of the verification resource
      */
     public final String getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The successful verification.
+     * Returns The Whether the verification was successful.
      * 
-     * @return successful verification
+     * @return Whether the verification was successful
      */
     public final Boolean getValid() {
         return this.valid;
     }
 
     /**
-     * Returns The Amount of the associated PSD2 compliant transaction..
+     * Returns The The amount of the associated PSD2 compliant transaction..
      * 
-     * @return Amount of the associated PSD2 compliant transaction.
+     * @return The amount of the associated PSD2 compliant transaction.
      */
     public final String getAmount() {
         return this.amount;
     }
 
     /**
-     * Returns The Payee of the associated PSD2 compliant transaction..
+     * Returns The The payee of the associated PSD2 compliant transaction.
      * 
-     * @return Payee of the associated PSD2 compliant transaction.
+     * @return The payee of the associated PSD2 compliant transaction
      */
     public final String getPayee() {
         return this.payee;
     }
 
     /**
-     * Returns The The date this Verification Check was created.
+     * Returns The The ISO 8601 date and time in GMT when the Verification Check
+     * resource was created.
      * 
-     * @return The date this Verification Check was created
+     * @return The ISO 8601 date and time in GMT when the Verification Check
+     *         resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Verification Check was updated.
+     * Returns The The ISO 8601 date and time in GMT when the Verification Check
+     * resource was last updated.
      * 
-     * @return The date this Verification Check was updated
+     * @return The ISO 8601 date and time in GMT when the Verification Check
+     *         resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;

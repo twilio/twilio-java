@@ -30,8 +30,8 @@ public class ParticipantReader extends Reader<Participant> {
     /**
      * Construct a new ParticipantReader.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
+     * @param pathServiceSid The SID of the parent Service of the resource to read
+     * @param pathSessionSid The SID of the parent Session of the resource to read
      */
     public ParticipantReader(final String pathServiceSid, 
                              final String pathSessionSid) {

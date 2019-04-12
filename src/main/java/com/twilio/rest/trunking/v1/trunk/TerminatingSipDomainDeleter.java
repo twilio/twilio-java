@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.verify.v1;
+package com.twilio.rest.trunking.v1.trunk;
 
-import com.twilio.base.Fetcher;
+import com.twilio.base.Deleter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -17,42 +17,41 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
-public class ServiceFetcher extends Fetcher<Service> {
+public class TerminatingSipDomainDeleter extends Deleter<TerminatingSipDomain> {
+    private final String pathTrunkSid;
     private final String pathSid;
 
     /**
-     * Construct a new ServiceFetcher.
+     * Construct a new TerminatingSipDomainDeleter.
      * 
-     * @param pathSid Verification Service Instance SID.
+     * @param pathTrunkSid The unique sid of the trunk.
+     * @param pathSid The unique sid of the domain.
      */
-    public ServiceFetcher(final String pathSid) {
+    public TerminatingSipDomainDeleter(final String pathTrunkSid, 
+                                       final String pathSid) {
+        this.pathTrunkSid = pathTrunkSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch.
+     * Make the request to the Twilio API to perform the delete.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Service
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Service fetch(final TwilioRestClient client) {
+    public boolean delete(final TwilioRestClient client) {
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.VERIFY.toString(),
-            "/v1/Services/" + this.pathSid + "",
+            HttpMethod.DELETE,
+            Domains.TRUNKING.toString(),
+            "/v1/Trunks/" + this.pathTrunkSid + "/TerminatingSipDomains/" + this.pathSid + "",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Service fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("TerminatingSipDomain delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -68,6 +67,6 @@ public class ServiceFetcher extends Fetcher<Service> {
             );
         }
 
-        return Service.fromJson(response.getStream(), client.getObjectMapper());
+        return response.getStatusCode() == 204;
     }
 }

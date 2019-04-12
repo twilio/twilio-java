@@ -37,19 +37,20 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * Construct a new ServiceCreator.
      * 
-     * @param uniqueName The human-readable string that uniquely identifies this
-     *                   Service.
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      */
     public ServiceCreator(final String uniqueName) {
         this.uniqueName = uniqueName;
     }
 
     /**
-     * The default time delay in seconds after the latest of Session create time or
-     * the Session's last Interaction time, after which a session will expire.  Used
-     * for sessions where TTL is not specified..
+     * The default `ttl` value to set for Sessions created in the Service. The TTL
+     * (time to live) is measured in seconds after the Session's last create or last
+     * Interaction. The default value of `0` indicates an unlimited Session length.
+     * You can override a Session's default TTL value by setting its `ttl` value..
      * 
-     * @param defaultTtl Default TTL for Sessions in Service, in seconds.
+     * @param defaultTtl Default TTL for a Session, in seconds
      * @return this
      */
     public ServiceCreator setDefaultTtl(final Integer defaultTtl) {
@@ -58,9 +59,9 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The URL to which Twilio will make callbacks on interaction status changes..
+     * The URL we should call when the interaction status changes..
      * 
-     * @param callbackUrl URL Twilio will send callbacks to
+     * @param callbackUrl The URL we should call when the interaction status changes
      * @return this
      */
     public ServiceCreator setCallbackUrl(final URI callbackUrl) {
@@ -69,9 +70,9 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The URL to which Twilio will make callbacks on interaction status changes..
+     * The URL we should call when the interaction status changes..
      * 
-     * @param callbackUrl URL Twilio will send callbacks to
+     * @param callbackUrl The URL we should call when the interaction status changes
      * @return this
      */
     public ServiceCreator setCallbackUrl(final String callbackUrl) {
@@ -79,13 +80,13 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * Whether proxy number selected must be in the same area code as the
-     * participant identifier. Options: `country`, `area-code`,
-     * `extended-area-code`. Default: `country`. Levels lower than country are only
-     * available in North America..
+     * Where a proxy number must be located relative to the participant identifier.
+     * Can be: `country`, `area-code`, or `extended-area-code`. The default value is
+     * `country` and more specific areas than `country` are only available in North
+     * America..
      * 
-     * @param geoMatchLevel Whether proxy number selected must be in the same area
-     *                      code as the participant identifier.
+     * @param geoMatchLevel Where a proxy number must be located relative to the
+     *                      participant identifier
      * @return this
      */
     public ServiceCreator setGeoMatchLevel(final Service.GeoMatchLevel geoMatchLevel) {
@@ -94,10 +95,17 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * Options: `prefer-sticky`, `avoid-sticky`. Default: `prefer-sticky`..
+     * The preference for Proxy Number selection in the Service instance. Can be:
+     * `prefer-sticky` or `avoid-sticky` and the default is `prefer-sticky`.
+     * `prefer-sticky` means that we will try and select the same Proxy Number for a
+     * given participant if they have previous
+     * [Sessions](https://www.twilio.com/docs/proxy/api/session), but we will not
+     * fail if that Proxy Number cannot be used.  `avoid-sticky` means that we will
+     * try to use different Proxy Numbers as long as that is possible within a given
+     * pool rather than try and use a previously assigned number..
      * 
-     * @param numberSelectionBehavior What behavior to use when choosing a proxy
-     *                                number.
+     * @param numberSelectionBehavior The preference for Proxy Number selection for
+     *                                the Service instance
      * @return this
      */
     public ServiceCreator setNumberSelectionBehavior(final Service.NumberSelectionBehavior numberSelectionBehavior) {
@@ -106,10 +114,10 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * A URL for Twilio call before each Interaction. Returning a 403 status code
-     * will prevent the interaction from continuing..
+     * The URL we call on each interaction. If we receive a 403 status, we block the
+     * interaction; otherwise the interaction continues..
      * 
-     * @param interceptCallbackUrl A URL for Twilio call before each Interaction.
+     * @param interceptCallbackUrl The URL we call on each interaction
      * @return this
      */
     public ServiceCreator setInterceptCallbackUrl(final URI interceptCallbackUrl) {
@@ -118,10 +126,10 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * A URL for Twilio call before each Interaction. Returning a 403 status code
-     * will prevent the interaction from continuing..
+     * The URL we call on each interaction. If we receive a 403 status, we block the
+     * interaction; otherwise the interaction continues..
      * 
-     * @param interceptCallbackUrl A URL for Twilio call before each Interaction.
+     * @param interceptCallbackUrl The URL we call on each interaction
      * @return this
      */
     public ServiceCreator setInterceptCallbackUrl(final String interceptCallbackUrl) {
@@ -129,14 +137,19 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * A URL for Twilio call when a new Interaction has no
-     * [Session](https://www.twilio.com/docs/proxy/api/session). See [Out-of-Session
-     * Callback Response
+     * The URL we should call when an inbound call or SMS action occurs on a closed
+     * or non-existent Session. If your server (or a Twilio
+     * [function](https://www.twilio.com/functions)) responds with valid
+     * [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This
+     * means it is possible, for example, to play a message for a call, send an
+     * automated text message response, or redirect a call to another Phone Number.
+     * See [Out-of-Session Callback Response
      * Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide)
      * for more information..
      * 
-     * @param outOfSessionCallbackUrl A URL for Twilio call when a new Interaction
-     *                                has no Session.
+     * @param outOfSessionCallbackUrl The URL we call when an inbound call or SMS
+     *                                action occurs on a closed or non-existent
+     *                                Session
      * @return this
      */
     public ServiceCreator setOutOfSessionCallbackUrl(final URI outOfSessionCallbackUrl) {
@@ -145,14 +158,19 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * A URL for Twilio call when a new Interaction has no
-     * [Session](https://www.twilio.com/docs/proxy/api/session). See [Out-of-Session
-     * Callback Response
+     * The URL we should call when an inbound call or SMS action occurs on a closed
+     * or non-existent Session. If your server (or a Twilio
+     * [function](https://www.twilio.com/functions)) responds with valid
+     * [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This
+     * means it is possible, for example, to play a message for a call, send an
+     * automated text message response, or redirect a call to another Phone Number.
+     * See [Out-of-Session Callback Response
      * Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide)
      * for more information..
      * 
-     * @param outOfSessionCallbackUrl A URL for Twilio call when a new Interaction
-     *                                has no Session.
+     * @param outOfSessionCallbackUrl The URL we call when an inbound call or SMS
+     *                                action occurs on a closed or non-existent
+     *                                Session
      * @return this
      */
     public ServiceCreator setOutOfSessionCallbackUrl(final String outOfSessionCallbackUrl) {
@@ -160,11 +178,11 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The Chat Service Instance sid managed by Proxy Service. Enables Proxy to
-     * forward sms and channel messages to this chat instance. This is a one-to-one
-     * relationship..
+     * The SID of the Chat Service Instance managed by Proxy Service. The Chat
+     * Service enables Proxy to forward SMS and channel messages to this chat
+     * instance. This is a one-to-one relationship..
      * 
-     * @param chatInstanceSid The Chat Service Instance sid managed by Proxy Service
+     * @param chatInstanceSid The SID of the Chat Service Instance
      * @return this
      */
     public ServiceCreator setChatInstanceSid(final String chatInstanceSid) {

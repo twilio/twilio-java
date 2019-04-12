@@ -35,9 +35,9 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
     /**
      * Construct a new MessageInteractionCreator.
      * 
-     * @param pathServiceSid Service Sid
-     * @param pathSessionSid Session Sid
-     * @param pathParticipantSid Participant Sid
+     * @param pathServiceSid The SID of the parent Service resource
+     * @param pathSessionSid The SID of the parent Session resource
+     * @param pathParticipantSid The SID of the Participant resource
      * @param body Message body
      */
     public MessageInteractionCreator(final String pathServiceSid, 
@@ -53,10 +53,10 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
     /**
      * Construct a new MessageInteractionCreator.
      * 
-     * @param pathServiceSid Service Sid
-     * @param pathSessionSid Session Sid
-     * @param pathParticipantSid Participant Sid
-     * @param mediaUrl Not supported in beta
+     * @param pathServiceSid The SID of the parent Service resource
+     * @param pathSessionSid The SID of the parent Session resource
+     * @param pathParticipantSid The SID of the Participant resource
+     * @param mediaUrl Reserved
      */
     public MessageInteractionCreator(final String pathServiceSid, 
                                      final String pathSessionSid, 
@@ -80,9 +80,9 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
     }
 
     /**
-     * Not currently supported during beta..
+     * Reserved. Not currently supported..
      * 
-     * @param mediaUrl Not supported in beta
+     * @param mediaUrl Reserved
      * @return this
      */
     public MessageInteractionCreator setMediaUrl(final List<URI> mediaUrl) {
@@ -91,9 +91,9 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
     }
 
     /**
-     * Not currently supported during beta..
+     * Reserved. Not currently supported..
      * 
-     * @param mediaUrl Not supported in beta
+     * @param mediaUrl Reserved
      * @return this
      */
     public MessageInteractionCreator setMediaUrl(final URI mediaUrl) {
@@ -101,9 +101,9 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
     }
 
     /**
-     * Not currently supported during beta..
+     * Reserved. Not currently supported..
      * 
-     * @param mediaUrl Not supported in beta
+     * @param mediaUrl Reserved
      * @return this
      */
     public MessageInteractionCreator setMediaUrl(final String mediaUrl) {

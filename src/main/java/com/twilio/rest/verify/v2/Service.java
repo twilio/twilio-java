@@ -43,7 +43,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceCreator to execute create.
      * 
-     * @param friendlyName Friendly name of the service
+     * @param friendlyName A string to describe the verification service
      * @return ServiceCreator capable of executing the create
      */
     public static ServiceCreator creator(final String friendlyName) {
@@ -53,7 +53,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceFetcher to execute fetch.
      * 
-     * @param pathSid Verification Service Instance SID.
+     * @param pathSid The unique string that identifies the resource
      * @return ServiceFetcher capable of executing the fetch
      */
     public static ServiceFetcher fetcher(final String pathSid) {
@@ -63,7 +63,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceDeleter to execute delete.
      * 
-     * @param pathSid Verification Service Instance SID.
+     * @param pathSid The unique string that identifies the resource
      * @return ServiceDeleter capable of executing the delete
      */
     public static ServiceDeleter deleter(final String pathSid) {
@@ -82,7 +82,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceUpdater to execute update.
      * 
-     * @param pathSid Service Sid.
+     * @param pathSid The unique string that identifies the resource
      * @return ServiceUpdater capable of executing the update
      */
     public static ServiceUpdater updater(final String pathSid) {
@@ -183,122 +183,125 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Service..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies this Service.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return Account Sid.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Friendly name of the service.
+     * Returns The The string that you assigned to describe the verification
+     * service.
      * 
-     * @return Friendly name of the service
+     * @return The string that you assigned to describe the verification service
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The Length of verification code. Valid values are 4-10.
+     * Returns The The length of the verification code.
      * 
-     * @return Length of verification code. Valid values are 4-10
+     * @return The length of the verification code
      */
     public final Integer getCodeLength() {
         return this.codeLength;
     }
 
     /**
-     * Returns The Indicates whether or not to perform a lookup with each
-     * verification started.
+     * Returns The Whether to perform a lookup with each verification.
      * 
-     * @return Indicates whether or not to perform a lookup with each verification
-     *         started
+     * @return Whether to perform a lookup with each verification
      */
     public final Boolean getLookupEnabled() {
         return this.lookupEnabled;
     }
 
     /**
-     * Returns The Indicates whether PSD2 parameters are enabled or not.
+     * Returns The Whether to pass PSD2 transaction parameters when starting a
+     * verification.
      * 
-     * @return Indicates whether PSD2 parameters are enabled or not
+     * @return Whether to pass PSD2 transaction parameters when starting a
+     *         verification
      */
     public final Boolean getPsd2Enabled() {
         return this.psd2Enabled;
     }
 
     /**
-     * Returns The Indicates whether or not to ignore SMS verifications for
-     * landlines.
+     * Returns The Whether to skip sending SMS verifications to landlines.
      * 
-     * @return Indicates whether or not to ignore SMS verifications for landlines
+     * @return Whether to skip sending SMS verifications to landlines
      */
     public final Boolean getSkipSmsToLandlines() {
         return this.skipSmsToLandlines;
     }
 
     /**
-     * Returns The Indicates whether or not to require a random number input to
-     * deliver the verify code via phone calls.
+     * Returns The Whether to ask the user to press a number before delivering the
+     * verify code in a phone call.
      * 
-     * @return Indicates whether or not to require a random number input to deliver
-     *         the verify code via phone calls
+     * @return Whether to ask the user to press a number before delivering the
+     *         verify code in a phone call
      */
     public final Boolean getDtmfInputRequired() {
         return this.dtmfInputRequired;
     }
 
     /**
-     * Returns The Alternative to be used as Service friendly name in phone calls.
+     * Returns The The name of an alternative text-to-speech service to use in phone
+     * calls.
      * 
-     * @return Alternative to be used as Service friendly name in phone calls
+     * @return The name of an alternative text-to-speech service to use in phone
+     *         calls
      */
     public final String getTtsName() {
         return this.ttsName;
     }
 
     /**
-     * Returns The The date this Service was created.
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date this Service was created
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Service was updated.
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date this Service was updated
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the resource.
      * 
-     * @return The url
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The The URLs of related resources.
      * 
-     * @return The links
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;

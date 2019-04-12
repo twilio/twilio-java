@@ -114,9 +114,9 @@ public class Interaction extends Resource {
     /**
      * Create a InteractionFetcher to execute fetch.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
-     * @param pathSid A string that uniquely identifies this Interaction.
+     * @param pathServiceSid The SID of the parent Service of the resource to fetch
+     * @param pathSessionSid he SID of the parent Session of the resource to fetch
+     * @param pathSid The unique string that identifies the resource
      * @return InteractionFetcher capable of executing the fetch
      */
     public static InteractionFetcher fetcher(final String pathServiceSid, 
@@ -128,8 +128,8 @@ public class Interaction extends Resource {
     /**
      * Create a InteractionReader to execute read.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
+     * @param pathServiceSid The SID of the parent Service to read the resource from
+     * @param pathSessionSid The SID of the parent Session to read the resource from
      * @return InteractionReader capable of executing the read
      */
     public static InteractionReader reader(final String pathServiceSid, 
@@ -140,9 +140,9 @@ public class Interaction extends Resource {
     /**
      * Create a InteractionDeleter to execute delete.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
-     * @param pathSid A string that uniquely identifies this Interaction.
+     * @param pathServiceSid The SID of the parent Service of the resource to delete
+     * @param pathSessionSid he SID of the parent Session of the resource to delete
+     * @param pathSid The unique string that identifies the resource
      * @return InteractionDeleter capable of executing the delete
      */
     public static InteractionDeleter deleter(final String pathServiceSid, 
@@ -270,171 +270,174 @@ public class Interaction extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Interaction..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies this Interaction.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Session Sid..
+     * Returns The The SID of the resource's parent Session.
      * 
-     * @return Session Sid.
+     * @return The SID of the resource's parent Session
      */
     public final String getSessionSid() {
         return this.sessionSid;
     }
 
     /**
-     * Returns The Service Sid..
+     * Returns The The SID of the resource's parent Service.
      * 
-     * @return Service Sid.
+     * @return The SID of the resource's parent Service
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return Account Sid.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Further details about an interaction..
+     * Returns The A JSON string that includes the message body of message
+     * interactions.
      * 
-     * @return Further details about an interaction.
+     * @return A JSON string that includes the message body of message interactions
      */
     public final String getData() {
         return this.data;
     }
 
     /**
-     * Returns The The Type of this Interaction.
+     * Returns The The Type of the Interaction.
      * 
-     * @return The Type of this Interaction
+     * @return The Type of the Interaction
      */
     public final Interaction.Type getType() {
         return this.type;
     }
 
     /**
-     * Returns The Inbound Participant Sid..
+     * Returns The The SID of the inbound Participant resource.
      * 
-     * @return Inbound Participant Sid.
+     * @return The SID of the inbound Participant resource
      */
     public final String getInboundParticipantSid() {
         return this.inboundParticipantSid;
     }
 
     /**
-     * Returns The Inbound Resource Sid..
+     * Returns The The SID of the inbound resource.
      * 
-     * @return Inbound Resource Sid.
+     * @return The SID of the inbound resource
      */
     public final String getInboundResourceSid() {
         return this.inboundResourceSid;
     }
 
     /**
-     * Returns The The Inbound Resource Status of this Interaction.
+     * Returns The The inbound resource status of the Interaction.
      * 
-     * @return The Inbound Resource Status of this Interaction
+     * @return The inbound resource status of the Interaction
      */
     public final Interaction.ResourceStatus getInboundResourceStatus() {
         return this.inboundResourceStatus;
     }
 
     /**
-     * Returns The The type of the Inbound Resource, Call or Message..
+     * Returns The The inbound resource type.
      * 
-     * @return The type of the Inbound Resource, Call or Message.
+     * @return The inbound resource type
      */
     public final String getInboundResourceType() {
         return this.inboundResourceType;
     }
 
     /**
-     * Returns The The URL of the Twilio inbound resource..
+     * Returns The The URL of the Twilio inbound resource.
      * 
-     * @return The URL of the Twilio inbound resource.
+     * @return The URL of the Twilio inbound resource
      */
     public final URI getInboundResourceUrl() {
         return this.inboundResourceUrl;
     }
 
     /**
-     * Returns The Outbound Participant Sid..
+     * Returns The The SID of the outbound Participant.
      * 
-     * @return Outbound Participant Sid.
+     * @return The SID of the outbound Participant
      */
     public final String getOutboundParticipantSid() {
         return this.outboundParticipantSid;
     }
 
     /**
-     * Returns The Outbound Resource Sid..
+     * Returns The The SID of the outbound resource.
      * 
-     * @return Outbound Resource Sid.
+     * @return The SID of the outbound resource
      */
     public final String getOutboundResourceSid() {
         return this.outboundResourceSid;
     }
 
     /**
-     * Returns The The Outbound Resource Status of this Interaction.
+     * Returns The The outbound resource status of the Interaction.
      * 
-     * @return The Outbound Resource Status of this Interaction
+     * @return The outbound resource status of the Interaction
      */
     public final Interaction.ResourceStatus getOutboundResourceStatus() {
         return this.outboundResourceStatus;
     }
 
     /**
-     * Returns The The type of the Outbound Resource, Call or Message..
+     * Returns The The outbound resource type.
      * 
-     * @return The type of the Outbound Resource, Call or Message.
+     * @return The outbound resource type
      */
     public final String getOutboundResourceType() {
         return this.outboundResourceType;
     }
 
     /**
-     * Returns The The URL of the Twilio outbound resource..
+     * Returns The The URL of the Twilio outbound resource.
      * 
-     * @return The URL of the Twilio outbound resource.
+     * @return The URL of the Twilio outbound resource
      */
     public final URI getOutboundResourceUrl() {
         return this.outboundResourceUrl;
     }
 
     /**
-     * Returns The The date this Interaction was created.
+     * Returns The The ISO 8601 date and time in GMT when the Interaction was
+     * created.
      * 
-     * @return The date this Interaction was created
+     * @return The ISO 8601 date and time in GMT when the Interaction was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Interaction was last updated.
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date this Interaction was last updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The The absolute URL of the Interaction resource.
      * 
-     * @return The URL of this resource.
+     * @return The absolute URL of the Interaction resource
      */
     public final URI getUrl() {
         return this.url;

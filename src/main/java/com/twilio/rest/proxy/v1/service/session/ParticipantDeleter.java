@@ -29,9 +29,9 @@ public class ParticipantDeleter extends Deleter<Participant> {
     /**
      * Construct a new ParticipantDeleter.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
-     * @param pathSid A string that uniquely identifies this Participant.
+     * @param pathServiceSid The SID of the parent Service of the resource to delete
+     * @param pathSessionSid The SID of the parent Session of the resource to delete
+     * @param pathSid The unique string that identifies the resource
      */
     public ParticipantDeleter(final String pathServiceSid, 
                               final String pathSessionSid, 

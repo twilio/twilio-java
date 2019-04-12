@@ -98,8 +98,8 @@ public class Session extends Resource {
     /**
      * Create a SessionFetcher to execute fetch.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Session.
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathSid The unique string that identifies the resource
      * @return SessionFetcher capable of executing the fetch
      */
     public static SessionFetcher fetcher(final String pathServiceSid, 
@@ -110,7 +110,7 @@ public class Session extends Resource {
     /**
      * Create a SessionReader to execute read.
      * 
-     * @param pathServiceSid Service Sid.
+     * @param pathServiceSid The SID of the Service to fetch the resource from
      * @return SessionReader capable of executing the read
      */
     public static SessionReader reader(final String pathServiceSid) {
@@ -120,7 +120,7 @@ public class Session extends Resource {
     /**
      * Create a SessionCreator to execute create.
      * 
-     * @param pathServiceSid Service Sid.
+     * @param pathServiceSid The SID of the parent Service resource
      * @return SessionCreator capable of executing the create
      */
     public static SessionCreator creator(final String pathServiceSid) {
@@ -130,8 +130,8 @@ public class Session extends Resource {
     /**
      * Create a SessionDeleter to execute delete.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Session.
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathSid The unique string that identifies the resource
      * @return SessionDeleter capable of executing the delete
      */
     public static SessionDeleter deleter(final String pathServiceSid, 
@@ -142,8 +142,8 @@ public class Session extends Resource {
     /**
      * Create a SessionUpdater to execute update.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Session.
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathSid The unique string that identifies the resource
      * @return SessionUpdater capable of executing the update
      */
     public static SessionUpdater updater(final String pathServiceSid, 
@@ -257,144 +257,146 @@ public class Session extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Session..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies this Session.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Service Sid..
+     * Returns The The SID of the resource's parent Service.
      * 
-     * @return Service Sid.
+     * @return The SID of the resource's parent Service
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return Account Sid.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The date this Session was started.
+     * Returns The The ISO 8601 date when the Session started.
      * 
-     * @return The date this Session was started
+     * @return The ISO 8601 date when the Session started
      */
     public final DateTime getDateStarted() {
         return this.dateStarted;
     }
 
     /**
-     * Returns The The date this Session was ended.
+     * Returns The The ISO 8601 date when the Session ended.
      * 
-     * @return The date this Session was ended
+     * @return The ISO 8601 date when the Session ended
      */
     public final DateTime getDateEnded() {
         return this.dateEnded;
     }
 
     /**
-     * Returns The The date this Session last had an interaction.
+     * Returns The The ISO 8601 date when the Session last had an interaction.
      * 
-     * @return The date this Session last had an interaction
+     * @return The ISO 8601 date when the Session last had an interaction
      */
     public final DateTime getDateLastInteraction() {
         return this.dateLastInteraction;
     }
 
     /**
-     * Returns The The date this Session should expire.
+     * Returns The The ISO 8601 date when the Session should expire.
      * 
-     * @return The date this Session should expire
+     * @return The ISO 8601 date when the Session should expire
      */
     public final DateTime getDateExpiry() {
         return this.dateExpiry;
     }
 
     /**
-     * Returns The A unique, developer assigned identifier for this Session..
+     * Returns The An application-defined string that uniquely identifies the
+     * resource.
      * 
-     * @return A unique, developer assigned identifier for this Session.
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The Status of this Session.
+     * Returns The The status of the Session.
      * 
-     * @return The Status of this Session
+     * @return The status of the Session
      */
     public final Session.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The Reason Session ended..
+     * Returns The The reason the Session ended.
      * 
-     * @return Reason Session ended.
+     * @return The reason the Session ended
      */
     public final String getClosedReason() {
         return this.closedReason;
     }
 
     /**
-     * Returns The TTL for a Session, in seconds..
+     * Returns The When the session will expire.
      * 
-     * @return TTL for a Session, in seconds.
+     * @return When the session will expire
      */
     public final Integer getTtl() {
         return this.ttl;
     }
 
     /**
-     * Returns The The Mode of this Session.
+     * Returns The The Mode of the Session.
      * 
-     * @return The Mode of this Session
+     * @return The Mode of the Session
      */
     public final Session.Mode getMode() {
         return this.mode;
     }
 
     /**
-     * Returns The The date this Session was created.
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      * 
-     * @return The date this Session was created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Session was last updated.
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date this Session was last updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The The absolute URL of the Session resource.
      * 
-     * @return The URL of this resource.
+     * @return The absolute URL of the Session resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Nested resource URLs..
+     * Returns The The URLs of resources related to the Session.
      * 
-     * @return Nested resource URLs.
+     * @return The URLs of resources related to the Session
      */
     public final Map<String, String> getLinks() {
         return this.links;

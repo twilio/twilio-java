@@ -29,9 +29,9 @@ public class InteractionDeleter extends Deleter<Interaction> {
     /**
      * Construct a new InteractionDeleter.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
-     * @param pathSid A string that uniquely identifies this Interaction.
+     * @param pathServiceSid The SID of the parent Service of the resource to delete
+     * @param pathSessionSid he SID of the parent Session of the resource to delete
+     * @param pathSid The unique string that identifies the resource
      */
     public InteractionDeleter(final String pathServiceSid, 
                               final String pathSessionSid, 

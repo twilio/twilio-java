@@ -29,7 +29,7 @@ public class SessionReader extends Reader<Session> {
     /**
      * Construct a new SessionReader.
      * 
-     * @param pathServiceSid Service Sid.
+     * @param pathServiceSid The SID of the Service to fetch the resource from
      */
     public SessionReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;

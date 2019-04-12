@@ -94,9 +94,10 @@ public class Verification extends Resource {
     /**
      * Create a VerificationCreator to execute create.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param to To phonenumber
-     * @param channel sms or call
+     * @param pathServiceSid The SID of the verification Service to create the
+     *                       resource under
+     * @param to The phone number to verify
+     * @param channel The verification method to use
      * @return VerificationCreator capable of executing the create
      */
     public static VerificationCreator creator(final String pathServiceSid, 
@@ -108,9 +109,10 @@ public class Verification extends Resource {
     /**
      * Create a VerificationUpdater to execute update.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Verification.
-     * @param status New status to set for the Verification.
+     * @param pathServiceSid The SID of the verification Service to update the
+     *                       resource from
+     * @param pathSid The unique string that identifies the resource
+     * @param status The new status of the resource
      * @return VerificationUpdater capable of executing the update
      */
     public static VerificationUpdater updater(final String pathServiceSid, 
@@ -122,8 +124,9 @@ public class Verification extends Resource {
     /**
      * Create a VerificationFetcher to execute fetch.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Verification.
+     * @param pathServiceSid The SID of the verification Service to fetch the
+     *                       resource from
+     * @param pathSid The unique string that identifies the resource
      * @return VerificationFetcher capable of executing the fetch
      */
     public static VerificationFetcher fetcher(final String pathServiceSid, 
@@ -226,117 +229,118 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Verification..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies this Verification.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Service Sid..
+     * Returns The The SID of the Service that the resource is associated with.
      * 
-     * @return Service Sid.
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return Account Sid.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The To phonenumber.
+     * Returns The The phone number being verified.
      * 
-     * @return To phonenumber
+     * @return The phone number being verified
      */
     public final com.twilio.type.PhoneNumber getTo() {
         return this.to;
     }
 
     /**
-     * Returns The sms or call.
+     * Returns The The verification method to use.
      * 
-     * @return sms or call
+     * @return The verification method to use
      */
     public final Verification.Channel getChannel() {
         return this.channel;
     }
 
     /**
-     * Returns The pending, approved, denied or expired.
+     * Returns The The status of the verification resource.
      * 
-     * @return pending, approved, denied or expired
+     * @return The status of the verification resource
      */
     public final String getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The successful verification.
+     * Returns The Whether the verification was successful.
      * 
-     * @return successful verification
+     * @return Whether the verification was successful
      */
     public final Boolean getValid() {
         return this.valid;
     }
 
     /**
-     * Returns The Info about the phone number.
+     * Returns The Information about the phone number being verified.
      * 
-     * @return Info about the phone number
+     * @return Information about the phone number being verified
      */
     public final Map<String, Object> getLookup() {
         return this.lookup;
     }
 
     /**
-     * Returns The Amount of the associated PSD2 compliant transaction..
+     * Returns The The amount of the associated PSD2 compliant transaction..
      * 
-     * @return Amount of the associated PSD2 compliant transaction.
+     * @return The amount of the associated PSD2 compliant transaction.
      */
     public final String getAmount() {
         return this.amount;
     }
 
     /**
-     * Returns The Payee of the associated PSD2 compliant transaction..
+     * Returns The The payee of the associated PSD2 compliant transaction.
      * 
-     * @return Payee of the associated PSD2 compliant transaction.
+     * @return The payee of the associated PSD2 compliant transaction
      */
     public final String getPayee() {
         return this.payee;
     }
 
     /**
-     * Returns The The date this Verification was created.
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date this Verification was created
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Verification was updated.
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date this Verification was updated
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The The absolute URL of the Verification resource.
      * 
-     * @return The URL of this resource.
+     * @return The absolute URL of the Verification resource
      */
     public final URI getUrl() {
         return this.url;

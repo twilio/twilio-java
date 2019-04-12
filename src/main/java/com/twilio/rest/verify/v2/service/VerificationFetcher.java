@@ -28,8 +28,9 @@ public class VerificationFetcher extends Fetcher<Verification> {
     /**
      * Construct a new VerificationFetcher.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Verification.
+     * @param pathServiceSid The SID of the verification Service to fetch the
+     *                       resource from
+     * @param pathSid The unique string that identifies the resource
      */
     public VerificationFetcher(final String pathServiceSid, 
                                final String pathSid) {

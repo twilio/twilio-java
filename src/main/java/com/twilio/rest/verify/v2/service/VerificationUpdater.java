@@ -29,9 +29,10 @@ public class VerificationUpdater extends Updater<Verification> {
     /**
      * Construct a new VerificationUpdater.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Verification.
-     * @param status New status to set for the Verification.
+     * @param pathServiceSid The SID of the verification Service to update the
+     *                       resource from
+     * @param pathSid The unique string that identifies the resource
+     * @param status The new status of the resource
      */
     public VerificationUpdater(final String pathServiceSid, 
                                final String pathSid, 

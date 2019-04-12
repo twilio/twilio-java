@@ -28,8 +28,8 @@ public class ShortCodeCreator extends Creator<ShortCode> {
     /**
      * Construct a new ShortCodeCreator.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param sid A string that uniquely identifies this Short Code.
+     * @param pathServiceSid The SID of the parent Service resource
+     * @param sid The SID of a Twilio ShortCode resource
      */
     public ShortCodeCreator(final String pathServiceSid, 
                             final String sid) {

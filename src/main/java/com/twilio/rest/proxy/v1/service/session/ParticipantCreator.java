@@ -32,9 +32,9 @@ public class ParticipantCreator extends Creator<Participant> {
     /**
      * Construct a new ParticipantCreator.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
-     * @param identifier The phone number of this Participant.
+     * @param pathServiceSid The SID of the parent Service resource
+     * @param pathSessionSid The SID of the parent Session resource
+     * @param identifier The phone number of the Participant
      */
     public ParticipantCreator(final String pathServiceSid, 
                               final String pathSessionSid, 
@@ -45,10 +45,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * A human-readable description of this resource, up to 64 characters. Should
-     * not include PII..
+     * The string that you assigned to describe the participant. This value must be
+     * 255 characters or fewer. **This value should not have PII.**.
      * 
-     * @param friendlyName A human-readable description of this resource.
+     * @param friendlyName The string that you assigned to describe the participant
      * @return this
      */
     public ParticipantCreator setFriendlyName(final String friendlyName) {
@@ -57,10 +57,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The proxy phone number to use for this Participant. If not specified, Proxy
+     * The proxy phone number to use for the Participant. If not specified, Proxy
      * will select a number from the pool..
      * 
-     * @param proxyIdentifier The proxy phone number to use for this Participant.
+     * @param proxyIdentifier The proxy phone number to use for the Participant
      * @return this
      */
     public ParticipantCreator setProxyIdentifier(final String proxyIdentifier) {
@@ -69,9 +69,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The proxy_identifier_sid.
+     * The SID of the Proxy Identifier to assign to the Participant..
      * 
-     * @param proxyIdentifierSid The proxy_identifier_sid
+     * @param proxyIdentifierSid The Proxy Identifier Sid
      * @return this
      */
     public ParticipantCreator setProxyIdentifierSid(final String proxyIdentifierSid) {

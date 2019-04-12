@@ -28,8 +28,9 @@ public class ShortCodeFetcher extends Fetcher<ShortCode> {
     /**
      * Construct a new ShortCodeFetcher.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Short Code.
+     * @param pathServiceSid The SID of the parent Service to fetch the resource
+     *                       from
+     * @param pathSid The unique string that identifies the resource
      */
     public ShortCodeFetcher(final String pathServiceSid, 
                             final String pathSid) {

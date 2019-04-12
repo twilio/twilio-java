@@ -35,9 +35,10 @@ public class VerificationCreator extends Creator<Verification> {
     /**
      * Construct a new VerificationCreator.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param to To phonenumber
-     * @param channel sms or call
+     * @param pathServiceSid The SID of the verification Service to create the
+     *                       resource under
+     * @param to The phone number to verify
+     * @param channel The verification method to use
      */
     public VerificationCreator(final String pathServiceSid, 
                                final String to, 
@@ -48,9 +49,9 @@ public class VerificationCreator extends Creator<Verification> {
     }
 
     /**
-     * A character string containing a custom message for this verification.
+     * The text of a custom message to use for the verification..
      * 
-     * @param customMessage A custom message for this verification
+     * @param customMessage The text of a custom message to use for the verification
      * @return this
      */
     public VerificationCreator setCustomMessage(final String customMessage) {
@@ -59,10 +60,11 @@ public class VerificationCreator extends Creator<Verification> {
     }
 
     /**
-     * Digits to send when a phone call is started, same parameters as in
-     * Programmable Voice are supported.
+     * The digits to send after a phone call is answered, for example, to dial an
+     * extension. For more information, see the Programmable Voice documentation of
+     * [sendDigits](https://www.twilio.com/docs/voice/twiml/number#attributes-sendDigits)..
      * 
-     * @param sendDigits Digits to send when a phone call is started
+     * @param sendDigits The digits to send after a phone call is answered
      * @return this
      */
     public VerificationCreator setSendDigits(final String sendDigits) {
@@ -71,11 +73,12 @@ public class VerificationCreator extends Creator<Verification> {
     }
 
     /**
-     * Supported values are af, ar, ca, cs, da, de, el, en, es, fi, fr, he, hi, hr,
-     * hu, id, it, ja, ko, ms, nb, nl, pl, pt, pr-BR, ro, ru, sv, th, tl, tr, vi,
-     * zh, zh-CN, zh-HK.
+     * The local to use for the verification SMS or call. Can be: `af`, `ar`, `ca`,
+     * `cs`, `da`, `de`, `el`, `en`, `es`, `fi`, `fr`, `he`, `hi`, `hr`, `hu`, `id`,
+     * `it`, `ja`, `ko`, `ms`, `nb`, `nl`, `pl`, `pt`, `pr-BR`, `ro`, `ru`, `sv`,
+     * `th`, `tl`, `tr`, `vi`, `zh`, `zh-CN`, or `zh-HK.`.
      * 
-     * @param locale Locale used in the sms or call.
+     * @param locale The local to use for the verification SMS or call
      * @return this
      */
     public VerificationCreator setLocale(final String locale) {
@@ -84,7 +87,8 @@ public class VerificationCreator extends Creator<Verification> {
     }
 
     /**
-     * Pass in a pre-generated code. Code length can be between 4-10 characters..
+     * A pre-generated code to use for verification. The code can be between 4 and
+     * 10 characters, inclusive..
      * 
      * @param customCode A pre-generated code
      * @return this
@@ -95,10 +99,10 @@ public class VerificationCreator extends Creator<Verification> {
     }
 
     /**
-     * Amount of the associated PSD2 compliant transaction. Requires the PSD2
+     * The amount of the associated PSD2 compliant transaction. Requires the PSD2
      * Service flag enabled..
      * 
-     * @param amount Amount of the associated PSD2 compliant transaction.
+     * @param amount The amount of the associated PSD2 compliant transaction.
      * @return this
      */
     public VerificationCreator setAmount(final String amount) {
@@ -107,10 +111,10 @@ public class VerificationCreator extends Creator<Verification> {
     }
 
     /**
-     * Payee of the associated PSD2 compliant transaction. Requires the PSD2 Service
-     * flag enabled..
+     * The payee of the associated PSD2 compliant transaction. Requires the PSD2
+     * Service flag enabled..
      * 
-     * @param payee Payee of the associated PSD2 compliant transaction.
+     * @param payee The payee of the associated PSD2 compliant transaction
      * @return this
      */
     public VerificationCreator setPayee(final String payee) {

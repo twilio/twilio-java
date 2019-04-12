@@ -31,8 +31,6 @@ public class SessionCreator extends Creator<Session> {
     private DateTime dateCreated;
     private DateTime dateUpdated;
     private String createdBy;
-    private String twilioAddress;
-    private String userAddress;
 
     /**
      * Construct a new SessionCreator.
@@ -104,30 +102,6 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
-     * Twilio address the participant is contacting to. Together with User address
-     * defines the participant..
-     * 
-     * @param twilioAddress Twilio address the participant is contacting to.
-     * @return this
-     */
-    public SessionCreator setTwilioAddress(final String twilioAddress) {
-        this.twilioAddress = twilioAddress;
-        return this;
-    }
-
-    /**
-     * Address the participant is contacting from. Together with Twilio address
-     * defines the participant..
-     * 
-     * @param userAddress Address the participant is contacting from.
-     * @return this
-     */
-    public SessionCreator setUserAddress(final String userAddress) {
-        this.userAddress = userAddress;
-        return this;
-    }
-
-    /**
      * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
@@ -194,14 +168,6 @@ public class SessionCreator extends Creator<Session> {
 
         if (createdBy != null) {
             request.addPostParam("CreatedBy", createdBy);
-        }
-
-        if (twilioAddress != null) {
-            request.addPostParam("TwilioAddress", twilioAddress);
-        }
-
-        if (userAddress != null) {
-            request.addPostParam("UserAddress", userAddress);
         }
     }
 }

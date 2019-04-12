@@ -27,7 +27,7 @@ public class ServiceDeleter extends Deleter<Service> {
     /**
      * Construct a new ServiceDeleter.
      * 
-     * @param pathSid Verification Service Instance SID.
+     * @param pathSid The unique string that identifies the resource
      */
     public ServiceDeleter(final String pathSid) {
         this.pathSid = pathSid;

@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.verify.v1;
+package com.twilio.rest.trunking.v1.trunk;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -19,19 +19,26 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
-public class ServiceReader extends Reader<Service> {
+public class TerminatingSipDomainReader extends Reader<TerminatingSipDomain> {
+    private final String pathTrunkSid;
+
+    /**
+     * Construct a new TerminatingSipDomainReader.
+     * 
+     * @param pathTrunkSid The unique sid of the trunk.
+     */
+    public TerminatingSipDomainReader(final String pathTrunkSid) {
+        this.pathTrunkSid = pathTrunkSid;
+    }
+
     /**
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Service ResourceSet
+     * @return TerminatingSipDomain ResourceSet
      */
     @Override
-    public ResourceSet<Service> read(final TwilioRestClient client) {
+    public ResourceSet<TerminatingSipDomain> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -39,15 +46,15 @@ public class ServiceReader extends Reader<Service> {
      * Make the request to the Twilio API to perform the read.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Service ResourceSet
+     * @return TerminatingSipDomain ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Service> firstPage(final TwilioRestClient client) {
+    public Page<TerminatingSipDomain> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.VERIFY.toString(),
-            "/v1/Services",
+            Domains.TRUNKING.toString(),
+            "/v1/Trunks/" + this.pathTrunkSid + "/TerminatingSipDomains",
             client.getRegion()
         );
 
@@ -60,11 +67,11 @@ public class ServiceReader extends Reader<Service> {
      * 
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Service ResourceSet
+     * @return TerminatingSipDomain ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Service> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<TerminatingSipDomain> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -81,12 +88,12 @@ public class ServiceReader extends Reader<Service> {
      * @return Next Page
      */
     @Override
-    public Page<Service> nextPage(final Page<Service> page, 
-                                  final TwilioRestClient client) {
+    public Page<TerminatingSipDomain> nextPage(final Page<TerminatingSipDomain> page, 
+                                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                Domains.VERIFY.toString(),
+                Domains.TRUNKING.toString(),
                 client.getRegion()
             )
         );
@@ -101,12 +108,12 @@ public class ServiceReader extends Reader<Service> {
      * @return Previous Page
      */
     @Override
-    public Page<Service> previousPage(final Page<Service> page, 
-                                      final TwilioRestClient client) {
+    public Page<TerminatingSipDomain> previousPage(final Page<TerminatingSipDomain> page, 
+                                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(
-                Domains.VERIFY.toString(),
+                Domains.TRUNKING.toString(),
                 client.getRegion()
             )
         );
@@ -114,17 +121,17 @@ public class ServiceReader extends Reader<Service> {
     }
 
     /**
-     * Generate a Page of Service Resources for a given request.
+     * Generate a Page of TerminatingSipDomain Resources for a given request.
      * 
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Service> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<TerminatingSipDomain> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Service read failed: Unable to connect to server");
+            throw new ApiConnectionException("TerminatingSipDomain read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -141,9 +148,9 @@ public class ServiceReader extends Reader<Service> {
         }
 
         return Page.fromJson(
-            "services",
+            "sip_domains",
             response.getContent(),
-            Service.class,
+            TerminatingSipDomain.class,
             client.getObjectMapper()
         );
     }

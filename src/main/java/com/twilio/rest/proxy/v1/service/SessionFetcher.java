@@ -28,8 +28,8 @@ public class SessionFetcher extends Fetcher<Session> {
     /**
      * Construct a new SessionFetcher.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Session.
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathSid The unique string that identifies the resource
      */
     public SessionFetcher(final String pathServiceSid, 
                           final String pathSid) {

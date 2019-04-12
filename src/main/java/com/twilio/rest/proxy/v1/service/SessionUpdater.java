@@ -40,8 +40,8 @@ public class SessionUpdater extends Updater<Session> {
     /**
      * Construct a new SessionUpdater.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Session.
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathSid The unique string that identifies the resource
      */
     public SessionUpdater(final String pathServiceSid, 
                           final String pathSid) {
@@ -50,9 +50,10 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * The date that this Session should expire, given in ISO 8601 format..
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session
+     * should expire. If this is value is present, it overrides the `ttl` value..
      * 
-     * @param dateExpiry The date this Session should expire
+     * @param dateExpiry The ISO 8601 date when the Session should expire
      * @return this
      */
     public SessionUpdater setDateExpiry(final DateTime dateExpiry) {
@@ -61,10 +62,10 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * The time, in seconds, after the latest of Session create time or the
-     * Session's last Interaction time at which the session will expire..
+     * The time, in seconds, when the session will expire. The time is measured from
+     * the last Session create or the Session's last Interaction..
      * 
-     * @param ttl TTL for a Session, in seconds.
+     * @param ttl When the session will expire
      * @return this
      */
     public SessionUpdater setTtl(final Integer ttl) {
@@ -73,9 +74,10 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * The mode.
+     * The Mode of the Session. Can be: `message-only`, `voice-only`, or
+     * `voice-and-message` and the default value is `voice-and-message`..
      * 
-     * @param mode The mode
+     * @param mode The Mode of the Session
      * @return this
      */
     public SessionUpdater setMode(final Session.Mode mode) {
@@ -84,10 +86,10 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * The Status of this Session. Set to `in-progress` to re-open a session or
+     * The new status of the resource. Can be: `in-progress` to re-open a session or
      * `closed` to close a session..
      * 
-     * @param status The Status of this Session
+     * @param status The new status of the resource
      * @return this
      */
     public SessionUpdater setStatus(final Session.Status status) {
@@ -96,9 +98,9 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * The participants.
+     * The Participant objects to include in the session..
      * 
-     * @param participants The participants
+     * @param participants The Participant objects to include in the session
      * @return this
      */
     public SessionUpdater setParticipants(final List<Map<String, Object>> participants) {
@@ -107,9 +109,9 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * The participants.
+     * The Participant objects to include in the session..
      * 
-     * @param participants The participants
+     * @param participants The Participant objects to include in the session
      * @return this
      */
     public SessionUpdater setParticipants(final Map<String, Object> participants) {

@@ -28,8 +28,8 @@ public class SessionDeleter extends Deleter<Session> {
     /**
      * Construct a new SessionDeleter.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Session.
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathSid The unique string that identifies the resource
      */
     public SessionDeleter(final String pathServiceSid, 
                           final String pathSid) {

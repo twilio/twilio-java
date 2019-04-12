@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.verify.v1.service;
+package com.twilio.rest.trunking.v1.trunk;
 
-import com.twilio.base.Updater;
+import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -17,43 +17,35 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
-public class VerificationUpdater extends Updater<Verification> {
-    private final String pathServiceSid;
-    private final String pathSid;
-    private final Verification.Status status;
+public class TerminatingSipDomainCreator extends Creator<TerminatingSipDomain> {
+    private final String pathTrunkSid;
+    private final String sipDomainSid;
 
     /**
-     * Construct a new VerificationUpdater.
+     * Construct a new TerminatingSipDomainCreator.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Verification.
-     * @param status New status to set for the Verification.
+     * @param pathTrunkSid The unique sid of the trunk.
+     * @param sipDomainSid The SID of the SIP Domain to associate.
      */
-    public VerificationUpdater(final String pathServiceSid, 
-                               final String pathSid, 
-                               final Verification.Status status) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathSid = pathSid;
-        this.status = status;
+    public TerminatingSipDomainCreator(final String pathTrunkSid, 
+                                       final String sipDomainSid) {
+        this.pathTrunkSid = pathTrunkSid;
+        this.sipDomainSid = sipDomainSid;
     }
 
     /**
-     * Make the request to the Twilio API to perform the update.
+     * Make the request to the Twilio API to perform the create.
      * 
      * @param client TwilioRestClient with which to make the request
-     * @return Updated Verification
+     * @return Created TerminatingSipDomain
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Verification update(final TwilioRestClient client) {
+    public TerminatingSipDomain create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            Domains.VERIFY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Verifications/" + this.pathSid + "",
+            Domains.TRUNKING.toString(),
+            "/v1/Trunks/" + this.pathTrunkSid + "/TerminatingSipDomains",
             client.getRegion()
         );
 
@@ -61,7 +53,7 @@ public class VerificationUpdater extends Updater<Verification> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Verification update failed: Unable to connect to server");
+            throw new ApiConnectionException("TerminatingSipDomain creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -77,7 +69,7 @@ public class VerificationUpdater extends Updater<Verification> {
             );
         }
 
-        return Verification.fromJson(response.getStream(), client.getObjectMapper());
+        return TerminatingSipDomain.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -86,8 +78,8 @@ public class VerificationUpdater extends Updater<Verification> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (status != null) {
-            request.addPostParam("Status", status.toString());
+        if (sipDomainSid != null) {
+            request.addPostParam("SipDomainSid", sipDomainSid);
         }
     }
 }

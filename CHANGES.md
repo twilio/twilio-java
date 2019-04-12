@@ -1,6 +1,22 @@
 twilio-java changelog
 =====================
 
+[2019-04-12] Version 7.37.1
+----------------------------
+**Library**
+- PR #454: Add more JDK versions to Travis CI config. Thanks to @childish-sambino!
+- PR #453: Bump JMockit version for minimum compatibility with Java 11. Thanks to @childish-sambino!
+
+**Flex**
+- Adding PluginService to Flex Configuration
+
+**Numbers**
+- Add API for Proof of Addresses
+
+**Proxy**
+- Clarify documentation for Service and Session fetch
+
+
 [2019-03-28] Version 7.37.0
 ----------------------------
 **Api**

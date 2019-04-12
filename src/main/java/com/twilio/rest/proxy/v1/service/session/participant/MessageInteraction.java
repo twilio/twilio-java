@@ -115,9 +115,9 @@ public class MessageInteraction extends Resource {
     /**
      * Create a MessageInteractionCreator to execute create.
      * 
-     * @param pathServiceSid Service Sid
-     * @param pathSessionSid Session Sid
-     * @param pathParticipantSid Participant Sid
+     * @param pathServiceSid The SID of the parent Service resource
+     * @param pathSessionSid The SID of the parent Session resource
+     * @param pathParticipantSid The SID of the Participant resource
      * @param body Message body
      * @return MessageInteractionCreator capable of executing the create
      */
@@ -131,10 +131,10 @@ public class MessageInteraction extends Resource {
     /**
      * Create a MessageInteractionCreator to execute create.
      * 
-     * @param pathServiceSid Service Sid
-     * @param pathSessionSid Session Sid
-     * @param pathParticipantSid Participant Sid
-     * @param mediaUrl Not supported in beta
+     * @param pathServiceSid The SID of the parent Service resource
+     * @param pathSessionSid The SID of the parent Session resource
+     * @param pathParticipantSid The SID of the Participant resource
+     * @param mediaUrl Reserved
      * @return MessageInteractionCreator capable of executing the create
      */
     public static MessageInteractionCreator creator(final String pathServiceSid, 
@@ -147,10 +147,10 @@ public class MessageInteraction extends Resource {
     /**
      * Create a MessageInteractionFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSessionSid The session_sid
-     * @param pathParticipantSid The participant_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathSessionSid The SID of the parent Session
+     * @param pathParticipantSid The SID of the Participant resource
+     * @param pathSid The unique string that identifies the resource
      * @return MessageInteractionFetcher capable of executing the fetch
      */
     public static MessageInteractionFetcher fetcher(final String pathServiceSid, 
@@ -163,9 +163,9 @@ public class MessageInteraction extends Resource {
     /**
      * Create a MessageInteractionReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSessionSid The session_sid
-     * @param pathParticipantSid The participant_sid
+     * @param pathServiceSid The SID of the Service to read the resource from
+     * @param pathSessionSid The SID of the parent Session
+     * @param pathParticipantSid The SID of the Participant resource
      * @return MessageInteractionReader capable of executing the read
      */
     public static MessageInteractionReader reader(final String pathServiceSid, 
@@ -297,180 +297,182 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Message Interaction..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies this Message Interaction.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Session Sid..
+     * Returns The The SID of the resource's parent Session.
      * 
-     * @return Session Sid.
+     * @return The SID of the resource's parent Session
      */
     public final String getSessionSid() {
         return this.sessionSid;
     }
 
     /**
-     * Returns The Service Sid..
+     * Returns The The SID of the resource's parent Service.
      * 
-     * @return Service Sid.
+     * @return The SID of the resource's parent Service
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return Account Sid.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Message body.
+     * Returns The A JSON string that includes the message body sent to the
+     * participant.
      * 
-     * @return Message body
+     * @return A JSON string that includes the message body sent to the participant
      */
     public final String getData() {
         return this.data;
     }
 
     /**
-     * Returns The The Type of this Message Interaction.
+     * Returns The The Type of Message Interaction.
      * 
-     * @return The Type of this Message Interaction
+     * @return The Type of Message Interaction
      */
     public final MessageInteraction.Type getType() {
         return this.type;
     }
 
     /**
-     * Returns The Participant Sid..
+     * Returns The The SID of the Participant resource.
      * 
-     * @return Participant Sid.
+     * @return The SID of the Participant resource
      */
     public final String getParticipantSid() {
         return this.participantSid;
     }
 
     /**
-     * Returns The Always empty for Message Interactions..
+     * Returns The Always empty for Message Interactions.
      * 
-     * @return Always empty for Message Interactions.
+     * @return Always empty for Message Interactions
      */
     public final String getInboundParticipantSid() {
         return this.inboundParticipantSid;
     }
 
     /**
-     * Returns The Always empty for Message Interactions..
+     * Returns The Always empty for Message Interactions.
      * 
-     * @return Always empty for Message Interactions.
+     * @return Always empty for Message Interactions
      */
     public final String getInboundResourceSid() {
         return this.inboundResourceSid;
     }
 
     /**
-     * Returns The Always empty for Message Interactions..
+     * Returns The Always empty for Message Interactions.
      * 
-     * @return Always empty for Message Interactions.
+     * @return Always empty for Message Interactions
      */
     public final MessageInteraction.ResourceStatus getInboundResourceStatus() {
         return this.inboundResourceStatus;
     }
 
     /**
-     * Returns The Always empty for Message Interactions..
+     * Returns The Always empty for Message Interactions.
      * 
-     * @return Always empty for Message Interactions.
+     * @return Always empty for Message Interactions
      */
     public final String getInboundResourceType() {
         return this.inboundResourceType;
     }
 
     /**
-     * Returns The Always empty for Message Interactions..
+     * Returns The Always empty for Message Interactions.
      * 
-     * @return Always empty for Message Interactions.
+     * @return Always empty for Message Interactions
      */
     public final URI getInboundResourceUrl() {
         return this.inboundResourceUrl;
     }
 
     /**
-     * Returns The Outbound Participant Sid..
+     * Returns The The SID of the outbound Participant resource.
      * 
-     * @return Outbound Participant Sid.
+     * @return The SID of the outbound Participant resource
      */
     public final String getOutboundParticipantSid() {
         return this.outboundParticipantSid;
     }
 
     /**
-     * Returns The Outbound message resource Sid..
+     * Returns The The SID of the outbound Message resource.
      * 
-     * @return Outbound message resource Sid.
+     * @return The SID of the outbound Message resource
      */
     public final String getOutboundResourceSid() {
         return this.outboundResourceSid;
     }
 
     /**
-     * Returns The The Outbound Resource Status of this Message Interaction.
+     * Returns The The outbound resource status.
      * 
-     * @return The Outbound Resource Status of this Message Interaction
+     * @return The outbound resource status
      */
     public final MessageInteraction.ResourceStatus getOutboundResourceStatus() {
         return this.outboundResourceStatus;
     }
 
     /**
-     * Returns The Message.
+     * Returns The The outbound resource type.
      * 
-     * @return Message
+     * @return The outbound resource type
      */
     public final String getOutboundResourceType() {
         return this.outboundResourceType;
     }
 
     /**
-     * Returns The The URL of the Twilio message resource..
+     * Returns The The URL of the Twilio message resource.
      * 
-     * @return The URL of the Twilio message resource.
+     * @return The URL of the Twilio message resource
      */
     public final URI getOutboundResourceUrl() {
         return this.outboundResourceUrl;
     }
 
     /**
-     * Returns The The date this Message Interaction was created.
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      * 
-     * @return The date this Message Interaction was created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Message Interaction was last updated.
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date this Message Interaction was last updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The The absolute URL of the MessageInteraction resource.
      * 
-     * @return The URL of this resource.
+     * @return The absolute URL of the MessageInteraction resource
      */
     public final URI getUrl() {
         return this.url;

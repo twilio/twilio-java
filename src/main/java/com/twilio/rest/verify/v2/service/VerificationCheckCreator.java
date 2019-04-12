@@ -32,8 +32,8 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
     /**
      * Construct a new VerificationCheckCreator.
      * 
-     * @param pathServiceSid The SID of the Verify Service to be used to check a
-     *                       verification.
+     * @param pathServiceSid The SID of the verification Service to create the
+     *                       resource under
      * @param code The verification string
      */
     public VerificationCheckCreator(final String pathServiceSid, 
@@ -43,9 +43,10 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
     }
 
     /**
-     * The To phone number of the phone being verified.
+     * The phone number to verify. Either this parameter or the `verification_sid`
+     * must be specified.
      * 
-     * @param to To phone number
+     * @param to The phone number to verify
      * @return this
      */
     public VerificationCheckCreator setTo(final String to) {
@@ -54,10 +55,10 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
     }
 
     /**
-     * A SID that uniquely identifies this Verification Check, either this parameter
-     * or the To phone number must be specified.
+     * A SID that uniquely identifies the Verification Check. Either this parameter
+     * or the `to` phone number must be specified..
      * 
-     * @param verificationSid A SID that uniquely identifies this Verification Check
+     * @param verificationSid A SID that uniquely identifies the Verification Check
      * @return this
      */
     public VerificationCheckCreator setVerificationSid(final String verificationSid) {
@@ -66,10 +67,10 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
     }
 
     /**
-     * Amount of the associated PSD2 compliant transaction. Requires the PSD2
+     * The amount of the associated PSD2 compliant transaction. Requires the PSD2
      * Service flag enabled..
      * 
-     * @param amount Amount of the associated PSD2 compliant transaction.
+     * @param amount The amount of the associated PSD2 compliant transaction.
      * @return this
      */
     public VerificationCheckCreator setAmount(final String amount) {
@@ -78,10 +79,10 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
     }
 
     /**
-     * Payee of the associated PSD2 compliant transaction. Requires the PSD2 Service
-     * flag enabled..
+     * The payee of the associated PSD2 compliant transaction. Requires the PSD2
+     * Service flag enabled..
      * 
-     * @param payee Payee of the associated PSD2 compliant transaction.
+     * @param payee The payee of the associated PSD2 compliant transaction
      * @return this
      */
     public VerificationCheckCreator setPayee(final String payee) {

@@ -29,8 +29,9 @@ public class PhoneNumberUpdater extends Updater<PhoneNumber> {
     /**
      * Construct a new PhoneNumberUpdater.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Phone Number.
+     * @param pathServiceSid The SID of the parent Service resource of the
+     *                       PhoneNumber resource to update
+     * @param pathSid The unique string that identifies the resource
      */
     public PhoneNumberUpdater(final String pathServiceSid, 
                               final String pathSid) {
@@ -39,12 +40,12 @@ public class PhoneNumberUpdater extends Updater<PhoneNumber> {
     }
 
     /**
-     * Whether or not the number should be excluded from being assigned to a
+     * Whether the phone number should be reserved and not be assigned to a
      * participant using proxy pool logic. See [Reserved Phone
      * Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more
      * information..
      * 
-     * @param isReserved Reserve for manual assignment to participants only.
+     * @param isReserved Whether the new phone number should be reserved
      * @return this
      */
     public PhoneNumberUpdater setIsReserved(final Boolean isReserved) {

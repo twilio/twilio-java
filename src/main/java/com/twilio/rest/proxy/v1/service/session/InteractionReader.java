@@ -30,8 +30,8 @@ public class InteractionReader extends Reader<Interaction> {
     /**
      * Construct a new InteractionReader.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
+     * @param pathServiceSid The SID of the parent Service to read the resource from
+     * @param pathSessionSid The SID of the parent Session to read the resource from
      */
     public InteractionReader(final String pathServiceSid, 
                              final String pathSessionSid) {

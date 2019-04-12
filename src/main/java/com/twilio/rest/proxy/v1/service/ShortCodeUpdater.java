@@ -29,8 +29,8 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     /**
      * Construct a new ShortCodeUpdater.
      * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Short Code.
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathSid The unique string that identifies the resource
      */
     public ShortCodeUpdater(final String pathServiceSid, 
                             final String pathSid) {
@@ -39,10 +39,13 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     }
 
     /**
-     * Whether or not the short code should be excluded from being assigned to a
-     * participant using proxy pool logic.
+     * Whether the short code should be reserved and not be assigned to a
+     * participant using proxy pool logic. See [Reserved Phone
+     * Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more
+     * information..
      * 
-     * @param isReserved Reserve for manual assignment to participants only.
+     * @param isReserved Whether the short code should be reserved for manual
+     *                   assignment to participants only
      * @return this
      */
     public ShortCodeUpdater setIsReserved(final Boolean isReserved) {

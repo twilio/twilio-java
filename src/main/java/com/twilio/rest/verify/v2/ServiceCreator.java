@@ -33,17 +33,17 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * Construct a new ServiceCreator.
      * 
-     * @param friendlyName Friendly name of the service
+     * @param friendlyName A string to describe the verification service
      */
     public ServiceCreator(final String friendlyName) {
         this.friendlyName = friendlyName;
     }
 
     /**
-     * The length of the verification code to be generated. Must be an integer value
-     * between 4-10.
+     * The length of the verification code to generate. Must be an integer value
+     * between 4 and 10, inclusive..
      * 
-     * @param codeLength Length of verification code. Valid values are 4-10
+     * @param codeLength The length of the verification code to generate
      * @return this
      */
     public ServiceCreator setCodeLength(final Integer codeLength) {
@@ -52,11 +52,10 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * Boolean value that indicates if a lookup should be performed with each
-     * verification started and associated info returned.
+     * Whether to perform a lookup with each verification started and return info
+     * about the phone number..
      * 
-     * @param lookupEnabled Indicates whether or not to perform a lookup with each
-     *                      verification started
+     * @param lookupEnabled Whether to perform a lookup with each verification
      * @return this
      */
     public ServiceCreator setLookupEnabled(final Boolean lookupEnabled) {
@@ -65,11 +64,11 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * Boolean value that indicates whether or not to ignore SMS verifications for
-     * landlines, depends on lookup_enabled flag.
+     * Whether to skip sending SMS verifications to landlines. Requires
+     * `lookup_enabled`..
      * 
-     * @param skipSmsToLandlines Indicates whether or not to ignore SMS
-     *                           verifications for landlines
+     * @param skipSmsToLandlines Whether to skip sending SMS verifications to
+     *                           landlines
      * @return this
      */
     public ServiceCreator setSkipSmsToLandlines(final Boolean skipSmsToLandlines) {
@@ -78,11 +77,11 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * Boolean value that indicates whether or not to require a random number input
-     * to deliver the verify code via phone calls.
+     * Whether to ask the user to press a number before delivering the verify code
+     * in a phone call..
      * 
-     * @param dtmfInputRequired Indicates whether or not to require a random number
-     *                          input to deliver the verify code via phone calls
+     * @param dtmfInputRequired Whether to ask the user to press a number before
+     *                          delivering the verify code in a phone call
      * @return this
      */
     public ServiceCreator setDtmfInputRequired(final Boolean dtmfInputRequired) {
@@ -91,10 +90,11 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * Alternative to be used as Service friendly name in phone calls, only applies
-     * to TTS languages.
+     * The name of an alternative text-to-speech service to use in phone calls.
+     * Applies only to TTS languages..
      * 
-     * @param ttsName Alternative to be used as Service friendly name in phone calls
+     * @param ttsName The name of an alternative text-to-speech service to use in
+     *                phone calls
      * @return this
      */
     public ServiceCreator setTtsName(final String ttsName) {
@@ -103,10 +103,10 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * Boolean value that enables to pass PSD2 transaction parameters when starting
-     * a verification.
+     * Whether to pass PSD2 transaction parameters when starting a verification..
      * 
-     * @param psd2Enabled Indicates whether PSD2 parameters are enabled or not
+     * @param psd2Enabled Whether to pass PSD2 transaction parameters when starting
+     *                    a verification
      * @return this
      */
     public ServiceCreator setPsd2Enabled(final Boolean psd2Enabled) {

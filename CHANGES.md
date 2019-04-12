@@ -1,6 +1,12 @@
 twilio-java changelog
 =====================
 
+[2019-04-12] Version 7.37.2
+----------------------------
+**Serverless**
+- Serverless scaffolding
+
+
 [2019-04-12] Version 7.37.1
 ----------------------------
 **Library**

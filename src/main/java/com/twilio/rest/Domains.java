@@ -22,6 +22,7 @@ public enum Domains {
     PREVIEW("preview"),
     PRICING("pricing"),
     PROXY("proxy"),
+    SERVERLESS("serverless"),
     TASKROUTER("taskrouter"),
     TRUNKING("trunking"),
     VIDEO("video"),

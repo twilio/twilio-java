@@ -42,8 +42,10 @@ public class TaskStatistics extends Resource {
     /**
      * Create a TaskStatisticsFetcher to execute fetch.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathTaskSid The unique ID of the Task associated with this Field.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resource to fetch
+     * @param pathTaskSid The SID of the Task that is associated with the resource
+     *                    to fetch
      * @return TaskStatisticsFetcher capable of executing the fetch
      */
     public static TaskStatisticsFetcher fetcher(final String pathAssistantSid, 
@@ -118,54 +120,56 @@ public class TaskStatistics extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this resource..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique ID of the Account that created this resource.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique ID of the Assistant..
+     * Returns The The SID of the Assistant that is the parent of the Task
+     * associated with the resource.
      * 
-     * @return The unique ID of the Assistant.
+     * @return The SID of the Assistant that is the parent of the Task associated
+     *         with the resource
      */
     public final String getAssistantSid() {
         return this.assistantSid;
     }
 
     /**
-     * Returns The The unique ID of the Task associated with this Field..
+     * Returns The The SID of the Task for which the statistics were collected.
      * 
-     * @return The unique ID of the Task associated with this Field.
+     * @return The SID of the Task for which the statistics were collected
      */
     public final String getTaskSid() {
         return this.taskSid;
     }
 
     /**
-     * Returns The The total number of Samples associated with this Task..
+     * Returns The The total number of Samples associated with the Task.
      * 
-     * @return The total number of Samples associated with this Task.
+     * @return The total number of Samples associated with the Task
      */
     public final Integer getSamplesCount() {
         return this.samplesCount;
     }
 
     /**
-     * Returns The The total number of Fields associated with this Task..
+     * Returns The The total number of Fields associated with the Task.
      * 
-     * @return The total number of Fields associated with this Task.
+     * @return The total number of Fields associated with the Task
      */
     public final Integer getFieldsCount() {
         return this.fieldsCount;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the TaskStatistics resource.
      * 
-     * @return The url
+     * @return The absolute URL of the TaskStatistics resource
      */
     public final URI getUrl() {
         return this.url;

@@ -15,24 +15,24 @@ public enum Domains {
     CHAT("chat"),
     FAX("fax"),
     FLEXAPI("flex"),
+    INSIGHTS("insights"),
     IPMESSAGING("chat"),
     LOOKUPS("lookups"),
+    MESSAGING("messaging"),
     MONITOR("monitor"),
     NOTIFY("notify"),
     PREVIEW("preview"),
     PRICING("pricing"),
     PROXY("proxy"),
     SERVERLESS("serverless"),
+    STUDIO("studio"),
+    SYNC("sync"),
     TASKROUTER("taskrouter"),
     TRUNKING("trunking"),
-    VIDEO("video"),
-    MESSAGING("messaging"),
-    WIRELESS("wireless"),
-    SYNC("sync"),
-    STUDIO("studio"),
     VERIFY("verify"),
+    VIDEO("video"),
     VOICE("voice"),
-    INSIGHTS("insights");
+    WIRELESS("wireless");
 
     private final String value;
 

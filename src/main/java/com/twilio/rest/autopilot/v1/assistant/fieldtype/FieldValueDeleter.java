@@ -30,10 +30,11 @@ public class FieldValueDeleter extends Deleter<FieldValue> {
     /**
      * Construct a new FieldValueDeleter.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant
-     * @param pathFieldTypeSid The unique ID of the Field Type associated with this
-     *                         Field Value
-     * @param pathSid A 34 character string that uniquely identifies this resource
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         FieldType associated with the resources to delete
+     * @param pathFieldTypeSid The SID of the Field Type associated with the Field
+     *                         Value to delete
+     * @param pathSid The unique string that identifies the resource
      */
     public FieldValueDeleter(final String pathAssistantSid, 
                              final String pathFieldTypeSid, 

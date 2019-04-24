@@ -25,7 +25,8 @@ public class CredentialListReader extends Reader<CredentialList> {
     /**
      * Construct a new CredentialListReader.
      * 
-     * @param pathTrunkSid The trunk_sid
+     * @param pathTrunkSid The SID of the Trunk from which to read the credential
+     *                     lists
      */
     public CredentialListReader(final String pathTrunkSid) {
         this.pathTrunkSid = pathTrunkSid;

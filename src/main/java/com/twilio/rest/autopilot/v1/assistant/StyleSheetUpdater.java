@@ -32,16 +32,17 @@ public class StyleSheetUpdater extends Updater<StyleSheet> {
     /**
      * Construct a new StyleSheetUpdater.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant
+     * @param pathAssistantSid The SID of the Assistant with the StyleSheet
+     *                         resource to update
      */
     public StyleSheetUpdater(final String pathAssistantSid) {
         this.pathAssistantSid = pathAssistantSid;
     }
 
     /**
-     * The JSON Style sheet string.
+     * The JSON string that describes the style sheet object..
      * 
-     * @param styleSheet The JSON Style sheet string
+     * @param styleSheet The JSON string that describes the style sheet object
      * @return this
      */
     public StyleSheetUpdater setStyleSheet(final Map<String, Object> styleSheet) {

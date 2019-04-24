@@ -30,9 +30,12 @@ public class FieldDeleter extends Deleter<Field> {
     /**
      * Construct a new FieldDeleter.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathTaskSid The unique ID of the Task associated with this Field.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         Task associated with the resources to delete
+     * @param pathTaskSid The SID of the
+     *                    [Task](https://www.twilio.com/docs/autopilot/api/task)
+     *                    resource associated with the Field resource to delete
+     * @param pathSid The unique string that identifies the resource
      */
     public FieldDeleter(final String pathAssistantSid, 
                         final String pathTaskSid, 

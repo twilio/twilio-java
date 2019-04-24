@@ -118,8 +118,8 @@ public class FieldTest {
                         Request request = new Request(HttpMethod.POST,
                                                       Domains.AUTOPILOT.toString(),
                                                       "/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Fields");
-                        request.addPostParam("FieldType", serialize("fieldType"));
-        request.addPostParam("UniqueName", serialize("uniqueName"));
+                        request.addPostParam("FieldType", serialize("field_type"));
+        request.addPostParam("UniqueName", serialize("unique_name"));
                         twilioRestClient.request(request);
                         times = 1;
                         result = new Response("", 500);
@@ -128,7 +128,7 @@ public class FieldTest {
                     }};
 
         try {
-            Field.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "fieldType", "uniqueName").create();
+            Field.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "field_type", "unique_name").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -142,7 +142,7 @@ public class FieldTest {
             result = new ObjectMapper();
         }};
 
-        Field.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "fieldType", "uniqueName").create();
+        Field.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "field_type", "unique_name").create();
     }
 
     @Test

@@ -52,7 +52,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceDeleter to execute delete.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      * @return ServiceDeleter capable of executing the delete
      */
     public static ServiceDeleter deleter(final String pathSid) {
@@ -62,7 +62,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceFetcher to execute fetch.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      * @return ServiceFetcher capable of executing the fetch
      */
     public static ServiceFetcher fetcher(final String pathSid) {
@@ -81,7 +81,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      * @return ServiceUpdater capable of executing the update
      */
     public static ServiceUpdater updater(final String pathSid) {
@@ -202,166 +202,163 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return The sid
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Human-readable name for this service instance.
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return Human-readable name for this service instance
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date_created
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date_updated
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The SID of the Credential to be used for APN Bindings..
+     * Returns The The SID of the Credential to use for APN Bindings.
      * 
-     * @return The SID of the Credential to be used for APN Bindings.
+     * @return The SID of the Credential to use for APN Bindings
      */
     public final String getApnCredentialSid() {
         return this.apnCredentialSid;
     }
 
     /**
-     * Returns The The SID of the Credential to be used for GCM Bindings..
+     * Returns The The SID of the Credential to use for GCM Bindings.
      * 
-     * @return The SID of the Credential to be used for GCM Bindings.
+     * @return The SID of the Credential to use for GCM Bindings
      */
     public final String getGcmCredentialSid() {
         return this.gcmCredentialSid;
     }
 
     /**
-     * Returns The The SID of the Credential to be used for FCM Bindings..
+     * Returns The The SID of the Credential to use for FCM Bindings.
      * 
-     * @return The SID of the Credential to be used for FCM Bindings.
+     * @return The SID of the Credential to use for FCM Bindings
      */
     public final String getFcmCredentialSid() {
         return this.fcmCredentialSid;
     }
 
     /**
-     * Returns The The SID of the Messaging Service to be used for SMS Bindings..
+     * Returns The The SID of the Messaging Service to use for SMS Bindings.
      * 
-     * @return The SID of the Messaging Service to be used for SMS Bindings.
+     * @return The SID of the Messaging Service to use for SMS Bindings
      */
     public final String getMessagingServiceSid() {
         return this.messagingServiceSid;
     }
 
     /**
-     * Returns The The Page ID to be used to send for Facebook Messenger Bindings..
+     * Returns The Deprecated.
      * 
-     * @return The Page ID to be used to send for Facebook Messenger Bindings.
+     * @return Deprecated
      */
     public final String getFacebookMessengerPageId() {
         return this.facebookMessengerPageId;
     }
 
     /**
-     * Returns The The version of the protocol to be used for sending APNS
-     * notifications..
+     * Returns The The protocol version to use for sending APNS notifications.
      * 
-     * @return The version of the protocol to be used for sending APNS
-     *         notifications.
+     * @return The protocol version to use for sending APNS notifications
      */
     public final String getDefaultApnNotificationProtocolVersion() {
         return this.defaultApnNotificationProtocolVersion;
     }
 
     /**
-     * Returns The The version of the protocol to be used for sending GCM
-     * notifications..
+     * Returns The The protocol version to use for sending GCM notifications.
      * 
-     * @return The version of the protocol to be used for sending GCM notifications.
+     * @return The protocol version to use for sending GCM notifications
      */
     public final String getDefaultGcmNotificationProtocolVersion() {
         return this.defaultGcmNotificationProtocolVersion;
     }
 
     /**
-     * Returns The The version of the protocol to be used for sending FCM
-     * notifications..
+     * Returns The The protocol version to use for sending FCM notifications.
      * 
-     * @return The version of the protocol to be used for sending FCM notifications.
+     * @return The protocol version to use for sending FCM notifications
      */
     public final String getDefaultFcmNotificationProtocolVersion() {
         return this.defaultFcmNotificationProtocolVersion;
     }
 
     /**
-     * Returns The The log_enabled.
+     * Returns The Whether to log notifications.
      * 
-     * @return The log_enabled
+     * @return Whether to log notifications
      */
     public final Boolean getLogEnabled() {
         return this.logEnabled;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the Service resource.
      * 
-     * @return The url
+     * @return The absolute URL of the Service resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The The URLs of the resources related to the service.
      * 
-     * @return The links
+     * @return The URLs of the resources related to the service
      */
     public final Map<String, String> getLinks() {
         return this.links;
     }
 
     /**
-     * Returns The The alexa_skill_id.
+     * Returns The Deprecated.
      * 
-     * @return The alexa_skill_id
+     * @return Deprecated
      */
     public final String getAlexaSkillId() {
         return this.alexaSkillId;
     }
 
     /**
-     * Returns The The default_alexa_notification_protocol_version.
+     * Returns The Deprecated.
      * 
-     * @return The default_alexa_notification_protocol_version
+     * @return Deprecated
      */
     public final String getDefaultAlexaNotificationProtocolVersion() {
         return this.defaultAlexaNotificationProtocolVersion;

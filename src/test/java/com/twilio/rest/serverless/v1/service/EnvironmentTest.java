@@ -106,7 +106,7 @@ public class EnvironmentTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.SERVERLESS.toString(),
                                           "/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments");
-            request.addPostParam("UniqueName", serialize("uniqueName"));
+            request.addPostParam("UniqueName", serialize("unique_name"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -115,7 +115,7 @@ public class EnvironmentTest {
         }};
 
         try {
-            Environment.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "uniqueName").create();
+            Environment.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "unique_name").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,6 +129,6 @@ public class EnvironmentTest {
             result = new ObjectMapper();
         }};
 
-        Environment.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "uniqueName").create();
+        Environment.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "unique_name").create();
     }
 }

@@ -118,7 +118,7 @@ public class TaskTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.AUTOPILOT.toString(),
                                           "/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks");
-            request.addPostParam("UniqueName", serialize("uniqueName"));
+            request.addPostParam("UniqueName", serialize("unique_name"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -127,7 +127,7 @@ public class TaskTest {
         }};
 
         try {
-            Task.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "uniqueName").create();
+            Task.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "unique_name").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -141,7 +141,7 @@ public class TaskTest {
             result = new ObjectMapper();
         }};
 
-        Task.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "uniqueName").create();
+        Task.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "unique_name").create();
     }
 
     @Test

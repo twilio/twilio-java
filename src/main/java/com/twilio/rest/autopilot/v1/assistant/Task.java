@@ -44,8 +44,9 @@ public class Task extends Resource {
     /**
      * Create a TaskFetcher to execute fetch.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resource to fetch
+     * @param pathSid The unique string that identifies the resource to fetch
      * @return TaskFetcher capable of executing the fetch
      */
     public static TaskFetcher fetcher(final String pathAssistantSid, 
@@ -56,7 +57,8 @@ public class Task extends Resource {
     /**
      * Create a TaskReader to execute read.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resources to read
      * @return TaskReader capable of executing the read
      */
     public static TaskReader reader(final String pathAssistantSid) {
@@ -66,10 +68,10 @@ public class Task extends Resource {
     /**
      * Create a TaskCreator to execute create.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param uniqueName A user-provided string that uniquely identifies this
-     *                   resource as an alternative to the sid. Unique up to 64
-     *                   characters long.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         new resource
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      * @return TaskCreator capable of executing the create
      */
     public static TaskCreator creator(final String pathAssistantSid, 
@@ -80,8 +82,9 @@ public class Task extends Resource {
     /**
      * Create a TaskUpdater to execute update.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resource to update
+     * @param pathSid The unique string that identifies the resource
      * @return TaskUpdater capable of executing the update
      */
     public static TaskUpdater updater(final String pathAssistantSid, 
@@ -92,8 +95,9 @@ public class Task extends Resource {
     /**
      * Create a TaskDeleter to execute delete.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resources to delete
+     * @param pathSid The unique string that identifies the resource to delete
      * @return TaskDeleter capable of executing the delete
      */
     public static TaskDeleter deleter(final String pathAssistantSid, 
@@ -183,95 +187,92 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this Task..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique ID of the Account that created this Task.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The date that this resource was created.
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date that this resource was created
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date that this resource was last updated
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The A user-provided string that identifies this resource. It is
-     * non-unique and can be up to 255 characters long..
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return A user-provided string that identifies this resource. It is
-     *         non-unique and can be up to 255 characters long.
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The links.
+     * Returns The A list of the URLs of related resources.
      * 
-     * @return The links
+     * @return A list of the URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;
     }
 
     /**
-     * Returns The The unique ID of the Assistant..
+     * Returns The The SID of the Assistant that is the parent of the resource.
      * 
-     * @return The unique ID of the Assistant.
+     * @return The SID of the Assistant that is the parent of the resource
      */
     public final String getAssistantSid() {
         return this.assistantSid;
     }
 
     /**
-     * Returns The A 34-character string that uniquely identifies this resource..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A 34-character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A user-provided string that uniquely identifies this resource as
-     * an alternative to the sid. Unique up to 64 characters long..
+     * Returns The An application-defined string that uniquely identifies the
+     * resource.
      * 
-     * @return A user-provided string that uniquely identifies this resource as an
-     *         alternative to the sid. Unique up to 64 characters long.
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The A user-provided HTTP endpoint where the assistant can fetch
-     * actions..
+     * Returns The The URL from which the Assistant can fetch actions.
      * 
-     * @return A user-provided HTTP endpoint where the assistant can fetch actions.
+     * @return The URL from which the Assistant can fetch actions
      */
     public final URI getActionsUrl() {
         return this.actionsUrl;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the Task resource.
      * 
-     * @return The url
+     * @return The absolute URL of the Task resource
      */
     public final URI getUrl() {
         return this.url;

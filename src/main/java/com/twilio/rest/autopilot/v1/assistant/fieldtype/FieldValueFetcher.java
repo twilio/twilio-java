@@ -30,10 +30,11 @@ public class FieldValueFetcher extends Fetcher<FieldValue> {
     /**
      * Construct a new FieldValueFetcher.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant
-     * @param pathFieldTypeSid The unique ID of the Field Type associated with this
-     *                         Field Value
-     * @param pathSid A 34 character string that uniquely identifies this resource
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         FieldType associated with the resource to fetch
+     * @param pathFieldTypeSid The SID of the Field Type associated with  the Field
+     *                         Value to fetch
+     * @param pathSid The unique string that identifies the resource
      */
     public FieldValueFetcher(final String pathAssistantSid, 
                              final String pathFieldTypeSid, 

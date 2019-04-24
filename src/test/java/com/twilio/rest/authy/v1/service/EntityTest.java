@@ -73,7 +73,7 @@ public class EntityTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.AUTHY.toString(),
-                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/pathIdentity");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity");
             
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class EntityTest {
         }};
 
         try {
-            Entity.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity").delete();
+            Entity.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class EntityTest {
             result = new ObjectMapper();
         }};
 
-        Entity.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity").delete();
+        Entity.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").delete();
     }
 
     @Test
@@ -105,7 +105,7 @@ public class EntityTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.AUTHY.toString(),
-                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/pathIdentity");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity");
             
             twilioRestClient.request(request);
             times = 1;
@@ -115,7 +115,7 @@ public class EntityTest {
         }};
 
         try {
-            Entity.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity").fetch();
+            Entity.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class EntityTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Entity.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity").fetch());
+        assertNotNull(Entity.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").fetch());
     }
 
     @Test

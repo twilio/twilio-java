@@ -119,7 +119,7 @@ public class SampleTest {
                                                       Domains.PREVIEW.toString(),
                                                       "/understand/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Samples");
                         request.addPostParam("Language", serialize("language"));
-        request.addPostParam("TaggedText", serialize("taggedText"));
+        request.addPostParam("TaggedText", serialize("tagged_text"));
                         twilioRestClient.request(request);
                         times = 1;
                         result = new Response("", 500);
@@ -128,7 +128,7 @@ public class SampleTest {
                     }};
 
         try {
-            Sample.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "language", "taggedText").create();
+            Sample.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "language", "tagged_text").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -142,7 +142,7 @@ public class SampleTest {
             result = new ObjectMapper();
         }};
 
-        Sample.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "language", "taggedText").create();
+        Sample.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "language", "tagged_text").create();
     }
 
     @Test

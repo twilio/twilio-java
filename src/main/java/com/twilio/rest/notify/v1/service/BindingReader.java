@@ -38,17 +38,17 @@ public class BindingReader extends Reader<Binding> {
     /**
      * Construct a new BindingReader.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid The SID of the Service to read the resource from
      */
     public BindingReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
     /**
-     * Only list Bindings created on or after the given date. Should be formatted as
-     * YYYY-MM-DD. All dates considered in UTC..
+     * Only include usage that has occurred on or after this date. Specify the date
+     * in GMT and format as `YYYY-MM-DD`..
      * 
-     * @param startDate Only list Bindings created on or after the given date.
+     * @param startDate Only include usage that has occurred on or after this date
      * @return this
      */
     public BindingReader setStartDate(final LocalDate startDate) {
@@ -57,10 +57,10 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * Only list Bindings created on or before the given date. Should be formatted
-     * as YYYY-MM-DD. All dates considered in UTC..
+     * Only include usage that occurred on or before this date. Specify the date in
+     * GMT and format as `YYYY-MM-DD`..
      * 
-     * @param endDate Only list Bindings created on or before the given date.
+     * @param endDate Only include usage that occurred on or before this date
      * @return this
      */
     public BindingReader setEndDate(final LocalDate endDate) {
@@ -69,9 +69,10 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * Only list Bindings that have any of the specified Identities..
+     * The [User](https://www.twilio.com/docs/chat/rest/users)'s `identity` value of
+     * the resources to read..
      * 
-     * @param identity Only list Bindings that have any of the specified Identities.
+     * @param identity The `identity` value of the resources to read
      * @return this
      */
     public BindingReader setIdentity(final List<String> identity) {
@@ -80,9 +81,10 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * Only list Bindings that have any of the specified Identities..
+     * The [User](https://www.twilio.com/docs/chat/rest/users)'s `identity` value of
+     * the resources to read..
      * 
-     * @param identity Only list Bindings that have any of the specified Identities.
+     * @param identity The `identity` value of the resources to read
      * @return this
      */
     public BindingReader setIdentity(final String identity) {
@@ -91,10 +93,10 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * Only list Bindings that have all of the specified Tags. The following
-     * implicit tags are available: all, apn, fcm, gcm, sms, facebook-messenger.
-     * Maximum 5 tags are allowed..
+     * implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`,
+     * `facebook-messenger`. Up to 5 tags are allowed..
      * 
-     * @param tag Only list Bindings that have all of the specified Tags.
+     * @param tag Only list Bindings that have all of the specified Tags
      * @return this
      */
     public BindingReader setTag(final List<String> tag) {
@@ -104,10 +106,10 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * Only list Bindings that have all of the specified Tags. The following
-     * implicit tags are available: all, apn, fcm, gcm, sms, facebook-messenger.
-     * Maximum 5 tags are allowed..
+     * implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`,
+     * `facebook-messenger`. Up to 5 tags are allowed..
      * 
-     * @param tag Only list Bindings that have all of the specified Tags.
+     * @param tag Only list Bindings that have all of the specified Tags
      * @return this
      */
     public BindingReader setTag(final String tag) {

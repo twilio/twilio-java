@@ -28,7 +28,7 @@ public class AssistantFetcher extends Fetcher<Assistant> {
     /**
      * Construct a new AssistantFetcher.
      * 
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathSid The unique string that identifies the resource
      */
     public AssistantFetcher(final String pathSid) {
         this.pathSid = pathSid;

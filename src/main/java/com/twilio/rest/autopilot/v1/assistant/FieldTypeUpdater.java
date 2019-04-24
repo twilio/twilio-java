@@ -31,8 +31,9 @@ public class FieldTypeUpdater extends Updater<FieldType> {
     /**
      * Construct a new FieldTypeUpdater.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant with the FieldType resource
+     *                         to update
+     * @param pathSid The unique string that identifies the resource
      */
     public FieldTypeUpdater(final String pathAssistantSid, 
                             final String pathSid) {
@@ -41,11 +42,10 @@ public class FieldTypeUpdater extends Updater<FieldType> {
     }
 
     /**
-     * A user-provided string that identifies this resource. It is non-unique and
-     * can be up to 255 characters long..
+     * A descriptive string that you create to describe the resource. It is not
+     * unique and can be up to 255 characters long..
      * 
-     * @param friendlyName A user-provided string that identifies this resource. It
-     *                     is non-unique and can be up to 255 characters long.
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public FieldTypeUpdater setFriendlyName(final String friendlyName) {
@@ -54,12 +54,12 @@ public class FieldTypeUpdater extends Updater<FieldType> {
     }
 
     /**
-     * A user-provided string that uniquely identifies this resource as an
-     * alternative to the sid. Unique up to 64 characters long..
+     * An application-defined string that uniquely identifies the resource. It can
+     * be used as an alternative to the `sid` in the URL path to address the
+     * resource. The first 64 characters must be unique..
      * 
-     * @param uniqueName A user-provided string that uniquely identifies this
-     *                   resource as an alternative to the sid. Unique up to 64
-     *                   characters long.
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      * @return this
      */
     public FieldTypeUpdater setUniqueName(final String uniqueName) {

@@ -68,8 +68,7 @@ public class Trunk extends Resource {
     /**
      * Create a TrunkFetcher to execute fetch.
      * 
-     * @param pathSid A 34 character string that uniquely identifies the SIP Trunk
-     *                in Twilio.
+     * @param pathSid The unique string that identifies the resource
      * @return TrunkFetcher capable of executing the fetch
      */
     public static TrunkFetcher fetcher(final String pathSid) {
@@ -79,8 +78,7 @@ public class Trunk extends Resource {
     /**
      * Create a TrunkDeleter to execute delete.
      * 
-     * @param pathSid A 34 character string that uniquely identifies the SIP Trunk
-     *                in Twilio.
+     * @param pathSid The unique string that identifies the resource
      * @return TrunkDeleter capable of executing the delete
      */
     public static TrunkDeleter deleter(final String pathSid) {
@@ -108,8 +106,7 @@ public class Trunk extends Resource {
     /**
      * Create a TrunkUpdater to execute update.
      * 
-     * @param pathSid A 34 character string that uniquely identifies the SIP Trunk
-     *                in Twilio.
+     * @param pathSid The unique string that identifies the resource
      * @return TrunkUpdater capable of executing the update
      */
     public static TrunkUpdater updater(final String pathSid) {
@@ -218,9 +215,9 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that owns this Trunk..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique ID of the Account that owns this Trunk.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
@@ -228,133 +225,130 @@ public class Trunk extends Resource {
 
     /**
      * Returns The The unique address you reserve on Twilio to which you route your
-     * SIP traffic..
+     * SIP traffic.
      * 
      * @return The unique address you reserve on Twilio to which you route your SIP
-     *         traffic.
+     *         traffic
      */
     public final String getDomainName() {
         return this.domainName;
     }
 
     /**
-     * Returns The The HTTP method Twilio will use when requesting the
-     * DisasterRecoveryUrl..
+     * Returns The The HTTP method we use to call the disaster_recovery_url.
      * 
-     * @return The HTTP method Twilio will use when requesting the
-     *         DisasterRecoveryUrl.
+     * @return The HTTP method we use to call the disaster_recovery_url
      */
     public final HttpMethod getDisasterRecoveryMethod() {
         return this.disasterRecoveryMethod;
     }
 
     /**
-     * Returns The The HTTP URL that Twilio will request if an error occurs while
-     * sending SIP traffic towards your configured Origination URL..
+     * Returns The The HTTP URL that we call if an error occurs while sending SIP
+     * traffic towards your configured Origination URL.
      * 
-     * @return The HTTP URL that Twilio will request if an error occurs while
-     *         sending SIP traffic towards your configured Origination URL.
+     * @return The HTTP URL that we call if an error occurs while sending SIP
+     *         traffic towards your configured Origination URL
      */
     public final URI getDisasterRecoveryUrl() {
         return this.disasterRecoveryUrl;
     }
 
     /**
-     * Returns The A human-readable name for the Trunk..
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return A human-readable name for the Trunk.
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The Secure Trunking  settings for this trunk..
+     * Returns The Whether Secure Trunking is enabled for the trunk.
      * 
-     * @return The Secure Trunking  settings for this trunk.
+     * @return Whether Secure Trunking is enabled for the trunk
      */
     public final Boolean getSecure() {
         return this.secure;
     }
 
     /**
-     * Returns The The recording settings for this trunk..
+     * Returns The The recording settings for the trunk.
      * 
-     * @return The recording settings for this trunk.
+     * @return The recording settings for the trunk
      */
     public final Map<String, Object> getRecording() {
         return this.recording;
     }
 
     /**
-     * Returns The The Caller ID Name (CNAM) lookup setting for this trunk..
+     * Returns The Whether Caller ID Name (CNAM) lookup is enabled for the trunk.
      * 
-     * @return The Caller ID Name (CNAM) lookup setting for this trunk.
+     * @return Whether Caller ID Name (CNAM) lookup is enabled for the trunk
      */
     public final Boolean getCnamLookupEnabled() {
         return this.cnamLookupEnabled;
     }
 
     /**
-     * Returns The The types of authentication you have mapped to your domain..
+     * Returns The The types of authentication mapped to the domain.
      * 
-     * @return The types of authentication you have mapped to your domain.
+     * @return The types of authentication mapped to the domain
      */
     public final String getAuthType() {
         return this.authType;
     }
 
     /**
-     * Returns The The auth_type_set.
+     * Returns The Reserved.
      * 
-     * @return The auth_type_set
+     * @return Reserved
      */
     public final List<String> getAuthTypeSet() {
         return this.authTypeSet;
     }
 
     /**
-     * Returns The The date this Activity was created..
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date this Activity was created.
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Activity was updated..
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date this Activity was updated.
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies the SIP Trunk in
-     * Twilio..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A 34 character string that uniquely identifies the SIP Trunk in
-     *         Twilio.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The URL for this resource, relative to https://trunking..
+     * Returns The The absolute URL of the resource.
      * 
-     * @return The URL for this resource, relative to https://trunking.
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The The URLs of related resources.
      * 
-     * @return The links
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;

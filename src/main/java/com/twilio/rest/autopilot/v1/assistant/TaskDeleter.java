@@ -29,8 +29,9 @@ public class TaskDeleter extends Deleter<Task> {
     /**
      * Construct a new TaskDeleter.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resources to delete
+     * @param pathSid The unique string that identifies the resource to delete
      */
     public TaskDeleter(final String pathAssistantSid, 
                        final String pathSid) {

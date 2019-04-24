@@ -24,8 +24,8 @@ public class TerminatingSipDomainDeleter extends Deleter<TerminatingSipDomain> {
     /**
      * Construct a new TerminatingSipDomainDeleter.
      * 
-     * @param pathTrunkSid The unique sid of the trunk.
-     * @param pathSid The unique sid of the domain.
+     * @param pathTrunkSid The SID of the Trunk with the resources to disassociate
+     * @param pathSid The unique string that identifies the resource to disassociate
      */
     public TerminatingSipDomainDeleter(final String pathTrunkSid, 
                                        final String pathSid) {

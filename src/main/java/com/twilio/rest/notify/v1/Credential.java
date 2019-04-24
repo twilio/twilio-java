@@ -79,7 +79,7 @@ public class Credential extends Resource {
     /**
      * Create a CredentialCreator to execute create.
      * 
-     * @param type Credential type, one of "gcm", "fcm", or "apn"
+     * @param type The Credential type
      * @return CredentialCreator capable of executing the create
      */
     public static CredentialCreator creator(final Credential.PushService type) {
@@ -89,7 +89,7 @@ public class Credential extends Resource {
     /**
      * Create a CredentialFetcher to execute fetch.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      * @return CredentialFetcher capable of executing the fetch
      */
     public static CredentialFetcher fetcher(final String pathSid) {
@@ -99,7 +99,7 @@ public class Credential extends Resource {
     /**
      * Create a CredentialUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      * @return CredentialUpdater capable of executing the update
      */
     public static CredentialUpdater updater(final String pathSid) {
@@ -109,7 +109,7 @@ public class Credential extends Resource {
     /**
      * Create a CredentialDeleter to execute delete.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      * @return CredentialDeleter capable of executing the delete
      */
     public static CredentialDeleter deleter(final String pathSid) {
@@ -191,74 +191,73 @@ public class Credential extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return The sid
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Friendly name for stored credential.
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return Friendly name for stored credential
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The Credential type, one of "gcm", "fcm", or "apn".
+     * Returns The The Credential type, one of `gcm`, `fcm`, or `apn`.
      * 
-     * @return Credential type, one of "gcm", "fcm", or "apn"
+     * @return The Credential type, one of `gcm`, `fcm`, or `apn`
      */
     public final Credential.PushService getType() {
         return this.type;
     }
 
     /**
-     * Returns The [APN only] use this credential for sending to production or
-     * sandbox APNs.
+     * Returns The [APN only] Whether to send the credential to sandbox APNs.
      * 
-     * @return [APN only] use this credential for sending to production or sandbox
-     *         APNs
+     * @return [APN only] Whether to send the credential to sandbox APNs
      */
     public final String getSandbox() {
         return this.sandbox;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date_created
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date_updated
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the Credential resource.
      * 
-     * @return The url
+     * @return The absolute URL of the Credential resource
      */
     public final URI getUrl() {
         return this.url;

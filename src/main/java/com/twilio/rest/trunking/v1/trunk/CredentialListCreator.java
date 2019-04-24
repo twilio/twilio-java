@@ -24,11 +24,10 @@ public class CredentialListCreator extends Creator<CredentialList> {
     /**
      * Construct a new CredentialListCreator.
      * 
-     * @param pathTrunkSid The trunk_sid
+     * @param pathTrunkSid The SID of the Trunk to associate the credential list
+     *                     with
      * @param credentialListSid The SID of the Credential List that you want to
-     *                          associate with this trunk. Once associated, Twilio
-     *                          will start authenticating access to the trunk
-     *                          against this list.
+     *                          associate with the trunk
      */
     public CredentialListCreator(final String pathTrunkSid, 
                                  final String credentialListSid) {

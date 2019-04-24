@@ -43,7 +43,8 @@ public class StyleSheet extends Resource {
     /**
      * Create a StyleSheetFetcher to execute fetch.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant
+     * @param pathAssistantSid The SID of the Assistant with the StyleSheet
+     *                         resource to fetch
      * @return StyleSheetFetcher capable of executing the fetch
      */
     public static StyleSheetFetcher fetcher(final String pathAssistantSid) {
@@ -53,7 +54,8 @@ public class StyleSheet extends Resource {
     /**
      * Create a StyleSheetUpdater to execute update.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant
+     * @param pathAssistantSid The SID of the Assistant with the StyleSheet
+     *                         resource to update
      * @return StyleSheetUpdater capable of executing the update
      */
     public static StyleSheetUpdater updater(final String pathAssistantSid) {
@@ -119,36 +121,36 @@ public class StyleSheet extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this Assistant.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique ID of the Account that created this Assistant
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique ID of the Assistant.
+     * Returns The The SID of the Assistant that is the parent of the resource.
      * 
-     * @return The unique ID of the Assistant
+     * @return The SID of the Assistant that is the parent of the resource
      */
     public final String getAssistantSid() {
         return this.assistantSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the StyleSheet resource.
      * 
-     * @return The url
+     * @return The absolute URL of the StyleSheet resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The JSON style sheet object.
+     * Returns The The JSON string that describes the style sheet object.
      * 
-     * @return The JSON style sheet object
+     * @return The JSON string that describes the style sheet object
      */
     public final Map<String, Object> getData() {
         return this.data;

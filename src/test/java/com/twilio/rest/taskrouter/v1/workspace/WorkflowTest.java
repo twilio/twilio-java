@@ -182,7 +182,7 @@ public class WorkflowTest {
                         Request request = new Request(HttpMethod.POST,
                                                       Domains.TASKROUTER.toString(),
                                                       "/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workflows");
-                        request.addPostParam("FriendlyName", serialize("friendlyName"));
+                        request.addPostParam("FriendlyName", serialize("friendly_name"));
         request.addPostParam("Configuration", serialize("configuration"));
                         twilioRestClient.request(request);
                         times = 1;
@@ -192,7 +192,7 @@ public class WorkflowTest {
                     }};
 
         try {
-            Workflow.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName", "configuration").create();
+            Workflow.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", "configuration").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -206,6 +206,6 @@ public class WorkflowTest {
             result = new ObjectMapper();
         }};
 
-        Workflow.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName", "configuration").create();
+        Workflow.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", "configuration").create();
     }
 }

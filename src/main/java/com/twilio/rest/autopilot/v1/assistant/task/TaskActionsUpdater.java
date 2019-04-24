@@ -33,8 +33,11 @@ public class TaskActionsUpdater extends Updater<TaskActions> {
     /**
      * Construct a new TaskActionsUpdater.
      * 
-     * @param pathAssistantSid The unique ID of the parent Assistant.
-     * @param pathTaskSid The unique ID of the Task.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         Task for which the task actions to update were
+     *                         defined
+     * @param pathTaskSid The SID of the Task for which the task actions to update
+     *                    were defined
      */
     public TaskActionsUpdater(final String pathAssistantSid, 
                               final String pathTaskSid) {
@@ -43,12 +46,12 @@ public class TaskActionsUpdater extends Updater<TaskActions> {
     }
 
     /**
-     * The JSON [actions](https://www.twilio.com/docs/autopilot/actions) that
-     * instruct the Assistant how to perform this task..
+     * The JSON string that specifies the
+     * [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the
+     * Assistant on how to perform the task..
      * 
-     * @param actions The JSON
-     *                [actions](https://www.twilio.com/docs/autopilot/actions) that
-     *                instruct the Assistant how to perform this task.
+     * @param actions The JSON string that specifies the actions that instruct the
+     *                Assistant on how to perform the task
      * @return this
      */
     public TaskActionsUpdater setActions(final Map<String, Object> actions) {

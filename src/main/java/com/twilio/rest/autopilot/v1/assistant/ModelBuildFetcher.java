@@ -29,8 +29,9 @@ public class ModelBuildFetcher extends Fetcher<ModelBuild> {
     /**
      * Construct a new ModelBuildFetcher.
      * 
-     * @param pathAssistantSid The unique ID of the parent Assistant.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resource to fetch
+     * @param pathSid The unique string that identifies the resource
      */
     public ModelBuildFetcher(final String pathAssistantSid, 
                              final String pathSid) {

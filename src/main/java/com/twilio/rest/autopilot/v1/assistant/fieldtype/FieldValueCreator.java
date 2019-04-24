@@ -32,13 +32,13 @@ public class FieldValueCreator extends Creator<FieldValue> {
     /**
      * Construct a new FieldValueCreator.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant
-     * @param pathFieldTypeSid The unique ID of the Field Type associated with this
-     *                         Field Value
-     * @param language An ISO language-country string that specifies the language
-     *                 used for this field value. For example: en-US
-     * @param value A user-provided string that uniquely identifies this resource
-     *              as an alternative to the sid. Unique up to 64 characters long.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         FieldType associated with the new resource
+     * @param pathFieldTypeSid The SID of the Field Type associated with the Field
+     *                         Value
+     * @param language The ISO language-country tag that identifies the language of
+     *                 the value
+     * @param value The Field Value data
      */
     public FieldValueCreator(final String pathAssistantSid, 
                              final String pathFieldTypeSid, 
@@ -51,10 +51,10 @@ public class FieldValueCreator extends Creator<FieldValue> {
     }
 
     /**
-     * A string value that indicates which word this field value is a synonym of..
+     * The string value that indicates which word the field value is a synonym of..
      * 
-     * @param synonymOf A string value that indicates which word this field value
-     *                  is a synonym of.
+     * @param synonymOf The string value that indicates which word the field value
+     *                  is a synonym of
      * @return this
      */
     public FieldValueCreator setSynonymOf(final String synonymOf) {

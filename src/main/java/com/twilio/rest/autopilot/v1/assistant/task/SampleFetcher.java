@@ -30,9 +30,11 @@ public class SampleFetcher extends Fetcher<Sample> {
     /**
      * Construct a new SampleFetcher.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathTaskSid The unique ID of the Task associated with this Sample.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         Task associated with the resource to fetch
+     * @param pathTaskSid The SID of the Task associated with the Sample resource
+     *                    to create
+     * @param pathSid The unique string that identifies the resource
      */
     public SampleFetcher(final String pathAssistantSid, 
                          final String pathTaskSid, 

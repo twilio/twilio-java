@@ -39,8 +39,9 @@ public class OriginationUrl extends Resource {
     /**
      * Create a OriginationUrlFetcher to execute fetch.
      * 
-     * @param pathTrunkSid The trunk_sid
-     * @param pathSid The sid
+     * @param pathTrunkSid The SID of the Trunk from which to fetch the
+     *                     OriginationUrl
+     * @param pathSid The unique string that identifies the resource
      * @return OriginationUrlFetcher capable of executing the fetch
      */
     public static OriginationUrlFetcher fetcher(final String pathTrunkSid, 
@@ -51,8 +52,9 @@ public class OriginationUrl extends Resource {
     /**
      * Create a OriginationUrlDeleter to execute delete.
      * 
-     * @param pathTrunkSid The trunk_sid
-     * @param pathSid The sid
+     * @param pathTrunkSid The SID of the Trunk from which to delete the
+     *                     OriginationUrl
+     * @param pathSid The unique string that identifies the resource
      * @return OriginationUrlDeleter capable of executing the delete
      */
     public static OriginationUrlDeleter deleter(final String pathTrunkSid, 
@@ -63,16 +65,14 @@ public class OriginationUrl extends Resource {
     /**
      * Create a OriginationUrlCreator to execute create.
      * 
-     * @param pathTrunkSid The trunk_sid
-     * @param weight Weight is used to determine the share of load when more than
-     *               one URI has the same priority.
-     * @param priority Priority ranks the importance of the URI.
-     * @param enabled A boolean value indicating whether the URL is enabled or
-     *                disabled.
-     * @param friendlyName A human readable descriptive text, up to 64 characters
-     *                     long.
+     * @param pathTrunkSid The SID of the Trunk to associate the resource with
+     * @param weight The value that determines the relative load the URI should
+     *               receive compared to others with the same priority
+     * @param priority The relative importance of the URI
+     * @param enabled Whether the URL is enabled
+     * @param friendlyName A string to describe the resource
      * @param sipUrl The SIP address you want Twilio to route your Origination
-     *               calls to.
+     *               calls to
      * @return OriginationUrlCreator capable of executing the create
      */
     public static OriginationUrlCreator creator(final String pathTrunkSid, 
@@ -87,7 +87,8 @@ public class OriginationUrl extends Resource {
     /**
      * Create a OriginationUrlReader to execute read.
      * 
-     * @param pathTrunkSid The trunk_sid
+     * @param pathTrunkSid The SID of the Trunk from which to read the
+     *                     OriginationUrl
      * @return OriginationUrlReader capable of executing the read
      */
     public static OriginationUrlReader reader(final String pathTrunkSid) {
@@ -97,8 +98,9 @@ public class OriginationUrl extends Resource {
     /**
      * Create a OriginationUrlUpdater to execute update.
      * 
-     * @param pathTrunkSid The trunk_sid
-     * @param pathSid The sid
+     * @param pathTrunkSid The SID of the Trunk from which to update the
+     *                     OriginationUrl
+     * @param pathSid The unique string that identifies the resource
      * @return OriginationUrlUpdater capable of executing the update
      */
     public static OriginationUrlUpdater updater(final String pathTrunkSid, 
@@ -193,50 +195,47 @@ public class OriginationUrl extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that owns this Origination URL..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique ID of the Account that owns this Origination URL.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies the Origination
-     * URL in this Twilio Trunk..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A 34 character string that uniquely identifies the Origination URL
-     *         in this Twilio Trunk.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique ID of the Trunk that owns this Origination URL..
+     * Returns The The SID of the Trunk that owns the Origination URL.
      * 
-     * @return The unique ID of the Trunk that owns this Origination URL.
+     * @return The SID of the Trunk that owns the Origination URL
      */
     public final String getTrunkSid() {
         return this.trunkSid;
     }
 
     /**
-     * Returns The Weight is used to determine the share of load when more than one
-     * URI has the same priority..
+     * Returns The The value that determines the relative load the URI should
+     * receive compared to others with the same priority.
      * 
-     * @return Weight is used to determine the share of load when more than one URI
-     *         has the same priority.
+     * @return The value that determines the relative load the URI should receive
+     *         compared to others with the same priority
      */
     public final Integer getWeight() {
         return this.weight;
     }
 
     /**
-     * Returns The A boolean value indicating whether the URL is enabled or
-     * disabled..
+     * Returns The Whether the URL is enabled.
      * 
-     * @return A boolean value indicating whether the URL is enabled or disabled.
+     * @return Whether the URL is enabled
      */
     public final Boolean getEnabled() {
         return this.enabled;
@@ -244,54 +243,55 @@ public class OriginationUrl extends Resource {
 
     /**
      * Returns The The SIP address you want Twilio to route your Origination calls
-     * to..
+     * to.
      * 
-     * @return The SIP address you want Twilio to route your Origination calls to.
+     * @return The SIP address you want Twilio to route your Origination calls to
      */
     public final URI getSipUrl() {
         return this.sipUrl;
     }
 
     /**
-     * Returns The A human readable descriptive text, up to 64 characters long..
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return A human readable descriptive text, up to 64 characters long.
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The Priority ranks the importance of the URI..
+     * Returns The The relative importance of the URI.
      * 
-     * @return Priority ranks the importance of the URI.
+     * @return The relative importance of the URI
      */
     public final Integer getPriority() {
         return this.priority;
     }
 
     /**
-     * Returns The The date this Activity was created..
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date this Activity was created.
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Activity was updated..
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date this Activity was updated.
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL for this resource, relative to https://trunking..
+     * Returns The The absolute URL of the resource.
      * 
-     * @return The URL for this resource, relative to https://trunking.
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;

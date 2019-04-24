@@ -37,11 +37,10 @@ public class AssistantCreator extends Creator<Assistant> {
     private Map<String, Object> defaults;
 
     /**
-     * A text description for the Assistant. It is non-unique and can be up to 255
-     * characters long..
+     * A descriptive string that you create to describe the new resource. It is not
+     * unique and can be up to 255 characters long..
      * 
-     * @param friendlyName A text description for the Assistant. It is non-unique
-     *                     and can be up to 255 characters long.
+     * @param friendlyName A string to describe the new resource
      * @return this
      */
     public AssistantCreator setFriendlyName(final String friendlyName) {
@@ -50,16 +49,11 @@ public class AssistantCreator extends Creator<Assistant> {
     }
 
     /**
-     * A boolean that specifies whether queries should be logged for 30 days past
-     * training. If `false`, no queries will be stored. If `true`, queries will be
-     * stored for 30 days and deleted thereafter. Defaults to `true` if no value is
-     * provided..
+     * Whether queries should be logged and kept after training. Can be: `true` or
+     * `false` and defaults to `true`. If `true`, queries are stored for 30 days,
+     * and then deleted. If `false`, no queries are stored..
      * 
-     * @param logQueries A boolean that specifies whether queries should be logged
-     *                   for 30 days past training. If `false`, no queries will be
-     *                   stored. If `true`, queries will be stored for 30 days and
-     *                   deleted thereafter. Defaults to `true` if no value is
-     *                   provided.
+     * @param logQueries Whether queries should be logged and kept after training
      * @return this
      */
     public AssistantCreator setLogQueries(final Boolean logQueries) {
@@ -68,13 +62,12 @@ public class AssistantCreator extends Creator<Assistant> {
     }
 
     /**
-     * A user-provided string that uniquely identifies this resource as an
-     * alternative to the sid. You can use the unique name in the URL path when
-     * addressing this resource. Unique up to 64 characters long..
+     * An application-defined string that uniquely identifies the new resource. It
+     * can be used as an alternative to the `sid` in the URL path to address the
+     * resource. The first 64 characters must be unique..
      * 
-     * @param uniqueName A user-provided string that uniquely identifies this
-     *                   resource as an alternative to the sid. Unique up to 64
-     *                   characters long.
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   new resource
      * @return this
      */
     public AssistantCreator setUniqueName(final String uniqueName) {
@@ -83,9 +76,9 @@ public class AssistantCreator extends Creator<Assistant> {
     }
 
     /**
-     * The callback_url.
+     * Reserved..
      * 
-     * @param callbackUrl The callback_url
+     * @param callbackUrl Reserved
      * @return this
      */
     public AssistantCreator setCallbackUrl(final URI callbackUrl) {
@@ -94,9 +87,9 @@ public class AssistantCreator extends Creator<Assistant> {
     }
 
     /**
-     * The callback_url.
+     * Reserved..
      * 
-     * @param callbackUrl The callback_url
+     * @param callbackUrl Reserved
      * @return this
      */
     public AssistantCreator setCallbackUrl(final String callbackUrl) {
@@ -104,10 +97,9 @@ public class AssistantCreator extends Creator<Assistant> {
     }
 
     /**
-     * A space-separated list of callback events that will trigger callbacks.
+     * Reserved..
      * 
-     * @param callbackEvents A space-separated list of callback events that will
-     *                       trigger callbacks
+     * @param callbackEvents Reserved
      * @return this
      */
     public AssistantCreator setCallbackEvents(final String callbackEvents) {
@@ -116,11 +108,10 @@ public class AssistantCreator extends Creator<Assistant> {
     }
 
     /**
-     * A JSON object that defines the assistant [style
+     * The JSON string that defines the Assistant's [style
      * sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet).
      * 
-     * @param styleSheet A JSON object that defines the assistant [style
-     *                   sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
+     * @param styleSheet A JSON string that defines the Assistant's style sheet
      * @return this
      */
     public AssistantCreator setStyleSheet(final Map<String, Object> styleSheet) {
@@ -129,12 +120,12 @@ public class AssistantCreator extends Creator<Assistant> {
     }
 
     /**
-     * A JSON object that defines the assistant's [default
+     * A JSON object that defines the Assistant's [default
      * tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for
-     * various scenarios, including initation actions and fallback tasks..
+     * various scenarios, including initiation actions and fallback tasks..
      * 
-     * @param defaults A JSON object that defines the assistant's [default
-     *                 tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios
+     * @param defaults A JSON object that defines the Assistant's default tasks for
+     *                 various scenarios
      * @return this
      */
     public AssistantCreator setDefaults(final Map<String, Object> defaults) {

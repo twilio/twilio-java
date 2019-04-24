@@ -24,8 +24,9 @@ public class OriginationUrlFetcher extends Fetcher<OriginationUrl> {
     /**
      * Construct a new OriginationUrlFetcher.
      * 
-     * @param pathTrunkSid The trunk_sid
-     * @param pathSid The sid
+     * @param pathTrunkSid The SID of the Trunk from which to fetch the
+     *                     OriginationUrl
+     * @param pathSid The unique string that identifies the resource
      */
     public OriginationUrlFetcher(final String pathTrunkSid, 
                                  final String pathSid) {

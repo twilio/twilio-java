@@ -74,8 +74,8 @@ public class Binding extends Resource {
     /**
      * Create a BindingFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathSid The unique string that identifies the resource
      * @return BindingFetcher capable of executing the fetch
      */
     public static BindingFetcher fetcher(final String pathServiceSid, 
@@ -86,8 +86,8 @@ public class Binding extends Resource {
     /**
      * Create a BindingDeleter to execute delete.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathSid The unique string that identifies the resource
      * @return BindingDeleter capable of executing the delete
      */
     public static BindingDeleter deleter(final String pathServiceSid, 
@@ -98,10 +98,10 @@ public class Binding extends Resource {
     /**
      * Create a BindingCreator to execute create.
      * 
-     * @param pathServiceSid The service_sid
-     * @param identity The Identity to which this Binding belongs to.
-     * @param bindingType The type of the Binding.
-     * @param address The address specific to the channel.
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param identity The `identity` value that identifies the new resource's User
+     * @param bindingType The type of the Binding
+     * @param address The channel-specific address
      * @return BindingCreator capable of executing the create
      */
     public static BindingCreator creator(final String pathServiceSid, 
@@ -114,7 +114,7 @@ public class Binding extends Resource {
     /**
      * Create a BindingReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid The SID of the Service to read the resource from
      * @return BindingReader capable of executing the read
      */
     public static BindingReader reader(final String pathServiceSid) {
@@ -219,128 +219,129 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return The sid
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The service_sid.
+     * Returns The The SID of the Service that the resource is associated with.
      * 
-     * @return The service_sid
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The unique identifier of the Credential resource to be used to
-     * send notifications to this Binding..
+     * Returns The The SID of the Credential resource to be used to send
+     * notifications to this Binding.
      * 
-     * @return The unique identifier of the Credential resource to be used to send
-     *         notifications to this Binding.
+     * @return The SID of the Credential resource to be used to send notifications
+     *         to this Binding
      */
     public final String getCredentialSid() {
         return this.credentialSid;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date_created
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date_updated
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The version of the protocol used to send the notification..
+     * Returns The The protocol version to use to send the notification.
      * 
-     * @return The version of the protocol used to send the notification.
+     * @return The protocol version to use to send the notification
      */
     public final String getNotificationProtocolVersion() {
         return this.notificationProtocolVersion;
     }
 
     /**
-     * Returns The DEPRECATED*.
+     * Returns The Deprecated.
      * 
-     * @return DEPRECATED*
+     * @return Deprecated
      */
     public final String getEndpoint() {
         return this.endpoint;
     }
 
     /**
-     * Returns The The Identity to which this Binding belongs to..
+     * Returns The The `identity` value that identifies the new resource's User.
      * 
-     * @return The Identity to which this Binding belongs to.
+     * @return The `identity` value that identifies the new resource's User
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns The The type of the Binding..
+     * Returns The The type of the Binding.
      * 
-     * @return The type of the Binding.
+     * @return The type of the Binding
      */
     public final String getBindingType() {
         return this.bindingType;
     }
 
     /**
-     * Returns The The address specific to the channel..
+     * Returns The The channel-specific address.
      * 
-     * @return The address specific to the channel.
+     * @return The channel-specific address
      */
     public final String getAddress() {
         return this.address;
     }
 
     /**
-     * Returns The The list of tags associated with this Binding..
+     * Returns The The list of tags associated with this Binding.
      * 
-     * @return The list of tags associated with this Binding.
+     * @return The list of tags associated with this Binding
      */
     public final List<String> getTags() {
         return this.tags;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the Binding resource.
      * 
-     * @return The url
+     * @return The absolute URL of the Binding resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The The URLs of related resources.
      * 
-     * @return The links
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;

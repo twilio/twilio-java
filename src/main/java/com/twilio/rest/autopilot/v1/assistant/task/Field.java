@@ -44,9 +44,12 @@ public class Field extends Resource {
     /**
      * Create a FieldFetcher to execute fetch.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathTaskSid The unique ID of the Task associated with this Field.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         Task associated with the resource to fetch
+     * @param pathTaskSid The SID of the
+     *                    [Task](https://www.twilio.com/docs/autopilot/api/task)
+     *                    resource associated with the Field resource to fetch
+     * @param pathSid The unique string that identifies the resource
      * @return FieldFetcher capable of executing the fetch
      */
     public static FieldFetcher fetcher(final String pathAssistantSid, 
@@ -58,8 +61,11 @@ public class Field extends Resource {
     /**
      * Create a FieldReader to execute read.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathTaskSid The unique ID of the Task associated with this Field.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         Task associated with the resources to read.
+     * @param pathTaskSid The SID of the
+     *                    [Task](https://www.twilio.com/docs/autopilot/api/task)
+     *                    resource associated with the Field resources to read
      * @return FieldReader capable of executing the read
      */
     public static FieldReader reader(final String pathAssistantSid, 
@@ -70,13 +76,14 @@ public class Field extends Resource {
     /**
      * Create a FieldCreator to execute create.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathTaskSid The unique ID of the Task associated with this Field.
-     * @param fieldType The Field Type of this field. It can be either a Built-in
-     *                  Field Type or the unique_name or sid of a custom Field Type.
-     * @param uniqueName A user-provided string that uniquely identifies this
-     *                   resource as an alternative to the sid. Unique up to 64
-     *                   characters long.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         Task associated with the new resource
+     * @param pathTaskSid The SID of the
+     *                    [Task](https://www.twilio.com/docs/autopilot/api/task)
+     *                    resource associated with the new Field resource
+     * @param fieldType The Field Type of this field
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   new resource
      * @return FieldCreator capable of executing the create
      */
     public static FieldCreator creator(final String pathAssistantSid, 
@@ -89,9 +96,12 @@ public class Field extends Resource {
     /**
      * Create a FieldDeleter to execute delete.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathTaskSid The unique ID of the Task associated with this Field.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         Task associated with the resources to delete
+     * @param pathTaskSid The SID of the
+     *                    [Task](https://www.twilio.com/docs/autopilot/api/task)
+     *                    resource associated with the Field resource to delete
+     * @param pathSid The unique string that identifies the resource
      * @return FieldDeleter capable of executing the delete
      */
     public static FieldDeleter deleter(final String pathAssistantSid, 
@@ -178,85 +188,89 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this Field..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique ID of the Account that created this Field.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The date that this resource was created.
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date that this resource was created
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date that this resource was last updated
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The Field Type of this field. It can be either a Built-in Field
-     * Type or the unique_name or sid of a custom Field Type..
+     * Returns The The Field Type of the field.
      * 
-     * @return The Field Type of this field. It can be either a Built-in Field Type
-     *         or the unique_name or sid of a custom Field Type.
+     * @return The Field Type of the field
      */
     public final String getFieldType() {
         return this.fieldType;
     }
 
     /**
-     * Returns The The unique ID of the Task associated with this Field..
+     * Returns The The SID of the
+     * [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated
+     * with this Field.
      * 
-     * @return The unique ID of the Task associated with this Field.
+     * @return The SID of the
+     *         [Task](https://www.twilio.com/docs/autopilot/api/task) resource
+     *         associated with this Field
      */
     public final String getTaskSid() {
         return this.taskSid;
     }
 
     /**
-     * Returns The The unique ID of the Assistant..
+     * Returns The The SID of the Assistant that is the parent of the Task
+     * associated with the resource.
      * 
-     * @return The unique ID of the Assistant.
+     * @return The SID of the Assistant that is the parent of the Task associated
+     *         with the resource
      */
     public final String getAssistantSid() {
         return this.assistantSid;
     }
 
     /**
-     * Returns The A 34-character string that uniquely identifies this resource..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A 34-character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A user-provided string that uniquely identifies this resource as
-     * an alternative to the sid. Unique up to 64 characters long..
+     * Returns The An application-defined string that uniquely identifies the
+     * resource.
      * 
-     * @return A user-provided string that uniquely identifies this resource as an
-     *         alternative to the sid. Unique up to 64 characters long.
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the Field resource.
      * 
-     * @return The url
+     * @return The absolute URL of the Field resource
      */
     public final URI getUrl() {
         return this.url;

@@ -33,16 +33,19 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
     /**
      * Construct a new ModelBuildCreator.
      * 
-     * @param pathAssistantSid The unique ID of the parent Assistant.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         new resource
      */
     public ModelBuildCreator(final String pathAssistantSid) {
         this.pathAssistantSid = pathAssistantSid;
     }
 
     /**
-     * The status_callback.
+     * The URL we should call using a POST method to send status information to your
+     * application..
      * 
-     * @param statusCallback The status_callback
+     * @param statusCallback The URL we should call using a POST method to send
+     *                       status information to your application
      * @return this
      */
     public ModelBuildCreator setStatusCallback(final URI statusCallback) {
@@ -51,9 +54,11 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
     }
 
     /**
-     * The status_callback.
+     * The URL we should call using a POST method to send status information to your
+     * application..
      * 
-     * @param statusCallback The status_callback
+     * @param statusCallback The URL we should call using a POST method to send
+     *                       status information to your application
      * @return this
      */
     public ModelBuildCreator setStatusCallback(final String statusCallback) {
@@ -61,12 +66,12 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
     }
 
     /**
-     * A user-provided string that uniquely identifies this resource as an
-     * alternative to the sid. Unique up to 64 characters long. For example: v0.1.
+     * An application-defined string that uniquely identifies the new resource. This
+     * value must be a unique string of no more than 64 characters. It can be used
+     * as an alternative to the `sid` in the URL path to address the resource..
      * 
-     * @param uniqueName A user-provided string that uniquely identifies this
-     *                   resource as an alternative to the sid. Unique up to 64
-     *                   characters long. For example: v0.1
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   new resource
      * @return this
      */
     public ModelBuildCreator setUniqueName(final String uniqueName) {

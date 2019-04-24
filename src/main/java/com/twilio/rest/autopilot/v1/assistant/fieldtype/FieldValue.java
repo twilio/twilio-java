@@ -44,10 +44,11 @@ public class FieldValue extends Resource {
     /**
      * Create a FieldValueFetcher to execute fetch.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant
-     * @param pathFieldTypeSid The unique ID of the Field Type associated with this
-     *                         Field Value
-     * @param pathSid A 34 character string that uniquely identifies this resource
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         FieldType associated with the resource to fetch
+     * @param pathFieldTypeSid The SID of the Field Type associated with  the Field
+     *                         Value to fetch
+     * @param pathSid The unique string that identifies the resource
      * @return FieldValueFetcher capable of executing the fetch
      */
     public static FieldValueFetcher fetcher(final String pathAssistantSid, 
@@ -59,9 +60,10 @@ public class FieldValue extends Resource {
     /**
      * Create a FieldValueReader to execute read.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant
-     * @param pathFieldTypeSid The unique ID of the Field Type associated with this
-     *                         Field Value
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         FieldType associated with the resources to read
+     * @param pathFieldTypeSid The SID of the Field Type associated with the Field
+     *                         Value to read
      * @return FieldValueReader capable of executing the read
      */
     public static FieldValueReader reader(final String pathAssistantSid, 
@@ -72,13 +74,13 @@ public class FieldValue extends Resource {
     /**
      * Create a FieldValueCreator to execute create.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant
-     * @param pathFieldTypeSid The unique ID of the Field Type associated with this
-     *                         Field Value
-     * @param language An ISO language-country string that specifies the language
-     *                 used for this field value. For example: en-US
-     * @param value A user-provided string that uniquely identifies this resource
-     *              as an alternative to the sid. Unique up to 64 characters long.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         FieldType associated with the new resource
+     * @param pathFieldTypeSid The SID of the Field Type associated with the Field
+     *                         Value
+     * @param language The ISO language-country tag that identifies the language of
+     *                 the value
+     * @param value The Field Value data
      * @return FieldValueCreator capable of executing the create
      */
     public static FieldValueCreator creator(final String pathAssistantSid, 
@@ -91,10 +93,11 @@ public class FieldValue extends Resource {
     /**
      * Create a FieldValueDeleter to execute delete.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant
-     * @param pathFieldTypeSid The unique ID of the Field Type associated with this
-     *                         Field Value
-     * @param pathSid A 34 character string that uniquely identifies this resource
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         FieldType associated with the resources to delete
+     * @param pathFieldTypeSid The SID of the Field Type associated with the Field
+     *                         Value to delete
+     * @param pathSid The unique string that identifies the resource
      * @return FieldValueDeleter capable of executing the delete
      */
     public static FieldValueDeleter deleter(final String pathAssistantSid, 
@@ -186,95 +189,95 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this Field Value..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique ID of the Account that created this Field Value.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The date that this resource was created.
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date that this resource was created
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date that this resource was last updated
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The unique ID of the Field Type associated with this Field
-     * Value..
+     * Returns The The SID of the Field Type associated with the Field Value.
      * 
-     * @return The unique ID of the Field Type associated with this Field Value.
+     * @return The SID of the Field Type associated with the Field Value
      */
     public final String getFieldTypeSid() {
         return this.fieldTypeSid;
     }
 
     /**
-     * Returns The An ISO language-country string of the value (currently supported:
-     * `en-US`, `nl-NL`).
+     * Returns The The ISO language-country tag that identifies the language of the
+     * value.
      * 
-     * @return An ISO language-country string of the value (currently supported:
-     *         `en-US`, `nl-NL`)
+     * @return The ISO language-country tag that identifies the language of the
+     *         value
      */
     public final String getLanguage() {
         return this.language;
     }
 
     /**
-     * Returns The The unique ID of the Assistant..
+     * Returns The The SID of the Assistant that is the parent of the FieldType
+     * associated with the resource.
      * 
-     * @return The unique ID of the Assistant.
+     * @return The SID of the Assistant that is the parent of the FieldType
+     *         associated with the resource
      */
     public final String getAssistantSid() {
         return this.assistantSid;
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The Field Value itself..
+     * Returns The The Field Value data.
      * 
-     * @return The Field Value itself.
+     * @return The Field Value data
      */
     public final String getValue() {
         return this.value;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the FieldValue resource.
      * 
-     * @return The url
+     * @return The absolute URL of the FieldValue resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The A string value that indicates which word this field value is a
-     * synonym of..
+     * Returns The The word for which the field value is a synonym of.
      * 
-     * @return A string value that indicates which word this field value is a
-     *         synonym of.
+     * @return The word for which the field value is a synonym of
      */
     public final String getSynonymOf() {
         return this.synonymOf;

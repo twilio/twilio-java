@@ -32,8 +32,10 @@ public class SampleReader extends Reader<Sample> {
     /**
      * Construct a new SampleReader.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathTaskSid The unique ID of the Task associated with this Sample.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         Task associated with the resources to read
+     * @param pathTaskSid The SID of the Task associated with the Sample resources
+     *                    to read
      */
     public SampleReader(final String pathAssistantSid, 
                         final String pathTaskSid) {
@@ -42,12 +44,11 @@ public class SampleReader extends Reader<Sample> {
     }
 
     /**
-     * An [ISO language-country
-     * string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html)
-     * that specifies the language used for this sample. For example: `en-US`..
+     * The [ISO
+     * language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`..
      * 
-     * @param language An [ISO language-country
-     *                 string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
+     * @param language The ISO language-country string that specifies the language
+     *                 used for the sample
      * @return this
      */
     public SampleReader setLanguage(final String language) {

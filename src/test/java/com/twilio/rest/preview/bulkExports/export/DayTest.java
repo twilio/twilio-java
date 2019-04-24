@@ -41,7 +41,7 @@ public class DayTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
-                                          "/BulkExports/Exports/pathResourceType/Days");
+                                          "/BulkExports/Exports/resource_type/Days");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class DayTest {
         }};
 
         try {
-            Day.reader("pathResourceType").read();
+            Day.reader("resource_type").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,6 +65,6 @@ public class DayTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Day.reader("pathResourceType").read());
+        assertNotNull(Day.reader("resource_type").read());
     }
 }

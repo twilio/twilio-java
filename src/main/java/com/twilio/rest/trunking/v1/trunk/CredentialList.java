@@ -39,8 +39,9 @@ public class CredentialList extends Resource {
     /**
      * Create a CredentialListFetcher to execute fetch.
      * 
-     * @param pathTrunkSid The trunk_sid
-     * @param pathSid The sid
+     * @param pathTrunkSid The SID of the Trunk from which to fetch the credential
+     *                     list
+     * @param pathSid The unique string that identifies the resource
      * @return CredentialListFetcher capable of executing the fetch
      */
     public static CredentialListFetcher fetcher(final String pathTrunkSid, 
@@ -51,8 +52,9 @@ public class CredentialList extends Resource {
     /**
      * Create a CredentialListDeleter to execute delete.
      * 
-     * @param pathTrunkSid The trunk_sid
-     * @param pathSid The sid
+     * @param pathTrunkSid The SID of the Trunk from which to delete the credential
+     *                     list
+     * @param pathSid The unique string that identifies the resource
      * @return CredentialListDeleter capable of executing the delete
      */
     public static CredentialListDeleter deleter(final String pathTrunkSid, 
@@ -63,11 +65,10 @@ public class CredentialList extends Resource {
     /**
      * Create a CredentialListCreator to execute create.
      * 
-     * @param pathTrunkSid The trunk_sid
+     * @param pathTrunkSid The SID of the Trunk to associate the credential list
+     *                     with
      * @param credentialListSid The SID of the Credential List that you want to
-     *                          associate with this trunk. Once associated, Twilio
-     *                          will start authenticating access to the trunk
-     *                          against this list.
+     *                          associate with the trunk
      * @return CredentialListCreator capable of executing the create
      */
     public static CredentialListCreator creator(final String pathTrunkSid, 
@@ -78,7 +79,8 @@ public class CredentialList extends Resource {
     /**
      * Create a CredentialListReader to execute read.
      * 
-     * @param pathTrunkSid The trunk_sid
+     * @param pathTrunkSid The SID of the Trunk from which to read the credential
+     *                     lists
      * @return CredentialListReader capable of executing the read
      */
     public static CredentialListReader reader(final String pathTrunkSid) {
@@ -156,63 +158,64 @@ public class CredentialList extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return The sid
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The trunk_sid.
+     * Returns The The SID of the Trunk the credential list in associated with.
      * 
-     * @return The trunk_sid
+     * @return The SID of the Trunk the credential list in associated with
      */
     public final String getTrunkSid() {
         return this.trunkSid;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return The friendly_name
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date_created
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date_updated
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the resource.
      * 
-     * @return The url
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;

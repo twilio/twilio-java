@@ -38,8 +38,9 @@ public class TaskUpdater extends Updater<Task> {
     /**
      * Construct a new TaskUpdater.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resource to update
+     * @param pathSid The unique string that identifies the resource
      */
     public TaskUpdater(final String pathAssistantSid, 
                        final String pathSid) {
@@ -48,11 +49,10 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
-     * A user-provided string that identifies this resource. It is non-unique and
-     * can be up to 255 characters long..
+     * A descriptive string that you create to describe the resource. It is not
+     * unique and can be up to 255 characters long..
      * 
-     * @param friendlyName A user-provided string that identifies this resource. It
-     *                     is non-unique and can be up to 255 characters long.
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public TaskUpdater setFriendlyName(final String friendlyName) {
@@ -61,13 +61,12 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
-     * A user-provided string that uniquely identifies this resource as an
-     * alternative to the sid. You can use the unique name in the URL path when
-     * addressing this resource. Unique up to 64 characters long..
+     * An application-defined string that uniquely identifies the resource. This
+     * value must be 64 characters or less in length and be unique. It can be used
+     * as an alternative to the `sid` in the URL path to address the resource..
      * 
-     * @param uniqueName A user-provided string that uniquely identifies this
-     *                   resource as an alternative to the sid. Unique up to 64
-     *                   characters long.
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      * @return this
      */
     public TaskUpdater setUniqueName(final String uniqueName) {
@@ -76,11 +75,12 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
-     * A user-provided JSON object encoded as a string to specify the actions for
-     * this task. It is optional and non-unique..
+     * The JSON string that specifies the
+     * [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the
+     * Assistant on how to perform the task..
      * 
-     * @param actions A user-provided JSON object encoded as a string to specify
-     *                the actions for this task. It is optional and non-unique.
+     * @param actions The JSON string that specifies the actions that instruct the
+     *                Assistant on how to perform the task
      * @return this
      */
     public TaskUpdater setActions(final Map<String, Object> actions) {
@@ -89,10 +89,9 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
-     * User-provided HTTP endpoint where the assistant can fetch actions..
+     * The URL from which the Assistant can fetch actions..
      * 
-     * @param actionsUrl User-provided HTTP endpoint where the assistant can fetch
-     *                   actions.
+     * @param actionsUrl The URL from which the Assistant can fetch actions
      * @return this
      */
     public TaskUpdater setActionsUrl(final URI actionsUrl) {
@@ -101,10 +100,9 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
-     * User-provided HTTP endpoint where the assistant can fetch actions..
+     * The URL from which the Assistant can fetch actions..
      * 
-     * @param actionsUrl User-provided HTTP endpoint where the assistant can fetch
-     *                   actions.
+     * @param actionsUrl The URL from which the Assistant can fetch actions
      * @return this
      */
     public TaskUpdater setActionsUrl(final String actionsUrl) {

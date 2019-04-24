@@ -74,7 +74,7 @@ public class VerificationTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.VERIFY.toString(),
-                                          "/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Verifications/pathSid");
+                                          "/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Verifications/sid");
             request.addPostParam("Status", serialize(Verification.Status.CANCELED));
             twilioRestClient.request(request);
             times = 1;
@@ -84,7 +84,7 @@ public class VerificationTest {
         }};
 
         try {
-            Verification.updater("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathSid", Verification.Status.CANCELED).update();
+            Verification.updater("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "sid", Verification.Status.CANCELED).update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -98,7 +98,7 @@ public class VerificationTest {
             result = new ObjectMapper();
         }};
 
-        Verification.updater("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathSid", Verification.Status.CANCELED).update();
+        Verification.updater("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "sid", Verification.Status.CANCELED).update();
     }
 
     @Test
@@ -106,7 +106,7 @@ public class VerificationTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.VERIFY.toString(),
-                                          "/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Verifications/pathSid");
+                                          "/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Verifications/sid");
             
             twilioRestClient.request(request);
             times = 1;
@@ -116,7 +116,7 @@ public class VerificationTest {
         }};
 
         try {
-            Verification.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathSid").fetch();
+            Verification.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "sid").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -130,6 +130,6 @@ public class VerificationTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Verification.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathSid").fetch());
+        assertNotNull(Verification.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "sid").fetch());
     }
 }

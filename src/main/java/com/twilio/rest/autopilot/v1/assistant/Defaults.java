@@ -43,7 +43,8 @@ public class Defaults extends Resource {
     /**
      * Create a DefaultsFetcher to execute fetch.
      * 
-     * @param pathAssistantSid The assistant_sid
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resource to fetch
      * @return DefaultsFetcher capable of executing the fetch
      */
     public static DefaultsFetcher fetcher(final String pathAssistantSid) {
@@ -53,7 +54,8 @@ public class Defaults extends Resource {
     /**
      * Create a DefaultsUpdater to execute update.
      * 
-     * @param pathAssistantSid The assistant_sid
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resource to update
      * @return DefaultsUpdater capable of executing the update
      */
     public static DefaultsUpdater updater(final String pathAssistantSid) {
@@ -119,36 +121,36 @@ public class Defaults extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The assistant_sid.
+     * Returns The The SID of the Assistant that is the parent of the resource.
      * 
-     * @return The assistant_sid
+     * @return The SID of the Assistant that is the parent of the resource
      */
     public final String getAssistantSid() {
         return this.assistantSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the Defaults resource.
      * 
-     * @return The url
+     * @return The absolute URL of the Defaults resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The data.
+     * Returns The The JSON string that describes the default task links.
      * 
-     * @return The data
+     * @return The JSON string that describes the default task links
      */
     public final Map<String, Object> getData() {
         return this.data;

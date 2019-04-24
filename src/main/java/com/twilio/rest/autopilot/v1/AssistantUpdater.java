@@ -40,18 +40,17 @@ public class AssistantUpdater extends Updater<Assistant> {
     /**
      * Construct a new AssistantUpdater.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      */
     public AssistantUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
     /**
-     * A text description for the Assistant. It is non-unique and can be up to 255
-     * characters long..
+     * A descriptive string that you create to describe the resource. It is not
+     * unique and can be up to 255 characters long..
      * 
-     * @param friendlyName A text description for the Assistant. It is non-unique
-     *                     and can be up to 255 characters long.
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public AssistantUpdater setFriendlyName(final String friendlyName) {
@@ -60,16 +59,11 @@ public class AssistantUpdater extends Updater<Assistant> {
     }
 
     /**
-     * A boolean that specifies whether queries should be logged for 30 days past
-     * training. If `false`, no queries will be stored. If `true`, queries will be
-     * stored for 30 days and deleted thereafter. Defaults to `true` if no value is
-     * provided..
+     * Whether queries should be logged and kept after training. Can be: `true` or
+     * `false` and defaults to `true`. If `true`, queries are stored for 30 days,
+     * and then deleted. If `false`, no queries are stored..
      * 
-     * @param logQueries A boolean that specifies whether queries should be logged
-     *                   for 30 days past training. If `false`, no queries will be
-     *                   stored. If `true`, queries will be stored for 30 days and
-     *                   deleted thereafter. Defaults to `true` if no value is
-     *                   provided.
+     * @param logQueries Whether queries should be logged and kept after training
      * @return this
      */
     public AssistantUpdater setLogQueries(final Boolean logQueries) {
@@ -78,13 +72,12 @@ public class AssistantUpdater extends Updater<Assistant> {
     }
 
     /**
-     * A user-provided string that uniquely identifies this resource as an
-     * alternative to the sid. You can use the unique name in the URL path when
-     * addressing this resource. Unique up to 64 characters long..
+     * An application-defined string that uniquely identifies the resource. It can
+     * be used as an alternative to the `sid` in the URL path to address the
+     * resource. The first 64 characters must be unique..
      * 
-     * @param uniqueName A user-provided string that uniquely identifies this
-     *                   resource as an alternative to the sid. Unique up to 64
-     *                   characters long.
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      * @return this
      */
     public AssistantUpdater setUniqueName(final String uniqueName) {
@@ -93,9 +86,9 @@ public class AssistantUpdater extends Updater<Assistant> {
     }
 
     /**
-     * The callback_url.
+     * Reserved..
      * 
-     * @param callbackUrl The callback_url
+     * @param callbackUrl Reserved
      * @return this
      */
     public AssistantUpdater setCallbackUrl(final URI callbackUrl) {
@@ -104,9 +97,9 @@ public class AssistantUpdater extends Updater<Assistant> {
     }
 
     /**
-     * The callback_url.
+     * Reserved..
      * 
-     * @param callbackUrl The callback_url
+     * @param callbackUrl Reserved
      * @return this
      */
     public AssistantUpdater setCallbackUrl(final String callbackUrl) {
@@ -114,10 +107,9 @@ public class AssistantUpdater extends Updater<Assistant> {
     }
 
     /**
-     * A space-separated list of callback events that will trigger callbacks.
+     * Reserved..
      * 
-     * @param callbackEvents A space-separated list of callback events that will
-     *                       trigger callbacks
+     * @param callbackEvents Reserved
      * @return this
      */
     public AssistantUpdater setCallbackEvents(final String callbackEvents) {
@@ -126,11 +118,10 @@ public class AssistantUpdater extends Updater<Assistant> {
     }
 
     /**
-     * A JSON object that defines the assistant [style
+     * The JSON string that defines the Assistant's [style
      * sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet).
      * 
-     * @param styleSheet A JSON object that defines the assistant [style
-     *                   sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
+     * @param styleSheet A JSON string that defines the Assistant's style sheet
      * @return this
      */
     public AssistantUpdater setStyleSheet(final Map<String, Object> styleSheet) {
@@ -139,11 +130,11 @@ public class AssistantUpdater extends Updater<Assistant> {
     }
 
     /**
-     * A JSON object that defines the assistant's [default
+     * A JSON object that defines the Assistant's [default
      * tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for
-     * various scenarios, including initation actions and fallback tasks..
+     * various scenarios, including initiation actions and fallback tasks..
      * 
-     * @param defaults A JSON object that defines the assistant's [default
+     * @param defaults A JSON object that defines the Assistant's [default
      *                 tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios
      * @return this
      */

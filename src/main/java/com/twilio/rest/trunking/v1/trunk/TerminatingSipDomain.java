@@ -39,8 +39,8 @@ public class TerminatingSipDomain extends Resource {
     /**
      * Create a TerminatingSipDomainFetcher to execute fetch.
      * 
-     * @param pathTrunkSid The unique sid of the trunk.
-     * @param pathSid The unique sid of the domain.
+     * @param pathTrunkSid The SID of the Trunk with the resource to fetch
+     * @param pathSid The unique string that identifies the resource
      * @return TerminatingSipDomainFetcher capable of executing the fetch
      */
     public static TerminatingSipDomainFetcher fetcher(final String pathTrunkSid, 
@@ -51,8 +51,8 @@ public class TerminatingSipDomain extends Resource {
     /**
      * Create a TerminatingSipDomainDeleter to execute delete.
      * 
-     * @param pathTrunkSid The unique sid of the trunk.
-     * @param pathSid The unique sid of the domain.
+     * @param pathTrunkSid The SID of the Trunk with the resources to disassociate
+     * @param pathSid The unique string that identifies the resource to disassociate
      * @return TerminatingSipDomainDeleter capable of executing the delete
      */
     public static TerminatingSipDomainDeleter deleter(final String pathTrunkSid, 
@@ -63,8 +63,8 @@ public class TerminatingSipDomain extends Resource {
     /**
      * Create a TerminatingSipDomainCreator to execute create.
      * 
-     * @param pathTrunkSid The unique sid of the trunk.
-     * @param sipDomainSid The SID of the SIP Domain to associate.
+     * @param pathTrunkSid The SID of the Trunk to which we should route calls
+     * @param sipDomainSid The SID of the SIP Domain to associate with the trunk
      * @return TerminatingSipDomainCreator capable of executing the create
      */
     public static TerminatingSipDomainCreator creator(final String pathTrunkSid, 
@@ -75,7 +75,7 @@ public class TerminatingSipDomain extends Resource {
     /**
      * Create a TerminatingSipDomainReader to execute read.
      * 
-     * @param pathTrunkSid The unique sid of the trunk.
+     * @param pathTrunkSid The SID of the Trunk with the resources to read
      * @return TerminatingSipDomainReader capable of executing the read
      */
     public static TerminatingSipDomainReader reader(final String pathTrunkSid) {
@@ -197,18 +197,18 @@ public class TerminatingSipDomain extends Resource {
     }
 
     /**
-     * Returns The The unique id of the account responsible for this domain.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique id of the account responsible for this domain
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The Twilio API version used to process the call.
+     * Returns The The API version used to process the call.
      * 
-     * @return The Twilio API version used to process the call
+     * @return The API version used to process the call
      */
     public final String getApiVersion() {
         return this.apiVersion;
@@ -224,137 +224,141 @@ public class TerminatingSipDomain extends Resource {
     }
 
     /**
-     * Returns The The date this resource was created.
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date this resource was created
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date this resource was last updated
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The unique address on Twilio to route SIP traffic.
+     * Returns The The unique address you reserve on Twilio to which you route your
+     * SIP traffic.
      * 
-     * @return The unique address on Twilio to route SIP traffic
+     * @return The unique address you reserve on Twilio to which you route your SIP
+     *         traffic
      */
     public final String getDomainName() {
         return this.domainName;
     }
 
     /**
-     * Returns The A user-specified, human-readable name for the domain..
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return A user-specified, human-readable name for the domain.
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The A string that uniquely identifies the SIP Domain.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies the SIP Domain
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the resource.
      * 
-     * @return The url
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The HTTP method used with voice_fallback_url.
+     * Returns The The HTTP method used with voice_fallback_url.
      * 
-     * @return HTTP method used with voice_fallback_url
+     * @return The HTTP method used with voice_fallback_url
      */
     public final HttpMethod getVoiceFallbackMethod() {
         return this.voiceFallbackMethod;
     }
 
     /**
-     * Returns The URL Twilio will request if an error occurs in executing TwiML.
+     * Returns The The URL that we call when an error occurs in executing TwiML.
      * 
-     * @return URL Twilio will request if an error occurs in executing TwiML
+     * @return The URL that we call when an error occurs in executing TwiML
      */
     public final URI getVoiceFallbackUrl() {
         return this.voiceFallbackUrl;
     }
 
     /**
-     * Returns The HTTP method to use with voice_url.
+     * Returns The The HTTP method used with voice_url.
      * 
-     * @return HTTP method to use with voice_url
+     * @return The HTTP method used with voice_url
      */
     public final HttpMethod getVoiceMethod() {
         return this.voiceMethod;
     }
 
     /**
-     * Returns The The HTTP method Twilio will use to make requests to the
-     * StatusCallback URL..
+     * Returns The The HTTP method that we use to call the
+     * voice_status_callback_url.
      * 
-     * @return The HTTP method Twilio will use to make requests to the
-     *         StatusCallback URL.
+     * @return The HTTP method that we use to call the voice_status_callback_url
      */
     public final HttpMethod getVoiceStatusCallbackMethod() {
         return this.voiceStatusCallbackMethod;
     }
 
     /**
-     * Returns The URL that Twilio will request with status updates.
+     * Returns The The URL that we call to pass status parameters to your
+     * application.
      * 
-     * @return URL that Twilio will request with status updates
+     * @return The URL that we call to pass status parameters to your application
      */
     public final URI getVoiceStatusCallbackUrl() {
         return this.voiceStatusCallbackUrl;
     }
 
     /**
-     * Returns The URL Twilio will request when receiving a call.
+     * Returns The The URL we call when the domain receives a call.
      * 
-     * @return URL Twilio will request when receiving a call
+     * @return The URL we call when the domain receives a call
      */
     public final URI getVoiceUrl() {
         return this.voiceUrl;
     }
 
     /**
-     * Returns The If SIP registration is allowed.
+     * Returns The Whether SIP Endpoints can register with the domain to receive
+     * calls.
      * 
-     * @return If SIP registration is allowed
+     * @return Whether SIP Endpoints can register with the domain to receive calls
      */
     public final Boolean getSipRegistration() {
         return this.sipRegistration;
     }
 
     /**
-     * Returns The Unique string to identify an associated trunk.
+     * Returns The The SID of the Trunk to which we should route calls.
      * 
-     * @return Unique string to identify an associated trunk
+     * @return The SID of the Trunk to which we should route calls
      */
     public final String getTrunkSid() {
         return this.trunkSid;
     }
 
     /**
-     * Returns The The links.
+     * Returns The The URLs of related resources.
      * 
-     * @return The links
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;

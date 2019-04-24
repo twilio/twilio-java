@@ -183,6 +183,7 @@ public class Gather extends TwiML {
     private final String hints;
     private final Boolean bargeIn;
     private final Boolean debug;
+    private final Boolean actionOnEmptyResult;
 
     /**
      * For XML Serialization/Deserialization
@@ -211,6 +212,7 @@ public class Gather extends TwiML {
         this.hints = b.hints;
         this.bargeIn = b.bargeIn;
         this.debug = b.debug;
+        this.actionOnEmptyResult = b.actionOnEmptyResult;
     }
 
     /**
@@ -266,6 +268,9 @@ public class Gather extends TwiML {
         }
         if (this.isDebug() != null) {
             attrs.put("debug", this.isDebug().toString());
+        }
+        if (this.isActionOnEmptyResult() != null) {
+            attrs.put("actionOnEmptyResult", this.isActionOnEmptyResult().toString());
         }
 
         return attrs;
@@ -421,6 +426,15 @@ public class Gather extends TwiML {
     }
 
     /**
+     * Force webhook to the action URL event if there is no input
+     * 
+     * @return Force webhook to the action URL event if there is no input
+     */
+    public Boolean isActionOnEmptyResult() {
+        return actionOnEmptyResult;
+    }
+
+    /**
      * Create a new {@code <Gather>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
@@ -439,6 +453,7 @@ public class Gather extends TwiML {
         private String hints;
         private Boolean bargeIn;
         private Boolean debug;
+        private Boolean actionOnEmptyResult;
 
         /**
          * Input type Twilio should accept
@@ -582,6 +597,14 @@ public class Gather extends TwiML {
          */
         public Builder debug(Boolean debug) {
             this.debug = debug;
+            return this;
+        }
+
+        /**
+         * Force webhook to the action URL event if there is no input
+         */
+        public Builder actionOnEmptyResult(Boolean actionOnEmptyResult) {
+            this.actionOnEmptyResult = actionOnEmptyResult;
             return this;
         }
 

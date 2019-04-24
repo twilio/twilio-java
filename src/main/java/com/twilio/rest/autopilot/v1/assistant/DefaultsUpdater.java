@@ -32,16 +32,18 @@ public class DefaultsUpdater extends Updater<Defaults> {
     /**
      * Construct a new DefaultsUpdater.
      * 
-     * @param pathAssistantSid The assistant_sid
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resource to update
      */
     public DefaultsUpdater(final String pathAssistantSid) {
         this.pathAssistantSid = pathAssistantSid;
     }
 
     /**
-     * The defaults.
+     * A JSON string that describes the default task links for the
+     * `assistant_initiation`, `collect`, and `fallback` situations..
      * 
-     * @param defaults The defaults
+     * @param defaults A JSON string that describes the default task links.
      * @return this
      */
     public DefaultsUpdater setDefaults(final Map<String, Object> defaults) {

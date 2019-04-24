@@ -106,7 +106,7 @@ public class RoleTest {
                         Request request = new Request(HttpMethod.POST,
                                                       Domains.IPMESSAGING.toString(),
                                                       "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles");
-                        request.addPostParam("FriendlyName", serialize("friendlyName"));
+                        request.addPostParam("FriendlyName", serialize("friendly_name"));
         request.addPostParam("Type", serialize(Role.RoleType.CHANNEL));
         request.addPostParam("Permission", serialize(Promoter.listOfOne("permission")));
                         twilioRestClient.request(request);
@@ -117,7 +117,7 @@ public class RoleTest {
                     }};
 
         try {
-            Role.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName", Role.RoleType.CHANNEL, Promoter.listOfOne("permission")).create();
+            Role.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", Role.RoleType.CHANNEL, Promoter.listOfOne("permission")).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -131,7 +131,7 @@ public class RoleTest {
             result = new ObjectMapper();
         }};
 
-        Role.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName", Role.RoleType.CHANNEL, Promoter.listOfOne("permission")).create();
+        Role.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", Role.RoleType.CHANNEL, Promoter.listOfOne("permission")).create();
     }
 
     @Test

@@ -30,10 +30,10 @@ public class FieldTypeCreator extends Creator<FieldType> {
     /**
      * Construct a new FieldTypeCreator.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param uniqueName A user-provided string that uniquely identifies this
-     *                   resource as an alternative to the sid. Unique up to 64
-     *                   characters long.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         new resource
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   new resource
      */
     public FieldTypeCreator(final String pathAssistantSid, 
                             final String uniqueName) {
@@ -42,11 +42,10 @@ public class FieldTypeCreator extends Creator<FieldType> {
     }
 
     /**
-     * A user-provided string that identifies this resource. It is non-unique and
-     * can be up to 255 characters long..
+     * A descriptive string that you create to describe the new resource. It is not
+     * unique and can be up to 255 characters long..
      * 
-     * @param friendlyName A user-provided string that identifies this resource. It
-     *                     is non-unique and can be up to 255 characters long.
+     * @param friendlyName A string to describe the new resource
      * @return this
      */
     public FieldTypeCreator setFriendlyName(final String friendlyName) {

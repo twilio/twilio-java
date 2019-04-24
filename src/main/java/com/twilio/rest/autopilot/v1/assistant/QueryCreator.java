@@ -32,12 +32,11 @@ public class QueryCreator extends Creator<Query> {
     /**
      * Construct a new QueryCreator.
      * 
-     * @param pathAssistantSid The unique ID of the parent Assistant.
-     * @param language An [ISO language-country
-     *                 string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this query. For example: `en-US`.
-     * @param query A user-provided string that uniquely identifies this resource
-     *              as an alternative to the sid. It can be up to 2048 characters
-     *              long.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         new resource
+     * @param language The ISO language-country string that specifies the language
+     *                 used for the new query
+     * @param query The end-user's natural language input
      */
     public QueryCreator(final String pathAssistantSid, 
                         final String language, 
@@ -48,13 +47,12 @@ public class QueryCreator extends Creator<Query> {
     }
 
     /**
-     * Constraints the query to a set of tasks. Useful when you need to constrain
-     * the paths the user can take. Tasks should be comma separated
-     * *task-unique-name-1*, *task-unique-name-2*.
+     * The list of tasks to limit the new query to. Tasks are expressed as a
+     * comma-separated list of task `unique_name` values. For example,
+     * `task-unique_name-1, task-unique_name-2`. Listing specific tasks is useful to
+     * constrain the paths that a user can take..
      * 
-     * @param tasks Constraints the query to a set of tasks. Useful when you need
-     *              to constrain the paths the user can take. Tasks should be comma
-     *              separated task-unique-name-1, task-unique-name-2
+     * @param tasks The list of tasks to limit the new query to
      * @return this
      */
     public QueryCreator setTasks(final String tasks) {
@@ -63,11 +61,10 @@ public class QueryCreator extends Creator<Query> {
     }
 
     /**
-     * The Sid or unique name of the [Model
+     * The SID or unique name of the [Model
      * Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried..
      * 
-     * @param modelBuild The Sid or unique name of the [Model
-     *                   Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
+     * @param modelBuild The SID or unique name of the Model Build to be queried
      * @return this
      */
     public QueryCreator setModelBuild(final String modelBuild) {

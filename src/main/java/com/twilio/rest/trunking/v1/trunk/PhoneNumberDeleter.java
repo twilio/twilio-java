@@ -24,8 +24,9 @@ public class PhoneNumberDeleter extends Deleter<PhoneNumber> {
     /**
      * Construct a new PhoneNumberDeleter.
      * 
-     * @param pathTrunkSid The trunk_sid
-     * @param pathSid The sid
+     * @param pathTrunkSid The SID of the Trunk from which to delete the
+     *                     PhoneNumber resource
+     * @param pathSid The unique string that identifies the resource
      */
     public PhoneNumberDeleter(final String pathTrunkSid, 
                               final String pathSid) {

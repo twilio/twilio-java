@@ -24,8 +24,8 @@ public class TerminatingSipDomainFetcher extends Fetcher<TerminatingSipDomain> {
     /**
      * Construct a new TerminatingSipDomainFetcher.
      * 
-     * @param pathTrunkSid The unique sid of the trunk.
-     * @param pathSid The unique sid of the domain.
+     * @param pathTrunkSid The SID of the Trunk with the resource to fetch
+     * @param pathSid The unique string that identifies the resource
      */
     public TerminatingSipDomainFetcher(final String pathTrunkSid, 
                                        final String pathSid) {

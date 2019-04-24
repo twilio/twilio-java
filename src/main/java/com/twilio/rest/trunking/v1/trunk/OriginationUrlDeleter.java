@@ -24,8 +24,9 @@ public class OriginationUrlDeleter extends Deleter<OriginationUrl> {
     /**
      * Construct a new OriginationUrlDeleter.
      * 
-     * @param pathTrunkSid The trunk_sid
-     * @param pathSid The sid
+     * @param pathTrunkSid The SID of the Trunk from which to delete the
+     *                     OriginationUrl
+     * @param pathSid The unique string that identifies the resource
      */
     public OriginationUrlDeleter(final String pathTrunkSid, 
                                  final String pathSid) {

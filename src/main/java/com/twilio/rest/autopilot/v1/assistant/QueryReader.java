@@ -33,19 +33,19 @@ public class QueryReader extends Reader<Query> {
     /**
      * Construct a new QueryReader.
      * 
-     * @param pathAssistantSid The unique ID of the parent Assistant.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resources to read
      */
     public QueryReader(final String pathAssistantSid) {
         this.pathAssistantSid = pathAssistantSid;
     }
 
     /**
-     * An [ISO language-country
-     * string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html)
-     * that specifies the language used for this query. For example: `en-US`..
+     * The [ISO
+     * language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`..
      * 
-     * @param language An [ISO language-country
-     *                 string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this query. For example: `en-US`.
+     * @param language The ISO language-country string that specifies the language
+     *                 used by the Query resources to read
      * @return this
      */
     public QueryReader setLanguage(final String language) {
@@ -54,11 +54,10 @@ public class QueryReader extends Reader<Query> {
     }
 
     /**
-     * The Sid or unique name of the [Model
+     * The SID or unique name of the [Model
      * Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried..
      * 
-     * @param modelBuild The Sid or unique name of the [Model
-     *                   Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
+     * @param modelBuild The SID or unique name of the Model Build to be queried
      * @return this
      */
     public QueryReader setModelBuild(final String modelBuild) {
@@ -67,11 +66,10 @@ public class QueryReader extends Reader<Query> {
     }
 
     /**
-     * A string that described the query status. The values can be:
-     * `pending_review`, `reviewed`, `discarded`.
+     * The status of the resources to read. Can be: `pending_review`, `reviewed`, or
+     * `discarded`.
      * 
-     * @param status A string that described the query status. The values can be:
-     *               `pending_review`, `reviewed`, `discarded`
+     * @param status The status of the resources to read
      * @return this
      */
     public QueryReader setStatus(final String status) {

@@ -30,7 +30,8 @@ public class FieldTypeReader extends Reader<FieldType> {
     /**
      * Construct a new FieldTypeReader.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathAssistantSid The SID of the Assistant with the FieldType
+     *                         resources to read
      */
     public FieldTypeReader(final String pathAssistantSid) {
         this.pathAssistantSid = pathAssistantSid;

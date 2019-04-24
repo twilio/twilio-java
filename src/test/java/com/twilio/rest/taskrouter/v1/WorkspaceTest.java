@@ -150,7 +150,7 @@ public class WorkspaceTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces");
-            request.addPostParam("FriendlyName", serialize("friendlyName"));
+            request.addPostParam("FriendlyName", serialize("friendly_name"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -159,7 +159,7 @@ public class WorkspaceTest {
         }};
 
         try {
-            Workspace.creator("friendlyName").create();
+            Workspace.creator("friendly_name").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -173,7 +173,7 @@ public class WorkspaceTest {
             result = new ObjectMapper();
         }};
 
-        Workspace.creator("friendlyName").create();
+        Workspace.creator("friendly_name").create();
     }
 
     @Test

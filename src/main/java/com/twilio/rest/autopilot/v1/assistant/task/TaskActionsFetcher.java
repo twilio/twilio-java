@@ -29,8 +29,10 @@ public class TaskActionsFetcher extends Fetcher<TaskActions> {
     /**
      * Construct a new TaskActionsFetcher.
      * 
-     * @param pathAssistantSid The unique ID of the parent Assistant.
-     * @param pathTaskSid The unique ID of the Task.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         Task for which the task actions to fetch were defined
+     * @param pathTaskSid The SID of the Task for which the task actions to fetch
+     *                    were defined
      */
     public TaskActionsFetcher(final String pathAssistantSid, 
                               final String pathTaskSid) {

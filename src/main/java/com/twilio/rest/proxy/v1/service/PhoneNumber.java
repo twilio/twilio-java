@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PhoneNumber extends Resource {
-    private static final long serialVersionUID = 254723895203736L;
+    private static final long serialVersionUID = 107544964482709L;
 
     /**
      * Create a PhoneNumberCreator to execute create.
@@ -150,6 +150,7 @@ public class PhoneNumber extends Resource {
     private final PhoneNumberCapabilities capabilities;
     private final URI url;
     private final Boolean isReserved;
+    private final Integer inUse;
 
     @JsonCreator
     private PhoneNumber(@JsonProperty("sid")
@@ -173,7 +174,9 @@ public class PhoneNumber extends Resource {
                         @JsonProperty("url")
                         final URI url, 
                         @JsonProperty("is_reserved")
-                        final Boolean isReserved) {
+                        final Boolean isReserved, 
+                        @JsonProperty("in_use")
+                        final Integer inUse) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.serviceSid = serviceSid;
@@ -185,6 +188,7 @@ public class PhoneNumber extends Resource {
         this.capabilities = capabilities;
         this.url = url;
         this.isReserved = isReserved;
+        this.inUse = inUse;
     }
 
     /**
@@ -288,6 +292,15 @@ public class PhoneNumber extends Resource {
         return this.isReserved;
     }
 
+    /**
+     * Returns The The number of open session assigned to the number..
+     * 
+     * @return The number of open session assigned to the number.
+     */
+    public final Integer getInUse() {
+        return this.inUse;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -310,7 +323,8 @@ public class PhoneNumber extends Resource {
                Objects.equals(isoCountry, other.isoCountry) && 
                Objects.equals(capabilities, other.capabilities) && 
                Objects.equals(url, other.url) && 
-               Objects.equals(isReserved, other.isReserved);
+               Objects.equals(isReserved, other.isReserved) && 
+               Objects.equals(inUse, other.inUse);
     }
 
     @Override
@@ -325,7 +339,8 @@ public class PhoneNumber extends Resource {
                             isoCountry,
                             capabilities,
                             url,
-                            isReserved);
+                            isReserved,
+                            inUse);
     }
 
     @Override
@@ -342,6 +357,7 @@ public class PhoneNumber extends Resource {
                           .add("capabilities", capabilities)
                           .add("url", url)
                           .add("isReserved", isReserved)
+                          .add("inUse", inUse)
                           .toString();
     }
 }

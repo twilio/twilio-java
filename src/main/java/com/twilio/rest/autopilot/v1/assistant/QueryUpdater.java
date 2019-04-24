@@ -31,8 +31,9 @@ public class QueryUpdater extends Updater<Query> {
     /**
      * Construct a new QueryUpdater.
      * 
-     * @param pathAssistantSid The unique ID of the parent Assistant.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resource to update
+     * @param pathSid The unique string that identifies the resource to update
      */
     public QueryUpdater(final String pathAssistantSid, 
                         final String pathSid) {
@@ -41,9 +42,12 @@ public class QueryUpdater extends Updater<Query> {
     }
 
     /**
-     * An optional reference to the Sample created from this query..
+     * The SID of an optional reference to the
+     * [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from
+     * the query..
      * 
-     * @param sampleSid An optional reference to the Sample created from this query.
+     * @param sampleSid The SID of an optional reference to the Sample created from
+     *                  the query
      * @return this
      */
     public QueryUpdater setSampleSid(final String sampleSid) {
@@ -52,11 +56,10 @@ public class QueryUpdater extends Updater<Query> {
     }
 
     /**
-     * A string that described the query status. The values can be:
-     * `pending_review`, `reviewed`, `discarded`.
+     * The new status of the resource. Can be: `pending_review`, `reviewed`, or
+     * `discarded`.
      * 
-     * @param status A string that described the query status. The values can be:
-     *               `pending_review`, `reviewed`, `discarded`
+     * @param status The new status of the resource
      * @return this
      */
     public QueryUpdater setStatus(final String status) {

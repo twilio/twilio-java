@@ -31,8 +31,11 @@ public class FieldReader extends Reader<Field> {
     /**
      * Construct a new FieldReader.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathTaskSid The unique ID of the Task associated with this Field.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         Task associated with the resources to read.
+     * @param pathTaskSid The SID of the
+     *                    [Task](https://www.twilio.com/docs/autopilot/api/task)
+     *                    resource associated with the Field resources to read
      */
     public FieldReader(final String pathAssistantSid, 
                        final String pathTaskSid) {

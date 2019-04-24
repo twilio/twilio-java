@@ -86,7 +86,7 @@ public class IpAccessControlListTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists.json");
-            request.addPostParam("FriendlyName", serialize("friendlyName"));
+            request.addPostParam("FriendlyName", serialize("friendly_name"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -95,7 +95,7 @@ public class IpAccessControlListTest {
         }};
 
         try {
-            IpAccessControlList.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName").create();
+            IpAccessControlList.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -109,7 +109,7 @@ public class IpAccessControlListTest {
             result = new ObjectMapper();
         }};
 
-        IpAccessControlList.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName").create();
+        IpAccessControlList.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create();
     }
 
     @Test
@@ -150,7 +150,7 @@ public class IpAccessControlListTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json");
-            request.addPostParam("FriendlyName", serialize("friendlyName"));
+            request.addPostParam("FriendlyName", serialize("friendly_name"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -159,7 +159,7 @@ public class IpAccessControlListTest {
         }};
 
         try {
-            IpAccessControlList.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName").update();
+            IpAccessControlList.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -173,7 +173,7 @@ public class IpAccessControlListTest {
             result = new ObjectMapper();
         }};
 
-        IpAccessControlList.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName").update();
+        IpAccessControlList.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").update();
     }
 
     @Test

@@ -106,7 +106,7 @@ public class CertificateTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.PREVIEW.toString(),
                                           "/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Certificates");
-            request.addPostParam("CertificateData", serialize("certificateData"));
+            request.addPostParam("CertificateData", serialize("certificate_data"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -115,7 +115,7 @@ public class CertificateTest {
         }};
 
         try {
-            Certificate.creator("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "certificateData").create();
+            Certificate.creator("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "certificate_data").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class CertificateTest {
             result = new ObjectMapper();
         }};
 
-        Certificate.creator("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "certificateData").create();
+        Certificate.creator("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "certificate_data").create();
     }
 
     @Test

@@ -32,9 +32,10 @@ public class FieldValueReader extends Reader<FieldValue> {
     /**
      * Construct a new FieldValueReader.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant
-     * @param pathFieldTypeSid The unique ID of the Field Type associated with this
-     *                         Field Value
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         FieldType associated with the resources to read
+     * @param pathFieldTypeSid The SID of the Field Type associated with the Field
+     *                         Value to read
      */
     public FieldValueReader(final String pathAssistantSid, 
                             final String pathFieldTypeSid) {
@@ -43,11 +44,11 @@ public class FieldValueReader extends Reader<FieldValue> {
     }
 
     /**
-     * An ISO language-country string that specifies the language used for this
-     * field value. For example: en-US.
+     * The [ISO
+     * language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) tag that specifies the language of the value. Currently supported tags: `en-US`, `nl-NL`.
      * 
-     * @param language An ISO language-country string that specifies the language
-     *                 used for this field value. For example: en-US
+     * @param language The ISO language-country tag that identifies the language of
+     *                 the value
      * @return this
      */
     public FieldValueReader setLanguage(final String language) {

@@ -30,8 +30,9 @@ public class ModelBuildUpdater extends Updater<ModelBuild> {
     /**
      * Construct a new ModelBuildUpdater.
      * 
-     * @param pathAssistantSid The unique ID of the parent Assistant.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resource to update
+     * @param pathSid The unique string that identifies the resource to update
      */
     public ModelBuildUpdater(final String pathAssistantSid, 
                              final String pathSid) {
@@ -40,12 +41,12 @@ public class ModelBuildUpdater extends Updater<ModelBuild> {
     }
 
     /**
-     * A user-provided string that uniquely identifies this resource as an
-     * alternative to the sid. Unique up to 64 characters long. For example: v0.1.
+     * An application-defined string that uniquely identifies the resource. This
+     * value must be a unique string of no more than 64 characters. It can be used
+     * as an alternative to the `sid` in the URL path to address the resource..
      * 
-     * @param uniqueName A user-provided string that uniquely identifies this
-     *                   resource as an alternative to the sid. Unique up to 64
-     *                   characters long. For example: v0.1
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      * @return this
      */
     public ModelBuildUpdater setUniqueName(final String uniqueName) {

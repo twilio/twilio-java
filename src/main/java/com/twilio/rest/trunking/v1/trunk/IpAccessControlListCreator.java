@@ -24,9 +24,10 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
     /**
      * Construct a new IpAccessControlListCreator.
      * 
-     * @param pathTrunkSid The trunk_sid
+     * @param pathTrunkSid The SID of the Trunk to associate the IP Access Control
+     *                     List with
      * @param ipAccessControlListSid The SID of the IP Access Control List that you
-     *                               want to associate with this trunk.
+     *                               want to associate with the trunk
      */
     public IpAccessControlListCreator(final String pathTrunkSid, 
                                       final String ipAccessControlListSid) {

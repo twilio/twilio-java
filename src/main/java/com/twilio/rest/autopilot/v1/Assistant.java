@@ -44,7 +44,7 @@ public class Assistant extends Resource {
     /**
      * Create a AssistantFetcher to execute fetch.
      * 
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathSid The unique string that identifies the resource
      * @return AssistantFetcher capable of executing the fetch
      */
     public static AssistantFetcher fetcher(final String pathSid) {
@@ -72,7 +72,7 @@ public class Assistant extends Resource {
     /**
      * Create a AssistantUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      * @return AssistantUpdater capable of executing the update
      */
     public static AssistantUpdater updater(final String pathSid) {
@@ -82,7 +82,7 @@ public class Assistant extends Resource {
     /**
      * Create a AssistantDeleter to execute delete.
      * 
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathSid The unique string that identifies the resource
      * @return AssistantDeleter capable of executing the delete
      */
     public static AssistantDeleter deleter(final String pathSid) {
@@ -180,116 +180,110 @@ public class Assistant extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this Assistant..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique ID of the Account that created this Assistant.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The date that this resource was created.
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date that this resource was created
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date that this resource was last updated
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The A text description for the Assistant. It is non-unique and can be
-     * up to 255 characters long..
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return A text description for the Assistant. It is non-unique and can be up
-     *         to 255 characters long.
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The latest_model_build_sid.
+     * Returns The Reserved.
      * 
-     * @return The latest_model_build_sid
+     * @return Reserved
      */
     public final String getLatestModelBuildSid() {
         return this.latestModelBuildSid;
     }
 
     /**
-     * Returns The The links.
+     * Returns The A list of the URLs of the Assistant's related resources.
      * 
-     * @return The links
+     * @return A list of the URLs of the Assistant's related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;
     }
 
     /**
-     * Returns The A boolean that specifies whether queries should be logged for 30
-     * days past training. If `false`, no queries will be stored. If `true`, queries
-     * will be stored for 30 days and deleted thereafter..
+     * Returns The Whether queries should be logged and kept after training.
      * 
-     * @return A boolean that specifies whether queries should be logged for 30
-     *         days past training. If `false`, no queries will be stored. If `true`,
-     *         queries will be stored for 30 days and deleted thereafter.
+     * @return Whether queries should be logged and kept after training
      */
     public final Boolean getLogQueries() {
         return this.logQueries;
     }
 
     /**
-     * Returns The A 34-character string that uniquely identifies this resource..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A 34-character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A user-provided string that uniquely identifies this resource as
-     * an alternative to the sid. Unique up to 64 characters long..
+     * Returns The An application-defined string that uniquely identifies the
+     * resource.
      * 
-     * @return A user-provided string that uniquely identifies this resource as an
-     *         alternative to the sid. Unique up to 64 characters long.
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the Assistant resource.
      * 
-     * @return The url
+     * @return The absolute URL of the Assistant resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The callback_url.
+     * Returns The Reserved.
      * 
-     * @return The callback_url
+     * @return Reserved
      */
     public final URI getCallbackUrl() {
         return this.callbackUrl;
     }
 
     /**
-     * Returns The The callback_events.
+     * Returns The Reserved.
      * 
-     * @return The callback_events
+     * @return Reserved
      */
     public final String getCallbackEvents() {
         return this.callbackEvents;

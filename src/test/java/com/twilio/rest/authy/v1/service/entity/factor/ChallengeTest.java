@@ -41,7 +41,7 @@ public class ChallengeTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.AUTHY.toString(),
-                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/pathIdentity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Challenges");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Challenges");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class ChallengeTest {
         }};
 
         try {
-            Challenge.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            Challenge.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class ChallengeTest {
             result = new ObjectMapper();
         }};
 
-        Challenge.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        Challenge.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
     }
 
     @Test
@@ -73,7 +73,7 @@ public class ChallengeTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.AUTHY.toString(),
-                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/pathIdentity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Challenges/pathSid");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Challenges/sid");
             
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class ChallengeTest {
         }};
 
         try {
-            Challenge.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathSid").delete();
+            Challenge.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "sid").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class ChallengeTest {
             result = new ObjectMapper();
         }};
 
-        Challenge.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathSid").delete();
+        Challenge.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "sid").delete();
     }
 
     @Test
@@ -105,7 +105,7 @@ public class ChallengeTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.AUTHY.toString(),
-                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/pathIdentity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Challenges/pathSid");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Challenges/sid");
             
             twilioRestClient.request(request);
             times = 1;
@@ -115,7 +115,7 @@ public class ChallengeTest {
         }};
 
         try {
-            Challenge.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathSid").fetch();
+            Challenge.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "sid").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class ChallengeTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Challenge.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathSid").fetch());
+        assertNotNull(Challenge.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "sid").fetch());
     }
 
     @Test
@@ -141,7 +141,7 @@ public class ChallengeTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Challenge.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathSid").fetch());
+        assertNotNull(Challenge.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "sid").fetch());
     }
 
     @Test
@@ -149,7 +149,7 @@ public class ChallengeTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.AUTHY.toString(),
-                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/pathIdentity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Challenges/pathSid");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Challenges/sid");
             
             twilioRestClient.request(request);
             times = 1;
@@ -159,7 +159,7 @@ public class ChallengeTest {
         }};
 
         try {
-            Challenge.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathSid").update();
+            Challenge.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "sid").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -173,7 +173,7 @@ public class ChallengeTest {
             result = new ObjectMapper();
         }};
 
-        Challenge.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathSid").update();
+        Challenge.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "sid").update();
     }
 
     @Test
@@ -185,6 +185,6 @@ public class ChallengeTest {
             result = new ObjectMapper();
         }};
 
-        Challenge.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathSid").update();
+        Challenge.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "sid").update();
     }
 }

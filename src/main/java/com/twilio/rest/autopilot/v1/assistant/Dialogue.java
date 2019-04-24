@@ -43,8 +43,9 @@ public class Dialogue extends Resource {
     /**
      * Create a DialogueFetcher to execute fetch.
      * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resource to fetch
+     * @param pathSid The unique string that identifies the resource
      * @return DialogueFetcher capable of executing the fetch
      */
     public static DialogueFetcher fetcher(final String pathAssistantSid, 
@@ -115,45 +116,45 @@ public class Dialogue extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this Field..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique ID of the Account that created this Field.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique ID of the parent Assistant..
+     * Returns The The SID of the Assistant that is the parent of the resource.
      * 
-     * @return The unique ID of the parent Assistant.
+     * @return The SID of the Assistant that is the parent of the resource
      */
     public final String getAssistantSid() {
         return this.assistantSid;
     }
 
     /**
-     * Returns The The unique ID of the Dialogue.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return The unique ID of the Dialogue
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The dialogue session object as json.
+     * Returns The The JSON string that describes the dialogue session object.
      * 
-     * @return The dialogue session object as json
+     * @return The JSON string that describes the dialogue session object
      */
     public final Map<String, Object> getData() {
         return this.data;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the Dialogue resource.
      * 
-     * @return The url
+     * @return The absolute URL of the Dialogue resource
      */
     public final URI getUrl() {
         return this.url;

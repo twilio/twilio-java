@@ -42,7 +42,7 @@ public class BulkCountryUpdateTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.VOICE.toString(),
                                           "/v1/DialingPermissions/BulkCountryUpdates");
-            request.addPostParam("UpdateRequest", serialize("updateRequest"));
+            request.addPostParam("UpdateRequest", serialize("update_request"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -51,7 +51,7 @@ public class BulkCountryUpdateTest {
         }};
 
         try {
-            BulkCountryUpdate.creator("updateRequest").create();
+            BulkCountryUpdate.creator("update_request").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,6 +65,6 @@ public class BulkCountryUpdateTest {
             result = new ObjectMapper();
         }};
 
-        BulkCountryUpdate.creator("updateRequest").create();
+        BulkCountryUpdate.creator("update_request").create();
     }
 }

@@ -44,9 +44,11 @@ public class Sample extends Resource {
     /**
      * Create a SampleFetcher to execute fetch.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathTaskSid The unique ID of the Task associated with this Sample.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         Task associated with the resource to fetch
+     * @param pathTaskSid The SID of the Task associated with the Sample resource
+     *                    to create
+     * @param pathSid The unique string that identifies the resource
      * @return SampleFetcher capable of executing the fetch
      */
     public static SampleFetcher fetcher(final String pathAssistantSid, 
@@ -58,8 +60,10 @@ public class Sample extends Resource {
     /**
      * Create a SampleReader to execute read.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathTaskSid The unique ID of the Task associated with this Sample.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         Task associated with the resources to read
+     * @param pathTaskSid The SID of the Task associated with the Sample resources
+     *                    to read
      * @return SampleReader capable of executing the read
      */
     public static SampleReader reader(final String pathAssistantSid, 
@@ -70,13 +74,13 @@ public class Sample extends Resource {
     /**
      * Create a SampleCreator to execute create.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathTaskSid The unique ID of the Task associated with this Sample.
-     * @param language An [ISO language-country
-     *                 string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
-     * @param taggedText The text example of how end-users may express this task.
-     *                   The sample may contain [Field tag
-     *                   blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         Task associated with the new resource
+     * @param pathTaskSid The SID of the Task associated with the Sample resource
+     *                    to create
+     * @param language The ISO language-country string that specifies the language
+     *                 used for the new sample
+     * @param taggedText The text example of how end users might express the task
      * @return SampleCreator capable of executing the create
      */
     public static SampleCreator creator(final String pathAssistantSid, 
@@ -89,9 +93,11 @@ public class Sample extends Resource {
     /**
      * Create a SampleUpdater to execute update.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathTaskSid The unique ID of the Task associated with this Sample.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         Task associated with the resource to update
+     * @param pathTaskSid The SID of the Task associated with the Sample resource
+     *                    to update
+     * @param pathSid The unique string that identifies the resource
      * @return SampleUpdater capable of executing the update
      */
     public static SampleUpdater updater(final String pathAssistantSid, 
@@ -103,9 +109,11 @@ public class Sample extends Resource {
     /**
      * Create a SampleDeleter to execute delete.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathTaskSid The unique ID of the Task associated with this Sample.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         Task associated with the resources to delete
+     * @param pathTaskSid The SID of the Task associated with the Sample resource
+     *                    to delete
+     * @param pathSid The unique string that identifies the resource
      * @return SampleDeleter capable of executing the delete
      */
     public static SampleDeleter deleter(final String pathAssistantSid, 
@@ -196,101 +204,95 @@ public class Sample extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this Sample..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique ID of the Account that created this Sample.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The date that this resource was created.
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date that this resource was created
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date that this resource was last updated
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The unique ID of the Task associated with this Sample..
+     * Returns The The SID of the Task associated with the resource.
      * 
-     * @return The unique ID of the Task associated with this Sample.
+     * @return The SID of the Task associated with the resource
      */
     public final String getTaskSid() {
         return this.taskSid;
     }
 
     /**
-     * Returns The An [ISO language-country
-     * string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html)
-     * that specifies the language used for this sample. For example: `en-US`..
+     * Returns The An ISO language-country string that specifies the language used
+     * for the sample.
      * 
-     * @return An [ISO language-country
-     *         string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
+     * @return An ISO language-country string that specifies the language used for
+     *         the sample
      */
     public final String getLanguage() {
         return this.language;
     }
 
     /**
-     * Returns The The unique ID of the Assistant..
+     * Returns The The SID of the Assistant that is the parent of the Task
+     * associated with the resource.
      * 
-     * @return The unique ID of the Assistant.
+     * @return The SID of the Assistant that is the parent of the Task associated
+     *         with the resource
      */
     public final String getAssistantSid() {
         return this.assistantSid;
     }
 
     /**
-     * Returns The A 34-character string that uniquely identifies this resource..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A 34-character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The text example of how end-users may express this task. The
-     * sample may contain [Field tag
-     * blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging)..
+     * Returns The The text example of how end users might express the task.
      * 
-     * @return The text example of how end-users may express this task. The sample
-     *         may contain [Field tag
-     *         blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
+     * @return The text example of how end users might express the task
      */
     public final String getTaggedText() {
         return this.taggedText;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the Sample resource.
      * 
-     * @return The url
+     * @return The absolute URL of the Sample resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The communication channel from which the sample was captured. It
-     * can be: voice, sms, chat, alexa, google-assistant, or slack. If not included,
-     * the value will be `null`.
+     * Returns The The communication channel from which the sample was captured.
      * 
-     * @return The communication channel from which the sample was captured. It can
-     *         be: voice, sms, chat, alexa, google-assistant, or slack. If not
-     *         included, the value will be `null`
+     * @return The communication channel from which the sample was captured
      */
     public final String getSourceChannel() {
         return this.sourceChannel;

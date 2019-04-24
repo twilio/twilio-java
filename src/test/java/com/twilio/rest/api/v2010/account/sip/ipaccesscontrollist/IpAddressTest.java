@@ -86,8 +86,8 @@ public class IpAddressTest {
                         Request request = new Request(HttpMethod.POST,
                                                       Domains.API.toString(),
                                                       "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAddresses.json");
-                        request.addPostParam("FriendlyName", serialize("friendlyName"));
-        request.addPostParam("IpAddress", serialize("ipAddress"));
+                        request.addPostParam("FriendlyName", serialize("friendly_name"));
+        request.addPostParam("IpAddress", serialize("ip_address"));
                         twilioRestClient.request(request);
                         times = 1;
                         result = new Response("", 500);
@@ -96,7 +96,7 @@ public class IpAddressTest {
                     }};
 
         try {
-            IpAddress.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName", "ipAddress").create();
+            IpAddress.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", "ip_address").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -110,7 +110,7 @@ public class IpAddressTest {
             result = new ObjectMapper();
         }};
 
-        IpAddress.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName", "ipAddress").create();
+        IpAddress.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", "ip_address").create();
     }
 
     @Test

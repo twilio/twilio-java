@@ -182,7 +182,7 @@ public class ActivityTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Activities");
-            request.addPostParam("FriendlyName", serialize("friendlyName"));
+            request.addPostParam("FriendlyName", serialize("friendly_name"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -191,7 +191,7 @@ public class ActivityTest {
         }};
 
         try {
-            Activity.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName").create();
+            Activity.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class ActivityTest {
             result = new ObjectMapper();
         }};
 
-        Activity.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName").create();
+        Activity.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create();
     }
 }

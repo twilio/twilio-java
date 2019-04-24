@@ -150,11 +150,11 @@ public class AuthorizationDocumentTest {
                         Request request = new Request(HttpMethod.POST,
                                                       Domains.PREVIEW.toString(),
                                                       "/HostedNumbers/AuthorizationDocuments");
-                        request.addPostParam("HostedNumberOrderSids", serialize(Promoter.listOfOne("hostedNumberOrderSids")));
+                        request.addPostParam("HostedNumberOrderSids", serialize(Promoter.listOfOne("hosted_number_order_sids")));
         request.addPostParam("AddressSid", serialize("ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
         request.addPostParam("Email", serialize("email"));
-        request.addPostParam("ContactTitle", serialize("contactTitle"));
-        request.addPostParam("ContactPhoneNumber", serialize("contactPhoneNumber"));
+        request.addPostParam("ContactTitle", serialize("contact_title"));
+        request.addPostParam("ContactPhoneNumber", serialize("contact_phone_number"));
                         twilioRestClient.request(request);
                         times = 1;
                         result = new Response("", 500);
@@ -163,7 +163,7 @@ public class AuthorizationDocumentTest {
                     }};
 
         try {
-            AuthorizationDocument.creator(Promoter.listOfOne("hostedNumberOrderSids"), "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "email", "contactTitle", "contactPhoneNumber").create();
+            AuthorizationDocument.creator(Promoter.listOfOne("hosted_number_order_sids"), "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "email", "contact_title", "contact_phone_number").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -177,6 +177,6 @@ public class AuthorizationDocumentTest {
             result = new ObjectMapper();
         }};
 
-        AuthorizationDocument.creator(Promoter.listOfOne("hostedNumberOrderSids"), "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "email", "contactTitle", "contactPhoneNumber").create();
+        AuthorizationDocument.creator(Promoter.listOfOne("hosted_number_order_sids"), "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "email", "contact_title", "contact_phone_number").create();
     }
 }

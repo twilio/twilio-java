@@ -218,8 +218,8 @@ public class TaskChannelTest {
                         Request request = new Request(HttpMethod.POST,
                                                       Domains.TASKROUTER.toString(),
                                                       "/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskChannels");
-                        request.addPostParam("FriendlyName", serialize("friendlyName"));
-        request.addPostParam("UniqueName", serialize("uniqueName"));
+                        request.addPostParam("FriendlyName", serialize("friendly_name"));
+        request.addPostParam("UniqueName", serialize("unique_name"));
                         twilioRestClient.request(request);
                         times = 1;
                         result = new Response("", 500);
@@ -228,7 +228,7 @@ public class TaskChannelTest {
                     }};
 
         try {
-            TaskChannel.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName", "uniqueName").create();
+            TaskChannel.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", "unique_name").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -242,6 +242,6 @@ public class TaskChannelTest {
             result = new ObjectMapper();
         }};
 
-        TaskChannel.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName", "uniqueName").create();
+        TaskChannel.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", "unique_name").create();
     }
 }

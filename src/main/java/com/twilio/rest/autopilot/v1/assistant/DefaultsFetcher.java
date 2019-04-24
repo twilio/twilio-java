@@ -28,7 +28,8 @@ public class DefaultsFetcher extends Fetcher<Defaults> {
     /**
      * Construct a new DefaultsFetcher.
      * 
-     * @param pathAssistantSid The assistant_sid
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resource to fetch
      */
     public DefaultsFetcher(final String pathAssistantSid) {
         this.pathAssistantSid = pathAssistantSid;

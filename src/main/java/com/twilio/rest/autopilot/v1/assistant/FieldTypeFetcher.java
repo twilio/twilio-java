@@ -29,8 +29,9 @@ public class FieldTypeFetcher extends Fetcher<FieldType> {
     /**
      * Construct a new FieldTypeFetcher.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resource to fetch
+     * @param pathSid The unique string that identifies the resource
      */
     public FieldTypeFetcher(final String pathAssistantSid, 
                             final String pathSid) {

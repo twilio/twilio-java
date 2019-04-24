@@ -24,8 +24,9 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     /**
      * Construct a new PhoneNumberFetcher.
      * 
-     * @param pathTrunkSid The trunk_sid
-     * @param pathSid The sid
+     * @param pathTrunkSid The SID of the Trunk from which to fetch the PhoneNumber
+     *                     resource
+     * @param pathSid The unique string that identifies the resource
      */
     public PhoneNumberFetcher(final String pathTrunkSid, 
                               final String pathSid) {

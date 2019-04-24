@@ -32,13 +32,13 @@ public class SampleCreator extends Creator<Sample> {
     /**
      * Construct a new SampleCreator.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathTaskSid The unique ID of the Task associated with this Sample.
-     * @param language An [ISO language-country
-     *                 string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
-     * @param taggedText The text example of how end-users may express this task.
-     *                   The sample may contain [Field tag
-     *                   blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         Task associated with the new resource
+     * @param pathTaskSid The SID of the Task associated with the Sample resource
+     *                    to create
+     * @param language The ISO language-country string that specifies the language
+     *                 used for the new sample
+     * @param taggedText The text example of how end users might express the task
      */
     public SampleCreator(final String pathAssistantSid, 
                          final String pathTaskSid, 
@@ -51,14 +51,12 @@ public class SampleCreator extends Creator<Sample> {
     }
 
     /**
-     * The communication channel from which the sample was captured. It can be:
-     * *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not
-     * included, the value will be `null`.
+     * The communication channel from which the new sample was captured. Can be:
+     * `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not
+     * included..
      * 
-     * @param sourceChannel The communication channel from which the sample was
-     *                      captured. It can be: voice, sms, chat, alexa,
-     *                      google-assistant, or slack. If not included, the value
-     *                      will be `null`
+     * @param sourceChannel The communication channel from which the new sample was
+     *                      captured
      * @return this
      */
     public SampleCreator setSourceChannel(final String sourceChannel) {

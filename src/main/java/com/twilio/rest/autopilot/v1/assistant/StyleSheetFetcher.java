@@ -28,7 +28,8 @@ public class StyleSheetFetcher extends Fetcher<StyleSheet> {
     /**
      * Construct a new StyleSheetFetcher.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant
+     * @param pathAssistantSid The SID of the Assistant with the StyleSheet
+     *                         resource to fetch
      */
     public StyleSheetFetcher(final String pathAssistantSid) {
         this.pathAssistantSid = pathAssistantSid;

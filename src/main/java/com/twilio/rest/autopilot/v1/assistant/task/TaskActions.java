@@ -43,8 +43,10 @@ public class TaskActions extends Resource {
     /**
      * Create a TaskActionsFetcher to execute fetch.
      * 
-     * @param pathAssistantSid The unique ID of the parent Assistant.
-     * @param pathTaskSid The unique ID of the Task.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         Task for which the task actions to fetch were defined
+     * @param pathTaskSid The SID of the Task for which the task actions to fetch
+     *                    were defined
      * @return TaskActionsFetcher capable of executing the fetch
      */
     public static TaskActionsFetcher fetcher(final String pathAssistantSid, 
@@ -55,8 +57,11 @@ public class TaskActions extends Resource {
     /**
      * Create a TaskActionsUpdater to execute update.
      * 
-     * @param pathAssistantSid The unique ID of the parent Assistant.
-     * @param pathTaskSid The unique ID of the Task.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         Task for which the task actions to update were
+     *                         defined
+     * @param pathTaskSid The SID of the Task for which the task actions to update
+     *                    were defined
      * @return TaskActionsUpdater capable of executing the update
      */
     public static TaskActionsUpdater updater(final String pathAssistantSid, 
@@ -127,47 +132,49 @@ public class TaskActions extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this Field..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique ID of the Account that created this Field.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique ID of the parent Assistant..
+     * Returns The The SID of the Assistant that is the parent of the Task
+     * associated with the resource.
      * 
-     * @return The unique ID of the parent Assistant.
+     * @return The SID of the Assistant that is the parent of the Task associated
+     *         with the resource
      */
     public final String getAssistantSid() {
         return this.assistantSid;
     }
 
     /**
-     * Returns The The unique ID of the Task..
+     * Returns The The SID of the Task associated with the resource.
      * 
-     * @return The unique ID of the Task.
+     * @return The SID of the Task associated with the resource
      */
     public final String getTaskSid() {
         return this.taskSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the TaskActions resource.
      * 
-     * @return The url
+     * @return The absolute URL of the TaskActions resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The JSON [actions](https://www.twilio.com/docs/autopilot/actions)
-     * that instruct the Assistant how to perform this task..
+     * Returns The The JSON string that specifies the actions that instruct the
+     * Assistant on how to perform the task.
      * 
-     * @return The JSON [actions](https://www.twilio.com/docs/autopilot/actions)
-     *         that instruct the Assistant how to perform this task.
+     * @return The JSON string that specifies the actions that instruct the
+     *         Assistant on how to perform the task
      */
     public final Map<String, Object> getData() {
         return this.data;

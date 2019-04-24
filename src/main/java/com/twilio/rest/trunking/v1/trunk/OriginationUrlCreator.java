@@ -30,16 +30,14 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
     /**
      * Construct a new OriginationUrlCreator.
      * 
-     * @param pathTrunkSid The trunk_sid
-     * @param weight Weight is used to determine the share of load when more than
-     *               one URI has the same priority.
-     * @param priority Priority ranks the importance of the URI.
-     * @param enabled A boolean value indicating whether the URL is enabled or
-     *                disabled.
-     * @param friendlyName A human readable descriptive text, up to 64 characters
-     *                     long.
+     * @param pathTrunkSid The SID of the Trunk to associate the resource with
+     * @param weight The value that determines the relative load the URI should
+     *               receive compared to others with the same priority
+     * @param priority The relative importance of the URI
+     * @param enabled Whether the URL is enabled
+     * @param friendlyName A string to describe the resource
      * @param sipUrl The SIP address you want Twilio to route your Origination
-     *               calls to.
+     *               calls to
      */
     public OriginationUrlCreator(final String pathTrunkSid, 
                                  final Integer weight, 

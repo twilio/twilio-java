@@ -42,7 +42,7 @@ public class ServiceTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.MESSAGING.toString(),
                                           "/v1/Services");
-            request.addPostParam("FriendlyName", serialize("friendlyName"));
+            request.addPostParam("FriendlyName", serialize("friendly_name"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -51,7 +51,7 @@ public class ServiceTest {
         }};
 
         try {
-            Service.creator("friendlyName").create();
+            Service.creator("friendly_name").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class ServiceTest {
             result = new ObjectMapper();
         }};
 
-        Service.creator("friendlyName").create();
+        Service.creator("friendly_name").create();
     }
 
     @Test

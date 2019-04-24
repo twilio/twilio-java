@@ -25,7 +25,8 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
     /**
      * Construct a new IpAccessControlListReader.
      * 
-     * @param pathTrunkSid The trunk_sid
+     * @param pathTrunkSid The SID of the Trunk from which to read the IP Access
+     *                     Control Lists
      */
     public IpAccessControlListReader(final String pathTrunkSid) {
         this.pathTrunkSid = pathTrunkSid;

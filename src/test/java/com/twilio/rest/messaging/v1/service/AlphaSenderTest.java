@@ -42,7 +42,7 @@ public class AlphaSenderTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.MESSAGING.toString(),
                                           "/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders");
-            request.addPostParam("AlphaSender", serialize("alphaSender"));
+            request.addPostParam("AlphaSender", serialize("alpha_sender"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -51,7 +51,7 @@ public class AlphaSenderTest {
         }};
 
         try {
-            AlphaSender.creator("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "alphaSender").create();
+            AlphaSender.creator("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "alpha_sender").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class AlphaSenderTest {
             result = new ObjectMapper();
         }};
 
-        AlphaSender.creator("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "alphaSender").create();
+        AlphaSender.creator("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "alpha_sender").create();
     }
 
     @Test

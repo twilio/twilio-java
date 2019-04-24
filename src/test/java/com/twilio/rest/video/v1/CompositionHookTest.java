@@ -150,7 +150,7 @@ public class CompositionHookTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.VIDEO.toString(),
                                           "/v1/CompositionHooks");
-            request.addPostParam("FriendlyName", serialize("friendlyName"));
+            request.addPostParam("FriendlyName", serialize("friendly_name"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -159,7 +159,7 @@ public class CompositionHookTest {
         }};
 
         try {
-            CompositionHook.creator("friendlyName").create();
+            CompositionHook.creator("friendly_name").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -173,7 +173,7 @@ public class CompositionHookTest {
             result = new ObjectMapper();
         }};
 
-        CompositionHook.creator("friendlyName").create();
+        CompositionHook.creator("friendly_name").create();
     }
 
     @Test
@@ -182,7 +182,7 @@ public class CompositionHookTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.VIDEO.toString(),
                                           "/v1/CompositionHooks/HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            request.addPostParam("FriendlyName", serialize("friendlyName"));
+            request.addPostParam("FriendlyName", serialize("friendly_name"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -191,7 +191,7 @@ public class CompositionHookTest {
         }};
 
         try {
-            CompositionHook.updater("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName").update();
+            CompositionHook.updater("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,7 +205,7 @@ public class CompositionHookTest {
             result = new ObjectMapper();
         }};
 
-        CompositionHook.updater("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName").update();
+        CompositionHook.updater("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").update();
     }
 
     @Test
@@ -217,6 +217,6 @@ public class CompositionHookTest {
             result = new ObjectMapper();
         }};
 
-        CompositionHook.updater("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName").update();
+        CompositionHook.updater("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").update();
     }
 }

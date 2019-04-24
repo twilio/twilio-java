@@ -29,8 +29,9 @@ public class FieldTypeDeleter extends Deleter<FieldType> {
     /**
      * Construct a new FieldTypeDeleter.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant with the FieldType
+     *                         resources to delete
+     * @param pathSid The unique string that identifies the resource
      */
     public FieldTypeDeleter(final String pathAssistantSid, 
                             final String pathSid) {

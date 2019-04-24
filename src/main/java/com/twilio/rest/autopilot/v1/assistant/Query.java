@@ -45,8 +45,9 @@ public class Query extends Resource {
     /**
      * Create a QueryFetcher to execute fetch.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resource to fetch
+     * @param pathSid The unique string that identifies the resource
      * @return QueryFetcher capable of executing the fetch
      */
     public static QueryFetcher fetcher(final String pathAssistantSid, 
@@ -57,7 +58,8 @@ public class Query extends Resource {
     /**
      * Create a QueryReader to execute read.
      * 
-     * @param pathAssistantSid The unique ID of the parent Assistant.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resources to read
      * @return QueryReader capable of executing the read
      */
     public static QueryReader reader(final String pathAssistantSid) {
@@ -67,12 +69,11 @@ public class Query extends Resource {
     /**
      * Create a QueryCreator to execute create.
      * 
-     * @param pathAssistantSid The unique ID of the parent Assistant.
-     * @param language An [ISO language-country
-     *                 string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this query. For example: `en-US`.
-     * @param query A user-provided string that uniquely identifies this resource
-     *              as an alternative to the sid. It can be up to 2048 characters
-     *              long.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         new resource
+     * @param language The ISO language-country string that specifies the language
+     *                 used for the new query
+     * @param query The end-user's natural language input
      * @return QueryCreator capable of executing the create
      */
     public static QueryCreator creator(final String pathAssistantSid, 
@@ -84,8 +85,9 @@ public class Query extends Resource {
     /**
      * Create a QueryUpdater to execute update.
      * 
-     * @param pathAssistantSid The unique ID of the parent Assistant.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resource to update
+     * @param pathSid The unique string that identifies the resource to update
      * @return QueryUpdater capable of executing the update
      */
     public static QueryUpdater updater(final String pathAssistantSid, 
@@ -96,8 +98,9 @@ public class Query extends Resource {
     /**
      * Create a QueryDeleter to execute delete.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resources to delete
+     * @param pathSid The unique string that identifies the resource
      * @return QueryDeleter capable of executing the delete
      */
     public static QueryDeleter deleter(final String pathAssistantSid, 
@@ -199,131 +202,125 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this Query..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique ID of the Account that created this Query.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The date that this resource was created.
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date that this resource was created
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date that this resource was last updated
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The natural language analysis results which include the
-     * [Task](https://www.twilio.com/docs/autopilot/api/task) recognized, the
-     * confidence score, and a list of identified
-     * [Fields](https://www.twilio.com/docs/autopilot/api/task-field)..
+     * Returns The The natural language analysis results that include the Task
+     * recognized, the confidence score, and a list of identified Fields.
      * 
-     * @return The natural language analysis results which include the
-     *         [Task](https://www.twilio.com/docs/autopilot/api/task) recognized,
-     *         the confidence score, and a list of identified
-     *         [Fields](https://www.twilio.com/docs/autopilot/api/task-field).
+     * @return The natural language analysis results that include the Task
+     *         recognized, the confidence score, and a list of identified Fields
      */
     public final Map<String, Object> getResults() {
         return this.results;
     }
 
     /**
-     * Returns The An [ISO language-country
-     * string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html)
-     * that specifies the language used for this query. For example: `en-US`.
+     * Returns The The ISO language-country string that specifies the language used
+     * by the Query.
      * 
-     * @return An [ISO language-country
-     *         string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this query. For example: `en-US`
+     * @return The ISO language-country string that specifies the language used by
+     *         the Query
      */
     public final String getLanguage() {
         return this.language;
     }
 
     /**
-     * Returns The The unique ID of the [Model
-     * Build](https://www.twilio.com/docs/autopilot/api/model-build) queried..
+     * Returns The The SID of the [Model
+     * Build](https://www.twilio.com/docs/autopilot/api/model-build) queried.
      * 
-     * @return The unique ID of the [Model
-     *         Build](https://www.twilio.com/docs/autopilot/api/model-build)
-     *         queried.
+     * @return The SID of the [Model
+     *         Build](https://www.twilio.com/docs/autopilot/api/model-build) queried
      */
     public final String getModelBuildSid() {
         return this.modelBuildSid;
     }
 
     /**
-     * Returns The The end-user's natural language input..
+     * Returns The The end-user's natural language input.
      * 
-     * @return The end-user's natural language input.
+     * @return The end-user's natural language input
      */
     public final String getQuery() {
         return this.query;
     }
 
     /**
-     * Returns The An optional reference to the Sample created from this query..
+     * Returns The The SID of an optional reference to the Sample created from the
+     * query.
      * 
-     * @return An optional reference to the Sample created from this query.
+     * @return The SID of an optional reference to the Sample created from the query
      */
     public final String getSampleSid() {
         return this.sampleSid;
     }
 
     /**
-     * Returns The The unique ID of the parent Assistant..
+     * Returns The The SID of the Assistant that is the parent of the resource.
      * 
-     * @return The unique ID of the parent Assistant.
+     * @return The SID of the Assistant that is the parent of the resource
      */
     public final String getAssistantSid() {
         return this.assistantSid;
     }
 
     /**
-     * Returns The A 34-character string that uniquely identifies this resource..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A 34-character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A string that describes the query status. The values can be:
-     * `pending_review`, `reviewed`, `discarded`.
+     * Returns The The status of the Query.
      * 
-     * @return A string that describes the query status. The values can be:
-     *         `pending_review`, `reviewed`, `discarded`
+     * @return The status of the Query
      */
     public final String getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the Query resource.
      * 
-     * @return The url
+     * @return The absolute URL of the Query resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The communication channel where this end-user input came from.
+     * Returns The The communication channel from where the end-user input came.
      * 
-     * @return The communication channel where this end-user input came from
+     * @return The communication channel from where the end-user input came
      */
     public final String getSourceChannel() {
         return this.sourceChannel;

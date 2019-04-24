@@ -109,7 +109,7 @@ public class OriginationUrlTest {
                         request.addPostParam("Weight", serialize(1));
         request.addPostParam("Priority", serialize(1));
         request.addPostParam("Enabled", serialize(true));
-        request.addPostParam("FriendlyName", serialize("friendlyName"));
+        request.addPostParam("FriendlyName", serialize("friendly_name"));
         request.addPostParam("SipUrl", serialize(URI.create("https://example.com")));
                         twilioRestClient.request(request);
                         times = 1;
@@ -119,7 +119,7 @@ public class OriginationUrlTest {
                     }};
 
         try {
-            OriginationUrl.creator("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 1, 1, true, "friendlyName", URI.create("https://example.com")).create();
+            OriginationUrl.creator("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 1, 1, true, "friendly_name", URI.create("https://example.com")).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -133,7 +133,7 @@ public class OriginationUrlTest {
             result = new ObjectMapper();
         }};
 
-        OriginationUrl.creator("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 1, 1, true, "friendlyName", URI.create("https://example.com")).create();
+        OriginationUrl.creator("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 1, 1, true, "friendly_name", URI.create("https://example.com")).create();
     }
 
     @Test

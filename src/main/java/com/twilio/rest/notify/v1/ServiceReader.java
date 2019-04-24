@@ -27,9 +27,9 @@ public class ServiceReader extends Reader<Service> {
     private String friendlyName;
 
     /**
-     * Filter services by FriendlyName.
+     * The string that identifies the Service resources to read..
      * 
-     * @param friendlyName Filter services by FriendlyName
+     * @param friendlyName The string that identifies the Service resources to read
      * @return this
      */
     public ServiceReader setFriendlyName(final String friendlyName) {

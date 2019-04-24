@@ -30,9 +30,11 @@ public class SampleDeleter extends Deleter<Sample> {
     /**
      * Construct a new SampleDeleter.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathTaskSid The unique ID of the Task associated with this Sample.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         Task associated with the resources to delete
+     * @param pathTaskSid The SID of the Task associated with the Sample resource
+     *                    to delete
+     * @param pathSid The unique string that identifies the resource
      */
     public SampleDeleter(final String pathAssistantSid, 
                          final String pathTaskSid, 

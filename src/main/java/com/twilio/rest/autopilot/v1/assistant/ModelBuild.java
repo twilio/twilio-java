@@ -73,8 +73,9 @@ public class ModelBuild extends Resource {
     /**
      * Create a ModelBuildFetcher to execute fetch.
      * 
-     * @param pathAssistantSid The unique ID of the parent Assistant.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resource to fetch
+     * @param pathSid The unique string that identifies the resource
      * @return ModelBuildFetcher capable of executing the fetch
      */
     public static ModelBuildFetcher fetcher(final String pathAssistantSid, 
@@ -85,7 +86,8 @@ public class ModelBuild extends Resource {
     /**
      * Create a ModelBuildReader to execute read.
      * 
-     * @param pathAssistantSid The unique ID of the parent Assistant.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resources to read
      * @return ModelBuildReader capable of executing the read
      */
     public static ModelBuildReader reader(final String pathAssistantSid) {
@@ -95,7 +97,8 @@ public class ModelBuild extends Resource {
     /**
      * Create a ModelBuildCreator to execute create.
      * 
-     * @param pathAssistantSid The unique ID of the parent Assistant.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         new resource
      * @return ModelBuildCreator capable of executing the create
      */
     public static ModelBuildCreator creator(final String pathAssistantSid) {
@@ -105,8 +108,9 @@ public class ModelBuild extends Resource {
     /**
      * Create a ModelBuildUpdater to execute update.
      * 
-     * @param pathAssistantSid The unique ID of the parent Assistant.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resource to update
+     * @param pathSid The unique string that identifies the resource to update
      * @return ModelBuildUpdater capable of executing the update
      */
     public static ModelBuildUpdater updater(final String pathAssistantSid, 
@@ -117,8 +121,9 @@ public class ModelBuild extends Resource {
     /**
      * Create a ModelBuildDeleter to execute delete.
      * 
-     * @param pathAssistantSid The unique ID of the parent Assistant.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resources to delete
+     * @param pathSid The unique string that identifies the resource
      * @return ModelBuildDeleter capable of executing the delete
      */
     public static ModelBuildDeleter deleter(final String pathAssistantSid, 
@@ -209,94 +214,94 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this Model Build..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique ID of the Account that created this Model Build.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The date that this resource was created.
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date that this resource was created
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date that this resource was last updated
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The unique ID of the parent Assistant..
+     * Returns The The SID of the Assistant that is the parent of the resource.
      * 
-     * @return The unique ID of the parent Assistant.
+     * @return The SID of the Assistant that is the parent of the resource
      */
     public final String getAssistantSid() {
         return this.assistantSid;
     }
 
     /**
-     * Returns The A 34-character string that uniquely identifies this resource..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A 34-character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A string that described the model build status. The values can
-     * be: `enqueued`, `building`, `completed`, `failed`.
+     * Returns The The status of the model build process.
      * 
-     * @return A string that described the model build status. The values can be:
-     *         `enqueued`, `building`, `completed`, `failed`
+     * @return The status of the model build process
      */
     public final ModelBuild.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The A user-provided string that uniquely identifies this resource as
-     * an alternative to the sid. Unique up to 64 characters long..
+     * Returns The An application-defined string that uniquely identifies the
+     * resource.
      * 
-     * @return A user-provided string that uniquely identifies this resource as an
-     *         alternative to the sid. Unique up to 64 characters long.
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the ModelBuild resource.
      * 
-     * @return The url
+     * @return The absolute URL of the ModelBuild resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The time in seconds it took to build the model..
+     * Returns The The time in seconds it took to build the model.
      * 
-     * @return The time in seconds it took to build the model.
+     * @return The time in seconds it took to build the model
      */
     public final Integer getBuildDuration() {
         return this.buildDuration;
     }
 
     /**
-     * Returns The The error_code.
+     * Returns The More information about why the model build failed, if `status` is
+     * `failed`.
      * 
-     * @return The error_code
+     * @return More information about why the model build failed, if `status` is
+     *         `failed`
      */
     public final Integer getErrorCode() {
         return this.errorCode;

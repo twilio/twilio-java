@@ -25,7 +25,7 @@ public class TerminatingSipDomainReader extends Reader<TerminatingSipDomain> {
     /**
      * Construct a new TerminatingSipDomainReader.
      * 
-     * @param pathTrunkSid The unique sid of the trunk.
+     * @param pathTrunkSid The SID of the Trunk with the resources to read
      */
     public TerminatingSipDomainReader(final String pathTrunkSid) {
         this.pathTrunkSid = pathTrunkSid;

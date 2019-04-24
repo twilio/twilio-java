@@ -41,9 +41,9 @@ public class FactorTest {
                     new NonStrictExpectations() {{
                         Request request = new Request(HttpMethod.POST,
                                                       Domains.AUTHY.toString(),
-                                                      "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/pathIdentity/Factors");
+                                                      "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors");
                         request.addPostParam("Binding", serialize("binding"));
-        request.addPostParam("FriendlyName", serialize("friendlyName"));
+        request.addPostParam("FriendlyName", serialize("friendly_name"));
         request.addPostParam("FactorType", serialize(Factor.FactorTypes.APP_PUSH));
                         twilioRestClient.request(request);
                         times = 1;
@@ -53,7 +53,7 @@ public class FactorTest {
                     }};
 
         try {
-            Factor.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity", "binding", "friendlyName", Factor.FactorTypes.APP_PUSH).create();
+            Factor.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "binding", "friendly_name", Factor.FactorTypes.APP_PUSH).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -67,7 +67,7 @@ public class FactorTest {
             result = new ObjectMapper();
         }};
 
-        Factor.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity", "binding", "friendlyName", Factor.FactorTypes.APP_PUSH).create();
+        Factor.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "binding", "friendly_name", Factor.FactorTypes.APP_PUSH).create();
     }
 
     @Test
@@ -75,7 +75,7 @@ public class FactorTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.AUTHY.toString(),
-                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/pathIdentity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -85,7 +85,7 @@ public class FactorTest {
         }};
 
         try {
-            Factor.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Factor.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -99,7 +99,7 @@ public class FactorTest {
             result = new ObjectMapper();
         }};
 
-        Factor.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Factor.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 
     @Test
@@ -107,7 +107,7 @@ public class FactorTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.AUTHY.toString(),
-                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/pathIdentity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -117,7 +117,7 @@ public class FactorTest {
         }};
 
         try {
-            Factor.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Factor.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -131,7 +131,7 @@ public class FactorTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Factor.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Factor.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -139,7 +139,7 @@ public class FactorTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.AUTHY.toString(),
-                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/pathIdentity/Factors");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors");
             
             twilioRestClient.request(request);
             times = 1;
@@ -149,7 +149,7 @@ public class FactorTest {
         }};
 
         try {
-            Factor.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity").read();
+            Factor.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -163,7 +163,7 @@ public class FactorTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Factor.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity").read());
+        assertNotNull(Factor.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").read());
     }
 
     @Test
@@ -175,7 +175,7 @@ public class FactorTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Factor.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity").read());
+        assertNotNull(Factor.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").read());
     }
 
     @Test
@@ -183,7 +183,7 @@ public class FactorTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.AUTHY.toString(),
-                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/pathIdentity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             
             twilioRestClient.request(request);
             times = 1;
@@ -193,7 +193,7 @@ public class FactorTest {
         }};
 
         try {
-            Factor.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
+            Factor.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -207,6 +207,6 @@ public class FactorTest {
             result = new ObjectMapper();
         }};
 
-        Factor.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
+        Factor.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
 }

@@ -106,7 +106,7 @@ public class AssetTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.SERVERLESS.toString(),
                                           "/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets");
-            request.addPostParam("FriendlyName", serialize("friendlyName"));
+            request.addPostParam("FriendlyName", serialize("friendly_name"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -115,7 +115,7 @@ public class AssetTest {
         }};
 
         try {
-            Asset.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName").create();
+            Asset.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class AssetTest {
             result = new ObjectMapper();
         }};
 
-        Asset.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName").create();
+        Asset.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create();
     }
 
     @Test
@@ -138,7 +138,7 @@ public class AssetTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.SERVERLESS.toString(),
                                           "/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            request.addPostParam("FriendlyName", serialize("friendlyName"));
+            request.addPostParam("FriendlyName", serialize("friendly_name"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -147,7 +147,7 @@ public class AssetTest {
         }};
 
         try {
-            Asset.updater("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName").update();
+            Asset.updater("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -161,6 +161,6 @@ public class AssetTest {
             result = new ObjectMapper();
         }};
 
-        Asset.updater("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName").update();
+        Asset.updater("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").update();
     }
 }

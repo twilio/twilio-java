@@ -33,16 +33,17 @@ public class CredentialUpdater extends Updater<Credential> {
     /**
      * Construct a new CredentialUpdater.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      */
     public CredentialUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
     /**
-     * Friendly name for stored credential.
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
      * 
-     * @param friendlyName Friendly name for stored credential
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public CredentialUpdater setFriendlyName(final String friendlyName) {
@@ -51,11 +52,12 @@ public class CredentialUpdater extends Updater<Credential> {
     }
 
     /**
-     * [APN only] URL encoded representation of the certificate. Strip everything
-     * outside of the headers, e.g. `-----BEGIN
+     * [APN only] The URL-encoded representation of the certificate. Strip
+     * everything outside of the headers, e.g. `-----BEGIN
      * CERTIFICATE-----MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A==-----END CERTIFICATE-----`.
      * 
-     * @param certificate [APN only] URL encoded representation of the certificate.
+     * @param certificate [APN only] The URL-encoded representation of the
+     *                    certificate
      * @return this
      */
     public CredentialUpdater setCertificate(final String certificate) {
@@ -64,11 +66,11 @@ public class CredentialUpdater extends Updater<Credential> {
     }
 
     /**
-     * [APN only] URL encoded representation of the private key. Strip everything
-     * outside of the headers, e.g. `-----BEGIN RSA PRIVATE
+     * [APN only] The URL-encoded representation of the private key. Strip
+     * everything outside of the headers, e.g. `-----BEGIN RSA PRIVATE
      * KEY-----MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR\n.-----END RSA PRIVATE KEY-----`.
      * 
-     * @param privateKey [APN only] URL encoded representation of the private key.
+     * @param privateKey [APN only] URL-encoded representation of the private key
      * @return this
      */
     public CredentialUpdater setPrivateKey(final String privateKey) {
@@ -77,11 +79,10 @@ public class CredentialUpdater extends Updater<Credential> {
     }
 
     /**
-     * [APN only] use this credential for sending to production or sandbox APNs
-     * (string `true` or `false`).
+     * [APN only] Whether to send the credential to sandbox APNs. Can be `true` to
+     * send to sandbox APNs or `false` to send to production..
      * 
-     * @param sandbox [APN only] use this credential for sending to production or
-     *                sandbox APNs
+     * @param sandbox [APN only] Whether to send the credential to sandbox APNs
      * @return this
      */
     public CredentialUpdater setSandbox(final Boolean sandbox) {
@@ -90,12 +91,11 @@ public class CredentialUpdater extends Updater<Credential> {
     }
 
     /**
-     * [GCM only] This is the "Server key" of your project from Firebase console
-     * under Settings / Cloud messaging. Yes, you can use the server key from the
-     * Firebase console for GCM..
+     * [GCM only] The `Server key` of your project from Firebase console under
+     * Settings / Cloud messaging..
      * 
-     * @param apiKey [GCM only] This is the "Server key" of your project from
-     *               Firebase console under Settings / Cloud messaging.
+     * @param apiKey [GCM only] The `Server key` of your project from Firebase
+     *               console under Settings / Cloud messaging
      * @return this
      */
     public CredentialUpdater setApiKey(final String apiKey) {
@@ -104,11 +104,11 @@ public class CredentialUpdater extends Updater<Credential> {
     }
 
     /**
-     * [FCM only] This is the "Server key" of your project from Firebase console
-     * under Settings / Cloud messaging..
+     * [FCM only] The `Server key` of your project from Firebase console under
+     * Settings / Cloud messaging..
      * 
-     * @param secret [FCM only] This is the "Server key" of your project from
-     *               Firebase console under Settings / Cloud messaging.
+     * @param secret [FCM only] The `Server key` of your project from Firebase
+     *               console under Settings / Cloud messaging
      * @return this
      */
     public CredentialUpdater setSecret(final String secret) {

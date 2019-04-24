@@ -25,7 +25,8 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
     /**
      * Construct a new PhoneNumberReader.
      * 
-     * @param pathTrunkSid The trunk_sid
+     * @param pathTrunkSid The SID of the Trunk from which to read the PhoneNumber
+     *                     resources
      */
     public PhoneNumberReader(final String pathTrunkSid) {
         this.pathTrunkSid = pathTrunkSid;

@@ -106,7 +106,7 @@ public class SessionTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.MESSAGING.toString(),
                                           "/v1/Sessions");
-            request.addPostParam("MessagingServiceSid", serialize("messagingServiceSid"));
+            request.addPostParam("MessagingServiceSid", serialize("messaging_service_sid"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -115,7 +115,7 @@ public class SessionTest {
         }};
 
         try {
-            Session.creator("messagingServiceSid").create();
+            Session.creator("messaging_service_sid").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class SessionTest {
             result = new ObjectMapper();
         }};
 
-        Session.creator("messagingServiceSid").create();
+        Session.creator("messaging_service_sid").create();
     }
 
     @Test

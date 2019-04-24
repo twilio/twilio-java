@@ -29,8 +29,9 @@ public class ModelBuildDeleter extends Deleter<ModelBuild> {
     /**
      * Construct a new ModelBuildDeleter.
      * 
-     * @param pathAssistantSid The unique ID of the parent Assistant.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resources to delete
+     * @param pathSid The unique string that identifies the resource
      */
     public ModelBuildDeleter(final String pathAssistantSid, 
                              final String pathSid) {

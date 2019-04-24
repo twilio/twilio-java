@@ -118,7 +118,7 @@ public class FlexFlowTest {
                         Request request = new Request(HttpMethod.POST,
                                                       Domains.FLEXAPI.toString(),
                                                       "/v1/FlexFlows");
-                        request.addPostParam("FriendlyName", serialize("friendlyName"));
+                        request.addPostParam("FriendlyName", serialize("friendly_name"));
         request.addPostParam("ChatServiceSid", serialize("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
         request.addPostParam("ChannelType", serialize(FlexFlow.ChannelType.WEB));
                         twilioRestClient.request(request);
@@ -129,7 +129,7 @@ public class FlexFlowTest {
                     }};
 
         try {
-            FlexFlow.creator("friendlyName", "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", FlexFlow.ChannelType.WEB).create();
+            FlexFlow.creator("friendly_name", "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", FlexFlow.ChannelType.WEB).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -143,7 +143,7 @@ public class FlexFlowTest {
             result = new ObjectMapper();
         }};
 
-        FlexFlow.creator("friendlyName", "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", FlexFlow.ChannelType.WEB).create();
+        FlexFlow.creator("friendly_name", "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", FlexFlow.ChannelType.WEB).create();
     }
 
     @Test

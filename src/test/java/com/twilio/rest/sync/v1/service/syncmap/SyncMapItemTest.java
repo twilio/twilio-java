@@ -41,7 +41,7 @@ public class SyncMapItemTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.SYNC.toString(),
-                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/pathKey");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/key");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class SyncMapItemTest {
         }};
 
         try {
-            SyncMapItem.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathKey").fetch();
+            SyncMapItem.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class SyncMapItemTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SyncMapItem.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathKey").fetch());
+        assertNotNull(SyncMapItem.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key").fetch());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class SyncMapItemTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.SYNC.toString(),
-                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/pathKey");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/key");
             
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class SyncMapItemTest {
         }};
 
         try {
-            SyncMapItem.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathKey").delete();
+            SyncMapItem.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class SyncMapItemTest {
             result = new ObjectMapper();
         }};
 
-        SyncMapItem.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathKey").delete();
+        SyncMapItem.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key").delete();
     }
 
     @Test
@@ -182,7 +182,7 @@ public class SyncMapItemTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.SYNC.toString(),
-                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/pathKey");
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/key");
             
             twilioRestClient.request(request);
             times = 1;
@@ -192,7 +192,7 @@ public class SyncMapItemTest {
         }};
 
         try {
-            SyncMapItem.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathKey").update();
+            SyncMapItem.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -206,6 +206,6 @@ public class SyncMapItemTest {
             result = new ObjectMapper();
         }};
 
-        SyncMapItem.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathKey").update();
+        SyncMapItem.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key").update();
     }
 }

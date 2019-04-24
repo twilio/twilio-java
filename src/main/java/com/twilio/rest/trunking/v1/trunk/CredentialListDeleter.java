@@ -24,8 +24,9 @@ public class CredentialListDeleter extends Deleter<CredentialList> {
     /**
      * Construct a new CredentialListDeleter.
      * 
-     * @param pathTrunkSid The trunk_sid
-     * @param pathSid The sid
+     * @param pathTrunkSid The SID of the Trunk from which to delete the credential
+     *                     list
+     * @param pathSid The unique string that identifies the resource
      */
     public CredentialListDeleter(final String pathTrunkSid, 
                                  final String pathSid) {

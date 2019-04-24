@@ -39,8 +39,9 @@ public class IpAccessControlList extends Resource {
     /**
      * Create a IpAccessControlListFetcher to execute fetch.
      * 
-     * @param pathTrunkSid The trunk_sid
-     * @param pathSid The sid
+     * @param pathTrunkSid The SID of the Trunk from which to fetch the IP Access
+     *                     Control List
+     * @param pathSid The unique string that identifies the resource
      * @return IpAccessControlListFetcher capable of executing the fetch
      */
     public static IpAccessControlListFetcher fetcher(final String pathTrunkSid, 
@@ -51,8 +52,9 @@ public class IpAccessControlList extends Resource {
     /**
      * Create a IpAccessControlListDeleter to execute delete.
      * 
-     * @param pathTrunkSid The trunk_sid
-     * @param pathSid The sid
+     * @param pathTrunkSid The SID of the Trunk from which to delete the IP Access
+     *                     Control List
+     * @param pathSid The unique string that identifies the resource
      * @return IpAccessControlListDeleter capable of executing the delete
      */
     public static IpAccessControlListDeleter deleter(final String pathTrunkSid, 
@@ -63,9 +65,10 @@ public class IpAccessControlList extends Resource {
     /**
      * Create a IpAccessControlListCreator to execute create.
      * 
-     * @param pathTrunkSid The trunk_sid
+     * @param pathTrunkSid The SID of the Trunk to associate the IP Access Control
+     *                     List with
      * @param ipAccessControlListSid The SID of the IP Access Control List that you
-     *                               want to associate with this trunk.
+     *                               want to associate with the trunk
      * @return IpAccessControlListCreator capable of executing the create
      */
     public static IpAccessControlListCreator creator(final String pathTrunkSid, 
@@ -76,7 +79,8 @@ public class IpAccessControlList extends Resource {
     /**
      * Create a IpAccessControlListReader to execute read.
      * 
-     * @param pathTrunkSid The trunk_sid
+     * @param pathTrunkSid The SID of the Trunk from which to read the IP Access
+     *                     Control Lists
      * @return IpAccessControlListReader capable of executing the read
      */
     public static IpAccessControlListReader reader(final String pathTrunkSid) {
@@ -154,63 +158,64 @@ public class IpAccessControlList extends Resource {
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique sid that identifies this account
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The A string that uniquely identifies this resource.
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A string that uniquely identifies this resource
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique sid that identifies the associated Trunk.
+     * Returns The The SID of the Trunk the resource is associated with.
      * 
-     * @return The unique sid that identifies the associated Trunk
+     * @return The SID of the Trunk the resource is associated with
      */
     public final String getTrunkSid() {
         return this.trunkSid;
     }
 
     /**
-     * Returns The A human readable description of this resource.
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return A human readable description of this resource
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date this resource was created.
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date this resource was created
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this resource was last updated.
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date this resource was last updated
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the resource.
      * 
-     * @return The url
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;

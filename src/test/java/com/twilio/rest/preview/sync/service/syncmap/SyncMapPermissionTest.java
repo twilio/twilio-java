@@ -41,7 +41,7 @@ public class SyncMapPermissionTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
-                                          "/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions/pathIdentity");
+                                          "/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions/identity");
             
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class SyncMapPermissionTest {
         }};
 
         try {
-            SyncMapPermission.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity").fetch();
+            SyncMapPermission.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class SyncMapPermissionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SyncMapPermission.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity").fetch());
+        assertNotNull(SyncMapPermission.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").fetch());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class SyncMapPermissionTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.PREVIEW.toString(),
-                                          "/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions/pathIdentity");
+                                          "/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions/identity");
             
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class SyncMapPermissionTest {
         }};
 
         try {
-            SyncMapPermission.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity").delete();
+            SyncMapPermission.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class SyncMapPermissionTest {
             result = new ObjectMapper();
         }};
 
-        SyncMapPermission.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity").delete();
+        SyncMapPermission.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").delete();
     }
 
     @Test
@@ -149,7 +149,7 @@ public class SyncMapPermissionTest {
                     new NonStrictExpectations() {{
                         Request request = new Request(HttpMethod.POST,
                                                       Domains.PREVIEW.toString(),
-                                                      "/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions/pathIdentity");
+                                                      "/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions/identity");
                         request.addPostParam("Read", serialize(true));
         request.addPostParam("Write", serialize(true));
         request.addPostParam("Manage", serialize(true));
@@ -161,7 +161,7 @@ public class SyncMapPermissionTest {
                     }};
 
         try {
-            SyncMapPermission.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity", true, true, true).update();
+            SyncMapPermission.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", true, true, true).update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -175,6 +175,6 @@ public class SyncMapPermissionTest {
             result = new ObjectMapper();
         }};
 
-        SyncMapPermission.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "pathIdentity", true, true, true).update();
+        SyncMapPermission.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", true, true, true).update();
     }
 }

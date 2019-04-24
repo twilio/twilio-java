@@ -33,9 +33,11 @@ public class SampleUpdater extends Updater<Sample> {
     /**
      * Construct a new SampleUpdater.
      * 
-     * @param pathAssistantSid The unique ID of the Assistant.
-     * @param pathTaskSid The unique ID of the Task associated with this Sample.
-     * @param pathSid A 34-character string that uniquely identifies this resource.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         Task associated with the resource to update
+     * @param pathTaskSid The SID of the Task associated with the Sample resource
+     *                    to update
+     * @param pathSid The unique string that identifies the resource
      */
     public SampleUpdater(final String pathAssistantSid, 
                          final String pathTaskSid, 
@@ -46,12 +48,11 @@ public class SampleUpdater extends Updater<Sample> {
     }
 
     /**
-     * An [ISO language-country
-     * string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html)
-     * that specifies the language used for this sample. For example: `en-US`..
+     * The [ISO
+     * language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`..
      * 
-     * @param language An [ISO language-country
-     *                 string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
+     * @param language The ISO language-country string that specifies the language
+     *                 used for the sample
      * @return this
      */
     public SampleUpdater setLanguage(final String language) {
@@ -60,13 +61,11 @@ public class SampleUpdater extends Updater<Sample> {
     }
 
     /**
-     * The text example of how end-users may express this task. The sample may
+     * The text example of how end users might express the task. The sample can
      * contain [Field tag
      * blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging)..
      * 
-     * @param taggedText The text example of how end-users may express this task.
-     *                   The sample may contain [Field tag
-     *                   blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
+     * @param taggedText The text example of how end users might express the task
      * @return this
      */
     public SampleUpdater setTaggedText(final String taggedText) {
@@ -75,14 +74,12 @@ public class SampleUpdater extends Updater<Sample> {
     }
 
     /**
-     * The communication channel from which the sample was captured. It can be:
-     * *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not
-     * included, the value will be `null`.
+     * The communication channel from which the sample was captured. Can be:
+     * `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not
+     * included..
      * 
      * @param sourceChannel The communication channel from which the sample was
-     *                      captured. It can be: voice, sms, chat, alexa,
-     *                      google-assistant, or slack. If not included, the value
-     *                      will be `null`
+     *                      captured
      * @return this
      */
     public SampleUpdater setSourceChannel(final String sourceChannel) {

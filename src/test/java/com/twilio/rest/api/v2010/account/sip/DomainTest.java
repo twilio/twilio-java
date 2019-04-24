@@ -86,7 +86,7 @@ public class DomainTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains.json");
-            request.addPostParam("DomainName", serialize("domainName"));
+            request.addPostParam("DomainName", serialize("domain_name"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -95,7 +95,7 @@ public class DomainTest {
         }};
 
         try {
-            Domain.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "domainName").create();
+            Domain.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "domain_name").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -109,7 +109,7 @@ public class DomainTest {
             result = new ObjectMapper();
         }};
 
-        Domain.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "domainName").create();
+        Domain.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "domain_name").create();
     }
 
     @Test

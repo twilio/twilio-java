@@ -24,8 +24,9 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
     /**
      * Construct a new CredentialListFetcher.
      * 
-     * @param pathTrunkSid The trunk_sid
-     * @param pathSid The sid
+     * @param pathTrunkSid The SID of the Trunk from which to fetch the credential
+     *                     list
+     * @param pathSid The unique string that identifies the resource
      */
     public CredentialListFetcher(final String pathTrunkSid, 
                                  final String pathSid) {

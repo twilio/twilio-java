@@ -24,8 +24,8 @@ public class TerminatingSipDomainCreator extends Creator<TerminatingSipDomain> {
     /**
      * Construct a new TerminatingSipDomainCreator.
      * 
-     * @param pathTrunkSid The unique sid of the trunk.
-     * @param sipDomainSid The SID of the SIP Domain to associate.
+     * @param pathTrunkSid The SID of the Trunk to which we should route calls
+     * @param sipDomainSid The SID of the SIP Domain to associate with the trunk
      */
     public TerminatingSipDomainCreator(final String pathTrunkSid, 
                                        final String sipDomainSid) {

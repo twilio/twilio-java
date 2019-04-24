@@ -74,7 +74,7 @@ public class RecordingSettingsTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.VIDEO.toString(),
                                           "/v1/RecordingSettings/Default");
-            request.addPostParam("FriendlyName", serialize("friendlyName"));
+            request.addPostParam("FriendlyName", serialize("friendly_name"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -83,7 +83,7 @@ public class RecordingSettingsTest {
         }};
 
         try {
-            RecordingSettings.creator("friendlyName").create();
+            RecordingSettings.creator("friendly_name").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,6 +97,6 @@ public class RecordingSettingsTest {
             result = new ObjectMapper();
         }};
 
-        RecordingSettings.creator("friendlyName").create();
+        RecordingSettings.creator("friendly_name").create();
     }
 }

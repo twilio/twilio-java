@@ -25,7 +25,8 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
     /**
      * Construct a new OriginationUrlReader.
      * 
-     * @param pathTrunkSid The trunk_sid
+     * @param pathTrunkSid The SID of the Trunk from which to read the
+     *                     OriginationUrl
      */
     public OriginationUrlReader(final String pathTrunkSid) {
         this.pathTrunkSid = pathTrunkSid;

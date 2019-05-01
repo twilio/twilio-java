@@ -30,9 +30,9 @@ public class AssetUpdater extends Updater<Asset> {
     /**
      * Construct a new AssetUpdater.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
-     * @param friendlyName The friendly_name
+     * @param pathServiceSid Service Sid.
+     * @param pathSid Asset Sid.
+     * @param friendlyName A human-readable description of this Asset.
      */
     public AssetUpdater(final String pathServiceSid, 
                         final String pathSid, 

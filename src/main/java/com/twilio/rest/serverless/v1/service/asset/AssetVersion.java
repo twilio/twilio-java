@@ -72,8 +72,8 @@ public class AssetVersion extends Resource {
     /**
      * Create a AssetVersionReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathAssetSid The asset_sid
+     * @param pathServiceSid Service Sid.
+     * @param pathAssetSid Asset Sid.
      * @return AssetVersionReader capable of executing the read
      */
     public static AssetVersionReader reader(final String pathServiceSid, 
@@ -84,9 +84,9 @@ public class AssetVersion extends Resource {
     /**
      * Create a AssetVersionFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathAssetSid The asset_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Service Sid.
+     * @param pathAssetSid Asset Sid.
+     * @param pathSid Asset Version Sid.
      * @return AssetVersionFetcher capable of executing the fetch
      */
     public static AssetVersionFetcher fetcher(final String pathServiceSid, 
@@ -98,10 +98,12 @@ public class AssetVersion extends Resource {
     /**
      * Create a AssetVersionCreator to execute create.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathAssetSid The asset_sid
-     * @param path The path
-     * @param visibility The visibility
+     * @param pathServiceSid Service Sid.
+     * @param pathAssetSid Asset Sid.
+     * @param path The URL-friendly string by which this Asset Version can be
+     *             referenced.
+     * @param visibility The access control which determines how the Asset Version
+     *                   can be accessed.
      * @return AssetVersionCreator capable of executing the create
      */
     public static AssetVersionCreator creator(final String pathServiceSid, 
@@ -190,81 +192,87 @@ public class AssetVersion extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The Asset Version Sid..
      * 
-     * @return The sid
+     * @return Asset Version Sid.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The Account Sid..
      * 
-     * @return The account_sid
+     * @return Account Sid.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The service_sid.
+     * Returns The Service Sid..
      * 
-     * @return The service_sid
+     * @return Service Sid.
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The asset_sid.
+     * Returns The Asset Sid..
      * 
-     * @return The asset_sid
+     * @return Asset Sid.
      */
     public final String getAssetSid() {
         return this.assetSid;
     }
 
     /**
-     * Returns The The path.
+     * Returns The The URL-friendly string by which this Asset Version can be
+     * referenced..
      * 
-     * @return The path
+     * @return The URL-friendly string by which this Asset Version can be
+     *         referenced.
      */
     public final String getPath() {
         return this.path;
     }
 
     /**
-     * Returns The The visibility.
+     * Returns The The access control which determines how the Asset Version can be
+     * accessed..
      * 
-     * @return The visibility
+     * @return The access control which determines how the Asset Version can be
+     *         accessed.
      */
     public final AssetVersion.Visibility getVisibility() {
         return this.visibility;
     }
 
     /**
-     * Returns The The pre_signed_upload_url.
+     * Returns The The object which provides the details required for uploading this
+     * Asset Version..
      * 
-     * @return The pre_signed_upload_url
+     * @return The object which provides the details required for uploading this
+     *         Asset Version.
      */
     public final Map<String, Object> getPreSignedUploadUrl() {
         return this.preSignedUploadUrl;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this Asset Version was created..
      * 
-     * @return The date_created
+     * @return The date that this Asset Version was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URL of this Asset Version..
      * 
-     * @return The url
+     * @return The URL of this Asset Version.
      */
     public final URI getUrl() {
         return this.url;

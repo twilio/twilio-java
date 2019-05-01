@@ -31,10 +31,12 @@ public class AssetVersionCreator extends Creator<AssetVersion> {
     /**
      * Construct a new AssetVersionCreator.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathAssetSid The asset_sid
-     * @param path The path
-     * @param visibility The visibility
+     * @param pathServiceSid Service Sid.
+     * @param pathAssetSid Asset Sid.
+     * @param path The URL-friendly string by which this Asset Version can be
+     *             referenced.
+     * @param visibility The access control which determines how the Asset Version
+     *                   can be accessed.
      */
     public AssetVersionCreator(final String pathServiceSid, 
                                final String pathAssetSid, 

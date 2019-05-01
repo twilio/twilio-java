@@ -34,16 +34,16 @@ public class BuildCreator extends Creator<Build> {
     /**
      * Construct a new BuildCreator.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Service Sid.
      */
     public BuildCreator(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
     /**
-     * The asset_versions.
+     * The list of Asset Version Sids that are included in this Build. Optional..
      * 
-     * @param assetVersions The asset_versions
+     * @param assetVersions List of Asset Version Sids.
      * @return this
      */
     public BuildCreator setAssetVersions(final List<String> assetVersions) {
@@ -52,9 +52,9 @@ public class BuildCreator extends Creator<Build> {
     }
 
     /**
-     * The asset_versions.
+     * The list of Asset Version Sids that are included in this Build. Optional..
      * 
-     * @param assetVersions The asset_versions
+     * @param assetVersions List of Asset Version Sids.
      * @return this
      */
     public BuildCreator setAssetVersions(final String assetVersions) {
@@ -62,9 +62,9 @@ public class BuildCreator extends Creator<Build> {
     }
 
     /**
-     * The function_versions.
+     * The list of Function Version Sids that are included in this Build. Optional..
      * 
-     * @param functionVersions The function_versions
+     * @param functionVersions List of Function Version Sids.
      * @return this
      */
     public BuildCreator setFunctionVersions(final List<String> functionVersions) {
@@ -73,9 +73,9 @@ public class BuildCreator extends Creator<Build> {
     }
 
     /**
-     * The function_versions.
+     * The list of Function Version Sids that are included in this Build. Optional..
      * 
-     * @param functionVersions The function_versions
+     * @param functionVersions List of Function Version Sids.
      * @return this
      */
     public BuildCreator setFunctionVersions(final String functionVersions) {
@@ -83,9 +83,10 @@ public class BuildCreator extends Creator<Build> {
     }
 
     /**
-     * The dependencies.
+     * The list of Dependencies that are included in this Build, each described by a
+     * `name` and a `version` in a JSON object. Optional..
      * 
-     * @param dependencies The dependencies
+     * @param dependencies List of Dependencies.
      * @return this
      */
     public BuildCreator setDependencies(final String dependencies) {

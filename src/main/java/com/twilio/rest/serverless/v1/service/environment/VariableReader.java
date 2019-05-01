@@ -31,8 +31,8 @@ public class VariableReader extends Reader<Variable> {
     /**
      * Construct a new VariableReader.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathEnvironmentSid The environment_sid
+     * @param pathServiceSid Service Sid.
+     * @param pathEnvironmentSid Environment Sid.
      */
     public VariableReader(final String pathServiceSid, 
                           final String pathEnvironmentSid) {

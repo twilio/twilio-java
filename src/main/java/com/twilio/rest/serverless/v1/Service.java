@@ -53,7 +53,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceFetcher to execute fetch.
      * 
-     * @param pathSid The sid
+     * @param pathSid Service Sid.
      * @return ServiceFetcher capable of executing the fetch
      */
     public static ServiceFetcher fetcher(final String pathSid) {
@@ -63,8 +63,8 @@ public class Service extends Resource {
     /**
      * Create a ServiceCreator to execute create.
      * 
-     * @param uniqueName The unique_name
-     * @param friendlyName The friendly_name
+     * @param uniqueName A unique, addressable name of this Service.
+     * @param friendlyName A human-readable description of this Service.
      * @return ServiceCreator capable of executing the create
      */
     public static ServiceCreator creator(final String uniqueName, 
@@ -75,7 +75,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid Service Sid.
      * @return ServiceUpdater capable of executing the update
      */
     public static ServiceUpdater updater(final String pathSid) {
@@ -160,81 +160,83 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The Service Sid..
      * 
-     * @return The sid
+     * @return Service Sid.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The Account Sid..
      * 
-     * @return The account_sid
+     * @return Account Sid.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The A human-readable description of this Service..
      * 
-     * @return The friendly_name
+     * @return A human-readable description of this Service.
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The unique_name.
+     * Returns The A unique, URL-friendly name of this Service..
      * 
-     * @return The unique_name
+     * @return A unique, URL-friendly name of this Service.
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The include_credentials.
+     * Returns The Whether to inject Account credentials into a Function invocation
+     * context..
      * 
-     * @return The include_credentials
+     * @return Whether to inject Account credentials into a Function invocation
+     *         context.
      */
     public final Boolean getIncludeCredentials() {
         return this.includeCredentials;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this Service was created..
      * 
-     * @return The date_created
+     * @return The date that this Service was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this Service was updated..
      * 
-     * @return The date_updated
+     * @return The date that this Service was updated.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URL of this Service..
      * 
-     * @return The url
+     * @return The URL of this Service.
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The Nested resource URLs..
      * 
-     * @return The links
+     * @return Nested resource URLs.
      */
     public final Map<String, String> getLinks() {
         return this.links;

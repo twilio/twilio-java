@@ -30,16 +30,18 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * Construct a new ServiceUpdater.
      * 
-     * @param pathSid The sid
+     * @param pathSid Service Sid.
      */
     public ServiceUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
     /**
-     * The include_credentials.
+     * A boolean value that indicates whether to inject Account credentials into a
+     * Function invocation context. Optional..
      * 
-     * @param includeCredentials The include_credentials
+     * @param includeCredentials Whether to inject Account credentials into a
+     *                           Function invocation context.
      * @return this
      */
     public ServiceUpdater setIncludeCredentials(final Boolean includeCredentials) {
@@ -48,9 +50,10 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The friendly_name.
+     * A human-readable description of this Service, fewer than 256 characters.
+     * Optional.
      * 
-     * @param friendlyName The friendly_name
+     * @param friendlyName A human-readable description of this Service.
      * @return this
      */
     public ServiceUpdater setFriendlyName(final String friendlyName) {

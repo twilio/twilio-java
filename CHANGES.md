@@ -1,6 +1,15 @@
 twilio-java changelog
 =====================
 
+[2019-05-01] Version 7.37.4
+----------------------------
+**Serverless**
+- Documentation
+
+**Wireless**
+- Added `imeisv` to Data Session resource.
+
+
 [2019-04-24] Version 7.37.3
 ----------------------------
 **Api**

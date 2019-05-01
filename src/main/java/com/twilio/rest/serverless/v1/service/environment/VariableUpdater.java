@@ -32,9 +32,9 @@ public class VariableUpdater extends Updater<Variable> {
     /**
      * Construct a new VariableUpdater.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathEnvironmentSid The environment_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Service Sid.
+     * @param pathEnvironmentSid Environment Sid.
+     * @param pathSid Variable Sid.
      */
     public VariableUpdater(final String pathServiceSid, 
                            final String pathEnvironmentSid, 
@@ -45,9 +45,10 @@ public class VariableUpdater extends Updater<Variable> {
     }
 
     /**
-     * The key.
+     * A string by which this Variable can be referenced, fewer than 128 characters.
+     * Optional..
      * 
-     * @param key The key
+     * @param key A string by which this Variable can be referenced.
      * @return this
      */
     public VariableUpdater setKey(final String key) {
@@ -56,9 +57,10 @@ public class VariableUpdater extends Updater<Variable> {
     }
 
     /**
-     * The value.
+     * A string that contains the actual value of this Variable, less than 450
+     * bytes. Optional..
      * 
-     * @param value The value
+     * @param value A string that contains the actual value of this Variable.
      * @return this
      */
     public VariableUpdater setValue(final String value) {

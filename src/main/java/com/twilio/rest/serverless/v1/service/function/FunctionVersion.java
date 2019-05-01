@@ -72,8 +72,8 @@ public class FunctionVersion extends Resource {
     /**
      * Create a FunctionVersionReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathFunctionSid The function_sid
+     * @param pathServiceSid Service Sid.
+     * @param pathFunctionSid Function Sid.
      * @return FunctionVersionReader capable of executing the read
      */
     public static FunctionVersionReader reader(final String pathServiceSid, 
@@ -84,9 +84,9 @@ public class FunctionVersion extends Resource {
     /**
      * Create a FunctionVersionFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathFunctionSid The function_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Service Sid.
+     * @param pathFunctionSid Function Sid.
+     * @param pathSid Function Version Sid.
      * @return FunctionVersionFetcher capable of executing the fetch
      */
     public static FunctionVersionFetcher fetcher(final String pathServiceSid, 
@@ -98,10 +98,12 @@ public class FunctionVersion extends Resource {
     /**
      * Create a FunctionVersionCreator to execute create.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathFunctionSid The function_sid
-     * @param path The path
-     * @param visibility The visibility
+     * @param pathServiceSid Service Sid.
+     * @param pathFunctionSid Function Sid.
+     * @param path The URL-friendly string by which this Function Version can be
+     *             referenced.
+     * @param visibility The access control which determines how the Function
+     *                   Version can be accessed.
      * @return FunctionVersionCreator capable of executing the create
      */
     public static FunctionVersionCreator creator(final String pathServiceSid, 
@@ -190,81 +192,87 @@ public class FunctionVersion extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The Function Version Sid..
      * 
-     * @return The sid
+     * @return Function Version Sid.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The Account Sid..
      * 
-     * @return The account_sid
+     * @return Account Sid.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The service_sid.
+     * Returns The Service Sid..
      * 
-     * @return The service_sid
+     * @return Service Sid.
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The function_sid.
+     * Returns The Function Sid..
      * 
-     * @return The function_sid
+     * @return Function Sid.
      */
     public final String getFunctionSid() {
         return this.functionSid;
     }
 
     /**
-     * Returns The The path.
+     * Returns The The URL-friendly string by which this Function Version can be
+     * referenced..
      * 
-     * @return The path
+     * @return The URL-friendly string by which this Function Version can be
+     *         referenced.
      */
     public final String getPath() {
         return this.path;
     }
 
     /**
-     * Returns The The pre_signed_upload_url.
+     * Returns The The object which provides the details required for uploading this
+     * Function Version..
      * 
-     * @return The pre_signed_upload_url
+     * @return The object which provides the details required for uploading this
+     *         Function Version.
      */
     public final Map<String, Object> getPreSignedUploadUrl() {
         return this.preSignedUploadUrl;
     }
 
     /**
-     * Returns The The visibility.
+     * Returns The The access control which determines how the Function Version can
+     * be accessed..
      * 
-     * @return The visibility
+     * @return The access control which determines how the Function Version can be
+     *         accessed.
      */
     public final FunctionVersion.Visibility getVisibility() {
         return this.visibility;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this Function Version was created..
      * 
-     * @return The date_created
+     * @return The date that this Function Version was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URL of this Function Version..
      * 
-     * @return The url
+     * @return The URL of this Function Version.
      */
     public final URI getUrl() {
         return this.url;

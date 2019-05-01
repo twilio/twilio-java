@@ -30,8 +30,8 @@ public class EnvironmentCreator extends Creator<Environment> {
     /**
      * Construct a new EnvironmentCreator.
      * 
-     * @param pathServiceSid The service_sid
-     * @param uniqueName The unique_name
+     * @param pathServiceSid Service Sid.
+     * @param uniqueName A unique, addressable name of this Environment.
      */
     public EnvironmentCreator(final String pathServiceSid, 
                               final String uniqueName) {
@@ -40,9 +40,10 @@ public class EnvironmentCreator extends Creator<Environment> {
     }
 
     /**
-     * The domain_suffix.
+     * A URL-friendly name that represents this Environment and forms part of the
+     * domain name, fewer than 32 characters. Required..
      * 
-     * @param domainSuffix The domain_suffix
+     * @param domainSuffix A URL-friendly name that represents this Environment.
      * @return this
      */
     public EnvironmentCreator setDomainSuffix(final String domainSuffix) {

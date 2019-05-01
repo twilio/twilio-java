@@ -45,11 +45,8 @@ public class Build extends Resource {
     private static final long serialVersionUID = 35713800238774L;
 
     public enum Status {
-        QUEUED("queued"),
         BUILDING("building"),
-        DEPLOYING("deploying"),
-        DEPLOYED("deployed"),
-        VERIFIED("verified"),
+        COMPLETED("completed"),
         FAILED("failed");
 
         private final String value;
@@ -76,7 +73,7 @@ public class Build extends Resource {
     /**
      * Create a BuildReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Service Sid.
      * @return BuildReader capable of executing the read
      */
     public static BuildReader reader(final String pathServiceSid) {
@@ -86,8 +83,8 @@ public class Build extends Resource {
     /**
      * Create a BuildFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Service Sid.
+     * @param pathSid Build Sid.
      * @return BuildFetcher capable of executing the fetch
      */
     public static BuildFetcher fetcher(final String pathServiceSid, 
@@ -98,7 +95,7 @@ public class Build extends Resource {
     /**
      * Create a BuildCreator to execute create.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Service Sid.
      * @return BuildCreator capable of executing the create
      */
     public static BuildCreator creator(final String pathServiceSid) {
@@ -187,90 +184,90 @@ public class Build extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The Build Sid..
      * 
-     * @return The sid
+     * @return Build Sid.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The Account Sid..
      * 
-     * @return The account_sid
+     * @return Account Sid.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The service_sid.
+     * Returns The Service Sid..
      * 
-     * @return The service_sid
+     * @return Service Sid.
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The status.
+     * Returns The The current state of the Build..
      * 
-     * @return The status
+     * @return The current state of the Build.
      */
     public final Build.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The asset_versions.
+     * Returns The List of Asset Version Sids..
      * 
-     * @return The asset_versions
+     * @return List of Asset Version Sids.
      */
     public final List<Map<String, Object>> getAssetVersions() {
         return this.assetVersions;
     }
 
     /**
-     * Returns The The function_versions.
+     * Returns The List of Function Version Sids..
      * 
-     * @return The function_versions
+     * @return List of Function Version Sids.
      */
     public final List<Map<String, Object>> getFunctionVersions() {
         return this.functionVersions;
     }
 
     /**
-     * Returns The The dependencies.
+     * Returns The List of Dependencies..
      * 
-     * @return The dependencies
+     * @return List of Dependencies.
      */
     public final List<Map<String, Object>> getDependencies() {
         return this.dependencies;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this Build was created..
      * 
-     * @return The date_created
+     * @return The date that this Build was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this Build was updated..
      * 
-     * @return The date_updated
+     * @return The date that this Build was updated.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URL of this Build..
      * 
-     * @return The url
+     * @return The URL of this Build.
      */
     public final URI getUrl() {
         return this.url;

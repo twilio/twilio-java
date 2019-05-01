@@ -31,10 +31,12 @@ public class FunctionVersionCreator extends Creator<FunctionVersion> {
     /**
      * Construct a new FunctionVersionCreator.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathFunctionSid The function_sid
-     * @param path The path
-     * @param visibility The visibility
+     * @param pathServiceSid Service Sid.
+     * @param pathFunctionSid Function Sid.
+     * @param path The URL-friendly string by which this Function Version can be
+     *             referenced.
+     * @param visibility The access control which determines how the Function
+     *                   Version can be accessed.
      */
     public FunctionVersionCreator(final String pathServiceSid, 
                                   final String pathFunctionSid, 

@@ -30,9 +30,9 @@ public class FunctionUpdater extends Updater<Function> {
     /**
      * Construct a new FunctionUpdater.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
-     * @param friendlyName The friendly_name
+     * @param pathServiceSid Service Sid.
+     * @param pathSid Function Sid.
+     * @param friendlyName A human-readable description of this Function.
      */
     public FunctionUpdater(final String pathServiceSid, 
                            final String pathSid, 

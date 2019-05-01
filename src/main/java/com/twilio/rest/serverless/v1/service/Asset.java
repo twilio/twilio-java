@@ -44,7 +44,7 @@ public class Asset extends Resource {
     /**
      * Create a AssetReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Service Sid.
      * @return AssetReader capable of executing the read
      */
     public static AssetReader reader(final String pathServiceSid) {
@@ -54,8 +54,8 @@ public class Asset extends Resource {
     /**
      * Create a AssetFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Service Sid.
+     * @param pathSid Asset Sid.
      * @return AssetFetcher capable of executing the fetch
      */
     public static AssetFetcher fetcher(final String pathServiceSid, 
@@ -66,8 +66,8 @@ public class Asset extends Resource {
     /**
      * Create a AssetCreator to execute create.
      * 
-     * @param pathServiceSid The service_sid
-     * @param friendlyName The friendly_name
+     * @param pathServiceSid Service Sid.
+     * @param friendlyName A human-readable description of this Asset.
      * @return AssetCreator capable of executing the create
      */
     public static AssetCreator creator(final String pathServiceSid, 
@@ -78,9 +78,9 @@ public class Asset extends Resource {
     /**
      * Create a AssetUpdater to execute update.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
-     * @param friendlyName The friendly_name
+     * @param pathServiceSid Service Sid.
+     * @param pathSid Asset Sid.
+     * @param friendlyName A human-readable description of this Asset.
      * @return AssetUpdater capable of executing the update
      */
     public static AssetUpdater updater(final String pathServiceSid, 
@@ -163,72 +163,72 @@ public class Asset extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The Asset Sid..
      * 
-     * @return The sid
+     * @return Asset Sid.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The Account Sid..
      * 
-     * @return The account_sid
+     * @return Account Sid.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The service_sid.
+     * Returns The Service Sid..
      * 
-     * @return The service_sid
+     * @return Service Sid.
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The A human-readable description of this Asset..
      * 
-     * @return The friendly_name
+     * @return A human-readable description of this Asset.
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this Asset was created..
      * 
-     * @return The date_created
+     * @return The date that this Asset was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this Asset was updated..
      * 
-     * @return The date_updated
+     * @return The date that this Asset was updated.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URL of this Asset..
      * 
-     * @return The url
+     * @return The URL of this Asset.
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The Nested resource URLs..
      * 
-     * @return The links
+     * @return Nested resource URLs.
      */
     public final Map<String, String> getLinks() {
         return this.links;

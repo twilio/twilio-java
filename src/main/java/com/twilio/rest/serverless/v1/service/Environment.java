@@ -44,7 +44,7 @@ public class Environment extends Resource {
     /**
      * Create a EnvironmentReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Service Sid.
      * @return EnvironmentReader capable of executing the read
      */
     public static EnvironmentReader reader(final String pathServiceSid) {
@@ -54,8 +54,8 @@ public class Environment extends Resource {
     /**
      * Create a EnvironmentFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Service Sid.
+     * @param pathSid Environment Sid.
      * @return EnvironmentFetcher capable of executing the fetch
      */
     public static EnvironmentFetcher fetcher(final String pathServiceSid, 
@@ -66,8 +66,8 @@ public class Environment extends Resource {
     /**
      * Create a EnvironmentCreator to execute create.
      * 
-     * @param pathServiceSid The service_sid
-     * @param uniqueName The unique_name
+     * @param pathServiceSid Service Sid.
+     * @param uniqueName A unique, addressable name of this Environment.
      * @return EnvironmentCreator capable of executing the create
      */
     public static EnvironmentCreator creator(final String pathServiceSid, 
@@ -162,99 +162,101 @@ public class Environment extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The Environment Sid..
      * 
-     * @return The sid
+     * @return Environment Sid.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The Account Sid..
      * 
-     * @return The account_sid
+     * @return Account Sid.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The service_sid.
+     * Returns The Service Sid..
      * 
-     * @return The service_sid
+     * @return Service Sid.
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The build_sid.
+     * Returns The Build Sid..
      * 
-     * @return The build_sid
+     * @return Build Sid.
      */
     public final String getBuildSid() {
         return this.buildSid;
     }
 
     /**
-     * Returns The The unique_name.
+     * Returns The A unique, addressable name of this Environment..
      * 
-     * @return The unique_name
+     * @return A unique, addressable name of this Environment.
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The domain_suffix.
+     * Returns The A URL-friendly name that represents this Environment..
      * 
-     * @return The domain_suffix
+     * @return A URL-friendly name that represents this Environment.
      */
     public final String getDomainSuffix() {
         return this.domainSuffix;
     }
 
     /**
-     * Returns The The domain_name.
+     * Returns The The base domain name for all Functions and Assets deployed in
+     * this Environment..
      * 
-     * @return The domain_name
+     * @return The base domain name for all Functions and Assets deployed in this
+     *         Environment.
      */
     public final String getDomainName() {
         return this.domainName;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this Environment was created..
      * 
-     * @return The date_created
+     * @return The date that this Environment was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this Environment was updated..
      * 
-     * @return The date_updated
+     * @return The date that this Environment was updated.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URL of this Environment..
      * 
-     * @return The url
+     * @return The URL of this Environment.
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The Nested resource URLs..
      * 
-     * @return The links
+     * @return Nested resource URLs.
      */
     public final Map<String, String> getLinks() {
         return this.links;

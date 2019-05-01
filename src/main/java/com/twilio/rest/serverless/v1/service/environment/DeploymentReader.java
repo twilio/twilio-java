@@ -31,8 +31,8 @@ public class DeploymentReader extends Reader<Deployment> {
     /**
      * Construct a new DeploymentReader.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathEnvironmentSid The environment_sid
+     * @param pathServiceSid Service Sid.
+     * @param pathEnvironmentSid Environment Sid.
      */
     public DeploymentReader(final String pathServiceSid, 
                             final String pathEnvironmentSid) {

@@ -29,8 +29,8 @@ public class BuildFetcher extends Fetcher<Build> {
     /**
      * Construct a new BuildFetcher.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Service Sid.
+     * @param pathSid Build Sid.
      */
     public BuildFetcher(final String pathServiceSid, 
                         final String pathSid) {

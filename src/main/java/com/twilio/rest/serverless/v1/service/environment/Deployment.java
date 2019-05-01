@@ -44,8 +44,8 @@ public class Deployment extends Resource {
     /**
      * Create a DeploymentReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathEnvironmentSid The environment_sid
+     * @param pathServiceSid Service Sid.
+     * @param pathEnvironmentSid Environment Sid.
      * @return DeploymentReader capable of executing the read
      */
     public static DeploymentReader reader(final String pathServiceSid, 
@@ -56,9 +56,9 @@ public class Deployment extends Resource {
     /**
      * Create a DeploymentFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathEnvironmentSid The environment_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Service Sid.
+     * @param pathEnvironmentSid Environment Sid.
+     * @param pathSid Deployment Sid.
      * @return DeploymentFetcher capable of executing the fetch
      */
     public static DeploymentFetcher fetcher(final String pathServiceSid, 
@@ -70,9 +70,9 @@ public class Deployment extends Resource {
     /**
      * Create a DeploymentCreator to execute create.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathEnvironmentSid The environment_sid
-     * @param buildSid The build_sid
+     * @param pathServiceSid Service Sid.
+     * @param pathEnvironmentSid Environment Sid.
+     * @param buildSid Build Sid.
      * @return DeploymentCreator capable of executing the create
      */
     public static DeploymentCreator creator(final String pathServiceSid, 
@@ -156,72 +156,72 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The Deployment Sid..
      * 
-     * @return The sid
+     * @return Deployment Sid.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The Account Sid..
      * 
-     * @return The account_sid
+     * @return Account Sid.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The service_sid.
+     * Returns The Service Sid..
      * 
-     * @return The service_sid
+     * @return Service Sid.
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The environment_sid.
+     * Returns The Environment Sid..
      * 
-     * @return The environment_sid
+     * @return Environment Sid.
      */
     public final String getEnvironmentSid() {
         return this.environmentSid;
     }
 
     /**
-     * Returns The The build_sid.
+     * Returns The Build Sid..
      * 
-     * @return The build_sid
+     * @return Build Sid.
      */
     public final String getBuildSid() {
         return this.buildSid;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this Deployment was created..
      * 
-     * @return The date_created
+     * @return The date that this Deployment was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this Deployment was updated..
      * 
-     * @return The date_updated
+     * @return The date that this Deployment was updated.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URL of this Deployment..
      * 
-     * @return The url
+     * @return The URL of this Deployment.
      */
     public final URI getUrl() {
         return this.url;

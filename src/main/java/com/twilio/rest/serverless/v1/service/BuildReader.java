@@ -30,7 +30,7 @@ public class BuildReader extends Reader<Build> {
     /**
      * Construct a new BuildReader.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Service Sid.
      */
     public BuildReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;

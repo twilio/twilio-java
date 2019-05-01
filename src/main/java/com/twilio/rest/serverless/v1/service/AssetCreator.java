@@ -29,8 +29,8 @@ public class AssetCreator extends Creator<Asset> {
     /**
      * Construct a new AssetCreator.
      * 
-     * @param pathServiceSid The service_sid
-     * @param friendlyName The friendly_name
+     * @param pathServiceSid Service Sid.
+     * @param friendlyName A human-readable description of this Asset.
      */
     public AssetCreator(final String pathServiceSid, 
                         final String friendlyName) {

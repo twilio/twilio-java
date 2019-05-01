@@ -30,7 +30,7 @@ public class FunctionReader extends Reader<Function> {
     /**
      * Construct a new FunctionReader.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Service Sid.
      */
     public FunctionReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;

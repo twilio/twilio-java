@@ -30,7 +30,7 @@ public class AssetReader extends Reader<Asset> {
     /**
      * Construct a new AssetReader.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Service Sid.
      */
     public AssetReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;

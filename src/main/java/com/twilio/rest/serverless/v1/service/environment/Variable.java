@@ -44,8 +44,8 @@ public class Variable extends Resource {
     /**
      * Create a VariableReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathEnvironmentSid The environment_sid
+     * @param pathServiceSid Service Sid.
+     * @param pathEnvironmentSid Environment Sid.
      * @return VariableReader capable of executing the read
      */
     public static VariableReader reader(final String pathServiceSid, 
@@ -56,9 +56,9 @@ public class Variable extends Resource {
     /**
      * Create a VariableFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathEnvironmentSid The environment_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Service Sid.
+     * @param pathEnvironmentSid Environment Sid.
+     * @param pathSid Variable Sid.
      * @return VariableFetcher capable of executing the fetch
      */
     public static VariableFetcher fetcher(final String pathServiceSid, 
@@ -70,10 +70,10 @@ public class Variable extends Resource {
     /**
      * Create a VariableCreator to execute create.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathEnvironmentSid The environment_sid
-     * @param key The key
-     * @param value The value
+     * @param pathServiceSid Service Sid.
+     * @param pathEnvironmentSid Environment Sid.
+     * @param key A string by which this Variable can be referenced.
+     * @param value A string that contains the actual value of this Variable.
      * @return VariableCreator capable of executing the create
      */
     public static VariableCreator creator(final String pathServiceSid, 
@@ -86,9 +86,9 @@ public class Variable extends Resource {
     /**
      * Create a VariableUpdater to execute update.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathEnvironmentSid The environment_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Service Sid.
+     * @param pathEnvironmentSid Environment Sid.
+     * @param pathSid Variable Sid.
      * @return VariableUpdater capable of executing the update
      */
     public static VariableUpdater updater(final String pathServiceSid, 
@@ -176,81 +176,81 @@ public class Variable extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The Variable Sid..
      * 
-     * @return The sid
+     * @return Variable Sid.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The Account Sid..
      * 
-     * @return The account_sid
+     * @return Account Sid.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The service_sid.
+     * Returns The Service Sid..
      * 
-     * @return The service_sid
+     * @return Service Sid.
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The environment_sid.
+     * Returns The Environment Sid..
      * 
-     * @return The environment_sid
+     * @return Environment Sid.
      */
     public final String getEnvironmentSid() {
         return this.environmentSid;
     }
 
     /**
-     * Returns The The key.
+     * Returns The A string by which this Variable can be referenced..
      * 
-     * @return The key
+     * @return A string by which this Variable can be referenced.
      */
     public final String getKey() {
         return this.key;
     }
 
     /**
-     * Returns The The value.
+     * Returns The A string that contains the actual value of this Variable..
      * 
-     * @return The value
+     * @return A string that contains the actual value of this Variable.
      */
     public final String getValue() {
         return this.value;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this Variable was created..
      * 
-     * @return The date_created
+     * @return The date that this Variable was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this Variable was updated..
      * 
-     * @return The date_updated
+     * @return The date that this Variable was updated.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URL of this Variable..
      * 
-     * @return The url
+     * @return The URL of this Variable.
      */
     public final URI getUrl() {
         return this.url;

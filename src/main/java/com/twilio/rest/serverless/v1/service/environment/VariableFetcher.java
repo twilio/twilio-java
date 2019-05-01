@@ -30,9 +30,9 @@ public class VariableFetcher extends Fetcher<Variable> {
     /**
      * Construct a new VariableFetcher.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathEnvironmentSid The environment_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Service Sid.
+     * @param pathEnvironmentSid Environment Sid.
+     * @param pathSid Variable Sid.
      */
     public VariableFetcher(final String pathServiceSid, 
                            final String pathEnvironmentSid, 

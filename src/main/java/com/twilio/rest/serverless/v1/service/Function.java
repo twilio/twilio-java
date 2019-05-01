@@ -44,7 +44,7 @@ public class Function extends Resource {
     /**
      * Create a FunctionReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Service Sid.
      * @return FunctionReader capable of executing the read
      */
     public static FunctionReader reader(final String pathServiceSid) {
@@ -54,8 +54,8 @@ public class Function extends Resource {
     /**
      * Create a FunctionFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid Service Sid.
+     * @param pathSid Function Sid.
      * @return FunctionFetcher capable of executing the fetch
      */
     public static FunctionFetcher fetcher(final String pathServiceSid, 
@@ -66,8 +66,8 @@ public class Function extends Resource {
     /**
      * Create a FunctionCreator to execute create.
      * 
-     * @param pathServiceSid The service_sid
-     * @param friendlyName The friendly_name
+     * @param pathServiceSid Service Sid.
+     * @param friendlyName A human-readable description of this Function.
      * @return FunctionCreator capable of executing the create
      */
     public static FunctionCreator creator(final String pathServiceSid, 
@@ -78,9 +78,9 @@ public class Function extends Resource {
     /**
      * Create a FunctionUpdater to execute update.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
-     * @param friendlyName The friendly_name
+     * @param pathServiceSid Service Sid.
+     * @param pathSid Function Sid.
+     * @param friendlyName A human-readable description of this Function.
      * @return FunctionUpdater capable of executing the update
      */
     public static FunctionUpdater updater(final String pathServiceSid, 
@@ -164,72 +164,72 @@ public class Function extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The Function Sid..
      * 
-     * @return The sid
+     * @return Function Sid.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The Account Sid..
      * 
-     * @return The account_sid
+     * @return Account Sid.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The service_sid.
+     * Returns The Service Sid..
      * 
-     * @return The service_sid
+     * @return Service Sid.
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The A human-readable description of this Function..
      * 
-     * @return The friendly_name
+     * @return A human-readable description of this Function.
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The date that this Function was created..
      * 
-     * @return The date_created
+     * @return The date that this Function was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this Function was updated..
      * 
-     * @return The date_updated
+     * @return The date that this Function was updated.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The URL of this Function..
      * 
-     * @return The url
+     * @return The URL of this Function.
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The Nested resource URLs..
      * 
-     * @return The links
+     * @return Nested resource URLs.
      */
     public final Map<String, String> getLinks() {
         return this.links;

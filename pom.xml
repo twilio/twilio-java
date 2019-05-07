@@ -206,6 +206,7 @@
         <configuration>
           <reportOutputDirectory>${env.TWILIO_DOCS_ROOT}</reportOutputDirectory>
           <destDir>java/${project.version}</destDir>
+          <source>7</source>
           <show>public</show>
           <nohelp>true</nohelp>
           <author>true</author>

@@ -75,7 +75,7 @@ public class Credential extends Resource {
     /**
      * Create a CredentialCreator to execute create.
      * 
-     * @param type Credential type, one of "gcm" or "apn"
+     * @param type The type of push-notification service the credential is for
      * @return CredentialCreator capable of executing the create
      */
     public static CredentialCreator creator(final Credential.PushService type) {
@@ -85,7 +85,7 @@ public class Credential extends Resource {
     /**
      * Create a CredentialFetcher to execute fetch.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      * @return CredentialFetcher capable of executing the fetch
      */
     public static CredentialFetcher fetcher(final String pathSid) {
@@ -95,7 +95,7 @@ public class Credential extends Resource {
     /**
      * Create a CredentialUpdater to execute update.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      * @return CredentialUpdater capable of executing the update
      */
     public static CredentialUpdater updater(final String pathSid) {
@@ -105,7 +105,7 @@ public class Credential extends Resource {
     /**
      * Create a CredentialDeleter to execute delete.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      * @return CredentialDeleter capable of executing the delete
      */
     public static CredentialDeleter deleter(final String pathSid) {
@@ -187,77 +187,73 @@ public class Credential extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique id of the Account[/console] responsible for this
-     * resource..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique id of the Account[/console] responsible for this resource.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The human-readable name of this resource..
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return The human-readable name of this resource.
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The Indicates which push notifications service this credential is for
-     * - either gcm or apn.
+     * Returns The The type of push-notification service the credential is for.
      * 
-     * @return Indicates which push notifications service this credential is for -
-     *         either gcm or apn
+     * @return The type of push-notification service the credential is for
      */
     public final Credential.PushService getType() {
         return this.type;
     }
 
     /**
-     * Returns The [APN only] true when this resource should use the sandbox APN
-     * service..
+     * Returns The [APN only] Whether to send the credential to sandbox APNs.
      * 
-     * @return [APN only] true when this resource should use the sandbox APN
-     *         service.
+     * @return [APN only] Whether to send the credential to sandbox APNs
      */
     public final String getSandbox() {
         return this.sandbox;
     }
 
     /**
-     * Returns The The date that this resource was created..
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date that this resource was created.
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated..
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date that this resource was last updated.
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The An absolute URL for this credential resource..
+     * Returns The The absolute URL of the Credential resource.
      * 
-     * @return An absolute URL for this credential resource.
+     * @return The absolute URL of the Credential resource
      */
     public final URI getUrl() {
         return this.url;

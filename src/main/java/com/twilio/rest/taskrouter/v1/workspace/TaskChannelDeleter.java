@@ -24,8 +24,9 @@ public class TaskChannelDeleter extends Deleter<TaskChannel> {
     /**
      * Construct a new TaskChannelDeleter.
      * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The unique ID of the Workspace that this TaskChannel
+     *                         belongs to.
+     * @param pathSid The unique ID for this TaskChannel.
      */
     public TaskChannelDeleter(final String pathWorkspaceSid, 
                               final String pathSid) {

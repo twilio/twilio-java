@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DataSession extends Resource {
-    private static final long serialVersionUID = 255654490833479L;
+    private static final long serialVersionUID = 281325626490598L;
 
     /**
      * Create a DataSessionReader to execute read.
@@ -99,7 +99,7 @@ public class DataSession extends Resource {
     private final DateTime lastUpdated;
     private final DateTime start;
     private final DateTime end;
-    private final String imeisv;
+    private final String imei;
 
     @JsonCreator
     private DataSession(@JsonProperty("sid")
@@ -132,8 +132,8 @@ public class DataSession extends Resource {
                         final String start, 
                         @JsonProperty("end")
                         final String end, 
-                        @JsonProperty("imeisv")
-                        final String imeisv) {
+                        @JsonProperty("imei")
+                        final String imei) {
         this.sid = sid;
         this.simSid = simSid;
         this.accountSid = accountSid;
@@ -149,7 +149,7 @@ public class DataSession extends Resource {
         this.lastUpdated = DateConverter.iso8601DateTimeFromString(lastUpdated);
         this.start = DateConverter.iso8601DateTimeFromString(start);
         this.end = DateConverter.iso8601DateTimeFromString(end);
-        this.imeisv = imeisv;
+        this.imei = imei;
     }
 
     /**
@@ -317,8 +317,8 @@ public class DataSession extends Resource {
      * 
      * @return The unique id of the device using the SIM to connect.
      */
-    public final String getImeisv() {
-        return this.imeisv;
+    public final String getImei() {
+        return this.imei;
     }
 
     @Override
@@ -348,7 +348,7 @@ public class DataSession extends Resource {
                Objects.equals(lastUpdated, other.lastUpdated) && 
                Objects.equals(start, other.start) && 
                Objects.equals(end, other.end) && 
-               Objects.equals(imeisv, other.imeisv);
+               Objects.equals(imei, other.imei);
     }
 
     @Override
@@ -368,7 +368,7 @@ public class DataSession extends Resource {
                             lastUpdated,
                             start,
                             end,
-                            imeisv);
+                            imei);
     }
 
     @Override
@@ -389,7 +389,7 @@ public class DataSession extends Resource {
                           .add("lastUpdated", lastUpdated)
                           .add("start", start)
                           .add("end", end)
-                          .add("imeisv", imeisv)
+                          .add("imei", imei)
                           .toString();
     }
 }

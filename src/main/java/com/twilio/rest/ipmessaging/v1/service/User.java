@@ -39,8 +39,8 @@ public class User extends Resource {
     /**
      * Create a UserFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathSid The unique string that identifies the resource
      * @return UserFetcher capable of executing the fetch
      */
     public static UserFetcher fetcher(final String pathServiceSid, 
@@ -51,8 +51,8 @@ public class User extends Resource {
     /**
      * Create a UserDeleter to execute delete.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathSid The unique string that identifies the resource
      * @return UserDeleter capable of executing the delete
      */
     public static UserDeleter deleter(final String pathServiceSid, 
@@ -63,9 +63,8 @@ public class User extends Resource {
     /**
      * Create a UserCreator to execute create.
      * 
-     * @param pathServiceSid The service_sid
-     * @param identity A unique string that identifies the user within this service
-     *                 - often a username or email address.
+     * @param pathServiceSid The SID of the Service to create the new resource under
+     * @param identity The `identity` value that identifies the new resource's User
      * @return UserCreator capable of executing the create
      */
     public static UserCreator creator(final String pathServiceSid, 
@@ -76,7 +75,7 @@ public class User extends Resource {
     /**
      * Create a UserReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid The SID of the Service to read the resources from
      * @return UserReader capable of executing the read
      */
     public static UserReader reader(final String pathServiceSid) {
@@ -86,8 +85,8 @@ public class User extends Resource {
     /**
      * Create a UserUpdater to execute update.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathSid The unique string that identifies the resource
      * @return UserUpdater capable of executing the update
      */
     public static UserUpdater updater(final String pathServiceSid, 
@@ -193,134 +192,133 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this user..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique id of the Account responsible for this user.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique id of the Service this user belongs to..
+     * Returns The The SID of the Service that the resource is associated with.
      * 
-     * @return The unique id of the Service this user belongs to.
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The An optional string metadata field you can use to store any data
-     * you wish..
+     * Returns The The JSON string that stores application-specific data.
      * 
-     * @return An optional string metadata field you can use to store any data you
-     *         wish.
+     * @return The JSON string that stores application-specific data
      */
     public final String getAttributes() {
         return this.attributes;
     }
 
     /**
-     * Returns The The human-readable name of this user..
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return The human-readable name of this user.
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The unique id of the [Role][role] assigned to this user..
+     * Returns The The SID of the assigned to the user.
      * 
-     * @return The unique id of the [Role][role] assigned to this user.
+     * @return The SID of the assigned to the user
      */
     public final String getRoleSid() {
         return this.roleSid;
     }
 
     /**
-     * Returns The A unique string that identifies the user within this service -
-     * often a username or email address..
+     * Returns The The string that identifies the resource's User.
      * 
-     * @return A unique string that identifies the user within this service - often
-     *         a username or email address.
+     * @return The string that identifies the resource's User
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns The Indicates whether the User is actively connected to the Service
-     * instance and online..
+     * Returns The Whether the User is actively connected to the Service instance
+     * and online.
      * 
-     * @return Indicates whether the User is actively connected to the Service
-     *         instance and online.
+     * @return Whether the User is actively connected to the Service instance and
+     *         online
      */
     public final Boolean getIsOnline() {
         return this.isOnline;
     }
 
     /**
-     * Returns The Indicates whether the User has a potentially valid Push
-     * Notification registration  for the Service instance..
+     * Returns The Whether the User has a potentially valid Push Notification
+     * registration for the Service instance.
      * 
-     * @return Indicates whether the User has a potentially valid Push Notification
-     *         registration  for the Service instance.
+     * @return Whether the User has a potentially valid Push Notification
+     *         registration for the Service instance
      */
     public final Boolean getIsNotifiable() {
         return this.isNotifiable;
     }
 
     /**
-     * Returns The The date that this resource was created in ISO 8601 format..
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date that this resource was created in ISO 8601 format.
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated in ISO 8601 format..
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date that this resource was last updated in ISO 8601 format.
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The joined_channels_count.
+     * Returns The The number of Channels this User is a Member of.
      * 
-     * @return The joined_channels_count
+     * @return The number of Channels this User is a Member of
      */
     public final Integer getJoinedChannelsCount() {
         return this.joinedChannelsCount;
     }
 
     /**
-     * Returns The The links.
+     * Returns The The absolute URLs of the Channel and Binding resources related to
+     * the user.
      * 
-     * @return The links
+     * @return The absolute URLs of the Channel and Binding resources related to
+     *         the user
      */
     public final Map<String, String> getLinks() {
         return this.links;
     }
 
     /**
-     * Returns The An absolute URL for this user..
+     * Returns The The absolute URL of the User resource.
      * 
-     * @return An absolute URL for this user.
+     * @return The absolute URL of the User resource
      */
     public final URI getUrl() {
         return this.url;

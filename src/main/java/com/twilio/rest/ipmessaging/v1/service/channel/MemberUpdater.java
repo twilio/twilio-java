@@ -27,9 +27,10 @@ public class MemberUpdater extends Updater<Member> {
     /**
      * Construct a new MemberUpdater.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param pathChannelSid The unique ID of the channel the member to update
+     *                       belongs to
+     * @param pathSid The unique string that identifies the resource
      */
     public MemberUpdater(final String pathServiceSid, 
                          final String pathChannelSid, 
@@ -40,10 +41,11 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The [Role](https://www.twilio.com/docs/api/chat/rest/v1/roles) assigned to
-     * this member..
+     * The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to
+     * assign to the member. The default roles are those specified on the
+     * [Service](https://www.twilio.com/docs/chat/api/services)..
      * 
-     * @param roleSid The Role assigned to this member.
+     * @param roleSid The SID of the Role to assign to the member
      * @return this
      */
     public MemberUpdater setRoleSid(final String roleSid) {
@@ -52,14 +54,13 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * An Integer representing index of the last
-     * [Message](https://www.twilio.com/docs/api/chat/rest/v1/messages) this Member
-     * has read within this
-     * [Channel](https://www.twilio.com/docs/api/chat/rest/v1/channels).
+     * The index of the last
+     * [Message](https://www.twilio.com/docs/api/chat/rest/messages) that the Member
+     * has read within the
+     * [Channel](https://www.twilio.com/docs/api/chat/rest/channels)..
      * 
-     * @param lastConsumedMessageIndex An Integer representing index of the last
-     *                                 Message this Member has read within this
-     *                                 Channel
+     * @param lastConsumedMessageIndex The index of the last consumed Message for
+     *                                 the Channel for the Member
      * @return this
      */
     public MemberUpdater setLastConsumedMessageIndex(final Integer lastConsumedMessageIndex) {

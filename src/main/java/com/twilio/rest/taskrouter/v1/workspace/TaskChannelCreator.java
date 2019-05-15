@@ -21,11 +21,13 @@ public class TaskChannelCreator extends Creator<TaskChannel> {
     private final String pathWorkspaceSid;
     private final String friendlyName;
     private final String uniqueName;
+    private Boolean channelOptimizedRouting;
 
     /**
      * Construct a new TaskChannelCreator.
      * 
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid The unique ID of the Workspace that this TaskChannel
+     *                         belongs to.
      * @param friendlyName String representing user-friendly name for the
      *                     TaskChannel
      * @param uniqueName String representing unique name for the TaskChannel
@@ -36,6 +38,18 @@ public class TaskChannelCreator extends Creator<TaskChannel> {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.friendlyName = friendlyName;
         this.uniqueName = uniqueName;
+    }
+
+    /**
+     * A boolean that if true; mean that the channel will prioritize workers that
+     * have been idle.
+     * 
+     * @param channelOptimizedRouting If true then prioritize longest idle workers
+     * @return this
+     */
+    public TaskChannelCreator setChannelOptimizedRouting(final Boolean channelOptimizedRouting) {
+        this.channelOptimizedRouting = channelOptimizedRouting;
+        return this;
     }
 
     /**
@@ -89,6 +103,10 @@ public class TaskChannelCreator extends Creator<TaskChannel> {
 
         if (uniqueName != null) {
             request.addPostParam("UniqueName", uniqueName);
+        }
+
+        if (channelOptimizedRouting != null) {
+            request.addPostParam("ChannelOptimizedRouting", channelOptimizedRouting.toString());
         }
     }
 }

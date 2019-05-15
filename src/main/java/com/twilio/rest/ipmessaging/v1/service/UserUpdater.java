@@ -27,8 +27,8 @@ public class UserUpdater extends Updater<User> {
     /**
      * Construct a new UserUpdater.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathSid The unique string that identifies the resource
      */
     public UserUpdater(final String pathServiceSid, 
                        final String pathSid) {
@@ -37,9 +37,10 @@ public class UserUpdater extends Updater<User> {
     }
 
     /**
-     * The unique id of the [Role][role] assigned to this user..
+     * The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles)
+     * assigned to this user..
      * 
-     * @param roleSid The unique id of the [Role][role] assigned to this user.
+     * @param roleSid The SID id of the Role assigned to this user
      * @return this
      */
     public UserUpdater setRoleSid(final String roleSid) {
@@ -48,11 +49,9 @@ public class UserUpdater extends Updater<User> {
     }
 
     /**
-     * An optional string used to contain any metadata or other information for the
-     * User.  The string must contain structurally valid JSON if specified..
+     * A valid JSON string that contains application-specific data..
      * 
-     * @param attributes An optional string used to contain any metadata or other
-     *                   information for the User.
+     * @param attributes A valid JSON string that contains application-specific data
      * @return this
      */
     public UserUpdater setAttributes(final String attributes) {
@@ -61,10 +60,10 @@ public class UserUpdater extends Updater<User> {
     }
 
     /**
-     * An optional human readable string representing the user.  Often used for
-     * display purposes..
+     * A descriptive string that you create to describe the resource. It is often
+     * used for display purposes..
      * 
-     * @param friendlyName An optional human readable string representing the user.
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public UserUpdater setFriendlyName(final String friendlyName) {

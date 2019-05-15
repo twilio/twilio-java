@@ -63,8 +63,9 @@ public class UserChannel extends Resource {
     /**
      * Create a UserChannelReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathUserSid The user_sid
+     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathUserSid The SID of the User to fetch the User Channel resources
+     *                    from
      * @return UserChannelReader capable of executing the read
      */
     public static UserChannelReader reader(final String pathServiceSid, 
@@ -147,72 +148,74 @@ public class UserChannel extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The service_sid.
+     * Returns The The SID of the Service that the resource is associated with.
      * 
-     * @return The service_sid
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The channel_sid.
+     * Returns The The SID of the Channel the resource belongs to.
      * 
-     * @return The channel_sid
+     * @return The SID of the Channel the resource belongs to
      */
     public final String getChannelSid() {
         return this.channelSid;
     }
 
     /**
-     * Returns The The member_sid.
+     * Returns The The SID of the User as a Member in the Channel.
      * 
-     * @return The member_sid
+     * @return The SID of the User as a Member in the Channel
      */
     public final String getMemberSid() {
         return this.memberSid;
     }
 
     /**
-     * Returns The The status.
+     * Returns The The status of the User on the Channel.
      * 
-     * @return The status
+     * @return The status of the User on the Channel
      */
     public final UserChannel.ChannelStatus getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The last_consumed_message_index.
+     * Returns The The index of the last Message in the Channel the Member has read.
      * 
-     * @return The last_consumed_message_index
+     * @return The index of the last Message in the Channel the Member has read
      */
     public final Integer getLastConsumedMessageIndex() {
         return this.lastConsumedMessageIndex;
     }
 
     /**
-     * Returns The The unread_messages_count.
+     * Returns The The number of unread Messages in the Channel for the User.
      * 
-     * @return The unread_messages_count
+     * @return The number of unread Messages in the Channel for the User
      */
     public final Integer getUnreadMessagesCount() {
         return this.unreadMessagesCount;
     }
 
     /**
-     * Returns The The links.
+     * Returns The Absolute URLs to access the Members, Messages , Invites and, if
+     * it exists, the last Message for the Channel.
      * 
-     * @return The links
+     * @return Absolute URLs to access the Members, Messages , Invites and, if it
+     *         exists, the last Message for the Channel
      */
     public final Map<String, String> getLinks() {
         return this.links;

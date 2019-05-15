@@ -27,9 +27,8 @@ public class UserCreator extends Creator<User> {
     /**
      * Construct a new UserCreator.
      * 
-     * @param pathServiceSid The service_sid
-     * @param identity A unique string that identifies the user within this service
-     *                 - often a username or email address.
+     * @param pathServiceSid The SID of the Service to create the new resource under
+     * @param identity The `identity` value that identifies the new resource's User
      */
     public UserCreator(final String pathServiceSid, 
                        final String identity) {
@@ -38,11 +37,10 @@ public class UserCreator extends Creator<User> {
     }
 
     /**
-     * The unique id of the
-     * [Role](https://www.twilio.com/docs/api/chat/rest/v1/roles) assigned to this
-     * user..
+     * The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles)
+     * assigned to the new User..
      * 
-     * @param roleSid The unique id of the Role assigned to this user.
+     * @param roleSid The SID of the Role assigned to this user
      * @return this
      */
     public UserCreator setRoleSid(final String roleSid) {
@@ -51,11 +49,9 @@ public class UserCreator extends Creator<User> {
     }
 
     /**
-     * An optional string used to contain any metadata or other information for the
-     * User.  The string must contain structurally valid JSON if specified..
+     * A valid JSON string that contains application-specific data..
      * 
-     * @param attributes An optional string used to contain any metadata or other
-     *                   information for the User.
+     * @param attributes A valid JSON string that contains application-specific data
      * @return this
      */
     public UserCreator setAttributes(final String attributes) {
@@ -64,10 +60,10 @@ public class UserCreator extends Creator<User> {
     }
 
     /**
-     * An optional human readable string representing the user.  Often used for
-     * display purposes..
+     * A descriptive string that you create to describe the new resource. This value
+     * is often used for display purposes..
      * 
-     * @param friendlyName An optional human readable string representing the user.
+     * @param friendlyName A string to describe the new resource
      * @return this
      */
     public UserCreator setFriendlyName(final String friendlyName) {

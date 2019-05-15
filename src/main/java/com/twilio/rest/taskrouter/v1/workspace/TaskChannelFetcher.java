@@ -24,8 +24,9 @@ public class TaskChannelFetcher extends Fetcher<TaskChannel> {
     /**
      * Construct a new TaskChannelFetcher.
      * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The unique ID of the Workspace that this TaskChannel
+     *                         belongs to.
+     * @param pathSid The unique ID for this TaskChannel.
      */
     public TaskChannelFetcher(final String pathWorkspaceSid, 
                               final String pathSid) {

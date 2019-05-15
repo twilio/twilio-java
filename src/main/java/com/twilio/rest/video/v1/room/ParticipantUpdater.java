@@ -25,8 +25,10 @@ public class ParticipantUpdater extends Updater<Participant> {
     /**
      * Construct a new ParticipantUpdater.
      * 
-     * @param pathRoomSid The room_sid
-     * @param pathSid The sid
+     * @param pathRoomSid A system-generated 34-character string that uniquely
+     *                    identifies a Room.
+     * @param pathSid A system-generated 34-character string that uniquely
+     *                identifies this Participant.
      */
     public ParticipantUpdater(final String pathRoomSid, 
                               final String pathSid) {
@@ -37,7 +39,7 @@ public class ParticipantUpdater extends Updater<Participant> {
     /**
      * Set to `disconnected` to remove participant..
      * 
-     * @param status Set to disconnected to remove participant.
+     * @param status Set to `disconnected` to remove participant.
      * @return this
      */
     public ParticipantUpdater setStatus(final Participant.Status status) {

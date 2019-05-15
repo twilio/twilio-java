@@ -34,13 +34,14 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskChannel extends Resource {
-    private static final long serialVersionUID = 228880894763693L;
+    private static final long serialVersionUID = 87520156212725L;
 
     /**
      * Create a TaskChannelFetcher to execute fetch.
      * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The unique ID of the Workspace that this TaskChannel
+     *                         belongs to.
+     * @param pathSid The unique ID for this TaskChannel.
      * @return TaskChannelFetcher capable of executing the fetch
      */
     public static TaskChannelFetcher fetcher(final String pathWorkspaceSid, 
@@ -51,7 +52,8 @@ public class TaskChannel extends Resource {
     /**
      * Create a TaskChannelReader to execute read.
      * 
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid The unique ID of the Workspace that this TaskChannel
+     *                         belongs to.
      * @return TaskChannelReader capable of executing the read
      */
     public static TaskChannelReader reader(final String pathWorkspaceSid) {
@@ -61,8 +63,9 @@ public class TaskChannel extends Resource {
     /**
      * Create a TaskChannelUpdater to execute update.
      * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The unique ID of the Workspace that this TaskChannel
+     *                         belongs to.
+     * @param pathSid The unique ID for this TaskChannel.
      * @return TaskChannelUpdater capable of executing the update
      */
     public static TaskChannelUpdater updater(final String pathWorkspaceSid, 
@@ -73,8 +76,9 @@ public class TaskChannel extends Resource {
     /**
      * Create a TaskChannelDeleter to execute delete.
      * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The unique ID of the Workspace that this TaskChannel
+     *                         belongs to.
+     * @param pathSid The unique ID for this TaskChannel.
      * @return TaskChannelDeleter capable of executing the delete
      */
     public static TaskChannelDeleter deleter(final String pathWorkspaceSid, 
@@ -85,7 +89,8 @@ public class TaskChannel extends Resource {
     /**
      * Create a TaskChannelCreator to execute create.
      * 
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid The unique ID of the Workspace that this TaskChannel
+     *                         belongs to.
      * @param friendlyName String representing user-friendly name for the
      *                     TaskChannel
      * @param uniqueName String representing unique name for the TaskChannel
@@ -142,6 +147,7 @@ public class TaskChannel extends Resource {
     private final String sid;
     private final String uniqueName;
     private final String workspaceSid;
+    private final Boolean channelOptimizedRouting;
     private final URI url;
     private final Map<String, String> links;
 
@@ -160,6 +166,8 @@ public class TaskChannel extends Resource {
                         final String uniqueName, 
                         @JsonProperty("workspace_sid")
                         final String workspaceSid, 
+                        @JsonProperty("channel_optimized_routing")
+                        final Boolean channelOptimizedRouting, 
                         @JsonProperty("url")
                         final URI url, 
                         @JsonProperty("links")
@@ -171,6 +179,7 @@ public class TaskChannel extends Resource {
         this.sid = sid;
         this.uniqueName = uniqueName;
         this.workspaceSid = workspaceSid;
+        this.channelOptimizedRouting = channelOptimizedRouting;
         this.url = url;
         this.links = links;
     }
@@ -239,6 +248,15 @@ public class TaskChannel extends Resource {
     }
 
     /**
+     * Returns The If true then prioritize longest idle workers.
+     * 
+     * @return If true then prioritize longest idle workers
+     */
+    public final Boolean getChannelOptimizedRouting() {
+        return this.channelOptimizedRouting;
+    }
+
+    /**
      * Returns The The url.
      * 
      * @return The url
@@ -275,6 +293,7 @@ public class TaskChannel extends Resource {
                Objects.equals(sid, other.sid) && 
                Objects.equals(uniqueName, other.uniqueName) && 
                Objects.equals(workspaceSid, other.workspaceSid) && 
+               Objects.equals(channelOptimizedRouting, other.channelOptimizedRouting) && 
                Objects.equals(url, other.url) && 
                Objects.equals(links, other.links);
     }
@@ -288,6 +307,7 @@ public class TaskChannel extends Resource {
                             sid,
                             uniqueName,
                             workspaceSid,
+                            channelOptimizedRouting,
                             url,
                             links);
     }
@@ -302,6 +322,7 @@ public class TaskChannel extends Resource {
                           .add("sid", sid)
                           .add("uniqueName", uniqueName)
                           .add("workspaceSid", workspaceSid)
+                          .add("channelOptimizedRouting", channelOptimizedRouting)
                           .add("url", url)
                           .add("links", links)
                           .toString();

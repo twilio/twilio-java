@@ -73,12 +73,12 @@ public class VerificationCreator extends Creator<Verification> {
     }
 
     /**
-     * The local to use for the verification SMS or call. Can be: `af`, `ar`, `ca`,
+     * The locale to use for the verification SMS or call. Can be: `af`, `ar`, `ca`,
      * `cs`, `da`, `de`, `el`, `en`, `es`, `fi`, `fr`, `he`, `hi`, `hr`, `hu`, `id`,
      * `it`, `ja`, `ko`, `ms`, `nb`, `nl`, `pl`, `pt`, `pr-BR`, `ro`, `ru`, `sv`,
      * `th`, `tl`, `tr`, `vi`, `zh`, `zh-CN`, or `zh-HK.`.
      * 
-     * @param locale The local to use for the verification SMS or call
+     * @param locale The locale to use for the verification SMS or call
      * @return this
      */
     public VerificationCreator setLocale(final String locale) {

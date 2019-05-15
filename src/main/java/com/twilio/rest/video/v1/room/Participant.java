@@ -65,8 +65,10 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantFetcher to execute fetch.
      * 
-     * @param pathRoomSid The room_sid
-     * @param pathSid The sid
+     * @param pathRoomSid A system-generated 34-character string that uniquely
+     *                    identifies a Room.
+     * @param pathSid A system-generated 34-character string that uniquely
+     *                identifies this Participant.
      * @return ParticipantFetcher capable of executing the fetch
      */
     public static ParticipantFetcher fetcher(final String pathRoomSid, 
@@ -77,7 +79,8 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantReader to execute read.
      * 
-     * @param pathRoomSid The room_sid
+     * @param pathRoomSid A system-generated 34-character string that uniquely
+     *                    identifies this Room.
      * @return ParticipantReader capable of executing the read
      */
     public static ParticipantReader reader(final String pathRoomSid) {
@@ -87,8 +90,10 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantUpdater to execute update.
      * 
-     * @param pathRoomSid The room_sid
-     * @param pathSid The sid
+     * @param pathRoomSid A system-generated 34-character string that uniquely
+     *                    identifies a Room.
+     * @param pathSid A system-generated 34-character string that uniquely
+     *                identifies this Participant.
      * @return ParticipantUpdater capable of executing the update
      */
     public static ParticipantUpdater updater(final String pathRoomSid, 

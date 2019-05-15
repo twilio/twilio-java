@@ -31,7 +31,8 @@ public class ParticipantReader extends Reader<Participant> {
     /**
      * Construct a new ParticipantReader.
      * 
-     * @param pathRoomSid The room_sid
+     * @param pathRoomSid A system-generated 34-character string that uniquely
+     *                    identifies this Room.
      */
     public ParticipantReader(final String pathRoomSid) {
         this.pathRoomSid = pathRoomSid;

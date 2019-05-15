@@ -24,8 +24,8 @@ public class RoleDeleter extends Deleter<Role> {
     /**
      * Construct a new RoleDeleter.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathSid The unique string that identifies the resource
      */
     public RoleDeleter(final String pathServiceSid, 
                        final String pathSid) {

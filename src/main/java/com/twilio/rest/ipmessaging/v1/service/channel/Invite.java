@@ -39,9 +39,9 @@ public class Invite extends Resource {
     /**
      * Create a InviteFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathChannelSid The SID of the Channel the resource to fetch belongs to
+     * @param pathSid The unique string that identifies the resource
      * @return InviteFetcher capable of executing the fetch
      */
     public static InviteFetcher fetcher(final String pathServiceSid, 
@@ -53,9 +53,9 @@ public class Invite extends Resource {
     /**
      * Create a InviteCreator to execute create.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param identity A unique string identifier for this User in this Service.
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param pathChannelSid The SID of the Channel the new resource belongs to
+     * @param identity The `identity` value that identifies the new resource's User
      * @return InviteCreator capable of executing the create
      */
     public static InviteCreator creator(final String pathServiceSid, 
@@ -67,8 +67,8 @@ public class Invite extends Resource {
     /**
      * Create a InviteReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
+     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathChannelSid The SID of the Channel the resources to read belong to
      * @return InviteReader capable of executing the read
      */
     public static InviteReader reader(final String pathServiceSid, 
@@ -79,9 +79,10 @@ public class Invite extends Resource {
     /**
      * Create a InviteDeleter to execute delete.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathChannelSid The SID of the Channel the resource to delete belongs
+     *                       to
+     * @param pathSid The unique string that identifies the resource
      * @return InviteDeleter capable of executing the delete
      */
     public static InviteDeleter deleter(final String pathServiceSid, 
@@ -172,91 +173,91 @@ public class Invite extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique id of the Account[/console] responsible for this
-     * member..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique id of the Account[/console] responsible for this member.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique id of the Channel for this member..
+     * Returns The The SID of the Channel the new resource belongs to.
      * 
-     * @return The unique id of the Channel for this member.
+     * @return The SID of the Channel the new resource belongs to
      */
     public final String getChannelSid() {
         return this.channelSid;
     }
 
     /**
-     * Returns The The unique id of the Service this member belongs to..
+     * Returns The The SID of the Service that the resource is associated with.
      * 
-     * @return The unique id of the Service this member belongs to.
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The A unique string identifier for this User in this Service..
+     * Returns The The string that identifies the resource's User.
      * 
-     * @return A unique string identifier for this User in this Service.
+     * @return The string that identifies the resource's User
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns The The date that this resource was created..
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date that this resource was created.
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated..
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date that this resource was last updated.
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The Role assigned to this member..
+     * Returns The The SID of the Role assigned to the member.
      * 
-     * @return The Role assigned to this member.
+     * @return The SID of the Role assigned to the member
      */
     public final String getRoleSid() {
         return this.roleSid;
     }
 
     /**
-     * Returns The The created_by.
+     * Returns The The identity of the User that created the invite.
      * 
-     * @return The created_by
+     * @return The identity of the User that created the invite
      */
     public final String getCreatedBy() {
         return this.createdBy;
     }
 
     /**
-     * Returns The An absolute URL for this member..
+     * Returns The The absolute URL of the Invite resource.
      * 
-     * @return An absolute URL for this member.
+     * @return The absolute URL of the Invite resource
      */
     public final URI getUrl() {
         return this.url;

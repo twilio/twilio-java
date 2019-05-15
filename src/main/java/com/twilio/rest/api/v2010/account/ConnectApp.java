@@ -128,6 +128,29 @@ public class ConnectApp extends Resource {
     }
 
     /**
+     * Create a ConnectAppDeleter to execute delete.
+     * 
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
+     * @return ConnectAppDeleter capable of executing the delete
+     */
+    public static ConnectAppDeleter deleter(final String pathAccountSid, 
+                                            final String pathSid) {
+        return new ConnectAppDeleter(pathAccountSid, pathSid);
+    }
+
+    /**
+     * Create a ConnectAppDeleter to execute delete.
+     * 
+     * @param pathSid The unique string that identifies the resource
+     * @return ConnectAppDeleter capable of executing the delete
+     */
+    public static ConnectAppDeleter deleter(final String pathSid) {
+        return new ConnectAppDeleter(pathSid);
+    }
+
+    /**
      * Converts a JSON String into a ConnectApp object using the provided
      * ObjectMapper.
      * 

@@ -23,7 +23,7 @@ public class ServiceFetcher extends Fetcher<Service> {
     /**
      * Construct a new ServiceFetcher.
      * 
-     * @param pathSid The sid
+     * @param pathSid The unique string that identifies the resource
      */
     public ServiceFetcher(final String pathSid) {
         this.pathSid = pathSid;

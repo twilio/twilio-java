@@ -29,12 +29,13 @@ import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SubscribedTrack extends Resource {
-    private static final long serialVersionUID = 222272126385904L;
+    private static final long serialVersionUID = 63596798347062L;
 
     public enum Kind {
         AUDIO("audio"),
@@ -62,53 +63,32 @@ public class SubscribedTrack extends Resource {
         }
     }
 
-    public enum Status {
-        SUBSCRIBE("subscribe"),
-        UNSUBSCRIBE("unsubscribe");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        /**
-         * Generate a Status from a string.
-         * @param value string value
-         * @return generated Status
-         */
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
+    /**
+     * Create a SubscribedTrackFetcher to execute fetch.
+     * 
+     * @param pathRoomSid Unique Room identifier where this Track is subscribed.
+     * @param pathParticipantSid Unique Participant identifier that subscribes to
+     *                           this Track.
+     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @return SubscribedTrackFetcher capable of executing the fetch
+     */
+    public static SubscribedTrackFetcher fetcher(final String pathRoomSid, 
+                                                 final String pathParticipantSid, 
+                                                 final String pathSid) {
+        return new SubscribedTrackFetcher(pathRoomSid, pathParticipantSid, pathSid);
     }
 
     /**
      * Create a SubscribedTrackReader to execute read.
      * 
-     * @param pathRoomSid The room_sid
-     * @param pathSubscriberSid The subscriber_sid
+     * @param pathRoomSid Unique Room identifier where the Tracks are subscribed.
+     * @param pathParticipantSid Unique Participant identifier that subscribes to
+     *                           this Track.
      * @return SubscribedTrackReader capable of executing the read
      */
     public static SubscribedTrackReader reader(final String pathRoomSid, 
-                                               final String pathSubscriberSid) {
-        return new SubscribedTrackReader(pathRoomSid, pathSubscriberSid);
-    }
-
-    /**
-     * Create a SubscribedTrackUpdater to execute update.
-     * 
-     * @param pathRoomSid The room_sid
-     * @param pathSubscriberSid The subscriber_sid
-     * @return SubscribedTrackUpdater capable of executing the update
-     */
-    public static SubscribedTrackUpdater updater(final String pathRoomSid, 
-                                                 final String pathSubscriberSid) {
-        return new SubscribedTrackUpdater(pathRoomSid, pathSubscriberSid);
+                                               final String pathParticipantSid) {
+        return new SubscribedTrackReader(pathRoomSid, pathParticipantSid);
     }
 
     /**
@@ -150,26 +130,27 @@ public class SubscribedTrack extends Resource {
     }
 
     private final String sid;
+    private final String participantSid;
+    private final String publisherSid;
     private final String roomSid;
     private final String name;
-    private final String publisherSid;
-    private final String subscriberSid;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final Boolean enabled;
     private final SubscribedTrack.Kind kind;
+    private final URI url;
 
     @JsonCreator
     private SubscribedTrack(@JsonProperty("sid")
                             final String sid, 
+                            @JsonProperty("participant_sid")
+                            final String participantSid, 
+                            @JsonProperty("publisher_sid")
+                            final String publisherSid, 
                             @JsonProperty("room_sid")
                             final String roomSid, 
                             @JsonProperty("name")
                             final String name, 
-                            @JsonProperty("publisher_sid")
-                            final String publisherSid, 
-                            @JsonProperty("subscriber_sid")
-                            final String subscriberSid, 
                             @JsonProperty("date_created")
                             final String dateCreated, 
                             @JsonProperty("date_updated")
@@ -177,97 +158,109 @@ public class SubscribedTrack extends Resource {
                             @JsonProperty("enabled")
                             final Boolean enabled, 
                             @JsonProperty("kind")
-                            final SubscribedTrack.Kind kind) {
+                            final SubscribedTrack.Kind kind, 
+                            @JsonProperty("url")
+                            final URI url) {
         this.sid = sid;
+        this.participantSid = participantSid;
+        this.publisherSid = publisherSid;
         this.roomSid = roomSid;
         this.name = name;
-        this.publisherSid = publisherSid;
-        this.subscriberSid = subscriberSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.enabled = enabled;
         this.kind = kind;
+        this.url = url;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A 34 character string that uniquely identifies this resource..
      * 
-     * @return The sid
+     * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The room_sid.
+     * Returns The Unique Participant identifier that subscribes to this Track..
      * 
-     * @return The room_sid
+     * @return Unique Participant identifier that subscribes to this Track.
      */
-    public final String getRoomSid() {
-        return this.roomSid;
+    public final String getParticipantSid() {
+        return this.participantSid;
     }
 
     /**
-     * Returns The The name.
+     * Returns The Unique Participant identifier that publishes this Track..
      * 
-     * @return The name
-     */
-    public final String getName() {
-        return this.name;
-    }
-
-    /**
-     * Returns The The publisher_sid.
-     * 
-     * @return The publisher_sid
+     * @return Unique Participant identifier that publishes this Track.
      */
     public final String getPublisherSid() {
         return this.publisherSid;
     }
 
     /**
-     * Returns The The subscriber_sid.
+     * Returns The Unique Room identifier where this Track is published..
      * 
-     * @return The subscriber_sid
+     * @return Unique Room identifier where this Track is published.
      */
-    public final String getSubscriberSid() {
-        return this.subscriberSid;
+    public final String getRoomSid() {
+        return this.roomSid;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The Track name. Limited to 128 characters..
      * 
-     * @return The date_created
+     * @return Track name. Limited to 128 characters.
+     */
+    public final String getName() {
+        return this.name;
+    }
+
+    /**
+     * Returns The The date that this resource was created..
+     * 
+     * @return The date that this resource was created.
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The date that this resource was last updated..
      * 
-     * @return The date_updated
+     * @return The date that this resource was last updated.
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The enabled.
+     * Returns The Specifies whether the Track is enabled or not..
      * 
-     * @return The enabled
+     * @return Specifies whether the Track is enabled or not.
      */
     public final Boolean getEnabled() {
         return this.enabled;
     }
 
     /**
-     * Returns The The kind.
+     * Returns The Specifies whether Track represents `audio`, `video` or `data`.
      * 
-     * @return The kind
+     * @return Specifies whether Track represents `audio`, `video` or `data`
      */
     public final SubscribedTrack.Kind getKind() {
         return this.kind;
+    }
+
+    /**
+     * Returns The The absolute URL for this resource..
+     * 
+     * @return The absolute URL for this resource.
+     */
+    public final URI getUrl() {
+        return this.url;
     }
 
     @Override
@@ -283,41 +276,44 @@ public class SubscribedTrack extends Resource {
         SubscribedTrack other = (SubscribedTrack) o;
 
         return Objects.equals(sid, other.sid) && 
+               Objects.equals(participantSid, other.participantSid) && 
+               Objects.equals(publisherSid, other.publisherSid) && 
                Objects.equals(roomSid, other.roomSid) && 
                Objects.equals(name, other.name) && 
-               Objects.equals(publisherSid, other.publisherSid) && 
-               Objects.equals(subscriberSid, other.subscriberSid) && 
                Objects.equals(dateCreated, other.dateCreated) && 
                Objects.equals(dateUpdated, other.dateUpdated) && 
                Objects.equals(enabled, other.enabled) && 
-               Objects.equals(kind, other.kind);
+               Objects.equals(kind, other.kind) && 
+               Objects.equals(url, other.url);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(sid,
+                            participantSid,
+                            publisherSid,
                             roomSid,
                             name,
-                            publisherSid,
-                            subscriberSid,
                             dateCreated,
                             dateUpdated,
                             enabled,
-                            kind);
+                            kind,
+                            url);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
                           .add("sid", sid)
+                          .add("participantSid", participantSid)
+                          .add("publisherSid", publisherSid)
                           .add("roomSid", roomSid)
                           .add("name", name)
-                          .add("publisherSid", publisherSid)
-                          .add("subscriberSid", subscriberSid)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("enabled", enabled)
                           .add("kind", kind)
+                          .add("url", url)
                           .toString();
     }
 }

@@ -21,12 +21,14 @@ public class TaskChannelUpdater extends Updater<TaskChannel> {
     private final String pathWorkspaceSid;
     private final String pathSid;
     private String friendlyName;
+    private Boolean channelOptimizedRouting;
 
     /**
      * Construct a new TaskChannelUpdater.
      * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The unique ID of the Workspace that this TaskChannel
+     *                         belongs to.
+     * @param pathSid The unique ID for this TaskChannel.
      */
     public TaskChannelUpdater(final String pathWorkspaceSid, 
                               final String pathSid) {
@@ -42,6 +44,18 @@ public class TaskChannelUpdater extends Updater<TaskChannel> {
      */
     public TaskChannelUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
+        return this;
+    }
+
+    /**
+     * A boolean that if true; mean that the channel will prioritize workers that
+     * have been idle.
+     * 
+     * @param channelOptimizedRouting If true then prioritize longest idle workers
+     * @return this
+     */
+    public TaskChannelUpdater setChannelOptimizedRouting(final Boolean channelOptimizedRouting) {
+        this.channelOptimizedRouting = channelOptimizedRouting;
         return this;
     }
 
@@ -92,6 +106,10 @@ public class TaskChannelUpdater extends Updater<TaskChannel> {
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+        }
+
+        if (channelOptimizedRouting != null) {
+            request.addPostParam("ChannelOptimizedRouting", channelOptimizedRouting.toString());
         }
     }
 }

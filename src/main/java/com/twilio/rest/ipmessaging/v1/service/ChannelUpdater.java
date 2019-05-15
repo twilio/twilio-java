@@ -27,8 +27,8 @@ public class ChannelUpdater extends Updater<Channel> {
     /**
      * Construct a new ChannelUpdater.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathSid The unique string that identifies the resource
      */
     public ChannelUpdater(final String pathServiceSid, 
                           final String pathSid) {
@@ -37,9 +37,10 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * A human-readable name for the Channel. Optional..
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
      * 
-     * @param friendlyName A human-readable name for the Channel.
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public ChannelUpdater setFriendlyName(final String friendlyName) {
@@ -48,9 +49,13 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * A unique, addressable name for the Channel.  Optional..
+     * An application-defined string that uniquely identifies the resource. It can
+     * be used to address the resource in place of the resource's `sid` in the URL.
+     * This value must be 64 characters or less in length and be unique within the
+     * Service..
      * 
-     * @param uniqueName A unique, addressable name for the Channel.
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      * @return this
      */
     public ChannelUpdater setUniqueName(final String uniqueName) {
@@ -59,11 +64,9 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * An optional metadata field you can use to store any data you wish. No
-     * processing or validation is done on this field..
+     * A valid JSON string that contains application-specific data..
      * 
-     * @param attributes An optional metadata field you can use to store any data
-     *                   you wish.
+     * @param attributes A valid JSON string that contains application-specific data
      * @return this
      */
     public ChannelUpdater setAttributes(final String attributes) {

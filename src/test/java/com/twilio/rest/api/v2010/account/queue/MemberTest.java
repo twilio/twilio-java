@@ -82,21 +82,20 @@ public class MemberTest {
 
     @Test
     public void testUpdateRequest() {
-                    new NonStrictExpectations() {{
-                        Request request = new Request(HttpMethod.POST,
-                                                      Domains.API.toString(),
-                                                      "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queues/QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Members/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json");
-                        request.addPostParam("Url", serialize(URI.create("https://example.com")));
-        request.addPostParam("Method", serialize(HttpMethod.GET));
-                        twilioRestClient.request(request);
-                        times = 1;
-                        result = new Response("", 500);
-                        twilioRestClient.getAccountSid();
-                        result = "AC123";
-                    }};
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          Domains.API.toString(),
+                                          "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queues/QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Members/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json");
+            request.addPostParam("Url", serialize(URI.create("https://example.com")));
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
 
         try {
-            Member.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", URI.create("https://example.com"), HttpMethod.GET).update();
+            Member.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", URI.create("https://example.com")).update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -110,7 +109,7 @@ public class MemberTest {
             result = new ObjectMapper();
         }};
 
-        Member.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", URI.create("https://example.com"), HttpMethod.GET).update();
+        Member.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", URI.create("https://example.com")).update();
     }
 
     @Test
@@ -122,7 +121,7 @@ public class MemberTest {
             result = new ObjectMapper();
         }};
 
-        Member.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", URI.create("https://example.com"), HttpMethod.GET).update();
+        Member.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", URI.create("https://example.com")).update();
     }
 
     @Test

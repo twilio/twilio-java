@@ -25,9 +25,10 @@ public class MessageDeleter extends Deleter<Message> {
     /**
      * Construct a new MessageDeleter.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathChannelSid The unique ID of the channel the message to delete
+     *                       belongs to
+     * @param pathSid The unique string that identifies the resource
      */
     public MessageDeleter(final String pathServiceSid, 
                           final String pathChannelSid, 

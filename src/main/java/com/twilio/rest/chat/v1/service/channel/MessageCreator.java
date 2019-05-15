@@ -27,9 +27,10 @@ public class MessageCreator extends Creator<Message> {
     /**
      * Construct a new MessageCreator.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param body The body
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param pathChannelSid The unique ID of the channel the new resource belongs
+     *                       to
+     * @param body The message to send to the channel
      */
     public MessageCreator(final String pathServiceSid, 
                           final String pathChannelSid, 
@@ -40,9 +41,10 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The from.
+     * The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the
+     * new message's author. The default value is `system`..
      * 
-     * @param from The from
+     * @param from The identity of the new message's author
      * @return this
      */
     public MessageCreator setFrom(final String from) {
@@ -51,9 +53,9 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The attributes.
+     * A valid JSON string that contains application-specific data..
      * 
-     * @param attributes The attributes
+     * @param attributes A valid JSON string that contains application-specific data
      * @return this
      */
     public MessageCreator setAttributes(final String attributes) {

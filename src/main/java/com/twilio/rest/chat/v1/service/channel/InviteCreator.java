@@ -26,9 +26,9 @@ public class InviteCreator extends Creator<Invite> {
     /**
      * Construct a new InviteCreator.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param identity A unique string identifier for this User in this Service.
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param pathChannelSid The SID of the Channel the new resource belongs to
+     * @param identity The `identity` value that identifies the new resource's User
      */
     public InviteCreator(final String pathServiceSid, 
                          final String pathChannelSid, 
@@ -39,10 +39,10 @@ public class InviteCreator extends Creator<Invite> {
     }
 
     /**
-     * The [Role](https://www.twilio.com/docs/api/chat/rest/v1/role) assigned to
-     * this member..
+     * The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles)
+     * assigned to the new member..
      * 
-     * @param roleSid The Role assigned to this member.
+     * @param roleSid The Role assigned to the new member
      * @return this
      */
     public InviteCreator setRoleSid(final String roleSid) {

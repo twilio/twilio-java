@@ -24,8 +24,10 @@ public class ParticipantFetcher extends Fetcher<Participant> {
     /**
      * Construct a new ParticipantFetcher.
      * 
-     * @param pathRoomSid The room_sid
-     * @param pathSid The sid
+     * @param pathRoomSid A system-generated 34-character string that uniquely
+     *                    identifies a Room.
+     * @param pathSid A system-generated 34-character string that uniquely
+     *                identifies this Participant.
      */
     public ParticipantFetcher(final String pathRoomSid, 
                               final String pathSid) {

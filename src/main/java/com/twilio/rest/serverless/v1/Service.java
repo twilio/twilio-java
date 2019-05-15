@@ -53,7 +53,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceFetcher to execute fetch.
      * 
-     * @param pathSid Service Sid.
+     * @param pathSid Serverless Service Sid or unique name.
      * @return ServiceFetcher capable of executing the fetch
      */
     public static ServiceFetcher fetcher(final String pathSid) {

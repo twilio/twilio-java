@@ -65,8 +65,8 @@ public class Channel extends Resource {
     /**
      * Create a ChannelFetcher to execute fetch.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathSid The unique string that identifies the resource
      * @return ChannelFetcher capable of executing the fetch
      */
     public static ChannelFetcher fetcher(final String pathServiceSid, 
@@ -77,8 +77,8 @@ public class Channel extends Resource {
     /**
      * Create a ChannelDeleter to execute delete.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathSid The unique string that identifies the resource
      * @return ChannelDeleter capable of executing the delete
      */
     public static ChannelDeleter deleter(final String pathServiceSid, 
@@ -89,7 +89,7 @@ public class Channel extends Resource {
     /**
      * Create a ChannelCreator to execute create.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid The SID of the Service to create the resource under
      * @return ChannelCreator capable of executing the create
      */
     public static ChannelCreator creator(final String pathServiceSid) {
@@ -99,7 +99,7 @@ public class Channel extends Resource {
     /**
      * Create a ChannelReader to execute read.
      * 
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid The SID of the Service to read the resources from
      * @return ChannelReader capable of executing the read
      */
     public static ChannelReader reader(final String pathServiceSid) {
@@ -109,8 +109,8 @@ public class Channel extends Resource {
     /**
      * Create a ChannelUpdater to execute update.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathSid The unique string that identifies the resource
      * @return ChannelUpdater capable of executing the update
      */
     public static ChannelUpdater updater(final String pathServiceSid, 
@@ -216,132 +216,130 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The The unique string that identifies the resource.
      * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique id of the [Account][/console] responsible for this
-     * channel..
+     * Returns The The SID of the Account that created the resource.
      * 
-     * @return The unique id of the [Account][/console] responsible for this
-     *         channel.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique id of the [Service][service] this channel belongs to..
+     * Returns The The SID of the Service that the resource is associated with.
      * 
-     * @return The unique id of the [Service][service] this channel belongs to.
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The human-readable name of this channel..
+     * Returns The The string that you assigned to describe the resource.
      * 
-     * @return The human-readable name of this channel.
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The unique, addressable name of this channel..
+     * Returns The An application-defined string that uniquely identifies the
+     * resource.
      * 
-     * @return The unique, addressable name of this channel.
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The An optional string metadata field you can use to store any data
-     * you wish..
+     * Returns The The JSON string that stores application-specific data.
      * 
-     * @return An optional string metadata field you can use to store any data you
-     *         wish.
+     * @return The JSON string that stores application-specific data
      */
     public final String getAttributes() {
         return this.attributes;
     }
 
     /**
-     * Returns The The visibility of this channel - either public or private.
+     * Returns The The visibility of the channel. Can be: `public` or `private`.
      * 
-     * @return The visibility of this channel - either public or private
+     * @return The visibility of the channel. Can be: `public` or `private`
      */
     public final Channel.ChannelType getType() {
         return this.type;
     }
 
     /**
-     * Returns The The date that this resource was created..
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      * 
-     * @return The date that this resource was created.
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated..
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      * 
-     * @return The date that this resource was last updated.
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The Identity of the channel's creator..
+     * Returns The The identity of the User that created the channel.
      * 
-     * @return Identity of the channel's creator.
+     * @return The identity of the User that created the channel
      */
     public final String getCreatedBy() {
         return this.createdBy;
     }
 
     /**
-     * Returns The The members_count.
+     * Returns The The number of Members in the Channel.
      * 
-     * @return The members_count
+     * @return The number of Members in the Channel
      */
     public final Integer getMembersCount() {
         return this.membersCount;
     }
 
     /**
-     * Returns The The messages_count.
+     * Returns The The number of Messages in the Channel.
      * 
-     * @return The messages_count
+     * @return The number of Messages in the Channel
      */
     public final Integer getMessagesCount() {
         return this.messagesCount;
     }
 
     /**
-     * Returns The An absolute URL for this channel..
+     * Returns The The absolute URL of the Channel resource.
      * 
-     * @return An absolute URL for this channel.
+     * @return The absolute URL of the Channel resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Absolute URLs to access the [Members][members] and
-     * [Messages][messages] for this channel..
+     * Returns The Absolute URLs to access the Members, Messages , Invites and, if
+     * it exists, the last Message for the Channel.
      * 
-     * @return Absolute URLs to access the [Members][members] and
-     *         [Messages][messages] for this channel.
+     * @return Absolute URLs to access the Members, Messages , Invites and, if it
+     *         exists, the last Message for the Channel
      */
     public final Map<String, String> getLinks() {
         return this.links;

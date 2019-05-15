@@ -58,7 +58,7 @@ public class NotificationCreator extends Creator<Notification> {
     /**
      * The notification text. For FCM and GCM, translates to `data.twi_body`. For
      * APNS, translates to `aps.alert.body`. For SMS, translates to `body`. SMS
-     * requires either this `body` value, or a `media_url` attribute defined in the
+     * requires either this `body` value, or `media_urls` attribute defined in the
      * `sms` parameter of the notification..
      * 
      * @param body The notification body text

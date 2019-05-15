@@ -10,7 +10,6 @@ package com.twilio.rest.video.v1.room.participant;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -19,82 +18,22 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
 public class SubscribedTrackReader extends Reader<SubscribedTrack> {
     private final String pathRoomSid;
-    private final String pathSubscriberSid;
-    private DateTime dateCreatedAfter;
-    private DateTime dateCreatedBefore;
-    private String track;
-    private String publisher;
-    private SubscribedTrack.Kind kind;
+    private final String pathParticipantSid;
 
     /**
      * Construct a new SubscribedTrackReader.
      * 
-     * @param pathRoomSid The room_sid
-     * @param pathSubscriberSid The subscriber_sid
+     * @param pathRoomSid Unique Room identifier where the Tracks are subscribed.
+     * @param pathParticipantSid Unique Participant identifier that subscribes to
+     *                           this Track.
      */
     public SubscribedTrackReader(final String pathRoomSid, 
-                                 final String pathSubscriberSid) {
+                                 final String pathParticipantSid) {
         this.pathRoomSid = pathRoomSid;
-        this.pathSubscriberSid = pathSubscriberSid;
-    }
-
-    /**
-     * The date_created_after.
-     * 
-     * @param dateCreatedAfter The date_created_after
-     * @return this
-     */
-    public SubscribedTrackReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
-        this.dateCreatedAfter = dateCreatedAfter;
-        return this;
-    }
-
-    /**
-     * The date_created_before.
-     * 
-     * @param dateCreatedBefore The date_created_before
-     * @return this
-     */
-    public SubscribedTrackReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
-        this.dateCreatedBefore = dateCreatedBefore;
-        return this;
-    }
-
-    /**
-     * The track.
-     * 
-     * @param track The track
-     * @return this
-     */
-    public SubscribedTrackReader setTrack(final String track) {
-        this.track = track;
-        return this;
-    }
-
-    /**
-     * The publisher.
-     * 
-     * @param publisher The publisher
-     * @return this
-     */
-    public SubscribedTrackReader setPublisher(final String publisher) {
-        this.publisher = publisher;
-        return this;
-    }
-
-    /**
-     * The kind.
-     * 
-     * @param kind The kind
-     * @return this
-     */
-    public SubscribedTrackReader setKind(final SubscribedTrack.Kind kind) {
-        this.kind = kind;
-        return this;
+        this.pathParticipantSid = pathParticipantSid;
     }
 
     /**
@@ -120,7 +59,7 @@ public class SubscribedTrackReader extends Reader<SubscribedTrack> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathSubscriberSid + "/SubscribedTracks",
+            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathParticipantSid + "/SubscribedTracks",
             client.getRegion()
         );
 
@@ -227,26 +166,6 @@ public class SubscribedTrackReader extends Reader<SubscribedTrack> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (dateCreatedAfter != null) {
-            request.addQueryParam("DateCreatedAfter", dateCreatedAfter.toString());
-        }
-
-        if (dateCreatedBefore != null) {
-            request.addQueryParam("DateCreatedBefore", dateCreatedBefore.toString());
-        }
-
-        if (track != null) {
-            request.addQueryParam("Track", track.toString());
-        }
-
-        if (publisher != null) {
-            request.addQueryParam("Publisher", publisher.toString());
-        }
-
-        if (kind != null) {
-            request.addQueryParam("Kind", kind.toString());
-        }
-
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

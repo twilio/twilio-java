@@ -150,6 +150,30 @@ public class Message extends Resource {
         }
     }
 
+    public enum TrafficType {
+        FREE("free");
+
+        private final String value;
+
+        private TrafficType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a TrafficType from a string.
+         * @param value string value
+         * @return generated TrafficType
+         */
+        @JsonCreator
+        public static TrafficType forValue(final String value) {
+            return Promoter.enumFromString(value, TrafficType.values());
+        }
+    }
+
     /**
      * Create a MessageCreator to execute create.
      * 

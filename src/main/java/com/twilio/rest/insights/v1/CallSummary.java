@@ -42,7 +42,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CallSummary extends Resource {
-    private static final long serialVersionUID = 158289087147814L;
+    private static final long serialVersionUID = 261922425029875L;
 
     public enum CallType {
         CARRIER("carrier"),
@@ -244,6 +244,7 @@ public class CallSummary extends Resource {
     private final Map<String, Object> to;
     private final Map<String, Object> carrierEdge;
     private final Map<String, Object> clientEdge;
+    private final Map<String, Object> sdkEdge;
     private final Map<String, Object> sipEdge;
     private final List<String> tags;
     private final URI url;
@@ -279,6 +280,8 @@ public class CallSummary extends Resource {
                         final Map<String, Object> carrierEdge, 
                         @JsonProperty("client_edge")
                         final Map<String, Object> clientEdge, 
+                        @JsonProperty("sdk_edge")
+                        final Map<String, Object> sdkEdge, 
                         @JsonProperty("sip_edge")
                         final Map<String, Object> sipEdge, 
                         @JsonProperty("tags")
@@ -300,6 +303,7 @@ public class CallSummary extends Resource {
         this.to = to;
         this.carrierEdge = carrierEdge;
         this.clientEdge = clientEdge;
+        this.sdkEdge = sdkEdge;
         this.sipEdge = sipEdge;
         this.tags = tags;
         this.url = url;
@@ -441,6 +445,15 @@ public class CallSummary extends Resource {
     }
 
     /**
+     * Returns The The sdk_edge.
+     * 
+     * @return The sdk_edge
+     */
+    public final Map<String, Object> getSdkEdge() {
+        return this.sdkEdge;
+    }
+
+    /**
      * Returns The The sip_edge.
      * 
      * @return The sip_edge
@@ -494,6 +507,7 @@ public class CallSummary extends Resource {
                Objects.equals(to, other.to) && 
                Objects.equals(carrierEdge, other.carrierEdge) && 
                Objects.equals(clientEdge, other.clientEdge) && 
+               Objects.equals(sdkEdge, other.sdkEdge) && 
                Objects.equals(sipEdge, other.sipEdge) && 
                Objects.equals(tags, other.tags) && 
                Objects.equals(url, other.url);
@@ -516,6 +530,7 @@ public class CallSummary extends Resource {
                             to,
                             carrierEdge,
                             clientEdge,
+                            sdkEdge,
                             sipEdge,
                             tags,
                             url);
@@ -539,6 +554,7 @@ public class CallSummary extends Resource {
                           .add("to", to)
                           .add("carrierEdge", carrierEdge)
                           .add("clientEdge", clientEdge)
+                          .add("sdkEdge", sdkEdge)
                           .add("sipEdge", sipEdge)
                           .add("tags", tags)
                           .add("url", url)

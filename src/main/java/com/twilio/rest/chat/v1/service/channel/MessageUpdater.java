@@ -27,9 +27,9 @@ public class MessageUpdater extends Updater<Message> {
     /**
      * Construct a new MessageUpdater.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathChannelSid he unique ID of the Channel the message belongs to
+     * @param pathSid The unique string that identifies the resource
      */
     public MessageUpdater(final String pathServiceSid, 
                           final String pathChannelSid, 
@@ -40,10 +40,11 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The new message body string. You can also send structured data by serializing
-     * it into a string..
+     * The message to send to the channel. Can also be an empty string or `null`,
+     * which sets the value as an empty string. You can send structured data in the
+     * body by serializing it as a string..
      * 
-     * @param body The new message body string.
+     * @param body The message to send to the channel
      * @return this
      */
     public MessageUpdater setBody(final String body) {
@@ -52,11 +53,9 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The new attributes metadata field you can use to store any data you wish. 
-     * The string value must contain structurally valid JSON if specified..
+     * A valid JSON string that contains application-specific data..
      * 
-     * @param attributes The new attributes metadata field you can use to store any
-     *                   data you wish.
+     * @param attributes A valid JSON string that contains application-specific data
      * @return this
      */
     public MessageUpdater setAttributes(final String attributes) {

@@ -24,7 +24,7 @@ public class MemberUpdater extends Updater<Member> {
     private final String pathQueueSid;
     private final String pathCallSid;
     private final URI url;
-    private final HttpMethod method;
+    private HttpMethod method;
 
     /**
      * Construct a new MemberUpdater.
@@ -32,16 +32,13 @@ public class MemberUpdater extends Updater<Member> {
      * @param pathQueueSid The SID of the Queue in which to find the members
      * @param pathCallSid The Call SID of the resource(s) to update
      * @param url The absolute URL of the Queue resource
-     * @param method How to pass the update request data
      */
     public MemberUpdater(final String pathQueueSid, 
                          final String pathCallSid, 
-                         final URI url, 
-                         final HttpMethod method) {
+                         final URI url) {
         this.pathQueueSid = pathQueueSid;
         this.pathCallSid = pathCallSid;
         this.url = url;
-        this.method = method;
     }
 
     /**
@@ -52,18 +49,28 @@ public class MemberUpdater extends Updater<Member> {
      * @param pathQueueSid The SID of the Queue in which to find the members
      * @param pathCallSid The Call SID of the resource(s) to update
      * @param url The absolute URL of the Queue resource
-     * @param method How to pass the update request data
      */
     public MemberUpdater(final String pathAccountSid, 
                          final String pathQueueSid, 
                          final String pathCallSid, 
-                         final URI url, 
-                         final HttpMethod method) {
+                         final URI url) {
         this.pathAccountSid = pathAccountSid;
         this.pathQueueSid = pathQueueSid;
         this.pathCallSid = pathCallSid;
         this.url = url;
+    }
+
+    /**
+     * How to pass the update request data. Can be `GET` or `POST` and the default
+     * is `POST`. `POST` sends the data as encoded form data and `GET` sends the
+     * data as query parameters..
+     * 
+     * @param method How to pass the update request data
+     * @return this
+     */
+    public MemberUpdater setMethod(final HttpMethod method) {
         this.method = method;
+        return this;
     }
 
     /**

@@ -30,8 +30,8 @@ public class MemberReader extends Reader<Member> {
     /**
      * Construct a new MemberReader.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
+     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathChannelSid The unique ID of the channel the member belongs to
      */
     public MemberReader(final String pathServiceSid, 
                         final String pathChannelSid) {
@@ -40,13 +40,12 @@ public class MemberReader extends Reader<Member> {
     }
 
     /**
-     * A unique string identifier for this
-     * [User](https://www.twilio.com/docs/api/chat/rest/v1/users) in this
-     * [Service](https://www.twilio.com/docs/api/chat/rest/v1/services). See the
-     * [access
-     * tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens)[/docs/api/chat/guides/create-tokens] docs for more details..
+     * The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)'s `identity`
+     * value of the resources to read. See [access
+     * tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more
+     * details..
      * 
-     * @param identity A unique string identifier for this User in this Service.
+     * @param identity The `identity` value of the resources to read
      * @return this
      */
     public MemberReader setIdentity(final List<String> identity) {
@@ -55,13 +54,12 @@ public class MemberReader extends Reader<Member> {
     }
 
     /**
-     * A unique string identifier for this
-     * [User](https://www.twilio.com/docs/api/chat/rest/v1/users) in this
-     * [Service](https://www.twilio.com/docs/api/chat/rest/v1/services). See the
-     * [access
-     * tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens)[/docs/api/chat/guides/create-tokens] docs for more details..
+     * The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)'s `identity`
+     * value of the resources to read. See [access
+     * tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more
+     * details..
      * 
-     * @param identity A unique string identifier for this User in this Service.
+     * @param identity The `identity` value of the resources to read
      * @return this
      */
     public MemberReader setIdentity(final String identity) {

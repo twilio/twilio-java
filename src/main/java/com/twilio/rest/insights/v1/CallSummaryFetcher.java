@@ -24,6 +24,7 @@ import com.twilio.rest.Domains;
  */
 public class CallSummaryFetcher extends Fetcher<CallSummary> {
     private final String pathCallSid;
+    private CallSummary.ProcessingState processingState;
 
     /**
      * Construct a new CallSummaryFetcher.
@@ -32,6 +33,17 @@ public class CallSummaryFetcher extends Fetcher<CallSummary> {
      */
     public CallSummaryFetcher(final String pathCallSid) {
         this.pathCallSid = pathCallSid;
+    }
+
+    /**
+     * The processing_state.
+     * 
+     * @param processingState The processing_state
+     * @return this
+     */
+    public CallSummaryFetcher setProcessingState(final CallSummary.ProcessingState processingState) {
+        this.processingState = processingState;
+        return this;
     }
 
     /**
@@ -50,6 +62,7 @@ public class CallSummaryFetcher extends Fetcher<CallSummary> {
             client.getRegion()
         );
 
+        addQueryParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -70,5 +83,16 @@ public class CallSummaryFetcher extends Fetcher<CallSummary> {
         }
 
         return CallSummary.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested query string arguments to the Request.
+     * 
+     * @param request Request to add query string arguments to
+     */
+    private void addQueryParams(final Request request) {
+        if (processingState != null) {
+            request.addQueryParam("ProcessingState", processingState.toString());
+        }
     }
 }

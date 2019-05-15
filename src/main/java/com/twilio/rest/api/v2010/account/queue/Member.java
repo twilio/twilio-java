@@ -71,15 +71,13 @@ public class Member extends Resource {
      * @param pathQueueSid The SID of the Queue in which to find the members
      * @param pathCallSid The Call SID of the resource(s) to update
      * @param url The absolute URL of the Queue resource
-     * @param method How to pass the update request data
      * @return MemberUpdater capable of executing the update
      */
     public static MemberUpdater updater(final String pathAccountSid, 
                                         final String pathQueueSid, 
                                         final String pathCallSid, 
-                                        final URI url, 
-                                        final HttpMethod method) {
-        return new MemberUpdater(pathAccountSid, pathQueueSid, pathCallSid, url, method);
+                                        final URI url) {
+        return new MemberUpdater(pathAccountSid, pathQueueSid, pathCallSid, url);
     }
 
     /**
@@ -88,14 +86,12 @@ public class Member extends Resource {
      * @param pathQueueSid The SID of the Queue in which to find the members
      * @param pathCallSid The Call SID of the resource(s) to update
      * @param url The absolute URL of the Queue resource
-     * @param method How to pass the update request data
      * @return MemberUpdater capable of executing the update
      */
     public static MemberUpdater updater(final String pathQueueSid, 
                                         final String pathCallSid, 
-                                        final URI url, 
-                                        final HttpMethod method) {
-        return new MemberUpdater(pathQueueSid, pathCallSid, url, method);
+                                        final URI url) {
+        return new MemberUpdater(pathQueueSid, pathCallSid, url);
     }
 
     /**

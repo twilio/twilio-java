@@ -30,8 +30,8 @@ public class InviteReader extends Reader<Invite> {
     /**
      * Construct a new InviteReader.
      * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
+     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathChannelSid The SID of the Channel the resources to read belong to
      */
     public InviteReader(final String pathServiceSid, 
                         final String pathChannelSid) {
@@ -40,13 +40,12 @@ public class InviteReader extends Reader<Invite> {
     }
 
     /**
-     * A unique string identifier for this
-     * [User](https://www.twilio.com/docs/api/chat/rest/v1/user) in this
-     * [Service](https://www.twilio.com/docs/api/chat/rest/v1/service). See the
-     * [access
-     * tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens)[/docs/api/chat/guides/create-tokens] docs for more details..
+     * The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)'s `identity`
+     * value of the resources to read. See [access
+     * tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more
+     * details..
      * 
-     * @param identity A unique string identifier for this User in this Service.
+     * @param identity The `identity` value of the resources to read
      * @return this
      */
     public InviteReader setIdentity(final List<String> identity) {
@@ -55,13 +54,12 @@ public class InviteReader extends Reader<Invite> {
     }
 
     /**
-     * A unique string identifier for this
-     * [User](https://www.twilio.com/docs/api/chat/rest/v1/user) in this
-     * [Service](https://www.twilio.com/docs/api/chat/rest/v1/service). See the
-     * [access
-     * tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens)[/docs/api/chat/guides/create-tokens] docs for more details..
+     * The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)'s `identity`
+     * value of the resources to read. See [access
+     * tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more
+     * details..
      * 
-     * @param identity A unique string identifier for this User in this Service.
+     * @param identity The `identity` value of the resources to read
      * @return this
      */
     public InviteReader setIdentity(final String identity) {

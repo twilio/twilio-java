@@ -4,9 +4,15 @@ import java.util.Objects;
 
 public class Client implements Endpoint {
 
+    public static final String PREFIX = "client:";
+
     private final String client;
 
     public Client(String client) {
+        if (!client.toLowerCase().startsWith(PREFIX)) {
+            client = PREFIX + client;
+        }
+
         this.client = client;
     }
 

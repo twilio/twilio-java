@@ -64,21 +64,21 @@ public class Participant extends Resource {
 
     /**
      * Create a ParticipantFetcher to execute fetch.
-     * 
+     *
      * @param pathRoomSid A system-generated 34-character string that uniquely
      *                    identifies a Room.
      * @param pathSid A system-generated 34-character string that uniquely
      *                identifies this Participant.
      * @return ParticipantFetcher capable of executing the fetch
      */
-    public static ParticipantFetcher fetcher(final String pathRoomSid, 
+    public static ParticipantFetcher fetcher(final String pathRoomSid,
                                              final String pathSid) {
         return new ParticipantFetcher(pathRoomSid, pathSid);
     }
 
     /**
      * Create a ParticipantReader to execute read.
-     * 
+     *
      * @param pathRoomSid A system-generated 34-character string that uniquely
      *                    identifies this Room.
      * @return ParticipantReader capable of executing the read
@@ -89,14 +89,14 @@ public class Participant extends Resource {
 
     /**
      * Create a ParticipantUpdater to execute update.
-     * 
+     *
      * @param pathRoomSid A system-generated 34-character string that uniquely
      *                    identifies a Room.
      * @param pathSid A system-generated 34-character string that uniquely
      *                identifies this Participant.
      * @return ParticipantUpdater capable of executing the update
      */
-    public static ParticipantUpdater updater(final String pathRoomSid, 
+    public static ParticipantUpdater updater(final String pathRoomSid,
                                              final String pathSid) {
         return new ParticipantUpdater(pathRoomSid, pathSid);
     }
@@ -104,7 +104,7 @@ public class Participant extends Resource {
     /**
      * Converts a JSON String into a Participant object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Participant object represented by the provided JSON
@@ -123,7 +123,7 @@ public class Participant extends Resource {
     /**
      * Converts a JSON InputStream into a Participant object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Participant object represented by the provided JSON
@@ -154,27 +154,27 @@ public class Participant extends Resource {
 
     @JsonCreator
     private Participant(@JsonProperty("sid")
-                        final String sid, 
+                        final String sid,
                         @JsonProperty("room_sid")
-                        final String roomSid, 
+                        final String roomSid,
                         @JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("status")
-                        final Participant.Status status, 
+                        final Participant.Status status,
                         @JsonProperty("identity")
-                        final String identity, 
+                        final String identity,
                         @JsonProperty("date_created")
-                        final String dateCreated, 
+                        final String dateCreated,
                         @JsonProperty("date_updated")
-                        final String dateUpdated, 
+                        final String dateUpdated,
                         @JsonProperty("start_time")
-                        final String startTime, 
+                        final String startTime,
                         @JsonProperty("end_time")
-                        final String endTime, 
+                        final String endTime,
                         @JsonProperty("duration")
-                        final Integer duration, 
+                        final Integer duration,
                         @JsonProperty("url")
-                        final URI url, 
+                        final URI url,
                         @JsonProperty("links")
                         final Map<String, String> links) {
         this.sid = sid;
@@ -193,7 +193,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The A 34 character string that uniquely identifies this resource..
-     * 
+     *
      * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
@@ -202,7 +202,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The A system-generated 34-character string that uniquely identifies..
-     * 
+     *
      * @return A system-generated 34-character string that uniquely identifies.
      */
     public final String getRoomSid() {
@@ -211,7 +211,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The The unique ID of the Account associated with this Room..
-     * 
+     *
      * @return The unique ID of the Account associated with this Room.
      */
     public final String getAccountSid() {
@@ -220,7 +220,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The A string representing the status of the Participant..
-     * 
+     *
      * @return A string representing the status of the Participant.
      */
     public final Participant.Status getStatus() {
@@ -229,7 +229,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The The unique name identifier that is assigned to this Participant..
-     * 
+     *
      * @return The unique name identifier that is assigned to this Participant.
      */
     public final String getIdentity() {
@@ -239,7 +239,7 @@ public class Participant extends Resource {
     /**
      * Returns The The date that this resource was created, given as a UTC ISO 8601
      * Timestamp..
-     * 
+     *
      * @return The date that this resource was created, given as a UTC ISO 8601
      *         Timestamp.
      */
@@ -250,7 +250,7 @@ public class Participant extends Resource {
     /**
      * Returns The The date that this resource was last updated, given as a UTC ISO
      * 8601 Timestamp..
-     * 
+     *
      * @return The date that this resource was last updated, given as a UTC ISO
      *         8601 Timestamp.
      */
@@ -261,7 +261,7 @@ public class Participant extends Resource {
     /**
      * Returns The The time of Participant connected to the Room, given as a UTC ISO
      * 8601 Timestamp..
-     * 
+     *
      * @return The time of Participant connected to the Room, given as a UTC ISO
      *         8601 Timestamp.
      */
@@ -272,7 +272,7 @@ public class Participant extends Resource {
     /**
      * Returns The The time of Participant disconnected from the Room, given as a
      * UTC ISO 8601 Timestamp..
-     * 
+     *
      * @return The time of Participant disconnected from the Room, given as a UTC
      *         ISO 8601 Timestamp.
      */
@@ -282,7 +282,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The Duration of time in seconds this Participant was connected..
-     * 
+     *
      * @return Duration of time in seconds this Participant was connected.
      */
     public final Integer getDuration() {
@@ -291,7 +291,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The The absolute URL for this resource..
-     * 
+     *
      * @return The absolute URL for this resource.
      */
     public final URI getUrl() {
@@ -300,7 +300,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The The links.
-     * 
+     *
      * @return The links
      */
     public final Map<String, String> getLinks() {
@@ -319,17 +319,17 @@ public class Participant extends Resource {
 
         Participant other = (Participant) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(roomSid, other.roomSid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(identity, other.identity) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(startTime, other.startTime) && 
-               Objects.equals(endTime, other.endTime) && 
-               Objects.equals(duration, other.duration) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(roomSid, other.roomSid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(identity, other.identity) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(startTime, other.startTime) &&
+               Objects.equals(endTime, other.endTime) &&
+               Objects.equals(duration, other.duration) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

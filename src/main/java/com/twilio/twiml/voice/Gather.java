@@ -217,7 +217,7 @@ public class Gather extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -278,7 +278,7 @@ public class Gather extends TwiML {
 
     /**
      * Input type Twilio should accept
-     * 
+     *
      * @return Input type Twilio should accept
      */
     public List<Gather.Input> getInputs() {
@@ -299,7 +299,7 @@ public class Gather extends TwiML {
 
     /**
      * Action URL
-     * 
+     *
      * @return Action URL
      */
     public URI getAction() {
@@ -308,7 +308,7 @@ public class Gather extends TwiML {
 
     /**
      * Action URL method
-     * 
+     *
      * @return Action URL method
      */
     public HttpMethod getMethod() {
@@ -317,7 +317,7 @@ public class Gather extends TwiML {
 
     /**
      * Time to wait to gather input
-     * 
+     *
      * @return Time to wait to gather input
      */
     public Integer getTimeout() {
@@ -327,7 +327,7 @@ public class Gather extends TwiML {
     /**
      * Time to wait to gather speech input and it should be either auto or a
      * positive integer.
-     * 
+     *
      * @return Time to wait to gather speech input and it should be either auto or
      *         a positive integer.
      */
@@ -337,7 +337,7 @@ public class Gather extends TwiML {
 
     /**
      * Max allowed time for speech input
-     * 
+     *
      * @return Max allowed time for speech input
      */
     public Integer getMaxSpeechTime() {
@@ -346,7 +346,7 @@ public class Gather extends TwiML {
 
     /**
      * Profanity Filter on speech
-     * 
+     *
      * @return Profanity Filter on speech
      */
     public Boolean isProfanityFilter() {
@@ -355,7 +355,7 @@ public class Gather extends TwiML {
 
     /**
      * Finish gather on key
-     * 
+     *
      * @return Finish gather on key
      */
     public String getFinishOnKey() {
@@ -364,7 +364,7 @@ public class Gather extends TwiML {
 
     /**
      * Number of digits to collect
-     * 
+     *
      * @return Number of digits to collect
      */
     public Integer getNumDigits() {
@@ -373,7 +373,7 @@ public class Gather extends TwiML {
 
     /**
      * Partial result callback URL
-     * 
+     *
      * @return Partial result callback URL
      */
     public URI getPartialResultCallback() {
@@ -382,7 +382,7 @@ public class Gather extends TwiML {
 
     /**
      * Partial result callback URL method
-     * 
+     *
      * @return Partial result callback URL method
      */
     public HttpMethod getPartialResultCallbackMethod() {
@@ -391,7 +391,7 @@ public class Gather extends TwiML {
 
     /**
      * Language to use
-     * 
+     *
      * @return Language to use
      */
     public Gather.Language getLanguage() {
@@ -400,7 +400,7 @@ public class Gather extends TwiML {
 
     /**
      * Speech recognition hints
-     * 
+     *
      * @return Speech recognition hints
      */
     public String getHints() {
@@ -409,7 +409,7 @@ public class Gather extends TwiML {
 
     /**
      * Stop playing media upon speech
-     * 
+     *
      * @return Stop playing media upon speech
      */
     public Boolean isBargeIn() {
@@ -418,7 +418,7 @@ public class Gather extends TwiML {
 
     /**
      * Allow debug for gather
-     * 
+     *
      * @return Allow debug for gather
      */
     public Boolean isDebug() {
@@ -427,7 +427,7 @@ public class Gather extends TwiML {
 
     /**
      * Force webhook to the action URL event if there is no input
-     * 
+     *
      * @return Force webhook to the action URL event if there is no input
      */
     public Boolean isActionOnEmptyResult() {

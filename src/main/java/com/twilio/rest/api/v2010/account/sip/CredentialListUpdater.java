@@ -24,11 +24,11 @@ public class CredentialListUpdater extends Updater<CredentialList> {
 
     /**
      * Construct a new CredentialListUpdater.
-     * 
+     *
      * @param pathSid Update by unique credential list Sid
      * @param friendlyName Human readable descriptive text
      */
-    public CredentialListUpdater(final String pathSid, 
+    public CredentialListUpdater(final String pathSid,
                                  final String friendlyName) {
         this.pathSid = pathSid;
         this.friendlyName = friendlyName;
@@ -36,14 +36,14 @@ public class CredentialListUpdater extends Updater<CredentialList> {
 
     /**
      * Construct a new CredentialListUpdater.
-     * 
+     *
      * @param pathAccountSid The unique id of the Account that is responsible for
      *                       this resource.
      * @param pathSid Update by unique credential list Sid
      * @param friendlyName Human readable descriptive text
      */
-    public CredentialListUpdater(final String pathAccountSid, 
-                                 final String pathSid, 
+    public CredentialListUpdater(final String pathAccountSid,
+                                 final String pathSid,
                                  final String friendlyName) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -52,7 +52,7 @@ public class CredentialListUpdater extends Updater<CredentialList> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated CredentialList
      */
@@ -92,7 +92,7 @@ public class CredentialListUpdater extends Updater<CredentialList> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

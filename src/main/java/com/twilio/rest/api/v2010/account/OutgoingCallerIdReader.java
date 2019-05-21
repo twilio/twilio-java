@@ -33,7 +33,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
 
     /**
      * Construct a new OutgoingCallerIdReader.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       read
      */
@@ -43,7 +43,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
 
     /**
      * The phone number of the OutgoingCallerId resources to read..
-     * 
+     *
      * @param phoneNumber The phone number of the OutgoingCallerId resources to read
      * @return this
      */
@@ -54,7 +54,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
 
     /**
      * The phone number of the OutgoingCallerId resources to read..
-     * 
+     *
      * @param phoneNumber The phone number of the OutgoingCallerId resources to read
      * @return this
      */
@@ -64,7 +64,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
 
     /**
      * The string that identifies the OutgoingCallerId resources to read..
-     * 
+     *
      * @param friendlyName The string that identifies the OutgoingCallerId
      *                     resources to read
      * @return this
@@ -76,7 +76,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return OutgoingCallerId ResourceSet
      */
@@ -87,7 +87,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return OutgoingCallerId ResourceSet
      */
@@ -108,7 +108,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return OutgoingCallerId ResourceSet
@@ -127,13 +127,13 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<OutgoingCallerId> nextPage(final Page<OutgoingCallerId> page, 
+    public Page<OutgoingCallerId> nextPage(final Page<OutgoingCallerId> page,
                                            final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -147,13 +147,13 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<OutgoingCallerId> previousPage(final Page<OutgoingCallerId> page, 
+    public Page<OutgoingCallerId> previousPage(final Page<OutgoingCallerId> page,
                                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -167,7 +167,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
 
     /**
      * Generate a Page of OutgoingCallerId Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -202,7 +202,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

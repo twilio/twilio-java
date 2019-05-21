@@ -24,12 +24,12 @@ public class AddOnResultDeleter extends Deleter<AddOnResult> {
 
     /**
      * Construct a new AddOnResultDeleter.
-     * 
+     *
      * @param pathReferenceSid The SID of the recording to which the result to
      *                         delete belongs
      * @param pathSid The unique string that identifies the resource to delete
      */
-    public AddOnResultDeleter(final String pathReferenceSid, 
+    public AddOnResultDeleter(final String pathReferenceSid,
                               final String pathSid) {
         this.pathReferenceSid = pathReferenceSid;
         this.pathSid = pathSid;
@@ -37,15 +37,15 @@ public class AddOnResultDeleter extends Deleter<AddOnResult> {
 
     /**
      * Construct a new AddOnResultDeleter.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       delete
      * @param pathReferenceSid The SID of the recording to which the result to
      *                         delete belongs
      * @param pathSid The unique string that identifies the resource to delete
      */
-    public AddOnResultDeleter(final String pathAccountSid, 
-                              final String pathReferenceSid, 
+    public AddOnResultDeleter(final String pathAccountSid,
+                              final String pathReferenceSid,
                               final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathReferenceSid = pathReferenceSid;
@@ -54,7 +54,7 @@ public class AddOnResultDeleter extends Deleter<AddOnResult> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

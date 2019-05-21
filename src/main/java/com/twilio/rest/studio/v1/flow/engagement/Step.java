@@ -39,33 +39,33 @@ public class Step extends Resource {
 
     /**
      * Create a StepReader to execute read.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      * @param pathEngagementSid Engagement Sid.
      * @return StepReader capable of executing the read
      */
-    public static StepReader reader(final String pathFlowSid, 
+    public static StepReader reader(final String pathFlowSid,
                                     final String pathEngagementSid) {
         return new StepReader(pathFlowSid, pathEngagementSid);
     }
 
     /**
      * Create a StepFetcher to execute fetch.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      * @param pathEngagementSid Engagement Sid.
      * @param pathSid Step Sid.
      * @return StepFetcher capable of executing the fetch
      */
-    public static StepFetcher fetcher(final String pathFlowSid, 
-                                      final String pathEngagementSid, 
+    public static StepFetcher fetcher(final String pathFlowSid,
+                                      final String pathEngagementSid,
                                       final String pathSid) {
         return new StepFetcher(pathFlowSid, pathEngagementSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a Step object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Step object represented by the provided JSON
@@ -84,7 +84,7 @@ public class Step extends Resource {
     /**
      * Converts a JSON InputStream into a Step object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Step object represented by the provided JSON
@@ -115,27 +115,27 @@ public class Step extends Resource {
 
     @JsonCreator
     private Step(@JsonProperty("sid")
-                 final String sid, 
+                 final String sid,
                  @JsonProperty("account_sid")
-                 final String accountSid, 
+                 final String accountSid,
                  @JsonProperty("flow_sid")
-                 final String flowSid, 
+                 final String flowSid,
                  @JsonProperty("engagement_sid")
-                 final String engagementSid, 
+                 final String engagementSid,
                  @JsonProperty("name")
-                 final String name, 
+                 final String name,
                  @JsonProperty("context")
-                 final Map<String, Object> context, 
+                 final Map<String, Object> context,
                  @JsonProperty("transitioned_from")
-                 final String transitionedFrom, 
+                 final String transitionedFrom,
                  @JsonProperty("transitioned_to")
-                 final String transitionedTo, 
+                 final String transitionedTo,
                  @JsonProperty("date_created")
-                 final String dateCreated, 
+                 final String dateCreated,
                  @JsonProperty("date_updated")
-                 final String dateUpdated, 
+                 final String dateUpdated,
                  @JsonProperty("url")
-                 final URI url, 
+                 final URI url,
                  @JsonProperty("links")
                  final Map<String, String> links) {
         this.sid = sid;
@@ -154,7 +154,7 @@ public class Step extends Resource {
 
     /**
      * Returns The A string that uniquely identifies this Step..
-     * 
+     *
      * @return A string that uniquely identifies this Step.
      */
     public final String getSid() {
@@ -163,7 +163,7 @@ public class Step extends Resource {
 
     /**
      * Returns The Account Sid..
-     * 
+     *
      * @return Account Sid.
      */
     public final String getAccountSid() {
@@ -172,7 +172,7 @@ public class Step extends Resource {
 
     /**
      * Returns The Flow Sid..
-     * 
+     *
      * @return Flow Sid.
      */
     public final String getFlowSid() {
@@ -181,7 +181,7 @@ public class Step extends Resource {
 
     /**
      * Returns The Engagement Sid..
-     * 
+     *
      * @return Engagement Sid.
      */
     public final String getEngagementSid() {
@@ -190,7 +190,7 @@ public class Step extends Resource {
 
     /**
      * Returns The The event that caused the flow to transition to this Step..
-     * 
+     *
      * @return The event that caused the flow to transition to this Step.
      */
     public final String getName() {
@@ -199,7 +199,7 @@ public class Step extends Resource {
 
     /**
      * Returns The The context.
-     * 
+     *
      * @return The context
      */
     public final Map<String, Object> getContext() {
@@ -208,7 +208,7 @@ public class Step extends Resource {
 
     /**
      * Returns The The Widget that preceded the Widget for this Step..
-     * 
+     *
      * @return The Widget that preceded the Widget for this Step.
      */
     public final String getTransitionedFrom() {
@@ -217,7 +217,7 @@ public class Step extends Resource {
 
     /**
      * Returns The The Widget that will follow the Widget for this Step..
-     * 
+     *
      * @return The Widget that will follow the Widget for this Step.
      */
     public final String getTransitionedTo() {
@@ -226,7 +226,7 @@ public class Step extends Resource {
 
     /**
      * Returns The The date this Step was created.
-     * 
+     *
      * @return The date this Step was created
      */
     public final DateTime getDateCreated() {
@@ -235,7 +235,7 @@ public class Step extends Resource {
 
     /**
      * Returns The The date this Step was updated.
-     * 
+     *
      * @return The date this Step was updated
      */
     public final DateTime getDateUpdated() {
@@ -244,7 +244,7 @@ public class Step extends Resource {
 
     /**
      * Returns The The URL of this resource..
-     * 
+     *
      * @return The URL of this resource.
      */
     public final URI getUrl() {
@@ -253,7 +253,7 @@ public class Step extends Resource {
 
     /**
      * Returns The The links.
-     * 
+     *
      * @return The links
      */
     public final Map<String, String> getLinks() {
@@ -272,17 +272,17 @@ public class Step extends Resource {
 
         Step other = (Step) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(flowSid, other.flowSid) && 
-               Objects.equals(engagementSid, other.engagementSid) && 
-               Objects.equals(name, other.name) && 
-               Objects.equals(context, other.context) && 
-               Objects.equals(transitionedFrom, other.transitionedFrom) && 
-               Objects.equals(transitionedTo, other.transitionedTo) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(flowSid, other.flowSid) &&
+               Objects.equals(engagementSid, other.engagementSid) &&
+               Objects.equals(name, other.name) &&
+               Objects.equals(context, other.context) &&
+               Objects.equals(transitionedFrom, other.transitionedFrom) &&
+               Objects.equals(transitionedTo, other.transitionedTo) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

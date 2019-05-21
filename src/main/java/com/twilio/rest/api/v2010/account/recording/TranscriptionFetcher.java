@@ -24,12 +24,12 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
 
     /**
      * Construct a new TranscriptionFetcher.
-     * 
+     *
      * @param pathRecordingSid The SID of the recording that created the
      *                         transcriptions to fetch
      * @param pathSid The unique string that identifies the resource
      */
-    public TranscriptionFetcher(final String pathRecordingSid, 
+    public TranscriptionFetcher(final String pathRecordingSid,
                                 final String pathSid) {
         this.pathRecordingSid = pathRecordingSid;
         this.pathSid = pathSid;
@@ -37,15 +37,15 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
 
     /**
      * Construct a new TranscriptionFetcher.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource to
      *                       fetch
      * @param pathRecordingSid The SID of the recording that created the
      *                         transcriptions to fetch
      * @param pathSid The unique string that identifies the resource
      */
-    public TranscriptionFetcher(final String pathAccountSid, 
-                                final String pathRecordingSid, 
+    public TranscriptionFetcher(final String pathAccountSid,
+                                final String pathRecordingSid,
                                 final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathRecordingSid = pathRecordingSid;
@@ -54,7 +54,7 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Transcription
      */

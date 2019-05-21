@@ -32,7 +32,7 @@ public class Autopilot extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -41,7 +41,7 @@ public class Autopilot extends TwiML {
 
     /**
      * Autopilot assistant sid or unique name
-     * 
+     *
      * @return Autopilot assistant sid or unique name
      */
     public String getName() {

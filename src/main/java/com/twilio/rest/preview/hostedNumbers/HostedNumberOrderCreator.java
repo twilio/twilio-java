@@ -47,11 +47,11 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
 
     /**
      * Construct a new HostedNumberOrderCreator.
-     * 
+     *
      * @param phoneNumber An E164 formatted phone number.
      * @param smsCapability Specify SMS capability to host.
      */
-    public HostedNumberOrderCreator(final com.twilio.type.PhoneNumber phoneNumber, 
+    public HostedNumberOrderCreator(final com.twilio.type.PhoneNumber phoneNumber,
                                     final Boolean smsCapability) {
         this.phoneNumber = phoneNumber;
         this.smsCapability = smsCapability;
@@ -60,7 +60,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     /**
      * This defaults to the AccountSid of the authorization the user is using. This
      * can be provided to specify a subaccount to add the HostedNumberOrder to..
-     * 
+     *
      * @param accountSid Account Sid.
      * @return this
      */
@@ -72,7 +72,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     /**
      * A 64 character string that is a human readable text that describes this
      * resource..
-     * 
+     *
      * @param friendlyName A human readable description of this resource.
      * @return this
      */
@@ -85,7 +85,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
      * Optional. Provides a unique and addressable name to be assigned to this
      * HostedNumberOrder, assigned by the developer, to be optionally used in
      * addition to SID..
-     * 
+     *
      * @param uniqueName A unique, developer assigned name of this
      *                   HostedNumberOrder.
      * @return this
@@ -98,7 +98,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     /**
      * Optional. A list of emails that the LOA document for this HostedNumberOrder
      * will be carbon copied to..
-     * 
+     *
      * @param ccEmails A list of emails.
      * @return this
      */
@@ -110,7 +110,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     /**
      * Optional. A list of emails that the LOA document for this HostedNumberOrder
      * will be carbon copied to..
-     * 
+     *
      * @param ccEmails A list of emails.
      * @return this
      */
@@ -121,7 +121,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     /**
      * The URL that Twilio should request when somebody sends an SMS to the phone
      * number. This will be copied onto the IncomingPhoneNumber resource..
-     * 
+     *
      * @param smsUrl SMS URL.
      * @return this
      */
@@ -133,7 +133,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     /**
      * The URL that Twilio should request when somebody sends an SMS to the phone
      * number. This will be copied onto the IncomingPhoneNumber resource..
-     * 
+     *
      * @param smsUrl SMS URL.
      * @return this
      */
@@ -144,7 +144,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     /**
      * The HTTP method that should be used to request the SmsUrl. Must be either
      * `GET` or `POST`.  This will be copied onto the IncomingPhoneNumber resource..
-     * 
+     *
      * @param smsMethod SMS Method.
      * @return this
      */
@@ -157,7 +157,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
      * A URL that Twilio will request if an error occurs requesting or executing the
      * TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber
      * resource..
-     * 
+     *
      * @param smsFallbackUrl SMS Fallback URL.
      * @return this
      */
@@ -170,7 +170,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
      * A URL that Twilio will request if an error occurs requesting or executing the
      * TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber
      * resource..
-     * 
+     *
      * @param smsFallbackUrl SMS Fallback URL.
      * @return this
      */
@@ -182,7 +182,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
      * The HTTP method that should be used to request the SmsFallbackUrl. Must be
      * either `GET` or `POST`. This will be copied onto the IncomingPhoneNumber
      * resource..
-     * 
+     *
      * @param smsFallbackMethod SMS Fallback Method.
      * @return this
      */
@@ -194,7 +194,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     /**
      * Optional. The Status Callback URL attached to the IncomingPhoneNumber
      * resource..
-     * 
+     *
      * @param statusCallbackUrl Status Callback URL.
      * @return this
      */
@@ -206,7 +206,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     /**
      * Optional. The Status Callback URL attached to the IncomingPhoneNumber
      * resource..
-     * 
+     *
      * @param statusCallbackUrl Status Callback URL.
      * @return this
      */
@@ -217,7 +217,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     /**
      * Optional. The Status Callback Method attached to the IncomingPhoneNumber
      * resource..
-     * 
+     *
      * @param statusCallbackMethod Status Callback Method.
      * @return this
      */
@@ -230,7 +230,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
      * Optional. The 34 character sid of the application Twilio should use to handle
      * SMS messages sent to this number. If a `SmsApplicationSid` is present, Twilio
      * will ignore all of the SMS urls above and use those set on the application..
-     * 
+     *
      * @param smsApplicationSid SMS Application Sid.
      * @return this
      */
@@ -242,7 +242,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     /**
      * Optional. A 34 character string that uniquely identifies the Address resource
      * that represents the address of the owner of this phone number..
-     * 
+     *
      * @param addressSid Address sid.
      * @return this
      */
@@ -253,7 +253,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
 
     /**
      * Optional. Email of the owner of this phone number that is being hosted..
-     * 
+     *
      * @param email Email.
      * @return this
      */
@@ -265,7 +265,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     /**
      * Optional. The method used for verifying ownership of the number to be hosted.
      * One of phone-call (default) or phone-bill..
-     * 
+     *
      * @param verificationType Verification Type.
      * @return this
      */
@@ -278,7 +278,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
      * Optional. The unique sid identifier of the Identity Document that represents
      * the document for verifying ownership of the number to be hosted. Required
      * when VerificationType is phone-bill..
-     * 
+     *
      * @param verificationDocumentSid Verification Document Sid
      * @return this
      */
@@ -289,7 +289,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created HostedNumberOrder
      */
@@ -328,7 +328,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

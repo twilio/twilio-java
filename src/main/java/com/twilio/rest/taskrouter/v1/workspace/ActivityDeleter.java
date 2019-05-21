@@ -23,11 +23,11 @@ public class ActivityDeleter extends Deleter<Activity> {
 
     /**
      * Construct a new ActivityDeleter.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathSid The sid
      */
-    public ActivityDeleter(final String pathWorkspaceSid, 
+    public ActivityDeleter(final String pathWorkspaceSid,
                            final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class ActivityDeleter extends Deleter<Activity> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

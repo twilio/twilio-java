@@ -27,11 +27,11 @@ public class SessionFetcher extends Fetcher<Session> {
 
     /**
      * Construct a new SessionFetcher.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to fetch the resource from
      * @param pathSid The unique string that identifies the resource
      */
-    public SessionFetcher(final String pathServiceSid, 
+    public SessionFetcher(final String pathServiceSid,
                           final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -39,7 +39,7 @@ public class SessionFetcher extends Fetcher<Session> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Session
      */

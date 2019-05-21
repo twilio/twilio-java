@@ -29,7 +29,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
     /**
      * Construct a new UsageRecordReader.
-     * 
+     *
      * @param pathSimSid The sim_sid
      */
     public UsageRecordReader(final String pathSimSid) {
@@ -39,7 +39,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     /**
      * Only include usage that has occurred on or before this date. Format is [ISO
      * 8601](http://www.iso.org/iso/home/standards/iso8601.htm)..
-     * 
+     *
      * @param end Only include usage that has occurred on or before this date.
      * @return this
      */
@@ -51,7 +51,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     /**
      * Only include usage that has occurred on or after this date. Format is [ISO
      * 8601](http://www.iso.org/iso/home/standards/iso8601.htm)..
-     * 
+     *
      * @param start Only include usage that has occurred on or after this date.
      * @return this
      */
@@ -64,7 +64,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
      * The time-based grouping that results are aggregated by. Valid values are
      * `daily`, `hourly`, `all`. `all` will return one Usage Record for the entire
      * period..
-     * 
+     *
      * @param granularity The time-based grouping that results are aggregated by.
      * @return this
      */
@@ -75,7 +75,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return UsageRecord ResourceSet
      */
@@ -86,7 +86,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return UsageRecord ResourceSet
      */
@@ -106,7 +106,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return UsageRecord ResourceSet
@@ -124,13 +124,13 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<UsageRecord> nextPage(final Page<UsageRecord> page, 
+    public Page<UsageRecord> nextPage(final Page<UsageRecord> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -144,13 +144,13 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<UsageRecord> previousPage(final Page<UsageRecord> page, 
+    public Page<UsageRecord> previousPage(final Page<UsageRecord> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -164,7 +164,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
     /**
      * Generate a Page of UsageRecord Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -199,7 +199,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

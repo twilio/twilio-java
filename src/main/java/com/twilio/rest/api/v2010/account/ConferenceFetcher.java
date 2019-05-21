@@ -23,7 +23,7 @@ public class ConferenceFetcher extends Fetcher<Conference> {
 
     /**
      * Construct a new ConferenceFetcher.
-     * 
+     *
      * @param pathSid The unique string that identifies this resource
      */
     public ConferenceFetcher(final String pathSid) {
@@ -32,12 +32,12 @@ public class ConferenceFetcher extends Fetcher<Conference> {
 
     /**
      * Construct a new ConferenceFetcher.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       fetch
      * @param pathSid The unique string that identifies this resource
      */
-    public ConferenceFetcher(final String pathAccountSid, 
+    public ConferenceFetcher(final String pathAccountSid,
                              final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -45,7 +45,7 @@ public class ConferenceFetcher extends Fetcher<Conference> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Conference
      */

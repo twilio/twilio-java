@@ -28,14 +28,14 @@ public class SyncListPermissionFetcher extends Fetcher<SyncListPermission> {
 
     /**
      * Construct a new SyncListPermissionFetcher.
-     * 
+     *
      * @param pathServiceSid Sync Service Instance SID or unique name.
      * @param pathListSid Sync List SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync List Permission
      *                     applies.
      */
-    public SyncListPermissionFetcher(final String pathServiceSid, 
-                                     final String pathListSid, 
+    public SyncListPermissionFetcher(final String pathServiceSid,
+                                     final String pathListSid,
                                      final String pathIdentity) {
         this.pathServiceSid = pathServiceSid;
         this.pathListSid = pathListSid;
@@ -44,7 +44,7 @@ public class SyncListPermissionFetcher extends Fetcher<SyncListPermission> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched SyncListPermission
      */

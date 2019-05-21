@@ -28,11 +28,11 @@ public class FieldTypeFetcher extends Fetcher<FieldType> {
 
     /**
      * Construct a new FieldTypeFetcher.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      * @param pathSid The sid
      */
-    public FieldTypeFetcher(final String pathAssistantSid, 
+    public FieldTypeFetcher(final String pathAssistantSid,
                             final String pathSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class FieldTypeFetcher extends Fetcher<FieldType> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched FieldType
      */

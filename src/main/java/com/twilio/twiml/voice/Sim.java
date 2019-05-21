@@ -32,7 +32,7 @@ public class Sim extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -41,7 +41,7 @@ public class Sim extends TwiML {
 
     /**
      * SIM SID
-     * 
+     *
      * @return SIM SID
      */
     public String getSimSid() {

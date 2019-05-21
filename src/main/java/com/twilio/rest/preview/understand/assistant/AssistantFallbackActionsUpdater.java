@@ -31,7 +31,7 @@ public class AssistantFallbackActionsUpdater extends Updater<AssistantFallbackAc
 
     /**
      * Construct a new AssistantFallbackActionsUpdater.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      */
     public AssistantFallbackActionsUpdater(final String pathAssistantSid) {
@@ -40,7 +40,7 @@ public class AssistantFallbackActionsUpdater extends Updater<AssistantFallbackAc
 
     /**
      * The fallback_actions.
-     * 
+     *
      * @param fallbackActions The fallback_actions
      * @return this
      */
@@ -51,7 +51,7 @@ public class AssistantFallbackActionsUpdater extends Updater<AssistantFallbackAc
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated AssistantFallbackActions
      */
@@ -90,7 +90,7 @@ public class AssistantFallbackActionsUpdater extends Updater<AssistantFallbackAc
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

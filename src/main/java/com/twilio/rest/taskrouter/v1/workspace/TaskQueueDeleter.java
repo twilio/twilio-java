@@ -23,11 +23,11 @@ public class TaskQueueDeleter extends Deleter<TaskQueue> {
 
     /**
      * Construct a new TaskQueueDeleter.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathSid The sid
      */
-    public TaskQueueDeleter(final String pathWorkspaceSid, 
+    public TaskQueueDeleter(final String pathWorkspaceSid,
                             final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class TaskQueueDeleter extends Deleter<TaskQueue> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

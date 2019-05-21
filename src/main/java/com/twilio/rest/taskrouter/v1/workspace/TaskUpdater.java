@@ -28,11 +28,11 @@ public class TaskUpdater extends Updater<Task> {
 
     /**
      * Construct a new TaskUpdater.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathSid The sid
      */
-    public TaskUpdater(final String pathWorkspaceSid, 
+    public TaskUpdater(final String pathWorkspaceSid,
                        final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class TaskUpdater extends Updater<Task> {
 
     /**
      * The user-defined JSON data describing the custom attributes of this task..
-     * 
+     *
      * @param attributes The user-defined JSON data describing the custom
      *                   attributes of this task.
      * @return this
@@ -55,7 +55,7 @@ public class TaskUpdater extends Updater<Task> {
      * AssignmentStatus='canceled'. Post AssignmentStatus='wrapping' to move Task to
      * 'wrapup' state and AssignmentStatus='completed' to move a Task to 'completed'
      * state..
-     * 
+     *
      * @param assignmentStatus A 'pending' or 'reserved' Task may be canceled by
      *                         posting AssignmentStatus='canceled'.
      * @return this
@@ -69,7 +69,7 @@ public class TaskUpdater extends Updater<Task> {
      * This is only required if the Task is canceled or completed. This logs the
      * reason the task was either canceled or completed and queues the task for
      * deletion after 5 minutes..
-     * 
+     *
      * @param reason This is only required if the Task is canceled or completed.
      * @return this
      */
@@ -81,7 +81,7 @@ public class TaskUpdater extends Updater<Task> {
     /**
      * Override priority for the Task. When supplied, the Task will take on the
      * given priority unless it matches a Workflow Target with a Priority set..
-     * 
+     *
      * @param priority Override priority for the Task.
      * @return this
      */
@@ -92,7 +92,7 @@ public class TaskUpdater extends Updater<Task> {
 
     /**
      * The task_channel.
-     * 
+     *
      * @param taskChannel The task_channel
      * @return this
      */
@@ -103,7 +103,7 @@ public class TaskUpdater extends Updater<Task> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Task
      */
@@ -142,7 +142,7 @@ public class TaskUpdater extends Updater<Task> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

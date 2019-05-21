@@ -42,7 +42,7 @@ public class HostedNumberOrderTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
                                           "/HostedNumbers/HostedNumberOrders/HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class HostedNumberOrderTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.PREVIEW.toString(),
                                           "/HostedNumbers/HostedNumberOrders/HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -106,7 +106,7 @@ public class HostedNumberOrderTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.PREVIEW.toString(),
                                           "/HostedNumbers/HostedNumberOrders/HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -138,7 +138,7 @@ public class HostedNumberOrderTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
                                           "/HostedNumbers/HostedNumberOrders");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

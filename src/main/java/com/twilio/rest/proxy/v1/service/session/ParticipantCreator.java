@@ -31,13 +31,13 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * Construct a new ParticipantCreator.
-     * 
+     *
      * @param pathServiceSid The SID of the parent Service resource
      * @param pathSessionSid The SID of the parent Session resource
      * @param identifier The phone number of the Participant
      */
-    public ParticipantCreator(final String pathServiceSid, 
-                              final String pathSessionSid, 
+    public ParticipantCreator(final String pathServiceSid,
+                              final String pathSessionSid,
                               final String identifier) {
         this.pathServiceSid = pathServiceSid;
         this.pathSessionSid = pathSessionSid;
@@ -47,7 +47,7 @@ public class ParticipantCreator extends Creator<Participant> {
     /**
      * The string that you assigned to describe the participant. This value must be
      * 255 characters or fewer. **This value should not have PII.**.
-     * 
+     *
      * @param friendlyName The string that you assigned to describe the participant
      * @return this
      */
@@ -59,7 +59,7 @@ public class ParticipantCreator extends Creator<Participant> {
     /**
      * The proxy phone number to use for the Participant. If not specified, Proxy
      * will select a number from the pool..
-     * 
+     *
      * @param proxyIdentifier The proxy phone number to use for the Participant
      * @return this
      */
@@ -70,7 +70,7 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * The SID of the Proxy Identifier to assign to the Participant..
-     * 
+     *
      * @param proxyIdentifierSid The Proxy Identifier Sid
      * @return this
      */
@@ -81,7 +81,7 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Participant
      */
@@ -120,7 +120,7 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

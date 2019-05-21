@@ -358,20 +358,20 @@ public class Trigger extends Resource {
 
     /**
      * Create a TriggerFetcher to execute fetch.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource to
      *                       fetch
      * @param pathSid The unique string that identifies the resource
      * @return TriggerFetcher capable of executing the fetch
      */
-    public static TriggerFetcher fetcher(final String pathAccountSid, 
+    public static TriggerFetcher fetcher(final String pathAccountSid,
                                          final String pathSid) {
         return new TriggerFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a TriggerFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return TriggerFetcher capable of executing the fetch
      */
@@ -381,20 +381,20 @@ public class Trigger extends Resource {
 
     /**
      * Create a TriggerUpdater to execute update.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       update
      * @param pathSid The unique string that identifies the resource
      * @return TriggerUpdater capable of executing the update
      */
-    public static TriggerUpdater updater(final String pathAccountSid, 
+    public static TriggerUpdater updater(final String pathAccountSid,
                                          final String pathSid) {
         return new TriggerUpdater(pathAccountSid, pathSid);
     }
 
     /**
      * Create a TriggerUpdater to execute update.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return TriggerUpdater capable of executing the update
      */
@@ -404,20 +404,20 @@ public class Trigger extends Resource {
 
     /**
      * Create a TriggerDeleter to execute delete.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       delete
      * @param pathSid The unique string that identifies the resource
      * @return TriggerDeleter capable of executing the delete
      */
-    public static TriggerDeleter deleter(final String pathAccountSid, 
+    public static TriggerDeleter deleter(final String pathAccountSid,
                                          final String pathSid) {
         return new TriggerDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a TriggerDeleter to execute delete.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return TriggerDeleter capable of executing the delete
      */
@@ -427,37 +427,37 @@ public class Trigger extends Resource {
 
     /**
      * Create a TriggerCreator to execute create.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param callbackUrl The URL we call when the trigger fires
      * @param triggerValue The usage value at which the trigger should fire
      * @param usageCategory The usage category the trigger watches
      * @return TriggerCreator capable of executing the create
      */
-    public static TriggerCreator creator(final String pathAccountSid, 
-                                         final URI callbackUrl, 
-                                         final String triggerValue, 
+    public static TriggerCreator creator(final String pathAccountSid,
+                                         final URI callbackUrl,
+                                         final String triggerValue,
                                          final Trigger.UsageCategory usageCategory) {
         return new TriggerCreator(pathAccountSid, callbackUrl, triggerValue, usageCategory);
     }
 
     /**
      * Create a TriggerCreator to execute create.
-     * 
+     *
      * @param callbackUrl The URL we call when the trigger fires
      * @param triggerValue The usage value at which the trigger should fire
      * @param usageCategory The usage category the trigger watches
      * @return TriggerCreator capable of executing the create
      */
-    public static TriggerCreator creator(final URI callbackUrl, 
-                                         final String triggerValue, 
+    public static TriggerCreator creator(final URI callbackUrl,
+                                         final String triggerValue,
                                          final Trigger.UsageCategory usageCategory) {
         return new TriggerCreator(callbackUrl, triggerValue, usageCategory);
     }
 
     /**
      * Create a TriggerReader to execute read.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       read
      * @return TriggerReader capable of executing the read
@@ -468,7 +468,7 @@ public class Trigger extends Resource {
 
     /**
      * Create a TriggerReader to execute read.
-     * 
+     *
      * @return TriggerReader capable of executing the read
      */
     public static TriggerReader reader() {
@@ -477,7 +477,7 @@ public class Trigger extends Resource {
 
     /**
      * Converts a JSON String into a Trigger object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Trigger object represented by the provided JSON
@@ -496,7 +496,7 @@ public class Trigger extends Resource {
     /**
      * Converts a JSON InputStream into a Trigger object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Trigger object represented by the provided JSON
@@ -531,35 +531,35 @@ public class Trigger extends Resource {
 
     @JsonCreator
     private Trigger(@JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("api_version")
-                    final String apiVersion, 
+                    final String apiVersion,
                     @JsonProperty("callback_method")
-                    final HttpMethod callbackMethod, 
+                    final HttpMethod callbackMethod,
                     @JsonProperty("callback_url")
-                    final URI callbackUrl, 
+                    final URI callbackUrl,
                     @JsonProperty("current_value")
-                    final String currentValue, 
+                    final String currentValue,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_fired")
-                    final String dateFired, 
+                    final String dateFired,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("friendly_name")
-                    final String friendlyName, 
+                    final String friendlyName,
                     @JsonProperty("recurring")
-                    final Trigger.Recurring recurring, 
+                    final Trigger.Recurring recurring,
                     @JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("trigger_by")
-                    final Trigger.TriggerField triggerBy, 
+                    final Trigger.TriggerField triggerBy,
                     @JsonProperty("trigger_value")
-                    final String triggerValue, 
+                    final String triggerValue,
                     @JsonProperty("uri")
-                    final String uri, 
+                    final String uri,
                     @JsonProperty("usage_category")
-                    final Trigger.UsageCategory usageCategory, 
+                    final Trigger.UsageCategory usageCategory,
                     @JsonProperty("usage_record_uri")
                     final String usageRecordUri) {
         this.accountSid = accountSid;
@@ -582,7 +582,7 @@ public class Trigger extends Resource {
 
     /**
      * Returns The The SID of the Account that this trigger monitors.
-     * 
+     *
      * @return The SID of the Account that this trigger monitors
      */
     public final String getAccountSid() {
@@ -591,7 +591,7 @@ public class Trigger extends Resource {
 
     /**
      * Returns The The API version used to create the resource.
-     * 
+     *
      * @return The API version used to create the resource
      */
     public final String getApiVersion() {
@@ -600,7 +600,7 @@ public class Trigger extends Resource {
 
     /**
      * Returns The The HTTP method we use to call callback_url.
-     * 
+     *
      * @return The HTTP method we use to call callback_url
      */
     public final HttpMethod getCallbackMethod() {
@@ -609,7 +609,7 @@ public class Trigger extends Resource {
 
     /**
      * Returns The he URL we call when the trigger fires.
-     * 
+     *
      * @return he URL we call when the trigger fires
      */
     public final URI getCallbackUrl() {
@@ -618,7 +618,7 @@ public class Trigger extends Resource {
 
     /**
      * Returns The The current value of the field the trigger is watching.
-     * 
+     *
      * @return The current value of the field the trigger is watching
      */
     public final String getCurrentValue() {
@@ -627,7 +627,7 @@ public class Trigger extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT that the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
@@ -637,7 +637,7 @@ public class Trigger extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT that the trigger was last
      * fired.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that the trigger was last fired
      */
     public final DateTime getDateFired() {
@@ -647,7 +647,7 @@ public class Trigger extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT that the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -656,7 +656,7 @@ public class Trigger extends Resource {
 
     /**
      * Returns The The string that you assigned to describe the trigger.
-     * 
+     *
      * @return The string that you assigned to describe the trigger
      */
     public final String getFriendlyName() {
@@ -665,7 +665,7 @@ public class Trigger extends Resource {
 
     /**
      * Returns The The frequency of a recurring UsageTrigger.
-     * 
+     *
      * @return The frequency of a recurring UsageTrigger
      */
     public final Trigger.Recurring getRecurring() {
@@ -674,7 +674,7 @@ public class Trigger extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -683,7 +683,7 @@ public class Trigger extends Resource {
 
     /**
      * Returns The The field in the UsageRecord resource that fires the trigger.
-     * 
+     *
      * @return The field in the UsageRecord resource that fires the trigger
      */
     public final Trigger.TriggerField getTriggerBy() {
@@ -692,7 +692,7 @@ public class Trigger extends Resource {
 
     /**
      * Returns The The value at which the trigger will fire.
-     * 
+     *
      * @return The value at which the trigger will fire
      */
     public final String getTriggerValue() {
@@ -701,7 +701,7 @@ public class Trigger extends Resource {
 
     /**
      * Returns The The URI of the resource, relative to `https://api.twilio.com`.
-     * 
+     *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
@@ -710,7 +710,7 @@ public class Trigger extends Resource {
 
     /**
      * Returns The The usage category the trigger watches.
-     * 
+     *
      * @return The usage category the trigger watches
      */
     public final Trigger.UsageCategory getUsageCategory() {
@@ -719,7 +719,7 @@ public class Trigger extends Resource {
 
     /**
      * Returns The The URI of the UsageRecord resource this trigger watches.
-     * 
+     *
      * @return The URI of the UsageRecord resource this trigger watches
      */
     public final String getUsageRecordUri() {
@@ -738,21 +738,21 @@ public class Trigger extends Resource {
 
         Trigger other = (Trigger) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(apiVersion, other.apiVersion) && 
-               Objects.equals(callbackMethod, other.callbackMethod) && 
-               Objects.equals(callbackUrl, other.callbackUrl) && 
-               Objects.equals(currentValue, other.currentValue) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateFired, other.dateFired) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(recurring, other.recurring) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(triggerBy, other.triggerBy) && 
-               Objects.equals(triggerValue, other.triggerValue) && 
-               Objects.equals(uri, other.uri) && 
-               Objects.equals(usageCategory, other.usageCategory) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(apiVersion, other.apiVersion) &&
+               Objects.equals(callbackMethod, other.callbackMethod) &&
+               Objects.equals(callbackUrl, other.callbackUrl) &&
+               Objects.equals(currentValue, other.currentValue) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateFired, other.dateFired) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(recurring, other.recurring) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(triggerBy, other.triggerBy) &&
+               Objects.equals(triggerValue, other.triggerValue) &&
+               Objects.equals(uri, other.uri) &&
+               Objects.equals(usageCategory, other.usageCategory) &&
                Objects.equals(usageRecordUri, other.usageRecordUri);
     }
 

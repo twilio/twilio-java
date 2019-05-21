@@ -42,7 +42,7 @@ public class FaxTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.FAX.toString(),
                                           "/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class FaxTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.FAX.toString(),
                                           "/v1/Faxes");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -151,7 +151,7 @@ public class FaxTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.FAX.toString(),
                                           "/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -183,7 +183,7 @@ public class FaxTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.FAX.toString(),
                                           "/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

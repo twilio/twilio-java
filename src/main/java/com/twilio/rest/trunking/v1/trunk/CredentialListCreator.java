@@ -23,13 +23,13 @@ public class CredentialListCreator extends Creator<CredentialList> {
 
     /**
      * Construct a new CredentialListCreator.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk to associate the credential list
      *                     with
      * @param credentialListSid The SID of the Credential List that you want to
      *                          associate with the trunk
      */
-    public CredentialListCreator(final String pathTrunkSid, 
+    public CredentialListCreator(final String pathTrunkSid,
                                  final String credentialListSid) {
         this.pathTrunkSid = pathTrunkSid;
         this.credentialListSid = credentialListSid;
@@ -37,7 +37,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created CredentialList
      */
@@ -76,7 +76,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

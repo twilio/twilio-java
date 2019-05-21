@@ -42,7 +42,7 @@ public class CompositionSettingsTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.VIDEO.toString(),
                                           "/v1/CompositionSettings/Default");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

@@ -24,7 +24,7 @@ public class PublicKeyCreator extends Creator<PublicKey> {
 
     /**
      * Construct a new PublicKeyCreator.
-     * 
+     *
      * @param publicKey A URL encoded representation of the public key
      */
     public PublicKeyCreator(final String publicKey) {
@@ -34,7 +34,7 @@ public class PublicKeyCreator extends Creator<PublicKey> {
     /**
      * A descriptive string that you create to describe the resource. It can be up
      * to 64 characters long..
-     * 
+     *
      * @param friendlyName A string to describe the resource
      * @return this
      */
@@ -46,7 +46,7 @@ public class PublicKeyCreator extends Creator<PublicKey> {
     /**
      * The SID of the Subaccount that this Credential should be associated with.
      * Must be a valid Subaccount of the account issuing the request.
-     * 
+     *
      * @param accountSid The Subaccount this Credential should be associated with.
      * @return this
      */
@@ -57,7 +57,7 @@ public class PublicKeyCreator extends Creator<PublicKey> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created PublicKey
      */
@@ -96,7 +96,7 @@ public class PublicKeyCreator extends Creator<PublicKey> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

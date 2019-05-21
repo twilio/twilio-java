@@ -90,77 +90,77 @@ public class Message extends Resource {
 
     /**
      * Create a MessageFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to fetch the resource from
      * @param pathChannelSid The unique ID of the Channel the message to fetch
      *                       belongs to
      * @param pathSid The unique string that identifies the resource
      * @return MessageFetcher capable of executing the fetch
      */
-    public static MessageFetcher fetcher(final String pathServiceSid, 
-                                         final String pathChannelSid, 
+    public static MessageFetcher fetcher(final String pathServiceSid,
+                                         final String pathChannelSid,
                                          final String pathSid) {
         return new MessageFetcher(pathServiceSid, pathChannelSid, pathSid);
     }
 
     /**
      * Create a MessageCreator to execute create.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to create the resource under
      * @param pathChannelSid The unique ID of the channel the new resource belongs
      *                       to
      * @return MessageCreator capable of executing the create
      */
-    public static MessageCreator creator(final String pathServiceSid, 
+    public static MessageCreator creator(final String pathServiceSid,
                                          final String pathChannelSid) {
         return new MessageCreator(pathServiceSid, pathChannelSid);
     }
 
     /**
      * Create a MessageReader to execute read.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to read the resources from
      * @param pathChannelSid The unique ID of the Channel the message to read
      *                       belongs to
      * @return MessageReader capable of executing the read
      */
-    public static MessageReader reader(final String pathServiceSid, 
+    public static MessageReader reader(final String pathServiceSid,
                                        final String pathChannelSid) {
         return new MessageReader(pathServiceSid, pathChannelSid);
     }
 
     /**
      * Create a MessageDeleter to execute delete.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to delete the resource from
      * @param pathChannelSid The unique ID of the channel the message to delete
      *                       belongs to
      * @param pathSid The unique string that identifies the resource
      * @return MessageDeleter capable of executing the delete
      */
-    public static MessageDeleter deleter(final String pathServiceSid, 
-                                         final String pathChannelSid, 
+    public static MessageDeleter deleter(final String pathServiceSid,
+                                         final String pathChannelSid,
                                          final String pathSid) {
         return new MessageDeleter(pathServiceSid, pathChannelSid, pathSid);
     }
 
     /**
      * Create a MessageUpdater to execute update.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to update the resource from
      * @param pathChannelSid The unique ID of the Channel the message belongs to
      * @param pathSid The unique string that identifies the resource
      * @return MessageUpdater capable of executing the update
      */
-    public static MessageUpdater updater(final String pathServiceSid, 
-                                         final String pathChannelSid, 
+    public static MessageUpdater updater(final String pathServiceSid,
+                                         final String pathChannelSid,
                                          final String pathSid) {
         return new MessageUpdater(pathServiceSid, pathChannelSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a Message object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Message object represented by the provided JSON
@@ -179,7 +179,7 @@ public class Message extends Resource {
     /**
      * Converts a JSON InputStream into a Message object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Message object represented by the provided JSON
@@ -214,35 +214,35 @@ public class Message extends Resource {
 
     @JsonCreator
     private Message(@JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("attributes")
-                    final String attributes, 
+                    final String attributes,
                     @JsonProperty("service_sid")
-                    final String serviceSid, 
+                    final String serviceSid,
                     @JsonProperty("to")
-                    final String to, 
+                    final String to,
                     @JsonProperty("channel_sid")
-                    final String channelSid, 
+                    final String channelSid,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("last_updated_by")
-                    final String lastUpdatedBy, 
+                    final String lastUpdatedBy,
                     @JsonProperty("was_edited")
-                    final Boolean wasEdited, 
+                    final Boolean wasEdited,
                     @JsonProperty("from")
-                    final String from, 
+                    final String from,
                     @JsonProperty("body")
-                    final String body, 
+                    final String body,
                     @JsonProperty("index")
-                    final Integer index, 
+                    final Integer index,
                     @JsonProperty("type")
-                    final String type, 
+                    final String type,
                     @JsonProperty("media")
-                    final Map<String, Object> media, 
+                    final Map<String, Object> media,
                     @JsonProperty("url")
                     final URI url) {
         this.sid = sid;
@@ -265,7 +265,7 @@ public class Message extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -274,7 +274,7 @@ public class Message extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -283,7 +283,7 @@ public class Message extends Resource {
 
     /**
      * Returns The The JSON string that stores application-specific data.
-     * 
+     *
      * @return The JSON string that stores application-specific data
      */
     public final String getAttributes() {
@@ -292,7 +292,7 @@ public class Message extends Resource {
 
     /**
      * Returns The The SID of the Service that the resource is associated with.
-     * 
+     *
      * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
@@ -301,7 +301,7 @@ public class Message extends Resource {
 
     /**
      * Returns The The SID of the Channel that the message was sent to.
-     * 
+     *
      * @return The SID of the Channel that the message was sent to
      */
     public final String getTo() {
@@ -310,7 +310,7 @@ public class Message extends Resource {
 
     /**
      * Returns The The unique ID of the Channel the Message resource belongs to.
-     * 
+     *
      * @return The unique ID of the Channel the Message resource belongs to
      */
     public final String getChannelSid() {
@@ -319,7 +319,7 @@ public class Message extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
@@ -329,7 +329,7 @@ public class Message extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -338,7 +338,7 @@ public class Message extends Resource {
 
     /**
      * Returns The The Identity of the User who last updated the Message.
-     * 
+     *
      * @return The Identity of the User who last updated the Message
      */
     public final String getLastUpdatedBy() {
@@ -347,7 +347,7 @@ public class Message extends Resource {
 
     /**
      * Returns The Whether the message has been edited since  it was created.
-     * 
+     *
      * @return Whether the message has been edited since  it was created
      */
     public final Boolean getWasEdited() {
@@ -356,7 +356,7 @@ public class Message extends Resource {
 
     /**
      * Returns The The identity of the message's author.
-     * 
+     *
      * @return The identity of the message's author
      */
     public final String getFrom() {
@@ -365,7 +365,7 @@ public class Message extends Resource {
 
     /**
      * Returns The The content of the message.
-     * 
+     *
      * @return The content of the message
      */
     public final String getBody() {
@@ -374,7 +374,7 @@ public class Message extends Resource {
 
     /**
      * Returns The The index of the message within the Channel.
-     * 
+     *
      * @return The index of the message within the Channel
      */
     public final Integer getIndex() {
@@ -383,7 +383,7 @@ public class Message extends Resource {
 
     /**
      * Returns The The Message type.
-     * 
+     *
      * @return The Message type
      */
     public final String getType() {
@@ -393,7 +393,7 @@ public class Message extends Resource {
     /**
      * Returns The A Media object that describes the Message's media if attached;
      * otherwise, null.
-     * 
+     *
      * @return A Media object that describes the Message's media if attached;
      *         otherwise, null
      */
@@ -403,7 +403,7 @@ public class Message extends Resource {
 
     /**
      * Returns The The absolute URL of the Message resource.
-     * 
+     *
      * @return The absolute URL of the Message resource
      */
     public final URI getUrl() {
@@ -422,21 +422,21 @@ public class Message extends Resource {
 
         Message other = (Message) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(attributes, other.attributes) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(to, other.to) && 
-               Objects.equals(channelSid, other.channelSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(lastUpdatedBy, other.lastUpdatedBy) && 
-               Objects.equals(wasEdited, other.wasEdited) && 
-               Objects.equals(from, other.from) && 
-               Objects.equals(body, other.body) && 
-               Objects.equals(index, other.index) && 
-               Objects.equals(type, other.type) && 
-               Objects.equals(media, other.media) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(attributes, other.attributes) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(to, other.to) &&
+               Objects.equals(channelSid, other.channelSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(lastUpdatedBy, other.lastUpdatedBy) &&
+               Objects.equals(wasEdited, other.wasEdited) &&
+               Objects.equals(from, other.from) &&
+               Objects.equals(body, other.body) &&
+               Objects.equals(index, other.index) &&
+               Objects.equals(type, other.type) &&
+               Objects.equals(media, other.media) &&
                Objects.equals(url, other.url);
     }
 

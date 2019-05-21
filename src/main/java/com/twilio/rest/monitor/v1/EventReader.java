@@ -32,7 +32,7 @@ public class EventReader extends Reader<Event> {
     /**
      * Only include Events initiated by this Actor. Useful for auditing actions
      * taken by specific users or API credentials..
-     * 
+     *
      * @param actorSid Only include Events initiated by this Actor
      * @return this
      */
@@ -43,7 +43,7 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Only include Events of this EventType..
-     * 
+     *
      * @param eventType Only include Events of this EventType
      * @return this
      */
@@ -55,7 +55,7 @@ public class EventReader extends Reader<Event> {
     /**
      * Only include Events referring to this resource. Useful for discovering the
      * history of a specific resource..
-     * 
+     *
      * @param resourceSid Only include Events referring to this resource
      * @return this
      */
@@ -67,7 +67,7 @@ public class EventReader extends Reader<Event> {
     /**
      * Only include Events that originated from this IP address. Useful for tracking
      * suspicious activity originating from the API or the Twilio Console..
-     * 
+     *
      * @param sourceIpAddress Only include Events that originated from this IP
      *                        address
      * @return this
@@ -82,7 +82,7 @@ public class EventReader extends Reader<Event> {
      * to define a date-range of events. Input is a [UTC ISO 8601
      * Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC), but time of day is
      * ignored by the filter..
-     * 
+     *
      * @param startDate Only show events on or after this date
      * @return this
      */
@@ -96,7 +96,7 @@ public class EventReader extends Reader<Event> {
      * `StartDate` to define a date-range of events. Input is a [UTC ISO 8601
      * Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC), but time of day is
      * ignored by the filter..
-     * 
+     *
      * @param endDate Only show events on or before this date
      * @return this
      */
@@ -107,7 +107,7 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Event ResourceSet
      */
@@ -118,7 +118,7 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Event ResourceSet
      */
@@ -138,7 +138,7 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Event ResourceSet
@@ -156,13 +156,13 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Event> nextPage(final Page<Event> page, 
+    public Page<Event> nextPage(final Page<Event> page,
                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -176,13 +176,13 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Event> previousPage(final Page<Event> page, 
+    public Page<Event> previousPage(final Page<Event> page,
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -196,7 +196,7 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Generate a Page of Event Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -231,7 +231,7 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

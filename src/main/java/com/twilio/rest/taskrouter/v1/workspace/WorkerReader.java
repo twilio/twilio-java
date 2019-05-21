@@ -31,7 +31,7 @@ public class WorkerReader extends Reader<Worker> {
 
     /**
      * Construct a new WorkerReader.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      */
     public WorkerReader(final String pathWorkspaceSid) {
@@ -40,7 +40,7 @@ public class WorkerReader extends Reader<Worker> {
 
     /**
      * Filter by workers that are in a particular Activity by Friendly Name.
-     * 
+     *
      * @param activityName Filter by workers that are in a particular Activity by
      *                     Friendly Name
      * @return this
@@ -52,7 +52,7 @@ public class WorkerReader extends Reader<Worker> {
 
     /**
      * Filter by workers that are in a particular Activity by SID.
-     * 
+     *
      * @param activitySid Filter by workers that are in a particular Activity by SID
      * @return this
      */
@@ -65,7 +65,7 @@ public class WorkerReader extends Reader<Worker> {
      * Filter by workers that are available or unavailable. (Note: This can be
      * 'true', '1' or 'yes' to indicate a true value. All other values will
      * represent false).
-     * 
+     *
      * @param available Filter by workers that are available or unavailable.
      * @return this
      */
@@ -76,7 +76,7 @@ public class WorkerReader extends Reader<Worker> {
 
     /**
      * Filter by a worker's friendly name.
-     * 
+     *
      * @param friendlyName Filter by a worker's friendly name
      * @return this
      */
@@ -88,7 +88,7 @@ public class WorkerReader extends Reader<Worker> {
     /**
      * Filter by workers that would match an expression on a TaskQueue. This is
      * helpful for debugging which workers would match a potential queue..
-     * 
+     *
      * @param targetWorkersExpression Filter by workers that would match an
      *                                expression on a TaskQueue.
      * @return this
@@ -100,7 +100,7 @@ public class WorkerReader extends Reader<Worker> {
 
     /**
      * Filter by workers that are eligible for a TaskQueue by Friendly Name.
-     * 
+     *
      * @param taskQueueName Filter by workers that are eligible for a TaskQueue by
      *                      Friendly Name
      * @return this
@@ -112,7 +112,7 @@ public class WorkerReader extends Reader<Worker> {
 
     /**
      * Filter by workers that are eligible for a TaskQueue by SID.
-     * 
+     *
      * @param taskQueueSid Filter by workers that are eligible for a TaskQueue by
      *                     SID
      * @return this
@@ -124,7 +124,7 @@ public class WorkerReader extends Reader<Worker> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Worker ResourceSet
      */
@@ -135,7 +135,7 @@ public class WorkerReader extends Reader<Worker> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Worker ResourceSet
      */
@@ -155,7 +155,7 @@ public class WorkerReader extends Reader<Worker> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Worker ResourceSet
@@ -173,13 +173,13 @@ public class WorkerReader extends Reader<Worker> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Worker> nextPage(final Page<Worker> page, 
+    public Page<Worker> nextPage(final Page<Worker> page,
                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -193,13 +193,13 @@ public class WorkerReader extends Reader<Worker> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Worker> previousPage(final Page<Worker> page, 
+    public Page<Worker> previousPage(final Page<Worker> page,
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -213,7 +213,7 @@ public class WorkerReader extends Reader<Worker> {
 
     /**
      * Generate a Page of Worker Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -248,7 +248,7 @@ public class WorkerReader extends Reader<Worker> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

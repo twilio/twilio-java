@@ -32,7 +32,7 @@ public class DocumentCreator extends Creator<Document> {
 
     /**
      * Construct a new DocumentCreator.
-     * 
+     *
      * @param pathServiceSid The service_sid
      */
     public DocumentCreator(final String pathServiceSid) {
@@ -41,7 +41,7 @@ public class DocumentCreator extends Creator<Document> {
 
     /**
      * Human-readable name for this document.
-     * 
+     *
      * @param uniqueName Human-readable name for this document
      * @return this
      */
@@ -52,7 +52,7 @@ public class DocumentCreator extends Creator<Document> {
 
     /**
      * JSON data to be stored in this document.
-     * 
+     *
      * @param data JSON data to be stored in this document
      * @return this
      */
@@ -64,7 +64,7 @@ public class DocumentCreator extends Creator<Document> {
     /**
      * Time-to-live of this Document in seconds, defaults to no expiration. In the
      * range [1, 31 536 000 (1 year)], or 0 for infinity..
-     * 
+     *
      * @param ttl Time-to-live of this Document in seconds, defaults to no
      *            expiration.
      * @return this
@@ -76,7 +76,7 @@ public class DocumentCreator extends Creator<Document> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Document
      */
@@ -115,7 +115,7 @@ public class DocumentCreator extends Creator<Document> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

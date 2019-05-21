@@ -28,7 +28,7 @@ public class DataSessionReader extends Reader<DataSession> {
 
     /**
      * Construct a new DataSessionReader.
-     * 
+     *
      * @param pathSimSid The sim_sid
      */
     public DataSessionReader(final String pathSimSid) {
@@ -37,7 +37,7 @@ public class DataSessionReader extends Reader<DataSession> {
 
     /**
      * The end.
-     * 
+     *
      * @param end The end
      * @return this
      */
@@ -48,7 +48,7 @@ public class DataSessionReader extends Reader<DataSession> {
 
     /**
      * The start.
-     * 
+     *
      * @param start The start
      * @return this
      */
@@ -59,7 +59,7 @@ public class DataSessionReader extends Reader<DataSession> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return DataSession ResourceSet
      */
@@ -70,7 +70,7 @@ public class DataSessionReader extends Reader<DataSession> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return DataSession ResourceSet
      */
@@ -90,7 +90,7 @@ public class DataSessionReader extends Reader<DataSession> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return DataSession ResourceSet
@@ -108,13 +108,13 @@ public class DataSessionReader extends Reader<DataSession> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<DataSession> nextPage(final Page<DataSession> page, 
+    public Page<DataSession> nextPage(final Page<DataSession> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -128,13 +128,13 @@ public class DataSessionReader extends Reader<DataSession> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<DataSession> previousPage(final Page<DataSession> page, 
+    public Page<DataSession> previousPage(final Page<DataSession> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -148,7 +148,7 @@ public class DataSessionReader extends Reader<DataSession> {
 
     /**
      * Generate a Page of DataSession Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -183,7 +183,7 @@ public class DataSessionReader extends Reader<DataSession> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

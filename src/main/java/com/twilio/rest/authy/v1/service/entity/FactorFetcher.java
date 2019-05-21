@@ -29,13 +29,13 @@ public class FactorFetcher extends Fetcher<Factor> {
 
     /**
      * Construct a new FactorFetcher.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique identity of the Entity
      * @param pathSid A string that uniquely identifies this Factor.
      */
-    public FactorFetcher(final String pathServiceSid, 
-                         final String pathIdentity, 
+    public FactorFetcher(final String pathServiceSid,
+                         final String pathIdentity,
                          final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathIdentity = pathIdentity;
@@ -44,7 +44,7 @@ public class FactorFetcher extends Fetcher<Factor> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Factor
      */

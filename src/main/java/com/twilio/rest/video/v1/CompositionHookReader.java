@@ -34,7 +34,7 @@ public class CompositionHookReader extends Reader<CompositionHook> {
 
     /**
      * Only show Composition Hooks that are enabled or disabled..
-     * 
+     *
      * @param enabled Only show Composition Hooks enabled or disabled.
      * @return this
      */
@@ -46,7 +46,7 @@ public class CompositionHookReader extends Reader<CompositionHook> {
     /**
      * Only show Composition Hooks created on or after this ISO8601 date-time with
      * timezone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`..
-     * 
+     *
      * @param dateCreatedAfter Only show Composition Hooks created on or after this
      *                         ISO8601 date-time with timezone.
      * @return this
@@ -59,7 +59,7 @@ public class CompositionHookReader extends Reader<CompositionHook> {
     /**
      * Only show Composition Hooks created before this ISO8601 date-time with
      * timezone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`..
-     * 
+     *
      * @param dateCreatedBefore Only show Composition Hooks created before this
      *                          ISO8601 date-time with timezone.
      * @return this
@@ -73,7 +73,7 @@ public class CompositionHookReader extends Reader<CompositionHook> {
      * Only show Composition Hooks with friendly name that match this
      * case-insensitive string, of up to 100 characters in length. Filtering by
      * partial friendly names is allowed, using wildcards (e.g. `*my*hook*`)..
-     * 
+     *
      * @param friendlyName Only show Composition Hooks with friendly name that
      *                     match this name.
      * @return this
@@ -85,7 +85,7 @@ public class CompositionHookReader extends Reader<CompositionHook> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return CompositionHook ResourceSet
      */
@@ -96,7 +96,7 @@ public class CompositionHookReader extends Reader<CompositionHook> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return CompositionHook ResourceSet
      */
@@ -116,7 +116,7 @@ public class CompositionHookReader extends Reader<CompositionHook> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return CompositionHook ResourceSet
@@ -134,13 +134,13 @@ public class CompositionHookReader extends Reader<CompositionHook> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<CompositionHook> nextPage(final Page<CompositionHook> page, 
+    public Page<CompositionHook> nextPage(final Page<CompositionHook> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -154,13 +154,13 @@ public class CompositionHookReader extends Reader<CompositionHook> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<CompositionHook> previousPage(final Page<CompositionHook> page, 
+    public Page<CompositionHook> previousPage(final Page<CompositionHook> page,
                                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -174,7 +174,7 @@ public class CompositionHookReader extends Reader<CompositionHook> {
 
     /**
      * Generate a Page of CompositionHook Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -209,7 +209,7 @@ public class CompositionHookReader extends Reader<CompositionHook> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

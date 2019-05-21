@@ -29,11 +29,11 @@ public class InteractionReader extends Reader<Interaction> {
 
     /**
      * Construct a new InteractionReader.
-     * 
+     *
      * @param pathServiceSid The SID of the parent Service to read the resource from
      * @param pathSessionSid The SID of the parent Session to read the resource from
      */
-    public InteractionReader(final String pathServiceSid, 
+    public InteractionReader(final String pathServiceSid,
                              final String pathSessionSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSessionSid = pathSessionSid;
@@ -41,7 +41,7 @@ public class InteractionReader extends Reader<Interaction> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Interaction ResourceSet
      */
@@ -52,7 +52,7 @@ public class InteractionReader extends Reader<Interaction> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Interaction ResourceSet
      */
@@ -72,7 +72,7 @@ public class InteractionReader extends Reader<Interaction> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Interaction ResourceSet
@@ -90,13 +90,13 @@ public class InteractionReader extends Reader<Interaction> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Interaction> nextPage(final Page<Interaction> page, 
+    public Page<Interaction> nextPage(final Page<Interaction> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -110,13 +110,13 @@ public class InteractionReader extends Reader<Interaction> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Interaction> previousPage(final Page<Interaction> page, 
+    public Page<Interaction> previousPage(final Page<Interaction> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -130,7 +130,7 @@ public class InteractionReader extends Reader<Interaction> {
 
     /**
      * Generate a Page of Interaction Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -165,7 +165,7 @@ public class InteractionReader extends Reader<Interaction> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

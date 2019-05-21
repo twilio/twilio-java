@@ -42,7 +42,7 @@ public class CommandTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
                                           "/wireless/Commands/DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class CommandTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
                                           "/wireless/Commands");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

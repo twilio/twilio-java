@@ -27,11 +27,11 @@ public class WorkerUpdater extends Updater<Worker> {
 
     /**
      * Construct a new WorkerUpdater.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathSid The sid
      */
-    public WorkerUpdater(final String pathWorkspaceSid, 
+    public WorkerUpdater(final String pathWorkspaceSid,
                          final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
@@ -39,7 +39,7 @@ public class WorkerUpdater extends Updater<Worker> {
 
     /**
      * The activity_sid.
-     * 
+     *
      * @param activitySid The activity_sid
      * @return this
      */
@@ -50,7 +50,7 @@ public class WorkerUpdater extends Updater<Worker> {
 
     /**
      * The attributes.
-     * 
+     *
      * @param attributes The attributes
      * @return this
      */
@@ -61,7 +61,7 @@ public class WorkerUpdater extends Updater<Worker> {
 
     /**
      * The friendly_name.
-     * 
+     *
      * @param friendlyName The friendly_name
      * @return this
      */
@@ -72,7 +72,7 @@ public class WorkerUpdater extends Updater<Worker> {
 
     /**
      * The reject_pending_reservations.
-     * 
+     *
      * @param rejectPendingReservations The reject_pending_reservations
      * @return this
      */
@@ -83,7 +83,7 @@ public class WorkerUpdater extends Updater<Worker> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Worker
      */
@@ -122,7 +122,7 @@ public class WorkerUpdater extends Updater<Worker> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

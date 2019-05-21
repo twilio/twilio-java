@@ -42,7 +42,7 @@ public class CountryTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.VOICE.toString(),
                                           "/v1/DialingPermissions/Countries/US");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class CountryTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.VOICE.toString(),
                                           "/v1/DialingPermissions/Countries");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

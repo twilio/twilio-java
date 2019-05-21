@@ -37,14 +37,14 @@ public class ExecutionStepContext extends Resource {
 
     /**
      * Create a ExecutionStepContextFetcher to execute fetch.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      * @param pathExecutionSid Execution Sid.
      * @param pathStepSid Step Sid.
      * @return ExecutionStepContextFetcher capable of executing the fetch
      */
-    public static ExecutionStepContextFetcher fetcher(final String pathFlowSid, 
-                                                      final String pathExecutionSid, 
+    public static ExecutionStepContextFetcher fetcher(final String pathFlowSid,
+                                                      final String pathExecutionSid,
                                                       final String pathStepSid) {
         return new ExecutionStepContextFetcher(pathFlowSid, pathExecutionSid, pathStepSid);
     }
@@ -52,7 +52,7 @@ public class ExecutionStepContext extends Resource {
     /**
      * Converts a JSON String into a ExecutionStepContext object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ExecutionStepContext object represented by the provided JSON
@@ -71,7 +71,7 @@ public class ExecutionStepContext extends Resource {
     /**
      * Converts a JSON InputStream into a ExecutionStepContext object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ExecutionStepContext object represented by the provided JSON
@@ -96,15 +96,15 @@ public class ExecutionStepContext extends Resource {
 
     @JsonCreator
     private ExecutionStepContext(@JsonProperty("account_sid")
-                                 final String accountSid, 
+                                 final String accountSid,
                                  @JsonProperty("context")
-                                 final Map<String, Object> context, 
+                                 final Map<String, Object> context,
                                  @JsonProperty("execution_sid")
-                                 final String executionSid, 
+                                 final String executionSid,
                                  @JsonProperty("flow_sid")
-                                 final String flowSid, 
+                                 final String flowSid,
                                  @JsonProperty("step_sid")
-                                 final String stepSid, 
+                                 final String stepSid,
                                  @JsonProperty("url")
                                  final URI url) {
         this.accountSid = accountSid;
@@ -117,7 +117,7 @@ public class ExecutionStepContext extends Resource {
 
     /**
      * Returns The Account Sid..
-     * 
+     *
      * @return Account Sid.
      */
     public final String getAccountSid() {
@@ -126,7 +126,7 @@ public class ExecutionStepContext extends Resource {
 
     /**
      * Returns The Flow state..
-     * 
+     *
      * @return Flow state.
      */
     public final Map<String, Object> getContext() {
@@ -135,7 +135,7 @@ public class ExecutionStepContext extends Resource {
 
     /**
      * Returns The Execution Sid..
-     * 
+     *
      * @return Execution Sid.
      */
     public final String getExecutionSid() {
@@ -144,7 +144,7 @@ public class ExecutionStepContext extends Resource {
 
     /**
      * Returns The Flow Sid..
-     * 
+     *
      * @return Flow Sid.
      */
     public final String getFlowSid() {
@@ -153,7 +153,7 @@ public class ExecutionStepContext extends Resource {
 
     /**
      * Returns The Step Sid..
-     * 
+     *
      * @return Step Sid.
      */
     public final String getStepSid() {
@@ -162,7 +162,7 @@ public class ExecutionStepContext extends Resource {
 
     /**
      * Returns The The URL of this resource..
-     * 
+     *
      * @return The URL of this resource.
      */
     public final URI getUrl() {
@@ -181,11 +181,11 @@ public class ExecutionStepContext extends Resource {
 
         ExecutionStepContext other = (ExecutionStepContext) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(context, other.context) && 
-               Objects.equals(executionSid, other.executionSid) && 
-               Objects.equals(flowSid, other.flowSid) && 
-               Objects.equals(stepSid, other.stepSid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(context, other.context) &&
+               Objects.equals(executionSid, other.executionSid) &&
+               Objects.equals(flowSid, other.flowSid) &&
+               Objects.equals(stepSid, other.stepSid) &&
                Objects.equals(url, other.url);
     }
 

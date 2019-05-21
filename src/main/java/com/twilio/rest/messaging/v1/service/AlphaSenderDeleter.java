@@ -27,11 +27,11 @@ public class AlphaSenderDeleter extends Deleter<AlphaSender> {
 
     /**
      * Construct a new AlphaSenderDeleter.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathSid The sid
      */
-    public AlphaSenderDeleter(final String pathServiceSid, 
+    public AlphaSenderDeleter(final String pathServiceSid,
                               final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -39,7 +39,7 @@ public class AlphaSenderDeleter extends Deleter<AlphaSender> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

@@ -27,7 +27,7 @@ public class FleetFetcher extends Fetcher<Fleet> {
 
     /**
      * Construct a new FleetFetcher.
-     * 
+     *
      * @param pathSid A string that uniquely identifies the Fleet.
      */
     public FleetFetcher(final String pathSid) {
@@ -36,7 +36,7 @@ public class FleetFetcher extends Fetcher<Fleet> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Fleet
      */

@@ -43,32 +43,32 @@ public class PhoneNumber extends Resource {
 
     /**
      * Create a PhoneNumberCreator to execute create.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param phoneNumberSid Phone Number SID for the Phone Number being added to
      *                       the Service.
      * @return PhoneNumberCreator capable of executing the create
      */
-    public static PhoneNumberCreator creator(final String pathServiceSid, 
+    public static PhoneNumberCreator creator(final String pathServiceSid,
                                              final String phoneNumberSid) {
         return new PhoneNumberCreator(pathServiceSid, phoneNumberSid);
     }
 
     /**
      * Create a PhoneNumberDeleter to execute delete.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathSid The sid
      * @return PhoneNumberDeleter capable of executing the delete
      */
-    public static PhoneNumberDeleter deleter(final String pathServiceSid, 
+    public static PhoneNumberDeleter deleter(final String pathServiceSid,
                                              final String pathSid) {
         return new PhoneNumberDeleter(pathServiceSid, pathSid);
     }
 
     /**
      * Create a PhoneNumberReader to execute read.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @return PhoneNumberReader capable of executing the read
      */
@@ -78,12 +78,12 @@ public class PhoneNumber extends Resource {
 
     /**
      * Create a PhoneNumberFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathSid The sid
      * @return PhoneNumberFetcher capable of executing the fetch
      */
-    public static PhoneNumberFetcher fetcher(final String pathServiceSid, 
+    public static PhoneNumberFetcher fetcher(final String pathServiceSid,
                                              final String pathSid) {
         return new PhoneNumberFetcher(pathServiceSid, pathSid);
     }
@@ -91,7 +91,7 @@ public class PhoneNumber extends Resource {
     /**
      * Converts a JSON String into a PhoneNumber object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return PhoneNumber object represented by the provided JSON
@@ -110,7 +110,7 @@ public class PhoneNumber extends Resource {
     /**
      * Converts a JSON InputStream into a PhoneNumber object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return PhoneNumber object represented by the provided JSON
@@ -138,21 +138,21 @@ public class PhoneNumber extends Resource {
 
     @JsonCreator
     private PhoneNumber(@JsonProperty("sid")
-                        final String sid, 
+                        final String sid,
                         @JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("service_sid")
-                        final String serviceSid, 
+                        final String serviceSid,
                         @JsonProperty("date_created")
-                        final String dateCreated, 
+                        final String dateCreated,
                         @JsonProperty("date_updated")
-                        final String dateUpdated, 
+                        final String dateUpdated,
                         @JsonProperty("phone_number")
-                        final com.twilio.type.PhoneNumber phoneNumber, 
+                        final com.twilio.type.PhoneNumber phoneNumber,
                         @JsonProperty("country_code")
-                        final String countryCode, 
+                        final String countryCode,
                         @JsonProperty("capabilities")
-                        final List<String> capabilities, 
+                        final List<String> capabilities,
                         @JsonProperty("url")
                         final URI url) {
         this.sid = sid;
@@ -168,7 +168,7 @@ public class PhoneNumber extends Resource {
 
     /**
      * Returns The The 34 character unique sid of the Phone Number..
-     * 
+     *
      * @return The 34 character unique sid of the Phone Number.
      */
     public final String getSid() {
@@ -177,7 +177,7 @@ public class PhoneNumber extends Resource {
 
     /**
      * Returns The The 34 character unique sid of the Account..
-     * 
+     *
      * @return The 34 character unique sid of the Account.
      */
     public final String getAccountSid() {
@@ -186,7 +186,7 @@ public class PhoneNumber extends Resource {
 
     /**
      * Returns The The 34 character unique sid of the Service..
-     * 
+     *
      * @return The 34 character unique sid of the Service.
      */
     public final String getServiceSid() {
@@ -195,7 +195,7 @@ public class PhoneNumber extends Resource {
 
     /**
      * Returns The The date that this resource was created..
-     * 
+     *
      * @return The date that this resource was created.
      */
     public final DateTime getDateCreated() {
@@ -204,7 +204,7 @@ public class PhoneNumber extends Resource {
 
     /**
      * Returns The The date that this resource was last updated..
-     * 
+     *
      * @return The date that this resource was last updated.
      */
     public final DateTime getDateUpdated() {
@@ -213,7 +213,7 @@ public class PhoneNumber extends Resource {
 
     /**
      * Returns The The E..
-     * 
+     *
      * @return The E.
      */
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
@@ -222,7 +222,7 @@ public class PhoneNumber extends Resource {
 
     /**
      * Returns The The 2 character ISO Country Code of the number..
-     * 
+     *
      * @return The 2 character ISO Country Code of the number.
      */
     public final String getCountryCode() {
@@ -232,7 +232,7 @@ public class PhoneNumber extends Resource {
     /**
      * Returns The Any array of values that indicate whether the number can receive
      * calls or messages..
-     * 
+     *
      * @return Any array of values that indicate whether the number can receive
      *         calls or messages.
      */
@@ -242,7 +242,7 @@ public class PhoneNumber extends Resource {
 
     /**
      * Returns The The absolute URL for this resource..
-     * 
+     *
      * @return The absolute URL for this resource.
      */
     public final URI getUrl() {
@@ -261,14 +261,14 @@ public class PhoneNumber extends Resource {
 
         PhoneNumber other = (PhoneNumber) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(phoneNumber, other.phoneNumber) && 
-               Objects.equals(countryCode, other.countryCode) && 
-               Objects.equals(capabilities, other.capabilities) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(phoneNumber, other.phoneNumber) &&
+               Objects.equals(countryCode, other.countryCode) &&
+               Objects.equals(capabilities, other.capabilities) &&
                Objects.equals(url, other.url);
     }
 

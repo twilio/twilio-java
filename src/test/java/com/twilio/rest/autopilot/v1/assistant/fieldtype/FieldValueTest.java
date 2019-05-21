@@ -42,7 +42,7 @@ public class FieldValueTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.AUTOPILOT.toString(),
                                           "/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldTypes/UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldValues/UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class FieldValueTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.AUTOPILOT.toString(),
                                           "/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldTypes/UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldValues");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -151,7 +151,7 @@ public class FieldValueTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.AUTOPILOT.toString(),
                                           "/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldTypes/UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/FieldValues/UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

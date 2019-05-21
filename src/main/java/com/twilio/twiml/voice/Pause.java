@@ -35,7 +35,7 @@ public class Pause extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -51,7 +51,7 @@ public class Pause extends TwiML {
 
     /**
      * Length in seconds to pause
-     * 
+     *
      * @return Length in seconds to pause
      */
     public Integer getLength() {

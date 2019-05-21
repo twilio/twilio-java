@@ -168,7 +168,7 @@ public class Dial extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -177,7 +177,7 @@ public class Dial extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -229,7 +229,7 @@ public class Dial extends TwiML {
 
     /**
      * Action URL
-     * 
+     *
      * @return Action URL
      */
     public URI getAction() {
@@ -238,7 +238,7 @@ public class Dial extends TwiML {
 
     /**
      * Action URL method
-     * 
+     *
      * @return Action URL method
      */
     public HttpMethod getMethod() {
@@ -247,7 +247,7 @@ public class Dial extends TwiML {
 
     /**
      * Time to wait for answer
-     * 
+     *
      * @return Time to wait for answer
      */
     public Integer getTimeout() {
@@ -256,7 +256,7 @@ public class Dial extends TwiML {
 
     /**
      * Hangup call on star press
-     * 
+     *
      * @return Hangup call on star press
      */
     public Boolean isHangupOnStar() {
@@ -265,7 +265,7 @@ public class Dial extends TwiML {
 
     /**
      * Max time length
-     * 
+     *
      * @return Max time length
      */
     public Integer getTimeLimit() {
@@ -274,7 +274,7 @@ public class Dial extends TwiML {
 
     /**
      * Caller ID to display
-     * 
+     *
      * @return Caller ID to display
      */
     public String getCallerId() {
@@ -283,7 +283,7 @@ public class Dial extends TwiML {
 
     /**
      * Record the call
-     * 
+     *
      * @return Record the call
      */
     public Dial.Record getRecord() {
@@ -292,7 +292,7 @@ public class Dial extends TwiML {
 
     /**
      * Trim the recording
-     * 
+     *
      * @return Trim the recording
      */
     public Dial.Trim getTrim() {
@@ -301,7 +301,7 @@ public class Dial extends TwiML {
 
     /**
      * Recording status callback URL
-     * 
+     *
      * @return Recording status callback URL
      */
     public URI getRecordingStatusCallback() {
@@ -310,7 +310,7 @@ public class Dial extends TwiML {
 
     /**
      * Recording status callback URL method
-     * 
+     *
      * @return Recording status callback URL method
      */
     public HttpMethod getRecordingStatusCallbackMethod() {
@@ -319,7 +319,7 @@ public class Dial extends TwiML {
 
     /**
      * Recording status callback events
-     * 
+     *
      * @return Recording status callback events
      */
     public List<Dial.RecordingEvent> getRecordingStatusCallbackEvents() {
@@ -341,7 +341,7 @@ public class Dial extends TwiML {
     /**
      * Preserve the ringing behavior of the inbound call until the Dialed call picks
      * up
-     * 
+     *
      * @return Preserve the ringing behavior of the inbound call until the Dialed
      *         call picks up
      */
@@ -352,7 +352,7 @@ public class Dial extends TwiML {
     /**
      * Ringtone allows you to override the ringback tone that Twilio will play back
      * to the caller while executing the Dial
-     * 
+     *
      * @return Ringtone allows you to override the ringback tone that Twilio will
      *         play back to the caller while executing the Dial
      */
@@ -362,7 +362,7 @@ public class Dial extends TwiML {
 
     /**
      * Phone number to dial
-     * 
+     *
      * @return Phone number to dial
      */
     public String getNumber() {

@@ -38,47 +38,47 @@ public class IpAccessControlList extends Resource {
 
     /**
      * Create a IpAccessControlListFetcher to execute fetch.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk from which to fetch the IP Access
      *                     Control List
      * @param pathSid The unique string that identifies the resource
      * @return IpAccessControlListFetcher capable of executing the fetch
      */
-    public static IpAccessControlListFetcher fetcher(final String pathTrunkSid, 
+    public static IpAccessControlListFetcher fetcher(final String pathTrunkSid,
                                                      final String pathSid) {
         return new IpAccessControlListFetcher(pathTrunkSid, pathSid);
     }
 
     /**
      * Create a IpAccessControlListDeleter to execute delete.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk from which to delete the IP Access
      *                     Control List
      * @param pathSid The unique string that identifies the resource
      * @return IpAccessControlListDeleter capable of executing the delete
      */
-    public static IpAccessControlListDeleter deleter(final String pathTrunkSid, 
+    public static IpAccessControlListDeleter deleter(final String pathTrunkSid,
                                                      final String pathSid) {
         return new IpAccessControlListDeleter(pathTrunkSid, pathSid);
     }
 
     /**
      * Create a IpAccessControlListCreator to execute create.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk to associate the IP Access Control
      *                     List with
      * @param ipAccessControlListSid The SID of the IP Access Control List that you
      *                               want to associate with the trunk
      * @return IpAccessControlListCreator capable of executing the create
      */
-    public static IpAccessControlListCreator creator(final String pathTrunkSid, 
+    public static IpAccessControlListCreator creator(final String pathTrunkSid,
                                                      final String ipAccessControlListSid) {
         return new IpAccessControlListCreator(pathTrunkSid, ipAccessControlListSid);
     }
 
     /**
      * Create a IpAccessControlListReader to execute read.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk from which to read the IP Access
      *                     Control Lists
      * @return IpAccessControlListReader capable of executing the read
@@ -90,7 +90,7 @@ public class IpAccessControlList extends Resource {
     /**
      * Converts a JSON String into a IpAccessControlList object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return IpAccessControlList object represented by the provided JSON
@@ -109,7 +109,7 @@ public class IpAccessControlList extends Resource {
     /**
      * Converts a JSON InputStream into a IpAccessControlList object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return IpAccessControlList object represented by the provided JSON
@@ -135,17 +135,17 @@ public class IpAccessControlList extends Resource {
 
     @JsonCreator
     private IpAccessControlList(@JsonProperty("account_sid")
-                                final String accountSid, 
+                                final String accountSid,
                                 @JsonProperty("sid")
-                                final String sid, 
+                                final String sid,
                                 @JsonProperty("trunk_sid")
-                                final String trunkSid, 
+                                final String trunkSid,
                                 @JsonProperty("friendly_name")
-                                final String friendlyName, 
+                                final String friendlyName,
                                 @JsonProperty("date_created")
-                                final String dateCreated, 
+                                final String dateCreated,
                                 @JsonProperty("date_updated")
-                                final String dateUpdated, 
+                                final String dateUpdated,
                                 @JsonProperty("url")
                                 final URI url) {
         this.accountSid = accountSid;
@@ -159,7 +159,7 @@ public class IpAccessControlList extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -168,7 +168,7 @@ public class IpAccessControlList extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -177,7 +177,7 @@ public class IpAccessControlList extends Resource {
 
     /**
      * Returns The The SID of the Trunk the resource is associated with.
-     * 
+     *
      * @return The SID of the Trunk the resource is associated with
      */
     public final String getTrunkSid() {
@@ -186,7 +186,7 @@ public class IpAccessControlList extends Resource {
 
     /**
      * Returns The The string that you assigned to describe the resource.
-     * 
+     *
      * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
@@ -195,7 +195,7 @@ public class IpAccessControlList extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
@@ -205,7 +205,7 @@ public class IpAccessControlList extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -214,7 +214,7 @@ public class IpAccessControlList extends Resource {
 
     /**
      * Returns The The absolute URL of the resource.
-     * 
+     *
      * @return The absolute URL of the resource
      */
     public final URI getUrl() {
@@ -233,12 +233,12 @@ public class IpAccessControlList extends Resource {
 
         IpAccessControlList other = (IpAccessControlList) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(trunkSid, other.trunkSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(trunkSid, other.trunkSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
     }
 

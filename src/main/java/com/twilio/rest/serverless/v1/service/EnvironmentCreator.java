@@ -29,11 +29,11 @@ public class EnvironmentCreator extends Creator<Environment> {
 
     /**
      * Construct a new EnvironmentCreator.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param uniqueName A unique, addressable name of this Environment.
      */
-    public EnvironmentCreator(final String pathServiceSid, 
+    public EnvironmentCreator(final String pathServiceSid,
                               final String uniqueName) {
         this.pathServiceSid = pathServiceSid;
         this.uniqueName = uniqueName;
@@ -42,7 +42,7 @@ public class EnvironmentCreator extends Creator<Environment> {
     /**
      * A URL-friendly name that represents this Environment and forms part of the
      * domain name, fewer than 32 characters. Required..
-     * 
+     *
      * @param domainSuffix A URL-friendly name that represents this Environment.
      * @return this
      */
@@ -53,7 +53,7 @@ public class EnvironmentCreator extends Creator<Environment> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Environment
      */
@@ -92,7 +92,7 @@ public class EnvironmentCreator extends Creator<Environment> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

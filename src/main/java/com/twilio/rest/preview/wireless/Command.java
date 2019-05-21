@@ -43,7 +43,7 @@ public class Command extends Resource {
 
     /**
      * Create a CommandFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The sid
      * @return CommandFetcher capable of executing the fetch
      */
@@ -53,7 +53,7 @@ public class Command extends Resource {
 
     /**
      * Create a CommandReader to execute read.
-     * 
+     *
      * @return CommandReader capable of executing the read
      */
     public static CommandReader reader() {
@@ -62,7 +62,7 @@ public class Command extends Resource {
 
     /**
      * Create a CommandCreator to execute create.
-     * 
+     *
      * @param command The command
      * @return CommandCreator capable of executing the create
      */
@@ -72,7 +72,7 @@ public class Command extends Resource {
 
     /**
      * Converts a JSON String into a Command object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Command object represented by the provided JSON
@@ -91,7 +91,7 @@ public class Command extends Resource {
     /**
      * Converts a JSON InputStream into a Command object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Command object represented by the provided JSON
@@ -121,25 +121,25 @@ public class Command extends Resource {
 
     @JsonCreator
     private Command(@JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("device_sid")
-                    final String deviceSid, 
+                    final String deviceSid,
                     @JsonProperty("sim_sid")
-                    final String simSid, 
+                    final String simSid,
                     @JsonProperty("command")
-                    final String command, 
+                    final String command,
                     @JsonProperty("command_mode")
-                    final String commandMode, 
+                    final String commandMode,
                     @JsonProperty("status")
-                    final String status, 
+                    final String status,
                     @JsonProperty("direction")
-                    final String direction, 
+                    final String direction,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("url")
                     final URI url) {
         this.sid = sid;
@@ -157,7 +157,7 @@ public class Command extends Resource {
 
     /**
      * Returns The The sid.
-     * 
+     *
      * @return The sid
      */
     public final String getSid() {
@@ -166,7 +166,7 @@ public class Command extends Resource {
 
     /**
      * Returns The The account_sid.
-     * 
+     *
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -175,7 +175,7 @@ public class Command extends Resource {
 
     /**
      * Returns The The device_sid.
-     * 
+     *
      * @return The device_sid
      */
     public final String getDeviceSid() {
@@ -184,7 +184,7 @@ public class Command extends Resource {
 
     /**
      * Returns The The sim_sid.
-     * 
+     *
      * @return The sim_sid
      */
     public final String getSimSid() {
@@ -193,7 +193,7 @@ public class Command extends Resource {
 
     /**
      * Returns The The command.
-     * 
+     *
      * @return The command
      */
     public final String getCommand() {
@@ -202,7 +202,7 @@ public class Command extends Resource {
 
     /**
      * Returns The The command_mode.
-     * 
+     *
      * @return The command_mode
      */
     public final String getCommandMode() {
@@ -211,7 +211,7 @@ public class Command extends Resource {
 
     /**
      * Returns The The status.
-     * 
+     *
      * @return The status
      */
     public final String getStatus() {
@@ -220,7 +220,7 @@ public class Command extends Resource {
 
     /**
      * Returns The The direction.
-     * 
+     *
      * @return The direction
      */
     public final String getDirection() {
@@ -229,7 +229,7 @@ public class Command extends Resource {
 
     /**
      * Returns The The date_created.
-     * 
+     *
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -238,7 +238,7 @@ public class Command extends Resource {
 
     /**
      * Returns The The date_updated.
-     * 
+     *
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -247,7 +247,7 @@ public class Command extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -266,16 +266,16 @@ public class Command extends Resource {
 
         Command other = (Command) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(deviceSid, other.deviceSid) && 
-               Objects.equals(simSid, other.simSid) && 
-               Objects.equals(command, other.command) && 
-               Objects.equals(commandMode, other.commandMode) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(direction, other.direction) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(deviceSid, other.deviceSid) &&
+               Objects.equals(simSid, other.simSid) &&
+               Objects.equals(command, other.command) &&
+               Objects.equals(commandMode, other.commandMode) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(direction, other.direction) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
     }
 

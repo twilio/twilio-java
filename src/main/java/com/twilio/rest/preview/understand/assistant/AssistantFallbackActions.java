@@ -42,7 +42,7 @@ public class AssistantFallbackActions extends Resource {
 
     /**
      * Create a AssistantFallbackActionsFetcher to execute fetch.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      * @return AssistantFallbackActionsFetcher capable of executing the fetch
      */
@@ -52,7 +52,7 @@ public class AssistantFallbackActions extends Resource {
 
     /**
      * Create a AssistantFallbackActionsUpdater to execute update.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      * @return AssistantFallbackActionsUpdater capable of executing the update
      */
@@ -63,7 +63,7 @@ public class AssistantFallbackActions extends Resource {
     /**
      * Converts a JSON String into a AssistantFallbackActions object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AssistantFallbackActions object represented by the provided JSON
@@ -82,7 +82,7 @@ public class AssistantFallbackActions extends Resource {
     /**
      * Converts a JSON InputStream into a AssistantFallbackActions object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AssistantFallbackActions object represented by the provided JSON
@@ -105,11 +105,11 @@ public class AssistantFallbackActions extends Resource {
 
     @JsonCreator
     private AssistantFallbackActions(@JsonProperty("account_sid")
-                                     final String accountSid, 
+                                     final String accountSid,
                                      @JsonProperty("assistant_sid")
-                                     final String assistantSid, 
+                                     final String assistantSid,
                                      @JsonProperty("url")
-                                     final URI url, 
+                                     final URI url,
                                      @JsonProperty("data")
                                      final Map<String, Object> data) {
         this.accountSid = accountSid;
@@ -120,7 +120,7 @@ public class AssistantFallbackActions extends Resource {
 
     /**
      * Returns The The account_sid.
-     * 
+     *
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -129,7 +129,7 @@ public class AssistantFallbackActions extends Resource {
 
     /**
      * Returns The The assistant_sid.
-     * 
+     *
      * @return The assistant_sid
      */
     public final String getAssistantSid() {
@@ -138,7 +138,7 @@ public class AssistantFallbackActions extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -147,7 +147,7 @@ public class AssistantFallbackActions extends Resource {
 
     /**
      * Returns The The data.
-     * 
+     *
      * @return The data
      */
     public final Map<String, Object> getData() {
@@ -166,9 +166,9 @@ public class AssistantFallbackActions extends Resource {
 
         AssistantFallbackActions other = (AssistantFallbackActions) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(assistantSid, other.assistantSid) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(assistantSid, other.assistantSid) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(data, other.data);
     }
 

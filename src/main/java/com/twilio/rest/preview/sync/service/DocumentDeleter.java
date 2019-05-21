@@ -28,11 +28,11 @@ public class DocumentDeleter extends Deleter<Document> {
 
     /**
      * Construct a new DocumentDeleter.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathSid The sid
      */
-    public DocumentDeleter(final String pathServiceSid, 
+    public DocumentDeleter(final String pathServiceSid,
                            final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class DocumentDeleter extends Deleter<Document> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

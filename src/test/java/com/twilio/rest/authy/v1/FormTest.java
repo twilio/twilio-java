@@ -42,7 +42,7 @@ public class FormTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.AUTHY.toString(),
                                           "/v1/Forms/form-app-push");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

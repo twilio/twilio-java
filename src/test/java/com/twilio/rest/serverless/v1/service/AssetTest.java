@@ -42,7 +42,7 @@ public class AssetTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.SERVERLESS.toString(),
                                           "/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class AssetTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.SERVERLESS.toString(),
                                           "/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

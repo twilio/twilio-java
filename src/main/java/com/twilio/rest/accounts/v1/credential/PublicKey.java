@@ -38,7 +38,7 @@ public class PublicKey extends Resource {
 
     /**
      * Create a PublicKeyReader to execute read.
-     * 
+     *
      * @return PublicKeyReader capable of executing the read
      */
     public static PublicKeyReader reader() {
@@ -47,7 +47,7 @@ public class PublicKey extends Resource {
 
     /**
      * Create a PublicKeyCreator to execute create.
-     * 
+     *
      * @param publicKey A URL encoded representation of the public key
      * @return PublicKeyCreator capable of executing the create
      */
@@ -57,7 +57,7 @@ public class PublicKey extends Resource {
 
     /**
      * Create a PublicKeyFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return PublicKeyFetcher capable of executing the fetch
      */
@@ -67,7 +67,7 @@ public class PublicKey extends Resource {
 
     /**
      * Create a PublicKeyUpdater to execute update.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return PublicKeyUpdater capable of executing the update
      */
@@ -77,7 +77,7 @@ public class PublicKey extends Resource {
 
     /**
      * Create a PublicKeyDeleter to execute delete.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return PublicKeyDeleter capable of executing the delete
      */
@@ -88,7 +88,7 @@ public class PublicKey extends Resource {
     /**
      * Converts a JSON String into a PublicKey object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return PublicKey object represented by the provided JSON
@@ -107,7 +107,7 @@ public class PublicKey extends Resource {
     /**
      * Converts a JSON InputStream into a PublicKey object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return PublicKey object represented by the provided JSON
@@ -132,15 +132,15 @@ public class PublicKey extends Resource {
 
     @JsonCreator
     private PublicKey(@JsonProperty("sid")
-                      final String sid, 
+                      final String sid,
                       @JsonProperty("account_sid")
-                      final String accountSid, 
+                      final String accountSid,
                       @JsonProperty("friendly_name")
-                      final String friendlyName, 
+                      final String friendlyName,
                       @JsonProperty("date_created")
-                      final String dateCreated, 
+                      final String dateCreated,
                       @JsonProperty("date_updated")
-                      final String dateUpdated, 
+                      final String dateUpdated,
                       @JsonProperty("url")
                       final URI url) {
         this.sid = sid;
@@ -153,7 +153,7 @@ public class PublicKey extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -163,7 +163,7 @@ public class PublicKey extends Resource {
     /**
      * Returns The The SID of the Account that created the Credential that the
      * PublicKey resource belongs to.
-     * 
+     *
      * @return The SID of the Account that created the Credential that the
      *         PublicKey resource belongs to
      */
@@ -173,7 +173,7 @@ public class PublicKey extends Resource {
 
     /**
      * Returns The The string that you assigned to describe the resource.
-     * 
+     *
      * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
@@ -182,7 +182,7 @@ public class PublicKey extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
@@ -192,7 +192,7 @@ public class PublicKey extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -202,7 +202,7 @@ public class PublicKey extends Resource {
     /**
      * Returns The The URI for this resource, relative to
      * `https://accounts.twilio.com`.
-     * 
+     *
      * @return The URI for this resource, relative to `https://accounts.twilio.com`
      */
     public final URI getUrl() {
@@ -221,11 +221,11 @@ public class PublicKey extends Resource {
 
         PublicKey other = (PublicKey) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
     }
 

@@ -42,7 +42,7 @@ public class TaskActionsTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.AUTOPILOT.toString(),
                                           "/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Actions");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class TaskActionsTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.AUTOPILOT.toString(),
                                           "/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Actions");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

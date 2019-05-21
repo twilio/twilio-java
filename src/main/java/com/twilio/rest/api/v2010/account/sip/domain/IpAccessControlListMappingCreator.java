@@ -24,12 +24,12 @@ public class IpAccessControlListMappingCreator extends Creator<IpAccessControlLi
 
     /**
      * Construct a new IpAccessControlListMappingCreator.
-     * 
+     *
      * @param pathDomainSid A string that uniquely identifies the SIP Domain
      * @param ipAccessControlListSid The unique id of the IP access control list to
      *                               map to the SIP domain
      */
-    public IpAccessControlListMappingCreator(final String pathDomainSid, 
+    public IpAccessControlListMappingCreator(final String pathDomainSid,
                                              final String ipAccessControlListSid) {
         this.pathDomainSid = pathDomainSid;
         this.ipAccessControlListSid = ipAccessControlListSid;
@@ -37,15 +37,15 @@ public class IpAccessControlListMappingCreator extends Creator<IpAccessControlLi
 
     /**
      * Construct a new IpAccessControlListMappingCreator.
-     * 
+     *
      * @param pathAccountSid The unique id of the Account that is responsible for
      *                       this resource.
      * @param pathDomainSid A string that uniquely identifies the SIP Domain
      * @param ipAccessControlListSid The unique id of the IP access control list to
      *                               map to the SIP domain
      */
-    public IpAccessControlListMappingCreator(final String pathAccountSid, 
-                                             final String pathDomainSid, 
+    public IpAccessControlListMappingCreator(final String pathAccountSid,
+                                             final String pathDomainSid,
                                              final String ipAccessControlListSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
@@ -54,7 +54,7 @@ public class IpAccessControlListMappingCreator extends Creator<IpAccessControlLi
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created IpAccessControlListMapping
      */
@@ -94,7 +94,7 @@ public class IpAccessControlListMappingCreator extends Creator<IpAccessControlLi
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

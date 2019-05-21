@@ -28,7 +28,7 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * Construct a new ServiceCreator.
-     * 
+     *
      * @param name Friendly name of the service
      */
     public ServiceCreator(final String name) {
@@ -38,7 +38,7 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * The length of the verification code to be generated. Must be an integer value
      * between 4-10.
-     * 
+     *
      * @param codeLength Length of verification code. Valid values are 4-10
      * @return this
      */
@@ -49,7 +49,7 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Service
      */
@@ -88,7 +88,7 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

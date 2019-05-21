@@ -28,11 +28,11 @@ public class DeploymentDeleter extends Deleter<Deployment> {
 
     /**
      * Construct a new DeploymentDeleter.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @param pathSid A string that uniquely identifies the Deployment.
      */
-    public DeploymentDeleter(final String pathFleetSid, 
+    public DeploymentDeleter(final String pathFleetSid,
                              final String pathSid) {
         this.pathFleetSid = pathFleetSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class DeploymentDeleter extends Deleter<Deployment> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

@@ -41,14 +41,14 @@ public class TaskStatistics extends Resource {
 
     /**
      * Create a TaskStatisticsFetcher to execute fetch.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         resource to fetch
      * @param pathTaskSid The SID of the Task that is associated with the resource
      *                    to fetch
      * @return TaskStatisticsFetcher capable of executing the fetch
      */
-    public static TaskStatisticsFetcher fetcher(final String pathAssistantSid, 
+    public static TaskStatisticsFetcher fetcher(final String pathAssistantSid,
                                                 final String pathTaskSid) {
         return new TaskStatisticsFetcher(pathAssistantSid, pathTaskSid);
     }
@@ -56,7 +56,7 @@ public class TaskStatistics extends Resource {
     /**
      * Converts a JSON String into a TaskStatistics object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return TaskStatistics object represented by the provided JSON
@@ -75,7 +75,7 @@ public class TaskStatistics extends Resource {
     /**
      * Converts a JSON InputStream into a TaskStatistics object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return TaskStatistics object represented by the provided JSON
@@ -100,15 +100,15 @@ public class TaskStatistics extends Resource {
 
     @JsonCreator
     private TaskStatistics(@JsonProperty("account_sid")
-                           final String accountSid, 
+                           final String accountSid,
                            @JsonProperty("assistant_sid")
-                           final String assistantSid, 
+                           final String assistantSid,
                            @JsonProperty("task_sid")
-                           final String taskSid, 
+                           final String taskSid,
                            @JsonProperty("samples_count")
-                           final Integer samplesCount, 
+                           final Integer samplesCount,
                            @JsonProperty("fields_count")
-                           final Integer fieldsCount, 
+                           final Integer fieldsCount,
                            @JsonProperty("url")
                            final URI url) {
         this.accountSid = accountSid;
@@ -121,7 +121,7 @@ public class TaskStatistics extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -131,7 +131,7 @@ public class TaskStatistics extends Resource {
     /**
      * Returns The The SID of the Assistant that is the parent of the Task
      * associated with the resource.
-     * 
+     *
      * @return The SID of the Assistant that is the parent of the Task associated
      *         with the resource
      */
@@ -141,7 +141,7 @@ public class TaskStatistics extends Resource {
 
     /**
      * Returns The The SID of the Task for which the statistics were collected.
-     * 
+     *
      * @return The SID of the Task for which the statistics were collected
      */
     public final String getTaskSid() {
@@ -150,7 +150,7 @@ public class TaskStatistics extends Resource {
 
     /**
      * Returns The The total number of Samples associated with the Task.
-     * 
+     *
      * @return The total number of Samples associated with the Task
      */
     public final Integer getSamplesCount() {
@@ -159,7 +159,7 @@ public class TaskStatistics extends Resource {
 
     /**
      * Returns The The total number of Fields associated with the Task.
-     * 
+     *
      * @return The total number of Fields associated with the Task
      */
     public final Integer getFieldsCount() {
@@ -168,7 +168,7 @@ public class TaskStatistics extends Resource {
 
     /**
      * Returns The The absolute URL of the TaskStatistics resource.
-     * 
+     *
      * @return The absolute URL of the TaskStatistics resource
      */
     public final URI getUrl() {
@@ -187,11 +187,11 @@ public class TaskStatistics extends Resource {
 
         TaskStatistics other = (TaskStatistics) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(assistantSid, other.assistantSid) && 
-               Objects.equals(taskSid, other.taskSid) && 
-               Objects.equals(samplesCount, other.samplesCount) && 
-               Objects.equals(fieldsCount, other.fieldsCount) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(assistantSid, other.assistantSid) &&
+               Objects.equals(taskSid, other.taskSid) &&
+               Objects.equals(samplesCount, other.samplesCount) &&
+               Objects.equals(fieldsCount, other.fieldsCount) &&
                Objects.equals(url, other.url);
     }
 

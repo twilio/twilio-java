@@ -42,7 +42,7 @@ public class DependentHostedNumberOrderTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
                                           "/HostedNumbers/AuthorizationDocuments/PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/DependentHostedNumberOrders");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

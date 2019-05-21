@@ -145,19 +145,19 @@ public class RoomRecording extends Resource {
 
     /**
      * Create a RoomRecordingFetcher to execute fetch.
-     * 
+     *
      * @param pathRoomSid The room_sid
      * @param pathSid The sid
      * @return RoomRecordingFetcher capable of executing the fetch
      */
-    public static RoomRecordingFetcher fetcher(final String pathRoomSid, 
+    public static RoomRecordingFetcher fetcher(final String pathRoomSid,
                                                final String pathSid) {
         return new RoomRecordingFetcher(pathRoomSid, pathSid);
     }
 
     /**
      * Create a RoomRecordingReader to execute read.
-     * 
+     *
      * @param pathRoomSid The room_sid
      * @return RoomRecordingReader capable of executing the read
      */
@@ -167,12 +167,12 @@ public class RoomRecording extends Resource {
 
     /**
      * Create a RoomRecordingDeleter to execute delete.
-     * 
+     *
      * @param pathRoomSid The room_sid
      * @param pathSid The sid
      * @return RoomRecordingDeleter capable of executing the delete
      */
-    public static RoomRecordingDeleter deleter(final String pathRoomSid, 
+    public static RoomRecordingDeleter deleter(final String pathRoomSid,
                                                final String pathSid) {
         return new RoomRecordingDeleter(pathRoomSid, pathSid);
     }
@@ -180,7 +180,7 @@ public class RoomRecording extends Resource {
     /**
      * Converts a JSON String into a RoomRecording object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return RoomRecording object represented by the provided JSON
@@ -199,7 +199,7 @@ public class RoomRecording extends Resource {
     /**
      * Converts a JSON InputStream into a RoomRecording object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return RoomRecording object represented by the provided JSON
@@ -234,35 +234,35 @@ public class RoomRecording extends Resource {
 
     @JsonCreator
     private RoomRecording(@JsonProperty("account_sid")
-                          final String accountSid, 
+                          final String accountSid,
                           @JsonProperty("status")
-                          final RoomRecording.Status status, 
+                          final RoomRecording.Status status,
                           @JsonProperty("date_created")
-                          final String dateCreated, 
+                          final String dateCreated,
                           @JsonProperty("sid")
-                          final String sid, 
+                          final String sid,
                           @JsonProperty("source_sid")
-                          final String sourceSid, 
+                          final String sourceSid,
                           @JsonProperty("size")
-                          final Long size, 
+                          final Long size,
                           @JsonProperty("url")
-                          final URI url, 
+                          final URI url,
                           @JsonProperty("type")
-                          final RoomRecording.Type type, 
+                          final RoomRecording.Type type,
                           @JsonProperty("duration")
-                          final Integer duration, 
+                          final Integer duration,
                           @JsonProperty("container_format")
-                          final RoomRecording.Format containerFormat, 
+                          final RoomRecording.Format containerFormat,
                           @JsonProperty("codec")
-                          final RoomRecording.Codec codec, 
+                          final RoomRecording.Codec codec,
                           @JsonProperty("grouping_sids")
-                          final Map<String, Object> groupingSids, 
+                          final Map<String, Object> groupingSids,
                           @JsonProperty("track_name")
-                          final String trackName, 
+                          final String trackName,
                           @JsonProperty("offset")
-                          final Long offset, 
+                          final Long offset,
                           @JsonProperty("room_sid")
-                          final String roomSid, 
+                          final String roomSid,
                           @JsonProperty("links")
                           final Map<String, String> links) {
         this.accountSid = accountSid;
@@ -285,7 +285,7 @@ public class RoomRecording extends Resource {
 
     /**
      * Returns The The account_sid.
-     * 
+     *
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -294,7 +294,7 @@ public class RoomRecording extends Resource {
 
     /**
      * Returns The The status.
-     * 
+     *
      * @return The status
      */
     public final RoomRecording.Status getStatus() {
@@ -303,7 +303,7 @@ public class RoomRecording extends Resource {
 
     /**
      * Returns The The date_created.
-     * 
+     *
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -312,7 +312,7 @@ public class RoomRecording extends Resource {
 
     /**
      * Returns The The sid.
-     * 
+     *
      * @return The sid
      */
     public final String getSid() {
@@ -321,7 +321,7 @@ public class RoomRecording extends Resource {
 
     /**
      * Returns The The source_sid.
-     * 
+     *
      * @return The source_sid
      */
     public final String getSourceSid() {
@@ -330,7 +330,7 @@ public class RoomRecording extends Resource {
 
     /**
      * Returns The The size.
-     * 
+     *
      * @return The size
      */
     public final Long getSize() {
@@ -339,7 +339,7 @@ public class RoomRecording extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -348,7 +348,7 @@ public class RoomRecording extends Resource {
 
     /**
      * Returns The The type.
-     * 
+     *
      * @return The type
      */
     public final RoomRecording.Type getType() {
@@ -357,7 +357,7 @@ public class RoomRecording extends Resource {
 
     /**
      * Returns The The duration.
-     * 
+     *
      * @return The duration
      */
     public final Integer getDuration() {
@@ -366,7 +366,7 @@ public class RoomRecording extends Resource {
 
     /**
      * Returns The The container_format.
-     * 
+     *
      * @return The container_format
      */
     public final RoomRecording.Format getContainerFormat() {
@@ -375,7 +375,7 @@ public class RoomRecording extends Resource {
 
     /**
      * Returns The The codec.
-     * 
+     *
      * @return The codec
      */
     public final RoomRecording.Codec getCodec() {
@@ -384,7 +384,7 @@ public class RoomRecording extends Resource {
 
     /**
      * Returns The The grouping_sids.
-     * 
+     *
      * @return The grouping_sids
      */
     public final Map<String, Object> getGroupingSids() {
@@ -393,7 +393,7 @@ public class RoomRecording extends Resource {
 
     /**
      * Returns The The track_name.
-     * 
+     *
      * @return The track_name
      */
     public final String getTrackName() {
@@ -402,7 +402,7 @@ public class RoomRecording extends Resource {
 
     /**
      * Returns The The offset.
-     * 
+     *
      * @return The offset
      */
     public final Long getOffset() {
@@ -411,7 +411,7 @@ public class RoomRecording extends Resource {
 
     /**
      * Returns The The room_sid.
-     * 
+     *
      * @return The room_sid
      */
     public final String getRoomSid() {
@@ -420,7 +420,7 @@ public class RoomRecording extends Resource {
 
     /**
      * Returns The The links.
-     * 
+     *
      * @return The links
      */
     public final Map<String, String> getLinks() {
@@ -439,21 +439,21 @@ public class RoomRecording extends Resource {
 
         RoomRecording other = (RoomRecording) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(sourceSid, other.sourceSid) && 
-               Objects.equals(size, other.size) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(type, other.type) && 
-               Objects.equals(duration, other.duration) && 
-               Objects.equals(containerFormat, other.containerFormat) && 
-               Objects.equals(codec, other.codec) && 
-               Objects.equals(groupingSids, other.groupingSids) && 
-               Objects.equals(trackName, other.trackName) && 
-               Objects.equals(offset, other.offset) && 
-               Objects.equals(roomSid, other.roomSid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(sourceSid, other.sourceSid) &&
+               Objects.equals(size, other.size) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(type, other.type) &&
+               Objects.equals(duration, other.duration) &&
+               Objects.equals(containerFormat, other.containerFormat) &&
+               Objects.equals(codec, other.codec) &&
+               Objects.equals(groupingSids, other.groupingSids) &&
+               Objects.equals(trackName, other.trackName) &&
+               Objects.equals(offset, other.offset) &&
+               Objects.equals(roomSid, other.roomSid) &&
                Objects.equals(links, other.links);
     }
 

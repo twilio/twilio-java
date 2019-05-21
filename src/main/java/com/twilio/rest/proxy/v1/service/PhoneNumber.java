@@ -43,7 +43,7 @@ public class PhoneNumber extends Resource {
 
     /**
      * Create a PhoneNumberCreator to execute create.
-     * 
+     *
      * @param pathServiceSid The SID of the resource's parent Service
      * @return PhoneNumberCreator capable of executing the create
      */
@@ -53,20 +53,20 @@ public class PhoneNumber extends Resource {
 
     /**
      * Create a PhoneNumberDeleter to execute delete.
-     * 
+     *
      * @param pathServiceSid The SID of the parent Service resource of the
      *                       PhoneNumber resource to delete
      * @param pathSid The unique string that identifies the resource
      * @return PhoneNumberDeleter capable of executing the delete
      */
-    public static PhoneNumberDeleter deleter(final String pathServiceSid, 
+    public static PhoneNumberDeleter deleter(final String pathServiceSid,
                                              final String pathSid) {
         return new PhoneNumberDeleter(pathServiceSid, pathSid);
     }
 
     /**
      * Create a PhoneNumberReader to execute read.
-     * 
+     *
      * @param pathServiceSid The SID of the parent Service resource of the
      *                       PhoneNumber resource to read
      * @return PhoneNumberReader capable of executing the read
@@ -77,26 +77,26 @@ public class PhoneNumber extends Resource {
 
     /**
      * Create a PhoneNumberFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid The SID of the parent Service resource of the
      *                       PhoneNumber resource to fetch
      * @param pathSid The unique string that identifies the resource
      * @return PhoneNumberFetcher capable of executing the fetch
      */
-    public static PhoneNumberFetcher fetcher(final String pathServiceSid, 
+    public static PhoneNumberFetcher fetcher(final String pathServiceSid,
                                              final String pathSid) {
         return new PhoneNumberFetcher(pathServiceSid, pathSid);
     }
 
     /**
      * Create a PhoneNumberUpdater to execute update.
-     * 
+     *
      * @param pathServiceSid The SID of the parent Service resource of the
      *                       PhoneNumber resource to update
      * @param pathSid The unique string that identifies the resource
      * @return PhoneNumberUpdater capable of executing the update
      */
-    public static PhoneNumberUpdater updater(final String pathServiceSid, 
+    public static PhoneNumberUpdater updater(final String pathServiceSid,
                                              final String pathSid) {
         return new PhoneNumberUpdater(pathServiceSid, pathSid);
     }
@@ -104,7 +104,7 @@ public class PhoneNumber extends Resource {
     /**
      * Converts a JSON String into a PhoneNumber object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return PhoneNumber object represented by the provided JSON
@@ -123,7 +123,7 @@ public class PhoneNumber extends Resource {
     /**
      * Converts a JSON InputStream into a PhoneNumber object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return PhoneNumber object represented by the provided JSON
@@ -154,27 +154,27 @@ public class PhoneNumber extends Resource {
 
     @JsonCreator
     private PhoneNumber(@JsonProperty("sid")
-                        final String sid, 
+                        final String sid,
                         @JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("service_sid")
-                        final String serviceSid, 
+                        final String serviceSid,
                         @JsonProperty("date_created")
-                        final String dateCreated, 
+                        final String dateCreated,
                         @JsonProperty("date_updated")
-                        final String dateUpdated, 
+                        final String dateUpdated,
                         @JsonProperty("phone_number")
-                        final com.twilio.type.PhoneNumber phoneNumber, 
+                        final com.twilio.type.PhoneNumber phoneNumber,
                         @JsonProperty("friendly_name")
-                        final String friendlyName, 
+                        final String friendlyName,
                         @JsonProperty("iso_country")
-                        final String isoCountry, 
+                        final String isoCountry,
                         @JsonProperty("capabilities")
-                        final PhoneNumberCapabilities capabilities, 
+                        final PhoneNumberCapabilities capabilities,
                         @JsonProperty("url")
-                        final URI url, 
+                        final URI url,
                         @JsonProperty("is_reserved")
-                        final Boolean isReserved, 
+                        final Boolean isReserved,
                         @JsonProperty("in_use")
                         final Integer inUse) {
         this.sid = sid;
@@ -193,7 +193,7 @@ public class PhoneNumber extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -202,7 +202,7 @@ public class PhoneNumber extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -211,7 +211,7 @@ public class PhoneNumber extends Resource {
 
     /**
      * Returns The The SID of the PhoneNumber resource's parent Service resource.
-     * 
+     *
      * @return The SID of the PhoneNumber resource's parent Service resource
      */
     public final String getServiceSid() {
@@ -220,7 +220,7 @@ public class PhoneNumber extends Resource {
 
     /**
      * Returns The The ISO 8601 date and time in GMT when the resource was created.
-     * 
+     *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
@@ -230,7 +230,7 @@ public class PhoneNumber extends Resource {
     /**
      * Returns The The ISO 8601 date and time in GMT when the resource was last
      * updated.
-     * 
+     *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -239,7 +239,7 @@ public class PhoneNumber extends Resource {
 
     /**
      * Returns The The phone number in E.164 format.
-     * 
+     *
      * @return The phone number in E.164 format
      */
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
@@ -248,7 +248,7 @@ public class PhoneNumber extends Resource {
 
     /**
      * Returns The The string that you assigned to describe the resource.
-     * 
+     *
      * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
@@ -257,7 +257,7 @@ public class PhoneNumber extends Resource {
 
     /**
      * Returns The The ISO Country Code.
-     * 
+     *
      * @return The ISO Country Code
      */
     public final String getIsoCountry() {
@@ -266,7 +266,7 @@ public class PhoneNumber extends Resource {
 
     /**
      * Returns The The capabilities of the phone number.
-     * 
+     *
      * @return The capabilities of the phone number
      */
     public final PhoneNumberCapabilities getCapabilities() {
@@ -275,7 +275,7 @@ public class PhoneNumber extends Resource {
 
     /**
      * Returns The The absolute URL of the PhoneNumber resource.
-     * 
+     *
      * @return The absolute URL of the PhoneNumber resource
      */
     public final URI getUrl() {
@@ -285,7 +285,7 @@ public class PhoneNumber extends Resource {
     /**
      * Returns The Reserve the phone number for manual assignment to participants
      * only.
-     * 
+     *
      * @return Reserve the phone number for manual assignment to participants only
      */
     public final Boolean getIsReserved() {
@@ -294,7 +294,7 @@ public class PhoneNumber extends Resource {
 
     /**
      * Returns The The number of open session assigned to the number..
-     * 
+     *
      * @return The number of open session assigned to the number.
      */
     public final Integer getInUse() {
@@ -313,17 +313,17 @@ public class PhoneNumber extends Resource {
 
         PhoneNumber other = (PhoneNumber) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(phoneNumber, other.phoneNumber) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(isoCountry, other.isoCountry) && 
-               Objects.equals(capabilities, other.capabilities) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(isReserved, other.isReserved) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(phoneNumber, other.phoneNumber) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(isoCountry, other.isoCountry) &&
+               Objects.equals(capabilities, other.capabilities) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(isReserved, other.isReserved) &&
                Objects.equals(inUse, other.inUse);
     }
 

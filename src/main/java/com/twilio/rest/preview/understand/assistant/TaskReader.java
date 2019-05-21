@@ -29,7 +29,7 @@ public class TaskReader extends Reader<Task> {
 
     /**
      * Construct a new TaskReader.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant.
      */
     public TaskReader(final String pathAssistantSid) {
@@ -38,7 +38,7 @@ public class TaskReader extends Reader<Task> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Task ResourceSet
      */
@@ -49,7 +49,7 @@ public class TaskReader extends Reader<Task> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Task ResourceSet
      */
@@ -69,7 +69,7 @@ public class TaskReader extends Reader<Task> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Task ResourceSet
@@ -87,13 +87,13 @@ public class TaskReader extends Reader<Task> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Task> nextPage(final Page<Task> page, 
+    public Page<Task> nextPage(final Page<Task> page,
                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -107,13 +107,13 @@ public class TaskReader extends Reader<Task> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Task> previousPage(final Page<Task> page, 
+    public Page<Task> previousPage(final Page<Task> page,
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -127,7 +127,7 @@ public class TaskReader extends Reader<Task> {
 
     /**
      * Generate a Page of Task Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -162,7 +162,7 @@ public class TaskReader extends Reader<Task> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

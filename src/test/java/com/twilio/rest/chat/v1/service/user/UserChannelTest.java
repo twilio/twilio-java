@@ -42,7 +42,7 @@ public class UserChannelTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.CHAT.toString(),
                                           "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

@@ -28,11 +28,11 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
 
     /**
      * Construct a new TaskQueueCreator.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param friendlyName Human readable description of this TaskQueue
      */
-    public TaskQueueCreator(final String pathWorkspaceSid, 
+    public TaskQueueCreator(final String pathWorkspaceSid,
                             final String friendlyName) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.friendlyName = friendlyName;
@@ -44,7 +44,7 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
      * parameter is provided, Tasks will wait in this TaskQueue until they are
      * either deleted or moved to another TaskQueue. Additional examples on how to
      * describing Worker selection criteria below. Defaults to 1==1..
-     * 
+     *
      * @param targetWorkers A string describing the Worker selection criteria for
      *                      any Tasks that enter this TaskQueue.
      * @return this
@@ -57,7 +57,7 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
     /**
      * The maximum amount of workers to create reservations for the assignment of a
      * task while in this queue. Defaults to 1, with a Maximum of 50..
-     * 
+     *
      * @param maxReservedWorkers The maximum amount of workers to create
      *                           reservations for the assignment of a task while in
      *                           this queue.
@@ -74,7 +74,7 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
      * to assign the oldest Task. Default is FIFO. [Click
      * here](https://www.twilio.com/docs/api/taskrouter/last-first-out-lifo) to
      * learn more..
-     * 
+     *
      * @param taskOrder TaskOrder will determine which order the Tasks will be
      *                  assigned to Workers.
      * @return this
@@ -86,7 +86,7 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
 
     /**
      * ActivitySID to assign workers once a task is reserved for them.
-     * 
+     *
      * @param reservationActivitySid ActivitySID to assign workers once a task is
      *                               reserved for them
      * @return this
@@ -98,7 +98,7 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
 
     /**
      * ActivitySID to assign workers once a task is assigned for them.
-     * 
+     *
      * @param assignmentActivitySid ActivitySID to assign workers once a task is
      *                              assigned for them
      * @return this
@@ -110,7 +110,7 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created TaskQueue
      */
@@ -149,7 +149,7 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

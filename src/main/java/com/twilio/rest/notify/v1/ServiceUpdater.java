@@ -38,7 +38,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Construct a new ServiceUpdater.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public ServiceUpdater(final String pathSid) {
@@ -48,7 +48,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * A descriptive string that you create to describe the resource. It can be up
      * to 64 characters long..
-     * 
+     *
      * @param friendlyName A string to describe the resource
      * @return this
      */
@@ -61,7 +61,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The SID of the
      * [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to
      * use for APN Bindings..
-     * 
+     *
      * @param apnCredentialSid The SID of the Credential to use for APN Bindings
      * @return this
      */
@@ -74,7 +74,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The SID of the
      * [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to
      * use for GCM Bindings..
-     * 
+     *
      * @param gcmCredentialSid The SID of the Credential to use for GCM Bindings
      * @return this
      */
@@ -88,7 +88,7 @@ public class ServiceUpdater extends Updater<Service> {
      * Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to
      * use for SMS Bindings. This parameter must be set in order to send SMS
      * notifications..
-     * 
+     *
      * @param messagingServiceSid The SID of the Messaging Service to use for SMS
      *                            Bindings
      * @return this
@@ -100,7 +100,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Deprecated..
-     * 
+     *
      * @param facebookMessengerPageId Deprecated
      * @return this
      */
@@ -113,7 +113,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The protocol version to use for sending APNS notifications. Can be overridden
      * on a Binding by Binding basis when creating a
      * [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource..
-     * 
+     *
      * @param defaultApnNotificationProtocolVersion The protocol version to use for
      *                                              sending APNS notifications
      * @return this
@@ -127,7 +127,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The protocol version to use for sending GCM notifications. Can be overridden
      * on a Binding by Binding basis when creating a
      * [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource..
-     * 
+     *
      * @param defaultGcmNotificationProtocolVersion The protocol version to use for
      *                                              sending GCM notifications
      * @return this
@@ -141,7 +141,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The SID of the
      * [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to
      * use for FCM Bindings..
-     * 
+     *
      * @param fcmCredentialSid The SID of the Credential to use for FCM Bindings
      * @return this
      */
@@ -154,7 +154,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The protocol version to use for sending FCM notifications. Can be overridden
      * on a Binding by Binding basis when creating a
      * [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource..
-     * 
+     *
      * @param defaultFcmNotificationProtocolVersion The protocol version to use for
      *                                              sending FCM notifications
      * @return this
@@ -167,7 +167,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * Whether to log notifications. Can be: `true` or `false` and the default is
      * `true`..
-     * 
+     *
      * @param logEnabled Whether to log notifications
      * @return this
      */
@@ -178,7 +178,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Deprecated..
-     * 
+     *
      * @param alexaSkillId Deprecated
      * @return this
      */
@@ -189,7 +189,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Deprecated..
-     * 
+     *
      * @param defaultAlexaNotificationProtocolVersion Deprecated
      * @return this
      */
@@ -200,7 +200,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Service
      */
@@ -239,7 +239,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

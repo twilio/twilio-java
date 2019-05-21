@@ -24,13 +24,13 @@ public class WorkerChannelFetcher extends Fetcher<WorkerChannel> {
 
     /**
      * Construct a new WorkerChannelFetcher.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathWorkerSid The worker_sid
      * @param pathSid The sid
      */
-    public WorkerChannelFetcher(final String pathWorkspaceSid, 
-                                final String pathWorkerSid, 
+    public WorkerChannelFetcher(final String pathWorkspaceSid,
+                                final String pathWorkerSid,
                                 final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathWorkerSid = pathWorkerSid;
@@ -39,7 +39,7 @@ public class WorkerChannelFetcher extends Fetcher<WorkerChannel> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched WorkerChannel
      */

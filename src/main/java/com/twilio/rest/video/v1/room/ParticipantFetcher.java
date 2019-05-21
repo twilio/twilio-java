@@ -23,13 +23,13 @@ public class ParticipantFetcher extends Fetcher<Participant> {
 
     /**
      * Construct a new ParticipantFetcher.
-     * 
+     *
      * @param pathRoomSid A system-generated 34-character string that uniquely
      *                    identifies a Room.
      * @param pathSid A system-generated 34-character string that uniquely
      *                identifies this Participant.
      */
-    public ParticipantFetcher(final String pathRoomSid, 
+    public ParticipantFetcher(final String pathRoomSid,
                               final String pathSid) {
         this.pathRoomSid = pathRoomSid;
         this.pathSid = pathSid;
@@ -37,7 +37,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Participant
      */

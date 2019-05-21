@@ -24,11 +24,11 @@ public class RecordingFetcher extends Fetcher<Recording> {
 
     /**
      * Construct a new RecordingFetcher.
-     * 
+     *
      * @param pathCallSid The Call SID of the resource to fetch
      * @param pathSid The unique string that identifies the resource
      */
-    public RecordingFetcher(final String pathCallSid, 
+    public RecordingFetcher(final String pathCallSid,
                             final String pathSid) {
         this.pathCallSid = pathCallSid;
         this.pathSid = pathSid;
@@ -36,14 +36,14 @@ public class RecordingFetcher extends Fetcher<Recording> {
 
     /**
      * Construct a new RecordingFetcher.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource to
      *                       fetch
      * @param pathCallSid The Call SID of the resource to fetch
      * @param pathSid The unique string that identifies the resource
      */
-    public RecordingFetcher(final String pathAccountSid, 
-                            final String pathCallSid, 
+    public RecordingFetcher(final String pathAccountSid,
+                            final String pathCallSid,
                             final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathCallSid = pathCallSid;
@@ -52,7 +52,7 @@ public class RecordingFetcher extends Fetcher<Recording> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Recording
      */

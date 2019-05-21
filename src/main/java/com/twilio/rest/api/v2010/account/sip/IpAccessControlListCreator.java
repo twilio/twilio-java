@@ -23,7 +23,7 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
 
     /**
      * Construct a new IpAccessControlListCreator.
-     * 
+     *
      * @param friendlyName A human readable description of this resource
      */
     public IpAccessControlListCreator(final String friendlyName) {
@@ -32,11 +32,11 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
 
     /**
      * Construct a new IpAccessControlListCreator.
-     * 
+     *
      * @param pathAccountSid The unique sid that identifies this account
      * @param friendlyName A human readable description of this resource
      */
-    public IpAccessControlListCreator(final String pathAccountSid, 
+    public IpAccessControlListCreator(final String pathAccountSid,
                                       final String friendlyName) {
         this.pathAccountSid = pathAccountSid;
         this.friendlyName = friendlyName;
@@ -44,7 +44,7 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created IpAccessControlList
      */
@@ -84,7 +84,7 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

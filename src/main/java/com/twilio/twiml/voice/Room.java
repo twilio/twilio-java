@@ -37,7 +37,7 @@ public class Room extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -46,7 +46,7 @@ public class Room extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -62,7 +62,7 @@ public class Room extends TwiML {
 
     /**
      * Participant identity when connecting to the Room
-     * 
+     *
      * @return Participant identity when connecting to the Room
      */
     public String getParticipantidentity() {
@@ -71,7 +71,7 @@ public class Room extends TwiML {
 
     /**
      * Room name
-     * 
+     *
      * @return Room name
      */
     public String getName() {

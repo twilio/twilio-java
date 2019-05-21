@@ -28,11 +28,11 @@ public class MessageDeleter extends Deleter<Message> {
 
     /**
      * Construct a new MessageDeleter.
-     * 
+     *
      * @param pathSessionSid The unique id of the Session for this message.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
-    public MessageDeleter(final String pathSessionSid, 
+    public MessageDeleter(final String pathSessionSid,
                           final String pathSid) {
         this.pathSessionSid = pathSessionSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class MessageDeleter extends Deleter<Message> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

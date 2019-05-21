@@ -24,14 +24,14 @@ public class SubscribedTrackFetcher extends Fetcher<SubscribedTrack> {
 
     /**
      * Construct a new SubscribedTrackFetcher.
-     * 
+     *
      * @param pathRoomSid Unique Room identifier where this Track is subscribed.
      * @param pathParticipantSid Unique Participant identifier that subscribes to
      *                           this Track.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
-    public SubscribedTrackFetcher(final String pathRoomSid, 
-                                  final String pathParticipantSid, 
+    public SubscribedTrackFetcher(final String pathRoomSid,
+                                  final String pathParticipantSid,
                                   final String pathSid) {
         this.pathRoomSid = pathRoomSid;
         this.pathParticipantSid = pathParticipantSid;
@@ -40,7 +40,7 @@ public class SubscribedTrackFetcher extends Fetcher<SubscribedTrack> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched SubscribedTrack
      */

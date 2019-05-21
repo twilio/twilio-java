@@ -28,11 +28,11 @@ public class ParticipantDeleter extends Deleter<Participant> {
 
     /**
      * Construct a new ParticipantDeleter.
-     * 
+     *
      * @param pathSessionSid The unique id of the Session for this participant.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
-    public ParticipantDeleter(final String pathSessionSid, 
+    public ParticipantDeleter(final String pathSessionSid,
                               final String pathSid) {
         this.pathSessionSid = pathSessionSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class ParticipantDeleter extends Deleter<Participant> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

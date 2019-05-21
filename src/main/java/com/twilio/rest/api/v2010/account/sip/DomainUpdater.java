@@ -35,7 +35,7 @@ public class DomainUpdater extends Updater<Domain> {
 
     /**
      * Construct a new DomainUpdater.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public DomainUpdater(final String pathSid) {
@@ -44,12 +44,12 @@ public class DomainUpdater extends Updater<Domain> {
 
     /**
      * Construct a new DomainUpdater.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource to
      *                       update
      * @param pathSid The unique string that identifies the resource
      */
-    public DomainUpdater(final String pathAccountSid, 
+    public DomainUpdater(final String pathAccountSid,
                          final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -58,7 +58,7 @@ public class DomainUpdater extends Updater<Domain> {
     /**
      * A descriptive string that you created to describe the resource. It can be up
      * to 64 characters long..
-     * 
+     *
      * @param friendlyName A string to describe the resource
      * @return this
      */
@@ -70,7 +70,7 @@ public class DomainUpdater extends Updater<Domain> {
     /**
      * The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or
      * `POST`..
-     * 
+     *
      * @param voiceFallbackMethod The HTTP method used with voice_fallback_url
      * @return this
      */
@@ -82,7 +82,7 @@ public class DomainUpdater extends Updater<Domain> {
     /**
      * The URL that we should call when an error occurs while retrieving or
      * executing the TwiML requested by `voice_url`..
-     * 
+     *
      * @param voiceFallbackUrl The URL we should call when an error occurs in
      *                         executing TwiML
      * @return this
@@ -95,7 +95,7 @@ public class DomainUpdater extends Updater<Domain> {
     /**
      * The URL that we should call when an error occurs while retrieving or
      * executing the TwiML requested by `voice_url`..
-     * 
+     *
      * @param voiceFallbackUrl The URL we should call when an error occurs in
      *                         executing TwiML
      * @return this
@@ -106,7 +106,7 @@ public class DomainUpdater extends Updater<Domain> {
 
     /**
      * The HTTP method we should use to call `voice_url`.
-     * 
+     *
      * @param voiceMethod The HTTP method we should use with voice_url
      * @return this
      */
@@ -118,7 +118,7 @@ public class DomainUpdater extends Updater<Domain> {
     /**
      * The HTTP method we should use to call `voice_status_callback_url`. Can be:
      * `GET` or `POST`..
-     * 
+     *
      * @param voiceStatusCallbackMethod The HTTP method we should use to call
      *                                  voice_status_callback_url
      * @return this
@@ -131,7 +131,7 @@ public class DomainUpdater extends Updater<Domain> {
     /**
      * The URL that we should call to pass status parameters (such as call ended) to
      * your application..
-     * 
+     *
      * @param voiceStatusCallbackUrl The URL that we should call to pass status
      *                               updates
      * @return this
@@ -144,7 +144,7 @@ public class DomainUpdater extends Updater<Domain> {
     /**
      * The URL that we should call to pass status parameters (such as call ended) to
      * your application..
-     * 
+     *
      * @param voiceStatusCallbackUrl The URL that we should call to pass status
      *                               updates
      * @return this
@@ -155,7 +155,7 @@ public class DomainUpdater extends Updater<Domain> {
 
     /**
      * The URL we should call when the domain receives a call..
-     * 
+     *
      * @param voiceUrl The URL we should call when receiving a call
      * @return this
      */
@@ -166,7 +166,7 @@ public class DomainUpdater extends Updater<Domain> {
 
     /**
      * The URL we should call when the domain receives a call..
-     * 
+     *
      * @param voiceUrl The URL we should call when receiving a call
      * @return this
      */
@@ -178,7 +178,7 @@ public class DomainUpdater extends Updater<Domain> {
      * Whether to allow SIP Endpoints to register with the domain to receive calls.
      * Can be `true` or `false`. `true` allows SIP Endpoints to register with the
      * domain to receive calls, `false` does not..
-     * 
+     *
      * @param sipRegistration Whether SIP registration is allowed
      * @return this
      */
@@ -190,7 +190,7 @@ public class DomainUpdater extends Updater<Domain> {
     /**
      * The unique address you reserve on Twilio to which you route your SIP traffic.
      * Domain names can contain letters, digits, and "-"..
-     * 
+     *
      * @param domainName The unique address on Twilio to route SIP traffic
      * @return this
      */
@@ -201,7 +201,7 @@ public class DomainUpdater extends Updater<Domain> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Domain
      */
@@ -241,7 +241,7 @@ public class DomainUpdater extends Updater<Domain> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

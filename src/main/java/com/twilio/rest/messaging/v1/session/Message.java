@@ -43,19 +43,19 @@ public class Message extends Resource {
 
     /**
      * Create a MessageFetcher to execute fetch.
-     * 
+     *
      * @param pathSessionSid The unique id of the Session for this message.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return MessageFetcher capable of executing the fetch
      */
-    public static MessageFetcher fetcher(final String pathSessionSid, 
+    public static MessageFetcher fetcher(final String pathSessionSid,
                                          final String pathSid) {
         return new MessageFetcher(pathSessionSid, pathSid);
     }
 
     /**
      * Create a MessageCreator to execute create.
-     * 
+     *
      * @param pathSessionSid The unique id of the Session for this message.
      * @return MessageCreator capable of executing the create
      */
@@ -65,19 +65,19 @@ public class Message extends Resource {
 
     /**
      * Create a MessageUpdater to execute update.
-     * 
+     *
      * @param pathSessionSid The unique id of the Session for this message.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return MessageUpdater capable of executing the update
      */
-    public static MessageUpdater updater(final String pathSessionSid, 
+    public static MessageUpdater updater(final String pathSessionSid,
                                          final String pathSid) {
         return new MessageUpdater(pathSessionSid, pathSid);
     }
 
     /**
      * Create a MessageReader to execute read.
-     * 
+     *
      * @param pathSessionSid The unique id of the Session for this message.
      * @return MessageReader capable of executing the read
      */
@@ -87,19 +87,19 @@ public class Message extends Resource {
 
     /**
      * Create a MessageDeleter to execute delete.
-     * 
+     *
      * @param pathSessionSid The unique id of the Session for this message.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return MessageDeleter capable of executing the delete
      */
-    public static MessageDeleter deleter(final String pathSessionSid, 
+    public static MessageDeleter deleter(final String pathSessionSid,
                                          final String pathSid) {
         return new MessageDeleter(pathSessionSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a Message object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Message object represented by the provided JSON
@@ -118,7 +118,7 @@ public class Message extends Resource {
     /**
      * Converts a JSON InputStream into a Message object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Message object represented by the provided JSON
@@ -149,27 +149,27 @@ public class Message extends Resource {
 
     @JsonCreator
     private Message(@JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("service_sid")
-                    final String serviceSid, 
+                    final String serviceSid,
                     @JsonProperty("messaging_service_sid")
-                    final String messagingServiceSid, 
+                    final String messagingServiceSid,
                     @JsonProperty("session_sid")
-                    final String sessionSid, 
+                    final String sessionSid,
                     @JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("index")
-                    final Integer index, 
+                    final Integer index,
                     @JsonProperty("author")
-                    final String author, 
+                    final String author,
                     @JsonProperty("body")
-                    final String body, 
+                    final String body,
                     @JsonProperty("attributes")
-                    final String attributes, 
+                    final String attributes,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("url")
                     final URI url) {
         this.accountSid = accountSid;
@@ -188,7 +188,7 @@ public class Message extends Resource {
 
     /**
      * Returns The The unique id of the Account responsible for this message..
-     * 
+     *
      * @return The unique id of the Account responsible for this message.
      */
     public final String getAccountSid() {
@@ -197,7 +197,7 @@ public class Message extends Resource {
 
     /**
      * Returns The The unique id of the Chat Service this message belongs to..
-     * 
+     *
      * @return The unique id of the Chat Service this message belongs to.
      */
     public final String getServiceSid() {
@@ -206,7 +206,7 @@ public class Message extends Resource {
 
     /**
      * Returns The The unique id of the SMS Service this message belongs to..
-     * 
+     *
      * @return The unique id of the SMS Service this message belongs to.
      */
     public final String getMessagingServiceSid() {
@@ -215,7 +215,7 @@ public class Message extends Resource {
 
     /**
      * Returns The The unique id of the Session for this message..
-     * 
+     *
      * @return The unique id of the Session for this message.
      */
     public final String getSessionSid() {
@@ -224,7 +224,7 @@ public class Message extends Resource {
 
     /**
      * Returns The A 34 character string that uniquely identifies this resource..
-     * 
+     *
      * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
@@ -233,7 +233,7 @@ public class Message extends Resource {
 
     /**
      * Returns The The index of the message within the Session.
-     * 
+     *
      * @return The index of the message within the Session
      */
     public final Integer getIndex() {
@@ -243,7 +243,7 @@ public class Message extends Resource {
     /**
      * Returns The The identity or the address of the device of the message's
      * author..
-     * 
+     *
      * @return The identity or the address of the device of the message's author.
      */
     public final String getAuthor() {
@@ -252,7 +252,7 @@ public class Message extends Resource {
 
     /**
      * Returns The The contents of the message..
-     * 
+     *
      * @return The contents of the message.
      */
     public final String getBody() {
@@ -261,7 +261,7 @@ public class Message extends Resource {
 
     /**
      * Returns The A string metadata field you can use to store any data you wish..
-     * 
+     *
      * @return A string metadata field you can use to store any data you wish.
      */
     public final String getAttributes() {
@@ -270,7 +270,7 @@ public class Message extends Resource {
 
     /**
      * Returns The The date that this resource was created..
-     * 
+     *
      * @return The date that this resource was created.
      */
     public final DateTime getDateCreated() {
@@ -279,7 +279,7 @@ public class Message extends Resource {
 
     /**
      * Returns The The date that this resource was last updated..
-     * 
+     *
      * @return The date that this resource was last updated.
      */
     public final DateTime getDateUpdated() {
@@ -288,7 +288,7 @@ public class Message extends Resource {
 
     /**
      * Returns The An absolute URL for this message..
-     * 
+     *
      * @return An absolute URL for this message.
      */
     public final URI getUrl() {
@@ -307,17 +307,17 @@ public class Message extends Resource {
 
         Message other = (Message) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(messagingServiceSid, other.messagingServiceSid) && 
-               Objects.equals(sessionSid, other.sessionSid) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(index, other.index) && 
-               Objects.equals(author, other.author) && 
-               Objects.equals(body, other.body) && 
-               Objects.equals(attributes, other.attributes) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
+               Objects.equals(sessionSid, other.sessionSid) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(index, other.index) &&
+               Objects.equals(author, other.author) &&
+               Objects.equals(body, other.body) &&
+               Objects.equals(attributes, other.attributes) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
     }
 

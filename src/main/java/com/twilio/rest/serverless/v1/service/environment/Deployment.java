@@ -43,40 +43,40 @@ public class Deployment extends Resource {
 
     /**
      * Create a DeploymentReader to execute read.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathEnvironmentSid Environment Sid.
      * @return DeploymentReader capable of executing the read
      */
-    public static DeploymentReader reader(final String pathServiceSid, 
+    public static DeploymentReader reader(final String pathServiceSid,
                                           final String pathEnvironmentSid) {
         return new DeploymentReader(pathServiceSid, pathEnvironmentSid);
     }
 
     /**
      * Create a DeploymentFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathEnvironmentSid Environment Sid.
      * @param pathSid Deployment Sid.
      * @return DeploymentFetcher capable of executing the fetch
      */
-    public static DeploymentFetcher fetcher(final String pathServiceSid, 
-                                            final String pathEnvironmentSid, 
+    public static DeploymentFetcher fetcher(final String pathServiceSid,
+                                            final String pathEnvironmentSid,
                                             final String pathSid) {
         return new DeploymentFetcher(pathServiceSid, pathEnvironmentSid, pathSid);
     }
 
     /**
      * Create a DeploymentCreator to execute create.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathEnvironmentSid Environment Sid.
      * @param buildSid Build Sid.
      * @return DeploymentCreator capable of executing the create
      */
-    public static DeploymentCreator creator(final String pathServiceSid, 
-                                            final String pathEnvironmentSid, 
+    public static DeploymentCreator creator(final String pathServiceSid,
+                                            final String pathEnvironmentSid,
                                             final String buildSid) {
         return new DeploymentCreator(pathServiceSid, pathEnvironmentSid, buildSid);
     }
@@ -84,7 +84,7 @@ public class Deployment extends Resource {
     /**
      * Converts a JSON String into a Deployment object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Deployment object represented by the provided JSON
@@ -103,7 +103,7 @@ public class Deployment extends Resource {
     /**
      * Converts a JSON InputStream into a Deployment object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Deployment object represented by the provided JSON
@@ -130,19 +130,19 @@ public class Deployment extends Resource {
 
     @JsonCreator
     private Deployment(@JsonProperty("sid")
-                       final String sid, 
+                       final String sid,
                        @JsonProperty("account_sid")
-                       final String accountSid, 
+                       final String accountSid,
                        @JsonProperty("service_sid")
-                       final String serviceSid, 
+                       final String serviceSid,
                        @JsonProperty("environment_sid")
-                       final String environmentSid, 
+                       final String environmentSid,
                        @JsonProperty("build_sid")
-                       final String buildSid, 
+                       final String buildSid,
                        @JsonProperty("date_created")
-                       final String dateCreated, 
+                       final String dateCreated,
                        @JsonProperty("date_updated")
-                       final String dateUpdated, 
+                       final String dateUpdated,
                        @JsonProperty("url")
                        final URI url) {
         this.sid = sid;
@@ -157,7 +157,7 @@ public class Deployment extends Resource {
 
     /**
      * Returns The Deployment Sid..
-     * 
+     *
      * @return Deployment Sid.
      */
     public final String getSid() {
@@ -166,7 +166,7 @@ public class Deployment extends Resource {
 
     /**
      * Returns The Account Sid..
-     * 
+     *
      * @return Account Sid.
      */
     public final String getAccountSid() {
@@ -175,7 +175,7 @@ public class Deployment extends Resource {
 
     /**
      * Returns The Service Sid..
-     * 
+     *
      * @return Service Sid.
      */
     public final String getServiceSid() {
@@ -184,7 +184,7 @@ public class Deployment extends Resource {
 
     /**
      * Returns The Environment Sid..
-     * 
+     *
      * @return Environment Sid.
      */
     public final String getEnvironmentSid() {
@@ -193,7 +193,7 @@ public class Deployment extends Resource {
 
     /**
      * Returns The Build Sid..
-     * 
+     *
      * @return Build Sid.
      */
     public final String getBuildSid() {
@@ -202,7 +202,7 @@ public class Deployment extends Resource {
 
     /**
      * Returns The The date that this Deployment was created..
-     * 
+     *
      * @return The date that this Deployment was created.
      */
     public final DateTime getDateCreated() {
@@ -211,7 +211,7 @@ public class Deployment extends Resource {
 
     /**
      * Returns The The date that this Deployment was updated..
-     * 
+     *
      * @return The date that this Deployment was updated.
      */
     public final DateTime getDateUpdated() {
@@ -220,7 +220,7 @@ public class Deployment extends Resource {
 
     /**
      * Returns The The URL of this Deployment..
-     * 
+     *
      * @return The URL of this Deployment.
      */
     public final URI getUrl() {
@@ -239,13 +239,13 @@ public class Deployment extends Resource {
 
         Deployment other = (Deployment) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(environmentSid, other.environmentSid) && 
-               Objects.equals(buildSid, other.buildSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(environmentSid, other.environmentSid) &&
+               Objects.equals(buildSid, other.buildSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
     }
 

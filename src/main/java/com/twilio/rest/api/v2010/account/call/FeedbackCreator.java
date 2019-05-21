@@ -28,11 +28,11 @@ public class FeedbackCreator extends Creator<Feedback> {
 
     /**
      * Construct a new FeedbackCreator.
-     * 
+     *
      * @param pathCallSid The call sid that uniquely identifies the call
      * @param qualityScore The call quality expressed as an integer from 1 to 5
      */
-    public FeedbackCreator(final String pathCallSid, 
+    public FeedbackCreator(final String pathCallSid,
                            final Integer qualityScore) {
         this.pathCallSid = pathCallSid;
         this.qualityScore = qualityScore;
@@ -40,13 +40,13 @@ public class FeedbackCreator extends Creator<Feedback> {
 
     /**
      * Construct a new FeedbackCreator.
-     * 
+     *
      * @param pathAccountSid The unique sid that identifies this account
      * @param pathCallSid The call sid that uniquely identifies the call
      * @param qualityScore The call quality expressed as an integer from 1 to 5
      */
-    public FeedbackCreator(final String pathAccountSid, 
-                           final String pathCallSid, 
+    public FeedbackCreator(final String pathAccountSid,
+                           final String pathCallSid,
                            final Integer qualityScore) {
         this.pathAccountSid = pathAccountSid;
         this.pathCallSid = pathCallSid;
@@ -58,7 +58,7 @@ public class FeedbackCreator extends Creator<Feedback> {
      * `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`,
      * `digits-not-captured`, `audio-latency`, `unsolicited-call`, or
      * `one-way-audio`..
-     * 
+     *
      * @param issue Issues experienced during the call
      * @return this
      */
@@ -72,7 +72,7 @@ public class FeedbackCreator extends Creator<Feedback> {
      * `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`,
      * `digits-not-captured`, `audio-latency`, `unsolicited-call`, or
      * `one-way-audio`..
-     * 
+     *
      * @param issue Issues experienced during the call
      * @return this
      */
@@ -82,7 +82,7 @@ public class FeedbackCreator extends Creator<Feedback> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Feedback
      */
@@ -122,7 +122,7 @@ public class FeedbackCreator extends Creator<Feedback> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

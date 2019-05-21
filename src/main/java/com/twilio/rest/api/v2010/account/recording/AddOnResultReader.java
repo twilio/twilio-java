@@ -25,7 +25,7 @@ public class AddOnResultReader extends Reader<AddOnResult> {
 
     /**
      * Construct a new AddOnResultReader.
-     * 
+     *
      * @param pathReferenceSid The SID of the recording to which the result to read
      *                         belongs
      */
@@ -35,13 +35,13 @@ public class AddOnResultReader extends Reader<AddOnResult> {
 
     /**
      * Construct a new AddOnResultReader.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       read
      * @param pathReferenceSid The SID of the recording to which the result to read
      *                         belongs
      */
-    public AddOnResultReader(final String pathAccountSid, 
+    public AddOnResultReader(final String pathAccountSid,
                              final String pathReferenceSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathReferenceSid = pathReferenceSid;
@@ -49,7 +49,7 @@ public class AddOnResultReader extends Reader<AddOnResult> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return AddOnResult ResourceSet
      */
@@ -60,7 +60,7 @@ public class AddOnResultReader extends Reader<AddOnResult> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return AddOnResult ResourceSet
      */
@@ -81,7 +81,7 @@ public class AddOnResultReader extends Reader<AddOnResult> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return AddOnResult ResourceSet
@@ -100,13 +100,13 @@ public class AddOnResultReader extends Reader<AddOnResult> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<AddOnResult> nextPage(final Page<AddOnResult> page, 
+    public Page<AddOnResult> nextPage(final Page<AddOnResult> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -120,13 +120,13 @@ public class AddOnResultReader extends Reader<AddOnResult> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<AddOnResult> previousPage(final Page<AddOnResult> page, 
+    public Page<AddOnResult> previousPage(final Page<AddOnResult> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -140,7 +140,7 @@ public class AddOnResultReader extends Reader<AddOnResult> {
 
     /**
      * Generate a Page of AddOnResult Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -175,7 +175,7 @@ public class AddOnResultReader extends Reader<AddOnResult> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

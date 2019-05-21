@@ -22,7 +22,7 @@ public class RecordingDeleter extends Deleter<Recording> {
 
     /**
      * Construct a new RecordingDeleter.
-     * 
+     *
      * @param pathSid The Recording Sid that uniquely identifies the Recording to
      *                delete.
      */
@@ -32,7 +32,7 @@ public class RecordingDeleter extends Deleter<Recording> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

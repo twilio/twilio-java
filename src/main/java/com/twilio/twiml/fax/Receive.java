@@ -40,7 +40,7 @@ public class Receive extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -59,7 +59,7 @@ public class Receive extends TwiML {
 
     /**
      * Receive action URL
-     * 
+     *
      * @return Receive action URL
      */
     public URI getAction() {
@@ -68,7 +68,7 @@ public class Receive extends TwiML {
 
     /**
      * Receive action URL method
-     * 
+     *
      * @return Receive action URL method
      */
     public HttpMethod getMethod() {

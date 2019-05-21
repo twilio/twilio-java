@@ -42,7 +42,7 @@ public class SyncListItemTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
                                           "/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/1");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class SyncListItemTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.PREVIEW.toString(),
                                           "/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/1");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -138,7 +138,7 @@ public class SyncListItemTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
                                           "/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

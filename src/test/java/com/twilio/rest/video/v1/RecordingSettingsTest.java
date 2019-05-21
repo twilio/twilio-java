@@ -42,7 +42,7 @@ public class RecordingSettingsTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.VIDEO.toString(),
                                           "/v1/RecordingSettings/Default");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

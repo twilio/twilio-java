@@ -27,7 +27,7 @@ public class AssistantInitiationActionsFetcher extends Fetcher<AssistantInitiati
 
     /**
      * Construct a new AssistantInitiationActionsFetcher.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      */
     public AssistantInitiationActionsFetcher(final String pathAssistantSid) {
@@ -36,7 +36,7 @@ public class AssistantInitiationActionsFetcher extends Fetcher<AssistantInitiati
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched AssistantInitiationActions
      */

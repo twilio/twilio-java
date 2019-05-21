@@ -25,12 +25,12 @@ public class CredentialUpdater extends Updater<Credential> {
 
     /**
      * Construct a new CredentialUpdater.
-     * 
+     *
      * @param pathCredentialListSid The unique id that identifies the credential
      *                              list that includes this credential
      * @param pathSid The unique id that identifies the resource to update
      */
-    public CredentialUpdater(final String pathCredentialListSid, 
+    public CredentialUpdater(final String pathCredentialListSid,
                              final String pathSid) {
         this.pathCredentialListSid = pathCredentialListSid;
         this.pathSid = pathSid;
@@ -38,15 +38,15 @@ public class CredentialUpdater extends Updater<Credential> {
 
     /**
      * Construct a new CredentialUpdater.
-     * 
+     *
      * @param pathAccountSid The unique id of the Account that is responsible for
      *                       this resource
      * @param pathCredentialListSid The unique id that identifies the credential
      *                              list that includes this credential
      * @param pathSid The unique id that identifies the resource to update
      */
-    public CredentialUpdater(final String pathAccountSid, 
-                             final String pathCredentialListSid, 
+    public CredentialUpdater(final String pathAccountSid,
+                             final String pathCredentialListSid,
                              final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathCredentialListSid = pathCredentialListSid;
@@ -57,7 +57,7 @@ public class CredentialUpdater extends Updater<Credential> {
      * The password that the username will use when authenticating SIP requests. The
      * password must be a minimum of 12 characters, contain at least 1 digit, and
      * have mixed case. (eg `IWasAtSignal2018`).
-     * 
+     *
      * @param password The password will not be returned in the response
      * @return this
      */
@@ -68,7 +68,7 @@ public class CredentialUpdater extends Updater<Credential> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Credential
      */
@@ -108,7 +108,7 @@ public class CredentialUpdater extends Updater<Credential> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

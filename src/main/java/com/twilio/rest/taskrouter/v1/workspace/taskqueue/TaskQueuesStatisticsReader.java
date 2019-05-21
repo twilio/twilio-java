@@ -32,7 +32,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
 
     /**
      * Construct a new TaskQueuesStatisticsReader.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      */
     public TaskQueuesStatisticsReader(final String pathWorkspaceSid) {
@@ -42,7 +42,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     /**
      * Filter cumulative statistics by an end date. This is helpful for defining a
      * range of statistics to capture. Input is a GMT ISO 8601 Timestamp..
-     * 
+     *
      * @param endDate Filter cumulative statistics by an end date.
      * @return this
      */
@@ -54,7 +54,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     /**
      * Filter the TaskQueue stats based on a TaskQueue's name (only for list
      * resource).
-     * 
+     *
      * @param friendlyName Filter the TaskQueue stats based on a TaskQueue's name
      * @return this
      */
@@ -67,7 +67,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
      * Filter cumulative statistics by up to 'x' minutes in the past. This is
      * helpful for statistics for the last 15 minutes, 240 minutes (4 hours), and
      * 480 minutes (8 hours) to see trends. Defaults to 15 minutes..
-     * 
+     *
      * @param minutes Filter cumulative statistics by up to 'x' minutes in the past.
      * @return this
      */
@@ -79,7 +79,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     /**
      * Filter cumulative statistics by a start date. This is helpful for defining a
      * range of statistics to capture. Input is a GMT ISO 8601 Timestamp..
-     * 
+     *
      * @param startDate Filter cumulative statistics by a start date.
      * @return this
      */
@@ -91,7 +91,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     /**
      * Filter real-time and cumulative statistics by TaskChannel. Takes in a Unique
      * Name ("voice", "sms", "default", etc.) or a TaskChannelSid..
-     * 
+     *
      * @param taskChannel Filter real-time and cumulative statistics by TaskChannel.
      * @return this
      */
@@ -106,7 +106,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
      * that were canceled or accepted before or after 5 seconds and respectively, 30
      * seconds. This is great for showing short abandoned tasks or tasks that failed
      * to meet your SLA..
-     * 
+     *
      * @param splitByWaitTime A comma separated values for viewing splits of tasks
      *                        canceled and accepted above the given threshold in
      *                        seconds.
@@ -119,7 +119,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return TaskQueuesStatistics ResourceSet
      */
@@ -130,7 +130,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return TaskQueuesStatistics ResourceSet
      */
@@ -150,7 +150,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return TaskQueuesStatistics ResourceSet
@@ -168,13 +168,13 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<TaskQueuesStatistics> nextPage(final Page<TaskQueuesStatistics> page, 
+    public Page<TaskQueuesStatistics> nextPage(final Page<TaskQueuesStatistics> page,
                                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -188,13 +188,13 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<TaskQueuesStatistics> previousPage(final Page<TaskQueuesStatistics> page, 
+    public Page<TaskQueuesStatistics> previousPage(final Page<TaskQueuesStatistics> page,
                                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -208,7 +208,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
 
     /**
      * Generate a Page of TaskQueuesStatistics Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -243,7 +243,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

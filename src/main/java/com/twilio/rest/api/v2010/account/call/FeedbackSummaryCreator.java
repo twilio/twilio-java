@@ -32,11 +32,11 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
 
     /**
      * Construct a new FeedbackSummaryCreator.
-     * 
+     *
      * @param startDate Only include feedback given on or after this date
      * @param endDate Only include feedback given on or before this date
      */
-    public FeedbackSummaryCreator(final LocalDate startDate, 
+    public FeedbackSummaryCreator(final LocalDate startDate,
                                   final LocalDate endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
@@ -44,13 +44,13 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
 
     /**
      * Construct a new FeedbackSummaryCreator.
-     * 
+     *
      * @param pathAccountSid The unique sid that identifies this account
      * @param startDate Only include feedback given on or after this date
      * @param endDate Only include feedback given on or before this date
      */
-    public FeedbackSummaryCreator(final String pathAccountSid, 
-                                  final LocalDate startDate, 
+    public FeedbackSummaryCreator(final String pathAccountSid,
+                                  final LocalDate startDate,
                                   final LocalDate endDate) {
         this.pathAccountSid = pathAccountSid;
         this.startDate = startDate;
@@ -61,7 +61,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
      * Whether to also include Feedback resources from all subaccounts. `true`
      * includes feedback from all subaccounts and `false`, the default, includes
      * feedback from only the specified account..
-     * 
+     *
      * @param includeSubaccounts `true` includes feedback from the specified
      *                           account and its subaccounts
      * @return this
@@ -73,7 +73,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
 
     /**
      * The URL that we will request when the feedback summary is complete..
-     * 
+     *
      * @param statusCallback The URL that we will request when the feedback summary
      *                       is complete
      * @return this
@@ -85,7 +85,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
 
     /**
      * The URL that we will request when the feedback summary is complete..
-     * 
+     *
      * @param statusCallback The URL that we will request when the feedback summary
      *                       is complete
      * @return this
@@ -97,7 +97,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
     /**
      * The HTTP method (`GET` or `POST`) we use to make the request to the
      * `StatusCallback` URL..
-     * 
+     *
      * @param statusCallbackMethod The HTTP method we use to make requests to the
      *                             StatusCallback URL
      * @return this
@@ -109,7 +109,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created FeedbackSummary
      */
@@ -149,7 +149,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

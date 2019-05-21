@@ -29,13 +29,13 @@ public class InstalledAddOnExtensionUpdater extends Updater<InstalledAddOnExtens
 
     /**
      * Construct a new InstalledAddOnExtensionUpdater.
-     * 
+     *
      * @param pathInstalledAddOnSid The installed_add_on_sid
      * @param pathSid The sid
      * @param enabled A Boolean indicating if the Extension will be invoked
      */
-    public InstalledAddOnExtensionUpdater(final String pathInstalledAddOnSid, 
-                                          final String pathSid, 
+    public InstalledAddOnExtensionUpdater(final String pathInstalledAddOnSid,
+                                          final String pathSid,
                                           final Boolean enabled) {
         this.pathInstalledAddOnSid = pathInstalledAddOnSid;
         this.pathSid = pathSid;
@@ -44,7 +44,7 @@ public class InstalledAddOnExtensionUpdater extends Updater<InstalledAddOnExtens
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated InstalledAddOnExtension
      */
@@ -83,7 +83,7 @@ public class InstalledAddOnExtensionUpdater extends Updater<InstalledAddOnExtens
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

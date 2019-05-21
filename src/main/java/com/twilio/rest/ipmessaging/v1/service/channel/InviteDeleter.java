@@ -24,14 +24,14 @@ public class InviteDeleter extends Deleter<Invite> {
 
     /**
      * Construct a new InviteDeleter.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to delete the resource from
      * @param pathChannelSid The SID of the Channel the resource to delete belongs
      *                       to
      * @param pathSid The unique string that identifies the resource
      */
-    public InviteDeleter(final String pathServiceSid, 
-                         final String pathChannelSid, 
+    public InviteDeleter(final String pathServiceSid,
+                         final String pathChannelSid,
                          final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -40,7 +40,7 @@ public class InviteDeleter extends Deleter<Invite> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

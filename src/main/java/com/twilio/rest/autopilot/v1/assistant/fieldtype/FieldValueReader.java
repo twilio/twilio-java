@@ -31,13 +31,13 @@ public class FieldValueReader extends Reader<FieldValue> {
 
     /**
      * Construct a new FieldValueReader.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         FieldType associated with the resources to read
      * @param pathFieldTypeSid The SID of the Field Type associated with the Field
      *                         Value to read
      */
-    public FieldValueReader(final String pathAssistantSid, 
+    public FieldValueReader(final String pathAssistantSid,
                             final String pathFieldTypeSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathFieldTypeSid = pathFieldTypeSid;
@@ -46,7 +46,7 @@ public class FieldValueReader extends Reader<FieldValue> {
     /**
      * The [ISO
      * language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) tag that specifies the language of the value. Currently supported tags: `en-US`, `nl-NL`.
-     * 
+     *
      * @param language The ISO language-country tag that identifies the language of
      *                 the value
      * @return this
@@ -58,7 +58,7 @@ public class FieldValueReader extends Reader<FieldValue> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return FieldValue ResourceSet
      */
@@ -69,7 +69,7 @@ public class FieldValueReader extends Reader<FieldValue> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return FieldValue ResourceSet
      */
@@ -89,7 +89,7 @@ public class FieldValueReader extends Reader<FieldValue> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return FieldValue ResourceSet
@@ -107,13 +107,13 @@ public class FieldValueReader extends Reader<FieldValue> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<FieldValue> nextPage(final Page<FieldValue> page, 
+    public Page<FieldValue> nextPage(final Page<FieldValue> page,
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -127,13 +127,13 @@ public class FieldValueReader extends Reader<FieldValue> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<FieldValue> previousPage(final Page<FieldValue> page, 
+    public Page<FieldValue> previousPage(final Page<FieldValue> page,
                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -147,7 +147,7 @@ public class FieldValueReader extends Reader<FieldValue> {
 
     /**
      * Generate a Page of FieldValue Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -182,7 +182,7 @@ public class FieldValueReader extends Reader<FieldValue> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

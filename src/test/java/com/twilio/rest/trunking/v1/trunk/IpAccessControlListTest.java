@@ -42,7 +42,7 @@ public class IpAccessControlListTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.TRUNKING.toString(),
                                           "/v1/Trunks/TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class IpAccessControlListTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.TRUNKING.toString(),
                                           "/v1/Trunks/TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -138,7 +138,7 @@ public class IpAccessControlListTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.TRUNKING.toString(),
                                           "/v1/Trunks/TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

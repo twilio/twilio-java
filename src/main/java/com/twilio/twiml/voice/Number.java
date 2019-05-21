@@ -69,7 +69,7 @@ public class Number extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -78,7 +78,7 @@ public class Number extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -109,7 +109,7 @@ public class Number extends TwiML {
 
     /**
      * DTMF tones to play when the call is answered
-     * 
+     *
      * @return DTMF tones to play when the call is answered
      */
     public String getSendDigits() {
@@ -118,7 +118,7 @@ public class Number extends TwiML {
 
     /**
      * TwiML URL
-     * 
+     *
      * @return TwiML URL
      */
     public URI getUrl() {
@@ -127,7 +127,7 @@ public class Number extends TwiML {
 
     /**
      * TwiML URL method
-     * 
+     *
      * @return TwiML URL method
      */
     public HttpMethod getMethod() {
@@ -136,7 +136,7 @@ public class Number extends TwiML {
 
     /**
      * Events to call status callback
-     * 
+     *
      * @return Events to call status callback
      */
     public List<Number.Event> getStatusCallbackEvents() {
@@ -157,7 +157,7 @@ public class Number extends TwiML {
 
     /**
      * Status callback URL
-     * 
+     *
      * @return Status callback URL
      */
     public URI getStatusCallback() {
@@ -166,7 +166,7 @@ public class Number extends TwiML {
 
     /**
      * Status callback URL method
-     * 
+     *
      * @return Status callback URL method
      */
     public HttpMethod getStatusCallbackMethod() {
@@ -175,7 +175,7 @@ public class Number extends TwiML {
 
     /**
      * Phone Number to dial
-     * 
+     *
      * @return Phone Number to dial
      */
     public com.twilio.type.PhoneNumber getPhoneNumber() {

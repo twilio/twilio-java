@@ -30,11 +30,11 @@ public class VariableReader extends Reader<Variable> {
 
     /**
      * Construct a new VariableReader.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathEnvironmentSid Environment Sid.
      */
-    public VariableReader(final String pathServiceSid, 
+    public VariableReader(final String pathServiceSid,
                           final String pathEnvironmentSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathEnvironmentSid = pathEnvironmentSid;
@@ -42,7 +42,7 @@ public class VariableReader extends Reader<Variable> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Variable ResourceSet
      */
@@ -53,7 +53,7 @@ public class VariableReader extends Reader<Variable> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Variable ResourceSet
      */
@@ -73,7 +73,7 @@ public class VariableReader extends Reader<Variable> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Variable ResourceSet
@@ -91,13 +91,13 @@ public class VariableReader extends Reader<Variable> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Variable> nextPage(final Page<Variable> page, 
+    public Page<Variable> nextPage(final Page<Variable> page,
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -111,13 +111,13 @@ public class VariableReader extends Reader<Variable> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Variable> previousPage(final Page<Variable> page, 
+    public Page<Variable> previousPage(final Page<Variable> page,
                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -131,7 +131,7 @@ public class VariableReader extends Reader<Variable> {
 
     /**
      * Generate a Page of Variable Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -166,7 +166,7 @@ public class VariableReader extends Reader<Variable> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

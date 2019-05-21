@@ -27,7 +27,7 @@ public class FleetDeleter extends Deleter<Fleet> {
 
     /**
      * Construct a new FleetDeleter.
-     * 
+     *
      * @param pathSid A string that uniquely identifies the Fleet.
      */
     public FleetDeleter(final String pathSid) {
@@ -36,7 +36,7 @@ public class FleetDeleter extends Deleter<Fleet> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

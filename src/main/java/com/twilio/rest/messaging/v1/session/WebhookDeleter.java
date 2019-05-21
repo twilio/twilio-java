@@ -28,11 +28,11 @@ public class WebhookDeleter extends Deleter<Webhook> {
 
     /**
      * Construct a new WebhookDeleter.
-     * 
+     *
      * @param pathSessionSid The unique id of the Session for this webhook.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
-    public WebhookDeleter(final String pathSessionSid, 
+    public WebhookDeleter(final String pathSessionSid,
                           final String pathSid) {
         this.pathSessionSid = pathSessionSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class WebhookDeleter extends Deleter<Webhook> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

@@ -29,7 +29,7 @@ public class EnvironmentReader extends Reader<Environment> {
 
     /**
      * Construct a new EnvironmentReader.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      */
     public EnvironmentReader(final String pathServiceSid) {
@@ -38,7 +38,7 @@ public class EnvironmentReader extends Reader<Environment> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Environment ResourceSet
      */
@@ -49,7 +49,7 @@ public class EnvironmentReader extends Reader<Environment> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Environment ResourceSet
      */
@@ -69,7 +69,7 @@ public class EnvironmentReader extends Reader<Environment> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Environment ResourceSet
@@ -87,13 +87,13 @@ public class EnvironmentReader extends Reader<Environment> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Environment> nextPage(final Page<Environment> page, 
+    public Page<Environment> nextPage(final Page<Environment> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -107,13 +107,13 @@ public class EnvironmentReader extends Reader<Environment> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Environment> previousPage(final Page<Environment> page, 
+    public Page<Environment> previousPage(final Page<Environment> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -127,7 +127,7 @@ public class EnvironmentReader extends Reader<Environment> {
 
     /**
      * Generate a Page of Environment Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -162,7 +162,7 @@ public class EnvironmentReader extends Reader<Environment> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

@@ -38,7 +38,7 @@ public class Alert extends Resource {
 
     /**
      * Create a AlertFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The sid
      * @return AlertFetcher capable of executing the fetch
      */
@@ -48,7 +48,7 @@ public class Alert extends Resource {
 
     /**
      * Create a AlertDeleter to execute delete.
-     * 
+     *
      * @param pathSid The sid
      * @return AlertDeleter capable of executing the delete
      */
@@ -58,7 +58,7 @@ public class Alert extends Resource {
 
     /**
      * Create a AlertReader to execute read.
-     * 
+     *
      * @return AlertReader capable of executing the read
      */
     public static AlertReader reader() {
@@ -67,7 +67,7 @@ public class Alert extends Resource {
 
     /**
      * Converts a JSON String into a Alert object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Alert object represented by the provided JSON
@@ -86,7 +86,7 @@ public class Alert extends Resource {
     /**
      * Converts a JSON InputStream into a Alert object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Alert object represented by the provided JSON
@@ -122,37 +122,37 @@ public class Alert extends Resource {
 
     @JsonCreator
     private Alert(@JsonProperty("account_sid")
-                  final String accountSid, 
+                  final String accountSid,
                   @JsonProperty("alert_text")
-                  final String alertText, 
+                  final String alertText,
                   @JsonProperty("api_version")
-                  final String apiVersion, 
+                  final String apiVersion,
                   @JsonProperty("date_created")
-                  final String dateCreated, 
+                  final String dateCreated,
                   @JsonProperty("date_generated")
-                  final String dateGenerated, 
+                  final String dateGenerated,
                   @JsonProperty("date_updated")
-                  final String dateUpdated, 
+                  final String dateUpdated,
                   @JsonProperty("error_code")
-                  final String errorCode, 
+                  final String errorCode,
                   @JsonProperty("log_level")
-                  final String logLevel, 
+                  final String logLevel,
                   @JsonProperty("more_info")
-                  final String moreInfo, 
+                  final String moreInfo,
                   @JsonProperty("request_method")
-                  final HttpMethod requestMethod, 
+                  final HttpMethod requestMethod,
                   @JsonProperty("request_url")
-                  final String requestUrl, 
+                  final String requestUrl,
                   @JsonProperty("request_variables")
-                  final String requestVariables, 
+                  final String requestVariables,
                   @JsonProperty("resource_sid")
-                  final String resourceSid, 
+                  final String resourceSid,
                   @JsonProperty("response_body")
-                  final String responseBody, 
+                  final String responseBody,
                   @JsonProperty("response_headers")
-                  final String responseHeaders, 
+                  final String responseHeaders,
                   @JsonProperty("sid")
-                  final String sid, 
+                  final String sid,
                   @JsonProperty("url")
                   final URI url) {
         this.accountSid = accountSid;
@@ -176,7 +176,7 @@ public class Alert extends Resource {
 
     /**
      * Returns The The unique id of the Account responsible for this alert..
-     * 
+     *
      * @return The unique id of the Account responsible for this alert.
      */
     public final String getAccountSid() {
@@ -185,7 +185,7 @@ public class Alert extends Resource {
 
     /**
      * Returns The The text of the alert..
-     * 
+     *
      * @return The text of the alert.
      */
     public final String getAlertText() {
@@ -195,7 +195,7 @@ public class Alert extends Resource {
     /**
      * Returns The The version of the Twilio API in use when this alert was
      * generated..
-     * 
+     *
      * @return The version of the Twilio API in use when this alert was generated.
      */
     public final String getApiVersion() {
@@ -205,7 +205,7 @@ public class Alert extends Resource {
     /**
      * Returns The The date that this resource was created, given in ISO 8601
      * format..
-     * 
+     *
      * @return The date that this resource was created, given in ISO 8601 format.
      */
     public final DateTime getDateCreated() {
@@ -215,7 +215,7 @@ public class Alert extends Resource {
     /**
      * Returns The The date the alert was actually generated, given in ISO 8601
      * format..
-     * 
+     *
      * @return The date the alert was actually generated, given in ISO 8601 format.
      */
     public final DateTime getDateGenerated() {
@@ -225,7 +225,7 @@ public class Alert extends Resource {
     /**
      * Returns The The most recent date that this resource was updated, given in ISO
      * 8601 format..
-     * 
+     *
      * @return The most recent date that this resource was updated, given in ISO
      *         8601 format.
      */
@@ -235,7 +235,7 @@ public class Alert extends Resource {
 
     /**
      * Returns The A unique error code for the error condition..
-     * 
+     *
      * @return A unique error code for the error condition.
      */
     public final String getErrorCode() {
@@ -244,7 +244,7 @@ public class Alert extends Resource {
 
     /**
      * Returns The A string representing the log level..
-     * 
+     *
      * @return A string representing the log level.
      */
     public final String getLogLevel() {
@@ -253,7 +253,7 @@ public class Alert extends Resource {
 
     /**
      * Returns The A URL for more information about the error condition..
-     * 
+     *
      * @return A URL for more information about the error condition.
      */
     public final String getMoreInfo() {
@@ -264,7 +264,7 @@ public class Alert extends Resource {
      * Returns The If the Alert was generated by a request Twilio made to your
      * server, this will be the request method used when Twilio made the request to
      * your server..
-     * 
+     *
      * @return If the Alert was generated by a request Twilio made to your server,
      *         this will be the request method used when Twilio made the request to
      *         your server.
@@ -276,7 +276,7 @@ public class Alert extends Resource {
     /**
      * Returns The If the Alert was generated by a request Twilio made to your
      * server, this will be the URL on your server that generated the alert..
-     * 
+     *
      * @return If the Alert was generated by a request Twilio made to your server,
      *         this will be the URL on your server that generated the alert.
      */
@@ -286,7 +286,7 @@ public class Alert extends Resource {
 
     /**
      * Returns The The request_variables.
-     * 
+     *
      * @return The request_variables
      */
     public final String getRequestVariables() {
@@ -295,7 +295,7 @@ public class Alert extends Resource {
 
     /**
      * Returns The The unique ID of the resource for which the Alert was generated..
-     * 
+     *
      * @return The unique ID of the resource for which the Alert was generated.
      */
     public final String getResourceSid() {
@@ -304,7 +304,7 @@ public class Alert extends Resource {
 
     /**
      * Returns The The response_body.
-     * 
+     *
      * @return The response_body
      */
     public final String getResponseBody() {
@@ -313,7 +313,7 @@ public class Alert extends Resource {
 
     /**
      * Returns The The response_headers.
-     * 
+     *
      * @return The response_headers
      */
     public final String getResponseHeaders() {
@@ -322,7 +322,7 @@ public class Alert extends Resource {
 
     /**
      * Returns The A 34 character string that uniquely identifies this Alert..
-     * 
+     *
      * @return A 34 character string that uniquely identifies this Alert.
      */
     public final String getSid() {
@@ -331,7 +331,7 @@ public class Alert extends Resource {
 
     /**
      * Returns The The absolute URL for this resource..
-     * 
+     *
      * @return The absolute URL for this resource.
      */
     public final URI getUrl() {
@@ -350,22 +350,22 @@ public class Alert extends Resource {
 
         Alert other = (Alert) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(alertText, other.alertText) && 
-               Objects.equals(apiVersion, other.apiVersion) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateGenerated, other.dateGenerated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(errorCode, other.errorCode) && 
-               Objects.equals(logLevel, other.logLevel) && 
-               Objects.equals(moreInfo, other.moreInfo) && 
-               Objects.equals(requestMethod, other.requestMethod) && 
-               Objects.equals(requestUrl, other.requestUrl) && 
-               Objects.equals(requestVariables, other.requestVariables) && 
-               Objects.equals(resourceSid, other.resourceSid) && 
-               Objects.equals(responseBody, other.responseBody) && 
-               Objects.equals(responseHeaders, other.responseHeaders) && 
-               Objects.equals(sid, other.sid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(alertText, other.alertText) &&
+               Objects.equals(apiVersion, other.apiVersion) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateGenerated, other.dateGenerated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(errorCode, other.errorCode) &&
+               Objects.equals(logLevel, other.logLevel) &&
+               Objects.equals(moreInfo, other.moreInfo) &&
+               Objects.equals(requestMethod, other.requestMethod) &&
+               Objects.equals(requestUrl, other.requestUrl) &&
+               Objects.equals(requestVariables, other.requestVariables) &&
+               Objects.equals(resourceSid, other.resourceSid) &&
+               Objects.equals(responseBody, other.responseBody) &&
+               Objects.equals(responseHeaders, other.responseHeaders) &&
+               Objects.equals(sid, other.sid) &&
                Objects.equals(url, other.url);
     }
 

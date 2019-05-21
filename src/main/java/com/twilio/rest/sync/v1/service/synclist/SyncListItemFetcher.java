@@ -28,13 +28,13 @@ public class SyncListItemFetcher extends Fetcher<SyncListItem> {
 
     /**
      * Construct a new SyncListItemFetcher.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathListSid The list_sid
      * @param pathIndex The index
      */
-    public SyncListItemFetcher(final String pathServiceSid, 
-                               final String pathListSid, 
+    public SyncListItemFetcher(final String pathServiceSid,
+                               final String pathListSid,
                                final Integer pathIndex) {
         this.pathServiceSid = pathServiceSid;
         this.pathListSid = pathListSid;
@@ -43,7 +43,7 @@ public class SyncListItemFetcher extends Fetcher<SyncListItem> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched SyncListItem
      */

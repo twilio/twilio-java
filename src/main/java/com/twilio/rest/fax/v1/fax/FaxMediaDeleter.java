@@ -27,11 +27,11 @@ public class FaxMediaDeleter extends Deleter<FaxMedia> {
 
     /**
      * Construct a new FaxMediaDeleter.
-     * 
+     *
      * @param pathFaxSid The SID of the fax with the FaxMedia resource to delete
      * @param pathSid The unique string that identifies the resource
      */
-    public FaxMediaDeleter(final String pathFaxSid, 
+    public FaxMediaDeleter(final String pathFaxSid,
                            final String pathSid) {
         this.pathFaxSid = pathFaxSid;
         this.pathSid = pathSid;
@@ -39,7 +39,7 @@ public class FaxMediaDeleter extends Deleter<FaxMedia> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

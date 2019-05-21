@@ -27,7 +27,7 @@ public class HostedNumberOrderDeleter extends Deleter<HostedNumberOrder> {
 
     /**
      * Construct a new HostedNumberOrderDeleter.
-     * 
+     *
      * @param pathSid HostedNumberOrder sid.
      */
     public HostedNumberOrderDeleter(final String pathSid) {
@@ -36,7 +36,7 @@ public class HostedNumberOrderDeleter extends Deleter<HostedNumberOrder> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

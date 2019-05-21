@@ -42,7 +42,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * Construct a new SimUpdater.
-     * 
+     *
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public SimUpdater(final String pathSid) {
@@ -52,7 +52,7 @@ public class SimUpdater extends Updater<Sim> {
     /**
      * A user-provided string that uniquely identifies this resource as an
      * alternative to the `Sid`..
-     * 
+     *
      * @param uniqueName A user-provided string that uniquely identifies this
      *                   resource as an alternative to the Sid.
      * @return this
@@ -65,7 +65,7 @@ public class SimUpdater extends Updater<Sim> {
     /**
      * The HTTP method Twilio will use when making a request to the callback URL
      * (valid options are GET or POST). Defaults to POST..
-     * 
+     *
      * @param callbackMethod The HTTP method Twilio will use when making a request
      *                       to the callback URL.
      * @return this
@@ -82,7 +82,7 @@ public class SimUpdater extends Updater<Sim> {
      * callbacks. One when the Sim moves to its intermediary status (`ready` or
      * `deactivated`), and a second when it transitions to its final status
      * (`active` or `canceled`)..
-     * 
+     *
      * @param callbackUrl Twilio will make a request to this URL when the Sim has
      *                    finished updating.
      * @return this
@@ -99,7 +99,7 @@ public class SimUpdater extends Updater<Sim> {
      * callbacks. One when the Sim moves to its intermediary status (`ready` or
      * `deactivated`), and a second when it transitions to its final status
      * (`active` or `canceled`)..
-     * 
+     *
      * @param callbackUrl Twilio will make a request to this URL when the Sim has
      *                    finished updating.
      * @return this
@@ -110,7 +110,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * A user-provided string that identifies this resource. Non-unique..
-     * 
+     *
      * @param friendlyName A user-provided string that identifies this resource.
      * @return this
      */
@@ -124,7 +124,7 @@ public class SimUpdater extends Updater<Sim> {
      * [RatePlan](https://www.twilio.com/docs/api/wireless/rest-api/rate-plan) that
      * this Sim should use. *Note:* the RatePlan of a Sim can only be modified when
      * the Sim has a `suspended` or `deactivated` status..
-     * 
+     *
      * @param ratePlan The Sid or UniqueName of the RatePlan that this Sim should
      *                 use.
      * @return this
@@ -138,7 +138,7 @@ public class SimUpdater extends Updater<Sim> {
      * A string representing the status of the Sim. Valid options depend on the
      * current state of the Sim, but may include `ready`, `active`, `suspended` or
      * `deactivated`..
-     * 
+     *
      * @param status A string representing the status of the Sim.
      * @return this
      */
@@ -150,7 +150,7 @@ public class SimUpdater extends Updater<Sim> {
     /**
      * A string representing the HTTP method to use when making a request to
      * `CommandsCallbackUrl`.  Can be one of `POST` or `GET`. Defaults to `POST`..
-     * 
+     *
      * @param commandsCallbackMethod A string representing the HTTP method to use
      *                               when making a request to CommandsCallbackUrl.
      * @return this
@@ -165,7 +165,7 @@ public class SimUpdater extends Updater<Sim> {
      * [Command](https://www.twilio.com/docs/api/wireless/rest-api/command). Your
      * server should respond with an HTTP status code in the 200 range; any response
      * body will be ignored..
-     * 
+     *
      * @param commandsCallbackUrl The URL that will receive a webhook when this Sim
      *                            originates a Command.
      * @return this
@@ -180,7 +180,7 @@ public class SimUpdater extends Updater<Sim> {
      * [Command](https://www.twilio.com/docs/api/wireless/rest-api/command). Your
      * server should respond with an HTTP status code in the 200 range; any response
      * body will be ignored..
-     * 
+     *
      * @param commandsCallbackUrl The URL that will receive a webhook when this Sim
      *                            originates a Command.
      * @return this
@@ -192,7 +192,7 @@ public class SimUpdater extends Updater<Sim> {
     /**
      * The HTTP method Twilio will use when requesting the sms_fallback_url. Either
      * `GET` or `POST`..
-     * 
+     *
      * @param smsFallbackMethod The HTTP method Twilio will use when requesting the
      *                          sms_fallback_url.
      * @return this
@@ -205,7 +205,7 @@ public class SimUpdater extends Updater<Sim> {
     /**
      * The URL that Twilio will request if an error occurs retrieving or executing
      * the TwiML requested by `sms_url`..
-     * 
+     *
      * @param smsFallbackUrl The URL that Twilio will request if an error occurs
      *                       retrieving or executing the TwiML requested by sms_url.
      * @return this
@@ -218,7 +218,7 @@ public class SimUpdater extends Updater<Sim> {
     /**
      * The URL that Twilio will request if an error occurs retrieving or executing
      * the TwiML requested by `sms_url`..
-     * 
+     *
      * @param smsFallbackUrl The URL that Twilio will request if an error occurs
      *                       retrieving or executing the TwiML requested by sms_url.
      * @return this
@@ -230,7 +230,7 @@ public class SimUpdater extends Updater<Sim> {
     /**
      * The HTTP method Twilio will use when requesting the above Url. Either `GET`
      * or `POST`..
-     * 
+     *
      * @param smsMethod The HTTP method Twilio will use when requesting the above
      *                  Url.
      * @return this
@@ -244,7 +244,7 @@ public class SimUpdater extends Updater<Sim> {
      * The URL Twilio will request when the SIM-connected device sends an SMS
      * message that is not a
      * [Command](https://www.twilio.com/docs/api/wireless/rest-api/command)..
-     * 
+     *
      * @param smsUrl The URL Twilio will request when the SIM-connected device
      *               sends an SMS message that is not a Command.
      * @return this
@@ -258,7 +258,7 @@ public class SimUpdater extends Updater<Sim> {
      * The URL Twilio will request when the SIM-connected device sends an SMS
      * message that is not a
      * [Command](https://www.twilio.com/docs/api/wireless/rest-api/command)..
-     * 
+     *
      * @param smsUrl The URL Twilio will request when the SIM-connected device
      *               sends an SMS message that is not a Command.
      * @return this
@@ -270,7 +270,7 @@ public class SimUpdater extends Updater<Sim> {
     /**
      * The HTTP method Twilio will use when requesting the voice_fallback_url.
      * Either `GET` or `POST`..
-     * 
+     *
      * @param voiceFallbackMethod The HTTP method Twilio will use when requesting
      *                            the voice_fallback_url.
      * @return this
@@ -283,7 +283,7 @@ public class SimUpdater extends Updater<Sim> {
     /**
      * The URL that Twilio will request if an error occurs retrieving or executing
      * the TwiML requested by `voice_url`..
-     * 
+     *
      * @param voiceFallbackUrl The URL that Twilio will request if an error occurs
      *                         retrieving or executing the TwiML requested by
      *                         voice_url.
@@ -297,7 +297,7 @@ public class SimUpdater extends Updater<Sim> {
     /**
      * The URL that Twilio will request if an error occurs retrieving or executing
      * the TwiML requested by `voice_url`..
-     * 
+     *
      * @param voiceFallbackUrl The URL that Twilio will request if an error occurs
      *                         retrieving or executing the TwiML requested by
      *                         voice_url.
@@ -310,7 +310,7 @@ public class SimUpdater extends Updater<Sim> {
     /**
      * The HTTP method Twilio will use when requesting the above Url. Either `GET`
      * or `POST`..
-     * 
+     *
      * @param voiceMethod The HTTP method Twilio will use when requesting the above
      *                    Url.
      * @return this
@@ -322,7 +322,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The URL Twilio will request when the SIM-connected device makes a call..
-     * 
+     *
      * @param voiceUrl The URL Twilio will request when the SIM-connected device
      *                 makes a call.
      * @return this
@@ -334,7 +334,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The URL Twilio will request when the SIM-connected device makes a call..
-     * 
+     *
      * @param voiceUrl The URL Twilio will request when the SIM-connected device
      *                 makes a call.
      * @return this
@@ -346,7 +346,7 @@ public class SimUpdater extends Updater<Sim> {
     /**
      * Pass `resetting` to initiate a connectivity reset on a Sim, this is the only
      * valid value for this parameter..
-     * 
+     *
      * @param resetStatus Initiate a connectivity reset on a Sim.
      * @return this
      */
@@ -357,7 +357,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Sim
      */
@@ -396,7 +396,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -27,11 +27,11 @@ public class SyncStreamDeleter extends Deleter<SyncStream> {
 
     /**
      * Construct a new SyncStreamDeleter.
-     * 
+     *
      * @param pathServiceSid Service Instance SID or unique name.
      * @param pathSid Stream SID or unique name.
      */
-    public SyncStreamDeleter(final String pathServiceSid, 
+    public SyncStreamDeleter(final String pathServiceSid,
                              final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -39,7 +39,7 @@ public class SyncStreamDeleter extends Deleter<SyncStream> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

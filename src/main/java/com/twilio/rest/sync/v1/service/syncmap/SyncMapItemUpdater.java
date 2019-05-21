@@ -35,13 +35,13 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
 
     /**
      * Construct a new SyncMapItemUpdater.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathMapSid The map_sid
      * @param pathKey The key
      */
-    public SyncMapItemUpdater(final String pathServiceSid, 
-                              final String pathMapSid, 
+    public SyncMapItemUpdater(final String pathServiceSid,
+                              final String pathMapSid,
                               final String pathKey) {
         this.pathServiceSid = pathServiceSid;
         this.pathMapSid = pathMapSid;
@@ -51,7 +51,7 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
     /**
      * Contains an arbitrary JSON object to be stored in this Map Item. Serialized
      * to string to respect HTTP form input, up to 16KB..
-     * 
+     *
      * @param data Contains an arbitrary JSON object to be stored in this Map Item.
      * @return this
      */
@@ -62,7 +62,7 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
 
     /**
      * Alias for item_ttl. If both are provided, this value is ignored..
-     * 
+     *
      * @param ttl Alias for item_ttl
      * @return this
      */
@@ -76,7 +76,7 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
      * [1, 31 536 000 (1 year)], or 0 for infinity. Upon expiry, the map item will
      * be cleaned up at least in a matter of hours, and often within seconds, making
      * this a good tool for garbage management..
-     * 
+     *
      * @param itemTtl Time-to-live of this item in seconds, defaults to no
      *                expiration.
      * @return this
@@ -90,7 +90,7 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
      * Time-to-live of this item's parent Map in seconds, defaults to no expiration.
      * In the range [1, 31 536 000 (1 year)], or 0 for infinity. This parameter can
      * only be used when the map item's data or ttl is updated in the same request..
-     * 
+     *
      * @param collectionTtl Time-to-live of this item's parent Map in seconds,
      *                      defaults to no expiration.
      * @return this
@@ -102,7 +102,7 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated SyncMapItem
      */
@@ -141,7 +141,7 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

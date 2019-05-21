@@ -42,7 +42,7 @@ public class AlertTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.MONITOR.toString(),
                                           "/v1/Alerts/NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class AlertTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.MONITOR.toString(),
                                           "/v1/Alerts/NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -106,7 +106,7 @@ public class AlertTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.MONITOR.toString(),
                                           "/v1/Alerts");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

@@ -153,40 +153,40 @@ public class Reservation extends Resource {
 
     /**
      * Create a ReservationReader to execute read.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathTaskSid The task_sid
      * @return ReservationReader capable of executing the read
      */
-    public static ReservationReader reader(final String pathWorkspaceSid, 
+    public static ReservationReader reader(final String pathWorkspaceSid,
                                            final String pathTaskSid) {
         return new ReservationReader(pathWorkspaceSid, pathTaskSid);
     }
 
     /**
      * Create a ReservationFetcher to execute fetch.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathTaskSid The task_sid
      * @param pathSid The sid
      * @return ReservationFetcher capable of executing the fetch
      */
-    public static ReservationFetcher fetcher(final String pathWorkspaceSid, 
-                                             final String pathTaskSid, 
+    public static ReservationFetcher fetcher(final String pathWorkspaceSid,
+                                             final String pathTaskSid,
                                              final String pathSid) {
         return new ReservationFetcher(pathWorkspaceSid, pathTaskSid, pathSid);
     }
 
     /**
      * Create a ReservationUpdater to execute update.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathTaskSid The task_sid
      * @param pathSid The sid
      * @return ReservationUpdater capable of executing the update
      */
-    public static ReservationUpdater updater(final String pathWorkspaceSid, 
-                                             final String pathTaskSid, 
+    public static ReservationUpdater updater(final String pathWorkspaceSid,
+                                             final String pathTaskSid,
                                              final String pathSid) {
         return new ReservationUpdater(pathWorkspaceSid, pathTaskSid, pathSid);
     }
@@ -194,7 +194,7 @@ public class Reservation extends Resource {
     /**
      * Converts a JSON String into a Reservation object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Reservation object represented by the provided JSON
@@ -213,7 +213,7 @@ public class Reservation extends Resource {
     /**
      * Converts a JSON InputStream into a Reservation object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Reservation object represented by the provided JSON
@@ -243,25 +243,25 @@ public class Reservation extends Resource {
 
     @JsonCreator
     private Reservation(@JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("date_created")
-                        final String dateCreated, 
+                        final String dateCreated,
                         @JsonProperty("date_updated")
-                        final String dateUpdated, 
+                        final String dateUpdated,
                         @JsonProperty("reservation_status")
-                        final Reservation.Status reservationStatus, 
+                        final Reservation.Status reservationStatus,
                         @JsonProperty("sid")
-                        final String sid, 
+                        final String sid,
                         @JsonProperty("task_sid")
-                        final String taskSid, 
+                        final String taskSid,
                         @JsonProperty("worker_name")
-                        final String workerName, 
+                        final String workerName,
                         @JsonProperty("worker_sid")
-                        final String workerSid, 
+                        final String workerSid,
                         @JsonProperty("workspace_sid")
-                        final String workspaceSid, 
+                        final String workspaceSid,
                         @JsonProperty("url")
-                        final URI url, 
+                        final URI url,
                         @JsonProperty("links")
                         final Map<String, String> links) {
         this.accountSid = accountSid;
@@ -279,7 +279,7 @@ public class Reservation extends Resource {
 
     /**
      * Returns The The ID of the Account that owns this Task.
-     * 
+     *
      * @return The ID of the Account that owns this Task
      */
     public final String getAccountSid() {
@@ -288,7 +288,7 @@ public class Reservation extends Resource {
 
     /**
      * Returns The The date_created.
-     * 
+     *
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -297,7 +297,7 @@ public class Reservation extends Resource {
 
     /**
      * Returns The The date_updated.
-     * 
+     *
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -306,7 +306,7 @@ public class Reservation extends Resource {
 
     /**
      * Returns The The current status of the reservation..
-     * 
+     *
      * @return The current status of the reservation.
      */
     public final Reservation.Status getReservationStatus() {
@@ -315,7 +315,7 @@ public class Reservation extends Resource {
 
     /**
      * Returns The The unique ID of this Reservation..
-     * 
+     *
      * @return The unique ID of this Reservation.
      */
     public final String getSid() {
@@ -324,7 +324,7 @@ public class Reservation extends Resource {
 
     /**
      * Returns The The ID of the reserved Task.
-     * 
+     *
      * @return The ID of the reserved Task
      */
     public final String getTaskSid() {
@@ -333,7 +333,7 @@ public class Reservation extends Resource {
 
     /**
      * Returns The Human readable description of the Worker that is reserved.
-     * 
+     *
      * @return Human readable description of the Worker that is reserved
      */
     public final String getWorkerName() {
@@ -342,7 +342,7 @@ public class Reservation extends Resource {
 
     /**
      * Returns The The ID of the reserved Worker.
-     * 
+     *
      * @return The ID of the reserved Worker
      */
     public final String getWorkerSid() {
@@ -351,7 +351,7 @@ public class Reservation extends Resource {
 
     /**
      * Returns The The ID of the Workspace that this task is contained within..
-     * 
+     *
      * @return The ID of the Workspace that this task is contained within.
      */
     public final String getWorkspaceSid() {
@@ -360,7 +360,7 @@ public class Reservation extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -369,7 +369,7 @@ public class Reservation extends Resource {
 
     /**
      * Returns The The links.
-     * 
+     *
      * @return The links
      */
     public final Map<String, String> getLinks() {
@@ -388,16 +388,16 @@ public class Reservation extends Resource {
 
         Reservation other = (Reservation) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(reservationStatus, other.reservationStatus) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(taskSid, other.taskSid) && 
-               Objects.equals(workerName, other.workerName) && 
-               Objects.equals(workerSid, other.workerSid) && 
-               Objects.equals(workspaceSid, other.workspaceSid) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(reservationStatus, other.reservationStatus) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(taskSid, other.taskSid) &&
+               Objects.equals(workerName, other.workerName) &&
+               Objects.equals(workerSid, other.workerSid) &&
+               Objects.equals(workspaceSid, other.workspaceSid) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

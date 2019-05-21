@@ -27,7 +27,7 @@ public class AssistantFetcher extends Fetcher<Assistant> {
 
     /**
      * Construct a new AssistantFetcher.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public AssistantFetcher(final String pathSid) {
@@ -36,7 +36,7 @@ public class AssistantFetcher extends Fetcher<Assistant> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Assistant
      */

@@ -30,12 +30,12 @@ public class QueryUpdater extends Updater<Query> {
 
     /**
      * Construct a new QueryUpdater.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         resource to update
      * @param pathSid The unique string that identifies the resource to update
      */
-    public QueryUpdater(final String pathAssistantSid, 
+    public QueryUpdater(final String pathAssistantSid,
                         final String pathSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathSid = pathSid;
@@ -45,7 +45,7 @@ public class QueryUpdater extends Updater<Query> {
      * The SID of an optional reference to the
      * [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from
      * the query..
-     * 
+     *
      * @param sampleSid The SID of an optional reference to the Sample created from
      *                  the query
      * @return this
@@ -58,7 +58,7 @@ public class QueryUpdater extends Updater<Query> {
     /**
      * The new status of the resource. Can be: `pending_review`, `reviewed`, or
      * `discarded`.
-     * 
+     *
      * @param status The new status of the resource
      * @return this
      */
@@ -69,7 +69,7 @@ public class QueryUpdater extends Updater<Query> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Query
      */
@@ -108,7 +108,7 @@ public class QueryUpdater extends Updater<Query> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

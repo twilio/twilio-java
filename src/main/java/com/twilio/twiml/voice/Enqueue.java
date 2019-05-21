@@ -48,7 +48,7 @@ public class Enqueue extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -57,7 +57,7 @@ public class Enqueue extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -85,7 +85,7 @@ public class Enqueue extends TwiML {
 
     /**
      * Action URL
-     * 
+     *
      * @return Action URL
      */
     public URI getAction() {
@@ -94,7 +94,7 @@ public class Enqueue extends TwiML {
 
     /**
      * Action URL method
-     * 
+     *
      * @return Action URL method
      */
     public HttpMethod getMethod() {
@@ -103,7 +103,7 @@ public class Enqueue extends TwiML {
 
     /**
      * Wait URL
-     * 
+     *
      * @return Wait URL
      */
     public URI getWaitUrl() {
@@ -112,7 +112,7 @@ public class Enqueue extends TwiML {
 
     /**
      * Wait URL method
-     * 
+     *
      * @return Wait URL method
      */
     public HttpMethod getWaitUrlMethod() {
@@ -121,7 +121,7 @@ public class Enqueue extends TwiML {
 
     /**
      * TaskRouter Workflow SID
-     * 
+     *
      * @return TaskRouter Workflow SID
      */
     public String getWorkflowSid() {
@@ -130,7 +130,7 @@ public class Enqueue extends TwiML {
 
     /**
      * Friendly name
-     * 
+     *
      * @return Friendly name
      */
     public String getName() {

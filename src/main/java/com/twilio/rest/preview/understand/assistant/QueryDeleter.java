@@ -28,11 +28,11 @@ public class QueryDeleter extends Deleter<Query> {
 
     /**
      * Construct a new QueryDeleter.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
-    public QueryDeleter(final String pathAssistantSid, 
+    public QueryDeleter(final String pathAssistantSid,
                         final String pathSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class QueryDeleter extends Deleter<Query> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

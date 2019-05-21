@@ -24,12 +24,12 @@ public class CredentialListMappingDeleter extends Deleter<CredentialListMapping>
 
     /**
      * Construct a new CredentialListMappingDeleter.
-     * 
+     *
      * @param pathDomainSid A string that identifies the SIP Domain that includes
      *                      the resource to delete
      * @param pathSid A string that identifies the resource to delete
      */
-    public CredentialListMappingDeleter(final String pathDomainSid, 
+    public CredentialListMappingDeleter(final String pathDomainSid,
                                         final String pathSid) {
         this.pathDomainSid = pathDomainSid;
         this.pathSid = pathSid;
@@ -37,14 +37,14 @@ public class CredentialListMappingDeleter extends Deleter<CredentialListMapping>
 
     /**
      * Construct a new CredentialListMappingDeleter.
-     * 
+     *
      * @param pathAccountSid The unique sid that identifies this account
      * @param pathDomainSid A string that identifies the SIP Domain that includes
      *                      the resource to delete
      * @param pathSid A string that identifies the resource to delete
      */
-    public CredentialListMappingDeleter(final String pathAccountSid, 
-                                        final String pathDomainSid, 
+    public CredentialListMappingDeleter(final String pathAccountSid,
+                                        final String pathDomainSid,
                                         final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
@@ -53,7 +53,7 @@ public class CredentialListMappingDeleter extends Deleter<CredentialListMapping>
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

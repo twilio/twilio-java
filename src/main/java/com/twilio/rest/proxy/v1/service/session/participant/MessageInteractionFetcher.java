@@ -29,15 +29,15 @@ public class MessageInteractionFetcher extends Fetcher<MessageInteraction> {
 
     /**
      * Construct a new MessageInteractionFetcher.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to fetch the resource from
      * @param pathSessionSid The SID of the parent Session
      * @param pathParticipantSid The SID of the Participant resource
      * @param pathSid The unique string that identifies the resource
      */
-    public MessageInteractionFetcher(final String pathServiceSid, 
-                                     final String pathSessionSid, 
-                                     final String pathParticipantSid, 
+    public MessageInteractionFetcher(final String pathServiceSid,
+                                     final String pathSessionSid,
+                                     final String pathParticipantSid,
                                      final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSessionSid = pathSessionSid;
@@ -47,7 +47,7 @@ public class MessageInteractionFetcher extends Fetcher<MessageInteraction> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched MessageInteraction
      */

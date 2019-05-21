@@ -22,7 +22,7 @@ import com.twilio.rest.Domains;
 public class RatePlanReader extends Reader<RatePlan> {
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return RatePlan ResourceSet
      */
@@ -33,7 +33,7 @@ public class RatePlanReader extends Reader<RatePlan> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return RatePlan ResourceSet
      */
@@ -53,7 +53,7 @@ public class RatePlanReader extends Reader<RatePlan> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return RatePlan ResourceSet
@@ -71,13 +71,13 @@ public class RatePlanReader extends Reader<RatePlan> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<RatePlan> nextPage(final Page<RatePlan> page, 
+    public Page<RatePlan> nextPage(final Page<RatePlan> page,
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -91,13 +91,13 @@ public class RatePlanReader extends Reader<RatePlan> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<RatePlan> previousPage(final Page<RatePlan> page, 
+    public Page<RatePlan> previousPage(final Page<RatePlan> page,
                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -111,7 +111,7 @@ public class RatePlanReader extends Reader<RatePlan> {
 
     /**
      * Generate a Page of RatePlan Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -146,7 +146,7 @@ public class RatePlanReader extends Reader<RatePlan> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

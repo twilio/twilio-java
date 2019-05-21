@@ -39,13 +39,13 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
 
     /**
      * Construct a new FlexFlowCreator.
-     * 
+     *
      * @param friendlyName Human readable description of this FlexFlow
      * @param chatServiceSid Service Sid.
      * @param channelType Channel type
      */
-    public FlexFlowCreator(final String friendlyName, 
-                           final String chatServiceSid, 
+    public FlexFlowCreator(final String friendlyName,
+                           final String chatServiceSid,
                            final FlexFlow.ChannelType channelType) {
         this.friendlyName = friendlyName;
         this.chatServiceSid = chatServiceSid;
@@ -54,7 +54,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
 
     /**
      * Channel contact Identity (number / contact).
-     * 
+     *
      * @param contactIdentity Channel contact Identity
      * @return this
      */
@@ -65,7 +65,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
 
     /**
      * Boolean flag for enabling or disabling the FlexFlow.
-     * 
+     *
      * @param enabled Boolean flag for enabling or disabling the FlexFlow
      * @return this
      */
@@ -76,7 +76,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
 
     /**
      * Integration type (studio | external | task).
-     * 
+     *
      * @param integrationType Integration type
      * @return this
      */
@@ -87,7 +87,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
 
     /**
      * The unique SID identifier of the Flow for Studio integration type.
-     * 
+     *
      * @param integrationFlowSid Flow Sid.
      * @return this
      */
@@ -98,7 +98,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
 
     /**
      * External Webhook Url for External integration type.
-     * 
+     *
      * @param integrationUrl External Webhook Url
      * @return this
      */
@@ -109,7 +109,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
 
     /**
      * External Webhook Url for External integration type.
-     * 
+     *
      * @param integrationUrl External Webhook Url
      * @return this
      */
@@ -119,7 +119,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
 
     /**
      * Workspace Sid for a new task for Task integration type.
-     * 
+     *
      * @param integrationWorkspaceSid Workspace Sid for a new task
      * @return this
      */
@@ -130,7 +130,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
 
     /**
      * Workflow Sid for a new task for Task integration type.
-     * 
+     *
      * @param integrationWorkflowSid Workflow Sid for a new task
      * @return this
      */
@@ -141,7 +141,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
 
     /**
      * Task Channel for a new task for Task integration type (default is 'default').
-     * 
+     *
      * @param integrationChannel Task Channel for a new task
      * @return this
      */
@@ -153,7 +153,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     /**
      * Task timeout in seconds for a new task for Task integration type (default
      * 86400).
-     * 
+     *
      * @param integrationTimeout Task timeout in seconds for a new task
      * @return this
      */
@@ -164,7 +164,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
 
     /**
      * Task priority for a new task for Task integration type (default 0).
-     * 
+     *
      * @param integrationPriority Task priority for a new task
      * @return this
      */
@@ -176,7 +176,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     /**
      * Flag for task creation, either creating task with the channel, or if true
      * create task whwn first message arrives (for Task integration type).
-     * 
+     *
      * @param integrationCreationOnMessage Flag for task creation
      * @return this
      */
@@ -187,7 +187,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
 
     /**
      * Default Flag defining whether the new channels created are long lived or not.
-     * 
+     *
      * @param longLived Long Lived flag for new Channel
      * @return this
      */
@@ -198,7 +198,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created FlexFlow
      */
@@ -237,7 +237,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

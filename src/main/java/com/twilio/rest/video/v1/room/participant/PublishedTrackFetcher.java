@@ -24,14 +24,14 @@ public class PublishedTrackFetcher extends Fetcher<PublishedTrack> {
 
     /**
      * Construct a new PublishedTrackFetcher.
-     * 
+     *
      * @param pathRoomSid Unique Room identifier where this Track is published.
      * @param pathParticipantSid Unique Participant identifier that publishes this
      *                           Track.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
-    public PublishedTrackFetcher(final String pathRoomSid, 
-                                 final String pathParticipantSid, 
+    public PublishedTrackFetcher(final String pathRoomSid,
+                                 final String pathParticipantSid,
                                  final String pathSid) {
         this.pathRoomSid = pathRoomSid;
         this.pathParticipantSid = pathParticipantSid;
@@ -40,7 +40,7 @@ public class PublishedTrackFetcher extends Fetcher<PublishedTrack> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched PublishedTrack
      */

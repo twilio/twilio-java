@@ -32,7 +32,7 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
 
     /**
      * Construct a new ModelBuildCreator.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         new resource
      */
@@ -43,7 +43,7 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
     /**
      * The URL we should call using a POST method to send status information to your
      * application..
-     * 
+     *
      * @param statusCallback The URL we should call using a POST method to send
      *                       status information to your application
      * @return this
@@ -56,7 +56,7 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
     /**
      * The URL we should call using a POST method to send status information to your
      * application..
-     * 
+     *
      * @param statusCallback The URL we should call using a POST method to send
      *                       status information to your application
      * @return this
@@ -69,7 +69,7 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
      * An application-defined string that uniquely identifies the new resource. This
      * value must be a unique string of no more than 64 characters. It can be used
      * as an alternative to the `sid` in the URL path to address the resource..
-     * 
+     *
      * @param uniqueName An application-defined string that uniquely identifies the
      *                   new resource
      * @return this
@@ -81,7 +81,7 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created ModelBuild
      */
@@ -120,7 +120,7 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

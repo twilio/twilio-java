@@ -22,7 +22,7 @@ public class EventFetcher extends Fetcher<Event> {
 
     /**
      * Construct a new EventFetcher.
-     * 
+     *
      * @param pathSid A 34 character string that uniquely identifies this event.
      */
     public EventFetcher(final String pathSid) {
@@ -31,7 +31,7 @@ public class EventFetcher extends Fetcher<Event> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Event
      */

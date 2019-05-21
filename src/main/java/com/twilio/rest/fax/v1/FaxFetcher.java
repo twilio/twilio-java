@@ -26,7 +26,7 @@ public class FaxFetcher extends Fetcher<Fax> {
 
     /**
      * Construct a new FaxFetcher.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public FaxFetcher(final String pathSid) {
@@ -35,7 +35,7 @@ public class FaxFetcher extends Fetcher<Fax> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Fax
      */

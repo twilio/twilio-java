@@ -23,12 +23,12 @@ public class PhoneNumberDeleter extends Deleter<PhoneNumber> {
 
     /**
      * Construct a new PhoneNumberDeleter.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk from which to delete the
      *                     PhoneNumber resource
      * @param pathSid The unique string that identifies the resource
      */
-    public PhoneNumberDeleter(final String pathTrunkSid, 
+    public PhoneNumberDeleter(final String pathTrunkSid,
                               final String pathSid) {
         this.pathTrunkSid = pathTrunkSid;
         this.pathSid = pathSid;
@@ -36,7 +36,7 @@ public class PhoneNumberDeleter extends Deleter<PhoneNumber> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

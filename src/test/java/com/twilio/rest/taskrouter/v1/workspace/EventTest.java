@@ -42,7 +42,7 @@ public class EventTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Events/EVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class EventTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Events");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

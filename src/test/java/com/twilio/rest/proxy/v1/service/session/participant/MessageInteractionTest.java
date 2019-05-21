@@ -74,7 +74,7 @@ public class MessageInteractionTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PROXY.toString(),
                                           "/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessageInteractions/KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -106,7 +106,7 @@ public class MessageInteractionTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PROXY.toString(),
                                           "/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessageInteractions");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

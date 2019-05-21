@@ -24,7 +24,7 @@ public class SigningKeyUpdater extends Updater<SigningKey> {
 
     /**
      * Construct a new SigningKeyUpdater.
-     * 
+     *
      * @param pathSid The sid
      */
     public SigningKeyUpdater(final String pathSid) {
@@ -33,11 +33,11 @@ public class SigningKeyUpdater extends Updater<SigningKey> {
 
     /**
      * Construct a new SigningKeyUpdater.
-     * 
+     *
      * @param pathAccountSid The account_sid
      * @param pathSid The sid
      */
-    public SigningKeyUpdater(final String pathAccountSid, 
+    public SigningKeyUpdater(final String pathAccountSid,
                              final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -45,7 +45,7 @@ public class SigningKeyUpdater extends Updater<SigningKey> {
 
     /**
      * The friendly_name.
-     * 
+     *
      * @param friendlyName The friendly_name
      * @return this
      */
@@ -56,7 +56,7 @@ public class SigningKeyUpdater extends Updater<SigningKey> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated SigningKey
      */
@@ -96,7 +96,7 @@ public class SigningKeyUpdater extends Updater<SigningKey> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

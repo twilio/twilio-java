@@ -28,14 +28,14 @@ public class DocumentPermissionFetcher extends Fetcher<DocumentPermission> {
 
     /**
      * Construct a new DocumentPermissionFetcher.
-     * 
+     *
      * @param pathServiceSid Sync Service Instance SID or unique name.
      * @param pathDocumentSid Sync Document SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync Document
      *                     Permission applies.
      */
-    public DocumentPermissionFetcher(final String pathServiceSid, 
-                                     final String pathDocumentSid, 
+    public DocumentPermissionFetcher(final String pathServiceSid,
+                                     final String pathDocumentSid,
                                      final String pathIdentity) {
         this.pathServiceSid = pathServiceSid;
         this.pathDocumentSid = pathDocumentSid;
@@ -44,7 +44,7 @@ public class DocumentPermissionFetcher extends Fetcher<DocumentPermission> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched DocumentPermission
      */

@@ -22,7 +22,7 @@ public class FlowDeleter extends Deleter<Flow> {
 
     /**
      * Construct a new FlowDeleter.
-     * 
+     *
      * @param pathSid A string that uniquely identifies this Flow.
      */
     public FlowDeleter(final String pathSid) {
@@ -31,7 +31,7 @@ public class FlowDeleter extends Deleter<Flow> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

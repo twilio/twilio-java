@@ -28,7 +28,7 @@ public class AccountFetcher extends Fetcher<Account> {
 
     /**
      * Construct a new AccountFetcher.
-     * 
+     *
      * @param pathSid Fetch by unique Account Sid
      */
     public AccountFetcher(final String pathSid) {
@@ -37,7 +37,7 @@ public class AccountFetcher extends Fetcher<Account> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Account
      */

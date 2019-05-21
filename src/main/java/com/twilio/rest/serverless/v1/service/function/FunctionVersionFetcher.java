@@ -29,13 +29,13 @@ public class FunctionVersionFetcher extends Fetcher<FunctionVersion> {
 
     /**
      * Construct a new FunctionVersionFetcher.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathFunctionSid Function Sid.
      * @param pathSid Function Version Sid.
      */
-    public FunctionVersionFetcher(final String pathServiceSid, 
-                                  final String pathFunctionSid, 
+    public FunctionVersionFetcher(final String pathServiceSid,
+                                  final String pathFunctionSid,
                                   final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathFunctionSid = pathFunctionSid;
@@ -44,7 +44,7 @@ public class FunctionVersionFetcher extends Fetcher<FunctionVersion> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched FunctionVersion
      */

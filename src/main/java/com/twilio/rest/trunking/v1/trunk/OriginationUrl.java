@@ -38,33 +38,33 @@ public class OriginationUrl extends Resource {
 
     /**
      * Create a OriginationUrlFetcher to execute fetch.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk from which to fetch the
      *                     OriginationUrl
      * @param pathSid The unique string that identifies the resource
      * @return OriginationUrlFetcher capable of executing the fetch
      */
-    public static OriginationUrlFetcher fetcher(final String pathTrunkSid, 
+    public static OriginationUrlFetcher fetcher(final String pathTrunkSid,
                                                 final String pathSid) {
         return new OriginationUrlFetcher(pathTrunkSid, pathSid);
     }
 
     /**
      * Create a OriginationUrlDeleter to execute delete.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk from which to delete the
      *                     OriginationUrl
      * @param pathSid The unique string that identifies the resource
      * @return OriginationUrlDeleter capable of executing the delete
      */
-    public static OriginationUrlDeleter deleter(final String pathTrunkSid, 
+    public static OriginationUrlDeleter deleter(final String pathTrunkSid,
                                                 final String pathSid) {
         return new OriginationUrlDeleter(pathTrunkSid, pathSid);
     }
 
     /**
      * Create a OriginationUrlCreator to execute create.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk to associate the resource with
      * @param weight The value that determines the relative load the URI should
      *               receive compared to others with the same priority
@@ -75,18 +75,18 @@ public class OriginationUrl extends Resource {
      *               calls to
      * @return OriginationUrlCreator capable of executing the create
      */
-    public static OriginationUrlCreator creator(final String pathTrunkSid, 
-                                                final Integer weight, 
-                                                final Integer priority, 
-                                                final Boolean enabled, 
-                                                final String friendlyName, 
+    public static OriginationUrlCreator creator(final String pathTrunkSid,
+                                                final Integer weight,
+                                                final Integer priority,
+                                                final Boolean enabled,
+                                                final String friendlyName,
                                                 final URI sipUrl) {
         return new OriginationUrlCreator(pathTrunkSid, weight, priority, enabled, friendlyName, sipUrl);
     }
 
     /**
      * Create a OriginationUrlReader to execute read.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk from which to read the
      *                     OriginationUrl
      * @return OriginationUrlReader capable of executing the read
@@ -97,13 +97,13 @@ public class OriginationUrl extends Resource {
 
     /**
      * Create a OriginationUrlUpdater to execute update.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk from which to update the
      *                     OriginationUrl
      * @param pathSid The unique string that identifies the resource
      * @return OriginationUrlUpdater capable of executing the update
      */
-    public static OriginationUrlUpdater updater(final String pathTrunkSid, 
+    public static OriginationUrlUpdater updater(final String pathTrunkSid,
                                                 final String pathSid) {
         return new OriginationUrlUpdater(pathTrunkSid, pathSid);
     }
@@ -111,7 +111,7 @@ public class OriginationUrl extends Resource {
     /**
      * Converts a JSON String into a OriginationUrl object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return OriginationUrl object represented by the provided JSON
@@ -130,7 +130,7 @@ public class OriginationUrl extends Resource {
     /**
      * Converts a JSON InputStream into a OriginationUrl object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return OriginationUrl object represented by the provided JSON
@@ -160,25 +160,25 @@ public class OriginationUrl extends Resource {
 
     @JsonCreator
     private OriginationUrl(@JsonProperty("account_sid")
-                           final String accountSid, 
+                           final String accountSid,
                            @JsonProperty("sid")
-                           final String sid, 
+                           final String sid,
                            @JsonProperty("trunk_sid")
-                           final String trunkSid, 
+                           final String trunkSid,
                            @JsonProperty("weight")
-                           final Integer weight, 
+                           final Integer weight,
                            @JsonProperty("enabled")
-                           final Boolean enabled, 
+                           final Boolean enabled,
                            @JsonProperty("sip_url")
-                           final URI sipUrl, 
+                           final URI sipUrl,
                            @JsonProperty("friendly_name")
-                           final String friendlyName, 
+                           final String friendlyName,
                            @JsonProperty("priority")
-                           final Integer priority, 
+                           final Integer priority,
                            @JsonProperty("date_created")
-                           final String dateCreated, 
+                           final String dateCreated,
                            @JsonProperty("date_updated")
-                           final String dateUpdated, 
+                           final String dateUpdated,
                            @JsonProperty("url")
                            final URI url) {
         this.accountSid = accountSid;
@@ -196,7 +196,7 @@ public class OriginationUrl extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -205,7 +205,7 @@ public class OriginationUrl extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -214,7 +214,7 @@ public class OriginationUrl extends Resource {
 
     /**
      * Returns The The SID of the Trunk that owns the Origination URL.
-     * 
+     *
      * @return The SID of the Trunk that owns the Origination URL
      */
     public final String getTrunkSid() {
@@ -224,7 +224,7 @@ public class OriginationUrl extends Resource {
     /**
      * Returns The The value that determines the relative load the URI should
      * receive compared to others with the same priority.
-     * 
+     *
      * @return The value that determines the relative load the URI should receive
      *         compared to others with the same priority
      */
@@ -234,7 +234,7 @@ public class OriginationUrl extends Resource {
 
     /**
      * Returns The Whether the URL is enabled.
-     * 
+     *
      * @return Whether the URL is enabled
      */
     public final Boolean getEnabled() {
@@ -244,7 +244,7 @@ public class OriginationUrl extends Resource {
     /**
      * Returns The The SIP address you want Twilio to route your Origination calls
      * to.
-     * 
+     *
      * @return The SIP address you want Twilio to route your Origination calls to
      */
     public final URI getSipUrl() {
@@ -253,7 +253,7 @@ public class OriginationUrl extends Resource {
 
     /**
      * Returns The The string that you assigned to describe the resource.
-     * 
+     *
      * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
@@ -262,7 +262,7 @@ public class OriginationUrl extends Resource {
 
     /**
      * Returns The The relative importance of the URI.
-     * 
+     *
      * @return The relative importance of the URI
      */
     public final Integer getPriority() {
@@ -271,7 +271,7 @@ public class OriginationUrl extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
@@ -281,7 +281,7 @@ public class OriginationUrl extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -290,7 +290,7 @@ public class OriginationUrl extends Resource {
 
     /**
      * Returns The The absolute URL of the resource.
-     * 
+     *
      * @return The absolute URL of the resource
      */
     public final URI getUrl() {
@@ -309,16 +309,16 @@ public class OriginationUrl extends Resource {
 
         OriginationUrl other = (OriginationUrl) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(trunkSid, other.trunkSid) && 
-               Objects.equals(weight, other.weight) && 
-               Objects.equals(enabled, other.enabled) && 
-               Objects.equals(sipUrl, other.sipUrl) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(priority, other.priority) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(trunkSid, other.trunkSid) &&
+               Objects.equals(weight, other.weight) &&
+               Objects.equals(enabled, other.enabled) &&
+               Objects.equals(sipUrl, other.sipUrl) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(priority, other.priority) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
     }
 

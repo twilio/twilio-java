@@ -23,11 +23,11 @@ public class RoomUpdater extends Updater<Room> {
 
     /**
      * Construct a new RoomUpdater.
-     * 
+     *
      * @param pathSid The Room Sid or name that uniquely identifies this resource.
      * @param status Set to completed to end the Room.
      */
-    public RoomUpdater(final String pathSid, 
+    public RoomUpdater(final String pathSid,
                        final Room.RoomStatus status) {
         this.pathSid = pathSid;
         this.status = status;
@@ -35,7 +35,7 @@ public class RoomUpdater extends Updater<Room> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Room
      */
@@ -74,7 +74,7 @@ public class RoomUpdater extends Updater<Room> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

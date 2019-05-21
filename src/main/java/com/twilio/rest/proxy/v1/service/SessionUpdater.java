@@ -39,11 +39,11 @@ public class SessionUpdater extends Updater<Session> {
 
     /**
      * Construct a new SessionUpdater.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to update the resource from
      * @param pathSid The unique string that identifies the resource
      */
-    public SessionUpdater(final String pathServiceSid, 
+    public SessionUpdater(final String pathServiceSid,
                           final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -52,7 +52,7 @@ public class SessionUpdater extends Updater<Session> {
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session
      * should expire. If this is value is present, it overrides the `ttl` value..
-     * 
+     *
      * @param dateExpiry The ISO 8601 date when the Session should expire
      * @return this
      */
@@ -64,7 +64,7 @@ public class SessionUpdater extends Updater<Session> {
     /**
      * The time, in seconds, when the session will expire. The time is measured from
      * the last Session create or the Session's last Interaction..
-     * 
+     *
      * @param ttl When the session will expire
      * @return this
      */
@@ -76,7 +76,7 @@ public class SessionUpdater extends Updater<Session> {
     /**
      * The Mode of the Session. Can be: `message-only`, `voice-only`, or
      * `voice-and-message` and the default value is `voice-and-message`..
-     * 
+     *
      * @param mode The Mode of the Session
      * @return this
      */
@@ -88,7 +88,7 @@ public class SessionUpdater extends Updater<Session> {
     /**
      * The new status of the resource. Can be: `in-progress` to re-open a session or
      * `closed` to close a session..
-     * 
+     *
      * @param status The new status of the resource
      * @return this
      */
@@ -99,7 +99,7 @@ public class SessionUpdater extends Updater<Session> {
 
     /**
      * The Participant objects to include in the session..
-     * 
+     *
      * @param participants The Participant objects to include in the session
      * @return this
      */
@@ -110,7 +110,7 @@ public class SessionUpdater extends Updater<Session> {
 
     /**
      * The Participant objects to include in the session..
-     * 
+     *
      * @param participants The Participant objects to include in the session
      * @return this
      */
@@ -120,7 +120,7 @@ public class SessionUpdater extends Updater<Session> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Session
      */
@@ -159,7 +159,7 @@ public class SessionUpdater extends Updater<Session> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -29,7 +29,7 @@ public class SyncMapCreator extends Creator<SyncMap> {
 
     /**
      * Construct a new SyncMapCreator.
-     * 
+     *
      * @param pathServiceSid The service_sid
      */
     public SyncMapCreator(final String pathServiceSid) {
@@ -38,7 +38,7 @@ public class SyncMapCreator extends Creator<SyncMap> {
 
     /**
      * Human-readable name for this map.
-     * 
+     *
      * @param uniqueName Human-readable name for this map
      * @return this
      */
@@ -49,7 +49,7 @@ public class SyncMapCreator extends Creator<SyncMap> {
 
     /**
      * Alias for collection_ttl. If both are provided, this value is ignored..
-     * 
+     *
      * @param ttl Alias for collection_ttl
      * @return this
      */
@@ -61,7 +61,7 @@ public class SyncMapCreator extends Creator<SyncMap> {
     /**
      * Time-to-live of this Map in seconds, defaults to no expiration. In the range
      * [1, 31 536 000 (1 year)], or 0 for infinity..
-     * 
+     *
      * @param collectionTtl Time-to-live of this Map in seconds, defaults to no
      *                      expiration.
      * @return this
@@ -73,7 +73,7 @@ public class SyncMapCreator extends Creator<SyncMap> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created SyncMap
      */
@@ -112,7 +112,7 @@ public class SyncMapCreator extends Creator<SyncMap> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

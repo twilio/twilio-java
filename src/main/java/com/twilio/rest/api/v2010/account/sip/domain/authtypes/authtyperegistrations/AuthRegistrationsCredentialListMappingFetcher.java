@@ -24,12 +24,12 @@ public class AuthRegistrationsCredentialListMappingFetcher extends Fetcher<AuthR
 
     /**
      * Construct a new AuthRegistrationsCredentialListMappingFetcher.
-     * 
+     *
      * @param pathDomainSid The SID of the SIP domain that contains the resource to
      *                      fetch
      * @param pathSid The unique string that identifies the resource
      */
-    public AuthRegistrationsCredentialListMappingFetcher(final String pathDomainSid, 
+    public AuthRegistrationsCredentialListMappingFetcher(final String pathDomainSid,
                                                          final String pathSid) {
         this.pathDomainSid = pathDomainSid;
         this.pathSid = pathSid;
@@ -37,15 +37,15 @@ public class AuthRegistrationsCredentialListMappingFetcher extends Fetcher<AuthR
 
     /**
      * Construct a new AuthRegistrationsCredentialListMappingFetcher.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource to
      *                       fetch
      * @param pathDomainSid The SID of the SIP domain that contains the resource to
      *                      fetch
      * @param pathSid The unique string that identifies the resource
      */
-    public AuthRegistrationsCredentialListMappingFetcher(final String pathAccountSid, 
-                                                         final String pathDomainSid, 
+    public AuthRegistrationsCredentialListMappingFetcher(final String pathAccountSid,
+                                                         final String pathDomainSid,
                                                          final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
@@ -54,7 +54,7 @@ public class AuthRegistrationsCredentialListMappingFetcher extends Fetcher<AuthR
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched AuthRegistrationsCredentialListMapping
      */

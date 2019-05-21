@@ -23,7 +23,7 @@ public class CallFetcher extends Fetcher<Call> {
 
     /**
      * Construct a new CallFetcher.
-     * 
+     *
      * @param pathSid The unique string that identifies this resource
      */
     public CallFetcher(final String pathSid) {
@@ -32,12 +32,12 @@ public class CallFetcher extends Fetcher<Call> {
 
     /**
      * Construct a new CallFetcher.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       fetch
      * @param pathSid The unique string that identifies this resource
      */
-    public CallFetcher(final String pathAccountSid, 
+    public CallFetcher(final String pathAccountSid,
                        final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -45,7 +45,7 @@ public class CallFetcher extends Fetcher<Call> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Call
      */

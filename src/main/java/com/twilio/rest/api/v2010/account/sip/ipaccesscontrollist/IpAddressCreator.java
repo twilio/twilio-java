@@ -26,7 +26,7 @@ public class IpAddressCreator extends Creator<IpAddress> {
 
     /**
      * Construct a new IpAddressCreator.
-     * 
+     *
      * @param pathIpAccessControlListSid The IpAccessControlList Sid with which to
      *                                   associate the created IpAddress resource
      * @param friendlyName A human readable descriptive text for this resource, up
@@ -36,8 +36,8 @@ public class IpAddressCreator extends Creator<IpAddress> {
      *                  address will be allowed by Twilio. IPv4 only supported
      *                  today.
      */
-    public IpAddressCreator(final String pathIpAccessControlListSid, 
-                            final String friendlyName, 
+    public IpAddressCreator(final String pathIpAccessControlListSid,
+                            final String friendlyName,
                             final String ipAddress) {
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
         this.friendlyName = friendlyName;
@@ -46,7 +46,7 @@ public class IpAddressCreator extends Creator<IpAddress> {
 
     /**
      * Construct a new IpAddressCreator.
-     * 
+     *
      * @param pathAccountSid The unique sid that identifies this account
      * @param pathIpAccessControlListSid The IpAccessControlList Sid with which to
      *                                   associate the created IpAddress resource
@@ -57,9 +57,9 @@ public class IpAddressCreator extends Creator<IpAddress> {
      *                  address will be allowed by Twilio. IPv4 only supported
      *                  today.
      */
-    public IpAddressCreator(final String pathAccountSid, 
-                            final String pathIpAccessControlListSid, 
-                            final String friendlyName, 
+    public IpAddressCreator(final String pathAccountSid,
+                            final String pathIpAccessControlListSid,
+                            final String friendlyName,
                             final String ipAddress) {
         this.pathAccountSid = pathAccountSid;
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
@@ -70,7 +70,7 @@ public class IpAddressCreator extends Creator<IpAddress> {
     /**
      * An integer representing the length of the CIDR prefix to use with this IP
      * address when accepting traffic. By default the entire IP address is used..
-     * 
+     *
      * @param cidrPrefixLength An integer representing the length of the CIDR
      *                         prefix to use with this IP address when accepting
      *                         traffic. By default the entire IP address is used.
@@ -83,7 +83,7 @@ public class IpAddressCreator extends Creator<IpAddress> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created IpAddress
      */
@@ -123,7 +123,7 @@ public class IpAddressCreator extends Creator<IpAddress> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -42,7 +42,7 @@ public class AvailableAddOn extends Resource {
 
     /**
      * Create a AvailableAddOnFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The unique Available Add-on Sid
      * @return AvailableAddOnFetcher capable of executing the fetch
      */
@@ -52,7 +52,7 @@ public class AvailableAddOn extends Resource {
 
     /**
      * Create a AvailableAddOnReader to execute read.
-     * 
+     *
      * @return AvailableAddOnReader capable of executing the read
      */
     public static AvailableAddOnReader reader() {
@@ -62,7 +62,7 @@ public class AvailableAddOn extends Resource {
     /**
      * Converts a JSON String into a AvailableAddOn object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AvailableAddOn object represented by the provided JSON
@@ -81,7 +81,7 @@ public class AvailableAddOn extends Resource {
     /**
      * Converts a JSON InputStream into a AvailableAddOn object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AvailableAddOn object represented by the provided JSON
@@ -107,17 +107,17 @@ public class AvailableAddOn extends Resource {
 
     @JsonCreator
     private AvailableAddOn(@JsonProperty("sid")
-                           final String sid, 
+                           final String sid,
                            @JsonProperty("friendly_name")
-                           final String friendlyName, 
+                           final String friendlyName,
                            @JsonProperty("description")
-                           final String description, 
+                           final String description,
                            @JsonProperty("pricing_type")
-                           final String pricingType, 
+                           final String pricingType,
                            @JsonProperty("configuration_schema")
-                           final Map<String, Object> configurationSchema, 
+                           final Map<String, Object> configurationSchema,
                            @JsonProperty("url")
-                           final URI url, 
+                           final URI url,
                            @JsonProperty("links")
                            final Map<String, String> links) {
         this.sid = sid;
@@ -131,7 +131,7 @@ public class AvailableAddOn extends Resource {
 
     /**
      * Returns The A string that uniquely identifies this Add-on.
-     * 
+     *
      * @return A string that uniquely identifies this Add-on
      */
     public final String getSid() {
@@ -140,7 +140,7 @@ public class AvailableAddOn extends Resource {
 
     /**
      * Returns The A description of this Add-on.
-     * 
+     *
      * @return A description of this Add-on
      */
     public final String getFriendlyName() {
@@ -149,7 +149,7 @@ public class AvailableAddOn extends Resource {
 
     /**
      * Returns The A short description of the Add-on functionality.
-     * 
+     *
      * @return A short description of the Add-on functionality
      */
     public final String getDescription() {
@@ -158,7 +158,7 @@ public class AvailableAddOn extends Resource {
 
     /**
      * Returns The The way customers are charged for using this Add-on.
-     * 
+     *
      * @return The way customers are charged for using this Add-on
      */
     public final String getPricingType() {
@@ -167,7 +167,7 @@ public class AvailableAddOn extends Resource {
 
     /**
      * Returns The The JSON Schema describing the Add-on's configuration.
-     * 
+     *
      * @return The JSON Schema describing the Add-on's configuration
      */
     public final Map<String, Object> getConfigurationSchema() {
@@ -176,7 +176,7 @@ public class AvailableAddOn extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -185,7 +185,7 @@ public class AvailableAddOn extends Resource {
 
     /**
      * Returns The The links.
-     * 
+     *
      * @return The links
      */
     public final Map<String, String> getLinks() {
@@ -204,12 +204,12 @@ public class AvailableAddOn extends Resource {
 
         AvailableAddOn other = (AvailableAddOn) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(description, other.description) && 
-               Objects.equals(pricingType, other.pricingType) && 
-               Objects.equals(configurationSchema, other.configurationSchema) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(description, other.description) &&
+               Objects.equals(pricingType, other.pricingType) &&
+               Objects.equals(configurationSchema, other.configurationSchema) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

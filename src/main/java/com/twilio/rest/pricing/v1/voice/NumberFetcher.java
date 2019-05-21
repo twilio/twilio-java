@@ -22,7 +22,7 @@ public class NumberFetcher extends Fetcher<Number> {
 
     /**
      * Construct a new NumberFetcher.
-     * 
+     *
      * @param pathNumber The phone number to fetch
      */
     public NumberFetcher(final com.twilio.type.PhoneNumber pathNumber) {
@@ -31,7 +31,7 @@ public class NumberFetcher extends Fetcher<Number> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Number
      */

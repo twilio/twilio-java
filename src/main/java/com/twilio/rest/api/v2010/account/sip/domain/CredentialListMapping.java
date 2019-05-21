@@ -37,7 +37,7 @@ public class CredentialListMapping extends Resource {
 
     /**
      * Create a CredentialListMappingCreator to execute create.
-     * 
+     *
      * @param pathAccountSid The unique sid that identifies this account
      * @param pathDomainSid A string that identifies the SIP Domain for which the
      *                      CredentialList resource will be mapped
@@ -45,42 +45,42 @@ public class CredentialListMapping extends Resource {
      *                          resource to map to the SIP domain
      * @return CredentialListMappingCreator capable of executing the create
      */
-    public static CredentialListMappingCreator creator(final String pathAccountSid, 
-                                                       final String pathDomainSid, 
+    public static CredentialListMappingCreator creator(final String pathAccountSid,
+                                                       final String pathDomainSid,
                                                        final String credentialListSid) {
         return new CredentialListMappingCreator(pathAccountSid, pathDomainSid, credentialListSid);
     }
 
     /**
      * Create a CredentialListMappingCreator to execute create.
-     * 
+     *
      * @param pathDomainSid A string that identifies the SIP Domain for which the
      *                      CredentialList resource will be mapped
      * @param credentialListSid A string that identifies the CredentialList
      *                          resource to map to the SIP domain
      * @return CredentialListMappingCreator capable of executing the create
      */
-    public static CredentialListMappingCreator creator(final String pathDomainSid, 
+    public static CredentialListMappingCreator creator(final String pathDomainSid,
                                                        final String credentialListSid) {
         return new CredentialListMappingCreator(pathDomainSid, credentialListSid);
     }
 
     /**
      * Create a CredentialListMappingReader to execute read.
-     * 
+     *
      * @param pathAccountSid The unique sid that identifies this account
      * @param pathDomainSid A string that identifies the SIP Domain that includes
      *                      the resource to read
      * @return CredentialListMappingReader capable of executing the read
      */
-    public static CredentialListMappingReader reader(final String pathAccountSid, 
+    public static CredentialListMappingReader reader(final String pathAccountSid,
                                                      final String pathDomainSid) {
         return new CredentialListMappingReader(pathAccountSid, pathDomainSid);
     }
 
     /**
      * Create a CredentialListMappingReader to execute read.
-     * 
+     *
      * @param pathDomainSid A string that identifies the SIP Domain that includes
      *                      the resource to read
      * @return CredentialListMappingReader capable of executing the read
@@ -91,56 +91,56 @@ public class CredentialListMapping extends Resource {
 
     /**
      * Create a CredentialListMappingFetcher to execute fetch.
-     * 
+     *
      * @param pathAccountSid The unique sid that identifies this account
      * @param pathDomainSid A string that identifies the SIP Domain that includes
      *                      the resource to fetch
      * @param pathSid A string that identifies the resource to fetch
      * @return CredentialListMappingFetcher capable of executing the fetch
      */
-    public static CredentialListMappingFetcher fetcher(final String pathAccountSid, 
-                                                       final String pathDomainSid, 
+    public static CredentialListMappingFetcher fetcher(final String pathAccountSid,
+                                                       final String pathDomainSid,
                                                        final String pathSid) {
         return new CredentialListMappingFetcher(pathAccountSid, pathDomainSid, pathSid);
     }
 
     /**
      * Create a CredentialListMappingFetcher to execute fetch.
-     * 
+     *
      * @param pathDomainSid A string that identifies the SIP Domain that includes
      *                      the resource to fetch
      * @param pathSid A string that identifies the resource to fetch
      * @return CredentialListMappingFetcher capable of executing the fetch
      */
-    public static CredentialListMappingFetcher fetcher(final String pathDomainSid, 
+    public static CredentialListMappingFetcher fetcher(final String pathDomainSid,
                                                        final String pathSid) {
         return new CredentialListMappingFetcher(pathDomainSid, pathSid);
     }
 
     /**
      * Create a CredentialListMappingDeleter to execute delete.
-     * 
+     *
      * @param pathAccountSid The unique sid that identifies this account
      * @param pathDomainSid A string that identifies the SIP Domain that includes
      *                      the resource to delete
      * @param pathSid A string that identifies the resource to delete
      * @return CredentialListMappingDeleter capable of executing the delete
      */
-    public static CredentialListMappingDeleter deleter(final String pathAccountSid, 
-                                                       final String pathDomainSid, 
+    public static CredentialListMappingDeleter deleter(final String pathAccountSid,
+                                                       final String pathDomainSid,
                                                        final String pathSid) {
         return new CredentialListMappingDeleter(pathAccountSid, pathDomainSid, pathSid);
     }
 
     /**
      * Create a CredentialListMappingDeleter to execute delete.
-     * 
+     *
      * @param pathDomainSid A string that identifies the SIP Domain that includes
      *                      the resource to delete
      * @param pathSid A string that identifies the resource to delete
      * @return CredentialListMappingDeleter capable of executing the delete
      */
-    public static CredentialListMappingDeleter deleter(final String pathDomainSid, 
+    public static CredentialListMappingDeleter deleter(final String pathDomainSid,
                                                        final String pathSid) {
         return new CredentialListMappingDeleter(pathDomainSid, pathSid);
     }
@@ -148,7 +148,7 @@ public class CredentialListMapping extends Resource {
     /**
      * Converts a JSON String into a CredentialListMapping object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return CredentialListMapping object represented by the provided JSON
@@ -167,7 +167,7 @@ public class CredentialListMapping extends Resource {
     /**
      * Converts a JSON InputStream into a CredentialListMapping object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return CredentialListMapping object represented by the provided JSON
@@ -193,17 +193,17 @@ public class CredentialListMapping extends Resource {
 
     @JsonCreator
     private CredentialListMapping(@JsonProperty("account_sid")
-                                  final String accountSid, 
+                                  final String accountSid,
                                   @JsonProperty("date_created")
-                                  final String dateCreated, 
+                                  final String dateCreated,
                                   @JsonProperty("date_updated")
-                                  final String dateUpdated, 
+                                  final String dateUpdated,
                                   @JsonProperty("friendly_name")
-                                  final String friendlyName, 
+                                  final String friendlyName,
                                   @JsonProperty("sid")
-                                  final String sid, 
+                                  final String sid,
                                   @JsonProperty("uri")
-                                  final String uri, 
+                                  final String uri,
                                   @JsonProperty("subresource_uris")
                                   final Map<String, String> subresourceUris) {
         this.accountSid = accountSid;
@@ -218,7 +218,7 @@ public class CredentialListMapping extends Resource {
     /**
      * Returns The The unique id of the Account that is responsible for this
      * resource..
-     * 
+     *
      * @return The unique id of the Account that is responsible for this resource.
      */
     public final String getAccountSid() {
@@ -228,7 +228,7 @@ public class CredentialListMapping extends Resource {
     /**
      * Returns The The date that this resource was created, given as GMT in RFC 2822
      * format..
-     * 
+     *
      * @return The date that this resource was created, given as GMT in RFC 2822
      *         format.
      */
@@ -239,7 +239,7 @@ public class CredentialListMapping extends Resource {
     /**
      * Returns The The date that this resource was last updated, given as GMT in RFC
      * 2822 format..
-     * 
+     *
      * @return The date that this resource was last updated, given as GMT in RFC
      *         2822 format.
      */
@@ -250,7 +250,7 @@ public class CredentialListMapping extends Resource {
     /**
      * Returns The A human readable descriptive text for this resource, up to 64
      * characters long..
-     * 
+     *
      * @return A human readable descriptive text for this resource, up to 64
      *         characters long.
      */
@@ -260,7 +260,7 @@ public class CredentialListMapping extends Resource {
 
     /**
      * Returns The A 34 character string that uniquely identifies this resource..
-     * 
+     *
      * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
@@ -269,7 +269,7 @@ public class CredentialListMapping extends Resource {
 
     /**
      * Returns The The URI for this resource, relative to https://api.twilio.com.
-     * 
+     *
      * @return The URI for this resource, relative to https://api.twilio.com
      */
     public final String getUri() {
@@ -278,7 +278,7 @@ public class CredentialListMapping extends Resource {
 
     /**
      * Returns The The credentials associated with this resource..
-     * 
+     *
      * @return The credentials associated with this resource.
      */
     public final Map<String, String> getSubresourceUris() {
@@ -297,12 +297,12 @@ public class CredentialListMapping extends Resource {
 
         CredentialListMapping other = (CredentialListMapping) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(uri, other.uri) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(uri, other.uri) &&
                Objects.equals(subresourceUris, other.subresourceUris);
     }
 

@@ -28,7 +28,7 @@ public class SyncListCreator extends Creator<SyncList> {
 
     /**
      * Construct a new SyncListCreator.
-     * 
+     *
      * @param pathServiceSid The service_sid
      */
     public SyncListCreator(final String pathServiceSid) {
@@ -37,7 +37,7 @@ public class SyncListCreator extends Creator<SyncList> {
 
     /**
      * The unique_name.
-     * 
+     *
      * @param uniqueName The unique_name
      * @return this
      */
@@ -48,7 +48,7 @@ public class SyncListCreator extends Creator<SyncList> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created SyncList
      */
@@ -87,7 +87,7 @@ public class SyncListCreator extends Creator<SyncList> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

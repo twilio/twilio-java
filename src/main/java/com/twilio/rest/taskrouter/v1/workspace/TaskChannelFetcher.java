@@ -23,12 +23,12 @@ public class TaskChannelFetcher extends Fetcher<TaskChannel> {
 
     /**
      * Construct a new TaskChannelFetcher.
-     * 
+     *
      * @param pathWorkspaceSid The unique ID of the Workspace that this TaskChannel
      *                         belongs to.
      * @param pathSid The unique ID for this TaskChannel.
      */
-    public TaskChannelFetcher(final String pathWorkspaceSid, 
+    public TaskChannelFetcher(final String pathWorkspaceSid,
                               final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
@@ -36,7 +36,7 @@ public class TaskChannelFetcher extends Fetcher<TaskChannel> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched TaskChannel
      */

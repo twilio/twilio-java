@@ -35,7 +35,7 @@ public class CountryReader extends Reader<Country> {
     /**
      * Filter to retrieve the country permissions by specifying the [ISO country
      * code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
-     * 
+     *
      * @param isoCode Filter to retrieve the country permissions by specifying the
      *                ISO country code
      * @return this
@@ -47,7 +47,7 @@ public class CountryReader extends Reader<Country> {
 
     /**
      * Filter to retrieve the country permissions by specifying the continent.
-     * 
+     *
      * @param continent Filter to retrieve the country permissions by specifying
      *                  the continent
      * @return this
@@ -60,7 +60,7 @@ public class CountryReader extends Reader<Country> {
     /**
      * Filter the results by specified [country
      * codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html).
-     * 
+     *
      * @param countryCode Country code filter
      * @return this
      */
@@ -72,7 +72,7 @@ public class CountryReader extends Reader<Country> {
     /**
      * Filter to retrieve the country permissions with dialing to low-risk numbers
      * enabled. Can be: `true` or `false`..
-     * 
+     *
      * @param lowRiskNumbersEnabled Filter to retrieve the country permissions with
      *                              dialing to low-risk numbers enabled
      * @return this
@@ -85,7 +85,7 @@ public class CountryReader extends Reader<Country> {
     /**
      * Filter to retrieve the country permissions with dialing to high-risk special
      * service numbers enabled. Can be: `true` or `false`.
-     * 
+     *
      * @param highRiskSpecialNumbersEnabled Filter to retrieve the country
      *                                      permissions with dialing to high-risk
      *                                      special service numbers enabled
@@ -100,7 +100,7 @@ public class CountryReader extends Reader<Country> {
      * Filter to retrieve the country permissions with dialing to high-risk [toll
      * fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers
      * enabled. Can be: `true` or `false`..
-     * 
+     *
      * @param highRiskTollfraudNumbersEnabled Filter to retrieve the country
      *                                        permissions with dialing to high-risk
      *                                        toll fraud numbers enabled
@@ -113,7 +113,7 @@ public class CountryReader extends Reader<Country> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Country ResourceSet
      */
@@ -124,7 +124,7 @@ public class CountryReader extends Reader<Country> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Country ResourceSet
      */
@@ -144,7 +144,7 @@ public class CountryReader extends Reader<Country> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Country ResourceSet
@@ -162,13 +162,13 @@ public class CountryReader extends Reader<Country> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Country> nextPage(final Page<Country> page, 
+    public Page<Country> nextPage(final Page<Country> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -182,13 +182,13 @@ public class CountryReader extends Reader<Country> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Country> previousPage(final Page<Country> page, 
+    public Page<Country> previousPage(final Page<Country> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -202,7 +202,7 @@ public class CountryReader extends Reader<Country> {
 
     /**
      * Generate a Page of Country Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -237,7 +237,7 @@ public class CountryReader extends Reader<Country> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

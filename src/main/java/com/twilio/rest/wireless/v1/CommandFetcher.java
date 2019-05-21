@@ -22,7 +22,7 @@ public class CommandFetcher extends Fetcher<Command> {
 
     /**
      * Construct a new CommandFetcher.
-     * 
+     *
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public CommandFetcher(final String pathSid) {
@@ -31,7 +31,7 @@ public class CommandFetcher extends Fetcher<Command> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Command
      */

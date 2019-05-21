@@ -43,7 +43,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Construct a new ServiceUpdater.
-     * 
+     *
      * @param pathSid The sid
      */
     public ServiceUpdater(final String pathSid) {
@@ -52,7 +52,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The friendly_name.
-     * 
+     *
      * @param friendlyName The friendly_name
      * @return this
      */
@@ -63,7 +63,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The inbound_request_url.
-     * 
+     *
      * @param inboundRequestUrl The inbound_request_url
      * @return this
      */
@@ -74,7 +74,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The inbound_request_url.
-     * 
+     *
      * @param inboundRequestUrl The inbound_request_url
      * @return this
      */
@@ -84,7 +84,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The inbound_method.
-     * 
+     *
      * @param inboundMethod The inbound_method
      * @return this
      */
@@ -95,7 +95,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The fallback_url.
-     * 
+     *
      * @param fallbackUrl The fallback_url
      * @return this
      */
@@ -106,7 +106,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The fallback_url.
-     * 
+     *
      * @param fallbackUrl The fallback_url
      * @return this
      */
@@ -116,7 +116,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The fallback_method.
-     * 
+     *
      * @param fallbackMethod The fallback_method
      * @return this
      */
@@ -127,7 +127,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The status_callback.
-     * 
+     *
      * @param statusCallback The status_callback
      * @return this
      */
@@ -138,7 +138,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The status_callback.
-     * 
+     *
      * @param statusCallback The status_callback
      * @return this
      */
@@ -148,7 +148,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The sticky_sender.
-     * 
+     *
      * @param stickySender The sticky_sender
      * @return this
      */
@@ -159,7 +159,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The mms_converter.
-     * 
+     *
      * @param mmsConverter The mms_converter
      * @return this
      */
@@ -170,7 +170,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The smart_encoding.
-     * 
+     *
      * @param smartEncoding The smart_encoding
      * @return this
      */
@@ -181,7 +181,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The scan_message_content.
-     * 
+     *
      * @param scanMessageContent The scan_message_content
      * @return this
      */
@@ -192,7 +192,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The fallback_to_long_code.
-     * 
+     *
      * @param fallbackToLongCode The fallback_to_long_code
      * @return this
      */
@@ -203,7 +203,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The area_code_geomatch.
-     * 
+     *
      * @param areaCodeGeomatch The area_code_geomatch
      * @return this
      */
@@ -214,7 +214,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The validity_period.
-     * 
+     *
      * @param validityPeriod The validity_period
      * @return this
      */
@@ -225,7 +225,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The synchronous_validation.
-     * 
+     *
      * @param synchronousValidation The synchronous_validation
      * @return this
      */
@@ -236,7 +236,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Service
      */
@@ -275,7 +275,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

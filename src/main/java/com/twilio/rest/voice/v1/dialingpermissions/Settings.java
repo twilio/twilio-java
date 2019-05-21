@@ -41,7 +41,7 @@ public class Settings extends Resource {
 
     /**
      * Create a SettingsFetcher to execute fetch.
-     * 
+     *
      * @return SettingsFetcher capable of executing the fetch
      */
     public static SettingsFetcher fetcher() {
@@ -50,7 +50,7 @@ public class Settings extends Resource {
 
     /**
      * Create a SettingsUpdater to execute update.
-     * 
+     *
      * @return SettingsUpdater capable of executing the update
      */
     public static SettingsUpdater updater() {
@@ -60,7 +60,7 @@ public class Settings extends Resource {
     /**
      * Converts a JSON String into a Settings object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Settings object represented by the provided JSON
@@ -79,7 +79,7 @@ public class Settings extends Resource {
     /**
      * Converts a JSON InputStream into a Settings object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Settings object represented by the provided JSON
@@ -100,7 +100,7 @@ public class Settings extends Resource {
 
     @JsonCreator
     private Settings(@JsonProperty("dialing_permissions_inheritance")
-                     final Boolean dialingPermissionsInheritance, 
+                     final Boolean dialingPermissionsInheritance,
                      @JsonProperty("url")
                      final URI url) {
         this.dialingPermissionsInheritance = dialingPermissionsInheritance;
@@ -110,7 +110,7 @@ public class Settings extends Resource {
     /**
      * Returns The `true` if this sub-account will inherit voice dialing permissions
      * from the Master Project; otherwise `false`.
-     * 
+     *
      * @return `true` if this sub-account will inherit voice dialing permissions
      *         from the Master Project; otherwise `false`
      */
@@ -120,7 +120,7 @@ public class Settings extends Resource {
 
     /**
      * Returns The The absolute URL of this resource.
-     * 
+     *
      * @return The absolute URL of this resource
      */
     public final URI getUrl() {
@@ -139,7 +139,7 @@ public class Settings extends Resource {
 
         Settings other = (Settings) o;
 
-        return Objects.equals(dialingPermissionsInheritance, other.dialingPermissionsInheritance) && 
+        return Objects.equals(dialingPermissionsInheritance, other.dialingPermissionsInheritance) &&
                Objects.equals(url, other.url);
     }
 

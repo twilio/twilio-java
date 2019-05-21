@@ -46,7 +46,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * Construct a new SimUpdater.
-     * 
+     *
      * @param pathSid The sid
      */
     public SimUpdater(final String pathSid) {
@@ -55,7 +55,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The unique_name.
-     * 
+     *
      * @param uniqueName The unique_name
      * @return this
      */
@@ -66,7 +66,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The callback_method.
-     * 
+     *
      * @param callbackMethod The callback_method
      * @return this
      */
@@ -77,7 +77,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The callback_url.
-     * 
+     *
      * @param callbackUrl The callback_url
      * @return this
      */
@@ -88,7 +88,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The callback_url.
-     * 
+     *
      * @param callbackUrl The callback_url
      * @return this
      */
@@ -98,7 +98,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The friendly_name.
-     * 
+     *
      * @param friendlyName The friendly_name
      * @return this
      */
@@ -109,7 +109,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The rate_plan.
-     * 
+     *
      * @param ratePlan The rate_plan
      * @return this
      */
@@ -120,7 +120,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The status.
-     * 
+     *
      * @param status The status
      * @return this
      */
@@ -131,7 +131,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The commands_callback_method.
-     * 
+     *
      * @param commandsCallbackMethod The commands_callback_method
      * @return this
      */
@@ -142,7 +142,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The commands_callback_url.
-     * 
+     *
      * @param commandsCallbackUrl The commands_callback_url
      * @return this
      */
@@ -153,7 +153,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The commands_callback_url.
-     * 
+     *
      * @param commandsCallbackUrl The commands_callback_url
      * @return this
      */
@@ -163,7 +163,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The sms_fallback_method.
-     * 
+     *
      * @param smsFallbackMethod The sms_fallback_method
      * @return this
      */
@@ -174,7 +174,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The sms_fallback_url.
-     * 
+     *
      * @param smsFallbackUrl The sms_fallback_url
      * @return this
      */
@@ -185,7 +185,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The sms_fallback_url.
-     * 
+     *
      * @param smsFallbackUrl The sms_fallback_url
      * @return this
      */
@@ -195,7 +195,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The sms_method.
-     * 
+     *
      * @param smsMethod The sms_method
      * @return this
      */
@@ -206,7 +206,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The sms_url.
-     * 
+     *
      * @param smsUrl The sms_url
      * @return this
      */
@@ -217,7 +217,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The sms_url.
-     * 
+     *
      * @param smsUrl The sms_url
      * @return this
      */
@@ -227,7 +227,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The voice_fallback_method.
-     * 
+     *
      * @param voiceFallbackMethod The voice_fallback_method
      * @return this
      */
@@ -238,7 +238,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The voice_fallback_url.
-     * 
+     *
      * @param voiceFallbackUrl The voice_fallback_url
      * @return this
      */
@@ -249,7 +249,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The voice_fallback_url.
-     * 
+     *
      * @param voiceFallbackUrl The voice_fallback_url
      * @return this
      */
@@ -259,7 +259,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The voice_method.
-     * 
+     *
      * @param voiceMethod The voice_method
      * @return this
      */
@@ -270,7 +270,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The voice_url.
-     * 
+     *
      * @param voiceUrl The voice_url
      * @return this
      */
@@ -281,7 +281,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The voice_url.
-     * 
+     *
      * @param voiceUrl The voice_url
      * @return this
      */
@@ -291,7 +291,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Sim
      */
@@ -330,7 +330,7 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

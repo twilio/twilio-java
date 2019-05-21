@@ -24,13 +24,13 @@ public class ExecutionStepContextFetcher extends Fetcher<ExecutionStepContext> {
 
     /**
      * Construct a new ExecutionStepContextFetcher.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      * @param pathExecutionSid Execution Sid.
      * @param pathStepSid Step Sid.
      */
-    public ExecutionStepContextFetcher(final String pathFlowSid, 
-                                       final String pathExecutionSid, 
+    public ExecutionStepContextFetcher(final String pathFlowSid,
+                                       final String pathExecutionSid,
                                        final String pathStepSid) {
         this.pathFlowSid = pathFlowSid;
         this.pathExecutionSid = pathExecutionSid;
@@ -39,7 +39,7 @@ public class ExecutionStepContextFetcher extends Fetcher<ExecutionStepContext> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched ExecutionStepContext
      */

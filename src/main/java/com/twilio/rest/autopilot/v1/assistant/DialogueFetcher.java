@@ -28,12 +28,12 @@ public class DialogueFetcher extends Fetcher<Dialogue> {
 
     /**
      * Construct a new DialogueFetcher.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         resource to fetch
      * @param pathSid The unique string that identifies the resource
      */
-    public DialogueFetcher(final String pathAssistantSid, 
+    public DialogueFetcher(final String pathAssistantSid,
                            final String pathSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathSid = pathSid;
@@ -41,7 +41,7 @@ public class DialogueFetcher extends Fetcher<Dialogue> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Dialogue
      */

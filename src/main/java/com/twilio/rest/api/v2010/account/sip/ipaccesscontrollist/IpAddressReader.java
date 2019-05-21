@@ -25,7 +25,7 @@ public class IpAddressReader extends Reader<IpAddress> {
 
     /**
      * Construct a new IpAddressReader.
-     * 
+     *
      * @param pathIpAccessControlListSid The IpAccessControlList Sid that
      *                                   identifies the IpAddress resources to read
      */
@@ -35,12 +35,12 @@ public class IpAddressReader extends Reader<IpAddress> {
 
     /**
      * Construct a new IpAddressReader.
-     * 
+     *
      * @param pathAccountSid The unique sid that identifies this account
      * @param pathIpAccessControlListSid The IpAccessControlList Sid that
      *                                   identifies the IpAddress resources to read
      */
-    public IpAddressReader(final String pathAccountSid, 
+    public IpAddressReader(final String pathAccountSid,
                            final String pathIpAccessControlListSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
@@ -48,7 +48,7 @@ public class IpAddressReader extends Reader<IpAddress> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return IpAddress ResourceSet
      */
@@ -59,7 +59,7 @@ public class IpAddressReader extends Reader<IpAddress> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return IpAddress ResourceSet
      */
@@ -80,7 +80,7 @@ public class IpAddressReader extends Reader<IpAddress> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return IpAddress ResourceSet
@@ -99,13 +99,13 @@ public class IpAddressReader extends Reader<IpAddress> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<IpAddress> nextPage(final Page<IpAddress> page, 
+    public Page<IpAddress> nextPage(final Page<IpAddress> page,
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -119,13 +119,13 @@ public class IpAddressReader extends Reader<IpAddress> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<IpAddress> previousPage(final Page<IpAddress> page, 
+    public Page<IpAddress> previousPage(final Page<IpAddress> page,
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -139,7 +139,7 @@ public class IpAddressReader extends Reader<IpAddress> {
 
     /**
      * Generate a Page of IpAddress Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -174,7 +174,7 @@ public class IpAddressReader extends Reader<IpAddress> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

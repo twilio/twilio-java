@@ -39,12 +39,12 @@ public class TaskQueueCumulativeStatistics extends Resource {
 
     /**
      * Create a TaskQueueCumulativeStatisticsFetcher to execute fetch.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathTaskQueueSid The task_queue_sid
      * @return TaskQueueCumulativeStatisticsFetcher capable of executing the fetch
      */
-    public static TaskQueueCumulativeStatisticsFetcher fetcher(final String pathWorkspaceSid, 
+    public static TaskQueueCumulativeStatisticsFetcher fetcher(final String pathWorkspaceSid,
                                                                final String pathTaskQueueSid) {
         return new TaskQueueCumulativeStatisticsFetcher(pathWorkspaceSid, pathTaskQueueSid);
     }
@@ -52,7 +52,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     /**
      * Converts a JSON String into a TaskQueueCumulativeStatistics object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return TaskQueueCumulativeStatistics object represented by the provided JSON
@@ -71,7 +71,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     /**
      * Converts a JSON InputStream into a TaskQueueCumulativeStatistics object using
      * the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return TaskQueueCumulativeStatistics object represented by the provided JSON
@@ -111,45 +111,45 @@ public class TaskQueueCumulativeStatistics extends Resource {
 
     @JsonCreator
     private TaskQueueCumulativeStatistics(@JsonProperty("account_sid")
-                                          final String accountSid, 
+                                          final String accountSid,
                                           @JsonProperty("avg_task_acceptance_time")
-                                          final Integer avgTaskAcceptanceTime, 
+                                          final Integer avgTaskAcceptanceTime,
                                           @JsonProperty("start_time")
-                                          final String startTime, 
+                                          final String startTime,
                                           @JsonProperty("end_time")
-                                          final String endTime, 
+                                          final String endTime,
                                           @JsonProperty("reservations_created")
-                                          final Integer reservationsCreated, 
+                                          final Integer reservationsCreated,
                                           @JsonProperty("reservations_accepted")
-                                          final Integer reservationsAccepted, 
+                                          final Integer reservationsAccepted,
                                           @JsonProperty("reservations_rejected")
-                                          final Integer reservationsRejected, 
+                                          final Integer reservationsRejected,
                                           @JsonProperty("reservations_timed_out")
-                                          final Integer reservationsTimedOut, 
+                                          final Integer reservationsTimedOut,
                                           @JsonProperty("reservations_canceled")
-                                          final Integer reservationsCanceled, 
+                                          final Integer reservationsCanceled,
                                           @JsonProperty("reservations_rescinded")
-                                          final Integer reservationsRescinded, 
+                                          final Integer reservationsRescinded,
                                           @JsonProperty("split_by_wait_time")
-                                          final Map<String, Object> splitByWaitTime, 
+                                          final Map<String, Object> splitByWaitTime,
                                           @JsonProperty("task_queue_sid")
-                                          final String taskQueueSid, 
+                                          final String taskQueueSid,
                                           @JsonProperty("wait_duration_until_accepted")
-                                          final Map<String, Object> waitDurationUntilAccepted, 
+                                          final Map<String, Object> waitDurationUntilAccepted,
                                           @JsonProperty("wait_duration_until_canceled")
-                                          final Map<String, Object> waitDurationUntilCanceled, 
+                                          final Map<String, Object> waitDurationUntilCanceled,
                                           @JsonProperty("tasks_canceled")
-                                          final Integer tasksCanceled, 
+                                          final Integer tasksCanceled,
                                           @JsonProperty("tasks_completed")
-                                          final Integer tasksCompleted, 
+                                          final Integer tasksCompleted,
                                           @JsonProperty("tasks_deleted")
-                                          final Integer tasksDeleted, 
+                                          final Integer tasksDeleted,
                                           @JsonProperty("tasks_entered")
-                                          final Integer tasksEntered, 
+                                          final Integer tasksEntered,
                                           @JsonProperty("tasks_moved")
-                                          final Integer tasksMoved, 
+                                          final Integer tasksMoved,
                                           @JsonProperty("workspace_sid")
-                                          final String workspaceSid, 
+                                          final String workspaceSid,
                                           @JsonProperty("url")
                                           final URI url) {
         this.accountSid = accountSid;
@@ -177,7 +177,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
 
     /**
      * Returns The The account_sid.
-     * 
+     *
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -187,7 +187,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     /**
      * Returns The The average time from Task creation to reservation acceptance
      * while in this TaskQueue.
-     * 
+     *
      * @return The average time from Task creation to reservation acceptance while
      *         in this TaskQueue
      */
@@ -197,7 +197,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
 
     /**
      * Returns The The start_time.
-     * 
+     *
      * @return The start_time
      */
     public final DateTime getStartTime() {
@@ -206,7 +206,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
 
     /**
      * Returns The The end_time.
-     * 
+     *
      * @return The end_time
      */
     public final DateTime getEndTime() {
@@ -216,7 +216,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     /**
      * Returns The The total number of Reservations that were created for Tasks
      * while in this TaskQueue.
-     * 
+     *
      * @return The total number of Reservations that were created for Tasks while
      *         in this TaskQueue
      */
@@ -227,7 +227,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     /**
      * Returns The The total number of Reservations that were accepted for Tasks
      * while in this TaskQueue.
-     * 
+     *
      * @return The total number of Reservations that were accepted for Tasks while
      *         in this TaskQueue
      */
@@ -238,7 +238,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     /**
      * Returns The The total number of Reservations that were rejected for Tasks
      * while in this TaskQueue.
-     * 
+     *
      * @return The total number of Reservations that were rejected for Tasks while
      *         in this TaskQueue
      */
@@ -249,7 +249,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     /**
      * Returns The The total number of Reservations that were timed out for Tasks
      * while in this TaskQueue.
-     * 
+     *
      * @return The total number of Reservations that were timed out for Tasks while
      *         in this TaskQueue
      */
@@ -260,7 +260,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     /**
      * Returns The The total number of Reservations that were canceled for Tasks
      * while in this TaskQueue.
-     * 
+     *
      * @return The total number of Reservations that were canceled for Tasks while
      *         in this TaskQueue
      */
@@ -270,7 +270,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
 
     /**
      * Returns The The total number of Reservations that were rescinded.
-     * 
+     *
      * @return The total number of Reservations that were rescinded
      */
     public final Integer getReservationsRescinded() {
@@ -280,7 +280,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     /**
      * Returns The The splits of the tasks canceled and accepted based on the
      * provided SplitByWaitTime parameter.
-     * 
+     *
      * @return The splits of the tasks canceled and accepted based on the provided
      *         SplitByWaitTime parameter
      */
@@ -290,7 +290,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
 
     /**
      * Returns The The task_queue_sid.
-     * 
+     *
      * @return The task_queue_sid
      */
     public final String getTaskQueueSid() {
@@ -300,7 +300,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     /**
      * Returns The The wait duration stats for tasks that were accepted while in
      * this TaskQueue.
-     * 
+     *
      * @return The wait duration stats for tasks that were accepted while in this
      *         TaskQueue
      */
@@ -311,7 +311,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     /**
      * Returns The The wait duration stats for tasks that were canceled while in
      * this TaskQueue.
-     * 
+     *
      * @return The wait duration stats for tasks that were canceled while in this
      *         TaskQueue
      */
@@ -321,7 +321,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
 
     /**
      * Returns The The total number of Tasks canceled while in this TaskQueue.
-     * 
+     *
      * @return The total number of Tasks canceled while in this TaskQueue
      */
     public final Integer getTasksCanceled() {
@@ -330,7 +330,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
 
     /**
      * Returns The The total number of Tasks completed while in this TaskQueue.
-     * 
+     *
      * @return The total number of Tasks completed while in this TaskQueue
      */
     public final Integer getTasksCompleted() {
@@ -340,7 +340,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     /**
      * Returns The The total number of Tasks that were deleted while in this
      * TaskQueue.
-     * 
+     *
      * @return The total number of Tasks that were deleted while in this TaskQueue
      */
     public final Integer getTasksDeleted() {
@@ -349,7 +349,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
 
     /**
      * Returns The The total number of Tasks entered into this TaskQueue.
-     * 
+     *
      * @return The total number of Tasks entered into this TaskQueue
      */
     public final Integer getTasksEntered() {
@@ -359,7 +359,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     /**
      * Returns The The total number of Tasks moved to another TaskQueue from this
      * TaskQueue.
-     * 
+     *
      * @return The total number of Tasks moved to another TaskQueue from this
      *         TaskQueue
      */
@@ -369,7 +369,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
 
     /**
      * Returns The The workspace_sid.
-     * 
+     *
      * @return The workspace_sid
      */
     public final String getWorkspaceSid() {
@@ -378,7 +378,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -397,26 +397,26 @@ public class TaskQueueCumulativeStatistics extends Resource {
 
         TaskQueueCumulativeStatistics other = (TaskQueueCumulativeStatistics) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(avgTaskAcceptanceTime, other.avgTaskAcceptanceTime) && 
-               Objects.equals(startTime, other.startTime) && 
-               Objects.equals(endTime, other.endTime) && 
-               Objects.equals(reservationsCreated, other.reservationsCreated) && 
-               Objects.equals(reservationsAccepted, other.reservationsAccepted) && 
-               Objects.equals(reservationsRejected, other.reservationsRejected) && 
-               Objects.equals(reservationsTimedOut, other.reservationsTimedOut) && 
-               Objects.equals(reservationsCanceled, other.reservationsCanceled) && 
-               Objects.equals(reservationsRescinded, other.reservationsRescinded) && 
-               Objects.equals(splitByWaitTime, other.splitByWaitTime) && 
-               Objects.equals(taskQueueSid, other.taskQueueSid) && 
-               Objects.equals(waitDurationUntilAccepted, other.waitDurationUntilAccepted) && 
-               Objects.equals(waitDurationUntilCanceled, other.waitDurationUntilCanceled) && 
-               Objects.equals(tasksCanceled, other.tasksCanceled) && 
-               Objects.equals(tasksCompleted, other.tasksCompleted) && 
-               Objects.equals(tasksDeleted, other.tasksDeleted) && 
-               Objects.equals(tasksEntered, other.tasksEntered) && 
-               Objects.equals(tasksMoved, other.tasksMoved) && 
-               Objects.equals(workspaceSid, other.workspaceSid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(avgTaskAcceptanceTime, other.avgTaskAcceptanceTime) &&
+               Objects.equals(startTime, other.startTime) &&
+               Objects.equals(endTime, other.endTime) &&
+               Objects.equals(reservationsCreated, other.reservationsCreated) &&
+               Objects.equals(reservationsAccepted, other.reservationsAccepted) &&
+               Objects.equals(reservationsRejected, other.reservationsRejected) &&
+               Objects.equals(reservationsTimedOut, other.reservationsTimedOut) &&
+               Objects.equals(reservationsCanceled, other.reservationsCanceled) &&
+               Objects.equals(reservationsRescinded, other.reservationsRescinded) &&
+               Objects.equals(splitByWaitTime, other.splitByWaitTime) &&
+               Objects.equals(taskQueueSid, other.taskQueueSid) &&
+               Objects.equals(waitDurationUntilAccepted, other.waitDurationUntilAccepted) &&
+               Objects.equals(waitDurationUntilCanceled, other.waitDurationUntilCanceled) &&
+               Objects.equals(tasksCanceled, other.tasksCanceled) &&
+               Objects.equals(tasksCompleted, other.tasksCompleted) &&
+               Objects.equals(tasksDeleted, other.tasksDeleted) &&
+               Objects.equals(tasksEntered, other.tasksEntered) &&
+               Objects.equals(tasksMoved, other.tasksMoved) &&
+               Objects.equals(workspaceSid, other.workspaceSid) &&
                Objects.equals(url, other.url);
     }
 

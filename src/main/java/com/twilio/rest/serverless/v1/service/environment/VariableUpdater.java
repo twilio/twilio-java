@@ -31,13 +31,13 @@ public class VariableUpdater extends Updater<Variable> {
 
     /**
      * Construct a new VariableUpdater.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathEnvironmentSid Environment Sid.
      * @param pathSid Variable Sid.
      */
-    public VariableUpdater(final String pathServiceSid, 
-                           final String pathEnvironmentSid, 
+    public VariableUpdater(final String pathServiceSid,
+                           final String pathEnvironmentSid,
                            final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathEnvironmentSid = pathEnvironmentSid;
@@ -47,7 +47,7 @@ public class VariableUpdater extends Updater<Variable> {
     /**
      * A string by which this Variable can be referenced, fewer than 128 characters.
      * Optional..
-     * 
+     *
      * @param key A string by which this Variable can be referenced.
      * @return this
      */
@@ -59,7 +59,7 @@ public class VariableUpdater extends Updater<Variable> {
     /**
      * A string that contains the actual value of this Variable, less than 450
      * bytes. Optional..
-     * 
+     *
      * @param value A string that contains the actual value of this Variable.
      * @return this
      */
@@ -70,7 +70,7 @@ public class VariableUpdater extends Updater<Variable> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Variable
      */
@@ -109,7 +109,7 @@ public class VariableUpdater extends Updater<Variable> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

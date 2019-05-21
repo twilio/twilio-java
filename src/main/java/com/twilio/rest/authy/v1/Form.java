@@ -69,7 +69,7 @@ public class Form extends Resource {
 
     /**
      * Create a FormFetcher to execute fetch.
-     * 
+     *
      * @param pathFormType The Type of this Form
      * @return FormFetcher capable of executing the fetch
      */
@@ -79,7 +79,7 @@ public class Form extends Resource {
 
     /**
      * Converts a JSON String into a Form object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Form object represented by the provided JSON
@@ -98,7 +98,7 @@ public class Form extends Resource {
     /**
      * Converts a JSON InputStream into a Form object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Form object represented by the provided JSON
@@ -121,11 +121,11 @@ public class Form extends Resource {
 
     @JsonCreator
     private Form(@JsonProperty("form_type")
-                 final Form.FormTypes formType, 
+                 final Form.FormTypes formType,
                  @JsonProperty("forms")
-                 final Map<String, Object> forms, 
+                 final Map<String, Object> forms,
                  @JsonProperty("form_meta")
-                 final Map<String, Object> formMeta, 
+                 final Map<String, Object> formMeta,
                  @JsonProperty("url")
                  final URI url) {
         this.formType = formType;
@@ -136,7 +136,7 @@ public class Form extends Resource {
 
     /**
      * Returns The The Type of this Form.
-     * 
+     *
      * @return The Type of this Form
      */
     public final Form.FormTypes getFormType() {
@@ -145,7 +145,7 @@ public class Form extends Resource {
 
     /**
      * Returns The Object that contains the available forms for this type..
-     * 
+     *
      * @return Object that contains the available forms for this type.
      */
     public final Map<String, Object> getForms() {
@@ -154,7 +154,7 @@ public class Form extends Resource {
 
     /**
      * Returns The Additional information for the available forms for this type..
-     * 
+     *
      * @return Additional information for the available forms for this type.
      */
     public final Map<String, Object> getFormMeta() {
@@ -163,7 +163,7 @@ public class Form extends Resource {
 
     /**
      * Returns The The URL to access the forms for this type..
-     * 
+     *
      * @return The URL to access the forms for this type.
      */
     public final URI getUrl() {
@@ -182,9 +182,9 @@ public class Form extends Resource {
 
         Form other = (Form) o;
 
-        return Objects.equals(formType, other.formType) && 
-               Objects.equals(forms, other.forms) && 
-               Objects.equals(formMeta, other.formMeta) && 
+        return Objects.equals(formType, other.formType) &&
+               Objects.equals(forms, other.forms) &&
+               Objects.equals(formMeta, other.formMeta) &&
                Objects.equals(url, other.url);
     }
 

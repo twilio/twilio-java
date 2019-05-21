@@ -39,7 +39,7 @@ public class RatePlan extends Resource {
 
     /**
      * Create a RatePlanReader to execute read.
-     * 
+     *
      * @return RatePlanReader capable of executing the read
      */
     public static RatePlanReader reader() {
@@ -48,7 +48,7 @@ public class RatePlan extends Resource {
 
     /**
      * Create a RatePlanFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The sid
      * @return RatePlanFetcher capable of executing the fetch
      */
@@ -58,7 +58,7 @@ public class RatePlan extends Resource {
 
     /**
      * Create a RatePlanCreator to execute create.
-     * 
+     *
      * @return RatePlanCreator capable of executing the create
      */
     public static RatePlanCreator creator() {
@@ -67,7 +67,7 @@ public class RatePlan extends Resource {
 
     /**
      * Create a RatePlanUpdater to execute update.
-     * 
+     *
      * @param pathSid The sid
      * @return RatePlanUpdater capable of executing the update
      */
@@ -77,7 +77,7 @@ public class RatePlan extends Resource {
 
     /**
      * Create a RatePlanDeleter to execute delete.
-     * 
+     *
      * @param pathSid The sid
      * @return RatePlanDeleter capable of executing the delete
      */
@@ -88,7 +88,7 @@ public class RatePlan extends Resource {
     /**
      * Converts a JSON String into a RatePlan object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return RatePlan object represented by the provided JSON
@@ -107,7 +107,7 @@ public class RatePlan extends Resource {
     /**
      * Converts a JSON InputStream into a RatePlan object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return RatePlan object represented by the provided JSON
@@ -142,35 +142,35 @@ public class RatePlan extends Resource {
 
     @JsonCreator
     private RatePlan(@JsonProperty("sid")
-                     final String sid, 
+                     final String sid,
                      @JsonProperty("unique_name")
-                     final String uniqueName, 
+                     final String uniqueName,
                      @JsonProperty("account_sid")
-                     final String accountSid, 
+                     final String accountSid,
                      @JsonProperty("friendly_name")
-                     final String friendlyName, 
+                     final String friendlyName,
                      @JsonProperty("data_enabled")
-                     final Boolean dataEnabled, 
+                     final Boolean dataEnabled,
                      @JsonProperty("data_metering")
-                     final String dataMetering, 
+                     final String dataMetering,
                      @JsonProperty("data_limit")
-                     final Integer dataLimit, 
+                     final Integer dataLimit,
                      @JsonProperty("messaging_enabled")
-                     final Boolean messagingEnabled, 
+                     final Boolean messagingEnabled,
                      @JsonProperty("voice_enabled")
-                     final Boolean voiceEnabled, 
+                     final Boolean voiceEnabled,
                      @JsonProperty("national_roaming_enabled")
-                     final Boolean nationalRoamingEnabled, 
+                     final Boolean nationalRoamingEnabled,
                      @JsonProperty("national_roaming_data_limit")
-                     final Integer nationalRoamingDataLimit, 
+                     final Integer nationalRoamingDataLimit,
                      @JsonProperty("international_roaming")
-                     final List<String> internationalRoaming, 
+                     final List<String> internationalRoaming,
                      @JsonProperty("international_roaming_data_limit")
-                     final Integer internationalRoamingDataLimit, 
+                     final Integer internationalRoamingDataLimit,
                      @JsonProperty("date_created")
-                     final String dateCreated, 
+                     final String dateCreated,
                      @JsonProperty("date_updated")
-                     final String dateUpdated, 
+                     final String dateUpdated,
                      @JsonProperty("url")
                      final URI url) {
         this.sid = sid;
@@ -193,7 +193,7 @@ public class RatePlan extends Resource {
 
     /**
      * Returns The A 34 character string that uniquely identifies this resource..
-     * 
+     *
      * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
@@ -203,7 +203,7 @@ public class RatePlan extends Resource {
     /**
      * Returns The A user-provided string that uniquely identifies this resource as
      * an alternative to the sid..
-     * 
+     *
      * @return A user-provided string that uniquely identifies this resource as an
      *         alternative to the sid.
      */
@@ -213,7 +213,7 @@ public class RatePlan extends Resource {
 
     /**
      * Returns The The unique id of the Account that this Rate Plan belongs to..
-     * 
+     *
      * @return The unique id of the Account that this Rate Plan belongs to.
      */
     public final String getAccountSid() {
@@ -222,7 +222,7 @@ public class RatePlan extends Resource {
 
     /**
      * Returns The A user-provided string that identifies this resource..
-     * 
+     *
      * @return A user-provided string that identifies this resource.
      */
     public final String getFriendlyName() {
@@ -232,7 +232,7 @@ public class RatePlan extends Resource {
     /**
      * Returns The Defines whether SIMs are capable of using GPRS/3G/4G/LTE data
      * connectivity..
-     * 
+     *
      * @return Defines whether SIMs are capable of using GPRS/3G/4G/LTE data
      *         connectivity.
      */
@@ -243,7 +243,7 @@ public class RatePlan extends Resource {
     /**
      * Returns The The model by which to meter data usage, in accordance with the
      * two available data metering models..
-     * 
+     *
      * @return The model by which to meter data usage, in accordance with the two
      *         available data metering models.
      */
@@ -254,7 +254,7 @@ public class RatePlan extends Resource {
     /**
      * Returns The Network-enforced limit specifying the total Megabytes of data
      * usage allowed during one month on the home network..
-     * 
+     *
      * @return Network-enforced limit specifying the total Megabytes of data usage
      *         allowed during one month on the home network.
      */
@@ -265,7 +265,7 @@ public class RatePlan extends Resource {
     /**
      * Returns The Defines whether SIMs are capable of making and sending and
      * receiving SMS via Commands..
-     * 
+     *
      * @return Defines whether SIMs are capable of making and sending and receiving
      *         SMS via Commands.
      */
@@ -276,7 +276,7 @@ public class RatePlan extends Resource {
     /**
      * Returns The Defines whether SIMs are capable of making and receiving voice
      * calls..
-     * 
+     *
      * @return Defines whether SIMs are capable of making and receiving voice calls.
      */
     public final Boolean getVoiceEnabled() {
@@ -286,7 +286,7 @@ public class RatePlan extends Resource {
     /**
      * Returns The Defines whether SIMs can roam onto other networks in the SIM's
      * home country..
-     * 
+     *
      * @return Defines whether SIMs can roam onto other networks in the SIM's home
      *         country.
      */
@@ -297,7 +297,7 @@ public class RatePlan extends Resource {
     /**
      * Returns The Network-enforced limit specifying the total Megabytes of national
      * roaming data usage allowed during one month..
-     * 
+     *
      * @return Network-enforced limit specifying the total Megabytes of national
      *         roaming data usage allowed during one month.
      */
@@ -307,7 +307,7 @@ public class RatePlan extends Resource {
 
     /**
      * Returns The The international_roaming.
-     * 
+     *
      * @return The international_roaming
      */
     public final List<String> getInternationalRoaming() {
@@ -316,7 +316,7 @@ public class RatePlan extends Resource {
 
     /**
      * Returns The The international_roaming_data_limit.
-     * 
+     *
      * @return The international_roaming_data_limit
      */
     public final Integer getInternationalRoamingDataLimit() {
@@ -326,7 +326,7 @@ public class RatePlan extends Resource {
     /**
      * Returns The The date that this resource was created, given as GMT in ISO 8601
      * format..
-     * 
+     *
      * @return The date that this resource was created, given as GMT in ISO 8601
      *         format.
      */
@@ -337,7 +337,7 @@ public class RatePlan extends Resource {
     /**
      * Returns The The date that this resource was last updated, given as GMT in ISO
      * 8601 format..
-     * 
+     *
      * @return The date that this resource was last updated, given as GMT in ISO
      *         8601 format.
      */
@@ -347,7 +347,7 @@ public class RatePlan extends Resource {
 
     /**
      * Returns The The URL for this resource..
-     * 
+     *
      * @return The URL for this resource.
      */
     public final URI getUrl() {
@@ -366,21 +366,21 @@ public class RatePlan extends Resource {
 
         RatePlan other = (RatePlan) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(dataEnabled, other.dataEnabled) && 
-               Objects.equals(dataMetering, other.dataMetering) && 
-               Objects.equals(dataLimit, other.dataLimit) && 
-               Objects.equals(messagingEnabled, other.messagingEnabled) && 
-               Objects.equals(voiceEnabled, other.voiceEnabled) && 
-               Objects.equals(nationalRoamingEnabled, other.nationalRoamingEnabled) && 
-               Objects.equals(nationalRoamingDataLimit, other.nationalRoamingDataLimit) && 
-               Objects.equals(internationalRoaming, other.internationalRoaming) && 
-               Objects.equals(internationalRoamingDataLimit, other.internationalRoamingDataLimit) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(dataEnabled, other.dataEnabled) &&
+               Objects.equals(dataMetering, other.dataMetering) &&
+               Objects.equals(dataLimit, other.dataLimit) &&
+               Objects.equals(messagingEnabled, other.messagingEnabled) &&
+               Objects.equals(voiceEnabled, other.voiceEnabled) &&
+               Objects.equals(nationalRoamingEnabled, other.nationalRoamingEnabled) &&
+               Objects.equals(nationalRoamingDataLimit, other.nationalRoamingDataLimit) &&
+               Objects.equals(internationalRoaming, other.internationalRoaming) &&
+               Objects.equals(internationalRoamingDataLimit, other.internationalRoamingDataLimit) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
     }
 

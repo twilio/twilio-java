@@ -161,7 +161,7 @@ public class Pay extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -219,7 +219,7 @@ public class Pay extends TwiML {
 
     /**
      * Input type Twilio should accept
-     * 
+     *
      * @return Input type Twilio should accept
      */
     public Pay.Input getInput() {
@@ -228,7 +228,7 @@ public class Pay extends TwiML {
 
     /**
      * Action URL
-     * 
+     *
      * @return Action URL
      */
     public URI getAction() {
@@ -237,7 +237,7 @@ public class Pay extends TwiML {
 
     /**
      * Status callback URL
-     * 
+     *
      * @return Status callback URL
      */
     public URI getStatusCallback() {
@@ -246,7 +246,7 @@ public class Pay extends TwiML {
 
     /**
      * Status callback method
-     * 
+     *
      * @return Status callback method
      */
     public Pay.StatusCallbackMethod getStatusCallbackMethod() {
@@ -255,7 +255,7 @@ public class Pay extends TwiML {
 
     /**
      * Time to wait to gather input
-     * 
+     *
      * @return Time to wait to gather input
      */
     public Integer getTimeout() {
@@ -264,7 +264,7 @@ public class Pay extends TwiML {
 
     /**
      * Maximum number of allowed retries when gathering input
-     * 
+     *
      * @return Maximum number of allowed retries when gathering input
      */
     public Integer getMaxAttempts() {
@@ -273,7 +273,7 @@ public class Pay extends TwiML {
 
     /**
      * Prompt for security code
-     * 
+     *
      * @return Prompt for security code
      */
     public Boolean isSecurityCode() {
@@ -282,7 +282,7 @@ public class Pay extends TwiML {
 
     /**
      * Prompt for postal code and it should be true/false or default postal code
-     * 
+     *
      * @return Prompt for postal code and it should be true/false or default postal
      *         code
      */
@@ -292,7 +292,7 @@ public class Pay extends TwiML {
 
     /**
      * Unique name for payment connector
-     * 
+     *
      * @return Unique name for payment connector
      */
     public String getPaymentConnector() {
@@ -301,7 +301,7 @@ public class Pay extends TwiML {
 
     /**
      * Type of token
-     * 
+     *
      * @return Type of token
      */
     public Pay.TokenType getTokenType() {
@@ -311,7 +311,7 @@ public class Pay extends TwiML {
     /**
      * Amount to process. If value is greater than 0 then make the payment else
      * create a payment token
-     * 
+     *
      * @return Amount to process. If value is greater than 0 then make the payment
      *         else create a payment token
      */
@@ -321,7 +321,7 @@ public class Pay extends TwiML {
 
     /**
      * Currency of the amount attribute
-     * 
+     *
      * @return Currency of the amount attribute
      */
     public String getCurrency() {
@@ -330,7 +330,7 @@ public class Pay extends TwiML {
 
     /**
      * Details regarding the payment
-     * 
+     *
      * @return Details regarding the payment
      */
     public String getDescription() {
@@ -339,7 +339,7 @@ public class Pay extends TwiML {
 
     /**
      * Comma separated accepted card types
-     * 
+     *
      * @return Comma separated accepted card types
      */
     public List<Pay.ValidCardTypes> getValidCardTypess() {
@@ -360,7 +360,7 @@ public class Pay extends TwiML {
 
     /**
      * Language to use
-     * 
+     *
      * @return Language to use
      */
     public Pay.Language getLanguage() {

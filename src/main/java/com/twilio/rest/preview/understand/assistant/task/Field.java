@@ -43,33 +43,33 @@ public class Field extends Resource {
 
     /**
      * Create a FieldFetcher to execute fetch.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant.
      * @param pathTaskSid The unique ID of the Task associated with this Field.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return FieldFetcher capable of executing the fetch
      */
-    public static FieldFetcher fetcher(final String pathAssistantSid, 
-                                       final String pathTaskSid, 
+    public static FieldFetcher fetcher(final String pathAssistantSid,
+                                       final String pathTaskSid,
                                        final String pathSid) {
         return new FieldFetcher(pathAssistantSid, pathTaskSid, pathSid);
     }
 
     /**
      * Create a FieldReader to execute read.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant.
      * @param pathTaskSid The unique ID of the Task associated with this Field.
      * @return FieldReader capable of executing the read
      */
-    public static FieldReader reader(final String pathAssistantSid, 
+    public static FieldReader reader(final String pathAssistantSid,
                                      final String pathTaskSid) {
         return new FieldReader(pathAssistantSid, pathTaskSid);
     }
 
     /**
      * Create a FieldCreator to execute create.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the parent Assistant.
      * @param pathTaskSid The unique ID of the Task associated with this Field.
      * @param fieldType The unique name or sid of the FieldType. It can be any
@@ -80,30 +80,30 @@ public class Field extends Resource {
      *                   characters long.
      * @return FieldCreator capable of executing the create
      */
-    public static FieldCreator creator(final String pathAssistantSid, 
-                                       final String pathTaskSid, 
-                                       final String fieldType, 
+    public static FieldCreator creator(final String pathAssistantSid,
+                                       final String pathTaskSid,
+                                       final String fieldType,
                                        final String uniqueName) {
         return new FieldCreator(pathAssistantSid, pathTaskSid, fieldType, uniqueName);
     }
 
     /**
      * Create a FieldDeleter to execute delete.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant.
      * @param pathTaskSid The unique ID of the Task associated with this Field.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return FieldDeleter capable of executing the delete
      */
-    public static FieldDeleter deleter(final String pathAssistantSid, 
-                                       final String pathTaskSid, 
+    public static FieldDeleter deleter(final String pathAssistantSid,
+                                       final String pathTaskSid,
                                        final String pathSid) {
         return new FieldDeleter(pathAssistantSid, pathTaskSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a Field object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Field object represented by the provided JSON
@@ -122,7 +122,7 @@ public class Field extends Resource {
     /**
      * Converts a JSON InputStream into a Field object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Field object represented by the provided JSON
@@ -150,21 +150,21 @@ public class Field extends Resource {
 
     @JsonCreator
     private Field(@JsonProperty("account_sid")
-                  final String accountSid, 
+                  final String accountSid,
                   @JsonProperty("date_created")
-                  final String dateCreated, 
+                  final String dateCreated,
                   @JsonProperty("date_updated")
-                  final String dateUpdated, 
+                  final String dateUpdated,
                   @JsonProperty("field_type")
-                  final String fieldType, 
+                  final String fieldType,
                   @JsonProperty("task_sid")
-                  final String taskSid, 
+                  final String taskSid,
                   @JsonProperty("assistant_sid")
-                  final String assistantSid, 
+                  final String assistantSid,
                   @JsonProperty("sid")
-                  final String sid, 
+                  final String sid,
                   @JsonProperty("unique_name")
-                  final String uniqueName, 
+                  final String uniqueName,
                   @JsonProperty("url")
                   final URI url) {
         this.accountSid = accountSid;
@@ -180,7 +180,7 @@ public class Field extends Resource {
 
     /**
      * Returns The The unique ID of the Account that created this Field..
-     * 
+     *
      * @return The unique ID of the Account that created this Field.
      */
     public final String getAccountSid() {
@@ -189,7 +189,7 @@ public class Field extends Resource {
 
     /**
      * Returns The The date that this resource was created.
-     * 
+     *
      * @return The date that this resource was created
      */
     public final DateTime getDateCreated() {
@@ -198,7 +198,7 @@ public class Field extends Resource {
 
     /**
      * Returns The The date that this resource was last updated.
-     * 
+     *
      * @return The date that this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -208,7 +208,7 @@ public class Field extends Resource {
     /**
      * Returns The The Field Type of this field. It can be any Built-in Field Type
      * or unique_name or the Field Type sid of a custom Field Type..
-     * 
+     *
      * @return The Field Type of this field. It can be any Built-in Field Type or
      *         unique_name or the Field Type sid of a custom Field Type.
      */
@@ -218,7 +218,7 @@ public class Field extends Resource {
 
     /**
      * Returns The The unique ID of the Task associated with this Field..
-     * 
+     *
      * @return The unique ID of the Task associated with this Field.
      */
     public final String getTaskSid() {
@@ -227,7 +227,7 @@ public class Field extends Resource {
 
     /**
      * Returns The The unique ID of the parent Assistant..
-     * 
+     *
      * @return The unique ID of the parent Assistant.
      */
     public final String getAssistantSid() {
@@ -236,7 +236,7 @@ public class Field extends Resource {
 
     /**
      * Returns The A 34 character string that uniquely identifies this resource..
-     * 
+     *
      * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
@@ -246,7 +246,7 @@ public class Field extends Resource {
     /**
      * Returns The A user-provided string that uniquely identifies this resource as
      * an alternative to the sid. Unique up to 64 characters long..
-     * 
+     *
      * @return A user-provided string that uniquely identifies this resource as an
      *         alternative to the sid. Unique up to 64 characters long.
      */
@@ -256,7 +256,7 @@ public class Field extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -275,14 +275,14 @@ public class Field extends Resource {
 
         Field other = (Field) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(fieldType, other.fieldType) && 
-               Objects.equals(taskSid, other.taskSid) && 
-               Objects.equals(assistantSid, other.assistantSid) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(fieldType, other.fieldType) &&
+               Objects.equals(taskSid, other.taskSid) &&
+               Objects.equals(assistantSid, other.assistantSid) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
                Objects.equals(url, other.url);
     }
 

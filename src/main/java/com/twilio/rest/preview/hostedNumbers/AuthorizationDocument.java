@@ -73,7 +73,7 @@ public class AuthorizationDocument extends Resource {
 
     /**
      * Create a AuthorizationDocumentFetcher to execute fetch.
-     * 
+     *
      * @param pathSid AuthorizationDocument sid.
      * @return AuthorizationDocumentFetcher capable of executing the fetch
      */
@@ -83,7 +83,7 @@ public class AuthorizationDocument extends Resource {
 
     /**
      * Create a AuthorizationDocumentUpdater to execute update.
-     * 
+     *
      * @param pathSid The sid
      * @return AuthorizationDocumentUpdater capable of executing the update
      */
@@ -93,7 +93,7 @@ public class AuthorizationDocument extends Resource {
 
     /**
      * Create a AuthorizationDocumentReader to execute read.
-     * 
+     *
      * @return AuthorizationDocumentReader capable of executing the read
      */
     public static AuthorizationDocumentReader reader() {
@@ -102,7 +102,7 @@ public class AuthorizationDocument extends Resource {
 
     /**
      * Create a AuthorizationDocumentCreator to execute create.
-     * 
+     *
      * @param hostedNumberOrderSids A list of HostedNumberOrder sids.
      * @param addressSid Address sid.
      * @param email Email.
@@ -110,10 +110,10 @@ public class AuthorizationDocument extends Resource {
      * @param contactPhoneNumber Authorization Document's signee's phone number.
      * @return AuthorizationDocumentCreator capable of executing the create
      */
-    public static AuthorizationDocumentCreator creator(final List<String> hostedNumberOrderSids, 
-                                                       final String addressSid, 
-                                                       final String email, 
-                                                       final String contactTitle, 
+    public static AuthorizationDocumentCreator creator(final List<String> hostedNumberOrderSids,
+                                                       final String addressSid,
+                                                       final String email,
+                                                       final String contactTitle,
                                                        final String contactPhoneNumber) {
         return new AuthorizationDocumentCreator(hostedNumberOrderSids, addressSid, email, contactTitle, contactPhoneNumber);
     }
@@ -121,7 +121,7 @@ public class AuthorizationDocument extends Resource {
     /**
      * Converts a JSON String into a AuthorizationDocument object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AuthorizationDocument object represented by the provided JSON
@@ -140,7 +140,7 @@ public class AuthorizationDocument extends Resource {
     /**
      * Converts a JSON InputStream into a AuthorizationDocument object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AuthorizationDocument object represented by the provided JSON
@@ -168,21 +168,21 @@ public class AuthorizationDocument extends Resource {
 
     @JsonCreator
     private AuthorizationDocument(@JsonProperty("sid")
-                                  final String sid, 
+                                  final String sid,
                                   @JsonProperty("address_sid")
-                                  final String addressSid, 
+                                  final String addressSid,
                                   @JsonProperty("status")
-                                  final AuthorizationDocument.Status status, 
+                                  final AuthorizationDocument.Status status,
                                   @JsonProperty("email")
-                                  final String email, 
+                                  final String email,
                                   @JsonProperty("cc_emails")
-                                  final List<String> ccEmails, 
+                                  final List<String> ccEmails,
                                   @JsonProperty("date_created")
-                                  final String dateCreated, 
+                                  final String dateCreated,
                                   @JsonProperty("date_updated")
-                                  final String dateUpdated, 
+                                  final String dateUpdated,
                                   @JsonProperty("url")
-                                  final URI url, 
+                                  final URI url,
                                   @JsonProperty("links")
                                   final Map<String, String> links) {
         this.sid = sid;
@@ -198,7 +198,7 @@ public class AuthorizationDocument extends Resource {
 
     /**
      * Returns The AuthorizationDocument sid..
-     * 
+     *
      * @return AuthorizationDocument sid.
      */
     public final String getSid() {
@@ -207,7 +207,7 @@ public class AuthorizationDocument extends Resource {
 
     /**
      * Returns The Address sid..
-     * 
+     *
      * @return Address sid.
      */
     public final String getAddressSid() {
@@ -216,7 +216,7 @@ public class AuthorizationDocument extends Resource {
 
     /**
      * Returns The The Status of this AuthorizationDocument..
-     * 
+     *
      * @return The Status of this AuthorizationDocument.
      */
     public final AuthorizationDocument.Status getStatus() {
@@ -225,7 +225,7 @@ public class AuthorizationDocument extends Resource {
 
     /**
      * Returns The Email..
-     * 
+     *
      * @return Email.
      */
     public final String getEmail() {
@@ -234,7 +234,7 @@ public class AuthorizationDocument extends Resource {
 
     /**
      * Returns The A list of emails..
-     * 
+     *
      * @return A list of emails.
      */
     public final List<String> getCcEmails() {
@@ -243,7 +243,7 @@ public class AuthorizationDocument extends Resource {
 
     /**
      * Returns The The date this AuthorizationDocument was created..
-     * 
+     *
      * @return The date this AuthorizationDocument was created.
      */
     public final DateTime getDateCreated() {
@@ -252,7 +252,7 @@ public class AuthorizationDocument extends Resource {
 
     /**
      * Returns The The date this AuthorizationDocument was updated..
-     * 
+     *
      * @return The date this AuthorizationDocument was updated.
      */
     public final DateTime getDateUpdated() {
@@ -261,7 +261,7 @@ public class AuthorizationDocument extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -270,7 +270,7 @@ public class AuthorizationDocument extends Resource {
 
     /**
      * Returns The The links.
-     * 
+     *
      * @return The links
      */
     public final Map<String, String> getLinks() {
@@ -289,14 +289,14 @@ public class AuthorizationDocument extends Resource {
 
         AuthorizationDocument other = (AuthorizationDocument) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(addressSid, other.addressSid) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(email, other.email) && 
-               Objects.equals(ccEmails, other.ccEmails) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(addressSid, other.addressSid) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(email, other.email) &&
+               Objects.equals(ccEmails, other.ccEmails) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

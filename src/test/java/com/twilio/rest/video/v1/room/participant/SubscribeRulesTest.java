@@ -42,7 +42,7 @@ public class SubscribeRulesTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.VIDEO.toString(),
                                           "/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribeRules");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class SubscribeRulesTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.VIDEO.toString(),
                                           "/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribeRules");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

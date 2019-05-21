@@ -30,7 +30,7 @@ public class AvailablePhoneNumberCountryReader extends Reader<AvailablePhoneNumb
 
     /**
      * Construct a new AvailablePhoneNumberCountryReader.
-     * 
+     *
      * @param pathAccountSid The SID of the Account requesting the available phone
      *                       number Country resources
      */
@@ -40,7 +40,7 @@ public class AvailablePhoneNumberCountryReader extends Reader<AvailablePhoneNumb
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return AvailablePhoneNumberCountry ResourceSet
      */
@@ -51,7 +51,7 @@ public class AvailablePhoneNumberCountryReader extends Reader<AvailablePhoneNumb
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return AvailablePhoneNumberCountry ResourceSet
      */
@@ -72,7 +72,7 @@ public class AvailablePhoneNumberCountryReader extends Reader<AvailablePhoneNumb
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return AvailablePhoneNumberCountry ResourceSet
@@ -91,13 +91,13 @@ public class AvailablePhoneNumberCountryReader extends Reader<AvailablePhoneNumb
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<AvailablePhoneNumberCountry> nextPage(final Page<AvailablePhoneNumberCountry> page, 
+    public Page<AvailablePhoneNumberCountry> nextPage(final Page<AvailablePhoneNumberCountry> page,
                                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -111,13 +111,13 @@ public class AvailablePhoneNumberCountryReader extends Reader<AvailablePhoneNumb
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<AvailablePhoneNumberCountry> previousPage(final Page<AvailablePhoneNumberCountry> page, 
+    public Page<AvailablePhoneNumberCountry> previousPage(final Page<AvailablePhoneNumberCountry> page,
                                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -131,7 +131,7 @@ public class AvailablePhoneNumberCountryReader extends Reader<AvailablePhoneNumb
 
     /**
      * Generate a Page of AvailablePhoneNumberCountry Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -166,7 +166,7 @@ public class AvailablePhoneNumberCountryReader extends Reader<AvailablePhoneNumb
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

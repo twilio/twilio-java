@@ -26,7 +26,7 @@ public class AccountReader extends Reader<Account> {
     /**
      * Only return the Account resources with friendly names that exactly match this
      * name..
-     * 
+     *
      * @param friendlyName FriendlyName to filter on
      * @return this
      */
@@ -38,7 +38,7 @@ public class AccountReader extends Reader<Account> {
     /**
      * Only return Account resources with the given status. Can be `closed`,
      * `suspended` or `active`..
-     * 
+     *
      * @param status Status to filter on
      * @return this
      */
@@ -49,7 +49,7 @@ public class AccountReader extends Reader<Account> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Account ResourceSet
      */
@@ -60,7 +60,7 @@ public class AccountReader extends Reader<Account> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Account ResourceSet
      */
@@ -80,7 +80,7 @@ public class AccountReader extends Reader<Account> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Account ResourceSet
@@ -98,13 +98,13 @@ public class AccountReader extends Reader<Account> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Account> nextPage(final Page<Account> page, 
+    public Page<Account> nextPage(final Page<Account> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -118,13 +118,13 @@ public class AccountReader extends Reader<Account> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Account> previousPage(final Page<Account> page, 
+    public Page<Account> previousPage(final Page<Account> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -138,7 +138,7 @@ public class AccountReader extends Reader<Account> {
 
     /**
      * Generate a Page of Account Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -173,7 +173,7 @@ public class AccountReader extends Reader<Account> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

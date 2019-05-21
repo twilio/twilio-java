@@ -32,7 +32,7 @@ public class QueryReader extends Reader<Query> {
 
     /**
      * Construct a new QueryReader.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         resources to read
      */
@@ -43,7 +43,7 @@ public class QueryReader extends Reader<Query> {
     /**
      * The [ISO
      * language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`..
-     * 
+     *
      * @param language The ISO language-country string that specifies the language
      *                 used by the Query resources to read
      * @return this
@@ -56,7 +56,7 @@ public class QueryReader extends Reader<Query> {
     /**
      * The SID or unique name of the [Model
      * Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried..
-     * 
+     *
      * @param modelBuild The SID or unique name of the Model Build to be queried
      * @return this
      */
@@ -68,7 +68,7 @@ public class QueryReader extends Reader<Query> {
     /**
      * The status of the resources to read. Can be: `pending_review`, `reviewed`, or
      * `discarded`.
-     * 
+     *
      * @param status The status of the resources to read
      * @return this
      */
@@ -79,7 +79,7 @@ public class QueryReader extends Reader<Query> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Query ResourceSet
      */
@@ -90,7 +90,7 @@ public class QueryReader extends Reader<Query> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Query ResourceSet
      */
@@ -110,7 +110,7 @@ public class QueryReader extends Reader<Query> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Query ResourceSet
@@ -128,13 +128,13 @@ public class QueryReader extends Reader<Query> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Query> nextPage(final Page<Query> page, 
+    public Page<Query> nextPage(final Page<Query> page,
                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -148,13 +148,13 @@ public class QueryReader extends Reader<Query> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Query> previousPage(final Page<Query> page, 
+    public Page<Query> previousPage(final Page<Query> page,
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -168,7 +168,7 @@ public class QueryReader extends Reader<Query> {
 
     /**
      * Generate a Page of Query Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -203,7 +203,7 @@ public class QueryReader extends Reader<Query> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

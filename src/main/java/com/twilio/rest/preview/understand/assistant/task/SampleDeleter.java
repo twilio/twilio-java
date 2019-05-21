@@ -29,13 +29,13 @@ public class SampleDeleter extends Deleter<Sample> {
 
     /**
      * Construct a new SampleDeleter.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant.
      * @param pathTaskSid The unique ID of the Task associated with this Sample.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
-    public SampleDeleter(final String pathAssistantSid, 
-                         final String pathTaskSid, 
+    public SampleDeleter(final String pathAssistantSid,
+                         final String pathTaskSid,
                          final String pathSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathTaskSid = pathTaskSid;
@@ -44,7 +44,7 @@ public class SampleDeleter extends Deleter<Sample> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

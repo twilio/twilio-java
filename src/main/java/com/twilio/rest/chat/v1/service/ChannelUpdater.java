@@ -26,11 +26,11 @@ public class ChannelUpdater extends Updater<Channel> {
 
     /**
      * Construct a new ChannelUpdater.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to update the resource from
      * @param pathSid The unique string that identifies the resource
      */
-    public ChannelUpdater(final String pathServiceSid, 
+    public ChannelUpdater(final String pathServiceSid,
                           final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -39,7 +39,7 @@ public class ChannelUpdater extends Updater<Channel> {
     /**
      * A descriptive string that you create to describe the resource. It can be up
      * to 64 characters long..
-     * 
+     *
      * @param friendlyName A string to describe the resource
      * @return this
      */
@@ -53,7 +53,7 @@ public class ChannelUpdater extends Updater<Channel> {
      * be used to address the resource in place of the resource's `sid` in the URL.
      * This value must be 64 characters or less in length and be unique within the
      * Service..
-     * 
+     *
      * @param uniqueName An application-defined string that uniquely identifies the
      *                   resource
      * @return this
@@ -65,7 +65,7 @@ public class ChannelUpdater extends Updater<Channel> {
 
     /**
      * A valid JSON string that contains application-specific data..
-     * 
+     *
      * @param attributes A valid JSON string that contains application-specific data
      * @return this
      */
@@ -76,7 +76,7 @@ public class ChannelUpdater extends Updater<Channel> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Channel
      */
@@ -115,7 +115,7 @@ public class ChannelUpdater extends Updater<Channel> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

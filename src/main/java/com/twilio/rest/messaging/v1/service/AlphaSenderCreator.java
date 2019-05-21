@@ -27,11 +27,11 @@ public class AlphaSenderCreator extends Creator<AlphaSender> {
 
     /**
      * Construct a new AlphaSenderCreator.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param alphaSender An Alphanumeric Sender ID string, up to 11 characters.
      */
-    public AlphaSenderCreator(final String pathServiceSid, 
+    public AlphaSenderCreator(final String pathServiceSid,
                               final String alphaSender) {
         this.pathServiceSid = pathServiceSid;
         this.alphaSender = alphaSender;
@@ -39,7 +39,7 @@ public class AlphaSenderCreator extends Creator<AlphaSender> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created AlphaSender
      */
@@ -78,7 +78,7 @@ public class AlphaSenderCreator extends Creator<AlphaSender> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -29,11 +29,11 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
 
     /**
      * Construct a new DocumentPermissionReader.
-     * 
+     *
      * @param pathServiceSid Sync Service Instance SID or unique name.
      * @param pathDocumentSid Sync Document SID or unique name.
      */
-    public DocumentPermissionReader(final String pathServiceSid, 
+    public DocumentPermissionReader(final String pathServiceSid,
                                     final String pathDocumentSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathDocumentSid = pathDocumentSid;
@@ -41,7 +41,7 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return DocumentPermission ResourceSet
      */
@@ -52,7 +52,7 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return DocumentPermission ResourceSet
      */
@@ -72,7 +72,7 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return DocumentPermission ResourceSet
@@ -90,13 +90,13 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<DocumentPermission> nextPage(final Page<DocumentPermission> page, 
+    public Page<DocumentPermission> nextPage(final Page<DocumentPermission> page,
                                              final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -110,13 +110,13 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<DocumentPermission> previousPage(final Page<DocumentPermission> page, 
+    public Page<DocumentPermission> previousPage(final Page<DocumentPermission> page,
                                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -130,7 +130,7 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
 
     /**
      * Generate a Page of DocumentPermission Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -165,7 +165,7 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

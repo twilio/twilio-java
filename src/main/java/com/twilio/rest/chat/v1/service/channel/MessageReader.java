@@ -26,12 +26,12 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Construct a new MessageReader.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to read the resources from
      * @param pathChannelSid The unique ID of the Channel the message to read
      *                       belongs to
      */
-    public MessageReader(final String pathServiceSid, 
+    public MessageReader(final String pathServiceSid,
                          final String pathChannelSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -40,7 +40,7 @@ public class MessageReader extends Reader<Message> {
     /**
      * The sort order of the returned messages. Can be: `asc` (ascending) or `desc`
      * (descending) with `asc` as the default..
-     * 
+     *
      * @param order The sort order of the returned messages
      * @return this
      */
@@ -51,7 +51,7 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Message ResourceSet
      */
@@ -62,7 +62,7 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Message ResourceSet
      */
@@ -82,7 +82,7 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Message ResourceSet
@@ -100,13 +100,13 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Message> nextPage(final Page<Message> page, 
+    public Page<Message> nextPage(final Page<Message> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -120,13 +120,13 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Message> previousPage(final Page<Message> page, 
+    public Page<Message> previousPage(final Page<Message> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -140,7 +140,7 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Generate a Page of Message Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -175,7 +175,7 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

@@ -22,7 +22,7 @@ public class RoomFetcher extends Fetcher<Room> {
 
     /**
      * Construct a new RoomFetcher.
-     * 
+     *
      * @param pathSid The Room Sid or name that uniquely identifies this resource.
      */
     public RoomFetcher(final String pathSid) {
@@ -31,7 +31,7 @@ public class RoomFetcher extends Fetcher<Room> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Room
      */

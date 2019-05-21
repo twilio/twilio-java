@@ -24,7 +24,7 @@ public class NumberFetcher extends Fetcher<Number> {
 
     /**
      * Construct a new NumberFetcher.
-     * 
+     *
      * @param pathDestinationNumber The destination number for which to fetch
      *                              pricing information
      */
@@ -37,7 +37,7 @@ public class NumberFetcher extends Fetcher<Number> {
      * [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to
      * fetch the origin-based voice pricing information. E.164 format consists of a
      * + followed by the country code and subscriber number..
-     * 
+     *
      * @param originationNumber The origination number for which to fetch pricing
      *                          information
      * @return this
@@ -52,7 +52,7 @@ public class NumberFetcher extends Fetcher<Number> {
      * [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to
      * fetch the origin-based voice pricing information. E.164 format consists of a
      * + followed by the country code and subscriber number..
-     * 
+     *
      * @param originationNumber The origination number for which to fetch pricing
      *                          information
      * @return this
@@ -63,7 +63,7 @@ public class NumberFetcher extends Fetcher<Number> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Number
      */
@@ -102,7 +102,7 @@ public class NumberFetcher extends Fetcher<Number> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

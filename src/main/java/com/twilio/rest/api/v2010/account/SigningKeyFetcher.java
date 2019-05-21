@@ -23,7 +23,7 @@ public class SigningKeyFetcher extends Fetcher<SigningKey> {
 
     /**
      * Construct a new SigningKeyFetcher.
-     * 
+     *
      * @param pathSid The sid
      */
     public SigningKeyFetcher(final String pathSid) {
@@ -32,11 +32,11 @@ public class SigningKeyFetcher extends Fetcher<SigningKey> {
 
     /**
      * Construct a new SigningKeyFetcher.
-     * 
+     *
      * @param pathAccountSid The account_sid
      * @param pathSid The sid
      */
-    public SigningKeyFetcher(final String pathAccountSid, 
+    public SigningKeyFetcher(final String pathAccountSid,
                              final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -44,7 +44,7 @@ public class SigningKeyFetcher extends Fetcher<SigningKey> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched SigningKey
      */

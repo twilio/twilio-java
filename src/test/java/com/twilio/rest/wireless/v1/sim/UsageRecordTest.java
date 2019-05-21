@@ -42,7 +42,7 @@ public class UsageRecordTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.WIRELESS.toString(),
                                           "/v1/Sims/DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/UsageRecords");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

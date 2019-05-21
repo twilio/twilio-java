@@ -43,19 +43,19 @@ public class FieldType extends Resource {
 
     /**
      * Create a FieldTypeFetcher to execute fetch.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      * @param pathSid The sid
      * @return FieldTypeFetcher capable of executing the fetch
      */
-    public static FieldTypeFetcher fetcher(final String pathAssistantSid, 
+    public static FieldTypeFetcher fetcher(final String pathAssistantSid,
                                            final String pathSid) {
         return new FieldTypeFetcher(pathAssistantSid, pathSid);
     }
 
     /**
      * Create a FieldTypeReader to execute read.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      * @return FieldTypeReader capable of executing the read
      */
@@ -65,38 +65,38 @@ public class FieldType extends Resource {
 
     /**
      * Create a FieldTypeCreator to execute create.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      * @param uniqueName A user-provided string that uniquely identifies this
      *                   resource as an alternative to the sid. Unique up to 64
      *                   characters long.
      * @return FieldTypeCreator capable of executing the create
      */
-    public static FieldTypeCreator creator(final String pathAssistantSid, 
+    public static FieldTypeCreator creator(final String pathAssistantSid,
                                            final String uniqueName) {
         return new FieldTypeCreator(pathAssistantSid, uniqueName);
     }
 
     /**
      * Create a FieldTypeUpdater to execute update.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      * @param pathSid The sid
      * @return FieldTypeUpdater capable of executing the update
      */
-    public static FieldTypeUpdater updater(final String pathAssistantSid, 
+    public static FieldTypeUpdater updater(final String pathAssistantSid,
                                            final String pathSid) {
         return new FieldTypeUpdater(pathAssistantSid, pathSid);
     }
 
     /**
      * Create a FieldTypeDeleter to execute delete.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      * @param pathSid The sid
      * @return FieldTypeDeleter capable of executing the delete
      */
-    public static FieldTypeDeleter deleter(final String pathAssistantSid, 
+    public static FieldTypeDeleter deleter(final String pathAssistantSid,
                                            final String pathSid) {
         return new FieldTypeDeleter(pathAssistantSid, pathSid);
     }
@@ -104,7 +104,7 @@ public class FieldType extends Resource {
     /**
      * Converts a JSON String into a FieldType object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return FieldType object represented by the provided JSON
@@ -123,7 +123,7 @@ public class FieldType extends Resource {
     /**
      * Converts a JSON InputStream into a FieldType object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return FieldType object represented by the provided JSON
@@ -151,21 +151,21 @@ public class FieldType extends Resource {
 
     @JsonCreator
     private FieldType(@JsonProperty("account_sid")
-                      final String accountSid, 
+                      final String accountSid,
                       @JsonProperty("date_created")
-                      final String dateCreated, 
+                      final String dateCreated,
                       @JsonProperty("date_updated")
-                      final String dateUpdated, 
+                      final String dateUpdated,
                       @JsonProperty("friendly_name")
-                      final String friendlyName, 
+                      final String friendlyName,
                       @JsonProperty("links")
-                      final Map<String, String> links, 
+                      final Map<String, String> links,
                       @JsonProperty("assistant_sid")
-                      final String assistantSid, 
+                      final String assistantSid,
                       @JsonProperty("sid")
-                      final String sid, 
+                      final String sid,
                       @JsonProperty("unique_name")
-                      final String uniqueName, 
+                      final String uniqueName,
                       @JsonProperty("url")
                       final URI url) {
         this.accountSid = accountSid;
@@ -181,7 +181,7 @@ public class FieldType extends Resource {
 
     /**
      * Returns The The unique ID of the Account that created this Field Type..
-     * 
+     *
      * @return The unique ID of the Account that created this Field Type.
      */
     public final String getAccountSid() {
@@ -190,7 +190,7 @@ public class FieldType extends Resource {
 
     /**
      * Returns The The date that this resource was created.
-     * 
+     *
      * @return The date that this resource was created
      */
     public final DateTime getDateCreated() {
@@ -199,7 +199,7 @@ public class FieldType extends Resource {
 
     /**
      * Returns The The date that this resource was last updated.
-     * 
+     *
      * @return The date that this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -209,7 +209,7 @@ public class FieldType extends Resource {
     /**
      * Returns The A user-provided string that identifies this resource. It is
      * non-unique and can up to 255 characters long..
-     * 
+     *
      * @return A user-provided string that identifies this resource. It is
      *         non-unique and can up to 255 characters long.
      */
@@ -219,7 +219,7 @@ public class FieldType extends Resource {
 
     /**
      * Returns The The links.
-     * 
+     *
      * @return The links
      */
     public final Map<String, String> getLinks() {
@@ -228,7 +228,7 @@ public class FieldType extends Resource {
 
     /**
      * Returns The The unique ID of the Assistant..
-     * 
+     *
      * @return The unique ID of the Assistant.
      */
     public final String getAssistantSid() {
@@ -237,7 +237,7 @@ public class FieldType extends Resource {
 
     /**
      * Returns The A 34 character string that uniquely identifies this resource..
-     * 
+     *
      * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
@@ -247,7 +247,7 @@ public class FieldType extends Resource {
     /**
      * Returns The A user-provided string that uniquely identifies this resource as
      * an alternative to the sid. Unique up to 64 characters long..
-     * 
+     *
      * @return A user-provided string that uniquely identifies this resource as an
      *         alternative to the sid. Unique up to 64 characters long.
      */
@@ -257,7 +257,7 @@ public class FieldType extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -276,14 +276,14 @@ public class FieldType extends Resource {
 
         FieldType other = (FieldType) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(links, other.links) && 
-               Objects.equals(assistantSid, other.assistantSid) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(links, other.links) &&
+               Objects.equals(assistantSid, other.assistantSid) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
                Objects.equals(url, other.url);
     }
 

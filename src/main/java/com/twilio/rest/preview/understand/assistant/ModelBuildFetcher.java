@@ -28,11 +28,11 @@ public class ModelBuildFetcher extends Fetcher<ModelBuild> {
 
     /**
      * Construct a new ModelBuildFetcher.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      * @param pathSid The sid
      */
-    public ModelBuildFetcher(final String pathAssistantSid, 
+    public ModelBuildFetcher(final String pathAssistantSid,
                              final String pathSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class ModelBuildFetcher extends Fetcher<ModelBuild> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched ModelBuild
      */

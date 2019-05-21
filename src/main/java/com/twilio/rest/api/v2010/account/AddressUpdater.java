@@ -31,7 +31,7 @@ public class AddressUpdater extends Updater<Address> {
 
     /**
      * Construct a new AddressUpdater.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public AddressUpdater(final String pathSid) {
@@ -40,12 +40,12 @@ public class AddressUpdater extends Updater<Address> {
 
     /**
      * Construct a new AddressUpdater.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that is responsible for the
      *                       resource to update
      * @param pathSid The unique string that identifies the resource
      */
-    public AddressUpdater(final String pathAccountSid, 
+    public AddressUpdater(final String pathAccountSid,
                           final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -54,7 +54,7 @@ public class AddressUpdater extends Updater<Address> {
     /**
      * A descriptive string that you create to describe the address. It can be up to
      * 64 characters long..
-     * 
+     *
      * @param friendlyName A string to describe the resource
      * @return this
      */
@@ -65,7 +65,7 @@ public class AddressUpdater extends Updater<Address> {
 
     /**
      * The name to associate with the address..
-     * 
+     *
      * @param customerName The name to associate with the address
      * @return this
      */
@@ -76,7 +76,7 @@ public class AddressUpdater extends Updater<Address> {
 
     /**
      * The number and street address of the address..
-     * 
+     *
      * @param street The number and street address of the address
      * @return this
      */
@@ -87,7 +87,7 @@ public class AddressUpdater extends Updater<Address> {
 
     /**
      * The city of the address..
-     * 
+     *
      * @param city The city of the address
      * @return this
      */
@@ -98,7 +98,7 @@ public class AddressUpdater extends Updater<Address> {
 
     /**
      * The state or region of the address..
-     * 
+     *
      * @param region The state or region of the address
      * @return this
      */
@@ -109,7 +109,7 @@ public class AddressUpdater extends Updater<Address> {
 
     /**
      * The postal code of the address..
-     * 
+     *
      * @param postalCode The postal code of the address
      * @return this
      */
@@ -121,7 +121,7 @@ public class AddressUpdater extends Updater<Address> {
     /**
      * Whether to enable emergency calling on the address. Can be: `true` or
      * `false`..
-     * 
+     *
      * @param emergencyEnabled Whether to enable emergency calling on the address
      * @return this
      */
@@ -135,7 +135,7 @@ public class AddressUpdater extends Updater<Address> {
      * `false` and the default is `true`. If empty or `true`, we will correct the
      * address you provide if necessary. If `false`, we won't alter the address you
      * provide..
-     * 
+     *
      * @param autoCorrectAddress Whether we should automatically correct the address
      * @return this
      */
@@ -146,7 +146,7 @@ public class AddressUpdater extends Updater<Address> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Address
      */
@@ -186,7 +186,7 @@ public class AddressUpdater extends Updater<Address> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

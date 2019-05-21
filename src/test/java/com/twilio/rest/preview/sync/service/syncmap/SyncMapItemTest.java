@@ -42,7 +42,7 @@ public class SyncMapItemTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
                                           "/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/key");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class SyncMapItemTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.PREVIEW.toString(),
                                           "/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/key");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -139,7 +139,7 @@ public class SyncMapItemTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
                                           "/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

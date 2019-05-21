@@ -31,12 +31,12 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
 
     /**
      * Construct a new VerificationCheckCreator.
-     * 
+     *
      * @param pathServiceSid The SID of the verification Service to create the
      *                       resource under
      * @param code The verification string
      */
-    public VerificationCheckCreator(final String pathServiceSid, 
+    public VerificationCheckCreator(final String pathServiceSid,
                                     final String code) {
         this.pathServiceSid = pathServiceSid;
         this.code = code;
@@ -45,7 +45,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
     /**
      * The phone number to verify. Either this parameter or the `verification_sid`
      * must be specified.
-     * 
+     *
      * @param to The phone number to verify
      * @return this
      */
@@ -57,7 +57,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
     /**
      * A SID that uniquely identifies the Verification Check. Either this parameter
      * or the `to` phone number must be specified..
-     * 
+     *
      * @param verificationSid A SID that uniquely identifies the Verification Check
      * @return this
      */
@@ -69,7 +69,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
     /**
      * The amount of the associated PSD2 compliant transaction. Requires the PSD2
      * Service flag enabled..
-     * 
+     *
      * @param amount The amount of the associated PSD2 compliant transaction.
      * @return this
      */
@@ -81,7 +81,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
     /**
      * The payee of the associated PSD2 compliant transaction. Requires the PSD2
      * Service flag enabled..
-     * 
+     *
      * @param payee The payee of the associated PSD2 compliant transaction
      * @return this
      */
@@ -92,7 +92,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created VerificationCheck
      */
@@ -131,7 +131,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -28,7 +28,7 @@ public class SyncListReader extends Reader<SyncList> {
 
     /**
      * Construct a new SyncListReader.
-     * 
+     *
      * @param pathServiceSid The service_sid
      */
     public SyncListReader(final String pathServiceSid) {
@@ -37,7 +37,7 @@ public class SyncListReader extends Reader<SyncList> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return SyncList ResourceSet
      */
@@ -48,7 +48,7 @@ public class SyncListReader extends Reader<SyncList> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return SyncList ResourceSet
      */
@@ -68,7 +68,7 @@ public class SyncListReader extends Reader<SyncList> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return SyncList ResourceSet
@@ -86,13 +86,13 @@ public class SyncListReader extends Reader<SyncList> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<SyncList> nextPage(final Page<SyncList> page, 
+    public Page<SyncList> nextPage(final Page<SyncList> page,
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -106,13 +106,13 @@ public class SyncListReader extends Reader<SyncList> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<SyncList> previousPage(final Page<SyncList> page, 
+    public Page<SyncList> previousPage(final Page<SyncList> page,
                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -126,7 +126,7 @@ public class SyncListReader extends Reader<SyncList> {
 
     /**
      * Generate a Page of SyncList Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -161,7 +161,7 @@ public class SyncListReader extends Reader<SyncList> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

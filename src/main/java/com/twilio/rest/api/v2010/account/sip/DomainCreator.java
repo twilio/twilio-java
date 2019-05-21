@@ -34,7 +34,7 @@ public class DomainCreator extends Creator<Domain> {
 
     /**
      * Construct a new DomainCreator.
-     * 
+     *
      * @param domainName The unique address on Twilio to route SIP traffic
      */
     public DomainCreator(final String domainName) {
@@ -43,11 +43,11 @@ public class DomainCreator extends Creator<Domain> {
 
     /**
      * Construct a new DomainCreator.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param domainName The unique address on Twilio to route SIP traffic
      */
-    public DomainCreator(final String pathAccountSid, 
+    public DomainCreator(final String pathAccountSid,
                          final String domainName) {
         this.pathAccountSid = pathAccountSid;
         this.domainName = domainName;
@@ -56,7 +56,7 @@ public class DomainCreator extends Creator<Domain> {
     /**
      * A descriptive string that you created to describe the resource. It can be up
      * to 64 characters long..
-     * 
+     *
      * @param friendlyName A string to describe the resource
      * @return this
      */
@@ -67,7 +67,7 @@ public class DomainCreator extends Creator<Domain> {
 
     /**
      * The URL we should when the domain receives a call..
-     * 
+     *
      * @param voiceUrl The URL we should call when receiving a call
      * @return this
      */
@@ -78,7 +78,7 @@ public class DomainCreator extends Creator<Domain> {
 
     /**
      * The URL we should when the domain receives a call..
-     * 
+     *
      * @param voiceUrl The URL we should call when receiving a call
      * @return this
      */
@@ -88,7 +88,7 @@ public class DomainCreator extends Creator<Domain> {
 
     /**
      * The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`..
-     * 
+     *
      * @param voiceMethod The HTTP method to use with voice_url
      * @return this
      */
@@ -100,7 +100,7 @@ public class DomainCreator extends Creator<Domain> {
     /**
      * The URL that we should call when an error occurs while retrieving or
      * executing the TwiML from `voice_url`..
-     * 
+     *
      * @param voiceFallbackUrl The URL we should call when an error occurs in
      *                         executing TwiML
      * @return this
@@ -113,7 +113,7 @@ public class DomainCreator extends Creator<Domain> {
     /**
      * The URL that we should call when an error occurs while retrieving or
      * executing the TwiML from `voice_url`..
-     * 
+     *
      * @param voiceFallbackUrl The URL we should call when an error occurs in
      *                         executing TwiML
      * @return this
@@ -125,7 +125,7 @@ public class DomainCreator extends Creator<Domain> {
     /**
      * The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or
      * `POST`..
-     * 
+     *
      * @param voiceFallbackMethod The HTTP method to use with voice_fallback_url
      * @return this
      */
@@ -137,7 +137,7 @@ public class DomainCreator extends Creator<Domain> {
     /**
      * The URL that we should call to pass status parameters (such as call ended) to
      * your application..
-     * 
+     *
      * @param voiceStatusCallbackUrl The URL that we should call to pass status
      *                               updates
      * @return this
@@ -150,7 +150,7 @@ public class DomainCreator extends Creator<Domain> {
     /**
      * The URL that we should call to pass status parameters (such as call ended) to
      * your application..
-     * 
+     *
      * @param voiceStatusCallbackUrl The URL that we should call to pass status
      *                               updates
      * @return this
@@ -162,7 +162,7 @@ public class DomainCreator extends Creator<Domain> {
     /**
      * The HTTP method we should use to call `voice_status_callback_url`. Can be:
      * `GET` or `POST`..
-     * 
+     *
      * @param voiceStatusCallbackMethod The HTTP method we should use to call
      *                                  `voice_status_callback_url`
      * @return this
@@ -176,7 +176,7 @@ public class DomainCreator extends Creator<Domain> {
      * Whether to allow SIP Endpoints to register with the domain to receive calls.
      * Can be `true` or `false`. `true` allows SIP Endpoints to register with the
      * domain to receive calls, `false` does not..
-     * 
+     *
      * @param sipRegistration Whether SIP registration is allowed
      * @return this
      */
@@ -187,7 +187,7 @@ public class DomainCreator extends Creator<Domain> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Domain
      */
@@ -227,7 +227,7 @@ public class DomainCreator extends Creator<Domain> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

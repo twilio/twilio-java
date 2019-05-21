@@ -22,7 +22,7 @@ public class ServiceDeleter extends Deleter<Service> {
 
     /**
      * Construct a new ServiceDeleter.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public ServiceDeleter(final String pathSid) {
@@ -31,7 +31,7 @@ public class ServiceDeleter extends Deleter<Service> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

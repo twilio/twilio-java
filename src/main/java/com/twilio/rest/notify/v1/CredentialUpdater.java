@@ -32,7 +32,7 @@ public class CredentialUpdater extends Updater<Credential> {
 
     /**
      * Construct a new CredentialUpdater.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public CredentialUpdater(final String pathSid) {
@@ -42,7 +42,7 @@ public class CredentialUpdater extends Updater<Credential> {
     /**
      * A descriptive string that you create to describe the resource. It can be up
      * to 64 characters long..
-     * 
+     *
      * @param friendlyName A string to describe the resource
      * @return this
      */
@@ -55,7 +55,7 @@ public class CredentialUpdater extends Updater<Credential> {
      * [APN only] The URL-encoded representation of the certificate. Strip
      * everything outside of the headers, e.g. `-----BEGIN
      * CERTIFICATE-----MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A==-----END CERTIFICATE-----`.
-     * 
+     *
      * @param certificate [APN only] The URL-encoded representation of the
      *                    certificate
      * @return this
@@ -69,7 +69,7 @@ public class CredentialUpdater extends Updater<Credential> {
      * [APN only] The URL-encoded representation of the private key. Strip
      * everything outside of the headers, e.g. `-----BEGIN RSA PRIVATE
      * KEY-----MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR\n.-----END RSA PRIVATE KEY-----`.
-     * 
+     *
      * @param privateKey [APN only] URL-encoded representation of the private key
      * @return this
      */
@@ -81,7 +81,7 @@ public class CredentialUpdater extends Updater<Credential> {
     /**
      * [APN only] Whether to send the credential to sandbox APNs. Can be `true` to
      * send to sandbox APNs or `false` to send to production..
-     * 
+     *
      * @param sandbox [APN only] Whether to send the credential to sandbox APNs
      * @return this
      */
@@ -93,7 +93,7 @@ public class CredentialUpdater extends Updater<Credential> {
     /**
      * [GCM only] The `Server key` of your project from Firebase console under
      * Settings / Cloud messaging..
-     * 
+     *
      * @param apiKey [GCM only] The `Server key` of your project from Firebase
      *               console under Settings / Cloud messaging
      * @return this
@@ -106,7 +106,7 @@ public class CredentialUpdater extends Updater<Credential> {
     /**
      * [FCM only] The `Server key` of your project from Firebase console under
      * Settings / Cloud messaging..
-     * 
+     *
      * @param secret [FCM only] The `Server key` of your project from Firebase
      *               console under Settings / Cloud messaging
      * @return this
@@ -118,7 +118,7 @@ public class CredentialUpdater extends Updater<Credential> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Credential
      */
@@ -157,7 +157,7 @@ public class CredentialUpdater extends Updater<Credential> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

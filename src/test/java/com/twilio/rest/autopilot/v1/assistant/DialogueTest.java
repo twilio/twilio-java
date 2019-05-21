@@ -42,7 +42,7 @@ public class DialogueTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.AUTOPILOT.toString(),
                                           "/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Dialogues/UKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

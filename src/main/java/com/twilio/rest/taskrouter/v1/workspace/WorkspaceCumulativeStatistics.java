@@ -39,7 +39,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
 
     /**
      * Create a WorkspaceCumulativeStatisticsFetcher to execute fetch.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @return WorkspaceCumulativeStatisticsFetcher capable of executing the fetch
      */
@@ -50,7 +50,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
     /**
      * Converts a JSON String into a WorkspaceCumulativeStatistics object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return WorkspaceCumulativeStatistics object represented by the provided JSON
@@ -69,7 +69,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
     /**
      * Converts a JSON InputStream into a WorkspaceCumulativeStatistics object using
      * the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return WorkspaceCumulativeStatistics object represented by the provided JSON
@@ -109,45 +109,45 @@ public class WorkspaceCumulativeStatistics extends Resource {
 
     @JsonCreator
     private WorkspaceCumulativeStatistics(@JsonProperty("account_sid")
-                                          final String accountSid, 
+                                          final String accountSid,
                                           @JsonProperty("avg_task_acceptance_time")
-                                          final Integer avgTaskAcceptanceTime, 
+                                          final Integer avgTaskAcceptanceTime,
                                           @JsonProperty("start_time")
-                                          final String startTime, 
+                                          final String startTime,
                                           @JsonProperty("end_time")
-                                          final String endTime, 
+                                          final String endTime,
                                           @JsonProperty("reservations_created")
-                                          final Integer reservationsCreated, 
+                                          final Integer reservationsCreated,
                                           @JsonProperty("reservations_accepted")
-                                          final Integer reservationsAccepted, 
+                                          final Integer reservationsAccepted,
                                           @JsonProperty("reservations_rejected")
-                                          final Integer reservationsRejected, 
+                                          final Integer reservationsRejected,
                                           @JsonProperty("reservations_timed_out")
-                                          final Integer reservationsTimedOut, 
+                                          final Integer reservationsTimedOut,
                                           @JsonProperty("reservations_canceled")
-                                          final Integer reservationsCanceled, 
+                                          final Integer reservationsCanceled,
                                           @JsonProperty("reservations_rescinded")
-                                          final Integer reservationsRescinded, 
+                                          final Integer reservationsRescinded,
                                           @JsonProperty("split_by_wait_time")
-                                          final Map<String, Object> splitByWaitTime, 
+                                          final Map<String, Object> splitByWaitTime,
                                           @JsonProperty("wait_duration_until_accepted")
-                                          final Map<String, Object> waitDurationUntilAccepted, 
+                                          final Map<String, Object> waitDurationUntilAccepted,
                                           @JsonProperty("wait_duration_until_canceled")
-                                          final Map<String, Object> waitDurationUntilCanceled, 
+                                          final Map<String, Object> waitDurationUntilCanceled,
                                           @JsonProperty("tasks_canceled")
-                                          final Integer tasksCanceled, 
+                                          final Integer tasksCanceled,
                                           @JsonProperty("tasks_completed")
-                                          final Integer tasksCompleted, 
+                                          final Integer tasksCompleted,
                                           @JsonProperty("tasks_created")
-                                          final Integer tasksCreated, 
+                                          final Integer tasksCreated,
                                           @JsonProperty("tasks_deleted")
-                                          final Integer tasksDeleted, 
+                                          final Integer tasksDeleted,
                                           @JsonProperty("tasks_moved")
-                                          final Integer tasksMoved, 
+                                          final Integer tasksMoved,
                                           @JsonProperty("tasks_timed_out_in_workflow")
-                                          final Integer tasksTimedOutInWorkflow, 
+                                          final Integer tasksTimedOutInWorkflow,
                                           @JsonProperty("workspace_sid")
-                                          final String workspaceSid, 
+                                          final String workspaceSid,
                                           @JsonProperty("url")
                                           final URI url) {
         this.accountSid = accountSid;
@@ -175,7 +175,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
 
     /**
      * Returns The The account_sid.
-     * 
+     *
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -184,7 +184,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
 
     /**
      * Returns The The average time from Task creation to acceptance.
-     * 
+     *
      * @return The average time from Task creation to acceptance
      */
     public final Integer getAvgTaskAcceptanceTime() {
@@ -193,7 +193,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
 
     /**
      * Returns The The start_time.
-     * 
+     *
      * @return The start_time
      */
     public final DateTime getStartTime() {
@@ -202,7 +202,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
 
     /**
      * Returns The The end_time.
-     * 
+     *
      * @return The end_time
      */
     public final DateTime getEndTime() {
@@ -211,7 +211,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
 
     /**
      * Returns The The total number of Reservations that were created for Workers.
-     * 
+     *
      * @return The total number of Reservations that were created for Workers
      */
     public final Integer getReservationsCreated() {
@@ -220,7 +220,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
 
     /**
      * Returns The The total number of Reservations accepted by Workers.
-     * 
+     *
      * @return The total number of Reservations accepted by Workers
      */
     public final Integer getReservationsAccepted() {
@@ -229,7 +229,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
 
     /**
      * Returns The The total number of Reservations that were rejected.
-     * 
+     *
      * @return The total number of Reservations that were rejected
      */
     public final Integer getReservationsRejected() {
@@ -238,7 +238,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
 
     /**
      * Returns The The total number of Reservations that were timed out.
-     * 
+     *
      * @return The total number of Reservations that were timed out
      */
     public final Integer getReservationsTimedOut() {
@@ -247,7 +247,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
 
     /**
      * Returns The The total number of Reservations that were canceled.
-     * 
+     *
      * @return The total number of Reservations that were canceled
      */
     public final Integer getReservationsCanceled() {
@@ -256,7 +256,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
 
     /**
      * Returns The The total number of Reservations that were rescinded.
-     * 
+     *
      * @return The total number of Reservations that were rescinded
      */
     public final Integer getReservationsRescinded() {
@@ -266,7 +266,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
     /**
      * Returns The The splits of the tasks canceled and accepted based on the
      * provided SplitByWaitTime parameter..
-     * 
+     *
      * @return The splits of the tasks canceled and accepted based on the provided
      *         SplitByWaitTime parameter.
      */
@@ -276,7 +276,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
 
     /**
      * Returns The The wait duration stats for tasks that were accepted..
-     * 
+     *
      * @return The wait duration stats for tasks that were accepted.
      */
     public final Map<String, Object> getWaitDurationUntilAccepted() {
@@ -285,7 +285,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
 
     /**
      * Returns The The wait duration stats for tasks that were canceled..
-     * 
+     *
      * @return The wait duration stats for tasks that were canceled.
      */
     public final Map<String, Object> getWaitDurationUntilCanceled() {
@@ -294,7 +294,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
 
     /**
      * Returns The The total number of Tasks that were canceled.
-     * 
+     *
      * @return The total number of Tasks that were canceled
      */
     public final Integer getTasksCanceled() {
@@ -303,7 +303,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
 
     /**
      * Returns The The total number of Tasks that were completed.
-     * 
+     *
      * @return The total number of Tasks that were completed
      */
     public final Integer getTasksCompleted() {
@@ -312,7 +312,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
 
     /**
      * Returns The The total number of Tasks created.
-     * 
+     *
      * @return The total number of Tasks created
      */
     public final Integer getTasksCreated() {
@@ -321,7 +321,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
 
     /**
      * Returns The The total number of Tasks that were deleted.
-     * 
+     *
      * @return The total number of Tasks that were deleted
      */
     public final Integer getTasksDeleted() {
@@ -331,7 +331,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
     /**
      * Returns The The total number of Tasks that were moved from one queue to
      * another.
-     * 
+     *
      * @return The total number of Tasks that were moved from one queue to another
      */
     public final Integer getTasksMoved() {
@@ -340,7 +340,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
 
     /**
      * Returns The The total number of Tasks that were timed out of their Workflows.
-     * 
+     *
      * @return The total number of Tasks that were timed out of their Workflows
      */
     public final Integer getTasksTimedOutInWorkflow() {
@@ -349,7 +349,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
 
     /**
      * Returns The The workspace_sid.
-     * 
+     *
      * @return The workspace_sid
      */
     public final String getWorkspaceSid() {
@@ -358,7 +358,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -377,26 +377,26 @@ public class WorkspaceCumulativeStatistics extends Resource {
 
         WorkspaceCumulativeStatistics other = (WorkspaceCumulativeStatistics) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(avgTaskAcceptanceTime, other.avgTaskAcceptanceTime) && 
-               Objects.equals(startTime, other.startTime) && 
-               Objects.equals(endTime, other.endTime) && 
-               Objects.equals(reservationsCreated, other.reservationsCreated) && 
-               Objects.equals(reservationsAccepted, other.reservationsAccepted) && 
-               Objects.equals(reservationsRejected, other.reservationsRejected) && 
-               Objects.equals(reservationsTimedOut, other.reservationsTimedOut) && 
-               Objects.equals(reservationsCanceled, other.reservationsCanceled) && 
-               Objects.equals(reservationsRescinded, other.reservationsRescinded) && 
-               Objects.equals(splitByWaitTime, other.splitByWaitTime) && 
-               Objects.equals(waitDurationUntilAccepted, other.waitDurationUntilAccepted) && 
-               Objects.equals(waitDurationUntilCanceled, other.waitDurationUntilCanceled) && 
-               Objects.equals(tasksCanceled, other.tasksCanceled) && 
-               Objects.equals(tasksCompleted, other.tasksCompleted) && 
-               Objects.equals(tasksCreated, other.tasksCreated) && 
-               Objects.equals(tasksDeleted, other.tasksDeleted) && 
-               Objects.equals(tasksMoved, other.tasksMoved) && 
-               Objects.equals(tasksTimedOutInWorkflow, other.tasksTimedOutInWorkflow) && 
-               Objects.equals(workspaceSid, other.workspaceSid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(avgTaskAcceptanceTime, other.avgTaskAcceptanceTime) &&
+               Objects.equals(startTime, other.startTime) &&
+               Objects.equals(endTime, other.endTime) &&
+               Objects.equals(reservationsCreated, other.reservationsCreated) &&
+               Objects.equals(reservationsAccepted, other.reservationsAccepted) &&
+               Objects.equals(reservationsRejected, other.reservationsRejected) &&
+               Objects.equals(reservationsTimedOut, other.reservationsTimedOut) &&
+               Objects.equals(reservationsCanceled, other.reservationsCanceled) &&
+               Objects.equals(reservationsRescinded, other.reservationsRescinded) &&
+               Objects.equals(splitByWaitTime, other.splitByWaitTime) &&
+               Objects.equals(waitDurationUntilAccepted, other.waitDurationUntilAccepted) &&
+               Objects.equals(waitDurationUntilCanceled, other.waitDurationUntilCanceled) &&
+               Objects.equals(tasksCanceled, other.tasksCanceled) &&
+               Objects.equals(tasksCompleted, other.tasksCompleted) &&
+               Objects.equals(tasksCreated, other.tasksCreated) &&
+               Objects.equals(tasksDeleted, other.tasksDeleted) &&
+               Objects.equals(tasksMoved, other.tasksMoved) &&
+               Objects.equals(tasksTimedOutInWorkflow, other.tasksTimedOutInWorkflow) &&
+               Objects.equals(workspaceSid, other.workspaceSid) &&
                Objects.equals(url, other.url);
     }
 

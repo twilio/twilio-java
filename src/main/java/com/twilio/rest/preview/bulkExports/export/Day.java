@@ -41,7 +41,7 @@ public class Day extends Resource {
 
     /**
      * Create a DayReader to execute read.
-     * 
+     *
      * @param pathResourceType The resource_type
      * @return DayReader capable of executing the read
      */
@@ -51,7 +51,7 @@ public class Day extends Resource {
 
     /**
      * Converts a JSON String into a Day object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Day object represented by the provided JSON
@@ -70,7 +70,7 @@ public class Day extends Resource {
     /**
      * Converts a JSON InputStream into a Day object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Day object represented by the provided JSON
@@ -93,11 +93,11 @@ public class Day extends Resource {
 
     @JsonCreator
     private Day(@JsonProperty("redirect_to")
-                final URI redirectTo, 
+                final URI redirectTo,
                 @JsonProperty("day")
-                final String day, 
+                final String day,
                 @JsonProperty("size")
-                final Integer size, 
+                final Integer size,
                 @JsonProperty("resource_type")
                 final String resourceType) {
         this.redirectTo = redirectTo;
@@ -108,7 +108,7 @@ public class Day extends Resource {
 
     /**
      * Returns The The redirect_to.
-     * 
+     *
      * @return The redirect_to
      */
     public final URI getRedirectTo() {
@@ -117,7 +117,7 @@ public class Day extends Resource {
 
     /**
      * Returns The The day.
-     * 
+     *
      * @return The day
      */
     public final String getDay() {
@@ -126,7 +126,7 @@ public class Day extends Resource {
 
     /**
      * Returns The The size.
-     * 
+     *
      * @return The size
      */
     public final Integer getSize() {
@@ -135,7 +135,7 @@ public class Day extends Resource {
 
     /**
      * Returns The The resource_type.
-     * 
+     *
      * @return The resource_type
      */
     public final String getResourceType() {
@@ -154,9 +154,9 @@ public class Day extends Resource {
 
         Day other = (Day) o;
 
-        return Objects.equals(redirectTo, other.redirectTo) && 
-               Objects.equals(day, other.day) && 
-               Objects.equals(size, other.size) && 
+        return Objects.equals(redirectTo, other.redirectTo) &&
+               Objects.equals(day, other.day) &&
+               Objects.equals(size, other.size) &&
                Objects.equals(resourceType, other.resourceType);
     }
 

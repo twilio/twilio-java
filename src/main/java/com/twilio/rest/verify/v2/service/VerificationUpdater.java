@@ -28,14 +28,14 @@ public class VerificationUpdater extends Updater<Verification> {
 
     /**
      * Construct a new VerificationUpdater.
-     * 
+     *
      * @param pathServiceSid The SID of the verification Service to update the
      *                       resource from
      * @param pathSid The unique string that identifies the resource
      * @param status The new status of the resource
      */
-    public VerificationUpdater(final String pathServiceSid, 
-                               final String pathSid, 
+    public VerificationUpdater(final String pathServiceSid,
+                               final String pathSid,
                                final Verification.Status status) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -44,7 +44,7 @@ public class VerificationUpdater extends Updater<Verification> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Verification
      */
@@ -83,7 +83,7 @@ public class VerificationUpdater extends Updater<Verification> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

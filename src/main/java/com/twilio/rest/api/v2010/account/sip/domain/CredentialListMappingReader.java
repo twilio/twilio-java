@@ -25,7 +25,7 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
 
     /**
      * Construct a new CredentialListMappingReader.
-     * 
+     *
      * @param pathDomainSid A string that identifies the SIP Domain that includes
      *                      the resource to read
      */
@@ -35,12 +35,12 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
 
     /**
      * Construct a new CredentialListMappingReader.
-     * 
+     *
      * @param pathAccountSid The unique sid that identifies this account
      * @param pathDomainSid A string that identifies the SIP Domain that includes
      *                      the resource to read
      */
-    public CredentialListMappingReader(final String pathAccountSid, 
+    public CredentialListMappingReader(final String pathAccountSid,
                                        final String pathDomainSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
@@ -48,7 +48,7 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return CredentialListMapping ResourceSet
      */
@@ -59,7 +59,7 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return CredentialListMapping ResourceSet
      */
@@ -80,7 +80,7 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return CredentialListMapping ResourceSet
@@ -99,13 +99,13 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<CredentialListMapping> nextPage(final Page<CredentialListMapping> page, 
+    public Page<CredentialListMapping> nextPage(final Page<CredentialListMapping> page,
                                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -119,13 +119,13 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<CredentialListMapping> previousPage(final Page<CredentialListMapping> page, 
+    public Page<CredentialListMapping> previousPage(final Page<CredentialListMapping> page,
                                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -139,7 +139,7 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
 
     /**
      * Generate a Page of CredentialListMapping Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -174,7 +174,7 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

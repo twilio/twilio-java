@@ -22,7 +22,7 @@ public class CountryFetcher extends Fetcher<Country> {
 
     /**
      * Construct a new CountryFetcher.
-     * 
+     *
      * @param pathIsoCountry The ISO country code
      */
     public CountryFetcher(final String pathIsoCountry) {
@@ -31,7 +31,7 @@ public class CountryFetcher extends Fetcher<Country> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Country
      */

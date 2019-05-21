@@ -27,7 +27,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
 
     /**
      * Construct a new TaskQueueReader.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      */
     public TaskQueueReader(final String pathWorkspaceSid) {
@@ -37,7 +37,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
     /**
      * Filter by a human readable description of a TaskQueue (for example "Customer
      * Support" or "2014 Election Campaign").
-     * 
+     *
      * @param friendlyName Filter by a human readable description of a TaskQueue
      * @return this
      */
@@ -49,7 +49,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
     /**
      * Provide a Worker attributes expression, and this will return the list of
      * TaskQueues that would distribute tasks to a worker with these attributes..
-     * 
+     *
      * @param evaluateWorkerAttributes Provide a Worker attributes expression, and
      *                                 this will return the list of TaskQueues that
      *                                 would distribute tasks to a worker with these
@@ -63,7 +63,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
 
     /**
      * The worker_sid.
-     * 
+     *
      * @param workerSid The worker_sid
      * @return this
      */
@@ -74,7 +74,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return TaskQueue ResourceSet
      */
@@ -85,7 +85,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return TaskQueue ResourceSet
      */
@@ -105,7 +105,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return TaskQueue ResourceSet
@@ -123,13 +123,13 @@ public class TaskQueueReader extends Reader<TaskQueue> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<TaskQueue> nextPage(final Page<TaskQueue> page, 
+    public Page<TaskQueue> nextPage(final Page<TaskQueue> page,
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -143,13 +143,13 @@ public class TaskQueueReader extends Reader<TaskQueue> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<TaskQueue> previousPage(final Page<TaskQueue> page, 
+    public Page<TaskQueue> previousPage(final Page<TaskQueue> page,
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -163,7 +163,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
 
     /**
      * Generate a Page of TaskQueue Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -198,7 +198,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

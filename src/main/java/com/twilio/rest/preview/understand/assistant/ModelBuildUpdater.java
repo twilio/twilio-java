@@ -29,11 +29,11 @@ public class ModelBuildUpdater extends Updater<ModelBuild> {
 
     /**
      * Construct a new ModelBuildUpdater.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      * @param pathSid The sid
      */
-    public ModelBuildUpdater(final String pathAssistantSid, 
+    public ModelBuildUpdater(final String pathAssistantSid,
                              final String pathSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathSid = pathSid;
@@ -42,7 +42,7 @@ public class ModelBuildUpdater extends Updater<ModelBuild> {
     /**
      * A user-provided string that uniquely identifies this resource as an
      * alternative to the sid. Unique up to 64 characters long. For example: v0.1.
-     * 
+     *
      * @param uniqueName A user-provided string that uniquely identifies this
      *                   resource as an alternative to the sid. Unique up to 64
      *                   characters long. For example: v0.1
@@ -55,7 +55,7 @@ public class ModelBuildUpdater extends Updater<ModelBuild> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated ModelBuild
      */
@@ -94,7 +94,7 @@ public class ModelBuildUpdater extends Updater<ModelBuild> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

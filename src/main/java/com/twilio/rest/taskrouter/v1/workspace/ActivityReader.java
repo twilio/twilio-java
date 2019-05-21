@@ -26,7 +26,7 @@ public class ActivityReader extends Reader<Activity> {
 
     /**
      * Construct a new ActivityReader.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      */
     public ActivityReader(final String pathWorkspaceSid) {
@@ -35,7 +35,7 @@ public class ActivityReader extends Reader<Activity> {
 
     /**
      * Filter by an Activity's friendly name.
-     * 
+     *
      * @param friendlyName Filter by an Activity's friendly name
      * @return this
      */
@@ -48,7 +48,7 @@ public class ActivityReader extends Reader<Activity> {
      * Filter by activities that are available or unavailable. (Note: This can be
      * 'true', '1'' or 'yes' to indicate a true value. All other values will
      * represent false).
-     * 
+     *
      * @param available Filter by activities that are available or unavailable.
      * @return this
      */
@@ -59,7 +59,7 @@ public class ActivityReader extends Reader<Activity> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Activity ResourceSet
      */
@@ -70,7 +70,7 @@ public class ActivityReader extends Reader<Activity> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Activity ResourceSet
      */
@@ -90,7 +90,7 @@ public class ActivityReader extends Reader<Activity> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Activity ResourceSet
@@ -108,13 +108,13 @@ public class ActivityReader extends Reader<Activity> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Activity> nextPage(final Page<Activity> page, 
+    public Page<Activity> nextPage(final Page<Activity> page,
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -128,13 +128,13 @@ public class ActivityReader extends Reader<Activity> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Activity> previousPage(final Page<Activity> page, 
+    public Page<Activity> previousPage(final Page<Activity> page,
                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -148,7 +148,7 @@ public class ActivityReader extends Reader<Activity> {
 
     /**
      * Generate a Page of Activity Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -183,7 +183,7 @@ public class ActivityReader extends Reader<Activity> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

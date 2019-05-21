@@ -23,7 +23,7 @@ public class WorkspaceRealTimeStatisticsFetcher extends Fetcher<WorkspaceRealTim
 
     /**
      * Construct a new WorkspaceRealTimeStatisticsFetcher.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      */
     public WorkspaceRealTimeStatisticsFetcher(final String pathWorkspaceSid) {
@@ -33,7 +33,7 @@ public class WorkspaceRealTimeStatisticsFetcher extends Fetcher<WorkspaceRealTim
     /**
      * Filter real-time and cumulative statistics by TaskChannel. Takes in a Unique
      * Name ("voice", "sms", "default", etc.) or a TaskChannelSid..
-     * 
+     *
      * @param taskChannel Filter real-time and cumulative statistics by TaskChannel.
      * @return this
      */
@@ -44,7 +44,7 @@ public class WorkspaceRealTimeStatisticsFetcher extends Fetcher<WorkspaceRealTim
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched WorkspaceRealTimeStatistics
      */
@@ -83,7 +83,7 @@ public class WorkspaceRealTimeStatisticsFetcher extends Fetcher<WorkspaceRealTim
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

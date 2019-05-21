@@ -36,13 +36,13 @@ public class TaskCreator extends Creator<Task> {
 
     /**
      * Construct a new TaskCreator.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         new resource
      * @param uniqueName An application-defined string that uniquely identifies the
      *                   resource
      */
-    public TaskCreator(final String pathAssistantSid, 
+    public TaskCreator(final String pathAssistantSid,
                        final String uniqueName) {
         this.pathAssistantSid = pathAssistantSid;
         this.uniqueName = uniqueName;
@@ -51,7 +51,7 @@ public class TaskCreator extends Creator<Task> {
     /**
      * A descriptive string that you create to describe the new resource. It is not
      * unique and can be up to 255 characters long..
-     * 
+     *
      * @param friendlyName  descriptive string that you create to describe the new
      *                     resource
      * @return this
@@ -65,7 +65,7 @@ public class TaskCreator extends Creator<Task> {
      * The JSON string that specifies the
      * [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the
      * Assistant on how to perform the task. It is optional and not unique..
-     * 
+     *
      * @param actions The JSON string that specifies the actions that instruct the
      *                Assistant on how to perform the task
      * @return this
@@ -77,7 +77,7 @@ public class TaskCreator extends Creator<Task> {
 
     /**
      * The URL from which the Assistant can fetch actions..
-     * 
+     *
      * @param actionsUrl The URL from which the Assistant can fetch actions
      * @return this
      */
@@ -88,7 +88,7 @@ public class TaskCreator extends Creator<Task> {
 
     /**
      * The URL from which the Assistant can fetch actions..
-     * 
+     *
      * @param actionsUrl The URL from which the Assistant can fetch actions
      * @return this
      */
@@ -98,7 +98,7 @@ public class TaskCreator extends Creator<Task> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Task
      */
@@ -137,7 +137,7 @@ public class TaskCreator extends Creator<Task> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

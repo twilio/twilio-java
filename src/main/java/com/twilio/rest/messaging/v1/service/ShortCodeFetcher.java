@@ -27,11 +27,11 @@ public class ShortCodeFetcher extends Fetcher<ShortCode> {
 
     /**
      * Construct a new ShortCodeFetcher.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to fetch the resource from
      * @param pathSid The unique string that identifies this resource
      */
-    public ShortCodeFetcher(final String pathServiceSid, 
+    public ShortCodeFetcher(final String pathServiceSid,
                             final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -39,7 +39,7 @@ public class ShortCodeFetcher extends Fetcher<ShortCode> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched ShortCode
      */

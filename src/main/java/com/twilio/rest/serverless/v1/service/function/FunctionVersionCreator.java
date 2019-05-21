@@ -30,7 +30,7 @@ public class FunctionVersionCreator extends Creator<FunctionVersion> {
 
     /**
      * Construct a new FunctionVersionCreator.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathFunctionSid Function Sid.
      * @param path The URL-friendly string by which this Function Version can be
@@ -38,9 +38,9 @@ public class FunctionVersionCreator extends Creator<FunctionVersion> {
      * @param visibility The access control which determines how the Function
      *                   Version can be accessed.
      */
-    public FunctionVersionCreator(final String pathServiceSid, 
-                                  final String pathFunctionSid, 
-                                  final String path, 
+    public FunctionVersionCreator(final String pathServiceSid,
+                                  final String pathFunctionSid,
+                                  final String path,
                                   final FunctionVersion.Visibility visibility) {
         this.pathServiceSid = pathServiceSid;
         this.pathFunctionSid = pathFunctionSid;
@@ -50,7 +50,7 @@ public class FunctionVersionCreator extends Creator<FunctionVersion> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created FunctionVersion
      */
@@ -89,7 +89,7 @@ public class FunctionVersionCreator extends Creator<FunctionVersion> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -42,24 +42,24 @@ public class TaskActions extends Resource {
 
     /**
      * Create a TaskActionsFetcher to execute fetch.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the parent Assistant.
      * @param pathTaskSid The unique ID of the Task.
      * @return TaskActionsFetcher capable of executing the fetch
      */
-    public static TaskActionsFetcher fetcher(final String pathAssistantSid, 
+    public static TaskActionsFetcher fetcher(final String pathAssistantSid,
                                              final String pathTaskSid) {
         return new TaskActionsFetcher(pathAssistantSid, pathTaskSid);
     }
 
     /**
      * Create a TaskActionsUpdater to execute update.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the parent Assistant.
      * @param pathTaskSid The unique ID of the Task.
      * @return TaskActionsUpdater capable of executing the update
      */
-    public static TaskActionsUpdater updater(final String pathAssistantSid, 
+    public static TaskActionsUpdater updater(final String pathAssistantSid,
                                              final String pathTaskSid) {
         return new TaskActionsUpdater(pathAssistantSid, pathTaskSid);
     }
@@ -67,7 +67,7 @@ public class TaskActions extends Resource {
     /**
      * Converts a JSON String into a TaskActions object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return TaskActions object represented by the provided JSON
@@ -86,7 +86,7 @@ public class TaskActions extends Resource {
     /**
      * Converts a JSON InputStream into a TaskActions object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return TaskActions object represented by the provided JSON
@@ -110,13 +110,13 @@ public class TaskActions extends Resource {
 
     @JsonCreator
     private TaskActions(@JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("assistant_sid")
-                        final String assistantSid, 
+                        final String assistantSid,
                         @JsonProperty("task_sid")
-                        final String taskSid, 
+                        final String taskSid,
                         @JsonProperty("url")
-                        final URI url, 
+                        final URI url,
                         @JsonProperty("data")
                         final Map<String, Object> data) {
         this.accountSid = accountSid;
@@ -128,7 +128,7 @@ public class TaskActions extends Resource {
 
     /**
      * Returns The The unique ID of the Account that created this Field..
-     * 
+     *
      * @return The unique ID of the Account that created this Field.
      */
     public final String getAccountSid() {
@@ -137,7 +137,7 @@ public class TaskActions extends Resource {
 
     /**
      * Returns The The unique ID of the parent Assistant..
-     * 
+     *
      * @return The unique ID of the parent Assistant.
      */
     public final String getAssistantSid() {
@@ -146,7 +146,7 @@ public class TaskActions extends Resource {
 
     /**
      * Returns The The unique ID of the Task..
-     * 
+     *
      * @return The unique ID of the Task.
      */
     public final String getTaskSid() {
@@ -155,7 +155,7 @@ public class TaskActions extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -164,7 +164,7 @@ public class TaskActions extends Resource {
 
     /**
      * Returns The The data.
-     * 
+     *
      * @return The data
      */
     public final Map<String, Object> getData() {
@@ -183,10 +183,10 @@ public class TaskActions extends Resource {
 
         TaskActions other = (TaskActions) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(assistantSid, other.assistantSid) && 
-               Objects.equals(taskSid, other.taskSid) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(assistantSid, other.assistantSid) &&
+               Objects.equals(taskSid, other.taskSid) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(data, other.data);
     }
 

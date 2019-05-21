@@ -28,12 +28,12 @@ public class ModelBuildDeleter extends Deleter<ModelBuild> {
 
     /**
      * Construct a new ModelBuildDeleter.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         resources to delete
      * @param pathSid The unique string that identifies the resource
      */
-    public ModelBuildDeleter(final String pathAssistantSid, 
+    public ModelBuildDeleter(final String pathAssistantSid,
                              final String pathSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathSid = pathSid;
@@ -41,7 +41,7 @@ public class ModelBuildDeleter extends Deleter<ModelBuild> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

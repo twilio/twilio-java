@@ -32,15 +32,15 @@ public class QueryCreator extends Creator<Query> {
 
     /**
      * Construct a new QueryCreator.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the parent Assistant.
      * @param language An ISO language-country string of the sample.
      * @param query A user-provided string that uniquely identifies this resource
      *              as an alternative to the sid. It can be up to 2048 characters
      *              long.
      */
-    public QueryCreator(final String pathAssistantSid, 
-                        final String language, 
+    public QueryCreator(final String pathAssistantSid,
+                        final String language,
                         final String query) {
         this.pathAssistantSid = pathAssistantSid;
         this.language = language;
@@ -51,7 +51,7 @@ public class QueryCreator extends Creator<Query> {
      * Constraints the query to a set of tasks. Useful when you need to constrain
      * the paths the user can take. Tasks should be comma separated
      * *task-unique-name-1*, *task-unique-name-2*.
-     * 
+     *
      * @param tasks Constraints the query to a set of tasks. Useful when you need
      *              to constrain the paths the user can take. Tasks should be comma
      *              separated task-unique-name-1, task-unique-name-2
@@ -64,7 +64,7 @@ public class QueryCreator extends Creator<Query> {
 
     /**
      * The Model Build Sid or unique name of the Model Build to be queried..
-     * 
+     *
      * @param modelBuild The Model Build Sid or unique name of the Model Build to
      *                   be queried.
      * @return this
@@ -78,7 +78,7 @@ public class QueryCreator extends Creator<Query> {
      * Constraints the query to a given Field with an task. Useful when you know the
      * Field you are expecting. It accepts one field in the format
      * *task-unique-name-1*:*field-unique-name*.
-     * 
+     *
      * @param field Constraints the query to a given Field with an task. Useful
      *              when you know the Field you are expecting. It accepts one field
      *              in the format task-unique-name-1:field-unique-name
@@ -91,7 +91,7 @@ public class QueryCreator extends Creator<Query> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Query
      */
@@ -130,7 +130,7 @@ public class QueryCreator extends Creator<Query> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

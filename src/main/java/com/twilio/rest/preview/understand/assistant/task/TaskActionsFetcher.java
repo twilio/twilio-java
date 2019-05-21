@@ -28,11 +28,11 @@ public class TaskActionsFetcher extends Fetcher<TaskActions> {
 
     /**
      * Construct a new TaskActionsFetcher.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the parent Assistant.
      * @param pathTaskSid The unique ID of the Task.
      */
-    public TaskActionsFetcher(final String pathAssistantSid, 
+    public TaskActionsFetcher(final String pathAssistantSid,
                               final String pathTaskSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathTaskSid = pathTaskSid;
@@ -40,7 +40,7 @@ public class TaskActionsFetcher extends Fetcher<TaskActions> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched TaskActions
      */

@@ -25,13 +25,13 @@ public class InviteCreator extends Creator<Invite> {
 
     /**
      * Construct a new InviteCreator.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to create the resource under
      * @param pathChannelSid The SID of the Channel the new resource belongs to
      * @param identity The `identity` value that identifies the new resource's User
      */
-    public InviteCreator(final String pathServiceSid, 
-                         final String pathChannelSid, 
+    public InviteCreator(final String pathServiceSid,
+                         final String pathChannelSid,
                          final String identity) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -41,7 +41,7 @@ public class InviteCreator extends Creator<Invite> {
     /**
      * The SID of the [Role](https://www.twilio.com/docs/chat/rest/roles) assigned
      * to the new member..
-     * 
+     *
      * @param roleSid The Role assigned to the new member
      * @return this
      */
@@ -52,7 +52,7 @@ public class InviteCreator extends Creator<Invite> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Invite
      */
@@ -91,7 +91,7 @@ public class InviteCreator extends Creator<Invite> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

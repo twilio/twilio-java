@@ -40,7 +40,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return ServiceFetcher capable of executing the fetch
      */
@@ -50,7 +50,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceDeleter to execute delete.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return ServiceDeleter capable of executing the delete
      */
@@ -60,7 +60,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceCreator to execute create.
-     * 
+     *
      * @param friendlyName A string to describe the resource
      * @return ServiceCreator capable of executing the create
      */
@@ -70,7 +70,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceReader to execute read.
-     * 
+     *
      * @return ServiceReader capable of executing the read
      */
     public static ServiceReader reader() {
@@ -79,7 +79,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceUpdater to execute update.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return ServiceUpdater capable of executing the update
      */
@@ -89,7 +89,7 @@ public class Service extends Resource {
 
     /**
      * Converts a JSON String into a Service object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
@@ -108,7 +108,7 @@ public class Service extends Resource {
     /**
      * Converts a JSON InputStream into a Service object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
@@ -148,45 +148,45 @@ public class Service extends Resource {
 
     @JsonCreator
     private Service(@JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("friendly_name")
-                    final String friendlyName, 
+                    final String friendlyName,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("default_service_role_sid")
-                    final String defaultServiceRoleSid, 
+                    final String defaultServiceRoleSid,
                     @JsonProperty("default_channel_role_sid")
-                    final String defaultChannelRoleSid, 
+                    final String defaultChannelRoleSid,
                     @JsonProperty("default_channel_creator_role_sid")
-                    final String defaultChannelCreatorRoleSid, 
+                    final String defaultChannelCreatorRoleSid,
                     @JsonProperty("read_status_enabled")
-                    final Boolean readStatusEnabled, 
+                    final Boolean readStatusEnabled,
                     @JsonProperty("reachability_enabled")
-                    final Boolean reachabilityEnabled, 
+                    final Boolean reachabilityEnabled,
                     @JsonProperty("typing_indicator_timeout")
-                    final Integer typingIndicatorTimeout, 
+                    final Integer typingIndicatorTimeout,
                     @JsonProperty("consumption_report_interval")
-                    final Integer consumptionReportInterval, 
+                    final Integer consumptionReportInterval,
                     @JsonProperty("limits")
-                    final Map<String, Object> limits, 
+                    final Map<String, Object> limits,
                     @JsonProperty("webhooks")
-                    final Map<String, Object> webhooks, 
+                    final Map<String, Object> webhooks,
                     @JsonProperty("pre_webhook_url")
-                    final String preWebhookUrl, 
+                    final String preWebhookUrl,
                     @JsonProperty("post_webhook_url")
-                    final String postWebhookUrl, 
+                    final String postWebhookUrl,
                     @JsonProperty("webhook_method")
-                    final String webhookMethod, 
+                    final String webhookMethod,
                     @JsonProperty("webhook_filters")
-                    final List<String> webhookFilters, 
+                    final List<String> webhookFilters,
                     @JsonProperty("notifications")
-                    final Map<String, Object> notifications, 
+                    final Map<String, Object> notifications,
                     @JsonProperty("url")
-                    final URI url, 
+                    final URI url,
                     @JsonProperty("links")
                     final Map<String, String> links) {
         this.sid = sid;
@@ -214,7 +214,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -223,7 +223,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -232,7 +232,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The string that you assigned to describe the resource.
-     * 
+     *
      * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
@@ -241,7 +241,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
@@ -251,7 +251,7 @@ public class Service extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -261,7 +261,7 @@ public class Service extends Resource {
     /**
      * Returns The The service role assigned to users when they are added to the
      * service.
-     * 
+     *
      * @return The service role assigned to users when they are added to the service
      */
     public final String getDefaultServiceRoleSid() {
@@ -271,7 +271,7 @@ public class Service extends Resource {
     /**
      * Returns The The channel role assigned to users when they are added to a
      * channel.
-     * 
+     *
      * @return The channel role assigned to users when they are added to a channel
      */
     public final String getDefaultChannelRoleSid() {
@@ -281,7 +281,7 @@ public class Service extends Resource {
     /**
      * Returns The The channel role assigned to a channel creator when they join a
      * new channel.
-     * 
+     *
      * @return The channel role assigned to a channel creator when they join a new
      *         channel
      */
@@ -291,7 +291,7 @@ public class Service extends Resource {
 
     /**
      * Returns The Whether the Message Consumption Horizon feature is enabled.
-     * 
+     *
      * @return Whether the Message Consumption Horizon feature is enabled
      */
     public final Boolean getReadStatusEnabled() {
@@ -301,7 +301,7 @@ public class Service extends Resource {
     /**
      * Returns The Whether the Reachability Indicator feature is enabled for this
      * Service instance.
-     * 
+     *
      * @return Whether the Reachability Indicator feature is enabled for this
      *         Service instance
      */
@@ -312,7 +312,7 @@ public class Service extends Resource {
     /**
      * Returns The How long in seconds to wait before assuming the user is no longer
      * typing.
-     * 
+     *
      * @return How long in seconds to wait before assuming the user is no longer
      *         typing
      */
@@ -322,7 +322,7 @@ public class Service extends Resource {
 
     /**
      * Returns The DEPRECATED.
-     * 
+     *
      * @return DEPRECATED
      */
     public final Integer getConsumptionReportInterval() {
@@ -331,7 +331,7 @@ public class Service extends Resource {
 
     /**
      * Returns The An object that describes the limits of the service instance.
-     * 
+     *
      * @return An object that describes the limits of the service instance
      */
     public final Map<String, Object> getLimits() {
@@ -341,7 +341,7 @@ public class Service extends Resource {
     /**
      * Returns The An object that contains information about the webhooks configured
      * for this service.
-     * 
+     *
      * @return An object that contains information about the webhooks configured
      *         for this service
      */
@@ -351,7 +351,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The webhook URL for pre-event webhooks.
-     * 
+     *
      * @return The webhook URL for pre-event webhooks
      */
     public final String getPreWebhookUrl() {
@@ -360,7 +360,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The URL for post-event webhooks.
-     * 
+     *
      * @return The URL for post-event webhooks
      */
     public final String getPostWebhookUrl() {
@@ -369,7 +369,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The HTTP method  to use for both PRE and POST webhooks.
-     * 
+     *
      * @return The HTTP method  to use for both PRE and POST webhooks
      */
     public final String getWebhookMethod() {
@@ -379,7 +379,7 @@ public class Service extends Resource {
     /**
      * Returns The The list of WebHook events that are enabled for this Service
      * instance.
-     * 
+     *
      * @return The list of WebHook events that are enabled for this Service instance
      */
     public final List<String> getWebhookFilters() {
@@ -388,7 +388,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The notification configuration for the Service instance.
-     * 
+     *
      * @return The notification configuration for the Service instance
      */
     public final Map<String, Object> getNotifications() {
@@ -397,7 +397,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The absolute URL of the Service resource.
-     * 
+     *
      * @return The absolute URL of the Service resource
      */
     public final URI getUrl() {
@@ -406,7 +406,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The absolute URLs of the Service's Channels, Roles, and Users.
-     * 
+     *
      * @return The absolute URLs of the Service's Channels, Roles, and Users
      */
     public final Map<String, String> getLinks() {
@@ -425,26 +425,26 @@ public class Service extends Resource {
 
         Service other = (Service) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(defaultServiceRoleSid, other.defaultServiceRoleSid) && 
-               Objects.equals(defaultChannelRoleSid, other.defaultChannelRoleSid) && 
-               Objects.equals(defaultChannelCreatorRoleSid, other.defaultChannelCreatorRoleSid) && 
-               Objects.equals(readStatusEnabled, other.readStatusEnabled) && 
-               Objects.equals(reachabilityEnabled, other.reachabilityEnabled) && 
-               Objects.equals(typingIndicatorTimeout, other.typingIndicatorTimeout) && 
-               Objects.equals(consumptionReportInterval, other.consumptionReportInterval) && 
-               Objects.equals(limits, other.limits) && 
-               Objects.equals(webhooks, other.webhooks) && 
-               Objects.equals(preWebhookUrl, other.preWebhookUrl) && 
-               Objects.equals(postWebhookUrl, other.postWebhookUrl) && 
-               Objects.equals(webhookMethod, other.webhookMethod) && 
-               Objects.equals(webhookFilters, other.webhookFilters) && 
-               Objects.equals(notifications, other.notifications) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(defaultServiceRoleSid, other.defaultServiceRoleSid) &&
+               Objects.equals(defaultChannelRoleSid, other.defaultChannelRoleSid) &&
+               Objects.equals(defaultChannelCreatorRoleSid, other.defaultChannelCreatorRoleSid) &&
+               Objects.equals(readStatusEnabled, other.readStatusEnabled) &&
+               Objects.equals(reachabilityEnabled, other.reachabilityEnabled) &&
+               Objects.equals(typingIndicatorTimeout, other.typingIndicatorTimeout) &&
+               Objects.equals(consumptionReportInterval, other.consumptionReportInterval) &&
+               Objects.equals(limits, other.limits) &&
+               Objects.equals(webhooks, other.webhooks) &&
+               Objects.equals(preWebhookUrl, other.preWebhookUrl) &&
+               Objects.equals(postWebhookUrl, other.postWebhookUrl) &&
+               Objects.equals(webhookMethod, other.webhookMethod) &&
+               Objects.equals(webhookFilters, other.webhookFilters) &&
+               Objects.equals(notifications, other.notifications) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

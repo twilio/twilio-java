@@ -42,7 +42,7 @@ public class ServiceTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.NOTIFY.toString(),
                                           "/v1/Services");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class ServiceTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.NOTIFY.toString(),
                                           "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -106,7 +106,7 @@ public class ServiceTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.NOTIFY.toString(),
                                           "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -138,7 +138,7 @@ public class ServiceTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.NOTIFY.toString(),
                                           "/v1/Services");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -182,7 +182,7 @@ public class ServiceTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.NOTIFY.toString(),
                                           "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

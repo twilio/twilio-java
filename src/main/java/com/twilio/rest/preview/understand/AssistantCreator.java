@@ -40,7 +40,7 @@ public class AssistantCreator extends Creator<Assistant> {
     /**
      * A text description for the Assistant. It is non-unique and can up to 255
      * characters long..
-     * 
+     *
      * @param friendlyName A text description for the Assistant. It is non-unique
      *                     and can up to 255 characters long.
      * @return this
@@ -55,7 +55,7 @@ public class AssistantCreator extends Creator<Assistant> {
      * training. If false, no queries will be stored, if true, queries will be
      * stored for 30 days and deleted thereafter. Defaults to true if no value is
      * provided..
-     * 
+     *
      * @param logQueries A boolean that specifies whether queries should be logged
      *                   for 30 days further training. If false, no queries will be
      *                   stored, if true, queries will be stored for 30 days and
@@ -71,7 +71,7 @@ public class AssistantCreator extends Creator<Assistant> {
     /**
      * A user-provided string that uniquely identifies this resource as an
      * alternative to the sid. Unique up to 64 characters long..
-     * 
+     *
      * @param uniqueName A user-provided string that uniquely identifies this
      *                   resource as an alternative to the sid. Unique up to 64
      *                   characters long.
@@ -84,7 +84,7 @@ public class AssistantCreator extends Creator<Assistant> {
 
     /**
      * A user-provided URL to send event callbacks to..
-     * 
+     *
      * @param callbackUrl A user-provided URL to send event callbacks to.
      * @return this
      */
@@ -95,7 +95,7 @@ public class AssistantCreator extends Creator<Assistant> {
 
     /**
      * A user-provided URL to send event callbacks to..
-     * 
+     *
      * @param callbackUrl A user-provided URL to send event callbacks to.
      * @return this
      */
@@ -105,7 +105,7 @@ public class AssistantCreator extends Creator<Assistant> {
 
     /**
      * Space-separated list of callback events that will trigger callbacks..
-     * 
+     *
      * @param callbackEvents Space-separated list of callback events that will
      *                       trigger callbacks.
      * @return this
@@ -118,7 +118,7 @@ public class AssistantCreator extends Creator<Assistant> {
     /**
      * The JSON actions to be executed when the user's input is not recognized as
      * matching any Task..
-     * 
+     *
      * @param fallbackActions The JSON actions to be executed when the user's input
      *                        is not recognized as matching any Task.
      * @return this
@@ -131,7 +131,7 @@ public class AssistantCreator extends Creator<Assistant> {
     /**
      * The JSON actions to be executed on inbound phone calls when the Assistant has
      * to say something first..
-     * 
+     *
      * @param initiationActions The JSON actions to be executed on inbound phone
      *                          calls when the Assistant has to say something first.
      * @return this
@@ -143,7 +143,7 @@ public class AssistantCreator extends Creator<Assistant> {
 
     /**
      * The JSON object that holds the style sheet for the assistant.
-     * 
+     *
      * @param styleSheet The JSON object that holds the style sheet for the
      *                   assistant
      * @return this
@@ -155,7 +155,7 @@ public class AssistantCreator extends Creator<Assistant> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Assistant
      */
@@ -194,7 +194,7 @@ public class AssistantCreator extends Creator<Assistant> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

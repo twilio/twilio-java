@@ -30,7 +30,7 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
 
     /**
      * Email that this AuthorizationDocument will be sent to for signing..
-     * 
+     *
      * @param email Email.
      * @return this
      */
@@ -44,7 +44,7 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
      * signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled
      * [Status
      * Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses..
-     * 
+     *
      * @param status The Status of this AuthorizationDocument.
      * @return this
      */
@@ -55,7 +55,7 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return AuthorizationDocument ResourceSet
      */
@@ -66,7 +66,7 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return AuthorizationDocument ResourceSet
      */
@@ -86,7 +86,7 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return AuthorizationDocument ResourceSet
@@ -104,13 +104,13 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<AuthorizationDocument> nextPage(final Page<AuthorizationDocument> page, 
+    public Page<AuthorizationDocument> nextPage(final Page<AuthorizationDocument> page,
                                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -124,13 +124,13 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<AuthorizationDocument> previousPage(final Page<AuthorizationDocument> page, 
+    public Page<AuthorizationDocument> previousPage(final Page<AuthorizationDocument> page,
                                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -144,7 +144,7 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
 
     /**
      * Generate a Page of AuthorizationDocument Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -179,7 +179,7 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

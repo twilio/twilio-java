@@ -23,11 +23,11 @@ public class TerminatingSipDomainDeleter extends Deleter<TerminatingSipDomain> {
 
     /**
      * Construct a new TerminatingSipDomainDeleter.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk with the resources to disassociate
      * @param pathSid The unique string that identifies the resource to disassociate
      */
-    public TerminatingSipDomainDeleter(final String pathTrunkSid, 
+    public TerminatingSipDomainDeleter(final String pathTrunkSid,
                                        final String pathSid) {
         this.pathTrunkSid = pathTrunkSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class TerminatingSipDomainDeleter extends Deleter<TerminatingSipDomain> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

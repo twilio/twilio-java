@@ -38,20 +38,20 @@ public class ShortCode extends Resource {
 
     /**
      * Create a ShortCodeFetcher to execute fetch.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       fetch
      * @param pathSid The unique string that identifies this resource
      * @return ShortCodeFetcher capable of executing the fetch
      */
-    public static ShortCodeFetcher fetcher(final String pathAccountSid, 
+    public static ShortCodeFetcher fetcher(final String pathAccountSid,
                                            final String pathSid) {
         return new ShortCodeFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a ShortCodeFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The unique string that identifies this resource
      * @return ShortCodeFetcher capable of executing the fetch
      */
@@ -61,20 +61,20 @@ public class ShortCode extends Resource {
 
     /**
      * Create a ShortCodeUpdater to execute update.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       update
      * @param pathSid The unique string that identifies this resource
      * @return ShortCodeUpdater capable of executing the update
      */
-    public static ShortCodeUpdater updater(final String pathAccountSid, 
+    public static ShortCodeUpdater updater(final String pathAccountSid,
                                            final String pathSid) {
         return new ShortCodeUpdater(pathAccountSid, pathSid);
     }
 
     /**
      * Create a ShortCodeUpdater to execute update.
-     * 
+     *
      * @param pathSid The unique string that identifies this resource
      * @return ShortCodeUpdater capable of executing the update
      */
@@ -84,7 +84,7 @@ public class ShortCode extends Resource {
 
     /**
      * Create a ShortCodeReader to execute read.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       read
      * @return ShortCodeReader capable of executing the read
@@ -95,7 +95,7 @@ public class ShortCode extends Resource {
 
     /**
      * Create a ShortCodeReader to execute read.
-     * 
+     *
      * @return ShortCodeReader capable of executing the read
      */
     public static ShortCodeReader reader() {
@@ -105,7 +105,7 @@ public class ShortCode extends Resource {
     /**
      * Converts a JSON String into a ShortCode object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ShortCode object represented by the provided JSON
@@ -124,7 +124,7 @@ public class ShortCode extends Resource {
     /**
      * Converts a JSON InputStream into a ShortCode object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ShortCode object represented by the provided JSON
@@ -155,27 +155,27 @@ public class ShortCode extends Resource {
 
     @JsonCreator
     private ShortCode(@JsonProperty("account_sid")
-                      final String accountSid, 
+                      final String accountSid,
                       @JsonProperty("api_version")
-                      final String apiVersion, 
+                      final String apiVersion,
                       @JsonProperty("date_created")
-                      final String dateCreated, 
+                      final String dateCreated,
                       @JsonProperty("date_updated")
-                      final String dateUpdated, 
+                      final String dateUpdated,
                       @JsonProperty("friendly_name")
-                      final String friendlyName, 
+                      final String friendlyName,
                       @JsonProperty("short_code")
-                      final String shortCode, 
+                      final String shortCode,
                       @JsonProperty("sid")
-                      final String sid, 
+                      final String sid,
                       @JsonProperty("sms_fallback_method")
-                      final HttpMethod smsFallbackMethod, 
+                      final HttpMethod smsFallbackMethod,
                       @JsonProperty("sms_fallback_url")
-                      final URI smsFallbackUrl, 
+                      final URI smsFallbackUrl,
                       @JsonProperty("sms_method")
-                      final HttpMethod smsMethod, 
+                      final HttpMethod smsMethod,
                       @JsonProperty("sms_url")
-                      final URI smsUrl, 
+                      final URI smsUrl,
                       @JsonProperty("uri")
                       final String uri) {
         this.accountSid = accountSid;
@@ -194,7 +194,7 @@ public class ShortCode extends Resource {
 
     /**
      * Returns The The SID of the Account that created this resource.
-     * 
+     *
      * @return The SID of the Account that created this resource
      */
     public final String getAccountSid() {
@@ -203,7 +203,7 @@ public class ShortCode extends Resource {
 
     /**
      * Returns The The API version used to start a new TwiML session.
-     * 
+     *
      * @return The API version used to start a new TwiML session
      */
     public final String getApiVersion() {
@@ -212,7 +212,7 @@ public class ShortCode extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT that this resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that this resource was created
      */
     public final DateTime getDateCreated() {
@@ -222,7 +222,7 @@ public class ShortCode extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT that this resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -231,7 +231,7 @@ public class ShortCode extends Resource {
 
     /**
      * Returns The A string that you assigned to describe this resource.
-     * 
+     *
      * @return A string that you assigned to describe this resource
      */
     public final String getFriendlyName() {
@@ -240,7 +240,7 @@ public class ShortCode extends Resource {
 
     /**
      * Returns The The short code. e.g., 894546..
-     * 
+     *
      * @return The short code. e.g., 894546.
      */
     public final String getShortCode() {
@@ -249,7 +249,7 @@ public class ShortCode extends Resource {
 
     /**
      * Returns The The unique string that identifies this resource.
-     * 
+     *
      * @return The unique string that identifies this resource
      */
     public final String getSid() {
@@ -258,7 +258,7 @@ public class ShortCode extends Resource {
 
     /**
      * Returns The HTTP method we use to call the sms_fallback_url.
-     * 
+     *
      * @return HTTP method we use to call the sms_fallback_url
      */
     public final HttpMethod getSmsFallbackMethod() {
@@ -267,7 +267,7 @@ public class ShortCode extends Resource {
 
     /**
      * Returns The URL Twilio will request if an error occurs in executing TwiML.
-     * 
+     *
      * @return URL Twilio will request if an error occurs in executing TwiML
      */
     public final URI getSmsFallbackUrl() {
@@ -276,7 +276,7 @@ public class ShortCode extends Resource {
 
     /**
      * Returns The HTTP method to use when requesting the sms url.
-     * 
+     *
      * @return HTTP method to use when requesting the sms url
      */
     public final HttpMethod getSmsMethod() {
@@ -286,7 +286,7 @@ public class ShortCode extends Resource {
     /**
      * Returns The URL we call when receiving an incoming SMS message to this short
      * code.
-     * 
+     *
      * @return URL we call when receiving an incoming SMS message to this short code
      */
     public final URI getSmsUrl() {
@@ -295,7 +295,7 @@ public class ShortCode extends Resource {
 
     /**
      * Returns The The URI of this resource, relative to `https://api.twilio.com`.
-     * 
+     *
      * @return The URI of this resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
@@ -314,17 +314,17 @@ public class ShortCode extends Resource {
 
         ShortCode other = (ShortCode) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(apiVersion, other.apiVersion) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(shortCode, other.shortCode) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(smsFallbackMethod, other.smsFallbackMethod) && 
-               Objects.equals(smsFallbackUrl, other.smsFallbackUrl) && 
-               Objects.equals(smsMethod, other.smsMethod) && 
-               Objects.equals(smsUrl, other.smsUrl) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(apiVersion, other.apiVersion) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(shortCode, other.shortCode) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(smsFallbackMethod, other.smsFallbackMethod) &&
+               Objects.equals(smsFallbackUrl, other.smsFallbackUrl) &&
+               Objects.equals(smsMethod, other.smsMethod) &&
+               Objects.equals(smsUrl, other.smsUrl) &&
                Objects.equals(uri, other.uri);
     }
 

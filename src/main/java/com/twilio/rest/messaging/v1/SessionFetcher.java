@@ -27,7 +27,7 @@ public class SessionFetcher extends Fetcher<Session> {
 
     /**
      * Construct a new SessionFetcher.
-     * 
+     *
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public SessionFetcher(final String pathSid) {
@@ -36,7 +36,7 @@ public class SessionFetcher extends Fetcher<Session> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Session
      */

@@ -29,7 +29,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Construct a new ServiceUpdater.
-     * 
+     *
      * @param pathSid Service Sid.
      */
     public ServiceUpdater(final String pathSid) {
@@ -38,7 +38,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * A 1-64 character string with friendly name of service.
-     * 
+     *
      * @param name Friendly name of the service
      * @return this
      */
@@ -50,7 +50,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The length of the verification code to be generated. Must be an integer value
      * between 4-10.
-     * 
+     *
      * @param codeLength Length of verification code. Valid values are 4-10
      * @return this
      */
@@ -61,7 +61,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Service
      */
@@ -100,7 +100,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

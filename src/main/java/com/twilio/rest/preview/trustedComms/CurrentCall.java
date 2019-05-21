@@ -43,7 +43,7 @@ public class CurrentCall extends Resource {
 
     /**
      * Create a CurrentCallFetcher to execute fetch.
-     * 
+     *
      * @return CurrentCallFetcher capable of executing the fetch
      */
     public static CurrentCallFetcher fetcher() {
@@ -53,7 +53,7 @@ public class CurrentCall extends Resource {
     /**
      * Converts a JSON String into a CurrentCall object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return CurrentCall object represented by the provided JSON
@@ -72,7 +72,7 @@ public class CurrentCall extends Resource {
     /**
      * Converts a JSON InputStream into a CurrentCall object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return CurrentCall object represented by the provided JSON
@@ -97,15 +97,15 @@ public class CurrentCall extends Resource {
 
     @JsonCreator
     private CurrentCall(@JsonProperty("sid")
-                        final String sid, 
+                        final String sid,
                         @JsonProperty("from")
-                        final String from, 
+                        final String from,
                         @JsonProperty("to")
-                        final String to, 
+                        final String to,
                         @JsonProperty("reason")
-                        final String reason, 
+                        final String reason,
                         @JsonProperty("created_at")
-                        final String createdAt, 
+                        final String createdAt,
                         @JsonProperty("url")
                         final URI url) {
         this.sid = sid;
@@ -118,7 +118,7 @@ public class CurrentCall extends Resource {
 
     /**
      * Returns The A string that uniquely identifies this Current Call..
-     * 
+     *
      * @return A string that uniquely identifies this Current Call.
      */
     public final String getSid() {
@@ -127,7 +127,7 @@ public class CurrentCall extends Resource {
 
     /**
      * Returns The The originating Phone Number.
-     * 
+     *
      * @return The originating Phone Number
      */
     public final String getFrom() {
@@ -136,7 +136,7 @@ public class CurrentCall extends Resource {
 
     /**
      * Returns The The terminating Phone Number.
-     * 
+     *
      * @return The terminating Phone Number
      */
     public final String getTo() {
@@ -145,7 +145,7 @@ public class CurrentCall extends Resource {
 
     /**
      * Returns The The business reason for this phone call.
-     * 
+     *
      * @return The business reason for this phone call
      */
     public final String getReason() {
@@ -154,7 +154,7 @@ public class CurrentCall extends Resource {
 
     /**
      * Returns The The date this Current Call was created.
-     * 
+     *
      * @return The date this Current Call was created
      */
     public final DateTime getCreatedAt() {
@@ -163,7 +163,7 @@ public class CurrentCall extends Resource {
 
     /**
      * Returns The The URL of this resource..
-     * 
+     *
      * @return The URL of this resource.
      */
     public final URI getUrl() {
@@ -182,11 +182,11 @@ public class CurrentCall extends Resource {
 
         CurrentCall other = (CurrentCall) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(from, other.from) && 
-               Objects.equals(to, other.to) && 
-               Objects.equals(reason, other.reason) && 
-               Objects.equals(createdAt, other.createdAt) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(from, other.from) &&
+               Objects.equals(to, other.to) &&
+               Objects.equals(reason, other.reason) &&
+               Objects.equals(createdAt, other.createdAt) &&
                Objects.equals(url, other.url);
     }
 

@@ -32,7 +32,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
 
     /**
      * Construct a new WorkspaceUpdater.
-     * 
+     *
      * @param pathSid The sid
      */
     public WorkspaceUpdater(final String pathSid) {
@@ -42,7 +42,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     /**
      * The ID of the Activity that will be used when new Workers are created in this
      * Workspace..
-     * 
+     *
      * @param defaultActivitySid The ID of the Activity that will be used when new
      *                           Workers are created in this Workspace.
      * @return this
@@ -56,7 +56,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
      * The Workspace will publish events to this URL. You can use this to gather
      * data for reporting. See [Events][/docs/taskrouter/api/events] for more
      * information..
-     * 
+     *
      * @param eventCallbackUrl The Workspace will publish events to this URL.
      * @return this
      */
@@ -69,7 +69,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
      * The Workspace will publish events to this URL. You can use this to gather
      * data for reporting. See [Events][/docs/taskrouter/api/events] for more
      * information..
-     * 
+     *
      * @param eventCallbackUrl The Workspace will publish events to this URL.
      * @return this
      */
@@ -83,7 +83,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
      * 'EventsFilter=task.created,task.canceled,worker.activity.update', then
      * TaskRouter will webhook to EventCallbackUrl only when a task is created,
      * canceled or a worker activity is updated..
-     * 
+     *
      * @param eventsFilter Use this parameter to receive webhooks on
      *                     EventCallbackUrl for specific events on a workspace.
      * @return this
@@ -96,7 +96,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     /**
      * Human readable description of this workspace (for example "Sales Call Center"
      * or "Customer Support Team").
-     * 
+     *
      * @param friendlyName Human readable description of this workspace
      * @return this
      */
@@ -109,7 +109,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
      * Enable or Disable Multitasking by passing either *true* or *False* with the
      * POST request. Learn more by visiting
      * [Multitasking][/docs/taskrouter/multitasking]..
-     * 
+     *
      * @param multiTaskEnabled Enable or Disable Multitasking by passing either
      *                         true or False with the POST request.
      * @return this
@@ -122,7 +122,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     /**
      * The ID of the Activity that will be assigned to a Worker when a Task
      * reservation times out without a response..
-     * 
+     *
      * @param timeoutActivitySid The ID of the Activity that will be assigned to a
      *                           Worker when a Task reservation times out without a
      *                           response.
@@ -139,7 +139,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
      * Default is FIFO. [Click
      * here][/docs/taskrouter/queue-ordering-last-first-out-lifo] to learn more
      * about LIFO and the use of the parameter..
-     * 
+     *
      * @param prioritizeQueueOrder Use this parameter to configure whether to
      *                             prioritize LIFO or FIFO when workers are
      *                             receiving Tasks from combination of LIFO and FIFO
@@ -153,7 +153,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Workspace
      */
@@ -192,7 +192,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

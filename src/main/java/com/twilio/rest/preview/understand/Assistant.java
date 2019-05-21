@@ -43,7 +43,7 @@ public class Assistant extends Resource {
 
     /**
      * Create a AssistantFetcher to execute fetch.
-     * 
+     *
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return AssistantFetcher capable of executing the fetch
      */
@@ -53,7 +53,7 @@ public class Assistant extends Resource {
 
     /**
      * Create a AssistantReader to execute read.
-     * 
+     *
      * @return AssistantReader capable of executing the read
      */
     public static AssistantReader reader() {
@@ -62,7 +62,7 @@ public class Assistant extends Resource {
 
     /**
      * Create a AssistantCreator to execute create.
-     * 
+     *
      * @return AssistantCreator capable of executing the create
      */
     public static AssistantCreator creator() {
@@ -71,7 +71,7 @@ public class Assistant extends Resource {
 
     /**
      * Create a AssistantUpdater to execute update.
-     * 
+     *
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return AssistantUpdater capable of executing the update
      */
@@ -81,7 +81,7 @@ public class Assistant extends Resource {
 
     /**
      * Create a AssistantDeleter to execute delete.
-     * 
+     *
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return AssistantDeleter capable of executing the delete
      */
@@ -92,7 +92,7 @@ public class Assistant extends Resource {
     /**
      * Converts a JSON String into a Assistant object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Assistant object represented by the provided JSON
@@ -111,7 +111,7 @@ public class Assistant extends Resource {
     /**
      * Converts a JSON InputStream into a Assistant object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Assistant object represented by the provided JSON
@@ -142,27 +142,27 @@ public class Assistant extends Resource {
 
     @JsonCreator
     private Assistant(@JsonProperty("account_sid")
-                      final String accountSid, 
+                      final String accountSid,
                       @JsonProperty("date_created")
-                      final String dateCreated, 
+                      final String dateCreated,
                       @JsonProperty("date_updated")
-                      final String dateUpdated, 
+                      final String dateUpdated,
                       @JsonProperty("friendly_name")
-                      final String friendlyName, 
+                      final String friendlyName,
                       @JsonProperty("latest_model_build_sid")
-                      final String latestModelBuildSid, 
+                      final String latestModelBuildSid,
                       @JsonProperty("links")
-                      final Map<String, String> links, 
+                      final Map<String, String> links,
                       @JsonProperty("log_queries")
-                      final Boolean logQueries, 
+                      final Boolean logQueries,
                       @JsonProperty("sid")
-                      final String sid, 
+                      final String sid,
                       @JsonProperty("unique_name")
-                      final String uniqueName, 
+                      final String uniqueName,
                       @JsonProperty("url")
-                      final URI url, 
+                      final URI url,
                       @JsonProperty("callback_url")
-                      final URI callbackUrl, 
+                      final URI callbackUrl,
                       @JsonProperty("callback_events")
                       final String callbackEvents) {
         this.accountSid = accountSid;
@@ -181,7 +181,7 @@ public class Assistant extends Resource {
 
     /**
      * Returns The The unique ID of the Account that created this Assistant..
-     * 
+     *
      * @return The unique ID of the Account that created this Assistant.
      */
     public final String getAccountSid() {
@@ -190,7 +190,7 @@ public class Assistant extends Resource {
 
     /**
      * Returns The The date that this resource was created.
-     * 
+     *
      * @return The date that this resource was created
      */
     public final DateTime getDateCreated() {
@@ -199,7 +199,7 @@ public class Assistant extends Resource {
 
     /**
      * Returns The The date that this resource was last updated.
-     * 
+     *
      * @return The date that this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -209,7 +209,7 @@ public class Assistant extends Resource {
     /**
      * Returns The A text description for the Assistant. It is non-unique and can up
      * to 255 characters long..
-     * 
+     *
      * @return A text description for the Assistant. It is non-unique and can up to
      *         255 characters long.
      */
@@ -220,7 +220,7 @@ public class Assistant extends Resource {
     /**
      * Returns The The unique ID (Sid) of the latest model build. Null if no model
      * has been built..
-     * 
+     *
      * @return The unique ID (Sid) of the latest model build. Null if no model has
      *         been built.
      */
@@ -230,7 +230,7 @@ public class Assistant extends Resource {
 
     /**
      * Returns The The links.
-     * 
+     *
      * @return The links
      */
     public final Map<String, String> getLinks() {
@@ -241,7 +241,7 @@ public class Assistant extends Resource {
      * Returns The A boolean that specifies whether queries should be logged for 30
      * days further training. If false, no queries will be stored, if true, queries
      * will be stored for 30 days and deleted thereafter..
-     * 
+     *
      * @return A boolean that specifies whether queries should be logged for 30
      *         days further training. If false, no queries will be stored, if true,
      *         queries will be stored for 30 days and deleted thereafter.
@@ -252,7 +252,7 @@ public class Assistant extends Resource {
 
     /**
      * Returns The A 34 character string that uniquely identifies this resource..
-     * 
+     *
      * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
@@ -263,7 +263,7 @@ public class Assistant extends Resource {
      * Returns The A user-provided string that uniquely identifies this resource as
      * an alternative to the sid. You can use the unique name in the URL path.
      * Unique up to 64 characters long..
-     * 
+     *
      * @return A user-provided string that uniquely identifies this resource as an
      *         alternative to the sid. You can use the unique name in the URL path.
      *         Unique up to 64 characters long.
@@ -274,7 +274,7 @@ public class Assistant extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -283,7 +283,7 @@ public class Assistant extends Resource {
 
     /**
      * Returns The A user-provided URL to send event callbacks to..
-     * 
+     *
      * @return A user-provided URL to send event callbacks to.
      */
     public final URI getCallbackUrl() {
@@ -293,7 +293,7 @@ public class Assistant extends Resource {
     /**
      * Returns The Space-separated list of callback events that will trigger
      * callbacks..
-     * 
+     *
      * @return Space-separated list of callback events that will trigger callbacks.
      */
     public final String getCallbackEvents() {
@@ -312,17 +312,17 @@ public class Assistant extends Resource {
 
         Assistant other = (Assistant) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(latestModelBuildSid, other.latestModelBuildSid) && 
-               Objects.equals(links, other.links) && 
-               Objects.equals(logQueries, other.logQueries) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(callbackUrl, other.callbackUrl) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(latestModelBuildSid, other.latestModelBuildSid) &&
+               Objects.equals(links, other.links) &&
+               Objects.equals(logQueries, other.logQueries) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(callbackUrl, other.callbackUrl) &&
                Objects.equals(callbackEvents, other.callbackEvents);
     }
 

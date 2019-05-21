@@ -24,12 +24,12 @@ public class IpAddressFetcher extends Fetcher<IpAddress> {
 
     /**
      * Construct a new IpAddressFetcher.
-     * 
+     *
      * @param pathIpAccessControlListSid The IpAccessControlList Sid that
      *                                   identifies the IpAddress resources to fetch
      * @param pathSid A string that identifies the IpAddress resource to fetch
      */
-    public IpAddressFetcher(final String pathIpAccessControlListSid, 
+    public IpAddressFetcher(final String pathIpAccessControlListSid,
                             final String pathSid) {
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
         this.pathSid = pathSid;
@@ -37,14 +37,14 @@ public class IpAddressFetcher extends Fetcher<IpAddress> {
 
     /**
      * Construct a new IpAddressFetcher.
-     * 
+     *
      * @param pathAccountSid The unique sid that identifies this account
      * @param pathIpAccessControlListSid The IpAccessControlList Sid that
      *                                   identifies the IpAddress resources to fetch
      * @param pathSid A string that identifies the IpAddress resource to fetch
      */
-    public IpAddressFetcher(final String pathAccountSid, 
-                            final String pathIpAccessControlListSid, 
+    public IpAddressFetcher(final String pathAccountSid,
+                            final String pathIpAccessControlListSid,
                             final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
@@ -53,7 +53,7 @@ public class IpAddressFetcher extends Fetcher<IpAddress> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched IpAddress
      */

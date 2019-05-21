@@ -31,7 +31,7 @@ public class DefaultsUpdater extends Updater<Defaults> {
 
     /**
      * Construct a new DefaultsUpdater.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         resource to update
      */
@@ -42,7 +42,7 @@ public class DefaultsUpdater extends Updater<Defaults> {
     /**
      * A JSON string that describes the default task links for the
      * `assistant_initiation`, `collect`, and `fallback` situations..
-     * 
+     *
      * @param defaults A JSON string that describes the default task links.
      * @return this
      */
@@ -53,7 +53,7 @@ public class DefaultsUpdater extends Updater<Defaults> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Defaults
      */
@@ -92,7 +92,7 @@ public class DefaultsUpdater extends Updater<Defaults> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

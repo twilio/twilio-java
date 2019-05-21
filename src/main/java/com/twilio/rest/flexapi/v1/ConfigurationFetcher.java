@@ -22,7 +22,7 @@ public class ConfigurationFetcher extends Fetcher<Configuration> {
 
     /**
      * Pinned UI version.
-     * 
+     *
      * @param uiVersion Pinned UI version
      * @return this
      */
@@ -33,7 +33,7 @@ public class ConfigurationFetcher extends Fetcher<Configuration> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Configuration
      */
@@ -72,7 +72,7 @@ public class ConfigurationFetcher extends Fetcher<Configuration> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

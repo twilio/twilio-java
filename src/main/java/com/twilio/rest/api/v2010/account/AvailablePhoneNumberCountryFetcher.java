@@ -23,7 +23,7 @@ public class AvailablePhoneNumberCountryFetcher extends Fetcher<AvailablePhoneNu
 
     /**
      * Construct a new AvailablePhoneNumberCountryFetcher.
-     * 
+     *
      * @param pathCountryCode The ISO country code of the country to fetch
      *                        available phone number information about
      */
@@ -33,13 +33,13 @@ public class AvailablePhoneNumberCountryFetcher extends Fetcher<AvailablePhoneNu
 
     /**
      * Construct a new AvailablePhoneNumberCountryFetcher.
-     * 
+     *
      * @param pathAccountSid The SID of the Account requesting the available phone
      *                       number Country resource
      * @param pathCountryCode The ISO country code of the country to fetch
      *                        available phone number information about
      */
-    public AvailablePhoneNumberCountryFetcher(final String pathAccountSid, 
+    public AvailablePhoneNumberCountryFetcher(final String pathAccountSid,
                                               final String pathCountryCode) {
         this.pathAccountSid = pathAccountSid;
         this.pathCountryCode = pathCountryCode;
@@ -47,7 +47,7 @@ public class AvailablePhoneNumberCountryFetcher extends Fetcher<AvailablePhoneNu
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched AvailablePhoneNumberCountry
      */

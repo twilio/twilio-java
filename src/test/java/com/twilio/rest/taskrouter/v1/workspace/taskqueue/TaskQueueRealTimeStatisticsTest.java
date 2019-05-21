@@ -42,7 +42,7 @@ public class TaskQueueRealTimeStatisticsTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RealTimeStatistics");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

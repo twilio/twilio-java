@@ -28,11 +28,11 @@ public class AssetFetcher extends Fetcher<Asset> {
 
     /**
      * Construct a new AssetFetcher.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathSid Asset Sid.
      */
-    public AssetFetcher(final String pathServiceSid, 
+    public AssetFetcher(final String pathServiceSid,
                         final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class AssetFetcher extends Fetcher<Asset> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Asset
      */

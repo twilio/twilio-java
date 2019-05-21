@@ -23,11 +23,11 @@ public class ActivityFetcher extends Fetcher<Activity> {
 
     /**
      * Construct a new ActivityFetcher.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathSid The sid
      */
-    public ActivityFetcher(final String pathWorkspaceSid, 
+    public ActivityFetcher(final String pathWorkspaceSid,
                            final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class ActivityFetcher extends Fetcher<Activity> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Activity
      */

@@ -24,13 +24,13 @@ public class ReservationFetcher extends Fetcher<Reservation> {
 
     /**
      * Construct a new ReservationFetcher.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathTaskSid The task_sid
      * @param pathSid The sid
      */
-    public ReservationFetcher(final String pathWorkspaceSid, 
-                              final String pathTaskSid, 
+    public ReservationFetcher(final String pathWorkspaceSid,
+                              final String pathTaskSid,
                               final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathTaskSid = pathTaskSid;
@@ -39,7 +39,7 @@ public class ReservationFetcher extends Fetcher<Reservation> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Reservation
      */

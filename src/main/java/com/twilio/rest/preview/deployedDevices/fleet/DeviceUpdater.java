@@ -32,11 +32,11 @@ public class DeviceUpdater extends Updater<Device> {
 
     /**
      * Construct a new DeviceUpdater.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @param pathSid A string that uniquely identifies the Device.
      */
-    public DeviceUpdater(final String pathFleetSid, 
+    public DeviceUpdater(final String pathFleetSid,
                          final String pathSid) {
         this.pathFleetSid = pathFleetSid;
         this.pathSid = pathSid;
@@ -45,7 +45,7 @@ public class DeviceUpdater extends Updater<Device> {
     /**
      * Provides a human readable descriptive text to be assigned to this Device, up
      * to 256 characters long..
-     * 
+     *
      * @param friendlyName A human readable description for this Device.
      * @return this
      */
@@ -57,7 +57,7 @@ public class DeviceUpdater extends Updater<Device> {
     /**
      * Provides an arbitrary string identifier representing a human user to be
      * associated with this Device, up to 256 characters long..
-     * 
+     *
      * @param identity An identifier of the Device user.
      * @return this
      */
@@ -69,7 +69,7 @@ public class DeviceUpdater extends Updater<Device> {
     /**
      * Specifies the unique string identifier of the Deployment group that this
      * Device is going to be associated with..
-     * 
+     *
      * @param deploymentSid The unique SID of the Deployment group.
      * @return this
      */
@@ -80,7 +80,7 @@ public class DeviceUpdater extends Updater<Device> {
 
     /**
      * The enabled.
-     * 
+     *
      * @param enabled The enabled
      * @return this
      */
@@ -91,7 +91,7 @@ public class DeviceUpdater extends Updater<Device> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Device
      */
@@ -130,7 +130,7 @@ public class DeviceUpdater extends Updater<Device> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

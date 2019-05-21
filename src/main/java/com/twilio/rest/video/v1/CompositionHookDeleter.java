@@ -27,7 +27,7 @@ public class CompositionHookDeleter extends Deleter<CompositionHook> {
 
     /**
      * Construct a new CompositionHookDeleter.
-     * 
+     *
      * @param pathSid The Recording Composition Hook Sid that uniquely identifies
      *                the Recording Composition Hook to delete.
      */
@@ -37,7 +37,7 @@ public class CompositionHookDeleter extends Deleter<CompositionHook> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

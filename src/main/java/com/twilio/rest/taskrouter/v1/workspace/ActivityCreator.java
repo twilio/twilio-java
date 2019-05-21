@@ -24,12 +24,12 @@ public class ActivityCreator extends Creator<Activity> {
 
     /**
      * Construct a new ActivityCreator.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param friendlyName A human-readable name for the Activity, such as 'On
      *                     Call', 'Break', 'Email', etc.
      */
-    public ActivityCreator(final String pathWorkspaceSid, 
+    public ActivityCreator(final String pathWorkspaceSid,
                            final String friendlyName) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.friendlyName = friendlyName;
@@ -41,7 +41,7 @@ public class ActivityCreator extends Creator<Activity> {
      * activity named 'On Call' with an availability set to 'false'. Note: This can
      * be 'true', '1' or 'yes' to indicate a true value. All other values will
      * represent false. Defaults to false..
-     * 
+     *
      * @param available Boolean value indicating whether the worker should be
      *                  eligible to receive a Task when they occupy this Activity.
      * @return this
@@ -53,7 +53,7 @@ public class ActivityCreator extends Creator<Activity> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Activity
      */
@@ -92,7 +92,7 @@ public class ActivityCreator extends Creator<Activity> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -94,7 +94,7 @@ public class Sim extends Resource {
 
     /**
      * Create a SimFetcher to execute fetch.
-     * 
+     *
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return SimFetcher capable of executing the fetch
      */
@@ -104,7 +104,7 @@ public class Sim extends Resource {
 
     /**
      * Create a SimReader to execute read.
-     * 
+     *
      * @return SimReader capable of executing the read
      */
     public static SimReader reader() {
@@ -113,7 +113,7 @@ public class Sim extends Resource {
 
     /**
      * Create a SimUpdater to execute update.
-     * 
+     *
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return SimUpdater capable of executing the update
      */
@@ -123,7 +123,7 @@ public class Sim extends Resource {
 
     /**
      * Create a SimDeleter to execute delete.
-     * 
+     *
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return SimDeleter capable of executing the delete
      */
@@ -133,7 +133,7 @@ public class Sim extends Resource {
 
     /**
      * Converts a JSON String into a Sim object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Sim object represented by the provided JSON
@@ -152,7 +152,7 @@ public class Sim extends Resource {
     /**
      * Converts a JSON InputStream into a Sim object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Sim object represented by the provided JSON
@@ -195,51 +195,51 @@ public class Sim extends Resource {
 
     @JsonCreator
     private Sim(@JsonProperty("sid")
-                final String sid, 
+                final String sid,
                 @JsonProperty("unique_name")
-                final String uniqueName, 
+                final String uniqueName,
                 @JsonProperty("account_sid")
-                final String accountSid, 
+                final String accountSid,
                 @JsonProperty("rate_plan_sid")
-                final String ratePlanSid, 
+                final String ratePlanSid,
                 @JsonProperty("friendly_name")
-                final String friendlyName, 
+                final String friendlyName,
                 @JsonProperty("iccid")
-                final String iccid, 
+                final String iccid,
                 @JsonProperty("e_id")
-                final String eId, 
+                final String eId,
                 @JsonProperty("status")
-                final Sim.Status status, 
+                final Sim.Status status,
                 @JsonProperty("reset_status")
-                final Sim.ResetStatus resetStatus, 
+                final Sim.ResetStatus resetStatus,
                 @JsonProperty("commands_callback_url")
-                final URI commandsCallbackUrl, 
+                final URI commandsCallbackUrl,
                 @JsonProperty("commands_callback_method")
-                final HttpMethod commandsCallbackMethod, 
+                final HttpMethod commandsCallbackMethod,
                 @JsonProperty("sms_fallback_method")
-                final HttpMethod smsFallbackMethod, 
+                final HttpMethod smsFallbackMethod,
                 @JsonProperty("sms_fallback_url")
-                final URI smsFallbackUrl, 
+                final URI smsFallbackUrl,
                 @JsonProperty("sms_method")
-                final HttpMethod smsMethod, 
+                final HttpMethod smsMethod,
                 @JsonProperty("sms_url")
-                final URI smsUrl, 
+                final URI smsUrl,
                 @JsonProperty("voice_fallback_method")
-                final HttpMethod voiceFallbackMethod, 
+                final HttpMethod voiceFallbackMethod,
                 @JsonProperty("voice_fallback_url")
-                final URI voiceFallbackUrl, 
+                final URI voiceFallbackUrl,
                 @JsonProperty("voice_method")
-                final HttpMethod voiceMethod, 
+                final HttpMethod voiceMethod,
                 @JsonProperty("voice_url")
-                final URI voiceUrl, 
+                final URI voiceUrl,
                 @JsonProperty("date_created")
-                final String dateCreated, 
+                final String dateCreated,
                 @JsonProperty("date_updated")
-                final String dateUpdated, 
+                final String dateUpdated,
                 @JsonProperty("url")
-                final URI url, 
+                final URI url,
                 @JsonProperty("links")
-                final Map<String, String> links, 
+                final Map<String, String> links,
                 @JsonProperty("ip_address")
                 final String ipAddress) {
         this.sid = sid;
@@ -270,7 +270,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The A 34 character string that uniquely identifies this resource..
-     * 
+     *
      * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
@@ -280,7 +280,7 @@ public class Sim extends Resource {
     /**
      * Returns The A user-provided string that uniquely identifies this resource as
      * an alternative to the sid..
-     * 
+     *
      * @return A user-provided string that uniquely identifies this resource as an
      *         alternative to the sid.
      */
@@ -290,7 +290,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The unique id of the Account that this Sim belongs to..
-     * 
+     *
      * @return The unique id of the Account that this Sim belongs to.
      */
     public final String getAccountSid() {
@@ -299,7 +299,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The unique ID of the Rate Plan configured for this Sim..
-     * 
+     *
      * @return The unique ID of the Rate Plan configured for this Sim.
      */
     public final String getRatePlanSid() {
@@ -308,7 +308,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The A user-provided string that identifies this resource..
-     * 
+     *
      * @return A user-provided string that identifies this resource.
      */
     public final String getFriendlyName() {
@@ -317,7 +317,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The ICCID associated with the SIM..
-     * 
+     *
      * @return The ICCID associated with the SIM.
      */
     public final String getIccid() {
@@ -326,7 +326,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The e_id.
-     * 
+     *
      * @return The e_id
      */
     public final String getEId() {
@@ -335,7 +335,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The A string representing the status of the Sim..
-     * 
+     *
      * @return A string representing the status of the Sim.
      */
     public final Sim.Status getStatus() {
@@ -344,7 +344,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The A string representing the connectivity reset status of the Sim..
-     * 
+     *
      * @return A string representing the connectivity reset status of the Sim.
      */
     public final Sim.ResetStatus getResetStatus() {
@@ -354,7 +354,7 @@ public class Sim extends Resource {
     /**
      * Returns The The URL that will receive a webhook when this Sim originates a
      * machine-to-machine Command..
-     * 
+     *
      * @return The URL that will receive a webhook when this Sim originates a
      *         machine-to-machine Command.
      */
@@ -365,7 +365,7 @@ public class Sim extends Resource {
     /**
      * Returns The A string representing the HTTP method to use when making a
      * request to commands_callback_url..
-     * 
+     *
      * @return A string representing the HTTP method to use when making a request
      *         to commands_callback_url.
      */
@@ -376,7 +376,7 @@ public class Sim extends Resource {
     /**
      * Returns The The HTTP method Twilio will use when requesting the
      * sms_fallback_url..
-     * 
+     *
      * @return The HTTP method Twilio will use when requesting the sms_fallback_url.
      */
     public final HttpMethod getSmsFallbackMethod() {
@@ -386,7 +386,7 @@ public class Sim extends Resource {
     /**
      * Returns The The URL that Twilio will request if an error occurs retrieving or
      * executing the TwiML requested by sms_url..
-     * 
+     *
      * @return The URL that Twilio will request if an error occurs retrieving or
      *         executing the TwiML requested by sms_url.
      */
@@ -396,7 +396,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The HTTP method Twilio will use when requesting the above Url..
-     * 
+     *
      * @return The HTTP method Twilio will use when requesting the above Url.
      */
     public final HttpMethod getSmsMethod() {
@@ -406,7 +406,7 @@ public class Sim extends Resource {
     /**
      * Returns The The URL Twilio will request when the SIM-connected device send an
      * SMS that is not a Command..
-     * 
+     *
      * @return The URL Twilio will request when the SIM-connected device send an
      *         SMS that is not a Command.
      */
@@ -417,7 +417,7 @@ public class Sim extends Resource {
     /**
      * Returns The The HTTP method Twilio will use when requesting the
      * voice_fallback_url..
-     * 
+     *
      * @return The HTTP method Twilio will use when requesting the
      *         voice_fallback_url.
      */
@@ -428,7 +428,7 @@ public class Sim extends Resource {
     /**
      * Returns The The URL that Twilio will request if an error occurs retrieving or
      * executing the TwiML requested by voice_url..
-     * 
+     *
      * @return The URL that Twilio will request if an error occurs retrieving or
      *         executing the TwiML requested by voice_url.
      */
@@ -438,7 +438,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The HTTP method Twilio will use when requesting the above Url..
-     * 
+     *
      * @return The HTTP method Twilio will use when requesting the above Url.
      */
     public final HttpMethod getVoiceMethod() {
@@ -448,7 +448,7 @@ public class Sim extends Resource {
     /**
      * Returns The The URL Twilio will request when the SIM-connected device makes a
      * call..
-     * 
+     *
      * @return The URL Twilio will request when the SIM-connected device makes a
      *         call.
      */
@@ -459,7 +459,7 @@ public class Sim extends Resource {
     /**
      * Returns The The date that this resource was created, given as GMT in ISO 8601
      * format..
-     * 
+     *
      * @return The date that this resource was created, given as GMT in ISO 8601
      *         format.
      */
@@ -470,7 +470,7 @@ public class Sim extends Resource {
     /**
      * Returns The The date that this resource was last updated, given as GMT in ISO
      * 8601 format..
-     * 
+     *
      * @return The date that this resource was last updated, given as GMT in ISO
      *         8601 format.
      */
@@ -480,7 +480,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The URL for this resource..
-     * 
+     *
      * @return The URL for this resource.
      */
     public final URI getUrl() {
@@ -490,7 +490,7 @@ public class Sim extends Resource {
     /**
      * Returns The Each Sim instance resource supports a few subresources, listed
      * here for convenience..
-     * 
+     *
      * @return Each Sim instance resource supports a few subresources, listed here
      *         for convenience.
      */
@@ -500,7 +500,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The ip_address.
-     * 
+     *
      * @return The ip_address
      */
     public final String getIpAddress() {
@@ -519,29 +519,29 @@ public class Sim extends Resource {
 
         Sim other = (Sim) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(ratePlanSid, other.ratePlanSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(iccid, other.iccid) && 
-               Objects.equals(eId, other.eId) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(resetStatus, other.resetStatus) && 
-               Objects.equals(commandsCallbackUrl, other.commandsCallbackUrl) && 
-               Objects.equals(commandsCallbackMethod, other.commandsCallbackMethod) && 
-               Objects.equals(smsFallbackMethod, other.smsFallbackMethod) && 
-               Objects.equals(smsFallbackUrl, other.smsFallbackUrl) && 
-               Objects.equals(smsMethod, other.smsMethod) && 
-               Objects.equals(smsUrl, other.smsUrl) && 
-               Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) && 
-               Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) && 
-               Objects.equals(voiceMethod, other.voiceMethod) && 
-               Objects.equals(voiceUrl, other.voiceUrl) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(links, other.links) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(ratePlanSid, other.ratePlanSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(iccid, other.iccid) &&
+               Objects.equals(eId, other.eId) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(resetStatus, other.resetStatus) &&
+               Objects.equals(commandsCallbackUrl, other.commandsCallbackUrl) &&
+               Objects.equals(commandsCallbackMethod, other.commandsCallbackMethod) &&
+               Objects.equals(smsFallbackMethod, other.smsFallbackMethod) &&
+               Objects.equals(smsFallbackUrl, other.smsFallbackUrl) &&
+               Objects.equals(smsMethod, other.smsMethod) &&
+               Objects.equals(smsUrl, other.smsUrl) &&
+               Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) &&
+               Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) &&
+               Objects.equals(voiceMethod, other.voiceMethod) &&
+               Objects.equals(voiceUrl, other.voiceUrl) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(links, other.links) &&
                Objects.equals(ipAddress, other.ipAddress);
     }
 

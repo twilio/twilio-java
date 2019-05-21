@@ -28,7 +28,7 @@ public class SyncMapCreator extends Creator<SyncMap> {
 
     /**
      * Construct a new SyncMapCreator.
-     * 
+     *
      * @param pathServiceSid The service_sid
      */
     public SyncMapCreator(final String pathServiceSid) {
@@ -37,7 +37,7 @@ public class SyncMapCreator extends Creator<SyncMap> {
 
     /**
      * The unique_name.
-     * 
+     *
      * @param uniqueName The unique_name
      * @return this
      */
@@ -48,7 +48,7 @@ public class SyncMapCreator extends Creator<SyncMap> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created SyncMap
      */
@@ -87,7 +87,7 @@ public class SyncMapCreator extends Creator<SyncMap> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

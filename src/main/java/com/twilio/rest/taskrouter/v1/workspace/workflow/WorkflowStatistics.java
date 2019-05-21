@@ -37,12 +37,12 @@ public class WorkflowStatistics extends Resource {
 
     /**
      * Create a WorkflowStatisticsFetcher to execute fetch.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathWorkflowSid The workflow_sid
      * @return WorkflowStatisticsFetcher capable of executing the fetch
      */
-    public static WorkflowStatisticsFetcher fetcher(final String pathWorkspaceSid, 
+    public static WorkflowStatisticsFetcher fetcher(final String pathWorkspaceSid,
                                                     final String pathWorkflowSid) {
         return new WorkflowStatisticsFetcher(pathWorkspaceSid, pathWorkflowSid);
     }
@@ -50,7 +50,7 @@ public class WorkflowStatistics extends Resource {
     /**
      * Converts a JSON String into a WorkflowStatistics object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return WorkflowStatistics object represented by the provided JSON
@@ -69,7 +69,7 @@ public class WorkflowStatistics extends Resource {
     /**
      * Converts a JSON InputStream into a WorkflowStatistics object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return WorkflowStatistics object represented by the provided JSON
@@ -94,15 +94,15 @@ public class WorkflowStatistics extends Resource {
 
     @JsonCreator
     private WorkflowStatistics(@JsonProperty("account_sid")
-                               final String accountSid, 
+                               final String accountSid,
                                @JsonProperty("cumulative")
-                               final Map<String, Object> cumulative, 
+                               final Map<String, Object> cumulative,
                                @JsonProperty("realtime")
-                               final Map<String, Object> realtime, 
+                               final Map<String, Object> realtime,
                                @JsonProperty("workflow_sid")
-                               final String workflowSid, 
+                               final String workflowSid,
                                @JsonProperty("workspace_sid")
-                               final String workspaceSid, 
+                               final String workspaceSid,
                                @JsonProperty("url")
                                final URI url) {
         this.accountSid = accountSid;
@@ -115,7 +115,7 @@ public class WorkflowStatistics extends Resource {
 
     /**
      * Returns The The account_sid.
-     * 
+     *
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -124,7 +124,7 @@ public class WorkflowStatistics extends Resource {
 
     /**
      * Returns The The cumulative.
-     * 
+     *
      * @return The cumulative
      */
     public final Map<String, Object> getCumulative() {
@@ -133,7 +133,7 @@ public class WorkflowStatistics extends Resource {
 
     /**
      * Returns The The realtime.
-     * 
+     *
      * @return The realtime
      */
     public final Map<String, Object> getRealtime() {
@@ -142,7 +142,7 @@ public class WorkflowStatistics extends Resource {
 
     /**
      * Returns The The workflow_sid.
-     * 
+     *
      * @return The workflow_sid
      */
     public final String getWorkflowSid() {
@@ -151,7 +151,7 @@ public class WorkflowStatistics extends Resource {
 
     /**
      * Returns The The workspace_sid.
-     * 
+     *
      * @return The workspace_sid
      */
     public final String getWorkspaceSid() {
@@ -160,7 +160,7 @@ public class WorkflowStatistics extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -179,11 +179,11 @@ public class WorkflowStatistics extends Resource {
 
         WorkflowStatistics other = (WorkflowStatistics) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(cumulative, other.cumulative) && 
-               Objects.equals(realtime, other.realtime) && 
-               Objects.equals(workflowSid, other.workflowSid) && 
-               Objects.equals(workspaceSid, other.workspaceSid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(cumulative, other.cumulative) &&
+               Objects.equals(realtime, other.realtime) &&
+               Objects.equals(workflowSid, other.workflowSid) &&
+               Objects.equals(workspaceSid, other.workspaceSid) &&
                Objects.equals(url, other.url);
     }
 

@@ -53,13 +53,13 @@ public class CallCreator extends Creator<Call> {
 
     /**
      * Construct a new CallCreator.
-     * 
+     *
      * @param to Phone number, SIP address, or client identifier to call
      * @param from Twilio number from which to originate the call
      * @param url The absolute URL that returns TwiML for this call
      */
-    public CallCreator(final com.twilio.type.Endpoint to, 
-                       final com.twilio.type.PhoneNumber from, 
+    public CallCreator(final com.twilio.type.Endpoint to,
+                       final com.twilio.type.PhoneNumber from,
                        final URI url) {
         this.to = to;
         this.from = from;
@@ -68,15 +68,15 @@ public class CallCreator extends Creator<Call> {
 
     /**
      * Construct a new CallCreator.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param to Phone number, SIP address, or client identifier to call
      * @param from Twilio number from which to originate the call
      * @param url The absolute URL that returns TwiML for this call
      */
-    public CallCreator(final String pathAccountSid, 
-                       final com.twilio.type.Endpoint to, 
-                       final com.twilio.type.PhoneNumber from, 
+    public CallCreator(final String pathAccountSid,
+                       final com.twilio.type.Endpoint to,
+                       final com.twilio.type.PhoneNumber from,
                        final URI url) {
         this.pathAccountSid = pathAccountSid;
         this.to = to;
@@ -86,14 +86,14 @@ public class CallCreator extends Creator<Call> {
 
     /**
      * Construct a new CallCreator.
-     * 
+     *
      * @param to Phone number, SIP address, or client identifier to call
      * @param from Twilio number from which to originate the call
      * @param applicationSid The SID of the Application resource that will handle
      *                       the call
      */
-    public CallCreator(final com.twilio.type.Endpoint to, 
-                       final com.twilio.type.PhoneNumber from, 
+    public CallCreator(final com.twilio.type.Endpoint to,
+                       final com.twilio.type.PhoneNumber from,
                        final String applicationSid) {
         this.to = to;
         this.from = from;
@@ -102,16 +102,16 @@ public class CallCreator extends Creator<Call> {
 
     /**
      * Construct a new CallCreator.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param to Phone number, SIP address, or client identifier to call
      * @param from Twilio number from which to originate the call
      * @param applicationSid The SID of the Application resource that will handle
      *                       the call
      */
-    public CallCreator(final String pathAccountSid, 
-                       final com.twilio.type.Endpoint to, 
-                       final com.twilio.type.PhoneNumber from, 
+    public CallCreator(final String pathAccountSid,
+                       final com.twilio.type.Endpoint to,
+                       final com.twilio.type.PhoneNumber from,
                        final String applicationSid) {
         this.pathAccountSid = pathAccountSid;
         this.to = to;
@@ -123,7 +123,7 @@ public class CallCreator extends Creator<Call> {
      * The HTTP method we should use when calling the `url` parameter's value. Can
      * be: `GET` or `POST` and the default is `POST`. If an `application_sid`
      * parameter is present, this parameter is ignored..
-     * 
+     *
      * @param method HTTP method to use to fetch TwiML
      * @return this
      */
@@ -136,7 +136,7 @@ public class CallCreator extends Creator<Call> {
      * The URL that we call using the `fallback_method` if an error occurs when
      * requesting or executing the TwiML at `url`. If an `application_sid` parameter
      * is present, this parameter is ignored..
-     * 
+     *
      * @param fallbackUrl Fallback URL in case of error
      * @return this
      */
@@ -149,7 +149,7 @@ public class CallCreator extends Creator<Call> {
      * The URL that we call using the `fallback_method` if an error occurs when
      * requesting or executing the TwiML at `url`. If an `application_sid` parameter
      * is present, this parameter is ignored..
-     * 
+     *
      * @param fallbackUrl Fallback URL in case of error
      * @return this
      */
@@ -161,7 +161,7 @@ public class CallCreator extends Creator<Call> {
      * The HTTP method that we should use to request the `fallback_url`. Can be:
      * `GET` or `POST` and the default is `POST`. If an `application_sid` parameter
      * is present, this parameter is ignored..
-     * 
+     *
      * @param fallbackMethod HTTP Method to use with fallback_url
      * @return this
      */
@@ -176,7 +176,7 @@ public class CallCreator extends Creator<Call> {
      * we will send the `completed` status. If an `application_sid` parameter is
      * present, this parameter is ignored. URLs must contain a valid hostname
      * (underscores are not permitted)..
-     * 
+     *
      * @param statusCallback The URL we should call to send status information to
      *                       your application
      * @return this
@@ -192,7 +192,7 @@ public class CallCreator extends Creator<Call> {
      * we will send the `completed` status. If an `application_sid` parameter is
      * present, this parameter is ignored. URLs must contain a valid hostname
      * (underscores are not permitted)..
-     * 
+     *
      * @param statusCallback The URL we should call to send status information to
      *                       your application
      * @return this
@@ -208,7 +208,7 @@ public class CallCreator extends Creator<Call> {
      * events, specify each one in a separate `status_callback_event` parameter. See
      * the code sample for [monitoring call
      * progress](https://www.twilio.com/docs/voice/api/call?code-sample=code-create-a-call-and-specify-a-statuscallbackevent). If an `application_sid` is present, this parameter is ignored..
-     * 
+     *
      * @param statusCallbackEvent The call progress events that we send to the
      *                            `status_callback` URL.
      * @return this
@@ -225,7 +225,7 @@ public class CallCreator extends Creator<Call> {
      * events, specify each one in a separate `status_callback_event` parameter. See
      * the code sample for [monitoring call
      * progress](https://www.twilio.com/docs/voice/api/call?code-sample=code-create-a-call-and-specify-a-statuscallbackevent). If an `application_sid` is present, this parameter is ignored..
-     * 
+     *
      * @param statusCallbackEvent The call progress events that we send to the
      *                            `status_callback` URL.
      * @return this
@@ -238,7 +238,7 @@ public class CallCreator extends Creator<Call> {
      * The HTTP method we should use when calling the `status_callback` URL. Can be:
      * `GET` or `POST` and the default is `POST`. If an `application_sid` parameter
      * is present, this parameter is ignored..
-     * 
+     *
      * @param statusCallbackMethod HTTP Method to use with status_callback
      * @return this
      */
@@ -256,7 +256,7 @@ public class CallCreator extends Creator<Call> {
      * be `ww1234#`. Remember to URL-encode this string, since the '`#`' character
      * has special meaning in a URL. If both `SendDigits` and `MachineDetection`
      * parameters are provided, then `MachineDetection` will be ignored..
-     * 
+     *
      * @param sendDigits The digits to dial after connecting to the number
      * @return this
      */
@@ -273,7 +273,7 @@ public class CallCreator extends Creator<Call> {
      * could result in an actual timeout closer to 15 seconds. You can set this to a
      * short time, such as `15` seconds, to hang up before reaching an answering
      * machine or voicemail..
-     * 
+     *
      * @param timeout Number of seconds to wait for an answer
      * @return this
      */
@@ -285,7 +285,7 @@ public class CallCreator extends Creator<Call> {
     /**
      * Set this parameter to `true` to record the phone call. The `recording_url`
      * will be sent to the `status_callback` URL. The default is `false`..
-     * 
+     *
      * @param record Whether or not to record the call
      * @return this
      */
@@ -300,7 +300,7 @@ public class CallCreator extends Creator<Call> {
      * of the recording file. `dual` records each leg to a separate channel of the
      * recording file. The first channel of a dual-channel recording contains the
      * parent call and the second channel contains the child call..
-     * 
+     *
      * @param recordingChannels The number of channels in the final recording
      * @return this
      */
@@ -311,7 +311,7 @@ public class CallCreator extends Creator<Call> {
 
     /**
      * The URL that we call when the recording is available to be accessed..
-     * 
+     *
      * @param recordingStatusCallback The URL that we call when the recording is
      *                                available to be accessed
      * @return this
@@ -324,7 +324,7 @@ public class CallCreator extends Creator<Call> {
     /**
      * The HTTP method we should use when calling the `recording_status_callback`
      * URL. Can be: `GET` or `POST` and the default is `POST`..
-     * 
+     *
      * @param recordingStatusCallbackMethod The HTTP method we should use when
      *                                      calling the `recording_status_callback`
      *                                      URL
@@ -337,7 +337,7 @@ public class CallCreator extends Creator<Call> {
 
     /**
      * The username used to authenticate the caller making a SIP call..
-     * 
+     *
      * @param sipAuthUsername The username used to authenticate the caller making a
      *                        SIP call
      * @return this
@@ -350,7 +350,7 @@ public class CallCreator extends Creator<Call> {
     /**
      * The password required to authenticate the user account specified in
      * `sip_auth_username`..
-     * 
+     *
      * @param sipAuthPassword The password required to authenticate the user
      *                        account specified in `sip_auth_username`.
      * @return this
@@ -368,7 +368,7 @@ public class CallCreator extends Creator<Call> {
      * machine. If `send_digits` is provided, this parameter is ignored. For more
      * information, see [Answering Machine
      * Detection](https://www.twilio.com/docs/voice/answering-machine-detection)..
-     * 
+     *
      * @param machineDetection Enable machine detection or end of greeting detection
      * @return this
      */
@@ -381,7 +381,7 @@ public class CallCreator extends Creator<Call> {
      * The number of seconds that we should attempt to detect an answering machine
      * before timing out and sending a voice request with `AnsweredBy` of `unknown`.
      * The default timeout is 30 seconds..
-     * 
+     *
      * @param machineDetectionTimeout Number of seconds to wait for machine
      *                                detection
      * @return this
@@ -395,7 +395,7 @@ public class CallCreator extends Creator<Call> {
      * The recording status events that will trigger calls to the URL specified in
      * `recording_status_callback`. Can be: `in-progress`, `completed` and `absent`.
      * Defaults to `completed`. Separate  multiple values with a space..
-     * 
+     *
      * @param recordingStatusCallbackEvent The recording status events that will
      *                                     trigger calls to the URL specified in
      *                                     `recording_status_callback`
@@ -410,7 +410,7 @@ public class CallCreator extends Creator<Call> {
      * The recording status events that will trigger calls to the URL specified in
      * `recording_status_callback`. Can be: `in-progress`, `completed` and `absent`.
      * Defaults to `completed`. Separate  multiple values with a space..
-     * 
+     *
      * @param recordingStatusCallbackEvent The recording status events that will
      *                                     trigger calls to the URL specified in
      *                                     `recording_status_callback`
@@ -423,7 +423,7 @@ public class CallCreator extends Creator<Call> {
     /**
      * Whether to trim any leading and trailing silence from the recording. Can be:
      * `trim-silence` or `do-not-trim` and the default is `trim-silence`..
-     * 
+     *
      * @param trim Set this parameter to control trimming of silence on the
      *             recording.
      * @return this
@@ -438,7 +438,7 @@ public class CallCreator extends Creator<Call> {
      * Phone numbers are in [E.164
      * format](https://wwnw.twilio.com/docs/glossary/what-e164) (e.g.,
      * +16175551212). SIP addresses are formatted as `name@company.com`..
-     * 
+     *
      * @param callerId The phone number, SIP address, or Client identifier that
      *                 made this call. Phone numbers are in E.164 format (e.g.,
      *                 +16175551212). SIP addresses are formatted as
@@ -455,7 +455,7 @@ public class CallCreator extends Creator<Call> {
      * of the speech activity, where durations lower than this value will be
      * interpreted as a human and longer than this value as a machine. Possible
      * Values: 1000-6000. Default: 2400..
-     * 
+     *
      * @param machineDetectionSpeechThreshold Number of milliseconds for measuring
      *                                        stick for the length of the speech
      *                                        activity
@@ -470,7 +470,7 @@ public class CallCreator extends Creator<Call> {
      * The number of milliseconds of silence after speech activity at which point
      * the speech activity is considered complete. Possible Values: 500-5000.
      * Default: 1200..
-     * 
+     *
      * @param machineDetectionSpeechEndThreshold Number of milliseconds of silence
      *                                           after speech activity
      * @return this
@@ -484,7 +484,7 @@ public class CallCreator extends Creator<Call> {
      * The number of milliseconds of initial silence after which an `unknown`
      * AnsweredBy result will be returned. Possible Values: 2000-10000. Default:
      * 5000..
-     * 
+     *
      * @param machineDetectionSilenceTimeout Number of milliseconds of initial
      *                                       silence
      * @return this
@@ -499,7 +499,7 @@ public class CallCreator extends Creator<Call> {
      * call this URL using the `method` when the call connects. For more
      * information, see the [Url
      * Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls)..
-     * 
+     *
      * @param url The absolute URL that returns TwiML for this call
      * @return this
      */
@@ -513,7 +513,7 @@ public class CallCreator extends Creator<Call> {
      * call this URL using the `method` when the call connects. For more
      * information, see the [Url
      * Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls)..
-     * 
+     *
      * @param url The absolute URL that returns TwiML for this call
      * @return this
      */
@@ -524,7 +524,7 @@ public class CallCreator extends Creator<Call> {
     /**
      * The SID of the Application resource that will handle the call, if the call
      * will be handled by an application..
-     * 
+     *
      * @param applicationSid The SID of the Application resource that will handle
      *                       the call
      * @return this
@@ -536,7 +536,7 @@ public class CallCreator extends Creator<Call> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Call
      */
@@ -576,7 +576,7 @@ public class CallCreator extends Creator<Call> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

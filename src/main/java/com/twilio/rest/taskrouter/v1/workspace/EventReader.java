@@ -37,7 +37,7 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Construct a new EventReader.
-     * 
+     *
      * @param pathWorkspaceSid Filter events by those pertaining to a particular
      *                         workspace
      */
@@ -48,7 +48,7 @@ public class EventReader extends Reader<Event> {
     /**
      * Filter events by an end date. This is helpful for defining a range of events
      * to capture. Input is a GMT ISO 8601 Timestamp..
-     * 
+     *
      * @param endDate Filter events by an end date.
      * @return this
      */
@@ -59,7 +59,7 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Filter events by those of a certain event type.
-     * 
+     *
      * @param eventType Filter events by those of a certain event type
      * @return this
      */
@@ -72,7 +72,7 @@ public class EventReader extends Reader<Event> {
      * Filter events by up to 'x' minutes in the past. This is helpful for events
      * for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to
      * see trends. Defaults to 15 minutes..
-     * 
+     *
      * @param minutes Filter events by up to 'x' minutes in the past.
      * @return this
      */
@@ -83,7 +83,7 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Filter events by those pertaining to a particular reservation.
-     * 
+     *
      * @param reservationSid Filter events by those pertaining to a particular
      *                       reservation
      * @return this
@@ -96,7 +96,7 @@ public class EventReader extends Reader<Event> {
     /**
      * Filter events by a start date. This is helpful for defining a range of events
      * to capture. Input is a GMT ISO 8601 Timestamp..
-     * 
+     *
      * @param startDate Filter events by a start date.
      * @return this
      */
@@ -107,7 +107,7 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Filter events by those pertaining to a particular queue.
-     * 
+     *
      * @param taskQueueSid Filter events by those pertaining to a particular queue
      * @return this
      */
@@ -118,7 +118,7 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Filter events by those pertaining to a particular task.
-     * 
+     *
      * @param taskSid Filter events by those pertaining to a particular task
      * @return this
      */
@@ -129,7 +129,7 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Filter events by those pertaining to a particular worker.
-     * 
+     *
      * @param workerSid Filter events by those pertaining to a particular worker
      * @return this
      */
@@ -140,7 +140,7 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Filter events by those pertaining to a particular workflow.
-     * 
+     *
      * @param workflowSid Filter events by those pertaining to a particular workflow
      * @return this
      */
@@ -151,7 +151,7 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Filter events by those pertaining to a particular task channel.
-     * 
+     *
      * @param taskChannel Filter events by those pertaining to a particular task
      *                    channel
      * @return this
@@ -163,7 +163,7 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Filter events by those pertaining to a particular event.
-     * 
+     *
      * @param sid Filter events by those pertaining to a particular event
      * @return this
      */
@@ -174,7 +174,7 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Event ResourceSet
      */
@@ -185,7 +185,7 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Event ResourceSet
      */
@@ -205,7 +205,7 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Event ResourceSet
@@ -223,13 +223,13 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Event> nextPage(final Page<Event> page, 
+    public Page<Event> nextPage(final Page<Event> page,
                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -243,13 +243,13 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Event> previousPage(final Page<Event> page, 
+    public Page<Event> previousPage(final Page<Event> page,
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -263,7 +263,7 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Generate a Page of Event Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -298,7 +298,7 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

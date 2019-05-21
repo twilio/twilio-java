@@ -35,7 +35,7 @@ public class RoomCreator extends Creator<Room> {
     /**
      * Use Twilio Network Traversal for TURN service. Defaults to true. Only
      * applicable to Rooms with type `peer-to-peer`..
-     * 
+     *
      * @param enableTurn Use Twilio Network Traversal for TURN service.
      * @return this
      */
@@ -47,7 +47,7 @@ public class RoomCreator extends Creator<Room> {
     /**
      * Type of room, either `peer-to-peer`, `group-small` or `group`. Will be
      * `group` by default..
-     * 
+     *
      * @param type Type of room, either peer-to-peer, group-small or group.
      * @return this
      */
@@ -59,7 +59,7 @@ public class RoomCreator extends Creator<Room> {
     /**
      * Name of the Room.  This is unique for `in-progress` rooms. If not provided,
      * Room name will be set to the Room Sid..
-     * 
+     *
      * @param uniqueName Name of the Room.
      * @return this
      */
@@ -71,7 +71,7 @@ public class RoomCreator extends Creator<Room> {
     /**
      * A URL that Twilio sends asynchronous webhook requests to on every room event.
      * If not provided, status callback events will not be dispatched..
-     * 
+     *
      * @param statusCallback A URL that Twilio sends asynchronous webhook requests
      *                       to on every room event.
      * @return this
@@ -84,7 +84,7 @@ public class RoomCreator extends Creator<Room> {
     /**
      * A URL that Twilio sends asynchronous webhook requests to on every room event.
      * If not provided, status callback events will not be dispatched..
-     * 
+     *
      * @param statusCallback A URL that Twilio sends asynchronous webhook requests
      *                       to on every room event.
      * @return this
@@ -96,7 +96,7 @@ public class RoomCreator extends Creator<Room> {
     /**
      * HTTP method Twilio should use when requesting the above URL. Defaults to
      * `POST`..
-     * 
+     *
      * @param statusCallbackMethod HTTP method Twilio should use when requesting
      *                             the above URL.
      * @return this
@@ -110,7 +110,7 @@ public class RoomCreator extends Creator<Room> {
      * Maximum number of Participants in the Room. Peer-to-peer rooms can have a
      * maximum of 10 Participants. Small Group rooms can have a max of 4
      * Participants. Group rooms can have a max of 50 Participants.
-     * 
+     *
      * @param maxParticipants Maximum number of Participants in the Room.
      * @return this
      */
@@ -122,7 +122,7 @@ public class RoomCreator extends Creator<Room> {
     /**
      * Start Participant recording when connected. ***This feature is not available
      * in `peer-to-peer` rooms.***.
-     * 
+     *
      * @param recordParticipantsOnConnect Start Participant recording when
      *                                    connected.
      * @return this
@@ -133,10 +133,10 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * An array of video codecs supported when publishing a Track in the Room. 
+     * An array of video codecs supported when publishing a Track in the Room.
      * `VP8` and `H264` codecs are supported.  ***This feature is not available in
      * `peer-to-peer` rooms***.
-     * 
+     *
      * @param videoCodecs An array of video codecs supported when publishing a
      *                    Track in the Room.
      * @return this
@@ -147,10 +147,10 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * An array of video codecs supported when publishing a Track in the Room. 
+     * An array of video codecs supported when publishing a Track in the Room.
      * `VP8` and `H264` codecs are supported.  ***This feature is not available in
      * `peer-to-peer` rooms***.
-     * 
+     *
      * @param videoCodecs An array of video codecs supported when publishing a
      *                    Track in the Room.
      * @return this
@@ -163,7 +163,7 @@ public class RoomCreator extends Creator<Room> {
      * Region for the media server in Group Rooms.  Default region is `us1`.  See
      * the list of [available Media
      * Regions.](https://www.twilio.com/docs/api/video/ip-address-whitelisting#group-rooms-media-servers)***This feature is not available in `peer-to-peer` rooms.***.
-     * 
+     *
      * @param mediaRegion Region for the media server in Group Rooms.
      * @return this
      */
@@ -174,7 +174,7 @@ public class RoomCreator extends Creator<Room> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Room
      */
@@ -213,7 +213,7 @@ public class RoomCreator extends Creator<Room> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

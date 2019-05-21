@@ -29,13 +29,13 @@ public class FieldDeleter extends Deleter<Field> {
 
     /**
      * Construct a new FieldDeleter.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant.
      * @param pathTaskSid The unique ID of the Task associated with this Field.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
-    public FieldDeleter(final String pathAssistantSid, 
-                        final String pathTaskSid, 
+    public FieldDeleter(final String pathAssistantSid,
+                        final String pathTaskSid,
                         final String pathSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathTaskSid = pathTaskSid;
@@ -44,7 +44,7 @@ public class FieldDeleter extends Deleter<Field> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

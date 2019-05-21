@@ -63,7 +63,7 @@ public class UsageRecord extends Resource {
 
     /**
      * Create a UsageRecordReader to execute read.
-     * 
+     *
      * @param pathSimSid The sim_sid
      * @return UsageRecordReader capable of executing the read
      */
@@ -74,7 +74,7 @@ public class UsageRecord extends Resource {
     /**
      * Converts a JSON String into a UsageRecord object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return UsageRecord object represented by the provided JSON
@@ -93,7 +93,7 @@ public class UsageRecord extends Resource {
     /**
      * Converts a JSON InputStream into a UsageRecord object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return UsageRecord object represented by the provided JSON
@@ -117,13 +117,13 @@ public class UsageRecord extends Resource {
 
     @JsonCreator
     private UsageRecord(@JsonProperty("sim_sid")
-                        final String simSid, 
+                        final String simSid,
                         @JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("period")
-                        final Map<String, Object> period, 
+                        final Map<String, Object> period,
                         @JsonProperty("commands")
-                        final Map<String, Object> commands, 
+                        final Map<String, Object> commands,
                         @JsonProperty("data")
                         final Map<String, Object> data) {
         this.simSid = simSid;
@@ -135,7 +135,7 @@ public class UsageRecord extends Resource {
 
     /**
      * Returns The The unique id of the SIM resource that this Usage Record is for..
-     * 
+     *
      * @return The unique id of the SIM resource that this Usage Record is for.
      */
     public final String getSimSid() {
@@ -144,7 +144,7 @@ public class UsageRecord extends Resource {
 
     /**
      * Returns The The unique id of the Account that the SIM belongs to..
-     * 
+     *
      * @return The unique id of the Account that the SIM belongs to.
      */
     public final String getAccountSid() {
@@ -153,7 +153,7 @@ public class UsageRecord extends Resource {
 
     /**
      * Returns The The time period for which usage is reported..
-     * 
+     *
      * @return The time period for which usage is reported.
      */
     public final Map<String, Object> getPeriod() {
@@ -163,7 +163,7 @@ public class UsageRecord extends Resource {
     /**
      * Returns The An object representing the Commands usage for the SIM over the
      * period..
-     * 
+     *
      * @return An object representing the Commands usage for the SIM over the
      *         period.
      */
@@ -174,7 +174,7 @@ public class UsageRecord extends Resource {
     /**
      * Returns The An object representing the Data usage for the SIM over the
      * period..
-     * 
+     *
      * @return An object representing the Data usage for the SIM over the period.
      */
     public final Map<String, Object> getData() {
@@ -193,10 +193,10 @@ public class UsageRecord extends Resource {
 
         UsageRecord other = (UsageRecord) o;
 
-        return Objects.equals(simSid, other.simSid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(period, other.period) && 
-               Objects.equals(commands, other.commands) && 
+        return Objects.equals(simSid, other.simSid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(period, other.period) &&
+               Objects.equals(commands, other.commands) &&
                Objects.equals(data, other.data);
     }
 

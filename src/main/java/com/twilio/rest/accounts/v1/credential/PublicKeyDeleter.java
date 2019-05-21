@@ -22,7 +22,7 @@ public class PublicKeyDeleter extends Deleter<PublicKey> {
 
     /**
      * Construct a new PublicKeyDeleter.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public PublicKeyDeleter(final String pathSid) {
@@ -31,7 +31,7 @@ public class PublicKeyDeleter extends Deleter<PublicKey> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

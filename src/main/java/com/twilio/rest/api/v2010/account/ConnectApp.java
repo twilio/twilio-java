@@ -63,20 +63,20 @@ public class ConnectApp extends Resource {
 
     /**
      * Create a ConnectAppFetcher to execute fetch.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource to
      *                       fetch
      * @param pathSid The unique string that identifies the resource
      * @return ConnectAppFetcher capable of executing the fetch
      */
-    public static ConnectAppFetcher fetcher(final String pathAccountSid, 
+    public static ConnectAppFetcher fetcher(final String pathAccountSid,
                                             final String pathSid) {
         return new ConnectAppFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a ConnectAppFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return ConnectAppFetcher capable of executing the fetch
      */
@@ -86,20 +86,20 @@ public class ConnectApp extends Resource {
 
     /**
      * Create a ConnectAppUpdater to execute update.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       update
      * @param pathSid The unique string that identifies the resource
      * @return ConnectAppUpdater capable of executing the update
      */
-    public static ConnectAppUpdater updater(final String pathAccountSid, 
+    public static ConnectAppUpdater updater(final String pathAccountSid,
                                             final String pathSid) {
         return new ConnectAppUpdater(pathAccountSid, pathSid);
     }
 
     /**
      * Create a ConnectAppUpdater to execute update.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return ConnectAppUpdater capable of executing the update
      */
@@ -109,7 +109,7 @@ public class ConnectApp extends Resource {
 
     /**
      * Create a ConnectAppReader to execute read.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       read
      * @return ConnectAppReader capable of executing the read
@@ -120,7 +120,7 @@ public class ConnectApp extends Resource {
 
     /**
      * Create a ConnectAppReader to execute read.
-     * 
+     *
      * @return ConnectAppReader capable of executing the read
      */
     public static ConnectAppReader reader() {
@@ -129,20 +129,20 @@ public class ConnectApp extends Resource {
 
     /**
      * Create a ConnectAppDeleter to execute delete.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource to
      *                       fetch
      * @param pathSid The unique string that identifies the resource
      * @return ConnectAppDeleter capable of executing the delete
      */
-    public static ConnectAppDeleter deleter(final String pathAccountSid, 
+    public static ConnectAppDeleter deleter(final String pathAccountSid,
                                             final String pathSid) {
         return new ConnectAppDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a ConnectAppDeleter to execute delete.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return ConnectAppDeleter capable of executing the delete
      */
@@ -153,7 +153,7 @@ public class ConnectApp extends Resource {
     /**
      * Converts a JSON String into a ConnectApp object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ConnectApp object represented by the provided JSON
@@ -172,7 +172,7 @@ public class ConnectApp extends Resource {
     /**
      * Converts a JSON InputStream into a ConnectApp object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ConnectApp object represented by the provided JSON
@@ -202,25 +202,25 @@ public class ConnectApp extends Resource {
 
     @JsonCreator
     private ConnectApp(@JsonProperty("account_sid")
-                       final String accountSid, 
+                       final String accountSid,
                        @JsonProperty("authorize_redirect_url")
-                       final URI authorizeRedirectUrl, 
+                       final URI authorizeRedirectUrl,
                        @JsonProperty("company_name")
-                       final String companyName, 
+                       final String companyName,
                        @JsonProperty("deauthorize_callback_method")
-                       final HttpMethod deauthorizeCallbackMethod, 
+                       final HttpMethod deauthorizeCallbackMethod,
                        @JsonProperty("deauthorize_callback_url")
-                       final URI deauthorizeCallbackUrl, 
+                       final URI deauthorizeCallbackUrl,
                        @JsonProperty("description")
-                       final String description, 
+                       final String description,
                        @JsonProperty("friendly_name")
-                       final String friendlyName, 
+                       final String friendlyName,
                        @JsonProperty("homepage_url")
-                       final URI homepageUrl, 
+                       final URI homepageUrl,
                        @JsonProperty("permissions")
-                       final List<ConnectApp.Permission> permissions, 
+                       final List<ConnectApp.Permission> permissions,
                        @JsonProperty("sid")
-                       final String sid, 
+                       final String sid,
                        @JsonProperty("uri")
                        final String uri) {
         this.accountSid = accountSid;
@@ -238,7 +238,7 @@ public class ConnectApp extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -247,7 +247,7 @@ public class ConnectApp extends Resource {
 
     /**
      * Returns The The URL to redirect the user to after authorization.
-     * 
+     *
      * @return The URL to redirect the user to after authorization
      */
     public final URI getAuthorizeRedirectUrl() {
@@ -256,7 +256,7 @@ public class ConnectApp extends Resource {
 
     /**
      * Returns The The company name set for the Connect App.
-     * 
+     *
      * @return The company name set for the Connect App
      */
     public final String getCompanyName() {
@@ -265,7 +265,7 @@ public class ConnectApp extends Resource {
 
     /**
      * Returns The The HTTP method we use to call deauthorize_callback_url.
-     * 
+     *
      * @return The HTTP method we use to call deauthorize_callback_url
      */
     public final HttpMethod getDeauthorizeCallbackMethod() {
@@ -274,7 +274,7 @@ public class ConnectApp extends Resource {
 
     /**
      * Returns The The URL we call to de-authorize the Connect App.
-     * 
+     *
      * @return The URL we call to de-authorize the Connect App
      */
     public final URI getDeauthorizeCallbackUrl() {
@@ -283,7 +283,7 @@ public class ConnectApp extends Resource {
 
     /**
      * Returns The The description of the Connect App.
-     * 
+     *
      * @return The description of the Connect App
      */
     public final String getDescription() {
@@ -292,7 +292,7 @@ public class ConnectApp extends Resource {
 
     /**
      * Returns The The string that you assigned to describe the resource.
-     * 
+     *
      * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
@@ -301,7 +301,7 @@ public class ConnectApp extends Resource {
 
     /**
      * Returns The The URL users can obtain more information.
-     * 
+     *
      * @return The URL users can obtain more information
      */
     public final URI getHomepageUrl() {
@@ -310,7 +310,7 @@ public class ConnectApp extends Resource {
 
     /**
      * Returns The The set of permissions that your ConnectApp requests.
-     * 
+     *
      * @return The set of permissions that your ConnectApp requests
      */
     public final List<ConnectApp.Permission> getPermissions() {
@@ -319,7 +319,7 @@ public class ConnectApp extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -328,7 +328,7 @@ public class ConnectApp extends Resource {
 
     /**
      * Returns The The URI of the resource, relative to `https://api.twilio.com`.
-     * 
+     *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
@@ -347,16 +347,16 @@ public class ConnectApp extends Resource {
 
         ConnectApp other = (ConnectApp) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(authorizeRedirectUrl, other.authorizeRedirectUrl) && 
-               Objects.equals(companyName, other.companyName) && 
-               Objects.equals(deauthorizeCallbackMethod, other.deauthorizeCallbackMethod) && 
-               Objects.equals(deauthorizeCallbackUrl, other.deauthorizeCallbackUrl) && 
-               Objects.equals(description, other.description) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(homepageUrl, other.homepageUrl) && 
-               Objects.equals(permissions, other.permissions) && 
-               Objects.equals(sid, other.sid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(authorizeRedirectUrl, other.authorizeRedirectUrl) &&
+               Objects.equals(companyName, other.companyName) &&
+               Objects.equals(deauthorizeCallbackMethod, other.deauthorizeCallbackMethod) &&
+               Objects.equals(deauthorizeCallbackUrl, other.deauthorizeCallbackUrl) &&
+               Objects.equals(description, other.description) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(homepageUrl, other.homepageUrl) &&
+               Objects.equals(permissions, other.permissions) &&
+               Objects.equals(sid, other.sid) &&
                Objects.equals(uri, other.uri);
     }
 

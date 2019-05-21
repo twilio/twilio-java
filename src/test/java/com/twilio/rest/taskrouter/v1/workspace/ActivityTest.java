@@ -42,7 +42,7 @@ public class ActivityTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Activities/WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class ActivityTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Activities/WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -106,7 +106,7 @@ public class ActivityTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Activities/WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -138,7 +138,7 @@ public class ActivityTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Activities");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

@@ -29,7 +29,7 @@ public class TriggerUpdater extends Updater<Trigger> {
 
     /**
      * Construct a new TriggerUpdater.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public TriggerUpdater(final String pathSid) {
@@ -38,12 +38,12 @@ public class TriggerUpdater extends Updater<Trigger> {
 
     /**
      * Construct a new TriggerUpdater.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       update
      * @param pathSid The unique string that identifies the resource
      */
-    public TriggerUpdater(final String pathAccountSid, 
+    public TriggerUpdater(final String pathAccountSid,
                           final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -52,7 +52,7 @@ public class TriggerUpdater extends Updater<Trigger> {
     /**
      * The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST`
      * and the default is `POST`..
-     * 
+     *
      * @param callbackMethod The HTTP method to use to call callback_url
      * @return this
      */
@@ -63,7 +63,7 @@ public class TriggerUpdater extends Updater<Trigger> {
 
     /**
      * The URL we should call using `callback_method` when the trigger fires..
-     * 
+     *
      * @param callbackUrl The URL we call when the trigger fires
      * @return this
      */
@@ -74,7 +74,7 @@ public class TriggerUpdater extends Updater<Trigger> {
 
     /**
      * The URL we should call using `callback_method` when the trigger fires..
-     * 
+     *
      * @param callbackUrl The URL we call when the trigger fires
      * @return this
      */
@@ -85,7 +85,7 @@ public class TriggerUpdater extends Updater<Trigger> {
     /**
      * A descriptive string that you create to describe the resource. It can be up
      * to 64 characters long..
-     * 
+     *
      * @param friendlyName A string to describe the resource
      * @return this
      */
@@ -96,7 +96,7 @@ public class TriggerUpdater extends Updater<Trigger> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Trigger
      */
@@ -136,7 +136,7 @@ public class TriggerUpdater extends Updater<Trigger> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

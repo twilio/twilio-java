@@ -43,26 +43,26 @@ public class SubscribeRules extends Resource {
 
     /**
      * Create a SubscribeRulesFetcher to execute fetch.
-     * 
+     *
      * @param pathRoomSid Unique Room identifier where the Subscribe Rules apply
      * @param pathParticipantSid Unique Participant identifier to apply Subscribe
      *                           Rules.
      * @return SubscribeRulesFetcher capable of executing the fetch
      */
-    public static SubscribeRulesFetcher fetcher(final String pathRoomSid, 
+    public static SubscribeRulesFetcher fetcher(final String pathRoomSid,
                                                 final String pathParticipantSid) {
         return new SubscribeRulesFetcher(pathRoomSid, pathParticipantSid);
     }
 
     /**
      * Create a SubscribeRulesUpdater to execute update.
-     * 
+     *
      * @param pathRoomSid Unique Room identifier where the Subscribe Rules apply
      * @param pathParticipantSid Unique Participant identifier to apply Subscribe
      *                           Rules.
      * @return SubscribeRulesUpdater capable of executing the update
      */
-    public static SubscribeRulesUpdater updater(final String pathRoomSid, 
+    public static SubscribeRulesUpdater updater(final String pathRoomSid,
                                                 final String pathParticipantSid) {
         return new SubscribeRulesUpdater(pathRoomSid, pathParticipantSid);
     }
@@ -70,7 +70,7 @@ public class SubscribeRules extends Resource {
     /**
      * Converts a JSON String into a SubscribeRules object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SubscribeRules object represented by the provided JSON
@@ -89,7 +89,7 @@ public class SubscribeRules extends Resource {
     /**
      * Converts a JSON InputStream into a SubscribeRules object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SubscribeRules object represented by the provided JSON
@@ -113,13 +113,13 @@ public class SubscribeRules extends Resource {
 
     @JsonCreator
     private SubscribeRules(@JsonProperty("participant_sid")
-                           final String participantSid, 
+                           final String participantSid,
                            @JsonProperty("room_sid")
-                           final String roomSid, 
+                           final String roomSid,
                            @JsonProperty("rules")
-                           final List<Map<String, Object>> rules, 
+                           final List<Map<String, Object>> rules,
                            @JsonProperty("date_created")
-                           final String dateCreated, 
+                           final String dateCreated,
                            @JsonProperty("date_updated")
                            final String dateUpdated) {
         this.participantSid = participantSid;
@@ -131,7 +131,7 @@ public class SubscribeRules extends Resource {
 
     /**
      * Returns The The unique Participant identifier for the Subscribe Rules..
-     * 
+     *
      * @return The unique Participant identifier for the Subscribe Rules.
      */
     public final String getParticipantSid() {
@@ -140,7 +140,7 @@ public class SubscribeRules extends Resource {
 
     /**
      * Returns The The unique Room identifier for the Subscribe Rules.
-     * 
+     *
      * @return The unique Room identifier for the Subscribe Rules
      */
     public final String getRoomSid() {
@@ -150,7 +150,7 @@ public class SubscribeRules extends Resource {
     /**
      * Returns The A collection of Subscribe Rules to include or exclude matching
      * Tracks..
-     * 
+     *
      * @return A collection of Subscribe Rules to include or exclude matching
      *         Tracks.
      */
@@ -160,7 +160,7 @@ public class SubscribeRules extends Resource {
 
     /**
      * Returns The The date that this resource was created..
-     * 
+     *
      * @return The date that this resource was created.
      */
     public final DateTime getDateCreated() {
@@ -169,7 +169,7 @@ public class SubscribeRules extends Resource {
 
     /**
      * Returns The The date that this resource was last updated..
-     * 
+     *
      * @return The date that this resource was last updated.
      */
     public final DateTime getDateUpdated() {
@@ -188,10 +188,10 @@ public class SubscribeRules extends Resource {
 
         SubscribeRules other = (SubscribeRules) o;
 
-        return Objects.equals(participantSid, other.participantSid) && 
-               Objects.equals(roomSid, other.roomSid) && 
-               Objects.equals(rules, other.rules) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
+        return Objects.equals(participantSid, other.participantSid) &&
+               Objects.equals(roomSid, other.roomSid) &&
+               Objects.equals(rules, other.rules) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated);
     }
 

@@ -36,7 +36,7 @@ public class NotificationReader extends Reader<Notification> {
 
     /**
      * Construct a new NotificationReader.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       read
      */
@@ -48,7 +48,7 @@ public class NotificationReader extends Reader<Notification> {
      * Only read notifications of the specified log level. Can be:  `0` to read only
      * ERROR notifications or `1` to read only WARNING notifications. By default,
      * all notifications are read..
-     * 
+     *
      * @param log Filter by log level
      * @return this
      */
@@ -62,7 +62,7 @@ public class NotificationReader extends Reader<Notification> {
      * You can also specify an inequality, such as `&lt;=YYYY-MM-DD` for messages
      * logged at or before midnight on a date, or `&gt;=YYYY-MM-DD` for messages
      * logged at or after midnight on a date..
-     * 
+     *
      * @param absoluteMessageDate Filter by date
      * @return this
      */
@@ -77,7 +77,7 @@ public class NotificationReader extends Reader<Notification> {
      * You can also specify an inequality, such as `&lt;=YYYY-MM-DD` for messages
      * logged at or before midnight on a date, or `&gt;=YYYY-MM-DD` for messages
      * logged at or after midnight on a date..
-     * 
+     *
      * @param rangeMessageDate Filter by date
      * @return this
      */
@@ -89,7 +89,7 @@ public class NotificationReader extends Reader<Notification> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Notification ResourceSet
      */
@@ -100,7 +100,7 @@ public class NotificationReader extends Reader<Notification> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Notification ResourceSet
      */
@@ -121,7 +121,7 @@ public class NotificationReader extends Reader<Notification> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Notification ResourceSet
@@ -140,13 +140,13 @@ public class NotificationReader extends Reader<Notification> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Notification> nextPage(final Page<Notification> page, 
+    public Page<Notification> nextPage(final Page<Notification> page,
                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -160,13 +160,13 @@ public class NotificationReader extends Reader<Notification> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Notification> previousPage(final Page<Notification> page, 
+    public Page<Notification> previousPage(final Page<Notification> page,
                                            final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -180,7 +180,7 @@ public class NotificationReader extends Reader<Notification> {
 
     /**
      * Generate a Page of Notification Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -215,7 +215,7 @@ public class NotificationReader extends Reader<Notification> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

@@ -27,7 +27,7 @@ public class CompositionFetcher extends Fetcher<Composition> {
 
     /**
      * Construct a new CompositionFetcher.
-     * 
+     *
      * @param pathSid The Composition Sid that uniquely identifies the Composition
      *                to fetch.
      */
@@ -37,7 +37,7 @@ public class CompositionFetcher extends Fetcher<Composition> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Composition
      */

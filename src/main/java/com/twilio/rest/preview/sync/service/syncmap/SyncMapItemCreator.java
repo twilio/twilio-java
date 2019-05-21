@@ -33,15 +33,15 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
 
     /**
      * Construct a new SyncMapItemCreator.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathMapSid The map_sid
      * @param key The key
      * @param data The data
      */
-    public SyncMapItemCreator(final String pathServiceSid, 
-                              final String pathMapSid, 
-                              final String key, 
+    public SyncMapItemCreator(final String pathServiceSid,
+                              final String pathMapSid,
+                              final String key,
                               final Map<String, Object> data) {
         this.pathServiceSid = pathServiceSid;
         this.pathMapSid = pathMapSid;
@@ -51,7 +51,7 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created SyncMapItem
      */
@@ -90,7 +90,7 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

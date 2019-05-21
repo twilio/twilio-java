@@ -65,7 +65,7 @@ public class Engagement extends Resource {
 
     /**
      * Create a EngagementReader to execute read.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      * @return EngagementReader capable of executing the read
      */
@@ -75,39 +75,39 @@ public class Engagement extends Resource {
 
     /**
      * Create a EngagementFetcher to execute fetch.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      * @param pathSid Engagement Sid.
      * @return EngagementFetcher capable of executing the fetch
      */
-    public static EngagementFetcher fetcher(final String pathFlowSid, 
+    public static EngagementFetcher fetcher(final String pathFlowSid,
                                             final String pathSid) {
         return new EngagementFetcher(pathFlowSid, pathSid);
     }
 
     /**
      * Create a EngagementCreator to execute create.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      * @param to The Contact phone number to start a Studio Flow Engagement.
      * @param from The Twilio phone number to send messages or initiate calls from
      *             during the Flow Engagement.
      * @return EngagementCreator capable of executing the create
      */
-    public static EngagementCreator creator(final String pathFlowSid, 
-                                            final com.twilio.type.PhoneNumber to, 
+    public static EngagementCreator creator(final String pathFlowSid,
+                                            final com.twilio.type.PhoneNumber to,
                                             final com.twilio.type.PhoneNumber from) {
         return new EngagementCreator(pathFlowSid, to, from);
     }
 
     /**
      * Create a EngagementDeleter to execute delete.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      * @param pathSid Engagement Sid.
      * @return EngagementDeleter capable of executing the delete
      */
-    public static EngagementDeleter deleter(final String pathFlowSid, 
+    public static EngagementDeleter deleter(final String pathFlowSid,
                                             final String pathSid) {
         return new EngagementDeleter(pathFlowSid, pathSid);
     }
@@ -115,7 +115,7 @@ public class Engagement extends Resource {
     /**
      * Converts a JSON String into a Engagement object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Engagement object represented by the provided JSON
@@ -134,7 +134,7 @@ public class Engagement extends Resource {
     /**
      * Converts a JSON InputStream into a Engagement object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Engagement object represented by the provided JSON
@@ -164,25 +164,25 @@ public class Engagement extends Resource {
 
     @JsonCreator
     private Engagement(@JsonProperty("sid")
-                       final String sid, 
+                       final String sid,
                        @JsonProperty("account_sid")
-                       final String accountSid, 
+                       final String accountSid,
                        @JsonProperty("flow_sid")
-                       final String flowSid, 
+                       final String flowSid,
                        @JsonProperty("contact_sid")
-                       final String contactSid, 
+                       final String contactSid,
                        @JsonProperty("contact_channel_address")
-                       final String contactChannelAddress, 
+                       final String contactChannelAddress,
                        @JsonProperty("context")
-                       final Map<String, Object> context, 
+                       final Map<String, Object> context,
                        @JsonProperty("status")
-                       final Engagement.Status status, 
+                       final Engagement.Status status,
                        @JsonProperty("date_created")
-                       final String dateCreated, 
+                       final String dateCreated,
                        @JsonProperty("date_updated")
-                       final String dateUpdated, 
+                       final String dateUpdated,
                        @JsonProperty("url")
-                       final URI url, 
+                       final URI url,
                        @JsonProperty("links")
                        final Map<String, String> links) {
         this.sid = sid;
@@ -200,7 +200,7 @@ public class Engagement extends Resource {
 
     /**
      * Returns The A string that uniquely identifies this Engagement..
-     * 
+     *
      * @return A string that uniquely identifies this Engagement.
      */
     public final String getSid() {
@@ -209,7 +209,7 @@ public class Engagement extends Resource {
 
     /**
      * Returns The Account Sid..
-     * 
+     *
      * @return Account Sid.
      */
     public final String getAccountSid() {
@@ -218,7 +218,7 @@ public class Engagement extends Resource {
 
     /**
      * Returns The Flow Sid..
-     * 
+     *
      * @return Flow Sid.
      */
     public final String getFlowSid() {
@@ -227,7 +227,7 @@ public class Engagement extends Resource {
 
     /**
      * Returns The Contact Sid..
-     * 
+     *
      * @return Contact Sid.
      */
     public final String getContactSid() {
@@ -237,7 +237,7 @@ public class Engagement extends Resource {
     /**
      * Returns The The phone number, SIP address or Client identifier that triggered
      * this Engagement..
-     * 
+     *
      * @return The phone number, SIP address or Client identifier that triggered
      *         this Engagement.
      */
@@ -247,7 +247,7 @@ public class Engagement extends Resource {
 
     /**
      * Returns The Flow state..
-     * 
+     *
      * @return Flow state.
      */
     public final Map<String, Object> getContext() {
@@ -256,7 +256,7 @@ public class Engagement extends Resource {
 
     /**
      * Returns The The Status of this Engagement.
-     * 
+     *
      * @return The Status of this Engagement
      */
     public final Engagement.Status getStatus() {
@@ -265,7 +265,7 @@ public class Engagement extends Resource {
 
     /**
      * Returns The The date this Engagement was created.
-     * 
+     *
      * @return The date this Engagement was created
      */
     public final DateTime getDateCreated() {
@@ -274,7 +274,7 @@ public class Engagement extends Resource {
 
     /**
      * Returns The The date this Engagement was updated.
-     * 
+     *
      * @return The date this Engagement was updated
      */
     public final DateTime getDateUpdated() {
@@ -283,7 +283,7 @@ public class Engagement extends Resource {
 
     /**
      * Returns The The URL of this resource..
-     * 
+     *
      * @return The URL of this resource.
      */
     public final URI getUrl() {
@@ -292,7 +292,7 @@ public class Engagement extends Resource {
 
     /**
      * Returns The Nested resource URLs..
-     * 
+     *
      * @return Nested resource URLs.
      */
     public final Map<String, String> getLinks() {
@@ -311,16 +311,16 @@ public class Engagement extends Resource {
 
         Engagement other = (Engagement) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(flowSid, other.flowSid) && 
-               Objects.equals(contactSid, other.contactSid) && 
-               Objects.equals(contactChannelAddress, other.contactChannelAddress) && 
-               Objects.equals(context, other.context) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(flowSid, other.flowSid) &&
+               Objects.equals(contactSid, other.contactSid) &&
+               Objects.equals(contactChannelAddress, other.contactChannelAddress) &&
+               Objects.equals(context, other.context) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

@@ -43,7 +43,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The sid
      * @return ServiceFetcher capable of executing the fetch
      */
@@ -53,7 +53,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceDeleter to execute delete.
-     * 
+     *
      * @param pathSid The sid
      * @return ServiceDeleter capable of executing the delete
      */
@@ -63,7 +63,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceCreator to execute create.
-     * 
+     *
      * @return ServiceCreator capable of executing the create
      */
     public static ServiceCreator creator() {
@@ -72,7 +72,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceReader to execute read.
-     * 
+     *
      * @return ServiceReader capable of executing the read
      */
     public static ServiceReader reader() {
@@ -81,7 +81,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceUpdater to execute update.
-     * 
+     *
      * @param pathSid The sid
      * @return ServiceUpdater capable of executing the update
      */
@@ -91,7 +91,7 @@ public class Service extends Resource {
 
     /**
      * Converts a JSON String into a Service object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
@@ -110,7 +110,7 @@ public class Service extends Resource {
     /**
      * Converts a JSON InputStream into a Service object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
@@ -139,23 +139,23 @@ public class Service extends Resource {
 
     @JsonCreator
     private Service(@JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("friendly_name")
-                    final String friendlyName, 
+                    final String friendlyName,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("url")
-                    final URI url, 
+                    final URI url,
                     @JsonProperty("webhook_url")
-                    final URI webhookUrl, 
+                    final URI webhookUrl,
                     @JsonProperty("reachability_webhooks_enabled")
-                    final Boolean reachabilityWebhooksEnabled, 
+                    final Boolean reachabilityWebhooksEnabled,
                     @JsonProperty("acl_enabled")
-                    final Boolean aclEnabled, 
+                    final Boolean aclEnabled,
                     @JsonProperty("links")
                     final Map<String, String> links) {
         this.sid = sid;
@@ -172,7 +172,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The sid.
-     * 
+     *
      * @return The sid
      */
     public final String getSid() {
@@ -181,7 +181,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The account_sid.
-     * 
+     *
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -190,7 +190,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The friendly_name.
-     * 
+     *
      * @return The friendly_name
      */
     public final String getFriendlyName() {
@@ -199,7 +199,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The date_created.
-     * 
+     *
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -208,7 +208,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The date_updated.
-     * 
+     *
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -217,7 +217,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -226,7 +226,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The webhook_url.
-     * 
+     *
      * @return The webhook_url
      */
     public final URI getWebhookUrl() {
@@ -235,7 +235,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The reachability_webhooks_enabled.
-     * 
+     *
      * @return The reachability_webhooks_enabled
      */
     public final Boolean getReachabilityWebhooksEnabled() {
@@ -244,7 +244,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The acl_enabled.
-     * 
+     *
      * @return The acl_enabled
      */
     public final Boolean getAclEnabled() {
@@ -253,7 +253,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The links.
-     * 
+     *
      * @return The links
      */
     public final Map<String, String> getLinks() {
@@ -272,15 +272,15 @@ public class Service extends Resource {
 
         Service other = (Service) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(webhookUrl, other.webhookUrl) && 
-               Objects.equals(reachabilityWebhooksEnabled, other.reachabilityWebhooksEnabled) && 
-               Objects.equals(aclEnabled, other.aclEnabled) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(webhookUrl, other.webhookUrl) &&
+               Objects.equals(reachabilityWebhooksEnabled, other.reachabilityWebhooksEnabled) &&
+               Objects.equals(aclEnabled, other.aclEnabled) &&
                Objects.equals(links, other.links);
     }
 

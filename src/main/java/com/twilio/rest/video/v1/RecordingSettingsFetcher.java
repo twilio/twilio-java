@@ -25,7 +25,7 @@ import com.twilio.rest.Domains;
 public class RecordingSettingsFetcher extends Fetcher<RecordingSettings> {
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched RecordingSettings
      */

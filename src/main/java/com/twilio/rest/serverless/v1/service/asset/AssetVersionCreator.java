@@ -30,7 +30,7 @@ public class AssetVersionCreator extends Creator<AssetVersion> {
 
     /**
      * Construct a new AssetVersionCreator.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathAssetSid Asset Sid.
      * @param path The URL-friendly string by which this Asset Version can be
@@ -38,9 +38,9 @@ public class AssetVersionCreator extends Creator<AssetVersion> {
      * @param visibility The access control which determines how the Asset Version
      *                   can be accessed.
      */
-    public AssetVersionCreator(final String pathServiceSid, 
-                               final String pathAssetSid, 
-                               final String path, 
+    public AssetVersionCreator(final String pathServiceSid,
+                               final String pathAssetSid,
+                               final String path,
                                final AssetVersion.Visibility visibility) {
         this.pathServiceSid = pathServiceSid;
         this.pathAssetSid = pathAssetSid;
@@ -50,7 +50,7 @@ public class AssetVersionCreator extends Creator<AssetVersion> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created AssetVersion
      */
@@ -89,7 +89,7 @@ public class AssetVersionCreator extends Creator<AssetVersion> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -23,7 +23,7 @@ public class CallDeleter extends Deleter<Call> {
 
     /**
      * Construct a new CallDeleter.
-     * 
+     *
      * @param pathSid The unique string that identifies this resource
      */
     public CallDeleter(final String pathSid) {
@@ -32,12 +32,12 @@ public class CallDeleter extends Deleter<Call> {
 
     /**
      * Construct a new CallDeleter.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       delete
      * @param pathSid The unique string that identifies this resource
      */
-    public CallDeleter(final String pathAccountSid, 
+    public CallDeleter(final String pathAccountSid,
                        final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -45,7 +45,7 @@ public class CallDeleter extends Deleter<Call> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

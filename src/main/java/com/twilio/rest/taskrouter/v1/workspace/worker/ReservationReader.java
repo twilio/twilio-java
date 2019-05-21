@@ -26,11 +26,11 @@ public class ReservationReader extends Reader<Reservation> {
 
     /**
      * Construct a new ReservationReader.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathWorkerSid The worker_sid
      */
-    public ReservationReader(final String pathWorkspaceSid, 
+    public ReservationReader(final String pathWorkspaceSid,
                              final String pathWorkerSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathWorkerSid = pathWorkerSid;
@@ -39,7 +39,7 @@ public class ReservationReader extends Reader<Reservation> {
     /**
      * Filter by a worker's reservation status (pending, accepted, rejected,
      * timeout, canceled, rescinded).
-     * 
+     *
      * @param reservationStatus Filter by a worker's reservation status
      * @return this
      */
@@ -50,7 +50,7 @@ public class ReservationReader extends Reader<Reservation> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Reservation ResourceSet
      */
@@ -61,7 +61,7 @@ public class ReservationReader extends Reader<Reservation> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Reservation ResourceSet
      */
@@ -81,7 +81,7 @@ public class ReservationReader extends Reader<Reservation> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Reservation ResourceSet
@@ -99,13 +99,13 @@ public class ReservationReader extends Reader<Reservation> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Reservation> nextPage(final Page<Reservation> page, 
+    public Page<Reservation> nextPage(final Page<Reservation> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -119,13 +119,13 @@ public class ReservationReader extends Reader<Reservation> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Reservation> previousPage(final Page<Reservation> page, 
+    public Page<Reservation> previousPage(final Page<Reservation> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -139,7 +139,7 @@ public class ReservationReader extends Reader<Reservation> {
 
     /**
      * Generate a Page of Reservation Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -174,7 +174,7 @@ public class ReservationReader extends Reader<Reservation> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

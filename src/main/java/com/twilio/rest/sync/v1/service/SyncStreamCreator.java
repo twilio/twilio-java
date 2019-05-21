@@ -28,7 +28,7 @@ public class SyncStreamCreator extends Creator<SyncStream> {
 
     /**
      * Construct a new SyncStreamCreator.
-     * 
+     *
      * @param pathServiceSid The service_sid
      */
     public SyncStreamCreator(final String pathServiceSid) {
@@ -38,7 +38,7 @@ public class SyncStreamCreator extends Creator<SyncStream> {
     /**
      * The unique and addressable name of this Stream. Optional, up to 320
      * characters long..
-     * 
+     *
      * @param uniqueName Stream unique name.
      * @return this
      */
@@ -50,7 +50,7 @@ public class SyncStreamCreator extends Creator<SyncStream> {
     /**
      * Time-to-live of this Stream in seconds, defaults to no expiration. In the
      * range [1, 31 536 000 (1 year)], or 0 for infinity..
-     * 
+     *
      * @param ttl Stream TTL.
      * @return this
      */
@@ -61,7 +61,7 @@ public class SyncStreamCreator extends Creator<SyncStream> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created SyncStream
      */
@@ -100,7 +100,7 @@ public class SyncStreamCreator extends Creator<SyncStream> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

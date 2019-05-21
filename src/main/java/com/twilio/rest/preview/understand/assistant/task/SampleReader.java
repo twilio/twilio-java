@@ -31,11 +31,11 @@ public class SampleReader extends Reader<Sample> {
 
     /**
      * Construct a new SampleReader.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant.
      * @param pathTaskSid The unique ID of the Task associated with this Sample.
      */
-    public SampleReader(final String pathAssistantSid, 
+    public SampleReader(final String pathAssistantSid,
                         final String pathTaskSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathTaskSid = pathTaskSid;
@@ -43,7 +43,7 @@ public class SampleReader extends Reader<Sample> {
 
     /**
      * An ISO language-country string of the sample..
-     * 
+     *
      * @param language An ISO language-country string of the sample.
      * @return this
      */
@@ -54,7 +54,7 @@ public class SampleReader extends Reader<Sample> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Sample ResourceSet
      */
@@ -65,7 +65,7 @@ public class SampleReader extends Reader<Sample> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Sample ResourceSet
      */
@@ -85,7 +85,7 @@ public class SampleReader extends Reader<Sample> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Sample ResourceSet
@@ -103,13 +103,13 @@ public class SampleReader extends Reader<Sample> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Sample> nextPage(final Page<Sample> page, 
+    public Page<Sample> nextPage(final Page<Sample> page,
                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -123,13 +123,13 @@ public class SampleReader extends Reader<Sample> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Sample> previousPage(final Page<Sample> page, 
+    public Page<Sample> previousPage(final Page<Sample> page,
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -143,7 +143,7 @@ public class SampleReader extends Reader<Sample> {
 
     /**
      * Generate a Page of Sample Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -178,7 +178,7 @@ public class SampleReader extends Reader<Sample> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

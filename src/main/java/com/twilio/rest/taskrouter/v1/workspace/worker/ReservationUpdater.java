@@ -79,13 +79,13 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Construct a new ReservationUpdater.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathWorkerSid The worker_sid
      * @param pathSid The sid
      */
-    public ReservationUpdater(final String pathWorkspaceSid, 
-                              final String pathWorkerSid, 
+    public ReservationUpdater(final String pathWorkspaceSid,
+                              final String pathWorkerSid,
                               final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathWorkerSid = pathWorkerSid;
@@ -94,7 +94,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Yes.
-     * 
+     *
      * @param reservationStatus Yes
      * @return this
      */
@@ -105,7 +105,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * No.
-     * 
+     *
      * @param workerActivitySid No
      * @return this
      */
@@ -116,7 +116,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Yes.
-     * 
+     *
      * @param instruction Yes
      * @return this
      */
@@ -127,7 +127,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * No.
-     * 
+     *
      * @param dequeuePostWorkActivitySid No
      * @return this
      */
@@ -138,7 +138,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Yes.
-     * 
+     *
      * @param dequeueFrom Yes
      * @return this
      */
@@ -149,7 +149,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The dequeue_record.
-     * 
+     *
      * @param dequeueRecord The dequeue_record
      * @return this
      */
@@ -160,7 +160,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The dequeue_timeout.
-     * 
+     *
      * @param dequeueTimeout The dequeue_timeout
      * @return this
      */
@@ -171,7 +171,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The dequeue_to.
-     * 
+     *
      * @param dequeueTo The dequeue_to
      * @return this
      */
@@ -182,7 +182,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The dequeue_status_callback_url.
-     * 
+     *
      * @param dequeueStatusCallbackUrl The dequeue_status_callback_url
      * @return this
      */
@@ -193,7 +193,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The dequeue_status_callback_url.
-     * 
+     *
      * @param dequeueStatusCallbackUrl The dequeue_status_callback_url
      * @return this
      */
@@ -203,7 +203,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Yes.
-     * 
+     *
      * @param callFrom Yes
      * @return this
      */
@@ -214,7 +214,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The call_record.
-     * 
+     *
      * @param callRecord The call_record
      * @return this
      */
@@ -225,7 +225,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The call_timeout.
-     * 
+     *
      * @param callTimeout The call_timeout
      * @return this
      */
@@ -236,7 +236,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The call_to.
-     * 
+     *
      * @param callTo The call_to
      * @return this
      */
@@ -247,7 +247,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Yes.
-     * 
+     *
      * @param callUrl Yes
      * @return this
      */
@@ -258,7 +258,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Yes.
-     * 
+     *
      * @param callUrl Yes
      * @return this
      */
@@ -268,7 +268,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * No.
-     * 
+     *
      * @param callStatusCallbackUrl No
      * @return this
      */
@@ -279,7 +279,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * No.
-     * 
+     *
      * @param callStatusCallbackUrl No
      * @return this
      */
@@ -289,7 +289,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * No.
-     * 
+     *
      * @param callAccept No
      * @return this
      */
@@ -300,7 +300,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The redirect_call_sid.
-     * 
+     *
      * @param redirectCallSid The redirect_call_sid
      * @return this
      */
@@ -311,7 +311,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The redirect_accept.
-     * 
+     *
      * @param redirectAccept The redirect_accept
      * @return this
      */
@@ -322,7 +322,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The redirect_url.
-     * 
+     *
      * @param redirectUrl The redirect_url
      * @return this
      */
@@ -333,7 +333,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The redirect_url.
-     * 
+     *
      * @param redirectUrl The redirect_url
      * @return this
      */
@@ -343,7 +343,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The to.
-     * 
+     *
      * @param to The to
      * @return this
      */
@@ -354,7 +354,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The from.
-     * 
+     *
      * @param from The from
      * @return this
      */
@@ -365,7 +365,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The status_callback.
-     * 
+     *
      * @param statusCallback The status_callback
      * @return this
      */
@@ -376,7 +376,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The status_callback.
-     * 
+     *
      * @param statusCallback The status_callback
      * @return this
      */
@@ -386,7 +386,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The status_callback_method.
-     * 
+     *
      * @param statusCallbackMethod The status_callback_method
      * @return this
      */
@@ -397,7 +397,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The status_callback_event.
-     * 
+     *
      * @param statusCallbackEvent The status_callback_event
      * @return this
      */
@@ -408,7 +408,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The status_callback_event.
-     * 
+     *
      * @param statusCallbackEvent The status_callback_event
      * @return this
      */
@@ -418,7 +418,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The timeout.
-     * 
+     *
      * @param timeout The timeout
      * @return this
      */
@@ -429,7 +429,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The record.
-     * 
+     *
      * @param record The record
      * @return this
      */
@@ -440,7 +440,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The muted.
-     * 
+     *
      * @param muted The muted
      * @return this
      */
@@ -451,7 +451,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The beep.
-     * 
+     *
      * @param beep The beep
      * @return this
      */
@@ -462,7 +462,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The start_conference_on_enter.
-     * 
+     *
      * @param startConferenceOnEnter The start_conference_on_enter
      * @return this
      */
@@ -473,7 +473,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The end_conference_on_exit.
-     * 
+     *
      * @param endConferenceOnExit The end_conference_on_exit
      * @return this
      */
@@ -484,7 +484,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The wait_url.
-     * 
+     *
      * @param waitUrl The wait_url
      * @return this
      */
@@ -495,7 +495,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The wait_url.
-     * 
+     *
      * @param waitUrl The wait_url
      * @return this
      */
@@ -505,7 +505,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The wait_method.
-     * 
+     *
      * @param waitMethod The wait_method
      * @return this
      */
@@ -516,7 +516,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The early_media.
-     * 
+     *
      * @param earlyMedia The early_media
      * @return this
      */
@@ -527,7 +527,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The max_participants.
-     * 
+     *
      * @param maxParticipants The max_participants
      * @return this
      */
@@ -538,7 +538,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The conference_status_callback.
-     * 
+     *
      * @param conferenceStatusCallback The conference_status_callback
      * @return this
      */
@@ -549,7 +549,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The conference_status_callback.
-     * 
+     *
      * @param conferenceStatusCallback The conference_status_callback
      * @return this
      */
@@ -559,7 +559,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The conference_status_callback_method.
-     * 
+     *
      * @param conferenceStatusCallbackMethod The conference_status_callback_method
      * @return this
      */
@@ -570,7 +570,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The conference_status_callback_event.
-     * 
+     *
      * @param conferenceStatusCallbackEvent The conference_status_callback_event
      * @return this
      */
@@ -581,7 +581,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The conference_status_callback_event.
-     * 
+     *
      * @param conferenceStatusCallbackEvent The conference_status_callback_event
      * @return this
      */
@@ -591,7 +591,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The conference_record.
-     * 
+     *
      * @param conferenceRecord The conference_record
      * @return this
      */
@@ -602,7 +602,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The conference_trim.
-     * 
+     *
      * @param conferenceTrim The conference_trim
      * @return this
      */
@@ -613,7 +613,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The recording_channels.
-     * 
+     *
      * @param recordingChannels The recording_channels
      * @return this
      */
@@ -624,7 +624,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The recording_status_callback.
-     * 
+     *
      * @param recordingStatusCallback The recording_status_callback
      * @return this
      */
@@ -635,7 +635,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The recording_status_callback.
-     * 
+     *
      * @param recordingStatusCallback The recording_status_callback
      * @return this
      */
@@ -645,7 +645,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The recording_status_callback_method.
-     * 
+     *
      * @param recordingStatusCallbackMethod The recording_status_callback_method
      * @return this
      */
@@ -656,7 +656,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The conference_recording_status_callback.
-     * 
+     *
      * @param conferenceRecordingStatusCallback The
      *                                          conference_recording_status_callback
      * @return this
@@ -668,7 +668,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The conference_recording_status_callback.
-     * 
+     *
      * @param conferenceRecordingStatusCallback The
      *                                          conference_recording_status_callback
      * @return this
@@ -679,7 +679,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The conference_recording_status_callback_method.
-     * 
+     *
      * @param conferenceRecordingStatusCallbackMethod The
      *                                                conference_recording_status_callback_method
      * @return this
@@ -691,7 +691,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The region.
-     * 
+     *
      * @param region The region
      * @return this
      */
@@ -702,7 +702,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The sip_auth_username.
-     * 
+     *
      * @param sipAuthUsername The sip_auth_username
      * @return this
      */
@@ -713,7 +713,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The sip_auth_password.
-     * 
+     *
      * @param sipAuthPassword The sip_auth_password
      * @return this
      */
@@ -724,7 +724,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The dequeue_status_callback_event.
-     * 
+     *
      * @param dequeueStatusCallbackEvent The dequeue_status_callback_event
      * @return this
      */
@@ -735,7 +735,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The dequeue_status_callback_event.
-     * 
+     *
      * @param dequeueStatusCallbackEvent The dequeue_status_callback_event
      * @return this
      */
@@ -745,7 +745,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The post_work_activity_sid.
-     * 
+     *
      * @param postWorkActivitySid The post_work_activity_sid
      * @return this
      */
@@ -756,7 +756,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The end_conference_on_customer_exit.
-     * 
+     *
      * @param endConferenceOnCustomerExit The end_conference_on_customer_exit
      * @return this
      */
@@ -767,7 +767,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The beep_on_customer_entrance.
-     * 
+     *
      * @param beepOnCustomerEntrance The beep_on_customer_entrance
      * @return this
      */
@@ -778,7 +778,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Reservation
      */
@@ -817,7 +817,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

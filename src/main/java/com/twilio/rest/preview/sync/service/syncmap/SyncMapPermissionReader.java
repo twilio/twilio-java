@@ -30,11 +30,11 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
 
     /**
      * Construct a new SyncMapPermissionReader.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathMapSid Sync Map SID or unique name.
      */
-    public SyncMapPermissionReader(final String pathServiceSid, 
+    public SyncMapPermissionReader(final String pathServiceSid,
                                    final String pathMapSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathMapSid = pathMapSid;
@@ -42,7 +42,7 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return SyncMapPermission ResourceSet
      */
@@ -53,7 +53,7 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return SyncMapPermission ResourceSet
      */
@@ -73,7 +73,7 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return SyncMapPermission ResourceSet
@@ -91,13 +91,13 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<SyncMapPermission> nextPage(final Page<SyncMapPermission> page, 
+    public Page<SyncMapPermission> nextPage(final Page<SyncMapPermission> page,
                                             final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -111,13 +111,13 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<SyncMapPermission> previousPage(final Page<SyncMapPermission> page, 
+    public Page<SyncMapPermission> previousPage(final Page<SyncMapPermission> page,
                                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -131,7 +131,7 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
 
     /**
      * Generate a Page of SyncMapPermission Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -166,7 +166,7 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

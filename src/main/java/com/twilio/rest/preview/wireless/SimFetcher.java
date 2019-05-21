@@ -27,7 +27,7 @@ public class SimFetcher extends Fetcher<Sim> {
 
     /**
      * Construct a new SimFetcher.
-     * 
+     *
      * @param pathSid The sid
      */
     public SimFetcher(final String pathSid) {
@@ -36,7 +36,7 @@ public class SimFetcher extends Fetcher<Sim> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Sim
      */

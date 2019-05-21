@@ -29,7 +29,7 @@ public class RoomReader extends Reader<Room> {
 
     /**
      * Only show Rooms with the given status..
-     * 
+     *
      * @param status Only show Rooms with the given status.
      * @return this
      */
@@ -40,7 +40,7 @@ public class RoomReader extends Reader<Room> {
 
     /**
      * Only show Rooms with the provided Name..
-     * 
+     *
      * @param uniqueName Only show Rooms with the provided Name.
      * @return this
      */
@@ -51,7 +51,7 @@ public class RoomReader extends Reader<Room> {
 
     /**
      * Only show Rooms that started on or after this date, given as `YYYY-MM-DD`..
-     * 
+     *
      * @param dateCreatedAfter Only show Rooms that started on or after this date,
      *                         given as YYYY-MM-DD.
      * @return this
@@ -63,7 +63,7 @@ public class RoomReader extends Reader<Room> {
 
     /**
      * Only show Rooms that started before this date, given as `YYYY-MM-DD`..
-     * 
+     *
      * @param dateCreatedBefore Only show Rooms that started before this date,
      *                          given as YYYY-MM-DD.
      * @return this
@@ -75,7 +75,7 @@ public class RoomReader extends Reader<Room> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Room ResourceSet
      */
@@ -86,7 +86,7 @@ public class RoomReader extends Reader<Room> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Room ResourceSet
      */
@@ -106,7 +106,7 @@ public class RoomReader extends Reader<Room> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Room ResourceSet
@@ -124,13 +124,13 @@ public class RoomReader extends Reader<Room> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Room> nextPage(final Page<Room> page, 
+    public Page<Room> nextPage(final Page<Room> page,
                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -144,13 +144,13 @@ public class RoomReader extends Reader<Room> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Room> previousPage(final Page<Room> page, 
+    public Page<Room> previousPage(final Page<Room> page,
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -164,7 +164,7 @@ public class RoomReader extends Reader<Room> {
 
     /**
      * Generate a Page of Room Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -199,7 +199,7 @@ public class RoomReader extends Reader<Room> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

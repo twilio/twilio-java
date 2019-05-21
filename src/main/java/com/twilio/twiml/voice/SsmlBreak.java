@@ -56,7 +56,7 @@ public class SsmlBreak extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -75,7 +75,7 @@ public class SsmlBreak extends TwiML {
 
     /**
      * Set a pause based on strength
-     * 
+     *
      * @return Set a pause based on strength
      */
     public SsmlBreak.Strength getStrength() {
@@ -85,7 +85,7 @@ public class SsmlBreak extends TwiML {
     /**
      * Set a pause to a specific length of time in seconds or milliseconds,
      * available values: [number]s, [number]ms
-     * 
+     *
      * @return Set a pause to a specific length of time in seconds or milliseconds,
      *         available values: [number]s, [number]ms
      */

@@ -31,7 +31,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
 
     /**
      * Construct a new PhoneNumberFetcher.
-     * 
+     *
      * @param pathPhoneNumber The phone number to fetch in E.164 format
      */
     public PhoneNumberFetcher(final com.twilio.type.PhoneNumber pathPhoneNumber) {
@@ -42,7 +42,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
      * The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of
      * the phone number to fetch. This is used to specify the country when the phone
      * number is provided in a national format..
-     * 
+     *
      * @param countryCode The ISO country code of the phone number
      * @return this
      */
@@ -58,7 +58,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
      * $0.01 per phone number looked up.  To retrieve both types on information,
      * specify this parameter twice; once with `carrier` and once with `caller-name`
      * as the value..
-     * 
+     *
      * @param type The type of information to return
      * @return this
      */
@@ -74,7 +74,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
      * $0.01 per phone number looked up.  To retrieve both types on information,
      * specify this parameter twice; once with `carrier` and once with `caller-name`
      * as the value..
-     * 
+     *
      * @param type The type of information to return
      * @return this
      */
@@ -88,7 +88,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
      * multiple instances of this parameter to invoke multiple Add-ons. For more
      * information about  Add-ons, see the [Add-ons
      * documentation](https://www.twilio.com/docs/api/addons)..
-     * 
+     *
      * @param addOns The unique_name of an Add-on you would like to invoke
      * @return this
      */
@@ -103,7 +103,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
      * multiple instances of this parameter to invoke multiple Add-ons. For more
      * information about  Add-ons, see the [Add-ons
      * documentation](https://www.twilio.com/docs/api/addons)..
-     * 
+     *
      * @param addOns The unique_name of an Add-on you would like to invoke
      * @return this
      */
@@ -114,7 +114,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     /**
      * Data specific to the add-on you would like to invoke. The content and format
      * of this value depends on the add-on..
-     * 
+     *
      * @param addOnsData Data specific to the add-on you would like to invoke
      * @return this
      */
@@ -125,7 +125,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched PhoneNumber
      */
@@ -164,7 +164,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

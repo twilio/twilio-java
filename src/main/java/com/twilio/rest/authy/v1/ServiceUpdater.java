@@ -28,7 +28,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Construct a new ServiceUpdater.
-     * 
+     *
      * @param pathSid A string that uniquely identifies this Service.
      */
     public ServiceUpdater(final String pathSid) {
@@ -37,7 +37,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * A human readable description of this resource, up to 64 characters..
-     * 
+     *
      * @param friendlyName A human readable description of this resource.
      * @return this
      */
@@ -48,7 +48,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Service
      */
@@ -87,7 +87,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

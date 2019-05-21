@@ -29,13 +29,13 @@ public class DeploymentFetcher extends Fetcher<Deployment> {
 
     /**
      * Construct a new DeploymentFetcher.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathEnvironmentSid Environment Sid.
      * @param pathSid Deployment Sid.
      */
-    public DeploymentFetcher(final String pathServiceSid, 
-                             final String pathEnvironmentSid, 
+    public DeploymentFetcher(final String pathServiceSid,
+                             final String pathEnvironmentSid,
                              final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathEnvironmentSid = pathEnvironmentSid;
@@ -44,7 +44,7 @@ public class DeploymentFetcher extends Fetcher<Deployment> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Deployment
      */

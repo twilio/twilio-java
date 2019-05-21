@@ -43,20 +43,20 @@ public class Task extends Resource {
 
     /**
      * Create a TaskFetcher to execute fetch.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         resource to fetch
      * @param pathSid The unique string that identifies the resource to fetch
      * @return TaskFetcher capable of executing the fetch
      */
-    public static TaskFetcher fetcher(final String pathAssistantSid, 
+    public static TaskFetcher fetcher(final String pathAssistantSid,
                                       final String pathSid) {
         return new TaskFetcher(pathAssistantSid, pathSid);
     }
 
     /**
      * Create a TaskReader to execute read.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         resources to read
      * @return TaskReader capable of executing the read
@@ -67,47 +67,47 @@ public class Task extends Resource {
 
     /**
      * Create a TaskCreator to execute create.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         new resource
      * @param uniqueName An application-defined string that uniquely identifies the
      *                   resource
      * @return TaskCreator capable of executing the create
      */
-    public static TaskCreator creator(final String pathAssistantSid, 
+    public static TaskCreator creator(final String pathAssistantSid,
                                       final String uniqueName) {
         return new TaskCreator(pathAssistantSid, uniqueName);
     }
 
     /**
      * Create a TaskUpdater to execute update.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         resource to update
      * @param pathSid The unique string that identifies the resource
      * @return TaskUpdater capable of executing the update
      */
-    public static TaskUpdater updater(final String pathAssistantSid, 
+    public static TaskUpdater updater(final String pathAssistantSid,
                                       final String pathSid) {
         return new TaskUpdater(pathAssistantSid, pathSid);
     }
 
     /**
      * Create a TaskDeleter to execute delete.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         resources to delete
      * @param pathSid The unique string that identifies the resource to delete
      * @return TaskDeleter capable of executing the delete
      */
-    public static TaskDeleter deleter(final String pathAssistantSid, 
+    public static TaskDeleter deleter(final String pathAssistantSid,
                                       final String pathSid) {
         return new TaskDeleter(pathAssistantSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a Task object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Task object represented by the provided JSON
@@ -126,7 +126,7 @@ public class Task extends Resource {
     /**
      * Converts a JSON InputStream into a Task object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Task object represented by the provided JSON
@@ -155,23 +155,23 @@ public class Task extends Resource {
 
     @JsonCreator
     private Task(@JsonProperty("account_sid")
-                 final String accountSid, 
+                 final String accountSid,
                  @JsonProperty("date_created")
-                 final String dateCreated, 
+                 final String dateCreated,
                  @JsonProperty("date_updated")
-                 final String dateUpdated, 
+                 final String dateUpdated,
                  @JsonProperty("friendly_name")
-                 final String friendlyName, 
+                 final String friendlyName,
                  @JsonProperty("links")
-                 final Map<String, String> links, 
+                 final Map<String, String> links,
                  @JsonProperty("assistant_sid")
-                 final String assistantSid, 
+                 final String assistantSid,
                  @JsonProperty("sid")
-                 final String sid, 
+                 final String sid,
                  @JsonProperty("unique_name")
-                 final String uniqueName, 
+                 final String uniqueName,
                  @JsonProperty("actions_url")
-                 final URI actionsUrl, 
+                 final URI actionsUrl,
                  @JsonProperty("url")
                  final URI url) {
         this.accountSid = accountSid;
@@ -188,7 +188,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -197,7 +197,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
@@ -207,7 +207,7 @@ public class Task extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -216,7 +216,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The string that you assigned to describe the resource.
-     * 
+     *
      * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
@@ -225,7 +225,7 @@ public class Task extends Resource {
 
     /**
      * Returns The A list of the URLs of related resources.
-     * 
+     *
      * @return A list of the URLs of related resources
      */
     public final Map<String, String> getLinks() {
@@ -234,7 +234,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The SID of the Assistant that is the parent of the resource.
-     * 
+     *
      * @return The SID of the Assistant that is the parent of the resource
      */
     public final String getAssistantSid() {
@@ -243,7 +243,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -253,7 +253,7 @@ public class Task extends Resource {
     /**
      * Returns The An application-defined string that uniquely identifies the
      * resource.
-     * 
+     *
      * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
@@ -262,7 +262,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The URL from which the Assistant can fetch actions.
-     * 
+     *
      * @return The URL from which the Assistant can fetch actions
      */
     public final URI getActionsUrl() {
@@ -271,7 +271,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The absolute URL of the Task resource.
-     * 
+     *
      * @return The absolute URL of the Task resource
      */
     public final URI getUrl() {
@@ -290,15 +290,15 @@ public class Task extends Resource {
 
         Task other = (Task) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(links, other.links) && 
-               Objects.equals(assistantSid, other.assistantSid) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(actionsUrl, other.actionsUrl) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(links, other.links) &&
+               Objects.equals(assistantSid, other.assistantSid) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(actionsUrl, other.actionsUrl) &&
                Objects.equals(url, other.url);
     }
 

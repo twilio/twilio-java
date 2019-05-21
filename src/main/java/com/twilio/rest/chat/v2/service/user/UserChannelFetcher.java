@@ -24,7 +24,7 @@ public class UserChannelFetcher extends Fetcher<UserChannel> {
 
     /**
      * Construct a new UserChannelFetcher.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to fetch the User Channel
      *                       resource from
      * @param pathUserSid The SID of the User to fetch the User Channel resource
@@ -32,8 +32,8 @@ public class UserChannelFetcher extends Fetcher<UserChannel> {
      * @param pathChannelSid The SID of the Channel that has the User Channel to
      *                       fetch
      */
-    public UserChannelFetcher(final String pathServiceSid, 
-                              final String pathUserSid, 
+    public UserChannelFetcher(final String pathServiceSid,
+                              final String pathUserSid,
                               final String pathChannelSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathUserSid = pathUserSid;
@@ -42,7 +42,7 @@ public class UserChannelFetcher extends Fetcher<UserChannel> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched UserChannel
      */

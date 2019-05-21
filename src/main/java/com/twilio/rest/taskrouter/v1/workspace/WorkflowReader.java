@@ -25,7 +25,7 @@ public class WorkflowReader extends Reader<Workflow> {
 
     /**
      * Construct a new WorkflowReader.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      */
     public WorkflowReader(final String pathWorkspaceSid) {
@@ -35,7 +35,7 @@ public class WorkflowReader extends Reader<Workflow> {
     /**
      * Human readable description of this Workflow (for example "Customer Support"
      * or "2014 Election Campaign").
-     * 
+     *
      * @param friendlyName Human readable description of this Workflow
      * @return this
      */
@@ -46,7 +46,7 @@ public class WorkflowReader extends Reader<Workflow> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Workflow ResourceSet
      */
@@ -57,7 +57,7 @@ public class WorkflowReader extends Reader<Workflow> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Workflow ResourceSet
      */
@@ -77,7 +77,7 @@ public class WorkflowReader extends Reader<Workflow> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Workflow ResourceSet
@@ -95,13 +95,13 @@ public class WorkflowReader extends Reader<Workflow> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Workflow> nextPage(final Page<Workflow> page, 
+    public Page<Workflow> nextPage(final Page<Workflow> page,
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -115,13 +115,13 @@ public class WorkflowReader extends Reader<Workflow> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Workflow> previousPage(final Page<Workflow> page, 
+    public Page<Workflow> previousPage(final Page<Workflow> page,
                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -135,7 +135,7 @@ public class WorkflowReader extends Reader<Workflow> {
 
     /**
      * Generate a Page of Workflow Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -170,7 +170,7 @@ public class WorkflowReader extends Reader<Workflow> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

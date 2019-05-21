@@ -35,7 +35,7 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
 
     /**
      * Construct a new RecordingSettingsCreator.
-     * 
+     *
      * @param friendlyName Friendly name of the configuration to be shown in the
      *                     console
      */
@@ -45,7 +45,7 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
 
     /**
      * SID of the Stored Credential resource `CRxx`.
-     * 
+     *
      * @param awsCredentialsSid SID of the Stored Credential resource CRxx
      * @return this
      */
@@ -56,7 +56,7 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
 
     /**
      * SID of the Public Key resource `CRxx`.
-     * 
+     *
      * @param encryptionKeySid SID of the Public Key resource CRxx
      * @return this
      */
@@ -70,7 +70,7 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
      * only support DNS-compliant URLs like
      * `http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/recordings`,
      * where `recordings` is the path where you want recordings to be stored..
-     * 
+     *
      * @param awsS3Url Identity of the external location where the recordings
      *                 should be stored. We only support DNS-compliant URLs like
      *                 http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/recordings, where recordings is the path where you want recordings to be stored.
@@ -86,7 +86,7 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
      * only support DNS-compliant URLs like
      * `http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/recordings`,
      * where `recordings` is the path where you want recordings to be stored..
-     * 
+     *
      * @param awsS3Url Identity of the external location where the recordings
      *                 should be stored. We only support DNS-compliant URLs like
      *                 http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/recordings, where recordings is the path where you want recordings to be stored.
@@ -100,7 +100,7 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
      * `true|false` When set to `true`, all Recordings will be written to the
      * `AwsS3Url` specified above. When set to `false`, all Recordings will be
      * stored in Twilio's cloud..
-     * 
+     *
      * @param awsStorageEnabled true|false When set to true, all Recordings will be
      *                          written to the AwsS3Url specified above. When set to
      *                          false, all Recordings will be stored in Twilio's
@@ -115,7 +115,7 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
     /**
      * `true|false` When set to `true`, all Recordings will be stored encrypted.
      * Dafault value is `false`.
-     * 
+     *
      * @param encryptionEnabled true|false When set to true, all Recordings will be
      *                          stored encrypted.
      * @return this
@@ -127,7 +127,7 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created RecordingSettings
      */
@@ -166,7 +166,7 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

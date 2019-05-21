@@ -43,7 +43,7 @@ public class LocalCreator extends Creator<Local> {
 
     /**
      * Construct a new LocalCreator.
-     * 
+     *
      * @param phoneNumber The phone number to purchase in E.164 format
      */
     public LocalCreator(final com.twilio.type.PhoneNumber phoneNumber) {
@@ -52,11 +52,11 @@ public class LocalCreator extends Creator<Local> {
 
     /**
      * Construct a new LocalCreator.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param phoneNumber The phone number to purchase in E.164 format
      */
-    public LocalCreator(final String pathAccountSid, 
+    public LocalCreator(final String pathAccountSid,
                         final com.twilio.type.PhoneNumber phoneNumber) {
         this.pathAccountSid = pathAccountSid;
         this.phoneNumber = phoneNumber;
@@ -65,7 +65,7 @@ public class LocalCreator extends Creator<Local> {
     /**
      * The API version to use for incoming calls made to the new phone number. The
      * default is `2010-04-01`..
-     * 
+     *
      * @param apiVersion The API version to use for incoming calls made to the new
      *                   phone number
      * @return this
@@ -79,7 +79,7 @@ public class LocalCreator extends Creator<Local> {
      * A descriptive string that you created to describe the new phone number. It
      * can be up to 64 characters long. By default, this is a formatted version of
      * the phone number..
-     * 
+     *
      * @param friendlyName A string to describe the new phone number
      * @return this
      */
@@ -92,7 +92,7 @@ public class LocalCreator extends Creator<Local> {
      * The SID of the application that should handle SMS messages sent to the new
      * phone number. If an `sms_application_sid` is present, we ignore all of the
      * `sms_*_url` urls and use those set on the application..
-     * 
+     *
      * @param smsApplicationSid The SID of the application to handle SMS messages
      * @return this
      */
@@ -104,7 +104,7 @@ public class LocalCreator extends Creator<Local> {
     /**
      * The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET`
      * or `POST` and defaults to `POST`..
-     * 
+     *
      * @param smsFallbackMethod The HTTP method we use to call status_callback
      * @return this
      */
@@ -116,7 +116,7 @@ public class LocalCreator extends Creator<Local> {
     /**
      * The URL that we should call when an error occurs while requesting or
      * executing the TwiML defined by `sms_url`..
-     * 
+     *
      * @param smsFallbackUrl The URL we call when an error occurs while executing
      *                       TwiML
      * @return this
@@ -129,7 +129,7 @@ public class LocalCreator extends Creator<Local> {
     /**
      * The URL that we should call when an error occurs while requesting or
      * executing the TwiML defined by `sms_url`..
-     * 
+     *
      * @param smsFallbackUrl The URL we call when an error occurs while executing
      *                       TwiML
      * @return this
@@ -141,7 +141,7 @@ public class LocalCreator extends Creator<Local> {
     /**
      * The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST`
      * and defaults to `POST`..
-     * 
+     *
      * @param smsMethod The HTTP method to use with sms url
      * @return this
      */
@@ -153,7 +153,7 @@ public class LocalCreator extends Creator<Local> {
     /**
      * The URL we should call when the new phone number receives an incoming SMS
      * message..
-     * 
+     *
      * @param smsUrl The URL we should call when the new phone number receives an
      *               incoming SMS message
      * @return this
@@ -166,7 +166,7 @@ public class LocalCreator extends Creator<Local> {
     /**
      * The URL we should call when the new phone number receives an incoming SMS
      * message..
-     * 
+     *
      * @param smsUrl The URL we should call when the new phone number receives an
      *               incoming SMS message
      * @return this
@@ -178,7 +178,7 @@ public class LocalCreator extends Creator<Local> {
     /**
      * The URL we should call using the `status_callback_method` to send status
      * information to your application..
-     * 
+     *
      * @param statusCallback The URL we should call to send status information to
      *                       your application
      * @return this
@@ -191,7 +191,7 @@ public class LocalCreator extends Creator<Local> {
     /**
      * The URL we should call using the `status_callback_method` to send status
      * information to your application..
-     * 
+     *
      * @param statusCallback The URL we should call to send status information to
      *                       your application
      * @return this
@@ -203,7 +203,7 @@ public class LocalCreator extends Creator<Local> {
     /**
      * The HTTP method we should use to call `status_callback`. Can be: `GET` or
      * `POST` and defaults to `POST`..
-     * 
+     *
      * @param statusCallbackMethod HTTP method we should use to call status_callback
      * @return this
      */
@@ -218,7 +218,7 @@ public class LocalCreator extends Creator<Local> {
      * urls and use only those set on the application. Setting a
      * `voice_application_sid` will automatically delete your `trunk_sid` and vice
      * versa..
-     * 
+     *
      * @param voiceApplicationSid The SID of the application to handle the new
      *                            phone number
      * @return this
@@ -231,7 +231,7 @@ public class LocalCreator extends Creator<Local> {
     /**
      * Whether to lookup the caller's name from the CNAM database and post it to
      * your app. Can be: `true` or `false` and defaults to `false`..
-     * 
+     *
      * @param voiceCallerIdLookup Whether to lookup the caller's name
      * @return this
      */
@@ -243,7 +243,7 @@ public class LocalCreator extends Creator<Local> {
     /**
      * The HTTP method that we should use to call `voice_fallback_url`. Can be:
      * `GET` or `POST` and defaults to `POST`..
-     * 
+     *
      * @param voiceFallbackMethod The HTTP method used with voice_fallback_url
      * @return this
      */
@@ -255,7 +255,7 @@ public class LocalCreator extends Creator<Local> {
     /**
      * The URL that we should call when an error occurs retrieving or executing the
      * TwiML requested by `url`..
-     * 
+     *
      * @param voiceFallbackUrl The URL we will call when an error occurs in TwiML
      * @return this
      */
@@ -267,7 +267,7 @@ public class LocalCreator extends Creator<Local> {
     /**
      * The URL that we should call when an error occurs retrieving or executing the
      * TwiML requested by `url`..
-     * 
+     *
      * @param voiceFallbackUrl The URL we will call when an error occurs in TwiML
      * @return this
      */
@@ -278,7 +278,7 @@ public class LocalCreator extends Creator<Local> {
     /**
      * The HTTP method that we should use to call `voice_url`. Can be: `GET` or
      * `POST` and defaults to `POST`..
-     * 
+     *
      * @param voiceMethod The HTTP method used with the voice_url
      * @return this
      */
@@ -291,7 +291,7 @@ public class LocalCreator extends Creator<Local> {
      * The URL that we should call to answer a call to the new phone number. The
      * `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid`
      * is set..
-     * 
+     *
      * @param voiceUrl The URL we should call when the phone number receives a call
      * @return this
      */
@@ -304,7 +304,7 @@ public class LocalCreator extends Creator<Local> {
      * The URL that we should call to answer a call to the new phone number. The
      * `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid`
      * is set..
-     * 
+     *
      * @param voiceUrl The URL we should call when the phone number receives a call
      * @return this
      */
@@ -315,7 +315,7 @@ public class LocalCreator extends Creator<Local> {
     /**
      * The SID of the Identity resource that we should associate with the new phone
      * number. Some regions require an identity to meet local regulations..
-     * 
+     *
      * @param identitySid The SID of the Identity resource to associate with the
      *                    new phone number
      * @return this
@@ -328,7 +328,7 @@ public class LocalCreator extends Creator<Local> {
     /**
      * The SID of the Address resource we should associate with the new phone
      * number. Some regions require addresses to meet local regulations..
-     * 
+     *
      * @param addressSid The SID of the Address resource associated with the phone
      *                   number
      * @return this
@@ -340,7 +340,7 @@ public class LocalCreator extends Creator<Local> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Local
      */
@@ -380,7 +380,7 @@ public class LocalCreator extends Creator<Local> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

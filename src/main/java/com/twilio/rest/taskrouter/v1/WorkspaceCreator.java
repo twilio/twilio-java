@@ -30,7 +30,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
 
     /**
      * Construct a new WorkspaceCreator.
-     * 
+     *
      * @param friendlyName Human readable description of this workspace
      */
     public WorkspaceCreator(final String friendlyName) {
@@ -40,7 +40,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
     /**
      * If provided, the Workspace will publish events to this URL. You can use this
      * to gather data for reporting. See Workspace Events for more information..
-     * 
+     *
      * @param eventCallbackUrl If provided, the Workspace will publish events to
      *                         this URL.
      * @return this
@@ -53,7 +53,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
     /**
      * If provided, the Workspace will publish events to this URL. You can use this
      * to gather data for reporting. See Workspace Events for more information..
-     * 
+     *
      * @param eventCallbackUrl If provided, the Workspace will publish events to
      *                         this URL.
      * @return this
@@ -68,7 +68,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
      * 'EventsFilter=task.created,task.canceled,worker.activity.update', then
      * TaskRouter will webhook to EventCallbackUrl only when a task is created,
      * canceled or a worker activity is updated..
-     * 
+     *
      * @param eventsFilter Use this parameter to receive webhooks on
      *                     EventCallbackUrl for specific events on a workspace.
      * @return this
@@ -85,7 +85,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
      * section. Default is disabled (MultiTaskEnabled=false), where each worker will
      * only receive a new reservation when the previous task is completed. Learn
      * more by visiting [Multitasking][/docs/taskrouter/multitasking]..
-     * 
+     *
      * @param multiTaskEnabled Multi tasking allows workers to handle multiple
      *                         tasks simultaneously.
      * @return this
@@ -102,7 +102,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
      * configure TaskRouter with a set of default activities and a single task queue
      * for first-in, first-out distribution, useful if you want to see a simple
      * TaskRouter configuration when getting started. Defaults to "NONE"..
-     * 
+     *
      * @param template One of the available template names.
      * @return this
      */
@@ -117,7 +117,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
      * Default is FIFO. [Click
      * here][/docs/taskrouter/queue-ordering-last-first-out-lifo] to learn more
      * about LIFO and the use of the parameter..
-     * 
+     *
      * @param prioritizeQueueOrder Use this parameter to configure whether to
      *                             prioritize LIFO or FIFO when workers are
      *                             receiving Tasks from combination of LIFO and FIFO
@@ -131,7 +131,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Workspace
      */
@@ -170,7 +170,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -35,16 +35,16 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
 
     /**
      * Construct a new SyncMapItemCreator.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathMapSid The map_sid
      * @param key The unique user-defined key of this Map Item.
      * @param data Contains arbitrary user-defined, schema-less data that this Map
      *             Item stores, represented by a JSON object, up to 16KB.
      */
-    public SyncMapItemCreator(final String pathServiceSid, 
-                              final String pathMapSid, 
-                              final String key, 
+    public SyncMapItemCreator(final String pathServiceSid,
+                              final String pathMapSid,
+                              final String key,
                               final Map<String, Object> data) {
         this.pathServiceSid = pathServiceSid;
         this.pathMapSid = pathMapSid;
@@ -54,7 +54,7 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
 
     /**
      * Alias for item_ttl. If both are provided, this value is ignored..
-     * 
+     *
      * @param ttl Alias for item_ttl
      * @return this
      */
@@ -68,7 +68,7 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
      * [1, 31 536 000 (1 year)], or 0 for infinity. Upon expiry, the map item will
      * be cleaned up at least in a matter of hours, and often within seconds, making
      * this a good tool for garbage management..
-     * 
+     *
      * @param itemTtl Time-to-live of this item in seconds, defaults to no
      *                expiration.
      * @return this
@@ -82,7 +82,7 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
      * Time-to-live of this item's parent Map in seconds, defaults to no expiration.
      * In the range [1, 31 536 000 (1 year)], or 0 for infinity. This parameter can
      * only be used when the map item's data or ttl is updated in the same request..
-     * 
+     *
      * @param collectionTtl Time-to-live of this item's parent Map in seconds,
      *                      defaults to no expiration.
      * @return this
@@ -94,7 +94,7 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created SyncMapItem
      */
@@ -133,7 +133,7 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

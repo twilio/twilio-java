@@ -23,7 +23,7 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
 
     /**
      * Construct a new CredentialListFetcher.
-     * 
+     *
      * @param pathSid Fetch by unique credential list Sid
      */
     public CredentialListFetcher(final String pathSid) {
@@ -32,12 +32,12 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
 
     /**
      * Construct a new CredentialListFetcher.
-     * 
+     *
      * @param pathAccountSid The unique id of the Account that is responsible for
      *                       this resource.
      * @param pathSid Fetch by unique credential list Sid
      */
-    public CredentialListFetcher(final String pathAccountSid, 
+    public CredentialListFetcher(final String pathAccountSid,
                                  final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -45,7 +45,7 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched CredentialList
      */

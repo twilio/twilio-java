@@ -72,20 +72,20 @@ public class ModelBuild extends Resource {
 
     /**
      * Create a ModelBuildFetcher to execute fetch.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         resource to fetch
      * @param pathSid The unique string that identifies the resource
      * @return ModelBuildFetcher capable of executing the fetch
      */
-    public static ModelBuildFetcher fetcher(final String pathAssistantSid, 
+    public static ModelBuildFetcher fetcher(final String pathAssistantSid,
                                             final String pathSid) {
         return new ModelBuildFetcher(pathAssistantSid, pathSid);
     }
 
     /**
      * Create a ModelBuildReader to execute read.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         resources to read
      * @return ModelBuildReader capable of executing the read
@@ -96,7 +96,7 @@ public class ModelBuild extends Resource {
 
     /**
      * Create a ModelBuildCreator to execute create.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         new resource
      * @return ModelBuildCreator capable of executing the create
@@ -107,26 +107,26 @@ public class ModelBuild extends Resource {
 
     /**
      * Create a ModelBuildUpdater to execute update.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         resource to update
      * @param pathSid The unique string that identifies the resource to update
      * @return ModelBuildUpdater capable of executing the update
      */
-    public static ModelBuildUpdater updater(final String pathAssistantSid, 
+    public static ModelBuildUpdater updater(final String pathAssistantSid,
                                             final String pathSid) {
         return new ModelBuildUpdater(pathAssistantSid, pathSid);
     }
 
     /**
      * Create a ModelBuildDeleter to execute delete.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         resources to delete
      * @param pathSid The unique string that identifies the resource
      * @return ModelBuildDeleter capable of executing the delete
      */
-    public static ModelBuildDeleter deleter(final String pathAssistantSid, 
+    public static ModelBuildDeleter deleter(final String pathAssistantSid,
                                             final String pathSid) {
         return new ModelBuildDeleter(pathAssistantSid, pathSid);
     }
@@ -134,7 +134,7 @@ public class ModelBuild extends Resource {
     /**
      * Converts a JSON String into a ModelBuild object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ModelBuild object represented by the provided JSON
@@ -153,7 +153,7 @@ public class ModelBuild extends Resource {
     /**
      * Converts a JSON InputStream into a ModelBuild object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ModelBuild object represented by the provided JSON
@@ -182,23 +182,23 @@ public class ModelBuild extends Resource {
 
     @JsonCreator
     private ModelBuild(@JsonProperty("account_sid")
-                       final String accountSid, 
+                       final String accountSid,
                        @JsonProperty("date_created")
-                       final String dateCreated, 
+                       final String dateCreated,
                        @JsonProperty("date_updated")
-                       final String dateUpdated, 
+                       final String dateUpdated,
                        @JsonProperty("assistant_sid")
-                       final String assistantSid, 
+                       final String assistantSid,
                        @JsonProperty("sid")
-                       final String sid, 
+                       final String sid,
                        @JsonProperty("status")
-                       final ModelBuild.Status status, 
+                       final ModelBuild.Status status,
                        @JsonProperty("unique_name")
-                       final String uniqueName, 
+                       final String uniqueName,
                        @JsonProperty("url")
-                       final URI url, 
+                       final URI url,
                        @JsonProperty("build_duration")
-                       final Integer buildDuration, 
+                       final Integer buildDuration,
                        @JsonProperty("error_code")
                        final Integer errorCode) {
         this.accountSid = accountSid;
@@ -215,7 +215,7 @@ public class ModelBuild extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -224,7 +224,7 @@ public class ModelBuild extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
@@ -234,7 +234,7 @@ public class ModelBuild extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -243,7 +243,7 @@ public class ModelBuild extends Resource {
 
     /**
      * Returns The The SID of the Assistant that is the parent of the resource.
-     * 
+     *
      * @return The SID of the Assistant that is the parent of the resource
      */
     public final String getAssistantSid() {
@@ -252,7 +252,7 @@ public class ModelBuild extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -261,7 +261,7 @@ public class ModelBuild extends Resource {
 
     /**
      * Returns The The status of the model build process.
-     * 
+     *
      * @return The status of the model build process
      */
     public final ModelBuild.Status getStatus() {
@@ -271,7 +271,7 @@ public class ModelBuild extends Resource {
     /**
      * Returns The An application-defined string that uniquely identifies the
      * resource.
-     * 
+     *
      * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
@@ -280,7 +280,7 @@ public class ModelBuild extends Resource {
 
     /**
      * Returns The The absolute URL of the ModelBuild resource.
-     * 
+     *
      * @return The absolute URL of the ModelBuild resource
      */
     public final URI getUrl() {
@@ -289,7 +289,7 @@ public class ModelBuild extends Resource {
 
     /**
      * Returns The The time in seconds it took to build the model.
-     * 
+     *
      * @return The time in seconds it took to build the model
      */
     public final Integer getBuildDuration() {
@@ -299,7 +299,7 @@ public class ModelBuild extends Resource {
     /**
      * Returns The More information about why the model build failed, if `status` is
      * `failed`.
-     * 
+     *
      * @return More information about why the model build failed, if `status` is
      *         `failed`
      */
@@ -319,15 +319,15 @@ public class ModelBuild extends Resource {
 
         ModelBuild other = (ModelBuild) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(assistantSid, other.assistantSid) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(buildDuration, other.buildDuration) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(assistantSid, other.assistantSid) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(buildDuration, other.buildDuration) &&
                Objects.equals(errorCode, other.errorCode);
     }
 

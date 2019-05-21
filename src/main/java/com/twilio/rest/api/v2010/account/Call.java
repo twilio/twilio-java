@@ -126,37 +126,37 @@ public class Call extends Resource {
 
     /**
      * Create a CallCreator to execute create.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param to Phone number, SIP address, or client identifier to call
      * @param from Twilio number from which to originate the call
      * @param url The absolute URL that returns TwiML for this call
      * @return CallCreator capable of executing the create
      */
-    public static CallCreator creator(final String pathAccountSid, 
-                                      final com.twilio.type.Endpoint to, 
-                                      final com.twilio.type.PhoneNumber from, 
+    public static CallCreator creator(final String pathAccountSid,
+                                      final com.twilio.type.Endpoint to,
+                                      final com.twilio.type.PhoneNumber from,
                                       final URI url) {
         return new CallCreator(pathAccountSid, to, from, url);
     }
 
     /**
      * Create a CallCreator to execute create.
-     * 
+     *
      * @param to Phone number, SIP address, or client identifier to call
      * @param from Twilio number from which to originate the call
      * @param url The absolute URL that returns TwiML for this call
      * @return CallCreator capable of executing the create
      */
-    public static CallCreator creator(final com.twilio.type.Endpoint to, 
-                                      final com.twilio.type.PhoneNumber from, 
+    public static CallCreator creator(final com.twilio.type.Endpoint to,
+                                      final com.twilio.type.PhoneNumber from,
                                       final URI url) {
         return new CallCreator(to, from, url);
     }
 
     /**
      * Create a CallCreator to execute create.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param to Phone number, SIP address, or client identifier to call
      * @param from Twilio number from which to originate the call
@@ -164,44 +164,44 @@ public class Call extends Resource {
      *                       the call
      * @return CallCreator capable of executing the create
      */
-    public static CallCreator creator(final String pathAccountSid, 
-                                      final com.twilio.type.Endpoint to, 
-                                      final com.twilio.type.PhoneNumber from, 
+    public static CallCreator creator(final String pathAccountSid,
+                                      final com.twilio.type.Endpoint to,
+                                      final com.twilio.type.PhoneNumber from,
                                       final String applicationSid) {
         return new CallCreator(pathAccountSid, to, from, applicationSid);
     }
 
     /**
      * Create a CallCreator to execute create.
-     * 
+     *
      * @param to Phone number, SIP address, or client identifier to call
      * @param from Twilio number from which to originate the call
      * @param applicationSid The SID of the Application resource that will handle
      *                       the call
      * @return CallCreator capable of executing the create
      */
-    public static CallCreator creator(final com.twilio.type.Endpoint to, 
-                                      final com.twilio.type.PhoneNumber from, 
+    public static CallCreator creator(final com.twilio.type.Endpoint to,
+                                      final com.twilio.type.PhoneNumber from,
                                       final String applicationSid) {
         return new CallCreator(to, from, applicationSid);
     }
 
     /**
      * Create a CallDeleter to execute delete.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       delete
      * @param pathSid The unique string that identifies this resource
      * @return CallDeleter capable of executing the delete
      */
-    public static CallDeleter deleter(final String pathAccountSid, 
+    public static CallDeleter deleter(final String pathAccountSid,
                                       final String pathSid) {
         return new CallDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a CallDeleter to execute delete.
-     * 
+     *
      * @param pathSid The unique string that identifies this resource
      * @return CallDeleter capable of executing the delete
      */
@@ -211,20 +211,20 @@ public class Call extends Resource {
 
     /**
      * Create a CallFetcher to execute fetch.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       fetch
      * @param pathSid The unique string that identifies this resource
      * @return CallFetcher capable of executing the fetch
      */
-    public static CallFetcher fetcher(final String pathAccountSid, 
+    public static CallFetcher fetcher(final String pathAccountSid,
                                       final String pathSid) {
         return new CallFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a CallFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The unique string that identifies this resource
      * @return CallFetcher capable of executing the fetch
      */
@@ -234,7 +234,7 @@ public class Call extends Resource {
 
     /**
      * Create a CallReader to execute read.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       read
      * @return CallReader capable of executing the read
@@ -245,7 +245,7 @@ public class Call extends Resource {
 
     /**
      * Create a CallReader to execute read.
-     * 
+     *
      * @return CallReader capable of executing the read
      */
     public static CallReader reader() {
@@ -254,20 +254,20 @@ public class Call extends Resource {
 
     /**
      * Create a CallUpdater to execute update.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       update
      * @param pathSid The unique string that identifies this resource
      * @return CallUpdater capable of executing the update
      */
-    public static CallUpdater updater(final String pathAccountSid, 
+    public static CallUpdater updater(final String pathAccountSid,
                                       final String pathSid) {
         return new CallUpdater(pathAccountSid, pathSid);
     }
 
     /**
      * Create a CallUpdater to execute update.
-     * 
+     *
      * @param pathSid The unique string that identifies this resource
      * @return CallUpdater capable of executing the update
      */
@@ -277,7 +277,7 @@ public class Call extends Resource {
 
     /**
      * Converts a JSON String into a Call object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Call object represented by the provided JSON
@@ -296,7 +296,7 @@ public class Call extends Resource {
     /**
      * Converts a JSON InputStream into a Call object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Call object represented by the provided JSON
@@ -340,54 +340,54 @@ public class Call extends Resource {
 
     @JsonCreator
     private Call(@JsonProperty("account_sid")
-                 final String accountSid, 
+                 final String accountSid,
                  @JsonProperty("annotation")
-                 final String annotation, 
+                 final String annotation,
                  @JsonProperty("answered_by")
-                 final String answeredBy, 
+                 final String answeredBy,
                  @JsonProperty("api_version")
-                 final String apiVersion, 
+                 final String apiVersion,
                  @JsonProperty("caller_name")
-                 final String callerName, 
+                 final String callerName,
                  @JsonProperty("date_created")
-                 final String dateCreated, 
+                 final String dateCreated,
                  @JsonProperty("date_updated")
-                 final String dateUpdated, 
+                 final String dateUpdated,
                  @JsonProperty("direction")
-                 final String direction, 
+                 final String direction,
                  @JsonProperty("duration")
-                 final String duration, 
+                 final String duration,
                  @JsonProperty("end_time")
-                 final String endTime, 
+                 final String endTime,
                  @JsonProperty("forwarded_from")
-                 final String forwardedFrom, 
+                 final String forwardedFrom,
                  @JsonProperty("from")
-                 final String from, 
+                 final String from,
                  @JsonProperty("from_formatted")
-                 final String fromFormatted, 
+                 final String fromFormatted,
                  @JsonProperty("group_sid")
-                 final String groupSid, 
+                 final String groupSid,
                  @JsonProperty("parent_call_sid")
-                 final String parentCallSid, 
+                 final String parentCallSid,
                  @JsonProperty("phone_number_sid")
-                 final String phoneNumberSid, 
+                 final String phoneNumberSid,
                  @JsonProperty("price")
-                 final BigDecimal price, 
+                 final BigDecimal price,
                  @JsonProperty("price_unit")
                  @JsonDeserialize(using = com.twilio.converter.CurrencyDeserializer.class)
-                 final Currency priceUnit, 
+                 final Currency priceUnit,
                  @JsonProperty("sid")
-                 final String sid, 
+                 final String sid,
                  @JsonProperty("start_time")
-                 final String startTime, 
+                 final String startTime,
                  @JsonProperty("status")
-                 final Call.Status status, 
+                 final Call.Status status,
                  @JsonProperty("subresource_uris")
-                 final Map<String, String> subresourceUris, 
+                 final Map<String, String> subresourceUris,
                  @JsonProperty("to")
-                 final String to, 
+                 final String to,
                  @JsonProperty("to_formatted")
-                 final String toFormatted, 
+                 final String toFormatted,
                  @JsonProperty("uri")
                  final String uri) {
         this.accountSid = accountSid;
@@ -419,7 +419,7 @@ public class Call extends Resource {
 
     /**
      * Returns The The SID of the Account that created this resource.
-     * 
+     *
      * @return The SID of the Account that created this resource
      */
     public final String getAccountSid() {
@@ -428,7 +428,7 @@ public class Call extends Resource {
 
     /**
      * Returns The The annotation provided for the call.
-     * 
+     *
      * @return The annotation provided for the call
      */
     public final String getAnnotation() {
@@ -438,7 +438,7 @@ public class Call extends Resource {
     /**
      * Returns The Either `human` or `machine` if this call was initiated with
      * answering machine detection. Empty otherwise..
-     * 
+     *
      * @return Either `human` or `machine` if this call was initiated with
      *         answering machine detection. Empty otherwise.
      */
@@ -448,7 +448,7 @@ public class Call extends Resource {
 
     /**
      * Returns The The API Version used to create the call.
-     * 
+     *
      * @return The API Version used to create the call
      */
     public final String getApiVersion() {
@@ -458,7 +458,7 @@ public class Call extends Resource {
     /**
      * Returns The The caller's name if this call was an incoming call to a phone
      * number with caller ID Lookup enabled. Otherwise, empty..
-     * 
+     *
      * @return The caller's name if this call was an incoming call to a phone
      *         number with caller ID Lookup enabled. Otherwise, empty.
      */
@@ -468,7 +468,7 @@ public class Call extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT that this resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that this resource was created
      */
     public final DateTime getDateCreated() {
@@ -478,7 +478,7 @@ public class Call extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT that this resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -489,7 +489,7 @@ public class Call extends Resource {
      * Returns The A string describing the direction of the call. `inbound` for
      * inbound calls, `outbound-api` for calls initiated via the REST API or
      * `outbound-dial` for calls initiated by a `Dial` verb..
-     * 
+     *
      * @return A string describing the direction of the call. `inbound` for inbound
      *         calls, `outbound-api` for calls initiated via the REST API or
      *         `outbound-dial` for calls initiated by a `Dial` verb.
@@ -500,7 +500,7 @@ public class Call extends Resource {
 
     /**
      * Returns The The length of the call in seconds..
-     * 
+     *
      * @return The length of the call in seconds.
      */
     public final String getDuration() {
@@ -510,7 +510,7 @@ public class Call extends Resource {
     /**
      * Returns The The end time of the call. Null if the call did not complete
      * successfully..
-     * 
+     *
      * @return The end time of the call. Null if the call did not complete
      *         successfully.
      */
@@ -522,7 +522,7 @@ public class Call extends Resource {
      * Returns The The forwarding phone number if this call was an incoming call
      * forwarded from another number (depends on carrier supporting forwarding).
      * Otherwise, empty..
-     * 
+     *
      * @return The forwarding phone number if this call was an incoming call
      *         forwarded from another number (depends on carrier supporting
      *         forwarding). Otherwise, empty.
@@ -536,7 +536,7 @@ public class Call extends Resource {
      * call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses
      * are formatted as `name@company.com`. Client identifiers are formatted
      * `client:name`..
-     * 
+     *
      * @return The phone number, SIP address or Client identifier that made this
      *         call. Phone numbers are in E.164 format (e.g., +16175551212). SIP
      *         addresses are formatted as `name@company.com`. Client identifiers are
@@ -549,7 +549,7 @@ public class Call extends Resource {
     /**
      * Returns The The calling phone number, SIP address, or Client identifier
      * formatted for display..
-     * 
+     *
      * @return The calling phone number, SIP address, or Client identifier
      *         formatted for display.
      */
@@ -560,7 +560,7 @@ public class Call extends Resource {
     /**
      * Returns The The Group SID associated with this call. If no Group is
      * associated with the call, the field is empty..
-     * 
+     *
      * @return The Group SID associated with this call. If no Group is associated
      *         with the call, the field is empty.
      */
@@ -570,7 +570,7 @@ public class Call extends Resource {
 
     /**
      * Returns The The SID that identifies the call that created this leg..
-     * 
+     *
      * @return The SID that identifies the call that created this leg.
      */
     public final String getParentCallSid() {
@@ -582,7 +582,7 @@ public class Call extends Resource {
      * IncomingPhoneNumber resource that received the call. If the call was
      * outbound, it is the SID of the OutgoingCallerId resource from which the call
      * was placed..
-     * 
+     *
      * @return If the call was inbound, this is the SID of the IncomingPhoneNumber
      *         resource that received the call. If the call was outbound, it is the
      *         SID of the OutgoingCallerId resource from which the call was placed.
@@ -595,7 +595,7 @@ public class Call extends Resource {
      * Returns The The charge for this call, in the currency associated with the
      * account. Populated after the call is completed. May not be immediately
      * available..
-     * 
+     *
      * @return The charge for this call, in the currency associated with the
      *         account. Populated after the call is completed. May not be
      *         immediately available.
@@ -606,7 +606,7 @@ public class Call extends Resource {
 
     /**
      * Returns The The currency in which `Price` is measured..
-     * 
+     *
      * @return The currency in which `Price` is measured.
      */
     public final Currency getPriceUnit() {
@@ -615,7 +615,7 @@ public class Call extends Resource {
 
     /**
      * Returns The The unique string that identifies this resource.
-     * 
+     *
      * @return The unique string that identifies this resource
      */
     public final String getSid() {
@@ -625,7 +625,7 @@ public class Call extends Resource {
     /**
      * Returns The The start time of the call. Null if the call has not yet been
      * dialed..
-     * 
+     *
      * @return The start time of the call. Null if the call has not yet been dialed.
      */
     public final DateTime getStartTime() {
@@ -634,7 +634,7 @@ public class Call extends Resource {
 
     /**
      * Returns The The status of this call..
-     * 
+     *
      * @return The status of this call.
      */
     public final Call.Status getStatus() {
@@ -643,7 +643,7 @@ public class Call extends Resource {
 
     /**
      * Returns The A list of related subresources identified by their relative URIs.
-     * 
+     *
      * @return A list of related subresources identified by their relative URIs
      */
     public final Map<String, String> getSubresourceUris() {
@@ -655,7 +655,7 @@ public class Call extends Resource {
      * this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP
      * addresses are formatted as `name@company.com`. Client identifiers are
      * formatted `client:name`..
-     * 
+     *
      * @return The phone number, SIP address or Client identifier that received
      *         this call. Phone numbers are in E.164 format (e.g., +16175551212).
      *         SIP addresses are formatted as `name@company.com`. Client identifiers
@@ -668,7 +668,7 @@ public class Call extends Resource {
     /**
      * Returns The The phone number, SIP address or Client identifier that received
      * this call. Formatted for display..
-     * 
+     *
      * @return The phone number, SIP address or Client identifier that received
      *         this call. Formatted for display.
      */
@@ -678,7 +678,7 @@ public class Call extends Resource {
 
     /**
      * Returns The The URI of this resource, relative to `https://api.twilio.com`.
-     * 
+     *
      * @return The URI of this resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
@@ -697,30 +697,30 @@ public class Call extends Resource {
 
         Call other = (Call) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(annotation, other.annotation) && 
-               Objects.equals(answeredBy, other.answeredBy) && 
-               Objects.equals(apiVersion, other.apiVersion) && 
-               Objects.equals(callerName, other.callerName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(direction, other.direction) && 
-               Objects.equals(duration, other.duration) && 
-               Objects.equals(endTime, other.endTime) && 
-               Objects.equals(forwardedFrom, other.forwardedFrom) && 
-               Objects.equals(from, other.from) && 
-               Objects.equals(fromFormatted, other.fromFormatted) && 
-               Objects.equals(groupSid, other.groupSid) && 
-               Objects.equals(parentCallSid, other.parentCallSid) && 
-               Objects.equals(phoneNumberSid, other.phoneNumberSid) && 
-               Objects.equals(price, other.price) && 
-               Objects.equals(priceUnit, other.priceUnit) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(startTime, other.startTime) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(subresourceUris, other.subresourceUris) && 
-               Objects.equals(to, other.to) && 
-               Objects.equals(toFormatted, other.toFormatted) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(annotation, other.annotation) &&
+               Objects.equals(answeredBy, other.answeredBy) &&
+               Objects.equals(apiVersion, other.apiVersion) &&
+               Objects.equals(callerName, other.callerName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(direction, other.direction) &&
+               Objects.equals(duration, other.duration) &&
+               Objects.equals(endTime, other.endTime) &&
+               Objects.equals(forwardedFrom, other.forwardedFrom) &&
+               Objects.equals(from, other.from) &&
+               Objects.equals(fromFormatted, other.fromFormatted) &&
+               Objects.equals(groupSid, other.groupSid) &&
+               Objects.equals(parentCallSid, other.parentCallSid) &&
+               Objects.equals(phoneNumberSid, other.phoneNumberSid) &&
+               Objects.equals(price, other.price) &&
+               Objects.equals(priceUnit, other.priceUnit) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(startTime, other.startTime) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(subresourceUris, other.subresourceUris) &&
+               Objects.equals(to, other.to) &&
+               Objects.equals(toFormatted, other.toFormatted) &&
                Objects.equals(uri, other.uri);
     }
 

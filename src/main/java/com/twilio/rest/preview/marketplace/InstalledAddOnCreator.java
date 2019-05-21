@@ -33,13 +33,13 @@ public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
 
     /**
      * Construct a new InstalledAddOnCreator.
-     * 
+     *
      * @param availableAddOnSid A string that uniquely identifies the Add-on to
      *                          install
      * @param acceptTermsOfService A boolean reflecting your acceptance of the
      *                             Terms of Service
      */
-    public InstalledAddOnCreator(final String availableAddOnSid, 
+    public InstalledAddOnCreator(final String availableAddOnSid,
                                  final Boolean acceptTermsOfService) {
         this.availableAddOnSid = availableAddOnSid;
         this.acceptTermsOfService = acceptTermsOfService;
@@ -48,7 +48,7 @@ public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
     /**
      * The JSON object representing the configuration of the new Add-on
      * installation..
-     * 
+     *
      * @param configuration The JSON object representing the configuration
      * @return this
      */
@@ -60,7 +60,7 @@ public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
     /**
      * The human-readable string that uniquely identifies this Add-on installation
      * for an Account..
-     * 
+     *
      * @param uniqueName The string that uniquely identifies this Add-on
      *                   installation
      * @return this
@@ -72,7 +72,7 @@ public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created InstalledAddOn
      */
@@ -111,7 +111,7 @@ public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

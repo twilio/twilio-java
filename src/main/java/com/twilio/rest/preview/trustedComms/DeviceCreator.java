@@ -28,11 +28,11 @@ public class DeviceCreator extends Creator<Device> {
 
     /**
      * Construct a new DeviceCreator.
-     * 
+     *
      * @param phoneNumber The end user Phone Number
      * @param pushToken The Push Token for this Phone Number
      */
-    public DeviceCreator(final String phoneNumber, 
+    public DeviceCreator(final String phoneNumber,
                          final String pushToken) {
         this.phoneNumber = phoneNumber;
         this.pushToken = pushToken;
@@ -40,7 +40,7 @@ public class DeviceCreator extends Creator<Device> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Device
      */
@@ -79,7 +79,7 @@ public class DeviceCreator extends Creator<Device> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -37,7 +37,7 @@ public class SsmlSub extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -46,7 +46,7 @@ public class SsmlSub extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -63,7 +63,7 @@ public class SsmlSub extends TwiML {
     /**
      * Substitute a different word (or pronunciation) for selected text such as an
      * acronym or abbreviation
-     * 
+     *
      * @return Substitute a different word (or pronunciation) for selected text
      *         such as an acronym or abbreviation
      */
@@ -73,7 +73,7 @@ public class SsmlSub extends TwiML {
 
     /**
      * Words to be substituted
-     * 
+     *
      * @return Words to be substituted
      */
     public String getWords() {

@@ -32,13 +32,13 @@ public class SampleUpdater extends Updater<Sample> {
 
     /**
      * Construct a new SampleUpdater.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant.
      * @param pathTaskSid The unique ID of the Task associated with this Sample.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
-    public SampleUpdater(final String pathAssistantSid, 
-                         final String pathTaskSid, 
+    public SampleUpdater(final String pathAssistantSid,
+                         final String pathTaskSid,
                          final String pathSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathTaskSid = pathTaskSid;
@@ -47,7 +47,7 @@ public class SampleUpdater extends Updater<Sample> {
 
     /**
      * An ISO language-country string of the sample..
-     * 
+     *
      * @param language An ISO language-country string of the sample.
      * @return this
      */
@@ -59,7 +59,7 @@ public class SampleUpdater extends Updater<Sample> {
     /**
      * The text example of how end-users may express this task. The sample may
      * contain Field tag blocks..
-     * 
+     *
      * @param taggedText The text example of how end-users may express this task.
      *                   The sample may contain Field tag blocks.
      * @return this
@@ -73,7 +73,7 @@ public class SampleUpdater extends Updater<Sample> {
      * The communication channel the sample was captured. It can be: *voice*, *sms*,
      * *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value
      * will be null.
-     * 
+     *
      * @param sourceChannel The communication channel the sample was captured. It
      *                      can be: voice, sms, chat, alexa, google-assistant, or
      *                      slack. If not included the value will be null
@@ -86,7 +86,7 @@ public class SampleUpdater extends Updater<Sample> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Sample
      */
@@ -125,7 +125,7 @@ public class SampleUpdater extends Updater<Sample> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

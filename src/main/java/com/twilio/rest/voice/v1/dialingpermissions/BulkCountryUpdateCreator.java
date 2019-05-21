@@ -27,7 +27,7 @@ public class BulkCountryUpdateCreator extends Creator<BulkCountryUpdate> {
 
     /**
      * Construct a new BulkCountryUpdateCreator.
-     * 
+     *
      * @param updateRequest URL encoded JSON array of update objects
      */
     public BulkCountryUpdateCreator(final String updateRequest) {
@@ -36,7 +36,7 @@ public class BulkCountryUpdateCreator extends Creator<BulkCountryUpdate> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created BulkCountryUpdate
      */
@@ -75,7 +75,7 @@ public class BulkCountryUpdateCreator extends Creator<BulkCountryUpdate> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

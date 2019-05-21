@@ -65,28 +65,28 @@ public class SubscribedTrack extends Resource {
 
     /**
      * Create a SubscribedTrackFetcher to execute fetch.
-     * 
+     *
      * @param pathRoomSid Unique Room identifier where this Track is subscribed.
      * @param pathParticipantSid Unique Participant identifier that subscribes to
      *                           this Track.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return SubscribedTrackFetcher capable of executing the fetch
      */
-    public static SubscribedTrackFetcher fetcher(final String pathRoomSid, 
-                                                 final String pathParticipantSid, 
+    public static SubscribedTrackFetcher fetcher(final String pathRoomSid,
+                                                 final String pathParticipantSid,
                                                  final String pathSid) {
         return new SubscribedTrackFetcher(pathRoomSid, pathParticipantSid, pathSid);
     }
 
     /**
      * Create a SubscribedTrackReader to execute read.
-     * 
+     *
      * @param pathRoomSid Unique Room identifier where the Tracks are subscribed.
      * @param pathParticipantSid Unique Participant identifier that subscribes to
      *                           this Track.
      * @return SubscribedTrackReader capable of executing the read
      */
-    public static SubscribedTrackReader reader(final String pathRoomSid, 
+    public static SubscribedTrackReader reader(final String pathRoomSid,
                                                final String pathParticipantSid) {
         return new SubscribedTrackReader(pathRoomSid, pathParticipantSid);
     }
@@ -94,7 +94,7 @@ public class SubscribedTrack extends Resource {
     /**
      * Converts a JSON String into a SubscribedTrack object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SubscribedTrack object represented by the provided JSON
@@ -113,7 +113,7 @@ public class SubscribedTrack extends Resource {
     /**
      * Converts a JSON InputStream into a SubscribedTrack object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SubscribedTrack object represented by the provided JSON
@@ -142,23 +142,23 @@ public class SubscribedTrack extends Resource {
 
     @JsonCreator
     private SubscribedTrack(@JsonProperty("sid")
-                            final String sid, 
+                            final String sid,
                             @JsonProperty("participant_sid")
-                            final String participantSid, 
+                            final String participantSid,
                             @JsonProperty("publisher_sid")
-                            final String publisherSid, 
+                            final String publisherSid,
                             @JsonProperty("room_sid")
-                            final String roomSid, 
+                            final String roomSid,
                             @JsonProperty("name")
-                            final String name, 
+                            final String name,
                             @JsonProperty("date_created")
-                            final String dateCreated, 
+                            final String dateCreated,
                             @JsonProperty("date_updated")
-                            final String dateUpdated, 
+                            final String dateUpdated,
                             @JsonProperty("enabled")
-                            final Boolean enabled, 
+                            final Boolean enabled,
                             @JsonProperty("kind")
-                            final SubscribedTrack.Kind kind, 
+                            final SubscribedTrack.Kind kind,
                             @JsonProperty("url")
                             final URI url) {
         this.sid = sid;
@@ -175,7 +175,7 @@ public class SubscribedTrack extends Resource {
 
     /**
      * Returns The A 34 character string that uniquely identifies this resource..
-     * 
+     *
      * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
@@ -184,7 +184,7 @@ public class SubscribedTrack extends Resource {
 
     /**
      * Returns The Unique Participant identifier that subscribes to this Track..
-     * 
+     *
      * @return Unique Participant identifier that subscribes to this Track.
      */
     public final String getParticipantSid() {
@@ -193,7 +193,7 @@ public class SubscribedTrack extends Resource {
 
     /**
      * Returns The Unique Participant identifier that publishes this Track..
-     * 
+     *
      * @return Unique Participant identifier that publishes this Track.
      */
     public final String getPublisherSid() {
@@ -202,7 +202,7 @@ public class SubscribedTrack extends Resource {
 
     /**
      * Returns The Unique Room identifier where this Track is published..
-     * 
+     *
      * @return Unique Room identifier where this Track is published.
      */
     public final String getRoomSid() {
@@ -211,7 +211,7 @@ public class SubscribedTrack extends Resource {
 
     /**
      * Returns The Track name. Limited to 128 characters..
-     * 
+     *
      * @return Track name. Limited to 128 characters.
      */
     public final String getName() {
@@ -220,7 +220,7 @@ public class SubscribedTrack extends Resource {
 
     /**
      * Returns The The date that this resource was created..
-     * 
+     *
      * @return The date that this resource was created.
      */
     public final DateTime getDateCreated() {
@@ -229,7 +229,7 @@ public class SubscribedTrack extends Resource {
 
     /**
      * Returns The The date that this resource was last updated..
-     * 
+     *
      * @return The date that this resource was last updated.
      */
     public final DateTime getDateUpdated() {
@@ -238,7 +238,7 @@ public class SubscribedTrack extends Resource {
 
     /**
      * Returns The Specifies whether the Track is enabled or not..
-     * 
+     *
      * @return Specifies whether the Track is enabled or not.
      */
     public final Boolean getEnabled() {
@@ -247,7 +247,7 @@ public class SubscribedTrack extends Resource {
 
     /**
      * Returns The Specifies whether Track represents `audio`, `video` or `data`.
-     * 
+     *
      * @return Specifies whether Track represents `audio`, `video` or `data`
      */
     public final SubscribedTrack.Kind getKind() {
@@ -256,7 +256,7 @@ public class SubscribedTrack extends Resource {
 
     /**
      * Returns The The absolute URL for this resource..
-     * 
+     *
      * @return The absolute URL for this resource.
      */
     public final URI getUrl() {
@@ -275,15 +275,15 @@ public class SubscribedTrack extends Resource {
 
         SubscribedTrack other = (SubscribedTrack) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(participantSid, other.participantSid) && 
-               Objects.equals(publisherSid, other.publisherSid) && 
-               Objects.equals(roomSid, other.roomSid) && 
-               Objects.equals(name, other.name) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(enabled, other.enabled) && 
-               Objects.equals(kind, other.kind) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(participantSid, other.participantSid) &&
+               Objects.equals(publisherSid, other.publisherSid) &&
+               Objects.equals(roomSid, other.roomSid) &&
+               Objects.equals(name, other.name) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(enabled, other.enabled) &&
+               Objects.equals(kind, other.kind) &&
                Objects.equals(url, other.url);
     }
 

@@ -99,7 +99,7 @@ public class Composition extends Resource {
 
     /**
      * Create a CompositionFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The Composition Sid that uniquely identifies the Composition
      *                to fetch.
      * @return CompositionFetcher capable of executing the fetch
@@ -110,7 +110,7 @@ public class Composition extends Resource {
 
     /**
      * Create a CompositionReader to execute read.
-     * 
+     *
      * @return CompositionReader capable of executing the read
      */
     public static CompositionReader reader() {
@@ -119,7 +119,7 @@ public class Composition extends Resource {
 
     /**
      * Create a CompositionDeleter to execute delete.
-     * 
+     *
      * @param pathSid The Recording Composition Sid that uniquely identifies the
      *                Recording Composition to delete.
      * @return CompositionDeleter capable of executing the delete
@@ -130,7 +130,7 @@ public class Composition extends Resource {
 
     /**
      * Create a CompositionCreator to execute create.
-     * 
+     *
      * @param roomSid Twilio Room SID.
      * @return CompositionCreator capable of executing the create
      */
@@ -141,7 +141,7 @@ public class Composition extends Resource {
     /**
      * Converts a JSON String into a Composition object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Composition object represented by the provided JSON
@@ -160,7 +160,7 @@ public class Composition extends Resource {
     /**
      * Converts a JSON InputStream into a Composition object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Composition object represented by the provided JSON
@@ -197,39 +197,39 @@ public class Composition extends Resource {
 
     @JsonCreator
     private Composition(@JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("status")
-                        final Composition.Status status, 
+                        final Composition.Status status,
                         @JsonProperty("date_created")
-                        final String dateCreated, 
+                        final String dateCreated,
                         @JsonProperty("date_completed")
-                        final String dateCompleted, 
+                        final String dateCompleted,
                         @JsonProperty("date_deleted")
-                        final String dateDeleted, 
+                        final String dateDeleted,
                         @JsonProperty("sid")
-                        final String sid, 
+                        final String sid,
                         @JsonProperty("room_sid")
-                        final String roomSid, 
+                        final String roomSid,
                         @JsonProperty("audio_sources")
-                        final List<String> audioSources, 
+                        final List<String> audioSources,
                         @JsonProperty("audio_sources_excluded")
-                        final List<String> audioSourcesExcluded, 
+                        final List<String> audioSourcesExcluded,
                         @JsonProperty("video_layout")
-                        final Map<String, Object> videoLayout, 
+                        final Map<String, Object> videoLayout,
                         @JsonProperty("resolution")
-                        final String resolution, 
+                        final String resolution,
                         @JsonProperty("trim")
-                        final Boolean trim, 
+                        final Boolean trim,
                         @JsonProperty("format")
-                        final Composition.Format format, 
+                        final Composition.Format format,
                         @JsonProperty("bitrate")
-                        final Integer bitrate, 
+                        final Integer bitrate,
                         @JsonProperty("size")
-                        final Long size, 
+                        final Long size,
                         @JsonProperty("duration")
-                        final Integer duration, 
+                        final Integer duration,
                         @JsonProperty("url")
-                        final URI url, 
+                        final URI url,
                         @JsonProperty("links")
                         final Map<String, String> links) {
         this.accountSid = accountSid;
@@ -254,7 +254,7 @@ public class Composition extends Resource {
 
     /**
      * Returns The Twilio Account SID..
-     * 
+     *
      * @return Twilio Account SID.
      */
     public final String getAccountSid() {
@@ -263,7 +263,7 @@ public class Composition extends Resource {
 
     /**
      * Returns The The status of the Composition..
-     * 
+     *
      * @return The status of the Composition.
      */
     public final Composition.Status getStatus() {
@@ -272,7 +272,7 @@ public class Composition extends Resource {
 
     /**
      * Returns The Date when the Composition Resource was created..
-     * 
+     *
      * @return Date when the Composition Resource was created.
      */
     public final DateTime getDateCreated() {
@@ -281,7 +281,7 @@ public class Composition extends Resource {
 
     /**
      * Returns The Date when the media processing task finished..
-     * 
+     *
      * @return Date when the media processing task finished.
      */
     public final String getDateCompleted() {
@@ -290,7 +290,7 @@ public class Composition extends Resource {
 
     /**
      * Returns The Date when the Composition Resource generated media was deleted..
-     * 
+     *
      * @return Date when the Composition Resource generated media was deleted.
      */
     public final String getDateDeleted() {
@@ -299,7 +299,7 @@ public class Composition extends Resource {
 
     /**
      * Returns The A 34-character string that uniquely identifies this Composition..
-     * 
+     *
      * @return A 34-character string that uniquely identifies this Composition.
      */
     public final String getSid() {
@@ -309,7 +309,7 @@ public class Composition extends Resource {
     /**
      * Returns The A 34-character string that uniquely identifies the source of this
      * Composition..
-     * 
+     *
      * @return A 34-character string that uniquely identifies the source of this
      *         Composition.
      */
@@ -319,7 +319,7 @@ public class Composition extends Resource {
 
     /**
      * Returns The A list of audio sources related to this Composition..
-     * 
+     *
      * @return A list of audio sources related to this Composition.
      */
     public final List<String> getAudioSources() {
@@ -328,7 +328,7 @@ public class Composition extends Resource {
 
     /**
      * Returns The A list of audio sources excluded related to this Composition..
-     * 
+     *
      * @return A list of audio sources excluded related to this Composition.
      */
     public final List<String> getAudioSourcesExcluded() {
@@ -337,7 +337,7 @@ public class Composition extends Resource {
 
     /**
      * Returns The The JSON video layout description..
-     * 
+     *
      * @return The JSON video layout description.
      */
     public final Map<String, Object> getVideoLayout() {
@@ -346,7 +346,7 @@ public class Composition extends Resource {
 
     /**
      * Returns The Pixel resolution of the composed video..
-     * 
+     *
      * @return Pixel resolution of the composed video.
      */
     public final String getResolution() {
@@ -355,7 +355,7 @@ public class Composition extends Resource {
 
     /**
      * Returns The Boolean flag for clipping intervals that have no media..
-     * 
+     *
      * @return Boolean flag for clipping intervals that have no media.
      */
     public final Boolean getTrim() {
@@ -364,7 +364,7 @@ public class Composition extends Resource {
 
     /**
      * Returns The The file format for this Composition..
-     * 
+     *
      * @return The file format for this Composition.
      */
     public final Composition.Format getFormat() {
@@ -373,7 +373,7 @@ public class Composition extends Resource {
 
     /**
      * Returns The The bitrate.
-     * 
+     *
      * @return The bitrate
      */
     public final Integer getBitrate() {
@@ -382,7 +382,7 @@ public class Composition extends Resource {
 
     /**
      * Returns The Size of the Composed media file expressed in bytes..
-     * 
+     *
      * @return Size of the Composed media file expressed in bytes.
      */
     public final Long getSize() {
@@ -391,7 +391,7 @@ public class Composition extends Resource {
 
     /**
      * Returns The Duration of the Composed media in seconds..
-     * 
+     *
      * @return Duration of the Composed media in seconds.
      */
     public final Integer getDuration() {
@@ -400,7 +400,7 @@ public class Composition extends Resource {
 
     /**
      * Returns The The absolute URL for this resource..
-     * 
+     *
      * @return The absolute URL for this resource.
      */
     public final URI getUrl() {
@@ -409,7 +409,7 @@ public class Composition extends Resource {
 
     /**
      * Returns The JSON object with the URL where the media file can be fetched..
-     * 
+     *
      * @return JSON object with the URL where the media file can be fetched.
      */
     public final Map<String, String> getLinks() {
@@ -428,23 +428,23 @@ public class Composition extends Resource {
 
         Composition other = (Composition) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateCompleted, other.dateCompleted) && 
-               Objects.equals(dateDeleted, other.dateDeleted) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(roomSid, other.roomSid) && 
-               Objects.equals(audioSources, other.audioSources) && 
-               Objects.equals(audioSourcesExcluded, other.audioSourcesExcluded) && 
-               Objects.equals(videoLayout, other.videoLayout) && 
-               Objects.equals(resolution, other.resolution) && 
-               Objects.equals(trim, other.trim) && 
-               Objects.equals(format, other.format) && 
-               Objects.equals(bitrate, other.bitrate) && 
-               Objects.equals(size, other.size) && 
-               Objects.equals(duration, other.duration) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateCompleted, other.dateCompleted) &&
+               Objects.equals(dateDeleted, other.dateDeleted) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(roomSid, other.roomSid) &&
+               Objects.equals(audioSources, other.audioSources) &&
+               Objects.equals(audioSourcesExcluded, other.audioSourcesExcluded) &&
+               Objects.equals(videoLayout, other.videoLayout) &&
+               Objects.equals(resolution, other.resolution) &&
+               Objects.equals(trim, other.trim) &&
+               Objects.equals(format, other.format) &&
+               Objects.equals(bitrate, other.bitrate) &&
+               Objects.equals(size, other.size) &&
+               Objects.equals(duration, other.duration) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

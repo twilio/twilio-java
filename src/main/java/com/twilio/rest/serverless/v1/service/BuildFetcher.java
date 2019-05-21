@@ -28,11 +28,11 @@ public class BuildFetcher extends Fetcher<Build> {
 
     /**
      * Construct a new BuildFetcher.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathSid Build Sid.
      */
-    public BuildFetcher(final String pathServiceSid, 
+    public BuildFetcher(final String pathServiceSid,
                         final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class BuildFetcher extends Fetcher<Build> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Build
      */

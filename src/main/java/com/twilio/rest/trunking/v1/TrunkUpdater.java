@@ -32,7 +32,7 @@ public class TrunkUpdater extends Updater<Trunk> {
 
     /**
      * Construct a new TrunkUpdater.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public TrunkUpdater(final String pathSid) {
@@ -42,7 +42,7 @@ public class TrunkUpdater extends Updater<Trunk> {
     /**
      * A descriptive string that you create to describe the resource. It can be up
      * to 64 characters long..
-     * 
+     *
      * @param friendlyName A string to describe the resource
      * @return this
      */
@@ -56,7 +56,7 @@ public class TrunkUpdater extends Updater<Trunk> {
      * Domain names can contain letters, digits, and `-` and must end with
      * `pstn.twilio.com`. See [Termination
      * Settings](https://www.twilio.com/docs/sip-trunking/getting-started#termination) for more information..
-     * 
+     *
      * @param domainName The unique address you reserve on Twilio to which you
      *                   route your SIP traffic
      * @return this
@@ -72,7 +72,7 @@ public class TrunkUpdater extends Updater<Trunk> {
      * retrieve TwiML from the URL and execute the instructions like any other
      * normal TwiML call. See [Disaster
      * Recovery](https://www.twilio.com/docs/sip-trunking/getting-started#disaster-recovery) for more information..
-     * 
+     *
      * @param disasterRecoveryUrl The HTTP URL that we should call if an error
      *                            occurs while sending SIP traffic towards your
      *                            configured Origination URL
@@ -89,7 +89,7 @@ public class TrunkUpdater extends Updater<Trunk> {
      * retrieve TwiML from the URL and execute the instructions like any other
      * normal TwiML call. See [Disaster
      * Recovery](https://www.twilio.com/docs/sip-trunking/getting-started#disaster-recovery) for more information..
-     * 
+     *
      * @param disasterRecoveryUrl The HTTP URL that we should call if an error
      *                            occurs while sending SIP traffic towards your
      *                            configured Origination URL
@@ -102,7 +102,7 @@ public class TrunkUpdater extends Updater<Trunk> {
     /**
      * The HTTP method we should use to call the `disaster_recovery_url`. Can be:
      * `GET` or `POST`..
-     * 
+     *
      * @param disasterRecoveryMethod The HTTP method we should use to call the
      *                               disaster_recovery_url
      * @return this
@@ -118,7 +118,7 @@ public class TrunkUpdater extends Updater<Trunk> {
      * or `record-from-answer`, all calls going through the trunk will be recorded.
      * See
      * [Recording](https://www.twilio.com/docs/sip-trunking/getting-started#recording) for more information..
-     * 
+     *
      * @param recording The recording settings for the trunk
      * @return this
      */
@@ -132,7 +132,7 @@ public class TrunkUpdater extends Updater<Trunk> {
      * through the trunk will be secure using SRTP for media and TLS for signaling.
      * If disabled, then RTP will be used for media. See [Secure
      * Trunking](https://www.twilio.com/docs/sip-trunking/getting-started#securetrunking) for more information..
-     * 
+     *
      * @param secure Whether Secure Trunking is enabled for the trunk
      * @return this
      */
@@ -147,7 +147,7 @@ public class TrunkUpdater extends Updater<Trunk> {
      * automatically perform a CNAM Lookup and display Caller ID data on your phone.
      * See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more
      * information..
-     * 
+     *
      * @param cnamLookupEnabled Whether Caller ID Name (CNAM) lookup should be
      *                          enabled for the trunk
      * @return this
@@ -159,7 +159,7 @@ public class TrunkUpdater extends Updater<Trunk> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Trunk
      */
@@ -198,7 +198,7 @@ public class TrunkUpdater extends Updater<Trunk> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -30,11 +30,11 @@ public class FunctionVersionReader extends Reader<FunctionVersion> {
 
     /**
      * Construct a new FunctionVersionReader.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathFunctionSid Function Sid.
      */
-    public FunctionVersionReader(final String pathServiceSid, 
+    public FunctionVersionReader(final String pathServiceSid,
                                  final String pathFunctionSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathFunctionSid = pathFunctionSid;
@@ -42,7 +42,7 @@ public class FunctionVersionReader extends Reader<FunctionVersion> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return FunctionVersion ResourceSet
      */
@@ -53,7 +53,7 @@ public class FunctionVersionReader extends Reader<FunctionVersion> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return FunctionVersion ResourceSet
      */
@@ -73,7 +73,7 @@ public class FunctionVersionReader extends Reader<FunctionVersion> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return FunctionVersion ResourceSet
@@ -91,13 +91,13 @@ public class FunctionVersionReader extends Reader<FunctionVersion> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<FunctionVersion> nextPage(final Page<FunctionVersion> page, 
+    public Page<FunctionVersion> nextPage(final Page<FunctionVersion> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -111,13 +111,13 @@ public class FunctionVersionReader extends Reader<FunctionVersion> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<FunctionVersion> previousPage(final Page<FunctionVersion> page, 
+    public Page<FunctionVersion> previousPage(final Page<FunctionVersion> page,
                                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -131,7 +131,7 @@ public class FunctionVersionReader extends Reader<FunctionVersion> {
 
     /**
      * Generate a Page of FunctionVersion Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -166,7 +166,7 @@ public class FunctionVersionReader extends Reader<FunctionVersion> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

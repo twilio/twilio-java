@@ -31,7 +31,7 @@ public class CommandCreator extends Creator<Command> {
 
     /**
      * Construct a new CommandCreator.
-     * 
+     *
      * @param command The message body of the Command or a Base64 encoded byte
      *                string in binary mode.
      */
@@ -43,7 +43,7 @@ public class CommandCreator extends Creator<Command> {
      * The Sid or UniqueName of the
      * [SIM](https://www.twilio.com/docs/api/wireless/rest-api/sim) to send the
      * Command to..
-     * 
+     *
      * @param sim The Sid or UniqueName of the SIM to send the Command to.
      * @return this
      */
@@ -55,7 +55,7 @@ public class CommandCreator extends Creator<Command> {
     /**
      * The HTTP method Twilio will use when making a request to the callback URL
      * (valid options are GET or POST). Defaults to POST..
-     * 
+     *
      * @param callbackMethod The HTTP method Twilio will use when making a request
      *                       to the callback URL.
      * @return this
@@ -68,7 +68,7 @@ public class CommandCreator extends Creator<Command> {
     /**
      * Twilio will make a request to this URL when the Command has finished sending
      * (delivered or failed)..
-     * 
+     *
      * @param callbackUrl Twilio will make a request to this URL when the Command
      *                    has finished sending.
      * @return this
@@ -81,7 +81,7 @@ public class CommandCreator extends Creator<Command> {
     /**
      * Twilio will make a request to this URL when the Command has finished sending
      * (delivered or failed)..
-     * 
+     *
      * @param callbackUrl Twilio will make a request to this URL when the Command
      *                    has finished sending.
      * @return this
@@ -93,7 +93,7 @@ public class CommandCreator extends Creator<Command> {
     /**
      * A string representing which mode to send the SMS message using. May be `text`
      * or `binary`. If omitted, the default SMS mode is `text`..
-     * 
+     *
      * @param commandMode A string representing which mode to send the SMS message
      *                    using.
      * @return this
@@ -113,7 +113,7 @@ public class CommandCreator extends Creator<Command> {
      * CommandSid and the message body. The length of the CommandSid contributes
      * toward the 160 character limit, i.e. the SMS body must be 128 characters or
      * less before the Command Sid is included..
-     * 
+     *
      * @param includeSid When sending a Command to a SIM in text mode, Twilio can
      *                   automatically include the Sid of the Command in the message
      *                   body, which could be used to ensure that the device does
@@ -130,7 +130,7 @@ public class CommandCreator extends Creator<Command> {
      * recipient. For Commands that request delivery receipt, the Command state
      * transitions to 'delivered' once the server has received a delivery receipt
      * from the device. Defaults to true..
-     * 
+     *
      * @param deliveryReceiptRequested A boolean representing whether to request
      *                                 delivery receipt from the recipient.
      * @return this
@@ -142,7 +142,7 @@ public class CommandCreator extends Creator<Command> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Command
      */
@@ -181,7 +181,7 @@ public class CommandCreator extends Creator<Command> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

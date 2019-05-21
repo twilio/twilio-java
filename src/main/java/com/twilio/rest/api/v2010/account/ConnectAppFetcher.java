@@ -23,7 +23,7 @@ public class ConnectAppFetcher extends Fetcher<ConnectApp> {
 
     /**
      * Construct a new ConnectAppFetcher.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public ConnectAppFetcher(final String pathSid) {
@@ -32,12 +32,12 @@ public class ConnectAppFetcher extends Fetcher<ConnectApp> {
 
     /**
      * Construct a new ConnectAppFetcher.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource to
      *                       fetch
      * @param pathSid The unique string that identifies the resource
      */
-    public ConnectAppFetcher(final String pathAccountSid, 
+    public ConnectAppFetcher(final String pathAccountSid,
                              final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -45,7 +45,7 @@ public class ConnectAppFetcher extends Fetcher<ConnectApp> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched ConnectApp
      */

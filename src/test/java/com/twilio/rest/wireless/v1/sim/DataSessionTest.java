@@ -42,7 +42,7 @@ public class DataSessionTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.WIRELESS.toString(),
                                           "/v1/Sims/DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/DataSessions");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

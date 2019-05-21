@@ -24,12 +24,12 @@ public class MediaDeleter extends Deleter<Media> {
 
     /**
      * Construct a new MediaDeleter.
-     * 
+     *
      * @param pathMessageSid The SID of the Message resource that this Media
      *                       resource belongs to
      * @param pathSid The unique string that identifies this resource
      */
-    public MediaDeleter(final String pathMessageSid, 
+    public MediaDeleter(final String pathMessageSid,
                         final String pathSid) {
         this.pathMessageSid = pathMessageSid;
         this.pathSid = pathSid;
@@ -37,15 +37,15 @@ public class MediaDeleter extends Deleter<Media> {
 
     /**
      * Construct a new MediaDeleter.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       delete
      * @param pathMessageSid The SID of the Message resource that this Media
      *                       resource belongs to
      * @param pathSid The unique string that identifies this resource
      */
-    public MediaDeleter(final String pathAccountSid, 
-                        final String pathMessageSid, 
+    public MediaDeleter(final String pathAccountSid,
+                        final String pathMessageSid,
                         final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathMessageSid = pathMessageSid;
@@ -54,7 +54,7 @@ public class MediaDeleter extends Deleter<Media> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

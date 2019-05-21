@@ -24,7 +24,7 @@ public class KeyUpdater extends Updater<Key> {
 
     /**
      * Construct a new KeyUpdater.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public KeyUpdater(final String pathSid) {
@@ -33,12 +33,12 @@ public class KeyUpdater extends Updater<Key> {
 
     /**
      * Construct a new KeyUpdater.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       update
      * @param pathSid The unique string that identifies the resource
      */
-    public KeyUpdater(final String pathAccountSid, 
+    public KeyUpdater(final String pathAccountSid,
                       final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -47,7 +47,7 @@ public class KeyUpdater extends Updater<Key> {
     /**
      * A descriptive string that you create to describe the resource. It can be up
      * to 64 characters long..
-     * 
+     *
      * @param friendlyName A string to describe the resource
      * @return this
      */
@@ -58,7 +58,7 @@ public class KeyUpdater extends Updater<Key> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Key
      */
@@ -98,7 +98,7 @@ public class KeyUpdater extends Updater<Key> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

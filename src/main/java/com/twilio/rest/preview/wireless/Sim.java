@@ -43,7 +43,7 @@ public class Sim extends Resource {
 
     /**
      * Create a SimFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The sid
      * @return SimFetcher capable of executing the fetch
      */
@@ -53,7 +53,7 @@ public class Sim extends Resource {
 
     /**
      * Create a SimReader to execute read.
-     * 
+     *
      * @return SimReader capable of executing the read
      */
     public static SimReader reader() {
@@ -62,7 +62,7 @@ public class Sim extends Resource {
 
     /**
      * Create a SimUpdater to execute update.
-     * 
+     *
      * @param pathSid The sid
      * @return SimUpdater capable of executing the update
      */
@@ -72,7 +72,7 @@ public class Sim extends Resource {
 
     /**
      * Converts a JSON String into a Sim object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Sim object represented by the provided JSON
@@ -91,7 +91,7 @@ public class Sim extends Resource {
     /**
      * Converts a JSON InputStream into a Sim object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Sim object represented by the provided JSON
@@ -132,47 +132,47 @@ public class Sim extends Resource {
 
     @JsonCreator
     private Sim(@JsonProperty("sid")
-                final String sid, 
+                final String sid,
                 @JsonProperty("unique_name")
-                final String uniqueName, 
+                final String uniqueName,
                 @JsonProperty("account_sid")
-                final String accountSid, 
+                final String accountSid,
                 @JsonProperty("rate_plan_sid")
-                final String ratePlanSid, 
+                final String ratePlanSid,
                 @JsonProperty("friendly_name")
-                final String friendlyName, 
+                final String friendlyName,
                 @JsonProperty("iccid")
-                final String iccid, 
+                final String iccid,
                 @JsonProperty("e_id")
-                final String eId, 
+                final String eId,
                 @JsonProperty("status")
-                final String status, 
+                final String status,
                 @JsonProperty("commands_callback_url")
-                final URI commandsCallbackUrl, 
+                final URI commandsCallbackUrl,
                 @JsonProperty("commands_callback_method")
-                final String commandsCallbackMethod, 
+                final String commandsCallbackMethod,
                 @JsonProperty("sms_fallback_method")
-                final HttpMethod smsFallbackMethod, 
+                final HttpMethod smsFallbackMethod,
                 @JsonProperty("sms_fallback_url")
-                final URI smsFallbackUrl, 
+                final URI smsFallbackUrl,
                 @JsonProperty("sms_method")
-                final HttpMethod smsMethod, 
+                final HttpMethod smsMethod,
                 @JsonProperty("sms_url")
-                final URI smsUrl, 
+                final URI smsUrl,
                 @JsonProperty("voice_fallback_method")
-                final HttpMethod voiceFallbackMethod, 
+                final HttpMethod voiceFallbackMethod,
                 @JsonProperty("voice_fallback_url")
-                final URI voiceFallbackUrl, 
+                final URI voiceFallbackUrl,
                 @JsonProperty("voice_method")
-                final HttpMethod voiceMethod, 
+                final HttpMethod voiceMethod,
                 @JsonProperty("voice_url")
-                final URI voiceUrl, 
+                final URI voiceUrl,
                 @JsonProperty("date_created")
-                final String dateCreated, 
+                final String dateCreated,
                 @JsonProperty("date_updated")
-                final String dateUpdated, 
+                final String dateUpdated,
                 @JsonProperty("url")
-                final URI url, 
+                final URI url,
                 @JsonProperty("links")
                 final Map<String, String> links) {
         this.sid = sid;
@@ -201,7 +201,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The sid.
-     * 
+     *
      * @return The sid
      */
     public final String getSid() {
@@ -210,7 +210,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The unique_name.
-     * 
+     *
      * @return The unique_name
      */
     public final String getUniqueName() {
@@ -219,7 +219,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The account_sid.
-     * 
+     *
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -228,7 +228,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The rate_plan_sid.
-     * 
+     *
      * @return The rate_plan_sid
      */
     public final String getRatePlanSid() {
@@ -237,7 +237,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The friendly_name.
-     * 
+     *
      * @return The friendly_name
      */
     public final String getFriendlyName() {
@@ -246,7 +246,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The iccid.
-     * 
+     *
      * @return The iccid
      */
     public final String getIccid() {
@@ -255,7 +255,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The e_id.
-     * 
+     *
      * @return The e_id
      */
     public final String getEId() {
@@ -264,7 +264,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The status.
-     * 
+     *
      * @return The status
      */
     public final String getStatus() {
@@ -273,7 +273,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The commands_callback_url.
-     * 
+     *
      * @return The commands_callback_url
      */
     public final URI getCommandsCallbackUrl() {
@@ -282,7 +282,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The commands_callback_method.
-     * 
+     *
      * @return The commands_callback_method
      */
     public final String getCommandsCallbackMethod() {
@@ -291,7 +291,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The sms_fallback_method.
-     * 
+     *
      * @return The sms_fallback_method
      */
     public final HttpMethod getSmsFallbackMethod() {
@@ -300,7 +300,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The sms_fallback_url.
-     * 
+     *
      * @return The sms_fallback_url
      */
     public final URI getSmsFallbackUrl() {
@@ -309,7 +309,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The sms_method.
-     * 
+     *
      * @return The sms_method
      */
     public final HttpMethod getSmsMethod() {
@@ -318,7 +318,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The sms_url.
-     * 
+     *
      * @return The sms_url
      */
     public final URI getSmsUrl() {
@@ -327,7 +327,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The voice_fallback_method.
-     * 
+     *
      * @return The voice_fallback_method
      */
     public final HttpMethod getVoiceFallbackMethod() {
@@ -336,7 +336,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The voice_fallback_url.
-     * 
+     *
      * @return The voice_fallback_url
      */
     public final URI getVoiceFallbackUrl() {
@@ -345,7 +345,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The voice_method.
-     * 
+     *
      * @return The voice_method
      */
     public final HttpMethod getVoiceMethod() {
@@ -354,7 +354,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The voice_url.
-     * 
+     *
      * @return The voice_url
      */
     public final URI getVoiceUrl() {
@@ -363,7 +363,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The date_created.
-     * 
+     *
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -372,7 +372,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The date_updated.
-     * 
+     *
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -381,7 +381,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -390,7 +390,7 @@ public class Sim extends Resource {
 
     /**
      * Returns The The links.
-     * 
+     *
      * @return The links
      */
     public final Map<String, String> getLinks() {
@@ -409,27 +409,27 @@ public class Sim extends Resource {
 
         Sim other = (Sim) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(ratePlanSid, other.ratePlanSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(iccid, other.iccid) && 
-               Objects.equals(eId, other.eId) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(commandsCallbackUrl, other.commandsCallbackUrl) && 
-               Objects.equals(commandsCallbackMethod, other.commandsCallbackMethod) && 
-               Objects.equals(smsFallbackMethod, other.smsFallbackMethod) && 
-               Objects.equals(smsFallbackUrl, other.smsFallbackUrl) && 
-               Objects.equals(smsMethod, other.smsMethod) && 
-               Objects.equals(smsUrl, other.smsUrl) && 
-               Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) && 
-               Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) && 
-               Objects.equals(voiceMethod, other.voiceMethod) && 
-               Objects.equals(voiceUrl, other.voiceUrl) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(ratePlanSid, other.ratePlanSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(iccid, other.iccid) &&
+               Objects.equals(eId, other.eId) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(commandsCallbackUrl, other.commandsCallbackUrl) &&
+               Objects.equals(commandsCallbackMethod, other.commandsCallbackMethod) &&
+               Objects.equals(smsFallbackMethod, other.smsFallbackMethod) &&
+               Objects.equals(smsFallbackUrl, other.smsFallbackUrl) &&
+               Objects.equals(smsMethod, other.smsMethod) &&
+               Objects.equals(smsUrl, other.smsUrl) &&
+               Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) &&
+               Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) &&
+               Objects.equals(voiceMethod, other.voiceMethod) &&
+               Objects.equals(voiceUrl, other.voiceUrl) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

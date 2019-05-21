@@ -75,7 +75,7 @@ public class SsmlLang extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -84,7 +84,7 @@ public class SsmlLang extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -100,7 +100,7 @@ public class SsmlLang extends TwiML {
 
     /**
      * Specify the language
-     * 
+     *
      * @return Specify the language
      */
     public SsmlLang.XmlLang getXmlLang() {
@@ -109,7 +109,7 @@ public class SsmlLang extends TwiML {
 
     /**
      * Words to speak
-     * 
+     *
      * @return Words to speak
      */
     public String getWords() {

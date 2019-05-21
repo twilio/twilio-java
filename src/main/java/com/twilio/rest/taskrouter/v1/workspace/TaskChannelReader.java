@@ -24,7 +24,7 @@ public class TaskChannelReader extends Reader<TaskChannel> {
 
     /**
      * Construct a new TaskChannelReader.
-     * 
+     *
      * @param pathWorkspaceSid The unique ID of the Workspace that this TaskChannel
      *                         belongs to.
      */
@@ -34,7 +34,7 @@ public class TaskChannelReader extends Reader<TaskChannel> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return TaskChannel ResourceSet
      */
@@ -45,7 +45,7 @@ public class TaskChannelReader extends Reader<TaskChannel> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return TaskChannel ResourceSet
      */
@@ -65,7 +65,7 @@ public class TaskChannelReader extends Reader<TaskChannel> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return TaskChannel ResourceSet
@@ -83,13 +83,13 @@ public class TaskChannelReader extends Reader<TaskChannel> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<TaskChannel> nextPage(final Page<TaskChannel> page, 
+    public Page<TaskChannel> nextPage(final Page<TaskChannel> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -103,13 +103,13 @@ public class TaskChannelReader extends Reader<TaskChannel> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<TaskChannel> previousPage(final Page<TaskChannel> page, 
+    public Page<TaskChannel> previousPage(final Page<TaskChannel> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -123,7 +123,7 @@ public class TaskChannelReader extends Reader<TaskChannel> {
 
     /**
      * Generate a Page of TaskChannel Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -158,7 +158,7 @@ public class TaskChannelReader extends Reader<TaskChannel> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

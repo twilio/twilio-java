@@ -41,7 +41,7 @@ public class SsmlProsody extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -50,7 +50,7 @@ public class SsmlProsody extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -73,7 +73,7 @@ public class SsmlProsody extends TwiML {
     /**
      * Specify the volume, available values: default, silent, x-soft, soft, medium,
      * loud, x-loud, +ndB, -ndB
-     * 
+     *
      * @return Specify the volume, available values: default, silent, x-soft, soft,
      *         medium, loud, x-loud, +ndB, -ndB
      */
@@ -83,7 +83,7 @@ public class SsmlProsody extends TwiML {
 
     /**
      * Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
-     * 
+     *
      * @return Specify the rate, available values: x-slow, slow, medium, fast,
      *         x-fast, n%
      */
@@ -94,7 +94,7 @@ public class SsmlProsody extends TwiML {
     /**
      * Specify the pitch, available values: default, x-low, low, medium, high,
      * x-high, +n%, -n%
-     * 
+     *
      * @return Specify the pitch, available values: default, x-low, low, medium,
      *         high, x-high, +n%, -n%
      */
@@ -104,7 +104,7 @@ public class SsmlProsody extends TwiML {
 
     /**
      * Words to speak
-     * 
+     *
      * @return Words to speak
      */
     public String getWords() {

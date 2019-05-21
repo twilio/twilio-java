@@ -37,12 +37,12 @@ public class ExecutionContext extends Resource {
 
     /**
      * Create a ExecutionContextFetcher to execute fetch.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      * @param pathExecutionSid Execution Sid.
      * @return ExecutionContextFetcher capable of executing the fetch
      */
-    public static ExecutionContextFetcher fetcher(final String pathFlowSid, 
+    public static ExecutionContextFetcher fetcher(final String pathFlowSid,
                                                   final String pathExecutionSid) {
         return new ExecutionContextFetcher(pathFlowSid, pathExecutionSid);
     }
@@ -50,7 +50,7 @@ public class ExecutionContext extends Resource {
     /**
      * Converts a JSON String into a ExecutionContext object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ExecutionContext object represented by the provided JSON
@@ -69,7 +69,7 @@ public class ExecutionContext extends Resource {
     /**
      * Converts a JSON InputStream into a ExecutionContext object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ExecutionContext object represented by the provided JSON
@@ -93,13 +93,13 @@ public class ExecutionContext extends Resource {
 
     @JsonCreator
     private ExecutionContext(@JsonProperty("account_sid")
-                             final String accountSid, 
+                             final String accountSid,
                              @JsonProperty("context")
-                             final Map<String, Object> context, 
+                             final Map<String, Object> context,
                              @JsonProperty("flow_sid")
-                             final String flowSid, 
+                             final String flowSid,
                              @JsonProperty("execution_sid")
-                             final String executionSid, 
+                             final String executionSid,
                              @JsonProperty("url")
                              final URI url) {
         this.accountSid = accountSid;
@@ -111,7 +111,7 @@ public class ExecutionContext extends Resource {
 
     /**
      * Returns The Account Sid..
-     * 
+     *
      * @return Account Sid.
      */
     public final String getAccountSid() {
@@ -120,7 +120,7 @@ public class ExecutionContext extends Resource {
 
     /**
      * Returns The Flow state..
-     * 
+     *
      * @return Flow state.
      */
     public final Map<String, Object> getContext() {
@@ -129,7 +129,7 @@ public class ExecutionContext extends Resource {
 
     /**
      * Returns The Flow Sid..
-     * 
+     *
      * @return Flow Sid.
      */
     public final String getFlowSid() {
@@ -138,7 +138,7 @@ public class ExecutionContext extends Resource {
 
     /**
      * Returns The Execution Sid..
-     * 
+     *
      * @return Execution Sid.
      */
     public final String getExecutionSid() {
@@ -147,7 +147,7 @@ public class ExecutionContext extends Resource {
 
     /**
      * Returns The The URL of this resource..
-     * 
+     *
      * @return The URL of this resource.
      */
     public final URI getUrl() {
@@ -166,10 +166,10 @@ public class ExecutionContext extends Resource {
 
         ExecutionContext other = (ExecutionContext) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(context, other.context) && 
-               Objects.equals(flowSid, other.flowSid) && 
-               Objects.equals(executionSid, other.executionSid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(context, other.context) &&
+               Objects.equals(flowSid, other.flowSid) &&
+               Objects.equals(executionSid, other.executionSid) &&
                Objects.equals(url, other.url);
     }
 

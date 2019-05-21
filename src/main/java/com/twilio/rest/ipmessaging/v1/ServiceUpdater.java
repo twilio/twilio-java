@@ -80,7 +80,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Construct a new ServiceUpdater.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public ServiceUpdater(final String pathSid) {
@@ -90,7 +90,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * A descriptive string that you create to describe the resource. It can be up
      * to 64 characters long..
-     * 
+     *
      * @param friendlyName A string to describe the resource
      * @return this
      */
@@ -103,7 +103,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The service role assigned to users when they are added to the service. See
      * the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more
      * details..
-     * 
+     *
      * @param defaultServiceRoleSid The service role assigned to users when they
      *                              are added to the service
      * @return this
@@ -117,7 +117,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The channel role assigned to users when they are added to a channel. See the
      * [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more
      * details..
-     * 
+     *
      * @param defaultChannelRoleSid The channel role assigned to users when they
      *                              are added to a channel
      * @return this
@@ -131,7 +131,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The channel role assigned to a channel creator when they join a new channel.
      * See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more
      * details..
-     * 
+     *
      * @param defaultChannelCreatorRoleSid The channel role assigned to a channel
      *                                     creator when they join a new channel
      * @return this
@@ -145,7 +145,7 @@ public class ServiceUpdater extends Updater<Service> {
      * Whether to enable the [Message Consumption
      * Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The
      * default is `true`..
-     * 
+     *
      * @param readStatusEnabled Whether to enable the Message Consumption Horizon
      *                          feature
      * @return this
@@ -159,7 +159,7 @@ public class ServiceUpdater extends Updater<Service> {
      * Whether to enable the [Reachability
      * Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this
      * Service instance. The default is `false`..
-     * 
+     *
      * @param reachabilityEnabled Whether to enable the Reachability Indicator
      *                            feature for this Service instance
      * @return this
@@ -173,7 +173,7 @@ public class ServiceUpdater extends Updater<Service> {
      * How long in seconds after a `started typing` event until clients should
      * assume that user is no longer typing, even if no `ended typing` message was
      * received.  The default is 5 seconds..
-     * 
+     *
      * @param typingIndicatorTimeout How long in seconds to wait before assuming
      *                               the user is no longer typing
      * @return this
@@ -186,7 +186,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * DEPRECATED. The interval in seconds between consumption reports submission
      * batches from client endpoints..
-     * 
+     *
      * @param consumptionReportInterval DEPRECATED
      * @return this
      */
@@ -198,7 +198,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * Whether to send a notification when a new message is added to a channel. Can
      * be: `true` or `false` and the default is `false`..
-     * 
+     *
      * @param notificationsNewMessageEnabled Whether to send a notification when a
      *                                       new message is added to a channel
      * @return this
@@ -212,7 +212,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The template to use to create the notification text displayed when a new
      * message is added to a channel and `notifications.new_message.enabled` is
      * `true`..
-     * 
+     *
      * @param notificationsNewMessageTemplate The template to use to create the
      *                                        notification text displayed when a new
      *                                        message is added to a channel
@@ -226,7 +226,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * Whether to send a notification when a member is added to a channel. Can be:
      * `true` or `false` and the default is `false`..
-     * 
+     *
      * @param notificationsAddedToChannelEnabled Whether to send a notification
      *                                           when a member is added to a channel
      * @return this
@@ -240,7 +240,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The template to use to create the notification text displayed when a member
      * is added to a channel and `notifications.added_to_channel.enabled` is
      * `true`..
-     * 
+     *
      * @param notificationsAddedToChannelTemplate The template to use to create the
      *                                            notification text displayed when a
      *                                            member is added to a channel
@@ -254,7 +254,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * Whether to send a notification to a user when they are removed from a
      * channel. Can be: `true` or `false` and the default is `false`..
-     * 
+     *
      * @param notificationsRemovedFromChannelEnabled Whether to send a notification
      *                                               to a user when they are removed
      *                                               from a channel
@@ -269,7 +269,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The template to use to create the notification text displayed to a user when
      * they are removed from a channel and
      * `notifications.removed_from_channel.enabled` is `true`..
-     * 
+     *
      * @param notificationsRemovedFromChannelTemplate The template to use to create
      *                                                the notification text
      *                                                displayed to a user when they
@@ -284,7 +284,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * Whether to send a notification when a user is invited to a channel. Can be:
      * `true` or `false` and the default is `false`..
-     * 
+     *
      * @param notificationsInvitedToChannelEnabled Whether to send a notification
      *                                             when a user is invited to a
      *                                             channel
@@ -299,7 +299,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The template to use to create the notification text displayed when a user is
      * invited to a channel and `notifications.invited_to_channel.enabled` is
      * `true`..
-     * 
+     *
      * @param notificationsInvitedToChannelTemplate The template to use to create
      *                                              the notification text displayed
      *                                              when a user is invited to a
@@ -315,7 +315,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The URL for pre-event webhooks, which are called by using the
      * `webhook_method`. See [Webhook
      * Events](https://www.twilio.com/docs/api/chat/webhooks) for more details..
-     * 
+     *
      * @param preWebhookUrl The webhook URL for pre-event webhooks
      * @return this
      */
@@ -328,7 +328,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The URL for pre-event webhooks, which are called by using the
      * `webhook_method`. See [Webhook
      * Events](https://www.twilio.com/docs/api/chat/webhooks) for more details..
-     * 
+     *
      * @param preWebhookUrl The webhook URL for pre-event webhooks
      * @return this
      */
@@ -340,7 +340,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The URL for post-event webhooks, which are called by using the
      * `webhook_method`. See [Webhook
      * Events](https://www.twilio.com/docs/api/chat/webhooks) for more details..
-     * 
+     *
      * @param postWebhookUrl The URL for post-event webhooks
      * @return this
      */
@@ -353,7 +353,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The URL for post-event webhooks, which are called by using the
      * `webhook_method`. See [Webhook
      * Events](https://www.twilio.com/docs/api/chat/webhooks) for more details..
-     * 
+     *
      * @param postWebhookUrl The URL for post-event webhooks
      * @return this
      */
@@ -366,7 +366,7 @@ public class ServiceUpdater extends Updater<Service> {
      * `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is
      * `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events)
      * for more details..
-     * 
+     *
      * @param webhookMethod The HTTP method  to use for both PRE and POST webhooks
      * @return this
      */
@@ -379,7 +379,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The list of WebHook events that are enabled for this Service instance. See
      * [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more
      * details..
-     * 
+     *
      * @param webhookFilters The list of WebHook events that are enabled for this
      *                       Service instance
      * @return this
@@ -393,7 +393,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The list of WebHook events that are enabled for this Service instance. See
      * [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more
      * details..
-     * 
+     *
      * @param webhookFilters The list of WebHook events that are enabled for this
      *                       Service instance
      * @return this
@@ -405,7 +405,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_message_send` event
      * using the `webhooks.on_message_send.method` HTTP method..
-     * 
+     *
      * @param webhooksOnMessageSendUrl The URL of the webhook to call in response
      *                                 to the on_message_send event
      * @return this
@@ -418,7 +418,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_message_send` event
      * using the `webhooks.on_message_send.method` HTTP method..
-     * 
+     *
      * @param webhooksOnMessageSendUrl The URL of the webhook to call in response
      *                                 to the on_message_send event
      * @return this
@@ -429,7 +429,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The HTTP method to use when calling the `webhooks.on_message_send.url`..
-     * 
+     *
      * @param webhooksOnMessageSendMethod The HTTP method to use when calling the
      *                                    webhooks.on_message_send.url
      * @return this
@@ -442,7 +442,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_message_update` event
      * using the `webhooks.on_message_update.method` HTTP method..
-     * 
+     *
      * @param webhooksOnMessageUpdateUrl The URL of the webhook to call in response
      *                                   to the on_message_update event
      * @return this
@@ -455,7 +455,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_message_update` event
      * using the `webhooks.on_message_update.method` HTTP method..
-     * 
+     *
      * @param webhooksOnMessageUpdateUrl The URL of the webhook to call in response
      *                                   to the on_message_update event
      * @return this
@@ -466,7 +466,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The HTTP method to use when calling the `webhooks.on_message_update.url`..
-     * 
+     *
      * @param webhooksOnMessageUpdateMethod The HTTP method to use when calling the
      *                                      webhooks.on_message_update.url
      * @return this
@@ -479,7 +479,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_message_remove` event
      * using the `webhooks.on_message_remove.method` HTTP method..
-     * 
+     *
      * @param webhooksOnMessageRemoveUrl The URL of the webhook to call in response
      *                                   to the on_message_remove event
      * @return this
@@ -492,7 +492,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_message_remove` event
      * using the `webhooks.on_message_remove.method` HTTP method..
-     * 
+     *
      * @param webhooksOnMessageRemoveUrl The URL of the webhook to call in response
      *                                   to the on_message_remove event
      * @return this
@@ -503,7 +503,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The HTTP method to use when calling the `webhooks.on_message_remove.url`..
-     * 
+     *
      * @param webhooksOnMessageRemoveMethod The HTTP method to use when calling the
      *                                      webhooks.on_message_remove.url
      * @return this
@@ -516,7 +516,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_channel_add` event
      * using the `webhooks.on_channel_add.method` HTTP method..
-     * 
+     *
      * @param webhooksOnChannelAddUrl The URL of the webhook to call in response to
      *                                the on_channel_add event
      * @return this
@@ -529,7 +529,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_channel_add` event
      * using the `webhooks.on_channel_add.method` HTTP method..
-     * 
+     *
      * @param webhooksOnChannelAddUrl The URL of the webhook to call in response to
      *                                the on_channel_add event
      * @return this
@@ -540,7 +540,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The HTTP method to use when calling the `webhooks.on_channel_add.url`..
-     * 
+     *
      * @param webhooksOnChannelAddMethod The HTTP method to use when calling the
      *                                   webhooks.on_channel_add.url
      * @return this
@@ -553,7 +553,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_channel_destroy` event
      * using the `webhooks.on_channel_destroy.method` HTTP method..
-     * 
+     *
      * @param webhooksOnChannelDestroyUrl The URL of the webhook to call in
      *                                    response to the on_channel_destroy event
      * @return this
@@ -566,7 +566,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_channel_destroy` event
      * using the `webhooks.on_channel_destroy.method` HTTP method..
-     * 
+     *
      * @param webhooksOnChannelDestroyUrl The URL of the webhook to call in
      *                                    response to the on_channel_destroy event
      * @return this
@@ -577,7 +577,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The HTTP method to use when calling the `webhooks.on_channel_destroy.url`..
-     * 
+     *
      * @param webhooksOnChannelDestroyMethod The HTTP method to use when calling
      *                                       the webhooks.on_channel_destroy.url
      * @return this
@@ -590,7 +590,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_channel_update` event
      * using the `webhooks.on_channel_update.method` HTTP method..
-     * 
+     *
      * @param webhooksOnChannelUpdateUrl The URL of the webhook to call in response
      *                                   to the on_channel_update event
      * @return this
@@ -603,7 +603,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_channel_update` event
      * using the `webhooks.on_channel_update.method` HTTP method..
-     * 
+     *
      * @param webhooksOnChannelUpdateUrl The URL of the webhook to call in response
      *                                   to the on_channel_update event
      * @return this
@@ -614,7 +614,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The HTTP method to use when calling the `webhooks.on_channel_update.url`..
-     * 
+     *
      * @param webhooksOnChannelUpdateMethod The HTTP method to use when calling the
      *                                      webhooks.on_channel_update.url
      * @return this
@@ -627,7 +627,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_member_add` event using
      * the `webhooks.on_member_add.method` HTTP method..
-     * 
+     *
      * @param webhooksOnMemberAddUrl The URL of the webhook to call in response to
      *                               the on_member_add event
      * @return this
@@ -640,7 +640,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_member_add` event using
      * the `webhooks.on_member_add.method` HTTP method..
-     * 
+     *
      * @param webhooksOnMemberAddUrl The URL of the webhook to call in response to
      *                               the on_member_add event
      * @return this
@@ -651,7 +651,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The HTTP method to use when calling the `webhooks.on_member_add.url`..
-     * 
+     *
      * @param webhooksOnMemberAddMethod The HTTP method to use when calling the
      *                                  webhooks.on_member_add.url
      * @return this
@@ -664,7 +664,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_member_remove` event
      * using the `webhooks.on_member_remove.method` HTTP method..
-     * 
+     *
      * @param webhooksOnMemberRemoveUrl The URL of the webhook to call in response
      *                                  to the on_member_remove event
      * @return this
@@ -677,7 +677,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_member_remove` event
      * using the `webhooks.on_member_remove.method` HTTP method..
-     * 
+     *
      * @param webhooksOnMemberRemoveUrl The URL of the webhook to call in response
      *                                  to the on_member_remove event
      * @return this
@@ -688,7 +688,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The HTTP method to use when calling the `webhooks.on_member_remove.url`..
-     * 
+     *
      * @param webhooksOnMemberRemoveMethod The HTTP method to use when calling the
      *                                     webhooks.on_member_remove.url
      * @return this
@@ -701,7 +701,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_message_sent` event
      * using the `webhooks.on_message_sent.method` HTTP method..
-     * 
+     *
      * @param webhooksOnMessageSentUrl The URL of the webhook to call in response
      *                                 to the on_message_sent event
      * @return this
@@ -714,7 +714,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_message_sent` event
      * using the `webhooks.on_message_sent.method` HTTP method..
-     * 
+     *
      * @param webhooksOnMessageSentUrl The URL of the webhook to call in response
      *                                 to the on_message_sent event
      * @return this
@@ -725,7 +725,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The URL of the webhook to call in response to the `on_message_sent` event`..
-     * 
+     *
      * @param webhooksOnMessageSentMethod The URL of the webhook to call in
      *                                    response to the on_message_sent event
      * @return this
@@ -738,7 +738,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_message_updated` event
      * using the `webhooks.on_message_updated.method` HTTP method..
-     * 
+     *
      * @param webhooksOnMessageUpdatedUrl The URL of the webhook to call in
      *                                    response to the on_message_updated event
      * @return this
@@ -751,7 +751,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_message_updated` event
      * using the `webhooks.on_message_updated.method` HTTP method..
-     * 
+     *
      * @param webhooksOnMessageUpdatedUrl The URL of the webhook to call in
      *                                    response to the on_message_updated event
      * @return this
@@ -762,7 +762,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The HTTP method to use when calling the `webhooks.on_message_updated.url`..
-     * 
+     *
      * @param webhooksOnMessageUpdatedMethod The HTTP method to use when calling
      *                                       the webhooks.on_message_updated.url
      * @return this
@@ -775,7 +775,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_message_removed` event
      * using the `webhooks.on_message_removed.method` HTTP method..
-     * 
+     *
      * @param webhooksOnMessageRemovedUrl The URL of the webhook to call in
      *                                    response to the on_message_removed event
      * @return this
@@ -788,7 +788,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_message_removed` event
      * using the `webhooks.on_message_removed.method` HTTP method..
-     * 
+     *
      * @param webhooksOnMessageRemovedUrl The URL of the webhook to call in
      *                                    response to the on_message_removed event
      * @return this
@@ -799,7 +799,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The HTTP method to use when calling the `webhooks.on_message_removed.url`..
-     * 
+     *
      * @param webhooksOnMessageRemovedMethod The HTTP method to use when calling
      *                                       the webhooks.on_message_removed.url
      * @return this
@@ -812,7 +812,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_channel_added` event
      * using the `webhooks.on_channel_added.method` HTTP method..
-     * 
+     *
      * @param webhooksOnChannelAddedUrl The URL of the webhook to call in response
      *                                  to the on_channel_added event
      * @return this
@@ -825,7 +825,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_channel_added` event
      * using the `webhooks.on_channel_added.method` HTTP method..
-     * 
+     *
      * @param webhooksOnChannelAddedUrl The URL of the webhook to call in response
      *                                  to the on_channel_added event
      * @return this
@@ -836,7 +836,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The URL of the webhook to call in response to the `on_channel_added` event`..
-     * 
+     *
      * @param webhooksOnChannelAddedMethod The URL of the webhook to call in
      *                                     response to the on_channel_added event
      * @return this
@@ -849,7 +849,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_channel_added` event
      * using the `webhooks.on_channel_destroyed.method` HTTP method..
-     * 
+     *
      * @param webhooksOnChannelDestroyedUrl The URL of the webhook to call in
      *                                      response to the on_channel_added event
      * @return this
@@ -862,7 +862,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_channel_added` event
      * using the `webhooks.on_channel_destroyed.method` HTTP method..
-     * 
+     *
      * @param webhooksOnChannelDestroyedUrl The URL of the webhook to call in
      *                                      response to the on_channel_added event
      * @return this
@@ -873,7 +873,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The HTTP method to use when calling the `webhooks.on_channel_destroyed.url`..
-     * 
+     *
      * @param webhooksOnChannelDestroyedMethod The HTTP method to use when calling
      *                                         the webhooks.on_channel_destroyed.url
      * @return this
@@ -886,7 +886,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_channel_updated` event
      * using the `webhooks.on_channel_updated.method` HTTP method..
-     * 
+     *
      * @param webhooksOnChannelUpdatedUrl he URL of the webhook to call in response
      *                                    to the on_channel_updated event
      * @return this
@@ -899,7 +899,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_channel_updated` event
      * using the `webhooks.on_channel_updated.method` HTTP method..
-     * 
+     *
      * @param webhooksOnChannelUpdatedUrl he URL of the webhook to call in response
      *                                    to the on_channel_updated event
      * @return this
@@ -910,7 +910,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The HTTP method to use when calling the `webhooks.on_channel_updated.url`..
-     * 
+     *
      * @param webhooksOnChannelUpdatedMethod The HTTP method to use when calling
      *                                       the webhooks.on_channel_updated.url
      * @return this
@@ -923,7 +923,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_channel_updated` event
      * using the `webhooks.on_channel_updated.method` HTTP method..
-     * 
+     *
      * @param webhooksOnMemberAddedUrl The URL of the webhook to call in response
      *                                 to the on_channel_updated event
      * @return this
@@ -936,7 +936,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_channel_updated` event
      * using the `webhooks.on_channel_updated.method` HTTP method..
-     * 
+     *
      * @param webhooksOnMemberAddedUrl The URL of the webhook to call in response
      *                                 to the on_channel_updated event
      * @return this
@@ -947,7 +947,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The HTTP method to use when calling the `webhooks.on_channel_updated.url`..
-     * 
+     *
      * @param webhooksOnMemberAddedMethod he HTTP method to use when calling the
      *                                    webhooks.on_channel_updated.url
      * @return this
@@ -960,7 +960,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_member_removed` event
      * using the `webhooks.on_member_removed.method` HTTP method..
-     * 
+     *
      * @param webhooksOnMemberRemovedUrl The URL of the webhook to call in response
      *                                   to the on_member_removed event
      * @return this
@@ -973,7 +973,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL of the webhook to call in response to the `on_member_removed` event
      * using the `webhooks.on_member_removed.method` HTTP method..
-     * 
+     *
      * @param webhooksOnMemberRemovedUrl The URL of the webhook to call in response
      *                                   to the on_member_removed event
      * @return this
@@ -984,7 +984,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The HTTP method to use when calling the `webhooks.on_member_removed.url`..
-     * 
+     *
      * @param webhooksOnMemberRemovedMethod The HTTP method to use when calling the
      *                                      webhooks.on_member_removed.url
      * @return this
@@ -997,7 +997,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The maximum number of Members that can be added to Channels within this
      * Service. Can be up to 1,000..
-     * 
+     *
      * @param limitsChannelMembers The maximum number of Members that can be added
      *                             to Channels within this Service
      * @return this
@@ -1010,7 +1010,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The maximum number of Channels Users can be a Member of within this Service.
      * Can be up to 1,000..
-     * 
+     *
      * @param limitsUserChannels The maximum number of Channels Users can be a
      *                           Member of within this Service
      * @return this
@@ -1022,7 +1022,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Service
      */
@@ -1061,7 +1061,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

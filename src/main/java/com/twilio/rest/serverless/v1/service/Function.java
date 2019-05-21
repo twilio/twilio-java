@@ -43,7 +43,7 @@ public class Function extends Resource {
 
     /**
      * Create a FunctionReader to execute read.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @return FunctionReader capable of executing the read
      */
@@ -53,38 +53,38 @@ public class Function extends Resource {
 
     /**
      * Create a FunctionFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathSid Function Sid.
      * @return FunctionFetcher capable of executing the fetch
      */
-    public static FunctionFetcher fetcher(final String pathServiceSid, 
+    public static FunctionFetcher fetcher(final String pathServiceSid,
                                           final String pathSid) {
         return new FunctionFetcher(pathServiceSid, pathSid);
     }
 
     /**
      * Create a FunctionCreator to execute create.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param friendlyName A human-readable description of this Function.
      * @return FunctionCreator capable of executing the create
      */
-    public static FunctionCreator creator(final String pathServiceSid, 
+    public static FunctionCreator creator(final String pathServiceSid,
                                           final String friendlyName) {
         return new FunctionCreator(pathServiceSid, friendlyName);
     }
 
     /**
      * Create a FunctionUpdater to execute update.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathSid Function Sid.
      * @param friendlyName A human-readable description of this Function.
      * @return FunctionUpdater capable of executing the update
      */
-    public static FunctionUpdater updater(final String pathServiceSid, 
-                                          final String pathSid, 
+    public static FunctionUpdater updater(final String pathServiceSid,
+                                          final String pathSid,
                                           final String friendlyName) {
         return new FunctionUpdater(pathServiceSid, pathSid, friendlyName);
     }
@@ -92,7 +92,7 @@ public class Function extends Resource {
     /**
      * Converts a JSON String into a Function object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Function object represented by the provided JSON
@@ -111,7 +111,7 @@ public class Function extends Resource {
     /**
      * Converts a JSON InputStream into a Function object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Function object represented by the provided JSON
@@ -138,19 +138,19 @@ public class Function extends Resource {
 
     @JsonCreator
     private Function(@JsonProperty("sid")
-                     final String sid, 
+                     final String sid,
                      @JsonProperty("account_sid")
-                     final String accountSid, 
+                     final String accountSid,
                      @JsonProperty("service_sid")
-                     final String serviceSid, 
+                     final String serviceSid,
                      @JsonProperty("friendly_name")
-                     final String friendlyName, 
+                     final String friendlyName,
                      @JsonProperty("date_created")
-                     final String dateCreated, 
+                     final String dateCreated,
                      @JsonProperty("date_updated")
-                     final String dateUpdated, 
+                     final String dateUpdated,
                      @JsonProperty("url")
-                     final URI url, 
+                     final URI url,
                      @JsonProperty("links")
                      final Map<String, String> links) {
         this.sid = sid;
@@ -165,7 +165,7 @@ public class Function extends Resource {
 
     /**
      * Returns The Function Sid..
-     * 
+     *
      * @return Function Sid.
      */
     public final String getSid() {
@@ -174,7 +174,7 @@ public class Function extends Resource {
 
     /**
      * Returns The Account Sid..
-     * 
+     *
      * @return Account Sid.
      */
     public final String getAccountSid() {
@@ -183,7 +183,7 @@ public class Function extends Resource {
 
     /**
      * Returns The Service Sid..
-     * 
+     *
      * @return Service Sid.
      */
     public final String getServiceSid() {
@@ -192,7 +192,7 @@ public class Function extends Resource {
 
     /**
      * Returns The A human-readable description of this Function..
-     * 
+     *
      * @return A human-readable description of this Function.
      */
     public final String getFriendlyName() {
@@ -201,7 +201,7 @@ public class Function extends Resource {
 
     /**
      * Returns The The date that this Function was created..
-     * 
+     *
      * @return The date that this Function was created.
      */
     public final DateTime getDateCreated() {
@@ -210,7 +210,7 @@ public class Function extends Resource {
 
     /**
      * Returns The The date that this Function was updated..
-     * 
+     *
      * @return The date that this Function was updated.
      */
     public final DateTime getDateUpdated() {
@@ -219,7 +219,7 @@ public class Function extends Resource {
 
     /**
      * Returns The The URL of this Function..
-     * 
+     *
      * @return The URL of this Function.
      */
     public final URI getUrl() {
@@ -228,7 +228,7 @@ public class Function extends Resource {
 
     /**
      * Returns The Nested resource URLs..
-     * 
+     *
      * @return Nested resource URLs.
      */
     public final Map<String, String> getLinks() {
@@ -247,13 +247,13 @@ public class Function extends Resource {
 
         Function other = (Function) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

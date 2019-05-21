@@ -42,7 +42,7 @@ public class SimTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
                                           "/wireless/Sims/DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class SimTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
                                           "/wireless/Sims");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -118,7 +118,7 @@ public class SimTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.PREVIEW.toString(),
                                           "/wireless/Sims/DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

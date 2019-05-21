@@ -30,11 +30,11 @@ public class CertificateCreator extends Creator<Certificate> {
 
     /**
      * Construct a new CertificateCreator.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @param certificateData The public certificate data.
      */
-    public CertificateCreator(final String pathFleetSid, 
+    public CertificateCreator(final String pathFleetSid,
                               final String certificateData) {
         this.pathFleetSid = pathFleetSid;
         this.certificateData = certificateData;
@@ -43,7 +43,7 @@ public class CertificateCreator extends Creator<Certificate> {
     /**
      * Provides a human readable descriptive text for this Certificate credential,
      * up to 256 characters long..
-     * 
+     *
      * @param friendlyName The human readable description for this Certificate.
      * @return this
      */
@@ -55,7 +55,7 @@ public class CertificateCreator extends Creator<Certificate> {
     /**
      * Provides the unique string identifier of an existing Device to become
      * authenticated with this Certificate credential..
-     * 
+     *
      * @param deviceSid The unique identifier of a Device to be authenticated.
      * @return this
      */
@@ -66,7 +66,7 @@ public class CertificateCreator extends Creator<Certificate> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Certificate
      */
@@ -105,7 +105,7 @@ public class CertificateCreator extends Creator<Certificate> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -31,15 +31,15 @@ public class QueryCreator extends Creator<Query> {
 
     /**
      * Construct a new QueryCreator.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         new resource
      * @param language The ISO language-country string that specifies the language
      *                 used for the new query
      * @param query The end-user's natural language input
      */
-    public QueryCreator(final String pathAssistantSid, 
-                        final String language, 
+    public QueryCreator(final String pathAssistantSid,
+                        final String language,
                         final String query) {
         this.pathAssistantSid = pathAssistantSid;
         this.language = language;
@@ -51,7 +51,7 @@ public class QueryCreator extends Creator<Query> {
      * comma-separated list of task `unique_name` values. For example,
      * `task-unique_name-1, task-unique_name-2`. Listing specific tasks is useful to
      * constrain the paths that a user can take..
-     * 
+     *
      * @param tasks The list of tasks to limit the new query to
      * @return this
      */
@@ -63,7 +63,7 @@ public class QueryCreator extends Creator<Query> {
     /**
      * The SID or unique name of the [Model
      * Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried..
-     * 
+     *
      * @param modelBuild The SID or unique name of the Model Build to be queried
      * @return this
      */
@@ -74,7 +74,7 @@ public class QueryCreator extends Creator<Query> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Query
      */
@@ -113,7 +113,7 @@ public class QueryCreator extends Creator<Query> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

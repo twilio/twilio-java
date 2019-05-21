@@ -29,11 +29,11 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
 
     /**
      * Construct a new WorkerStatisticsFetcher.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathWorkerSid The worker_sid
      */
-    public WorkerStatisticsFetcher(final String pathWorkspaceSid, 
+    public WorkerStatisticsFetcher(final String pathWorkspaceSid,
                                    final String pathWorkerSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathWorkerSid = pathWorkerSid;
@@ -43,7 +43,7 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
      * Filter cumulative statistics by up to 'x' minutes in the past. This is
      * helpful for statistics for the last 15 minutes, 240 minutes (4 hours), and
      * 480 minutes (8 hours) to see trends. Defaults to 15 minutes..
-     * 
+     *
      * @param minutes Filter cumulative statistics by up to 'x' minutes in the past.
      * @return this
      */
@@ -56,7 +56,7 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
      * Filter cumulative statistics by a start date. This is helpful for defining a
      * range of statistics to capture. Input is a string of the format:
      * yyyy-MM-dd'T'HH:mm:ss'Z'..
-     * 
+     *
      * @param startDate Filter cumulative statistics by a start date.
      * @return this
      */
@@ -69,7 +69,7 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
      * Filter cumulative statistics by a end date. This is helpful for defining a
      * range of statistics to capture. Input is a string of the format:
      * yyyy-MM-dd'T'HH:mm:ss'Z'..
-     * 
+     *
      * @param endDate Filter cumulative statistics by a end date.
      * @return this
      */
@@ -81,7 +81,7 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
     /**
      * Filter cumulative statistics by TaskChannel. Takes in a Unique Name ("voice",
      * "sms", "default", etc.) or a TaskChannelSid..
-     * 
+     *
      * @param taskChannel Filter cumulative statistics by TaskChannel.
      * @return this
      */
@@ -92,7 +92,7 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched WorkerStatistics
      */
@@ -131,7 +131,7 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

@@ -62,13 +62,13 @@ public class UserChannel extends Resource {
 
     /**
      * Create a UserChannelReader to execute read.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to read the resources from
      * @param pathUserSid The SID of the User to fetch the User Channel resources
      *                    from
      * @return UserChannelReader capable of executing the read
      */
-    public static UserChannelReader reader(final String pathServiceSid, 
+    public static UserChannelReader reader(final String pathServiceSid,
                                            final String pathUserSid) {
         return new UserChannelReader(pathServiceSid, pathUserSid);
     }
@@ -76,7 +76,7 @@ public class UserChannel extends Resource {
     /**
      * Converts a JSON String into a UserChannel object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return UserChannel object represented by the provided JSON
@@ -95,7 +95,7 @@ public class UserChannel extends Resource {
     /**
      * Converts a JSON InputStream into a UserChannel object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return UserChannel object represented by the provided JSON
@@ -122,19 +122,19 @@ public class UserChannel extends Resource {
 
     @JsonCreator
     private UserChannel(@JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("service_sid")
-                        final String serviceSid, 
+                        final String serviceSid,
                         @JsonProperty("channel_sid")
-                        final String channelSid, 
+                        final String channelSid,
                         @JsonProperty("member_sid")
-                        final String memberSid, 
+                        final String memberSid,
                         @JsonProperty("status")
-                        final UserChannel.ChannelStatus status, 
+                        final UserChannel.ChannelStatus status,
                         @JsonProperty("last_consumed_message_index")
-                        final Integer lastConsumedMessageIndex, 
+                        final Integer lastConsumedMessageIndex,
                         @JsonProperty("unread_messages_count")
-                        final Integer unreadMessagesCount, 
+                        final Integer unreadMessagesCount,
                         @JsonProperty("links")
                         final Map<String, String> links) {
         this.accountSid = accountSid;
@@ -149,7 +149,7 @@ public class UserChannel extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -158,7 +158,7 @@ public class UserChannel extends Resource {
 
     /**
      * Returns The The SID of the Service that the resource is associated with.
-     * 
+     *
      * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
@@ -167,7 +167,7 @@ public class UserChannel extends Resource {
 
     /**
      * Returns The The SID of the Channel the resource belongs to.
-     * 
+     *
      * @return The SID of the Channel the resource belongs to
      */
     public final String getChannelSid() {
@@ -176,7 +176,7 @@ public class UserChannel extends Resource {
 
     /**
      * Returns The The SID of the User as a Member in the Channel.
-     * 
+     *
      * @return The SID of the User as a Member in the Channel
      */
     public final String getMemberSid() {
@@ -185,7 +185,7 @@ public class UserChannel extends Resource {
 
     /**
      * Returns The The status of the User on the Channel.
-     * 
+     *
      * @return The status of the User on the Channel
      */
     public final UserChannel.ChannelStatus getStatus() {
@@ -194,7 +194,7 @@ public class UserChannel extends Resource {
 
     /**
      * Returns The The index of the last Message in the Channel the Member has read.
-     * 
+     *
      * @return The index of the last Message in the Channel the Member has read
      */
     public final Integer getLastConsumedMessageIndex() {
@@ -203,7 +203,7 @@ public class UserChannel extends Resource {
 
     /**
      * Returns The The number of unread Messages in the Channel for the User.
-     * 
+     *
      * @return The number of unread Messages in the Channel for the User
      */
     public final Integer getUnreadMessagesCount() {
@@ -213,7 +213,7 @@ public class UserChannel extends Resource {
     /**
      * Returns The Absolute URLs to access the Members, Messages , Invites and, if
      * it exists, the last Message for the Channel.
-     * 
+     *
      * @return Absolute URLs to access the Members, Messages , Invites and, if it
      *         exists, the last Message for the Channel
      */
@@ -233,13 +233,13 @@ public class UserChannel extends Resource {
 
         UserChannel other = (UserChannel) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(channelSid, other.channelSid) && 
-               Objects.equals(memberSid, other.memberSid) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(lastConsumedMessageIndex, other.lastConsumedMessageIndex) && 
-               Objects.equals(unreadMessagesCount, other.unreadMessagesCount) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(channelSid, other.channelSid) &&
+               Objects.equals(memberSid, other.memberSid) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(lastConsumedMessageIndex, other.lastConsumedMessageIndex) &&
+               Objects.equals(unreadMessagesCount, other.unreadMessagesCount) &&
                Objects.equals(links, other.links);
     }
 

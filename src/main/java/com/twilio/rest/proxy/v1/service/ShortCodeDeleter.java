@@ -27,12 +27,12 @@ public class ShortCodeDeleter extends Deleter<ShortCode> {
 
     /**
      * Construct a new ShortCodeDeleter.
-     * 
+     *
      * @param pathServiceSid The SID of the parent Service to delete the ShortCode
      *                       resource from
      * @param pathSid The unique string that identifies the resource
      */
-    public ShortCodeDeleter(final String pathServiceSid, 
+    public ShortCodeDeleter(final String pathServiceSid,
                             final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class ShortCodeDeleter extends Deleter<ShortCode> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

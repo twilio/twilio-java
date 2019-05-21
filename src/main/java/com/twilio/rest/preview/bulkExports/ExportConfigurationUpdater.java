@@ -33,7 +33,7 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
 
     /**
      * Construct a new ExportConfigurationUpdater.
-     * 
+     *
      * @param pathResourceType The resource_type
      */
     public ExportConfigurationUpdater(final String pathResourceType) {
@@ -42,7 +42,7 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
 
     /**
      * The enabled.
-     * 
+     *
      * @param enabled The enabled
      * @return this
      */
@@ -53,7 +53,7 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
 
     /**
      * The webhook_url.
-     * 
+     *
      * @param webhookUrl The webhook_url
      * @return this
      */
@@ -64,7 +64,7 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
 
     /**
      * The webhook_url.
-     * 
+     *
      * @param webhookUrl The webhook_url
      * @return this
      */
@@ -74,7 +74,7 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
 
     /**
      * The webhook_method.
-     * 
+     *
      * @param webhookMethod The webhook_method
      * @return this
      */
@@ -85,7 +85,7 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated ExportConfiguration
      */
@@ -124,7 +124,7 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

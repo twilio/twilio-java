@@ -32,11 +32,11 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * Construct a new SyncListItemReader.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathListSid The list_sid
      */
-    public SyncListItemReader(final String pathServiceSid, 
+    public SyncListItemReader(final String pathServiceSid,
                               final String pathListSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathListSid = pathListSid;
@@ -44,7 +44,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * A string; `asc` or `desc`.
-     * 
+     *
      * @param order A string; asc or desc
      * @return this
      */
@@ -56,7 +56,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
     /**
      * An integer representing Item index offset (inclusive). If not present, query
      * is performed from the start or end, depending on the Order query parameter..
-     * 
+     *
      * @param from An integer representing Item index offset.
      * @return this
      */
@@ -67,7 +67,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * The bounds.
-     * 
+     *
      * @param bounds The bounds
      * @return this
      */
@@ -78,7 +78,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return SyncListItem ResourceSet
      */
@@ -89,7 +89,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return SyncListItem ResourceSet
      */
@@ -109,7 +109,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return SyncListItem ResourceSet
@@ -127,13 +127,13 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<SyncListItem> nextPage(final Page<SyncListItem> page, 
+    public Page<SyncListItem> nextPage(final Page<SyncListItem> page,
                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -147,13 +147,13 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<SyncListItem> previousPage(final Page<SyncListItem> page, 
+    public Page<SyncListItem> previousPage(final Page<SyncListItem> page,
                                            final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -167,7 +167,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * Generate a Page of SyncListItem Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -202,7 +202,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

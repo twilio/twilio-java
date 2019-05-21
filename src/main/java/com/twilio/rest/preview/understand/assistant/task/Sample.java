@@ -43,33 +43,33 @@ public class Sample extends Resource {
 
     /**
      * Create a SampleFetcher to execute fetch.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant.
      * @param pathTaskSid The unique ID of the Task associated with this Sample.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return SampleFetcher capable of executing the fetch
      */
-    public static SampleFetcher fetcher(final String pathAssistantSid, 
-                                        final String pathTaskSid, 
+    public static SampleFetcher fetcher(final String pathAssistantSid,
+                                        final String pathTaskSid,
                                         final String pathSid) {
         return new SampleFetcher(pathAssistantSid, pathTaskSid, pathSid);
     }
 
     /**
      * Create a SampleReader to execute read.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant.
      * @param pathTaskSid The unique ID of the Task associated with this Sample.
      * @return SampleReader capable of executing the read
      */
-    public static SampleReader reader(final String pathAssistantSid, 
+    public static SampleReader reader(final String pathAssistantSid,
                                       final String pathTaskSid) {
         return new SampleReader(pathAssistantSid, pathTaskSid);
     }
 
     /**
      * Create a SampleCreator to execute create.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant.
      * @param pathTaskSid The unique ID of the Task associated with this Sample.
      * @param language An ISO language-country string of the sample.
@@ -77,44 +77,44 @@ public class Sample extends Resource {
      *                   The sample may contain Field tag blocks.
      * @return SampleCreator capable of executing the create
      */
-    public static SampleCreator creator(final String pathAssistantSid, 
-                                        final String pathTaskSid, 
-                                        final String language, 
+    public static SampleCreator creator(final String pathAssistantSid,
+                                        final String pathTaskSid,
+                                        final String language,
                                         final String taggedText) {
         return new SampleCreator(pathAssistantSid, pathTaskSid, language, taggedText);
     }
 
     /**
      * Create a SampleUpdater to execute update.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant.
      * @param pathTaskSid The unique ID of the Task associated with this Sample.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return SampleUpdater capable of executing the update
      */
-    public static SampleUpdater updater(final String pathAssistantSid, 
-                                        final String pathTaskSid, 
+    public static SampleUpdater updater(final String pathAssistantSid,
+                                        final String pathTaskSid,
                                         final String pathSid) {
         return new SampleUpdater(pathAssistantSid, pathTaskSid, pathSid);
     }
 
     /**
      * Create a SampleDeleter to execute delete.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant.
      * @param pathTaskSid The unique ID of the Task associated with this Sample.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return SampleDeleter capable of executing the delete
      */
-    public static SampleDeleter deleter(final String pathAssistantSid, 
-                                        final String pathTaskSid, 
+    public static SampleDeleter deleter(final String pathAssistantSid,
+                                        final String pathTaskSid,
                                         final String pathSid) {
         return new SampleDeleter(pathAssistantSid, pathTaskSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a Sample object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Sample object represented by the provided JSON
@@ -133,7 +133,7 @@ public class Sample extends Resource {
     /**
      * Converts a JSON InputStream into a Sample object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Sample object represented by the provided JSON
@@ -162,23 +162,23 @@ public class Sample extends Resource {
 
     @JsonCreator
     private Sample(@JsonProperty("account_sid")
-                   final String accountSid, 
+                   final String accountSid,
                    @JsonProperty("date_created")
-                   final String dateCreated, 
+                   final String dateCreated,
                    @JsonProperty("date_updated")
-                   final String dateUpdated, 
+                   final String dateUpdated,
                    @JsonProperty("task_sid")
-                   final String taskSid, 
+                   final String taskSid,
                    @JsonProperty("language")
-                   final String language, 
+                   final String language,
                    @JsonProperty("assistant_sid")
-                   final String assistantSid, 
+                   final String assistantSid,
                    @JsonProperty("sid")
-                   final String sid, 
+                   final String sid,
                    @JsonProperty("tagged_text")
-                   final String taggedText, 
+                   final String taggedText,
                    @JsonProperty("url")
-                   final URI url, 
+                   final URI url,
                    @JsonProperty("source_channel")
                    final String sourceChannel) {
         this.accountSid = accountSid;
@@ -195,7 +195,7 @@ public class Sample extends Resource {
 
     /**
      * Returns The The unique ID of the Account that created this Sample..
-     * 
+     *
      * @return The unique ID of the Account that created this Sample.
      */
     public final String getAccountSid() {
@@ -204,7 +204,7 @@ public class Sample extends Resource {
 
     /**
      * Returns The The date that this resource was created.
-     * 
+     *
      * @return The date that this resource was created
      */
     public final DateTime getDateCreated() {
@@ -213,7 +213,7 @@ public class Sample extends Resource {
 
     /**
      * Returns The The date that this resource was last updated.
-     * 
+     *
      * @return The date that this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -222,7 +222,7 @@ public class Sample extends Resource {
 
     /**
      * Returns The The unique ID of the Task associated with this Sample..
-     * 
+     *
      * @return The unique ID of the Task associated with this Sample.
      */
     public final String getTaskSid() {
@@ -231,7 +231,7 @@ public class Sample extends Resource {
 
     /**
      * Returns The An ISO language-country string of the sample..
-     * 
+     *
      * @return An ISO language-country string of the sample.
      */
     public final String getLanguage() {
@@ -240,7 +240,7 @@ public class Sample extends Resource {
 
     /**
      * Returns The The unique ID of the Assistant..
-     * 
+     *
      * @return The unique ID of the Assistant.
      */
     public final String getAssistantSid() {
@@ -249,7 +249,7 @@ public class Sample extends Resource {
 
     /**
      * Returns The A 34 character string that uniquely identifies this resource..
-     * 
+     *
      * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
@@ -259,7 +259,7 @@ public class Sample extends Resource {
     /**
      * Returns The The text example of how end-users may express this task. The
      * sample may contain Field tag blocks..
-     * 
+     *
      * @return The text example of how end-users may express this task. The sample
      *         may contain Field tag blocks.
      */
@@ -269,7 +269,7 @@ public class Sample extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -280,7 +280,7 @@ public class Sample extends Resource {
      * Returns The The communication channel the sample was captured. It can be:
      * voice, sms, chat, alexa, google-assistant, or slack. If not included the
      * value will be null.
-     * 
+     *
      * @return The communication channel the sample was captured. It can be: voice,
      *         sms, chat, alexa, google-assistant, or slack. If not included the
      *         value will be null
@@ -301,15 +301,15 @@ public class Sample extends Resource {
 
         Sample other = (Sample) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(taskSid, other.taskSid) && 
-               Objects.equals(language, other.language) && 
-               Objects.equals(assistantSid, other.assistantSid) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(taggedText, other.taggedText) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(taskSid, other.taskSid) &&
+               Objects.equals(language, other.language) &&
+               Objects.equals(assistantSid, other.assistantSid) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(taggedText, other.taggedText) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(sourceChannel, other.sourceChannel);
     }
 

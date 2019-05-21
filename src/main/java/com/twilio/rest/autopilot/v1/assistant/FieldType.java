@@ -43,20 +43,20 @@ public class FieldType extends Resource {
 
     /**
      * Create a FieldTypeFetcher to execute fetch.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         resource to fetch
      * @param pathSid The unique string that identifies the resource
      * @return FieldTypeFetcher capable of executing the fetch
      */
-    public static FieldTypeFetcher fetcher(final String pathAssistantSid, 
+    public static FieldTypeFetcher fetcher(final String pathAssistantSid,
                                            final String pathSid) {
         return new FieldTypeFetcher(pathAssistantSid, pathSid);
     }
 
     /**
      * Create a FieldTypeReader to execute read.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant with the FieldType
      *                         resources to read
      * @return FieldTypeReader capable of executing the read
@@ -67,40 +67,40 @@ public class FieldType extends Resource {
 
     /**
      * Create a FieldTypeCreator to execute create.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         new resource
      * @param uniqueName An application-defined string that uniquely identifies the
      *                   new resource
      * @return FieldTypeCreator capable of executing the create
      */
-    public static FieldTypeCreator creator(final String pathAssistantSid, 
+    public static FieldTypeCreator creator(final String pathAssistantSid,
                                            final String uniqueName) {
         return new FieldTypeCreator(pathAssistantSid, uniqueName);
     }
 
     /**
      * Create a FieldTypeUpdater to execute update.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant with the FieldType resource
      *                         to update
      * @param pathSid The unique string that identifies the resource
      * @return FieldTypeUpdater capable of executing the update
      */
-    public static FieldTypeUpdater updater(final String pathAssistantSid, 
+    public static FieldTypeUpdater updater(final String pathAssistantSid,
                                            final String pathSid) {
         return new FieldTypeUpdater(pathAssistantSid, pathSid);
     }
 
     /**
      * Create a FieldTypeDeleter to execute delete.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant with the FieldType
      *                         resources to delete
      * @param pathSid The unique string that identifies the resource
      * @return FieldTypeDeleter capable of executing the delete
      */
-    public static FieldTypeDeleter deleter(final String pathAssistantSid, 
+    public static FieldTypeDeleter deleter(final String pathAssistantSid,
                                            final String pathSid) {
         return new FieldTypeDeleter(pathAssistantSid, pathSid);
     }
@@ -108,7 +108,7 @@ public class FieldType extends Resource {
     /**
      * Converts a JSON String into a FieldType object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return FieldType object represented by the provided JSON
@@ -127,7 +127,7 @@ public class FieldType extends Resource {
     /**
      * Converts a JSON InputStream into a FieldType object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return FieldType object represented by the provided JSON
@@ -155,21 +155,21 @@ public class FieldType extends Resource {
 
     @JsonCreator
     private FieldType(@JsonProperty("account_sid")
-                      final String accountSid, 
+                      final String accountSid,
                       @JsonProperty("date_created")
-                      final String dateCreated, 
+                      final String dateCreated,
                       @JsonProperty("date_updated")
-                      final String dateUpdated, 
+                      final String dateUpdated,
                       @JsonProperty("friendly_name")
-                      final String friendlyName, 
+                      final String friendlyName,
                       @JsonProperty("links")
-                      final Map<String, String> links, 
+                      final Map<String, String> links,
                       @JsonProperty("assistant_sid")
-                      final String assistantSid, 
+                      final String assistantSid,
                       @JsonProperty("sid")
-                      final String sid, 
+                      final String sid,
                       @JsonProperty("unique_name")
-                      final String uniqueName, 
+                      final String uniqueName,
                       @JsonProperty("url")
                       final URI url) {
         this.accountSid = accountSid;
@@ -185,7 +185,7 @@ public class FieldType extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -194,7 +194,7 @@ public class FieldType extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
@@ -204,7 +204,7 @@ public class FieldType extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -213,7 +213,7 @@ public class FieldType extends Resource {
 
     /**
      * Returns The The string that you assigned to describe the resource.
-     * 
+     *
      * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
@@ -222,7 +222,7 @@ public class FieldType extends Resource {
 
     /**
      * Returns The A list of the URLs of related resources.
-     * 
+     *
      * @return A list of the URLs of related resources
      */
     public final Map<String, String> getLinks() {
@@ -231,7 +231,7 @@ public class FieldType extends Resource {
 
     /**
      * Returns The The SID of the Assistant that is the parent of the resource.
-     * 
+     *
      * @return The SID of the Assistant that is the parent of the resource
      */
     public final String getAssistantSid() {
@@ -240,7 +240,7 @@ public class FieldType extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -250,7 +250,7 @@ public class FieldType extends Resource {
     /**
      * Returns The An application-defined string that uniquely identifies the
      * resource.
-     * 
+     *
      * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
@@ -259,7 +259,7 @@ public class FieldType extends Resource {
 
     /**
      * Returns The The absolute URL of the FieldType resource.
-     * 
+     *
      * @return The absolute URL of the FieldType resource
      */
     public final URI getUrl() {
@@ -278,14 +278,14 @@ public class FieldType extends Resource {
 
         FieldType other = (FieldType) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(links, other.links) && 
-               Objects.equals(assistantSid, other.assistantSid) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(links, other.links) &&
+               Objects.equals(assistantSid, other.assistantSid) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
                Objects.equals(url, other.url);
     }
 

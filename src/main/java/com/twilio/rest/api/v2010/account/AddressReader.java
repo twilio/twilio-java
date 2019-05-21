@@ -33,7 +33,7 @@ public class AddressReader extends Reader<Address> {
 
     /**
      * Construct a new AddressReader.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that is responsible for this
      *                       address
      */
@@ -43,7 +43,7 @@ public class AddressReader extends Reader<Address> {
 
     /**
      * The `customer_name` of the Address resources to read..
-     * 
+     *
      * @param customerName The `customer_name` of the Address resources to read
      * @return this
      */
@@ -54,7 +54,7 @@ public class AddressReader extends Reader<Address> {
 
     /**
      * The string that identifies the Address resources to read..
-     * 
+     *
      * @param friendlyName The string that identifies the Address resources to read
      * @return this
      */
@@ -65,7 +65,7 @@ public class AddressReader extends Reader<Address> {
 
     /**
      * The ISO country code of the Address resources to read..
-     * 
+     *
      * @param isoCountry The ISO country code of the Address resources to read
      * @return this
      */
@@ -76,7 +76,7 @@ public class AddressReader extends Reader<Address> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Address ResourceSet
      */
@@ -87,7 +87,7 @@ public class AddressReader extends Reader<Address> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Address ResourceSet
      */
@@ -108,7 +108,7 @@ public class AddressReader extends Reader<Address> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Address ResourceSet
@@ -127,13 +127,13 @@ public class AddressReader extends Reader<Address> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Address> nextPage(final Page<Address> page, 
+    public Page<Address> nextPage(final Page<Address> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -147,13 +147,13 @@ public class AddressReader extends Reader<Address> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Address> previousPage(final Page<Address> page, 
+    public Page<Address> previousPage(final Page<Address> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -167,7 +167,7 @@ public class AddressReader extends Reader<Address> {
 
     /**
      * Generate a Page of Address Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -202,7 +202,7 @@ public class AddressReader extends Reader<Address> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

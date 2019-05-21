@@ -27,7 +27,7 @@ public class InstalledAddOnFetcher extends Fetcher<InstalledAddOn> {
 
     /**
      * Construct a new InstalledAddOnFetcher.
-     * 
+     *
      * @param pathSid The unique Installed Add-on Sid
      */
     public InstalledAddOnFetcher(final String pathSid) {
@@ -36,7 +36,7 @@ public class InstalledAddOnFetcher extends Fetcher<InstalledAddOn> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched InstalledAddOn
      */

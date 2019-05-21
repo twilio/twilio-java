@@ -25,15 +25,15 @@ public class PayloadFetcher extends Fetcher<Payload> {
 
     /**
      * Construct a new PayloadFetcher.
-     * 
+     *
      * @param pathReferenceSid The SID of the recording to which the AddOnResult
      *                         resource that contains the payload to fetch belongs
      * @param pathAddOnResultSid The SID of the AddOnResult to which the payload to
      *                           fetch belongs
      * @param pathSid The unique string that identifies the resource to fetch
      */
-    public PayloadFetcher(final String pathReferenceSid, 
-                          final String pathAddOnResultSid, 
+    public PayloadFetcher(final String pathReferenceSid,
+                          final String pathAddOnResultSid,
                           final String pathSid) {
         this.pathReferenceSid = pathReferenceSid;
         this.pathAddOnResultSid = pathAddOnResultSid;
@@ -42,7 +42,7 @@ public class PayloadFetcher extends Fetcher<Payload> {
 
     /**
      * Construct a new PayloadFetcher.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource to
      *                       fetch
      * @param pathReferenceSid The SID of the recording to which the AddOnResult
@@ -51,9 +51,9 @@ public class PayloadFetcher extends Fetcher<Payload> {
      *                           fetch belongs
      * @param pathSid The unique string that identifies the resource to fetch
      */
-    public PayloadFetcher(final String pathAccountSid, 
-                          final String pathReferenceSid, 
-                          final String pathAddOnResultSid, 
+    public PayloadFetcher(final String pathAccountSid,
+                          final String pathReferenceSid,
+                          final String pathAddOnResultSid,
                           final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathReferenceSid = pathReferenceSid;
@@ -63,7 +63,7 @@ public class PayloadFetcher extends Fetcher<Payload> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Payload
      */

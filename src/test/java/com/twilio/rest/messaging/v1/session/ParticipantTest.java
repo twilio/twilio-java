@@ -42,7 +42,7 @@ public class ParticipantTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.MESSAGING.toString(),
                                           "/v1/Sessions/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -86,7 +86,7 @@ public class ParticipantTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.MESSAGING.toString(),
                                           "/v1/Sessions/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -118,7 +118,7 @@ public class ParticipantTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.MESSAGING.toString(),
                                           "/v1/Sessions/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -150,7 +150,7 @@ public class ParticipantTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.MESSAGING.toString(),
                                           "/v1/Sessions/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -182,7 +182,7 @@ public class ParticipantTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.MESSAGING.toString(),
                                           "/v1/Sessions/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

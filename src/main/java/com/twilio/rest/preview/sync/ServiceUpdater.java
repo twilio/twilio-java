@@ -34,7 +34,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Construct a new ServiceUpdater.
-     * 
+     *
      * @param pathSid The sid
      */
     public ServiceUpdater(final String pathSid) {
@@ -43,7 +43,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The webhook_url.
-     * 
+     *
      * @param webhookUrl The webhook_url
      * @return this
      */
@@ -54,7 +54,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The webhook_url.
-     * 
+     *
      * @param webhookUrl The webhook_url
      * @return this
      */
@@ -64,7 +64,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The friendly_name.
-     * 
+     *
      * @param friendlyName The friendly_name
      * @return this
      */
@@ -75,7 +75,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The reachability_webhooks_enabled.
-     * 
+     *
      * @param reachabilityWebhooksEnabled The reachability_webhooks_enabled
      * @return this
      */
@@ -86,7 +86,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The acl_enabled.
-     * 
+     *
      * @param aclEnabled The acl_enabled
      * @return this
      */
@@ -97,7 +97,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Service
      */
@@ -136,7 +136,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -30,11 +30,11 @@ public class QueryUpdater extends Updater<Query> {
 
     /**
      * Construct a new QueryUpdater.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the parent Assistant.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
-    public QueryUpdater(final String pathAssistantSid, 
+    public QueryUpdater(final String pathAssistantSid,
                         final String pathSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathSid = pathSid;
@@ -42,7 +42,7 @@ public class QueryUpdater extends Updater<Query> {
 
     /**
      * An optional reference to the Sample created from this query..
-     * 
+     *
      * @param sampleSid An optional reference to the Sample created from this query.
      * @return this
      */
@@ -54,7 +54,7 @@ public class QueryUpdater extends Updater<Query> {
     /**
      * A string that described the query status. The values can be: pending_review,
      * reviewed, discarded.
-     * 
+     *
      * @param status A string that described the query status. The values can be:
      *               pending_review, reviewed, discarded
      * @return this
@@ -66,7 +66,7 @@ public class QueryUpdater extends Updater<Query> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Query
      */
@@ -105,7 +105,7 @@ public class QueryUpdater extends Updater<Query> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -42,7 +42,7 @@ public class CallReader extends Reader<Call> {
 
     /**
      * Construct a new CallReader.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       read
      */
@@ -53,7 +53,7 @@ public class CallReader extends Reader<Call> {
     /**
      * Only show calls to this phone number, SIP address, Client identifier or SIM
      * SID..
-     * 
+     *
      * @param to Phone number or Client identifier of calls to include
      * @return this
      */
@@ -65,7 +65,7 @@ public class CallReader extends Reader<Call> {
     /**
      * Only show calls to this phone number, SIP address, Client identifier or SIM
      * SID..
-     * 
+     *
      * @param to Phone number or Client identifier of calls to include
      * @return this
      */
@@ -76,7 +76,7 @@ public class CallReader extends Reader<Call> {
     /**
      * Only include calls from this phone number, SIP address, Client identifier or
      * SIM SID..
-     * 
+     *
      * @param from Phone number or Client identifier to filter `from` on
      * @return this
      */
@@ -88,7 +88,7 @@ public class CallReader extends Reader<Call> {
     /**
      * Only include calls from this phone number, SIP address, Client identifier or
      * SIM SID..
-     * 
+     *
      * @param from Phone number or Client identifier to filter `from` on
      * @return this
      */
@@ -98,7 +98,7 @@ public class CallReader extends Reader<Call> {
 
     /**
      * Only include calls spawned by calls with this SID..
-     * 
+     *
      * @param parentCallSid Parent call SID to filter on
      * @return this
      */
@@ -110,7 +110,7 @@ public class CallReader extends Reader<Call> {
     /**
      * The status of the calls to include. Can be: `queued`, `ringing`,
      * `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`..
-     * 
+     *
      * @param status The status of the resources to read
      * @return this
      */
@@ -122,7 +122,7 @@ public class CallReader extends Reader<Call> {
     /**
      * Only include calls that started on or after this date. Specify the date in
      * GMT and format as `YYYY-MM-DD`..
-     * 
+     *
      * @param absoluteStartTime Only include calls that started on or after this
      *                          date
      * @return this
@@ -136,7 +136,7 @@ public class CallReader extends Reader<Call> {
     /**
      * Only include calls that started on or after this date. Specify the date in
      * GMT and format as `YYYY-MM-DD`..
-     * 
+     *
      * @param rangeStartTime Only include calls that started on or after this date
      * @return this
      */
@@ -149,7 +149,7 @@ public class CallReader extends Reader<Call> {
     /**
      * Only include calls that occurred on or before this date. Specify the date in
      * GMT and format as `YYYY-MM-DD`..
-     * 
+     *
      * @param absoluteEndTime Only include usage that occurred on or before this
      *                        date
      * @return this
@@ -163,7 +163,7 @@ public class CallReader extends Reader<Call> {
     /**
      * Only include calls that occurred on or before this date. Specify the date in
      * GMT and format as `YYYY-MM-DD`..
-     * 
+     *
      * @param rangeEndTime Only include usage that occurred on or before this date
      * @return this
      */
@@ -175,7 +175,7 @@ public class CallReader extends Reader<Call> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Call ResourceSet
      */
@@ -186,7 +186,7 @@ public class CallReader extends Reader<Call> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Call ResourceSet
      */
@@ -207,7 +207,7 @@ public class CallReader extends Reader<Call> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Call ResourceSet
@@ -226,13 +226,13 @@ public class CallReader extends Reader<Call> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Call> nextPage(final Page<Call> page, 
+    public Page<Call> nextPage(final Page<Call> page,
                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -246,13 +246,13 @@ public class CallReader extends Reader<Call> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Call> previousPage(final Page<Call> page, 
+    public Page<Call> previousPage(final Page<Call> page,
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -266,7 +266,7 @@ public class CallReader extends Reader<Call> {
 
     /**
      * Generate a Page of Call Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -301,7 +301,7 @@ public class CallReader extends Reader<Call> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

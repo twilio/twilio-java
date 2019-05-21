@@ -37,14 +37,14 @@ public class StepContext extends Resource {
 
     /**
      * Create a StepContextFetcher to execute fetch.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      * @param pathEngagementSid Engagement Sid.
      * @param pathStepSid Step Sid.
      * @return StepContextFetcher capable of executing the fetch
      */
-    public static StepContextFetcher fetcher(final String pathFlowSid, 
-                                             final String pathEngagementSid, 
+    public static StepContextFetcher fetcher(final String pathFlowSid,
+                                             final String pathEngagementSid,
                                              final String pathStepSid) {
         return new StepContextFetcher(pathFlowSid, pathEngagementSid, pathStepSid);
     }
@@ -52,7 +52,7 @@ public class StepContext extends Resource {
     /**
      * Converts a JSON String into a StepContext object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return StepContext object represented by the provided JSON
@@ -71,7 +71,7 @@ public class StepContext extends Resource {
     /**
      * Converts a JSON InputStream into a StepContext object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return StepContext object represented by the provided JSON
@@ -96,15 +96,15 @@ public class StepContext extends Resource {
 
     @JsonCreator
     private StepContext(@JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("context")
-                        final Map<String, Object> context, 
+                        final Map<String, Object> context,
                         @JsonProperty("engagement_sid")
-                        final String engagementSid, 
+                        final String engagementSid,
                         @JsonProperty("flow_sid")
-                        final String flowSid, 
+                        final String flowSid,
                         @JsonProperty("step_sid")
-                        final String stepSid, 
+                        final String stepSid,
                         @JsonProperty("url")
                         final URI url) {
         this.accountSid = accountSid;
@@ -117,7 +117,7 @@ public class StepContext extends Resource {
 
     /**
      * Returns The Account Sid..
-     * 
+     *
      * @return Account Sid.
      */
     public final String getAccountSid() {
@@ -126,7 +126,7 @@ public class StepContext extends Resource {
 
     /**
      * Returns The Flow state..
-     * 
+     *
      * @return Flow state.
      */
     public final Map<String, Object> getContext() {
@@ -135,7 +135,7 @@ public class StepContext extends Resource {
 
     /**
      * Returns The Engagement Sid..
-     * 
+     *
      * @return Engagement Sid.
      */
     public final String getEngagementSid() {
@@ -144,7 +144,7 @@ public class StepContext extends Resource {
 
     /**
      * Returns The Flow Sid..
-     * 
+     *
      * @return Flow Sid.
      */
     public final String getFlowSid() {
@@ -153,7 +153,7 @@ public class StepContext extends Resource {
 
     /**
      * Returns The Step Sid..
-     * 
+     *
      * @return Step Sid.
      */
     public final String getStepSid() {
@@ -162,7 +162,7 @@ public class StepContext extends Resource {
 
     /**
      * Returns The The URL of this resource..
-     * 
+     *
      * @return The URL of this resource.
      */
     public final URI getUrl() {
@@ -181,11 +181,11 @@ public class StepContext extends Resource {
 
         StepContext other = (StepContext) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(context, other.context) && 
-               Objects.equals(engagementSid, other.engagementSid) && 
-               Objects.equals(flowSid, other.flowSid) && 
-               Objects.equals(stepSid, other.stepSid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(context, other.context) &&
+               Objects.equals(engagementSid, other.engagementSid) &&
+               Objects.equals(flowSid, other.flowSid) &&
+               Objects.equals(stepSid, other.stepSid) &&
                Objects.equals(url, other.url);
     }
 

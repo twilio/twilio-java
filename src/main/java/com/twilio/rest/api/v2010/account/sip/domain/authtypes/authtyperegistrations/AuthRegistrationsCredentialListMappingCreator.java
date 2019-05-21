@@ -24,13 +24,13 @@ public class AuthRegistrationsCredentialListMappingCreator extends Creator<AuthR
 
     /**
      * Construct a new AuthRegistrationsCredentialListMappingCreator.
-     * 
+     *
      * @param pathDomainSid The SID of the SIP domain that will contain the new
      *                      resource
      * @param credentialListSid The SID of the CredentialList resource to map to
      *                          the SIP domain
      */
-    public AuthRegistrationsCredentialListMappingCreator(final String pathDomainSid, 
+    public AuthRegistrationsCredentialListMappingCreator(final String pathDomainSid,
                                                          final String credentialListSid) {
         this.pathDomainSid = pathDomainSid;
         this.credentialListSid = credentialListSid;
@@ -38,15 +38,15 @@ public class AuthRegistrationsCredentialListMappingCreator extends Creator<AuthR
 
     /**
      * Construct a new AuthRegistrationsCredentialListMappingCreator.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param pathDomainSid The SID of the SIP domain that will contain the new
      *                      resource
      * @param credentialListSid The SID of the CredentialList resource to map to
      *                          the SIP domain
      */
-    public AuthRegistrationsCredentialListMappingCreator(final String pathAccountSid, 
-                                                         final String pathDomainSid, 
+    public AuthRegistrationsCredentialListMappingCreator(final String pathAccountSid,
+                                                         final String pathDomainSid,
                                                          final String credentialListSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
@@ -55,7 +55,7 @@ public class AuthRegistrationsCredentialListMappingCreator extends Creator<AuthR
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created AuthRegistrationsCredentialListMapping
      */
@@ -95,7 +95,7 @@ public class AuthRegistrationsCredentialListMappingCreator extends Creator<AuthR
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

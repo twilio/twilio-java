@@ -35,7 +35,7 @@ public class Media extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -44,7 +44,7 @@ public class Media extends TwiML {
 
     /**
      * Media URL
-     * 
+     *
      * @return Media URL
      */
     public URI getUrl() {

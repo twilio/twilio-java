@@ -30,15 +30,15 @@ public class ChallengeFetcher extends Fetcher<Challenge> {
 
     /**
      * Construct a new ChallengeFetcher.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique identity of the Entity
      * @param pathFactorSid Factor Sid.
      * @param pathSid A string that uniquely identifies this Challenge, or `latest`.
      */
-    public ChallengeFetcher(final String pathServiceSid, 
-                            final String pathIdentity, 
-                            final String pathFactorSid, 
+    public ChallengeFetcher(final String pathServiceSid,
+                            final String pathIdentity,
+                            final String pathFactorSid,
                             final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathIdentity = pathIdentity;
@@ -48,7 +48,7 @@ public class ChallengeFetcher extends Fetcher<Challenge> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Challenge
      */

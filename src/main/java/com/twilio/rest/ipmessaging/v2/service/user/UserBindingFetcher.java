@@ -24,13 +24,13 @@ public class UserBindingFetcher extends Fetcher<UserBinding> {
 
     /**
      * Construct a new UserBindingFetcher.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to fetch the resource from
      * @param pathUserSid The SID of the User for the binding
      * @param pathSid The unique string that identifies the resource
      */
-    public UserBindingFetcher(final String pathServiceSid, 
-                              final String pathUserSid, 
+    public UserBindingFetcher(final String pathServiceSid,
+                              final String pathUserSid,
                               final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathUserSid = pathUserSid;
@@ -39,7 +39,7 @@ public class UserBindingFetcher extends Fetcher<UserBinding> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched UserBinding
      */

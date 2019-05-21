@@ -24,12 +24,12 @@ public class IpAccessControlListMappingDeleter extends Deleter<IpAccessControlLi
 
     /**
      * Construct a new IpAccessControlListMappingDeleter.
-     * 
+     *
      * @param pathDomainSid A string that uniquely identifies the SIP Domain
      * @param pathSid A 34 character string that uniquely identifies the resource
      *                to delete.
      */
-    public IpAccessControlListMappingDeleter(final String pathDomainSid, 
+    public IpAccessControlListMappingDeleter(final String pathDomainSid,
                                              final String pathSid) {
         this.pathDomainSid = pathDomainSid;
         this.pathSid = pathSid;
@@ -37,15 +37,15 @@ public class IpAccessControlListMappingDeleter extends Deleter<IpAccessControlLi
 
     /**
      * Construct a new IpAccessControlListMappingDeleter.
-     * 
+     *
      * @param pathAccountSid The unique id of the Account that is responsible for
      *                       this resource.
      * @param pathDomainSid A string that uniquely identifies the SIP Domain
      * @param pathSid A 34 character string that uniquely identifies the resource
      *                to delete.
      */
-    public IpAccessControlListMappingDeleter(final String pathAccountSid, 
-                                             final String pathDomainSid, 
+    public IpAccessControlListMappingDeleter(final String pathAccountSid,
+                                             final String pathDomainSid,
                                              final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
@@ -54,7 +54,7 @@ public class IpAccessControlListMappingDeleter extends Deleter<IpAccessControlLi
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

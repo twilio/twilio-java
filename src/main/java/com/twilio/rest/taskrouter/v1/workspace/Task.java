@@ -68,43 +68,43 @@ public class Task extends Resource {
 
     /**
      * Create a TaskFetcher to execute fetch.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathSid The sid
      * @return TaskFetcher capable of executing the fetch
      */
-    public static TaskFetcher fetcher(final String pathWorkspaceSid, 
+    public static TaskFetcher fetcher(final String pathWorkspaceSid,
                                       final String pathSid) {
         return new TaskFetcher(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a TaskUpdater to execute update.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathSid The sid
      * @return TaskUpdater capable of executing the update
      */
-    public static TaskUpdater updater(final String pathWorkspaceSid, 
+    public static TaskUpdater updater(final String pathWorkspaceSid,
                                       final String pathSid) {
         return new TaskUpdater(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a TaskDeleter to execute delete.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathSid The sid
      * @return TaskDeleter capable of executing the delete
      */
-    public static TaskDeleter deleter(final String pathWorkspaceSid, 
+    public static TaskDeleter deleter(final String pathWorkspaceSid,
                                       final String pathSid) {
         return new TaskDeleter(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a TaskReader to execute read.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @return TaskReader capable of executing the read
      */
@@ -114,7 +114,7 @@ public class Task extends Resource {
 
     /**
      * Create a TaskCreator to execute create.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @return TaskCreator capable of executing the create
      */
@@ -124,7 +124,7 @@ public class Task extends Resource {
 
     /**
      * Converts a JSON String into a Task object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Task object represented by the provided JSON
@@ -143,7 +143,7 @@ public class Task extends Resource {
     /**
      * Converts a JSON InputStream into a Task object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Task object represented by the provided JSON
@@ -182,43 +182,43 @@ public class Task extends Resource {
 
     @JsonCreator
     private Task(@JsonProperty("account_sid")
-                 final String accountSid, 
+                 final String accountSid,
                  @JsonProperty("age")
-                 final Integer age, 
+                 final Integer age,
                  @JsonProperty("assignment_status")
-                 final Task.Status assignmentStatus, 
+                 final Task.Status assignmentStatus,
                  @JsonProperty("attributes")
-                 final String attributes, 
+                 final String attributes,
                  @JsonProperty("addons")
-                 final String addons, 
+                 final String addons,
                  @JsonProperty("date_created")
-                 final String dateCreated, 
+                 final String dateCreated,
                  @JsonProperty("date_updated")
-                 final String dateUpdated, 
+                 final String dateUpdated,
                  @JsonProperty("priority")
-                 final Integer priority, 
+                 final Integer priority,
                  @JsonProperty("reason")
-                 final String reason, 
+                 final String reason,
                  @JsonProperty("sid")
-                 final String sid, 
+                 final String sid,
                  @JsonProperty("task_queue_sid")
-                 final String taskQueueSid, 
+                 final String taskQueueSid,
                  @JsonProperty("task_queue_friendly_name")
-                 final String taskQueueFriendlyName, 
+                 final String taskQueueFriendlyName,
                  @JsonProperty("task_channel_sid")
-                 final String taskChannelSid, 
+                 final String taskChannelSid,
                  @JsonProperty("task_channel_unique_name")
-                 final String taskChannelUniqueName, 
+                 final String taskChannelUniqueName,
                  @JsonProperty("timeout")
-                 final Integer timeout, 
+                 final Integer timeout,
                  @JsonProperty("workflow_sid")
-                 final String workflowSid, 
+                 final String workflowSid,
                  @JsonProperty("workflow_friendly_name")
-                 final String workflowFriendlyName, 
+                 final String workflowFriendlyName,
                  @JsonProperty("workspace_sid")
-                 final String workspaceSid, 
+                 final String workspaceSid,
                  @JsonProperty("url")
-                 final URI url, 
+                 final URI url,
                  @JsonProperty("links")
                  final Map<String, String> links) {
         this.accountSid = accountSid;
@@ -245,7 +245,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The ID of the account that owns this Task.
-     * 
+     *
      * @return The ID of the account that owns this Task
      */
     public final String getAccountSid() {
@@ -254,7 +254,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The number of seconds since this task was created..
-     * 
+     *
      * @return The number of seconds since this task was created.
      */
     public final Integer getAge() {
@@ -264,7 +264,7 @@ public class Task extends Resource {
     /**
      * Returns The Returns the list of all Tasks in the workspace with the specified
      * AssignmentStatus..
-     * 
+     *
      * @return Returns the list of all Tasks in the workspace with the specified
      *         AssignmentStatus.
      */
@@ -275,7 +275,7 @@ public class Task extends Resource {
     /**
      * Returns The The user-defined JSON string describing the custom attributes of
      * this work..
-     * 
+     *
      * @return The user-defined JSON string describing the custom attributes of
      *         this work.
      */
@@ -286,7 +286,7 @@ public class Task extends Resource {
     /**
      * Returns The The addon data for all installed addons is returned with this
      * attribute.
-     * 
+     *
      * @return The addon data for all installed addons is returned with this
      *         attribute
      */
@@ -296,7 +296,7 @@ public class Task extends Resource {
 
     /**
      * Returns The Date this task was created, given as ISO 8601 format..
-     * 
+     *
      * @return Date this task was created, given as ISO 8601 format.
      */
     public final DateTime getDateCreated() {
@@ -305,7 +305,7 @@ public class Task extends Resource {
 
     /**
      * Returns The Date this task was updated, given as ISO 8601 format..
-     * 
+     *
      * @return Date this task was updated, given as ISO 8601 format.
      */
     public final DateTime getDateUpdated() {
@@ -315,7 +315,7 @@ public class Task extends Resource {
     /**
      * Returns The Retrieve the list of all Tasks in the workspace with the
      * specified priority..
-     * 
+     *
      * @return Retrieve the list of all Tasks in the workspace with the specified
      *         priority.
      */
@@ -325,7 +325,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The reason the task was canceled  or completed.
-     * 
+     *
      * @return The reason the task was canceled  or completed
      */
     public final String getReason() {
@@ -334,7 +334,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The unique ID of the Task.
-     * 
+     *
      * @return The unique ID of the Task
      */
     public final String getSid() {
@@ -344,7 +344,7 @@ public class Task extends Resource {
     /**
      * Returns The Returns the list of Tasks that are currently waiting in the
      * TaskQueue identified by the Sid specified..
-     * 
+     *
      * @return Returns the list of Tasks that are currently waiting in the
      *         TaskQueue identified by the Sid specified.
      */
@@ -354,7 +354,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The task_queue_friendly_name.
-     * 
+     *
      * @return The task_queue_friendly_name
      */
     public final String getTaskQueueFriendlyName() {
@@ -363,7 +363,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The ID of the Task Channel.
-     * 
+     *
      * @return The ID of the Task Channel
      */
     public final String getTaskChannelSid() {
@@ -372,7 +372,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The unique name of the Task Channel.
-     * 
+     *
      * @return The unique name of the Task Channel
      */
     public final String getTaskChannelUniqueName() {
@@ -381,7 +381,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The amount of time in seconds the task is allowed to live.
-     * 
+     *
      * @return The amount of time in seconds the task is allowed to live
      */
     public final Integer getTimeout() {
@@ -391,7 +391,7 @@ public class Task extends Resource {
     /**
      * Returns The Returns the list of Tasks that are being controlled by the
      * Workflow with the specified Sid value..
-     * 
+     *
      * @return Returns the list of Tasks that are being controlled by the Workflow
      *         with the specified Sid value.
      */
@@ -401,7 +401,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The workflow_friendly_name.
-     * 
+     *
      * @return The workflow_friendly_name
      */
     public final String getWorkflowFriendlyName() {
@@ -410,7 +410,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The ID of the Workspace that holds this Task.
-     * 
+     *
      * @return The ID of the Workspace that holds this Task
      */
     public final String getWorkspaceSid() {
@@ -419,7 +419,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -428,7 +428,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The links.
-     * 
+     *
      * @return The links
      */
     public final Map<String, String> getLinks() {
@@ -447,25 +447,25 @@ public class Task extends Resource {
 
         Task other = (Task) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(age, other.age) && 
-               Objects.equals(assignmentStatus, other.assignmentStatus) && 
-               Objects.equals(attributes, other.attributes) && 
-               Objects.equals(addons, other.addons) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(priority, other.priority) && 
-               Objects.equals(reason, other.reason) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(taskQueueSid, other.taskQueueSid) && 
-               Objects.equals(taskQueueFriendlyName, other.taskQueueFriendlyName) && 
-               Objects.equals(taskChannelSid, other.taskChannelSid) && 
-               Objects.equals(taskChannelUniqueName, other.taskChannelUniqueName) && 
-               Objects.equals(timeout, other.timeout) && 
-               Objects.equals(workflowSid, other.workflowSid) && 
-               Objects.equals(workflowFriendlyName, other.workflowFriendlyName) && 
-               Objects.equals(workspaceSid, other.workspaceSid) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(age, other.age) &&
+               Objects.equals(assignmentStatus, other.assignmentStatus) &&
+               Objects.equals(attributes, other.attributes) &&
+               Objects.equals(addons, other.addons) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(priority, other.priority) &&
+               Objects.equals(reason, other.reason) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(taskQueueSid, other.taskQueueSid) &&
+               Objects.equals(taskQueueFriendlyName, other.taskQueueFriendlyName) &&
+               Objects.equals(taskChannelSid, other.taskChannelSid) &&
+               Objects.equals(taskChannelUniqueName, other.taskChannelUniqueName) &&
+               Objects.equals(timeout, other.timeout) &&
+               Objects.equals(workflowSid, other.workflowSid) &&
+               Objects.equals(workflowFriendlyName, other.workflowFriendlyName) &&
+               Objects.equals(workspaceSid, other.workspaceSid) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

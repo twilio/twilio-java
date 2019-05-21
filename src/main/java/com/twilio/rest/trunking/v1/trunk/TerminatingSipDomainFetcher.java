@@ -23,11 +23,11 @@ public class TerminatingSipDomainFetcher extends Fetcher<TerminatingSipDomain> {
 
     /**
      * Construct a new TerminatingSipDomainFetcher.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk with the resource to fetch
      * @param pathSid The unique string that identifies the resource
      */
-    public TerminatingSipDomainFetcher(final String pathTrunkSid, 
+    public TerminatingSipDomainFetcher(final String pathTrunkSid,
                                        final String pathSid) {
         this.pathTrunkSid = pathTrunkSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class TerminatingSipDomainFetcher extends Fetcher<TerminatingSipDomain> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched TerminatingSipDomain
      */

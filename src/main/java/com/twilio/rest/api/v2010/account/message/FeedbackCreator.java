@@ -24,7 +24,7 @@ public class FeedbackCreator extends Creator<Feedback> {
 
     /**
      * Construct a new FeedbackCreator.
-     * 
+     *
      * @param pathMessageSid The SID of the Message resource for which the feedback
      *                       was provided
      */
@@ -34,12 +34,12 @@ public class FeedbackCreator extends Creator<Feedback> {
 
     /**
      * Construct a new FeedbackCreator.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param pathMessageSid The SID of the Message resource for which the feedback
      *                       was provided
      */
-    public FeedbackCreator(final String pathAccountSid, 
+    public FeedbackCreator(final String pathAccountSid,
                            final String pathMessageSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathMessageSid = pathMessageSid;
@@ -51,7 +51,7 @@ public class FeedbackCreator extends Creator<Feedback> {
      * POST](https://www.twilio.com/docs/sms/api/message#create-a-message-resource),
      * the initial value of this property is `unconfirmed`. After the message
      * arrives, update the value to `confirmed`..
-     * 
+     *
      * @param outcome Whether the feedback has arrived
      * @return this
      */
@@ -62,7 +62,7 @@ public class FeedbackCreator extends Creator<Feedback> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Feedback
      */
@@ -102,7 +102,7 @@ public class FeedbackCreator extends Creator<Feedback> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

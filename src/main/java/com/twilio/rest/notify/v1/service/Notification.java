@@ -69,7 +69,7 @@ public class Notification extends Resource {
 
     /**
      * Create a NotificationCreator to execute create.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to create the resource under
      * @return NotificationCreator capable of executing the create
      */
@@ -80,7 +80,7 @@ public class Notification extends Resource {
     /**
      * Converts a JSON String into a Notification object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Notification object represented by the provided JSON
@@ -99,7 +99,7 @@ public class Notification extends Resource {
     /**
      * Converts a JSON InputStream into a Notification object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Notification object represented by the provided JSON
@@ -138,43 +138,43 @@ public class Notification extends Resource {
 
     @JsonCreator
     private Notification(@JsonProperty("sid")
-                         final String sid, 
+                         final String sid,
                          @JsonProperty("account_sid")
-                         final String accountSid, 
+                         final String accountSid,
                          @JsonProperty("service_sid")
-                         final String serviceSid, 
+                         final String serviceSid,
                          @JsonProperty("date_created")
-                         final String dateCreated, 
+                         final String dateCreated,
                          @JsonProperty("identities")
-                         final List<String> identities, 
+                         final List<String> identities,
                          @JsonProperty("tags")
-                         final List<String> tags, 
+                         final List<String> tags,
                          @JsonProperty("segments")
-                         final List<String> segments, 
+                         final List<String> segments,
                          @JsonProperty("priority")
-                         final Notification.Priority priority, 
+                         final Notification.Priority priority,
                          @JsonProperty("ttl")
-                         final Integer ttl, 
+                         final Integer ttl,
                          @JsonProperty("title")
-                         final String title, 
+                         final String title,
                          @JsonProperty("body")
-                         final String body, 
+                         final String body,
                          @JsonProperty("sound")
-                         final String sound, 
+                         final String sound,
                          @JsonProperty("action")
-                         final String action, 
+                         final String action,
                          @JsonProperty("data")
-                         final Map<String, Object> data, 
+                         final Map<String, Object> data,
                          @JsonProperty("apn")
-                         final Map<String, Object> apn, 
+                         final Map<String, Object> apn,
                          @JsonProperty("gcm")
-                         final Map<String, Object> gcm, 
+                         final Map<String, Object> gcm,
                          @JsonProperty("fcm")
-                         final Map<String, Object> fcm, 
+                         final Map<String, Object> fcm,
                          @JsonProperty("sms")
-                         final Map<String, Object> sms, 
+                         final Map<String, Object> sms,
                          @JsonProperty("facebook_messenger")
-                         final Map<String, Object> facebookMessenger, 
+                         final Map<String, Object> facebookMessenger,
                          @JsonProperty("alexa")
                          final Map<String, Object> alexa) {
         this.sid = sid;
@@ -201,7 +201,7 @@ public class Notification extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -210,7 +210,7 @@ public class Notification extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -219,7 +219,7 @@ public class Notification extends Resource {
 
     /**
      * Returns The The SID of the Service that the resource is associated with.
-     * 
+     *
      * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
@@ -228,7 +228,7 @@ public class Notification extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
@@ -237,7 +237,7 @@ public class Notification extends Resource {
 
     /**
      * Returns The The list of identity values of the Users to notify.
-     * 
+     *
      * @return The list of identity values of the Users to notify
      */
     public final List<String> getIdentities() {
@@ -246,7 +246,7 @@ public class Notification extends Resource {
 
     /**
      * Returns The The tags that select the Bindings to notify.
-     * 
+     *
      * @return The tags that select the Bindings to notify
      */
     public final List<String> getTags() {
@@ -255,7 +255,7 @@ public class Notification extends Resource {
 
     /**
      * Returns The The list of Segments to notify.
-     * 
+     *
      * @return The list of Segments to notify
      */
     public final List<String> getSegments() {
@@ -264,7 +264,7 @@ public class Notification extends Resource {
 
     /**
      * Returns The The priority of the notification.
-     * 
+     *
      * @return The priority of the notification
      */
     public final Notification.Priority getPriority() {
@@ -273,7 +273,7 @@ public class Notification extends Resource {
 
     /**
      * Returns The How long, in seconds, the notification is valid.
-     * 
+     *
      * @return How long, in seconds, the notification is valid
      */
     public final Integer getTtl() {
@@ -282,7 +282,7 @@ public class Notification extends Resource {
 
     /**
      * Returns The The notification title.
-     * 
+     *
      * @return The notification title
      */
     public final String getTitle() {
@@ -291,7 +291,7 @@ public class Notification extends Resource {
 
     /**
      * Returns The The notification body text.
-     * 
+     *
      * @return The notification body text
      */
     public final String getBody() {
@@ -300,7 +300,7 @@ public class Notification extends Resource {
 
     /**
      * Returns The The name of the sound to be played for the notification.
-     * 
+     *
      * @return The name of the sound to be played for the notification
      */
     public final String getSound() {
@@ -309,7 +309,7 @@ public class Notification extends Resource {
 
     /**
      * Returns The The actions to display for the notification.
-     * 
+     *
      * @return The actions to display for the notification
      */
     public final String getAction() {
@@ -318,7 +318,7 @@ public class Notification extends Resource {
 
     /**
      * Returns The The custom key-value pairs of the notification's payload.
-     * 
+     *
      * @return The custom key-value pairs of the notification's payload
      */
     public final Map<String, Object> getData() {
@@ -328,7 +328,7 @@ public class Notification extends Resource {
     /**
      * Returns The The APNS-specific payload that overrides corresponding attributes
      * in a generic payload for APNS Bindings.
-     * 
+     *
      * @return The APNS-specific payload that overrides corresponding attributes in
      *         a generic payload for APNS Bindings
      */
@@ -339,7 +339,7 @@ public class Notification extends Resource {
     /**
      * Returns The The GCM-specific payload that overrides corresponding attributes
      * in generic payload for GCM Bindings.
-     * 
+     *
      * @return The GCM-specific payload that overrides corresponding attributes in
      *         generic payload for GCM Bindings
      */
@@ -350,7 +350,7 @@ public class Notification extends Resource {
     /**
      * Returns The The FCM-specific payload that overrides corresponding attributes
      * in generic payload for FCM Bindings.
-     * 
+     *
      * @return The FCM-specific payload that overrides corresponding attributes in
      *         generic payload for FCM Bindings
      */
@@ -361,7 +361,7 @@ public class Notification extends Resource {
     /**
      * Returns The The SMS-specific payload that overrides corresponding attributes
      * in generic payload for SMS Bindings.
-     * 
+     *
      * @return The SMS-specific payload that overrides corresponding attributes in
      *         generic payload for SMS Bindings
      */
@@ -371,7 +371,7 @@ public class Notification extends Resource {
 
     /**
      * Returns The Deprecated.
-     * 
+     *
      * @return Deprecated
      */
     public final Map<String, Object> getFacebookMessenger() {
@@ -380,7 +380,7 @@ public class Notification extends Resource {
 
     /**
      * Returns The Deprecated.
-     * 
+     *
      * @return Deprecated
      */
     public final Map<String, Object> getAlexa() {
@@ -399,25 +399,25 @@ public class Notification extends Resource {
 
         Notification other = (Notification) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(identities, other.identities) && 
-               Objects.equals(tags, other.tags) && 
-               Objects.equals(segments, other.segments) && 
-               Objects.equals(priority, other.priority) && 
-               Objects.equals(ttl, other.ttl) && 
-               Objects.equals(title, other.title) && 
-               Objects.equals(body, other.body) && 
-               Objects.equals(sound, other.sound) && 
-               Objects.equals(action, other.action) && 
-               Objects.equals(data, other.data) && 
-               Objects.equals(apn, other.apn) && 
-               Objects.equals(gcm, other.gcm) && 
-               Objects.equals(fcm, other.fcm) && 
-               Objects.equals(sms, other.sms) && 
-               Objects.equals(facebookMessenger, other.facebookMessenger) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(identities, other.identities) &&
+               Objects.equals(tags, other.tags) &&
+               Objects.equals(segments, other.segments) &&
+               Objects.equals(priority, other.priority) &&
+               Objects.equals(ttl, other.ttl) &&
+               Objects.equals(title, other.title) &&
+               Objects.equals(body, other.body) &&
+               Objects.equals(sound, other.sound) &&
+               Objects.equals(action, other.action) &&
+               Objects.equals(data, other.data) &&
+               Objects.equals(apn, other.apn) &&
+               Objects.equals(gcm, other.gcm) &&
+               Objects.equals(fcm, other.fcm) &&
+               Objects.equals(sms, other.sms) &&
+               Objects.equals(facebookMessenger, other.facebookMessenger) &&
                Objects.equals(alexa, other.alexa);
     }
 

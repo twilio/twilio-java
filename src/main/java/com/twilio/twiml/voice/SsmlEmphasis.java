@@ -53,7 +53,7 @@ public class SsmlEmphasis extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -62,7 +62,7 @@ public class SsmlEmphasis extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -78,7 +78,7 @@ public class SsmlEmphasis extends TwiML {
 
     /**
      * Specify the degree of emphasis
-     * 
+     *
      * @return Specify the degree of emphasis
      */
     public SsmlEmphasis.Level getLevel() {
@@ -87,7 +87,7 @@ public class SsmlEmphasis extends TwiML {
 
     /**
      * Words to emphasize
-     * 
+     *
      * @return Words to emphasize
      */
     public String getWords() {

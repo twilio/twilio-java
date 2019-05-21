@@ -38,43 +38,43 @@ public class TerminatingSipDomain extends Resource {
 
     /**
      * Create a TerminatingSipDomainFetcher to execute fetch.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk with the resource to fetch
      * @param pathSid The unique string that identifies the resource
      * @return TerminatingSipDomainFetcher capable of executing the fetch
      */
-    public static TerminatingSipDomainFetcher fetcher(final String pathTrunkSid, 
+    public static TerminatingSipDomainFetcher fetcher(final String pathTrunkSid,
                                                       final String pathSid) {
         return new TerminatingSipDomainFetcher(pathTrunkSid, pathSid);
     }
 
     /**
      * Create a TerminatingSipDomainDeleter to execute delete.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk with the resources to disassociate
      * @param pathSid The unique string that identifies the resource to disassociate
      * @return TerminatingSipDomainDeleter capable of executing the delete
      */
-    public static TerminatingSipDomainDeleter deleter(final String pathTrunkSid, 
+    public static TerminatingSipDomainDeleter deleter(final String pathTrunkSid,
                                                       final String pathSid) {
         return new TerminatingSipDomainDeleter(pathTrunkSid, pathSid);
     }
 
     /**
      * Create a TerminatingSipDomainCreator to execute create.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk to which we should route calls
      * @param sipDomainSid The SID of the SIP Domain to associate with the trunk
      * @return TerminatingSipDomainCreator capable of executing the create
      */
-    public static TerminatingSipDomainCreator creator(final String pathTrunkSid, 
+    public static TerminatingSipDomainCreator creator(final String pathTrunkSid,
                                                       final String sipDomainSid) {
         return new TerminatingSipDomainCreator(pathTrunkSid, sipDomainSid);
     }
 
     /**
      * Create a TerminatingSipDomainReader to execute read.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk with the resources to read
      * @return TerminatingSipDomainReader capable of executing the read
      */
@@ -85,7 +85,7 @@ public class TerminatingSipDomain extends Resource {
     /**
      * Converts a JSON String into a TerminatingSipDomain object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return TerminatingSipDomain object represented by the provided JSON
@@ -104,7 +104,7 @@ public class TerminatingSipDomain extends Resource {
     /**
      * Converts a JSON InputStream into a TerminatingSipDomain object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return TerminatingSipDomain object represented by the provided JSON
@@ -141,39 +141,39 @@ public class TerminatingSipDomain extends Resource {
 
     @JsonCreator
     private TerminatingSipDomain(@JsonProperty("account_sid")
-                                 final String accountSid, 
+                                 final String accountSid,
                                  @JsonProperty("api_version")
-                                 final String apiVersion, 
+                                 final String apiVersion,
                                  @JsonProperty("auth_type")
-                                 final String authType, 
+                                 final String authType,
                                  @JsonProperty("date_created")
-                                 final String dateCreated, 
+                                 final String dateCreated,
                                  @JsonProperty("date_updated")
-                                 final String dateUpdated, 
+                                 final String dateUpdated,
                                  @JsonProperty("domain_name")
-                                 final String domainName, 
+                                 final String domainName,
                                  @JsonProperty("friendly_name")
-                                 final String friendlyName, 
+                                 final String friendlyName,
                                  @JsonProperty("sid")
-                                 final String sid, 
+                                 final String sid,
                                  @JsonProperty("url")
-                                 final URI url, 
+                                 final URI url,
                                  @JsonProperty("voice_fallback_method")
-                                 final HttpMethod voiceFallbackMethod, 
+                                 final HttpMethod voiceFallbackMethod,
                                  @JsonProperty("voice_fallback_url")
-                                 final URI voiceFallbackUrl, 
+                                 final URI voiceFallbackUrl,
                                  @JsonProperty("voice_method")
-                                 final HttpMethod voiceMethod, 
+                                 final HttpMethod voiceMethod,
                                  @JsonProperty("voice_status_callback_method")
-                                 final HttpMethod voiceStatusCallbackMethod, 
+                                 final HttpMethod voiceStatusCallbackMethod,
                                  @JsonProperty("voice_status_callback_url")
-                                 final URI voiceStatusCallbackUrl, 
+                                 final URI voiceStatusCallbackUrl,
                                  @JsonProperty("voice_url")
-                                 final URI voiceUrl, 
+                                 final URI voiceUrl,
                                  @JsonProperty("sip_registration")
-                                 final Boolean sipRegistration, 
+                                 final Boolean sipRegistration,
                                  @JsonProperty("trunk_sid")
-                                 final String trunkSid, 
+                                 final String trunkSid,
                                  @JsonProperty("links")
                                  final Map<String, String> links) {
         this.accountSid = accountSid;
@@ -198,7 +198,7 @@ public class TerminatingSipDomain extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -207,7 +207,7 @@ public class TerminatingSipDomain extends Resource {
 
     /**
      * Returns The The API version used to process the call.
-     * 
+     *
      * @return The API version used to process the call
      */
     public final String getApiVersion() {
@@ -216,7 +216,7 @@ public class TerminatingSipDomain extends Resource {
 
     /**
      * Returns The The types of authentication mapped to the domain.
-     * 
+     *
      * @return The types of authentication mapped to the domain
      */
     public final String getAuthType() {
@@ -225,7 +225,7 @@ public class TerminatingSipDomain extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
@@ -235,7 +235,7 @@ public class TerminatingSipDomain extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -245,7 +245,7 @@ public class TerminatingSipDomain extends Resource {
     /**
      * Returns The The unique address you reserve on Twilio to which you route your
      * SIP traffic.
-     * 
+     *
      * @return The unique address you reserve on Twilio to which you route your SIP
      *         traffic
      */
@@ -255,7 +255,7 @@ public class TerminatingSipDomain extends Resource {
 
     /**
      * Returns The The string that you assigned to describe the resource.
-     * 
+     *
      * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
@@ -264,7 +264,7 @@ public class TerminatingSipDomain extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -273,7 +273,7 @@ public class TerminatingSipDomain extends Resource {
 
     /**
      * Returns The The absolute URL of the resource.
-     * 
+     *
      * @return The absolute URL of the resource
      */
     public final URI getUrl() {
@@ -282,7 +282,7 @@ public class TerminatingSipDomain extends Resource {
 
     /**
      * Returns The The HTTP method used with voice_fallback_url.
-     * 
+     *
      * @return The HTTP method used with voice_fallback_url
      */
     public final HttpMethod getVoiceFallbackMethod() {
@@ -291,7 +291,7 @@ public class TerminatingSipDomain extends Resource {
 
     /**
      * Returns The The URL that we call when an error occurs in executing TwiML.
-     * 
+     *
      * @return The URL that we call when an error occurs in executing TwiML
      */
     public final URI getVoiceFallbackUrl() {
@@ -300,7 +300,7 @@ public class TerminatingSipDomain extends Resource {
 
     /**
      * Returns The The HTTP method used with voice_url.
-     * 
+     *
      * @return The HTTP method used with voice_url
      */
     public final HttpMethod getVoiceMethod() {
@@ -310,7 +310,7 @@ public class TerminatingSipDomain extends Resource {
     /**
      * Returns The The HTTP method that we use to call the
      * voice_status_callback_url.
-     * 
+     *
      * @return The HTTP method that we use to call the voice_status_callback_url
      */
     public final HttpMethod getVoiceStatusCallbackMethod() {
@@ -320,7 +320,7 @@ public class TerminatingSipDomain extends Resource {
     /**
      * Returns The The URL that we call to pass status parameters to your
      * application.
-     * 
+     *
      * @return The URL that we call to pass status parameters to your application
      */
     public final URI getVoiceStatusCallbackUrl() {
@@ -329,7 +329,7 @@ public class TerminatingSipDomain extends Resource {
 
     /**
      * Returns The The URL we call when the domain receives a call.
-     * 
+     *
      * @return The URL we call when the domain receives a call
      */
     public final URI getVoiceUrl() {
@@ -339,7 +339,7 @@ public class TerminatingSipDomain extends Resource {
     /**
      * Returns The Whether SIP Endpoints can register with the domain to receive
      * calls.
-     * 
+     *
      * @return Whether SIP Endpoints can register with the domain to receive calls
      */
     public final Boolean getSipRegistration() {
@@ -348,7 +348,7 @@ public class TerminatingSipDomain extends Resource {
 
     /**
      * Returns The The SID of the Trunk to which we should route calls.
-     * 
+     *
      * @return The SID of the Trunk to which we should route calls
      */
     public final String getTrunkSid() {
@@ -357,7 +357,7 @@ public class TerminatingSipDomain extends Resource {
 
     /**
      * Returns The The URLs of related resources.
-     * 
+     *
      * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
@@ -376,23 +376,23 @@ public class TerminatingSipDomain extends Resource {
 
         TerminatingSipDomain other = (TerminatingSipDomain) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(apiVersion, other.apiVersion) && 
-               Objects.equals(authType, other.authType) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(domainName, other.domainName) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) && 
-               Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) && 
-               Objects.equals(voiceMethod, other.voiceMethod) && 
-               Objects.equals(voiceStatusCallbackMethod, other.voiceStatusCallbackMethod) && 
-               Objects.equals(voiceStatusCallbackUrl, other.voiceStatusCallbackUrl) && 
-               Objects.equals(voiceUrl, other.voiceUrl) && 
-               Objects.equals(sipRegistration, other.sipRegistration) && 
-               Objects.equals(trunkSid, other.trunkSid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(apiVersion, other.apiVersion) &&
+               Objects.equals(authType, other.authType) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(domainName, other.domainName) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) &&
+               Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) &&
+               Objects.equals(voiceMethod, other.voiceMethod) &&
+               Objects.equals(voiceStatusCallbackMethod, other.voiceStatusCallbackMethod) &&
+               Objects.equals(voiceStatusCallbackUrl, other.voiceStatusCallbackUrl) &&
+               Objects.equals(voiceUrl, other.voiceUrl) &&
+               Objects.equals(sipRegistration, other.sipRegistration) &&
+               Objects.equals(trunkSid, other.trunkSid) &&
                Objects.equals(links, other.links);
     }
 

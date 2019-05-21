@@ -34,7 +34,7 @@ public class SessionCreator extends Creator<Session> {
 
     /**
      * Construct a new SessionCreator.
-     * 
+     *
      * @param messagingServiceSid The unique id of the SMS Service this session
      *                            belongs to.
      */
@@ -44,7 +44,7 @@ public class SessionCreator extends Creator<Session> {
 
     /**
      * The human-readable name of this session. Optional..
-     * 
+     *
      * @param friendlyName The human-readable name of this session.
      * @return this
      */
@@ -57,7 +57,7 @@ public class SessionCreator extends Creator<Session> {
      * An optional string metadata field you can use to store any data you wish. The
      * string value must contain structurally valid JSON if specified.  **Note**
      * that if the attributes are not set "{}" will be returned..
-     * 
+     *
      * @param attributes An optional string metadata field you can use to store any
      *                   data you wish.
      * @return this
@@ -69,7 +69,7 @@ public class SessionCreator extends Creator<Session> {
 
     /**
      * The date that this resource was created..
-     * 
+     *
      * @param dateCreated The date that this resource was created.
      * @return this
      */
@@ -80,7 +80,7 @@ public class SessionCreator extends Creator<Session> {
 
     /**
      * The date that this resource was last updated..
-     * 
+     *
      * @param dateUpdated The date that this resource was last updated.
      * @return this
      */
@@ -92,7 +92,7 @@ public class SessionCreator extends Creator<Session> {
     /**
      * Identity of the session's creator. If the Session was created through the
      * API, the value will be `system`.
-     * 
+     *
      * @param createdBy Identity of the session's creator.
      * @return this
      */
@@ -103,7 +103,7 @@ public class SessionCreator extends Creator<Session> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Session
      */
@@ -142,7 +142,7 @@ public class SessionCreator extends Creator<Session> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

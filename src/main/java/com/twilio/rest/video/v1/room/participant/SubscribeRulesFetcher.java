@@ -27,12 +27,12 @@ public class SubscribeRulesFetcher extends Fetcher<SubscribeRules> {
 
     /**
      * Construct a new SubscribeRulesFetcher.
-     * 
+     *
      * @param pathRoomSid Unique Room identifier where the Subscribe Rules apply
      * @param pathParticipantSid Unique Participant identifier to apply Subscribe
      *                           Rules.
      */
-    public SubscribeRulesFetcher(final String pathRoomSid, 
+    public SubscribeRulesFetcher(final String pathRoomSid,
                                  final String pathParticipantSid) {
         this.pathRoomSid = pathRoomSid;
         this.pathParticipantSid = pathParticipantSid;
@@ -40,7 +40,7 @@ public class SubscribeRulesFetcher extends Fetcher<SubscribeRules> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched SubscribeRules
      */

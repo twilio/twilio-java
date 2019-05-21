@@ -42,13 +42,13 @@ public class Dialogue extends Resource {
 
     /**
      * Create a DialogueFetcher to execute fetch.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         resource to fetch
      * @param pathSid The unique string that identifies the resource
      * @return DialogueFetcher capable of executing the fetch
      */
-    public static DialogueFetcher fetcher(final String pathAssistantSid, 
+    public static DialogueFetcher fetcher(final String pathAssistantSid,
                                           final String pathSid) {
         return new DialogueFetcher(pathAssistantSid, pathSid);
     }
@@ -56,7 +56,7 @@ public class Dialogue extends Resource {
     /**
      * Converts a JSON String into a Dialogue object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Dialogue object represented by the provided JSON
@@ -75,7 +75,7 @@ public class Dialogue extends Resource {
     /**
      * Converts a JSON InputStream into a Dialogue object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Dialogue object represented by the provided JSON
@@ -99,13 +99,13 @@ public class Dialogue extends Resource {
 
     @JsonCreator
     private Dialogue(@JsonProperty("account_sid")
-                     final String accountSid, 
+                     final String accountSid,
                      @JsonProperty("assistant_sid")
-                     final String assistantSid, 
+                     final String assistantSid,
                      @JsonProperty("sid")
-                     final String sid, 
+                     final String sid,
                      @JsonProperty("data")
-                     final Map<String, Object> data, 
+                     final Map<String, Object> data,
                      @JsonProperty("url")
                      final URI url) {
         this.accountSid = accountSid;
@@ -117,7 +117,7 @@ public class Dialogue extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -126,7 +126,7 @@ public class Dialogue extends Resource {
 
     /**
      * Returns The The SID of the Assistant that is the parent of the resource.
-     * 
+     *
      * @return The SID of the Assistant that is the parent of the resource
      */
     public final String getAssistantSid() {
@@ -135,7 +135,7 @@ public class Dialogue extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -144,7 +144,7 @@ public class Dialogue extends Resource {
 
     /**
      * Returns The The JSON string that describes the dialogue session object.
-     * 
+     *
      * @return The JSON string that describes the dialogue session object
      */
     public final Map<String, Object> getData() {
@@ -153,7 +153,7 @@ public class Dialogue extends Resource {
 
     /**
      * Returns The The absolute URL of the Dialogue resource.
-     * 
+     *
      * @return The absolute URL of the Dialogue resource
      */
     public final URI getUrl() {
@@ -172,10 +172,10 @@ public class Dialogue extends Resource {
 
         Dialogue other = (Dialogue) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(assistantSid, other.assistantSid) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(data, other.data) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(assistantSid, other.assistantSid) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(data, other.data) &&
                Objects.equals(url, other.url);
     }
 

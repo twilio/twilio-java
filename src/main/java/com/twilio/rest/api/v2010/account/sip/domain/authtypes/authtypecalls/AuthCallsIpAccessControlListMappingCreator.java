@@ -24,13 +24,13 @@ public class AuthCallsIpAccessControlListMappingCreator extends Creator<AuthCall
 
     /**
      * Construct a new AuthCallsIpAccessControlListMappingCreator.
-     * 
+     *
      * @param pathDomainSid The SID of the SIP domain that will contain the new
      *                      resource
      * @param ipAccessControlListSid The SID of the IpAccessControlList resource to
      *                               map to the SIP domain
      */
-    public AuthCallsIpAccessControlListMappingCreator(final String pathDomainSid, 
+    public AuthCallsIpAccessControlListMappingCreator(final String pathDomainSid,
                                                       final String ipAccessControlListSid) {
         this.pathDomainSid = pathDomainSid;
         this.ipAccessControlListSid = ipAccessControlListSid;
@@ -38,15 +38,15 @@ public class AuthCallsIpAccessControlListMappingCreator extends Creator<AuthCall
 
     /**
      * Construct a new AuthCallsIpAccessControlListMappingCreator.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param pathDomainSid The SID of the SIP domain that will contain the new
      *                      resource
      * @param ipAccessControlListSid The SID of the IpAccessControlList resource to
      *                               map to the SIP domain
      */
-    public AuthCallsIpAccessControlListMappingCreator(final String pathAccountSid, 
-                                                      final String pathDomainSid, 
+    public AuthCallsIpAccessControlListMappingCreator(final String pathAccountSid,
+                                                      final String pathDomainSid,
                                                       final String ipAccessControlListSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
@@ -55,7 +55,7 @@ public class AuthCallsIpAccessControlListMappingCreator extends Creator<AuthCall
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created AuthCallsIpAccessControlListMapping
      */
@@ -95,7 +95,7 @@ public class AuthCallsIpAccessControlListMappingCreator extends Creator<AuthCall
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

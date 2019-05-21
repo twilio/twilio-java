@@ -24,13 +24,13 @@ public class ParticipantUpdater extends Updater<Participant> {
 
     /**
      * Construct a new ParticipantUpdater.
-     * 
+     *
      * @param pathRoomSid A system-generated 34-character string that uniquely
      *                    identifies a Room.
      * @param pathSid A system-generated 34-character string that uniquely
      *                identifies this Participant.
      */
-    public ParticipantUpdater(final String pathRoomSid, 
+    public ParticipantUpdater(final String pathRoomSid,
                               final String pathSid) {
         this.pathRoomSid = pathRoomSid;
         this.pathSid = pathSid;
@@ -38,7 +38,7 @@ public class ParticipantUpdater extends Updater<Participant> {
 
     /**
      * Set to `disconnected` to remove participant..
-     * 
+     *
      * @param status Set to `disconnected` to remove participant.
      * @return this
      */
@@ -49,7 +49,7 @@ public class ParticipantUpdater extends Updater<Participant> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Participant
      */
@@ -88,7 +88,7 @@ public class ParticipantUpdater extends Updater<Participant> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

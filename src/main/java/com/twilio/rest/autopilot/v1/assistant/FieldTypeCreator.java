@@ -29,13 +29,13 @@ public class FieldTypeCreator extends Creator<FieldType> {
 
     /**
      * Construct a new FieldTypeCreator.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         new resource
      * @param uniqueName An application-defined string that uniquely identifies the
      *                   new resource
      */
-    public FieldTypeCreator(final String pathAssistantSid, 
+    public FieldTypeCreator(final String pathAssistantSid,
                             final String uniqueName) {
         this.pathAssistantSid = pathAssistantSid;
         this.uniqueName = uniqueName;
@@ -44,7 +44,7 @@ public class FieldTypeCreator extends Creator<FieldType> {
     /**
      * A descriptive string that you create to describe the new resource. It is not
      * unique and can be up to 255 characters long..
-     * 
+     *
      * @param friendlyName A string to describe the new resource
      * @return this
      */
@@ -55,7 +55,7 @@ public class FieldTypeCreator extends Creator<FieldType> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created FieldType
      */
@@ -94,7 +94,7 @@ public class FieldTypeCreator extends Creator<FieldType> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

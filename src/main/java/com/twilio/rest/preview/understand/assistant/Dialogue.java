@@ -42,12 +42,12 @@ public class Dialogue extends Resource {
 
     /**
      * Create a DialogueFetcher to execute fetch.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      * @param pathSid The sid
      * @return DialogueFetcher capable of executing the fetch
      */
-    public static DialogueFetcher fetcher(final String pathAssistantSid, 
+    public static DialogueFetcher fetcher(final String pathAssistantSid,
                                           final String pathSid) {
         return new DialogueFetcher(pathAssistantSid, pathSid);
     }
@@ -55,7 +55,7 @@ public class Dialogue extends Resource {
     /**
      * Converts a JSON String into a Dialogue object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Dialogue object represented by the provided JSON
@@ -74,7 +74,7 @@ public class Dialogue extends Resource {
     /**
      * Converts a JSON InputStream into a Dialogue object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Dialogue object represented by the provided JSON
@@ -98,13 +98,13 @@ public class Dialogue extends Resource {
 
     @JsonCreator
     private Dialogue(@JsonProperty("account_sid")
-                     final String accountSid, 
+                     final String accountSid,
                      @JsonProperty("assistant_sid")
-                     final String assistantSid, 
+                     final String assistantSid,
                      @JsonProperty("sid")
-                     final String sid, 
+                     final String sid,
                      @JsonProperty("data")
-                     final Map<String, Object> data, 
+                     final Map<String, Object> data,
                      @JsonProperty("url")
                      final URI url) {
         this.accountSid = accountSid;
@@ -116,7 +116,7 @@ public class Dialogue extends Resource {
 
     /**
      * Returns The The unique ID of the Account that created this Field..
-     * 
+     *
      * @return The unique ID of the Account that created this Field.
      */
     public final String getAccountSid() {
@@ -125,7 +125,7 @@ public class Dialogue extends Resource {
 
     /**
      * Returns The The unique ID of the parent Assistant..
-     * 
+     *
      * @return The unique ID of the parent Assistant.
      */
     public final String getAssistantSid() {
@@ -134,7 +134,7 @@ public class Dialogue extends Resource {
 
     /**
      * Returns The The unique ID of the Dialogue.
-     * 
+     *
      * @return The unique ID of the Dialogue
      */
     public final String getSid() {
@@ -143,7 +143,7 @@ public class Dialogue extends Resource {
 
     /**
      * Returns The The dialogue memory object as json.
-     * 
+     *
      * @return The dialogue memory object as json
      */
     public final Map<String, Object> getData() {
@@ -152,7 +152,7 @@ public class Dialogue extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -171,10 +171,10 @@ public class Dialogue extends Resource {
 
         Dialogue other = (Dialogue) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(assistantSid, other.assistantSid) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(data, other.data) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(assistantSid, other.assistantSid) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(data, other.data) &&
                Objects.equals(url, other.url);
     }
 

@@ -25,11 +25,11 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
 
     /**
      * Construct a new WorkerChannelReader.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathWorkerSid The worker_sid
      */
-    public WorkerChannelReader(final String pathWorkspaceSid, 
+    public WorkerChannelReader(final String pathWorkspaceSid,
                                final String pathWorkerSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathWorkerSid = pathWorkerSid;
@@ -37,7 +37,7 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return WorkerChannel ResourceSet
      */
@@ -48,7 +48,7 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return WorkerChannel ResourceSet
      */
@@ -68,7 +68,7 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return WorkerChannel ResourceSet
@@ -86,13 +86,13 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<WorkerChannel> nextPage(final Page<WorkerChannel> page, 
+    public Page<WorkerChannel> nextPage(final Page<WorkerChannel> page,
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -106,13 +106,13 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<WorkerChannel> previousPage(final Page<WorkerChannel> page, 
+    public Page<WorkerChannel> previousPage(final Page<WorkerChannel> page,
                                             final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -126,7 +126,7 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
 
     /**
      * Generate a Page of WorkerChannel Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -161,7 +161,7 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

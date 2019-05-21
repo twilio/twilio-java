@@ -27,7 +27,7 @@ public class InstalledAddOnDeleter extends Deleter<InstalledAddOn> {
 
     /**
      * Construct a new InstalledAddOnDeleter.
-     * 
+     *
      * @param pathSid The Installed Add-on Sid to delete
      */
     public InstalledAddOnDeleter(final String pathSid) {
@@ -36,7 +36,7 @@ public class InstalledAddOnDeleter extends Deleter<InstalledAddOn> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

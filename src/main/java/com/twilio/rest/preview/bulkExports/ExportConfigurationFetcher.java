@@ -27,7 +27,7 @@ public class ExportConfigurationFetcher extends Fetcher<ExportConfiguration> {
 
     /**
      * Construct a new ExportConfigurationFetcher.
-     * 
+     *
      * @param pathResourceType The resource_type
      */
     public ExportConfigurationFetcher(final String pathResourceType) {
@@ -36,7 +36,7 @@ public class ExportConfigurationFetcher extends Fetcher<ExportConfiguration> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched ExportConfiguration
      */

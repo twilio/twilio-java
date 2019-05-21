@@ -95,7 +95,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return ServiceFetcher capable of executing the fetch
      */
@@ -105,7 +105,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceReader to execute read.
-     * 
+     *
      * @return ServiceReader capable of executing the read
      */
     public static ServiceReader reader() {
@@ -114,7 +114,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceCreator to execute create.
-     * 
+     *
      * @param uniqueName An application-defined string that uniquely identifies the
      *                   resource
      * @return ServiceCreator capable of executing the create
@@ -125,7 +125,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceDeleter to execute delete.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return ServiceDeleter capable of executing the delete
      */
@@ -135,7 +135,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceUpdater to execute update.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return ServiceUpdater capable of executing the update
      */
@@ -145,7 +145,7 @@ public class Service extends Resource {
 
     /**
      * Converts a JSON String into a Service object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
@@ -164,7 +164,7 @@ public class Service extends Resource {
     /**
      * Converts a JSON InputStream into a Service object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
@@ -197,31 +197,31 @@ public class Service extends Resource {
 
     @JsonCreator
     private Service(@JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("unique_name")
-                    final String uniqueName, 
+                    final String uniqueName,
                     @JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("chat_instance_sid")
-                    final String chatInstanceSid, 
+                    final String chatInstanceSid,
                     @JsonProperty("callback_url")
-                    final URI callbackUrl, 
+                    final URI callbackUrl,
                     @JsonProperty("default_ttl")
-                    final Integer defaultTtl, 
+                    final Integer defaultTtl,
                     @JsonProperty("number_selection_behavior")
-                    final Service.NumberSelectionBehavior numberSelectionBehavior, 
+                    final Service.NumberSelectionBehavior numberSelectionBehavior,
                     @JsonProperty("geo_match_level")
-                    final Service.GeoMatchLevel geoMatchLevel, 
+                    final Service.GeoMatchLevel geoMatchLevel,
                     @JsonProperty("intercept_callback_url")
-                    final URI interceptCallbackUrl, 
+                    final URI interceptCallbackUrl,
                     @JsonProperty("out_of_session_callback_url")
-                    final URI outOfSessionCallbackUrl, 
+                    final URI outOfSessionCallbackUrl,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("url")
-                    final URI url, 
+                    final URI url,
                     @JsonProperty("links")
                     final Map<String, String> links) {
         this.sid = sid;
@@ -242,7 +242,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -252,7 +252,7 @@ public class Service extends Resource {
     /**
      * Returns The An application-defined string that uniquely identifies the
      * resource.
-     * 
+     *
      * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
@@ -261,7 +261,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -270,7 +270,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The SID of the Chat Service Instance.
-     * 
+     *
      * @return The SID of the Chat Service Instance
      */
     public final String getChatInstanceSid() {
@@ -279,7 +279,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The URL we call when the interaction status changes.
-     * 
+     *
      * @return The URL we call when the interaction status changes
      */
     public final URI getCallbackUrl() {
@@ -288,7 +288,7 @@ public class Service extends Resource {
 
     /**
      * Returns The Default TTL for a Session, in seconds.
-     * 
+     *
      * @return Default TTL for a Session, in seconds
      */
     public final Integer getDefaultTtl() {
@@ -298,7 +298,7 @@ public class Service extends Resource {
     /**
      * Returns The The preference for Proxy Number selection for the Service
      * instance.
-     * 
+     *
      * @return The preference for Proxy Number selection for the Service instance
      */
     public final Service.NumberSelectionBehavior getNumberSelectionBehavior() {
@@ -308,7 +308,7 @@ public class Service extends Resource {
     /**
      * Returns The Where a proxy number must be located relative to the participant
      * identifier.
-     * 
+     *
      * @return Where a proxy number must be located relative to the participant
      *         identifier
      */
@@ -318,7 +318,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The URL we call on each interaction.
-     * 
+     *
      * @return The URL we call on each interaction
      */
     public final URI getInterceptCallbackUrl() {
@@ -328,7 +328,7 @@ public class Service extends Resource {
     /**
      * Returns The The URL we call when an inbound call or SMS action occurs on a
      * closed or non-existent Session.
-     * 
+     *
      * @return The URL we call when an inbound call or SMS action occurs on a
      *         closed or non-existent Session
      */
@@ -338,7 +338,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The ISO 8601 date and time in GMT when the resource was created.
-     * 
+     *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
@@ -348,7 +348,7 @@ public class Service extends Resource {
     /**
      * Returns The The ISO 8601 date and time in GMT when the resource was last
      * updated.
-     * 
+     *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -357,7 +357,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The absolute URL of the Service resource.
-     * 
+     *
      * @return The absolute URL of the Service resource
      */
     public final URI getUrl() {
@@ -366,7 +366,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The URLs of resources related to the Service.
-     * 
+     *
      * @return The URLs of resources related to the Service
      */
     public final Map<String, String> getLinks() {
@@ -385,19 +385,19 @@ public class Service extends Resource {
 
         Service other = (Service) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(chatInstanceSid, other.chatInstanceSid) && 
-               Objects.equals(callbackUrl, other.callbackUrl) && 
-               Objects.equals(defaultTtl, other.defaultTtl) && 
-               Objects.equals(numberSelectionBehavior, other.numberSelectionBehavior) && 
-               Objects.equals(geoMatchLevel, other.geoMatchLevel) && 
-               Objects.equals(interceptCallbackUrl, other.interceptCallbackUrl) && 
-               Objects.equals(outOfSessionCallbackUrl, other.outOfSessionCallbackUrl) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(chatInstanceSid, other.chatInstanceSid) &&
+               Objects.equals(callbackUrl, other.callbackUrl) &&
+               Objects.equals(defaultTtl, other.defaultTtl) &&
+               Objects.equals(numberSelectionBehavior, other.numberSelectionBehavior) &&
+               Objects.equals(geoMatchLevel, other.geoMatchLevel) &&
+               Objects.equals(interceptCallbackUrl, other.interceptCallbackUrl) &&
+               Objects.equals(outOfSessionCallbackUrl, other.outOfSessionCallbackUrl) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

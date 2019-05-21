@@ -72,7 +72,7 @@ public class Build extends Resource {
 
     /**
      * Create a BuildReader to execute read.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @return BuildReader capable of executing the read
      */
@@ -82,19 +82,19 @@ public class Build extends Resource {
 
     /**
      * Create a BuildFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathSid Build Sid.
      * @return BuildFetcher capable of executing the fetch
      */
-    public static BuildFetcher fetcher(final String pathServiceSid, 
+    public static BuildFetcher fetcher(final String pathServiceSid,
                                        final String pathSid) {
         return new BuildFetcher(pathServiceSid, pathSid);
     }
 
     /**
      * Create a BuildCreator to execute create.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @return BuildCreator capable of executing the create
      */
@@ -104,7 +104,7 @@ public class Build extends Resource {
 
     /**
      * Converts a JSON String into a Build object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Build object represented by the provided JSON
@@ -123,7 +123,7 @@ public class Build extends Resource {
     /**
      * Converts a JSON InputStream into a Build object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Build object represented by the provided JSON
@@ -152,23 +152,23 @@ public class Build extends Resource {
 
     @JsonCreator
     private Build(@JsonProperty("sid")
-                  final String sid, 
+                  final String sid,
                   @JsonProperty("account_sid")
-                  final String accountSid, 
+                  final String accountSid,
                   @JsonProperty("service_sid")
-                  final String serviceSid, 
+                  final String serviceSid,
                   @JsonProperty("status")
-                  final Build.Status status, 
+                  final Build.Status status,
                   @JsonProperty("asset_versions")
-                  final List<Map<String, Object>> assetVersions, 
+                  final List<Map<String, Object>> assetVersions,
                   @JsonProperty("function_versions")
-                  final List<Map<String, Object>> functionVersions, 
+                  final List<Map<String, Object>> functionVersions,
                   @JsonProperty("dependencies")
-                  final List<Map<String, Object>> dependencies, 
+                  final List<Map<String, Object>> dependencies,
                   @JsonProperty("date_created")
-                  final String dateCreated, 
+                  final String dateCreated,
                   @JsonProperty("date_updated")
-                  final String dateUpdated, 
+                  final String dateUpdated,
                   @JsonProperty("url")
                   final URI url) {
         this.sid = sid;
@@ -185,7 +185,7 @@ public class Build extends Resource {
 
     /**
      * Returns The Build Sid..
-     * 
+     *
      * @return Build Sid.
      */
     public final String getSid() {
@@ -194,7 +194,7 @@ public class Build extends Resource {
 
     /**
      * Returns The Account Sid..
-     * 
+     *
      * @return Account Sid.
      */
     public final String getAccountSid() {
@@ -203,7 +203,7 @@ public class Build extends Resource {
 
     /**
      * Returns The Service Sid..
-     * 
+     *
      * @return Service Sid.
      */
     public final String getServiceSid() {
@@ -212,7 +212,7 @@ public class Build extends Resource {
 
     /**
      * Returns The The current state of the Build..
-     * 
+     *
      * @return The current state of the Build.
      */
     public final Build.Status getStatus() {
@@ -221,7 +221,7 @@ public class Build extends Resource {
 
     /**
      * Returns The List of Asset Version Sids..
-     * 
+     *
      * @return List of Asset Version Sids.
      */
     public final List<Map<String, Object>> getAssetVersions() {
@@ -230,7 +230,7 @@ public class Build extends Resource {
 
     /**
      * Returns The List of Function Version Sids..
-     * 
+     *
      * @return List of Function Version Sids.
      */
     public final List<Map<String, Object>> getFunctionVersions() {
@@ -239,7 +239,7 @@ public class Build extends Resource {
 
     /**
      * Returns The List of Dependencies..
-     * 
+     *
      * @return List of Dependencies.
      */
     public final List<Map<String, Object>> getDependencies() {
@@ -248,7 +248,7 @@ public class Build extends Resource {
 
     /**
      * Returns The The date that this Build was created..
-     * 
+     *
      * @return The date that this Build was created.
      */
     public final DateTime getDateCreated() {
@@ -257,7 +257,7 @@ public class Build extends Resource {
 
     /**
      * Returns The The date that this Build was updated..
-     * 
+     *
      * @return The date that this Build was updated.
      */
     public final DateTime getDateUpdated() {
@@ -266,7 +266,7 @@ public class Build extends Resource {
 
     /**
      * Returns The The URL of this Build..
-     * 
+     *
      * @return The URL of this Build.
      */
     public final URI getUrl() {
@@ -285,15 +285,15 @@ public class Build extends Resource {
 
         Build other = (Build) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(assetVersions, other.assetVersions) && 
-               Objects.equals(functionVersions, other.functionVersions) && 
-               Objects.equals(dependencies, other.dependencies) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(assetVersions, other.assetVersions) &&
+               Objects.equals(functionVersions, other.functionVersions) &&
+               Objects.equals(dependencies, other.dependencies) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
     }
 

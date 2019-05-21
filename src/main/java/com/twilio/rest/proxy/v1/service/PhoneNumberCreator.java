@@ -30,7 +30,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
     /**
      * Construct a new PhoneNumberCreator.
-     * 
+     *
      * @param pathServiceSid The SID of the resource's parent Service
      */
     public PhoneNumberCreator(final String pathServiceSid) {
@@ -40,7 +40,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
     /**
      * The SID of a Twilio
      * [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incoming-phone-numbers) resource that represents the Twilio Number you would like to assign to your Proxy Service..
-     * 
+     *
      * @param sid The SID of a Twilio IncomingPhoneNumber resource
      * @return this
      */
@@ -53,7 +53,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
      * The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164)
      * format.  E.164 phone numbers consist of a + followed by the country code and
      * subscriber number without punctuation characters. For example, +14155551234..
-     * 
+     *
      * @param phoneNumber The phone number in E.164 format
      * @return this
      */
@@ -66,7 +66,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
      * The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164)
      * format.  E.164 phone numbers consist of a + followed by the country code and
      * subscriber number without punctuation characters. For example, +14155551234..
-     * 
+     *
      * @param phoneNumber The phone number in E.164 format
      * @return this
      */
@@ -79,7 +79,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
      * participant using proxy pool logic. See [Reserved Phone
      * Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more
      * information..
-     * 
+     *
      * @param isReserved Whether the new phone number should be reserved
      * @return this
      */
@@ -90,7 +90,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created PhoneNumber
      */
@@ -129,7 +129,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

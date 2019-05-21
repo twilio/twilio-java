@@ -24,12 +24,12 @@ public class CredentialListMappingFetcher extends Fetcher<CredentialListMapping>
 
     /**
      * Construct a new CredentialListMappingFetcher.
-     * 
+     *
      * @param pathDomainSid A string that identifies the SIP Domain that includes
      *                      the resource to fetch
      * @param pathSid A string that identifies the resource to fetch
      */
-    public CredentialListMappingFetcher(final String pathDomainSid, 
+    public CredentialListMappingFetcher(final String pathDomainSid,
                                         final String pathSid) {
         this.pathDomainSid = pathDomainSid;
         this.pathSid = pathSid;
@@ -37,14 +37,14 @@ public class CredentialListMappingFetcher extends Fetcher<CredentialListMapping>
 
     /**
      * Construct a new CredentialListMappingFetcher.
-     * 
+     *
      * @param pathAccountSid The unique sid that identifies this account
      * @param pathDomainSid A string that identifies the SIP Domain that includes
      *                      the resource to fetch
      * @param pathSid A string that identifies the resource to fetch
      */
-    public CredentialListMappingFetcher(final String pathAccountSid, 
-                                        final String pathDomainSid, 
+    public CredentialListMappingFetcher(final String pathAccountSid,
+                                        final String pathDomainSid,
                                         final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
@@ -53,7 +53,7 @@ public class CredentialListMappingFetcher extends Fetcher<CredentialListMapping>
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched CredentialListMapping
      */

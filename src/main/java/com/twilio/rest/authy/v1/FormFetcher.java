@@ -27,7 +27,7 @@ public class FormFetcher extends Fetcher<Form> {
 
     /**
      * Construct a new FormFetcher.
-     * 
+     *
      * @param pathFormType The Type of this Form
      */
     public FormFetcher(final Form.FormTypes pathFormType) {
@@ -36,7 +36,7 @@ public class FormFetcher extends Fetcher<Form> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Form
      */

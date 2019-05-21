@@ -27,11 +27,11 @@ public class BindingDeleter extends Deleter<Binding> {
 
     /**
      * Construct a new BindingDeleter.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to delete the resource from
      * @param pathSid The unique string that identifies the resource
      */
-    public BindingDeleter(final String pathServiceSid, 
+    public BindingDeleter(final String pathServiceSid,
                           final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -39,7 +39,7 @@ public class BindingDeleter extends Deleter<Binding> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

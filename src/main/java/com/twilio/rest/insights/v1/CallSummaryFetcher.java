@@ -28,7 +28,7 @@ public class CallSummaryFetcher extends Fetcher<CallSummary> {
 
     /**
      * Construct a new CallSummaryFetcher.
-     * 
+     *
      * @param pathCallSid The call_sid
      */
     public CallSummaryFetcher(final String pathCallSid) {
@@ -37,7 +37,7 @@ public class CallSummaryFetcher extends Fetcher<CallSummary> {
 
     /**
      * The processing_state.
-     * 
+     *
      * @param processingState The processing_state
      * @return this
      */
@@ -48,7 +48,7 @@ public class CallSummaryFetcher extends Fetcher<CallSummary> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched CallSummary
      */
@@ -87,7 +87,7 @@ public class CallSummaryFetcher extends Fetcher<CallSummary> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

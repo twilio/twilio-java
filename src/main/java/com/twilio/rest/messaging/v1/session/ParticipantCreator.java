@@ -35,7 +35,7 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * Construct a new ParticipantCreator.
-     * 
+     *
      * @param pathSessionSid The unique id of the Session for this participant.
      */
     public ParticipantCreator(final String pathSessionSid) {
@@ -46,7 +46,7 @@ public class ParticipantCreator extends Creator<Participant> {
      * An optional string metadata field you can use to store any data you wish. The
      * string value must contain structurally valid JSON if specified.  **Note**
      * that if the attributes are not set "{}" will be returned..
-     * 
+     *
      * @param attributes An optional string metadata field you can use to store any
      *                   data you wish.
      * @return this
@@ -61,7 +61,7 @@ public class ParticipantCreator extends Creator<Participant> {
      * ID) that the participant is in contact with. This field, together with
      * user_address, is only null when the participant is interacting from a Chat
      * endpoint (see the 'identity' field)..
-     * 
+     *
      * @param twilioAddress The address of the Twilio phone number that the
      *                      participant is in contact with.
      * @return this
@@ -75,7 +75,7 @@ public class ParticipantCreator extends Creator<Participant> {
      * The date that this resource was created. This is most often useful when
      * bulk-importing messages from another system, as the provided value will be
      * trusted and displayed on SDK clients..
-     * 
+     *
      * @param dateCreated The date that this resource was created.
      * @return this
      */
@@ -88,7 +88,7 @@ public class ParticipantCreator extends Creator<Participant> {
      * The date that this resource was last updated. This is most often provided
      * when bulk-importing messages from another system, as the provided value will
      * be trusted and displayed on SDK clients..
-     * 
+     *
      * @param dateUpdated The date that this resource was last updated.
      * @return this
      */
@@ -102,7 +102,7 @@ public class ParticipantCreator extends Creator<Participant> {
      * User](https://www.twilio.com/docs/api/chat/rest/users). This parameter is
      * non-null if (and only if) the participant is using the Programmable Chat SDK
      * to communicate..
-     * 
+     *
      * @param identity A unique string identifier for the session participant as
      *                 Chat User.
      * @return this
@@ -117,7 +117,7 @@ public class ParticipantCreator extends Creator<Participant> {
      * Together with the Twilio Address, this determines a participant uniquely.
      * This field (with twilio_address) is only null when the participant is
      * interacting from a Chat endpoint (see the 'identity' field)..
-     * 
+     *
      * @param userAddress The address of the participant's device.
      * @return this
      */
@@ -128,7 +128,7 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Participant
      */
@@ -167,7 +167,7 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

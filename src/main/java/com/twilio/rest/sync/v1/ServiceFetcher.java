@@ -26,7 +26,7 @@ public class ServiceFetcher extends Fetcher<Service> {
 
     /**
      * Construct a new ServiceFetcher.
-     * 
+     *
      * @param pathSid The sid
      */
     public ServiceFetcher(final String pathSid) {
@@ -35,7 +35,7 @@ public class ServiceFetcher extends Fetcher<Service> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Service
      */

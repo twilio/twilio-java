@@ -24,7 +24,7 @@ public class EngagementReader extends Reader<Engagement> {
 
     /**
      * Construct a new EngagementReader.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      */
     public EngagementReader(final String pathFlowSid) {
@@ -33,7 +33,7 @@ public class EngagementReader extends Reader<Engagement> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Engagement ResourceSet
      */
@@ -44,7 +44,7 @@ public class EngagementReader extends Reader<Engagement> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Engagement ResourceSet
      */
@@ -64,7 +64,7 @@ public class EngagementReader extends Reader<Engagement> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Engagement ResourceSet
@@ -82,13 +82,13 @@ public class EngagementReader extends Reader<Engagement> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Engagement> nextPage(final Page<Engagement> page, 
+    public Page<Engagement> nextPage(final Page<Engagement> page,
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -102,13 +102,13 @@ public class EngagementReader extends Reader<Engagement> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Engagement> previousPage(final Page<Engagement> page, 
+    public Page<Engagement> previousPage(final Page<Engagement> page,
                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -122,7 +122,7 @@ public class EngagementReader extends Reader<Engagement> {
 
     /**
      * Generate a Page of Engagement Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -157,7 +157,7 @@ public class EngagementReader extends Reader<Engagement> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

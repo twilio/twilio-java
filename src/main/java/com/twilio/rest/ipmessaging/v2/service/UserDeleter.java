@@ -23,11 +23,11 @@ public class UserDeleter extends Deleter<User> {
 
     /**
      * Construct a new UserDeleter.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to delete the resource from
      * @param pathSid The unique string that identifies the resource
      */
-    public UserDeleter(final String pathServiceSid, 
+    public UserDeleter(final String pathServiceSid,
                        final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class UserDeleter extends Deleter<User> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

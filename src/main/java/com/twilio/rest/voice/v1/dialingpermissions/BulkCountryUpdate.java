@@ -40,7 +40,7 @@ public class BulkCountryUpdate extends Resource {
 
     /**
      * Create a BulkCountryUpdateCreator to execute create.
-     * 
+     *
      * @param updateRequest URL encoded JSON array of update objects
      * @return BulkCountryUpdateCreator capable of executing the create
      */
@@ -51,7 +51,7 @@ public class BulkCountryUpdate extends Resource {
     /**
      * Converts a JSON String into a BulkCountryUpdate object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return BulkCountryUpdate object represented by the provided JSON
@@ -70,7 +70,7 @@ public class BulkCountryUpdate extends Resource {
     /**
      * Converts a JSON InputStream into a BulkCountryUpdate object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return BulkCountryUpdate object represented by the provided JSON
@@ -91,7 +91,7 @@ public class BulkCountryUpdate extends Resource {
 
     @JsonCreator
     private BulkCountryUpdate(@JsonProperty("update_count")
-                              final Integer updateCount, 
+                              final Integer updateCount,
                               @JsonProperty("update_request")
                               final String updateRequest) {
         this.updateCount = updateCount;
@@ -100,7 +100,7 @@ public class BulkCountryUpdate extends Resource {
 
     /**
      * Returns The The number of countries updated.
-     * 
+     *
      * @return The number of countries updated
      */
     public final Integer getUpdateCount() {
@@ -109,7 +109,7 @@ public class BulkCountryUpdate extends Resource {
 
     /**
      * Returns The A URL encoded JSON array of update objects.
-     * 
+     *
      * @return A URL encoded JSON array of update objects
      */
     public final String getUpdateRequest() {
@@ -128,7 +128,7 @@ public class BulkCountryUpdate extends Resource {
 
         BulkCountryUpdate other = (BulkCountryUpdate) o;
 
-        return Objects.equals(updateCount, other.updateCount) && 
+        return Objects.equals(updateCount, other.updateCount) &&
                Objects.equals(updateRequest, other.updateRequest);
     }
 

@@ -42,7 +42,7 @@ public class MessageTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.CHAT.toString(),
                                           "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -118,7 +118,7 @@ public class MessageTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.CHAT.toString(),
                                           "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -162,7 +162,7 @@ public class MessageTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.CHAT.toString(),
                                           "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -194,7 +194,7 @@ public class MessageTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.CHAT.toString(),
                                           "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

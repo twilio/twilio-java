@@ -145,7 +145,7 @@ public class Recording extends Resource {
 
     /**
      * Create a RecordingFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The Recording Sid that uniquely identifies the Recording to
      *                fetch.
      * @return RecordingFetcher capable of executing the fetch
@@ -156,7 +156,7 @@ public class Recording extends Resource {
 
     /**
      * Create a RecordingReader to execute read.
-     * 
+     *
      * @return RecordingReader capable of executing the read
      */
     public static RecordingReader reader() {
@@ -165,7 +165,7 @@ public class Recording extends Resource {
 
     /**
      * Create a RecordingDeleter to execute delete.
-     * 
+     *
      * @param pathSid The Recording Sid that uniquely identifies the Recording to
      *                delete.
      * @return RecordingDeleter capable of executing the delete
@@ -177,7 +177,7 @@ public class Recording extends Resource {
     /**
      * Converts a JSON String into a Recording object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Recording object represented by the provided JSON
@@ -196,7 +196,7 @@ public class Recording extends Resource {
     /**
      * Converts a JSON InputStream into a Recording object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Recording object represented by the provided JSON
@@ -230,33 +230,33 @@ public class Recording extends Resource {
 
     @JsonCreator
     private Recording(@JsonProperty("account_sid")
-                      final String accountSid, 
+                      final String accountSid,
                       @JsonProperty("status")
-                      final Recording.Status status, 
+                      final Recording.Status status,
                       @JsonProperty("date_created")
-                      final String dateCreated, 
+                      final String dateCreated,
                       @JsonProperty("sid")
-                      final String sid, 
+                      final String sid,
                       @JsonProperty("source_sid")
-                      final String sourceSid, 
+                      final String sourceSid,
                       @JsonProperty("size")
-                      final Long size, 
+                      final Long size,
                       @JsonProperty("url")
-                      final URI url, 
+                      final URI url,
                       @JsonProperty("type")
-                      final Recording.Type type, 
+                      final Recording.Type type,
                       @JsonProperty("duration")
-                      final Integer duration, 
+                      final Integer duration,
                       @JsonProperty("container_format")
-                      final Recording.Format containerFormat, 
+                      final Recording.Format containerFormat,
                       @JsonProperty("codec")
-                      final Recording.Codec codec, 
+                      final Recording.Codec codec,
                       @JsonProperty("grouping_sids")
-                      final Map<String, Object> groupingSids, 
+                      final Map<String, Object> groupingSids,
                       @JsonProperty("track_name")
-                      final String trackName, 
+                      final String trackName,
                       @JsonProperty("offset")
-                      final Long offset, 
+                      final Long offset,
                       @JsonProperty("links")
                       final Map<String, String> links) {
         this.accountSid = accountSid;
@@ -278,7 +278,7 @@ public class Recording extends Resource {
 
     /**
      * Returns The Twilio Account SID..
-     * 
+     *
      * @return Twilio Account SID.
      */
     public final String getAccountSid() {
@@ -287,7 +287,7 @@ public class Recording extends Resource {
 
     /**
      * Returns The The status of the Recording..
-     * 
+     *
      * @return The status of the Recording.
      */
     public final Recording.Status getStatus() {
@@ -296,7 +296,7 @@ public class Recording extends Resource {
 
     /**
      * Returns The Date when the media recording began writing..
-     * 
+     *
      * @return Date when the media recording began writing.
      */
     public final DateTime getDateCreated() {
@@ -305,7 +305,7 @@ public class Recording extends Resource {
 
     /**
      * Returns The A 34-character string that uniquely identifies this Recording..
-     * 
+     *
      * @return A 34-character string that uniquely identifies this Recording.
      */
     public final String getSid() {
@@ -315,7 +315,7 @@ public class Recording extends Resource {
     /**
      * Returns The A 34-character string that uniquely identifies the source of this
      * Recording..
-     * 
+     *
      * @return A 34-character string that uniquely identifies the source of this
      *         Recording.
      */
@@ -325,7 +325,7 @@ public class Recording extends Resource {
 
     /**
      * Returns The Size of the recorded track, in bytes..
-     * 
+     *
      * @return Size of the recorded track, in bytes.
      */
     public final Long getSize() {
@@ -334,7 +334,7 @@ public class Recording extends Resource {
 
     /**
      * Returns The The absolute URL for this resource..
-     * 
+     *
      * @return The absolute URL for this resource.
      */
     public final URI getUrl() {
@@ -343,7 +343,7 @@ public class Recording extends Resource {
 
     /**
      * Returns The Indicates the media type for this recording..
-     * 
+     *
      * @return Indicates the media type for this recording.
      */
     public final Recording.Type getType() {
@@ -352,7 +352,7 @@ public class Recording extends Resource {
 
     /**
      * Returns The Duration of the Recording in seconds..
-     * 
+     *
      * @return Duration of the Recording in seconds.
      */
     public final Integer getDuration() {
@@ -361,7 +361,7 @@ public class Recording extends Resource {
 
     /**
      * Returns The The file format for this Recording..
-     * 
+     *
      * @return The file format for this Recording.
      */
     public final Recording.Format getContainerFormat() {
@@ -370,7 +370,7 @@ public class Recording extends Resource {
 
     /**
      * Returns The The codec used to encode the track..
-     * 
+     *
      * @return The codec used to encode the track.
      */
     public final Recording.Codec getCodec() {
@@ -379,7 +379,7 @@ public class Recording extends Resource {
 
     /**
      * Returns The A list of Sids related to this Recording..
-     * 
+     *
      * @return A list of Sids related to this Recording.
      */
     public final Map<String, Object> getGroupingSids() {
@@ -388,7 +388,7 @@ public class Recording extends Resource {
 
     /**
      * Returns The The name that was given to the source track of this recording..
-     * 
+     *
      * @return The name that was given to the source track of this recording.
      */
     public final String getTrackName() {
@@ -397,7 +397,7 @@ public class Recording extends Resource {
 
     /**
      * Returns The Offset in milliseconds for this track..
-     * 
+     *
      * @return Offset in milliseconds for this track.
      */
     public final Long getOffset() {
@@ -406,7 +406,7 @@ public class Recording extends Resource {
 
     /**
      * Returns The The links.
-     * 
+     *
      * @return The links
      */
     public final Map<String, String> getLinks() {
@@ -425,20 +425,20 @@ public class Recording extends Resource {
 
         Recording other = (Recording) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(sourceSid, other.sourceSid) && 
-               Objects.equals(size, other.size) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(type, other.type) && 
-               Objects.equals(duration, other.duration) && 
-               Objects.equals(containerFormat, other.containerFormat) && 
-               Objects.equals(codec, other.codec) && 
-               Objects.equals(groupingSids, other.groupingSids) && 
-               Objects.equals(trackName, other.trackName) && 
-               Objects.equals(offset, other.offset) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(sourceSid, other.sourceSid) &&
+               Objects.equals(size, other.size) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(type, other.type) &&
+               Objects.equals(duration, other.duration) &&
+               Objects.equals(containerFormat, other.containerFormat) &&
+               Objects.equals(codec, other.codec) &&
+               Objects.equals(groupingSids, other.groupingSids) &&
+               Objects.equals(trackName, other.trackName) &&
+               Objects.equals(offset, other.offset) &&
                Objects.equals(links, other.links);
     }
 

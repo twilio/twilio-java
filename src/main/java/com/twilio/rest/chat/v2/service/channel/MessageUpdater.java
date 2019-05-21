@@ -32,13 +32,13 @@ public class MessageUpdater extends Updater<Message> {
 
     /**
      * Construct a new MessageUpdater.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to update the resource from
      * @param pathChannelSid The unique ID of the Channel the message belongs to
      * @param pathSid The unique string that identifies the resource
      */
-    public MessageUpdater(final String pathServiceSid, 
-                          final String pathChannelSid, 
+    public MessageUpdater(final String pathServiceSid,
+                          final String pathChannelSid,
                           final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -49,7 +49,7 @@ public class MessageUpdater extends Updater<Message> {
      * The message to send to the channel. Can also be an empty string or `null`,
      * which sets the value as an empty string. You can send structured data in the
      * body by serializing it as a string..
-     * 
+     *
      * @param body The message to send to the channel
      * @return this
      */
@@ -60,7 +60,7 @@ public class MessageUpdater extends Updater<Message> {
 
     /**
      * A valid JSON string that contains application-specific data..
-     * 
+     *
      * @param attributes A valid JSON string that contains application-specific data
      * @return this
      */
@@ -72,7 +72,7 @@ public class MessageUpdater extends Updater<Message> {
     /**
      * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
      * format, to assign to the resource as the date it was created..
-     * 
+     *
      * @param dateCreated The ISO 8601 date and time in GMT when the resource was
      *                    created
      * @return this
@@ -85,7 +85,7 @@ public class MessageUpdater extends Updater<Message> {
     /**
      * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
      * format, to assign to the resource as the date it was last updated..
-     * 
+     *
      * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
      *                    updated
      * @return this
@@ -98,7 +98,7 @@ public class MessageUpdater extends Updater<Message> {
     /**
      * The [Identity](https://www.twilio.com/docs/chat/identity) of the User who
      * last updated the Message, if applicable..
-     * 
+     *
      * @param lastUpdatedBy The Identity of the User who last updated the Message,
      *                      if applicable
      * @return this
@@ -111,7 +111,7 @@ public class MessageUpdater extends Updater<Message> {
     /**
      * The [Identity](https://www.twilio.com/docs/chat/identity) of the message's
      * author..
-     * 
+     *
      * @param from The identity of the message's author
      * @return this
      */
@@ -122,7 +122,7 @@ public class MessageUpdater extends Updater<Message> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Message
      */
@@ -161,7 +161,7 @@ public class MessageUpdater extends Updater<Message> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

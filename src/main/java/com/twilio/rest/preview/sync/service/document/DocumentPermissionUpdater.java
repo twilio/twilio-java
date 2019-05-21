@@ -32,7 +32,7 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
 
     /**
      * Construct a new DocumentPermissionUpdater.
-     * 
+     *
      * @param pathServiceSid Sync Service Instance SID.
      * @param pathDocumentSid Sync Document SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync Document
@@ -41,11 +41,11 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
      * @param write Write access.
      * @param manage Manage access.
      */
-    public DocumentPermissionUpdater(final String pathServiceSid, 
-                                     final String pathDocumentSid, 
-                                     final String pathIdentity, 
-                                     final Boolean read, 
-                                     final Boolean write, 
+    public DocumentPermissionUpdater(final String pathServiceSid,
+                                     final String pathDocumentSid,
+                                     final String pathIdentity,
+                                     final Boolean read,
+                                     final Boolean write,
                                      final Boolean manage) {
         this.pathServiceSid = pathServiceSid;
         this.pathDocumentSid = pathDocumentSid;
@@ -57,7 +57,7 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated DocumentPermission
      */
@@ -96,7 +96,7 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

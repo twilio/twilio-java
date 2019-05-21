@@ -22,7 +22,7 @@ public class TrunkFetcher extends Fetcher<Trunk> {
 
     /**
      * Construct a new TrunkFetcher.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public TrunkFetcher(final String pathSid) {
@@ -31,7 +31,7 @@ public class TrunkFetcher extends Fetcher<Trunk> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Trunk
      */

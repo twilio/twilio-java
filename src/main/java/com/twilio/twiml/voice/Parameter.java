@@ -37,7 +37,7 @@ public class Parameter extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -56,7 +56,7 @@ public class Parameter extends TwiML {
 
     /**
      * The name of the custom parameter
-     * 
+     *
      * @return The name of the custom parameter
      */
     public String getName() {
@@ -65,7 +65,7 @@ public class Parameter extends TwiML {
 
     /**
      * The value of the custom parameter
-     * 
+     *
      * @return The value of the custom parameter
      */
     public String getValue() {

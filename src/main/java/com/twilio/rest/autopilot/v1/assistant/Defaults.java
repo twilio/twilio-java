@@ -42,7 +42,7 @@ public class Defaults extends Resource {
 
     /**
      * Create a DefaultsFetcher to execute fetch.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         resource to fetch
      * @return DefaultsFetcher capable of executing the fetch
@@ -53,7 +53,7 @@ public class Defaults extends Resource {
 
     /**
      * Create a DefaultsUpdater to execute update.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         resource to update
      * @return DefaultsUpdater capable of executing the update
@@ -65,7 +65,7 @@ public class Defaults extends Resource {
     /**
      * Converts a JSON String into a Defaults object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Defaults object represented by the provided JSON
@@ -84,7 +84,7 @@ public class Defaults extends Resource {
     /**
      * Converts a JSON InputStream into a Defaults object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Defaults object represented by the provided JSON
@@ -107,11 +107,11 @@ public class Defaults extends Resource {
 
     @JsonCreator
     private Defaults(@JsonProperty("account_sid")
-                     final String accountSid, 
+                     final String accountSid,
                      @JsonProperty("assistant_sid")
-                     final String assistantSid, 
+                     final String assistantSid,
                      @JsonProperty("url")
-                     final URI url, 
+                     final URI url,
                      @JsonProperty("data")
                      final Map<String, Object> data) {
         this.accountSid = accountSid;
@@ -122,7 +122,7 @@ public class Defaults extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -131,7 +131,7 @@ public class Defaults extends Resource {
 
     /**
      * Returns The The SID of the Assistant that is the parent of the resource.
-     * 
+     *
      * @return The SID of the Assistant that is the parent of the resource
      */
     public final String getAssistantSid() {
@@ -140,7 +140,7 @@ public class Defaults extends Resource {
 
     /**
      * Returns The The absolute URL of the Defaults resource.
-     * 
+     *
      * @return The absolute URL of the Defaults resource
      */
     public final URI getUrl() {
@@ -149,7 +149,7 @@ public class Defaults extends Resource {
 
     /**
      * Returns The The JSON string that describes the default task links.
-     * 
+     *
      * @return The JSON string that describes the default task links
      */
     public final Map<String, Object> getData() {
@@ -168,9 +168,9 @@ public class Defaults extends Resource {
 
         Defaults other = (Defaults) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(assistantSid, other.assistantSid) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(assistantSid, other.assistantSid) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(data, other.data);
     }
 

@@ -74,7 +74,7 @@ public class EntityTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.AUTHY.toString(),
                                           "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -106,7 +106,7 @@ public class EntityTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.AUTHY.toString(),
                                           "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -138,7 +138,7 @@ public class EntityTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.AUTHY.toString(),
                                           "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

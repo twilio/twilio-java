@@ -42,7 +42,7 @@ public class WebhookTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.MESSAGING.toString(),
                                           "/v1/Sessions/Webhooks");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class WebhookTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.MESSAGING.toString(),
                                           "/v1/Sessions/Webhooks");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

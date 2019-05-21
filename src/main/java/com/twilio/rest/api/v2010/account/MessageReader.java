@@ -38,7 +38,7 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Construct a new MessageReader.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       read
      */
@@ -48,7 +48,7 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Read messages sent to only this phone number..
-     * 
+     *
      * @param to Filter by messages sent to this number
      * @return this
      */
@@ -59,7 +59,7 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Read messages sent to only this phone number..
-     * 
+     *
      * @param to Filter by messages sent to this number
      * @return this
      */
@@ -69,7 +69,7 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Read messages sent from only this phone number or alphanumeric sender ID..
-     * 
+     *
      * @param from Filter by from number
      * @return this
      */
@@ -80,7 +80,7 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Read messages sent from only this phone number or alphanumeric sender ID..
-     * 
+     *
      * @param from Filter by from number
      * @return this
      */
@@ -94,7 +94,7 @@ public class MessageReader extends Reader<Message> {
      * specify an inequality, such as `DateSent&lt;=YYYY-MM-DD`, to read messages
      * sent on or before midnight on a date, and `DateSent&gt;=YYYY-MM-DD` to read
      * messages sent on or after midnight on a date..
-     * 
+     *
      * @param absoluteDateSent Filter by date sent
      * @return this
      */
@@ -110,7 +110,7 @@ public class MessageReader extends Reader<Message> {
      * specify an inequality, such as `DateSent&lt;=YYYY-MM-DD`, to read messages
      * sent on or before midnight on a date, and `DateSent&gt;=YYYY-MM-DD` to read
      * messages sent on or after midnight on a date..
-     * 
+     *
      * @param rangeDateSent Filter by date sent
      * @return this
      */
@@ -122,7 +122,7 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Message ResourceSet
      */
@@ -133,7 +133,7 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Message ResourceSet
      */
@@ -154,7 +154,7 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Message ResourceSet
@@ -173,13 +173,13 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Message> nextPage(final Page<Message> page, 
+    public Page<Message> nextPage(final Page<Message> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -193,13 +193,13 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Message> previousPage(final Page<Message> page, 
+    public Page<Message> previousPage(final Page<Message> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -213,7 +213,7 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Generate a Page of Message Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -248,7 +248,7 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

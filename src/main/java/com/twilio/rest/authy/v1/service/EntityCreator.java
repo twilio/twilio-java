@@ -28,11 +28,11 @@ public class EntityCreator extends Creator<Entity> {
 
     /**
      * Construct a new EntityCreator.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param identity Unique identity of the Entity
      */
-    public EntityCreator(final String pathServiceSid, 
+    public EntityCreator(final String pathServiceSid,
                          final String identity) {
         this.pathServiceSid = pathServiceSid;
         this.identity = identity;
@@ -40,7 +40,7 @@ public class EntityCreator extends Creator<Entity> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Entity
      */
@@ -79,7 +79,7 @@ public class EntityCreator extends Creator<Entity> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

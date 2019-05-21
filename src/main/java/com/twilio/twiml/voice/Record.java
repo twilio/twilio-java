@@ -93,7 +93,7 @@ public class Record extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -142,7 +142,7 @@ public class Record extends TwiML {
 
     /**
      * Action URL
-     * 
+     *
      * @return Action URL
      */
     public URI getAction() {
@@ -151,7 +151,7 @@ public class Record extends TwiML {
 
     /**
      * Action URL method
-     * 
+     *
      * @return Action URL method
      */
     public HttpMethod getMethod() {
@@ -160,7 +160,7 @@ public class Record extends TwiML {
 
     /**
      * Timeout to begin recording
-     * 
+     *
      * @return Timeout to begin recording
      */
     public Integer getTimeout() {
@@ -169,7 +169,7 @@ public class Record extends TwiML {
 
     /**
      * Finish recording on key
-     * 
+     *
      * @return Finish recording on key
      */
     public String getFinishOnKey() {
@@ -178,7 +178,7 @@ public class Record extends TwiML {
 
     /**
      * Max time to record in seconds
-     * 
+     *
      * @return Max time to record in seconds
      */
     public Integer getMaxLength() {
@@ -187,7 +187,7 @@ public class Record extends TwiML {
 
     /**
      * Play beep
-     * 
+     *
      * @return Play beep
      */
     public Boolean isPlayBeep() {
@@ -196,7 +196,7 @@ public class Record extends TwiML {
 
     /**
      * Trim the recording
-     * 
+     *
      * @return Trim the recording
      */
     public Record.Trim getTrim() {
@@ -205,7 +205,7 @@ public class Record extends TwiML {
 
     /**
      * Status callback URL
-     * 
+     *
      * @return Status callback URL
      */
     public URI getRecordingStatusCallback() {
@@ -214,7 +214,7 @@ public class Record extends TwiML {
 
     /**
      * Status callback URL method
-     * 
+     *
      * @return Status callback URL method
      */
     public HttpMethod getRecordingStatusCallbackMethod() {
@@ -223,7 +223,7 @@ public class Record extends TwiML {
 
     /**
      * Recording status callback events
-     * 
+     *
      * @return Recording status callback events
      */
     public List<Record.RecordingEvent> getRecordingStatusCallbackEvents() {
@@ -244,7 +244,7 @@ public class Record extends TwiML {
 
     /**
      * Transcribe the recording
-     * 
+     *
      * @return Transcribe the recording
      */
     public Boolean isTranscribe() {
@@ -253,7 +253,7 @@ public class Record extends TwiML {
 
     /**
      * Transcribe callback URL
-     * 
+     *
      * @return Transcribe callback URL
      */
     public URI getTranscribeCallback() {

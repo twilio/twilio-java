@@ -35,7 +35,7 @@ public class TollFreeReader extends Reader<TollFree> {
 
     /**
      * Construct a new TollFreeReader.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       read
      */
@@ -46,7 +46,7 @@ public class TollFreeReader extends Reader<TollFree> {
     /**
      * Whether to include phone numbers new to the Twilio platform. Can be: `true`
      * or `false` and the default is `true`..
-     * 
+     *
      * @param beta Whether to include new phone numbers
      * @return this
      */
@@ -57,7 +57,7 @@ public class TollFreeReader extends Reader<TollFree> {
 
     /**
      * A string that identifies the resources to read..
-     * 
+     *
      * @param friendlyName A string that identifies the resources to read
      * @return this
      */
@@ -69,7 +69,7 @@ public class TollFreeReader extends Reader<TollFree> {
     /**
      * The phone numbers of the IncomingPhoneNumber resources to read. You can
      * specify partial numbers and use '*' as a wildcard for any digit..
-     * 
+     *
      * @param phoneNumber The phone numbers of the resources to read
      * @return this
      */
@@ -81,7 +81,7 @@ public class TollFreeReader extends Reader<TollFree> {
     /**
      * The phone numbers of the IncomingPhoneNumber resources to read. You can
      * specify partial numbers and use '*' as a wildcard for any digit..
-     * 
+     *
      * @param phoneNumber The phone numbers of the resources to read
      * @return this
      */
@@ -92,7 +92,7 @@ public class TollFreeReader extends Reader<TollFree> {
     /**
      * Whether to include phone numbers based on their origin. Can be: `twilio` or
      * `hosted`. By default, phone numbers of all origin are included..
-     * 
+     *
      * @param origin Include phone numbers based on their origin. By default, phone
      *               numbers of all origin are included.
      * @return this
@@ -104,7 +104,7 @@ public class TollFreeReader extends Reader<TollFree> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return TollFree ResourceSet
      */
@@ -115,7 +115,7 @@ public class TollFreeReader extends Reader<TollFree> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return TollFree ResourceSet
      */
@@ -136,7 +136,7 @@ public class TollFreeReader extends Reader<TollFree> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return TollFree ResourceSet
@@ -155,13 +155,13 @@ public class TollFreeReader extends Reader<TollFree> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<TollFree> nextPage(final Page<TollFree> page, 
+    public Page<TollFree> nextPage(final Page<TollFree> page,
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -175,13 +175,13 @@ public class TollFreeReader extends Reader<TollFree> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<TollFree> previousPage(final Page<TollFree> page, 
+    public Page<TollFree> previousPage(final Page<TollFree> page,
                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -195,7 +195,7 @@ public class TollFreeReader extends Reader<TollFree> {
 
     /**
      * Generate a Page of TollFree Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -230,7 +230,7 @@ public class TollFreeReader extends Reader<TollFree> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

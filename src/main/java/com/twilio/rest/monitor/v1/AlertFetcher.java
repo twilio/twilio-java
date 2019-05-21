@@ -22,7 +22,7 @@ public class AlertFetcher extends Fetcher<Alert> {
 
     /**
      * Construct a new AlertFetcher.
-     * 
+     *
      * @param pathSid The sid
      */
     public AlertFetcher(final String pathSid) {
@@ -31,7 +31,7 @@ public class AlertFetcher extends Fetcher<Alert> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Alert
      */

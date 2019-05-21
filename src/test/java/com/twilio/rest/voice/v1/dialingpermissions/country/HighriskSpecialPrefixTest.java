@@ -42,7 +42,7 @@ public class HighriskSpecialPrefixTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.VOICE.toString(),
                                           "/v1/DialingPermissions/Countries/US/HighRiskSpecialPrefixes");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

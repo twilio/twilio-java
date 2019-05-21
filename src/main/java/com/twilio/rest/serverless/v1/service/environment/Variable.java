@@ -43,56 +43,56 @@ public class Variable extends Resource {
 
     /**
      * Create a VariableReader to execute read.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathEnvironmentSid Environment Sid.
      * @return VariableReader capable of executing the read
      */
-    public static VariableReader reader(final String pathServiceSid, 
+    public static VariableReader reader(final String pathServiceSid,
                                         final String pathEnvironmentSid) {
         return new VariableReader(pathServiceSid, pathEnvironmentSid);
     }
 
     /**
      * Create a VariableFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathEnvironmentSid Environment Sid.
      * @param pathSid Variable Sid.
      * @return VariableFetcher capable of executing the fetch
      */
-    public static VariableFetcher fetcher(final String pathServiceSid, 
-                                          final String pathEnvironmentSid, 
+    public static VariableFetcher fetcher(final String pathServiceSid,
+                                          final String pathEnvironmentSid,
                                           final String pathSid) {
         return new VariableFetcher(pathServiceSid, pathEnvironmentSid, pathSid);
     }
 
     /**
      * Create a VariableCreator to execute create.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathEnvironmentSid Environment Sid.
      * @param key A string by which this Variable can be referenced.
      * @param value A string that contains the actual value of this Variable.
      * @return VariableCreator capable of executing the create
      */
-    public static VariableCreator creator(final String pathServiceSid, 
-                                          final String pathEnvironmentSid, 
-                                          final String key, 
+    public static VariableCreator creator(final String pathServiceSid,
+                                          final String pathEnvironmentSid,
+                                          final String key,
                                           final String value) {
         return new VariableCreator(pathServiceSid, pathEnvironmentSid, key, value);
     }
 
     /**
      * Create a VariableUpdater to execute update.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathEnvironmentSid Environment Sid.
      * @param pathSid Variable Sid.
      * @return VariableUpdater capable of executing the update
      */
-    public static VariableUpdater updater(final String pathServiceSid, 
-                                          final String pathEnvironmentSid, 
+    public static VariableUpdater updater(final String pathServiceSid,
+                                          final String pathEnvironmentSid,
                                           final String pathSid) {
         return new VariableUpdater(pathServiceSid, pathEnvironmentSid, pathSid);
     }
@@ -100,7 +100,7 @@ public class Variable extends Resource {
     /**
      * Converts a JSON String into a Variable object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Variable object represented by the provided JSON
@@ -119,7 +119,7 @@ public class Variable extends Resource {
     /**
      * Converts a JSON InputStream into a Variable object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Variable object represented by the provided JSON
@@ -147,21 +147,21 @@ public class Variable extends Resource {
 
     @JsonCreator
     private Variable(@JsonProperty("sid")
-                     final String sid, 
+                     final String sid,
                      @JsonProperty("account_sid")
-                     final String accountSid, 
+                     final String accountSid,
                      @JsonProperty("service_sid")
-                     final String serviceSid, 
+                     final String serviceSid,
                      @JsonProperty("environment_sid")
-                     final String environmentSid, 
+                     final String environmentSid,
                      @JsonProperty("key")
-                     final String key, 
+                     final String key,
                      @JsonProperty("value")
-                     final String value, 
+                     final String value,
                      @JsonProperty("date_created")
-                     final String dateCreated, 
+                     final String dateCreated,
                      @JsonProperty("date_updated")
-                     final String dateUpdated, 
+                     final String dateUpdated,
                      @JsonProperty("url")
                      final URI url) {
         this.sid = sid;
@@ -177,7 +177,7 @@ public class Variable extends Resource {
 
     /**
      * Returns The Variable Sid..
-     * 
+     *
      * @return Variable Sid.
      */
     public final String getSid() {
@@ -186,7 +186,7 @@ public class Variable extends Resource {
 
     /**
      * Returns The Account Sid..
-     * 
+     *
      * @return Account Sid.
      */
     public final String getAccountSid() {
@@ -195,7 +195,7 @@ public class Variable extends Resource {
 
     /**
      * Returns The Service Sid..
-     * 
+     *
      * @return Service Sid.
      */
     public final String getServiceSid() {
@@ -204,7 +204,7 @@ public class Variable extends Resource {
 
     /**
      * Returns The Environment Sid..
-     * 
+     *
      * @return Environment Sid.
      */
     public final String getEnvironmentSid() {
@@ -213,7 +213,7 @@ public class Variable extends Resource {
 
     /**
      * Returns The A string by which this Variable can be referenced..
-     * 
+     *
      * @return A string by which this Variable can be referenced.
      */
     public final String getKey() {
@@ -222,7 +222,7 @@ public class Variable extends Resource {
 
     /**
      * Returns The A string that contains the actual value of this Variable..
-     * 
+     *
      * @return A string that contains the actual value of this Variable.
      */
     public final String getValue() {
@@ -231,7 +231,7 @@ public class Variable extends Resource {
 
     /**
      * Returns The The date that this Variable was created..
-     * 
+     *
      * @return The date that this Variable was created.
      */
     public final DateTime getDateCreated() {
@@ -240,7 +240,7 @@ public class Variable extends Resource {
 
     /**
      * Returns The The date that this Variable was updated..
-     * 
+     *
      * @return The date that this Variable was updated.
      */
     public final DateTime getDateUpdated() {
@@ -249,7 +249,7 @@ public class Variable extends Resource {
 
     /**
      * Returns The The URL of this Variable..
-     * 
+     *
      * @return The URL of this Variable.
      */
     public final URI getUrl() {
@@ -268,14 +268,14 @@ public class Variable extends Resource {
 
         Variable other = (Variable) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(environmentSid, other.environmentSid) && 
-               Objects.equals(key, other.key) && 
-               Objects.equals(value, other.value) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(environmentSid, other.environmentSid) &&
+               Objects.equals(key, other.key) &&
+               Objects.equals(value, other.value) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
     }
 

@@ -42,7 +42,7 @@ public class PhoneNumberTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.LOOKUPS.toString(),
                                           "/v1/PhoneNumbers/+15017122661");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

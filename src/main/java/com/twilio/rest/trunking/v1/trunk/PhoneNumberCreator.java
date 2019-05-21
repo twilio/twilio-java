@@ -23,12 +23,12 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
     /**
      * Construct a new PhoneNumberCreator.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk to associate the phone number with
      * @param phoneNumberSid The SID of the Incoming Phone Number that you want to
      *                       associate with the trunk
      */
-    public PhoneNumberCreator(final String pathTrunkSid, 
+    public PhoneNumberCreator(final String pathTrunkSid,
                               final String phoneNumberSid) {
         this.pathTrunkSid = pathTrunkSid;
         this.phoneNumberSid = phoneNumberSid;
@@ -36,7 +36,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created PhoneNumber
      */
@@ -75,7 +75,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

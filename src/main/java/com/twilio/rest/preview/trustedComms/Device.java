@@ -41,19 +41,19 @@ public class Device extends Resource {
 
     /**
      * Create a DeviceCreator to execute create.
-     * 
+     *
      * @param phoneNumber The end user Phone Number
      * @param pushToken The Push Token for this Phone Number
      * @return DeviceCreator capable of executing the create
      */
-    public static DeviceCreator creator(final String phoneNumber, 
+    public static DeviceCreator creator(final String phoneNumber,
                                         final String pushToken) {
         return new DeviceCreator(phoneNumber, pushToken);
     }
 
     /**
      * Converts a JSON String into a Device object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Device object represented by the provided JSON
@@ -72,7 +72,7 @@ public class Device extends Resource {
     /**
      * Converts a JSON InputStream into a Device object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Device object represented by the provided JSON
@@ -95,11 +95,11 @@ public class Device extends Resource {
 
     @JsonCreator
     private Device(@JsonProperty("sid")
-                   final String sid, 
+                   final String sid,
                    @JsonProperty("phone_number")
-                   final String phoneNumber, 
+                   final String phoneNumber,
                    @JsonProperty("binding_sid")
-                   final String bindingSid, 
+                   final String bindingSid,
                    @JsonProperty("url")
                    final URI url) {
         this.sid = sid;
@@ -110,7 +110,7 @@ public class Device extends Resource {
 
     /**
      * Returns The A string that uniquely identifies this Device..
-     * 
+     *
      * @return A string that uniquely identifies this Device.
      */
     public final String getSid() {
@@ -119,7 +119,7 @@ public class Device extends Resource {
 
     /**
      * Returns The The end user Phone Number.
-     * 
+     *
      * @return The end user Phone Number
      */
     public final String getPhoneNumber() {
@@ -128,7 +128,7 @@ public class Device extends Resource {
 
     /**
      * Returns The Binding Sid..
-     * 
+     *
      * @return Binding Sid.
      */
     public final String getBindingSid() {
@@ -137,7 +137,7 @@ public class Device extends Resource {
 
     /**
      * Returns The The URL of this resource..
-     * 
+     *
      * @return The URL of this resource.
      */
     public final URI getUrl() {
@@ -156,9 +156,9 @@ public class Device extends Resource {
 
         Device other = (Device) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(phoneNumber, other.phoneNumber) && 
-               Objects.equals(bindingSid, other.bindingSid) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(phoneNumber, other.phoneNumber) &&
+               Objects.equals(bindingSid, other.bindingSid) &&
                Objects.equals(url, other.url);
     }
 

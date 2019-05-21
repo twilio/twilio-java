@@ -39,7 +39,7 @@ public class AssignedAddOnExtension extends Resource {
 
     /**
      * Create a AssignedAddOnExtensionFetcher to execute fetch.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource to
      *                       fetch
      * @param pathResourceSid The SID of the Phone Number to which the Add-on is
@@ -49,16 +49,16 @@ public class AssignedAddOnExtension extends Resource {
      * @param pathSid The unique string that identifies the resource
      * @return AssignedAddOnExtensionFetcher capable of executing the fetch
      */
-    public static AssignedAddOnExtensionFetcher fetcher(final String pathAccountSid, 
-                                                        final String pathResourceSid, 
-                                                        final String pathAssignedAddOnSid, 
+    public static AssignedAddOnExtensionFetcher fetcher(final String pathAccountSid,
+                                                        final String pathResourceSid,
+                                                        final String pathAssignedAddOnSid,
                                                         final String pathSid) {
         return new AssignedAddOnExtensionFetcher(pathAccountSid, pathResourceSid, pathAssignedAddOnSid, pathSid);
     }
 
     /**
      * Create a AssignedAddOnExtensionFetcher to execute fetch.
-     * 
+     *
      * @param pathResourceSid The SID of the Phone Number to which the Add-on is
      *                        assigned
      * @param pathAssignedAddOnSid The SID that uniquely identifies the assigned
@@ -66,15 +66,15 @@ public class AssignedAddOnExtension extends Resource {
      * @param pathSid The unique string that identifies the resource
      * @return AssignedAddOnExtensionFetcher capable of executing the fetch
      */
-    public static AssignedAddOnExtensionFetcher fetcher(final String pathResourceSid, 
-                                                        final String pathAssignedAddOnSid, 
+    public static AssignedAddOnExtensionFetcher fetcher(final String pathResourceSid,
+                                                        final String pathAssignedAddOnSid,
                                                         final String pathSid) {
         return new AssignedAddOnExtensionFetcher(pathResourceSid, pathAssignedAddOnSid, pathSid);
     }
 
     /**
      * Create a AssignedAddOnExtensionReader to execute read.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       read
      * @param pathResourceSid The SID of the Phone Number to which the Add-on is
@@ -83,22 +83,22 @@ public class AssignedAddOnExtension extends Resource {
      *                             Add-on installation
      * @return AssignedAddOnExtensionReader capable of executing the read
      */
-    public static AssignedAddOnExtensionReader reader(final String pathAccountSid, 
-                                                      final String pathResourceSid, 
+    public static AssignedAddOnExtensionReader reader(final String pathAccountSid,
+                                                      final String pathResourceSid,
                                                       final String pathAssignedAddOnSid) {
         return new AssignedAddOnExtensionReader(pathAccountSid, pathResourceSid, pathAssignedAddOnSid);
     }
 
     /**
      * Create a AssignedAddOnExtensionReader to execute read.
-     * 
+     *
      * @param pathResourceSid The SID of the Phone Number to which the Add-on is
      *                        assigned
      * @param pathAssignedAddOnSid The SID that uniquely identifies the assigned
      *                             Add-on installation
      * @return AssignedAddOnExtensionReader capable of executing the read
      */
-    public static AssignedAddOnExtensionReader reader(final String pathResourceSid, 
+    public static AssignedAddOnExtensionReader reader(final String pathResourceSid,
                                                       final String pathAssignedAddOnSid) {
         return new AssignedAddOnExtensionReader(pathResourceSid, pathAssignedAddOnSid);
     }
@@ -106,7 +106,7 @@ public class AssignedAddOnExtension extends Resource {
     /**
      * Converts a JSON String into a AssignedAddOnExtension object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AssignedAddOnExtension object represented by the provided JSON
@@ -125,7 +125,7 @@ public class AssignedAddOnExtension extends Resource {
     /**
      * Converts a JSON InputStream into a AssignedAddOnExtension object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AssignedAddOnExtension object represented by the provided JSON
@@ -153,21 +153,21 @@ public class AssignedAddOnExtension extends Resource {
 
     @JsonCreator
     private AssignedAddOnExtension(@JsonProperty("sid")
-                                   final String sid, 
+                                   final String sid,
                                    @JsonProperty("account_sid")
-                                   final String accountSid, 
+                                   final String accountSid,
                                    @JsonProperty("resource_sid")
-                                   final String resourceSid, 
+                                   final String resourceSid,
                                    @JsonProperty("assigned_add_on_sid")
-                                   final String assignedAddOnSid, 
+                                   final String assignedAddOnSid,
                                    @JsonProperty("friendly_name")
-                                   final String friendlyName, 
+                                   final String friendlyName,
                                    @JsonProperty("product_name")
-                                   final String productName, 
+                                   final String productName,
                                    @JsonProperty("unique_name")
-                                   final String uniqueName, 
+                                   final String uniqueName,
                                    @JsonProperty("uri")
-                                   final String uri, 
+                                   final String uri,
                                    @JsonProperty("enabled")
                                    final Boolean enabled) {
         this.sid = sid;
@@ -183,7 +183,7 @@ public class AssignedAddOnExtension extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -192,7 +192,7 @@ public class AssignedAddOnExtension extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -201,7 +201,7 @@ public class AssignedAddOnExtension extends Resource {
 
     /**
      * Returns The The SID of the Phone Number to which the Add-on is assigned.
-     * 
+     *
      * @return The SID of the Phone Number to which the Add-on is assigned
      */
     public final String getResourceSid() {
@@ -211,7 +211,7 @@ public class AssignedAddOnExtension extends Resource {
     /**
      * Returns The The SID that uniquely identifies the assigned Add-on
      * installation.
-     * 
+     *
      * @return The SID that uniquely identifies the assigned Add-on installation
      */
     public final String getAssignedAddOnSid() {
@@ -220,7 +220,7 @@ public class AssignedAddOnExtension extends Resource {
 
     /**
      * Returns The The string that you assigned to describe the resource.
-     * 
+     *
      * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
@@ -230,7 +230,7 @@ public class AssignedAddOnExtension extends Resource {
     /**
      * Returns The A string that you assigned to describe the Product this Extension
      * is used within.
-     * 
+     *
      * @return A string that you assigned to describe the Product this Extension is
      *         used within
      */
@@ -241,7 +241,7 @@ public class AssignedAddOnExtension extends Resource {
     /**
      * Returns The An application-defined string that uniquely identifies the
      * resource.
-     * 
+     *
      * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
@@ -250,7 +250,7 @@ public class AssignedAddOnExtension extends Resource {
 
     /**
      * Returns The The URI of the resource, relative to `https://api.twilio.com`.
-     * 
+     *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
@@ -259,7 +259,7 @@ public class AssignedAddOnExtension extends Resource {
 
     /**
      * Returns The Whether the Extension will be invoked.
-     * 
+     *
      * @return Whether the Extension will be invoked
      */
     public final Boolean getEnabled() {
@@ -278,14 +278,14 @@ public class AssignedAddOnExtension extends Resource {
 
         AssignedAddOnExtension other = (AssignedAddOnExtension) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(resourceSid, other.resourceSid) && 
-               Objects.equals(assignedAddOnSid, other.assignedAddOnSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(productName, other.productName) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(uri, other.uri) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(resourceSid, other.resourceSid) &&
+               Objects.equals(assignedAddOnSid, other.assignedAddOnSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(productName, other.productName) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(uri, other.uri) &&
                Objects.equals(enabled, other.enabled);
     }
 

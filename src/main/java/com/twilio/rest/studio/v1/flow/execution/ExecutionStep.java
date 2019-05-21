@@ -39,26 +39,26 @@ public class ExecutionStep extends Resource {
 
     /**
      * Create a ExecutionStepReader to execute read.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      * @param pathExecutionSid Execution Sid.
      * @return ExecutionStepReader capable of executing the read
      */
-    public static ExecutionStepReader reader(final String pathFlowSid, 
+    public static ExecutionStepReader reader(final String pathFlowSid,
                                              final String pathExecutionSid) {
         return new ExecutionStepReader(pathFlowSid, pathExecutionSid);
     }
 
     /**
      * Create a ExecutionStepFetcher to execute fetch.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      * @param pathExecutionSid Execution Sid.
      * @param pathSid Step Sid.
      * @return ExecutionStepFetcher capable of executing the fetch
      */
-    public static ExecutionStepFetcher fetcher(final String pathFlowSid, 
-                                               final String pathExecutionSid, 
+    public static ExecutionStepFetcher fetcher(final String pathFlowSid,
+                                               final String pathExecutionSid,
                                                final String pathSid) {
         return new ExecutionStepFetcher(pathFlowSid, pathExecutionSid, pathSid);
     }
@@ -66,7 +66,7 @@ public class ExecutionStep extends Resource {
     /**
      * Converts a JSON String into a ExecutionStep object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ExecutionStep object represented by the provided JSON
@@ -85,7 +85,7 @@ public class ExecutionStep extends Resource {
     /**
      * Converts a JSON InputStream into a ExecutionStep object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ExecutionStep object represented by the provided JSON
@@ -116,27 +116,27 @@ public class ExecutionStep extends Resource {
 
     @JsonCreator
     private ExecutionStep(@JsonProperty("sid")
-                          final String sid, 
+                          final String sid,
                           @JsonProperty("account_sid")
-                          final String accountSid, 
+                          final String accountSid,
                           @JsonProperty("flow_sid")
-                          final String flowSid, 
+                          final String flowSid,
                           @JsonProperty("execution_sid")
-                          final String executionSid, 
+                          final String executionSid,
                           @JsonProperty("name")
-                          final String name, 
+                          final String name,
                           @JsonProperty("context")
-                          final Map<String, Object> context, 
+                          final Map<String, Object> context,
                           @JsonProperty("transitioned_from")
-                          final String transitionedFrom, 
+                          final String transitionedFrom,
                           @JsonProperty("transitioned_to")
-                          final String transitionedTo, 
+                          final String transitionedTo,
                           @JsonProperty("date_created")
-                          final String dateCreated, 
+                          final String dateCreated,
                           @JsonProperty("date_updated")
-                          final String dateUpdated, 
+                          final String dateUpdated,
                           @JsonProperty("url")
-                          final URI url, 
+                          final URI url,
                           @JsonProperty("links")
                           final Map<String, String> links) {
         this.sid = sid;
@@ -155,7 +155,7 @@ public class ExecutionStep extends Resource {
 
     /**
      * Returns The A string that uniquely identifies this Step..
-     * 
+     *
      * @return A string that uniquely identifies this Step.
      */
     public final String getSid() {
@@ -164,7 +164,7 @@ public class ExecutionStep extends Resource {
 
     /**
      * Returns The Account Sid..
-     * 
+     *
      * @return Account Sid.
      */
     public final String getAccountSid() {
@@ -173,7 +173,7 @@ public class ExecutionStep extends Resource {
 
     /**
      * Returns The Flow Sid..
-     * 
+     *
      * @return Flow Sid.
      */
     public final String getFlowSid() {
@@ -182,7 +182,7 @@ public class ExecutionStep extends Resource {
 
     /**
      * Returns The Execution Sid..
-     * 
+     *
      * @return Execution Sid.
      */
     public final String getExecutionSid() {
@@ -191,7 +191,7 @@ public class ExecutionStep extends Resource {
 
     /**
      * Returns The The event that caused the flow to transition to this Step..
-     * 
+     *
      * @return The event that caused the flow to transition to this Step.
      */
     public final String getName() {
@@ -200,7 +200,7 @@ public class ExecutionStep extends Resource {
 
     /**
      * Returns The The context.
-     * 
+     *
      * @return The context
      */
     public final Map<String, Object> getContext() {
@@ -209,7 +209,7 @@ public class ExecutionStep extends Resource {
 
     /**
      * Returns The The Widget that preceded the Widget for this Step..
-     * 
+     *
      * @return The Widget that preceded the Widget for this Step.
      */
     public final String getTransitionedFrom() {
@@ -218,7 +218,7 @@ public class ExecutionStep extends Resource {
 
     /**
      * Returns The The Widget that will follow the Widget for this Step..
-     * 
+     *
      * @return The Widget that will follow the Widget for this Step.
      */
     public final String getTransitionedTo() {
@@ -227,7 +227,7 @@ public class ExecutionStep extends Resource {
 
     /**
      * Returns The The date this Step was created.
-     * 
+     *
      * @return The date this Step was created
      */
     public final DateTime getDateCreated() {
@@ -236,7 +236,7 @@ public class ExecutionStep extends Resource {
 
     /**
      * Returns The The date this Step was updated.
-     * 
+     *
      * @return The date this Step was updated
      */
     public final DateTime getDateUpdated() {
@@ -245,7 +245,7 @@ public class ExecutionStep extends Resource {
 
     /**
      * Returns The The URL of this resource..
-     * 
+     *
      * @return The URL of this resource.
      */
     public final URI getUrl() {
@@ -254,7 +254,7 @@ public class ExecutionStep extends Resource {
 
     /**
      * Returns The The links.
-     * 
+     *
      * @return The links
      */
     public final Map<String, String> getLinks() {
@@ -273,17 +273,17 @@ public class ExecutionStep extends Resource {
 
         ExecutionStep other = (ExecutionStep) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(flowSid, other.flowSid) && 
-               Objects.equals(executionSid, other.executionSid) && 
-               Objects.equals(name, other.name) && 
-               Objects.equals(context, other.context) && 
-               Objects.equals(transitionedFrom, other.transitionedFrom) && 
-               Objects.equals(transitionedTo, other.transitionedTo) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(flowSid, other.flowSid) &&
+               Objects.equals(executionSid, other.executionSid) &&
+               Objects.equals(name, other.name) &&
+               Objects.equals(context, other.context) &&
+               Objects.equals(transitionedFrom, other.transitionedFrom) &&
+               Objects.equals(transitionedTo, other.transitionedTo) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

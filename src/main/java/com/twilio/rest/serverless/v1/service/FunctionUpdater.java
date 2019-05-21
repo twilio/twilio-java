@@ -29,13 +29,13 @@ public class FunctionUpdater extends Updater<Function> {
 
     /**
      * Construct a new FunctionUpdater.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathSid Function Sid.
      * @param friendlyName A human-readable description of this Function.
      */
-    public FunctionUpdater(final String pathServiceSid, 
-                           final String pathSid, 
+    public FunctionUpdater(final String pathServiceSid,
+                           final String pathSid,
                            final String friendlyName) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -44,7 +44,7 @@ public class FunctionUpdater extends Updater<Function> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Function
      */
@@ -83,7 +83,7 @@ public class FunctionUpdater extends Updater<Function> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

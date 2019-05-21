@@ -23,11 +23,11 @@ public class UserFetcher extends Fetcher<User> {
 
     /**
      * Construct a new UserFetcher.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to fetch the resource from
      * @param pathSid The unique string that identifies the resource
      */
-    public UserFetcher(final String pathServiceSid, 
+    public UserFetcher(final String pathServiceSid,
                        final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class UserFetcher extends Fetcher<User> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched User
      */

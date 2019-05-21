@@ -23,12 +23,12 @@ public class OriginationUrlFetcher extends Fetcher<OriginationUrl> {
 
     /**
      * Construct a new OriginationUrlFetcher.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk from which to fetch the
      *                     OriginationUrl
      * @param pathSid The unique string that identifies the resource
      */
-    public OriginationUrlFetcher(final String pathTrunkSid, 
+    public OriginationUrlFetcher(final String pathTrunkSid,
                                  final String pathSid) {
         this.pathTrunkSid = pathTrunkSid;
         this.pathSid = pathSid;
@@ -36,7 +36,7 @@ public class OriginationUrlFetcher extends Fetcher<OriginationUrl> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched OriginationUrl
      */

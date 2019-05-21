@@ -29,7 +29,7 @@ public class AlertReader extends Reader<Alert> {
     /**
      * Only show alerts for this log-level.  One of 'error', 'warning', 'notice', or
      * 'debug'..
-     * 
+     *
      * @param logLevel Only show alerts for this log-level.
      * @return this
      */
@@ -44,7 +44,7 @@ public class AlertReader extends Reader<Alert> {
      * Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC), but time of day is
      * ignored by the filter. Queries for Alerts older than 30 days are not
      * supported..
-     * 
+     *
      * @param startDate Only show Alerts on or after this date.
      * @return this
      */
@@ -59,7 +59,7 @@ public class AlertReader extends Reader<Alert> {
      * Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC), but time of day is
      * ignored by the filter. Queries for Alerts older than 30 days are not
      * supported..
-     * 
+     *
      * @param endDate Only show Alerts on or before this date.
      * @return this
      */
@@ -70,7 +70,7 @@ public class AlertReader extends Reader<Alert> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Alert ResourceSet
      */
@@ -81,7 +81,7 @@ public class AlertReader extends Reader<Alert> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Alert ResourceSet
      */
@@ -101,7 +101,7 @@ public class AlertReader extends Reader<Alert> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Alert ResourceSet
@@ -119,13 +119,13 @@ public class AlertReader extends Reader<Alert> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Alert> nextPage(final Page<Alert> page, 
+    public Page<Alert> nextPage(final Page<Alert> page,
                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -139,13 +139,13 @@ public class AlertReader extends Reader<Alert> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Alert> previousPage(final Page<Alert> page, 
+    public Page<Alert> previousPage(final Page<Alert> page,
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -159,7 +159,7 @@ public class AlertReader extends Reader<Alert> {
 
     /**
      * Generate a Page of Alert Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -194,7 +194,7 @@ public class AlertReader extends Reader<Alert> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

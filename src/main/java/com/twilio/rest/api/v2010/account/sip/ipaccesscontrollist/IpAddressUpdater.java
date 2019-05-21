@@ -27,13 +27,13 @@ public class IpAddressUpdater extends Updater<IpAddress> {
 
     /**
      * Construct a new IpAddressUpdater.
-     * 
+     *
      * @param pathIpAccessControlListSid The IpAccessControlList Sid that
      *                                   identifies the IpAddress resources to
      *                                   update
      * @param pathSid A string that identifies the IpAddress resource to update
      */
-    public IpAddressUpdater(final String pathIpAccessControlListSid, 
+    public IpAddressUpdater(final String pathIpAccessControlListSid,
                             final String pathSid) {
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
         this.pathSid = pathSid;
@@ -41,15 +41,15 @@ public class IpAddressUpdater extends Updater<IpAddress> {
 
     /**
      * Construct a new IpAddressUpdater.
-     * 
+     *
      * @param pathAccountSid The unique sid that identifies this account
      * @param pathIpAccessControlListSid The IpAccessControlList Sid that
      *                                   identifies the IpAddress resources to
      *                                   update
      * @param pathSid A string that identifies the IpAddress resource to update
      */
-    public IpAddressUpdater(final String pathAccountSid, 
-                            final String pathIpAccessControlListSid, 
+    public IpAddressUpdater(final String pathAccountSid,
+                            final String pathIpAccessControlListSid,
                             final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
@@ -60,7 +60,7 @@ public class IpAddressUpdater extends Updater<IpAddress> {
      * An IP address in dotted decimal notation from which you want to accept
      * traffic. Any SIP requests from this IP address will be allowed by Twilio.
      * IPv4 only supported today..
-     * 
+     *
      * @param ipAddress An IP address in dotted decimal notation from which you
      *                  want to accept traffic. Any SIP requests from this IP
      *                  address will be allowed by Twilio. IPv4 only supported
@@ -75,7 +75,7 @@ public class IpAddressUpdater extends Updater<IpAddress> {
     /**
      * A human readable descriptive text for this resource, up to 64 characters
      * long..
-     * 
+     *
      * @param friendlyName A human readable descriptive text for this resource, up
      *                     to 64 characters long.
      * @return this
@@ -88,7 +88,7 @@ public class IpAddressUpdater extends Updater<IpAddress> {
     /**
      * An integer representing the length of the CIDR prefix to use with this IP
      * address when accepting traffic. By default the entire IP address is used..
-     * 
+     *
      * @param cidrPrefixLength An integer representing the length of the CIDR
      *                         prefix to use with this IP address when accepting
      *                         traffic. By default the entire IP address is used.
@@ -101,7 +101,7 @@ public class IpAddressUpdater extends Updater<IpAddress> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated IpAddress
      */
@@ -141,7 +141,7 @@ public class IpAddressUpdater extends Updater<IpAddress> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

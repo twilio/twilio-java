@@ -94,69 +94,69 @@ public class SyncListItem extends Resource {
 
     /**
      * Create a SyncListItemFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathListSid The list_sid
      * @param pathIndex The index
      * @return SyncListItemFetcher capable of executing the fetch
      */
-    public static SyncListItemFetcher fetcher(final String pathServiceSid, 
-                                              final String pathListSid, 
+    public static SyncListItemFetcher fetcher(final String pathServiceSid,
+                                              final String pathListSid,
                                               final Integer pathIndex) {
         return new SyncListItemFetcher(pathServiceSid, pathListSid, pathIndex);
     }
 
     /**
      * Create a SyncListItemDeleter to execute delete.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathListSid The list_sid
      * @param pathIndex The index
      * @return SyncListItemDeleter capable of executing the delete
      */
-    public static SyncListItemDeleter deleter(final String pathServiceSid, 
-                                              final String pathListSid, 
+    public static SyncListItemDeleter deleter(final String pathServiceSid,
+                                              final String pathListSid,
                                               final Integer pathIndex) {
         return new SyncListItemDeleter(pathServiceSid, pathListSid, pathIndex);
     }
 
     /**
      * Create a SyncListItemCreator to execute create.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathListSid The list_sid
      * @param data Contains arbitrary user-defined, schema-less data that this List
      *             Item stores, represented by a JSON object, up to 16KB.
      * @return SyncListItemCreator capable of executing the create
      */
-    public static SyncListItemCreator creator(final String pathServiceSid, 
-                                              final String pathListSid, 
+    public static SyncListItemCreator creator(final String pathServiceSid,
+                                              final String pathListSid,
                                               final Map<String, Object> data) {
         return new SyncListItemCreator(pathServiceSid, pathListSid, data);
     }
 
     /**
      * Create a SyncListItemReader to execute read.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathListSid The list_sid
      * @return SyncListItemReader capable of executing the read
      */
-    public static SyncListItemReader reader(final String pathServiceSid, 
+    public static SyncListItemReader reader(final String pathServiceSid,
                                             final String pathListSid) {
         return new SyncListItemReader(pathServiceSid, pathListSid);
     }
 
     /**
      * Create a SyncListItemUpdater to execute update.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathListSid The list_sid
      * @param pathIndex The index
      * @return SyncListItemUpdater capable of executing the update
      */
-    public static SyncListItemUpdater updater(final String pathServiceSid, 
-                                              final String pathListSid, 
+    public static SyncListItemUpdater updater(final String pathServiceSid,
+                                              final String pathListSid,
                                               final Integer pathIndex) {
         return new SyncListItemUpdater(pathServiceSid, pathListSid, pathIndex);
     }
@@ -164,7 +164,7 @@ public class SyncListItem extends Resource {
     /**
      * Converts a JSON String into a SyncListItem object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SyncListItem object represented by the provided JSON
@@ -183,7 +183,7 @@ public class SyncListItem extends Resource {
     /**
      * Converts a JSON InputStream into a SyncListItem object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SyncListItem object represented by the provided JSON
@@ -213,25 +213,25 @@ public class SyncListItem extends Resource {
 
     @JsonCreator
     private SyncListItem(@JsonProperty("index")
-                         final Integer index, 
+                         final Integer index,
                          @JsonProperty("account_sid")
-                         final String accountSid, 
+                         final String accountSid,
                          @JsonProperty("service_sid")
-                         final String serviceSid, 
+                         final String serviceSid,
                          @JsonProperty("list_sid")
-                         final String listSid, 
+                         final String listSid,
                          @JsonProperty("url")
-                         final URI url, 
+                         final URI url,
                          @JsonProperty("revision")
-                         final String revision, 
+                         final String revision,
                          @JsonProperty("data")
-                         final Map<String, Object> data, 
+                         final Map<String, Object> data,
                          @JsonProperty("date_expires")
-                         final String dateExpires, 
+                         final String dateExpires,
                          @JsonProperty("date_created")
-                         final String dateCreated, 
+                         final String dateCreated,
                          @JsonProperty("date_updated")
-                         final String dateUpdated, 
+                         final String dateUpdated,
                          @JsonProperty("created_by")
                          final String createdBy) {
         this.index = index;
@@ -249,7 +249,7 @@ public class SyncListItem extends Resource {
 
     /**
      * Returns The Contains the numeric index of this List Item..
-     * 
+     *
      * @return Contains the numeric index of this List Item.
      */
     public final Integer getIndex() {
@@ -258,7 +258,7 @@ public class SyncListItem extends Resource {
 
     /**
      * Returns The The unique SID identifier of the Twilio Account..
-     * 
+     *
      * @return The unique SID identifier of the Twilio Account.
      */
     public final String getAccountSid() {
@@ -268,7 +268,7 @@ public class SyncListItem extends Resource {
     /**
      * Returns The The unique SID identifier of the Service Instance that hosts this
      * List object..
-     * 
+     *
      * @return The unique SID identifier of the Service Instance that hosts this
      *         List object.
      */
@@ -279,7 +279,7 @@ public class SyncListItem extends Resource {
     /**
      * Returns The The unique 34-character SID identifier of the List containing
      * this Item..
-     * 
+     *
      * @return The unique 34-character SID identifier of the List containing this
      *         Item.
      */
@@ -289,7 +289,7 @@ public class SyncListItem extends Resource {
 
     /**
      * Returns The The absolute URL for this item..
-     * 
+     *
      * @return The absolute URL for this item.
      */
     public final URI getUrl() {
@@ -299,7 +299,7 @@ public class SyncListItem extends Resource {
     /**
      * Returns The Contains the current revision of this item, represented by a
      * string identifier..
-     * 
+     *
      * @return Contains the current revision of this item, represented by a string
      *         identifier.
      */
@@ -310,7 +310,7 @@ public class SyncListItem extends Resource {
     /**
      * Returns The Contains arbitrary user-defined, schema-less data that this List
      * Item stores, represented by a JSON object, up to 16KB..
-     * 
+     *
      * @return Contains arbitrary user-defined, schema-less data that this List
      *         Item stores, represented by a JSON object, up to 16KB.
      */
@@ -321,7 +321,7 @@ public class SyncListItem extends Resource {
     /**
      * Returns The Contains the date this item expires and gets deleted
      * automatically..
-     * 
+     *
      * @return Contains the date this item expires and gets deleted automatically.
      */
     public final DateTime getDateExpires() {
@@ -330,7 +330,7 @@ public class SyncListItem extends Resource {
 
     /**
      * Returns The The date this item was created, given in UTC ISO 8601 format..
-     * 
+     *
      * @return The date this item was created, given in UTC ISO 8601 format.
      */
     public final DateTime getDateCreated() {
@@ -340,7 +340,7 @@ public class SyncListItem extends Resource {
     /**
      * Returns The Specifies the date this item was last updated, given in UTC ISO
      * 8601 format..
-     * 
+     *
      * @return Specifies the date this item was last updated, given in UTC ISO 8601
      *         format.
      */
@@ -350,7 +350,7 @@ public class SyncListItem extends Resource {
 
     /**
      * Returns The The identity of this item's creator..
-     * 
+     *
      * @return The identity of this item's creator.
      */
     public final String getCreatedBy() {
@@ -369,16 +369,16 @@ public class SyncListItem extends Resource {
 
         SyncListItem other = (SyncListItem) o;
 
-        return Objects.equals(index, other.index) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(listSid, other.listSid) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(revision, other.revision) && 
-               Objects.equals(data, other.data) && 
-               Objects.equals(dateExpires, other.dateExpires) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(index, other.index) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(listSid, other.listSid) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(revision, other.revision) &&
+               Objects.equals(data, other.data) &&
+               Objects.equals(dateExpires, other.dateExpires) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(createdBy, other.createdBy);
     }
 

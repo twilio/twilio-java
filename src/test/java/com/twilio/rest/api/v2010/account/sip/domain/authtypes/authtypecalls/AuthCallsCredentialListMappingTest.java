@@ -74,7 +74,7 @@ public class AuthCallsCredentialListMappingTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Auth/Calls/CredentialListMappings.json");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -118,7 +118,7 @@ public class AuthCallsCredentialListMappingTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Auth/Calls/CredentialListMappings/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -150,7 +150,7 @@ public class AuthCallsCredentialListMappingTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Auth/Calls/CredentialListMappings/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

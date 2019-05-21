@@ -24,13 +24,13 @@ public class MemberFetcher extends Fetcher<Member> {
 
     /**
      * Construct a new MemberFetcher.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to fetch the resource from
      * @param pathChannelSid The unique ID of the channel the member belongs to
      * @param pathSid The unique string that identifies the resource
      */
-    public MemberFetcher(final String pathServiceSid, 
-                         final String pathChannelSid, 
+    public MemberFetcher(final String pathServiceSid,
+                         final String pathChannelSid,
                          final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -39,7 +39,7 @@ public class MemberFetcher extends Fetcher<Member> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Member
      */

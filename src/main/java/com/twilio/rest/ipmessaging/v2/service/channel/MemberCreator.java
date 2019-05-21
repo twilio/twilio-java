@@ -32,13 +32,13 @@ public class MemberCreator extends Creator<Member> {
 
     /**
      * Construct a new MemberCreator.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to create the resource under
      * @param pathChannelSid The unique ID of the channel the new member belongs to
      * @param identity The `identity` value that identifies the new resource's User
      */
-    public MemberCreator(final String pathServiceSid, 
-                         final String pathChannelSid, 
+    public MemberCreator(final String pathServiceSid,
+                         final String pathChannelSid,
                          final String identity) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -49,7 +49,7 @@ public class MemberCreator extends Creator<Member> {
      * The SID of the [Role](https://www.twilio.com/docs/chat/rest/roles) to assign
      * to the member. The default roles are those specified on the
      * [Service](https://www.twilio.com/docs/chat/api/services)..
-     * 
+     *
      * @param roleSid The SID of the Role to assign to the member
      * @return this
      */
@@ -64,7 +64,7 @@ public class MemberCreator extends Creator<Member> {
      * [Channel](https://www.twilio.com/docs/chat/channels) that the Member has
      * read. This parameter should only be used when recreating a Member from a
      * backup/separate source..
-     * 
+     *
      * @param lastConsumedMessageIndex The index of the last Message in the Channel
      *                                 the Member has read
      * @return this
@@ -78,7 +78,7 @@ public class MemberCreator extends Creator<Member> {
      * The ISO 8601 timestamp string that represents the date-time of the last
      * [Message](https://www.twilio.com/docs/chat/rest/messages) read event for the
      * Member within the [Channel](https://www.twilio.com/docs/chat/channels)..
-     * 
+     *
      * @param lastConsumptionTimestamp The ISO 8601 based timestamp string
      *                                 representing the date-time of the last
      *                                 Message read event for the Member within the
@@ -96,7 +96,7 @@ public class MemberCreator extends Creator<Member> {
      * value is the current time set by the Chat service.  Note that this parameter
      * should only be used when a Member is being recreated from a backup/separate
      * source..
-     * 
+     *
      * @param dateCreated The ISO 8601 date and time in GMT when the resource was
      *                    created
      * @return this
@@ -112,7 +112,7 @@ public class MemberCreator extends Creator<Member> {
      * default value is `null`.  Note that this parameter should only be used when a
      * Member is being recreated from a backup/separate source and where a Member
      * was previously updated..
-     * 
+     *
      * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
      *                    updated
      * @return this
@@ -124,7 +124,7 @@ public class MemberCreator extends Creator<Member> {
 
     /**
      * A valid JSON string that contains application-specific data..
-     * 
+     *
      * @param attributes A valid JSON string that contains application-specific data
      * @return this
      */
@@ -135,7 +135,7 @@ public class MemberCreator extends Creator<Member> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Member
      */
@@ -174,7 +174,7 @@ public class MemberCreator extends Creator<Member> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

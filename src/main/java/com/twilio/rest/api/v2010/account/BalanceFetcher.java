@@ -28,7 +28,7 @@ public class BalanceFetcher extends Fetcher<Balance> {
 
     /**
      * Construct a new BalanceFetcher.
-     * 
+     *
      * @param pathAccountSid Account Sid.
      */
     public BalanceFetcher(final String pathAccountSid) {
@@ -37,7 +37,7 @@ public class BalanceFetcher extends Fetcher<Balance> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Balance
      */

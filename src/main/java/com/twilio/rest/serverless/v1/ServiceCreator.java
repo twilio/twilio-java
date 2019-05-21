@@ -29,11 +29,11 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * Construct a new ServiceCreator.
-     * 
+     *
      * @param uniqueName A unique, addressable name of this Service.
      * @param friendlyName A human-readable description of this Service.
      */
-    public ServiceCreator(final String uniqueName, 
+    public ServiceCreator(final String uniqueName,
                           final String friendlyName) {
         this.uniqueName = uniqueName;
         this.friendlyName = friendlyName;
@@ -42,7 +42,7 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * A boolean value that indicates whether to inject Account credentials into a
      * Function invocation context. Optional, default `false`..
-     * 
+     *
      * @param includeCredentials Whether to inject Account credentials into a
      *                           Function invocation context.
      * @return this
@@ -54,7 +54,7 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Service
      */
@@ -93,7 +93,7 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

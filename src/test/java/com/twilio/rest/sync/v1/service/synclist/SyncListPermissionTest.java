@@ -42,7 +42,7 @@ public class SyncListPermissionTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.SYNC.toString(),
                                           "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions/identity");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class SyncListPermissionTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.SYNC.toString(),
                                           "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions/identity");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -106,7 +106,7 @@ public class SyncListPermissionTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.SYNC.toString(),
                                           "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Permissions");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

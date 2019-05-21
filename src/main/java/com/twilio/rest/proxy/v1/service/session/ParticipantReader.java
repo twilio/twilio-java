@@ -29,11 +29,11 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Construct a new ParticipantReader.
-     * 
+     *
      * @param pathServiceSid The SID of the parent Service of the resource to read
      * @param pathSessionSid The SID of the parent Session of the resource to read
      */
-    public ParticipantReader(final String pathServiceSid, 
+    public ParticipantReader(final String pathServiceSid,
                              final String pathSessionSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSessionSid = pathSessionSid;
@@ -41,7 +41,7 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Participant ResourceSet
      */
@@ -52,7 +52,7 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Participant ResourceSet
      */
@@ -72,7 +72,7 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Participant ResourceSet
@@ -90,13 +90,13 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Participant> nextPage(final Page<Participant> page, 
+    public Page<Participant> nextPage(final Page<Participant> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -110,13 +110,13 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Participant> previousPage(final Page<Participant> page, 
+    public Page<Participant> previousPage(final Page<Participant> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -130,7 +130,7 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Generate a Page of Participant Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -165,7 +165,7 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

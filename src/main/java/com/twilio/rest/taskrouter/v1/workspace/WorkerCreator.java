@@ -25,11 +25,11 @@ public class WorkerCreator extends Creator<Worker> {
 
     /**
      * Construct a new WorkerCreator.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param friendlyName String representing user-friendly name for the Worker.
      */
-    public WorkerCreator(final String pathWorkspaceSid, 
+    public WorkerCreator(final String pathWorkspaceSid,
                          final String friendlyName) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.friendlyName = friendlyName;
@@ -39,7 +39,7 @@ public class WorkerCreator extends Creator<Worker> {
      * A valid Activity describing the worker's initial state. See Activities for
      * more information. If not provided, new Workers will be use the
      * DefaultActivitySid configured on the Workspace..
-     * 
+     *
      * @param activitySid A valid Activity describing the worker's initial state.
      * @return this
      */
@@ -52,7 +52,7 @@ public class WorkerCreator extends Creator<Worker> {
      * JSON object describing this worker. For example: `{ 'email: 'Bob@foo.com',
      * 'phone': '8675309' }`. This data will be passed to the Assignment Callback
      * URL whenever TaskRouter assigns a Task to this worker. Defaults to {}..
-     * 
+     *
      * @param attributes JSON object describing this worker.
      * @return this
      */
@@ -63,7 +63,7 @@ public class WorkerCreator extends Creator<Worker> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Worker
      */
@@ -102,7 +102,7 @@ public class WorkerCreator extends Creator<Worker> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

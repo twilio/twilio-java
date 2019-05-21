@@ -30,11 +30,11 @@ public class DeploymentUpdater extends Updater<Deployment> {
 
     /**
      * Construct a new DeploymentUpdater.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @param pathSid A string that uniquely identifies the Deployment.
      */
-    public DeploymentUpdater(final String pathFleetSid, 
+    public DeploymentUpdater(final String pathFleetSid,
                              final String pathSid) {
         this.pathFleetSid = pathFleetSid;
         this.pathSid = pathSid;
@@ -43,7 +43,7 @@ public class DeploymentUpdater extends Updater<Deployment> {
     /**
      * Provides a human readable descriptive text for this Deployment, up to 64
      * characters long.
-     * 
+     *
      * @param friendlyName A human readable description for this Deployment.
      * @return this
      */
@@ -55,7 +55,7 @@ public class DeploymentUpdater extends Updater<Deployment> {
     /**
      * Provides the unique string identifier of the Twilio Sync service instance
      * that will be linked to and accessible by this Deployment..
-     * 
+     *
      * @param syncServiceSid The unique identifier of the Sync service instance.
      * @return this
      */
@@ -66,7 +66,7 @@ public class DeploymentUpdater extends Updater<Deployment> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Deployment
      */
@@ -105,7 +105,7 @@ public class DeploymentUpdater extends Updater<Deployment> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

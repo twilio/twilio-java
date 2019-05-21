@@ -31,17 +31,17 @@ public class FactorCreator extends Creator<Factor> {
 
     /**
      * Construct a new FactorCreator.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique identity of the Entity
      * @param binding A unique binding for this Factor
      * @param friendlyName The friendly name of this Factor
      * @param factorType The Type of this Factor
      */
-    public FactorCreator(final String pathServiceSid, 
-                         final String pathIdentity, 
-                         final String binding, 
-                         final String friendlyName, 
+    public FactorCreator(final String pathServiceSid,
+                         final String pathIdentity,
+                         final String binding,
+                         final String friendlyName,
                          final Factor.FactorTypes factorType) {
         this.pathServiceSid = pathServiceSid;
         this.pathIdentity = pathIdentity;
@@ -52,7 +52,7 @@ public class FactorCreator extends Creator<Factor> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Factor
      */
@@ -91,7 +91,7 @@ public class FactorCreator extends Creator<Factor> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

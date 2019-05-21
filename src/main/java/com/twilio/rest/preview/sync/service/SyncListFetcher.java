@@ -28,11 +28,11 @@ public class SyncListFetcher extends Fetcher<SyncList> {
 
     /**
      * Construct a new SyncListFetcher.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathSid The sid
      */
-    public SyncListFetcher(final String pathServiceSid, 
+    public SyncListFetcher(final String pathServiceSid,
                            final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class SyncListFetcher extends Fetcher<SyncList> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched SyncList
      */

@@ -28,11 +28,11 @@ public class EnvironmentFetcher extends Fetcher<Environment> {
 
     /**
      * Construct a new EnvironmentFetcher.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathSid Environment Sid.
      */
-    public EnvironmentFetcher(final String pathServiceSid, 
+    public EnvironmentFetcher(final String pathServiceSid,
                               final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class EnvironmentFetcher extends Fetcher<Environment> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Environment
      */

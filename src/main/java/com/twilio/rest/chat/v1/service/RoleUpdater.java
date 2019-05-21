@@ -26,13 +26,13 @@ public class RoleUpdater extends Updater<Role> {
 
     /**
      * Construct a new RoleUpdater.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to update the resource from
      * @param pathSid The unique string that identifies the resource
      * @param permission A permission the role should have
      */
-    public RoleUpdater(final String pathServiceSid, 
-                       final String pathSid, 
+    public RoleUpdater(final String pathServiceSid,
+                       final String pathSid,
                        final List<String> permission) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -41,7 +41,7 @@ public class RoleUpdater extends Updater<Role> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Role
      */
@@ -80,7 +80,7 @@ public class RoleUpdater extends Updater<Role> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

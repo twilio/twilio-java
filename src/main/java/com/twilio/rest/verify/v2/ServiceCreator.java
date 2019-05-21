@@ -32,7 +32,7 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * Construct a new ServiceCreator.
-     * 
+     *
      * @param friendlyName A string to describe the verification service
      */
     public ServiceCreator(final String friendlyName) {
@@ -42,7 +42,7 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * The length of the verification code to generate. Must be an integer value
      * between 4 and 10, inclusive..
-     * 
+     *
      * @param codeLength The length of the verification code to generate
      * @return this
      */
@@ -54,7 +54,7 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * Whether to perform a lookup with each verification started and return info
      * about the phone number..
-     * 
+     *
      * @param lookupEnabled Whether to perform a lookup with each verification
      * @return this
      */
@@ -66,7 +66,7 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * Whether to skip sending SMS verifications to landlines. Requires
      * `lookup_enabled`..
-     * 
+     *
      * @param skipSmsToLandlines Whether to skip sending SMS verifications to
      *                           landlines
      * @return this
@@ -79,7 +79,7 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * Whether to ask the user to press a number before delivering the verify code
      * in a phone call..
-     * 
+     *
      * @param dtmfInputRequired Whether to ask the user to press a number before
      *                          delivering the verify code in a phone call
      * @return this
@@ -92,7 +92,7 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * The name of an alternative text-to-speech service to use in phone calls.
      * Applies only to TTS languages..
-     * 
+     *
      * @param ttsName The name of an alternative text-to-speech service to use in
      *                phone calls
      * @return this
@@ -104,7 +104,7 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * Whether to pass PSD2 transaction parameters when starting a verification..
-     * 
+     *
      * @param psd2Enabled Whether to pass PSD2 transaction parameters when starting
      *                    a verification
      * @return this
@@ -116,7 +116,7 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Service
      */
@@ -155,7 +155,7 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

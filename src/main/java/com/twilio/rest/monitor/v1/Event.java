@@ -39,7 +39,7 @@ public class Event extends Resource {
 
     /**
      * Create a EventFetcher to execute fetch.
-     * 
+     *
      * @param pathSid A 34 character string that uniquely identifies this event.
      * @return EventFetcher capable of executing the fetch
      */
@@ -49,7 +49,7 @@ public class Event extends Resource {
 
     /**
      * Create a EventReader to execute read.
-     * 
+     *
      * @return EventReader capable of executing the read
      */
     public static EventReader reader() {
@@ -58,7 +58,7 @@ public class Event extends Resource {
 
     /**
      * Converts a JSON String into a Event object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Event object represented by the provided JSON
@@ -77,7 +77,7 @@ public class Event extends Resource {
     /**
      * Converts a JSON InputStream into a Event object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Event object represented by the provided JSON
@@ -110,31 +110,31 @@ public class Event extends Resource {
 
     @JsonCreator
     private Event(@JsonProperty("account_sid")
-                  final String accountSid, 
+                  final String accountSid,
                   @JsonProperty("actor_sid")
-                  final String actorSid, 
+                  final String actorSid,
                   @JsonProperty("actor_type")
-                  final String actorType, 
+                  final String actorType,
                   @JsonProperty("description")
-                  final String description, 
+                  final String description,
                   @JsonProperty("event_data")
-                  final Map<String, Object> eventData, 
+                  final Map<String, Object> eventData,
                   @JsonProperty("event_date")
-                  final String eventDate, 
+                  final String eventDate,
                   @JsonProperty("event_type")
-                  final String eventType, 
+                  final String eventType,
                   @JsonProperty("resource_sid")
-                  final String resourceSid, 
+                  final String resourceSid,
                   @JsonProperty("resource_type")
-                  final String resourceType, 
+                  final String resourceType,
                   @JsonProperty("sid")
-                  final String sid, 
+                  final String sid,
                   @JsonProperty("source")
-                  final String source, 
+                  final String source,
                   @JsonProperty("source_ip_address")
-                  final String sourceIpAddress, 
+                  final String sourceIpAddress,
                   @JsonProperty("url")
-                  final URI url, 
+                  final URI url,
                   @JsonProperty("links")
                   final Map<String, String> links) {
         this.accountSid = accountSid;
@@ -156,7 +156,7 @@ public class Event extends Resource {
     /**
      * Returns The A 34 character string identifying the Account for which this
      * Event was recorded..
-     * 
+     *
      * @return A 34 character string identifying the Account for which this Event
      *         was recorded.
      */
@@ -167,7 +167,7 @@ public class Event extends Resource {
     /**
      * Returns The If available, a 34 character string identifying the actor that
      * caused this event. May be null..
-     * 
+     *
      * @return If available, a 34 character string identifying the actor that
      *         caused this event. May be null.
      */
@@ -177,7 +177,7 @@ public class Event extends Resource {
 
     /**
      * Returns The The type of actor that caused this event.
-     * 
+     *
      * @return The type of actor that caused this event
      */
     public final String getActorType() {
@@ -186,7 +186,7 @@ public class Event extends Resource {
 
     /**
      * Returns The A human-readable description of the event.  May be null..
-     * 
+     *
      * @return A human-readable description of the event.  May be null.
      */
     public final String getDescription() {
@@ -195,7 +195,7 @@ public class Event extends Resource {
 
     /**
      * Returns The A freeform json object encoding additional data about the event.
-     * 
+     *
      * @return A freeform json object encoding additional data about the event
      */
     public final Map<String, Object> getEventData() {
@@ -204,7 +204,7 @@ public class Event extends Resource {
 
     /**
      * Returns The The date-time the event was recorded.
-     * 
+     *
      * @return The date-time the event was recorded
      */
     public final DateTime getEventDate() {
@@ -213,7 +213,7 @@ public class Event extends Resource {
 
     /**
      * Returns The The event's type, as a string..
-     * 
+     *
      * @return The event's type, as a string.
      */
     public final String getEventType() {
@@ -223,7 +223,7 @@ public class Event extends Resource {
     /**
      * Returns The A 34 character string identifying the resource that was
      * affected..
-     * 
+     *
      * @return A 34 character string identifying the resource that was affected.
      */
     public final String getResourceSid() {
@@ -232,7 +232,7 @@ public class Event extends Resource {
 
     /**
      * Returns The The type of resource that was affected.
-     * 
+     *
      * @return The type of resource that was affected
      */
     public final String getResourceType() {
@@ -241,7 +241,7 @@ public class Event extends Resource {
 
     /**
      * Returns The A 34 character string that uniquely identifies this event..
-     * 
+     *
      * @return A 34 character string that uniquely identifies this event.
      */
     public final String getSid() {
@@ -253,7 +253,7 @@ public class Event extends Resource {
      * for events caused by user action in the Twilio Console.  api for events
      * caused through a request to the REST API.  twilio for events caused by an
      * automated or internal Twilio system..
-     * 
+     *
      * @return The originating system or interface that caused the event.  web for
      *         events caused by user action in the Twilio Console.  api for events
      *         caused through a request to the REST API.  twilio for events caused
@@ -265,7 +265,7 @@ public class Event extends Resource {
 
     /**
      * Returns The The IP address of the source.
-     * 
+     *
      * @return The IP address of the source
      */
     public final String getSourceIpAddress() {
@@ -274,7 +274,7 @@ public class Event extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -283,7 +283,7 @@ public class Event extends Resource {
 
     /**
      * Returns The The links.
-     * 
+     *
      * @return The links
      */
     public final Map<String, String> getLinks() {
@@ -302,19 +302,19 @@ public class Event extends Resource {
 
         Event other = (Event) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(actorSid, other.actorSid) && 
-               Objects.equals(actorType, other.actorType) && 
-               Objects.equals(description, other.description) && 
-               Objects.equals(eventData, other.eventData) && 
-               Objects.equals(eventDate, other.eventDate) && 
-               Objects.equals(eventType, other.eventType) && 
-               Objects.equals(resourceSid, other.resourceSid) && 
-               Objects.equals(resourceType, other.resourceType) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(source, other.source) && 
-               Objects.equals(sourceIpAddress, other.sourceIpAddress) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(actorSid, other.actorSid) &&
+               Objects.equals(actorType, other.actorType) &&
+               Objects.equals(description, other.description) &&
+               Objects.equals(eventData, other.eventData) &&
+               Objects.equals(eventDate, other.eventDate) &&
+               Objects.equals(eventType, other.eventType) &&
+               Objects.equals(resourceSid, other.resourceSid) &&
+               Objects.equals(resourceType, other.resourceType) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(source, other.source) &&
+               Objects.equals(sourceIpAddress, other.sourceIpAddress) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

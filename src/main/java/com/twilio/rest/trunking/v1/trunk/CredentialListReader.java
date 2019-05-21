@@ -24,7 +24,7 @@ public class CredentialListReader extends Reader<CredentialList> {
 
     /**
      * Construct a new CredentialListReader.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk from which to read the credential
      *                     lists
      */
@@ -34,7 +34,7 @@ public class CredentialListReader extends Reader<CredentialList> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return CredentialList ResourceSet
      */
@@ -45,7 +45,7 @@ public class CredentialListReader extends Reader<CredentialList> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return CredentialList ResourceSet
      */
@@ -65,7 +65,7 @@ public class CredentialListReader extends Reader<CredentialList> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return CredentialList ResourceSet
@@ -83,13 +83,13 @@ public class CredentialListReader extends Reader<CredentialList> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<CredentialList> nextPage(final Page<CredentialList> page, 
+    public Page<CredentialList> nextPage(final Page<CredentialList> page,
                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -103,13 +103,13 @@ public class CredentialListReader extends Reader<CredentialList> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<CredentialList> previousPage(final Page<CredentialList> page, 
+    public Page<CredentialList> previousPage(final Page<CredentialList> page,
                                              final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -123,7 +123,7 @@ public class CredentialListReader extends Reader<CredentialList> {
 
     /**
      * Generate a Page of CredentialList Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -158,7 +158,7 @@ public class CredentialListReader extends Reader<CredentialList> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

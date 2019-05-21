@@ -31,7 +31,7 @@ public class SampleCreator extends Creator<Sample> {
 
     /**
      * Construct a new SampleCreator.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         Task associated with the new resource
      * @param pathTaskSid The SID of the Task associated with the Sample resource
@@ -40,9 +40,9 @@ public class SampleCreator extends Creator<Sample> {
      *                 used for the new sample
      * @param taggedText The text example of how end users might express the task
      */
-    public SampleCreator(final String pathAssistantSid, 
-                         final String pathTaskSid, 
-                         final String language, 
+    public SampleCreator(final String pathAssistantSid,
+                         final String pathTaskSid,
+                         final String language,
                          final String taggedText) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathTaskSid = pathTaskSid;
@@ -54,7 +54,7 @@ public class SampleCreator extends Creator<Sample> {
      * The communication channel from which the new sample was captured. Can be:
      * `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not
      * included..
-     * 
+     *
      * @param sourceChannel The communication channel from which the new sample was
      *                      captured
      * @return this
@@ -66,7 +66,7 @@ public class SampleCreator extends Creator<Sample> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Sample
      */
@@ -105,7 +105,7 @@ public class SampleCreator extends Creator<Sample> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

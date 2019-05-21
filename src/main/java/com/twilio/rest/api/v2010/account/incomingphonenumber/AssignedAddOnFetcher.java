@@ -28,11 +28,11 @@ public class AssignedAddOnFetcher extends Fetcher<AssignedAddOn> {
 
     /**
      * Construct a new AssignedAddOnFetcher.
-     * 
+     *
      * @param pathResourceSid The SID of the Phone Number that installed this Add-on
      * @param pathSid The unique string that identifies the resource
      */
-    public AssignedAddOnFetcher(final String pathResourceSid, 
+    public AssignedAddOnFetcher(final String pathResourceSid,
                                 final String pathSid) {
         this.pathResourceSid = pathResourceSid;
         this.pathSid = pathSid;
@@ -40,14 +40,14 @@ public class AssignedAddOnFetcher extends Fetcher<AssignedAddOn> {
 
     /**
      * Construct a new AssignedAddOnFetcher.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource to
      *                       fetch
      * @param pathResourceSid The SID of the Phone Number that installed this Add-on
      * @param pathSid The unique string that identifies the resource
      */
-    public AssignedAddOnFetcher(final String pathAccountSid, 
-                                final String pathResourceSid, 
+    public AssignedAddOnFetcher(final String pathAccountSid,
+                                final String pathResourceSid,
                                 final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathResourceSid = pathResourceSid;
@@ -56,7 +56,7 @@ public class AssignedAddOnFetcher extends Fetcher<AssignedAddOn> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched AssignedAddOn
      */

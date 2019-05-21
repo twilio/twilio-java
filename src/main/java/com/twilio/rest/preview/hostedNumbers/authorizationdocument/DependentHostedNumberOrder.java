@@ -102,7 +102,7 @@ public class DependentHostedNumberOrder extends Resource {
 
     /**
      * Create a DependentHostedNumberOrderReader to execute read.
-     * 
+     *
      * @param pathSigningDocumentSid The signing_document_sid
      * @return DependentHostedNumberOrderReader capable of executing the read
      */
@@ -113,7 +113,7 @@ public class DependentHostedNumberOrder extends Resource {
     /**
      * Converts a JSON String into a DependentHostedNumberOrder object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return DependentHostedNumberOrder object represented by the provided JSON
@@ -132,7 +132,7 @@ public class DependentHostedNumberOrder extends Resource {
     /**
      * Converts a JSON InputStream into a DependentHostedNumberOrder object using
      * the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return DependentHostedNumberOrder object represented by the provided JSON
@@ -173,47 +173,47 @@ public class DependentHostedNumberOrder extends Resource {
 
     @JsonCreator
     private DependentHostedNumberOrder(@JsonProperty("sid")
-                                       final String sid, 
+                                       final String sid,
                                        @JsonProperty("account_sid")
-                                       final String accountSid, 
+                                       final String accountSid,
                                        @JsonProperty("incoming_phone_number_sid")
-                                       final String incomingPhoneNumberSid, 
+                                       final String incomingPhoneNumberSid,
                                        @JsonProperty("address_sid")
-                                       final String addressSid, 
+                                       final String addressSid,
                                        @JsonProperty("signing_document_sid")
-                                       final String signingDocumentSid, 
+                                       final String signingDocumentSid,
                                        @JsonProperty("phone_number")
-                                       final com.twilio.type.PhoneNumber phoneNumber, 
+                                       final com.twilio.type.PhoneNumber phoneNumber,
                                        @JsonProperty("capabilities")
-                                       final PhoneNumberCapabilities capabilities, 
+                                       final PhoneNumberCapabilities capabilities,
                                        @JsonProperty("friendly_name")
-                                       final String friendlyName, 
+                                       final String friendlyName,
                                        @JsonProperty("unique_name")
-                                       final String uniqueName, 
+                                       final String uniqueName,
                                        @JsonProperty("status")
-                                       final DependentHostedNumberOrder.Status status, 
+                                       final DependentHostedNumberOrder.Status status,
                                        @JsonProperty("failure_reason")
-                                       final String failureReason, 
+                                       final String failureReason,
                                        @JsonProperty("date_created")
-                                       final String dateCreated, 
+                                       final String dateCreated,
                                        @JsonProperty("date_updated")
-                                       final String dateUpdated, 
+                                       final String dateUpdated,
                                        @JsonProperty("verification_attempts")
-                                       final Integer verificationAttempts, 
+                                       final Integer verificationAttempts,
                                        @JsonProperty("email")
-                                       final String email, 
+                                       final String email,
                                        @JsonProperty("cc_emails")
-                                       final List<String> ccEmails, 
+                                       final List<String> ccEmails,
                                        @JsonProperty("verification_type")
-                                       final DependentHostedNumberOrder.VerificationType verificationType, 
+                                       final DependentHostedNumberOrder.VerificationType verificationType,
                                        @JsonProperty("verification_document_sid")
-                                       final String verificationDocumentSid, 
+                                       final String verificationDocumentSid,
                                        @JsonProperty("extension")
-                                       final String extension, 
+                                       final String extension,
                                        @JsonProperty("call_delay")
-                                       final Integer callDelay, 
+                                       final Integer callDelay,
                                        @JsonProperty("verification_code")
-                                       final String verificationCode, 
+                                       final String verificationCode,
                                        @JsonProperty("verification_call_sids")
                                        final List<String> verificationCallSids) {
         this.sid = sid;
@@ -242,7 +242,7 @@ public class DependentHostedNumberOrder extends Resource {
 
     /**
      * Returns The HostedNumberOrder sid..
-     * 
+     *
      * @return HostedNumberOrder sid.
      */
     public final String getSid() {
@@ -251,7 +251,7 @@ public class DependentHostedNumberOrder extends Resource {
 
     /**
      * Returns The Account sid..
-     * 
+     *
      * @return Account sid.
      */
     public final String getAccountSid() {
@@ -260,7 +260,7 @@ public class DependentHostedNumberOrder extends Resource {
 
     /**
      * Returns The IncomingPhoneNumber sid..
-     * 
+     *
      * @return IncomingPhoneNumber sid.
      */
     public final String getIncomingPhoneNumberSid() {
@@ -269,7 +269,7 @@ public class DependentHostedNumberOrder extends Resource {
 
     /**
      * Returns The Address sid..
-     * 
+     *
      * @return Address sid.
      */
     public final String getAddressSid() {
@@ -278,7 +278,7 @@ public class DependentHostedNumberOrder extends Resource {
 
     /**
      * Returns The LOA document sid..
-     * 
+     *
      * @return LOA document sid.
      */
     public final String getSigningDocumentSid() {
@@ -287,7 +287,7 @@ public class DependentHostedNumberOrder extends Resource {
 
     /**
      * Returns The An E164 formatted phone number..
-     * 
+     *
      * @return An E164 formatted phone number.
      */
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
@@ -296,7 +296,7 @@ public class DependentHostedNumberOrder extends Resource {
 
     /**
      * Returns The A mapping of phone number capabilities..
-     * 
+     *
      * @return A mapping of phone number capabilities.
      */
     public final PhoneNumberCapabilities getCapabilities() {
@@ -305,7 +305,7 @@ public class DependentHostedNumberOrder extends Resource {
 
     /**
      * Returns The A human readable description of this resource..
-     * 
+     *
      * @return A human readable description of this resource.
      */
     public final String getFriendlyName() {
@@ -314,7 +314,7 @@ public class DependentHostedNumberOrder extends Resource {
 
     /**
      * Returns The A unique, developer assigned name of this HostedNumberOrder..
-     * 
+     *
      * @return A unique, developer assigned name of this HostedNumberOrder.
      */
     public final String getUniqueName() {
@@ -323,7 +323,7 @@ public class DependentHostedNumberOrder extends Resource {
 
     /**
      * Returns The The Status of this HostedNumberOrder..
-     * 
+     *
      * @return The Status of this HostedNumberOrder.
      */
     public final DependentHostedNumberOrder.Status getStatus() {
@@ -332,7 +332,7 @@ public class DependentHostedNumberOrder extends Resource {
 
     /**
      * Returns The Why a hosted_number_order reached status "action-required".
-     * 
+     *
      * @return Why a hosted_number_order reached status "action-required"
      */
     public final String getFailureReason() {
@@ -341,7 +341,7 @@ public class DependentHostedNumberOrder extends Resource {
 
     /**
      * Returns The The date this HostedNumberOrder was created..
-     * 
+     *
      * @return The date this HostedNumberOrder was created.
      */
     public final DateTime getDateCreated() {
@@ -350,7 +350,7 @@ public class DependentHostedNumberOrder extends Resource {
 
     /**
      * Returns The The date this HostedNumberOrder was updated..
-     * 
+     *
      * @return The date this HostedNumberOrder was updated.
      */
     public final DateTime getDateUpdated() {
@@ -360,7 +360,7 @@ public class DependentHostedNumberOrder extends Resource {
     /**
      * Returns The The number of attempts made to verify ownership of the phone
      * number..
-     * 
+     *
      * @return The number of attempts made to verify ownership of the phone number.
      */
     public final Integer getVerificationAttempts() {
@@ -369,7 +369,7 @@ public class DependentHostedNumberOrder extends Resource {
 
     /**
      * Returns The Email..
-     * 
+     *
      * @return Email.
      */
     public final String getEmail() {
@@ -378,7 +378,7 @@ public class DependentHostedNumberOrder extends Resource {
 
     /**
      * Returns The A list of emails..
-     * 
+     *
      * @return A list of emails.
      */
     public final List<String> getCcEmails() {
@@ -388,7 +388,7 @@ public class DependentHostedNumberOrder extends Resource {
     /**
      * Returns The The method used for verifying ownership of the number to be
      * hosted..
-     * 
+     *
      * @return The method used for verifying ownership of the number to be hosted.
      */
     public final DependentHostedNumberOrder.VerificationType getVerificationType() {
@@ -397,7 +397,7 @@ public class DependentHostedNumberOrder extends Resource {
 
     /**
      * Returns The Verification Document Sid..
-     * 
+     *
      * @return Verification Document Sid.
      */
     public final String getVerificationDocumentSid() {
@@ -406,7 +406,7 @@ public class DependentHostedNumberOrder extends Resource {
 
     /**
      * Returns The Phone extension to use for ownership verification call..
-     * 
+     *
      * @return Phone extension to use for ownership verification call.
      */
     public final String getExtension() {
@@ -415,7 +415,7 @@ public class DependentHostedNumberOrder extends Resource {
 
     /**
      * Returns The Seconds (0-30) to delay ownership verification call by..
-     * 
+     *
      * @return Seconds (0-30) to delay ownership verification call by.
      */
     public final Integer getCallDelay() {
@@ -424,7 +424,7 @@ public class DependentHostedNumberOrder extends Resource {
 
     /**
      * Returns The The digits passed during the ownership verification call..
-     * 
+     *
      * @return The digits passed during the ownership verification call.
      */
     public final String getVerificationCode() {
@@ -433,7 +433,7 @@ public class DependentHostedNumberOrder extends Resource {
 
     /**
      * Returns The List of IDs for ownership verification calls..
-     * 
+     *
      * @return List of IDs for ownership verification calls.
      */
     public final List<String> getVerificationCallSids() {
@@ -452,27 +452,27 @@ public class DependentHostedNumberOrder extends Resource {
 
         DependentHostedNumberOrder other = (DependentHostedNumberOrder) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(incomingPhoneNumberSid, other.incomingPhoneNumberSid) && 
-               Objects.equals(addressSid, other.addressSid) && 
-               Objects.equals(signingDocumentSid, other.signingDocumentSid) && 
-               Objects.equals(phoneNumber, other.phoneNumber) && 
-               Objects.equals(capabilities, other.capabilities) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(failureReason, other.failureReason) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(verificationAttempts, other.verificationAttempts) && 
-               Objects.equals(email, other.email) && 
-               Objects.equals(ccEmails, other.ccEmails) && 
-               Objects.equals(verificationType, other.verificationType) && 
-               Objects.equals(verificationDocumentSid, other.verificationDocumentSid) && 
-               Objects.equals(extension, other.extension) && 
-               Objects.equals(callDelay, other.callDelay) && 
-               Objects.equals(verificationCode, other.verificationCode) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(incomingPhoneNumberSid, other.incomingPhoneNumberSid) &&
+               Objects.equals(addressSid, other.addressSid) &&
+               Objects.equals(signingDocumentSid, other.signingDocumentSid) &&
+               Objects.equals(phoneNumber, other.phoneNumber) &&
+               Objects.equals(capabilities, other.capabilities) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(failureReason, other.failureReason) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(verificationAttempts, other.verificationAttempts) &&
+               Objects.equals(email, other.email) &&
+               Objects.equals(ccEmails, other.ccEmails) &&
+               Objects.equals(verificationType, other.verificationType) &&
+               Objects.equals(verificationDocumentSid, other.verificationDocumentSid) &&
+               Objects.equals(extension, other.extension) &&
+               Objects.equals(callDelay, other.callDelay) &&
+               Objects.equals(verificationCode, other.verificationCode) &&
                Objects.equals(verificationCallSids, other.verificationCallSids);
     }
 

@@ -42,47 +42,47 @@ public class AssignedAddOn extends Resource {
 
     /**
      * Create a AssignedAddOnFetcher to execute fetch.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource to
      *                       fetch
      * @param pathResourceSid The SID of the Phone Number that installed this Add-on
      * @param pathSid The unique string that identifies the resource
      * @return AssignedAddOnFetcher capable of executing the fetch
      */
-    public static AssignedAddOnFetcher fetcher(final String pathAccountSid, 
-                                               final String pathResourceSid, 
+    public static AssignedAddOnFetcher fetcher(final String pathAccountSid,
+                                               final String pathResourceSid,
                                                final String pathSid) {
         return new AssignedAddOnFetcher(pathAccountSid, pathResourceSid, pathSid);
     }
 
     /**
      * Create a AssignedAddOnFetcher to execute fetch.
-     * 
+     *
      * @param pathResourceSid The SID of the Phone Number that installed this Add-on
      * @param pathSid The unique string that identifies the resource
      * @return AssignedAddOnFetcher capable of executing the fetch
      */
-    public static AssignedAddOnFetcher fetcher(final String pathResourceSid, 
+    public static AssignedAddOnFetcher fetcher(final String pathResourceSid,
                                                final String pathSid) {
         return new AssignedAddOnFetcher(pathResourceSid, pathSid);
     }
 
     /**
      * Create a AssignedAddOnReader to execute read.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       read
      * @param pathResourceSid The SID of the Phone Number that installed this Add-on
      * @return AssignedAddOnReader capable of executing the read
      */
-    public static AssignedAddOnReader reader(final String pathAccountSid, 
+    public static AssignedAddOnReader reader(final String pathAccountSid,
                                              final String pathResourceSid) {
         return new AssignedAddOnReader(pathAccountSid, pathResourceSid);
     }
 
     /**
      * Create a AssignedAddOnReader to execute read.
-     * 
+     *
      * @param pathResourceSid The SID of the Phone Number that installed this Add-on
      * @return AssignedAddOnReader capable of executing the read
      */
@@ -92,53 +92,53 @@ public class AssignedAddOn extends Resource {
 
     /**
      * Create a AssignedAddOnCreator to execute create.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param pathResourceSid The SID of the Phone Number to assign the Add-on
      * @param installedAddOnSid The SID that identifies the Add-on installation
      * @return AssignedAddOnCreator capable of executing the create
      */
-    public static AssignedAddOnCreator creator(final String pathAccountSid, 
-                                               final String pathResourceSid, 
+    public static AssignedAddOnCreator creator(final String pathAccountSid,
+                                               final String pathResourceSid,
                                                final String installedAddOnSid) {
         return new AssignedAddOnCreator(pathAccountSid, pathResourceSid, installedAddOnSid);
     }
 
     /**
      * Create a AssignedAddOnCreator to execute create.
-     * 
+     *
      * @param pathResourceSid The SID of the Phone Number to assign the Add-on
      * @param installedAddOnSid The SID that identifies the Add-on installation
      * @return AssignedAddOnCreator capable of executing the create
      */
-    public static AssignedAddOnCreator creator(final String pathResourceSid, 
+    public static AssignedAddOnCreator creator(final String pathResourceSid,
                                                final String installedAddOnSid) {
         return new AssignedAddOnCreator(pathResourceSid, installedAddOnSid);
     }
 
     /**
      * Create a AssignedAddOnDeleter to execute delete.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       delete
      * @param pathResourceSid The SID of the Phone Number that installed this Add-on
      * @param pathSid The unique string that identifies the resource
      * @return AssignedAddOnDeleter capable of executing the delete
      */
-    public static AssignedAddOnDeleter deleter(final String pathAccountSid, 
-                                               final String pathResourceSid, 
+    public static AssignedAddOnDeleter deleter(final String pathAccountSid,
+                                               final String pathResourceSid,
                                                final String pathSid) {
         return new AssignedAddOnDeleter(pathAccountSid, pathResourceSid, pathSid);
     }
 
     /**
      * Create a AssignedAddOnDeleter to execute delete.
-     * 
+     *
      * @param pathResourceSid The SID of the Phone Number that installed this Add-on
      * @param pathSid The unique string that identifies the resource
      * @return AssignedAddOnDeleter capable of executing the delete
      */
-    public static AssignedAddOnDeleter deleter(final String pathResourceSid, 
+    public static AssignedAddOnDeleter deleter(final String pathResourceSid,
                                                final String pathSid) {
         return new AssignedAddOnDeleter(pathResourceSid, pathSid);
     }
@@ -146,7 +146,7 @@ public class AssignedAddOn extends Resource {
     /**
      * Converts a JSON String into a AssignedAddOn object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AssignedAddOn object represented by the provided JSON
@@ -165,7 +165,7 @@ public class AssignedAddOn extends Resource {
     /**
      * Converts a JSON InputStream into a AssignedAddOn object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AssignedAddOn object represented by the provided JSON
@@ -195,25 +195,25 @@ public class AssignedAddOn extends Resource {
 
     @JsonCreator
     private AssignedAddOn(@JsonProperty("sid")
-                          final String sid, 
+                          final String sid,
                           @JsonProperty("account_sid")
-                          final String accountSid, 
+                          final String accountSid,
                           @JsonProperty("resource_sid")
-                          final String resourceSid, 
+                          final String resourceSid,
                           @JsonProperty("friendly_name")
-                          final String friendlyName, 
+                          final String friendlyName,
                           @JsonProperty("description")
-                          final String description, 
+                          final String description,
                           @JsonProperty("configuration")
-                          final Map<String, Object> configuration, 
+                          final Map<String, Object> configuration,
                           @JsonProperty("unique_name")
-                          final String uniqueName, 
+                          final String uniqueName,
                           @JsonProperty("date_created")
-                          final String dateCreated, 
+                          final String dateCreated,
                           @JsonProperty("date_updated")
-                          final String dateUpdated, 
+                          final String dateUpdated,
                           @JsonProperty("uri")
-                          final String uri, 
+                          final String uri,
                           @JsonProperty("subresource_uris")
                           final Map<String, String> subresourceUris) {
         this.sid = sid;
@@ -231,7 +231,7 @@ public class AssignedAddOn extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -240,7 +240,7 @@ public class AssignedAddOn extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -249,7 +249,7 @@ public class AssignedAddOn extends Resource {
 
     /**
      * Returns The The SID of the Phone Number that installed this Add-on.
-     * 
+     *
      * @return The SID of the Phone Number that installed this Add-on
      */
     public final String getResourceSid() {
@@ -258,7 +258,7 @@ public class AssignedAddOn extends Resource {
 
     /**
      * Returns The The string that you assigned to describe the resource.
-     * 
+     *
      * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
@@ -267,7 +267,7 @@ public class AssignedAddOn extends Resource {
 
     /**
      * Returns The A short description of the Add-on functionality.
-     * 
+     *
      * @return A short description of the Add-on functionality
      */
     public final String getDescription() {
@@ -276,7 +276,7 @@ public class AssignedAddOn extends Resource {
 
     /**
      * Returns The A JSON string that represents the current configuration.
-     * 
+     *
      * @return A JSON string that represents the current configuration
      */
     public final Map<String, Object> getConfiguration() {
@@ -286,7 +286,7 @@ public class AssignedAddOn extends Resource {
     /**
      * Returns The An application-defined string that uniquely identifies the
      * resource.
-     * 
+     *
      * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
@@ -295,7 +295,7 @@ public class AssignedAddOn extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT that the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
@@ -305,7 +305,7 @@ public class AssignedAddOn extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT that the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -314,7 +314,7 @@ public class AssignedAddOn extends Resource {
 
     /**
      * Returns The The URI of the resource, relative to `https://api.twilio.com`.
-     * 
+     *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
@@ -323,7 +323,7 @@ public class AssignedAddOn extends Resource {
 
     /**
      * Returns The A list of related resources identified by their relative URIs.
-     * 
+     *
      * @return A list of related resources identified by their relative URIs
      */
     public final Map<String, String> getSubresourceUris() {
@@ -342,16 +342,16 @@ public class AssignedAddOn extends Resource {
 
         AssignedAddOn other = (AssignedAddOn) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(resourceSid, other.resourceSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(description, other.description) && 
-               Objects.equals(configuration, other.configuration) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(uri, other.uri) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(resourceSid, other.resourceSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(description, other.description) &&
+               Objects.equals(configuration, other.configuration) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(uri, other.uri) &&
                Objects.equals(subresourceUris, other.subresourceUris);
     }
 

@@ -28,11 +28,11 @@ public class KeyFetcher extends Fetcher<Key> {
 
     /**
      * Construct a new KeyFetcher.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @param pathSid A string that uniquely identifies the Key.
      */
-    public KeyFetcher(final String pathFleetSid, 
+    public KeyFetcher(final String pathFleetSid,
                       final String pathSid) {
         this.pathFleetSid = pathFleetSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class KeyFetcher extends Fetcher<Key> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Key
      */

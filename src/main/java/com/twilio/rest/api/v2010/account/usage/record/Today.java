@@ -307,7 +307,7 @@ public class Today extends Resource {
 
     /**
      * Create a TodayReader to execute read.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       read
      * @return TodayReader capable of executing the read
@@ -318,7 +318,7 @@ public class Today extends Resource {
 
     /**
      * Create a TodayReader to execute read.
-     * 
+     *
      * @return TodayReader capable of executing the read
      */
     public static TodayReader reader() {
@@ -327,7 +327,7 @@ public class Today extends Resource {
 
     /**
      * Converts a JSON String into a Today object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Today object represented by the provided JSON
@@ -346,7 +346,7 @@ public class Today extends Resource {
     /**
      * Converts a JSON InputStream into a Today object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Today object represented by the provided JSON
@@ -379,32 +379,32 @@ public class Today extends Resource {
 
     @JsonCreator
     private Today(@JsonProperty("account_sid")
-                  final String accountSid, 
+                  final String accountSid,
                   @JsonProperty("api_version")
-                  final String apiVersion, 
+                  final String apiVersion,
                   @JsonProperty("category")
-                  final Today.Category category, 
+                  final Today.Category category,
                   @JsonProperty("count")
-                  final String count, 
+                  final String count,
                   @JsonProperty("count_unit")
-                  final String countUnit, 
+                  final String countUnit,
                   @JsonProperty("description")
-                  final String description, 
+                  final String description,
                   @JsonProperty("end_date")
-                  final String endDate, 
+                  final String endDate,
                   @JsonProperty("price")
-                  final BigDecimal price, 
+                  final BigDecimal price,
                   @JsonProperty("price_unit")
                   @JsonDeserialize(using = com.twilio.converter.CurrencyDeserializer.class)
-                  final Currency priceUnit, 
+                  final Currency priceUnit,
                   @JsonProperty("start_date")
-                  final String startDate, 
+                  final String startDate,
                   @JsonProperty("subresource_uris")
-                  final Map<String, String> subresourceUris, 
+                  final Map<String, String> subresourceUris,
                   @JsonProperty("uri")
-                  final String uri, 
+                  final String uri,
                   @JsonProperty("usage")
-                  final String usage, 
+                  final String usage,
                   @JsonProperty("usage_unit")
                   final String usageUnit) {
         this.accountSid = accountSid;
@@ -425,7 +425,7 @@ public class Today extends Resource {
 
     /**
      * Returns The The SID of the Account accrued the usage.
-     * 
+     *
      * @return The SID of the Account accrued the usage
      */
     public final String getAccountSid() {
@@ -434,7 +434,7 @@ public class Today extends Resource {
 
     /**
      * Returns The The API version used to create the resource.
-     * 
+     *
      * @return The API version used to create the resource
      */
     public final String getApiVersion() {
@@ -443,7 +443,7 @@ public class Today extends Resource {
 
     /**
      * Returns The The category of usage.
-     * 
+     *
      * @return The category of usage
      */
     public final Today.Category getCategory() {
@@ -452,7 +452,7 @@ public class Today extends Resource {
 
     /**
      * Returns The The number of usage events.
-     * 
+     *
      * @return The number of usage events
      */
     public final String getCount() {
@@ -461,7 +461,7 @@ public class Today extends Resource {
 
     /**
      * Returns The The units in which count is measured.
-     * 
+     *
      * @return The units in which count is measured
      */
     public final String getCountUnit() {
@@ -470,7 +470,7 @@ public class Today extends Resource {
 
     /**
      * Returns The A plain-language description of the usage category.
-     * 
+     *
      * @return A plain-language description of the usage category
      */
     public final String getDescription() {
@@ -479,7 +479,7 @@ public class Today extends Resource {
 
     /**
      * Returns The The last date for which usage is included in the UsageRecord.
-     * 
+     *
      * @return The last date for which usage is included in the UsageRecord
      */
     public final LocalDate getEndDate() {
@@ -488,7 +488,7 @@ public class Today extends Resource {
 
     /**
      * Returns The The total price of the usage.
-     * 
+     *
      * @return The total price of the usage
      */
     public final BigDecimal getPrice() {
@@ -497,7 +497,7 @@ public class Today extends Resource {
 
     /**
      * Returns The The currency in which `price` is measured.
-     * 
+     *
      * @return The currency in which `price` is measured
      */
     public final Currency getPriceUnit() {
@@ -506,7 +506,7 @@ public class Today extends Resource {
 
     /**
      * Returns The The first date for which usage is included in this UsageRecord.
-     * 
+     *
      * @return The first date for which usage is included in this UsageRecord
      */
     public final LocalDate getStartDate() {
@@ -515,7 +515,7 @@ public class Today extends Resource {
 
     /**
      * Returns The A list of related resources identified by their relative URIs.
-     * 
+     *
      * @return A list of related resources identified by their relative URIs
      */
     public final Map<String, String> getSubresourceUris() {
@@ -524,7 +524,7 @@ public class Today extends Resource {
 
     /**
      * Returns The The URI of the resource, relative to `https://api.twilio.com`.
-     * 
+     *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
@@ -533,7 +533,7 @@ public class Today extends Resource {
 
     /**
      * Returns The The amount of usage.
-     * 
+     *
      * @return The amount of usage
      */
     public final String getUsage() {
@@ -542,7 +542,7 @@ public class Today extends Resource {
 
     /**
      * Returns The The units in which usage is measured.
-     * 
+     *
      * @return The units in which usage is measured
      */
     public final String getUsageUnit() {
@@ -561,19 +561,19 @@ public class Today extends Resource {
 
         Today other = (Today) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(apiVersion, other.apiVersion) && 
-               Objects.equals(category, other.category) && 
-               Objects.equals(count, other.count) && 
-               Objects.equals(countUnit, other.countUnit) && 
-               Objects.equals(description, other.description) && 
-               Objects.equals(endDate, other.endDate) && 
-               Objects.equals(price, other.price) && 
-               Objects.equals(priceUnit, other.priceUnit) && 
-               Objects.equals(startDate, other.startDate) && 
-               Objects.equals(subresourceUris, other.subresourceUris) && 
-               Objects.equals(uri, other.uri) && 
-               Objects.equals(usage, other.usage) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(apiVersion, other.apiVersion) &&
+               Objects.equals(category, other.category) &&
+               Objects.equals(count, other.count) &&
+               Objects.equals(countUnit, other.countUnit) &&
+               Objects.equals(description, other.description) &&
+               Objects.equals(endDate, other.endDate) &&
+               Objects.equals(price, other.price) &&
+               Objects.equals(priceUnit, other.priceUnit) &&
+               Objects.equals(startDate, other.startDate) &&
+               Objects.equals(subresourceUris, other.subresourceUris) &&
+               Objects.equals(uri, other.uri) &&
+               Objects.equals(usage, other.usage) &&
                Objects.equals(usageUnit, other.usageUnit);
     }
 

@@ -30,11 +30,11 @@ public class AssetVersionReader extends Reader<AssetVersion> {
 
     /**
      * Construct a new AssetVersionReader.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathAssetSid Asset Sid.
      */
-    public AssetVersionReader(final String pathServiceSid, 
+    public AssetVersionReader(final String pathServiceSid,
                               final String pathAssetSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathAssetSid = pathAssetSid;
@@ -42,7 +42,7 @@ public class AssetVersionReader extends Reader<AssetVersion> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return AssetVersion ResourceSet
      */
@@ -53,7 +53,7 @@ public class AssetVersionReader extends Reader<AssetVersion> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return AssetVersion ResourceSet
      */
@@ -73,7 +73,7 @@ public class AssetVersionReader extends Reader<AssetVersion> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return AssetVersion ResourceSet
@@ -91,13 +91,13 @@ public class AssetVersionReader extends Reader<AssetVersion> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<AssetVersion> nextPage(final Page<AssetVersion> page, 
+    public Page<AssetVersion> nextPage(final Page<AssetVersion> page,
                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -111,13 +111,13 @@ public class AssetVersionReader extends Reader<AssetVersion> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<AssetVersion> previousPage(final Page<AssetVersion> page, 
+    public Page<AssetVersion> previousPage(final Page<AssetVersion> page,
                                            final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -131,7 +131,7 @@ public class AssetVersionReader extends Reader<AssetVersion> {
 
     /**
      * Generate a Page of AssetVersion Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -166,7 +166,7 @@ public class AssetVersionReader extends Reader<AssetVersion> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

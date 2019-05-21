@@ -31,11 +31,11 @@ public class WorkflowUpdater extends Updater<Workflow> {
 
     /**
      * Construct a new WorkflowUpdater.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathSid The sid
      */
-    public WorkflowUpdater(final String pathWorkspaceSid, 
+    public WorkflowUpdater(final String pathWorkspaceSid,
                            final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
@@ -44,7 +44,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
     /**
      * A string representing a human readable name for this Workflow. Examples
      * include 'Customer Support' or 'Sales Team'..
-     * 
+     *
      * @param friendlyName A string representing a human readable name for this
      *                     Workflow.
      * @return this
@@ -58,7 +58,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
      * A valid URL for the application that will process task assignment events. See
      * [Handling Task Assignment
      * Callback](https://www.twilio.com/docs/api/taskrouter/handling-assignment-callbacks) for more details..
-     * 
+     *
      * @param assignmentCallbackUrl A valid URL for the application that will
      *                              process task assignment events.
      * @return this
@@ -72,7 +72,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
      * A valid URL for the application that will process task assignment events. See
      * [Handling Task Assignment
      * Callback](https://www.twilio.com/docs/api/taskrouter/handling-assignment-callbacks) for more details..
-     * 
+     *
      * @param assignmentCallbackUrl A valid URL for the application that will
      *                              process task assignment events.
      * @return this
@@ -84,7 +84,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
     /**
      * If the request to the AssignmentCallbackUrl fails, the assignment callback
      * will be made to this URL..
-     * 
+     *
      * @param fallbackAssignmentCallbackUrl If the request to the
      *                                      AssignmentCallbackUrl fails, the
      *                                      assignment callback will be made to this
@@ -99,7 +99,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
     /**
      * If the request to the AssignmentCallbackUrl fails, the assignment callback
      * will be made to this URL..
-     * 
+     *
      * @param fallbackAssignmentCallbackUrl If the request to the
      *                                      AssignmentCallbackUrl fails, the
      *                                      assignment callback will be made to this
@@ -114,7 +114,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
      * JSON document configuring the rules for this Workflow. See [Configuring
      * Workflows](https://www.twilio.com/docs/api/taskrouter/workflow-configuration)
      * for more information..
-     * 
+     *
      * @param configuration JSON document configuring the rules for this Workflow.
      * @return this
      */
@@ -127,7 +127,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
      * An integer value controlling how long in seconds TaskRouter will wait for a
      * confirmation response from your application after assigning a Task to a
      * worker. Defaults to 120 seconds. Maximum value is 86400 (24 hours).
-     * 
+     *
      * @param taskReservationTimeout An integer value controlling how long in
      *                               seconds TaskRouter will wait for a confirmation
      *                               response from your application after assigning
@@ -141,7 +141,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Workflow
      */
@@ -180,7 +180,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

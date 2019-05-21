@@ -23,12 +23,12 @@ public class OriginationUrlDeleter extends Deleter<OriginationUrl> {
 
     /**
      * Construct a new OriginationUrlDeleter.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk from which to delete the
      *                     OriginationUrl
      * @param pathSid The unique string that identifies the resource
      */
-    public OriginationUrlDeleter(final String pathTrunkSid, 
+    public OriginationUrlDeleter(final String pathTrunkSid,
                                  final String pathSid) {
         this.pathTrunkSid = pathTrunkSid;
         this.pathSid = pathSid;
@@ -36,7 +36,7 @@ public class OriginationUrlDeleter extends Deleter<OriginationUrl> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

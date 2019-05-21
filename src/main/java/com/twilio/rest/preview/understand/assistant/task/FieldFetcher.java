@@ -29,13 +29,13 @@ public class FieldFetcher extends Fetcher<Field> {
 
     /**
      * Construct a new FieldFetcher.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant.
      * @param pathTaskSid The unique ID of the Task associated with this Field.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
-    public FieldFetcher(final String pathAssistantSid, 
-                        final String pathTaskSid, 
+    public FieldFetcher(final String pathAssistantSid,
+                        final String pathTaskSid,
                         final String pathSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathTaskSid = pathTaskSid;
@@ -44,7 +44,7 @@ public class FieldFetcher extends Fetcher<Field> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Field
      */

@@ -23,12 +23,12 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
 
     /**
      * Construct a new CredentialListFetcher.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk from which to fetch the credential
      *                     list
      * @param pathSid The unique string that identifies the resource
      */
-    public CredentialListFetcher(final String pathTrunkSid, 
+    public CredentialListFetcher(final String pathTrunkSid,
                                  final String pathSid) {
         this.pathTrunkSid = pathTrunkSid;
         this.pathSid = pathSid;
@@ -36,7 +36,7 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched CredentialList
      */

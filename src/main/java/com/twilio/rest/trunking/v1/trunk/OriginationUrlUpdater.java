@@ -31,12 +31,12 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
 
     /**
      * Construct a new OriginationUrlUpdater.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk from which to update the
      *                     OriginationUrl
      * @param pathSid The unique string that identifies the resource
      */
-    public OriginationUrlUpdater(final String pathTrunkSid, 
+    public OriginationUrlUpdater(final String pathTrunkSid,
                                  final String pathSid) {
         this.pathTrunkSid = pathTrunkSid;
         this.pathSid = pathSid;
@@ -47,7 +47,7 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
      * receive compared to other URIs with the same priority. Can be an integer from
      * 1 to 65535, inclusive, and the default is 10. URLs with higher values receive
      * more load than those with lower ones with the same priority..
-     * 
+     *
      * @param weight The value that determines the relative load the URI should
      *               receive compared to others with the same priority
      * @return this
@@ -61,7 +61,7 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
      * The relative importance of the URI. Can be an integer from 0 to 65535,
      * inclusive, and the default is 10. The lowest number represents the most
      * important URI..
-     * 
+     *
      * @param priority The relative importance of the URI
      * @return this
      */
@@ -72,7 +72,7 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
 
     /**
      * Whether the URL is enabled. The default is `true`..
-     * 
+     *
      * @param enabled Whether the URL is enabled
      * @return this
      */
@@ -84,7 +84,7 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
     /**
      * A descriptive string that you create to describe the resource. It can be up
      * to 64 characters long..
-     * 
+     *
      * @param friendlyName A string to describe the resource
      * @return this
      */
@@ -96,7 +96,7 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
     /**
      * The SIP address you want Twilio to route your Origination calls to. This must
      * be a `sip:` schema. `sips` is NOT supported..
-     * 
+     *
      * @param sipUrl The SIP address you want Twilio to route your Origination
      *               calls to
      * @return this
@@ -109,7 +109,7 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
     /**
      * The SIP address you want Twilio to route your Origination calls to. This must
      * be a `sip:` schema. `sips` is NOT supported..
-     * 
+     *
      * @param sipUrl The SIP address you want Twilio to route your Origination
      *               calls to
      * @return this
@@ -120,7 +120,7 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated OriginationUrl
      */
@@ -159,7 +159,7 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

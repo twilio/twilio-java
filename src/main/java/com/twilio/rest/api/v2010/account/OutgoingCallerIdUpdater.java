@@ -24,7 +24,7 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
 
     /**
      * Construct a new OutgoingCallerIdUpdater.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public OutgoingCallerIdUpdater(final String pathSid) {
@@ -33,12 +33,12 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
 
     /**
      * Construct a new OutgoingCallerIdUpdater.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       update
      * @param pathSid The unique string that identifies the resource
      */
-    public OutgoingCallerIdUpdater(final String pathAccountSid, 
+    public OutgoingCallerIdUpdater(final String pathAccountSid,
                                    final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -47,7 +47,7 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
     /**
      * A descriptive string that you create to describe the resource. It can be up
      * to 64 characters long..
-     * 
+     *
      * @param friendlyName A string to describe the resource
      * @return this
      */
@@ -58,7 +58,7 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated OutgoingCallerId
      */
@@ -98,7 +98,7 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

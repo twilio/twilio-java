@@ -37,7 +37,7 @@ public class CredentialList extends Resource {
 
     /**
      * Create a CredentialListReader to execute read.
-     * 
+     *
      * @param pathAccountSid The unique id of the Account that is responsible for
      *                       this resource.
      * @return CredentialListReader capable of executing the read
@@ -48,7 +48,7 @@ public class CredentialList extends Resource {
 
     /**
      * Create a CredentialListReader to execute read.
-     * 
+     *
      * @return CredentialListReader capable of executing the read
      */
     public static CredentialListReader reader() {
@@ -57,20 +57,20 @@ public class CredentialList extends Resource {
 
     /**
      * Create a CredentialListCreator to execute create.
-     * 
+     *
      * @param pathAccountSid The unique id of the Account that is responsible for
      *                       this resource.
      * @param friendlyName Human readable descriptive text
      * @return CredentialListCreator capable of executing the create
      */
-    public static CredentialListCreator creator(final String pathAccountSid, 
+    public static CredentialListCreator creator(final String pathAccountSid,
                                                 final String friendlyName) {
         return new CredentialListCreator(pathAccountSid, friendlyName);
     }
 
     /**
      * Create a CredentialListCreator to execute create.
-     * 
+     *
      * @param friendlyName Human readable descriptive text
      * @return CredentialListCreator capable of executing the create
      */
@@ -80,20 +80,20 @@ public class CredentialList extends Resource {
 
     /**
      * Create a CredentialListFetcher to execute fetch.
-     * 
+     *
      * @param pathAccountSid The unique id of the Account that is responsible for
      *                       this resource.
      * @param pathSid Fetch by unique credential list Sid
      * @return CredentialListFetcher capable of executing the fetch
      */
-    public static CredentialListFetcher fetcher(final String pathAccountSid, 
+    public static CredentialListFetcher fetcher(final String pathAccountSid,
                                                 final String pathSid) {
         return new CredentialListFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a CredentialListFetcher to execute fetch.
-     * 
+     *
      * @param pathSid Fetch by unique credential list Sid
      * @return CredentialListFetcher capable of executing the fetch
      */
@@ -103,47 +103,47 @@ public class CredentialList extends Resource {
 
     /**
      * Create a CredentialListUpdater to execute update.
-     * 
+     *
      * @param pathAccountSid The unique id of the Account that is responsible for
      *                       this resource.
      * @param pathSid Update by unique credential list Sid
      * @param friendlyName Human readable descriptive text
      * @return CredentialListUpdater capable of executing the update
      */
-    public static CredentialListUpdater updater(final String pathAccountSid, 
-                                                final String pathSid, 
+    public static CredentialListUpdater updater(final String pathAccountSid,
+                                                final String pathSid,
                                                 final String friendlyName) {
         return new CredentialListUpdater(pathAccountSid, pathSid, friendlyName);
     }
 
     /**
      * Create a CredentialListUpdater to execute update.
-     * 
+     *
      * @param pathSid Update by unique credential list Sid
      * @param friendlyName Human readable descriptive text
      * @return CredentialListUpdater capable of executing the update
      */
-    public static CredentialListUpdater updater(final String pathSid, 
+    public static CredentialListUpdater updater(final String pathSid,
                                                 final String friendlyName) {
         return new CredentialListUpdater(pathSid, friendlyName);
     }
 
     /**
      * Create a CredentialListDeleter to execute delete.
-     * 
+     *
      * @param pathAccountSid The unique id of the Account that is responsible for
      *                       this resource.
      * @param pathSid Delete by unique credential list Sid
      * @return CredentialListDeleter capable of executing the delete
      */
-    public static CredentialListDeleter deleter(final String pathAccountSid, 
+    public static CredentialListDeleter deleter(final String pathAccountSid,
                                                 final String pathSid) {
         return new CredentialListDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a CredentialListDeleter to execute delete.
-     * 
+     *
      * @param pathSid Delete by unique credential list Sid
      * @return CredentialListDeleter capable of executing the delete
      */
@@ -154,7 +154,7 @@ public class CredentialList extends Resource {
     /**
      * Converts a JSON String into a CredentialList object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return CredentialList object represented by the provided JSON
@@ -173,7 +173,7 @@ public class CredentialList extends Resource {
     /**
      * Converts a JSON InputStream into a CredentialList object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return CredentialList object represented by the provided JSON
@@ -199,17 +199,17 @@ public class CredentialList extends Resource {
 
     @JsonCreator
     private CredentialList(@JsonProperty("account_sid")
-                           final String accountSid, 
+                           final String accountSid,
                            @JsonProperty("date_created")
-                           final String dateCreated, 
+                           final String dateCreated,
                            @JsonProperty("date_updated")
-                           final String dateUpdated, 
+                           final String dateUpdated,
                            @JsonProperty("friendly_name")
-                           final String friendlyName, 
+                           final String friendlyName,
                            @JsonProperty("sid")
-                           final String sid, 
+                           final String sid,
                            @JsonProperty("subresource_uris")
-                           final Map<String, String> subresourceUris, 
+                           final Map<String, String> subresourceUris,
                            @JsonProperty("uri")
                            final String uri) {
         this.accountSid = accountSid;
@@ -223,7 +223,7 @@ public class CredentialList extends Resource {
 
     /**
      * Returns The The unique sid that identifies this account.
-     * 
+     *
      * @return The unique sid that identifies this account
      */
     public final String getAccountSid() {
@@ -232,7 +232,7 @@ public class CredentialList extends Resource {
 
     /**
      * Returns The The date this resource was created.
-     * 
+     *
      * @return The date this resource was created
      */
     public final DateTime getDateCreated() {
@@ -241,7 +241,7 @@ public class CredentialList extends Resource {
 
     /**
      * Returns The The date this resource was last updated.
-     * 
+     *
      * @return The date this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -250,7 +250,7 @@ public class CredentialList extends Resource {
 
     /**
      * Returns The Human readable descriptive text.
-     * 
+     *
      * @return Human readable descriptive text
      */
     public final String getFriendlyName() {
@@ -259,7 +259,7 @@ public class CredentialList extends Resource {
 
     /**
      * Returns The A string that uniquely identifies this credential.
-     * 
+     *
      * @return A string that uniquely identifies this credential
      */
     public final String getSid() {
@@ -268,7 +268,7 @@ public class CredentialList extends Resource {
 
     /**
      * Returns The The list of credentials associated with this credential list..
-     * 
+     *
      * @return The list of credentials associated with this credential list.
      */
     public final Map<String, String> getSubresourceUris() {
@@ -277,7 +277,7 @@ public class CredentialList extends Resource {
 
     /**
      * Returns The The URI for this resource.
-     * 
+     *
      * @return The URI for this resource
      */
     public final String getUri() {
@@ -296,12 +296,12 @@ public class CredentialList extends Resource {
 
         CredentialList other = (CredentialList) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(subresourceUris, other.subresourceUris) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(subresourceUris, other.subresourceUris) &&
                Objects.equals(uri, other.uri);
     }
 

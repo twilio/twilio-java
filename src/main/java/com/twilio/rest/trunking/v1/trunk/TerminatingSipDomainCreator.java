@@ -23,11 +23,11 @@ public class TerminatingSipDomainCreator extends Creator<TerminatingSipDomain> {
 
     /**
      * Construct a new TerminatingSipDomainCreator.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk to which we should route calls
      * @param sipDomainSid The SID of the SIP Domain to associate with the trunk
      */
-    public TerminatingSipDomainCreator(final String pathTrunkSid, 
+    public TerminatingSipDomainCreator(final String pathTrunkSid,
                                        final String sipDomainSid) {
         this.pathTrunkSid = pathTrunkSid;
         this.sipDomainSid = sipDomainSid;
@@ -35,7 +35,7 @@ public class TerminatingSipDomainCreator extends Creator<TerminatingSipDomain> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created TerminatingSipDomain
      */
@@ -74,7 +74,7 @@ public class TerminatingSipDomainCreator extends Creator<TerminatingSipDomain> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

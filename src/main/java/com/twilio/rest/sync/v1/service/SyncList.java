@@ -42,31 +42,31 @@ public class SyncList extends Resource {
 
     /**
      * Create a SyncListFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathSid The sid
      * @return SyncListFetcher capable of executing the fetch
      */
-    public static SyncListFetcher fetcher(final String pathServiceSid, 
+    public static SyncListFetcher fetcher(final String pathServiceSid,
                                           final String pathSid) {
         return new SyncListFetcher(pathServiceSid, pathSid);
     }
 
     /**
      * Create a SyncListDeleter to execute delete.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathSid The sid
      * @return SyncListDeleter capable of executing the delete
      */
-    public static SyncListDeleter deleter(final String pathServiceSid, 
+    public static SyncListDeleter deleter(final String pathServiceSid,
                                           final String pathSid) {
         return new SyncListDeleter(pathServiceSid, pathSid);
     }
 
     /**
      * Create a SyncListCreator to execute create.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @return SyncListCreator capable of executing the create
      */
@@ -76,19 +76,19 @@ public class SyncList extends Resource {
 
     /**
      * Create a SyncListUpdater to execute update.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathSid The sid
      * @return SyncListUpdater capable of executing the update
      */
-    public static SyncListUpdater updater(final String pathServiceSid, 
+    public static SyncListUpdater updater(final String pathServiceSid,
                                           final String pathSid) {
         return new SyncListUpdater(pathServiceSid, pathSid);
     }
 
     /**
      * Create a SyncListReader to execute read.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @return SyncListReader capable of executing the read
      */
@@ -99,7 +99,7 @@ public class SyncList extends Resource {
     /**
      * Converts a JSON String into a SyncList object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SyncList object represented by the provided JSON
@@ -118,7 +118,7 @@ public class SyncList extends Resource {
     /**
      * Converts a JSON InputStream into a SyncList object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SyncList object represented by the provided JSON
@@ -148,25 +148,25 @@ public class SyncList extends Resource {
 
     @JsonCreator
     private SyncList(@JsonProperty("sid")
-                     final String sid, 
+                     final String sid,
                      @JsonProperty("unique_name")
-                     final String uniqueName, 
+                     final String uniqueName,
                      @JsonProperty("account_sid")
-                     final String accountSid, 
+                     final String accountSid,
                      @JsonProperty("service_sid")
-                     final String serviceSid, 
+                     final String serviceSid,
                      @JsonProperty("url")
-                     final URI url, 
+                     final URI url,
                      @JsonProperty("links")
-                     final Map<String, String> links, 
+                     final Map<String, String> links,
                      @JsonProperty("revision")
-                     final String revision, 
+                     final String revision,
                      @JsonProperty("date_expires")
-                     final String dateExpires, 
+                     final String dateExpires,
                      @JsonProperty("date_created")
-                     final String dateCreated, 
+                     final String dateCreated,
                      @JsonProperty("date_updated")
-                     final String dateUpdated, 
+                     final String dateUpdated,
                      @JsonProperty("created_by")
                      final String createdBy) {
         this.sid = sid;
@@ -184,7 +184,7 @@ public class SyncList extends Resource {
 
     /**
      * Returns The The unique 34-character SID identifier of the List..
-     * 
+     *
      * @return The unique 34-character SID identifier of the List.
      */
     public final String getSid() {
@@ -193,7 +193,7 @@ public class SyncList extends Resource {
 
     /**
      * Returns The The unique and addressable name of this List..
-     * 
+     *
      * @return The unique and addressable name of this List.
      */
     public final String getUniqueName() {
@@ -202,7 +202,7 @@ public class SyncList extends Resource {
 
     /**
      * Returns The The unique SID identifier of the Twilio Account..
-     * 
+     *
      * @return The unique SID identifier of the Twilio Account.
      */
     public final String getAccountSid() {
@@ -212,7 +212,7 @@ public class SyncList extends Resource {
     /**
      * Returns The The unique SID identifier of the Service Instance that hosts this
      * List object..
-     * 
+     *
      * @return The unique SID identifier of the Service Instance that hosts this
      *         List object.
      */
@@ -222,7 +222,7 @@ public class SyncList extends Resource {
 
     /**
      * Returns The The absolute URL for this List..
-     * 
+     *
      * @return The absolute URL for this List.
      */
     public final URI getUrl() {
@@ -231,7 +231,7 @@ public class SyncList extends Resource {
 
     /**
      * Returns The A dictionary of URL links to nested resources of this List..
-     * 
+     *
      * @return A dictionary of URL links to nested resources of this List.
      */
     public final Map<String, String> getLinks() {
@@ -241,7 +241,7 @@ public class SyncList extends Resource {
     /**
      * Returns The Contains the current revision of this List, represented by a
      * string identifier..
-     * 
+     *
      * @return Contains the current revision of this List, represented by a string
      *         identifier.
      */
@@ -252,7 +252,7 @@ public class SyncList extends Resource {
     /**
      * Returns The Contains the date this List expires and gets deleted
      * automatically..
-     * 
+     *
      * @return Contains the date this List expires and gets deleted automatically.
      */
     public final DateTime getDateExpires() {
@@ -261,7 +261,7 @@ public class SyncList extends Resource {
 
     /**
      * Returns The The date this List was created, given in UTC ISO 8601 format..
-     * 
+     *
      * @return The date this List was created, given in UTC ISO 8601 format.
      */
     public final DateTime getDateCreated() {
@@ -271,7 +271,7 @@ public class SyncList extends Resource {
     /**
      * Returns The Specifies the date this List was last updated, given in UTC ISO
      * 8601 format..
-     * 
+     *
      * @return Specifies the date this List was last updated, given in UTC ISO 8601
      *         format.
      */
@@ -281,7 +281,7 @@ public class SyncList extends Resource {
 
     /**
      * Returns The The identity of the List creator..
-     * 
+     *
      * @return The identity of the List creator.
      */
     public final String getCreatedBy() {
@@ -300,16 +300,16 @@ public class SyncList extends Resource {
 
         SyncList other = (SyncList) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(links, other.links) && 
-               Objects.equals(revision, other.revision) && 
-               Objects.equals(dateExpires, other.dateExpires) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(links, other.links) &&
+               Objects.equals(revision, other.revision) &&
+               Objects.equals(dateExpires, other.dateExpires) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(createdBy, other.createdBy);
     }
 

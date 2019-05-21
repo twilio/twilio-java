@@ -40,7 +40,7 @@ public class Number extends Resource {
 
     /**
      * Create a NumberFetcher to execute fetch.
-     * 
+     *
      * @param pathNumber The phone number to fetch
      * @return NumberFetcher capable of executing the fetch
      */
@@ -50,7 +50,7 @@ public class Number extends Resource {
 
     /**
      * Converts a JSON String into a Number object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Number object represented by the provided JSON
@@ -69,7 +69,7 @@ public class Number extends Resource {
     /**
      * Converts a JSON InputStream into a Number object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Number object represented by the provided JSON
@@ -95,18 +95,18 @@ public class Number extends Resource {
 
     @JsonCreator
     private Number(@JsonProperty("number")
-                   final com.twilio.type.PhoneNumber number, 
+                   final com.twilio.type.PhoneNumber number,
                    @JsonProperty("country")
-                   final String country, 
+                   final String country,
                    @JsonProperty("iso_country")
-                   final String isoCountry, 
+                   final String isoCountry,
                    @JsonProperty("outbound_call_price")
-                   final OutboundCallPrice outboundCallPrice, 
+                   final OutboundCallPrice outboundCallPrice,
                    @JsonProperty("inbound_call_price")
-                   final InboundCallPrice inboundCallPrice, 
+                   final InboundCallPrice inboundCallPrice,
                    @JsonProperty("price_unit")
                    @JsonDeserialize(using = com.twilio.converter.CurrencyDeserializer.class)
-                   final Currency priceUnit, 
+                   final Currency priceUnit,
                    @JsonProperty("url")
                    final URI url) {
         this.number = number;
@@ -120,7 +120,7 @@ public class Number extends Resource {
 
     /**
      * Returns The The phone number.
-     * 
+     *
      * @return The phone number
      */
     public final com.twilio.type.PhoneNumber getNumber() {
@@ -129,7 +129,7 @@ public class Number extends Resource {
 
     /**
      * Returns The The name of the country.
-     * 
+     *
      * @return The name of the country
      */
     public final String getCountry() {
@@ -138,7 +138,7 @@ public class Number extends Resource {
 
     /**
      * Returns The The ISO country code.
-     * 
+     *
      * @return The ISO country code
      */
     public final String getIsoCountry() {
@@ -147,7 +147,7 @@ public class Number extends Resource {
 
     /**
      * Returns The The OutboundCallPrice record.
-     * 
+     *
      * @return The OutboundCallPrice record
      */
     public final OutboundCallPrice getOutboundCallPrice() {
@@ -156,7 +156,7 @@ public class Number extends Resource {
 
     /**
      * Returns The The InboundCallPrice record.
-     * 
+     *
      * @return The InboundCallPrice record
      */
     public final InboundCallPrice getInboundCallPrice() {
@@ -166,7 +166,7 @@ public class Number extends Resource {
     /**
      * Returns The The currency in which prices are measured, in ISO 4127 format
      * (e.g. usd, eur, jpy).
-     * 
+     *
      * @return The currency in which prices are measured, in ISO 4127 format (e.g.
      *         usd, eur, jpy)
      */
@@ -176,7 +176,7 @@ public class Number extends Resource {
 
     /**
      * Returns The The absolute URL of the resource.
-     * 
+     *
      * @return The absolute URL of the resource
      */
     public final URI getUrl() {
@@ -195,12 +195,12 @@ public class Number extends Resource {
 
         Number other = (Number) o;
 
-        return Objects.equals(number, other.number) && 
-               Objects.equals(country, other.country) && 
-               Objects.equals(isoCountry, other.isoCountry) && 
-               Objects.equals(outboundCallPrice, other.outboundCallPrice) && 
-               Objects.equals(inboundCallPrice, other.inboundCallPrice) && 
-               Objects.equals(priceUnit, other.priceUnit) && 
+        return Objects.equals(number, other.number) &&
+               Objects.equals(country, other.country) &&
+               Objects.equals(isoCountry, other.isoCountry) &&
+               Objects.equals(outboundCallPrice, other.outboundCallPrice) &&
+               Objects.equals(inboundCallPrice, other.inboundCallPrice) &&
+               Objects.equals(priceUnit, other.priceUnit) &&
                Objects.equals(url, other.url);
     }
 

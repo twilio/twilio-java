@@ -42,7 +42,7 @@ public class RecordingTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.VIDEO.toString(),
                                           "/v1/Recordings/RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class RecordingTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.VIDEO.toString(),
                                           "/v1/Recordings");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -118,7 +118,7 @@ public class RecordingTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.VIDEO.toString(),
                                           "/v1/Recordings/RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

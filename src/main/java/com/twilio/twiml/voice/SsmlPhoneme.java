@@ -54,7 +54,7 @@ public class SsmlPhoneme extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -63,7 +63,7 @@ public class SsmlPhoneme extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -82,7 +82,7 @@ public class SsmlPhoneme extends TwiML {
 
     /**
      * Specify the phonetic alphabet
-     * 
+     *
      * @return Specify the phonetic alphabet
      */
     public SsmlPhoneme.Alphabet getAlphabet() {
@@ -91,7 +91,7 @@ public class SsmlPhoneme extends TwiML {
 
     /**
      * Specifiy the phonetic symbols for pronunciation
-     * 
+     *
      * @return Specifiy the phonetic symbols for pronunciation
      */
     public String getPh() {
@@ -100,7 +100,7 @@ public class SsmlPhoneme extends TwiML {
 
     /**
      * Words to speak
-     * 
+     *
      * @return Words to speak
      */
     public String getWords() {

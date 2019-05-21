@@ -24,11 +24,11 @@ public class TaskQueueRealTimeStatisticsFetcher extends Fetcher<TaskQueueRealTim
 
     /**
      * Construct a new TaskQueueRealTimeStatisticsFetcher.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathTaskQueueSid The task_queue_sid
      */
-    public TaskQueueRealTimeStatisticsFetcher(final String pathWorkspaceSid, 
+    public TaskQueueRealTimeStatisticsFetcher(final String pathWorkspaceSid,
                                               final String pathTaskQueueSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathTaskQueueSid = pathTaskQueueSid;
@@ -37,7 +37,7 @@ public class TaskQueueRealTimeStatisticsFetcher extends Fetcher<TaskQueueRealTim
     /**
      * Filter real-time and cumulative statistics by TaskChannel. Takes in a Unique
      * Name ("voice", "sms", "default", etc.) or a TaskChannelSid..
-     * 
+     *
      * @param taskChannel Filter real-time and cumulative statistics by TaskChannel.
      * @return this
      */
@@ -48,7 +48,7 @@ public class TaskQueueRealTimeStatisticsFetcher extends Fetcher<TaskQueueRealTim
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched TaskQueueRealTimeStatistics
      */
@@ -87,7 +87,7 @@ public class TaskQueueRealTimeStatisticsFetcher extends Fetcher<TaskQueueRealTim
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

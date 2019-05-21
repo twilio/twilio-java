@@ -93,43 +93,43 @@ public class Verification extends Resource {
 
     /**
      * Create a VerificationCreator to execute create.
-     * 
+     *
      * @param pathServiceSid The SID of the verification Service to create the
      *                       resource under
      * @param to The phone number to verify
      * @param channel The verification method to use
      * @return VerificationCreator capable of executing the create
      */
-    public static VerificationCreator creator(final String pathServiceSid, 
-                                              final String to, 
+    public static VerificationCreator creator(final String pathServiceSid,
+                                              final String to,
                                               final String channel) {
         return new VerificationCreator(pathServiceSid, to, channel);
     }
 
     /**
      * Create a VerificationUpdater to execute update.
-     * 
+     *
      * @param pathServiceSid The SID of the verification Service to update the
      *                       resource from
      * @param pathSid The unique string that identifies the resource
      * @param status The new status of the resource
      * @return VerificationUpdater capable of executing the update
      */
-    public static VerificationUpdater updater(final String pathServiceSid, 
-                                              final String pathSid, 
+    public static VerificationUpdater updater(final String pathServiceSid,
+                                              final String pathSid,
                                               final Verification.Status status) {
         return new VerificationUpdater(pathServiceSid, pathSid, status);
     }
 
     /**
      * Create a VerificationFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid The SID of the verification Service to fetch the
      *                       resource from
      * @param pathSid The unique string that identifies the resource
      * @return VerificationFetcher capable of executing the fetch
      */
-    public static VerificationFetcher fetcher(final String pathServiceSid, 
+    public static VerificationFetcher fetcher(final String pathServiceSid,
                                               final String pathSid) {
         return new VerificationFetcher(pathServiceSid, pathSid);
     }
@@ -137,7 +137,7 @@ public class Verification extends Resource {
     /**
      * Converts a JSON String into a Verification object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Verification object represented by the provided JSON
@@ -156,7 +156,7 @@ public class Verification extends Resource {
     /**
      * Converts a JSON InputStream into a Verification object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Verification object represented by the provided JSON
@@ -188,29 +188,29 @@ public class Verification extends Resource {
 
     @JsonCreator
     private Verification(@JsonProperty("sid")
-                         final String sid, 
+                         final String sid,
                          @JsonProperty("service_sid")
-                         final String serviceSid, 
+                         final String serviceSid,
                          @JsonProperty("account_sid")
-                         final String accountSid, 
+                         final String accountSid,
                          @JsonProperty("to")
-                         final com.twilio.type.PhoneNumber to, 
+                         final com.twilio.type.PhoneNumber to,
                          @JsonProperty("channel")
-                         final Verification.Channel channel, 
+                         final Verification.Channel channel,
                          @JsonProperty("status")
-                         final String status, 
+                         final String status,
                          @JsonProperty("valid")
-                         final Boolean valid, 
+                         final Boolean valid,
                          @JsonProperty("lookup")
-                         final Map<String, Object> lookup, 
+                         final Map<String, Object> lookup,
                          @JsonProperty("amount")
-                         final String amount, 
+                         final String amount,
                          @JsonProperty("payee")
-                         final String payee, 
+                         final String payee,
                          @JsonProperty("date_created")
-                         final String dateCreated, 
+                         final String dateCreated,
                          @JsonProperty("date_updated")
-                         final String dateUpdated, 
+                         final String dateUpdated,
                          @JsonProperty("url")
                          final URI url) {
         this.sid = sid;
@@ -230,7 +230,7 @@ public class Verification extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -239,7 +239,7 @@ public class Verification extends Resource {
 
     /**
      * Returns The The SID of the Service that the resource is associated with.
-     * 
+     *
      * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
@@ -248,7 +248,7 @@ public class Verification extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -257,7 +257,7 @@ public class Verification extends Resource {
 
     /**
      * Returns The The phone number being verified.
-     * 
+     *
      * @return The phone number being verified
      */
     public final com.twilio.type.PhoneNumber getTo() {
@@ -266,7 +266,7 @@ public class Verification extends Resource {
 
     /**
      * Returns The The verification method to use.
-     * 
+     *
      * @return The verification method to use
      */
     public final Verification.Channel getChannel() {
@@ -275,7 +275,7 @@ public class Verification extends Resource {
 
     /**
      * Returns The The status of the verification resource.
-     * 
+     *
      * @return The status of the verification resource
      */
     public final String getStatus() {
@@ -284,7 +284,7 @@ public class Verification extends Resource {
 
     /**
      * Returns The Whether the verification was successful.
-     * 
+     *
      * @return Whether the verification was successful
      */
     public final Boolean getValid() {
@@ -293,7 +293,7 @@ public class Verification extends Resource {
 
     /**
      * Returns The Information about the phone number being verified.
-     * 
+     *
      * @return Information about the phone number being verified
      */
     public final Map<String, Object> getLookup() {
@@ -302,7 +302,7 @@ public class Verification extends Resource {
 
     /**
      * Returns The The amount of the associated PSD2 compliant transaction..
-     * 
+     *
      * @return The amount of the associated PSD2 compliant transaction.
      */
     public final String getAmount() {
@@ -311,7 +311,7 @@ public class Verification extends Resource {
 
     /**
      * Returns The The payee of the associated PSD2 compliant transaction.
-     * 
+     *
      * @return The payee of the associated PSD2 compliant transaction
      */
     public final String getPayee() {
@@ -320,7 +320,7 @@ public class Verification extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
@@ -330,7 +330,7 @@ public class Verification extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -339,7 +339,7 @@ public class Verification extends Resource {
 
     /**
      * Returns The The absolute URL of the Verification resource.
-     * 
+     *
      * @return The absolute URL of the Verification resource
      */
     public final URI getUrl() {
@@ -358,18 +358,18 @@ public class Verification extends Resource {
 
         Verification other = (Verification) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(to, other.to) && 
-               Objects.equals(channel, other.channel) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(valid, other.valid) && 
-               Objects.equals(lookup, other.lookup) && 
-               Objects.equals(amount, other.amount) && 
-               Objects.equals(payee, other.payee) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(to, other.to) &&
+               Objects.equals(channel, other.channel) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(valid, other.valid) &&
+               Objects.equals(lookup, other.lookup) &&
+               Objects.equals(amount, other.amount) &&
+               Objects.equals(payee, other.payee) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
     }
 

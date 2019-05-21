@@ -25,7 +25,7 @@ public class UserChannelUpdater extends Updater<UserChannel> {
 
     /**
      * Construct a new UserChannelUpdater.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to update the resource from
      * @param pathUserSid The SID of the User to update the User Channel resource
      *                    from
@@ -34,9 +34,9 @@ public class UserChannelUpdater extends Updater<UserChannel> {
      * @param notificationLevel The push notification level to assign to the User
      *                          Channel
      */
-    public UserChannelUpdater(final String pathServiceSid, 
-                              final String pathUserSid, 
-                              final String pathChannelSid, 
+    public UserChannelUpdater(final String pathServiceSid,
+                              final String pathUserSid,
+                              final String pathChannelSid,
                               final UserChannel.NotificationLevel notificationLevel) {
         this.pathServiceSid = pathServiceSid;
         this.pathUserSid = pathUserSid;
@@ -46,7 +46,7 @@ public class UserChannelUpdater extends Updater<UserChannel> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated UserChannel
      */
@@ -85,7 +85,7 @@ public class UserChannelUpdater extends Updater<UserChannel> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

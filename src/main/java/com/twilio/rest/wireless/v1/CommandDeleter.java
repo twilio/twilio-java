@@ -22,7 +22,7 @@ public class CommandDeleter extends Deleter<Command> {
 
     /**
      * Construct a new CommandDeleter.
-     * 
+     *
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public CommandDeleter(final String pathSid) {
@@ -31,7 +31,7 @@ public class CommandDeleter extends Deleter<Command> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

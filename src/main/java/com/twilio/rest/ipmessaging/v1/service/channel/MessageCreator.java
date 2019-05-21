@@ -26,14 +26,14 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Construct a new MessageCreator.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to create the resource under
      * @param pathChannelSid The unique ID of the channel the new resource belongs
      *                       to
      * @param body The message to send to the channel
      */
-    public MessageCreator(final String pathServiceSid, 
-                          final String pathChannelSid, 
+    public MessageCreator(final String pathServiceSid,
+                          final String pathChannelSid,
                           final String body) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -43,7 +43,7 @@ public class MessageCreator extends Creator<Message> {
     /**
      * The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the
      * new message's author. The default value is `system`..
-     * 
+     *
      * @param from The identity of the new message's author
      * @return this
      */
@@ -54,7 +54,7 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * A valid JSON string that contains application-specific data..
-     * 
+     *
      * @param attributes A valid JSON string that contains application-specific data
      * @return this
      */
@@ -65,7 +65,7 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Message
      */
@@ -104,7 +104,7 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

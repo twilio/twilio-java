@@ -39,7 +39,7 @@ public class Task extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -48,7 +48,7 @@ public class Task extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -67,7 +67,7 @@ public class Task extends TwiML {
 
     /**
      * Task priority
-     * 
+     *
      * @return Task priority
      */
     public Integer getPriority() {
@@ -76,7 +76,7 @@ public class Task extends TwiML {
 
     /**
      * Timeout associated with task
-     * 
+     *
      * @return Timeout associated with task
      */
     public Integer getTimeout() {
@@ -85,7 +85,7 @@ public class Task extends TwiML {
 
     /**
      * TaskRouter task attributes
-     * 
+     *
      * @return TaskRouter task attributes
      */
     public String getBody() {

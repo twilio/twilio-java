@@ -63,20 +63,20 @@ public class Feedback extends Resource {
 
     /**
      * Create a FeedbackCreator to execute create.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param pathMessageSid The SID of the Message resource for which the feedback
      *                       was provided
      * @return FeedbackCreator capable of executing the create
      */
-    public static FeedbackCreator creator(final String pathAccountSid, 
+    public static FeedbackCreator creator(final String pathAccountSid,
                                           final String pathMessageSid) {
         return new FeedbackCreator(pathAccountSid, pathMessageSid);
     }
 
     /**
      * Create a FeedbackCreator to execute create.
-     * 
+     *
      * @param pathMessageSid The SID of the Message resource for which the feedback
      *                       was provided
      * @return FeedbackCreator capable of executing the create
@@ -88,7 +88,7 @@ public class Feedback extends Resource {
     /**
      * Converts a JSON String into a Feedback object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Feedback object represented by the provided JSON
@@ -107,7 +107,7 @@ public class Feedback extends Resource {
     /**
      * Converts a JSON InputStream into a Feedback object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Feedback object represented by the provided JSON
@@ -132,15 +132,15 @@ public class Feedback extends Resource {
 
     @JsonCreator
     private Feedback(@JsonProperty("account_sid")
-                     final String accountSid, 
+                     final String accountSid,
                      @JsonProperty("message_sid")
-                     final String messageSid, 
+                     final String messageSid,
                      @JsonProperty("outcome")
-                     final Feedback.Outcome outcome, 
+                     final Feedback.Outcome outcome,
                      @JsonProperty("date_created")
-                     final String dateCreated, 
+                     final String dateCreated,
                      @JsonProperty("date_updated")
-                     final String dateUpdated, 
+                     final String dateUpdated,
                      @JsonProperty("uri")
                      final String uri) {
         this.accountSid = accountSid;
@@ -153,7 +153,7 @@ public class Feedback extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -163,7 +163,7 @@ public class Feedback extends Resource {
     /**
      * Returns The The SID of the Message resource for which the feedback was
      * provided.
-     * 
+     *
      * @return The SID of the Message resource for which the feedback was provided
      */
     public final String getMessageSid() {
@@ -172,7 +172,7 @@ public class Feedback extends Resource {
 
     /**
      * Returns The Whether the feedback has arrived.
-     * 
+     *
      * @return Whether the feedback has arrived
      */
     public final Feedback.Outcome getOutcome() {
@@ -181,7 +181,7 @@ public class Feedback extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT that the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
@@ -191,7 +191,7 @@ public class Feedback extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT that the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -200,7 +200,7 @@ public class Feedback extends Resource {
 
     /**
      * Returns The The URI of the resource, relative to `https://api.twilio.com`.
-     * 
+     *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
@@ -219,11 +219,11 @@ public class Feedback extends Resource {
 
         Feedback other = (Feedback) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(messageSid, other.messageSid) && 
-               Objects.equals(outcome, other.outcome) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(messageSid, other.messageSid) &&
+               Objects.equals(outcome, other.outcome) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(uri, other.uri);
     }
 

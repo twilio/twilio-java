@@ -23,7 +23,7 @@ public class QueueDeleter extends Deleter<Queue> {
 
     /**
      * Construct a new QueueDeleter.
-     * 
+     *
      * @param pathSid The unique string that identifies this resource
      */
     public QueueDeleter(final String pathSid) {
@@ -32,12 +32,12 @@ public class QueueDeleter extends Deleter<Queue> {
 
     /**
      * Construct a new QueueDeleter.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       delete
      * @param pathSid The unique string that identifies this resource
      */
-    public QueueDeleter(final String pathAccountSid, 
+    public QueueDeleter(final String pathAccountSid,
                         final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -45,7 +45,7 @@ public class QueueDeleter extends Deleter<Queue> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

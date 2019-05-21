@@ -42,7 +42,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceCreator to execute create.
-     * 
+     *
      * @return ServiceCreator capable of executing the create
      */
     public static ServiceCreator creator() {
@@ -51,7 +51,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceDeleter to execute delete.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return ServiceDeleter capable of executing the delete
      */
@@ -61,7 +61,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return ServiceFetcher capable of executing the fetch
      */
@@ -71,7 +71,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceReader to execute read.
-     * 
+     *
      * @return ServiceReader capable of executing the read
      */
     public static ServiceReader reader() {
@@ -80,7 +80,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceUpdater to execute update.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return ServiceUpdater capable of executing the update
      */
@@ -90,7 +90,7 @@ public class Service extends Resource {
 
     /**
      * Converts a JSON String into a Service object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
@@ -109,7 +109,7 @@ public class Service extends Resource {
     /**
      * Converts a JSON InputStream into a Service object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
@@ -146,39 +146,39 @@ public class Service extends Resource {
 
     @JsonCreator
     private Service(@JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("friendly_name")
-                    final String friendlyName, 
+                    final String friendlyName,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("apn_credential_sid")
-                    final String apnCredentialSid, 
+                    final String apnCredentialSid,
                     @JsonProperty("gcm_credential_sid")
-                    final String gcmCredentialSid, 
+                    final String gcmCredentialSid,
                     @JsonProperty("fcm_credential_sid")
-                    final String fcmCredentialSid, 
+                    final String fcmCredentialSid,
                     @JsonProperty("messaging_service_sid")
-                    final String messagingServiceSid, 
+                    final String messagingServiceSid,
                     @JsonProperty("facebook_messenger_page_id")
-                    final String facebookMessengerPageId, 
+                    final String facebookMessengerPageId,
                     @JsonProperty("default_apn_notification_protocol_version")
-                    final String defaultApnNotificationProtocolVersion, 
+                    final String defaultApnNotificationProtocolVersion,
                     @JsonProperty("default_gcm_notification_protocol_version")
-                    final String defaultGcmNotificationProtocolVersion, 
+                    final String defaultGcmNotificationProtocolVersion,
                     @JsonProperty("default_fcm_notification_protocol_version")
-                    final String defaultFcmNotificationProtocolVersion, 
+                    final String defaultFcmNotificationProtocolVersion,
                     @JsonProperty("log_enabled")
-                    final Boolean logEnabled, 
+                    final Boolean logEnabled,
                     @JsonProperty("url")
-                    final URI url, 
+                    final URI url,
                     @JsonProperty("links")
-                    final Map<String, String> links, 
+                    final Map<String, String> links,
                     @JsonProperty("alexa_skill_id")
-                    final String alexaSkillId, 
+                    final String alexaSkillId,
                     @JsonProperty("default_alexa_notification_protocol_version")
                     final String defaultAlexaNotificationProtocolVersion) {
         this.sid = sid;
@@ -203,7 +203,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -212,7 +212,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -221,7 +221,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The string that you assigned to describe the resource.
-     * 
+     *
      * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
@@ -230,7 +230,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
@@ -240,7 +240,7 @@ public class Service extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -249,7 +249,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The SID of the Credential to use for APN Bindings.
-     * 
+     *
      * @return The SID of the Credential to use for APN Bindings
      */
     public final String getApnCredentialSid() {
@@ -258,7 +258,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The SID of the Credential to use for GCM Bindings.
-     * 
+     *
      * @return The SID of the Credential to use for GCM Bindings
      */
     public final String getGcmCredentialSid() {
@@ -267,7 +267,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The SID of the Credential to use for FCM Bindings.
-     * 
+     *
      * @return The SID of the Credential to use for FCM Bindings
      */
     public final String getFcmCredentialSid() {
@@ -276,7 +276,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The SID of the Messaging Service to use for SMS Bindings.
-     * 
+     *
      * @return The SID of the Messaging Service to use for SMS Bindings
      */
     public final String getMessagingServiceSid() {
@@ -285,7 +285,7 @@ public class Service extends Resource {
 
     /**
      * Returns The Deprecated.
-     * 
+     *
      * @return Deprecated
      */
     public final String getFacebookMessengerPageId() {
@@ -294,7 +294,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The protocol version to use for sending APNS notifications.
-     * 
+     *
      * @return The protocol version to use for sending APNS notifications
      */
     public final String getDefaultApnNotificationProtocolVersion() {
@@ -303,7 +303,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The protocol version to use for sending GCM notifications.
-     * 
+     *
      * @return The protocol version to use for sending GCM notifications
      */
     public final String getDefaultGcmNotificationProtocolVersion() {
@@ -312,7 +312,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The protocol version to use for sending FCM notifications.
-     * 
+     *
      * @return The protocol version to use for sending FCM notifications
      */
     public final String getDefaultFcmNotificationProtocolVersion() {
@@ -321,7 +321,7 @@ public class Service extends Resource {
 
     /**
      * Returns The Whether to log notifications.
-     * 
+     *
      * @return Whether to log notifications
      */
     public final Boolean getLogEnabled() {
@@ -330,7 +330,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The absolute URL of the Service resource.
-     * 
+     *
      * @return The absolute URL of the Service resource
      */
     public final URI getUrl() {
@@ -339,7 +339,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The URLs of the resources related to the service.
-     * 
+     *
      * @return The URLs of the resources related to the service
      */
     public final Map<String, String> getLinks() {
@@ -348,7 +348,7 @@ public class Service extends Resource {
 
     /**
      * Returns The Deprecated.
-     * 
+     *
      * @return Deprecated
      */
     public final String getAlexaSkillId() {
@@ -357,7 +357,7 @@ public class Service extends Resource {
 
     /**
      * Returns The Deprecated.
-     * 
+     *
      * @return Deprecated
      */
     public final String getDefaultAlexaNotificationProtocolVersion() {
@@ -376,23 +376,23 @@ public class Service extends Resource {
 
         Service other = (Service) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(apnCredentialSid, other.apnCredentialSid) && 
-               Objects.equals(gcmCredentialSid, other.gcmCredentialSid) && 
-               Objects.equals(fcmCredentialSid, other.fcmCredentialSid) && 
-               Objects.equals(messagingServiceSid, other.messagingServiceSid) && 
-               Objects.equals(facebookMessengerPageId, other.facebookMessengerPageId) && 
-               Objects.equals(defaultApnNotificationProtocolVersion, other.defaultApnNotificationProtocolVersion) && 
-               Objects.equals(defaultGcmNotificationProtocolVersion, other.defaultGcmNotificationProtocolVersion) && 
-               Objects.equals(defaultFcmNotificationProtocolVersion, other.defaultFcmNotificationProtocolVersion) && 
-               Objects.equals(logEnabled, other.logEnabled) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(links, other.links) && 
-               Objects.equals(alexaSkillId, other.alexaSkillId) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(apnCredentialSid, other.apnCredentialSid) &&
+               Objects.equals(gcmCredentialSid, other.gcmCredentialSid) &&
+               Objects.equals(fcmCredentialSid, other.fcmCredentialSid) &&
+               Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
+               Objects.equals(facebookMessengerPageId, other.facebookMessengerPageId) &&
+               Objects.equals(defaultApnNotificationProtocolVersion, other.defaultApnNotificationProtocolVersion) &&
+               Objects.equals(defaultGcmNotificationProtocolVersion, other.defaultGcmNotificationProtocolVersion) &&
+               Objects.equals(defaultFcmNotificationProtocolVersion, other.defaultFcmNotificationProtocolVersion) &&
+               Objects.equals(logEnabled, other.logEnabled) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(links, other.links) &&
+               Objects.equals(alexaSkillId, other.alexaSkillId) &&
                Objects.equals(defaultAlexaNotificationProtocolVersion, other.defaultAlexaNotificationProtocolVersion);
     }
 

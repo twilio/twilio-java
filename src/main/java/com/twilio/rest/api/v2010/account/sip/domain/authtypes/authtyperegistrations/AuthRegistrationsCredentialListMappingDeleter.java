@@ -24,12 +24,12 @@ public class AuthRegistrationsCredentialListMappingDeleter extends Deleter<AuthR
 
     /**
      * Construct a new AuthRegistrationsCredentialListMappingDeleter.
-     * 
+     *
      * @param pathDomainSid The SID of the SIP domain that contains the resources
      *                      to delete
      * @param pathSid The unique string that identifies the resource
      */
-    public AuthRegistrationsCredentialListMappingDeleter(final String pathDomainSid, 
+    public AuthRegistrationsCredentialListMappingDeleter(final String pathDomainSid,
                                                          final String pathSid) {
         this.pathDomainSid = pathDomainSid;
         this.pathSid = pathSid;
@@ -37,15 +37,15 @@ public class AuthRegistrationsCredentialListMappingDeleter extends Deleter<AuthR
 
     /**
      * Construct a new AuthRegistrationsCredentialListMappingDeleter.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       delete
      * @param pathDomainSid The SID of the SIP domain that contains the resources
      *                      to delete
      * @param pathSid The unique string that identifies the resource
      */
-    public AuthRegistrationsCredentialListMappingDeleter(final String pathAccountSid, 
-                                                         final String pathDomainSid, 
+    public AuthRegistrationsCredentialListMappingDeleter(final String pathAccountSid,
+                                                         final String pathDomainSid,
                                                          final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
@@ -54,7 +54,7 @@ public class AuthRegistrationsCredentialListMappingDeleter extends Deleter<AuthR
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

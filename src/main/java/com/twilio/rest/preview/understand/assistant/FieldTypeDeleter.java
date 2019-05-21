@@ -28,11 +28,11 @@ public class FieldTypeDeleter extends Deleter<FieldType> {
 
     /**
      * Construct a new FieldTypeDeleter.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      * @param pathSid The sid
      */
-    public FieldTypeDeleter(final String pathAssistantSid, 
+    public FieldTypeDeleter(final String pathAssistantSid,
                             final String pathSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class FieldTypeDeleter extends Deleter<FieldType> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

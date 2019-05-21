@@ -35,7 +35,7 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
 
     /**
      * Construct a new CompositionSettingsCreator.
-     * 
+     *
      * @param friendlyName Friendly name of the configuration to be shown in the
      *                     console
      */
@@ -45,7 +45,7 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
 
     /**
      * SID of the Stored Credential resource `CRxx`.
-     * 
+     *
      * @param awsCredentialsSid SID of the Stored Credential resource CRxx
      * @return this
      */
@@ -56,7 +56,7 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
 
     /**
      * SID of the Public Key resource `CRxx`.
-     * 
+     *
      * @param encryptionKeySid SID of the Public Key resource CRxx
      * @return this
      */
@@ -68,9 +68,9 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
     /**
      * Identity of the external location where the compositions should be stored. We
      * only support DNS-compliant URLs like
-     * `http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/compositions`, 
+     * `http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/compositions`,
      * where `compositions` is the path where you want compositions to be stored..
-     * 
+     *
      * @param awsS3Url Identity of the external location where the compositions
      *                 should be stored. We only support DNS-compliant URLs like
      *                 http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/compositions, where compositions is the path where you want compositions to be stored.
@@ -84,9 +84,9 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
     /**
      * Identity of the external location where the compositions should be stored. We
      * only support DNS-compliant URLs like
-     * `http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/compositions`, 
+     * `http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/compositions`,
      * where `compositions` is the path where you want compositions to be stored..
-     * 
+     *
      * @param awsS3Url Identity of the external location where the compositions
      *                 should be stored. We only support DNS-compliant URLs like
      *                 http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/compositions, where compositions is the path where you want compositions to be stored.
@@ -100,7 +100,7 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
      * `true|false` When set to `true`, all Compositions will be written to the
      * `AwsS3Url` specified above. When set to `false`, all Compositions will be
      * stored in Twilio's cloud..
-     * 
+     *
      * @param awsStorageEnabled true|false When set to true, all Compositions will
      *                          be written to the AwsS3Url specified above. When set
      *                          to false, all Compositions will be stored in
@@ -115,7 +115,7 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
     /**
      * `true|false` When set to `true`, all Compositions will be stored encrypted.
      * Dafault value is `false`.
-     * 
+     *
      * @param encryptionEnabled true|false When set to true, all Compositions will
      *                          be stored encrypted.
      * @return this
@@ -127,7 +127,7 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created CompositionSettings
      */
@@ -166,7 +166,7 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

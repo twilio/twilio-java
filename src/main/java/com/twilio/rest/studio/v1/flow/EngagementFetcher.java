@@ -23,11 +23,11 @@ public class EngagementFetcher extends Fetcher<Engagement> {
 
     /**
      * Construct a new EngagementFetcher.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      * @param pathSid Engagement Sid.
      */
-    public EngagementFetcher(final String pathFlowSid, 
+    public EngagementFetcher(final String pathFlowSid,
                              final String pathSid) {
         this.pathFlowSid = pathFlowSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class EngagementFetcher extends Fetcher<Engagement> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Engagement
      */

@@ -42,7 +42,7 @@ public class CompositionTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.VIDEO.toString(),
                                           "/v1/Compositions/CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class CompositionTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.VIDEO.toString(),
                                           "/v1/Compositions");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -130,7 +130,7 @@ public class CompositionTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.VIDEO.toString(),
                                           "/v1/Compositions/CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

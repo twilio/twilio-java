@@ -23,7 +23,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
 
     /**
      * Construct a new CredentialListCreator.
-     * 
+     *
      * @param friendlyName Human readable descriptive text
      */
     public CredentialListCreator(final String friendlyName) {
@@ -32,12 +32,12 @@ public class CredentialListCreator extends Creator<CredentialList> {
 
     /**
      * Construct a new CredentialListCreator.
-     * 
+     *
      * @param pathAccountSid The unique id of the Account that is responsible for
      *                       this resource.
      * @param friendlyName Human readable descriptive text
      */
-    public CredentialListCreator(final String pathAccountSid, 
+    public CredentialListCreator(final String pathAccountSid,
                                  final String friendlyName) {
         this.pathAccountSid = pathAccountSid;
         this.friendlyName = friendlyName;
@@ -45,7 +45,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created CredentialList
      */
@@ -85,7 +85,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

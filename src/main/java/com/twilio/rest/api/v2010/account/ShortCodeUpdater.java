@@ -32,7 +32,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
 
     /**
      * Construct a new ShortCodeUpdater.
-     * 
+     *
      * @param pathSid The unique string that identifies this resource
      */
     public ShortCodeUpdater(final String pathSid) {
@@ -41,12 +41,12 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
 
     /**
      * Construct a new ShortCodeUpdater.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       update
      * @param pathSid The unique string that identifies this resource
      */
-    public ShortCodeUpdater(final String pathAccountSid, 
+    public ShortCodeUpdater(final String pathAccountSid,
                             final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -55,7 +55,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     /**
      * A descriptive string that you created to describe this resource. It can be up
      * to 64 characters long. By default, the `FriendlyName` is the short code..
-     * 
+     *
      * @param friendlyName A string to describe this resource
      * @return this
      */
@@ -67,7 +67,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     /**
      * The API version to use to start a new TwiML session. Can be: `2010-04-01` or
      * `2008-08-01`..
-     * 
+     *
      * @param apiVersion The API version to use to start a new TwiML session
      * @return this
      */
@@ -79,7 +79,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     /**
      * The URL we should call when receiving an incoming SMS message to this short
      * code..
-     * 
+     *
      * @param smsUrl URL Twilio will request when receiving an SMS
      * @return this
      */
@@ -91,7 +91,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     /**
      * The URL we should call when receiving an incoming SMS message to this short
      * code..
-     * 
+     *
      * @param smsUrl URL Twilio will request when receiving an SMS
      * @return this
      */
@@ -102,7 +102,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     /**
      * The HTTP method we should use when calling the `sms_url`. Can be: `GET` or
      * `POST`..
-     * 
+     *
      * @param smsMethod HTTP method to use when requesting the sms url
      * @return this
      */
@@ -114,7 +114,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     /**
      * The URL that we should call if an error occurs while retrieving or executing
      * the TwiML from `sms_url`..
-     * 
+     *
      * @param smsFallbackUrl URL Twilio will request if an error occurs in
      *                       executing TwiML
      * @return this
@@ -127,7 +127,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     /**
      * The URL that we should call if an error occurs while retrieving or executing
      * the TwiML from `sms_url`..
-     * 
+     *
      * @param smsFallbackUrl URL Twilio will request if an error occurs in
      *                       executing TwiML
      * @return this
@@ -139,7 +139,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     /**
      * The HTTP method that we should use to call the `sms_fallback_url`. Can be:
      * `GET` or `POST`..
-     * 
+     *
      * @param smsFallbackMethod HTTP method Twilio will use with sms_fallback_url
      * @return this
      */
@@ -150,7 +150,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated ShortCode
      */
@@ -190,7 +190,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

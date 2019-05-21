@@ -37,19 +37,19 @@ public class SigningKey extends Resource {
 
     /**
      * Create a SigningKeyFetcher to execute fetch.
-     * 
+     *
      * @param pathAccountSid The account_sid
      * @param pathSid The sid
      * @return SigningKeyFetcher capable of executing the fetch
      */
-    public static SigningKeyFetcher fetcher(final String pathAccountSid, 
+    public static SigningKeyFetcher fetcher(final String pathAccountSid,
                                             final String pathSid) {
         return new SigningKeyFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a SigningKeyFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The sid
      * @return SigningKeyFetcher capable of executing the fetch
      */
@@ -59,19 +59,19 @@ public class SigningKey extends Resource {
 
     /**
      * Create a SigningKeyUpdater to execute update.
-     * 
+     *
      * @param pathAccountSid The account_sid
      * @param pathSid The sid
      * @return SigningKeyUpdater capable of executing the update
      */
-    public static SigningKeyUpdater updater(final String pathAccountSid, 
+    public static SigningKeyUpdater updater(final String pathAccountSid,
                                             final String pathSid) {
         return new SigningKeyUpdater(pathAccountSid, pathSid);
     }
 
     /**
      * Create a SigningKeyUpdater to execute update.
-     * 
+     *
      * @param pathSid The sid
      * @return SigningKeyUpdater capable of executing the update
      */
@@ -81,19 +81,19 @@ public class SigningKey extends Resource {
 
     /**
      * Create a SigningKeyDeleter to execute delete.
-     * 
+     *
      * @param pathAccountSid The account_sid
      * @param pathSid The sid
      * @return SigningKeyDeleter capable of executing the delete
      */
-    public static SigningKeyDeleter deleter(final String pathAccountSid, 
+    public static SigningKeyDeleter deleter(final String pathAccountSid,
                                             final String pathSid) {
         return new SigningKeyDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a SigningKeyDeleter to execute delete.
-     * 
+     *
      * @param pathSid The sid
      * @return SigningKeyDeleter capable of executing the delete
      */
@@ -103,7 +103,7 @@ public class SigningKey extends Resource {
 
     /**
      * Create a SigningKeyReader to execute read.
-     * 
+     *
      * @param pathAccountSid The account_sid
      * @return SigningKeyReader capable of executing the read
      */
@@ -113,7 +113,7 @@ public class SigningKey extends Resource {
 
     /**
      * Create a SigningKeyReader to execute read.
-     * 
+     *
      * @return SigningKeyReader capable of executing the read
      */
     public static SigningKeyReader reader() {
@@ -123,7 +123,7 @@ public class SigningKey extends Resource {
     /**
      * Converts a JSON String into a SigningKey object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SigningKey object represented by the provided JSON
@@ -142,7 +142,7 @@ public class SigningKey extends Resource {
     /**
      * Converts a JSON InputStream into a SigningKey object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SigningKey object represented by the provided JSON
@@ -165,11 +165,11 @@ public class SigningKey extends Resource {
 
     @JsonCreator
     private SigningKey(@JsonProperty("sid")
-                       final String sid, 
+                       final String sid,
                        @JsonProperty("friendly_name")
-                       final String friendlyName, 
+                       final String friendlyName,
                        @JsonProperty("date_created")
-                       final String dateCreated, 
+                       final String dateCreated,
                        @JsonProperty("date_updated")
                        final String dateUpdated) {
         this.sid = sid;
@@ -180,7 +180,7 @@ public class SigningKey extends Resource {
 
     /**
      * Returns The The sid.
-     * 
+     *
      * @return The sid
      */
     public final String getSid() {
@@ -189,7 +189,7 @@ public class SigningKey extends Resource {
 
     /**
      * Returns The The friendly_name.
-     * 
+     *
      * @return The friendly_name
      */
     public final String getFriendlyName() {
@@ -198,7 +198,7 @@ public class SigningKey extends Resource {
 
     /**
      * Returns The The date_created.
-     * 
+     *
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -207,7 +207,7 @@ public class SigningKey extends Resource {
 
     /**
      * Returns The The date_updated.
-     * 
+     *
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -226,9 +226,9 @@ public class SigningKey extends Resource {
 
         SigningKey other = (SigningKey) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated);
     }
 

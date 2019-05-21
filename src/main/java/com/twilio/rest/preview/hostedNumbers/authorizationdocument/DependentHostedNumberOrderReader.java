@@ -35,7 +35,7 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
 
     /**
      * Construct a new DependentHostedNumberOrderReader.
-     * 
+     *
      * @param pathSigningDocumentSid The signing_document_sid
      */
     public DependentHostedNumberOrderReader(final String pathSigningDocumentSid) {
@@ -47,7 +47,7 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
      * signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled
      * [Status
      * Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses..
-     * 
+     *
      * @param status The Status of this HostedNumberOrder.
      * @return this
      */
@@ -58,7 +58,7 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
 
     /**
      * An E164 formatted phone number hosted by this HostedNumberOrder..
-     * 
+     *
      * @param phoneNumber An E164 formatted phone number.
      * @return this
      */
@@ -69,7 +69,7 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
 
     /**
      * An E164 formatted phone number hosted by this HostedNumberOrder..
-     * 
+     *
      * @param phoneNumber An E164 formatted phone number.
      * @return this
      */
@@ -80,7 +80,7 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
     /**
      * A 34 character string that uniquely identifies the IncomingPhoneNumber
      * resource created by this HostedNumberOrder..
-     * 
+     *
      * @param incomingPhoneNumberSid IncomingPhoneNumber sid.
      * @return this
      */
@@ -91,7 +91,7 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
 
     /**
      * A human readable description of this resource, up to 64 characters..
-     * 
+     *
      * @param friendlyName A human readable description of this resource.
      * @return this
      */
@@ -104,7 +104,7 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
      * Provides a unique and addressable name to be assigned to this
      * HostedNumberOrder, assigned by the developer, to be optionally used in
      * addition to SID..
-     * 
+     *
      * @param uniqueName A unique, developer assigned name of this
      *                   HostedNumberOrder.
      * @return this
@@ -116,7 +116,7 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return DependentHostedNumberOrder ResourceSet
      */
@@ -127,7 +127,7 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return DependentHostedNumberOrder ResourceSet
      */
@@ -147,7 +147,7 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return DependentHostedNumberOrder ResourceSet
@@ -165,13 +165,13 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<DependentHostedNumberOrder> nextPage(final Page<DependentHostedNumberOrder> page, 
+    public Page<DependentHostedNumberOrder> nextPage(final Page<DependentHostedNumberOrder> page,
                                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -185,13 +185,13 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<DependentHostedNumberOrder> previousPage(final Page<DependentHostedNumberOrder> page, 
+    public Page<DependentHostedNumberOrder> previousPage(final Page<DependentHostedNumberOrder> page,
                                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -205,7 +205,7 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
 
     /**
      * Generate a Page of DependentHostedNumberOrder Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -240,7 +240,7 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

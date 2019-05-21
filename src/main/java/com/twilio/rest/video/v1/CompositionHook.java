@@ -71,7 +71,7 @@ public class CompositionHook extends Resource {
 
     /**
      * Create a CompositionHookFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The Composition Hook Sid that uniquely identifies the
      *                Composition Hook to fetch.
      * @return CompositionHookFetcher capable of executing the fetch
@@ -82,7 +82,7 @@ public class CompositionHook extends Resource {
 
     /**
      * Create a CompositionHookReader to execute read.
-     * 
+     *
      * @return CompositionHookReader capable of executing the read
      */
     public static CompositionHookReader reader() {
@@ -91,7 +91,7 @@ public class CompositionHook extends Resource {
 
     /**
      * Create a CompositionHookDeleter to execute delete.
-     * 
+     *
      * @param pathSid The Recording Composition Hook Sid that uniquely identifies
      *                the Recording Composition Hook to delete.
      * @return CompositionHookDeleter capable of executing the delete
@@ -102,7 +102,7 @@ public class CompositionHook extends Resource {
 
     /**
      * Create a CompositionHookCreator to execute create.
-     * 
+     *
      * @param friendlyName Friendly name of the Composition Hook to be shown in the
      *                     console.
      * @return CompositionHookCreator capable of executing the create
@@ -113,14 +113,14 @@ public class CompositionHook extends Resource {
 
     /**
      * Create a CompositionHookUpdater to execute update.
-     * 
+     *
      * @param pathSid A 34-character string that uniquely identifies the
      *                Composition Hook to update, specified as a path parameter.
      * @param friendlyName Friendly name of the Composition Hook to be shown in the
      *                     console.
      * @return CompositionHookUpdater capable of executing the update
      */
-    public static CompositionHookUpdater updater(final String pathSid, 
+    public static CompositionHookUpdater updater(final String pathSid,
                                                  final String friendlyName) {
         return new CompositionHookUpdater(pathSid, friendlyName);
     }
@@ -128,7 +128,7 @@ public class CompositionHook extends Resource {
     /**
      * Converts a JSON String into a CompositionHook object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return CompositionHook object represented by the provided JSON
@@ -147,7 +147,7 @@ public class CompositionHook extends Resource {
     /**
      * Converts a JSON InputStream into a CompositionHook object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return CompositionHook object represented by the provided JSON
@@ -181,33 +181,33 @@ public class CompositionHook extends Resource {
 
     @JsonCreator
     private CompositionHook(@JsonProperty("account_sid")
-                            final String accountSid, 
+                            final String accountSid,
                             @JsonProperty("friendly_name")
-                            final String friendlyName, 
+                            final String friendlyName,
                             @JsonProperty("enabled")
-                            final Boolean enabled, 
+                            final Boolean enabled,
                             @JsonProperty("date_created")
-                            final String dateCreated, 
+                            final String dateCreated,
                             @JsonProperty("date_updated")
-                            final String dateUpdated, 
+                            final String dateUpdated,
                             @JsonProperty("sid")
-                            final String sid, 
+                            final String sid,
                             @JsonProperty("audio_sources")
-                            final List<String> audioSources, 
+                            final List<String> audioSources,
                             @JsonProperty("audio_sources_excluded")
-                            final List<String> audioSourcesExcluded, 
+                            final List<String> audioSourcesExcluded,
                             @JsonProperty("video_layout")
-                            final Map<String, Object> videoLayout, 
+                            final Map<String, Object> videoLayout,
                             @JsonProperty("resolution")
-                            final String resolution, 
+                            final String resolution,
                             @JsonProperty("trim")
-                            final Boolean trim, 
+                            final Boolean trim,
                             @JsonProperty("format")
-                            final CompositionHook.Format format, 
+                            final CompositionHook.Format format,
                             @JsonProperty("status_callback")
-                            final String statusCallback, 
+                            final String statusCallback,
                             @JsonProperty("status_callback_method")
-                            final HttpMethod statusCallbackMethod, 
+                            final HttpMethod statusCallbackMethod,
                             @JsonProperty("url")
                             final URI url) {
         this.accountSid = accountSid;
@@ -229,7 +229,7 @@ public class CompositionHook extends Resource {
 
     /**
      * Returns The Twilio Account SID..
-     * 
+     *
      * @return Twilio Account SID.
      */
     public final String getAccountSid() {
@@ -239,7 +239,7 @@ public class CompositionHook extends Resource {
     /**
      * Returns The Friendly name of the Composition Hook to be shown in the
      * console..
-     * 
+     *
      * @return Friendly name of the Composition Hook to be shown in the console.
      */
     public final String getFriendlyName() {
@@ -248,7 +248,7 @@ public class CompositionHook extends Resource {
 
     /**
      * Returns The Boolean flag indicating if the Composition Hook is active..
-     * 
+     *
      * @return Boolean flag indicating if the Composition Hook is active.
      */
     public final Boolean getEnabled() {
@@ -257,7 +257,7 @@ public class CompositionHook extends Resource {
 
     /**
      * Returns The Date when the Composition Hook Resource was created..
-     * 
+     *
      * @return Date when the Composition Hook Resource was created.
      */
     public final DateTime getDateCreated() {
@@ -266,7 +266,7 @@ public class CompositionHook extends Resource {
 
     /**
      * Returns The Date when the Composition Hook was last updated..
-     * 
+     *
      * @return Date when the Composition Hook was last updated.
      */
     public final String getDateUpdated() {
@@ -276,7 +276,7 @@ public class CompositionHook extends Resource {
     /**
      * Returns The A 34-character string that uniquely identifies this Composition
      * Hook..
-     * 
+     *
      * @return A 34-character string that uniquely identifies this Composition Hook.
      */
     public final String getSid() {
@@ -285,7 +285,7 @@ public class CompositionHook extends Resource {
 
     /**
      * Returns The A list of audio sources related to this Composition Hook..
-     * 
+     *
      * @return A list of audio sources related to this Composition Hook.
      */
     public final List<String> getAudioSources() {
@@ -295,7 +295,7 @@ public class CompositionHook extends Resource {
     /**
      * Returns The A list of audio sources excluded related to this Composition
      * Hook..
-     * 
+     *
      * @return A list of audio sources excluded related to this Composition Hook.
      */
     public final List<String> getAudioSourcesExcluded() {
@@ -304,7 +304,7 @@ public class CompositionHook extends Resource {
 
     /**
      * Returns The The JSON video layout description..
-     * 
+     *
      * @return The JSON video layout description.
      */
     public final Map<String, Object> getVideoLayout() {
@@ -313,7 +313,7 @@ public class CompositionHook extends Resource {
 
     /**
      * Returns The Pixel resolution of the composed video..
-     * 
+     *
      * @return Pixel resolution of the composed video.
      */
     public final String getResolution() {
@@ -322,7 +322,7 @@ public class CompositionHook extends Resource {
 
     /**
      * Returns The Boolean flag for clipping intervals that have no media..
-     * 
+     *
      * @return Boolean flag for clipping intervals that have no media.
      */
     public final Boolean getTrim() {
@@ -332,7 +332,7 @@ public class CompositionHook extends Resource {
     /**
      * Returns The The file format for the Compositions triggered by the Composition
      * Hook..
-     * 
+     *
      * @return The file format for the Compositions triggered by the Composition
      *         Hook.
      */
@@ -343,7 +343,7 @@ public class CompositionHook extends Resource {
     /**
      * Returns The A URL that Twilio sends asynchronous webhook requests to on every
      * composition event..
-     * 
+     *
      * @return A URL that Twilio sends asynchronous webhook requests to on every
      *         composition event.
      */
@@ -353,7 +353,7 @@ public class CompositionHook extends Resource {
 
     /**
      * Returns The HTTP method Twilio should use when requesting the above URL..
-     * 
+     *
      * @return HTTP method Twilio should use when requesting the above URL.
      */
     public final HttpMethod getStatusCallbackMethod() {
@@ -362,7 +362,7 @@ public class CompositionHook extends Resource {
 
     /**
      * Returns The The absolute URL for this resource..
-     * 
+     *
      * @return The absolute URL for this resource.
      */
     public final URI getUrl() {
@@ -381,20 +381,20 @@ public class CompositionHook extends Resource {
 
         CompositionHook other = (CompositionHook) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(enabled, other.enabled) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(audioSources, other.audioSources) && 
-               Objects.equals(audioSourcesExcluded, other.audioSourcesExcluded) && 
-               Objects.equals(videoLayout, other.videoLayout) && 
-               Objects.equals(resolution, other.resolution) && 
-               Objects.equals(trim, other.trim) && 
-               Objects.equals(format, other.format) && 
-               Objects.equals(statusCallback, other.statusCallback) && 
-               Objects.equals(statusCallbackMethod, other.statusCallbackMethod) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(enabled, other.enabled) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(audioSources, other.audioSources) &&
+               Objects.equals(audioSourcesExcluded, other.audioSourcesExcluded) &&
+               Objects.equals(videoLayout, other.videoLayout) &&
+               Objects.equals(resolution, other.resolution) &&
+               Objects.equals(trim, other.trim) &&
+               Objects.equals(format, other.format) &&
+               Objects.equals(statusCallback, other.statusCallback) &&
+               Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
                Objects.equals(url, other.url);
     }
 

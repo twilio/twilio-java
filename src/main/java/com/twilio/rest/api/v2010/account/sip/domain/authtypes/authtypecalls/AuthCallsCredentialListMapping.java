@@ -37,7 +37,7 @@ public class AuthCallsCredentialListMapping extends Resource {
 
     /**
      * Create a AuthCallsCredentialListMappingCreator to execute create.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param pathDomainSid The SID of the SIP domain that will contain the new
      *                      resource
@@ -45,43 +45,43 @@ public class AuthCallsCredentialListMapping extends Resource {
      *                          the SIP domain
      * @return AuthCallsCredentialListMappingCreator capable of executing the create
      */
-    public static AuthCallsCredentialListMappingCreator creator(final String pathAccountSid, 
-                                                                final String pathDomainSid, 
+    public static AuthCallsCredentialListMappingCreator creator(final String pathAccountSid,
+                                                                final String pathDomainSid,
                                                                 final String credentialListSid) {
         return new AuthCallsCredentialListMappingCreator(pathAccountSid, pathDomainSid, credentialListSid);
     }
 
     /**
      * Create a AuthCallsCredentialListMappingCreator to execute create.
-     * 
+     *
      * @param pathDomainSid The SID of the SIP domain that will contain the new
      *                      resource
      * @param credentialListSid The SID of the CredentialList resource to map to
      *                          the SIP domain
      * @return AuthCallsCredentialListMappingCreator capable of executing the create
      */
-    public static AuthCallsCredentialListMappingCreator creator(final String pathDomainSid, 
+    public static AuthCallsCredentialListMappingCreator creator(final String pathDomainSid,
                                                                 final String credentialListSid) {
         return new AuthCallsCredentialListMappingCreator(pathDomainSid, credentialListSid);
     }
 
     /**
      * Create a AuthCallsCredentialListMappingReader to execute read.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       read
      * @param pathDomainSid The SID of the SIP domain that contains the resources
      *                      to read
      * @return AuthCallsCredentialListMappingReader capable of executing the read
      */
-    public static AuthCallsCredentialListMappingReader reader(final String pathAccountSid, 
+    public static AuthCallsCredentialListMappingReader reader(final String pathAccountSid,
                                                               final String pathDomainSid) {
         return new AuthCallsCredentialListMappingReader(pathAccountSid, pathDomainSid);
     }
 
     /**
      * Create a AuthCallsCredentialListMappingReader to execute read.
-     * 
+     *
      * @param pathDomainSid The SID of the SIP domain that contains the resources
      *                      to read
      * @return AuthCallsCredentialListMappingReader capable of executing the read
@@ -92,7 +92,7 @@ public class AuthCallsCredentialListMapping extends Resource {
 
     /**
      * Create a AuthCallsCredentialListMappingFetcher to execute fetch.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource to
      *                       fetch
      * @param pathDomainSid The SID of the SIP domain that contains the resource to
@@ -100,28 +100,28 @@ public class AuthCallsCredentialListMapping extends Resource {
      * @param pathSid The unique string that identifies the resource
      * @return AuthCallsCredentialListMappingFetcher capable of executing the fetch
      */
-    public static AuthCallsCredentialListMappingFetcher fetcher(final String pathAccountSid, 
-                                                                final String pathDomainSid, 
+    public static AuthCallsCredentialListMappingFetcher fetcher(final String pathAccountSid,
+                                                                final String pathDomainSid,
                                                                 final String pathSid) {
         return new AuthCallsCredentialListMappingFetcher(pathAccountSid, pathDomainSid, pathSid);
     }
 
     /**
      * Create a AuthCallsCredentialListMappingFetcher to execute fetch.
-     * 
+     *
      * @param pathDomainSid The SID of the SIP domain that contains the resource to
      *                      fetch
      * @param pathSid The unique string that identifies the resource
      * @return AuthCallsCredentialListMappingFetcher capable of executing the fetch
      */
-    public static AuthCallsCredentialListMappingFetcher fetcher(final String pathDomainSid, 
+    public static AuthCallsCredentialListMappingFetcher fetcher(final String pathDomainSid,
                                                                 final String pathSid) {
         return new AuthCallsCredentialListMappingFetcher(pathDomainSid, pathSid);
     }
 
     /**
      * Create a AuthCallsCredentialListMappingDeleter to execute delete.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       delete
      * @param pathDomainSid The SID of the SIP domain that contains the resource to
@@ -129,21 +129,21 @@ public class AuthCallsCredentialListMapping extends Resource {
      * @param pathSid The unique string that identifies the resource
      * @return AuthCallsCredentialListMappingDeleter capable of executing the delete
      */
-    public static AuthCallsCredentialListMappingDeleter deleter(final String pathAccountSid, 
-                                                                final String pathDomainSid, 
+    public static AuthCallsCredentialListMappingDeleter deleter(final String pathAccountSid,
+                                                                final String pathDomainSid,
                                                                 final String pathSid) {
         return new AuthCallsCredentialListMappingDeleter(pathAccountSid, pathDomainSid, pathSid);
     }
 
     /**
      * Create a AuthCallsCredentialListMappingDeleter to execute delete.
-     * 
+     *
      * @param pathDomainSid The SID of the SIP domain that contains the resource to
      *                      delete
      * @param pathSid The unique string that identifies the resource
      * @return AuthCallsCredentialListMappingDeleter capable of executing the delete
      */
-    public static AuthCallsCredentialListMappingDeleter deleter(final String pathDomainSid, 
+    public static AuthCallsCredentialListMappingDeleter deleter(final String pathDomainSid,
                                                                 final String pathSid) {
         return new AuthCallsCredentialListMappingDeleter(pathDomainSid, pathSid);
     }
@@ -151,7 +151,7 @@ public class AuthCallsCredentialListMapping extends Resource {
     /**
      * Converts a JSON String into a AuthCallsCredentialListMapping object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AuthCallsCredentialListMapping object represented by the provided
@@ -171,7 +171,7 @@ public class AuthCallsCredentialListMapping extends Resource {
     /**
      * Converts a JSON InputStream into a AuthCallsCredentialListMapping object
      * using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AuthCallsCredentialListMapping object represented by the provided
@@ -196,13 +196,13 @@ public class AuthCallsCredentialListMapping extends Resource {
 
     @JsonCreator
     private AuthCallsCredentialListMapping(@JsonProperty("account_sid")
-                                           final String accountSid, 
+                                           final String accountSid,
                                            @JsonProperty("date_created")
-                                           final String dateCreated, 
+                                           final String dateCreated,
                                            @JsonProperty("date_updated")
-                                           final String dateUpdated, 
+                                           final String dateUpdated,
                                            @JsonProperty("friendly_name")
-                                           final String friendlyName, 
+                                           final String friendlyName,
                                            @JsonProperty("sid")
                                            final String sid) {
         this.accountSid = accountSid;
@@ -214,7 +214,7 @@ public class AuthCallsCredentialListMapping extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -223,7 +223,7 @@ public class AuthCallsCredentialListMapping extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT that the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
@@ -233,7 +233,7 @@ public class AuthCallsCredentialListMapping extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT that the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -242,7 +242,7 @@ public class AuthCallsCredentialListMapping extends Resource {
 
     /**
      * Returns The The string that you assigned to describe the resource.
-     * 
+     *
      * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
@@ -251,7 +251,7 @@ public class AuthCallsCredentialListMapping extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -270,10 +270,10 @@ public class AuthCallsCredentialListMapping extends Resource {
 
         AuthCallsCredentialListMapping other = (AuthCallsCredentialListMapping) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
                Objects.equals(sid, other.sid);
     }
 

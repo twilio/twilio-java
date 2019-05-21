@@ -96,7 +96,7 @@ public class Webhook extends Resource {
 
     /**
      * Create a WebhookReader to execute read.
-     * 
+     *
      * @param pathSessionSid The unique id of the Session for this webhook.
      * @return WebhookReader capable of executing the read
      */
@@ -106,55 +106,55 @@ public class Webhook extends Resource {
 
     /**
      * Create a WebhookFetcher to execute fetch.
-     * 
+     *
      * @param pathSessionSid The unique id of the Session for this webhook.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return WebhookFetcher capable of executing the fetch
      */
-    public static WebhookFetcher fetcher(final String pathSessionSid, 
+    public static WebhookFetcher fetcher(final String pathSessionSid,
                                          final String pathSid) {
         return new WebhookFetcher(pathSessionSid, pathSid);
     }
 
     /**
      * Create a WebhookCreator to execute create.
-     * 
+     *
      * @param pathSessionSid The unique id of the Session for this webhook.
      * @param target The target of this webhook.
      * @return WebhookCreator capable of executing the create
      */
-    public static WebhookCreator creator(final String pathSessionSid, 
+    public static WebhookCreator creator(final String pathSessionSid,
                                          final Webhook.Target target) {
         return new WebhookCreator(pathSessionSid, target);
     }
 
     /**
      * Create a WebhookUpdater to execute update.
-     * 
+     *
      * @param pathSessionSid The unique id of the Session for this webhook.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return WebhookUpdater capable of executing the update
      */
-    public static WebhookUpdater updater(final String pathSessionSid, 
+    public static WebhookUpdater updater(final String pathSessionSid,
                                          final String pathSid) {
         return new WebhookUpdater(pathSessionSid, pathSid);
     }
 
     /**
      * Create a WebhookDeleter to execute delete.
-     * 
+     *
      * @param pathSessionSid The unique id of the Session for this webhook.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return WebhookDeleter capable of executing the delete
      */
-    public static WebhookDeleter deleter(final String pathSessionSid, 
+    public static WebhookDeleter deleter(final String pathSessionSid,
                                          final String pathSid) {
         return new WebhookDeleter(pathSessionSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a Webhook object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Webhook object represented by the provided JSON
@@ -173,7 +173,7 @@ public class Webhook extends Resource {
     /**
      * Converts a JSON InputStream into a Webhook object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Webhook object represented by the provided JSON
@@ -200,19 +200,19 @@ public class Webhook extends Resource {
 
     @JsonCreator
     private Webhook(@JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("session_sid")
-                    final String sessionSid, 
+                    final String sessionSid,
                     @JsonProperty("target")
-                    final String target, 
+                    final String target,
                     @JsonProperty("url")
-                    final URI url, 
+                    final URI url,
                     @JsonProperty("configuration")
-                    final Map<String, Object> configuration, 
+                    final Map<String, Object> configuration,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
                     final String dateUpdated) {
         this.sid = sid;
@@ -227,7 +227,7 @@ public class Webhook extends Resource {
 
     /**
      * Returns The A 34 character string that uniquely identifies this resource..
-     * 
+     *
      * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
@@ -236,7 +236,7 @@ public class Webhook extends Resource {
 
     /**
      * Returns The The unique id of the Account responsible for this session..
-     * 
+     *
      * @return The unique id of the Account responsible for this session.
      */
     public final String getAccountSid() {
@@ -245,7 +245,7 @@ public class Webhook extends Resource {
 
     /**
      * Returns The The unique id of the Session for this webhook..
-     * 
+     *
      * @return The unique id of the Session for this webhook.
      */
     public final String getSessionSid() {
@@ -254,7 +254,7 @@ public class Webhook extends Resource {
 
     /**
      * Returns The The target of this webhook..
-     * 
+     *
      * @return The target of this webhook.
      */
     public final String getTarget() {
@@ -263,7 +263,7 @@ public class Webhook extends Resource {
 
     /**
      * Returns The An absolute URL for this webhook..
-     * 
+     *
      * @return An absolute URL for this webhook.
      */
     public final URI getUrl() {
@@ -272,7 +272,7 @@ public class Webhook extends Resource {
 
     /**
      * Returns The The configuration of this webhook..
-     * 
+     *
      * @return The configuration of this webhook.
      */
     public final Map<String, Object> getConfiguration() {
@@ -281,7 +281,7 @@ public class Webhook extends Resource {
 
     /**
      * Returns The The date that this resource was created..
-     * 
+     *
      * @return The date that this resource was created.
      */
     public final DateTime getDateCreated() {
@@ -290,7 +290,7 @@ public class Webhook extends Resource {
 
     /**
      * Returns The The date that this resource was last updated..
-     * 
+     *
      * @return The date that this resource was last updated.
      */
     public final DateTime getDateUpdated() {
@@ -309,13 +309,13 @@ public class Webhook extends Resource {
 
         Webhook other = (Webhook) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(sessionSid, other.sessionSid) && 
-               Objects.equals(target, other.target) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(configuration, other.configuration) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(sessionSid, other.sessionSid) &&
+               Objects.equals(target, other.target) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(configuration, other.configuration) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated);
     }
 

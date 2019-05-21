@@ -67,7 +67,7 @@ public class Configuration extends Resource {
 
     /**
      * Create a ConfigurationFetcher to execute fetch.
-     * 
+     *
      * @return ConfigurationFetcher capable of executing the fetch
      */
     public static ConfigurationFetcher fetcher() {
@@ -76,7 +76,7 @@ public class Configuration extends Resource {
 
     /**
      * Create a ConfigurationCreator to execute create.
-     * 
+     *
      * @return ConfigurationCreator capable of executing the create
      */
     public static ConfigurationCreator creator() {
@@ -85,7 +85,7 @@ public class Configuration extends Resource {
 
     /**
      * Create a ConfigurationUpdater to execute update.
-     * 
+     *
      * @return ConfigurationUpdater capable of executing the update
      */
     public static ConfigurationUpdater updater() {
@@ -95,7 +95,7 @@ public class Configuration extends Resource {
     /**
      * Converts a JSON String into a Configuration object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Configuration object represented by the provided JSON
@@ -114,7 +114,7 @@ public class Configuration extends Resource {
     /**
      * Converts a JSON InputStream into a Configuration object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Configuration object represented by the provided JSON
@@ -164,65 +164,65 @@ public class Configuration extends Resource {
 
     @JsonCreator
     private Configuration(@JsonProperty("account_sid")
-                          final String accountSid, 
+                          final String accountSid,
                           @JsonProperty("date_created")
-                          final String dateCreated, 
+                          final String dateCreated,
                           @JsonProperty("date_updated")
-                          final String dateUpdated, 
+                          final String dateUpdated,
                           @JsonProperty("attributes")
-                          final Map<String, Object> attributes, 
+                          final Map<String, Object> attributes,
                           @JsonProperty("status")
-                          final Configuration.Status status, 
+                          final Configuration.Status status,
                           @JsonProperty("taskrouter_workspace_sid")
-                          final String taskrouterWorkspaceSid, 
+                          final String taskrouterWorkspaceSid,
                           @JsonProperty("taskrouter_target_workflow_sid")
-                          final String taskrouterTargetWorkflowSid, 
+                          final String taskrouterTargetWorkflowSid,
                           @JsonProperty("taskrouter_target_taskqueue_sid")
-                          final String taskrouterTargetTaskqueueSid, 
+                          final String taskrouterTargetTaskqueueSid,
                           @JsonProperty("taskrouter_taskqueues")
-                          final List<Map<String, Object>> taskrouterTaskqueues, 
+                          final List<Map<String, Object>> taskrouterTaskqueues,
                           @JsonProperty("taskrouter_skills")
-                          final List<Map<String, Object>> taskrouterSkills, 
+                          final List<Map<String, Object>> taskrouterSkills,
                           @JsonProperty("taskrouter_worker_channels")
-                          final Map<String, Object> taskrouterWorkerChannels, 
+                          final Map<String, Object> taskrouterWorkerChannels,
                           @JsonProperty("taskrouter_worker_attributes")
-                          final Map<String, Object> taskrouterWorkerAttributes, 
+                          final Map<String, Object> taskrouterWorkerAttributes,
                           @JsonProperty("taskrouter_offline_activity_sid")
-                          final String taskrouterOfflineActivitySid, 
+                          final String taskrouterOfflineActivitySid,
                           @JsonProperty("runtime_domain")
-                          final URI runtimeDomain, 
+                          final URI runtimeDomain,
                           @JsonProperty("messaging_service_instance_sid")
-                          final String messagingServiceInstanceSid, 
+                          final String messagingServiceInstanceSid,
                           @JsonProperty("chat_service_instance_sid")
-                          final String chatServiceInstanceSid, 
+                          final String chatServiceInstanceSid,
                           @JsonProperty("ui_language")
-                          final String uiLanguage, 
+                          final String uiLanguage,
                           @JsonProperty("ui_attributes")
-                          final Map<String, Object> uiAttributes, 
+                          final Map<String, Object> uiAttributes,
                           @JsonProperty("ui_version")
-                          final String uiVersion, 
+                          final String uiVersion,
                           @JsonProperty("service_version")
-                          final String serviceVersion, 
+                          final String serviceVersion,
                           @JsonProperty("call_recording_enabled")
-                          final Boolean callRecordingEnabled, 
+                          final Boolean callRecordingEnabled,
                           @JsonProperty("call_recording_webhook_url")
-                          final URI callRecordingWebhookUrl, 
+                          final URI callRecordingWebhookUrl,
                           @JsonProperty("crm_enabled")
-                          final Boolean crmEnabled, 
+                          final Boolean crmEnabled,
                           @JsonProperty("crm_type")
-                          final String crmType, 
+                          final String crmType,
                           @JsonProperty("crm_callback_url")
-                          final URI crmCallbackUrl, 
+                          final URI crmCallbackUrl,
                           @JsonProperty("crm_fallback_url")
-                          final URI crmFallbackUrl, 
+                          final URI crmFallbackUrl,
                           @JsonProperty("crm_attributes")
-                          final Map<String, Object> crmAttributes, 
+                          final Map<String, Object> crmAttributes,
                           @JsonProperty("public_attributes")
-                          final Map<String, Object> publicAttributes, 
+                          final Map<String, Object> publicAttributes,
                           @JsonProperty("plugin_service_enabled")
-                          final Boolean pluginServiceEnabled, 
+                          final Boolean pluginServiceEnabled,
                           @JsonProperty("plugin_service_attributes")
-                          final Map<String, Object> pluginServiceAttributes, 
+                          final Map<String, Object> pluginServiceAttributes,
                           @JsonProperty("url")
                           final URI url) {
         this.accountSid = accountSid;
@@ -260,7 +260,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The The unique id of the Account responsible for this configuration.
-     * 
+     *
      * @return The unique id of the Account responsible for this configuration
      */
     public final String getAccountSid() {
@@ -270,7 +270,7 @@ public class Configuration extends Resource {
     /**
      * Returns The The time the Configuration was created, given as GMT in ISO 8601
      * format.
-     * 
+     *
      * @return The time the Configuration was created, given as GMT in ISO 8601
      *         format
      */
@@ -281,7 +281,7 @@ public class Configuration extends Resource {
     /**
      * Returns The The time the Configuration was last updated, given as GMT in ISO
      * 8601 format.
-     * 
+     *
      * @return The time the Configuration was last updated, given as GMT in ISO
      *         8601 format
      */
@@ -291,7 +291,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The Attiributes.
-     * 
+     *
      * @return Attiributes
      */
     public final Map<String, Object> getAttributes() {
@@ -300,7 +300,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The Status of the Flex onboarding.
-     * 
+     *
      * @return Status of the Flex onboarding
      */
     public final Configuration.Status getStatus() {
@@ -309,7 +309,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The The unique ID of the TaskRouter Workspace.
-     * 
+     *
      * @return The unique ID of the TaskRouter Workspace
      */
     public final String getTaskrouterWorkspaceSid() {
@@ -318,7 +318,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The The unique ID of the TaskRouter Target Workflow.
-     * 
+     *
      * @return The unique ID of the TaskRouter Target Workflow
      */
     public final String getTaskrouterTargetWorkflowSid() {
@@ -327,7 +327,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The The unique ID of the TaskRouter Target TaskQueue.
-     * 
+     *
      * @return The unique ID of the TaskRouter Target TaskQueue
      */
     public final String getTaskrouterTargetTaskqueueSid() {
@@ -336,7 +336,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The Array of TaskRouter TaskQueues.
-     * 
+     *
      * @return Array of TaskRouter TaskQueues
      */
     public final List<Map<String, Object>> getTaskrouterTaskqueues() {
@@ -345,7 +345,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The Skill description for TaskRouter workers.
-     * 
+     *
      * @return Skill description for TaskRouter workers
      */
     public final List<Map<String, Object>> getTaskrouterSkills() {
@@ -355,7 +355,7 @@ public class Configuration extends Resource {
     /**
      * Returns The TaskRouter default channel capacities and availability for
      * workers.
-     * 
+     *
      * @return TaskRouter default channel capacities and availability for workers
      */
     public final Map<String, Object> getTaskrouterWorkerChannels() {
@@ -364,7 +364,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The The taskrouter_worker_attributes.
-     * 
+     *
      * @return The taskrouter_worker_attributes
      */
     public final Map<String, Object> getTaskrouterWorkerAttributes() {
@@ -373,7 +373,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The The unique ID of the offline activity.
-     * 
+     *
      * @return The unique ID of the offline activity
      */
     public final String getTaskrouterOfflineActivitySid() {
@@ -382,7 +382,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The Flex resources hosting URL for the main UI.
-     * 
+     *
      * @return Flex resources hosting URL for the main UI
      */
     public final URI getRuntimeDomain() {
@@ -391,7 +391,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The Unique 34 character ID of the Messaging Service.
-     * 
+     *
      * @return Unique 34 character ID of the Messaging Service
      */
     public final String getMessagingServiceInstanceSid() {
@@ -400,7 +400,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The The unique id of the Chat Service this user belongs to.
-     * 
+     *
      * @return The unique id of the Chat Service this user belongs to
      */
     public final String getChatServiceInstanceSid() {
@@ -409,7 +409,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The Main language of the Flex UI.
-     * 
+     *
      * @return Main language of the Flex UI
      */
     public final String getUiLanguage() {
@@ -418,7 +418,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The UI Attributes.
-     * 
+     *
      * @return UI Attributes
      */
     public final Map<String, Object> getUiAttributes() {
@@ -427,7 +427,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The Pinned UI version.
-     * 
+     *
      * @return Pinned UI version
      */
     public final String getUiVersion() {
@@ -436,7 +436,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The Flex Service version.
-     * 
+     *
      * @return Flex Service version
      */
     public final String getServiceVersion() {
@@ -445,7 +445,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The Call recording enabled.
-     * 
+     *
      * @return Call recording enabled
      */
     public final Boolean getCallRecordingEnabled() {
@@ -454,7 +454,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The Call recording webhook url.
-     * 
+     *
      * @return Call recording webhook url
      */
     public final URI getCallRecordingWebhookUrl() {
@@ -463,7 +463,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The Flag indicating whether CRM is present for Flex.
-     * 
+     *
      * @return Flag indicating whether CRM is present for Flex
      */
     public final Boolean getCrmEnabled() {
@@ -472,7 +472,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The CRM Type.
-     * 
+     *
      * @return CRM Type
      */
     public final String getCrmType() {
@@ -481,7 +481,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The CRM Callback URL.
-     * 
+     *
      * @return CRM Callback URL
      */
     public final URI getCrmCallbackUrl() {
@@ -490,7 +490,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The CRM Fallback URL.
-     * 
+     *
      * @return CRM Fallback URL
      */
     public final URI getCrmFallbackUrl() {
@@ -499,7 +499,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The CRM Attributes.
-     * 
+     *
      * @return CRM Attributes
      */
     public final Map<String, Object> getCrmAttributes() {
@@ -508,7 +508,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The Public Attributes.
-     * 
+     *
      * @return Public Attributes
      */
     public final Map<String, Object> getPublicAttributes() {
@@ -517,7 +517,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The Is plugin service Enabled.
-     * 
+     *
      * @return Is plugin service Enabled
      */
     public final Boolean getPluginServiceEnabled() {
@@ -526,7 +526,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The Plugin service Attributes.
-     * 
+     *
      * @return Plugin service Attributes
      */
     public final Map<String, Object> getPluginServiceAttributes() {
@@ -535,7 +535,7 @@ public class Configuration extends Resource {
 
     /**
      * Returns The The URL for this resource.
-     * 
+     *
      * @return The URL for this resource
      */
     public final URI getUrl() {
@@ -554,36 +554,36 @@ public class Configuration extends Resource {
 
         Configuration other = (Configuration) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(attributes, other.attributes) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(taskrouterWorkspaceSid, other.taskrouterWorkspaceSid) && 
-               Objects.equals(taskrouterTargetWorkflowSid, other.taskrouterTargetWorkflowSid) && 
-               Objects.equals(taskrouterTargetTaskqueueSid, other.taskrouterTargetTaskqueueSid) && 
-               Objects.equals(taskrouterTaskqueues, other.taskrouterTaskqueues) && 
-               Objects.equals(taskrouterSkills, other.taskrouterSkills) && 
-               Objects.equals(taskrouterWorkerChannels, other.taskrouterWorkerChannels) && 
-               Objects.equals(taskrouterWorkerAttributes, other.taskrouterWorkerAttributes) && 
-               Objects.equals(taskrouterOfflineActivitySid, other.taskrouterOfflineActivitySid) && 
-               Objects.equals(runtimeDomain, other.runtimeDomain) && 
-               Objects.equals(messagingServiceInstanceSid, other.messagingServiceInstanceSid) && 
-               Objects.equals(chatServiceInstanceSid, other.chatServiceInstanceSid) && 
-               Objects.equals(uiLanguage, other.uiLanguage) && 
-               Objects.equals(uiAttributes, other.uiAttributes) && 
-               Objects.equals(uiVersion, other.uiVersion) && 
-               Objects.equals(serviceVersion, other.serviceVersion) && 
-               Objects.equals(callRecordingEnabled, other.callRecordingEnabled) && 
-               Objects.equals(callRecordingWebhookUrl, other.callRecordingWebhookUrl) && 
-               Objects.equals(crmEnabled, other.crmEnabled) && 
-               Objects.equals(crmType, other.crmType) && 
-               Objects.equals(crmCallbackUrl, other.crmCallbackUrl) && 
-               Objects.equals(crmFallbackUrl, other.crmFallbackUrl) && 
-               Objects.equals(crmAttributes, other.crmAttributes) && 
-               Objects.equals(publicAttributes, other.publicAttributes) && 
-               Objects.equals(pluginServiceEnabled, other.pluginServiceEnabled) && 
-               Objects.equals(pluginServiceAttributes, other.pluginServiceAttributes) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(attributes, other.attributes) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(taskrouterWorkspaceSid, other.taskrouterWorkspaceSid) &&
+               Objects.equals(taskrouterTargetWorkflowSid, other.taskrouterTargetWorkflowSid) &&
+               Objects.equals(taskrouterTargetTaskqueueSid, other.taskrouterTargetTaskqueueSid) &&
+               Objects.equals(taskrouterTaskqueues, other.taskrouterTaskqueues) &&
+               Objects.equals(taskrouterSkills, other.taskrouterSkills) &&
+               Objects.equals(taskrouterWorkerChannels, other.taskrouterWorkerChannels) &&
+               Objects.equals(taskrouterWorkerAttributes, other.taskrouterWorkerAttributes) &&
+               Objects.equals(taskrouterOfflineActivitySid, other.taskrouterOfflineActivitySid) &&
+               Objects.equals(runtimeDomain, other.runtimeDomain) &&
+               Objects.equals(messagingServiceInstanceSid, other.messagingServiceInstanceSid) &&
+               Objects.equals(chatServiceInstanceSid, other.chatServiceInstanceSid) &&
+               Objects.equals(uiLanguage, other.uiLanguage) &&
+               Objects.equals(uiAttributes, other.uiAttributes) &&
+               Objects.equals(uiVersion, other.uiVersion) &&
+               Objects.equals(serviceVersion, other.serviceVersion) &&
+               Objects.equals(callRecordingEnabled, other.callRecordingEnabled) &&
+               Objects.equals(callRecordingWebhookUrl, other.callRecordingWebhookUrl) &&
+               Objects.equals(crmEnabled, other.crmEnabled) &&
+               Objects.equals(crmType, other.crmType) &&
+               Objects.equals(crmCallbackUrl, other.crmCallbackUrl) &&
+               Objects.equals(crmFallbackUrl, other.crmFallbackUrl) &&
+               Objects.equals(crmAttributes, other.crmAttributes) &&
+               Objects.equals(publicAttributes, other.publicAttributes) &&
+               Objects.equals(pluginServiceEnabled, other.pluginServiceEnabled) &&
+               Objects.equals(pluginServiceAttributes, other.pluginServiceAttributes) &&
                Objects.equals(url, other.url);
     }
 

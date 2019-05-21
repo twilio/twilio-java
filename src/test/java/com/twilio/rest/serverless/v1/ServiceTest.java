@@ -42,7 +42,7 @@ public class ServiceTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.SERVERLESS.toString(),
                                           "/v1/Services");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class ServiceTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.SERVERLESS.toString(),
                                           "/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -139,7 +139,7 @@ public class ServiceTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.SERVERLESS.toString(),
                                           "/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

@@ -28,11 +28,11 @@ public class CertificateDeleter extends Deleter<Certificate> {
 
     /**
      * Construct a new CertificateDeleter.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @param pathSid A string that uniquely identifies the Certificate.
      */
-    public CertificateDeleter(final String pathFleetSid, 
+    public CertificateDeleter(final String pathFleetSid,
                               final String pathSid) {
         this.pathFleetSid = pathFleetSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class CertificateDeleter extends Deleter<Certificate> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

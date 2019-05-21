@@ -27,11 +27,11 @@ public class FaxMediaFetcher extends Fetcher<FaxMedia> {
 
     /**
      * Construct a new FaxMediaFetcher.
-     * 
+     *
      * @param pathFaxSid The SID of the fax with the FaxMedia resource to fetch
      * @param pathSid The unique string that identifies the resource to fetch
      */
-    public FaxMediaFetcher(final String pathFaxSid, 
+    public FaxMediaFetcher(final String pathFaxSid,
                            final String pathSid) {
         this.pathFaxSid = pathFaxSid;
         this.pathSid = pathSid;
@@ -39,7 +39,7 @@ public class FaxMediaFetcher extends Fetcher<FaxMedia> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched FaxMedia
      */

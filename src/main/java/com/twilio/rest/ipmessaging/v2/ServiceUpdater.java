@@ -57,7 +57,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Construct a new ServiceUpdater.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public ServiceUpdater(final String pathSid) {
@@ -66,7 +66,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * A descriptive string that you create to describe the resource..
-     * 
+     *
      * @param friendlyName A string to describe the resource
      * @return this
      */
@@ -79,7 +79,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The service role assigned to users when they are added to the service. See
      * the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more
      * details..
-     * 
+     *
      * @param defaultServiceRoleSid The service role assigned to users when they
      *                              are added to the service
      * @return this
@@ -93,7 +93,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The channel role assigned to users when they are added to a channel. See the
      * [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more
      * details..
-     * 
+     *
      * @param defaultChannelRoleSid The channel role assigned to users when they
      *                              are added to a channel
      * @return this
@@ -107,7 +107,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The channel role assigned to a channel creator when they join a new channel.
      * See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more
      * details..
-     * 
+     *
      * @param defaultChannelCreatorRoleSid The channel role assigned to a channel
      *                                     creator when they join a new channel
      * @return this
@@ -121,7 +121,7 @@ public class ServiceUpdater extends Updater<Service> {
      * Whether to enable the [Message Consumption
      * Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The
      * default is `true`..
-     * 
+     *
      * @param readStatusEnabled Whether to enable the Message Consumption Horizon
      *                          feature
      * @return this
@@ -135,7 +135,7 @@ public class ServiceUpdater extends Updater<Service> {
      * Whether to enable the [Reachability
      * Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this
      * Service instance. The default is `false`..
-     * 
+     *
      * @param reachabilityEnabled Whether to enable the Reachability Indicator
      *                            feature for this Service instance
      * @return this
@@ -149,7 +149,7 @@ public class ServiceUpdater extends Updater<Service> {
      * How long in seconds after a `started typing` event until clients should
      * assume that user is no longer typing, even if no `ended typing` message was
      * received.  The default is 5 seconds..
-     * 
+     *
      * @param typingIndicatorTimeout How long in seconds to wait before assuming
      *                               the user is no longer typing
      * @return this
@@ -162,7 +162,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * DEPRECATED. The interval in seconds between consumption reports submission
      * batches from client endpoints..
-     * 
+     *
      * @param consumptionReportInterval DEPRECATED
      * @return this
      */
@@ -174,7 +174,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * Whether to send a notification when a new message is added to a channel. Can
      * be: `true` or `false` and the default is `false`..
-     * 
+     *
      * @param notificationsNewMessageEnabled Whether to send a notification when a
      *                                       new message is added to a channel
      * @return this
@@ -188,7 +188,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The template to use to create the notification text displayed when a new
      * message is added to a channel and `notifications.new_message.enabled` is
      * `true`..
-     * 
+     *
      * @param notificationsNewMessageTemplate The template to use to create the
      *                                        notification text displayed when a new
      *                                        message is added to a channel
@@ -202,7 +202,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The name of the sound to play when a new message is added to a channel and
      * `notifications.new_message.enabled` is `true`..
-     * 
+     *
      * @param notificationsNewMessageSound The name of the sound to play when a new
      *                                     message is added to a channel
      * @return this
@@ -215,7 +215,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * Whether the new message badge is enabled. Can be: `true` or `false` and the
      * default is `false`..
-     * 
+     *
      * @param notificationsNewMessageBadgeCountEnabled Whether the new message
      *                                                 badge is enabled
      * @return this
@@ -228,7 +228,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * Whether to send a notification when a member is added to a channel. Can be:
      * `true` or `false` and the default is `false`..
-     * 
+     *
      * @param notificationsAddedToChannelEnabled Whether to send a notification
      *                                           when a member is added to a channel
      * @return this
@@ -242,7 +242,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The template to use to create the notification text displayed when a member
      * is added to a channel and `notifications.added_to_channel.enabled` is
      * `true`..
-     * 
+     *
      * @param notificationsAddedToChannelTemplate The template to use to create the
      *                                            notification text displayed when a
      *                                            member is added to a channel
@@ -256,7 +256,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The name of the sound to play when a member is added to a channel and
      * `notifications.added_to_channel.enabled` is `true`..
-     * 
+     *
      * @param notificationsAddedToChannelSound The name of the sound to play when a
      *                                         member is added to a channel
      * @return this
@@ -269,7 +269,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * Whether to send a notification to a user when they are removed from a
      * channel. Can be: `true` or `false` and the default is `false`..
-     * 
+     *
      * @param notificationsRemovedFromChannelEnabled Whether to send a notification
      *                                               to a user when they are removed
      *                                               from a channel
@@ -284,7 +284,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The template to use to create the notification text displayed to a user when
      * they are removed from a channel and
      * `notifications.removed_from_channel.enabled` is `true`..
-     * 
+     *
      * @param notificationsRemovedFromChannelTemplate The template to use to create
      *                                                the notification text
      *                                                displayed to a user when they
@@ -299,7 +299,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The name of the sound to play to a user when they are removed from a channel
      * and `notifications.removed_from_channel.enabled` is `true`..
-     * 
+     *
      * @param notificationsRemovedFromChannelSound The name of the sound to play to
      *                                             a user when they are removed from
      *                                             a channel
@@ -313,7 +313,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * Whether to send a notification when a user is invited to a channel. Can be:
      * `true` or `false` and the default is `false`..
-     * 
+     *
      * @param notificationsInvitedToChannelEnabled Whether to send a notification
      *                                             when a user is invited to a
      *                                             channel
@@ -328,7 +328,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The template to use to create the notification text displayed when a user is
      * invited to a channel and `notifications.invited_to_channel.enabled` is
      * `true`..
-     * 
+     *
      * @param notificationsInvitedToChannelTemplate The template to use to create
      *                                              the notification text displayed
      *                                              when a user is invited to a
@@ -343,7 +343,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The name of the sound to play when a user is invited to a channel and
      * `notifications.invited_to_channel.enabled` is `true`..
-     * 
+     *
      * @param notificationsInvitedToChannelSound The name of the sound to play when
      *                                           a user is invited to a channel
      * @return this
@@ -357,7 +357,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The URL for pre-event webhooks, which are called by using the
      * `webhook_method`. See [Webhook
      * Events](https://www.twilio.com/docs/chat/webhook-events) for more details..
-     * 
+     *
      * @param preWebhookUrl The webhook URL for pre-event webhooks
      * @return this
      */
@@ -370,7 +370,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The URL for pre-event webhooks, which are called by using the
      * `webhook_method`. See [Webhook
      * Events](https://www.twilio.com/docs/chat/webhook-events) for more details..
-     * 
+     *
      * @param preWebhookUrl The webhook URL for pre-event webhooks
      * @return this
      */
@@ -382,7 +382,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The URL for post-event webhooks, which are called by using the
      * `webhook_method`. See [Webhook
      * Events](https://www.twilio.com/docs/chat/webhook-events) for more details..
-     * 
+     *
      * @param postWebhookUrl The URL for post-event webhooks
      * @return this
      */
@@ -395,7 +395,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The URL for post-event webhooks, which are called by using the
      * `webhook_method`. See [Webhook
      * Events](https://www.twilio.com/docs/chat/webhook-events) for more details..
-     * 
+     *
      * @param postWebhookUrl The URL for post-event webhooks
      * @return this
      */
@@ -408,7 +408,7 @@ public class ServiceUpdater extends Updater<Service> {
      * `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is
      * `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events)
      * for more details..
-     * 
+     *
      * @param webhookMethod The HTTP method  to use for both PRE and POST webhooks
      * @return this
      */
@@ -421,7 +421,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The list of WebHook events that are enabled for this Service instance. See
      * [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more
      * details..
-     * 
+     *
      * @param webhookFilters The list of WebHook events that are enabled for this
      *                       Service instance
      * @return this
@@ -435,7 +435,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The list of WebHook events that are enabled for this Service instance. See
      * [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more
      * details..
-     * 
+     *
      * @param webhookFilters The list of WebHook events that are enabled for this
      *                       Service instance
      * @return this
@@ -447,7 +447,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The maximum number of Members that can be added to Channels within this
      * Service. Can be up to 1,000..
-     * 
+     *
      * @param limitsChannelMembers The maximum number of Members that can be added
      *                             to Channels within this Service
      * @return this
@@ -460,7 +460,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The maximum number of Channels Users can be a Member of within this Service.
      * Can be up to 1,000..
-     * 
+     *
      * @param limitsUserChannels The maximum number of Channels Users can be a
      *                           Member of within this Service
      * @return this
@@ -473,7 +473,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The message to send when a media message has no text. Can be used as
      * placeholder message..
-     * 
+     *
      * @param mediaCompatibilityMessage The message to send when a media message
      *                                  has no text
      * @return this
@@ -487,7 +487,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The number of times to retry a call to the `pre_webhook_url` if the request
      * times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response.
      * Default retry count is 0 times, which means the call won't be retried..
-     * 
+     *
      * @param preWebhookRetryCount Count of times webhook will be retried in case
      *                             of timeout or 429/503/504 HTTP responses
      * @return this
@@ -501,7 +501,7 @@ public class ServiceUpdater extends Updater<Service> {
      * The number of times to retry a call to the `post_webhook_url` if the request
      * times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response.
      * The default is 0, which means the call won't be retried..
-     * 
+     *
      * @param postWebhookRetryCount The number of times calls to the
      *                              `post_webhook_url` will be retried
      * @return this
@@ -514,7 +514,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * Whether to log notifications. Can be: `true` or `false` and the default is
      * `false`..
-     * 
+     *
      * @param notificationsLogEnabled Whether to log notifications
      * @return this
      */
@@ -525,7 +525,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Service
      */
@@ -564,7 +564,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

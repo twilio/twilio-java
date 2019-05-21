@@ -35,7 +35,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
 
     /**
      * Construct a new ConnectAppUpdater.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public ConnectAppUpdater(final String pathSid) {
@@ -44,12 +44,12 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
 
     /**
      * Construct a new ConnectAppUpdater.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       update
      * @param pathSid The unique string that identifies the resource
      */
-    public ConnectAppUpdater(final String pathAccountSid, 
+    public ConnectAppUpdater(final String pathAccountSid,
                              final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -58,7 +58,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     /**
      * The URL to redirect the user to after we authenticate the user and obtain
      * authorization to access the Connect App..
-     * 
+     *
      * @param authorizeRedirectUrl The URL to redirect the user to after
      *                             authorization
      * @return this
@@ -71,7 +71,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     /**
      * The URL to redirect the user to after we authenticate the user and obtain
      * authorization to access the Connect App..
-     * 
+     *
      * @param authorizeRedirectUrl The URL to redirect the user to after
      *                             authorization
      * @return this
@@ -82,7 +82,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
 
     /**
      * The company name to set for the Connect App..
-     * 
+     *
      * @param companyName The company name to set for the Connect App
      * @return this
      */
@@ -93,7 +93,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
 
     /**
      * The HTTP method to use when calling `deauthorize_callback_url`..
-     * 
+     *
      * @param deauthorizeCallbackMethod The HTTP method to use when calling
      *                                  deauthorize_callback_url
      * @return this
@@ -106,7 +106,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     /**
      * The URL to call using the `deauthorize_callback_method` to de-authorize the
      * Connect App..
-     * 
+     *
      * @param deauthorizeCallbackUrl The URL to call to de-authorize the Connect App
      * @return this
      */
@@ -118,7 +118,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     /**
      * The URL to call using the `deauthorize_callback_method` to de-authorize the
      * Connect App..
-     * 
+     *
      * @param deauthorizeCallbackUrl The URL to call to de-authorize the Connect App
      * @return this
      */
@@ -128,7 +128,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
 
     /**
      * A description of the Connect App..
-     * 
+     *
      * @param description A description of the Connect App
      * @return this
      */
@@ -140,7 +140,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     /**
      * A descriptive string that you create to describe the resource. It can be up
      * to 64 characters long..
-     * 
+     *
      * @param friendlyName A string to describe the resource
      * @return this
      */
@@ -151,7 +151,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
 
     /**
      * A public URL where users can obtain more information about this Connect App..
-     * 
+     *
      * @param homepageUrl A public URL where users can obtain more information
      * @return this
      */
@@ -162,7 +162,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
 
     /**
      * A public URL where users can obtain more information about this Connect App..
-     * 
+     *
      * @param homepageUrl A public URL where users can obtain more information
      * @return this
      */
@@ -173,7 +173,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     /**
      * A comma-separated list of the permissions you will request from the users of
      * this ConnectApp.  Can include: `get-all` and `post-all`..
-     * 
+     *
      * @param permissions The set of permissions that your ConnectApp will request
      * @return this
      */
@@ -185,7 +185,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     /**
      * A comma-separated list of the permissions you will request from the users of
      * this ConnectApp.  Can include: `get-all` and `post-all`..
-     * 
+     *
      * @param permissions The set of permissions that your ConnectApp will request
      * @return this
      */
@@ -195,7 +195,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated ConnectApp
      */
@@ -235,7 +235,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

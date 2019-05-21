@@ -27,7 +27,7 @@ public class AuthorizationDocumentFetcher extends Fetcher<AuthorizationDocument>
 
     /**
      * Construct a new AuthorizationDocumentFetcher.
-     * 
+     *
      * @param pathSid AuthorizationDocument sid.
      */
     public AuthorizationDocumentFetcher(final String pathSid) {
@@ -36,7 +36,7 @@ public class AuthorizationDocumentFetcher extends Fetcher<AuthorizationDocument>
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched AuthorizationDocument
      */

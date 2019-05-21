@@ -64,7 +64,7 @@ public class Workspace extends Resource {
 
     /**
      * Create a WorkspaceFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The sid
      * @return WorkspaceFetcher capable of executing the fetch
      */
@@ -74,7 +74,7 @@ public class Workspace extends Resource {
 
     /**
      * Create a WorkspaceUpdater to execute update.
-     * 
+     *
      * @param pathSid The sid
      * @return WorkspaceUpdater capable of executing the update
      */
@@ -84,7 +84,7 @@ public class Workspace extends Resource {
 
     /**
      * Create a WorkspaceReader to execute read.
-     * 
+     *
      * @return WorkspaceReader capable of executing the read
      */
     public static WorkspaceReader reader() {
@@ -93,7 +93,7 @@ public class Workspace extends Resource {
 
     /**
      * Create a WorkspaceCreator to execute create.
-     * 
+     *
      * @param friendlyName Human readable description of this workspace
      * @return WorkspaceCreator capable of executing the create
      */
@@ -103,7 +103,7 @@ public class Workspace extends Resource {
 
     /**
      * Create a WorkspaceDeleter to execute delete.
-     * 
+     *
      * @param pathSid The sid
      * @return WorkspaceDeleter capable of executing the delete
      */
@@ -114,7 +114,7 @@ public class Workspace extends Resource {
     /**
      * Converts a JSON String into a Workspace object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Workspace object represented by the provided JSON
@@ -133,7 +133,7 @@ public class Workspace extends Resource {
     /**
      * Converts a JSON InputStream into a Workspace object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Workspace object represented by the provided JSON
@@ -167,33 +167,33 @@ public class Workspace extends Resource {
 
     @JsonCreator
     private Workspace(@JsonProperty("account_sid")
-                      final String accountSid, 
+                      final String accountSid,
                       @JsonProperty("date_created")
-                      final String dateCreated, 
+                      final String dateCreated,
                       @JsonProperty("date_updated")
-                      final String dateUpdated, 
+                      final String dateUpdated,
                       @JsonProperty("default_activity_name")
-                      final String defaultActivityName, 
+                      final String defaultActivityName,
                       @JsonProperty("default_activity_sid")
-                      final String defaultActivitySid, 
+                      final String defaultActivitySid,
                       @JsonProperty("event_callback_url")
-                      final URI eventCallbackUrl, 
+                      final URI eventCallbackUrl,
                       @JsonProperty("events_filter")
-                      final String eventsFilter, 
+                      final String eventsFilter,
                       @JsonProperty("friendly_name")
-                      final String friendlyName, 
+                      final String friendlyName,
                       @JsonProperty("multi_task_enabled")
-                      final Boolean multiTaskEnabled, 
+                      final Boolean multiTaskEnabled,
                       @JsonProperty("sid")
-                      final String sid, 
+                      final String sid,
                       @JsonProperty("timeout_activity_name")
-                      final String timeoutActivityName, 
+                      final String timeoutActivityName,
                       @JsonProperty("timeout_activity_sid")
-                      final String timeoutActivitySid, 
+                      final String timeoutActivitySid,
                       @JsonProperty("prioritize_queue_order")
-                      final Workspace.QueueOrder prioritizeQueueOrder, 
+                      final Workspace.QueueOrder prioritizeQueueOrder,
                       @JsonProperty("url")
-                      final URI url, 
+                      final URI url,
                       @JsonProperty("links")
                       final Map<String, String> links) {
         this.accountSid = accountSid;
@@ -215,7 +215,7 @@ public class Workspace extends Resource {
 
     /**
      * Returns The The ID of the account that owns this Workflow.
-     * 
+     *
      * @return The ID of the account that owns this Workflow
      */
     public final String getAccountSid() {
@@ -225,7 +225,7 @@ public class Workspace extends Resource {
     /**
      * Returns The The time the Workspace was created, given as GMT in ISO 8601
      * format..
-     * 
+     *
      * @return The time the Workspace was created, given as GMT in ISO 8601 format.
      */
     public final DateTime getDateCreated() {
@@ -235,7 +235,7 @@ public class Workspace extends Resource {
     /**
      * Returns The The time the Workspace was last updated, given as GMT in ISO 8601
      * format..
-     * 
+     *
      * @return The time the Workspace was last updated, given as GMT in ISO 8601
      *         format.
      */
@@ -245,7 +245,7 @@ public class Workspace extends Resource {
 
     /**
      * Returns The The human readable name of the default activity..
-     * 
+     *
      * @return The human readable name of the default activity.
      */
     public final String getDefaultActivityName() {
@@ -255,7 +255,7 @@ public class Workspace extends Resource {
     /**
      * Returns The The ID of the Activity that will be used when new Workers are
      * created in this Workspace..
-     * 
+     *
      * @return The ID of the Activity that will be used when new Workers are
      *         created in this Workspace.
      */
@@ -265,7 +265,7 @@ public class Workspace extends Resource {
 
     /**
      * Returns The If provided, the Workspace will publish events to this URL..
-     * 
+     *
      * @return If provided, the Workspace will publish events to this URL.
      */
     public final URI getEventCallbackUrl() {
@@ -275,7 +275,7 @@ public class Workspace extends Resource {
     /**
      * Returns The Use this parameter to receive webhooks on EventCallbackUrl for
      * specific events on a workspace..
-     * 
+     *
      * @return Use this parameter to receive webhooks on EventCallbackUrl for
      *         specific events on a workspace.
      */
@@ -285,7 +285,7 @@ public class Workspace extends Resource {
 
     /**
      * Returns The Filter by a workspace's friendly name..
-     * 
+     *
      * @return Filter by a workspace's friendly name.
      */
     public final String getFriendlyName() {
@@ -295,7 +295,7 @@ public class Workspace extends Resource {
     /**
      * Returns The Multi tasking allows workers to handle multiple tasks
      * simultaneously..
-     * 
+     *
      * @return Multi tasking allows workers to handle multiple tasks simultaneously.
      */
     public final Boolean getMultiTaskEnabled() {
@@ -304,7 +304,7 @@ public class Workspace extends Resource {
 
     /**
      * Returns The The unique ID of the Workspace.
-     * 
+     *
      * @return The unique ID of the Workspace
      */
     public final String getSid() {
@@ -313,7 +313,7 @@ public class Workspace extends Resource {
 
     /**
      * Returns The The human readable name of the timeout activity..
-     * 
+     *
      * @return The human readable name of the timeout activity.
      */
     public final String getTimeoutActivityName() {
@@ -323,7 +323,7 @@ public class Workspace extends Resource {
     /**
      * Returns The The ID of the Activity that will be assigned to a Worker when a
      * Task reservation times out without a response..
-     * 
+     *
      * @return The ID of the Activity that will be assigned to a Worker when a Task
      *         reservation times out without a response.
      */
@@ -335,7 +335,7 @@ public class Workspace extends Resource {
      * Returns The Use this parameter to configure whether to prioritize LIFO or
      * FIFO when workers are receiving Tasks from combination of LIFO and FIFO
      * TaskQueues..
-     * 
+     *
      * @return Use this parameter to configure whether to prioritize LIFO or FIFO
      *         when workers are receiving Tasks from combination of LIFO and FIFO
      *         TaskQueues.
@@ -346,7 +346,7 @@ public class Workspace extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -355,7 +355,7 @@ public class Workspace extends Resource {
 
     /**
      * Returns The The links.
-     * 
+     *
      * @return The links
      */
     public final Map<String, String> getLinks() {
@@ -374,20 +374,20 @@ public class Workspace extends Resource {
 
         Workspace other = (Workspace) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(defaultActivityName, other.defaultActivityName) && 
-               Objects.equals(defaultActivitySid, other.defaultActivitySid) && 
-               Objects.equals(eventCallbackUrl, other.eventCallbackUrl) && 
-               Objects.equals(eventsFilter, other.eventsFilter) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(multiTaskEnabled, other.multiTaskEnabled) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(timeoutActivityName, other.timeoutActivityName) && 
-               Objects.equals(timeoutActivitySid, other.timeoutActivitySid) && 
-               Objects.equals(prioritizeQueueOrder, other.prioritizeQueueOrder) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(defaultActivityName, other.defaultActivityName) &&
+               Objects.equals(defaultActivitySid, other.defaultActivitySid) &&
+               Objects.equals(eventCallbackUrl, other.eventCallbackUrl) &&
+               Objects.equals(eventsFilter, other.eventsFilter) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(multiTaskEnabled, other.multiTaskEnabled) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(timeoutActivityName, other.timeoutActivityName) &&
+               Objects.equals(timeoutActivitySid, other.timeoutActivitySid) &&
+               Objects.equals(prioritizeQueueOrder, other.prioritizeQueueOrder) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

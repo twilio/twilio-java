@@ -27,7 +27,7 @@ public class SessionDeleter extends Deleter<Session> {
 
     /**
      * Construct a new SessionDeleter.
-     * 
+     *
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public SessionDeleter(final String pathSid) {
@@ -36,7 +36,7 @@ public class SessionDeleter extends Deleter<Session> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

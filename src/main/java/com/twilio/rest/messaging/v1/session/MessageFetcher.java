@@ -28,11 +28,11 @@ public class MessageFetcher extends Fetcher<Message> {
 
     /**
      * Construct a new MessageFetcher.
-     * 
+     *
      * @param pathSessionSid The unique id of the Session for this message.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
-    public MessageFetcher(final String pathSessionSid, 
+    public MessageFetcher(final String pathSessionSid,
                           final String pathSid) {
         this.pathSessionSid = pathSessionSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class MessageFetcher extends Fetcher<Message> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Message
      */

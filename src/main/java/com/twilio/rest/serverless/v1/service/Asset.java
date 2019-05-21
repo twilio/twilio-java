@@ -43,7 +43,7 @@ public class Asset extends Resource {
 
     /**
      * Create a AssetReader to execute read.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @return AssetReader capable of executing the read
      */
@@ -53,45 +53,45 @@ public class Asset extends Resource {
 
     /**
      * Create a AssetFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathSid Asset Sid.
      * @return AssetFetcher capable of executing the fetch
      */
-    public static AssetFetcher fetcher(final String pathServiceSid, 
+    public static AssetFetcher fetcher(final String pathServiceSid,
                                        final String pathSid) {
         return new AssetFetcher(pathServiceSid, pathSid);
     }
 
     /**
      * Create a AssetCreator to execute create.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param friendlyName A human-readable description of this Asset.
      * @return AssetCreator capable of executing the create
      */
-    public static AssetCreator creator(final String pathServiceSid, 
+    public static AssetCreator creator(final String pathServiceSid,
                                        final String friendlyName) {
         return new AssetCreator(pathServiceSid, friendlyName);
     }
 
     /**
      * Create a AssetUpdater to execute update.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathSid Asset Sid.
      * @param friendlyName A human-readable description of this Asset.
      * @return AssetUpdater capable of executing the update
      */
-    public static AssetUpdater updater(final String pathServiceSid, 
-                                       final String pathSid, 
+    public static AssetUpdater updater(final String pathServiceSid,
+                                       final String pathSid,
                                        final String friendlyName) {
         return new AssetUpdater(pathServiceSid, pathSid, friendlyName);
     }
 
     /**
      * Converts a JSON String into a Asset object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Asset object represented by the provided JSON
@@ -110,7 +110,7 @@ public class Asset extends Resource {
     /**
      * Converts a JSON InputStream into a Asset object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Asset object represented by the provided JSON
@@ -137,19 +137,19 @@ public class Asset extends Resource {
 
     @JsonCreator
     private Asset(@JsonProperty("sid")
-                  final String sid, 
+                  final String sid,
                   @JsonProperty("account_sid")
-                  final String accountSid, 
+                  final String accountSid,
                   @JsonProperty("service_sid")
-                  final String serviceSid, 
+                  final String serviceSid,
                   @JsonProperty("friendly_name")
-                  final String friendlyName, 
+                  final String friendlyName,
                   @JsonProperty("date_created")
-                  final String dateCreated, 
+                  final String dateCreated,
                   @JsonProperty("date_updated")
-                  final String dateUpdated, 
+                  final String dateUpdated,
                   @JsonProperty("url")
-                  final URI url, 
+                  final URI url,
                   @JsonProperty("links")
                   final Map<String, String> links) {
         this.sid = sid;
@@ -164,7 +164,7 @@ public class Asset extends Resource {
 
     /**
      * Returns The Asset Sid..
-     * 
+     *
      * @return Asset Sid.
      */
     public final String getSid() {
@@ -173,7 +173,7 @@ public class Asset extends Resource {
 
     /**
      * Returns The Account Sid..
-     * 
+     *
      * @return Account Sid.
      */
     public final String getAccountSid() {
@@ -182,7 +182,7 @@ public class Asset extends Resource {
 
     /**
      * Returns The Service Sid..
-     * 
+     *
      * @return Service Sid.
      */
     public final String getServiceSid() {
@@ -191,7 +191,7 @@ public class Asset extends Resource {
 
     /**
      * Returns The A human-readable description of this Asset..
-     * 
+     *
      * @return A human-readable description of this Asset.
      */
     public final String getFriendlyName() {
@@ -200,7 +200,7 @@ public class Asset extends Resource {
 
     /**
      * Returns The The date that this Asset was created..
-     * 
+     *
      * @return The date that this Asset was created.
      */
     public final DateTime getDateCreated() {
@@ -209,7 +209,7 @@ public class Asset extends Resource {
 
     /**
      * Returns The The date that this Asset was updated..
-     * 
+     *
      * @return The date that this Asset was updated.
      */
     public final DateTime getDateUpdated() {
@@ -218,7 +218,7 @@ public class Asset extends Resource {
 
     /**
      * Returns The The URL of this Asset..
-     * 
+     *
      * @return The URL of this Asset.
      */
     public final URI getUrl() {
@@ -227,7 +227,7 @@ public class Asset extends Resource {
 
     /**
      * Returns The Nested resource URLs..
-     * 
+     *
      * @return Nested resource URLs.
      */
     public final Map<String, String> getLinks() {
@@ -246,13 +246,13 @@ public class Asset extends Resource {
 
         Asset other = (Asset) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

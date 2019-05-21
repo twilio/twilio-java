@@ -25,7 +25,7 @@ public class CredentialReader extends Reader<Credential> {
 
     /**
      * Construct a new CredentialReader.
-     * 
+     *
      * @param pathCredentialListSid The unique id that identifies the credential
      *                              list that contains the desired credentials
      */
@@ -35,13 +35,13 @@ public class CredentialReader extends Reader<Credential> {
 
     /**
      * Construct a new CredentialReader.
-     * 
+     *
      * @param pathAccountSid The unique id of the Account that is responsible for
      *                       this resource.
      * @param pathCredentialListSid The unique id that identifies the credential
      *                              list that contains the desired credentials
      */
-    public CredentialReader(final String pathAccountSid, 
+    public CredentialReader(final String pathAccountSid,
                             final String pathCredentialListSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathCredentialListSid = pathCredentialListSid;
@@ -49,7 +49,7 @@ public class CredentialReader extends Reader<Credential> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Credential ResourceSet
      */
@@ -60,7 +60,7 @@ public class CredentialReader extends Reader<Credential> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Credential ResourceSet
      */
@@ -81,7 +81,7 @@ public class CredentialReader extends Reader<Credential> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Credential ResourceSet
@@ -100,13 +100,13 @@ public class CredentialReader extends Reader<Credential> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Credential> nextPage(final Page<Credential> page, 
+    public Page<Credential> nextPage(final Page<Credential> page,
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -120,13 +120,13 @@ public class CredentialReader extends Reader<Credential> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Credential> previousPage(final Page<Credential> page, 
+    public Page<Credential> previousPage(final Page<Credential> page,
                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -140,7 +140,7 @@ public class CredentialReader extends Reader<Credential> {
 
     /**
      * Generate a Page of Credential Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -175,7 +175,7 @@ public class CredentialReader extends Reader<Credential> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

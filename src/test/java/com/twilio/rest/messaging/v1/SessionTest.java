@@ -42,7 +42,7 @@ public class SessionTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.MESSAGING.toString(),
                                           "/v1/Sessions/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class SessionTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.MESSAGING.toString(),
                                           "/v1/Sessions/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -138,7 +138,7 @@ public class SessionTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.MESSAGING.toString(),
                                           "/v1/Sessions/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -170,7 +170,7 @@ public class SessionTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.MESSAGING.toString(),
                                           "/v1/Sessions");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

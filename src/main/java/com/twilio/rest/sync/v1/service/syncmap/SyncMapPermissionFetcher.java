@@ -28,14 +28,14 @@ public class SyncMapPermissionFetcher extends Fetcher<SyncMapPermission> {
 
     /**
      * Construct a new SyncMapPermissionFetcher.
-     * 
+     *
      * @param pathServiceSid Sync Service Instance SID or unique name.
      * @param pathMapSid Sync Map SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync Map Permission
      *                     applies.
      */
-    public SyncMapPermissionFetcher(final String pathServiceSid, 
-                                    final String pathMapSid, 
+    public SyncMapPermissionFetcher(final String pathServiceSid,
+                                    final String pathMapSid,
                                     final String pathIdentity) {
         this.pathServiceSid = pathServiceSid;
         this.pathMapSid = pathMapSid;
@@ -44,7 +44,7 @@ public class SyncMapPermissionFetcher extends Fetcher<SyncMapPermission> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched SyncMapPermission
      */

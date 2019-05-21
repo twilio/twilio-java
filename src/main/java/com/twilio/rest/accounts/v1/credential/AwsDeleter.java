@@ -22,7 +22,7 @@ public class AwsDeleter extends Deleter<Aws> {
 
     /**
      * Construct a new AwsDeleter.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public AwsDeleter(final String pathSid) {
@@ -31,7 +31,7 @@ public class AwsDeleter extends Deleter<Aws> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

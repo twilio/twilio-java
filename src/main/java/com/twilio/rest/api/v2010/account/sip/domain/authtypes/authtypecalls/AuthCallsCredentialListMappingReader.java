@@ -25,7 +25,7 @@ public class AuthCallsCredentialListMappingReader extends Reader<AuthCallsCreden
 
     /**
      * Construct a new AuthCallsCredentialListMappingReader.
-     * 
+     *
      * @param pathDomainSid The SID of the SIP domain that contains the resources
      *                      to read
      */
@@ -35,13 +35,13 @@ public class AuthCallsCredentialListMappingReader extends Reader<AuthCallsCreden
 
     /**
      * Construct a new AuthCallsCredentialListMappingReader.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       read
      * @param pathDomainSid The SID of the SIP domain that contains the resources
      *                      to read
      */
-    public AuthCallsCredentialListMappingReader(final String pathAccountSid, 
+    public AuthCallsCredentialListMappingReader(final String pathAccountSid,
                                                 final String pathDomainSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
@@ -49,7 +49,7 @@ public class AuthCallsCredentialListMappingReader extends Reader<AuthCallsCreden
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return AuthCallsCredentialListMapping ResourceSet
      */
@@ -60,7 +60,7 @@ public class AuthCallsCredentialListMappingReader extends Reader<AuthCallsCreden
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return AuthCallsCredentialListMapping ResourceSet
      */
@@ -81,7 +81,7 @@ public class AuthCallsCredentialListMappingReader extends Reader<AuthCallsCreden
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return AuthCallsCredentialListMapping ResourceSet
@@ -100,13 +100,13 @@ public class AuthCallsCredentialListMappingReader extends Reader<AuthCallsCreden
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<AuthCallsCredentialListMapping> nextPage(final Page<AuthCallsCredentialListMapping> page, 
+    public Page<AuthCallsCredentialListMapping> nextPage(final Page<AuthCallsCredentialListMapping> page,
                                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -120,13 +120,13 @@ public class AuthCallsCredentialListMappingReader extends Reader<AuthCallsCreden
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<AuthCallsCredentialListMapping> previousPage(final Page<AuthCallsCredentialListMapping> page, 
+    public Page<AuthCallsCredentialListMapping> previousPage(final Page<AuthCallsCredentialListMapping> page,
                                                              final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -141,7 +141,7 @@ public class AuthCallsCredentialListMappingReader extends Reader<AuthCallsCreden
     /**
      * Generate a Page of AuthCallsCredentialListMapping Resources for a given
      * request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -176,7 +176,7 @@ public class AuthCallsCredentialListMappingReader extends Reader<AuthCallsCreden
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

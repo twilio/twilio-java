@@ -103,7 +103,7 @@ public class Prompt extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -128,7 +128,7 @@ public class Prompt extends TwiML {
 
     /**
      * Name of the credit card data element
-     * 
+     *
      * @return Name of the credit card data element
      */
     public Prompt.For getFor_() {
@@ -137,7 +137,7 @@ public class Prompt extends TwiML {
 
     /**
      * Type of error
-     * 
+     *
      * @return Type of error
      */
     public List<Prompt.ErrorType> getErrorTypes() {
@@ -158,7 +158,7 @@ public class Prompt extends TwiML {
 
     /**
      * Type of the credit card
-     * 
+     *
      * @return Type of the credit card
      */
     public List<Prompt.CardType> getCardTypes() {
@@ -179,7 +179,7 @@ public class Prompt extends TwiML {
 
     /**
      * Current attempt count
-     * 
+     *
      * @return Current attempt count
      */
     public List<Integer> getAttempts() {

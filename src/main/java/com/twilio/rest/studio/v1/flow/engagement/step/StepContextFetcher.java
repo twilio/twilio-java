@@ -24,13 +24,13 @@ public class StepContextFetcher extends Fetcher<StepContext> {
 
     /**
      * Construct a new StepContextFetcher.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      * @param pathEngagementSid Engagement Sid.
      * @param pathStepSid Step Sid.
      */
-    public StepContextFetcher(final String pathFlowSid, 
-                              final String pathEngagementSid, 
+    public StepContextFetcher(final String pathFlowSid,
+                              final String pathEngagementSid,
                               final String pathStepSid) {
         this.pathFlowSid = pathFlowSid;
         this.pathEngagementSid = pathEngagementSid;
@@ -39,7 +39,7 @@ public class StepContextFetcher extends Fetcher<StepContext> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched StepContext
      */

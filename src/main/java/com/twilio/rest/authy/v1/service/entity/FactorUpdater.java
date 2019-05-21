@@ -30,13 +30,13 @@ public class FactorUpdater extends Updater<Factor> {
 
     /**
      * Construct a new FactorUpdater.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique identity of the Entity
      * @param pathSid A string that uniquely identifies this Factor.
      */
-    public FactorUpdater(final String pathServiceSid, 
-                         final String pathIdentity, 
+    public FactorUpdater(final String pathServiceSid,
+                         final String pathIdentity,
                          final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathIdentity = pathIdentity;
@@ -46,7 +46,7 @@ public class FactorUpdater extends Updater<Factor> {
     /**
      * The optional payload needed to verify the Factor for the first time. E.g. for
      * a TOTP, the numeric code..
-     * 
+     *
      * @param authPayload Optional payload to verify the Factor for the first time
      * @return this
      */
@@ -57,7 +57,7 @@ public class FactorUpdater extends Updater<Factor> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Factor
      */
@@ -96,7 +96,7 @@ public class FactorUpdater extends Updater<Factor> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

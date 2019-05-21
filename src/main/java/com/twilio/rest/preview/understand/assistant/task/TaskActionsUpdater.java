@@ -32,11 +32,11 @@ public class TaskActionsUpdater extends Updater<TaskActions> {
 
     /**
      * Construct a new TaskActionsUpdater.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the parent Assistant.
      * @param pathTaskSid The unique ID of the Task.
      */
-    public TaskActionsUpdater(final String pathAssistantSid, 
+    public TaskActionsUpdater(final String pathAssistantSid,
                               final String pathTaskSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathTaskSid = pathTaskSid;
@@ -44,7 +44,7 @@ public class TaskActionsUpdater extends Updater<TaskActions> {
 
     /**
      * The JSON actions that instruct the Assistant how to perform this task..
-     * 
+     *
      * @param actions The JSON actions that instruct the Assistant how to perform
      *                this task.
      * @return this
@@ -56,7 +56,7 @@ public class TaskActionsUpdater extends Updater<TaskActions> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated TaskActions
      */
@@ -95,7 +95,7 @@ public class TaskActionsUpdater extends Updater<TaskActions> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

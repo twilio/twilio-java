@@ -40,7 +40,7 @@ public class WorkersCumulativeStatistics extends Resource {
 
     /**
      * Create a WorkersCumulativeStatisticsFetcher to execute fetch.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @return WorkersCumulativeStatisticsFetcher capable of executing the fetch
      */
@@ -51,7 +51,7 @@ public class WorkersCumulativeStatistics extends Resource {
     /**
      * Converts a JSON String into a WorkersCumulativeStatistics object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return WorkersCumulativeStatistics object represented by the provided JSON
@@ -70,7 +70,7 @@ public class WorkersCumulativeStatistics extends Resource {
     /**
      * Converts a JSON InputStream into a WorkersCumulativeStatistics object using
      * the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return WorkersCumulativeStatistics object represented by the provided JSON
@@ -101,27 +101,27 @@ public class WorkersCumulativeStatistics extends Resource {
 
     @JsonCreator
     private WorkersCumulativeStatistics(@JsonProperty("account_sid")
-                                        final String accountSid, 
+                                        final String accountSid,
                                         @JsonProperty("start_time")
-                                        final String startTime, 
+                                        final String startTime,
                                         @JsonProperty("end_time")
-                                        final String endTime, 
+                                        final String endTime,
                                         @JsonProperty("activity_durations")
-                                        final List<Map<String, Object>> activityDurations, 
+                                        final List<Map<String, Object>> activityDurations,
                                         @JsonProperty("reservations_created")
-                                        final Integer reservationsCreated, 
+                                        final Integer reservationsCreated,
                                         @JsonProperty("reservations_accepted")
-                                        final Integer reservationsAccepted, 
+                                        final Integer reservationsAccepted,
                                         @JsonProperty("reservations_rejected")
-                                        final Integer reservationsRejected, 
+                                        final Integer reservationsRejected,
                                         @JsonProperty("reservations_timed_out")
-                                        final Integer reservationsTimedOut, 
+                                        final Integer reservationsTimedOut,
                                         @JsonProperty("reservations_canceled")
-                                        final Integer reservationsCanceled, 
+                                        final Integer reservationsCanceled,
                                         @JsonProperty("reservations_rescinded")
-                                        final Integer reservationsRescinded, 
+                                        final Integer reservationsRescinded,
                                         @JsonProperty("workspace_sid")
-                                        final String workspaceSid, 
+                                        final String workspaceSid,
                                         @JsonProperty("url")
                                         final URI url) {
         this.accountSid = accountSid;
@@ -140,7 +140,7 @@ public class WorkersCumulativeStatistics extends Resource {
 
     /**
      * Returns The The account_sid.
-     * 
+     *
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -149,7 +149,7 @@ public class WorkersCumulativeStatistics extends Resource {
 
     /**
      * Returns The The start_time.
-     * 
+     *
      * @return The start_time
      */
     public final DateTime getStartTime() {
@@ -158,7 +158,7 @@ public class WorkersCumulativeStatistics extends Resource {
 
     /**
      * Returns The The end_time.
-     * 
+     *
      * @return The end_time
      */
     public final DateTime getEndTime() {
@@ -168,7 +168,7 @@ public class WorkersCumulativeStatistics extends Resource {
     /**
      * Returns The The minimum, average, maximum and total time Workers spent in
      * each Activity.
-     * 
+     *
      * @return The minimum, average, maximum and total time Workers spent in each
      *         Activity
      */
@@ -178,7 +178,7 @@ public class WorkersCumulativeStatistics extends Resource {
 
     /**
      * Returns The The total number of Reservations that were created.
-     * 
+     *
      * @return The total number of Reservations that were created
      */
     public final Integer getReservationsCreated() {
@@ -187,7 +187,7 @@ public class WorkersCumulativeStatistics extends Resource {
 
     /**
      * Returns The The total number of Reservations that were accepted.
-     * 
+     *
      * @return The total number of Reservations that were accepted
      */
     public final Integer getReservationsAccepted() {
@@ -196,7 +196,7 @@ public class WorkersCumulativeStatistics extends Resource {
 
     /**
      * Returns The The total number of Reservations that were rejected.
-     * 
+     *
      * @return The total number of Reservations that were rejected
      */
     public final Integer getReservationsRejected() {
@@ -205,7 +205,7 @@ public class WorkersCumulativeStatistics extends Resource {
 
     /**
      * Returns The The total number of Reservations that were timed out.
-     * 
+     *
      * @return The total number of Reservations that were timed out
      */
     public final Integer getReservationsTimedOut() {
@@ -214,7 +214,7 @@ public class WorkersCumulativeStatistics extends Resource {
 
     /**
      * Returns The The total number of Reservations that were canceled.
-     * 
+     *
      * @return The total number of Reservations that were canceled
      */
     public final Integer getReservationsCanceled() {
@@ -223,7 +223,7 @@ public class WorkersCumulativeStatistics extends Resource {
 
     /**
      * Returns The The total number of Reservations that were rescinded.
-     * 
+     *
      * @return The total number of Reservations that were rescinded
      */
     public final Integer getReservationsRescinded() {
@@ -232,7 +232,7 @@ public class WorkersCumulativeStatistics extends Resource {
 
     /**
      * Returns The The workspace_sid.
-     * 
+     *
      * @return The workspace_sid
      */
     public final String getWorkspaceSid() {
@@ -241,7 +241,7 @@ public class WorkersCumulativeStatistics extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -260,17 +260,17 @@ public class WorkersCumulativeStatistics extends Resource {
 
         WorkersCumulativeStatistics other = (WorkersCumulativeStatistics) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(startTime, other.startTime) && 
-               Objects.equals(endTime, other.endTime) && 
-               Objects.equals(activityDurations, other.activityDurations) && 
-               Objects.equals(reservationsCreated, other.reservationsCreated) && 
-               Objects.equals(reservationsAccepted, other.reservationsAccepted) && 
-               Objects.equals(reservationsRejected, other.reservationsRejected) && 
-               Objects.equals(reservationsTimedOut, other.reservationsTimedOut) && 
-               Objects.equals(reservationsCanceled, other.reservationsCanceled) && 
-               Objects.equals(reservationsRescinded, other.reservationsRescinded) && 
-               Objects.equals(workspaceSid, other.workspaceSid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(startTime, other.startTime) &&
+               Objects.equals(endTime, other.endTime) &&
+               Objects.equals(activityDurations, other.activityDurations) &&
+               Objects.equals(reservationsCreated, other.reservationsCreated) &&
+               Objects.equals(reservationsAccepted, other.reservationsAccepted) &&
+               Objects.equals(reservationsRejected, other.reservationsRejected) &&
+               Objects.equals(reservationsTimedOut, other.reservationsTimedOut) &&
+               Objects.equals(reservationsCanceled, other.reservationsCanceled) &&
+               Objects.equals(reservationsRescinded, other.reservationsRescinded) &&
+               Objects.equals(workspaceSid, other.workspaceSid) &&
                Objects.equals(url, other.url);
     }
 

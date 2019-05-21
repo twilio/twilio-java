@@ -25,15 +25,15 @@ public class TaskChannelCreator extends Creator<TaskChannel> {
 
     /**
      * Construct a new TaskChannelCreator.
-     * 
+     *
      * @param pathWorkspaceSid The unique ID of the Workspace that this TaskChannel
      *                         belongs to.
      * @param friendlyName String representing user-friendly name for the
      *                     TaskChannel
      * @param uniqueName String representing unique name for the TaskChannel
      */
-    public TaskChannelCreator(final String pathWorkspaceSid, 
-                              final String friendlyName, 
+    public TaskChannelCreator(final String pathWorkspaceSid,
+                              final String friendlyName,
                               final String uniqueName) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.friendlyName = friendlyName;
@@ -43,7 +43,7 @@ public class TaskChannelCreator extends Creator<TaskChannel> {
     /**
      * A boolean that if true; mean that the channel will prioritize workers that
      * have been idle.
-     * 
+     *
      * @param channelOptimizedRouting If true then prioritize longest idle workers
      * @return this
      */
@@ -54,7 +54,7 @@ public class TaskChannelCreator extends Creator<TaskChannel> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created TaskChannel
      */
@@ -93,7 +93,7 @@ public class TaskChannelCreator extends Creator<TaskChannel> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

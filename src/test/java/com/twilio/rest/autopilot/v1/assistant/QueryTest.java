@@ -42,7 +42,7 @@ public class QueryTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.AUTOPILOT.toString(),
                                           "/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queries/UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class QueryTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.AUTOPILOT.toString(),
                                           "/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queries");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -151,7 +151,7 @@ public class QueryTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.AUTOPILOT.toString(),
                                           "/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queries/UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -183,7 +183,7 @@ public class QueryTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.AUTOPILOT.toString(),
                                           "/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queries/UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

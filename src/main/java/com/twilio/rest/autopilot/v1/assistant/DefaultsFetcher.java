@@ -27,7 +27,7 @@ public class DefaultsFetcher extends Fetcher<Defaults> {
 
     /**
      * Construct a new DefaultsFetcher.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         resource to fetch
      */
@@ -37,7 +37,7 @@ public class DefaultsFetcher extends Fetcher<Defaults> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Defaults
      */

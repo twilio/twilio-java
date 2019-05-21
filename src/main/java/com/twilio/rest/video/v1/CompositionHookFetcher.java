@@ -27,7 +27,7 @@ public class CompositionHookFetcher extends Fetcher<CompositionHook> {
 
     /**
      * Construct a new CompositionHookFetcher.
-     * 
+     *
      * @param pathSid The Composition Hook Sid that uniquely identifies the
      *                Composition Hook to fetch.
      */
@@ -37,7 +37,7 @@ public class CompositionHookFetcher extends Fetcher<CompositionHook> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched CompositionHook
      */

@@ -34,13 +34,13 @@ public class ChallengeCreator extends Creator<Challenge> {
 
     /**
      * Construct a new ChallengeCreator.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique identity of the Entity
      * @param pathFactorSid Factor Sid.
      */
-    public ChallengeCreator(final String pathServiceSid, 
-                            final String pathIdentity, 
+    public ChallengeCreator(final String pathServiceSid,
+                            final String pathIdentity,
                             final String pathFactorSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathIdentity = pathIdentity;
@@ -50,7 +50,7 @@ public class ChallengeCreator extends Creator<Challenge> {
     /**
      * The future date in which this Challenge will expire, given in ISO 8601 format
      * (https://en.wikipedia.org/wiki/ISO_8601)..
-     * 
+     *
      * @param expirationDate The future date in which this Challenge will expire
      * @return this
      */
@@ -61,7 +61,7 @@ public class ChallengeCreator extends Creator<Challenge> {
 
     /**
      * Details provided to give context about the Challenge. Shown to the end user..
-     * 
+     *
      * @param details Public details provided to contextualize the Challenge
      * @return this
      */
@@ -73,7 +73,7 @@ public class ChallengeCreator extends Creator<Challenge> {
     /**
      * Details provided to give context about the Challenge. Not shown to the end
      * user..
-     * 
+     *
      * @param hiddenDetails Hidden details provided to contextualize the Challenge
      * @return this
      */
@@ -84,7 +84,7 @@ public class ChallengeCreator extends Creator<Challenge> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Challenge
      */
@@ -123,7 +123,7 @@ public class ChallengeCreator extends Creator<Challenge> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

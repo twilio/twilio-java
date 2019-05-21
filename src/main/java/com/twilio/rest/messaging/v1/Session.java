@@ -43,7 +43,7 @@ public class Session extends Resource {
 
     /**
      * Create a SessionFetcher to execute fetch.
-     * 
+     *
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return SessionFetcher capable of executing the fetch
      */
@@ -53,7 +53,7 @@ public class Session extends Resource {
 
     /**
      * Create a SessionDeleter to execute delete.
-     * 
+     *
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return SessionDeleter capable of executing the delete
      */
@@ -63,7 +63,7 @@ public class Session extends Resource {
 
     /**
      * Create a SessionCreator to execute create.
-     * 
+     *
      * @param messagingServiceSid The unique id of the SMS Service this session
      *                            belongs to.
      * @return SessionCreator capable of executing the create
@@ -74,7 +74,7 @@ public class Session extends Resource {
 
     /**
      * Create a SessionUpdater to execute update.
-     * 
+     *
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return SessionUpdater capable of executing the update
      */
@@ -84,7 +84,7 @@ public class Session extends Resource {
 
     /**
      * Create a SessionReader to execute read.
-     * 
+     *
      * @return SessionReader capable of executing the read
      */
     public static SessionReader reader() {
@@ -93,7 +93,7 @@ public class Session extends Resource {
 
     /**
      * Converts a JSON String into a Session object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Session object represented by the provided JSON
@@ -112,7 +112,7 @@ public class Session extends Resource {
     /**
      * Converts a JSON InputStream into a Session object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Session object represented by the provided JSON
@@ -142,25 +142,25 @@ public class Session extends Resource {
 
     @JsonCreator
     private Session(@JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("service_sid")
-                    final String serviceSid, 
+                    final String serviceSid,
                     @JsonProperty("messaging_service_sid")
-                    final String messagingServiceSid, 
+                    final String messagingServiceSid,
                     @JsonProperty("friendly_name")
-                    final String friendlyName, 
+                    final String friendlyName,
                     @JsonProperty("attributes")
-                    final String attributes, 
+                    final String attributes,
                     @JsonProperty("created_by")
-                    final String createdBy, 
+                    final String createdBy,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("url")
-                    final URI url, 
+                    final URI url,
                     @JsonProperty("links")
                     final Map<String, String> links) {
         this.sid = sid;
@@ -178,7 +178,7 @@ public class Session extends Resource {
 
     /**
      * Returns The A 34 character string that uniquely identifies this resource..
-     * 
+     *
      * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
@@ -187,7 +187,7 @@ public class Session extends Resource {
 
     /**
      * Returns The The unique id of the Account responsible for this session..
-     * 
+     *
      * @return The unique id of the Account responsible for this session.
      */
     public final String getAccountSid() {
@@ -196,7 +196,7 @@ public class Session extends Resource {
 
     /**
      * Returns The The unique id of the Chat Service this session belongs to..
-     * 
+     *
      * @return The unique id of the Chat Service this session belongs to.
      */
     public final String getServiceSid() {
@@ -205,7 +205,7 @@ public class Session extends Resource {
 
     /**
      * Returns The The unique id of the SMS Service this session belongs to..
-     * 
+     *
      * @return The unique id of the SMS Service this session belongs to.
      */
     public final String getMessagingServiceSid() {
@@ -214,7 +214,7 @@ public class Session extends Resource {
 
     /**
      * Returns The The human-readable name of this session..
-     * 
+     *
      * @return The human-readable name of this session.
      */
     public final String getFriendlyName() {
@@ -224,7 +224,7 @@ public class Session extends Resource {
     /**
      * Returns The An optional string metadata field you can use to store any data
      * you wish..
-     * 
+     *
      * @return An optional string metadata field you can use to store any data you
      *         wish.
      */
@@ -234,7 +234,7 @@ public class Session extends Resource {
 
     /**
      * Returns The Identity of the session's creator..
-     * 
+     *
      * @return Identity of the session's creator.
      */
     public final String getCreatedBy() {
@@ -243,7 +243,7 @@ public class Session extends Resource {
 
     /**
      * Returns The The date that this resource was created..
-     * 
+     *
      * @return The date that this resource was created.
      */
     public final DateTime getDateCreated() {
@@ -252,7 +252,7 @@ public class Session extends Resource {
 
     /**
      * Returns The The date that this resource was last updated..
-     * 
+     *
      * @return The date that this resource was last updated.
      */
     public final DateTime getDateUpdated() {
@@ -261,7 +261,7 @@ public class Session extends Resource {
 
     /**
      * Returns The An absolute URL for this session..
-     * 
+     *
      * @return An absolute URL for this session.
      */
     public final URI getUrl() {
@@ -271,7 +271,7 @@ public class Session extends Resource {
     /**
      * Returns The Absolute URLs to access the Participants and Messages for this
      * Session..
-     * 
+     *
      * @return Absolute URLs to access the Participants and Messages for this
      *         Session.
      */
@@ -291,16 +291,16 @@ public class Session extends Resource {
 
         Session other = (Session) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(messagingServiceSid, other.messagingServiceSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(attributes, other.attributes) && 
-               Objects.equals(createdBy, other.createdBy) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(attributes, other.attributes) &&
+               Objects.equals(createdBy, other.createdBy) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

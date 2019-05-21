@@ -29,13 +29,13 @@ public class AssetVersionFetcher extends Fetcher<AssetVersion> {
 
     /**
      * Construct a new AssetVersionFetcher.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathAssetSid Asset Sid.
      * @param pathSid Asset Version Sid.
      */
-    public AssetVersionFetcher(final String pathServiceSid, 
-                               final String pathAssetSid, 
+    public AssetVersionFetcher(final String pathServiceSid,
+                               final String pathAssetSid,
                                final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathAssetSid = pathAssetSid;
@@ -44,7 +44,7 @@ public class AssetVersionFetcher extends Fetcher<AssetVersion> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched AssetVersion
      */

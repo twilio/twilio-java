@@ -67,13 +67,13 @@ public class VerificationCheck extends Resource {
 
     /**
      * Create a VerificationCheckCreator to execute create.
-     * 
+     *
      * @param pathServiceSid The SID of the verification Service to create the
      *                       resource under
      * @param code The verification string
      * @return VerificationCheckCreator capable of executing the create
      */
-    public static VerificationCheckCreator creator(final String pathServiceSid, 
+    public static VerificationCheckCreator creator(final String pathServiceSid,
                                                    final String code) {
         return new VerificationCheckCreator(pathServiceSid, code);
     }
@@ -81,7 +81,7 @@ public class VerificationCheck extends Resource {
     /**
      * Converts a JSON String into a VerificationCheck object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return VerificationCheck object represented by the provided JSON
@@ -100,7 +100,7 @@ public class VerificationCheck extends Resource {
     /**
      * Converts a JSON InputStream into a VerificationCheck object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return VerificationCheck object represented by the provided JSON
@@ -130,25 +130,25 @@ public class VerificationCheck extends Resource {
 
     @JsonCreator
     private VerificationCheck(@JsonProperty("sid")
-                              final String sid, 
+                              final String sid,
                               @JsonProperty("service_sid")
-                              final String serviceSid, 
+                              final String serviceSid,
                               @JsonProperty("account_sid")
-                              final String accountSid, 
+                              final String accountSid,
                               @JsonProperty("to")
-                              final String to, 
+                              final String to,
                               @JsonProperty("channel")
-                              final VerificationCheck.Channel channel, 
+                              final VerificationCheck.Channel channel,
                               @JsonProperty("status")
-                              final String status, 
+                              final String status,
                               @JsonProperty("valid")
-                              final Boolean valid, 
+                              final Boolean valid,
                               @JsonProperty("amount")
-                              final String amount, 
+                              final String amount,
                               @JsonProperty("payee")
-                              final String payee, 
+                              final String payee,
                               @JsonProperty("date_created")
-                              final String dateCreated, 
+                              final String dateCreated,
                               @JsonProperty("date_updated")
                               final String dateUpdated) {
         this.sid = sid;
@@ -166,7 +166,7 @@ public class VerificationCheck extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -175,7 +175,7 @@ public class VerificationCheck extends Resource {
 
     /**
      * Returns The The SID of the Service that the resource is associated with.
-     * 
+     *
      * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
@@ -184,7 +184,7 @@ public class VerificationCheck extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -193,7 +193,7 @@ public class VerificationCheck extends Resource {
 
     /**
      * Returns The The phone number being verified.
-     * 
+     *
      * @return The phone number being verified
      */
     public final String getTo() {
@@ -202,7 +202,7 @@ public class VerificationCheck extends Resource {
 
     /**
      * Returns The The verification method to use.
-     * 
+     *
      * @return The verification method to use
      */
     public final VerificationCheck.Channel getChannel() {
@@ -211,7 +211,7 @@ public class VerificationCheck extends Resource {
 
     /**
      * Returns The The status of the verification resource.
-     * 
+     *
      * @return The status of the verification resource
      */
     public final String getStatus() {
@@ -220,7 +220,7 @@ public class VerificationCheck extends Resource {
 
     /**
      * Returns The Whether the verification was successful.
-     * 
+     *
      * @return Whether the verification was successful
      */
     public final Boolean getValid() {
@@ -229,7 +229,7 @@ public class VerificationCheck extends Resource {
 
     /**
      * Returns The The amount of the associated PSD2 compliant transaction..
-     * 
+     *
      * @return The amount of the associated PSD2 compliant transaction.
      */
     public final String getAmount() {
@@ -238,7 +238,7 @@ public class VerificationCheck extends Resource {
 
     /**
      * Returns The The payee of the associated PSD2 compliant transaction.
-     * 
+     *
      * @return The payee of the associated PSD2 compliant transaction
      */
     public final String getPayee() {
@@ -248,7 +248,7 @@ public class VerificationCheck extends Resource {
     /**
      * Returns The The ISO 8601 date and time in GMT when the Verification Check
      * resource was created.
-     * 
+     *
      * @return The ISO 8601 date and time in GMT when the Verification Check
      *         resource was created
      */
@@ -259,7 +259,7 @@ public class VerificationCheck extends Resource {
     /**
      * Returns The The ISO 8601 date and time in GMT when the Verification Check
      * resource was last updated.
-     * 
+     *
      * @return The ISO 8601 date and time in GMT when the Verification Check
      *         resource was last updated
      */
@@ -279,16 +279,16 @@ public class VerificationCheck extends Resource {
 
         VerificationCheck other = (VerificationCheck) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(to, other.to) && 
-               Objects.equals(channel, other.channel) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(valid, other.valid) && 
-               Objects.equals(amount, other.amount) && 
-               Objects.equals(payee, other.payee) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(to, other.to) &&
+               Objects.equals(channel, other.channel) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(valid, other.valid) &&
+               Objects.equals(amount, other.amount) &&
+               Objects.equals(payee, other.payee) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated);
     }
 

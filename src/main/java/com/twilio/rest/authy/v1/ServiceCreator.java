@@ -27,7 +27,7 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * Construct a new ServiceCreator.
-     * 
+     *
      * @param friendlyName A human readable description of this resource.
      */
     public ServiceCreator(final String friendlyName) {
@@ -36,7 +36,7 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Service
      */
@@ -75,7 +75,7 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -30,14 +30,14 @@ public class FieldReader extends Reader<Field> {
 
     /**
      * Construct a new FieldReader.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         Task associated with the resources to read.
      * @param pathTaskSid The SID of the
      *                    [Task](https://www.twilio.com/docs/autopilot/api/task)
      *                    resource associated with the Field resources to read
      */
-    public FieldReader(final String pathAssistantSid, 
+    public FieldReader(final String pathAssistantSid,
                        final String pathTaskSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathTaskSid = pathTaskSid;
@@ -45,7 +45,7 @@ public class FieldReader extends Reader<Field> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Field ResourceSet
      */
@@ -56,7 +56,7 @@ public class FieldReader extends Reader<Field> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Field ResourceSet
      */
@@ -76,7 +76,7 @@ public class FieldReader extends Reader<Field> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Field ResourceSet
@@ -94,13 +94,13 @@ public class FieldReader extends Reader<Field> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Field> nextPage(final Page<Field> page, 
+    public Page<Field> nextPage(final Page<Field> page,
                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -114,13 +114,13 @@ public class FieldReader extends Reader<Field> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Field> previousPage(final Page<Field> page, 
+    public Page<Field> previousPage(final Page<Field> page,
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -134,7 +134,7 @@ public class FieldReader extends Reader<Field> {
 
     /**
      * Generate a Page of Field Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -169,7 +169,7 @@ public class FieldReader extends Reader<Field> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

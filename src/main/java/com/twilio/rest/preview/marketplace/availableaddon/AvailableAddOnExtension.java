@@ -41,19 +41,19 @@ public class AvailableAddOnExtension extends Resource {
 
     /**
      * Create a AvailableAddOnExtensionFetcher to execute fetch.
-     * 
+     *
      * @param pathAvailableAddOnSid The available_add_on_sid
      * @param pathSid The unique Extension Sid
      * @return AvailableAddOnExtensionFetcher capable of executing the fetch
      */
-    public static AvailableAddOnExtensionFetcher fetcher(final String pathAvailableAddOnSid, 
+    public static AvailableAddOnExtensionFetcher fetcher(final String pathAvailableAddOnSid,
                                                          final String pathSid) {
         return new AvailableAddOnExtensionFetcher(pathAvailableAddOnSid, pathSid);
     }
 
     /**
      * Create a AvailableAddOnExtensionReader to execute read.
-     * 
+     *
      * @param pathAvailableAddOnSid The available_add_on_sid
      * @return AvailableAddOnExtensionReader capable of executing the read
      */
@@ -64,7 +64,7 @@ public class AvailableAddOnExtension extends Resource {
     /**
      * Converts a JSON String into a AvailableAddOnExtension object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AvailableAddOnExtension object represented by the provided JSON
@@ -83,7 +83,7 @@ public class AvailableAddOnExtension extends Resource {
     /**
      * Converts a JSON InputStream into a AvailableAddOnExtension object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AvailableAddOnExtension object represented by the provided JSON
@@ -108,15 +108,15 @@ public class AvailableAddOnExtension extends Resource {
 
     @JsonCreator
     private AvailableAddOnExtension(@JsonProperty("sid")
-                                    final String sid, 
+                                    final String sid,
                                     @JsonProperty("available_add_on_sid")
-                                    final String availableAddOnSid, 
+                                    final String availableAddOnSid,
                                     @JsonProperty("friendly_name")
-                                    final String friendlyName, 
+                                    final String friendlyName,
                                     @JsonProperty("product_name")
-                                    final String productName, 
+                                    final String productName,
                                     @JsonProperty("unique_name")
-                                    final String uniqueName, 
+                                    final String uniqueName,
                                     @JsonProperty("url")
                                     final URI url) {
         this.sid = sid;
@@ -129,7 +129,7 @@ public class AvailableAddOnExtension extends Resource {
 
     /**
      * Returns The A string that uniquely identifies this Extension.
-     * 
+     *
      * @return A string that uniquely identifies this Extension
      */
     public final String getSid() {
@@ -138,7 +138,7 @@ public class AvailableAddOnExtension extends Resource {
 
     /**
      * Returns The The available_add_on_sid.
-     * 
+     *
      * @return The available_add_on_sid
      */
     public final String getAvailableAddOnSid() {
@@ -147,7 +147,7 @@ public class AvailableAddOnExtension extends Resource {
 
     /**
      * Returns The A human-readable description of this Extension.
-     * 
+     *
      * @return A human-readable description of this Extension
      */
     public final String getFriendlyName() {
@@ -156,7 +156,7 @@ public class AvailableAddOnExtension extends Resource {
 
     /**
      * Returns The A human-readable description of the Extension's Product.
-     * 
+     *
      * @return A human-readable description of the Extension's Product
      */
     public final String getProductName() {
@@ -165,7 +165,7 @@ public class AvailableAddOnExtension extends Resource {
 
     /**
      * Returns The The string that uniquely identifies this Extension.
-     * 
+     *
      * @return The string that uniquely identifies this Extension
      */
     public final String getUniqueName() {
@@ -174,7 +174,7 @@ public class AvailableAddOnExtension extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -193,11 +193,11 @@ public class AvailableAddOnExtension extends Resource {
 
         AvailableAddOnExtension other = (AvailableAddOnExtension) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(availableAddOnSid, other.availableAddOnSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(productName, other.productName) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(availableAddOnSid, other.availableAddOnSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(productName, other.productName) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
                Objects.equals(url, other.url);
     }
 

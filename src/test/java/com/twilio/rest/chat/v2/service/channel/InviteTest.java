@@ -42,7 +42,7 @@ public class InviteTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.CHAT.toString(),
                                           "/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Invites/INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -106,7 +106,7 @@ public class InviteTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.CHAT.toString(),
                                           "/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Invites");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -150,7 +150,7 @@ public class InviteTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.CHAT.toString(),
                                           "/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Invites/INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

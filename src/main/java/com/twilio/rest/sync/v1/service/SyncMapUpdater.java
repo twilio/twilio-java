@@ -29,11 +29,11 @@ public class SyncMapUpdater extends Updater<SyncMap> {
 
     /**
      * Construct a new SyncMapUpdater.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathSid The sid
      */
-    public SyncMapUpdater(final String pathServiceSid, 
+    public SyncMapUpdater(final String pathServiceSid,
                           final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -41,7 +41,7 @@ public class SyncMapUpdater extends Updater<SyncMap> {
 
     /**
      * Alias for collection_ttl. If both are provided, this value is ignored..
-     * 
+     *
      * @param ttl Alias for collection_ttl
      * @return this
      */
@@ -53,7 +53,7 @@ public class SyncMapUpdater extends Updater<SyncMap> {
     /**
      * New time-to-live of this Map in seconds. In the range [1, 31 536 000 (1
      * year)], or 0 for infinity..
-     * 
+     *
      * @param collectionTtl New time-to-live of this Map in seconds.
      * @return this
      */
@@ -64,7 +64,7 @@ public class SyncMapUpdater extends Updater<SyncMap> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated SyncMap
      */
@@ -103,7 +103,7 @@ public class SyncMapUpdater extends Updater<SyncMap> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

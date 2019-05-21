@@ -28,13 +28,13 @@ public class InteractionFetcher extends Fetcher<Interaction> {
 
     /**
      * Construct a new InteractionFetcher.
-     * 
+     *
      * @param pathServiceSid The SID of the parent Service of the resource to fetch
      * @param pathSessionSid he SID of the parent Session of the resource to fetch
      * @param pathSid The unique string that identifies the resource
      */
-    public InteractionFetcher(final String pathServiceSid, 
-                              final String pathSessionSid, 
+    public InteractionFetcher(final String pathServiceSid,
+                              final String pathSessionSid,
                               final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSessionSid = pathSessionSid;
@@ -43,7 +43,7 @@ public class InteractionFetcher extends Fetcher<Interaction> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Interaction
      */

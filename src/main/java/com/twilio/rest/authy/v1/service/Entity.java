@@ -43,43 +43,43 @@ public class Entity extends Resource {
 
     /**
      * Create a EntityCreator to execute create.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param identity Unique identity of the Entity
      * @return EntityCreator capable of executing the create
      */
-    public static EntityCreator creator(final String pathServiceSid, 
+    public static EntityCreator creator(final String pathServiceSid,
                                         final String identity) {
         return new EntityCreator(pathServiceSid, identity);
     }
 
     /**
      * Create a EntityDeleter to execute delete.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique identity of the Entity
      * @return EntityDeleter capable of executing the delete
      */
-    public static EntityDeleter deleter(final String pathServiceSid, 
+    public static EntityDeleter deleter(final String pathServiceSid,
                                         final String pathIdentity) {
         return new EntityDeleter(pathServiceSid, pathIdentity);
     }
 
     /**
      * Create a EntityFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique identity of the Entity
      * @return EntityFetcher capable of executing the fetch
      */
-    public static EntityFetcher fetcher(final String pathServiceSid, 
+    public static EntityFetcher fetcher(final String pathServiceSid,
                                         final String pathIdentity) {
         return new EntityFetcher(pathServiceSid, pathIdentity);
     }
 
     /**
      * Create a EntityReader to execute read.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @return EntityReader capable of executing the read
      */
@@ -89,7 +89,7 @@ public class Entity extends Resource {
 
     /**
      * Converts a JSON String into a Entity object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Entity object represented by the provided JSON
@@ -108,7 +108,7 @@ public class Entity extends Resource {
     /**
      * Converts a JSON InputStream into a Entity object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Entity object represented by the provided JSON
@@ -135,19 +135,19 @@ public class Entity extends Resource {
 
     @JsonCreator
     private Entity(@JsonProperty("sid")
-                   final String sid, 
+                   final String sid,
                    @JsonProperty("identity")
-                   final String identity, 
+                   final String identity,
                    @JsonProperty("account_sid")
-                   final String accountSid, 
+                   final String accountSid,
                    @JsonProperty("service_sid")
-                   final String serviceSid, 
+                   final String serviceSid,
                    @JsonProperty("date_created")
-                   final String dateCreated, 
+                   final String dateCreated,
                    @JsonProperty("date_updated")
-                   final String dateUpdated, 
+                   final String dateUpdated,
                    @JsonProperty("url")
-                   final URI url, 
+                   final URI url,
                    @JsonProperty("links")
                    final Map<String, String> links) {
         this.sid = sid;
@@ -162,7 +162,7 @@ public class Entity extends Resource {
 
     /**
      * Returns The A string that uniquely identifies this Entity..
-     * 
+     *
      * @return A string that uniquely identifies this Entity.
      */
     public final String getSid() {
@@ -171,7 +171,7 @@ public class Entity extends Resource {
 
     /**
      * Returns The Unique identity of the Entity.
-     * 
+     *
      * @return Unique identity of the Entity
      */
     public final String getIdentity() {
@@ -180,7 +180,7 @@ public class Entity extends Resource {
 
     /**
      * Returns The Account Sid..
-     * 
+     *
      * @return Account Sid.
      */
     public final String getAccountSid() {
@@ -189,7 +189,7 @@ public class Entity extends Resource {
 
     /**
      * Returns The Service Sid..
-     * 
+     *
      * @return Service Sid.
      */
     public final String getServiceSid() {
@@ -198,7 +198,7 @@ public class Entity extends Resource {
 
     /**
      * Returns The The date this Entity was created.
-     * 
+     *
      * @return The date this Entity was created
      */
     public final DateTime getDateCreated() {
@@ -207,7 +207,7 @@ public class Entity extends Resource {
 
     /**
      * Returns The The date this Entity was updated.
-     * 
+     *
      * @return The date this Entity was updated
      */
     public final DateTime getDateUpdated() {
@@ -216,7 +216,7 @@ public class Entity extends Resource {
 
     /**
      * Returns The The URL of this resource..
-     * 
+     *
      * @return The URL of this resource.
      */
     public final URI getUrl() {
@@ -225,7 +225,7 @@ public class Entity extends Resource {
 
     /**
      * Returns The Nested resource URLs..
-     * 
+     *
      * @return Nested resource URLs.
      */
     public final Map<String, String> getLinks() {
@@ -244,13 +244,13 @@ public class Entity extends Resource {
 
         Entity other = (Entity) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(identity, other.identity) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(identity, other.identity) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

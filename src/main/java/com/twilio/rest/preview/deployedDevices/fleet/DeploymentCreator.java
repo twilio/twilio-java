@@ -29,7 +29,7 @@ public class DeploymentCreator extends Creator<Deployment> {
 
     /**
      * Construct a new DeploymentCreator.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      */
     public DeploymentCreator(final String pathFleetSid) {
@@ -39,7 +39,7 @@ public class DeploymentCreator extends Creator<Deployment> {
     /**
      * Provides a human readable descriptive text for this Deployment, up to 256
      * characters long..
-     * 
+     *
      * @param friendlyName A human readable description for this Deployment.
      * @return this
      */
@@ -51,7 +51,7 @@ public class DeploymentCreator extends Creator<Deployment> {
     /**
      * Provides the unique string identifier of the Twilio Sync service instance
      * that will be linked to and accessible by this Deployment..
-     * 
+     *
      * @param syncServiceSid The unique identifier of the Sync service instance.
      * @return this
      */
@@ -62,7 +62,7 @@ public class DeploymentCreator extends Creator<Deployment> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Deployment
      */
@@ -101,7 +101,7 @@ public class DeploymentCreator extends Creator<Deployment> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

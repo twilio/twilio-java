@@ -42,7 +42,7 @@ public class PhoneNumberTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.PROXY.toString(),
                                           "/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class PhoneNumberTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.PROXY.toString(),
                                           "/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -106,7 +106,7 @@ public class PhoneNumberTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PROXY.toString(),
                                           "/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -138,7 +138,7 @@ public class PhoneNumberTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PROXY.toString(),
                                           "/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -170,7 +170,7 @@ public class PhoneNumberTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.PROXY.toString(),
                                           "/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

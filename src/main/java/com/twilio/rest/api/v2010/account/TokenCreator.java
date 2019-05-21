@@ -29,7 +29,7 @@ public class TokenCreator extends Creator<Token> {
 
     /**
      * Construct a new TokenCreator.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      */
     public TokenCreator(final String pathAccountSid) {
@@ -39,7 +39,7 @@ public class TokenCreator extends Creator<Token> {
     /**
      * The duration in seconds for which the generated credentials are valid. The
      * default value is 86400 (24 hours)..
-     * 
+     *
      * @param ttl The duration in seconds the credentials are valid
      * @return this
      */
@@ -50,7 +50,7 @@ public class TokenCreator extends Creator<Token> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Token
      */
@@ -90,7 +90,7 @@ public class TokenCreator extends Creator<Token> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

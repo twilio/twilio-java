@@ -29,7 +29,7 @@ public class ConferenceUpdater extends Updater<Conference> {
 
     /**
      * Construct a new ConferenceUpdater.
-     * 
+     *
      * @param pathSid The unique string that identifies this resource
      */
     public ConferenceUpdater(final String pathSid) {
@@ -38,12 +38,12 @@ public class ConferenceUpdater extends Updater<Conference> {
 
     /**
      * Construct a new ConferenceUpdater.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       update
      * @param pathSid The unique string that identifies this resource
      */
-    public ConferenceUpdater(final String pathAccountSid, 
+    public ConferenceUpdater(final String pathAccountSid,
                              final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -53,7 +53,7 @@ public class ConferenceUpdater extends Updater<Conference> {
      * The new status of the resource. Can be:  Can be: `init`, `in-progress`, or
      * `completed`. Specifying `completed` will end the conference and hang up all
      * participants.
-     * 
+     *
      * @param status The new status of the resource
      * @return this
      */
@@ -66,7 +66,7 @@ public class ConferenceUpdater extends Updater<Conference> {
      * The URL we should call to announce something into the conference. The URL can
      * return an MP3, a WAV, or a TwiML document with `&lt;Play&gt;` or
      * `&lt;Say&gt;`..
-     * 
+     *
      * @param announceUrl The URL we should call to announce something into the
      *                    conference
      * @return this
@@ -80,7 +80,7 @@ public class ConferenceUpdater extends Updater<Conference> {
      * The URL we should call to announce something into the conference. The URL can
      * return an MP3, a WAV, or a TwiML document with `&lt;Play&gt;` or
      * `&lt;Say&gt;`..
-     * 
+     *
      * @param announceUrl The URL we should call to announce something into the
      *                    conference
      * @return this
@@ -92,7 +92,7 @@ public class ConferenceUpdater extends Updater<Conference> {
     /**
      * The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the
      * default is `POST`.
-     * 
+     *
      * @param announceMethod he HTTP method used to call announce_url
      * @return this
      */
@@ -103,7 +103,7 @@ public class ConferenceUpdater extends Updater<Conference> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Conference
      */
@@ -143,7 +143,7 @@ public class ConferenceUpdater extends Updater<Conference> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

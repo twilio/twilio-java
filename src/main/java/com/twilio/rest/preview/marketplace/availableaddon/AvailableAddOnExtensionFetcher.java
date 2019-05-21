@@ -28,11 +28,11 @@ public class AvailableAddOnExtensionFetcher extends Fetcher<AvailableAddOnExtens
 
     /**
      * Construct a new AvailableAddOnExtensionFetcher.
-     * 
+     *
      * @param pathAvailableAddOnSid The available_add_on_sid
      * @param pathSid The unique Extension Sid
      */
-    public AvailableAddOnExtensionFetcher(final String pathAvailableAddOnSid, 
+    public AvailableAddOnExtensionFetcher(final String pathAvailableAddOnSid,
                                           final String pathSid) {
         this.pathAvailableAddOnSid = pathAvailableAddOnSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class AvailableAddOnExtensionFetcher extends Fetcher<AvailableAddOnExtens
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched AvailableAddOnExtension
      */

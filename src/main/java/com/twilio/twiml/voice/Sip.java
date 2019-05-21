@@ -71,7 +71,7 @@ public class Sip extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -80,7 +80,7 @@ public class Sip extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -114,7 +114,7 @@ public class Sip extends TwiML {
 
     /**
      * SIP Username
-     * 
+     *
      * @return SIP Username
      */
     public String getUsername() {
@@ -123,7 +123,7 @@ public class Sip extends TwiML {
 
     /**
      * SIP Password
-     * 
+     *
      * @return SIP Password
      */
     public String getPassword() {
@@ -132,7 +132,7 @@ public class Sip extends TwiML {
 
     /**
      * Action URL
-     * 
+     *
      * @return Action URL
      */
     public URI getUrl() {
@@ -141,7 +141,7 @@ public class Sip extends TwiML {
 
     /**
      * Action URL method
-     * 
+     *
      * @return Action URL method
      */
     public HttpMethod getMethod() {
@@ -150,7 +150,7 @@ public class Sip extends TwiML {
 
     /**
      * Status callback events
-     * 
+     *
      * @return Status callback events
      */
     public List<Sip.Event> getStatusCallbackEvents() {
@@ -171,7 +171,7 @@ public class Sip extends TwiML {
 
     /**
      * Status callback URL
-     * 
+     *
      * @return Status callback URL
      */
     public URI getStatusCallback() {
@@ -180,7 +180,7 @@ public class Sip extends TwiML {
 
     /**
      * Status callback URL method
-     * 
+     *
      * @return Status callback URL method
      */
     public HttpMethod getStatusCallbackMethod() {
@@ -189,7 +189,7 @@ public class Sip extends TwiML {
 
     /**
      * SIP URL
-     * 
+     *
      * @return SIP URL
      */
     public URI getSipUrl() {

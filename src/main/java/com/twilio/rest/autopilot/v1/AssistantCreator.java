@@ -39,7 +39,7 @@ public class AssistantCreator extends Creator<Assistant> {
     /**
      * A descriptive string that you create to describe the new resource. It is not
      * unique and can be up to 255 characters long..
-     * 
+     *
      * @param friendlyName A string to describe the new resource
      * @return this
      */
@@ -52,7 +52,7 @@ public class AssistantCreator extends Creator<Assistant> {
      * Whether queries should be logged and kept after training. Can be: `true` or
      * `false` and defaults to `true`. If `true`, queries are stored for 30 days,
      * and then deleted. If `false`, no queries are stored..
-     * 
+     *
      * @param logQueries Whether queries should be logged and kept after training
      * @return this
      */
@@ -65,7 +65,7 @@ public class AssistantCreator extends Creator<Assistant> {
      * An application-defined string that uniquely identifies the new resource. It
      * can be used as an alternative to the `sid` in the URL path to address the
      * resource. The first 64 characters must be unique..
-     * 
+     *
      * @param uniqueName An application-defined string that uniquely identifies the
      *                   new resource
      * @return this
@@ -77,7 +77,7 @@ public class AssistantCreator extends Creator<Assistant> {
 
     /**
      * Reserved..
-     * 
+     *
      * @param callbackUrl Reserved
      * @return this
      */
@@ -88,7 +88,7 @@ public class AssistantCreator extends Creator<Assistant> {
 
     /**
      * Reserved..
-     * 
+     *
      * @param callbackUrl Reserved
      * @return this
      */
@@ -98,7 +98,7 @@ public class AssistantCreator extends Creator<Assistant> {
 
     /**
      * Reserved..
-     * 
+     *
      * @param callbackEvents Reserved
      * @return this
      */
@@ -110,7 +110,7 @@ public class AssistantCreator extends Creator<Assistant> {
     /**
      * The JSON string that defines the Assistant's [style
      * sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet).
-     * 
+     *
      * @param styleSheet A JSON string that defines the Assistant's style sheet
      * @return this
      */
@@ -123,7 +123,7 @@ public class AssistantCreator extends Creator<Assistant> {
      * A JSON object that defines the Assistant's [default
      * tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for
      * various scenarios, including initiation actions and fallback tasks..
-     * 
+     *
      * @param defaults A JSON object that defines the Assistant's default tasks for
      *                 various scenarios
      * @return this
@@ -135,7 +135,7 @@ public class AssistantCreator extends Creator<Assistant> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Assistant
      */
@@ -174,7 +174,7 @@ public class AssistantCreator extends Creator<Assistant> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

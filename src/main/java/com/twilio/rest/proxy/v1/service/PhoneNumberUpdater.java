@@ -28,12 +28,12 @@ public class PhoneNumberUpdater extends Updater<PhoneNumber> {
 
     /**
      * Construct a new PhoneNumberUpdater.
-     * 
+     *
      * @param pathServiceSid The SID of the parent Service resource of the
      *                       PhoneNumber resource to update
      * @param pathSid The unique string that identifies the resource
      */
-    public PhoneNumberUpdater(final String pathServiceSid, 
+    public PhoneNumberUpdater(final String pathServiceSid,
                               final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -44,7 +44,7 @@ public class PhoneNumberUpdater extends Updater<PhoneNumber> {
      * participant using proxy pool logic. See [Reserved Phone
      * Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more
      * information..
-     * 
+     *
      * @param isReserved Whether the new phone number should be reserved
      * @return this
      */
@@ -55,7 +55,7 @@ public class PhoneNumberUpdater extends Updater<PhoneNumber> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated PhoneNumber
      */
@@ -94,7 +94,7 @@ public class PhoneNumberUpdater extends Updater<PhoneNumber> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

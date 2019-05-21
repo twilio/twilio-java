@@ -31,7 +31,7 @@ public class AssistantInitiationActionsUpdater extends Updater<AssistantInitiati
 
     /**
      * Construct a new AssistantInitiationActionsUpdater.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      */
     public AssistantInitiationActionsUpdater(final String pathAssistantSid) {
@@ -40,7 +40,7 @@ public class AssistantInitiationActionsUpdater extends Updater<AssistantInitiati
 
     /**
      * The initiation_actions.
-     * 
+     *
      * @param initiationActions The initiation_actions
      * @return this
      */
@@ -51,7 +51,7 @@ public class AssistantInitiationActionsUpdater extends Updater<AssistantInitiati
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated AssistantInitiationActions
      */
@@ -90,7 +90,7 @@ public class AssistantInitiationActionsUpdater extends Updater<AssistantInitiati
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -42,7 +42,7 @@ public class NumberTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PRICING.toString(),
                                           "/v1/Voice/Numbers/+15017122661");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

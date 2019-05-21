@@ -28,7 +28,7 @@ public class ExecutionReader extends Reader<Execution> {
 
     /**
      * Construct a new ExecutionReader.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      */
     public ExecutionReader(final String pathFlowSid) {
@@ -38,7 +38,7 @@ public class ExecutionReader extends Reader<Execution> {
     /**
      * Only show Executions that started on or after this ISO8601 date-time, given
      * as `YYYY-MM-DDThh:mm:ss-hh:mm`..
-     * 
+     *
      * @param dateCreatedFrom Only show Executions that started on or after this
      *                        ISO8601 date-time.
      * @return this
@@ -51,7 +51,7 @@ public class ExecutionReader extends Reader<Execution> {
     /**
      * Only show Executions that started before this this ISO8601 date-time, given
      * as `YYYY-MM-DDThh:mm:ss-hh:mm`..
-     * 
+     *
      * @param dateCreatedTo Only show Executions that started before this this
      *                      ISO8601 date-time.
      * @return this
@@ -63,7 +63,7 @@ public class ExecutionReader extends Reader<Execution> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Execution ResourceSet
      */
@@ -74,7 +74,7 @@ public class ExecutionReader extends Reader<Execution> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Execution ResourceSet
      */
@@ -94,7 +94,7 @@ public class ExecutionReader extends Reader<Execution> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Execution ResourceSet
@@ -112,13 +112,13 @@ public class ExecutionReader extends Reader<Execution> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Execution> nextPage(final Page<Execution> page, 
+    public Page<Execution> nextPage(final Page<Execution> page,
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -132,13 +132,13 @@ public class ExecutionReader extends Reader<Execution> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Execution> previousPage(final Page<Execution> page, 
+    public Page<Execution> previousPage(final Page<Execution> page,
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -152,7 +152,7 @@ public class ExecutionReader extends Reader<Execution> {
 
     /**
      * Generate a Page of Execution Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -187,7 +187,7 @@ public class ExecutionReader extends Reader<Execution> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

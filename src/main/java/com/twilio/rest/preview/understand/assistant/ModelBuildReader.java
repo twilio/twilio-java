@@ -29,7 +29,7 @@ public class ModelBuildReader extends Reader<ModelBuild> {
 
     /**
      * Construct a new ModelBuildReader.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      */
     public ModelBuildReader(final String pathAssistantSid) {
@@ -38,7 +38,7 @@ public class ModelBuildReader extends Reader<ModelBuild> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return ModelBuild ResourceSet
      */
@@ -49,7 +49,7 @@ public class ModelBuildReader extends Reader<ModelBuild> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return ModelBuild ResourceSet
      */
@@ -69,7 +69,7 @@ public class ModelBuildReader extends Reader<ModelBuild> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return ModelBuild ResourceSet
@@ -87,13 +87,13 @@ public class ModelBuildReader extends Reader<ModelBuild> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<ModelBuild> nextPage(final Page<ModelBuild> page, 
+    public Page<ModelBuild> nextPage(final Page<ModelBuild> page,
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -107,13 +107,13 @@ public class ModelBuildReader extends Reader<ModelBuild> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<ModelBuild> previousPage(final Page<ModelBuild> page, 
+    public Page<ModelBuild> previousPage(final Page<ModelBuild> page,
                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -127,7 +127,7 @@ public class ModelBuildReader extends Reader<ModelBuild> {
 
     /**
      * Generate a Page of ModelBuild Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -162,7 +162,7 @@ public class ModelBuildReader extends Reader<ModelBuild> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

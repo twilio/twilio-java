@@ -28,11 +28,11 @@ public class DeviceDeleter extends Deleter<Device> {
 
     /**
      * Construct a new DeviceDeleter.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @param pathSid A string that uniquely identifies the Device.
      */
-    public DeviceDeleter(final String pathFleetSid, 
+    public DeviceDeleter(final String pathFleetSid,
                          final String pathSid) {
         this.pathFleetSid = pathFleetSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class DeviceDeleter extends Deleter<Device> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

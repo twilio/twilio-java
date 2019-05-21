@@ -27,7 +27,7 @@ public class FaxUpdater extends Updater<Fax> {
 
     /**
      * Construct a new FaxUpdater.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public FaxUpdater(final String pathSid) {
@@ -37,7 +37,7 @@ public class FaxUpdater extends Updater<Fax> {
     /**
      * The new status of the resource. Can be only `canceled`. This may fail if
      * transmission has already started..
-     * 
+     *
      * @param status The new status of the resource
      * @return this
      */
@@ -48,7 +48,7 @@ public class FaxUpdater extends Updater<Fax> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Fax
      */
@@ -87,7 +87,7 @@ public class FaxUpdater extends Updater<Fax> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

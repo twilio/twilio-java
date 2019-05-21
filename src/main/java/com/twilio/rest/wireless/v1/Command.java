@@ -142,7 +142,7 @@ public class Command extends Resource {
 
     /**
      * Create a CommandFetcher to execute fetch.
-     * 
+     *
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return CommandFetcher capable of executing the fetch
      */
@@ -152,7 +152,7 @@ public class Command extends Resource {
 
     /**
      * Create a CommandReader to execute read.
-     * 
+     *
      * @return CommandReader capable of executing the read
      */
     public static CommandReader reader() {
@@ -161,7 +161,7 @@ public class Command extends Resource {
 
     /**
      * Create a CommandCreator to execute create.
-     * 
+     *
      * @param command The message body of the Command or a Base64 encoded byte
      *                string in binary mode.
      * @return CommandCreator capable of executing the create
@@ -172,7 +172,7 @@ public class Command extends Resource {
 
     /**
      * Create a CommandDeleter to execute delete.
-     * 
+     *
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return CommandDeleter capable of executing the delete
      */
@@ -182,7 +182,7 @@ public class Command extends Resource {
 
     /**
      * Converts a JSON String into a Command object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Command object represented by the provided JSON
@@ -201,7 +201,7 @@ public class Command extends Resource {
     /**
      * Converts a JSON InputStream into a Command object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Command object represented by the provided JSON
@@ -232,27 +232,27 @@ public class Command extends Resource {
 
     @JsonCreator
     private Command(@JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("sim_sid")
-                    final String simSid, 
+                    final String simSid,
                     @JsonProperty("command")
-                    final String command, 
+                    final String command,
                     @JsonProperty("command_mode")
-                    final Command.CommandMode commandMode, 
+                    final Command.CommandMode commandMode,
                     @JsonProperty("transport")
-                    final Command.Transport transport, 
+                    final Command.Transport transport,
                     @JsonProperty("delivery_receipt_requested")
-                    final Boolean deliveryReceiptRequested, 
+                    final Boolean deliveryReceiptRequested,
                     @JsonProperty("status")
-                    final Command.Status status, 
+                    final Command.Status status,
                     @JsonProperty("direction")
-                    final Command.Direction direction, 
+                    final Command.Direction direction,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("url")
                     final URI url) {
         this.sid = sid;
@@ -271,7 +271,7 @@ public class Command extends Resource {
 
     /**
      * Returns The A 34 character string that uniquely identifies this resource..
-     * 
+     *
      * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
@@ -280,7 +280,7 @@ public class Command extends Resource {
 
     /**
      * Returns The The unique id of the Account that this Command belongs to..
-     * 
+     *
      * @return The unique id of the Account that this Command belongs to.
      */
     public final String getAccountSid() {
@@ -289,7 +289,7 @@ public class Command extends Resource {
 
     /**
      * Returns The The unique ID of the SIM that this Command was sent to or from..
-     * 
+     *
      * @return The unique ID of the SIM that this Command was sent to or from.
      */
     public final String getSimSid() {
@@ -298,7 +298,7 @@ public class Command extends Resource {
 
     /**
      * Returns The The message being sent to or from the SIM..
-     * 
+     *
      * @return The message being sent to or from the SIM.
      */
     public final String getCommand() {
@@ -308,7 +308,7 @@ public class Command extends Resource {
     /**
      * Returns The A string representing which mode the SMS was sent or received
      * using..
-     * 
+     *
      * @return A string representing which mode the SMS was sent or received using.
      */
     public final Command.CommandMode getCommandMode() {
@@ -317,7 +317,7 @@ public class Command extends Resource {
 
     /**
      * Returns The The transport.
-     * 
+     *
      * @return The transport
      */
     public final Command.Transport getTransport() {
@@ -326,7 +326,7 @@ public class Command extends Resource {
 
     /**
      * Returns The The delivery_receipt_requested.
-     * 
+     *
      * @return The delivery_receipt_requested
      */
     public final Boolean getDeliveryReceiptRequested() {
@@ -335,7 +335,7 @@ public class Command extends Resource {
 
     /**
      * Returns The A string representing the status of the Command..
-     * 
+     *
      * @return A string representing the status of the Command.
      */
     public final Command.Status getStatus() {
@@ -344,7 +344,7 @@ public class Command extends Resource {
 
     /**
      * Returns The The direction of the Command..
-     * 
+     *
      * @return The direction of the Command.
      */
     public final Command.Direction getDirection() {
@@ -354,7 +354,7 @@ public class Command extends Resource {
     /**
      * Returns The The date that this resource was created, given as GMT in ISO 8601
      * format..
-     * 
+     *
      * @return The date that this resource was created, given as GMT in ISO 8601
      *         format.
      */
@@ -365,7 +365,7 @@ public class Command extends Resource {
     /**
      * Returns The The date that this resource was last updated, given as GMT in ISO
      * 8601 format..
-     * 
+     *
      * @return The date that this resource was last updated, given as GMT in ISO
      *         8601 format.
      */
@@ -375,7 +375,7 @@ public class Command extends Resource {
 
     /**
      * Returns The The URL for this resource..
-     * 
+     *
      * @return The URL for this resource.
      */
     public final URI getUrl() {
@@ -394,17 +394,17 @@ public class Command extends Resource {
 
         Command other = (Command) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(simSid, other.simSid) && 
-               Objects.equals(command, other.command) && 
-               Objects.equals(commandMode, other.commandMode) && 
-               Objects.equals(transport, other.transport) && 
-               Objects.equals(deliveryReceiptRequested, other.deliveryReceiptRequested) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(direction, other.direction) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(simSid, other.simSid) &&
+               Objects.equals(command, other.command) &&
+               Objects.equals(commandMode, other.commandMode) &&
+               Objects.equals(transport, other.transport) &&
+               Objects.equals(deliveryReceiptRequested, other.deliveryReceiptRequested) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(direction, other.direction) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
     }
 

@@ -42,7 +42,7 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * Construct a new ServiceCreator.
-     * 
+     *
      * @param friendlyName A human readable descriptive text for this resource, up
      *                     to 64 characters.
      */
@@ -55,7 +55,7 @@ public class ServiceCreator extends Creator<Service> {
      * is made to the Inbound Request URL when a message is received by any phone
      * number or shortcode associated to your Messaging Service. Set to `null` to
      * disable inbound messaging..
-     * 
+     *
      * @param inboundRequestUrl A webhook request is made to the Inbound Request
      *                          URL when a message is received by any phone number
      *                          or shortcode associated to your Messaging Service.
@@ -71,7 +71,7 @@ public class ServiceCreator extends Creator<Service> {
      * is made to the Inbound Request URL when a message is received by any phone
      * number or shortcode associated to your Messaging Service. Set to `null` to
      * disable inbound messaging..
-     * 
+     *
      * @param inboundRequestUrl A webhook request is made to the Inbound Request
      *                          URL when a message is received by any phone number
      *                          or shortcode associated to your Messaging Service.
@@ -84,7 +84,7 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * The HTTP method used when making requests to the Inbound Request URL. Either
      * `GET` or `POST`. Default value is `POST`..
-     * 
+     *
      * @param inboundMethod The HTTP method used when making requests to the
      *                      Inbound Request URL.
      * @return this
@@ -97,7 +97,7 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * A request is made to the Fallback URL if an error occurs with retrieving or
      * executing the TwiML from you Inbound Request URL..
-     * 
+     *
      * @param fallbackUrl A request is made to the Fallback URL if an error occurs
      *                    with retrieving or executing the TwiML from you Inbound
      *                    Request URL.
@@ -111,7 +111,7 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * A request is made to the Fallback URL if an error occurs with retrieving or
      * executing the TwiML from you Inbound Request URL..
-     * 
+     *
      * @param fallbackUrl A request is made to the Fallback URL if an error occurs
      *                    with retrieving or executing the TwiML from you Inbound
      *                    Request URL.
@@ -124,7 +124,7 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * The HTTP method used when requesting the Fallback URL. Either `GET` or
      * `POST`. Default value is `POST`..
-     * 
+     *
      * @param fallbackMethod The HTTP method used when requesting the Fallback URL.
      * @return this
      */
@@ -140,7 +140,7 @@ public class ServiceCreator extends Creator<Service> {
      * message were successfully sent and delivered or if a [delivery related
      * error](https://www.twilio.com/docs/api/rest/message#error-values) may have
      * occurred..
-     * 
+     *
      * @param statusCallback A webhook request is made to the Status Callback to
      *                       pass status updates about your messages.
      * @return this
@@ -157,7 +157,7 @@ public class ServiceCreator extends Creator<Service> {
      * message were successfully sent and delivered or if a [delivery related
      * error](https://www.twilio.com/docs/api/rest/message#error-values) may have
      * occurred..
-     * 
+     *
      * @param statusCallback A webhook request is made to the Status Callback to
      *                       pass status updates about your messages.
      * @return this
@@ -169,7 +169,7 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * Configuration to enable or disable Sticky Sender on your Service Instance.
      * Possible values are `true` and `false`. Default value is `true`..
-     * 
+     *
      * @param stickySender Configuration to enable or disable Sticky Sender on your
      *                     Service Instance.
      * @return this
@@ -182,7 +182,7 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * Configuration to enable or disable MMS Converter on your Service Instance.
      * Possible values are `true` and `false`. Default value is `true`..
-     * 
+     *
      * @param mmsConverter Configuration to enable or disable MMS Converter on your
      *                     Service Instance.
      * @return this
@@ -195,7 +195,7 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * Configuration to enable or disable [Smart
      * Encoding](https://www.twilio.com/docs/api/messaging/services-and-copilot#smart-encoding). Possible values are `true` and `false`. Default value is `true`..
-     * 
+     *
      * @param smartEncoding Configuration to enable or disable Smart Encoding.
      * @return this
      */
@@ -206,7 +206,7 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * The scan_message_content.
-     * 
+     *
      * @param scanMessageContent The scan_message_content
      * @return this
      */
@@ -218,7 +218,7 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * Configuration to enable or disable [Fallback to Long
      * Code](https://www.twilio.com/docs/api/messaging/services-and-copilot#fallback-to-long-code). Possible values are `true` and `false`. Default value is `false`..
-     * 
+     *
      * @param fallbackToLongCode Configuration to enable or disable Fallback to
      *                           Long Code.
      * @return this
@@ -231,7 +231,7 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * Configuration to enable or disable [Area Code
      * Geomatch](https://www.twilio.com/docs/api/messaging/services-and-copilot#area-code-geomatch). Possible values are `true` and `false`. Default value is `false`..
-     * 
+     *
      * @param areaCodeGeomatch Configuration to enable or disable Area Code
      *                         Geomatch.
      * @return this
@@ -244,7 +244,7 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * Configuration to set the [validity
      * period](https://www.twilio.com/docs/api/messaging/services-and-copilot#validity-period) of all messages sent from your Service, in seconds. Acceptable integers range from `1` to `14,400`.  Default value is `14,400`..
-     * 
+     *
      * @param validityPeriod Configuration to set the validity period of all
      *                       messages sent from your Service, in seconds.
      * @return this
@@ -256,7 +256,7 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * The synchronous_validation.
-     * 
+     *
      * @param synchronousValidation The synchronous_validation
      * @return this
      */
@@ -267,7 +267,7 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Service
      */
@@ -306,7 +306,7 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

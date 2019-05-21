@@ -34,14 +34,14 @@ public class VerificationCreator extends Creator<Verification> {
 
     /**
      * Construct a new VerificationCreator.
-     * 
+     *
      * @param pathServiceSid The SID of the verification Service to create the
      *                       resource under
      * @param to The phone number to verify
      * @param channel The verification method to use
      */
-    public VerificationCreator(final String pathServiceSid, 
-                               final String to, 
+    public VerificationCreator(final String pathServiceSid,
+                               final String to,
                                final String channel) {
         this.pathServiceSid = pathServiceSid;
         this.to = to;
@@ -50,7 +50,7 @@ public class VerificationCreator extends Creator<Verification> {
 
     /**
      * The text of a custom message to use for the verification..
-     * 
+     *
      * @param customMessage The text of a custom message to use for the verification
      * @return this
      */
@@ -63,7 +63,7 @@ public class VerificationCreator extends Creator<Verification> {
      * The digits to send after a phone call is answered, for example, to dial an
      * extension. For more information, see the Programmable Voice documentation of
      * [sendDigits](https://www.twilio.com/docs/voice/twiml/number#attributes-sendDigits)..
-     * 
+     *
      * @param sendDigits The digits to send after a phone call is answered
      * @return this
      */
@@ -77,7 +77,7 @@ public class VerificationCreator extends Creator<Verification> {
      * `cs`, `da`, `de`, `el`, `en`, `es`, `fi`, `fr`, `he`, `hi`, `hr`, `hu`, `id`,
      * `it`, `ja`, `ko`, `ms`, `nb`, `nl`, `pl`, `pt`, `pr-BR`, `ro`, `ru`, `sv`,
      * `th`, `tl`, `tr`, `vi`, `zh`, `zh-CN`, or `zh-HK.`.
-     * 
+     *
      * @param locale The locale to use for the verification SMS or call
      * @return this
      */
@@ -89,7 +89,7 @@ public class VerificationCreator extends Creator<Verification> {
     /**
      * A pre-generated code to use for verification. The code can be between 4 and
      * 10 characters, inclusive..
-     * 
+     *
      * @param customCode A pre-generated code
      * @return this
      */
@@ -101,7 +101,7 @@ public class VerificationCreator extends Creator<Verification> {
     /**
      * The amount of the associated PSD2 compliant transaction. Requires the PSD2
      * Service flag enabled..
-     * 
+     *
      * @param amount The amount of the associated PSD2 compliant transaction.
      * @return this
      */
@@ -113,7 +113,7 @@ public class VerificationCreator extends Creator<Verification> {
     /**
      * The payee of the associated PSD2 compliant transaction. Requires the PSD2
      * Service flag enabled..
-     * 
+     *
      * @param payee The payee of the associated PSD2 compliant transaction
      * @return this
      */
@@ -124,7 +124,7 @@ public class VerificationCreator extends Creator<Verification> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Verification
      */
@@ -163,7 +163,7 @@ public class VerificationCreator extends Creator<Verification> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

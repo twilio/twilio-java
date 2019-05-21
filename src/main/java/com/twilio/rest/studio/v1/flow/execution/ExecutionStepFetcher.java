@@ -24,13 +24,13 @@ public class ExecutionStepFetcher extends Fetcher<ExecutionStep> {
 
     /**
      * Construct a new ExecutionStepFetcher.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      * @param pathExecutionSid Execution Sid.
      * @param pathSid Step Sid.
      */
-    public ExecutionStepFetcher(final String pathFlowSid, 
-                                final String pathExecutionSid, 
+    public ExecutionStepFetcher(final String pathFlowSid,
+                                final String pathExecutionSid,
                                 final String pathSid) {
         this.pathFlowSid = pathFlowSid;
         this.pathExecutionSid = pathExecutionSid;
@@ -39,7 +39,7 @@ public class ExecutionStepFetcher extends Fetcher<ExecutionStep> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched ExecutionStep
      */

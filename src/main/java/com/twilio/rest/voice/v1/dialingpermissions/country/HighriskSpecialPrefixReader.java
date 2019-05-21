@@ -29,7 +29,7 @@ public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
 
     /**
      * Construct a new HighriskSpecialPrefixReader.
-     * 
+     *
      * @param pathIsoCode The ISO 3166-1 country code
      */
     public HighriskSpecialPrefixReader(final String pathIsoCode) {
@@ -38,7 +38,7 @@ public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return HighriskSpecialPrefix ResourceSet
      */
@@ -49,7 +49,7 @@ public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return HighriskSpecialPrefix ResourceSet
      */
@@ -69,7 +69,7 @@ public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return HighriskSpecialPrefix ResourceSet
@@ -87,13 +87,13 @@ public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<HighriskSpecialPrefix> nextPage(final Page<HighriskSpecialPrefix> page, 
+    public Page<HighriskSpecialPrefix> nextPage(final Page<HighriskSpecialPrefix> page,
                                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -107,13 +107,13 @@ public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<HighriskSpecialPrefix> previousPage(final Page<HighriskSpecialPrefix> page, 
+    public Page<HighriskSpecialPrefix> previousPage(final Page<HighriskSpecialPrefix> page,
                                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -127,7 +127,7 @@ public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
 
     /**
      * Generate a Page of HighriskSpecialPrefix Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -162,7 +162,7 @@ public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

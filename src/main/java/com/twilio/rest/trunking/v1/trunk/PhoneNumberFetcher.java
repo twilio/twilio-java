@@ -23,12 +23,12 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
 
     /**
      * Construct a new PhoneNumberFetcher.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk from which to fetch the PhoneNumber
      *                     resource
      * @param pathSid The unique string that identifies the resource
      */
-    public PhoneNumberFetcher(final String pathTrunkSid, 
+    public PhoneNumberFetcher(final String pathTrunkSid,
                               final String pathSid) {
         this.pathTrunkSid = pathTrunkSid;
         this.pathSid = pathSid;
@@ -36,7 +36,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched PhoneNumber
      */

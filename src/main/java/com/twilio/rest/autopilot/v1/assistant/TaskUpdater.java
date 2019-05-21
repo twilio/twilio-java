@@ -37,12 +37,12 @@ public class TaskUpdater extends Updater<Task> {
 
     /**
      * Construct a new TaskUpdater.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         resource to update
      * @param pathSid The unique string that identifies the resource
      */
-    public TaskUpdater(final String pathAssistantSid, 
+    public TaskUpdater(final String pathAssistantSid,
                        final String pathSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathSid = pathSid;
@@ -51,7 +51,7 @@ public class TaskUpdater extends Updater<Task> {
     /**
      * A descriptive string that you create to describe the resource. It is not
      * unique and can be up to 255 characters long..
-     * 
+     *
      * @param friendlyName A string to describe the resource
      * @return this
      */
@@ -64,7 +64,7 @@ public class TaskUpdater extends Updater<Task> {
      * An application-defined string that uniquely identifies the resource. This
      * value must be 64 characters or less in length and be unique. It can be used
      * as an alternative to the `sid` in the URL path to address the resource..
-     * 
+     *
      * @param uniqueName An application-defined string that uniquely identifies the
      *                   resource
      * @return this
@@ -78,7 +78,7 @@ public class TaskUpdater extends Updater<Task> {
      * The JSON string that specifies the
      * [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the
      * Assistant on how to perform the task..
-     * 
+     *
      * @param actions The JSON string that specifies the actions that instruct the
      *                Assistant on how to perform the task
      * @return this
@@ -90,7 +90,7 @@ public class TaskUpdater extends Updater<Task> {
 
     /**
      * The URL from which the Assistant can fetch actions..
-     * 
+     *
      * @param actionsUrl The URL from which the Assistant can fetch actions
      * @return this
      */
@@ -101,7 +101,7 @@ public class TaskUpdater extends Updater<Task> {
 
     /**
      * The URL from which the Assistant can fetch actions..
-     * 
+     *
      * @param actionsUrl The URL from which the Assistant can fetch actions
      * @return this
      */
@@ -111,7 +111,7 @@ public class TaskUpdater extends Updater<Task> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Task
      */
@@ -150,7 +150,7 @@ public class TaskUpdater extends Updater<Task> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

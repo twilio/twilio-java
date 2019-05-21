@@ -42,7 +42,7 @@ public class CallSummaryTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.INSIGHTS.toString(),
                                           "/v1/Voice/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Summary");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

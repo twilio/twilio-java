@@ -37,7 +37,7 @@ public class AuthCallsIpAccessControlListMapping extends Resource {
 
     /**
      * Create a AuthCallsIpAccessControlListMappingCreator to execute create.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param pathDomainSid The SID of the SIP domain that will contain the new
      *                      resource
@@ -46,15 +46,15 @@ public class AuthCallsIpAccessControlListMapping extends Resource {
      * @return AuthCallsIpAccessControlListMappingCreator capable of executing the
      *         create
      */
-    public static AuthCallsIpAccessControlListMappingCreator creator(final String pathAccountSid, 
-                                                                     final String pathDomainSid, 
+    public static AuthCallsIpAccessControlListMappingCreator creator(final String pathAccountSid,
+                                                                     final String pathDomainSid,
                                                                      final String ipAccessControlListSid) {
         return new AuthCallsIpAccessControlListMappingCreator(pathAccountSid, pathDomainSid, ipAccessControlListSid);
     }
 
     /**
      * Create a AuthCallsIpAccessControlListMappingCreator to execute create.
-     * 
+     *
      * @param pathDomainSid The SID of the SIP domain that will contain the new
      *                      resource
      * @param ipAccessControlListSid The SID of the IpAccessControlList resource to
@@ -62,14 +62,14 @@ public class AuthCallsIpAccessControlListMapping extends Resource {
      * @return AuthCallsIpAccessControlListMappingCreator capable of executing the
      *         create
      */
-    public static AuthCallsIpAccessControlListMappingCreator creator(final String pathDomainSid, 
+    public static AuthCallsIpAccessControlListMappingCreator creator(final String pathDomainSid,
                                                                      final String ipAccessControlListSid) {
         return new AuthCallsIpAccessControlListMappingCreator(pathDomainSid, ipAccessControlListSid);
     }
 
     /**
      * Create a AuthCallsIpAccessControlListMappingReader to execute read.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       read
      * @param pathDomainSid The SID of the SIP domain that contains the resources
@@ -77,14 +77,14 @@ public class AuthCallsIpAccessControlListMapping extends Resource {
      * @return AuthCallsIpAccessControlListMappingReader capable of executing the
      *         read
      */
-    public static AuthCallsIpAccessControlListMappingReader reader(final String pathAccountSid, 
+    public static AuthCallsIpAccessControlListMappingReader reader(final String pathAccountSid,
                                                                    final String pathDomainSid) {
         return new AuthCallsIpAccessControlListMappingReader(pathAccountSid, pathDomainSid);
     }
 
     /**
      * Create a AuthCallsIpAccessControlListMappingReader to execute read.
-     * 
+     *
      * @param pathDomainSid The SID of the SIP domain that contains the resources
      *                      to read
      * @return AuthCallsIpAccessControlListMappingReader capable of executing the
@@ -96,7 +96,7 @@ public class AuthCallsIpAccessControlListMapping extends Resource {
 
     /**
      * Create a AuthCallsIpAccessControlListMappingFetcher to execute fetch.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource to
      *                       fetch
      * @param pathDomainSid The SID of the SIP domain that contains the resource to
@@ -105,29 +105,29 @@ public class AuthCallsIpAccessControlListMapping extends Resource {
      * @return AuthCallsIpAccessControlListMappingFetcher capable of executing the
      *         fetch
      */
-    public static AuthCallsIpAccessControlListMappingFetcher fetcher(final String pathAccountSid, 
-                                                                     final String pathDomainSid, 
+    public static AuthCallsIpAccessControlListMappingFetcher fetcher(final String pathAccountSid,
+                                                                     final String pathDomainSid,
                                                                      final String pathSid) {
         return new AuthCallsIpAccessControlListMappingFetcher(pathAccountSid, pathDomainSid, pathSid);
     }
 
     /**
      * Create a AuthCallsIpAccessControlListMappingFetcher to execute fetch.
-     * 
+     *
      * @param pathDomainSid The SID of the SIP domain that contains the resource to
      *                      fetch
      * @param pathSid The unique string that identifies the resource
      * @return AuthCallsIpAccessControlListMappingFetcher capable of executing the
      *         fetch
      */
-    public static AuthCallsIpAccessControlListMappingFetcher fetcher(final String pathDomainSid, 
+    public static AuthCallsIpAccessControlListMappingFetcher fetcher(final String pathDomainSid,
                                                                      final String pathSid) {
         return new AuthCallsIpAccessControlListMappingFetcher(pathDomainSid, pathSid);
     }
 
     /**
      * Create a AuthCallsIpAccessControlListMappingDeleter to execute delete.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       delete
      * @param pathDomainSid The SID of the SIP domain that contains the resources
@@ -136,22 +136,22 @@ public class AuthCallsIpAccessControlListMapping extends Resource {
      * @return AuthCallsIpAccessControlListMappingDeleter capable of executing the
      *         delete
      */
-    public static AuthCallsIpAccessControlListMappingDeleter deleter(final String pathAccountSid, 
-                                                                     final String pathDomainSid, 
+    public static AuthCallsIpAccessControlListMappingDeleter deleter(final String pathAccountSid,
+                                                                     final String pathDomainSid,
                                                                      final String pathSid) {
         return new AuthCallsIpAccessControlListMappingDeleter(pathAccountSid, pathDomainSid, pathSid);
     }
 
     /**
      * Create a AuthCallsIpAccessControlListMappingDeleter to execute delete.
-     * 
+     *
      * @param pathDomainSid The SID of the SIP domain that contains the resources
      *                      to delete
      * @param pathSid The unique string that identifies the resource
      * @return AuthCallsIpAccessControlListMappingDeleter capable of executing the
      *         delete
      */
-    public static AuthCallsIpAccessControlListMappingDeleter deleter(final String pathDomainSid, 
+    public static AuthCallsIpAccessControlListMappingDeleter deleter(final String pathDomainSid,
                                                                      final String pathSid) {
         return new AuthCallsIpAccessControlListMappingDeleter(pathDomainSid, pathSid);
     }
@@ -159,7 +159,7 @@ public class AuthCallsIpAccessControlListMapping extends Resource {
     /**
      * Converts a JSON String into a AuthCallsIpAccessControlListMapping object
      * using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AuthCallsIpAccessControlListMapping object represented by the
@@ -179,7 +179,7 @@ public class AuthCallsIpAccessControlListMapping extends Resource {
     /**
      * Converts a JSON InputStream into a AuthCallsIpAccessControlListMapping object
      * using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AuthCallsIpAccessControlListMapping object represented by the
@@ -204,13 +204,13 @@ public class AuthCallsIpAccessControlListMapping extends Resource {
 
     @JsonCreator
     private AuthCallsIpAccessControlListMapping(@JsonProperty("account_sid")
-                                                final String accountSid, 
+                                                final String accountSid,
                                                 @JsonProperty("date_created")
-                                                final String dateCreated, 
+                                                final String dateCreated,
                                                 @JsonProperty("date_updated")
-                                                final String dateUpdated, 
+                                                final String dateUpdated,
                                                 @JsonProperty("friendly_name")
-                                                final String friendlyName, 
+                                                final String friendlyName,
                                                 @JsonProperty("sid")
                                                 final String sid) {
         this.accountSid = accountSid;
@@ -222,7 +222,7 @@ public class AuthCallsIpAccessControlListMapping extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -231,7 +231,7 @@ public class AuthCallsIpAccessControlListMapping extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT that the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
@@ -241,7 +241,7 @@ public class AuthCallsIpAccessControlListMapping extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT that the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -250,7 +250,7 @@ public class AuthCallsIpAccessControlListMapping extends Resource {
 
     /**
      * Returns The The string that you assigned to describe the resource.
-     * 
+     *
      * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
@@ -259,7 +259,7 @@ public class AuthCallsIpAccessControlListMapping extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -278,10 +278,10 @@ public class AuthCallsIpAccessControlListMapping extends Resource {
 
         AuthCallsIpAccessControlListMapping other = (AuthCallsIpAccessControlListMapping) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
                Objects.equals(sid, other.sid);
     }
 

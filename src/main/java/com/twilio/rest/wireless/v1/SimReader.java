@@ -28,7 +28,7 @@ public class SimReader extends Reader<Sim> {
 
     /**
      * Only return Sims with this status..
-     * 
+     *
      * @param status Only return Sims with this status.
      * @return this
      */
@@ -40,7 +40,7 @@ public class SimReader extends Reader<Sim> {
     /**
      * Return Sims with this Iccid. Currently this should be a list with maximum
      * size 1..
-     * 
+     *
      * @param iccid Return Sims with this Iccid.
      * @return this
      */
@@ -51,7 +51,7 @@ public class SimReader extends Reader<Sim> {
 
     /**
      * Only return Sims with this Rate Plan..
-     * 
+     *
      * @param ratePlan Only return Sims with this Rate Plan.
      * @return this
      */
@@ -62,7 +62,7 @@ public class SimReader extends Reader<Sim> {
 
     /**
      * Only return Sims with this EID..
-     * 
+     *
      * @param eId Only return Sims with this EID.
      * @return this
      */
@@ -73,7 +73,7 @@ public class SimReader extends Reader<Sim> {
 
     /**
      * Only return Sims with this registration code..
-     * 
+     *
      * @param simRegistrationCode Only return Sims with this registration code.
      * @return this
      */
@@ -84,7 +84,7 @@ public class SimReader extends Reader<Sim> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Sim ResourceSet
      */
@@ -95,7 +95,7 @@ public class SimReader extends Reader<Sim> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Sim ResourceSet
      */
@@ -115,7 +115,7 @@ public class SimReader extends Reader<Sim> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Sim ResourceSet
@@ -133,13 +133,13 @@ public class SimReader extends Reader<Sim> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Sim> nextPage(final Page<Sim> page, 
+    public Page<Sim> nextPage(final Page<Sim> page,
                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -153,13 +153,13 @@ public class SimReader extends Reader<Sim> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Sim> previousPage(final Page<Sim> page, 
+    public Page<Sim> previousPage(final Page<Sim> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -173,7 +173,7 @@ public class SimReader extends Reader<Sim> {
 
     /**
      * Generate a Page of Sim Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -208,7 +208,7 @@ public class SimReader extends Reader<Sim> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

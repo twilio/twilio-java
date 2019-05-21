@@ -23,7 +23,7 @@ public class AwsUpdater extends Updater<Aws> {
 
     /**
      * Construct a new AwsUpdater.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public AwsUpdater(final String pathSid) {
@@ -33,7 +33,7 @@ public class AwsUpdater extends Updater<Aws> {
     /**
      * A descriptive string that you create to describe the resource. It can be up
      * to 64 characters long..
-     * 
+     *
      * @param friendlyName A string to describe the resource
      * @return this
      */
@@ -44,7 +44,7 @@ public class AwsUpdater extends Updater<Aws> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Aws
      */
@@ -83,7 +83,7 @@ public class AwsUpdater extends Updater<Aws> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

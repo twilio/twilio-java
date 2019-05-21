@@ -22,7 +22,7 @@ public class TrunkDeleter extends Deleter<Trunk> {
 
     /**
      * Construct a new TrunkDeleter.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public TrunkDeleter(final String pathSid) {
@@ -31,7 +31,7 @@ public class TrunkDeleter extends Deleter<Trunk> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

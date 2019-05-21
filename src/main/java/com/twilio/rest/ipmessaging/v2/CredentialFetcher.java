@@ -22,7 +22,7 @@ public class CredentialFetcher extends Fetcher<Credential> {
 
     /**
      * Construct a new CredentialFetcher.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public CredentialFetcher(final String pathSid) {
@@ -31,7 +31,7 @@ public class CredentialFetcher extends Fetcher<Credential> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Credential
      */

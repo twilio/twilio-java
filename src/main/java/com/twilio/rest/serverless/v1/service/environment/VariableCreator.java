@@ -30,15 +30,15 @@ public class VariableCreator extends Creator<Variable> {
 
     /**
      * Construct a new VariableCreator.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathEnvironmentSid Environment Sid.
      * @param key A string by which this Variable can be referenced.
      * @param value A string that contains the actual value of this Variable.
      */
-    public VariableCreator(final String pathServiceSid, 
-                           final String pathEnvironmentSid, 
-                           final String key, 
+    public VariableCreator(final String pathServiceSid,
+                           final String pathEnvironmentSid,
+                           final String key,
                            final String value) {
         this.pathServiceSid = pathServiceSid;
         this.pathEnvironmentSid = pathEnvironmentSid;
@@ -48,7 +48,7 @@ public class VariableCreator extends Creator<Variable> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Variable
      */
@@ -87,7 +87,7 @@ public class VariableCreator extends Creator<Variable> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

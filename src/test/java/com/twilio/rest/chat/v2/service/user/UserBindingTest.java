@@ -42,7 +42,7 @@ public class UserBindingTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.CHAT.toString(),
                                           "/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -86,7 +86,7 @@ public class UserBindingTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.CHAT.toString(),
                                           "/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings/BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -118,7 +118,7 @@ public class UserBindingTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.CHAT.toString(),
                                           "/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings/BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

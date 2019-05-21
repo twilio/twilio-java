@@ -42,7 +42,7 @@ public class BindingTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.NOTIFY.toString(),
                                           "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings/BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class BindingTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.NOTIFY.toString(),
                                           "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings/BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -140,7 +140,7 @@ public class BindingTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.NOTIFY.toString(),
                                           "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

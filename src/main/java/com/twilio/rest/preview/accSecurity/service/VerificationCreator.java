@@ -30,13 +30,13 @@ public class VerificationCreator extends Creator<Verification> {
 
     /**
      * Construct a new VerificationCreator.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param to To phonenumber
      * @param channel sms or call
      */
-    public VerificationCreator(final String pathServiceSid, 
-                               final String to, 
+    public VerificationCreator(final String pathServiceSid,
+                               final String to,
                                final String channel) {
         this.pathServiceSid = pathServiceSid;
         this.to = to;
@@ -45,7 +45,7 @@ public class VerificationCreator extends Creator<Verification> {
 
     /**
      * A character string containing a custom message for this verification.
-     * 
+     *
      * @param customMessage A custom message for this verification
      * @return this
      */
@@ -56,7 +56,7 @@ public class VerificationCreator extends Creator<Verification> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Verification
      */
@@ -95,7 +95,7 @@ public class VerificationCreator extends Creator<Verification> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

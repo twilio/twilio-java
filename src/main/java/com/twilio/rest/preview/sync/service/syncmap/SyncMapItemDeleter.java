@@ -29,13 +29,13 @@ public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
 
     /**
      * Construct a new SyncMapItemDeleter.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathMapSid The map_sid
      * @param pathKey The key
      */
-    public SyncMapItemDeleter(final String pathServiceSid, 
-                              final String pathMapSid, 
+    public SyncMapItemDeleter(final String pathServiceSid,
+                              final String pathMapSid,
                               final String pathKey) {
         this.pathServiceSid = pathServiceSid;
         this.pathMapSid = pathMapSid;
@@ -44,7 +44,7 @@ public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

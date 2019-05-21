@@ -124,7 +124,7 @@ public class Factor extends Resource {
 
     /**
      * Create a FactorCreator to execute create.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique identity of the Entity
      * @param binding A unique binding for this Factor
@@ -132,71 +132,71 @@ public class Factor extends Resource {
      * @param factorType The Type of this Factor
      * @return FactorCreator capable of executing the create
      */
-    public static FactorCreator creator(final String pathServiceSid, 
-                                        final String pathIdentity, 
-                                        final String binding, 
-                                        final String friendlyName, 
+    public static FactorCreator creator(final String pathServiceSid,
+                                        final String pathIdentity,
+                                        final String binding,
+                                        final String friendlyName,
                                         final Factor.FactorTypes factorType) {
         return new FactorCreator(pathServiceSid, pathIdentity, binding, friendlyName, factorType);
     }
 
     /**
      * Create a FactorDeleter to execute delete.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique identity of the Entity
      * @param pathSid A string that uniquely identifies this Factor.
      * @return FactorDeleter capable of executing the delete
      */
-    public static FactorDeleter deleter(final String pathServiceSid, 
-                                        final String pathIdentity, 
+    public static FactorDeleter deleter(final String pathServiceSid,
+                                        final String pathIdentity,
                                         final String pathSid) {
         return new FactorDeleter(pathServiceSid, pathIdentity, pathSid);
     }
 
     /**
      * Create a FactorFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique identity of the Entity
      * @param pathSid A string that uniquely identifies this Factor.
      * @return FactorFetcher capable of executing the fetch
      */
-    public static FactorFetcher fetcher(final String pathServiceSid, 
-                                        final String pathIdentity, 
+    public static FactorFetcher fetcher(final String pathServiceSid,
+                                        final String pathIdentity,
                                         final String pathSid) {
         return new FactorFetcher(pathServiceSid, pathIdentity, pathSid);
     }
 
     /**
      * Create a FactorReader to execute read.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique identity of the Entity
      * @return FactorReader capable of executing the read
      */
-    public static FactorReader reader(final String pathServiceSid, 
+    public static FactorReader reader(final String pathServiceSid,
                                       final String pathIdentity) {
         return new FactorReader(pathServiceSid, pathIdentity);
     }
 
     /**
      * Create a FactorUpdater to execute update.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique identity of the Entity
      * @param pathSid A string that uniquely identifies this Factor.
      * @return FactorUpdater capable of executing the update
      */
-    public static FactorUpdater updater(final String pathServiceSid, 
-                                        final String pathIdentity, 
+    public static FactorUpdater updater(final String pathServiceSid,
+                                        final String pathIdentity,
                                         final String pathSid) {
         return new FactorUpdater(pathServiceSid, pathIdentity, pathSid);
     }
 
     /**
      * Converts a JSON String into a Factor object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Factor object represented by the provided JSON
@@ -215,7 +215,7 @@ public class Factor extends Resource {
     /**
      * Converts a JSON InputStream into a Factor object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Factor object represented by the provided JSON
@@ -247,29 +247,29 @@ public class Factor extends Resource {
 
     @JsonCreator
     private Factor(@JsonProperty("sid")
-                   final String sid, 
+                   final String sid,
                    @JsonProperty("account_sid")
-                   final String accountSid, 
+                   final String accountSid,
                    @JsonProperty("service_sid")
-                   final String serviceSid, 
+                   final String serviceSid,
                    @JsonProperty("entity_sid")
-                   final String entitySid, 
+                   final String entitySid,
                    @JsonProperty("identity")
-                   final String identity, 
+                   final String identity,
                    @JsonProperty("date_created")
-                   final String dateCreated, 
+                   final String dateCreated,
                    @JsonProperty("date_updated")
-                   final String dateUpdated, 
+                   final String dateUpdated,
                    @JsonProperty("friendly_name")
-                   final String friendlyName, 
+                   final String friendlyName,
                    @JsonProperty("status")
-                   final Factor.FactorStatuses status, 
+                   final Factor.FactorStatuses status,
                    @JsonProperty("factor_type")
-                   final Factor.FactorTypes factorType, 
+                   final Factor.FactorTypes factorType,
                    @JsonProperty("factor_strength")
-                   final Factor.FactorStrengths factorStrength, 
+                   final Factor.FactorStrengths factorStrength,
                    @JsonProperty("url")
-                   final URI url, 
+                   final URI url,
                    @JsonProperty("links")
                    final Map<String, String> links) {
         this.sid = sid;
@@ -289,7 +289,7 @@ public class Factor extends Resource {
 
     /**
      * Returns The A string that uniquely identifies this Factor..
-     * 
+     *
      * @return A string that uniquely identifies this Factor.
      */
     public final String getSid() {
@@ -298,7 +298,7 @@ public class Factor extends Resource {
 
     /**
      * Returns The Account Sid..
-     * 
+     *
      * @return Account Sid.
      */
     public final String getAccountSid() {
@@ -307,7 +307,7 @@ public class Factor extends Resource {
 
     /**
      * Returns The Service Sid..
-     * 
+     *
      * @return Service Sid.
      */
     public final String getServiceSid() {
@@ -316,7 +316,7 @@ public class Factor extends Resource {
 
     /**
      * Returns The Entity Sid..
-     * 
+     *
      * @return Entity Sid.
      */
     public final String getEntitySid() {
@@ -325,7 +325,7 @@ public class Factor extends Resource {
 
     /**
      * Returns The Unique identity of the Entity.
-     * 
+     *
      * @return Unique identity of the Entity
      */
     public final String getIdentity() {
@@ -334,7 +334,7 @@ public class Factor extends Resource {
 
     /**
      * Returns The The date this Factor was created.
-     * 
+     *
      * @return The date this Factor was created
      */
     public final DateTime getDateCreated() {
@@ -343,7 +343,7 @@ public class Factor extends Resource {
 
     /**
      * Returns The The date this Factor was updated.
-     * 
+     *
      * @return The date this Factor was updated
      */
     public final DateTime getDateUpdated() {
@@ -352,7 +352,7 @@ public class Factor extends Resource {
 
     /**
      * Returns The A human readable description of this resource..
-     * 
+     *
      * @return A human readable description of this resource.
      */
     public final String getFriendlyName() {
@@ -361,7 +361,7 @@ public class Factor extends Resource {
 
     /**
      * Returns The The Status of this Factor.
-     * 
+     *
      * @return The Status of this Factor
      */
     public final Factor.FactorStatuses getStatus() {
@@ -370,7 +370,7 @@ public class Factor extends Resource {
 
     /**
      * Returns The The Type of this Factor.
-     * 
+     *
      * @return The Type of this Factor
      */
     public final Factor.FactorTypes getFactorType() {
@@ -379,7 +379,7 @@ public class Factor extends Resource {
 
     /**
      * Returns The The Strength of this Factor.
-     * 
+     *
      * @return The Strength of this Factor
      */
     public final Factor.FactorStrengths getFactorStrength() {
@@ -388,7 +388,7 @@ public class Factor extends Resource {
 
     /**
      * Returns The The URL of this resource..
-     * 
+     *
      * @return The URL of this resource.
      */
     public final URI getUrl() {
@@ -397,7 +397,7 @@ public class Factor extends Resource {
 
     /**
      * Returns The Nested resource URLs..
-     * 
+     *
      * @return Nested resource URLs.
      */
     public final Map<String, String> getLinks() {
@@ -416,18 +416,18 @@ public class Factor extends Resource {
 
         Factor other = (Factor) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(entitySid, other.entitySid) && 
-               Objects.equals(identity, other.identity) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(factorType, other.factorType) && 
-               Objects.equals(factorStrength, other.factorStrength) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(entitySid, other.entitySid) &&
+               Objects.equals(identity, other.identity) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(factorType, other.factorType) &&
+               Objects.equals(factorStrength, other.factorStrength) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

@@ -28,11 +28,11 @@ public class SyncStreamUpdater extends Updater<SyncStream> {
 
     /**
      * Construct a new SyncStreamUpdater.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathSid The sid
      */
-    public SyncStreamUpdater(final String pathServiceSid, 
+    public SyncStreamUpdater(final String pathServiceSid,
                              final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -41,7 +41,7 @@ public class SyncStreamUpdater extends Updater<SyncStream> {
     /**
      * New time-to-live of this Stream in seconds. In the range [1, 31 536 000 (1
      * year)], or 0 for infinity..
-     * 
+     *
      * @param ttl Stream TTL.
      * @return this
      */
@@ -52,7 +52,7 @@ public class SyncStreamUpdater extends Updater<SyncStream> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated SyncStream
      */
@@ -91,7 +91,7 @@ public class SyncStreamUpdater extends Updater<SyncStream> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -23,11 +23,11 @@ public class RoomRecordingFetcher extends Fetcher<RoomRecording> {
 
     /**
      * Construct a new RoomRecordingFetcher.
-     * 
+     *
      * @param pathRoomSid The room_sid
      * @param pathSid The sid
      */
-    public RoomRecordingFetcher(final String pathRoomSid, 
+    public RoomRecordingFetcher(final String pathRoomSid,
                                 final String pathSid) {
         this.pathRoomSid = pathRoomSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class RoomRecordingFetcher extends Fetcher<RoomRecording> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched RoomRecording
      */

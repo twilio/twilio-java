@@ -42,7 +42,7 @@ public class ExportConfigurationTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
                                           "/BulkExports/Exports/resource_type/Configuration");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class ExportConfigurationTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.PREVIEW.toString(),
                                           "/BulkExports/Exports/resource_type/Configuration");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

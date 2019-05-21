@@ -39,7 +39,7 @@ public class SessionCreator extends Creator<Session> {
 
     /**
      * Construct a new SessionCreator.
-     * 
+     *
      * @param pathServiceSid The SID of the parent Service resource
      */
     public SessionCreator(final String pathServiceSid) {
@@ -50,7 +50,7 @@ public class SessionCreator extends Creator<Session> {
      * An application-defined string that uniquely identifies the resource. This
      * value must be 191 characters or fewer in length and be unique. **This value
      * should not have PII.**.
-     * 
+     *
      * @param uniqueName An application-defined string that uniquely identifies the
      *                   resource
      * @return this
@@ -63,7 +63,7 @@ public class SessionCreator extends Creator<Session> {
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session
      * should expire. If this is value is present, it overrides the `ttl` value..
-     * 
+     *
      * @param dateExpiry The ISO 8601 date when the Session should expire
      * @return this
      */
@@ -75,7 +75,7 @@ public class SessionCreator extends Creator<Session> {
     /**
      * The time, in seconds, when the session will expire. The time is measured from
      * the last Session create or the Session's last Interaction..
-     * 
+     *
      * @param ttl When the session will expire
      * @return this
      */
@@ -87,7 +87,7 @@ public class SessionCreator extends Creator<Session> {
     /**
      * The Mode of the Session. Can be: `message-only`, `voice-only`, or
      * `voice-and-message` and the default value is `voice-and-message`..
-     * 
+     *
      * @param mode The Mode of the Session
      * @return this
      */
@@ -99,7 +99,7 @@ public class SessionCreator extends Creator<Session> {
     /**
      * The initial status of the Session. Can be: `open`, `in-progress`, `closed`,
      * `failed`, or `unknown`. The default is `open` on create..
-     * 
+     *
      * @param status Session status
      * @return this
      */
@@ -110,7 +110,7 @@ public class SessionCreator extends Creator<Session> {
 
     /**
      * The Participant objects to include in the new session..
-     * 
+     *
      * @param participants The Participant objects to include in the new session
      * @return this
      */
@@ -121,7 +121,7 @@ public class SessionCreator extends Creator<Session> {
 
     /**
      * The Participant objects to include in the new session..
-     * 
+     *
      * @param participants The Participant objects to include in the new session
      * @return this
      */
@@ -131,7 +131,7 @@ public class SessionCreator extends Creator<Session> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Session
      */
@@ -170,7 +170,7 @@ public class SessionCreator extends Creator<Session> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -39,7 +39,7 @@ public class RatePlanCreator extends Creator<RatePlan> {
 
     /**
      * The unique_name.
-     * 
+     *
      * @param uniqueName The unique_name
      * @return this
      */
@@ -50,7 +50,7 @@ public class RatePlanCreator extends Creator<RatePlan> {
 
     /**
      * The friendly_name.
-     * 
+     *
      * @param friendlyName The friendly_name
      * @return this
      */
@@ -61,7 +61,7 @@ public class RatePlanCreator extends Creator<RatePlan> {
 
     /**
      * The data_enabled.
-     * 
+     *
      * @param dataEnabled The data_enabled
      * @return this
      */
@@ -72,7 +72,7 @@ public class RatePlanCreator extends Creator<RatePlan> {
 
     /**
      * The data_limit.
-     * 
+     *
      * @param dataLimit The data_limit
      * @return this
      */
@@ -83,7 +83,7 @@ public class RatePlanCreator extends Creator<RatePlan> {
 
     /**
      * The data_metering.
-     * 
+     *
      * @param dataMetering The data_metering
      * @return this
      */
@@ -94,7 +94,7 @@ public class RatePlanCreator extends Creator<RatePlan> {
 
     /**
      * The messaging_enabled.
-     * 
+     *
      * @param messagingEnabled The messaging_enabled
      * @return this
      */
@@ -105,7 +105,7 @@ public class RatePlanCreator extends Creator<RatePlan> {
 
     /**
      * The voice_enabled.
-     * 
+     *
      * @param voiceEnabled The voice_enabled
      * @return this
      */
@@ -116,7 +116,7 @@ public class RatePlanCreator extends Creator<RatePlan> {
 
     /**
      * The commands_enabled.
-     * 
+     *
      * @param commandsEnabled The commands_enabled
      * @return this
      */
@@ -127,7 +127,7 @@ public class RatePlanCreator extends Creator<RatePlan> {
 
     /**
      * The national_roaming_enabled.
-     * 
+     *
      * @param nationalRoamingEnabled The national_roaming_enabled
      * @return this
      */
@@ -138,7 +138,7 @@ public class RatePlanCreator extends Creator<RatePlan> {
 
     /**
      * The international_roaming.
-     * 
+     *
      * @param internationalRoaming The international_roaming
      * @return this
      */
@@ -149,7 +149,7 @@ public class RatePlanCreator extends Creator<RatePlan> {
 
     /**
      * The international_roaming.
-     * 
+     *
      * @param internationalRoaming The international_roaming
      * @return this
      */
@@ -159,7 +159,7 @@ public class RatePlanCreator extends Creator<RatePlan> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created RatePlan
      */
@@ -198,7 +198,7 @@ public class RatePlanCreator extends Creator<RatePlan> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

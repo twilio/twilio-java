@@ -29,11 +29,11 @@ public class UserBindingReader extends Reader<UserBinding> {
 
     /**
      * Construct a new UserBindingReader.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to read the resource from
      * @param pathUserSid The SID of the User of the User Bindings to read
      */
-    public UserBindingReader(final String pathServiceSid, 
+    public UserBindingReader(final String pathServiceSid,
                              final String pathUserSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathUserSid = pathUserSid;
@@ -43,7 +43,7 @@ public class UserBindingReader extends Reader<UserBinding> {
      * The push technology used by the User Binding resources to read. Can be:
      * `apn`, `gcm`, or `fcm`.  See [push notification
      * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information..
-     * 
+     *
      * @param bindingType The push technology used by the User Binding resources to
      *                    read
      * @return this
@@ -57,7 +57,7 @@ public class UserBindingReader extends Reader<UserBinding> {
      * The push technology used by the User Binding resources to read. Can be:
      * `apn`, `gcm`, or `fcm`.  See [push notification
      * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information..
-     * 
+     *
      * @param bindingType The push technology used by the User Binding resources to
      *                    read
      * @return this
@@ -68,7 +68,7 @@ public class UserBindingReader extends Reader<UserBinding> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return UserBinding ResourceSet
      */
@@ -79,7 +79,7 @@ public class UserBindingReader extends Reader<UserBinding> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return UserBinding ResourceSet
      */
@@ -99,7 +99,7 @@ public class UserBindingReader extends Reader<UserBinding> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return UserBinding ResourceSet
@@ -117,13 +117,13 @@ public class UserBindingReader extends Reader<UserBinding> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<UserBinding> nextPage(final Page<UserBinding> page, 
+    public Page<UserBinding> nextPage(final Page<UserBinding> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -137,13 +137,13 @@ public class UserBindingReader extends Reader<UserBinding> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<UserBinding> previousPage(final Page<UserBinding> page, 
+    public Page<UserBinding> previousPage(final Page<UserBinding> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -157,7 +157,7 @@ public class UserBindingReader extends Reader<UserBinding> {
 
     /**
      * Generate a Page of UserBinding Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -192,7 +192,7 @@ public class UserBindingReader extends Reader<UserBinding> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

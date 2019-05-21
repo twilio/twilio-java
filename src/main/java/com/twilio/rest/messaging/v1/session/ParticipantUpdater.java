@@ -33,11 +33,11 @@ public class ParticipantUpdater extends Updater<Participant> {
 
     /**
      * Construct a new ParticipantUpdater.
-     * 
+     *
      * @param pathSessionSid The unique id of the Session for this participant.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
-    public ParticipantUpdater(final String pathSessionSid, 
+    public ParticipantUpdater(final String pathSessionSid,
                               final String pathSid) {
         this.pathSessionSid = pathSessionSid;
         this.pathSid = pathSid;
@@ -47,7 +47,7 @@ public class ParticipantUpdater extends Updater<Participant> {
      * An optional string metadata field you can use to store any data you wish. The
      * string value must contain structurally valid JSON if specified.  **Note**
      * that if the attributes are not set "{}" will be returned..
-     * 
+     *
      * @param attributes An optional string metadata field you can use to store any
      *                   data you wish.
      * @return this
@@ -61,7 +61,7 @@ public class ParticipantUpdater extends Updater<Participant> {
      * The date that this resource was created. This is useful when bulk-importing
      * messages from another system, as the provided value will be trusted and
      * displayed on SDK clients..
-     * 
+     *
      * @param dateCreated The date that this resource was created.
      * @return this
      */
@@ -72,7 +72,7 @@ public class ParticipantUpdater extends Updater<Participant> {
 
     /**
      * The date that this resource was last updated..
-     * 
+     *
      * @param dateUpdated The date that this resource was last updated.
      * @return this
      */
@@ -83,7 +83,7 @@ public class ParticipantUpdater extends Updater<Participant> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Participant
      */
@@ -122,7 +122,7 @@ public class ParticipantUpdater extends Updater<Participant> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

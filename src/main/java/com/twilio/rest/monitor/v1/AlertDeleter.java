@@ -22,7 +22,7 @@ public class AlertDeleter extends Deleter<Alert> {
 
     /**
      * Construct a new AlertDeleter.
-     * 
+     *
      * @param pathSid The sid
      */
     public AlertDeleter(final String pathSid) {
@@ -31,7 +31,7 @@ public class AlertDeleter extends Deleter<Alert> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

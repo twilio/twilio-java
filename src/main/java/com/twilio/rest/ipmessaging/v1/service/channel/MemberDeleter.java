@@ -24,14 +24,14 @@ public class MemberDeleter extends Deleter<Member> {
 
     /**
      * Construct a new MemberDeleter.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to delete the resource from
      * @param pathChannelSid The unique ID of the channel the message to delete
      *                       belongs to
      * @param pathSid The unique string that identifies the resource
      */
-    public MemberDeleter(final String pathServiceSid, 
-                         final String pathChannelSid, 
+    public MemberDeleter(final String pathServiceSid,
+                         final String pathChannelSid,
                          final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -40,7 +40,7 @@ public class MemberDeleter extends Deleter<Member> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

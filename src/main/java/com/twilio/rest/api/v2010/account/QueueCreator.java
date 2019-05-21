@@ -24,7 +24,7 @@ public class QueueCreator extends Creator<Queue> {
 
     /**
      * Construct a new QueueCreator.
-     * 
+     *
      * @param friendlyName A string to describe this resource
      */
     public QueueCreator(final String friendlyName) {
@@ -33,11 +33,11 @@ public class QueueCreator extends Creator<Queue> {
 
     /**
      * Construct a new QueueCreator.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param friendlyName A string to describe this resource
      */
-    public QueueCreator(final String pathAccountSid, 
+    public QueueCreator(final String pathAccountSid,
                         final String friendlyName) {
         this.pathAccountSid = pathAccountSid;
         this.friendlyName = friendlyName;
@@ -46,7 +46,7 @@ public class QueueCreator extends Creator<Queue> {
     /**
      * The maximum number of calls allowed to be in the queue. The default is 100.
      * The maximum is 5000..
-     * 
+     *
      * @param maxSize The max number of calls allowed in the queue
      * @return this
      */
@@ -57,7 +57,7 @@ public class QueueCreator extends Creator<Queue> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Queue
      */
@@ -97,7 +97,7 @@ public class QueueCreator extends Creator<Queue> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

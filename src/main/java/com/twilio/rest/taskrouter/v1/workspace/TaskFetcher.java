@@ -23,11 +23,11 @@ public class TaskFetcher extends Fetcher<Task> {
 
     /**
      * Construct a new TaskFetcher.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathSid The sid
      */
-    public TaskFetcher(final String pathWorkspaceSid, 
+    public TaskFetcher(final String pathWorkspaceSid,
                        final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class TaskFetcher extends Fetcher<Task> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Task
      */

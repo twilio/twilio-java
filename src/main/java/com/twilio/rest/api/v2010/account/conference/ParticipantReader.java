@@ -28,7 +28,7 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Construct a new ParticipantReader.
-     * 
+     *
      * @param pathConferenceSid The SID of the conference with the participants to
      *                          read
      */
@@ -38,13 +38,13 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Construct a new ParticipantReader.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       read
      * @param pathConferenceSid The SID of the conference with the participants to
      *                          read
      */
-    public ParticipantReader(final String pathAccountSid, 
+    public ParticipantReader(final String pathAccountSid,
                              final String pathConferenceSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathConferenceSid = pathConferenceSid;
@@ -53,7 +53,7 @@ public class ParticipantReader extends Reader<Participant> {
     /**
      * Whether to return only participants that are muted. Can be: `true` or
      * `false`..
-     * 
+     *
      * @param muted Whether to return only participants that are muted
      * @return this
      */
@@ -65,7 +65,7 @@ public class ParticipantReader extends Reader<Participant> {
     /**
      * Whether to return only participants that are on hold. Can be: `true` or
      * `false`..
-     * 
+     *
      * @param hold Whether to return only participants that are on hold
      * @return this
      */
@@ -77,7 +77,7 @@ public class ParticipantReader extends Reader<Participant> {
     /**
      * Whether to return only participants who are coaching another call. Can be:
      * `true` or `false`..
-     * 
+     *
      * @param coaching Whether to return only participants who are coaching another
      *                 call
      * @return this
@@ -89,7 +89,7 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Participant ResourceSet
      */
@@ -100,7 +100,7 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Participant ResourceSet
      */
@@ -121,7 +121,7 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Participant ResourceSet
@@ -140,13 +140,13 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Participant> nextPage(final Page<Participant> page, 
+    public Page<Participant> nextPage(final Page<Participant> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -160,13 +160,13 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Participant> previousPage(final Page<Participant> page, 
+    public Page<Participant> previousPage(final Page<Participant> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -180,7 +180,7 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Generate a Page of Participant Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -215,7 +215,7 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

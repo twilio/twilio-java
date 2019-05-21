@@ -31,7 +31,7 @@ public class ChannelCreator extends Creator<Channel> {
 
     /**
      * Construct a new ChannelCreator.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to create the resource under
      */
     public ChannelCreator(final String pathServiceSid) {
@@ -41,7 +41,7 @@ public class ChannelCreator extends Creator<Channel> {
     /**
      * A descriptive string that you create to describe the new resource. It can be
      * up to 64 characters long..
-     * 
+     *
      * @param friendlyName A string to describe the new resource
      * @return this
      */
@@ -55,7 +55,7 @@ public class ChannelCreator extends Creator<Channel> {
      * be used to address the resource in place of the resource's `sid` in the URL.
      * This value must be 64 characters or less in length and be unique within the
      * Service..
-     * 
+     *
      * @param uniqueName An application-defined string that uniquely identifies the
      *                   resource
      * @return this
@@ -67,7 +67,7 @@ public class ChannelCreator extends Creator<Channel> {
 
     /**
      * A valid JSON string that contains application-specific data..
-     * 
+     *
      * @param attributes A valid JSON string that contains application-specific data
      * @return this
      */
@@ -79,7 +79,7 @@ public class ChannelCreator extends Creator<Channel> {
     /**
      * The visibility of the channel. Can be: `public` or `private` and defaults to
      * `public`..
-     * 
+     *
      * @param type The visibility of the channel
      * @return this
      */
@@ -93,7 +93,7 @@ public class ChannelCreator extends Creator<Channel> {
      * format, to assign to the resource as the date it was created. The default is
      * the current time set by the Chat service.  Note that this should only be used
      * in cases where a Channel is being recreated from a backup/separate source..
-     * 
+     *
      * @param dateCreated The ISO 8601 date and time in GMT when the resource was
      *                    created
      * @return this
@@ -109,7 +109,7 @@ public class ChannelCreator extends Creator<Channel> {
      * default value is `null`.  Note that this should only be used in cases where a
      * Channel is being recreated from a backup/separate source  and where a Message
      * was previously updated..
-     * 
+     *
      * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
      *                    updated
      * @return this
@@ -121,7 +121,7 @@ public class ChannelCreator extends Creator<Channel> {
 
     /**
      * The `identity` of the User that created the channel. Default is: `system`..
-     * 
+     *
      * @param createdBy The identity of the User that created the Channel
      * @return this
      */
@@ -132,7 +132,7 @@ public class ChannelCreator extends Creator<Channel> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Channel
      */
@@ -171,7 +171,7 @@ public class ChannelCreator extends Creator<Channel> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

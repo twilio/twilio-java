@@ -31,16 +31,16 @@ public class SampleCreator extends Creator<Sample> {
 
     /**
      * Construct a new SampleCreator.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant.
      * @param pathTaskSid The unique ID of the Task associated with this Sample.
      * @param language An ISO language-country string of the sample.
      * @param taggedText The text example of how end-users may express this task.
      *                   The sample may contain Field tag blocks.
      */
-    public SampleCreator(final String pathAssistantSid, 
-                         final String pathTaskSid, 
-                         final String language, 
+    public SampleCreator(final String pathAssistantSid,
+                         final String pathTaskSid,
+                         final String language,
                          final String taggedText) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathTaskSid = pathTaskSid;
@@ -52,7 +52,7 @@ public class SampleCreator extends Creator<Sample> {
      * The communication channel the sample was captured. It can be: *voice*, *sms*,
      * *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value
      * will be null.
-     * 
+     *
      * @param sourceChannel The communication channel the sample was captured. It
      *                      can be: voice, sms, chat, alexa, google-assistant, or
      *                      slack. If not included the value will be null
@@ -65,7 +65,7 @@ public class SampleCreator extends Creator<Sample> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Sample
      */
@@ -104,7 +104,7 @@ public class SampleCreator extends Creator<Sample> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

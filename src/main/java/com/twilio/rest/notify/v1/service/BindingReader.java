@@ -37,7 +37,7 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * Construct a new BindingReader.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to read the resource from
      */
     public BindingReader(final String pathServiceSid) {
@@ -47,7 +47,7 @@ public class BindingReader extends Reader<Binding> {
     /**
      * Only include usage that has occurred on or after this date. Specify the date
      * in GMT and format as `YYYY-MM-DD`..
-     * 
+     *
      * @param startDate Only include usage that has occurred on or after this date
      * @return this
      */
@@ -59,7 +59,7 @@ public class BindingReader extends Reader<Binding> {
     /**
      * Only include usage that occurred on or before this date. Specify the date in
      * GMT and format as `YYYY-MM-DD`..
-     * 
+     *
      * @param endDate Only include usage that occurred on or before this date
      * @return this
      */
@@ -71,7 +71,7 @@ public class BindingReader extends Reader<Binding> {
     /**
      * The [User](https://www.twilio.com/docs/chat/rest/users)'s `identity` value of
      * the resources to read..
-     * 
+     *
      * @param identity The `identity` value of the resources to read
      * @return this
      */
@@ -83,7 +83,7 @@ public class BindingReader extends Reader<Binding> {
     /**
      * The [User](https://www.twilio.com/docs/chat/rest/users)'s `identity` value of
      * the resources to read..
-     * 
+     *
      * @param identity The `identity` value of the resources to read
      * @return this
      */
@@ -95,7 +95,7 @@ public class BindingReader extends Reader<Binding> {
      * Only list Bindings that have all of the specified Tags. The following
      * implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`,
      * `facebook-messenger`. Up to 5 tags are allowed..
-     * 
+     *
      * @param tag Only list Bindings that have all of the specified Tags
      * @return this
      */
@@ -108,7 +108,7 @@ public class BindingReader extends Reader<Binding> {
      * Only list Bindings that have all of the specified Tags. The following
      * implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`,
      * `facebook-messenger`. Up to 5 tags are allowed..
-     * 
+     *
      * @param tag Only list Bindings that have all of the specified Tags
      * @return this
      */
@@ -118,7 +118,7 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Binding ResourceSet
      */
@@ -129,7 +129,7 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Binding ResourceSet
      */
@@ -149,7 +149,7 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Binding ResourceSet
@@ -167,13 +167,13 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Binding> nextPage(final Page<Binding> page, 
+    public Page<Binding> nextPage(final Page<Binding> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -187,13 +187,13 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Binding> previousPage(final Page<Binding> page, 
+    public Page<Binding> previousPage(final Page<Binding> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -207,7 +207,7 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * Generate a Page of Binding Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -242,7 +242,7 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

@@ -31,7 +31,7 @@ public class AddressCreator extends Creator<Address> {
 
     /**
      * Construct a new AddressCreator.
-     * 
+     *
      * @param customerName The name to associate with the new address
      * @param street The number and street address of the new address
      * @param city The city of the new address
@@ -39,11 +39,11 @@ public class AddressCreator extends Creator<Address> {
      * @param postalCode The postal code of the new address
      * @param isoCountry The ISO country code of the new address
      */
-    public AddressCreator(final String customerName, 
-                          final String street, 
-                          final String city, 
-                          final String region, 
-                          final String postalCode, 
+    public AddressCreator(final String customerName,
+                          final String street,
+                          final String city,
+                          final String region,
+                          final String postalCode,
                           final String isoCountry) {
         this.customerName = customerName;
         this.street = street;
@@ -55,7 +55,7 @@ public class AddressCreator extends Creator<Address> {
 
     /**
      * Construct a new AddressCreator.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will be responsible for
      *                       the new Address resource
      * @param customerName The name to associate with the new address
@@ -65,12 +65,12 @@ public class AddressCreator extends Creator<Address> {
      * @param postalCode The postal code of the new address
      * @param isoCountry The ISO country code of the new address
      */
-    public AddressCreator(final String pathAccountSid, 
-                          final String customerName, 
-                          final String street, 
-                          final String city, 
-                          final String region, 
-                          final String postalCode, 
+    public AddressCreator(final String pathAccountSid,
+                          final String customerName,
+                          final String street,
+                          final String city,
+                          final String region,
+                          final String postalCode,
                           final String isoCountry) {
         this.pathAccountSid = pathAccountSid;
         this.customerName = customerName;
@@ -84,7 +84,7 @@ public class AddressCreator extends Creator<Address> {
     /**
      * A descriptive string that you create to describe the new address. It can be
      * up to 64 characters long..
-     * 
+     *
      * @param friendlyName A string to describe the new resource
      * @return this
      */
@@ -96,7 +96,7 @@ public class AddressCreator extends Creator<Address> {
     /**
      * Whether to enable emergency calling on the new address. Can be: `true` or
      * `false`..
-     * 
+     *
      * @param emergencyEnabled Whether to enable emergency calling on the new
      *                         address
      * @return this
@@ -111,7 +111,7 @@ public class AddressCreator extends Creator<Address> {
      * `false` and the default is `true`. If empty or `true`, we will correct the
      * address you provide if necessary. If `false`, we won't alter the address you
      * provide..
-     * 
+     *
      * @param autoCorrectAddress Whether we should automatically correct the address
      * @return this
      */
@@ -122,7 +122,7 @@ public class AddressCreator extends Creator<Address> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Address
      */
@@ -162,7 +162,7 @@ public class AddressCreator extends Creator<Address> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

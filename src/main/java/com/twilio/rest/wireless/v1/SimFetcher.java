@@ -22,7 +22,7 @@ public class SimFetcher extends Fetcher<Sim> {
 
     /**
      * Construct a new SimFetcher.
-     * 
+     *
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public SimFetcher(final String pathSid) {
@@ -31,7 +31,7 @@ public class SimFetcher extends Fetcher<Sim> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Sim
      */

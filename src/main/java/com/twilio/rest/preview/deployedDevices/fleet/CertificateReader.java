@@ -30,7 +30,7 @@ public class CertificateReader extends Reader<Certificate> {
 
     /**
      * Construct a new CertificateReader.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      */
     public CertificateReader(final String pathFleetSid) {
@@ -40,7 +40,7 @@ public class CertificateReader extends Reader<Certificate> {
     /**
      * Filters the resulting list of Certificates by a unique string identifier of
      * an authenticated Device..
-     * 
+     *
      * @param deviceSid Find all Certificates authenticating specified Device.
      * @return this
      */
@@ -51,7 +51,7 @@ public class CertificateReader extends Reader<Certificate> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Certificate ResourceSet
      */
@@ -62,7 +62,7 @@ public class CertificateReader extends Reader<Certificate> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Certificate ResourceSet
      */
@@ -82,7 +82,7 @@ public class CertificateReader extends Reader<Certificate> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Certificate ResourceSet
@@ -100,13 +100,13 @@ public class CertificateReader extends Reader<Certificate> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Certificate> nextPage(final Page<Certificate> page, 
+    public Page<Certificate> nextPage(final Page<Certificate> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -120,13 +120,13 @@ public class CertificateReader extends Reader<Certificate> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Certificate> previousPage(final Page<Certificate> page, 
+    public Page<Certificate> previousPage(final Page<Certificate> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -140,7 +140,7 @@ public class CertificateReader extends Reader<Certificate> {
 
     /**
      * Generate a Page of Certificate Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -175,7 +175,7 @@ public class CertificateReader extends Reader<Certificate> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

@@ -24,11 +24,11 @@ public class ActivityUpdater extends Updater<Activity> {
 
     /**
      * Construct a new ActivityUpdater.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathSid The sid
      */
-    public ActivityUpdater(final String pathWorkspaceSid, 
+    public ActivityUpdater(final String pathWorkspaceSid,
                            final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
@@ -38,7 +38,7 @@ public class ActivityUpdater extends Updater<Activity> {
      * A human-readable name for the Activity, such as 'on-call', 'break', 'email',
      * etc. These names will be used to calculate and expose statistics about
      * workers, and give you visibility into the state of each of your workers..
-     * 
+     *
      * @param friendlyName A human-readable name for the Activity, such as
      *                     'on-call', 'break', 'email', etc.
      * @return this
@@ -50,7 +50,7 @@ public class ActivityUpdater extends Updater<Activity> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Activity
      */
@@ -89,7 +89,7 @@ public class ActivityUpdater extends Updater<Activity> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

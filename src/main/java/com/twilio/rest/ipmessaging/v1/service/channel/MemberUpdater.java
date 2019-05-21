@@ -26,14 +26,14 @@ public class MemberUpdater extends Updater<Member> {
 
     /**
      * Construct a new MemberUpdater.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to create the resource under
      * @param pathChannelSid The unique ID of the channel the member to update
      *                       belongs to
      * @param pathSid The unique string that identifies the resource
      */
-    public MemberUpdater(final String pathServiceSid, 
-                         final String pathChannelSid, 
+    public MemberUpdater(final String pathServiceSid,
+                         final String pathChannelSid,
                          final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -44,7 +44,7 @@ public class MemberUpdater extends Updater<Member> {
      * The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to
      * assign to the member. The default roles are those specified on the
      * [Service](https://www.twilio.com/docs/chat/api/services)..
-     * 
+     *
      * @param roleSid The SID of the Role to assign to the member
      * @return this
      */
@@ -58,7 +58,7 @@ public class MemberUpdater extends Updater<Member> {
      * [Message](https://www.twilio.com/docs/api/chat/rest/messages) that the Member
      * has read within the
      * [Channel](https://www.twilio.com/docs/api/chat/rest/channels)..
-     * 
+     *
      * @param lastConsumedMessageIndex The index of the last consumed Message for
      *                                 the Channel for the Member
      * @return this
@@ -70,7 +70,7 @@ public class MemberUpdater extends Updater<Member> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Member
      */
@@ -109,7 +109,7 @@ public class MemberUpdater extends Updater<Member> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

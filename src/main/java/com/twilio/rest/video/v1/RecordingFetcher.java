@@ -22,7 +22,7 @@ public class RecordingFetcher extends Fetcher<Recording> {
 
     /**
      * Construct a new RecordingFetcher.
-     * 
+     *
      * @param pathSid The Recording Sid that uniquely identifies the Recording to
      *                fetch.
      */
@@ -32,7 +32,7 @@ public class RecordingFetcher extends Fetcher<Recording> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Recording
      */

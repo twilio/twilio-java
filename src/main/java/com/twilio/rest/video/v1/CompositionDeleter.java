@@ -27,7 +27,7 @@ public class CompositionDeleter extends Deleter<Composition> {
 
     /**
      * Construct a new CompositionDeleter.
-     * 
+     *
      * @param pathSid The Recording Composition Sid that uniquely identifies the
      *                Recording Composition to delete.
      */
@@ -37,7 +37,7 @@ public class CompositionDeleter extends Deleter<Composition> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

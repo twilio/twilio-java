@@ -30,7 +30,7 @@ public class FieldCreator extends Creator<Field> {
 
     /**
      * Construct a new FieldCreator.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the parent Assistant.
      * @param pathTaskSid The unique ID of the Task associated with this Field.
      * @param fieldType The unique name or sid of the FieldType. It can be any
@@ -40,9 +40,9 @@ public class FieldCreator extends Creator<Field> {
      *                   resource as an alternative to the sid. Unique up to 64
      *                   characters long.
      */
-    public FieldCreator(final String pathAssistantSid, 
-                        final String pathTaskSid, 
-                        final String fieldType, 
+    public FieldCreator(final String pathAssistantSid,
+                        final String pathTaskSid,
+                        final String fieldType,
                         final String uniqueName) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathTaskSid = pathTaskSid;
@@ -52,7 +52,7 @@ public class FieldCreator extends Creator<Field> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Field
      */
@@ -91,7 +91,7 @@ public class FieldCreator extends Creator<Field> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -24,14 +24,14 @@ public class WebhookDeleter extends Deleter<Webhook> {
 
     /**
      * Construct a new WebhookDeleter.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to delete the resource from
      * @param pathChannelSid The SID of the channel the resource to delete belongs
      *                       to
      * @param pathSid The unique string that identifies the resource
      */
-    public WebhookDeleter(final String pathServiceSid, 
-                          final String pathChannelSid, 
+    public WebhookDeleter(final String pathServiceSid,
+                          final String pathChannelSid,
                           final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -40,7 +40,7 @@ public class WebhookDeleter extends Deleter<Webhook> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

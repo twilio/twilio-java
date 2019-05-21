@@ -22,7 +22,7 @@ public class WorkspaceFetcher extends Fetcher<Workspace> {
 
     /**
      * Construct a new WorkspaceFetcher.
-     * 
+     *
      * @param pathSid The sid
      */
     public WorkspaceFetcher(final String pathSid) {
@@ -31,7 +31,7 @@ public class WorkspaceFetcher extends Fetcher<Workspace> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Workspace
      */

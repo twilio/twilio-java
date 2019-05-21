@@ -29,13 +29,13 @@ public class DeploymentCreator extends Creator<Deployment> {
 
     /**
      * Construct a new DeploymentCreator.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathEnvironmentSid Environment Sid.
      * @param buildSid Build Sid.
      */
-    public DeploymentCreator(final String pathServiceSid, 
-                             final String pathEnvironmentSid, 
+    public DeploymentCreator(final String pathServiceSid,
+                             final String pathEnvironmentSid,
                              final String buildSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathEnvironmentSid = pathEnvironmentSid;
@@ -44,7 +44,7 @@ public class DeploymentCreator extends Creator<Deployment> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Deployment
      */
@@ -83,7 +83,7 @@ public class DeploymentCreator extends Creator<Deployment> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -24,11 +24,11 @@ public class RecordingDeleter extends Deleter<Recording> {
 
     /**
      * Construct a new RecordingDeleter.
-     * 
+     *
      * @param pathCallSid The Call SID of the resources to delete
      * @param pathSid The unique string that identifies the resource
      */
-    public RecordingDeleter(final String pathCallSid, 
+    public RecordingDeleter(final String pathCallSid,
                             final String pathSid) {
         this.pathCallSid = pathCallSid;
         this.pathSid = pathSid;
@@ -36,14 +36,14 @@ public class RecordingDeleter extends Deleter<Recording> {
 
     /**
      * Construct a new RecordingDeleter.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       delete
      * @param pathCallSid The Call SID of the resources to delete
      * @param pathSid The unique string that identifies the resource
      */
-    public RecordingDeleter(final String pathAccountSid, 
-                            final String pathCallSid, 
+    public RecordingDeleter(final String pathAccountSid,
+                            final String pathCallSid,
                             final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathCallSid = pathCallSid;
@@ -52,7 +52,7 @@ public class RecordingDeleter extends Deleter<Recording> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

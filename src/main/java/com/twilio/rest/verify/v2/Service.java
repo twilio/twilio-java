@@ -42,7 +42,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceCreator to execute create.
-     * 
+     *
      * @param friendlyName A string to describe the verification service
      * @return ServiceCreator capable of executing the create
      */
@@ -52,7 +52,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return ServiceFetcher capable of executing the fetch
      */
@@ -62,7 +62,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceDeleter to execute delete.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return ServiceDeleter capable of executing the delete
      */
@@ -72,7 +72,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceReader to execute read.
-     * 
+     *
      * @return ServiceReader capable of executing the read
      */
     public static ServiceReader reader() {
@@ -81,7 +81,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceUpdater to execute update.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return ServiceUpdater capable of executing the update
      */
@@ -91,7 +91,7 @@ public class Service extends Resource {
 
     /**
      * Converts a JSON String into a Service object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
@@ -110,7 +110,7 @@ public class Service extends Resource {
     /**
      * Converts a JSON InputStream into a Service object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
@@ -142,29 +142,29 @@ public class Service extends Resource {
 
     @JsonCreator
     private Service(@JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("friendly_name")
-                    final String friendlyName, 
+                    final String friendlyName,
                     @JsonProperty("code_length")
-                    final Integer codeLength, 
+                    final Integer codeLength,
                     @JsonProperty("lookup_enabled")
-                    final Boolean lookupEnabled, 
+                    final Boolean lookupEnabled,
                     @JsonProperty("psd2_enabled")
-                    final Boolean psd2Enabled, 
+                    final Boolean psd2Enabled,
                     @JsonProperty("skip_sms_to_landlines")
-                    final Boolean skipSmsToLandlines, 
+                    final Boolean skipSmsToLandlines,
                     @JsonProperty("dtmf_input_required")
-                    final Boolean dtmfInputRequired, 
+                    final Boolean dtmfInputRequired,
                     @JsonProperty("tts_name")
-                    final String ttsName, 
+                    final String ttsName,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("url")
-                    final URI url, 
+                    final URI url,
                     @JsonProperty("links")
                     final Map<String, String> links) {
         this.sid = sid;
@@ -184,7 +184,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -193,7 +193,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -203,7 +203,7 @@ public class Service extends Resource {
     /**
      * Returns The The string that you assigned to describe the verification
      * service.
-     * 
+     *
      * @return The string that you assigned to describe the verification service
      */
     public final String getFriendlyName() {
@@ -212,7 +212,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The length of the verification code.
-     * 
+     *
      * @return The length of the verification code
      */
     public final Integer getCodeLength() {
@@ -221,7 +221,7 @@ public class Service extends Resource {
 
     /**
      * Returns The Whether to perform a lookup with each verification.
-     * 
+     *
      * @return Whether to perform a lookup with each verification
      */
     public final Boolean getLookupEnabled() {
@@ -231,7 +231,7 @@ public class Service extends Resource {
     /**
      * Returns The Whether to pass PSD2 transaction parameters when starting a
      * verification.
-     * 
+     *
      * @return Whether to pass PSD2 transaction parameters when starting a
      *         verification
      */
@@ -241,7 +241,7 @@ public class Service extends Resource {
 
     /**
      * Returns The Whether to skip sending SMS verifications to landlines.
-     * 
+     *
      * @return Whether to skip sending SMS verifications to landlines
      */
     public final Boolean getSkipSmsToLandlines() {
@@ -251,7 +251,7 @@ public class Service extends Resource {
     /**
      * Returns The Whether to ask the user to press a number before delivering the
      * verify code in a phone call.
-     * 
+     *
      * @return Whether to ask the user to press a number before delivering the
      *         verify code in a phone call
      */
@@ -262,7 +262,7 @@ public class Service extends Resource {
     /**
      * Returns The The name of an alternative text-to-speech service to use in phone
      * calls.
-     * 
+     *
      * @return The name of an alternative text-to-speech service to use in phone
      *         calls
      */
@@ -272,7 +272,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
@@ -282,7 +282,7 @@ public class Service extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -291,7 +291,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The absolute URL of the resource.
-     * 
+     *
      * @return The absolute URL of the resource
      */
     public final URI getUrl() {
@@ -300,7 +300,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The URLs of related resources.
-     * 
+     *
      * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
@@ -319,18 +319,18 @@ public class Service extends Resource {
 
         Service other = (Service) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(codeLength, other.codeLength) && 
-               Objects.equals(lookupEnabled, other.lookupEnabled) && 
-               Objects.equals(psd2Enabled, other.psd2Enabled) && 
-               Objects.equals(skipSmsToLandlines, other.skipSmsToLandlines) && 
-               Objects.equals(dtmfInputRequired, other.dtmfInputRequired) && 
-               Objects.equals(ttsName, other.ttsName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(codeLength, other.codeLength) &&
+               Objects.equals(lookupEnabled, other.lookupEnabled) &&
+               Objects.equals(psd2Enabled, other.psd2Enabled) &&
+               Objects.equals(skipSmsToLandlines, other.skipSmsToLandlines) &&
+               Objects.equals(dtmfInputRequired, other.dtmfInputRequired) &&
+               Objects.equals(ttsName, other.ttsName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

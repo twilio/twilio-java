@@ -38,7 +38,7 @@ public class Aws extends Resource {
 
     /**
      * Create a AwsReader to execute read.
-     * 
+     *
      * @return AwsReader capable of executing the read
      */
     public static AwsReader reader() {
@@ -47,7 +47,7 @@ public class Aws extends Resource {
 
     /**
      * Create a AwsCreator to execute create.
-     * 
+     *
      * @param credentials A string that contains the AWS access credentials in the
      *                    format
      *                    &lt;AWS_ACCESS_KEY_ID&gt;:&lt;AWS_SECRET_ACCESS_KEY&gt;
@@ -59,7 +59,7 @@ public class Aws extends Resource {
 
     /**
      * Create a AwsFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return AwsFetcher capable of executing the fetch
      */
@@ -69,7 +69,7 @@ public class Aws extends Resource {
 
     /**
      * Create a AwsUpdater to execute update.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return AwsUpdater capable of executing the update
      */
@@ -79,7 +79,7 @@ public class Aws extends Resource {
 
     /**
      * Create a AwsDeleter to execute delete.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return AwsDeleter capable of executing the delete
      */
@@ -89,7 +89,7 @@ public class Aws extends Resource {
 
     /**
      * Converts a JSON String into a Aws object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Aws object represented by the provided JSON
@@ -108,7 +108,7 @@ public class Aws extends Resource {
     /**
      * Converts a JSON InputStream into a Aws object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Aws object represented by the provided JSON
@@ -133,15 +133,15 @@ public class Aws extends Resource {
 
     @JsonCreator
     private Aws(@JsonProperty("sid")
-                final String sid, 
+                final String sid,
                 @JsonProperty("account_sid")
-                final String accountSid, 
+                final String accountSid,
                 @JsonProperty("friendly_name")
-                final String friendlyName, 
+                final String friendlyName,
                 @JsonProperty("date_created")
-                final String dateCreated, 
+                final String dateCreated,
                 @JsonProperty("date_updated")
-                final String dateUpdated, 
+                final String dateUpdated,
                 @JsonProperty("url")
                 final URI url) {
         this.sid = sid;
@@ -154,7 +154,7 @@ public class Aws extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -163,7 +163,7 @@ public class Aws extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -172,7 +172,7 @@ public class Aws extends Resource {
 
     /**
      * Returns The The string that you assigned to describe the resource.
-     * 
+     *
      * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
@@ -181,7 +181,7 @@ public class Aws extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
@@ -191,7 +191,7 @@ public class Aws extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -201,7 +201,7 @@ public class Aws extends Resource {
     /**
      * Returns The The URI for this resource, relative to
      * `https://accounts.twilio.com`.
-     * 
+     *
      * @return The URI for this resource, relative to `https://accounts.twilio.com`
      */
     public final URI getUrl() {
@@ -220,11 +220,11 @@ public class Aws extends Resource {
 
         Aws other = (Aws) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
     }
 

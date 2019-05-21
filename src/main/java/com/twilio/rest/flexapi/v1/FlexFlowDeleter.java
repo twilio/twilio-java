@@ -22,7 +22,7 @@ public class FlexFlowDeleter extends Deleter<FlexFlow> {
 
     /**
      * Construct a new FlexFlowDeleter.
-     * 
+     *
      * @param pathSid The unique ID of the FlexFlow
      */
     public FlexFlowDeleter(final String pathSid) {
@@ -31,7 +31,7 @@ public class FlexFlowDeleter extends Deleter<FlexFlow> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

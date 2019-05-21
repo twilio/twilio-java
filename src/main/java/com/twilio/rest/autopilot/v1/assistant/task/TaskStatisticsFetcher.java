@@ -28,13 +28,13 @@ public class TaskStatisticsFetcher extends Fetcher<TaskStatistics> {
 
     /**
      * Construct a new TaskStatisticsFetcher.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         resource to fetch
      * @param pathTaskSid The SID of the Task that is associated with the resource
      *                    to fetch
      */
-    public TaskStatisticsFetcher(final String pathAssistantSid, 
+    public TaskStatisticsFetcher(final String pathAssistantSid,
                                  final String pathTaskSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathTaskSid = pathTaskSid;
@@ -42,7 +42,7 @@ public class TaskStatisticsFetcher extends Fetcher<TaskStatistics> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched TaskStatistics
      */

@@ -25,13 +25,13 @@ public class MemberCreator extends Creator<Member> {
 
     /**
      * Construct a new MemberCreator.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to create the resource under
      * @param pathChannelSid The unique ID of the channel the new member belongs to
      * @param identity The `identity` value that identifies the new resource's User
      */
-    public MemberCreator(final String pathServiceSid, 
-                         final String pathChannelSid, 
+    public MemberCreator(final String pathServiceSid,
+                         final String pathChannelSid,
                          final String identity) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -42,7 +42,7 @@ public class MemberCreator extends Creator<Member> {
      * The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to
      * assign to the member. The default roles are those specified on the
      * [Service](https://www.twilio.com/docs/chat/api/services)..
-     * 
+     *
      * @param roleSid The SID of the Role to assign to the member
      * @return this
      */
@@ -53,7 +53,7 @@ public class MemberCreator extends Creator<Member> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Member
      */
@@ -92,7 +92,7 @@ public class MemberCreator extends Creator<Member> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -29,7 +29,7 @@ public class NewKeyCreator extends Creator<NewKey> {
 
     /**
      * Construct a new NewKeyCreator.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will be responsible for
      *                       the new Key resource
      */
@@ -40,7 +40,7 @@ public class NewKeyCreator extends Creator<NewKey> {
     /**
      * A descriptive string that you create to describe the resource. It can be up
      * to 64 characters long..
-     * 
+     *
      * @param friendlyName A string to describe the resource
      * @return this
      */
@@ -51,7 +51,7 @@ public class NewKeyCreator extends Creator<NewKey> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created NewKey
      */
@@ -91,7 +91,7 @@ public class NewKeyCreator extends Creator<NewKey> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

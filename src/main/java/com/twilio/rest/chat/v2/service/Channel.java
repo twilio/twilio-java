@@ -89,31 +89,31 @@ public class Channel extends Resource {
 
     /**
      * Create a ChannelFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to fetch the resource from
      * @param pathSid The unique string that identifies the resource
      * @return ChannelFetcher capable of executing the fetch
      */
-    public static ChannelFetcher fetcher(final String pathServiceSid, 
+    public static ChannelFetcher fetcher(final String pathServiceSid,
                                          final String pathSid) {
         return new ChannelFetcher(pathServiceSid, pathSid);
     }
 
     /**
      * Create a ChannelDeleter to execute delete.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to delete the resource from
      * @param pathSid The unique string that identifies the resource
      * @return ChannelDeleter capable of executing the delete
      */
-    public static ChannelDeleter deleter(final String pathServiceSid, 
+    public static ChannelDeleter deleter(final String pathServiceSid,
                                          final String pathSid) {
         return new ChannelDeleter(pathServiceSid, pathSid);
     }
 
     /**
      * Create a ChannelCreator to execute create.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to create the resource under
      * @return ChannelCreator capable of executing the create
      */
@@ -123,7 +123,7 @@ public class Channel extends Resource {
 
     /**
      * Create a ChannelReader to execute read.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to read the resources from
      * @return ChannelReader capable of executing the read
      */
@@ -133,19 +133,19 @@ public class Channel extends Resource {
 
     /**
      * Create a ChannelUpdater to execute update.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to update the resource from
      * @param pathSid The unique string that identifies the resource
      * @return ChannelUpdater capable of executing the update
      */
-    public static ChannelUpdater updater(final String pathServiceSid, 
+    public static ChannelUpdater updater(final String pathServiceSid,
                                          final String pathSid) {
         return new ChannelUpdater(pathServiceSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a Channel object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Channel object represented by the provided JSON
@@ -164,7 +164,7 @@ public class Channel extends Resource {
     /**
      * Converts a JSON InputStream into a Channel object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Channel object represented by the provided JSON
@@ -197,31 +197,31 @@ public class Channel extends Resource {
 
     @JsonCreator
     private Channel(@JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("service_sid")
-                    final String serviceSid, 
+                    final String serviceSid,
                     @JsonProperty("friendly_name")
-                    final String friendlyName, 
+                    final String friendlyName,
                     @JsonProperty("unique_name")
-                    final String uniqueName, 
+                    final String uniqueName,
                     @JsonProperty("attributes")
-                    final String attributes, 
+                    final String attributes,
                     @JsonProperty("type")
-                    final Channel.ChannelType type, 
+                    final Channel.ChannelType type,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("created_by")
-                    final String createdBy, 
+                    final String createdBy,
                     @JsonProperty("members_count")
-                    final Integer membersCount, 
+                    final Integer membersCount,
                     @JsonProperty("messages_count")
-                    final Integer messagesCount, 
+                    final Integer messagesCount,
                     @JsonProperty("url")
-                    final URI url, 
+                    final URI url,
                     @JsonProperty("links")
                     final Map<String, String> links) {
         this.sid = sid;
@@ -242,7 +242,7 @@ public class Channel extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -251,7 +251,7 @@ public class Channel extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -260,7 +260,7 @@ public class Channel extends Resource {
 
     /**
      * Returns The The SID of the Service that the resource is associated with.
-     * 
+     *
      * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
@@ -269,7 +269,7 @@ public class Channel extends Resource {
 
     /**
      * Returns The The string that you assigned to describe the resource.
-     * 
+     *
      * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
@@ -279,7 +279,7 @@ public class Channel extends Resource {
     /**
      * Returns The An application-defined string that uniquely identifies the
      * resource.
-     * 
+     *
      * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
@@ -288,7 +288,7 @@ public class Channel extends Resource {
 
     /**
      * Returns The The JSON string that stores application-specific data.
-     * 
+     *
      * @return The JSON string that stores application-specific data
      */
     public final String getAttributes() {
@@ -297,7 +297,7 @@ public class Channel extends Resource {
 
     /**
      * Returns The The visibility of the channel. Can be: `public` or `private`.
-     * 
+     *
      * @return The visibility of the channel. Can be: `public` or `private`
      */
     public final Channel.ChannelType getType() {
@@ -306,7 +306,7 @@ public class Channel extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
@@ -316,7 +316,7 @@ public class Channel extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -325,7 +325,7 @@ public class Channel extends Resource {
 
     /**
      * Returns The The identity of the User that created the channel.
-     * 
+     *
      * @return The identity of the User that created the channel
      */
     public final String getCreatedBy() {
@@ -334,7 +334,7 @@ public class Channel extends Resource {
 
     /**
      * Returns The The number of Members in the Channel.
-     * 
+     *
      * @return The number of Members in the Channel
      */
     public final Integer getMembersCount() {
@@ -343,7 +343,7 @@ public class Channel extends Resource {
 
     /**
      * Returns The The number of Messages in the Channel.
-     * 
+     *
      * @return The number of Messages in the Channel
      */
     public final Integer getMessagesCount() {
@@ -352,7 +352,7 @@ public class Channel extends Resource {
 
     /**
      * Returns The The absolute URL of the Channel resource.
-     * 
+     *
      * @return The absolute URL of the Channel resource
      */
     public final URI getUrl() {
@@ -362,7 +362,7 @@ public class Channel extends Resource {
     /**
      * Returns The Absolute URLs to access the Members, Messages , Invites and, if
      * it exists, the last Message for the Channel.
-     * 
+     *
      * @return Absolute URLs to access the Members, Messages , Invites and, if it
      *         exists, the last Message for the Channel
      */
@@ -382,19 +382,19 @@ public class Channel extends Resource {
 
         Channel other = (Channel) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(attributes, other.attributes) && 
-               Objects.equals(type, other.type) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(createdBy, other.createdBy) && 
-               Objects.equals(membersCount, other.membersCount) && 
-               Objects.equals(messagesCount, other.messagesCount) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(attributes, other.attributes) &&
+               Objects.equals(type, other.type) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(createdBy, other.createdBy) &&
+               Objects.equals(membersCount, other.membersCount) &&
+               Objects.equals(messagesCount, other.messagesCount) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

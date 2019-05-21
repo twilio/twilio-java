@@ -27,12 +27,12 @@ public class VerificationFetcher extends Fetcher<Verification> {
 
     /**
      * Construct a new VerificationFetcher.
-     * 
+     *
      * @param pathServiceSid The SID of the verification Service to fetch the
      *                       resource from
      * @param pathSid The unique string that identifies the resource
      */
-    public VerificationFetcher(final String pathServiceSid, 
+    public VerificationFetcher(final String pathServiceSid,
                                final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class VerificationFetcher extends Fetcher<Verification> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Verification
      */

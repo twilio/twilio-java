@@ -24,13 +24,13 @@ public class IpAddressDeleter extends Deleter<IpAddress> {
 
     /**
      * Construct a new IpAddressDeleter.
-     * 
+     *
      * @param pathIpAccessControlListSid The IpAccessControlList Sid that
      *                                   identifies the IpAddress resources to
      *                                   delete
      * @param pathSid A string that identifies the resource to delete
      */
-    public IpAddressDeleter(final String pathIpAccessControlListSid, 
+    public IpAddressDeleter(final String pathIpAccessControlListSid,
                             final String pathSid) {
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
         this.pathSid = pathSid;
@@ -38,15 +38,15 @@ public class IpAddressDeleter extends Deleter<IpAddress> {
 
     /**
      * Construct a new IpAddressDeleter.
-     * 
+     *
      * @param pathAccountSid The unique sid that identifies this account
      * @param pathIpAccessControlListSid The IpAccessControlList Sid that
      *                                   identifies the IpAddress resources to
      *                                   delete
      * @param pathSid A string that identifies the resource to delete
      */
-    public IpAddressDeleter(final String pathAccountSid, 
-                            final String pathIpAccessControlListSid, 
+    public IpAddressDeleter(final String pathAccountSid,
+                            final String pathIpAccessControlListSid,
                             final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
@@ -55,7 +55,7 @@ public class IpAddressDeleter extends Deleter<IpAddress> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

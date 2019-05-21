@@ -30,11 +30,11 @@ public class FieldTypeUpdater extends Updater<FieldType> {
 
     /**
      * Construct a new FieldTypeUpdater.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      * @param pathSid The sid
      */
-    public FieldTypeUpdater(final String pathAssistantSid, 
+    public FieldTypeUpdater(final String pathAssistantSid,
                             final String pathSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathSid = pathSid;
@@ -43,7 +43,7 @@ public class FieldTypeUpdater extends Updater<FieldType> {
     /**
      * A user-provided string that identifies this resource. It is non-unique and
      * can up to 255 characters long..
-     * 
+     *
      * @param friendlyName A user-provided string that identifies this resource. It
      *                     is non-unique and can up to 255 characters long.
      * @return this
@@ -56,7 +56,7 @@ public class FieldTypeUpdater extends Updater<FieldType> {
     /**
      * A user-provided string that uniquely identifies this resource as an
      * alternative to the sid. Unique up to 64 characters long..
-     * 
+     *
      * @param uniqueName A user-provided string that uniquely identifies this
      *                   resource as an alternative to the sid. Unique up to 64
      *                   characters long.
@@ -69,7 +69,7 @@ public class FieldTypeUpdater extends Updater<FieldType> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated FieldType
      */
@@ -108,7 +108,7 @@ public class FieldTypeUpdater extends Updater<FieldType> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

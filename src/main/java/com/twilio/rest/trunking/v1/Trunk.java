@@ -67,7 +67,7 @@ public class Trunk extends Resource {
 
     /**
      * Create a TrunkFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return TrunkFetcher capable of executing the fetch
      */
@@ -77,7 +77,7 @@ public class Trunk extends Resource {
 
     /**
      * Create a TrunkDeleter to execute delete.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return TrunkDeleter capable of executing the delete
      */
@@ -87,7 +87,7 @@ public class Trunk extends Resource {
 
     /**
      * Create a TrunkCreator to execute create.
-     * 
+     *
      * @return TrunkCreator capable of executing the create
      */
     public static TrunkCreator creator() {
@@ -96,7 +96,7 @@ public class Trunk extends Resource {
 
     /**
      * Create a TrunkReader to execute read.
-     * 
+     *
      * @return TrunkReader capable of executing the read
      */
     public static TrunkReader reader() {
@@ -105,7 +105,7 @@ public class Trunk extends Resource {
 
     /**
      * Create a TrunkUpdater to execute update.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return TrunkUpdater capable of executing the update
      */
@@ -115,7 +115,7 @@ public class Trunk extends Resource {
 
     /**
      * Converts a JSON String into a Trunk object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Trunk object represented by the provided JSON
@@ -134,7 +134,7 @@ public class Trunk extends Resource {
     /**
      * Converts a JSON InputStream into a Trunk object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Trunk object represented by the provided JSON
@@ -168,33 +168,33 @@ public class Trunk extends Resource {
 
     @JsonCreator
     private Trunk(@JsonProperty("account_sid")
-                  final String accountSid, 
+                  final String accountSid,
                   @JsonProperty("domain_name")
-                  final String domainName, 
+                  final String domainName,
                   @JsonProperty("disaster_recovery_method")
-                  final HttpMethod disasterRecoveryMethod, 
+                  final HttpMethod disasterRecoveryMethod,
                   @JsonProperty("disaster_recovery_url")
-                  final URI disasterRecoveryUrl, 
+                  final URI disasterRecoveryUrl,
                   @JsonProperty("friendly_name")
-                  final String friendlyName, 
+                  final String friendlyName,
                   @JsonProperty("secure")
-                  final Boolean secure, 
+                  final Boolean secure,
                   @JsonProperty("recording")
-                  final Map<String, Object> recording, 
+                  final Map<String, Object> recording,
                   @JsonProperty("cnam_lookup_enabled")
-                  final Boolean cnamLookupEnabled, 
+                  final Boolean cnamLookupEnabled,
                   @JsonProperty("auth_type")
-                  final String authType, 
+                  final String authType,
                   @JsonProperty("auth_type_set")
-                  final List<String> authTypeSet, 
+                  final List<String> authTypeSet,
                   @JsonProperty("date_created")
-                  final String dateCreated, 
+                  final String dateCreated,
                   @JsonProperty("date_updated")
-                  final String dateUpdated, 
+                  final String dateUpdated,
                   @JsonProperty("sid")
-                  final String sid, 
+                  final String sid,
                   @JsonProperty("url")
-                  final URI url, 
+                  final URI url,
                   @JsonProperty("links")
                   final Map<String, String> links) {
         this.accountSid = accountSid;
@@ -216,7 +216,7 @@ public class Trunk extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -226,7 +226,7 @@ public class Trunk extends Resource {
     /**
      * Returns The The unique address you reserve on Twilio to which you route your
      * SIP traffic.
-     * 
+     *
      * @return The unique address you reserve on Twilio to which you route your SIP
      *         traffic
      */
@@ -236,7 +236,7 @@ public class Trunk extends Resource {
 
     /**
      * Returns The The HTTP method we use to call the disaster_recovery_url.
-     * 
+     *
      * @return The HTTP method we use to call the disaster_recovery_url
      */
     public final HttpMethod getDisasterRecoveryMethod() {
@@ -246,7 +246,7 @@ public class Trunk extends Resource {
     /**
      * Returns The The HTTP URL that we call if an error occurs while sending SIP
      * traffic towards your configured Origination URL.
-     * 
+     *
      * @return The HTTP URL that we call if an error occurs while sending SIP
      *         traffic towards your configured Origination URL
      */
@@ -256,7 +256,7 @@ public class Trunk extends Resource {
 
     /**
      * Returns The The string that you assigned to describe the resource.
-     * 
+     *
      * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
@@ -265,7 +265,7 @@ public class Trunk extends Resource {
 
     /**
      * Returns The Whether Secure Trunking is enabled for the trunk.
-     * 
+     *
      * @return Whether Secure Trunking is enabled for the trunk
      */
     public final Boolean getSecure() {
@@ -274,7 +274,7 @@ public class Trunk extends Resource {
 
     /**
      * Returns The The recording settings for the trunk.
-     * 
+     *
      * @return The recording settings for the trunk
      */
     public final Map<String, Object> getRecording() {
@@ -283,7 +283,7 @@ public class Trunk extends Resource {
 
     /**
      * Returns The Whether Caller ID Name (CNAM) lookup is enabled for the trunk.
-     * 
+     *
      * @return Whether Caller ID Name (CNAM) lookup is enabled for the trunk
      */
     public final Boolean getCnamLookupEnabled() {
@@ -292,7 +292,7 @@ public class Trunk extends Resource {
 
     /**
      * Returns The The types of authentication mapped to the domain.
-     * 
+     *
      * @return The types of authentication mapped to the domain
      */
     public final String getAuthType() {
@@ -301,7 +301,7 @@ public class Trunk extends Resource {
 
     /**
      * Returns The Reserved.
-     * 
+     *
      * @return Reserved
      */
     public final List<String> getAuthTypeSet() {
@@ -310,7 +310,7 @@ public class Trunk extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
@@ -320,7 +320,7 @@ public class Trunk extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -329,7 +329,7 @@ public class Trunk extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -338,7 +338,7 @@ public class Trunk extends Resource {
 
     /**
      * Returns The The absolute URL of the resource.
-     * 
+     *
      * @return The absolute URL of the resource
      */
     public final URI getUrl() {
@@ -347,7 +347,7 @@ public class Trunk extends Resource {
 
     /**
      * Returns The The URLs of related resources.
-     * 
+     *
      * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
@@ -366,20 +366,20 @@ public class Trunk extends Resource {
 
         Trunk other = (Trunk) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(domainName, other.domainName) && 
-               Objects.equals(disasterRecoveryMethod, other.disasterRecoveryMethod) && 
-               Objects.equals(disasterRecoveryUrl, other.disasterRecoveryUrl) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(secure, other.secure) && 
-               Objects.equals(recording, other.recording) && 
-               Objects.equals(cnamLookupEnabled, other.cnamLookupEnabled) && 
-               Objects.equals(authType, other.authType) && 
-               Objects.equals(authTypeSet, other.authTypeSet) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(domainName, other.domainName) &&
+               Objects.equals(disasterRecoveryMethod, other.disasterRecoveryMethod) &&
+               Objects.equals(disasterRecoveryUrl, other.disasterRecoveryUrl) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(secure, other.secure) &&
+               Objects.equals(recording, other.recording) &&
+               Objects.equals(cnamLookupEnabled, other.cnamLookupEnabled) &&
+               Objects.equals(authType, other.authType) &&
+               Objects.equals(authTypeSet, other.authTypeSet) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

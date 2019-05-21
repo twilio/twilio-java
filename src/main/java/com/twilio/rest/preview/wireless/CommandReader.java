@@ -32,7 +32,7 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * The device.
-     * 
+     *
      * @param device The device
      * @return this
      */
@@ -43,7 +43,7 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * The sim.
-     * 
+     *
      * @param sim The sim
      * @return this
      */
@@ -54,7 +54,7 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * The status.
-     * 
+     *
      * @param status The status
      * @return this
      */
@@ -65,7 +65,7 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * The direction.
-     * 
+     *
      * @param direction The direction
      * @return this
      */
@@ -76,7 +76,7 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Command ResourceSet
      */
@@ -87,7 +87,7 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Command ResourceSet
      */
@@ -107,7 +107,7 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Command ResourceSet
@@ -125,13 +125,13 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Command> nextPage(final Page<Command> page, 
+    public Page<Command> nextPage(final Page<Command> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -145,13 +145,13 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Command> previousPage(final Page<Command> page, 
+    public Page<Command> previousPage(final Page<Command> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -165,7 +165,7 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * Generate a Page of Command Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -200,7 +200,7 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

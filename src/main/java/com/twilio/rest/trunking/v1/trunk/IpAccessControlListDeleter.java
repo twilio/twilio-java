@@ -23,12 +23,12 @@ public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
 
     /**
      * Construct a new IpAccessControlListDeleter.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk from which to delete the IP Access
      *                     Control List
      * @param pathSid The unique string that identifies the resource
      */
-    public IpAccessControlListDeleter(final String pathTrunkSid, 
+    public IpAccessControlListDeleter(final String pathTrunkSid,
                                       final String pathSid) {
         this.pathTrunkSid = pathTrunkSid;
         this.pathSid = pathSid;
@@ -36,7 +36,7 @@ public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

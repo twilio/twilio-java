@@ -20,7 +20,7 @@ import com.twilio.rest.Domains;
 public class ConfigurationUpdater extends Updater<Configuration> {
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Configuration
      */
@@ -59,7 +59,7 @@ public class ConfigurationUpdater extends Updater<Configuration> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

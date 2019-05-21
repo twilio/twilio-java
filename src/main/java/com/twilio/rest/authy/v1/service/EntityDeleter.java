@@ -28,11 +28,11 @@ public class EntityDeleter extends Deleter<Entity> {
 
     /**
      * Construct a new EntityDeleter.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique identity of the Entity
      */
-    public EntityDeleter(final String pathServiceSid, 
+    public EntityDeleter(final String pathServiceSid,
                          final String pathIdentity) {
         this.pathServiceSid = pathServiceSid;
         this.pathIdentity = pathIdentity;
@@ -40,7 +40,7 @@ public class EntityDeleter extends Deleter<Entity> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

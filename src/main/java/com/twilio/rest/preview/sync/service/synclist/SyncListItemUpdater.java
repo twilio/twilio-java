@@ -33,15 +33,15 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
 
     /**
      * Construct a new SyncListItemUpdater.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathListSid The list_sid
      * @param pathIndex The index
      * @param data The data
      */
-    public SyncListItemUpdater(final String pathServiceSid, 
-                               final String pathListSid, 
-                               final Integer pathIndex, 
+    public SyncListItemUpdater(final String pathServiceSid,
+                               final String pathListSid,
+                               final Integer pathIndex,
                                final Map<String, Object> data) {
         this.pathServiceSid = pathServiceSid;
         this.pathListSid = pathListSid;
@@ -51,7 +51,7 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated SyncListItem
      */
@@ -90,7 +90,7 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

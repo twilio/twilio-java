@@ -39,7 +39,7 @@ public class AssistantUpdater extends Updater<Assistant> {
 
     /**
      * Construct a new AssistantUpdater.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public AssistantUpdater(final String pathSid) {
@@ -49,7 +49,7 @@ public class AssistantUpdater extends Updater<Assistant> {
     /**
      * A descriptive string that you create to describe the resource. It is not
      * unique and can be up to 255 characters long..
-     * 
+     *
      * @param friendlyName A string to describe the resource
      * @return this
      */
@@ -62,7 +62,7 @@ public class AssistantUpdater extends Updater<Assistant> {
      * Whether queries should be logged and kept after training. Can be: `true` or
      * `false` and defaults to `true`. If `true`, queries are stored for 30 days,
      * and then deleted. If `false`, no queries are stored..
-     * 
+     *
      * @param logQueries Whether queries should be logged and kept after training
      * @return this
      */
@@ -75,7 +75,7 @@ public class AssistantUpdater extends Updater<Assistant> {
      * An application-defined string that uniquely identifies the resource. It can
      * be used as an alternative to the `sid` in the URL path to address the
      * resource. The first 64 characters must be unique..
-     * 
+     *
      * @param uniqueName An application-defined string that uniquely identifies the
      *                   resource
      * @return this
@@ -87,7 +87,7 @@ public class AssistantUpdater extends Updater<Assistant> {
 
     /**
      * Reserved..
-     * 
+     *
      * @param callbackUrl Reserved
      * @return this
      */
@@ -98,7 +98,7 @@ public class AssistantUpdater extends Updater<Assistant> {
 
     /**
      * Reserved..
-     * 
+     *
      * @param callbackUrl Reserved
      * @return this
      */
@@ -108,7 +108,7 @@ public class AssistantUpdater extends Updater<Assistant> {
 
     /**
      * Reserved..
-     * 
+     *
      * @param callbackEvents Reserved
      * @return this
      */
@@ -120,7 +120,7 @@ public class AssistantUpdater extends Updater<Assistant> {
     /**
      * The JSON string that defines the Assistant's [style
      * sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet).
-     * 
+     *
      * @param styleSheet A JSON string that defines the Assistant's style sheet
      * @return this
      */
@@ -133,7 +133,7 @@ public class AssistantUpdater extends Updater<Assistant> {
      * A JSON object that defines the Assistant's [default
      * tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for
      * various scenarios, including initiation actions and fallback tasks..
-     * 
+     *
      * @param defaults A JSON object that defines the Assistant's [default
      *                 tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios
      * @return this
@@ -145,7 +145,7 @@ public class AssistantUpdater extends Updater<Assistant> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Assistant
      */
@@ -184,7 +184,7 @@ public class AssistantUpdater extends Updater<Assistant> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

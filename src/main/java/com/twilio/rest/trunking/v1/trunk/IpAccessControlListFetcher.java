@@ -23,12 +23,12 @@ public class IpAccessControlListFetcher extends Fetcher<IpAccessControlList> {
 
     /**
      * Construct a new IpAccessControlListFetcher.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk from which to fetch the IP Access
      *                     Control List
      * @param pathSid The unique string that identifies the resource
      */
-    public IpAccessControlListFetcher(final String pathTrunkSid, 
+    public IpAccessControlListFetcher(final String pathTrunkSid,
                                       final String pathSid) {
         this.pathTrunkSid = pathTrunkSid;
         this.pathSid = pathSid;
@@ -36,7 +36,7 @@ public class IpAccessControlListFetcher extends Fetcher<IpAccessControlList> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched IpAccessControlList
      */

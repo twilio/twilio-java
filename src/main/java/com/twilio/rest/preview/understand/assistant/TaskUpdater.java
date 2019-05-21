@@ -37,11 +37,11 @@ public class TaskUpdater extends Updater<Task> {
 
     /**
      * Construct a new TaskUpdater.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
-    public TaskUpdater(final String pathAssistantSid, 
+    public TaskUpdater(final String pathAssistantSid,
                        final String pathSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathSid = pathSid;
@@ -50,7 +50,7 @@ public class TaskUpdater extends Updater<Task> {
     /**
      * A user-provided string that identifies this resource. It is non-unique and
      * can up to 255 characters long..
-     * 
+     *
      * @param friendlyName A user-provided string that identifies this resource. It
      *                     is non-unique and can up to 255 characters long.
      * @return this
@@ -63,7 +63,7 @@ public class TaskUpdater extends Updater<Task> {
     /**
      * A user-provided string that uniquely identifies this resource as an
      * alternative to the sid. Unique up to 64 characters long..
-     * 
+     *
      * @param uniqueName A user-provided string that uniquely identifies this
      *                   resource as an alternative to the sid. Unique up to 64
      *                   characters long.
@@ -77,7 +77,7 @@ public class TaskUpdater extends Updater<Task> {
     /**
      * A user-provided JSON object encoded as a string to specify the actions for
      * this task. It is optional and non-unique..
-     * 
+     *
      * @param actions A user-provided JSON object encoded as a string to specify
      *                the actions for this task. It is optional and non-unique.
      * @return this
@@ -89,7 +89,7 @@ public class TaskUpdater extends Updater<Task> {
 
     /**
      * User-provided HTTP endpoint where from the assistant fetches actions.
-     * 
+     *
      * @param actionsUrl User-provided HTTP endpoint where from the assistant
      *                   fetches actions
      * @return this
@@ -101,7 +101,7 @@ public class TaskUpdater extends Updater<Task> {
 
     /**
      * User-provided HTTP endpoint where from the assistant fetches actions.
-     * 
+     *
      * @param actionsUrl User-provided HTTP endpoint where from the assistant
      *                   fetches actions
      * @return this
@@ -112,7 +112,7 @@ public class TaskUpdater extends Updater<Task> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Task
      */
@@ -151,7 +151,7 @@ public class TaskUpdater extends Updater<Task> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

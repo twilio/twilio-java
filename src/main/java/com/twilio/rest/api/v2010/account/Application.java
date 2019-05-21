@@ -38,19 +38,19 @@ public class Application extends Resource {
 
     /**
      * Create a ApplicationCreator to execute create.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param friendlyName A string to describe the new resource
      * @return ApplicationCreator capable of executing the create
      */
-    public static ApplicationCreator creator(final String pathAccountSid, 
+    public static ApplicationCreator creator(final String pathAccountSid,
                                              final String friendlyName) {
         return new ApplicationCreator(pathAccountSid, friendlyName);
     }
 
     /**
      * Create a ApplicationCreator to execute create.
-     * 
+     *
      * @param friendlyName A string to describe the new resource
      * @return ApplicationCreator capable of executing the create
      */
@@ -60,20 +60,20 @@ public class Application extends Resource {
 
     /**
      * Create a ApplicationDeleter to execute delete.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       delete
      * @param pathSid The unique string that identifies the resource
      * @return ApplicationDeleter capable of executing the delete
      */
-    public static ApplicationDeleter deleter(final String pathAccountSid, 
+    public static ApplicationDeleter deleter(final String pathAccountSid,
                                              final String pathSid) {
         return new ApplicationDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a ApplicationDeleter to execute delete.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return ApplicationDeleter capable of executing the delete
      */
@@ -83,20 +83,20 @@ public class Application extends Resource {
 
     /**
      * Create a ApplicationFetcher to execute fetch.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource to
      *                       fetch
      * @param pathSid The unique string that identifies the resource
      * @return ApplicationFetcher capable of executing the fetch
      */
-    public static ApplicationFetcher fetcher(final String pathAccountSid, 
+    public static ApplicationFetcher fetcher(final String pathAccountSid,
                                              final String pathSid) {
         return new ApplicationFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a ApplicationFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return ApplicationFetcher capable of executing the fetch
      */
@@ -106,7 +106,7 @@ public class Application extends Resource {
 
     /**
      * Create a ApplicationReader to execute read.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       read
      * @return ApplicationReader capable of executing the read
@@ -117,7 +117,7 @@ public class Application extends Resource {
 
     /**
      * Create a ApplicationReader to execute read.
-     * 
+     *
      * @return ApplicationReader capable of executing the read
      */
     public static ApplicationReader reader() {
@@ -126,19 +126,19 @@ public class Application extends Resource {
 
     /**
      * Create a ApplicationUpdater to execute update.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param pathSid The unique string that identifies the resource
      * @return ApplicationUpdater capable of executing the update
      */
-    public static ApplicationUpdater updater(final String pathAccountSid, 
+    public static ApplicationUpdater updater(final String pathAccountSid,
                                              final String pathSid) {
         return new ApplicationUpdater(pathAccountSid, pathSid);
     }
 
     /**
      * Create a ApplicationUpdater to execute update.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @return ApplicationUpdater capable of executing the update
      */
@@ -149,7 +149,7 @@ public class Application extends Resource {
     /**
      * Converts a JSON String into a Application object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Application object represented by the provided JSON
@@ -168,7 +168,7 @@ public class Application extends Resource {
     /**
      * Converts a JSON InputStream into a Application object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Application object represented by the provided JSON
@@ -207,43 +207,43 @@ public class Application extends Resource {
 
     @JsonCreator
     private Application(@JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("api_version")
-                        final String apiVersion, 
+                        final String apiVersion,
                         @JsonProperty("date_created")
-                        final String dateCreated, 
+                        final String dateCreated,
                         @JsonProperty("date_updated")
-                        final String dateUpdated, 
+                        final String dateUpdated,
                         @JsonProperty("friendly_name")
-                        final String friendlyName, 
+                        final String friendlyName,
                         @JsonProperty("message_status_callback")
-                        final URI messageStatusCallback, 
+                        final URI messageStatusCallback,
                         @JsonProperty("sid")
-                        final String sid, 
+                        final String sid,
                         @JsonProperty("sms_fallback_method")
-                        final HttpMethod smsFallbackMethod, 
+                        final HttpMethod smsFallbackMethod,
                         @JsonProperty("sms_fallback_url")
-                        final URI smsFallbackUrl, 
+                        final URI smsFallbackUrl,
                         @JsonProperty("sms_method")
-                        final HttpMethod smsMethod, 
+                        final HttpMethod smsMethod,
                         @JsonProperty("sms_status_callback")
-                        final URI smsStatusCallback, 
+                        final URI smsStatusCallback,
                         @JsonProperty("sms_url")
-                        final URI smsUrl, 
+                        final URI smsUrl,
                         @JsonProperty("status_callback")
-                        final URI statusCallback, 
+                        final URI statusCallback,
                         @JsonProperty("status_callback_method")
-                        final HttpMethod statusCallbackMethod, 
+                        final HttpMethod statusCallbackMethod,
                         @JsonProperty("uri")
-                        final String uri, 
+                        final String uri,
                         @JsonProperty("voice_caller_id_lookup")
-                        final Boolean voiceCallerIdLookup, 
+                        final Boolean voiceCallerIdLookup,
                         @JsonProperty("voice_fallback_method")
-                        final HttpMethod voiceFallbackMethod, 
+                        final HttpMethod voiceFallbackMethod,
                         @JsonProperty("voice_fallback_url")
-                        final URI voiceFallbackUrl, 
+                        final URI voiceFallbackUrl,
                         @JsonProperty("voice_method")
-                        final HttpMethod voiceMethod, 
+                        final HttpMethod voiceMethod,
                         @JsonProperty("voice_url")
                         final URI voiceUrl) {
         this.accountSid = accountSid;
@@ -270,7 +270,7 @@ public class Application extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -279,7 +279,7 @@ public class Application extends Resource {
 
     /**
      * Returns The The API version used to start a new TwiML session.
-     * 
+     *
      * @return The API version used to start a new TwiML session
      */
     public final String getApiVersion() {
@@ -288,7 +288,7 @@ public class Application extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT that the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
@@ -298,7 +298,7 @@ public class Application extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT that the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -307,7 +307,7 @@ public class Application extends Resource {
 
     /**
      * Returns The The string that you assigned to describe the resource.
-     * 
+     *
      * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
@@ -316,7 +316,7 @@ public class Application extends Resource {
 
     /**
      * Returns The The URL to send message status information to your application.
-     * 
+     *
      * @return The URL to send message status information to your application
      */
     public final URI getMessageStatusCallback() {
@@ -325,7 +325,7 @@ public class Application extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -334,7 +334,7 @@ public class Application extends Resource {
 
     /**
      * Returns The The HTTP method used with sms_fallback_url.
-     * 
+     *
      * @return The HTTP method used with sms_fallback_url
      */
     public final HttpMethod getSmsFallbackMethod() {
@@ -344,7 +344,7 @@ public class Application extends Resource {
     /**
      * Returns The The URL that we call when an error occurs while retrieving or
      * executing the TwiML.
-     * 
+     *
      * @return The URL that we call when an error occurs while retrieving or
      *         executing the TwiML
      */
@@ -354,7 +354,7 @@ public class Application extends Resource {
 
     /**
      * Returns The The HTTP method to use with sms_url.
-     * 
+     *
      * @return The HTTP method to use with sms_url
      */
     public final HttpMethod getSmsMethod() {
@@ -363,7 +363,7 @@ public class Application extends Resource {
 
     /**
      * Returns The The URL to send status information to your application.
-     * 
+     *
      * @return The URL to send status information to your application
      */
     public final URI getSmsStatusCallback() {
@@ -373,7 +373,7 @@ public class Application extends Resource {
     /**
      * Returns The The URL we call when the phone number receives an incoming SMS
      * message.
-     * 
+     *
      * @return The URL we call when the phone number receives an incoming SMS
      *         message
      */
@@ -383,7 +383,7 @@ public class Application extends Resource {
 
     /**
      * Returns The The URL to send status information to your application.
-     * 
+     *
      * @return The URL to send status information to your application
      */
     public final URI getStatusCallback() {
@@ -392,7 +392,7 @@ public class Application extends Resource {
 
     /**
      * Returns The The HTTP method we use to call status_callback.
-     * 
+     *
      * @return The HTTP method we use to call status_callback
      */
     public final HttpMethod getStatusCallbackMethod() {
@@ -401,7 +401,7 @@ public class Application extends Resource {
 
     /**
      * Returns The The URI of the resource, relative to `https://api.twilio.com`.
-     * 
+     *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
@@ -410,7 +410,7 @@ public class Application extends Resource {
 
     /**
      * Returns The Whether to lookup the caller's name.
-     * 
+     *
      * @return Whether to lookup the caller's name
      */
     public final Boolean getVoiceCallerIdLookup() {
@@ -419,7 +419,7 @@ public class Application extends Resource {
 
     /**
      * Returns The The HTTP method used with voice_fallback_url.
-     * 
+     *
      * @return The HTTP method used with voice_fallback_url
      */
     public final HttpMethod getVoiceFallbackMethod() {
@@ -428,7 +428,7 @@ public class Application extends Resource {
 
     /**
      * Returns The The URL we call when a TwiML error occurs.
-     * 
+     *
      * @return The URL we call when a TwiML error occurs
      */
     public final URI getVoiceFallbackUrl() {
@@ -437,7 +437,7 @@ public class Application extends Resource {
 
     /**
      * Returns The The HTTP method used with the voice_url.
-     * 
+     *
      * @return The HTTP method used with the voice_url
      */
     public final HttpMethod getVoiceMethod() {
@@ -446,7 +446,7 @@ public class Application extends Resource {
 
     /**
      * Returns The The URL we call when the phone number receives a call.
-     * 
+     *
      * @return The URL we call when the phone number receives a call
      */
     public final URI getVoiceUrl() {
@@ -465,25 +465,25 @@ public class Application extends Resource {
 
         Application other = (Application) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(apiVersion, other.apiVersion) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(messageStatusCallback, other.messageStatusCallback) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(smsFallbackMethod, other.smsFallbackMethod) && 
-               Objects.equals(smsFallbackUrl, other.smsFallbackUrl) && 
-               Objects.equals(smsMethod, other.smsMethod) && 
-               Objects.equals(smsStatusCallback, other.smsStatusCallback) && 
-               Objects.equals(smsUrl, other.smsUrl) && 
-               Objects.equals(statusCallback, other.statusCallback) && 
-               Objects.equals(statusCallbackMethod, other.statusCallbackMethod) && 
-               Objects.equals(uri, other.uri) && 
-               Objects.equals(voiceCallerIdLookup, other.voiceCallerIdLookup) && 
-               Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) && 
-               Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) && 
-               Objects.equals(voiceMethod, other.voiceMethod) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(apiVersion, other.apiVersion) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(messageStatusCallback, other.messageStatusCallback) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(smsFallbackMethod, other.smsFallbackMethod) &&
+               Objects.equals(smsFallbackUrl, other.smsFallbackUrl) &&
+               Objects.equals(smsMethod, other.smsMethod) &&
+               Objects.equals(smsStatusCallback, other.smsStatusCallback) &&
+               Objects.equals(smsUrl, other.smsUrl) &&
+               Objects.equals(statusCallback, other.statusCallback) &&
+               Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
+               Objects.equals(uri, other.uri) &&
+               Objects.equals(voiceCallerIdLookup, other.voiceCallerIdLookup) &&
+               Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) &&
+               Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) &&
+               Objects.equals(voiceMethod, other.voiceMethod) &&
                Objects.equals(voiceUrl, other.voiceUrl);
     }
 

@@ -28,7 +28,7 @@ public class SettingsUpdater extends Updater<Settings> {
     /**
      * `true` for this sub-account to inherit voice dialing permissions from the
      * Master Project; otherwise `false`..
-     * 
+     *
      * @param dialingPermissionsInheritance `true` for this sub-account to inherit
      *                                      voice dialing permissions from the
      *                                      Master Project; otherwise `false`
@@ -41,7 +41,7 @@ public class SettingsUpdater extends Updater<Settings> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Settings
      */
@@ -80,7 +80,7 @@ public class SettingsUpdater extends Updater<Settings> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

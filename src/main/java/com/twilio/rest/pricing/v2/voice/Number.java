@@ -41,7 +41,7 @@ public class Number extends Resource {
 
     /**
      * Create a NumberFetcher to execute fetch.
-     * 
+     *
      * @param pathDestinationNumber The destination number for which to fetch
      *                              pricing information
      * @return NumberFetcher capable of executing the fetch
@@ -52,7 +52,7 @@ public class Number extends Resource {
 
     /**
      * Converts a JSON String into a Number object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Number object represented by the provided JSON
@@ -71,7 +71,7 @@ public class Number extends Resource {
     /**
      * Converts a JSON InputStream into a Number object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Number object represented by the provided JSON
@@ -98,20 +98,20 @@ public class Number extends Resource {
 
     @JsonCreator
     private Number(@JsonProperty("destination_number")
-                   final com.twilio.type.PhoneNumber destinationNumber, 
+                   final com.twilio.type.PhoneNumber destinationNumber,
                    @JsonProperty("origination_number")
-                   final com.twilio.type.PhoneNumber originationNumber, 
+                   final com.twilio.type.PhoneNumber originationNumber,
                    @JsonProperty("country")
-                   final String country, 
+                   final String country,
                    @JsonProperty("iso_country")
-                   final String isoCountry, 
+                   final String isoCountry,
                    @JsonProperty("outbound_call_prices")
-                   final List<OutboundCallPriceWithOrigin> outboundCallPrices, 
+                   final List<OutboundCallPriceWithOrigin> outboundCallPrices,
                    @JsonProperty("inbound_call_price")
-                   final InboundCallPrice inboundCallPrice, 
+                   final InboundCallPrice inboundCallPrice,
                    @JsonProperty("price_unit")
                    @JsonDeserialize(using = com.twilio.converter.CurrencyDeserializer.class)
-                   final Currency priceUnit, 
+                   final Currency priceUnit,
                    @JsonProperty("url")
                    final URI url) {
         this.destinationNumber = destinationNumber;
@@ -126,7 +126,7 @@ public class Number extends Resource {
 
     /**
      * Returns The The destination phone number, in E.164 format.
-     * 
+     *
      * @return The destination phone number, in E.164 format
      */
     public final com.twilio.type.PhoneNumber getDestinationNumber() {
@@ -135,7 +135,7 @@ public class Number extends Resource {
 
     /**
      * Returns The The origination phone number, in E.164 format.
-     * 
+     *
      * @return The origination phone number, in E.164 format
      */
     public final com.twilio.type.PhoneNumber getOriginationNumber() {
@@ -144,7 +144,7 @@ public class Number extends Resource {
 
     /**
      * Returns The The name of the country.
-     * 
+     *
      * @return The name of the country
      */
     public final String getCountry() {
@@ -153,7 +153,7 @@ public class Number extends Resource {
 
     /**
      * Returns The The ISO country code.
-     * 
+     *
      * @return The ISO country code
      */
     public final String getIsoCountry() {
@@ -162,7 +162,7 @@ public class Number extends Resource {
 
     /**
      * Returns The The list of OutboundCallPriceWithOrigin records.
-     * 
+     *
      * @return The list of OutboundCallPriceWithOrigin records
      */
     public final List<OutboundCallPriceWithOrigin> getOutboundCallPrices() {
@@ -171,7 +171,7 @@ public class Number extends Resource {
 
     /**
      * Returns The The InboundCallPrice record.
-     * 
+     *
      * @return The InboundCallPrice record
      */
     public final InboundCallPrice getInboundCallPrice() {
@@ -181,7 +181,7 @@ public class Number extends Resource {
     /**
      * Returns The The currency in which prices are measured, in ISO 4127 format
      * (e.g. usd, eur, jpy).
-     * 
+     *
      * @return The currency in which prices are measured, in ISO 4127 format (e.g.
      *         usd, eur, jpy)
      */
@@ -191,7 +191,7 @@ public class Number extends Resource {
 
     /**
      * Returns The The absolute URL of the resource.
-     * 
+     *
      * @return The absolute URL of the resource
      */
     public final URI getUrl() {
@@ -210,13 +210,13 @@ public class Number extends Resource {
 
         Number other = (Number) o;
 
-        return Objects.equals(destinationNumber, other.destinationNumber) && 
-               Objects.equals(originationNumber, other.originationNumber) && 
-               Objects.equals(country, other.country) && 
-               Objects.equals(isoCountry, other.isoCountry) && 
-               Objects.equals(outboundCallPrices, other.outboundCallPrices) && 
-               Objects.equals(inboundCallPrice, other.inboundCallPrice) && 
-               Objects.equals(priceUnit, other.priceUnit) && 
+        return Objects.equals(destinationNumber, other.destinationNumber) &&
+               Objects.equals(originationNumber, other.originationNumber) &&
+               Objects.equals(country, other.country) &&
+               Objects.equals(isoCountry, other.isoCountry) &&
+               Objects.equals(outboundCallPrices, other.outboundCallPrices) &&
+               Objects.equals(inboundCallPrice, other.inboundCallPrice) &&
+               Objects.equals(priceUnit, other.priceUnit) &&
                Objects.equals(url, other.url);
     }
 

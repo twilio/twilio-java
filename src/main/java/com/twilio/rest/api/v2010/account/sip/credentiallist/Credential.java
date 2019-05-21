@@ -37,21 +37,21 @@ public class Credential extends Resource {
 
     /**
      * Create a CredentialReader to execute read.
-     * 
+     *
      * @param pathAccountSid The unique id of the Account that is responsible for
      *                       this resource.
      * @param pathCredentialListSid The unique id that identifies the credential
      *                              list that contains the desired credentials
      * @return CredentialReader capable of executing the read
      */
-    public static CredentialReader reader(final String pathAccountSid, 
+    public static CredentialReader reader(final String pathAccountSid,
                                           final String pathCredentialListSid) {
         return new CredentialReader(pathAccountSid, pathCredentialListSid);
     }
 
     /**
      * Create a CredentialReader to execute read.
-     * 
+     *
      * @param pathCredentialListSid The unique id that identifies the credential
      *                              list that contains the desired credentials
      * @return CredentialReader capable of executing the read
@@ -62,7 +62,7 @@ public class Credential extends Resource {
 
     /**
      * Create a CredentialCreator to execute create.
-     * 
+     *
      * @param pathAccountSid The unique id of the Account that is responsible for
      *                       this resource.
      * @param pathCredentialListSid The unique id that identifies the credential
@@ -71,31 +71,31 @@ public class Credential extends Resource {
      * @param password The password will not be returned in the response.
      * @return CredentialCreator capable of executing the create
      */
-    public static CredentialCreator creator(final String pathAccountSid, 
-                                            final String pathCredentialListSid, 
-                                            final String username, 
+    public static CredentialCreator creator(final String pathAccountSid,
+                                            final String pathCredentialListSid,
+                                            final String username,
                                             final String password) {
         return new CredentialCreator(pathAccountSid, pathCredentialListSid, username, password);
     }
 
     /**
      * Create a CredentialCreator to execute create.
-     * 
+     *
      * @param pathCredentialListSid The unique id that identifies the credential
      *                              list to include the created credential
      * @param username The username for this credential.
      * @param password The password will not be returned in the response.
      * @return CredentialCreator capable of executing the create
      */
-    public static CredentialCreator creator(final String pathCredentialListSid, 
-                                            final String username, 
+    public static CredentialCreator creator(final String pathCredentialListSid,
+                                            final String username,
                                             final String password) {
         return new CredentialCreator(pathCredentialListSid, username, password);
     }
 
     /**
      * Create a CredentialFetcher to execute fetch.
-     * 
+     *
      * @param pathAccountSid The unique id of the Account that is responsible for
      *                       this resource.
      * @param pathCredentialListSid The unique id that identifies the credential
@@ -103,28 +103,28 @@ public class Credential extends Resource {
      * @param pathSid The unique id that identifies the resource to fetch.
      * @return CredentialFetcher capable of executing the fetch
      */
-    public static CredentialFetcher fetcher(final String pathAccountSid, 
-                                            final String pathCredentialListSid, 
+    public static CredentialFetcher fetcher(final String pathAccountSid,
+                                            final String pathCredentialListSid,
                                             final String pathSid) {
         return new CredentialFetcher(pathAccountSid, pathCredentialListSid, pathSid);
     }
 
     /**
      * Create a CredentialFetcher to execute fetch.
-     * 
+     *
      * @param pathCredentialListSid The unique id that identifies the credential
      *                              list that contains the desired credential
      * @param pathSid The unique id that identifies the resource to fetch.
      * @return CredentialFetcher capable of executing the fetch
      */
-    public static CredentialFetcher fetcher(final String pathCredentialListSid, 
+    public static CredentialFetcher fetcher(final String pathCredentialListSid,
                                             final String pathSid) {
         return new CredentialFetcher(pathCredentialListSid, pathSid);
     }
 
     /**
      * Create a CredentialUpdater to execute update.
-     * 
+     *
      * @param pathAccountSid The unique id of the Account that is responsible for
      *                       this resource
      * @param pathCredentialListSid The unique id that identifies the credential
@@ -132,28 +132,28 @@ public class Credential extends Resource {
      * @param pathSid The unique id that identifies the resource to update
      * @return CredentialUpdater capable of executing the update
      */
-    public static CredentialUpdater updater(final String pathAccountSid, 
-                                            final String pathCredentialListSid, 
+    public static CredentialUpdater updater(final String pathAccountSid,
+                                            final String pathCredentialListSid,
                                             final String pathSid) {
         return new CredentialUpdater(pathAccountSid, pathCredentialListSid, pathSid);
     }
 
     /**
      * Create a CredentialUpdater to execute update.
-     * 
+     *
      * @param pathCredentialListSid The unique id that identifies the credential
      *                              list that includes this credential
      * @param pathSid The unique id that identifies the resource to update
      * @return CredentialUpdater capable of executing the update
      */
-    public static CredentialUpdater updater(final String pathCredentialListSid, 
+    public static CredentialUpdater updater(final String pathCredentialListSid,
                                             final String pathSid) {
         return new CredentialUpdater(pathCredentialListSid, pathSid);
     }
 
     /**
      * Create a CredentialDeleter to execute delete.
-     * 
+     *
      * @param pathAccountSid The unique id of the Account that is responsible for
      *                       this resource.
      * @param pathCredentialListSid The unique id that identifies the credential
@@ -161,21 +161,21 @@ public class Credential extends Resource {
      * @param pathSid The unique id that identifies the resource to delete
      * @return CredentialDeleter capable of executing the delete
      */
-    public static CredentialDeleter deleter(final String pathAccountSid, 
-                                            final String pathCredentialListSid, 
+    public static CredentialDeleter deleter(final String pathAccountSid,
+                                            final String pathCredentialListSid,
                                             final String pathSid) {
         return new CredentialDeleter(pathAccountSid, pathCredentialListSid, pathSid);
     }
 
     /**
      * Create a CredentialDeleter to execute delete.
-     * 
+     *
      * @param pathCredentialListSid The unique id that identifies the credential
      *                              list that contains the desired credentials
      * @param pathSid The unique id that identifies the resource to delete
      * @return CredentialDeleter capable of executing the delete
      */
-    public static CredentialDeleter deleter(final String pathCredentialListSid, 
+    public static CredentialDeleter deleter(final String pathCredentialListSid,
                                             final String pathSid) {
         return new CredentialDeleter(pathCredentialListSid, pathSid);
     }
@@ -183,7 +183,7 @@ public class Credential extends Resource {
     /**
      * Converts a JSON String into a Credential object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Credential object represented by the provided JSON
@@ -202,7 +202,7 @@ public class Credential extends Resource {
     /**
      * Converts a JSON InputStream into a Credential object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Credential object represented by the provided JSON
@@ -228,17 +228,17 @@ public class Credential extends Resource {
 
     @JsonCreator
     private Credential(@JsonProperty("sid")
-                       final String sid, 
+                       final String sid,
                        @JsonProperty("account_sid")
-                       final String accountSid, 
+                       final String accountSid,
                        @JsonProperty("credential_list_sid")
-                       final String credentialListSid, 
+                       final String credentialListSid,
                        @JsonProperty("username")
-                       final String username, 
+                       final String username,
                        @JsonProperty("date_created")
-                       final String dateCreated, 
+                       final String dateCreated,
                        @JsonProperty("date_updated")
-                       final String dateUpdated, 
+                       final String dateUpdated,
                        @JsonProperty("uri")
                        final String uri) {
         this.sid = sid;
@@ -252,7 +252,7 @@ public class Credential extends Resource {
 
     /**
      * Returns The A 34 character string that uniquely identifies this resource..
-     * 
+     *
      * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
@@ -262,7 +262,7 @@ public class Credential extends Resource {
     /**
      * Returns The The unique id of the Account that is responsible for this
      * resource..
-     * 
+     *
      * @return The unique id of the Account that is responsible for this resource.
      */
     public final String getAccountSid() {
@@ -272,7 +272,7 @@ public class Credential extends Resource {
     /**
      * Returns The The unique id that identifies the credential list that includes
      * this credential.
-     * 
+     *
      * @return The unique id that identifies the credential list that includes this
      *         credential
      */
@@ -282,7 +282,7 @@ public class Credential extends Resource {
 
     /**
      * Returns The The username for this credential..
-     * 
+     *
      * @return The username for this credential.
      */
     public final String getUsername() {
@@ -292,7 +292,7 @@ public class Credential extends Resource {
     /**
      * Returns The The date that this resource was created, given as GMT in RFC 2822
      * format..
-     * 
+     *
      * @return The date that this resource was created, given as GMT in RFC 2822
      *         format.
      */
@@ -303,7 +303,7 @@ public class Credential extends Resource {
     /**
      * Returns The The date that this resource was last updated, given as GMT in RFC
      * 2822 format..
-     * 
+     *
      * @return The date that this resource was last updated, given as GMT in RFC
      *         2822 format.
      */
@@ -313,7 +313,7 @@ public class Credential extends Resource {
 
     /**
      * Returns The The URI for this resource, relative to https://api.twilio.com.
-     * 
+     *
      * @return The URI for this resource, relative to https://api.twilio.com
      */
     public final String getUri() {
@@ -332,12 +332,12 @@ public class Credential extends Resource {
 
         Credential other = (Credential) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(credentialListSid, other.credentialListSid) && 
-               Objects.equals(username, other.username) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(credentialListSid, other.credentialListSid) &&
+               Objects.equals(username, other.username) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(uri, other.uri);
     }
 

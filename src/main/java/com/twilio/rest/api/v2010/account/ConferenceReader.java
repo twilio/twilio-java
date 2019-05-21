@@ -39,7 +39,7 @@ public class ConferenceReader extends Reader<Conference> {
 
     /**
      * Construct a new ConferenceReader.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       read
      */
@@ -52,7 +52,7 @@ public class ConferenceReader extends Reader<Conference> {
      * read. To read conferences that started on or before midnight on a date, use
      * `&lt;=YYYY-MM-DD`, and to specify  conferences that started on or after
      * midnight on a date, use `&gt;=YYYY-MM-DD`..
-     * 
+     *
      * @param absoluteDateCreated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
@@ -67,7 +67,7 @@ public class ConferenceReader extends Reader<Conference> {
      * read. To read conferences that started on or before midnight on a date, use
      * `&lt;=YYYY-MM-DD`, and to specify  conferences that started on or after
      * midnight on a date, use `&gt;=YYYY-MM-DD`..
-     * 
+     *
      * @param rangeDateCreated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
@@ -82,7 +82,7 @@ public class ConferenceReader extends Reader<Conference> {
      * read. To read conferences that were last updated on or before midnight on a
      * date, use `&lt;=YYYY-MM-DD`, and to specify conferences that were last
      * updated on or after midnight on a given date, use  `&gt;=YYYY-MM-DD`..
-     * 
+     *
      * @param absoluteDateUpdated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
@@ -97,7 +97,7 @@ public class ConferenceReader extends Reader<Conference> {
      * read. To read conferences that were last updated on or before midnight on a
      * date, use `&lt;=YYYY-MM-DD`, and to specify conferences that were last
      * updated on or after midnight on a given date, use  `&gt;=YYYY-MM-DD`..
-     * 
+     *
      * @param rangeDateUpdated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
@@ -109,7 +109,7 @@ public class ConferenceReader extends Reader<Conference> {
 
     /**
      * The string that identifies the Conference resources to read..
-     * 
+     *
      * @param friendlyName The string that identifies the Conference resources to
      *                     read
      * @return this
@@ -122,7 +122,7 @@ public class ConferenceReader extends Reader<Conference> {
     /**
      * The status of the resources to read. Can be: `init`, `in-progress`, or
      * `completed`..
-     * 
+     *
      * @param status The status of the resources to read
      * @return this
      */
@@ -133,7 +133,7 @@ public class ConferenceReader extends Reader<Conference> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Conference ResourceSet
      */
@@ -144,7 +144,7 @@ public class ConferenceReader extends Reader<Conference> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Conference ResourceSet
      */
@@ -165,7 +165,7 @@ public class ConferenceReader extends Reader<Conference> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Conference ResourceSet
@@ -184,13 +184,13 @@ public class ConferenceReader extends Reader<Conference> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Conference> nextPage(final Page<Conference> page, 
+    public Page<Conference> nextPage(final Page<Conference> page,
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -204,13 +204,13 @@ public class ConferenceReader extends Reader<Conference> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Conference> previousPage(final Page<Conference> page, 
+    public Page<Conference> previousPage(final Page<Conference> page,
                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -224,7 +224,7 @@ public class ConferenceReader extends Reader<Conference> {
 
     /**
      * Generate a Page of Conference Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -259,7 +259,7 @@ public class ConferenceReader extends Reader<Conference> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

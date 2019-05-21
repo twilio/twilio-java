@@ -29,11 +29,11 @@ public class InviteReader extends Reader<Invite> {
 
     /**
      * Construct a new InviteReader.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to read the resources from
      * @param pathChannelSid The SID of the Channel the resources to read belong to
      */
-    public InviteReader(final String pathServiceSid, 
+    public InviteReader(final String pathServiceSid,
                         final String pathChannelSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -44,7 +44,7 @@ public class InviteReader extends Reader<Invite> {
      * value of the resources to read. See [access
      * tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more
      * details..
-     * 
+     *
      * @param identity The `identity` value of the resources to read
      * @return this
      */
@@ -58,7 +58,7 @@ public class InviteReader extends Reader<Invite> {
      * value of the resources to read. See [access
      * tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more
      * details..
-     * 
+     *
      * @param identity The `identity` value of the resources to read
      * @return this
      */
@@ -68,7 +68,7 @@ public class InviteReader extends Reader<Invite> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Invite ResourceSet
      */
@@ -79,7 +79,7 @@ public class InviteReader extends Reader<Invite> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Invite ResourceSet
      */
@@ -99,7 +99,7 @@ public class InviteReader extends Reader<Invite> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Invite ResourceSet
@@ -117,13 +117,13 @@ public class InviteReader extends Reader<Invite> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Invite> nextPage(final Page<Invite> page, 
+    public Page<Invite> nextPage(final Page<Invite> page,
                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -137,13 +137,13 @@ public class InviteReader extends Reader<Invite> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Invite> previousPage(final Page<Invite> page, 
+    public Page<Invite> previousPage(final Page<Invite> page,
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -157,7 +157,7 @@ public class InviteReader extends Reader<Invite> {
 
     /**
      * Generate a Page of Invite Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -192,7 +192,7 @@ public class InviteReader extends Reader<Invite> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

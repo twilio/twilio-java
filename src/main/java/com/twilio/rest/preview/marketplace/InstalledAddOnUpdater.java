@@ -32,7 +32,7 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
 
     /**
      * Construct a new InstalledAddOnUpdater.
-     * 
+     *
      * @param pathSid The sid
      */
     public InstalledAddOnUpdater(final String pathSid) {
@@ -43,7 +43,7 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
      * Valid JSON object that conform to the configuration schema exposed by the
      * associated Available Add-on resource. This is only required by Add-ons that
      * need to be configured.
-     * 
+     *
      * @param configuration The JSON object representing the configuration
      * @return this
      */
@@ -55,7 +55,7 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
     /**
      * The human-readable string that uniquely identifies this Add-on installation
      * for an Account..
-     * 
+     *
      * @param uniqueName The string that uniquely identifies this Add-on
      *                   installation
      * @return this
@@ -67,7 +67,7 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated InstalledAddOn
      */
@@ -106,7 +106,7 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

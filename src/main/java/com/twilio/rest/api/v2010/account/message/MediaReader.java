@@ -30,7 +30,7 @@ public class MediaReader extends Reader<Media> {
 
     /**
      * Construct a new MediaReader.
-     * 
+     *
      * @param pathMessageSid The SID of the Message resource that this Media
      *                       resource belongs to
      */
@@ -40,13 +40,13 @@ public class MediaReader extends Reader<Media> {
 
     /**
      * Construct a new MediaReader.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       read
      * @param pathMessageSid The SID of the Message resource that this Media
      *                       resource belongs to
      */
-    public MediaReader(final String pathAccountSid, 
+    public MediaReader(final String pathAccountSid,
                        final String pathMessageSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathMessageSid = pathMessageSid;
@@ -58,7 +58,7 @@ public class MediaReader extends Reader<Media> {
      * for media generated at or before midnight on a date, and
      * `DateCreated&gt;=YYYY-MM-DD` for media generated at or after midnight on a
      * date..
-     * 
+     *
      * @param absoluteDateCreated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
@@ -74,7 +74,7 @@ public class MediaReader extends Reader<Media> {
      * for media generated at or before midnight on a date, and
      * `DateCreated&gt;=YYYY-MM-DD` for media generated at or after midnight on a
      * date..
-     * 
+     *
      * @param rangeDateCreated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
@@ -86,7 +86,7 @@ public class MediaReader extends Reader<Media> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Media ResourceSet
      */
@@ -97,7 +97,7 @@ public class MediaReader extends Reader<Media> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Media ResourceSet
      */
@@ -118,7 +118,7 @@ public class MediaReader extends Reader<Media> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Media ResourceSet
@@ -137,13 +137,13 @@ public class MediaReader extends Reader<Media> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Media> nextPage(final Page<Media> page, 
+    public Page<Media> nextPage(final Page<Media> page,
                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -157,13 +157,13 @@ public class MediaReader extends Reader<Media> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Media> previousPage(final Page<Media> page, 
+    public Page<Media> previousPage(final Page<Media> page,
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -177,7 +177,7 @@ public class MediaReader extends Reader<Media> {
 
     /**
      * Generate a Page of Media Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -212,7 +212,7 @@ public class MediaReader extends Reader<Media> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

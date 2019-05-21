@@ -26,13 +26,13 @@ public class RecordingUpdater extends Updater<Recording> {
 
     /**
      * Construct a new RecordingUpdater.
-     * 
+     *
      * @param pathConferenceSid Update by unique Conference SID for the recording
      * @param pathSid The unique string that identifies the resource
      * @param status The new status of the recording
      */
-    public RecordingUpdater(final String pathConferenceSid, 
-                            final String pathSid, 
+    public RecordingUpdater(final String pathConferenceSid,
+                            final String pathSid,
                             final Recording.Status status) {
         this.pathConferenceSid = pathConferenceSid;
         this.pathSid = pathSid;
@@ -41,16 +41,16 @@ public class RecordingUpdater extends Updater<Recording> {
 
     /**
      * Construct a new RecordingUpdater.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource to
      *                       update
      * @param pathConferenceSid Update by unique Conference SID for the recording
      * @param pathSid The unique string that identifies the resource
      * @param status The new status of the recording
      */
-    public RecordingUpdater(final String pathAccountSid, 
-                            final String pathConferenceSid, 
-                            final String pathSid, 
+    public RecordingUpdater(final String pathAccountSid,
+                            final String pathConferenceSid,
+                            final String pathSid,
                             final Recording.Status status) {
         this.pathAccountSid = pathAccountSid;
         this.pathConferenceSid = pathConferenceSid;
@@ -64,7 +64,7 @@ public class RecordingUpdater extends Updater<Recording> {
      * will replace the actual audio of the call with silence during the pause
      * period. This parameter only applies when setting `status` is set to
      * `paused`..
-     * 
+     *
      * @param pauseBehavior Whether to record during a pause
      * @return this
      */
@@ -75,7 +75,7 @@ public class RecordingUpdater extends Updater<Recording> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Recording
      */
@@ -115,7 +115,7 @@ public class RecordingUpdater extends Updater<Recording> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

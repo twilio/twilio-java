@@ -95,72 +95,72 @@ public class SyncMapItem extends Resource {
 
     /**
      * Create a SyncMapItemFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathMapSid The map_sid
      * @param pathKey The key
      * @return SyncMapItemFetcher capable of executing the fetch
      */
-    public static SyncMapItemFetcher fetcher(final String pathServiceSid, 
-                                             final String pathMapSid, 
+    public static SyncMapItemFetcher fetcher(final String pathServiceSid,
+                                             final String pathMapSid,
                                              final String pathKey) {
         return new SyncMapItemFetcher(pathServiceSid, pathMapSid, pathKey);
     }
 
     /**
      * Create a SyncMapItemDeleter to execute delete.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathMapSid The map_sid
      * @param pathKey The key
      * @return SyncMapItemDeleter capable of executing the delete
      */
-    public static SyncMapItemDeleter deleter(final String pathServiceSid, 
-                                             final String pathMapSid, 
+    public static SyncMapItemDeleter deleter(final String pathServiceSid,
+                                             final String pathMapSid,
                                              final String pathKey) {
         return new SyncMapItemDeleter(pathServiceSid, pathMapSid, pathKey);
     }
 
     /**
      * Create a SyncMapItemCreator to execute create.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathMapSid The map_sid
      * @param key The key
      * @param data The data
      * @return SyncMapItemCreator capable of executing the create
      */
-    public static SyncMapItemCreator creator(final String pathServiceSid, 
-                                             final String pathMapSid, 
-                                             final String key, 
+    public static SyncMapItemCreator creator(final String pathServiceSid,
+                                             final String pathMapSid,
+                                             final String key,
                                              final Map<String, Object> data) {
         return new SyncMapItemCreator(pathServiceSid, pathMapSid, key, data);
     }
 
     /**
      * Create a SyncMapItemReader to execute read.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathMapSid The map_sid
      * @return SyncMapItemReader capable of executing the read
      */
-    public static SyncMapItemReader reader(final String pathServiceSid, 
+    public static SyncMapItemReader reader(final String pathServiceSid,
                                            final String pathMapSid) {
         return new SyncMapItemReader(pathServiceSid, pathMapSid);
     }
 
     /**
      * Create a SyncMapItemUpdater to execute update.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathMapSid The map_sid
      * @param pathKey The key
      * @param data The data
      * @return SyncMapItemUpdater capable of executing the update
      */
-    public static SyncMapItemUpdater updater(final String pathServiceSid, 
-                                             final String pathMapSid, 
-                                             final String pathKey, 
+    public static SyncMapItemUpdater updater(final String pathServiceSid,
+                                             final String pathMapSid,
+                                             final String pathKey,
                                              final Map<String, Object> data) {
         return new SyncMapItemUpdater(pathServiceSid, pathMapSid, pathKey, data);
     }
@@ -168,7 +168,7 @@ public class SyncMapItem extends Resource {
     /**
      * Converts a JSON String into a SyncMapItem object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SyncMapItem object represented by the provided JSON
@@ -187,7 +187,7 @@ public class SyncMapItem extends Resource {
     /**
      * Converts a JSON InputStream into a SyncMapItem object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SyncMapItem object represented by the provided JSON
@@ -216,23 +216,23 @@ public class SyncMapItem extends Resource {
 
     @JsonCreator
     private SyncMapItem(@JsonProperty("key")
-                        final String key, 
+                        final String key,
                         @JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("service_sid")
-                        final String serviceSid, 
+                        final String serviceSid,
                         @JsonProperty("map_sid")
-                        final String mapSid, 
+                        final String mapSid,
                         @JsonProperty("url")
-                        final URI url, 
+                        final URI url,
                         @JsonProperty("revision")
-                        final String revision, 
+                        final String revision,
                         @JsonProperty("data")
-                        final Map<String, Object> data, 
+                        final Map<String, Object> data,
                         @JsonProperty("date_created")
-                        final String dateCreated, 
+                        final String dateCreated,
                         @JsonProperty("date_updated")
-                        final String dateUpdated, 
+                        final String dateUpdated,
                         @JsonProperty("created_by")
                         final String createdBy) {
         this.key = key;
@@ -249,7 +249,7 @@ public class SyncMapItem extends Resource {
 
     /**
      * Returns The The key.
-     * 
+     *
      * @return The key
      */
     public final String getKey() {
@@ -258,7 +258,7 @@ public class SyncMapItem extends Resource {
 
     /**
      * Returns The The account_sid.
-     * 
+     *
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -267,7 +267,7 @@ public class SyncMapItem extends Resource {
 
     /**
      * Returns The The service_sid.
-     * 
+     *
      * @return The service_sid
      */
     public final String getServiceSid() {
@@ -276,7 +276,7 @@ public class SyncMapItem extends Resource {
 
     /**
      * Returns The The map_sid.
-     * 
+     *
      * @return The map_sid
      */
     public final String getMapSid() {
@@ -285,7 +285,7 @@ public class SyncMapItem extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -294,7 +294,7 @@ public class SyncMapItem extends Resource {
 
     /**
      * Returns The The revision.
-     * 
+     *
      * @return The revision
      */
     public final String getRevision() {
@@ -303,7 +303,7 @@ public class SyncMapItem extends Resource {
 
     /**
      * Returns The The data.
-     * 
+     *
      * @return The data
      */
     public final Map<String, Object> getData() {
@@ -312,7 +312,7 @@ public class SyncMapItem extends Resource {
 
     /**
      * Returns The The date_created.
-     * 
+     *
      * @return The date_created
      */
     public final DateTime getDateCreated() {
@@ -321,7 +321,7 @@ public class SyncMapItem extends Resource {
 
     /**
      * Returns The The date_updated.
-     * 
+     *
      * @return The date_updated
      */
     public final DateTime getDateUpdated() {
@@ -330,7 +330,7 @@ public class SyncMapItem extends Resource {
 
     /**
      * Returns The The created_by.
-     * 
+     *
      * @return The created_by
      */
     public final String getCreatedBy() {
@@ -349,15 +349,15 @@ public class SyncMapItem extends Resource {
 
         SyncMapItem other = (SyncMapItem) o;
 
-        return Objects.equals(key, other.key) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(mapSid, other.mapSid) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(revision, other.revision) && 
-               Objects.equals(data, other.data) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(key, other.key) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(mapSid, other.mapSid) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(revision, other.revision) &&
+               Objects.equals(data, other.data) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(createdBy, other.createdBy);
     }
 

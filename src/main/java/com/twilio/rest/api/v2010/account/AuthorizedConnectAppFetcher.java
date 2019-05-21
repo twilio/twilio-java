@@ -23,7 +23,7 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
 
     /**
      * Construct a new AuthorizedConnectAppFetcher.
-     * 
+     *
      * @param pathConnectAppSid The SID of the Connect App to fetch
      */
     public AuthorizedConnectAppFetcher(final String pathConnectAppSid) {
@@ -32,12 +32,12 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
 
     /**
      * Construct a new AuthorizedConnectAppFetcher.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource to
      *                       fetch
      * @param pathConnectAppSid The SID of the Connect App to fetch
      */
-    public AuthorizedConnectAppFetcher(final String pathAccountSid, 
+    public AuthorizedConnectAppFetcher(final String pathAccountSid,
                                        final String pathConnectAppSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathConnectAppSid = pathConnectAppSid;
@@ -45,7 +45,7 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched AuthorizedConnectApp
      */

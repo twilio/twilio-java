@@ -68,12 +68,12 @@ public class VerificationCheck extends Resource {
 
     /**
      * Create a VerificationCheckCreator to execute create.
-     * 
+     *
      * @param pathServiceSid A string that uniquely identifies the Service.
      * @param code The verification string
      * @return VerificationCheckCreator capable of executing the create
      */
-    public static VerificationCheckCreator creator(final String pathServiceSid, 
+    public static VerificationCheckCreator creator(final String pathServiceSid,
                                                    final String code) {
         return new VerificationCheckCreator(pathServiceSid, code);
     }
@@ -81,7 +81,7 @@ public class VerificationCheck extends Resource {
     /**
      * Converts a JSON String into a VerificationCheck object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return VerificationCheck object represented by the provided JSON
@@ -100,7 +100,7 @@ public class VerificationCheck extends Resource {
     /**
      * Converts a JSON InputStream into a VerificationCheck object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return VerificationCheck object represented by the provided JSON
@@ -128,21 +128,21 @@ public class VerificationCheck extends Resource {
 
     @JsonCreator
     private VerificationCheck(@JsonProperty("sid")
-                              final String sid, 
+                              final String sid,
                               @JsonProperty("service_sid")
-                              final String serviceSid, 
+                              final String serviceSid,
                               @JsonProperty("account_sid")
-                              final String accountSid, 
+                              final String accountSid,
                               @JsonProperty("to")
-                              final String to, 
+                              final String to,
                               @JsonProperty("channel")
-                              final VerificationCheck.Channel channel, 
+                              final VerificationCheck.Channel channel,
                               @JsonProperty("status")
-                              final String status, 
+                              final String status,
                               @JsonProperty("valid")
-                              final Boolean valid, 
+                              final Boolean valid,
                               @JsonProperty("date_created")
-                              final String dateCreated, 
+                              final String dateCreated,
                               @JsonProperty("date_updated")
                               final String dateUpdated) {
         this.sid = sid;
@@ -158,7 +158,7 @@ public class VerificationCheck extends Resource {
 
     /**
      * Returns The A string that uniquely identifies this Verification Check..
-     * 
+     *
      * @return A string that uniquely identifies this Verification Check.
      */
     public final String getSid() {
@@ -167,7 +167,7 @@ public class VerificationCheck extends Resource {
 
     /**
      * Returns The Service Sid..
-     * 
+     *
      * @return Service Sid.
      */
     public final String getServiceSid() {
@@ -176,7 +176,7 @@ public class VerificationCheck extends Resource {
 
     /**
      * Returns The Account Sid..
-     * 
+     *
      * @return Account Sid.
      */
     public final String getAccountSid() {
@@ -185,7 +185,7 @@ public class VerificationCheck extends Resource {
 
     /**
      * Returns The To phonenumber.
-     * 
+     *
      * @return To phonenumber
      */
     public final String getTo() {
@@ -194,7 +194,7 @@ public class VerificationCheck extends Resource {
 
     /**
      * Returns The sms or call.
-     * 
+     *
      * @return sms or call
      */
     public final VerificationCheck.Channel getChannel() {
@@ -203,7 +203,7 @@ public class VerificationCheck extends Resource {
 
     /**
      * Returns The pending, approved, denied or expired.
-     * 
+     *
      * @return pending, approved, denied or expired
      */
     public final String getStatus() {
@@ -212,7 +212,7 @@ public class VerificationCheck extends Resource {
 
     /**
      * Returns The successful verification.
-     * 
+     *
      * @return successful verification
      */
     public final Boolean getValid() {
@@ -221,7 +221,7 @@ public class VerificationCheck extends Resource {
 
     /**
      * Returns The The date this Verification Check was created.
-     * 
+     *
      * @return The date this Verification Check was created
      */
     public final DateTime getDateCreated() {
@@ -230,7 +230,7 @@ public class VerificationCheck extends Resource {
 
     /**
      * Returns The The date this Verification Check was updated.
-     * 
+     *
      * @return The date this Verification Check was updated
      */
     public final DateTime getDateUpdated() {
@@ -249,14 +249,14 @@ public class VerificationCheck extends Resource {
 
         VerificationCheck other = (VerificationCheck) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(to, other.to) && 
-               Objects.equals(channel, other.channel) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(valid, other.valid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(to, other.to) &&
+               Objects.equals(channel, other.channel) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(valid, other.valid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated);
     }
 

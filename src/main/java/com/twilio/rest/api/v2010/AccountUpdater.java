@@ -30,7 +30,7 @@ public class AccountUpdater extends Updater<Account> {
 
     /**
      * Construct a new AccountUpdater.
-     * 
+     *
      * @param pathSid Update by unique Account Sid
      */
     public AccountUpdater(final String pathSid) {
@@ -39,7 +39,7 @@ public class AccountUpdater extends Updater<Account> {
 
     /**
      * Update the human-readable description of this Account.
-     * 
+     *
      * @param friendlyName FriendlyName to update
      * @return this
      */
@@ -52,7 +52,7 @@ public class AccountUpdater extends Updater<Account> {
      * Alter the status of this account: use `closed` to irreversibly close this
      * account, `suspended` to temporarily suspend it, or `active` to reactivate
      * it..
-     * 
+     *
      * @param status Status to update the Account with
      * @return this
      */
@@ -63,7 +63,7 @@ public class AccountUpdater extends Updater<Account> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Account
      */
@@ -103,7 +103,7 @@ public class AccountUpdater extends Updater<Account> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

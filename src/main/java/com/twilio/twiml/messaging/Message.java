@@ -48,7 +48,7 @@ public class Message extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -57,7 +57,7 @@ public class Message extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -85,7 +85,7 @@ public class Message extends TwiML {
 
     /**
      * Phone Number to send Message to
-     * 
+     *
      * @return Phone Number to send Message to
      */
     public String getTo() {
@@ -94,7 +94,7 @@ public class Message extends TwiML {
 
     /**
      * Phone Number to send Message from
-     * 
+     *
      * @return Phone Number to send Message from
      */
     public String getFrom() {
@@ -103,7 +103,7 @@ public class Message extends TwiML {
 
     /**
      * Action URL
-     * 
+     *
      * @return Action URL
      */
     public URI getAction() {
@@ -112,7 +112,7 @@ public class Message extends TwiML {
 
     /**
      * Action URL Method
-     * 
+     *
      * @return Action URL Method
      */
     public HttpMethod getMethod() {
@@ -121,7 +121,7 @@ public class Message extends TwiML {
 
     /**
      * Status callback URL. Deprecated in favor of action.
-     * 
+     *
      * @return Status callback URL. Deprecated in favor of action.
      */
     public URI getStatusCallback() {
@@ -130,7 +130,7 @@ public class Message extends TwiML {
 
     /**
      * Message Body
-     * 
+     *
      * @return Message Body
      */
     public String getBody() {

@@ -27,11 +27,11 @@ public class SyncStreamFetcher extends Fetcher<SyncStream> {
 
     /**
      * Construct a new SyncStreamFetcher.
-     * 
+     *
      * @param pathServiceSid Service Instance SID or unique name.
      * @param pathSid Stream SID or unique name.
      */
-    public SyncStreamFetcher(final String pathServiceSid, 
+    public SyncStreamFetcher(final String pathServiceSid,
                              final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -39,7 +39,7 @@ public class SyncStreamFetcher extends Fetcher<SyncStream> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched SyncStream
      */

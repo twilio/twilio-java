@@ -30,11 +30,11 @@ public class CertificateUpdater extends Updater<Certificate> {
 
     /**
      * Construct a new CertificateUpdater.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @param pathSid A string that uniquely identifies the Certificate.
      */
-    public CertificateUpdater(final String pathFleetSid, 
+    public CertificateUpdater(final String pathFleetSid,
                               final String pathSid) {
         this.pathFleetSid = pathFleetSid;
         this.pathSid = pathSid;
@@ -43,7 +43,7 @@ public class CertificateUpdater extends Updater<Certificate> {
     /**
      * Provides a human readable descriptive text for this Certificate credential,
      * up to 256 characters long..
-     * 
+     *
      * @param friendlyName The human readable description for this Certificate.
      * @return this
      */
@@ -55,7 +55,7 @@ public class CertificateUpdater extends Updater<Certificate> {
     /**
      * Provides the unique string identifier of an existing Device to become
      * authenticated with this Certificate credential..
-     * 
+     *
      * @param deviceSid The unique identifier of a Device to be authenticated.
      * @return this
      */
@@ -66,7 +66,7 @@ public class CertificateUpdater extends Updater<Certificate> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Certificate
      */
@@ -105,7 +105,7 @@ public class CertificateUpdater extends Updater<Certificate> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -27,11 +27,11 @@ public class ShortCodeCreator extends Creator<ShortCode> {
 
     /**
      * Construct a new ShortCodeCreator.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to create the resource under
      * @param shortCodeSid SID of the ShortCode being added to the Service.
      */
-    public ShortCodeCreator(final String pathServiceSid, 
+    public ShortCodeCreator(final String pathServiceSid,
                             final String shortCodeSid) {
         this.pathServiceSid = pathServiceSid;
         this.shortCodeSid = shortCodeSid;
@@ -39,7 +39,7 @@ public class ShortCodeCreator extends Creator<ShortCode> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created ShortCode
      */
@@ -78,7 +78,7 @@ public class ShortCodeCreator extends Creator<ShortCode> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -44,19 +44,19 @@ public class AlphaSender extends Resource {
 
     /**
      * Create a AlphaSenderCreator to execute create.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param alphaSender An Alphanumeric Sender ID string, up to 11 characters.
      * @return AlphaSenderCreator capable of executing the create
      */
-    public static AlphaSenderCreator creator(final String pathServiceSid, 
+    public static AlphaSenderCreator creator(final String pathServiceSid,
                                              final String alphaSender) {
         return new AlphaSenderCreator(pathServiceSid, alphaSender);
     }
 
     /**
      * Create a AlphaSenderReader to execute read.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @return AlphaSenderReader capable of executing the read
      */
@@ -66,24 +66,24 @@ public class AlphaSender extends Resource {
 
     /**
      * Create a AlphaSenderFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathSid The sid
      * @return AlphaSenderFetcher capable of executing the fetch
      */
-    public static AlphaSenderFetcher fetcher(final String pathServiceSid, 
+    public static AlphaSenderFetcher fetcher(final String pathServiceSid,
                                              final String pathSid) {
         return new AlphaSenderFetcher(pathServiceSid, pathSid);
     }
 
     /**
      * Create a AlphaSenderDeleter to execute delete.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathSid The sid
      * @return AlphaSenderDeleter capable of executing the delete
      */
-    public static AlphaSenderDeleter deleter(final String pathServiceSid, 
+    public static AlphaSenderDeleter deleter(final String pathServiceSid,
                                              final String pathSid) {
         return new AlphaSenderDeleter(pathServiceSid, pathSid);
     }
@@ -91,7 +91,7 @@ public class AlphaSender extends Resource {
     /**
      * Converts a JSON String into a AlphaSender object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AlphaSender object represented by the provided JSON
@@ -110,7 +110,7 @@ public class AlphaSender extends Resource {
     /**
      * Converts a JSON InputStream into a AlphaSender object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AlphaSender object represented by the provided JSON
@@ -137,19 +137,19 @@ public class AlphaSender extends Resource {
 
     @JsonCreator
     private AlphaSender(@JsonProperty("sid")
-                        final String sid, 
+                        final String sid,
                         @JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("service_sid")
-                        final String serviceSid, 
+                        final String serviceSid,
                         @JsonProperty("date_created")
-                        final String dateCreated, 
+                        final String dateCreated,
                         @JsonProperty("date_updated")
-                        final String dateUpdated, 
+                        final String dateUpdated,
                         @JsonProperty("alpha_sender")
-                        final String alphaSender, 
+                        final String alphaSender,
                         @JsonProperty("capabilities")
-                        final List<Map<String, Object>> capabilities, 
+                        final List<Map<String, Object>> capabilities,
                         @JsonProperty("url")
                         final URI url) {
         this.sid = sid;
@@ -164,7 +164,7 @@ public class AlphaSender extends Resource {
 
     /**
      * Returns The The 34 character unique sid of the Alpha Sender ID..
-     * 
+     *
      * @return The 34 character unique sid of the Alpha Sender ID.
      */
     public final String getSid() {
@@ -173,7 +173,7 @@ public class AlphaSender extends Resource {
 
     /**
      * Returns The The 34 character unique sid of the Account..
-     * 
+     *
      * @return The 34 character unique sid of the Account.
      */
     public final String getAccountSid() {
@@ -182,7 +182,7 @@ public class AlphaSender extends Resource {
 
     /**
      * Returns The The 34 character unique sid of the Messaging Service..
-     * 
+     *
      * @return The 34 character unique sid of the Messaging Service.
      */
     public final String getServiceSid() {
@@ -191,7 +191,7 @@ public class AlphaSender extends Resource {
 
     /**
      * Returns The The date that this resource was created..
-     * 
+     *
      * @return The date that this resource was created.
      */
     public final DateTime getDateCreated() {
@@ -200,7 +200,7 @@ public class AlphaSender extends Resource {
 
     /**
      * Returns The The date that this resource was last updated..
-     * 
+     *
      * @return The date that this resource was last updated.
      */
     public final DateTime getDateUpdated() {
@@ -209,7 +209,7 @@ public class AlphaSender extends Resource {
 
     /**
      * Returns The An Alphanumeric Sender ID string, up to 11 characters..
-     * 
+     *
      * @return An Alphanumeric Sender ID string, up to 11 characters.
      */
     public final String getAlphaSender() {
@@ -219,7 +219,7 @@ public class AlphaSender extends Resource {
     /**
      * Returns The An array of values that indicate whether the number can receive
      * calls or messages..
-     * 
+     *
      * @return An array of values that indicate whether the number can receive
      *         calls or messages.
      */
@@ -229,7 +229,7 @@ public class AlphaSender extends Resource {
 
     /**
      * Returns The The absolute URL for this resource..
-     * 
+     *
      * @return The absolute URL for this resource.
      */
     public final URI getUrl() {
@@ -248,13 +248,13 @@ public class AlphaSender extends Resource {
 
         AlphaSender other = (AlphaSender) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(alphaSender, other.alphaSender) && 
-               Objects.equals(capabilities, other.capabilities) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(alphaSender, other.alphaSender) &&
+               Objects.equals(capabilities, other.capabilities) &&
                Objects.equals(url, other.url);
     }
 

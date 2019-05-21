@@ -42,7 +42,7 @@ public class SettingsTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.VOICE.toString(),
                                           "/v1/Settings");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class SettingsTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.VOICE.toString(),
                                           "/v1/Settings");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

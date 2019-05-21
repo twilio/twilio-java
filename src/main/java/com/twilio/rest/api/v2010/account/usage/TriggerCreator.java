@@ -31,13 +31,13 @@ public class TriggerCreator extends Creator<Trigger> {
 
     /**
      * Construct a new TriggerCreator.
-     * 
+     *
      * @param callbackUrl The URL we call when the trigger fires
      * @param triggerValue The usage value at which the trigger should fire
      * @param usageCategory The usage category the trigger watches
      */
-    public TriggerCreator(final URI callbackUrl, 
-                          final String triggerValue, 
+    public TriggerCreator(final URI callbackUrl,
+                          final String triggerValue,
                           final Trigger.UsageCategory usageCategory) {
         this.callbackUrl = callbackUrl;
         this.triggerValue = triggerValue;
@@ -46,15 +46,15 @@ public class TriggerCreator extends Creator<Trigger> {
 
     /**
      * Construct a new TriggerCreator.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param callbackUrl The URL we call when the trigger fires
      * @param triggerValue The usage value at which the trigger should fire
      * @param usageCategory The usage category the trigger watches
      */
-    public TriggerCreator(final String pathAccountSid, 
-                          final URI callbackUrl, 
-                          final String triggerValue, 
+    public TriggerCreator(final String pathAccountSid,
+                          final URI callbackUrl,
+                          final String triggerValue,
                           final Trigger.UsageCategory usageCategory) {
         this.pathAccountSid = pathAccountSid;
         this.callbackUrl = callbackUrl;
@@ -65,7 +65,7 @@ public class TriggerCreator extends Creator<Trigger> {
     /**
      * The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST`
      * and the default is `POST`..
-     * 
+     *
      * @param callbackMethod The HTTP method to use to call callback_url
      * @return this
      */
@@ -77,7 +77,7 @@ public class TriggerCreator extends Creator<Trigger> {
     /**
      * A descriptive string that you create to describe the resource. It can be up
      * to 64 characters long..
-     * 
+     *
      * @param friendlyName A string to describe the resource
      * @return this
      */
@@ -90,7 +90,7 @@ public class TriggerCreator extends Creator<Trigger> {
      * The frequency of a recurring UsageTrigger.  Can be: `daily`, `monthly`, or
      * `yearly` for recurring triggers or empty for non-recurring triggers. A
      * trigger will only fire once during each period. Recurring times are in GMT..
-     * 
+     *
      * @param recurring The frequency of a recurring UsageTrigger
      * @return this
      */
@@ -105,7 +105,7 @@ public class TriggerCreator extends Creator<Trigger> {
      * that should fire the trigger.  Can be: `count`, `usage`, or `price` as
      * described in the [UsageRecords
      * documentation](https://www.twilio.com/docs/api/rest/usage-records#usage-count-price).  The default is `usage`..
-     * 
+     *
      * @param triggerBy The field in the UsageRecord resource that fires the trigger
      * @return this
      */
@@ -116,7 +116,7 @@ public class TriggerCreator extends Creator<Trigger> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Trigger
      */
@@ -156,7 +156,7 @@ public class TriggerCreator extends Creator<Trigger> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

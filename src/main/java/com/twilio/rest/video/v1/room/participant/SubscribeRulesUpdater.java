@@ -31,12 +31,12 @@ public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
 
     /**
      * Construct a new SubscribeRulesUpdater.
-     * 
+     *
      * @param pathRoomSid Unique Room identifier where the Subscribe Rules apply
      * @param pathParticipantSid Unique Participant identifier to apply Subscribe
      *                           Rules.
      */
-    public SubscribeRulesUpdater(final String pathRoomSid, 
+    public SubscribeRulesUpdater(final String pathRoomSid,
                                  final String pathParticipantSid) {
         this.pathRoomSid = pathRoomSid;
         this.pathParticipantSid = pathParticipantSid;
@@ -45,7 +45,7 @@ public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
     /**
      * A JSON-encoded array of Subscribe Rules. See the [Subscribe Rule
      * format](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information..
-     * 
+     *
      * @param rules A JSON-encoded array of Subscribe Rules.
      * @return this
      */
@@ -56,7 +56,7 @@ public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated SubscribeRules
      */
@@ -95,7 +95,7 @@ public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

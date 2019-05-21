@@ -81,13 +81,13 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Construct a new ReservationUpdater.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathTaskSid The task_sid
      * @param pathSid The sid
      */
-    public ReservationUpdater(final String pathWorkspaceSid, 
-                              final String pathTaskSid, 
+    public ReservationUpdater(final String pathWorkspaceSid,
+                              final String pathTaskSid,
                               final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathTaskSid = pathTaskSid;
@@ -96,7 +96,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * New reservation status.
-     * 
+     *
      * @param reservationStatus New reservation status
      * @return this
      */
@@ -107,7 +107,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * New worker activity sid if rejecting a reservation.
-     * 
+     *
      * @param workerActivitySid New worker activity sid if rejecting a reservation
      * @return this
      */
@@ -118,7 +118,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Assignment instruction for reservation.
-     * 
+     *
      * @param instruction Assignment instruction for reservation
      * @return this
      */
@@ -129,7 +129,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * New worker activity sid after executing a Dequeue instruction.
-     * 
+     *
      * @param dequeuePostWorkActivitySid New worker activity sid after executing a
      *                                   Dequeue instruction
      * @return this
@@ -141,7 +141,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Caller ID for the call to the worker when executing a Dequeue instruction.
-     * 
+     *
      * @param dequeueFrom Caller ID for the call to the worker when executing a
      *                    Dequeue instruction
      * @return this
@@ -153,7 +153,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Attribute to record both legs of a call when executing a Dequeue instruction.
-     * 
+     *
      * @param dequeueRecord Attribute to record both legs of a call when executing
      *                      a Dequeue instruction
      * @return this
@@ -165,7 +165,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Timeout for call when executing a Dequeue instruction.
-     * 
+     *
      * @param dequeueTimeout Timeout for call when executing a Dequeue instruction
      * @return this
      */
@@ -176,7 +176,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Contact URI of the worker when executing a Dequeue instruction.
-     * 
+     *
      * @param dequeueTo Contact URI of the worker when executing a Dequeue
      *                  instruction
      * @return this
@@ -188,7 +188,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Callback URL for completed call event when executing a Dequeue instruction.
-     * 
+     *
      * @param dequeueStatusCallbackUrl Callback URL for completed call event when
      *                                 executing a Dequeue instruction
      * @return this
@@ -200,7 +200,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Callback URL for completed call event when executing a Dequeue instruction.
-     * 
+     *
      * @param dequeueStatusCallbackUrl Callback URL for completed call event when
      *                                 executing a Dequeue instruction
      * @return this
@@ -211,7 +211,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Caller ID for the outbound call when executing a Call instruction.
-     * 
+     *
      * @param callFrom Caller ID for the outbound call when executing a Call
      *                 instruction
      * @return this
@@ -223,7 +223,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Attribute to record both legs of a call when executing a Call instruction.
-     * 
+     *
      * @param callRecord Attribute to record both legs of a call when executing a
      *                   Call instruction
      * @return this
@@ -235,7 +235,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Timeout for call when executing a Call instruction.
-     * 
+     *
      * @param callTimeout Timeout for call when executing a Call instruction
      * @return this
      */
@@ -246,7 +246,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Contact URI of the worker when executing a Call instruction.
-     * 
+     *
      * @param callTo Contact URI of the worker when executing a Call instruction
      * @return this
      */
@@ -258,7 +258,7 @@ public class ReservationUpdater extends Updater<Reservation> {
     /**
      * TwiML URI executed on answering the worker's leg as a result of the Call
      * instruction.
-     * 
+     *
      * @param callUrl TwiML URI executed on answering the worker's leg as a result
      *                of the Call instruction
      * @return this
@@ -271,7 +271,7 @@ public class ReservationUpdater extends Updater<Reservation> {
     /**
      * TwiML URI executed on answering the worker's leg as a result of the Call
      * instruction.
-     * 
+     *
      * @param callUrl TwiML URI executed on answering the worker's leg as a result
      *                of the Call instruction
      * @return this
@@ -282,7 +282,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Callback URL for completed call event when executing a Call instruction.
-     * 
+     *
      * @param callStatusCallbackUrl Callback URL for completed call event when
      *                              executing a Call instruction
      * @return this
@@ -294,7 +294,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Callback URL for completed call event when executing a Call instruction.
-     * 
+     *
      * @param callStatusCallbackUrl Callback URL for completed call event when
      *                              executing a Call instruction
      * @return this
@@ -306,7 +306,7 @@ public class ReservationUpdater extends Updater<Reservation> {
     /**
      * Flag to determine if reservation should be accepted when executing a Call
      * instruction.
-     * 
+     *
      * @param callAccept Flag to determine if reservation should be accepted when
      *                   executing a Call instruction
      * @return this
@@ -319,7 +319,7 @@ public class ReservationUpdater extends Updater<Reservation> {
     /**
      * Call sid of the call parked in the queue when executing a Redirect
      * instruction.
-     * 
+     *
      * @param redirectCallSid Call sid of the call parked in the queue when
      *                        executing a Redirect instruction
      * @return this
@@ -332,7 +332,7 @@ public class ReservationUpdater extends Updater<Reservation> {
     /**
      * Flag to determine if reservation should be accepted when executing a Redirect
      * instruction.
-     * 
+     *
      * @param redirectAccept Flag to determine if reservation should be accepted
      *                       when executing a Redirect instruction
      * @return this
@@ -344,7 +344,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * TwiML URI to redirect the call to when executing the Redirect instruction.
-     * 
+     *
      * @param redirectUrl TwiML URI to redirect the call to when executing the
      *                    Redirect instruction
      * @return this
@@ -356,7 +356,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * TwiML URI to redirect the call to when executing the Redirect instruction.
-     * 
+     *
      * @param redirectUrl TwiML URI to redirect the call to when executing the
      *                    Redirect instruction
      * @return this
@@ -367,7 +367,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Contact URI of the worker when executing a Conference instruction.
-     * 
+     *
      * @param to Contact URI of the worker when executing a Conference instruction
      * @return this
      */
@@ -378,7 +378,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Caller ID for the call to the worker when executing a Conference instruction.
-     * 
+     *
      * @param from Caller ID for the call to the worker when executing a Conference
      *             instruction
      * @return this
@@ -390,7 +390,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The status_callback.
-     * 
+     *
      * @param statusCallback The status_callback
      * @return this
      */
@@ -401,7 +401,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The status_callback.
-     * 
+     *
      * @param statusCallback The status_callback
      * @return this
      */
@@ -411,7 +411,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The status_callback_method.
-     * 
+     *
      * @param statusCallbackMethod The status_callback_method
      * @return this
      */
@@ -422,7 +422,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The status_callback_event.
-     * 
+     *
      * @param statusCallbackEvent The status_callback_event
      * @return this
      */
@@ -433,7 +433,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The status_callback_event.
-     * 
+     *
      * @param statusCallbackEvent The status_callback_event
      * @return this
      */
@@ -443,7 +443,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Timeout for call when executing a Conference instruction.
-     * 
+     *
      * @param timeout Timeout for call when executing a Conference instruction
      * @return this
      */
@@ -454,7 +454,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The record.
-     * 
+     *
      * @param record The record
      * @return this
      */
@@ -465,7 +465,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The muted.
-     * 
+     *
      * @param muted The muted
      * @return this
      */
@@ -476,7 +476,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The beep.
-     * 
+     *
      * @param beep The beep
      * @return this
      */
@@ -487,7 +487,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The start_conference_on_enter.
-     * 
+     *
      * @param startConferenceOnEnter The start_conference_on_enter
      * @return this
      */
@@ -498,7 +498,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The end_conference_on_exit.
-     * 
+     *
      * @param endConferenceOnExit The end_conference_on_exit
      * @return this
      */
@@ -509,7 +509,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The wait_url.
-     * 
+     *
      * @param waitUrl The wait_url
      * @return this
      */
@@ -520,7 +520,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The wait_url.
-     * 
+     *
      * @param waitUrl The wait_url
      * @return this
      */
@@ -530,7 +530,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The wait_method.
-     * 
+     *
      * @param waitMethod The wait_method
      * @return this
      */
@@ -541,7 +541,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The early_media.
-     * 
+     *
      * @param earlyMedia The early_media
      * @return this
      */
@@ -552,7 +552,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The max_participants.
-     * 
+     *
      * @param maxParticipants The max_participants
      * @return this
      */
@@ -563,7 +563,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The conference_status_callback.
-     * 
+     *
      * @param conferenceStatusCallback The conference_status_callback
      * @return this
      */
@@ -574,7 +574,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The conference_status_callback.
-     * 
+     *
      * @param conferenceStatusCallback The conference_status_callback
      * @return this
      */
@@ -584,7 +584,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The conference_status_callback_method.
-     * 
+     *
      * @param conferenceStatusCallbackMethod The conference_status_callback_method
      * @return this
      */
@@ -595,7 +595,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The conference_status_callback_event.
-     * 
+     *
      * @param conferenceStatusCallbackEvent The conference_status_callback_event
      * @return this
      */
@@ -606,7 +606,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The conference_status_callback_event.
-     * 
+     *
      * @param conferenceStatusCallbackEvent The conference_status_callback_event
      * @return this
      */
@@ -616,7 +616,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The conference_record.
-     * 
+     *
      * @param conferenceRecord The conference_record
      * @return this
      */
@@ -627,7 +627,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The conference_trim.
-     * 
+     *
      * @param conferenceTrim The conference_trim
      * @return this
      */
@@ -638,7 +638,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The recording_channels.
-     * 
+     *
      * @param recordingChannels The recording_channels
      * @return this
      */
@@ -649,7 +649,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The recording_status_callback.
-     * 
+     *
      * @param recordingStatusCallback The recording_status_callback
      * @return this
      */
@@ -660,7 +660,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The recording_status_callback.
-     * 
+     *
      * @param recordingStatusCallback The recording_status_callback
      * @return this
      */
@@ -670,7 +670,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The recording_status_callback_method.
-     * 
+     *
      * @param recordingStatusCallbackMethod The recording_status_callback_method
      * @return this
      */
@@ -681,7 +681,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The conference_recording_status_callback.
-     * 
+     *
      * @param conferenceRecordingStatusCallback The
      *                                          conference_recording_status_callback
      * @return this
@@ -693,7 +693,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The conference_recording_status_callback.
-     * 
+     *
      * @param conferenceRecordingStatusCallback The
      *                                          conference_recording_status_callback
      * @return this
@@ -704,7 +704,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The conference_recording_status_callback_method.
-     * 
+     *
      * @param conferenceRecordingStatusCallbackMethod The
      *                                                conference_recording_status_callback_method
      * @return this
@@ -716,7 +716,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The region.
-     * 
+     *
      * @param region The region
      * @return this
      */
@@ -727,7 +727,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The sip_auth_username.
-     * 
+     *
      * @param sipAuthUsername The sip_auth_username
      * @return this
      */
@@ -738,7 +738,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The sip_auth_password.
-     * 
+     *
      * @param sipAuthPassword The sip_auth_password
      * @return this
      */
@@ -749,7 +749,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Call progress events sent via webhooks as a result of a Dequeue instruction.
-     * 
+     *
      * @param dequeueStatusCallbackEvent Call progress events sent via webhooks as
      *                                   a result of a Dequeue instruction
      * @return this
@@ -761,7 +761,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Call progress events sent via webhooks as a result of a Dequeue instruction.
-     * 
+     *
      * @param dequeueStatusCallbackEvent Call progress events sent via webhooks as
      *                                   a result of a Dequeue instruction
      * @return this
@@ -772,7 +772,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * New worker activity sid after executing a Conference instruction.
-     * 
+     *
      * @param postWorkActivitySid New worker activity sid after executing a
      *                            Conference instruction
      * @return this
@@ -784,7 +784,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Supervisor mode when executing the Supervise instruction.
-     * 
+     *
      * @param supervisorMode Supervisor mode when executing the Supervise
      *                       instruction
      * @return this
@@ -796,7 +796,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Supervisor sid/uri when executing the Supervise instruction.
-     * 
+     *
      * @param supervisor Supervisor sid/uri when executing the Supervise instruction
      * @return this
      */
@@ -807,7 +807,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The end_conference_on_customer_exit.
-     * 
+     *
      * @param endConferenceOnCustomerExit The end_conference_on_customer_exit
      * @return this
      */
@@ -818,7 +818,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The beep_on_customer_entrance.
-     * 
+     *
      * @param beepOnCustomerEntrance The beep_on_customer_entrance
      * @return this
      */
@@ -829,7 +829,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Reservation
      */
@@ -868,7 +868,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

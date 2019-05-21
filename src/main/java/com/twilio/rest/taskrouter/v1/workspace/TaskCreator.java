@@ -27,7 +27,7 @@ public class TaskCreator extends Creator<Task> {
 
     /**
      * Construct a new TaskCreator.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      */
     public TaskCreator(final String pathWorkspaceSid) {
@@ -38,7 +38,7 @@ public class TaskCreator extends Creator<Task> {
      * The amount of time in seconds the task is allowed to live up to a maximum of
      * 2 weeks. Defaults to 24 hours. On timeout, `task.canceled` event will fire
      * with description "Task TTL Exceeded"..
-     * 
+     *
      * @param timeout The amount of time in seconds the task is allowed to live up
      *                to a maximum of 2 weeks.
      * @return this
@@ -53,7 +53,7 @@ public class TaskCreator extends Creator<Task> {
      * given priority unless it matches a Workflow Target with a Priority set. When
      * not supplied, the Task will take on the priority of the matching Workflow
      * Target..
-     * 
+     *
      * @param priority Override priority for the Task.
      * @return this
      */
@@ -65,7 +65,7 @@ public class TaskCreator extends Creator<Task> {
     /**
      * When MultiTasking is enabled specify the type of the task by passing either
      * TaskChannel Unique Name or Task Channel Sid. Default value is "default".
-     * 
+     *
      * @param taskChannel When MultiTasking is enabled specify the type of the task
      *                    by passing either TaskChannel Unique Name or Task Channel
      *                    Sid.
@@ -81,7 +81,7 @@ public class TaskCreator extends Creator<Task> {
      * this Task. If there is only one Workflow defined for the Workspace that you
      * are posting a task to, then this is an optional parameter, and that single
      * workflow will be used..
-     * 
+     *
      * @param workflowSid The WorkflowSid for the Workflow that you would like to
      *                    handle routing for this Task.
      * @return this
@@ -96,7 +96,7 @@ public class TaskCreator extends Creator<Task> {
      * will be passed back to the Workflow's AssignmentCallbackURL when the Task is
      * assigned to a Worker. An example task: `{ "task_type": "call",
      * "twilio_call_sid": "CAxxx", "customer_ticket_number": "12345" }`.
-     * 
+     *
      * @param attributes Url-encoded JSON string describing the attributes of this
      *                   task.
      * @return this
@@ -108,7 +108,7 @@ public class TaskCreator extends Creator<Task> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Task
      */
@@ -147,7 +147,7 @@ public class TaskCreator extends Creator<Task> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

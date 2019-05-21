@@ -28,13 +28,13 @@ public class InteractionDeleter extends Deleter<Interaction> {
 
     /**
      * Construct a new InteractionDeleter.
-     * 
+     *
      * @param pathServiceSid The SID of the parent Service of the resource to delete
      * @param pathSessionSid he SID of the parent Session of the resource to delete
      * @param pathSid The unique string that identifies the resource
      */
-    public InteractionDeleter(final String pathServiceSid, 
-                              final String pathSessionSid, 
+    public InteractionDeleter(final String pathServiceSid,
+                              final String pathSessionSid,
                               final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSessionSid = pathSessionSid;
@@ -43,7 +43,7 @@ public class InteractionDeleter extends Deleter<Interaction> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

@@ -28,11 +28,11 @@ public class EntityFetcher extends Fetcher<Entity> {
 
     /**
      * Construct a new EntityFetcher.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique identity of the Entity
      */
-    public EntityFetcher(final String pathServiceSid, 
+    public EntityFetcher(final String pathServiceSid,
                          final String pathIdentity) {
         this.pathServiceSid = pathServiceSid;
         this.pathIdentity = pathIdentity;
@@ -40,7 +40,7 @@ public class EntityFetcher extends Fetcher<Entity> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Entity
      */

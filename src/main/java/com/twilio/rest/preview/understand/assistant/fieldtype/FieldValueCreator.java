@@ -31,16 +31,16 @@ public class FieldValueCreator extends Creator<FieldValue> {
 
     /**
      * Construct a new FieldValueCreator.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      * @param pathFieldTypeSid The field_type_sid
      * @param language An ISO language-country string of the value.
      * @param value A user-provided string that uniquely identifies this resource
      *              as an alternative to the sid. Unique up to 64 characters long.
      */
-    public FieldValueCreator(final String pathAssistantSid, 
-                             final String pathFieldTypeSid, 
-                             final String language, 
+    public FieldValueCreator(final String pathAssistantSid,
+                             final String pathFieldTypeSid,
+                             final String language,
                              final String value) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathFieldTypeSid = pathFieldTypeSid;
@@ -51,7 +51,7 @@ public class FieldValueCreator extends Creator<FieldValue> {
     /**
      * A value that indicates this field value is a synonym of. Empty if the value
      * is not a synonym..
-     * 
+     *
      * @param synonymOf A value that indicates this field value is a synonym of.
      *                  Empty if the value is not a synonym.
      * @return this
@@ -63,7 +63,7 @@ public class FieldValueCreator extends Creator<FieldValue> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created FieldValue
      */
@@ -102,7 +102,7 @@ public class FieldValueCreator extends Creator<FieldValue> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

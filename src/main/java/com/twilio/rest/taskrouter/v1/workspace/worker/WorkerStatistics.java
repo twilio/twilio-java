@@ -37,12 +37,12 @@ public class WorkerStatistics extends Resource {
 
     /**
      * Create a WorkerStatisticsFetcher to execute fetch.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathWorkerSid The worker_sid
      * @return WorkerStatisticsFetcher capable of executing the fetch
      */
-    public static WorkerStatisticsFetcher fetcher(final String pathWorkspaceSid, 
+    public static WorkerStatisticsFetcher fetcher(final String pathWorkspaceSid,
                                                   final String pathWorkerSid) {
         return new WorkerStatisticsFetcher(pathWorkspaceSid, pathWorkerSid);
     }
@@ -50,7 +50,7 @@ public class WorkerStatistics extends Resource {
     /**
      * Converts a JSON String into a WorkerStatistics object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return WorkerStatistics object represented by the provided JSON
@@ -69,7 +69,7 @@ public class WorkerStatistics extends Resource {
     /**
      * Converts a JSON InputStream into a WorkerStatistics object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return WorkerStatistics object represented by the provided JSON
@@ -93,13 +93,13 @@ public class WorkerStatistics extends Resource {
 
     @JsonCreator
     private WorkerStatistics(@JsonProperty("account_sid")
-                             final String accountSid, 
+                             final String accountSid,
                              @JsonProperty("cumulative")
-                             final Map<String, Object> cumulative, 
+                             final Map<String, Object> cumulative,
                              @JsonProperty("worker_sid")
-                             final String workerSid, 
+                             final String workerSid,
                              @JsonProperty("workspace_sid")
-                             final String workspaceSid, 
+                             final String workspaceSid,
                              @JsonProperty("url")
                              final URI url) {
         this.accountSid = accountSid;
@@ -111,7 +111,7 @@ public class WorkerStatistics extends Resource {
 
     /**
      * Returns The The account_sid.
-     * 
+     *
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -120,7 +120,7 @@ public class WorkerStatistics extends Resource {
 
     /**
      * Returns The The cumulative.
-     * 
+     *
      * @return The cumulative
      */
     public final Map<String, Object> getCumulative() {
@@ -129,7 +129,7 @@ public class WorkerStatistics extends Resource {
 
     /**
      * Returns The The worker_sid.
-     * 
+     *
      * @return The worker_sid
      */
     public final String getWorkerSid() {
@@ -138,7 +138,7 @@ public class WorkerStatistics extends Resource {
 
     /**
      * Returns The The workspace_sid.
-     * 
+     *
      * @return The workspace_sid
      */
     public final String getWorkspaceSid() {
@@ -147,7 +147,7 @@ public class WorkerStatistics extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -166,10 +166,10 @@ public class WorkerStatistics extends Resource {
 
         WorkerStatistics other = (WorkerStatistics) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(cumulative, other.cumulative) && 
-               Objects.equals(workerSid, other.workerSid) && 
-               Objects.equals(workspaceSid, other.workspaceSid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(cumulative, other.cumulative) &&
+               Objects.equals(workerSid, other.workerSid) &&
+               Objects.equals(workspaceSid, other.workspaceSid) &&
                Objects.equals(url, other.url);
     }
 

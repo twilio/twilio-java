@@ -22,7 +22,7 @@ import com.twilio.rest.Domains;
 public class FlowReader extends Reader<Flow> {
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Flow ResourceSet
      */
@@ -33,7 +33,7 @@ public class FlowReader extends Reader<Flow> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Flow ResourceSet
      */
@@ -53,7 +53,7 @@ public class FlowReader extends Reader<Flow> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Flow ResourceSet
@@ -71,13 +71,13 @@ public class FlowReader extends Reader<Flow> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Flow> nextPage(final Page<Flow> page, 
+    public Page<Flow> nextPage(final Page<Flow> page,
                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -91,13 +91,13 @@ public class FlowReader extends Reader<Flow> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Flow> previousPage(final Page<Flow> page, 
+    public Page<Flow> previousPage(final Page<Flow> page,
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -111,7 +111,7 @@ public class FlowReader extends Reader<Flow> {
 
     /**
      * Generate a Page of Flow Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -146,7 +146,7 @@ public class FlowReader extends Reader<Flow> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

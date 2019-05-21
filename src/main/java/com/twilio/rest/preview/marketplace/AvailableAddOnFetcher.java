@@ -27,7 +27,7 @@ public class AvailableAddOnFetcher extends Fetcher<AvailableAddOn> {
 
     /**
      * Construct a new AvailableAddOnFetcher.
-     * 
+     *
      * @param pathSid The unique Available Add-on Sid
      */
     public AvailableAddOnFetcher(final String pathSid) {
@@ -36,7 +36,7 @@ public class AvailableAddOnFetcher extends Fetcher<AvailableAddOn> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched AvailableAddOn
      */

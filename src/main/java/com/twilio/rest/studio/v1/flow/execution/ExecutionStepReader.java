@@ -25,11 +25,11 @@ public class ExecutionStepReader extends Reader<ExecutionStep> {
 
     /**
      * Construct a new ExecutionStepReader.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      * @param pathExecutionSid Execution Sid.
      */
-    public ExecutionStepReader(final String pathFlowSid, 
+    public ExecutionStepReader(final String pathFlowSid,
                                final String pathExecutionSid) {
         this.pathFlowSid = pathFlowSid;
         this.pathExecutionSid = pathExecutionSid;
@@ -37,7 +37,7 @@ public class ExecutionStepReader extends Reader<ExecutionStep> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return ExecutionStep ResourceSet
      */
@@ -48,7 +48,7 @@ public class ExecutionStepReader extends Reader<ExecutionStep> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return ExecutionStep ResourceSet
      */
@@ -68,7 +68,7 @@ public class ExecutionStepReader extends Reader<ExecutionStep> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return ExecutionStep ResourceSet
@@ -86,13 +86,13 @@ public class ExecutionStepReader extends Reader<ExecutionStep> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<ExecutionStep> nextPage(final Page<ExecutionStep> page, 
+    public Page<ExecutionStep> nextPage(final Page<ExecutionStep> page,
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -106,13 +106,13 @@ public class ExecutionStepReader extends Reader<ExecutionStep> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<ExecutionStep> previousPage(final Page<ExecutionStep> page, 
+    public Page<ExecutionStep> previousPage(final Page<ExecutionStep> page,
                                             final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -126,7 +126,7 @@ public class ExecutionStepReader extends Reader<ExecutionStep> {
 
     /**
      * Generate a Page of ExecutionStep Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -161,7 +161,7 @@ public class ExecutionStepReader extends Reader<ExecutionStep> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

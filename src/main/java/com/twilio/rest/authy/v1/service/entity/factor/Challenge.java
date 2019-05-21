@@ -152,62 +152,62 @@ public class Challenge extends Resource {
 
     /**
      * Create a ChallengeCreator to execute create.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique identity of the Entity
      * @param pathFactorSid Factor Sid.
      * @return ChallengeCreator capable of executing the create
      */
-    public static ChallengeCreator creator(final String pathServiceSid, 
-                                           final String pathIdentity, 
+    public static ChallengeCreator creator(final String pathServiceSid,
+                                           final String pathIdentity,
                                            final String pathFactorSid) {
         return new ChallengeCreator(pathServiceSid, pathIdentity, pathFactorSid);
     }
 
     /**
      * Create a ChallengeDeleter to execute delete.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique identity of the Entity
      * @param pathFactorSid Factor Sid.
      * @param pathSid A string that uniquely identifies this Challenge.
      * @return ChallengeDeleter capable of executing the delete
      */
-    public static ChallengeDeleter deleter(final String pathServiceSid, 
-                                           final String pathIdentity, 
-                                           final String pathFactorSid, 
+    public static ChallengeDeleter deleter(final String pathServiceSid,
+                                           final String pathIdentity,
+                                           final String pathFactorSid,
                                            final String pathSid) {
         return new ChallengeDeleter(pathServiceSid, pathIdentity, pathFactorSid, pathSid);
     }
 
     /**
      * Create a ChallengeFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique identity of the Entity
      * @param pathFactorSid Factor Sid.
      * @param pathSid A string that uniquely identifies this Challenge, or `latest`.
      * @return ChallengeFetcher capable of executing the fetch
      */
-    public static ChallengeFetcher fetcher(final String pathServiceSid, 
-                                           final String pathIdentity, 
-                                           final String pathFactorSid, 
+    public static ChallengeFetcher fetcher(final String pathServiceSid,
+                                           final String pathIdentity,
+                                           final String pathFactorSid,
                                            final String pathSid) {
         return new ChallengeFetcher(pathServiceSid, pathIdentity, pathFactorSid, pathSid);
     }
 
     /**
      * Create a ChallengeUpdater to execute update.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique identity of the Entity
      * @param pathFactorSid Factor Sid.
      * @param pathSid A string that uniquely identifies this Challenge, or `latest`.
      * @return ChallengeUpdater capable of executing the update
      */
-    public static ChallengeUpdater updater(final String pathServiceSid, 
-                                           final String pathIdentity, 
-                                           final String pathFactorSid, 
+    public static ChallengeUpdater updater(final String pathServiceSid,
+                                           final String pathIdentity,
+                                           final String pathFactorSid,
                                            final String pathSid) {
         return new ChallengeUpdater(pathServiceSid, pathIdentity, pathFactorSid, pathSid);
     }
@@ -215,7 +215,7 @@ public class Challenge extends Resource {
     /**
      * Converts a JSON String into a Challenge object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Challenge object represented by the provided JSON
@@ -234,7 +234,7 @@ public class Challenge extends Resource {
     /**
      * Converts a JSON InputStream into a Challenge object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Challenge object represented by the provided JSON
@@ -270,37 +270,37 @@ public class Challenge extends Resource {
 
     @JsonCreator
     private Challenge(@JsonProperty("sid")
-                      final String sid, 
+                      final String sid,
                       @JsonProperty("account_sid")
-                      final String accountSid, 
+                      final String accountSid,
                       @JsonProperty("service_sid")
-                      final String serviceSid, 
+                      final String serviceSid,
                       @JsonProperty("entity_sid")
-                      final String entitySid, 
+                      final String entitySid,
                       @JsonProperty("identity")
-                      final String identity, 
+                      final String identity,
                       @JsonProperty("factor_sid")
-                      final String factorSid, 
+                      final String factorSid,
                       @JsonProperty("date_created")
-                      final String dateCreated, 
+                      final String dateCreated,
                       @JsonProperty("date_updated")
-                      final String dateUpdated, 
+                      final String dateUpdated,
                       @JsonProperty("date_responded")
-                      final String dateResponded, 
+                      final String dateResponded,
                       @JsonProperty("expiration_date")
-                      final String expirationDate, 
+                      final String expirationDate,
                       @JsonProperty("status")
-                      final Challenge.ChallengeStatuses status, 
+                      final Challenge.ChallengeStatuses status,
                       @JsonProperty("responded_reason")
-                      final Challenge.ChallengeReasons respondedReason, 
+                      final Challenge.ChallengeReasons respondedReason,
                       @JsonProperty("details")
-                      final String details, 
+                      final String details,
                       @JsonProperty("hidden_details")
-                      final String hiddenDetails, 
+                      final String hiddenDetails,
                       @JsonProperty("factor_type")
-                      final Challenge.FactorTypes factorType, 
+                      final Challenge.FactorTypes factorType,
                       @JsonProperty("factor_strength")
-                      final Challenge.FactorStrengths factorStrength, 
+                      final Challenge.FactorStrengths factorStrength,
                       @JsonProperty("url")
                       final URI url) {
         this.sid = sid;
@@ -324,7 +324,7 @@ public class Challenge extends Resource {
 
     /**
      * Returns The A string that uniquely identifies this Challenge..
-     * 
+     *
      * @return A string that uniquely identifies this Challenge.
      */
     public final String getSid() {
@@ -333,7 +333,7 @@ public class Challenge extends Resource {
 
     /**
      * Returns The Account Sid..
-     * 
+     *
      * @return Account Sid.
      */
     public final String getAccountSid() {
@@ -342,7 +342,7 @@ public class Challenge extends Resource {
 
     /**
      * Returns The Service Sid..
-     * 
+     *
      * @return Service Sid.
      */
     public final String getServiceSid() {
@@ -351,7 +351,7 @@ public class Challenge extends Resource {
 
     /**
      * Returns The Entity Sid..
-     * 
+     *
      * @return Entity Sid.
      */
     public final String getEntitySid() {
@@ -360,7 +360,7 @@ public class Challenge extends Resource {
 
     /**
      * Returns The Unique identity of the Entity.
-     * 
+     *
      * @return Unique identity of the Entity
      */
     public final String getIdentity() {
@@ -369,7 +369,7 @@ public class Challenge extends Resource {
 
     /**
      * Returns The Factor Sid..
-     * 
+     *
      * @return Factor Sid.
      */
     public final String getFactorSid() {
@@ -378,7 +378,7 @@ public class Challenge extends Resource {
 
     /**
      * Returns The The date this Challenge was created.
-     * 
+     *
      * @return The date this Challenge was created
      */
     public final DateTime getDateCreated() {
@@ -387,7 +387,7 @@ public class Challenge extends Resource {
 
     /**
      * Returns The The date this Challenge was updated.
-     * 
+     *
      * @return The date this Challenge was updated
      */
     public final DateTime getDateUpdated() {
@@ -396,7 +396,7 @@ public class Challenge extends Resource {
 
     /**
      * Returns The The date this Challenge was responded.
-     * 
+     *
      * @return The date this Challenge was responded
      */
     public final DateTime getDateResponded() {
@@ -405,7 +405,7 @@ public class Challenge extends Resource {
 
     /**
      * Returns The The date this Challenge is expired.
-     * 
+     *
      * @return The date this Challenge is expired
      */
     public final DateTime getExpirationDate() {
@@ -414,7 +414,7 @@ public class Challenge extends Resource {
 
     /**
      * Returns The The Status of this Challenge.
-     * 
+     *
      * @return The Status of this Challenge
      */
     public final Challenge.ChallengeStatuses getStatus() {
@@ -423,7 +423,7 @@ public class Challenge extends Resource {
 
     /**
      * Returns The The Reason of this Challenge `status`.
-     * 
+     *
      * @return The Reason of this Challenge `status`
      */
     public final Challenge.ChallengeReasons getRespondedReason() {
@@ -432,7 +432,7 @@ public class Challenge extends Resource {
 
     /**
      * Returns The Public details provided to contextualize the Challenge.
-     * 
+     *
      * @return Public details provided to contextualize the Challenge
      */
     public final String getDetails() {
@@ -441,7 +441,7 @@ public class Challenge extends Resource {
 
     /**
      * Returns The Hidden details provided to contextualize the Challenge.
-     * 
+     *
      * @return Hidden details provided to contextualize the Challenge
      */
     public final String getHiddenDetails() {
@@ -450,7 +450,7 @@ public class Challenge extends Resource {
 
     /**
      * Returns The The Factor Type of this Challenge.
-     * 
+     *
      * @return The Factor Type of this Challenge
      */
     public final Challenge.FactorTypes getFactorType() {
@@ -459,7 +459,7 @@ public class Challenge extends Resource {
 
     /**
      * Returns The The Factor Strength of this Challenge.
-     * 
+     *
      * @return The Factor Strength of this Challenge
      */
     public final Challenge.FactorStrengths getFactorStrength() {
@@ -468,7 +468,7 @@ public class Challenge extends Resource {
 
     /**
      * Returns The The URL of this resource..
-     * 
+     *
      * @return The URL of this resource.
      */
     public final URI getUrl() {
@@ -487,22 +487,22 @@ public class Challenge extends Resource {
 
         Challenge other = (Challenge) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(entitySid, other.entitySid) && 
-               Objects.equals(identity, other.identity) && 
-               Objects.equals(factorSid, other.factorSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(dateResponded, other.dateResponded) && 
-               Objects.equals(expirationDate, other.expirationDate) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(respondedReason, other.respondedReason) && 
-               Objects.equals(details, other.details) && 
-               Objects.equals(hiddenDetails, other.hiddenDetails) && 
-               Objects.equals(factorType, other.factorType) && 
-               Objects.equals(factorStrength, other.factorStrength) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(entitySid, other.entitySid) &&
+               Objects.equals(identity, other.identity) &&
+               Objects.equals(factorSid, other.factorSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(dateResponded, other.dateResponded) &&
+               Objects.equals(expirationDate, other.expirationDate) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(respondedReason, other.respondedReason) &&
+               Objects.equals(details, other.details) &&
+               Objects.equals(hiddenDetails, other.hiddenDetails) &&
+               Objects.equals(factorType, other.factorType) &&
+               Objects.equals(factorStrength, other.factorStrength) &&
                Objects.equals(url, other.url);
     }
 

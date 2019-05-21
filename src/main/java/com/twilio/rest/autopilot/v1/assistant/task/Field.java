@@ -43,7 +43,7 @@ public class Field extends Resource {
 
     /**
      * Create a FieldFetcher to execute fetch.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         Task associated with the resource to fetch
      * @param pathTaskSid The SID of the
@@ -52,15 +52,15 @@ public class Field extends Resource {
      * @param pathSid The unique string that identifies the resource
      * @return FieldFetcher capable of executing the fetch
      */
-    public static FieldFetcher fetcher(final String pathAssistantSid, 
-                                       final String pathTaskSid, 
+    public static FieldFetcher fetcher(final String pathAssistantSid,
+                                       final String pathTaskSid,
                                        final String pathSid) {
         return new FieldFetcher(pathAssistantSid, pathTaskSid, pathSid);
     }
 
     /**
      * Create a FieldReader to execute read.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         Task associated with the resources to read.
      * @param pathTaskSid The SID of the
@@ -68,14 +68,14 @@ public class Field extends Resource {
      *                    resource associated with the Field resources to read
      * @return FieldReader capable of executing the read
      */
-    public static FieldReader reader(final String pathAssistantSid, 
+    public static FieldReader reader(final String pathAssistantSid,
                                      final String pathTaskSid) {
         return new FieldReader(pathAssistantSid, pathTaskSid);
     }
 
     /**
      * Create a FieldCreator to execute create.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         Task associated with the new resource
      * @param pathTaskSid The SID of the
@@ -86,16 +86,16 @@ public class Field extends Resource {
      *                   new resource
      * @return FieldCreator capable of executing the create
      */
-    public static FieldCreator creator(final String pathAssistantSid, 
-                                       final String pathTaskSid, 
-                                       final String fieldType, 
+    public static FieldCreator creator(final String pathAssistantSid,
+                                       final String pathTaskSid,
+                                       final String fieldType,
                                        final String uniqueName) {
         return new FieldCreator(pathAssistantSid, pathTaskSid, fieldType, uniqueName);
     }
 
     /**
      * Create a FieldDeleter to execute delete.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         Task associated with the resources to delete
      * @param pathTaskSid The SID of the
@@ -104,15 +104,15 @@ public class Field extends Resource {
      * @param pathSid The unique string that identifies the resource
      * @return FieldDeleter capable of executing the delete
      */
-    public static FieldDeleter deleter(final String pathAssistantSid, 
-                                       final String pathTaskSid, 
+    public static FieldDeleter deleter(final String pathAssistantSid,
+                                       final String pathTaskSid,
                                        final String pathSid) {
         return new FieldDeleter(pathAssistantSid, pathTaskSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a Field object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Field object represented by the provided JSON
@@ -131,7 +131,7 @@ public class Field extends Resource {
     /**
      * Converts a JSON InputStream into a Field object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Field object represented by the provided JSON
@@ -159,21 +159,21 @@ public class Field extends Resource {
 
     @JsonCreator
     private Field(@JsonProperty("account_sid")
-                  final String accountSid, 
+                  final String accountSid,
                   @JsonProperty("date_created")
-                  final String dateCreated, 
+                  final String dateCreated,
                   @JsonProperty("date_updated")
-                  final String dateUpdated, 
+                  final String dateUpdated,
                   @JsonProperty("field_type")
-                  final String fieldType, 
+                  final String fieldType,
                   @JsonProperty("task_sid")
-                  final String taskSid, 
+                  final String taskSid,
                   @JsonProperty("assistant_sid")
-                  final String assistantSid, 
+                  final String assistantSid,
                   @JsonProperty("sid")
-                  final String sid, 
+                  final String sid,
                   @JsonProperty("unique_name")
-                  final String uniqueName, 
+                  final String uniqueName,
                   @JsonProperty("url")
                   final URI url) {
         this.accountSid = accountSid;
@@ -189,7 +189,7 @@ public class Field extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -198,7 +198,7 @@ public class Field extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
@@ -208,7 +208,7 @@ public class Field extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -217,7 +217,7 @@ public class Field extends Resource {
 
     /**
      * Returns The The Field Type of the field.
-     * 
+     *
      * @return The Field Type of the field
      */
     public final String getFieldType() {
@@ -228,7 +228,7 @@ public class Field extends Resource {
      * Returns The The SID of the
      * [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated
      * with this Field.
-     * 
+     *
      * @return The SID of the
      *         [Task](https://www.twilio.com/docs/autopilot/api/task) resource
      *         associated with this Field
@@ -240,7 +240,7 @@ public class Field extends Resource {
     /**
      * Returns The The SID of the Assistant that is the parent of the Task
      * associated with the resource.
-     * 
+     *
      * @return The SID of the Assistant that is the parent of the Task associated
      *         with the resource
      */
@@ -250,7 +250,7 @@ public class Field extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -260,7 +260,7 @@ public class Field extends Resource {
     /**
      * Returns The An application-defined string that uniquely identifies the
      * resource.
-     * 
+     *
      * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
@@ -269,7 +269,7 @@ public class Field extends Resource {
 
     /**
      * Returns The The absolute URL of the Field resource.
-     * 
+     *
      * @return The absolute URL of the Field resource
      */
     public final URI getUrl() {
@@ -288,14 +288,14 @@ public class Field extends Resource {
 
         Field other = (Field) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(fieldType, other.fieldType) && 
-               Objects.equals(taskSid, other.taskSid) && 
-               Objects.equals(assistantSid, other.assistantSid) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(fieldType, other.fieldType) &&
+               Objects.equals(taskSid, other.taskSid) &&
+               Objects.equals(assistantSid, other.assistantSid) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
                Objects.equals(url, other.url);
     }
 

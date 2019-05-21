@@ -29,15 +29,15 @@ public class AssignedAddOnExtensionFetcher extends Fetcher<AssignedAddOnExtensio
 
     /**
      * Construct a new AssignedAddOnExtensionFetcher.
-     * 
+     *
      * @param pathResourceSid The SID of the Phone Number to which the Add-on is
      *                        assigned
      * @param pathAssignedAddOnSid The SID that uniquely identifies the assigned
      *                             Add-on installation
      * @param pathSid The unique string that identifies the resource
      */
-    public AssignedAddOnExtensionFetcher(final String pathResourceSid, 
-                                         final String pathAssignedAddOnSid, 
+    public AssignedAddOnExtensionFetcher(final String pathResourceSid,
+                                         final String pathAssignedAddOnSid,
                                          final String pathSid) {
         this.pathResourceSid = pathResourceSid;
         this.pathAssignedAddOnSid = pathAssignedAddOnSid;
@@ -46,7 +46,7 @@ public class AssignedAddOnExtensionFetcher extends Fetcher<AssignedAddOnExtensio
 
     /**
      * Construct a new AssignedAddOnExtensionFetcher.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource to
      *                       fetch
      * @param pathResourceSid The SID of the Phone Number to which the Add-on is
@@ -55,9 +55,9 @@ public class AssignedAddOnExtensionFetcher extends Fetcher<AssignedAddOnExtensio
      *                             Add-on installation
      * @param pathSid The unique string that identifies the resource
      */
-    public AssignedAddOnExtensionFetcher(final String pathAccountSid, 
-                                         final String pathResourceSid, 
-                                         final String pathAssignedAddOnSid, 
+    public AssignedAddOnExtensionFetcher(final String pathAccountSid,
+                                         final String pathResourceSid,
+                                         final String pathAssignedAddOnSid,
                                          final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathResourceSid = pathResourceSid;
@@ -67,7 +67,7 @@ public class AssignedAddOnExtensionFetcher extends Fetcher<AssignedAddOnExtensio
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched AssignedAddOnExtension
      */

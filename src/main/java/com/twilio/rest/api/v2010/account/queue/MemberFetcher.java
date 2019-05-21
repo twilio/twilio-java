@@ -24,11 +24,11 @@ public class MemberFetcher extends Fetcher<Member> {
 
     /**
      * Construct a new MemberFetcher.
-     * 
+     *
      * @param pathQueueSid The SID of the Queue in which to find the members
      * @param pathCallSid The Call SID of the resource(s) to fetch
      */
-    public MemberFetcher(final String pathQueueSid, 
+    public MemberFetcher(final String pathQueueSid,
                          final String pathCallSid) {
         this.pathQueueSid = pathQueueSid;
         this.pathCallSid = pathCallSid;
@@ -36,14 +36,14 @@ public class MemberFetcher extends Fetcher<Member> {
 
     /**
      * Construct a new MemberFetcher.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       fetch
      * @param pathQueueSid The SID of the Queue in which to find the members
      * @param pathCallSid The Call SID of the resource(s) to fetch
      */
-    public MemberFetcher(final String pathAccountSid, 
-                         final String pathQueueSid, 
+    public MemberFetcher(final String pathAccountSid,
+                         final String pathQueueSid,
                          final String pathCallSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathQueueSid = pathQueueSid;
@@ -52,7 +52,7 @@ public class MemberFetcher extends Fetcher<Member> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Member
      */

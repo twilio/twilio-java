@@ -28,14 +28,14 @@ public class SyncListPermissionDeleter extends Deleter<SyncListPermission> {
 
     /**
      * Construct a new SyncListPermissionDeleter.
-     * 
+     *
      * @param pathServiceSid Sync Service Instance SID or unique name.
      * @param pathListSid Sync List SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync List Permission
      *                     applies.
      */
-    public SyncListPermissionDeleter(final String pathServiceSid, 
-                                     final String pathListSid, 
+    public SyncListPermissionDeleter(final String pathServiceSid,
+                                     final String pathListSid,
                                      final String pathIdentity) {
         this.pathServiceSid = pathServiceSid;
         this.pathListSid = pathListSid;
@@ -44,7 +44,7 @@ public class SyncListPermissionDeleter extends Deleter<SyncListPermission> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

@@ -69,46 +69,46 @@ public class FeedbackSummary extends Resource {
 
     /**
      * Create a FeedbackSummaryCreator to execute create.
-     * 
+     *
      * @param pathAccountSid The unique sid that identifies this account
      * @param startDate Only include feedback given on or after this date
      * @param endDate Only include feedback given on or before this date
      * @return FeedbackSummaryCreator capable of executing the create
      */
-    public static FeedbackSummaryCreator creator(final String pathAccountSid, 
-                                                 final LocalDate startDate, 
+    public static FeedbackSummaryCreator creator(final String pathAccountSid,
+                                                 final LocalDate startDate,
                                                  final LocalDate endDate) {
         return new FeedbackSummaryCreator(pathAccountSid, startDate, endDate);
     }
 
     /**
      * Create a FeedbackSummaryCreator to execute create.
-     * 
+     *
      * @param startDate Only include feedback given on or after this date
      * @param endDate Only include feedback given on or before this date
      * @return FeedbackSummaryCreator capable of executing the create
      */
-    public static FeedbackSummaryCreator creator(final LocalDate startDate, 
+    public static FeedbackSummaryCreator creator(final LocalDate startDate,
                                                  final LocalDate endDate) {
         return new FeedbackSummaryCreator(startDate, endDate);
     }
 
     /**
      * Create a FeedbackSummaryFetcher to execute fetch.
-     * 
+     *
      * @param pathAccountSid The unique sid that identifies this account
      * @param pathSid A string that uniquely identifies this feedback summary
      *                resource
      * @return FeedbackSummaryFetcher capable of executing the fetch
      */
-    public static FeedbackSummaryFetcher fetcher(final String pathAccountSid, 
+    public static FeedbackSummaryFetcher fetcher(final String pathAccountSid,
                                                  final String pathSid) {
         return new FeedbackSummaryFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a FeedbackSummaryFetcher to execute fetch.
-     * 
+     *
      * @param pathSid A string that uniquely identifies this feedback summary
      *                resource
      * @return FeedbackSummaryFetcher capable of executing the fetch
@@ -119,20 +119,20 @@ public class FeedbackSummary extends Resource {
 
     /**
      * Create a FeedbackSummaryDeleter to execute delete.
-     * 
+     *
      * @param pathAccountSid The unique sid that identifies this account
      * @param pathSid A string that uniquely identifies this feedback summary
      *                resource
      * @return FeedbackSummaryDeleter capable of executing the delete
      */
-    public static FeedbackSummaryDeleter deleter(final String pathAccountSid, 
+    public static FeedbackSummaryDeleter deleter(final String pathAccountSid,
                                                  final String pathSid) {
         return new FeedbackSummaryDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a FeedbackSummaryDeleter to execute delete.
-     * 
+     *
      * @param pathSid A string that uniquely identifies this feedback summary
      *                resource
      * @return FeedbackSummaryDeleter capable of executing the delete
@@ -144,7 +144,7 @@ public class FeedbackSummary extends Resource {
     /**
      * Converts a JSON String into a FeedbackSummary object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return FeedbackSummary object represented by the provided JSON
@@ -163,7 +163,7 @@ public class FeedbackSummary extends Resource {
     /**
      * Converts a JSON InputStream into a FeedbackSummary object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return FeedbackSummary object represented by the provided JSON
@@ -196,31 +196,31 @@ public class FeedbackSummary extends Resource {
 
     @JsonCreator
     private FeedbackSummary(@JsonProperty("account_sid")
-                            final String accountSid, 
+                            final String accountSid,
                             @JsonProperty("call_count")
-                            final Integer callCount, 
+                            final Integer callCount,
                             @JsonProperty("call_feedback_count")
-                            final Integer callFeedbackCount, 
+                            final Integer callFeedbackCount,
                             @JsonProperty("date_created")
-                            final String dateCreated, 
+                            final String dateCreated,
                             @JsonProperty("date_updated")
-                            final String dateUpdated, 
+                            final String dateUpdated,
                             @JsonProperty("end_date")
-                            final String endDate, 
+                            final String endDate,
                             @JsonProperty("include_subaccounts")
-                            final Boolean includeSubaccounts, 
+                            final Boolean includeSubaccounts,
                             @JsonProperty("issues")
-                            final List<FeedbackIssue> issues, 
+                            final List<FeedbackIssue> issues,
                             @JsonProperty("quality_score_average")
-                            final BigDecimal qualityScoreAverage, 
+                            final BigDecimal qualityScoreAverage,
                             @JsonProperty("quality_score_median")
-                            final BigDecimal qualityScoreMedian, 
+                            final BigDecimal qualityScoreMedian,
                             @JsonProperty("quality_score_standard_deviation")
-                            final BigDecimal qualityScoreStandardDeviation, 
+                            final BigDecimal qualityScoreStandardDeviation,
                             @JsonProperty("sid")
-                            final String sid, 
+                            final String sid,
                             @JsonProperty("start_date")
-                            final String startDate, 
+                            final String startDate,
                             @JsonProperty("status")
                             final FeedbackSummary.Status status) {
         this.accountSid = accountSid;
@@ -241,7 +241,7 @@ public class FeedbackSummary extends Resource {
 
     /**
      * Returns The The unique sid that identifies this account.
-     * 
+     *
      * @return The unique sid that identifies this account
      */
     public final String getAccountSid() {
@@ -250,7 +250,7 @@ public class FeedbackSummary extends Resource {
 
     /**
      * Returns The The total number of calls.
-     * 
+     *
      * @return The total number of calls
      */
     public final Integer getCallCount() {
@@ -259,7 +259,7 @@ public class FeedbackSummary extends Resource {
 
     /**
      * Returns The The total number of calls with a feedback entry.
-     * 
+     *
      * @return The total number of calls with a feedback entry
      */
     public final Integer getCallFeedbackCount() {
@@ -268,7 +268,7 @@ public class FeedbackSummary extends Resource {
 
     /**
      * Returns The The date this resource was created.
-     * 
+     *
      * @return The date this resource was created
      */
     public final DateTime getDateCreated() {
@@ -277,7 +277,7 @@ public class FeedbackSummary extends Resource {
 
     /**
      * Returns The The date this resource was last updated.
-     * 
+     *
      * @return The date this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -286,7 +286,7 @@ public class FeedbackSummary extends Resource {
 
     /**
      * Returns The The latest feedback entry date in the summary.
-     * 
+     *
      * @return The latest feedback entry date in the summary
      */
     public final DateTime getEndDate() {
@@ -295,7 +295,7 @@ public class FeedbackSummary extends Resource {
 
     /**
      * Returns The Whether the feedback summary includes subaccounts.
-     * 
+     *
      * @return Whether the feedback summary includes subaccounts
      */
     public final Boolean getIncludeSubaccounts() {
@@ -304,7 +304,7 @@ public class FeedbackSummary extends Resource {
 
     /**
      * Returns The Issues experienced during the call.
-     * 
+     *
      * @return Issues experienced during the call
      */
     public final List<FeedbackIssue> getIssues() {
@@ -313,7 +313,7 @@ public class FeedbackSummary extends Resource {
 
     /**
      * Returns The The average QualityScore of the feedback entries.
-     * 
+     *
      * @return The average QualityScore of the feedback entries
      */
     public final BigDecimal getQualityScoreAverage() {
@@ -322,7 +322,7 @@ public class FeedbackSummary extends Resource {
 
     /**
      * Returns The The median QualityScore of the feedback entries.
-     * 
+     *
      * @return The median QualityScore of the feedback entries
      */
     public final BigDecimal getQualityScoreMedian() {
@@ -331,7 +331,7 @@ public class FeedbackSummary extends Resource {
 
     /**
      * Returns The The standard deviation of the quality scores.
-     * 
+     *
      * @return The standard deviation of the quality scores
      */
     public final BigDecimal getQualityScoreStandardDeviation() {
@@ -340,7 +340,7 @@ public class FeedbackSummary extends Resource {
 
     /**
      * Returns The A string that uniquely identifies this feedback entry.
-     * 
+     *
      * @return A string that uniquely identifies this feedback entry
      */
     public final String getSid() {
@@ -349,7 +349,7 @@ public class FeedbackSummary extends Resource {
 
     /**
      * Returns The The earliest feedback entry date in the summary.
-     * 
+     *
      * @return The earliest feedback entry date in the summary
      */
     public final DateTime getStartDate() {
@@ -358,7 +358,7 @@ public class FeedbackSummary extends Resource {
 
     /**
      * Returns The The status of the feedback summary.
-     * 
+     *
      * @return The status of the feedback summary
      */
     public final FeedbackSummary.Status getStatus() {
@@ -377,19 +377,19 @@ public class FeedbackSummary extends Resource {
 
         FeedbackSummary other = (FeedbackSummary) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(callCount, other.callCount) && 
-               Objects.equals(callFeedbackCount, other.callFeedbackCount) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(endDate, other.endDate) && 
-               Objects.equals(includeSubaccounts, other.includeSubaccounts) && 
-               Objects.equals(issues, other.issues) && 
-               Objects.equals(qualityScoreAverage, other.qualityScoreAverage) && 
-               Objects.equals(qualityScoreMedian, other.qualityScoreMedian) && 
-               Objects.equals(qualityScoreStandardDeviation, other.qualityScoreStandardDeviation) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(startDate, other.startDate) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(callCount, other.callCount) &&
+               Objects.equals(callFeedbackCount, other.callFeedbackCount) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(endDate, other.endDate) &&
+               Objects.equals(includeSubaccounts, other.includeSubaccounts) &&
+               Objects.equals(issues, other.issues) &&
+               Objects.equals(qualityScoreAverage, other.qualityScoreAverage) &&
+               Objects.equals(qualityScoreMedian, other.qualityScoreMedian) &&
+               Objects.equals(qualityScoreStandardDeviation, other.qualityScoreStandardDeviation) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(startDate, other.startDate) &&
                Objects.equals(status, other.status);
     }
 

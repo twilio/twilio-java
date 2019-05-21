@@ -64,7 +64,7 @@ public class Flow extends Resource {
 
     /**
      * Create a FlowReader to execute read.
-     * 
+     *
      * @return FlowReader capable of executing the read
      */
     public static FlowReader reader() {
@@ -73,7 +73,7 @@ public class Flow extends Resource {
 
     /**
      * Create a FlowFetcher to execute fetch.
-     * 
+     *
      * @param pathSid A string that uniquely identifies this Flow.
      * @return FlowFetcher capable of executing the fetch
      */
@@ -83,7 +83,7 @@ public class Flow extends Resource {
 
     /**
      * Create a FlowDeleter to execute delete.
-     * 
+     *
      * @param pathSid A string that uniquely identifies this Flow.
      * @return FlowDeleter capable of executing the delete
      */
@@ -93,7 +93,7 @@ public class Flow extends Resource {
 
     /**
      * Converts a JSON String into a Flow object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Flow object represented by the provided JSON
@@ -112,7 +112,7 @@ public class Flow extends Resource {
     /**
      * Converts a JSON InputStream into a Flow object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Flow object represented by the provided JSON
@@ -140,21 +140,21 @@ public class Flow extends Resource {
 
     @JsonCreator
     private Flow(@JsonProperty("sid")
-                 final String sid, 
+                 final String sid,
                  @JsonProperty("account_sid")
-                 final String accountSid, 
+                 final String accountSid,
                  @JsonProperty("friendly_name")
-                 final String friendlyName, 
+                 final String friendlyName,
                  @JsonProperty("status")
-                 final Flow.Status status, 
+                 final Flow.Status status,
                  @JsonProperty("version")
-                 final Integer version, 
+                 final Integer version,
                  @JsonProperty("date_created")
-                 final String dateCreated, 
+                 final String dateCreated,
                  @JsonProperty("date_updated")
-                 final String dateUpdated, 
+                 final String dateUpdated,
                  @JsonProperty("url")
-                 final URI url, 
+                 final URI url,
                  @JsonProperty("links")
                  final Map<String, String> links) {
         this.sid = sid;
@@ -170,7 +170,7 @@ public class Flow extends Resource {
 
     /**
      * Returns The A string that uniquely identifies this Flow..
-     * 
+     *
      * @return A string that uniquely identifies this Flow.
      */
     public final String getSid() {
@@ -179,7 +179,7 @@ public class Flow extends Resource {
 
     /**
      * Returns The Account Sid..
-     * 
+     *
      * @return Account Sid.
      */
     public final String getAccountSid() {
@@ -188,7 +188,7 @@ public class Flow extends Resource {
 
     /**
      * Returns The A human readable description of this resource..
-     * 
+     *
      * @return A human readable description of this resource.
      */
     public final String getFriendlyName() {
@@ -197,7 +197,7 @@ public class Flow extends Resource {
 
     /**
      * Returns The The Status of this Flow.
-     * 
+     *
      * @return The Status of this Flow
      */
     public final Flow.Status getStatus() {
@@ -206,7 +206,7 @@ public class Flow extends Resource {
 
     /**
      * Returns The The latest version number of this Flow's definition..
-     * 
+     *
      * @return The latest version number of this Flow's definition.
      */
     public final Integer getVersion() {
@@ -215,7 +215,7 @@ public class Flow extends Resource {
 
     /**
      * Returns The The date this Flow was created.
-     * 
+     *
      * @return The date this Flow was created
      */
     public final DateTime getDateCreated() {
@@ -224,7 +224,7 @@ public class Flow extends Resource {
 
     /**
      * Returns The The date this Flow was updated.
-     * 
+     *
      * @return The date this Flow was updated
      */
     public final DateTime getDateUpdated() {
@@ -233,7 +233,7 @@ public class Flow extends Resource {
 
     /**
      * Returns The The URL of this resource..
-     * 
+     *
      * @return The URL of this resource.
      */
     public final URI getUrl() {
@@ -242,7 +242,7 @@ public class Flow extends Resource {
 
     /**
      * Returns The Nested resource URLs..
-     * 
+     *
      * @return Nested resource URLs.
      */
     public final Map<String, String> getLinks() {
@@ -261,14 +261,14 @@ public class Flow extends Resource {
 
         Flow other = (Flow) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(version, other.version) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(version, other.version) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

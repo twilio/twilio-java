@@ -32,11 +32,11 @@ public class DocumentUpdater extends Updater<Document> {
 
     /**
      * Construct a new DocumentUpdater.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathSid The sid
      */
-    public DocumentUpdater(final String pathServiceSid, 
+    public DocumentUpdater(final String pathServiceSid,
                            final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -45,7 +45,7 @@ public class DocumentUpdater extends Updater<Document> {
     /**
      * Contains an arbitrary JSON object to be stored in this Document. Serialized
      * to string to respect HTTP form input, up to 16KB..
-     * 
+     *
      * @param data Contains an arbitrary JSON object to be stored in this Document.
      * @return this
      */
@@ -57,7 +57,7 @@ public class DocumentUpdater extends Updater<Document> {
     /**
      * New time-to-live of this Document in seconds. In the range [1, 31 536 000 (1
      * year)], or 0 for infinity..
-     * 
+     *
      * @param ttl New time-to-live of this Document in seconds.
      * @return this
      */
@@ -68,7 +68,7 @@ public class DocumentUpdater extends Updater<Document> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Document
      */
@@ -107,7 +107,7 @@ public class DocumentUpdater extends Updater<Document> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

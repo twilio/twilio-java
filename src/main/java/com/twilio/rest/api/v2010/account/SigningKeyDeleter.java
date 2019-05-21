@@ -23,7 +23,7 @@ public class SigningKeyDeleter extends Deleter<SigningKey> {
 
     /**
      * Construct a new SigningKeyDeleter.
-     * 
+     *
      * @param pathSid The sid
      */
     public SigningKeyDeleter(final String pathSid) {
@@ -32,11 +32,11 @@ public class SigningKeyDeleter extends Deleter<SigningKey> {
 
     /**
      * Construct a new SigningKeyDeleter.
-     * 
+     *
      * @param pathAccountSid The account_sid
      * @param pathSid The sid
      */
-    public SigningKeyDeleter(final String pathAccountSid, 
+    public SigningKeyDeleter(final String pathAccountSid,
                              final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -44,7 +44,7 @@ public class SigningKeyDeleter extends Deleter<SigningKey> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

@@ -43,7 +43,7 @@ public class Environment extends Resource {
 
     /**
      * Create a EnvironmentReader to execute read.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @return EnvironmentReader capable of executing the read
      */
@@ -53,24 +53,24 @@ public class Environment extends Resource {
 
     /**
      * Create a EnvironmentFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathSid Environment Sid.
      * @return EnvironmentFetcher capable of executing the fetch
      */
-    public static EnvironmentFetcher fetcher(final String pathServiceSid, 
+    public static EnvironmentFetcher fetcher(final String pathServiceSid,
                                              final String pathSid) {
         return new EnvironmentFetcher(pathServiceSid, pathSid);
     }
 
     /**
      * Create a EnvironmentCreator to execute create.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param uniqueName A unique, addressable name of this Environment.
      * @return EnvironmentCreator capable of executing the create
      */
-    public static EnvironmentCreator creator(final String pathServiceSid, 
+    public static EnvironmentCreator creator(final String pathServiceSid,
                                              final String uniqueName) {
         return new EnvironmentCreator(pathServiceSid, uniqueName);
     }
@@ -78,7 +78,7 @@ public class Environment extends Resource {
     /**
      * Converts a JSON String into a Environment object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Environment object represented by the provided JSON
@@ -97,7 +97,7 @@ public class Environment extends Resource {
     /**
      * Converts a JSON InputStream into a Environment object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Environment object represented by the provided JSON
@@ -127,25 +127,25 @@ public class Environment extends Resource {
 
     @JsonCreator
     private Environment(@JsonProperty("sid")
-                        final String sid, 
+                        final String sid,
                         @JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("service_sid")
-                        final String serviceSid, 
+                        final String serviceSid,
                         @JsonProperty("build_sid")
-                        final String buildSid, 
+                        final String buildSid,
                         @JsonProperty("unique_name")
-                        final String uniqueName, 
+                        final String uniqueName,
                         @JsonProperty("domain_suffix")
-                        final String domainSuffix, 
+                        final String domainSuffix,
                         @JsonProperty("domain_name")
-                        final String domainName, 
+                        final String domainName,
                         @JsonProperty("date_created")
-                        final String dateCreated, 
+                        final String dateCreated,
                         @JsonProperty("date_updated")
-                        final String dateUpdated, 
+                        final String dateUpdated,
                         @JsonProperty("url")
-                        final URI url, 
+                        final URI url,
                         @JsonProperty("links")
                         final Map<String, String> links) {
         this.sid = sid;
@@ -163,7 +163,7 @@ public class Environment extends Resource {
 
     /**
      * Returns The Environment Sid..
-     * 
+     *
      * @return Environment Sid.
      */
     public final String getSid() {
@@ -172,7 +172,7 @@ public class Environment extends Resource {
 
     /**
      * Returns The Account Sid..
-     * 
+     *
      * @return Account Sid.
      */
     public final String getAccountSid() {
@@ -181,7 +181,7 @@ public class Environment extends Resource {
 
     /**
      * Returns The Service Sid..
-     * 
+     *
      * @return Service Sid.
      */
     public final String getServiceSid() {
@@ -190,7 +190,7 @@ public class Environment extends Resource {
 
     /**
      * Returns The Build Sid..
-     * 
+     *
      * @return Build Sid.
      */
     public final String getBuildSid() {
@@ -199,7 +199,7 @@ public class Environment extends Resource {
 
     /**
      * Returns The A unique, addressable name of this Environment..
-     * 
+     *
      * @return A unique, addressable name of this Environment.
      */
     public final String getUniqueName() {
@@ -208,7 +208,7 @@ public class Environment extends Resource {
 
     /**
      * Returns The A URL-friendly name that represents this Environment..
-     * 
+     *
      * @return A URL-friendly name that represents this Environment.
      */
     public final String getDomainSuffix() {
@@ -218,7 +218,7 @@ public class Environment extends Resource {
     /**
      * Returns The The base domain name for all Functions and Assets deployed in
      * this Environment..
-     * 
+     *
      * @return The base domain name for all Functions and Assets deployed in this
      *         Environment.
      */
@@ -228,7 +228,7 @@ public class Environment extends Resource {
 
     /**
      * Returns The The date that this Environment was created..
-     * 
+     *
      * @return The date that this Environment was created.
      */
     public final DateTime getDateCreated() {
@@ -237,7 +237,7 @@ public class Environment extends Resource {
 
     /**
      * Returns The The date that this Environment was updated..
-     * 
+     *
      * @return The date that this Environment was updated.
      */
     public final DateTime getDateUpdated() {
@@ -246,7 +246,7 @@ public class Environment extends Resource {
 
     /**
      * Returns The The URL of this Environment..
-     * 
+     *
      * @return The URL of this Environment.
      */
     public final URI getUrl() {
@@ -255,7 +255,7 @@ public class Environment extends Resource {
 
     /**
      * Returns The Nested resource URLs..
-     * 
+     *
      * @return Nested resource URLs.
      */
     public final Map<String, String> getLinks() {
@@ -274,16 +274,16 @@ public class Environment extends Resource {
 
         Environment other = (Environment) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(buildSid, other.buildSid) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(domainSuffix, other.domainSuffix) && 
-               Objects.equals(domainName, other.domainName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(buildSid, other.buildSid) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(domainSuffix, other.domainSuffix) &&
+               Objects.equals(domainName, other.domainName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

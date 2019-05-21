@@ -26,13 +26,13 @@ public class WorkerChannelUpdater extends Updater<WorkerChannel> {
 
     /**
      * Construct a new WorkerChannelUpdater.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathWorkerSid The worker_sid
      * @param pathSid The sid
      */
-    public WorkerChannelUpdater(final String pathWorkspaceSid, 
-                                final String pathWorkerSid, 
+    public WorkerChannelUpdater(final String pathWorkspaceSid,
+                                final String pathWorkerSid,
                                 final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathWorkerSid = pathWorkerSid;
@@ -44,7 +44,7 @@ public class WorkerChannelUpdater extends Updater<WorkerChannel> {
      * TaskRouter will only create reservations for Tasks of this TaskChannel type
      * up to the capacity configured. If the capacity is 0, no new reservations will
      * be created.
-     * 
+     *
      * @param capacity The total number of Tasks worker should handle for this
      *                 TaskChannel type.
      * @return this
@@ -57,7 +57,7 @@ public class WorkerChannelUpdater extends Updater<WorkerChannel> {
     /**
      * Toggle the availability of the WorkerChannel. Set this to 'False' to make
      * worker unavailable to receive any new Tasks of this TaskChannel type..
-     * 
+     *
      * @param available Toggle the availability of the WorkerChannel.
      * @return this
      */
@@ -68,7 +68,7 @@ public class WorkerChannelUpdater extends Updater<WorkerChannel> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated WorkerChannel
      */
@@ -107,7 +107,7 @@ public class WorkerChannelUpdater extends Updater<WorkerChannel> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

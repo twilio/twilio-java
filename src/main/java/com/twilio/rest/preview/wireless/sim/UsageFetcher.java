@@ -29,7 +29,7 @@ public class UsageFetcher extends Fetcher<Usage> {
 
     /**
      * Construct a new UsageFetcher.
-     * 
+     *
      * @param pathSimSid The sim_sid
      */
     public UsageFetcher(final String pathSimSid) {
@@ -38,7 +38,7 @@ public class UsageFetcher extends Fetcher<Usage> {
 
     /**
      * The end.
-     * 
+     *
      * @param end The end
      * @return this
      */
@@ -49,7 +49,7 @@ public class UsageFetcher extends Fetcher<Usage> {
 
     /**
      * The start.
-     * 
+     *
      * @param start The start
      * @return this
      */
@@ -60,7 +60,7 @@ public class UsageFetcher extends Fetcher<Usage> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Usage
      */
@@ -99,7 +99,7 @@ public class UsageFetcher extends Fetcher<Usage> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

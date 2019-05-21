@@ -30,7 +30,7 @@ public class TranscriptionReader extends Reader<Transcription> {
 
     /**
      * Construct a new TranscriptionReader.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       read
      */
@@ -40,7 +40,7 @@ public class TranscriptionReader extends Reader<Transcription> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Transcription ResourceSet
      */
@@ -51,7 +51,7 @@ public class TranscriptionReader extends Reader<Transcription> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Transcription ResourceSet
      */
@@ -72,7 +72,7 @@ public class TranscriptionReader extends Reader<Transcription> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Transcription ResourceSet
@@ -91,13 +91,13 @@ public class TranscriptionReader extends Reader<Transcription> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Transcription> nextPage(final Page<Transcription> page, 
+    public Page<Transcription> nextPage(final Page<Transcription> page,
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -111,13 +111,13 @@ public class TranscriptionReader extends Reader<Transcription> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Transcription> previousPage(final Page<Transcription> page, 
+    public Page<Transcription> previousPage(final Page<Transcription> page,
                                             final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -131,7 +131,7 @@ public class TranscriptionReader extends Reader<Transcription> {
 
     /**
      * Generate a Page of Transcription Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -166,7 +166,7 @@ public class TranscriptionReader extends Reader<Transcription> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

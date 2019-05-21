@@ -43,7 +43,7 @@ public class Sample extends Resource {
 
     /**
      * Create a SampleFetcher to execute fetch.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         Task associated with the resource to fetch
      * @param pathTaskSid The SID of the Task associated with the Sample resource
@@ -51,29 +51,29 @@ public class Sample extends Resource {
      * @param pathSid The unique string that identifies the resource
      * @return SampleFetcher capable of executing the fetch
      */
-    public static SampleFetcher fetcher(final String pathAssistantSid, 
-                                        final String pathTaskSid, 
+    public static SampleFetcher fetcher(final String pathAssistantSid,
+                                        final String pathTaskSid,
                                         final String pathSid) {
         return new SampleFetcher(pathAssistantSid, pathTaskSid, pathSid);
     }
 
     /**
      * Create a SampleReader to execute read.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         Task associated with the resources to read
      * @param pathTaskSid The SID of the Task associated with the Sample resources
      *                    to read
      * @return SampleReader capable of executing the read
      */
-    public static SampleReader reader(final String pathAssistantSid, 
+    public static SampleReader reader(final String pathAssistantSid,
                                       final String pathTaskSid) {
         return new SampleReader(pathAssistantSid, pathTaskSid);
     }
 
     /**
      * Create a SampleCreator to execute create.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         Task associated with the new resource
      * @param pathTaskSid The SID of the Task associated with the Sample resource
@@ -83,16 +83,16 @@ public class Sample extends Resource {
      * @param taggedText The text example of how end users might express the task
      * @return SampleCreator capable of executing the create
      */
-    public static SampleCreator creator(final String pathAssistantSid, 
-                                        final String pathTaskSid, 
-                                        final String language, 
+    public static SampleCreator creator(final String pathAssistantSid,
+                                        final String pathTaskSid,
+                                        final String language,
                                         final String taggedText) {
         return new SampleCreator(pathAssistantSid, pathTaskSid, language, taggedText);
     }
 
     /**
      * Create a SampleUpdater to execute update.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         Task associated with the resource to update
      * @param pathTaskSid The SID of the Task associated with the Sample resource
@@ -100,15 +100,15 @@ public class Sample extends Resource {
      * @param pathSid The unique string that identifies the resource
      * @return SampleUpdater capable of executing the update
      */
-    public static SampleUpdater updater(final String pathAssistantSid, 
-                                        final String pathTaskSid, 
+    public static SampleUpdater updater(final String pathAssistantSid,
+                                        final String pathTaskSid,
                                         final String pathSid) {
         return new SampleUpdater(pathAssistantSid, pathTaskSid, pathSid);
     }
 
     /**
      * Create a SampleDeleter to execute delete.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         Task associated with the resources to delete
      * @param pathTaskSid The SID of the Task associated with the Sample resource
@@ -116,15 +116,15 @@ public class Sample extends Resource {
      * @param pathSid The unique string that identifies the resource
      * @return SampleDeleter capable of executing the delete
      */
-    public static SampleDeleter deleter(final String pathAssistantSid, 
-                                        final String pathTaskSid, 
+    public static SampleDeleter deleter(final String pathAssistantSid,
+                                        final String pathTaskSid,
                                         final String pathSid) {
         return new SampleDeleter(pathAssistantSid, pathTaskSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a Sample object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Sample object represented by the provided JSON
@@ -143,7 +143,7 @@ public class Sample extends Resource {
     /**
      * Converts a JSON InputStream into a Sample object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Sample object represented by the provided JSON
@@ -172,23 +172,23 @@ public class Sample extends Resource {
 
     @JsonCreator
     private Sample(@JsonProperty("account_sid")
-                   final String accountSid, 
+                   final String accountSid,
                    @JsonProperty("date_created")
-                   final String dateCreated, 
+                   final String dateCreated,
                    @JsonProperty("date_updated")
-                   final String dateUpdated, 
+                   final String dateUpdated,
                    @JsonProperty("task_sid")
-                   final String taskSid, 
+                   final String taskSid,
                    @JsonProperty("language")
-                   final String language, 
+                   final String language,
                    @JsonProperty("assistant_sid")
-                   final String assistantSid, 
+                   final String assistantSid,
                    @JsonProperty("sid")
-                   final String sid, 
+                   final String sid,
                    @JsonProperty("tagged_text")
-                   final String taggedText, 
+                   final String taggedText,
                    @JsonProperty("url")
-                   final URI url, 
+                   final URI url,
                    @JsonProperty("source_channel")
                    final String sourceChannel) {
         this.accountSid = accountSid;
@@ -205,7 +205,7 @@ public class Sample extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -214,7 +214,7 @@ public class Sample extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
@@ -224,7 +224,7 @@ public class Sample extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -233,7 +233,7 @@ public class Sample extends Resource {
 
     /**
      * Returns The The SID of the Task associated with the resource.
-     * 
+     *
      * @return The SID of the Task associated with the resource
      */
     public final String getTaskSid() {
@@ -243,7 +243,7 @@ public class Sample extends Resource {
     /**
      * Returns The An ISO language-country string that specifies the language used
      * for the sample.
-     * 
+     *
      * @return An ISO language-country string that specifies the language used for
      *         the sample
      */
@@ -254,7 +254,7 @@ public class Sample extends Resource {
     /**
      * Returns The The SID of the Assistant that is the parent of the Task
      * associated with the resource.
-     * 
+     *
      * @return The SID of the Assistant that is the parent of the Task associated
      *         with the resource
      */
@@ -264,7 +264,7 @@ public class Sample extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -273,7 +273,7 @@ public class Sample extends Resource {
 
     /**
      * Returns The The text example of how end users might express the task.
-     * 
+     *
      * @return The text example of how end users might express the task
      */
     public final String getTaggedText() {
@@ -282,7 +282,7 @@ public class Sample extends Resource {
 
     /**
      * Returns The The absolute URL of the Sample resource.
-     * 
+     *
      * @return The absolute URL of the Sample resource
      */
     public final URI getUrl() {
@@ -291,7 +291,7 @@ public class Sample extends Resource {
 
     /**
      * Returns The The communication channel from which the sample was captured.
-     * 
+     *
      * @return The communication channel from which the sample was captured
      */
     public final String getSourceChannel() {
@@ -310,15 +310,15 @@ public class Sample extends Resource {
 
         Sample other = (Sample) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(taskSid, other.taskSid) && 
-               Objects.equals(language, other.language) && 
-               Objects.equals(assistantSid, other.assistantSid) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(taggedText, other.taggedText) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(taskSid, other.taskSid) &&
+               Objects.equals(language, other.language) &&
+               Objects.equals(assistantSid, other.assistantSid) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(taggedText, other.taggedText) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(sourceChannel, other.sourceChannel);
     }
 

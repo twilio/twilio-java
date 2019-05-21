@@ -26,7 +26,7 @@ public class CredentialDeleter extends Deleter<Credential> {
 
     /**
      * Construct a new CredentialDeleter.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public CredentialDeleter(final String pathSid) {
@@ -35,7 +35,7 @@ public class CredentialDeleter extends Deleter<Credential> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

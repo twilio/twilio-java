@@ -22,7 +22,7 @@ public class SimDeleter extends Deleter<Sim> {
 
     /**
      * Construct a new SimDeleter.
-     * 
+     *
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public SimDeleter(final String pathSid) {
@@ -31,7 +31,7 @@ public class SimDeleter extends Deleter<Sim> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

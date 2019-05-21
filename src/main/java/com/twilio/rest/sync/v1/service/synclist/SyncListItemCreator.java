@@ -34,14 +34,14 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
 
     /**
      * Construct a new SyncListItemCreator.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathListSid The list_sid
      * @param data Contains arbitrary user-defined, schema-less data that this List
      *             Item stores, represented by a JSON object, up to 16KB.
      */
-    public SyncListItemCreator(final String pathServiceSid, 
-                               final String pathListSid, 
+    public SyncListItemCreator(final String pathServiceSid,
+                               final String pathListSid,
                                final Map<String, Object> data) {
         this.pathServiceSid = pathServiceSid;
         this.pathListSid = pathListSid;
@@ -50,7 +50,7 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
 
     /**
      * Alias for item_ttl. If both are provided, this value is ignored..
-     * 
+     *
      * @param ttl Alias for item_ttl
      * @return this
      */
@@ -64,7 +64,7 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
      * [1, 31 536 000 (1 year)], or 0 for infinity. Upon expiry, the list item will
      * be cleaned up at least in a matter of hours, and often within seconds, making
      * this a good tool for garbage management..
-     * 
+     *
      * @param itemTtl Time-to-live of this item in seconds, defaults to no
      *                expiration.
      * @return this
@@ -79,7 +79,7 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
      * expiration. In the range [1, 31 536 000 (1 year)], or 0 for infinity. This
      * parameter can only be used when the list item's data or ttl is updated in the
      * same request..
-     * 
+     *
      * @param collectionTtl Time-to-live of this item's parent List in seconds,
      *                      defaults to no expiration.
      * @return this
@@ -91,7 +91,7 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created SyncListItem
      */
@@ -130,7 +130,7 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

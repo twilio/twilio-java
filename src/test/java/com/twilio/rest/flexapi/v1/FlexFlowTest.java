@@ -42,7 +42,7 @@ public class FlexFlowTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.FLEXAPI.toString(),
                                           "/v1/FlexFlows");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -86,7 +86,7 @@ public class FlexFlowTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.FLEXAPI.toString(),
                                           "/v1/FlexFlows/FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -152,7 +152,7 @@ public class FlexFlowTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.FLEXAPI.toString(),
                                           "/v1/FlexFlows/FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -184,7 +184,7 @@ public class FlexFlowTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.FLEXAPI.toString(),
                                           "/v1/FlexFlows/FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

@@ -24,12 +24,12 @@ public class MediaFetcher extends Fetcher<Media> {
 
     /**
      * Construct a new MediaFetcher.
-     * 
+     *
      * @param pathMessageSid The SID of the Message resource that this Media
      *                       resource belongs to
      * @param pathSid The unique string that identifies this resource
      */
-    public MediaFetcher(final String pathMessageSid, 
+    public MediaFetcher(final String pathMessageSid,
                         final String pathSid) {
         this.pathMessageSid = pathMessageSid;
         this.pathSid = pathSid;
@@ -37,15 +37,15 @@ public class MediaFetcher extends Fetcher<Media> {
 
     /**
      * Construct a new MediaFetcher.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       fetch
      * @param pathMessageSid The SID of the Message resource that this Media
      *                       resource belongs to
      * @param pathSid The unique string that identifies this resource
      */
-    public MediaFetcher(final String pathAccountSid, 
-                        final String pathMessageSid, 
+    public MediaFetcher(final String pathAccountSid,
+                        final String pathMessageSid,
                         final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathMessageSid = pathMessageSid;
@@ -54,7 +54,7 @@ public class MediaFetcher extends Fetcher<Media> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Media
      */

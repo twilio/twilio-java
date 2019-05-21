@@ -24,12 +24,12 @@ public class AddOnResultFetcher extends Fetcher<AddOnResult> {
 
     /**
      * Construct a new AddOnResultFetcher.
-     * 
+     *
      * @param pathReferenceSid The SID of the recording to which the result to
      *                         fetch belongs
      * @param pathSid The unique string that identifies the resource to fetch
      */
-    public AddOnResultFetcher(final String pathReferenceSid, 
+    public AddOnResultFetcher(final String pathReferenceSid,
                               final String pathSid) {
         this.pathReferenceSid = pathReferenceSid;
         this.pathSid = pathSid;
@@ -37,15 +37,15 @@ public class AddOnResultFetcher extends Fetcher<AddOnResult> {
 
     /**
      * Construct a new AddOnResultFetcher.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource to
      *                       fetch
      * @param pathReferenceSid The SID of the recording to which the result to
      *                         fetch belongs
      * @param pathSid The unique string that identifies the resource to fetch
      */
-    public AddOnResultFetcher(final String pathAccountSid, 
-                              final String pathReferenceSid, 
+    public AddOnResultFetcher(final String pathAccountSid,
+                              final String pathReferenceSid,
                               final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathReferenceSid = pathReferenceSid;
@@ -54,7 +54,7 @@ public class AddOnResultFetcher extends Fetcher<AddOnResult> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched AddOnResult
      */

@@ -37,21 +37,21 @@ public class Local extends Resource {
 
     /**
      * Create a LocalReader to execute read.
-     * 
+     *
      * @param pathAccountSid The SID of the Account requesting the
      *                       AvailablePhoneNumber resources
      * @param pathCountryCode The ISO Country code of the country from which to
      *                        read phone numbers
      * @return LocalReader capable of executing the read
      */
-    public static LocalReader reader(final String pathAccountSid, 
+    public static LocalReader reader(final String pathAccountSid,
                                      final String pathCountryCode) {
         return new LocalReader(pathAccountSid, pathCountryCode);
     }
 
     /**
      * Create a LocalReader to execute read.
-     * 
+     *
      * @param pathCountryCode The ISO Country code of the country from which to
      *                        read phone numbers
      * @return LocalReader capable of executing the read
@@ -62,7 +62,7 @@ public class Local extends Resource {
 
     /**
      * Converts a JSON String into a Local object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Local object represented by the provided JSON
@@ -81,7 +81,7 @@ public class Local extends Resource {
     /**
      * Converts a JSON InputStream into a Local object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Local object represented by the provided JSON
@@ -113,29 +113,29 @@ public class Local extends Resource {
 
     @JsonCreator
     private Local(@JsonProperty("friendly_name")
-                  final com.twilio.type.PhoneNumber friendlyName, 
+                  final com.twilio.type.PhoneNumber friendlyName,
                   @JsonProperty("phone_number")
-                  final com.twilio.type.PhoneNumber phoneNumber, 
+                  final com.twilio.type.PhoneNumber phoneNumber,
                   @JsonProperty("lata")
-                  final String lata, 
+                  final String lata,
                   @JsonProperty("locality")
-                  final String locality, 
+                  final String locality,
                   @JsonProperty("rate_center")
-                  final String rateCenter, 
+                  final String rateCenter,
                   @JsonProperty("latitude")
-                  final BigDecimal latitude, 
+                  final BigDecimal latitude,
                   @JsonProperty("longitude")
-                  final BigDecimal longitude, 
+                  final BigDecimal longitude,
                   @JsonProperty("region")
-                  final String region, 
+                  final String region,
                   @JsonProperty("postal_code")
-                  final String postalCode, 
+                  final String postalCode,
                   @JsonProperty("iso_country")
-                  final String isoCountry, 
+                  final String isoCountry,
                   @JsonProperty("address_requirements")
-                  final String addressRequirements, 
+                  final String addressRequirements,
                   @JsonProperty("beta")
-                  final Boolean beta, 
+                  final Boolean beta,
                   @JsonProperty("capabilities")
                   final PhoneNumberCapabilities capabilities) {
         this.friendlyName = friendlyName;
@@ -155,7 +155,7 @@ public class Local extends Resource {
 
     /**
      * Returns The A formatted version of the phone number.
-     * 
+     *
      * @return A formatted version of the phone number
      */
     public final com.twilio.type.PhoneNumber getFriendlyName() {
@@ -164,7 +164,7 @@ public class Local extends Resource {
 
     /**
      * Returns The The phone number in E.164 format.
-     * 
+     *
      * @return The phone number in E.164 format
      */
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
@@ -173,7 +173,7 @@ public class Local extends Resource {
 
     /**
      * Returns The The LATA of this phone number.
-     * 
+     *
      * @return The LATA of this phone number
      */
     public final String getLata() {
@@ -182,7 +182,7 @@ public class Local extends Resource {
 
     /**
      * Returns The The locality or city of this phone number's location.
-     * 
+     *
      * @return The locality or city of this phone number's location
      */
     public final String getLocality() {
@@ -191,7 +191,7 @@ public class Local extends Resource {
 
     /**
      * Returns The The rate center of this phone number.
-     * 
+     *
      * @return The rate center of this phone number
      */
     public final String getRateCenter() {
@@ -200,7 +200,7 @@ public class Local extends Resource {
 
     /**
      * Returns The The latitude of this phone number's location.
-     * 
+     *
      * @return The latitude of this phone number's location
      */
     public final BigDecimal getLatitude() {
@@ -209,7 +209,7 @@ public class Local extends Resource {
 
     /**
      * Returns The The longitude of this phone number's location.
-     * 
+     *
      * @return The longitude of this phone number's location
      */
     public final BigDecimal getLongitude() {
@@ -219,7 +219,7 @@ public class Local extends Resource {
     /**
      * Returns The The two-letter state or province abbreviation of this phone
      * number's location.
-     * 
+     *
      * @return The two-letter state or province abbreviation of this phone number's
      *         location
      */
@@ -229,7 +229,7 @@ public class Local extends Resource {
 
     /**
      * Returns The The postal or ZIP code of this phone number's location.
-     * 
+     *
      * @return The postal or ZIP code of this phone number's location
      */
     public final String getPostalCode() {
@@ -238,7 +238,7 @@ public class Local extends Resource {
 
     /**
      * Returns The The ISO country code of this phone number.
-     * 
+     *
      * @return The ISO country code of this phone number
      */
     public final String getIsoCountry() {
@@ -247,7 +247,7 @@ public class Local extends Resource {
 
     /**
      * Returns The The type of Address resource the phone number requires.
-     * 
+     *
      * @return The type of Address resource the phone number requires
      */
     public final String getAddressRequirements() {
@@ -256,7 +256,7 @@ public class Local extends Resource {
 
     /**
      * Returns The Whether the phone number is new to the Twilio platform.
-     * 
+     *
      * @return Whether the phone number is new to the Twilio platform
      */
     public final Boolean getBeta() {
@@ -265,7 +265,7 @@ public class Local extends Resource {
 
     /**
      * Returns The Whether a phone number can receive calls or messages.
-     * 
+     *
      * @return Whether a phone number can receive calls or messages
      */
     public final PhoneNumberCapabilities getCapabilities() {
@@ -284,18 +284,18 @@ public class Local extends Resource {
 
         Local other = (Local) o;
 
-        return Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(phoneNumber, other.phoneNumber) && 
-               Objects.equals(lata, other.lata) && 
-               Objects.equals(locality, other.locality) && 
-               Objects.equals(rateCenter, other.rateCenter) && 
-               Objects.equals(latitude, other.latitude) && 
-               Objects.equals(longitude, other.longitude) && 
-               Objects.equals(region, other.region) && 
-               Objects.equals(postalCode, other.postalCode) && 
-               Objects.equals(isoCountry, other.isoCountry) && 
-               Objects.equals(addressRequirements, other.addressRequirements) && 
-               Objects.equals(beta, other.beta) && 
+        return Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(phoneNumber, other.phoneNumber) &&
+               Objects.equals(lata, other.lata) &&
+               Objects.equals(locality, other.locality) &&
+               Objects.equals(rateCenter, other.rateCenter) &&
+               Objects.equals(latitude, other.latitude) &&
+               Objects.equals(longitude, other.longitude) &&
+               Objects.equals(region, other.region) &&
+               Objects.equals(postalCode, other.postalCode) &&
+               Objects.equals(isoCountry, other.isoCountry) &&
+               Objects.equals(addressRequirements, other.addressRequirements) &&
+               Objects.equals(beta, other.beta) &&
                Objects.equals(capabilities, other.capabilities);
     }
 

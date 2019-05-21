@@ -41,7 +41,7 @@ public class Export extends Resource {
 
     /**
      * Create a ExportFetcher to execute fetch.
-     * 
+     *
      * @param pathResourceType The resource_type
      * @return ExportFetcher capable of executing the fetch
      */
@@ -51,7 +51,7 @@ public class Export extends Resource {
 
     /**
      * Converts a JSON String into a Export object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Export object represented by the provided JSON
@@ -70,7 +70,7 @@ public class Export extends Resource {
     /**
      * Converts a JSON InputStream into a Export object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Export object represented by the provided JSON
@@ -92,9 +92,9 @@ public class Export extends Resource {
 
     @JsonCreator
     private Export(@JsonProperty("resource_type")
-                   final String resourceType, 
+                   final String resourceType,
                    @JsonProperty("url")
-                   final URI url, 
+                   final URI url,
                    @JsonProperty("links")
                    final Map<String, String> links) {
         this.resourceType = resourceType;
@@ -104,7 +104,7 @@ public class Export extends Resource {
 
     /**
      * Returns The The resource_type.
-     * 
+     *
      * @return The resource_type
      */
     public final String getResourceType() {
@@ -113,7 +113,7 @@ public class Export extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -122,7 +122,7 @@ public class Export extends Resource {
 
     /**
      * Returns The The links.
-     * 
+     *
      * @return The links
      */
     public final Map<String, String> getLinks() {
@@ -141,8 +141,8 @@ public class Export extends Resource {
 
         Export other = (Export) o;
 
-        return Objects.equals(resourceType, other.resourceType) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(resourceType, other.resourceType) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

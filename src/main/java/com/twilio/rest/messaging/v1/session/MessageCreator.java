@@ -34,7 +34,7 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Construct a new MessageCreator.
-     * 
+     *
      * @param pathSessionSid The unique id of the Session for this message.
      */
     public MessageCreator(final String pathSessionSid) {
@@ -44,7 +44,7 @@ public class MessageCreator extends Creator<Message> {
     /**
      * The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the
      * message's author. Defaults to `system`..
-     * 
+     *
      * @param author The identity of the message's author.
      * @return this
      */
@@ -56,7 +56,7 @@ public class MessageCreator extends Creator<Message> {
     /**
      * A string metadata field you can use to store any data you wish. The string
      * value must contain structurally valid JSON if specified..
-     * 
+     *
      * @param attributes A string metadata field you can use to store any data you
      *                   wish.
      * @return this
@@ -68,7 +68,7 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * The date that this resource was created..
-     * 
+     *
      * @param dateCreated The date that this resource was created.
      * @return this
      */
@@ -80,7 +80,7 @@ public class MessageCreator extends Creator<Message> {
     /**
      * The date that this resource was last updated. `null` if the message has not
      * been edited..
-     * 
+     *
      * @param dateUpdated The date that this resource was last updated.
      * @return this
      */
@@ -91,7 +91,7 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * The contents of the message..
-     * 
+     *
      * @param body The contents of the message.
      * @return this
      */
@@ -102,7 +102,7 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Message
      */
@@ -141,7 +141,7 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

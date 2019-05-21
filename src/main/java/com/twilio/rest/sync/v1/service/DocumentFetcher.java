@@ -27,11 +27,11 @@ public class DocumentFetcher extends Fetcher<Document> {
 
     /**
      * Construct a new DocumentFetcher.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathSid The sid
      */
-    public DocumentFetcher(final String pathServiceSid, 
+    public DocumentFetcher(final String pathServiceSid,
                            final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -39,7 +39,7 @@ public class DocumentFetcher extends Fetcher<Document> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Document
      */

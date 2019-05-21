@@ -94,7 +94,7 @@ public class FlexFlow extends Resource {
 
     /**
      * Create a FlexFlowReader to execute read.
-     * 
+     *
      * @return FlexFlowReader capable of executing the read
      */
     public static FlexFlowReader reader() {
@@ -103,7 +103,7 @@ public class FlexFlow extends Resource {
 
     /**
      * Create a FlexFlowFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The unique ID of the FlexFlow
      * @return FlexFlowFetcher capable of executing the fetch
      */
@@ -113,21 +113,21 @@ public class FlexFlow extends Resource {
 
     /**
      * Create a FlexFlowCreator to execute create.
-     * 
+     *
      * @param friendlyName Human readable description of this FlexFlow
      * @param chatServiceSid Service Sid.
      * @param channelType Channel type
      * @return FlexFlowCreator capable of executing the create
      */
-    public static FlexFlowCreator creator(final String friendlyName, 
-                                          final String chatServiceSid, 
+    public static FlexFlowCreator creator(final String friendlyName,
+                                          final String chatServiceSid,
                                           final FlexFlow.ChannelType channelType) {
         return new FlexFlowCreator(friendlyName, chatServiceSid, channelType);
     }
 
     /**
      * Create a FlexFlowUpdater to execute update.
-     * 
+     *
      * @param pathSid The unique ID of the FlexFlow
      * @return FlexFlowUpdater capable of executing the update
      */
@@ -137,7 +137,7 @@ public class FlexFlow extends Resource {
 
     /**
      * Create a FlexFlowDeleter to execute delete.
-     * 
+     *
      * @param pathSid The unique ID of the FlexFlow
      * @return FlexFlowDeleter capable of executing the delete
      */
@@ -148,7 +148,7 @@ public class FlexFlow extends Resource {
     /**
      * Converts a JSON String into a FlexFlow object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return FlexFlow object represented by the provided JSON
@@ -167,7 +167,7 @@ public class FlexFlow extends Resource {
     /**
      * Converts a JSON InputStream into a FlexFlow object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return FlexFlow object represented by the provided JSON
@@ -199,29 +199,29 @@ public class FlexFlow extends Resource {
 
     @JsonCreator
     private FlexFlow(@JsonProperty("account_sid")
-                     final String accountSid, 
+                     final String accountSid,
                      @JsonProperty("date_created")
-                     final String dateCreated, 
+                     final String dateCreated,
                      @JsonProperty("date_updated")
-                     final String dateUpdated, 
+                     final String dateUpdated,
                      @JsonProperty("sid")
-                     final String sid, 
+                     final String sid,
                      @JsonProperty("friendly_name")
-                     final String friendlyName, 
+                     final String friendlyName,
                      @JsonProperty("chat_service_sid")
-                     final String chatServiceSid, 
+                     final String chatServiceSid,
                      @JsonProperty("channel_type")
-                     final FlexFlow.ChannelType channelType, 
+                     final FlexFlow.ChannelType channelType,
                      @JsonProperty("contact_identity")
-                     final String contactIdentity, 
+                     final String contactIdentity,
                      @JsonProperty("enabled")
-                     final Boolean enabled, 
+                     final Boolean enabled,
                      @JsonProperty("integration_type")
-                     final FlexFlow.IntegrationType integrationType, 
+                     final FlexFlow.IntegrationType integrationType,
                      @JsonProperty("integration")
-                     final Map<String, Object> integration, 
+                     final Map<String, Object> integration,
                      @JsonProperty("long_lived")
-                     final Boolean longLived, 
+                     final Boolean longLived,
                      @JsonProperty("url")
                      final URI url) {
         this.accountSid = accountSid;
@@ -241,7 +241,7 @@ public class FlexFlow extends Resource {
 
     /**
      * Returns The The ID of the account that owns this Workflow.
-     * 
+     *
      * @return The ID of the account that owns this Workflow
      */
     public final String getAccountSid() {
@@ -251,7 +251,7 @@ public class FlexFlow extends Resource {
     /**
      * Returns The The time the FlexFlow was created, given as GMT in ISO 8601
      * format..
-     * 
+     *
      * @return The time the FlexFlow was created, given as GMT in ISO 8601 format.
      */
     public final DateTime getDateCreated() {
@@ -261,7 +261,7 @@ public class FlexFlow extends Resource {
     /**
      * Returns The The time the FlexFlow was last updated, given as GMT in ISO 8601
      * format..
-     * 
+     *
      * @return The time the FlexFlow was last updated, given as GMT in ISO 8601
      *         format.
      */
@@ -271,7 +271,7 @@ public class FlexFlow extends Resource {
 
     /**
      * Returns The The unique ID of the FlexFlow.
-     * 
+     *
      * @return The unique ID of the FlexFlow
      */
     public final String getSid() {
@@ -280,7 +280,7 @@ public class FlexFlow extends Resource {
 
     /**
      * Returns The Human readable description of this FlexFlow.
-     * 
+     *
      * @return Human readable description of this FlexFlow
      */
     public final String getFriendlyName() {
@@ -289,7 +289,7 @@ public class FlexFlow extends Resource {
 
     /**
      * Returns The Service Sid..
-     * 
+     *
      * @return Service Sid.
      */
     public final String getChatServiceSid() {
@@ -298,7 +298,7 @@ public class FlexFlow extends Resource {
 
     /**
      * Returns The Channel type.
-     * 
+     *
      * @return Channel type
      */
     public final FlexFlow.ChannelType getChannelType() {
@@ -307,7 +307,7 @@ public class FlexFlow extends Resource {
 
     /**
      * Returns The Channel contact Identity.
-     * 
+     *
      * @return Channel contact Identity
      */
     public final String getContactIdentity() {
@@ -316,7 +316,7 @@ public class FlexFlow extends Resource {
 
     /**
      * Returns The Boolean flag for enabling or disabling the FlexFlow.
-     * 
+     *
      * @return Boolean flag for enabling or disabling the FlexFlow
      */
     public final Boolean getEnabled() {
@@ -325,7 +325,7 @@ public class FlexFlow extends Resource {
 
     /**
      * Returns The Integration type.
-     * 
+     *
      * @return Integration type
      */
     public final FlexFlow.IntegrationType getIntegrationType() {
@@ -334,7 +334,7 @@ public class FlexFlow extends Resource {
 
     /**
      * Returns The Integration block.
-     * 
+     *
      * @return Integration block
      */
     public final Map<String, Object> getIntegration() {
@@ -343,7 +343,7 @@ public class FlexFlow extends Resource {
 
     /**
      * Returns The Long Lived flag for new Channel.
-     * 
+     *
      * @return Long Lived flag for new Channel
      */
     public final Boolean getLongLived() {
@@ -352,7 +352,7 @@ public class FlexFlow extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -371,18 +371,18 @@ public class FlexFlow extends Resource {
 
         FlexFlow other = (FlexFlow) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(chatServiceSid, other.chatServiceSid) && 
-               Objects.equals(channelType, other.channelType) && 
-               Objects.equals(contactIdentity, other.contactIdentity) && 
-               Objects.equals(enabled, other.enabled) && 
-               Objects.equals(integrationType, other.integrationType) && 
-               Objects.equals(integration, other.integration) && 
-               Objects.equals(longLived, other.longLived) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(chatServiceSid, other.chatServiceSid) &&
+               Objects.equals(channelType, other.channelType) &&
+               Objects.equals(contactIdentity, other.contactIdentity) &&
+               Objects.equals(enabled, other.enabled) &&
+               Objects.equals(integrationType, other.integrationType) &&
+               Objects.equals(integration, other.integration) &&
+               Objects.equals(longLived, other.longLived) &&
                Objects.equals(url, other.url);
     }
 

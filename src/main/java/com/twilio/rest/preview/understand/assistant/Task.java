@@ -43,19 +43,19 @@ public class Task extends Resource {
 
     /**
      * Create a TaskFetcher to execute fetch.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return TaskFetcher capable of executing the fetch
      */
-    public static TaskFetcher fetcher(final String pathAssistantSid, 
+    public static TaskFetcher fetcher(final String pathAssistantSid,
                                       final String pathSid) {
         return new TaskFetcher(pathAssistantSid, pathSid);
     }
 
     /**
      * Create a TaskReader to execute read.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant.
      * @return TaskReader capable of executing the read
      */
@@ -65,45 +65,45 @@ public class Task extends Resource {
 
     /**
      * Create a TaskCreator to execute create.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant.
      * @param uniqueName A user-provided string that uniquely identifies this
      *                   resource as an alternative to the sid. Unique up to 64
      *                   characters long.
      * @return TaskCreator capable of executing the create
      */
-    public static TaskCreator creator(final String pathAssistantSid, 
+    public static TaskCreator creator(final String pathAssistantSid,
                                       final String uniqueName) {
         return new TaskCreator(pathAssistantSid, uniqueName);
     }
 
     /**
      * Create a TaskUpdater to execute update.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return TaskUpdater capable of executing the update
      */
-    public static TaskUpdater updater(final String pathAssistantSid, 
+    public static TaskUpdater updater(final String pathAssistantSid,
                                       final String pathSid) {
         return new TaskUpdater(pathAssistantSid, pathSid);
     }
 
     /**
      * Create a TaskDeleter to execute delete.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return TaskDeleter capable of executing the delete
      */
-    public static TaskDeleter deleter(final String pathAssistantSid, 
+    public static TaskDeleter deleter(final String pathAssistantSid,
                                       final String pathSid) {
         return new TaskDeleter(pathAssistantSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a Task object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Task object represented by the provided JSON
@@ -122,7 +122,7 @@ public class Task extends Resource {
     /**
      * Converts a JSON InputStream into a Task object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Task object represented by the provided JSON
@@ -151,23 +151,23 @@ public class Task extends Resource {
 
     @JsonCreator
     private Task(@JsonProperty("account_sid")
-                 final String accountSid, 
+                 final String accountSid,
                  @JsonProperty("date_created")
-                 final String dateCreated, 
+                 final String dateCreated,
                  @JsonProperty("date_updated")
-                 final String dateUpdated, 
+                 final String dateUpdated,
                  @JsonProperty("friendly_name")
-                 final String friendlyName, 
+                 final String friendlyName,
                  @JsonProperty("links")
-                 final Map<String, String> links, 
+                 final Map<String, String> links,
                  @JsonProperty("assistant_sid")
-                 final String assistantSid, 
+                 final String assistantSid,
                  @JsonProperty("sid")
-                 final String sid, 
+                 final String sid,
                  @JsonProperty("unique_name")
-                 final String uniqueName, 
+                 final String uniqueName,
                  @JsonProperty("actions_url")
-                 final URI actionsUrl, 
+                 final URI actionsUrl,
                  @JsonProperty("url")
                  final URI url) {
         this.accountSid = accountSid;
@@ -184,7 +184,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The unique ID of the Account that created this Task..
-     * 
+     *
      * @return The unique ID of the Account that created this Task.
      */
     public final String getAccountSid() {
@@ -193,7 +193,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The date that this resource was created.
-     * 
+     *
      * @return The date that this resource was created
      */
     public final DateTime getDateCreated() {
@@ -202,7 +202,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The date that this resource was last updated.
-     * 
+     *
      * @return The date that this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -212,7 +212,7 @@ public class Task extends Resource {
     /**
      * Returns The A user-provided string that identifies this resource. It is
      * non-unique and can up to 255 characters long..
-     * 
+     *
      * @return A user-provided string that identifies this resource. It is
      *         non-unique and can up to 255 characters long.
      */
@@ -222,7 +222,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The links.
-     * 
+     *
      * @return The links
      */
     public final Map<String, String> getLinks() {
@@ -231,7 +231,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The unique ID of the Assistant..
-     * 
+     *
      * @return The unique ID of the Assistant.
      */
     public final String getAssistantSid() {
@@ -240,7 +240,7 @@ public class Task extends Resource {
 
     /**
      * Returns The A 34 character string that uniquely identifies this resource..
-     * 
+     *
      * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
@@ -250,7 +250,7 @@ public class Task extends Resource {
     /**
      * Returns The A user-provided string that uniquely identifies this resource as
      * an alternative to the sid. Unique up to 64 characters long..
-     * 
+     *
      * @return A user-provided string that uniquely identifies this resource as an
      *         alternative to the sid. Unique up to 64 characters long.
      */
@@ -261,7 +261,7 @@ public class Task extends Resource {
     /**
      * Returns The User-provided HTTP endpoint where from the assistant fetches
      * actions.
-     * 
+     *
      * @return User-provided HTTP endpoint where from the assistant fetches actions
      */
     public final URI getActionsUrl() {
@@ -270,7 +270,7 @@ public class Task extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -289,15 +289,15 @@ public class Task extends Resource {
 
         Task other = (Task) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(links, other.links) && 
-               Objects.equals(assistantSid, other.assistantSid) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(actionsUrl, other.actionsUrl) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(links, other.links) &&
+               Objects.equals(assistantSid, other.assistantSid) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(actionsUrl, other.actionsUrl) &&
                Objects.equals(url, other.url);
     }
 

@@ -23,11 +23,11 @@ public class EventFetcher extends Fetcher<Event> {
 
     /**
      * Construct a new EventFetcher.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathSid The sid
      */
-    public EventFetcher(final String pathWorkspaceSid, 
+    public EventFetcher(final String pathWorkspaceSid,
                         final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class EventFetcher extends Fetcher<Event> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Event
      */

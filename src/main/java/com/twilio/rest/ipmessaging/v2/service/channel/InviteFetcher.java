@@ -24,13 +24,13 @@ public class InviteFetcher extends Fetcher<Invite> {
 
     /**
      * Construct a new InviteFetcher.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to fetch the resource from
      * @param pathChannelSid The SID of the Channel the resource to fetch belongs to
      * @param pathSid The unique string that identifies the resource
      */
-    public InviteFetcher(final String pathServiceSid, 
-                         final String pathChannelSid, 
+    public InviteFetcher(final String pathServiceSid,
+                         final String pathChannelSid,
                          final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -39,7 +39,7 @@ public class InviteFetcher extends Fetcher<Invite> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Invite
      */

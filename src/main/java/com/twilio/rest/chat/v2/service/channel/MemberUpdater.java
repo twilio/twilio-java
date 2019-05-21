@@ -32,14 +32,14 @@ public class MemberUpdater extends Updater<Member> {
 
     /**
      * Construct a new MemberUpdater.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to create the resource under
      * @param pathChannelSid The unique ID of the channel the member to update
      *                       belongs to
      * @param pathSid The unique string that identifies the resource
      */
-    public MemberUpdater(final String pathServiceSid, 
-                         final String pathChannelSid, 
+    public MemberUpdater(final String pathServiceSid,
+                         final String pathChannelSid,
                          final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -50,7 +50,7 @@ public class MemberUpdater extends Updater<Member> {
      * The SID of the [Role](https://www.twilio.com/docs/chat/rest/roles) to assign
      * to the member. The default roles are those specified on the
      * [Service](https://www.twilio.com/docs/chat/api/services)..
-     * 
+     *
      * @param roleSid The SID of the Role to assign to the member
      * @return this
      */
@@ -63,7 +63,7 @@ public class MemberUpdater extends Updater<Member> {
      * The index of the last
      * [Message](https://www.twilio.com/docs/chat/rest/messages) that the Member has
      * read within the [Channel](https://www.twilio.com/docs/chat/channels)..
-     * 
+     *
      * @param lastConsumedMessageIndex The index of the last consumed Message for
      *                                 the Channel for the Member
      * @return this
@@ -77,7 +77,7 @@ public class MemberUpdater extends Updater<Member> {
      * The ISO 8601 timestamp string that represents the date-time of the last
      * [Message](https://www.twilio.com/docs/chat/rest/messages) read event for the
      * Member within the [Channel](https://www.twilio.com/docs/chat/channels)..
-     * 
+     *
      * @param lastConsumptionTimestamp The ISO 8601 based timestamp string
      *                                 representing the date-time of the last
      *                                 Message read event for the Member within the
@@ -94,7 +94,7 @@ public class MemberUpdater extends Updater<Member> {
      * format, to assign to the resource as the date it was created. The default is
      * the current time set by the Chat service.  Note that this parameter should
      * only be used when a Member is being recreated from a backup/separate source..
-     * 
+     *
      * @param dateCreated The ISO 8601 date and time in GMT when the resource was
      *                    created
      * @return this
@@ -109,7 +109,7 @@ public class MemberUpdater extends Updater<Member> {
      * format, to assign to the resource as the date it was last updated. Note that
      * this parameter should only be used when a Member is being recreated from a
      * backup/separate source and where a Member was previously updated..
-     * 
+     *
      * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
      *                    updated
      * @return this
@@ -121,7 +121,7 @@ public class MemberUpdater extends Updater<Member> {
 
     /**
      * A valid JSON string that contains application-specific data..
-     * 
+     *
      * @param attributes A valid JSON string that contains application-specific data
      * @return this
      */
@@ -132,7 +132,7 @@ public class MemberUpdater extends Updater<Member> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Member
      */
@@ -171,7 +171,7 @@ public class MemberUpdater extends Updater<Member> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

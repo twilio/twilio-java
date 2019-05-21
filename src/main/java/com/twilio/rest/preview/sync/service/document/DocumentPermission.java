@@ -41,49 +41,49 @@ public class DocumentPermission extends Resource {
 
     /**
      * Create a DocumentPermissionFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathDocumentSid Sync Document SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync Document
      *                     Permission applies.
      * @return DocumentPermissionFetcher capable of executing the fetch
      */
-    public static DocumentPermissionFetcher fetcher(final String pathServiceSid, 
-                                                    final String pathDocumentSid, 
+    public static DocumentPermissionFetcher fetcher(final String pathServiceSid,
+                                                    final String pathDocumentSid,
                                                     final String pathIdentity) {
         return new DocumentPermissionFetcher(pathServiceSid, pathDocumentSid, pathIdentity);
     }
 
     /**
      * Create a DocumentPermissionDeleter to execute delete.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathDocumentSid Sync Document SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync Document
      *                     Permission applies.
      * @return DocumentPermissionDeleter capable of executing the delete
      */
-    public static DocumentPermissionDeleter deleter(final String pathServiceSid, 
-                                                    final String pathDocumentSid, 
+    public static DocumentPermissionDeleter deleter(final String pathServiceSid,
+                                                    final String pathDocumentSid,
                                                     final String pathIdentity) {
         return new DocumentPermissionDeleter(pathServiceSid, pathDocumentSid, pathIdentity);
     }
 
     /**
      * Create a DocumentPermissionReader to execute read.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathDocumentSid Sync Document SID or unique name.
      * @return DocumentPermissionReader capable of executing the read
      */
-    public static DocumentPermissionReader reader(final String pathServiceSid, 
+    public static DocumentPermissionReader reader(final String pathServiceSid,
                                                   final String pathDocumentSid) {
         return new DocumentPermissionReader(pathServiceSid, pathDocumentSid);
     }
 
     /**
      * Create a DocumentPermissionUpdater to execute update.
-     * 
+     *
      * @param pathServiceSid Sync Service Instance SID.
      * @param pathDocumentSid Sync Document SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync Document
@@ -93,11 +93,11 @@ public class DocumentPermission extends Resource {
      * @param manage Manage access.
      * @return DocumentPermissionUpdater capable of executing the update
      */
-    public static DocumentPermissionUpdater updater(final String pathServiceSid, 
-                                                    final String pathDocumentSid, 
-                                                    final String pathIdentity, 
-                                                    final Boolean read, 
-                                                    final Boolean write, 
+    public static DocumentPermissionUpdater updater(final String pathServiceSid,
+                                                    final String pathDocumentSid,
+                                                    final String pathIdentity,
+                                                    final Boolean read,
+                                                    final Boolean write,
                                                     final Boolean manage) {
         return new DocumentPermissionUpdater(pathServiceSid, pathDocumentSid, pathIdentity, read, write, manage);
     }
@@ -105,7 +105,7 @@ public class DocumentPermission extends Resource {
     /**
      * Converts a JSON String into a DocumentPermission object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return DocumentPermission object represented by the provided JSON
@@ -124,7 +124,7 @@ public class DocumentPermission extends Resource {
     /**
      * Converts a JSON InputStream into a DocumentPermission object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return DocumentPermission object represented by the provided JSON
@@ -151,19 +151,19 @@ public class DocumentPermission extends Resource {
 
     @JsonCreator
     private DocumentPermission(@JsonProperty("account_sid")
-                               final String accountSid, 
+                               final String accountSid,
                                @JsonProperty("service_sid")
-                               final String serviceSid, 
+                               final String serviceSid,
                                @JsonProperty("document_sid")
-                               final String documentSid, 
+                               final String documentSid,
                                @JsonProperty("identity")
-                               final String identity, 
+                               final String identity,
                                @JsonProperty("read")
-                               final Boolean read, 
+                               final Boolean read,
                                @JsonProperty("write")
-                               final Boolean write, 
+                               final Boolean write,
                                @JsonProperty("manage")
-                               final Boolean manage, 
+                               final Boolean manage,
                                @JsonProperty("url")
                                final URI url) {
         this.accountSid = accountSid;
@@ -178,7 +178,7 @@ public class DocumentPermission extends Resource {
 
     /**
      * Returns The Twilio Account SID..
-     * 
+     *
      * @return Twilio Account SID.
      */
     public final String getAccountSid() {
@@ -187,7 +187,7 @@ public class DocumentPermission extends Resource {
 
     /**
      * Returns The Sync Service Instance SID..
-     * 
+     *
      * @return Sync Service Instance SID.
      */
     public final String getServiceSid() {
@@ -196,7 +196,7 @@ public class DocumentPermission extends Resource {
 
     /**
      * Returns The Sync Document SID..
-     * 
+     *
      * @return Sync Document SID.
      */
     public final String getDocumentSid() {
@@ -206,7 +206,7 @@ public class DocumentPermission extends Resource {
     /**
      * Returns The Identity of the user to whom the Sync Document Permission
      * applies..
-     * 
+     *
      * @return Identity of the user to whom the Sync Document Permission applies.
      */
     public final String getIdentity() {
@@ -215,7 +215,7 @@ public class DocumentPermission extends Resource {
 
     /**
      * Returns The Read access..
-     * 
+     *
      * @return Read access.
      */
     public final Boolean getRead() {
@@ -224,7 +224,7 @@ public class DocumentPermission extends Resource {
 
     /**
      * Returns The Write access..
-     * 
+     *
      * @return Write access.
      */
     public final Boolean getWrite() {
@@ -233,7 +233,7 @@ public class DocumentPermission extends Resource {
 
     /**
      * Returns The Manage access..
-     * 
+     *
      * @return Manage access.
      */
     public final Boolean getManage() {
@@ -242,7 +242,7 @@ public class DocumentPermission extends Resource {
 
     /**
      * Returns The URL of this Sync Document Permission..
-     * 
+     *
      * @return URL of this Sync Document Permission.
      */
     public final URI getUrl() {
@@ -261,13 +261,13 @@ public class DocumentPermission extends Resource {
 
         DocumentPermission other = (DocumentPermission) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(documentSid, other.documentSid) && 
-               Objects.equals(identity, other.identity) && 
-               Objects.equals(read, other.read) && 
-               Objects.equals(write, other.write) && 
-               Objects.equals(manage, other.manage) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(documentSid, other.documentSid) &&
+               Objects.equals(identity, other.identity) &&
+               Objects.equals(read, other.read) &&
+               Objects.equals(write, other.write) &&
+               Objects.equals(manage, other.manage) &&
                Objects.equals(url, other.url);
     }
 

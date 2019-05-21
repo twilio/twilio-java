@@ -38,77 +38,77 @@ public class Member extends Resource {
 
     /**
      * Create a MemberFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to fetch the resource from
      * @param pathChannelSid The unique ID of the channel the member belongs to
      * @param pathSid The unique string that identifies the resource
      * @return MemberFetcher capable of executing the fetch
      */
-    public static MemberFetcher fetcher(final String pathServiceSid, 
-                                        final String pathChannelSid, 
+    public static MemberFetcher fetcher(final String pathServiceSid,
+                                        final String pathChannelSid,
                                         final String pathSid) {
         return new MemberFetcher(pathServiceSid, pathChannelSid, pathSid);
     }
 
     /**
      * Create a MemberCreator to execute create.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to create the resource under
      * @param pathChannelSid The unique ID of the channel the new member belongs to
      * @param identity The `identity` value that identifies the new resource's User
      * @return MemberCreator capable of executing the create
      */
-    public static MemberCreator creator(final String pathServiceSid, 
-                                        final String pathChannelSid, 
+    public static MemberCreator creator(final String pathServiceSid,
+                                        final String pathChannelSid,
                                         final String identity) {
         return new MemberCreator(pathServiceSid, pathChannelSid, identity);
     }
 
     /**
      * Create a MemberReader to execute read.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to read the resources from
      * @param pathChannelSid The unique ID of the channel the member belongs to
      * @return MemberReader capable of executing the read
      */
-    public static MemberReader reader(final String pathServiceSid, 
+    public static MemberReader reader(final String pathServiceSid,
                                       final String pathChannelSid) {
         return new MemberReader(pathServiceSid, pathChannelSid);
     }
 
     /**
      * Create a MemberDeleter to execute delete.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to delete the resource from
      * @param pathChannelSid The unique ID of the channel the message to delete
      *                       belongs to
      * @param pathSid The unique string that identifies the resource
      * @return MemberDeleter capable of executing the delete
      */
-    public static MemberDeleter deleter(final String pathServiceSid, 
-                                        final String pathChannelSid, 
+    public static MemberDeleter deleter(final String pathServiceSid,
+                                        final String pathChannelSid,
                                         final String pathSid) {
         return new MemberDeleter(pathServiceSid, pathChannelSid, pathSid);
     }
 
     /**
      * Create a MemberUpdater to execute update.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to create the resource under
      * @param pathChannelSid The unique ID of the channel the member to update
      *                       belongs to
      * @param pathSid The unique string that identifies the resource
      * @return MemberUpdater capable of executing the update
      */
-    public static MemberUpdater updater(final String pathServiceSid, 
-                                        final String pathChannelSid, 
+    public static MemberUpdater updater(final String pathServiceSid,
+                                        final String pathChannelSid,
                                         final String pathSid) {
         return new MemberUpdater(pathServiceSid, pathChannelSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a Member object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Member object represented by the provided JSON
@@ -127,7 +127,7 @@ public class Member extends Resource {
     /**
      * Converts a JSON InputStream into a Member object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Member object represented by the provided JSON
@@ -157,25 +157,25 @@ public class Member extends Resource {
 
     @JsonCreator
     private Member(@JsonProperty("sid")
-                   final String sid, 
+                   final String sid,
                    @JsonProperty("account_sid")
-                   final String accountSid, 
+                   final String accountSid,
                    @JsonProperty("channel_sid")
-                   final String channelSid, 
+                   final String channelSid,
                    @JsonProperty("service_sid")
-                   final String serviceSid, 
+                   final String serviceSid,
                    @JsonProperty("identity")
-                   final String identity, 
+                   final String identity,
                    @JsonProperty("date_created")
-                   final String dateCreated, 
+                   final String dateCreated,
                    @JsonProperty("date_updated")
-                   final String dateUpdated, 
+                   final String dateUpdated,
                    @JsonProperty("role_sid")
-                   final String roleSid, 
+                   final String roleSid,
                    @JsonProperty("last_consumed_message_index")
-                   final Integer lastConsumedMessageIndex, 
+                   final Integer lastConsumedMessageIndex,
                    @JsonProperty("last_consumption_timestamp")
-                   final String lastConsumptionTimestamp, 
+                   final String lastConsumptionTimestamp,
                    @JsonProperty("url")
                    final URI url) {
         this.sid = sid;
@@ -193,7 +193,7 @@ public class Member extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -202,7 +202,7 @@ public class Member extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -211,7 +211,7 @@ public class Member extends Resource {
 
     /**
      * Returns The The unique ID of the Channel for the member.
-     * 
+     *
      * @return The unique ID of the Channel for the member
      */
     public final String getChannelSid() {
@@ -220,7 +220,7 @@ public class Member extends Resource {
 
     /**
      * Returns The The SID of the Service that the resource is associated with.
-     * 
+     *
      * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
@@ -229,7 +229,7 @@ public class Member extends Resource {
 
     /**
      * Returns The The string that identifies the resource's User.
-     * 
+     *
      * @return The string that identifies the resource's User
      */
     public final String getIdentity() {
@@ -238,7 +238,7 @@ public class Member extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
@@ -248,7 +248,7 @@ public class Member extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -257,7 +257,7 @@ public class Member extends Resource {
 
     /**
      * Returns The The SID of the Role assigned to the member.
-     * 
+     *
      * @return The SID of the Role assigned to the member
      */
     public final String getRoleSid() {
@@ -267,7 +267,7 @@ public class Member extends Resource {
     /**
      * Returns The The index of the last Message that the Member has read within the
      * Channel.
-     * 
+     *
      * @return The index of the last Message that the Member has read within the
      *         Channel
      */
@@ -278,7 +278,7 @@ public class Member extends Resource {
     /**
      * Returns The The ISO 8601 based timestamp string that represents the date-time
      * of the last Message read event for the Member within the Channel.
-     * 
+     *
      * @return The ISO 8601 based timestamp string that represents the date-time of
      *         the last Message read event for the Member within the Channel
      */
@@ -288,7 +288,7 @@ public class Member extends Resource {
 
     /**
      * Returns The The absolute URL of the Member resource.
-     * 
+     *
      * @return The absolute URL of the Member resource
      */
     public final URI getUrl() {
@@ -307,16 +307,16 @@ public class Member extends Resource {
 
         Member other = (Member) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(channelSid, other.channelSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(identity, other.identity) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(roleSid, other.roleSid) && 
-               Objects.equals(lastConsumedMessageIndex, other.lastConsumedMessageIndex) && 
-               Objects.equals(lastConsumptionTimestamp, other.lastConsumptionTimestamp) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(channelSid, other.channelSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(identity, other.identity) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(roleSid, other.roleSid) &&
+               Objects.equals(lastConsumedMessageIndex, other.lastConsumedMessageIndex) &&
+               Objects.equals(lastConsumptionTimestamp, other.lastConsumptionTimestamp) &&
                Objects.equals(url, other.url);
     }
 

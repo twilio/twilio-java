@@ -42,21 +42,21 @@ public class TaskActions extends Resource {
 
     /**
      * Create a TaskActionsFetcher to execute fetch.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         Task for which the task actions to fetch were defined
      * @param pathTaskSid The SID of the Task for which the task actions to fetch
      *                    were defined
      * @return TaskActionsFetcher capable of executing the fetch
      */
-    public static TaskActionsFetcher fetcher(final String pathAssistantSid, 
+    public static TaskActionsFetcher fetcher(final String pathAssistantSid,
                                              final String pathTaskSid) {
         return new TaskActionsFetcher(pathAssistantSid, pathTaskSid);
     }
 
     /**
      * Create a TaskActionsUpdater to execute update.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         Task for which the task actions to update were
      *                         defined
@@ -64,7 +64,7 @@ public class TaskActions extends Resource {
      *                    were defined
      * @return TaskActionsUpdater capable of executing the update
      */
-    public static TaskActionsUpdater updater(final String pathAssistantSid, 
+    public static TaskActionsUpdater updater(final String pathAssistantSid,
                                              final String pathTaskSid) {
         return new TaskActionsUpdater(pathAssistantSid, pathTaskSid);
     }
@@ -72,7 +72,7 @@ public class TaskActions extends Resource {
     /**
      * Converts a JSON String into a TaskActions object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return TaskActions object represented by the provided JSON
@@ -91,7 +91,7 @@ public class TaskActions extends Resource {
     /**
      * Converts a JSON InputStream into a TaskActions object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return TaskActions object represented by the provided JSON
@@ -115,13 +115,13 @@ public class TaskActions extends Resource {
 
     @JsonCreator
     private TaskActions(@JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("assistant_sid")
-                        final String assistantSid, 
+                        final String assistantSid,
                         @JsonProperty("task_sid")
-                        final String taskSid, 
+                        final String taskSid,
                         @JsonProperty("url")
-                        final URI url, 
+                        final URI url,
                         @JsonProperty("data")
                         final Map<String, Object> data) {
         this.accountSid = accountSid;
@@ -133,7 +133,7 @@ public class TaskActions extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -143,7 +143,7 @@ public class TaskActions extends Resource {
     /**
      * Returns The The SID of the Assistant that is the parent of the Task
      * associated with the resource.
-     * 
+     *
      * @return The SID of the Assistant that is the parent of the Task associated
      *         with the resource
      */
@@ -153,7 +153,7 @@ public class TaskActions extends Resource {
 
     /**
      * Returns The The SID of the Task associated with the resource.
-     * 
+     *
      * @return The SID of the Task associated with the resource
      */
     public final String getTaskSid() {
@@ -162,7 +162,7 @@ public class TaskActions extends Resource {
 
     /**
      * Returns The The absolute URL of the TaskActions resource.
-     * 
+     *
      * @return The absolute URL of the TaskActions resource
      */
     public final URI getUrl() {
@@ -172,7 +172,7 @@ public class TaskActions extends Resource {
     /**
      * Returns The The JSON string that specifies the actions that instruct the
      * Assistant on how to perform the task.
-     * 
+     *
      * @return The JSON string that specifies the actions that instruct the
      *         Assistant on how to perform the task
      */
@@ -192,10 +192,10 @@ public class TaskActions extends Resource {
 
         TaskActions other = (TaskActions) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(assistantSid, other.assistantSid) && 
-               Objects.equals(taskSid, other.taskSid) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(assistantSid, other.assistantSid) &&
+               Objects.equals(taskSid, other.taskSid) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(data, other.data);
     }
 

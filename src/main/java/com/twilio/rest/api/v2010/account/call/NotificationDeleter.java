@@ -24,11 +24,11 @@ public class NotificationDeleter extends Deleter<Notification> {
 
     /**
      * Construct a new NotificationDeleter.
-     * 
+     *
      * @param pathCallSid The Call SID of the resources to delete
      * @param pathSid The unique string that identifies the resource
      */
-    public NotificationDeleter(final String pathCallSid, 
+    public NotificationDeleter(final String pathCallSid,
                                final String pathSid) {
         this.pathCallSid = pathCallSid;
         this.pathSid = pathSid;
@@ -36,14 +36,14 @@ public class NotificationDeleter extends Deleter<Notification> {
 
     /**
      * Construct a new NotificationDeleter.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       delete
      * @param pathCallSid The Call SID of the resources to delete
      * @param pathSid The unique string that identifies the resource
      */
-    public NotificationDeleter(final String pathAccountSid, 
-                               final String pathCallSid, 
+    public NotificationDeleter(final String pathAccountSid,
+                               final String pathCallSid,
                                final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathCallSid = pathCallSid;
@@ -52,7 +52,7 @@ public class NotificationDeleter extends Deleter<Notification> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

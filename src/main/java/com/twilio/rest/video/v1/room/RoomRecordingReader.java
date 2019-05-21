@@ -30,7 +30,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
 
     /**
      * Construct a new RoomRecordingReader.
-     * 
+     *
      * @param pathRoomSid The room_sid
      */
     public RoomRecordingReader(final String pathRoomSid) {
@@ -39,7 +39,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
 
     /**
      * The status.
-     * 
+     *
      * @param status The status
      * @return this
      */
@@ -50,7 +50,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
 
     /**
      * The source_sid.
-     * 
+     *
      * @param sourceSid The source_sid
      * @return this
      */
@@ -61,7 +61,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
 
     /**
      * The date_created_after.
-     * 
+     *
      * @param dateCreatedAfter The date_created_after
      * @return this
      */
@@ -72,7 +72,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
 
     /**
      * The date_created_before.
-     * 
+     *
      * @param dateCreatedBefore The date_created_before
      * @return this
      */
@@ -83,7 +83,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return RoomRecording ResourceSet
      */
@@ -94,7 +94,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return RoomRecording ResourceSet
      */
@@ -114,7 +114,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return RoomRecording ResourceSet
@@ -132,13 +132,13 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<RoomRecording> nextPage(final Page<RoomRecording> page, 
+    public Page<RoomRecording> nextPage(final Page<RoomRecording> page,
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -152,13 +152,13 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<RoomRecording> previousPage(final Page<RoomRecording> page, 
+    public Page<RoomRecording> previousPage(final Page<RoomRecording> page,
                                             final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -172,7 +172,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
 
     /**
      * Generate a Page of RoomRecording Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -207,7 +207,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

@@ -37,7 +37,7 @@ public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>
 
     /**
      * Construct a new AuthorizationDocumentUpdater.
-     * 
+     *
      * @param pathSid The sid
      */
     public AuthorizationDocumentUpdater(final String pathSid) {
@@ -47,7 +47,7 @@ public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>
     /**
      * A list of HostedNumberOrder sids that this AuthorizationDocument will
      * authorize for hosting phone number capabilities on Twilio's platform..
-     * 
+     *
      * @param hostedNumberOrderSids A list of HostedNumberOrder sids.
      * @return this
      */
@@ -59,7 +59,7 @@ public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>
     /**
      * A list of HostedNumberOrder sids that this AuthorizationDocument will
      * authorize for hosting phone number capabilities on Twilio's platform..
-     * 
+     *
      * @param hostedNumberOrderSids A list of HostedNumberOrder sids.
      * @return this
      */
@@ -70,7 +70,7 @@ public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>
     /**
      * A 34 character string that uniquely identifies the Address resource that is
      * associated with this AuthorizationDocument..
-     * 
+     *
      * @param addressSid Address sid.
      * @return this
      */
@@ -81,7 +81,7 @@ public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>
 
     /**
      * Email that this AuthorizationDocument will be sent to for signing..
-     * 
+     *
      * @param email Email.
      * @return this
      */
@@ -93,7 +93,7 @@ public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>
     /**
      * Email recipients who will be informed when an Authorization Document has been
      * sent and signed.
-     * 
+     *
      * @param ccEmails A list of emails.
      * @return this
      */
@@ -105,7 +105,7 @@ public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>
     /**
      * Email recipients who will be informed when an Authorization Document has been
      * sent and signed.
-     * 
+     *
      * @param ccEmails A list of emails.
      * @return this
      */
@@ -118,7 +118,7 @@ public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>
      * signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled
      * [Status
      * Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses..
-     * 
+     *
      * @param status The Status of this AuthorizationDocument.
      * @return this
      */
@@ -130,7 +130,7 @@ public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>
     /**
      * The title of the person authorized to sign the Authorization Document for
      * this phone number..
-     * 
+     *
      * @param contactTitle Title of signee of this Authorization Document.
      * @return this
      */
@@ -142,7 +142,7 @@ public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>
     /**
      * The contact phone number of the person authorized to sign the Authorization
      * Document..
-     * 
+     *
      * @param contactPhoneNumber Authorization Document's signee's phone number.
      * @return this
      */
@@ -153,7 +153,7 @@ public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated AuthorizationDocument
      */
@@ -192,7 +192,7 @@ public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -38,7 +38,7 @@ public class Worker extends Resource {
 
     /**
      * Create a WorkerReader to execute read.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @return WorkerReader capable of executing the read
      */
@@ -48,55 +48,55 @@ public class Worker extends Resource {
 
     /**
      * Create a WorkerCreator to execute create.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param friendlyName String representing user-friendly name for the Worker.
      * @return WorkerCreator capable of executing the create
      */
-    public static WorkerCreator creator(final String pathWorkspaceSid, 
+    public static WorkerCreator creator(final String pathWorkspaceSid,
                                         final String friendlyName) {
         return new WorkerCreator(pathWorkspaceSid, friendlyName);
     }
 
     /**
      * Create a WorkerFetcher to execute fetch.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathSid The sid
      * @return WorkerFetcher capable of executing the fetch
      */
-    public static WorkerFetcher fetcher(final String pathWorkspaceSid, 
+    public static WorkerFetcher fetcher(final String pathWorkspaceSid,
                                         final String pathSid) {
         return new WorkerFetcher(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a WorkerUpdater to execute update.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathSid The sid
      * @return WorkerUpdater capable of executing the update
      */
-    public static WorkerUpdater updater(final String pathWorkspaceSid, 
+    public static WorkerUpdater updater(final String pathWorkspaceSid,
                                         final String pathSid) {
         return new WorkerUpdater(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a WorkerDeleter to execute delete.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathSid The sid
      * @return WorkerDeleter capable of executing the delete
      */
-    public static WorkerDeleter deleter(final String pathWorkspaceSid, 
+    public static WorkerDeleter deleter(final String pathWorkspaceSid,
                                         final String pathSid) {
         return new WorkerDeleter(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a Worker object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Worker object represented by the provided JSON
@@ -115,7 +115,7 @@ public class Worker extends Resource {
     /**
      * Converts a JSON InputStream into a Worker object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Worker object represented by the provided JSON
@@ -147,29 +147,29 @@ public class Worker extends Resource {
 
     @JsonCreator
     private Worker(@JsonProperty("account_sid")
-                   final String accountSid, 
+                   final String accountSid,
                    @JsonProperty("activity_name")
-                   final String activityName, 
+                   final String activityName,
                    @JsonProperty("activity_sid")
-                   final String activitySid, 
+                   final String activitySid,
                    @JsonProperty("attributes")
-                   final String attributes, 
+                   final String attributes,
                    @JsonProperty("available")
-                   final Boolean available, 
+                   final Boolean available,
                    @JsonProperty("date_created")
-                   final String dateCreated, 
+                   final String dateCreated,
                    @JsonProperty("date_status_changed")
-                   final String dateStatusChanged, 
+                   final String dateStatusChanged,
                    @JsonProperty("date_updated")
-                   final String dateUpdated, 
+                   final String dateUpdated,
                    @JsonProperty("friendly_name")
-                   final String friendlyName, 
+                   final String friendlyName,
                    @JsonProperty("sid")
-                   final String sid, 
+                   final String sid,
                    @JsonProperty("workspace_sid")
-                   final String workspaceSid, 
+                   final String workspaceSid,
                    @JsonProperty("url")
-                   final URI url, 
+                   final URI url,
                    @JsonProperty("links")
                    final Map<String, String> links) {
         this.accountSid = accountSid;
@@ -189,7 +189,7 @@ public class Worker extends Resource {
 
     /**
      * Returns The The ID of the account that owns this worker.
-     * 
+     *
      * @return The ID of the account that owns this worker
      */
     public final String getAccountSid() {
@@ -199,7 +199,7 @@ public class Worker extends Resource {
     /**
      * Returns The Filter by workers that are in a particular Activity by Friendly
      * Name.
-     * 
+     *
      * @return Filter by workers that are in a particular Activity by Friendly Name
      */
     public final String getActivityName() {
@@ -208,7 +208,7 @@ public class Worker extends Resource {
 
     /**
      * Returns The Filter by workers that are in a particular Activity by SID.
-     * 
+     *
      * @return Filter by workers that are in a particular Activity by SID
      */
     public final String getActivitySid() {
@@ -217,7 +217,7 @@ public class Worker extends Resource {
 
     /**
      * Returns The JSON object describing this worker..
-     * 
+     *
      * @return JSON object describing this worker.
      */
     public final String getAttributes() {
@@ -226,7 +226,7 @@ public class Worker extends Resource {
 
     /**
      * Returns The Filter by workers that are available or unavailable..
-     * 
+     *
      * @return Filter by workers that are available or unavailable.
      */
     public final Boolean getAvailable() {
@@ -235,7 +235,7 @@ public class Worker extends Resource {
 
     /**
      * Returns The DateTime this worker was created.
-     * 
+     *
      * @return DateTime this worker was created
      */
     public final DateTime getDateCreated() {
@@ -244,7 +244,7 @@ public class Worker extends Resource {
 
     /**
      * Returns The DateTime of the last change to the Worker's activity..
-     * 
+     *
      * @return DateTime of the last change to the Worker's activity.
      */
     public final DateTime getDateStatusChanged() {
@@ -253,7 +253,7 @@ public class Worker extends Resource {
 
     /**
      * Returns The DateTime of the last update.
-     * 
+     *
      * @return DateTime of the last update
      */
     public final DateTime getDateUpdated() {
@@ -262,7 +262,7 @@ public class Worker extends Resource {
 
     /**
      * Returns The Filter by a worker's friendly name.
-     * 
+     *
      * @return Filter by a worker's friendly name
      */
     public final String getFriendlyName() {
@@ -271,7 +271,7 @@ public class Worker extends Resource {
 
     /**
      * Returns The The unique ID of the worker.
-     * 
+     *
      * @return The unique ID of the worker
      */
     public final String getSid() {
@@ -280,7 +280,7 @@ public class Worker extends Resource {
 
     /**
      * Returns The The ID of the Workflow this worker is associated with.
-     * 
+     *
      * @return The ID of the Workflow this worker is associated with
      */
     public final String getWorkspaceSid() {
@@ -289,7 +289,7 @@ public class Worker extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -298,7 +298,7 @@ public class Worker extends Resource {
 
     /**
      * Returns The The links.
-     * 
+     *
      * @return The links
      */
     public final Map<String, String> getLinks() {
@@ -317,18 +317,18 @@ public class Worker extends Resource {
 
         Worker other = (Worker) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(activityName, other.activityName) && 
-               Objects.equals(activitySid, other.activitySid) && 
-               Objects.equals(attributes, other.attributes) && 
-               Objects.equals(available, other.available) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateStatusChanged, other.dateStatusChanged) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(workspaceSid, other.workspaceSid) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(activityName, other.activityName) &&
+               Objects.equals(activitySid, other.activitySid) &&
+               Objects.equals(attributes, other.attributes) &&
+               Objects.equals(available, other.available) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateStatusChanged, other.dateStatusChanged) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(workspaceSid, other.workspaceSid) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

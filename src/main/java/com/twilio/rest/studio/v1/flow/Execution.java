@@ -65,7 +65,7 @@ public class Execution extends Resource {
 
     /**
      * Create a ExecutionReader to execute read.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      * @return ExecutionReader capable of executing the read
      */
@@ -75,39 +75,39 @@ public class Execution extends Resource {
 
     /**
      * Create a ExecutionFetcher to execute fetch.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      * @param pathSid Execution Sid.
      * @return ExecutionFetcher capable of executing the fetch
      */
-    public static ExecutionFetcher fetcher(final String pathFlowSid, 
+    public static ExecutionFetcher fetcher(final String pathFlowSid,
                                            final String pathSid) {
         return new ExecutionFetcher(pathFlowSid, pathSid);
     }
 
     /**
      * Create a ExecutionCreator to execute create.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      * @param to The Contact phone number to start a Studio Flow Execution.
      * @param from The Twilio phone number to send messages or initiate calls from
      *             during the Flow Execution.
      * @return ExecutionCreator capable of executing the create
      */
-    public static ExecutionCreator creator(final String pathFlowSid, 
-                                           final com.twilio.type.PhoneNumber to, 
+    public static ExecutionCreator creator(final String pathFlowSid,
+                                           final com.twilio.type.PhoneNumber to,
                                            final com.twilio.type.PhoneNumber from) {
         return new ExecutionCreator(pathFlowSid, to, from);
     }
 
     /**
      * Create a ExecutionDeleter to execute delete.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      * @param pathSid Execution Sid.
      * @return ExecutionDeleter capable of executing the delete
      */
-    public static ExecutionDeleter deleter(final String pathFlowSid, 
+    public static ExecutionDeleter deleter(final String pathFlowSid,
                                            final String pathSid) {
         return new ExecutionDeleter(pathFlowSid, pathSid);
     }
@@ -115,7 +115,7 @@ public class Execution extends Resource {
     /**
      * Converts a JSON String into a Execution object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Execution object represented by the provided JSON
@@ -134,7 +134,7 @@ public class Execution extends Resource {
     /**
      * Converts a JSON InputStream into a Execution object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Execution object represented by the provided JSON
@@ -164,25 +164,25 @@ public class Execution extends Resource {
 
     @JsonCreator
     private Execution(@JsonProperty("sid")
-                      final String sid, 
+                      final String sid,
                       @JsonProperty("account_sid")
-                      final String accountSid, 
+                      final String accountSid,
                       @JsonProperty("flow_sid")
-                      final String flowSid, 
+                      final String flowSid,
                       @JsonProperty("contact_sid")
-                      final String contactSid, 
+                      final String contactSid,
                       @JsonProperty("contact_channel_address")
-                      final String contactChannelAddress, 
+                      final String contactChannelAddress,
                       @JsonProperty("context")
-                      final Map<String, Object> context, 
+                      final Map<String, Object> context,
                       @JsonProperty("status")
-                      final Execution.Status status, 
+                      final Execution.Status status,
                       @JsonProperty("date_created")
-                      final String dateCreated, 
+                      final String dateCreated,
                       @JsonProperty("date_updated")
-                      final String dateUpdated, 
+                      final String dateUpdated,
                       @JsonProperty("url")
-                      final URI url, 
+                      final URI url,
                       @JsonProperty("links")
                       final Map<String, String> links) {
         this.sid = sid;
@@ -200,7 +200,7 @@ public class Execution extends Resource {
 
     /**
      * Returns The A string that uniquely identifies this Execution..
-     * 
+     *
      * @return A string that uniquely identifies this Execution.
      */
     public final String getSid() {
@@ -209,7 +209,7 @@ public class Execution extends Resource {
 
     /**
      * Returns The Account Sid..
-     * 
+     *
      * @return Account Sid.
      */
     public final String getAccountSid() {
@@ -218,7 +218,7 @@ public class Execution extends Resource {
 
     /**
      * Returns The Flow Sid..
-     * 
+     *
      * @return Flow Sid.
      */
     public final String getFlowSid() {
@@ -227,7 +227,7 @@ public class Execution extends Resource {
 
     /**
      * Returns The Contact Sid..
-     * 
+     *
      * @return Contact Sid.
      */
     public final String getContactSid() {
@@ -237,7 +237,7 @@ public class Execution extends Resource {
     /**
      * Returns The The phone number, SIP address or Client identifier that triggered
      * this Execution..
-     * 
+     *
      * @return The phone number, SIP address or Client identifier that triggered
      *         this Execution.
      */
@@ -247,7 +247,7 @@ public class Execution extends Resource {
 
     /**
      * Returns The The context.
-     * 
+     *
      * @return The context
      */
     public final Map<String, Object> getContext() {
@@ -256,7 +256,7 @@ public class Execution extends Resource {
 
     /**
      * Returns The The Status of this Execution.
-     * 
+     *
      * @return The Status of this Execution
      */
     public final Execution.Status getStatus() {
@@ -265,7 +265,7 @@ public class Execution extends Resource {
 
     /**
      * Returns The The date this Execution was created.
-     * 
+     *
      * @return The date this Execution was created
      */
     public final DateTime getDateCreated() {
@@ -274,7 +274,7 @@ public class Execution extends Resource {
 
     /**
      * Returns The The date this Execution was updated.
-     * 
+     *
      * @return The date this Execution was updated
      */
     public final DateTime getDateUpdated() {
@@ -283,7 +283,7 @@ public class Execution extends Resource {
 
     /**
      * Returns The The URL of this resource..
-     * 
+     *
      * @return The URL of this resource.
      */
     public final URI getUrl() {
@@ -292,7 +292,7 @@ public class Execution extends Resource {
 
     /**
      * Returns The Nested resource URLs..
-     * 
+     *
      * @return Nested resource URLs.
      */
     public final Map<String, String> getLinks() {
@@ -311,16 +311,16 @@ public class Execution extends Resource {
 
         Execution other = (Execution) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(flowSid, other.flowSid) && 
-               Objects.equals(contactSid, other.contactSid) && 
-               Objects.equals(contactChannelAddress, other.contactChannelAddress) && 
-               Objects.equals(context, other.context) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(flowSid, other.flowSid) &&
+               Objects.equals(contactSid, other.contactSid) &&
+               Objects.equals(contactChannelAddress, other.contactChannelAddress) &&
+               Objects.equals(context, other.context) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

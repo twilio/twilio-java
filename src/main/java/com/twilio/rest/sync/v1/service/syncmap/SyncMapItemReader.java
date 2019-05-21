@@ -32,11 +32,11 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     /**
      * Construct a new SyncMapItemReader.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathMapSid The map_sid
      */
-    public SyncMapItemReader(final String pathServiceSid, 
+    public SyncMapItemReader(final String pathServiceSid,
                              final String pathMapSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathMapSid = pathMapSid;
@@ -46,7 +46,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
      * A string; asc or desc. Map Items are [ordered
      * lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by
      * Item key..
-     * 
+     *
      * @param order A string; asc or desc. Map Items are ordered lexicographically
      *              by Item key.
      * @return this
@@ -59,7 +59,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
     /**
      * The Item key offset (including the specified key). If not present, query is
      * performed from the start or end, depending on the Order query parameter..
-     * 
+     *
      * @param from The Item key offset (including the specified key).
      * @return this
      */
@@ -70,7 +70,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     /**
      * The bounds.
-     * 
+     *
      * @param bounds The bounds
      * @return this
      */
@@ -81,7 +81,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return SyncMapItem ResourceSet
      */
@@ -92,7 +92,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return SyncMapItem ResourceSet
      */
@@ -112,7 +112,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return SyncMapItem ResourceSet
@@ -130,13 +130,13 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<SyncMapItem> nextPage(final Page<SyncMapItem> page, 
+    public Page<SyncMapItem> nextPage(final Page<SyncMapItem> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -150,13 +150,13 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<SyncMapItem> previousPage(final Page<SyncMapItem> page, 
+    public Page<SyncMapItem> previousPage(final Page<SyncMapItem> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -170,7 +170,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     /**
      * Generate a Page of SyncMapItem Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -205,7 +205,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

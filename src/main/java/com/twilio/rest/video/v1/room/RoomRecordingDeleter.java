@@ -23,11 +23,11 @@ public class RoomRecordingDeleter extends Deleter<RoomRecording> {
 
     /**
      * Construct a new RoomRecordingDeleter.
-     * 
+     *
      * @param pathRoomSid The room_sid
      * @param pathSid The sid
      */
-    public RoomRecordingDeleter(final String pathRoomSid, 
+    public RoomRecordingDeleter(final String pathRoomSid,
                                 final String pathSid) {
         this.pathRoomSid = pathRoomSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class RoomRecordingDeleter extends Deleter<RoomRecording> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

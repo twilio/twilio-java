@@ -42,7 +42,7 @@ public class Country extends Resource {
 
     /**
      * Create a CountryFetcher to execute fetch.
-     * 
+     *
      * @param pathIsoCode The ISO country code
      * @return CountryFetcher capable of executing the fetch
      */
@@ -52,7 +52,7 @@ public class Country extends Resource {
 
     /**
      * Create a CountryReader to execute read.
-     * 
+     *
      * @return CountryReader capable of executing the read
      */
     public static CountryReader reader() {
@@ -61,7 +61,7 @@ public class Country extends Resource {
 
     /**
      * Converts a JSON String into a Country object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Country object represented by the provided JSON
@@ -80,7 +80,7 @@ public class Country extends Resource {
     /**
      * Converts a JSON InputStream into a Country object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Country object represented by the provided JSON
@@ -108,21 +108,21 @@ public class Country extends Resource {
 
     @JsonCreator
     private Country(@JsonProperty("iso_code")
-                    final String isoCode, 
+                    final String isoCode,
                     @JsonProperty("name")
-                    final String name, 
+                    final String name,
                     @JsonProperty("continent")
-                    final String continent, 
+                    final String continent,
                     @JsonProperty("country_codes")
-                    final List<String> countryCodes, 
+                    final List<String> countryCodes,
                     @JsonProperty("low_risk_numbers_enabled")
-                    final Boolean lowRiskNumbersEnabled, 
+                    final Boolean lowRiskNumbersEnabled,
                     @JsonProperty("high_risk_special_numbers_enabled")
-                    final Boolean highRiskSpecialNumbersEnabled, 
+                    final Boolean highRiskSpecialNumbersEnabled,
                     @JsonProperty("high_risk_tollfraud_numbers_enabled")
-                    final Boolean highRiskTollfraudNumbersEnabled, 
+                    final Boolean highRiskTollfraudNumbersEnabled,
                     @JsonProperty("url")
-                    final URI url, 
+                    final URI url,
                     @JsonProperty("links")
                     final Map<String, String> links) {
         this.isoCode = isoCode;
@@ -138,7 +138,7 @@ public class Country extends Resource {
 
     /**
      * Returns The The ISO country code.
-     * 
+     *
      * @return The ISO country code
      */
     public final String getIsoCode() {
@@ -147,7 +147,7 @@ public class Country extends Resource {
 
     /**
      * Returns The Name of the country.
-     * 
+     *
      * @return Name of the country
      */
     public final String getName() {
@@ -156,7 +156,7 @@ public class Country extends Resource {
 
     /**
      * Returns The Name of the continent.
-     * 
+     *
      * @return Name of the continent
      */
     public final String getContinent() {
@@ -165,7 +165,7 @@ public class Country extends Resource {
 
     /**
      * Returns The The E.164 assigned country codes(s).
-     * 
+     *
      * @return The E.164 assigned country codes(s)
      */
     public final List<String> getCountryCodes() {
@@ -174,7 +174,7 @@ public class Country extends Resource {
 
     /**
      * Returns The `true`, if dialing to low-risk numbers is enabled, else `false`.
-     * 
+     *
      * @return `true`, if dialing to low-risk numbers is enabled, else `false`
      */
     public final Boolean getLowRiskNumbersEnabled() {
@@ -184,7 +184,7 @@ public class Country extends Resource {
     /**
      * Returns The `true`, if dialing to high-risk special services numbers is
      * enabled, else `false`.
-     * 
+     *
      * @return `true`, if dialing to high-risk special services numbers is enabled,
      *         else `false`
      */
@@ -195,7 +195,7 @@ public class Country extends Resource {
     /**
      * Returns The `true`, if dialing to high-risk toll fraud numbers is enabled,
      * else `false`.
-     * 
+     *
      * @return `true`, if dialing to high-risk toll fraud numbers is enabled, else
      *         `false`
      */
@@ -205,7 +205,7 @@ public class Country extends Resource {
 
     /**
      * Returns The The absolute URL of this resource.
-     * 
+     *
      * @return The absolute URL of this resource
      */
     public final URI getUrl() {
@@ -214,7 +214,7 @@ public class Country extends Resource {
 
     /**
      * Returns The A list of URLs related to this resource.
-     * 
+     *
      * @return A list of URLs related to this resource
      */
     public final Map<String, String> getLinks() {
@@ -233,14 +233,14 @@ public class Country extends Resource {
 
         Country other = (Country) o;
 
-        return Objects.equals(isoCode, other.isoCode) && 
-               Objects.equals(name, other.name) && 
-               Objects.equals(continent, other.continent) && 
-               Objects.equals(countryCodes, other.countryCodes) && 
-               Objects.equals(lowRiskNumbersEnabled, other.lowRiskNumbersEnabled) && 
-               Objects.equals(highRiskSpecialNumbersEnabled, other.highRiskSpecialNumbersEnabled) && 
-               Objects.equals(highRiskTollfraudNumbersEnabled, other.highRiskTollfraudNumbersEnabled) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(isoCode, other.isoCode) &&
+               Objects.equals(name, other.name) &&
+               Objects.equals(continent, other.continent) &&
+               Objects.equals(countryCodes, other.countryCodes) &&
+               Objects.equals(lowRiskNumbersEnabled, other.lowRiskNumbersEnabled) &&
+               Objects.equals(highRiskSpecialNumbersEnabled, other.highRiskSpecialNumbersEnabled) &&
+               Objects.equals(highRiskTollfraudNumbersEnabled, other.highRiskTollfraudNumbersEnabled) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

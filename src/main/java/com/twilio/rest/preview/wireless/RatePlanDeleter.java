@@ -27,7 +27,7 @@ public class RatePlanDeleter extends Deleter<RatePlan> {
 
     /**
      * Construct a new RatePlanDeleter.
-     * 
+     *
      * @param pathSid The sid
      */
     public RatePlanDeleter(final String pathSid) {
@@ -36,7 +36,7 @@ public class RatePlanDeleter extends Deleter<RatePlan> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

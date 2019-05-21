@@ -28,12 +28,12 @@ public class TaskDeleter extends Deleter<Task> {
 
     /**
      * Construct a new TaskDeleter.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         resources to delete
      * @param pathSid The unique string that identifies the resource to delete
      */
-    public TaskDeleter(final String pathAssistantSid, 
+    public TaskDeleter(final String pathAssistantSid,
                        final String pathSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathSid = pathSid;
@@ -41,7 +41,7 @@ public class TaskDeleter extends Deleter<Task> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

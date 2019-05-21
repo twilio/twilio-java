@@ -29,11 +29,11 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
 
     /**
      * Construct a new VerificationCheckCreator.
-     * 
+     *
      * @param pathServiceSid A string that uniquely identifies the Service.
      * @param code The verification string
      */
-    public VerificationCheckCreator(final String pathServiceSid, 
+    public VerificationCheckCreator(final String pathServiceSid,
                                     final String code) {
         this.pathServiceSid = pathServiceSid;
         this.code = code;
@@ -41,7 +41,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
 
     /**
      * The To phonenumber of the phone being verified.
-     * 
+     *
      * @param to To phonenumber
      * @return this
      */
@@ -52,7 +52,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created VerificationCheck
      */
@@ -91,7 +91,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

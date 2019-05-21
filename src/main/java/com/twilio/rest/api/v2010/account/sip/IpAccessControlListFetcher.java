@@ -23,7 +23,7 @@ public class IpAccessControlListFetcher extends Fetcher<IpAccessControlList> {
 
     /**
      * Construct a new IpAccessControlListFetcher.
-     * 
+     *
      * @param pathSid A string that identifies the resource to fetch
      */
     public IpAccessControlListFetcher(final String pathSid) {
@@ -32,11 +32,11 @@ public class IpAccessControlListFetcher extends Fetcher<IpAccessControlList> {
 
     /**
      * Construct a new IpAccessControlListFetcher.
-     * 
+     *
      * @param pathAccountSid The unique sid that identifies this account
      * @param pathSid A string that identifies the resource to fetch
      */
-    public IpAccessControlListFetcher(final String pathAccountSid, 
+    public IpAccessControlListFetcher(final String pathAccountSid,
                                       final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -44,7 +44,7 @@ public class IpAccessControlListFetcher extends Fetcher<IpAccessControlList> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched IpAccessControlList
      */

@@ -48,7 +48,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
 
     /**
      * Construct a new IncomingPhoneNumberCreator.
-     * 
+     *
      * @param phoneNumber The phone number to purchase in E.164 format
      */
     public IncomingPhoneNumberCreator(final com.twilio.type.PhoneNumber phoneNumber) {
@@ -57,11 +57,11 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
 
     /**
      * Construct a new IncomingPhoneNumberCreator.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param phoneNumber The phone number to purchase in E.164 format
      */
-    public IncomingPhoneNumberCreator(final String pathAccountSid, 
+    public IncomingPhoneNumberCreator(final String pathAccountSid,
                                       final com.twilio.type.PhoneNumber phoneNumber) {
         this.pathAccountSid = pathAccountSid;
         this.phoneNumber = phoneNumber;
@@ -69,7 +69,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
 
     /**
      * Construct a new IncomingPhoneNumberCreator.
-     * 
+     *
      * @param areaCode The desired area code for the new phone number
      */
     public IncomingPhoneNumberCreator(final String areaCode) {
@@ -78,11 +78,11 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
 
     /**
      * Construct a new IncomingPhoneNumberCreator.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param areaCode The desired area code for the new phone number
      */
-    public IncomingPhoneNumberCreator(final String pathAccountSid, 
+    public IncomingPhoneNumberCreator(final String pathAccountSid,
                                       final String areaCode) {
         this.pathAccountSid = pathAccountSid;
         this.areaCode = areaCode;
@@ -91,7 +91,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * The API version to use for incoming calls made to the new phone number. The
      * default is `2010-04-01`..
-     * 
+     *
      * @param apiVersion The API version to use for incoming calls made to the new
      *                   phone number
      * @return this
@@ -105,7 +105,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
      * A descriptive string that you created to describe the new phone number. It
      * can be up to 64 characters long. By default, this is a formatted version of
      * the new phone number..
-     * 
+     *
      * @param friendlyName A string to describe the new phone number
      * @return this
      */
@@ -118,7 +118,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
      * The SID of the application that should handle SMS messages sent to the new
      * phone number. If an `sms_application_sid` is present, we ignore all of the
      * `sms_*_url` urls and use those set on the application..
-     * 
+     *
      * @param smsApplicationSid The SID of the application to handle SMS messages
      * @return this
      */
@@ -130,7 +130,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET`
      * or `POST` and defaults to `POST`..
-     * 
+     *
      * @param smsFallbackMethod HTTP method used with sms_fallback_url
      * @return this
      */
@@ -142,7 +142,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * The URL that we should call when an error occurs while requesting or
      * executing the TwiML defined by `sms_url`..
-     * 
+     *
      * @param smsFallbackUrl The URL we call when an error occurs while executing
      *                       TwiML
      * @return this
@@ -155,7 +155,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * The URL that we should call when an error occurs while requesting or
      * executing the TwiML defined by `sms_url`..
-     * 
+     *
      * @param smsFallbackUrl The URL we call when an error occurs while executing
      *                       TwiML
      * @return this
@@ -167,7 +167,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST`
      * and defaults to `POST`..
-     * 
+     *
      * @param smsMethod The HTTP method to use with sms url
      * @return this
      */
@@ -179,7 +179,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * The URL we should call when the new phone number receives an incoming SMS
      * message..
-     * 
+     *
      * @param smsUrl The URL we should call when the new phone number receives an
      *               incoming SMS message
      * @return this
@@ -192,7 +192,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * The URL we should call when the new phone number receives an incoming SMS
      * message..
-     * 
+     *
      * @param smsUrl The URL we should call when the new phone number receives an
      *               incoming SMS message
      * @return this
@@ -204,7 +204,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * The URL we should call using the `status_callback_method` to send status
      * information to your application..
-     * 
+     *
      * @param statusCallback The URL we should call to send status information to
      *                       your application
      * @return this
@@ -217,7 +217,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * The URL we should call using the `status_callback_method` to send status
      * information to your application..
-     * 
+     *
      * @param statusCallback The URL we should call to send status information to
      *                       your application
      * @return this
@@ -229,7 +229,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * The HTTP method we should use to call `status_callback`. Can be: `GET` or
      * `POST` and defaults to `POST`..
-     * 
+     *
      * @param statusCallbackMethod HTTP method we should use to call status_callback
      * @return this
      */
@@ -244,7 +244,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
      * urls and use only those set on the application. Setting a
      * `voice_application_sid` will automatically delete your `trunk_sid` and vice
      * versa..
-     * 
+     *
      * @param voiceApplicationSid The SID of the application to handle the new
      *                            phone number
      * @return this
@@ -257,7 +257,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * Whether to lookup the caller's name from the CNAM database and post it to
      * your app. Can be: `true` or `false` and defaults to `false`..
-     * 
+     *
      * @param voiceCallerIdLookup Whether to lookup the caller's name
      * @return this
      */
@@ -269,7 +269,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * The HTTP method that we should use to call `voice_fallback_url`. Can be:
      * `GET` or `POST` and defaults to `POST`..
-     * 
+     *
      * @param voiceFallbackMethod The HTTP method used with voice_fallback_url
      * @return this
      */
@@ -281,7 +281,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * The URL that we should call when an error occurs retrieving or executing the
      * TwiML requested by `url`..
-     * 
+     *
      * @param voiceFallbackUrl The URL we will call when an error occurs in TwiML
      * @return this
      */
@@ -293,7 +293,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * The URL that we should call when an error occurs retrieving or executing the
      * TwiML requested by `url`..
-     * 
+     *
      * @param voiceFallbackUrl The URL we will call when an error occurs in TwiML
      * @return this
      */
@@ -304,7 +304,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * The HTTP method that we should use to call `voice_url`. Can be: `GET` or
      * `POST` and defaults to `POST`..
-     * 
+     *
      * @param voiceMethod The HTTP method used with the voice_url
      * @return this
      */
@@ -317,7 +317,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
      * The URL that we should call to answer a call to the new phone number. The
      * `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid`
      * is set..
-     * 
+     *
      * @param voiceUrl The URL we should call when the phone number receives a call
      * @return this
      */
@@ -330,7 +330,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
      * The URL that we should call to answer a call to the new phone number. The
      * `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid`
      * is set..
-     * 
+     *
      * @param voiceUrl The URL we should call when the phone number receives a call
      * @return this
      */
@@ -341,7 +341,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * The configuration status parameter that determines whether the new phone
      * number is enabled for emergency calling..
-     * 
+     *
      * @param emergencyStatus Status determining whether the new phone number is
      *                        enabled for emergency calling
      * @return this
@@ -354,7 +354,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * The SID of the emergency address configuration to use for emergency calling
      * from the new phone number..
-     * 
+     *
      * @param emergencyAddressSid The emergency address configuration to use for
      *                            emergency calling
      * @return this
@@ -369,7 +369,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
      * If a `trunk_sid` is present, we ignore all of the voice urls and voice
      * applications and use only those set on the Trunk. Setting a `trunk_sid` will
      * automatically delete your `voice_application_sid` and vice versa..
-     * 
+     *
      * @param trunkSid SID of the trunk to handle calls to the new phone number
      * @return this
      */
@@ -381,7 +381,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * The SID of the Identity resource that we should associate with the new phone
      * number. Some regions require an identity to meet local regulations..
-     * 
+     *
      * @param identitySid The SID of the Identity resource to associate with the
      *                    new phone number
      * @return this
@@ -394,7 +394,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * The SID of the Address resource we should associate with the new phone
      * number. Some regions require addresses to meet local regulations..
-     * 
+     *
      * @param addressSid The SID of the Address resource associated with the phone
      *                   number
      * @return this
@@ -407,7 +407,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     /**
      * The configuration parameter for the new phone number to receive incoming
      * voice calls or faxes. Can be: `fax` or `voice` and defaults to `voice`..
-     * 
+     *
      * @param voiceReceiveMode Incoming call type: fax or voice
      * @return this
      */
@@ -421,7 +421,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
      * [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone
      * numbers consist of a + followed by the country code and subscriber number
      * without punctuation characters. For example, +14155551234..
-     * 
+     *
      * @param phoneNumber The phone number to purchase in E.164 format
      * @return this
      */
@@ -435,7 +435,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
      * [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone
      * numbers consist of a + followed by the country code and subscriber number
      * without punctuation characters. For example, +14155551234..
-     * 
+     *
      * @param phoneNumber The phone number to purchase in E.164 format
      * @return this
      */
@@ -448,7 +448,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
      * three-digit, US or Canada area code. We will provision an available phone
      * number within this area code for you. **You must provide an `area_code` or a
      * `phone_number`.** (US and Canada only)..
-     * 
+     *
      * @param areaCode The desired area code for the new phone number
      * @return this
      */
@@ -459,7 +459,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created IncomingPhoneNumber
      */
@@ -499,7 +499,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

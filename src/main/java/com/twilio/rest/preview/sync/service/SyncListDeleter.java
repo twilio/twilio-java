@@ -28,11 +28,11 @@ public class SyncListDeleter extends Deleter<SyncList> {
 
     /**
      * Construct a new SyncListDeleter.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathSid The sid
      */
-    public SyncListDeleter(final String pathServiceSid, 
+    public SyncListDeleter(final String pathServiceSid,
                            final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class SyncListDeleter extends Deleter<SyncList> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

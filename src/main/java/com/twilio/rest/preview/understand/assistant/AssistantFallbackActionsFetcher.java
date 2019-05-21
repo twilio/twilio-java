@@ -27,7 +27,7 @@ public class AssistantFallbackActionsFetcher extends Fetcher<AssistantFallbackAc
 
     /**
      * Construct a new AssistantFallbackActionsFetcher.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      */
     public AssistantFallbackActionsFetcher(final String pathAssistantSid) {
@@ -36,7 +36,7 @@ public class AssistantFallbackActionsFetcher extends Fetcher<AssistantFallbackAc
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched AssistantFallbackActions
      */

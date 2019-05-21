@@ -23,11 +23,11 @@ public class TaskDeleter extends Deleter<Task> {
 
     /**
      * Construct a new TaskDeleter.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathSid The sid
      */
-    public TaskDeleter(final String pathWorkspaceSid, 
+    public TaskDeleter(final String pathWorkspaceSid,
                        final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class TaskDeleter extends Deleter<Task> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

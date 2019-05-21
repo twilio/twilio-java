@@ -148,7 +148,7 @@ public class Say extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -157,7 +157,7 @@ public class Say extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -179,7 +179,7 @@ public class Say extends TwiML {
 
     /**
      * Voice to use
-     * 
+     *
      * @return Voice to use
      */
     public Say.Voice getVoice() {
@@ -188,7 +188,7 @@ public class Say extends TwiML {
 
     /**
      * Times to loop message
-     * 
+     *
      * @return Times to loop message
      */
     public Integer getLoop() {
@@ -197,7 +197,7 @@ public class Say extends TwiML {
 
     /**
      * Message langauge
-     * 
+     *
      * @return Message langauge
      */
     public Say.Language getLanguage() {
@@ -206,7 +206,7 @@ public class Say extends TwiML {
 
     /**
      * Message to say
-     * 
+     *
      * @return Message to say
      */
     public String getMessage() {

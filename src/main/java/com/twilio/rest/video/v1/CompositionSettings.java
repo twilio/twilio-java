@@ -41,7 +41,7 @@ public class CompositionSettings extends Resource {
 
     /**
      * Create a CompositionSettingsFetcher to execute fetch.
-     * 
+     *
      * @return CompositionSettingsFetcher capable of executing the fetch
      */
     public static CompositionSettingsFetcher fetcher() {
@@ -50,7 +50,7 @@ public class CompositionSettings extends Resource {
 
     /**
      * Create a CompositionSettingsCreator to execute create.
-     * 
+     *
      * @param friendlyName Friendly name of the configuration to be shown in the
      *                     console
      * @return CompositionSettingsCreator capable of executing the create
@@ -62,7 +62,7 @@ public class CompositionSettings extends Resource {
     /**
      * Converts a JSON String into a CompositionSettings object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return CompositionSettings object represented by the provided JSON
@@ -81,7 +81,7 @@ public class CompositionSettings extends Resource {
     /**
      * Converts a JSON InputStream into a CompositionSettings object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return CompositionSettings object represented by the provided JSON
@@ -108,19 +108,19 @@ public class CompositionSettings extends Resource {
 
     @JsonCreator
     private CompositionSettings(@JsonProperty("account_sid")
-                                final String accountSid, 
+                                final String accountSid,
                                 @JsonProperty("friendly_name")
-                                final String friendlyName, 
+                                final String friendlyName,
                                 @JsonProperty("aws_credentials_sid")
-                                final String awsCredentialsSid, 
+                                final String awsCredentialsSid,
                                 @JsonProperty("aws_s3_url")
-                                final URI awsS3Url, 
+                                final URI awsS3Url,
                                 @JsonProperty("aws_storage_enabled")
-                                final Boolean awsStorageEnabled, 
+                                final Boolean awsStorageEnabled,
                                 @JsonProperty("encryption_key_sid")
-                                final String encryptionKeySid, 
+                                final String encryptionKeySid,
                                 @JsonProperty("encryption_enabled")
-                                final Boolean encryptionEnabled, 
+                                final Boolean encryptionEnabled,
                                 @JsonProperty("url")
                                 final URI url) {
         this.accountSid = accountSid;
@@ -135,7 +135,7 @@ public class CompositionSettings extends Resource {
 
     /**
      * Returns The The Twilio Account SID associated with this item.
-     * 
+     *
      * @return The Twilio Account SID associated with this item
      */
     public final String getAccountSid() {
@@ -144,7 +144,7 @@ public class CompositionSettings extends Resource {
 
     /**
      * Returns The Friendly name of the configuration to be shown in the console.
-     * 
+     *
      * @return Friendly name of the configuration to be shown in the console
      */
     public final String getFriendlyName() {
@@ -153,7 +153,7 @@ public class CompositionSettings extends Resource {
 
     /**
      * Returns The SID of the Stored Credential resource CRxx.
-     * 
+     *
      * @return SID of the Stored Credential resource CRxx
      */
     public final String getAwsCredentialsSid() {
@@ -165,7 +165,7 @@ public class CompositionSettings extends Resource {
      * only support DNS-compliant URLs like
      * http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/compositions,
      * where compositions is the path where you want compositions to be stored..
-     * 
+     *
      * @return URL of the S3 bucket where the compositions should be stored. We
      *         only support DNS-compliant URLs like
      *         http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/compositions, where compositions is the path where you want compositions to be stored.
@@ -178,7 +178,7 @@ public class CompositionSettings extends Resource {
      * Returns The true|false When set to true, all Compositions will be written to
      * the AwsS3Url specified above. When set to false, all Compositions will be
      * stored in Twilio's cloud..
-     * 
+     *
      * @return true|false When set to true, all Compositions will be written to the
      *         AwsS3Url specified above. When set to false, all Compositions will be
      *         stored in Twilio's cloud.
@@ -189,7 +189,7 @@ public class CompositionSettings extends Resource {
 
     /**
      * Returns The SID of the Public Key resource CRxx.
-     * 
+     *
      * @return SID of the Public Key resource CRxx
      */
     public final String getEncryptionKeySid() {
@@ -199,7 +199,7 @@ public class CompositionSettings extends Resource {
     /**
      * Returns The true|false When set to true, all Compositions will be stored
      * encrypted..
-     * 
+     *
      * @return true|false When set to true, all Compositions will be stored
      *         encrypted.
      */
@@ -209,7 +209,7 @@ public class CompositionSettings extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -228,13 +228,13 @@ public class CompositionSettings extends Resource {
 
         CompositionSettings other = (CompositionSettings) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(awsCredentialsSid, other.awsCredentialsSid) && 
-               Objects.equals(awsS3Url, other.awsS3Url) && 
-               Objects.equals(awsStorageEnabled, other.awsStorageEnabled) && 
-               Objects.equals(encryptionKeySid, other.encryptionKeySid) && 
-               Objects.equals(encryptionEnabled, other.encryptionEnabled) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(awsCredentialsSid, other.awsCredentialsSid) &&
+               Objects.equals(awsS3Url, other.awsS3Url) &&
+               Objects.equals(awsStorageEnabled, other.awsStorageEnabled) &&
+               Objects.equals(encryptionKeySid, other.encryptionKeySid) &&
+               Objects.equals(encryptionEnabled, other.encryptionEnabled) &&
                Objects.equals(url, other.url);
     }
 

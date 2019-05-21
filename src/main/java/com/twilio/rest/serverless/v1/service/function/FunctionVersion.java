@@ -71,33 +71,33 @@ public class FunctionVersion extends Resource {
 
     /**
      * Create a FunctionVersionReader to execute read.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathFunctionSid Function Sid.
      * @return FunctionVersionReader capable of executing the read
      */
-    public static FunctionVersionReader reader(final String pathServiceSid, 
+    public static FunctionVersionReader reader(final String pathServiceSid,
                                                final String pathFunctionSid) {
         return new FunctionVersionReader(pathServiceSid, pathFunctionSid);
     }
 
     /**
      * Create a FunctionVersionFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathFunctionSid Function Sid.
      * @param pathSid Function Version Sid.
      * @return FunctionVersionFetcher capable of executing the fetch
      */
-    public static FunctionVersionFetcher fetcher(final String pathServiceSid, 
-                                                 final String pathFunctionSid, 
+    public static FunctionVersionFetcher fetcher(final String pathServiceSid,
+                                                 final String pathFunctionSid,
                                                  final String pathSid) {
         return new FunctionVersionFetcher(pathServiceSid, pathFunctionSid, pathSid);
     }
 
     /**
      * Create a FunctionVersionCreator to execute create.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathFunctionSid Function Sid.
      * @param path The URL-friendly string by which this Function Version can be
@@ -106,9 +106,9 @@ public class FunctionVersion extends Resource {
      *                   Version can be accessed.
      * @return FunctionVersionCreator capable of executing the create
      */
-    public static FunctionVersionCreator creator(final String pathServiceSid, 
-                                                 final String pathFunctionSid, 
-                                                 final String path, 
+    public static FunctionVersionCreator creator(final String pathServiceSid,
+                                                 final String pathFunctionSid,
+                                                 final String path,
                                                  final FunctionVersion.Visibility visibility) {
         return new FunctionVersionCreator(pathServiceSid, pathFunctionSid, path, visibility);
     }
@@ -116,7 +116,7 @@ public class FunctionVersion extends Resource {
     /**
      * Converts a JSON String into a FunctionVersion object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return FunctionVersion object represented by the provided JSON
@@ -135,7 +135,7 @@ public class FunctionVersion extends Resource {
     /**
      * Converts a JSON InputStream into a FunctionVersion object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return FunctionVersion object represented by the provided JSON
@@ -163,21 +163,21 @@ public class FunctionVersion extends Resource {
 
     @JsonCreator
     private FunctionVersion(@JsonProperty("sid")
-                            final String sid, 
+                            final String sid,
                             @JsonProperty("account_sid")
-                            final String accountSid, 
+                            final String accountSid,
                             @JsonProperty("service_sid")
-                            final String serviceSid, 
+                            final String serviceSid,
                             @JsonProperty("function_sid")
-                            final String functionSid, 
+                            final String functionSid,
                             @JsonProperty("path")
-                            final String path, 
+                            final String path,
                             @JsonProperty("pre_signed_upload_url")
-                            final Map<String, Object> preSignedUploadUrl, 
+                            final Map<String, Object> preSignedUploadUrl,
                             @JsonProperty("visibility")
-                            final FunctionVersion.Visibility visibility, 
+                            final FunctionVersion.Visibility visibility,
                             @JsonProperty("date_created")
-                            final String dateCreated, 
+                            final String dateCreated,
                             @JsonProperty("url")
                             final URI url) {
         this.sid = sid;
@@ -193,7 +193,7 @@ public class FunctionVersion extends Resource {
 
     /**
      * Returns The Function Version Sid..
-     * 
+     *
      * @return Function Version Sid.
      */
     public final String getSid() {
@@ -202,7 +202,7 @@ public class FunctionVersion extends Resource {
 
     /**
      * Returns The Account Sid..
-     * 
+     *
      * @return Account Sid.
      */
     public final String getAccountSid() {
@@ -211,7 +211,7 @@ public class FunctionVersion extends Resource {
 
     /**
      * Returns The Service Sid..
-     * 
+     *
      * @return Service Sid.
      */
     public final String getServiceSid() {
@@ -220,7 +220,7 @@ public class FunctionVersion extends Resource {
 
     /**
      * Returns The Function Sid..
-     * 
+     *
      * @return Function Sid.
      */
     public final String getFunctionSid() {
@@ -230,7 +230,7 @@ public class FunctionVersion extends Resource {
     /**
      * Returns The The URL-friendly string by which this Function Version can be
      * referenced..
-     * 
+     *
      * @return The URL-friendly string by which this Function Version can be
      *         referenced.
      */
@@ -241,7 +241,7 @@ public class FunctionVersion extends Resource {
     /**
      * Returns The The object which provides the details required for uploading this
      * Function Version..
-     * 
+     *
      * @return The object which provides the details required for uploading this
      *         Function Version.
      */
@@ -252,7 +252,7 @@ public class FunctionVersion extends Resource {
     /**
      * Returns The The access control which determines how the Function Version can
      * be accessed..
-     * 
+     *
      * @return The access control which determines how the Function Version can be
      *         accessed.
      */
@@ -262,7 +262,7 @@ public class FunctionVersion extends Resource {
 
     /**
      * Returns The The date that this Function Version was created..
-     * 
+     *
      * @return The date that this Function Version was created.
      */
     public final DateTime getDateCreated() {
@@ -271,7 +271,7 @@ public class FunctionVersion extends Resource {
 
     /**
      * Returns The The URL of this Function Version..
-     * 
+     *
      * @return The URL of this Function Version.
      */
     public final URI getUrl() {
@@ -290,14 +290,14 @@ public class FunctionVersion extends Resource {
 
         FunctionVersion other = (FunctionVersion) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(functionSid, other.functionSid) && 
-               Objects.equals(path, other.path) && 
-               Objects.equals(preSignedUploadUrl, other.preSignedUploadUrl) && 
-               Objects.equals(visibility, other.visibility) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(functionSid, other.functionSid) &&
+               Objects.equals(path, other.path) &&
+               Objects.equals(preSignedUploadUrl, other.preSignedUploadUrl) &&
+               Objects.equals(visibility, other.visibility) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(url, other.url);
     }
 

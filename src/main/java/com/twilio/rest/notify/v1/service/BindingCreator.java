@@ -36,15 +36,15 @@ public class BindingCreator extends Creator<Binding> {
 
     /**
      * Construct a new BindingCreator.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to create the resource under
      * @param identity The `identity` value that identifies the new resource's User
      * @param bindingType The type of the Binding
      * @param address The channel-specific address
      */
-    public BindingCreator(final String pathServiceSid, 
-                          final String identity, 
-                          final Binding.BindingType bindingType, 
+    public BindingCreator(final String pathServiceSid,
+                          final String identity,
+                          final Binding.BindingType bindingType,
                           final String address) {
         this.pathServiceSid = pathServiceSid;
         this.identity = identity;
@@ -55,7 +55,7 @@ public class BindingCreator extends Creator<Binding> {
     /**
      * A tag that can be used to select the Bindings to notify. Repeat this
      * parameter to specify more than one tag, up to a total of 20 tags..
-     * 
+     *
      * @param tag A tag that can be used to select the Bindings to notify
      * @return this
      */
@@ -67,7 +67,7 @@ public class BindingCreator extends Creator<Binding> {
     /**
      * A tag that can be used to select the Bindings to notify. Repeat this
      * parameter to specify more than one tag, up to a total of 20 tags..
-     * 
+     *
      * @param tag A tag that can be used to select the Bindings to notify
      * @return this
      */
@@ -82,7 +82,7 @@ public class BindingCreator extends Creator<Binding> {
      * current version is `"3"` for `apn`, `fcm`, and `gcm` type Bindings. The
      * parameter is not applicable to `sms` and `facebook-messenger` type Bindings
      * as the data format is fixed..
-     * 
+     *
      * @param notificationProtocolVersion The protocol version to use to send the
      *                                    notification
      * @return this
@@ -98,7 +98,7 @@ public class BindingCreator extends Creator<Binding> {
      * resource to be used to send notifications to this Binding. If present, this
      * overrides the Credential specified in the Service resource. Applies to only
      * `apn`, `fcm`, and `gcm` type Bindings..
-     * 
+     *
      * @param credentialSid The SID of the Credential resource to be used to send
      *                      notifications to this Binding
      * @return this
@@ -110,7 +110,7 @@ public class BindingCreator extends Creator<Binding> {
 
     /**
      * Deprecated..
-     * 
+     *
      * @param endpoint Deprecated
      * @return this
      */
@@ -121,7 +121,7 @@ public class BindingCreator extends Creator<Binding> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Binding
      */
@@ -160,7 +160,7 @@ public class BindingCreator extends Creator<Binding> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

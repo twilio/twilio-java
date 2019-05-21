@@ -26,7 +26,7 @@ public class FaxDeleter extends Deleter<Fax> {
 
     /**
      * Construct a new FaxDeleter.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public FaxDeleter(final String pathSid) {
@@ -35,7 +35,7 @@ public class FaxDeleter extends Deleter<Fax> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

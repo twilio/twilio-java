@@ -69,7 +69,7 @@ public class AddOnResult extends Resource {
 
     /**
      * Create a AddOnResultFetcher to execute fetch.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource to
      *                       fetch
      * @param pathReferenceSid The SID of the recording to which the result to
@@ -77,42 +77,42 @@ public class AddOnResult extends Resource {
      * @param pathSid The unique string that identifies the resource to fetch
      * @return AddOnResultFetcher capable of executing the fetch
      */
-    public static AddOnResultFetcher fetcher(final String pathAccountSid, 
-                                             final String pathReferenceSid, 
+    public static AddOnResultFetcher fetcher(final String pathAccountSid,
+                                             final String pathReferenceSid,
                                              final String pathSid) {
         return new AddOnResultFetcher(pathAccountSid, pathReferenceSid, pathSid);
     }
 
     /**
      * Create a AddOnResultFetcher to execute fetch.
-     * 
+     *
      * @param pathReferenceSid The SID of the recording to which the result to
      *                         fetch belongs
      * @param pathSid The unique string that identifies the resource to fetch
      * @return AddOnResultFetcher capable of executing the fetch
      */
-    public static AddOnResultFetcher fetcher(final String pathReferenceSid, 
+    public static AddOnResultFetcher fetcher(final String pathReferenceSid,
                                              final String pathSid) {
         return new AddOnResultFetcher(pathReferenceSid, pathSid);
     }
 
     /**
      * Create a AddOnResultReader to execute read.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       read
      * @param pathReferenceSid The SID of the recording to which the result to read
      *                         belongs
      * @return AddOnResultReader capable of executing the read
      */
-    public static AddOnResultReader reader(final String pathAccountSid, 
+    public static AddOnResultReader reader(final String pathAccountSid,
                                            final String pathReferenceSid) {
         return new AddOnResultReader(pathAccountSid, pathReferenceSid);
     }
 
     /**
      * Create a AddOnResultReader to execute read.
-     * 
+     *
      * @param pathReferenceSid The SID of the recording to which the result to read
      *                         belongs
      * @return AddOnResultReader capable of executing the read
@@ -123,7 +123,7 @@ public class AddOnResult extends Resource {
 
     /**
      * Create a AddOnResultDeleter to execute delete.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       delete
      * @param pathReferenceSid The SID of the recording to which the result to
@@ -131,21 +131,21 @@ public class AddOnResult extends Resource {
      * @param pathSid The unique string that identifies the resource to delete
      * @return AddOnResultDeleter capable of executing the delete
      */
-    public static AddOnResultDeleter deleter(final String pathAccountSid, 
-                                             final String pathReferenceSid, 
+    public static AddOnResultDeleter deleter(final String pathAccountSid,
+                                             final String pathReferenceSid,
                                              final String pathSid) {
         return new AddOnResultDeleter(pathAccountSid, pathReferenceSid, pathSid);
     }
 
     /**
      * Create a AddOnResultDeleter to execute delete.
-     * 
+     *
      * @param pathReferenceSid The SID of the recording to which the result to
      *                         delete belongs
      * @param pathSid The unique string that identifies the resource to delete
      * @return AddOnResultDeleter capable of executing the delete
      */
-    public static AddOnResultDeleter deleter(final String pathReferenceSid, 
+    public static AddOnResultDeleter deleter(final String pathReferenceSid,
                                              final String pathSid) {
         return new AddOnResultDeleter(pathReferenceSid, pathSid);
     }
@@ -153,7 +153,7 @@ public class AddOnResult extends Resource {
     /**
      * Converts a JSON String into a AddOnResult object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AddOnResult object represented by the provided JSON
@@ -172,7 +172,7 @@ public class AddOnResult extends Resource {
     /**
      * Converts a JSON InputStream into a AddOnResult object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AddOnResult object represented by the provided JSON
@@ -201,23 +201,23 @@ public class AddOnResult extends Resource {
 
     @JsonCreator
     private AddOnResult(@JsonProperty("sid")
-                        final String sid, 
+                        final String sid,
                         @JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("status")
-                        final AddOnResult.Status status, 
+                        final AddOnResult.Status status,
                         @JsonProperty("add_on_sid")
-                        final String addOnSid, 
+                        final String addOnSid,
                         @JsonProperty("add_on_configuration_sid")
-                        final String addOnConfigurationSid, 
+                        final String addOnConfigurationSid,
                         @JsonProperty("date_created")
-                        final String dateCreated, 
+                        final String dateCreated,
                         @JsonProperty("date_updated")
-                        final String dateUpdated, 
+                        final String dateUpdated,
                         @JsonProperty("date_completed")
-                        final String dateCompleted, 
+                        final String dateCompleted,
                         @JsonProperty("reference_sid")
-                        final String referenceSid, 
+                        final String referenceSid,
                         @JsonProperty("subresource_uris")
                         final Map<String, String> subresourceUris) {
         this.sid = sid;
@@ -234,7 +234,7 @@ public class AddOnResult extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -243,7 +243,7 @@ public class AddOnResult extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -252,7 +252,7 @@ public class AddOnResult extends Resource {
 
     /**
      * Returns The The status of the result.
-     * 
+     *
      * @return The status of the result
      */
     public final AddOnResult.Status getStatus() {
@@ -261,7 +261,7 @@ public class AddOnResult extends Resource {
 
     /**
      * Returns The The SID of the Add-on to which the result belongs.
-     * 
+     *
      * @return The SID of the Add-on to which the result belongs
      */
     public final String getAddOnSid() {
@@ -270,7 +270,7 @@ public class AddOnResult extends Resource {
 
     /**
      * Returns The The SID of the Add-on configuration.
-     * 
+     *
      * @return The SID of the Add-on configuration
      */
     public final String getAddOnConfigurationSid() {
@@ -279,7 +279,7 @@ public class AddOnResult extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT that the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
@@ -289,7 +289,7 @@ public class AddOnResult extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT that the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -298,7 +298,7 @@ public class AddOnResult extends Resource {
 
     /**
      * Returns The The date and time in GMT that the result was completed.
-     * 
+     *
      * @return The date and time in GMT that the result was completed
      */
     public final DateTime getDateCompleted() {
@@ -308,7 +308,7 @@ public class AddOnResult extends Resource {
     /**
      * Returns The The SID of the recording to which the AddOnResult resource
      * belongs.
-     * 
+     *
      * @return The SID of the recording to which the AddOnResult resource belongs
      */
     public final String getReferenceSid() {
@@ -317,7 +317,7 @@ public class AddOnResult extends Resource {
 
     /**
      * Returns The A list of related resources identified by their relative URIs.
-     * 
+     *
      * @return A list of related resources identified by their relative URIs
      */
     public final Map<String, String> getSubresourceUris() {
@@ -336,15 +336,15 @@ public class AddOnResult extends Resource {
 
         AddOnResult other = (AddOnResult) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(addOnSid, other.addOnSid) && 
-               Objects.equals(addOnConfigurationSid, other.addOnConfigurationSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(dateCompleted, other.dateCompleted) && 
-               Objects.equals(referenceSid, other.referenceSid) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(addOnSid, other.addOnSid) &&
+               Objects.equals(addOnConfigurationSid, other.addOnConfigurationSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(dateCompleted, other.dateCompleted) &&
+               Objects.equals(referenceSid, other.referenceSid) &&
                Objects.equals(subresourceUris, other.subresourceUris);
     }
 

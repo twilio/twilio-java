@@ -24,12 +24,12 @@ public class ParticipantDeleter extends Deleter<Participant> {
 
     /**
      * Construct a new ParticipantDeleter.
-     * 
+     *
      * @param pathConferenceSid The SID of the conference with the participants to
      *                          delete
      * @param pathCallSid The Call SID of the resources to delete
      */
-    public ParticipantDeleter(final String pathConferenceSid, 
+    public ParticipantDeleter(final String pathConferenceSid,
                               final String pathCallSid) {
         this.pathConferenceSid = pathConferenceSid;
         this.pathCallSid = pathCallSid;
@@ -37,15 +37,15 @@ public class ParticipantDeleter extends Deleter<Participant> {
 
     /**
      * Construct a new ParticipantDeleter.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       delete
      * @param pathConferenceSid The SID of the conference with the participants to
      *                          delete
      * @param pathCallSid The Call SID of the resources to delete
      */
-    public ParticipantDeleter(final String pathAccountSid, 
-                              final String pathConferenceSid, 
+    public ParticipantDeleter(final String pathAccountSid,
+                              final String pathConferenceSid,
                               final String pathCallSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathConferenceSid = pathConferenceSid;
@@ -54,7 +54,7 @@ public class ParticipantDeleter extends Deleter<Participant> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

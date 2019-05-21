@@ -42,7 +42,7 @@ public class TaskStatisticsTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
                                           "/understand/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Statistics");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

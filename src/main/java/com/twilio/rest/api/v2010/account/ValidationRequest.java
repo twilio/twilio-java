@@ -35,20 +35,20 @@ public class ValidationRequest extends Resource {
 
     /**
      * Create a ValidationRequestCreator to execute create.
-     * 
+     *
      * @param pathAccountSid The SID of the Account responsible for the new Caller
      *                       ID
      * @param phoneNumber The phone number to verify in E.164 format
      * @return ValidationRequestCreator capable of executing the create
      */
-    public static ValidationRequestCreator creator(final String pathAccountSid, 
+    public static ValidationRequestCreator creator(final String pathAccountSid,
                                                    final com.twilio.type.PhoneNumber phoneNumber) {
         return new ValidationRequestCreator(pathAccountSid, phoneNumber);
     }
 
     /**
      * Create a ValidationRequestCreator to execute create.
-     * 
+     *
      * @param phoneNumber The phone number to verify in E.164 format
      * @return ValidationRequestCreator capable of executing the create
      */
@@ -59,7 +59,7 @@ public class ValidationRequest extends Resource {
     /**
      * Converts a JSON String into a ValidationRequest object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ValidationRequest object represented by the provided JSON
@@ -78,7 +78,7 @@ public class ValidationRequest extends Resource {
     /**
      * Converts a JSON InputStream into a ValidationRequest object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ValidationRequest object represented by the provided JSON
@@ -102,13 +102,13 @@ public class ValidationRequest extends Resource {
 
     @JsonCreator
     private ValidationRequest(@JsonProperty("account_sid")
-                              final String accountSid, 
+                              final String accountSid,
                               @JsonProperty("phone_number")
-                              final com.twilio.type.PhoneNumber phoneNumber, 
+                              final com.twilio.type.PhoneNumber phoneNumber,
                               @JsonProperty("friendly_name")
-                              final String friendlyName, 
+                              final String friendlyName,
                               @JsonProperty("validation_code")
-                              final Integer validationCode, 
+                              final Integer validationCode,
                               @JsonProperty("call_sid")
                               final String callSid) {
         this.accountSid = accountSid;
@@ -120,7 +120,7 @@ public class ValidationRequest extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -129,7 +129,7 @@ public class ValidationRequest extends Resource {
 
     /**
      * Returns The The phone number to verify in E.164 format.
-     * 
+     *
      * @return The phone number to verify in E.164 format
      */
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
@@ -138,7 +138,7 @@ public class ValidationRequest extends Resource {
 
     /**
      * Returns The The string that you assigned to describe the resource.
-     * 
+     *
      * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
@@ -148,7 +148,7 @@ public class ValidationRequest extends Resource {
     /**
      * Returns The The 6 digit validation code that someone must enter to validate
      * the Caller ID  when `phone_number` is called.
-     * 
+     *
      * @return The 6 digit validation code that someone must enter to validate the
      *         Caller ID  when `phone_number` is called
      */
@@ -158,7 +158,7 @@ public class ValidationRequest extends Resource {
 
     /**
      * Returns The The SID of the Call the resource is associated with.
-     * 
+     *
      * @return The SID of the Call the resource is associated with
      */
     public final String getCallSid() {
@@ -177,10 +177,10 @@ public class ValidationRequest extends Resource {
 
         ValidationRequest other = (ValidationRequest) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(phoneNumber, other.phoneNumber) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(validationCode, other.validationCode) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(phoneNumber, other.phoneNumber) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(validationCode, other.validationCode) &&
                Objects.equals(callSid, other.callSid);
     }
 

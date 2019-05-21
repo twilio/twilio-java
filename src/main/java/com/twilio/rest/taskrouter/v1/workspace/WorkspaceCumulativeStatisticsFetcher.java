@@ -29,7 +29,7 @@ public class WorkspaceCumulativeStatisticsFetcher extends Fetcher<WorkspaceCumul
 
     /**
      * Construct a new WorkspaceCumulativeStatisticsFetcher.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      */
     public WorkspaceCumulativeStatisticsFetcher(final String pathWorkspaceSid) {
@@ -39,7 +39,7 @@ public class WorkspaceCumulativeStatisticsFetcher extends Fetcher<WorkspaceCumul
     /**
      * Filter cumulative statistics by an end date. This is helpful for defining a
      * range of statistics to capture. Input is a GMT ISO 8601 Timestamp.
-     * 
+     *
      * @param endDate Filter cumulative statistics by an end date.
      * @return this
      */
@@ -52,7 +52,7 @@ public class WorkspaceCumulativeStatisticsFetcher extends Fetcher<WorkspaceCumul
      * Filter cumulative statistics by up to 'x' minutes in the past. This is
      * helpful for statistics for the last 15 minutes, 240 minutes (4 hours), and
      * 480 minutes (8 hours) to see trends. Defaults to 15 minutes..
-     * 
+     *
      * @param minutes Filter cumulative statistics by up to 'x' minutes in the past.
      * @return this
      */
@@ -64,7 +64,7 @@ public class WorkspaceCumulativeStatisticsFetcher extends Fetcher<WorkspaceCumul
     /**
      * Filter cumulative statistics by a start date. This is helpful for defining a
      * range of statistics to capture. Input is a GMT ISO 8601 Timestamp.
-     * 
+     *
      * @param startDate Filter cumulative statistics by a start date.
      * @return this
      */
@@ -76,7 +76,7 @@ public class WorkspaceCumulativeStatisticsFetcher extends Fetcher<WorkspaceCumul
     /**
      * Filter real-time and cumulative statistics by TaskChannel. Takes in a Unique
      * Name ("voice", "sms", "default", etc.) or a TaskChannelSid..
-     * 
+     *
      * @param taskChannel Filter real-time and cumulative statistics by TaskChannel.
      * @return this
      */
@@ -91,7 +91,7 @@ public class WorkspaceCumulativeStatisticsFetcher extends Fetcher<WorkspaceCumul
      * that were canceled or accepted before or after 5 seconds and respectively, 30
      * seconds. This is great for showing short abandoned tasks or tasks that failed
      * to meet your SLA..
-     * 
+     *
      * @param splitByWaitTime A comma separated values for viewing splits of tasks
      *                        canceled and accepted above the given threshold in
      *                        seconds.
@@ -104,7 +104,7 @@ public class WorkspaceCumulativeStatisticsFetcher extends Fetcher<WorkspaceCumul
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched WorkspaceCumulativeStatistics
      */
@@ -143,7 +143,7 @@ public class WorkspaceCumulativeStatisticsFetcher extends Fetcher<WorkspaceCumul
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

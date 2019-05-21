@@ -34,7 +34,7 @@ public class SessionUpdater extends Updater<Session> {
 
     /**
      * Construct a new SessionUpdater.
-     * 
+     *
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public SessionUpdater(final String pathSid) {
@@ -43,7 +43,7 @@ public class SessionUpdater extends Updater<Session> {
 
     /**
      * The human-readable name of this session. Optional..
-     * 
+     *
      * @param friendlyName The human-readable name of this session.
      * @return this
      */
@@ -56,7 +56,7 @@ public class SessionUpdater extends Updater<Session> {
      * An optional string metadata field you can use to store any data you wish. The
      * string value must contain structurally valid JSON if specified.  **Note**
      * that if the attributes are not set "{}" will be returned..
-     * 
+     *
      * @param attributes An optional string metadata field you can use to store any
      *                   data you wish.
      * @return this
@@ -68,7 +68,7 @@ public class SessionUpdater extends Updater<Session> {
 
     /**
      * The date that this resource was created..
-     * 
+     *
      * @param dateCreated The date that this resource was created.
      * @return this
      */
@@ -79,7 +79,7 @@ public class SessionUpdater extends Updater<Session> {
 
     /**
      * The date that this resource was last updated..
-     * 
+     *
      * @param dateUpdated The date that this resource was last updated.
      * @return this
      */
@@ -91,7 +91,7 @@ public class SessionUpdater extends Updater<Session> {
     /**
      * Identity of the session's creator. If the Session was created through the
      * API, the value will be `system`.
-     * 
+     *
      * @param createdBy Identity of the session's creator.
      * @return this
      */
@@ -102,7 +102,7 @@ public class SessionUpdater extends Updater<Session> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Session
      */
@@ -141,7 +141,7 @@ public class SessionUpdater extends Updater<Session> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -29,7 +29,7 @@ public class InstalledAddOnExtensionReader extends Reader<InstalledAddOnExtensio
 
     /**
      * Construct a new InstalledAddOnExtensionReader.
-     * 
+     *
      * @param pathInstalledAddOnSid The installed_add_on_sid
      */
     public InstalledAddOnExtensionReader(final String pathInstalledAddOnSid) {
@@ -38,7 +38,7 @@ public class InstalledAddOnExtensionReader extends Reader<InstalledAddOnExtensio
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return InstalledAddOnExtension ResourceSet
      */
@@ -49,7 +49,7 @@ public class InstalledAddOnExtensionReader extends Reader<InstalledAddOnExtensio
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return InstalledAddOnExtension ResourceSet
      */
@@ -69,7 +69,7 @@ public class InstalledAddOnExtensionReader extends Reader<InstalledAddOnExtensio
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return InstalledAddOnExtension ResourceSet
@@ -87,13 +87,13 @@ public class InstalledAddOnExtensionReader extends Reader<InstalledAddOnExtensio
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<InstalledAddOnExtension> nextPage(final Page<InstalledAddOnExtension> page, 
+    public Page<InstalledAddOnExtension> nextPage(final Page<InstalledAddOnExtension> page,
                                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -107,13 +107,13 @@ public class InstalledAddOnExtensionReader extends Reader<InstalledAddOnExtensio
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<InstalledAddOnExtension> previousPage(final Page<InstalledAddOnExtension> page, 
+    public Page<InstalledAddOnExtension> previousPage(final Page<InstalledAddOnExtension> page,
                                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -127,7 +127,7 @@ public class InstalledAddOnExtensionReader extends Reader<InstalledAddOnExtensio
 
     /**
      * Generate a Page of InstalledAddOnExtension Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -162,7 +162,7 @@ public class InstalledAddOnExtensionReader extends Reader<InstalledAddOnExtensio
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

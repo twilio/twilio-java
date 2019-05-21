@@ -36,7 +36,7 @@ public class TaskReader extends Reader<Task> {
 
     /**
      * Construct a new TaskReader.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      */
     public TaskReader(final String pathWorkspaceSid) {
@@ -45,7 +45,7 @@ public class TaskReader extends Reader<Task> {
 
     /**
      * Retrieve the list of all Tasks in the workspace with the specified priority..
-     * 
+     *
      * @param priority Retrieve the list of all Tasks in the workspace with the
      *                 specified priority.
      * @return this
@@ -59,7 +59,7 @@ public class TaskReader extends Reader<Task> {
      * Returns the list of all Tasks in the workspace with the specified
      * AssignmentStatus. Allowed AssignmentStatus values are pending, reserved,
      * assigned, canceled, and completed..
-     * 
+     *
      * @param assignmentStatus Returns the list of all Tasks in the workspace with
      *                         the specified AssignmentStatus.
      * @return this
@@ -73,7 +73,7 @@ public class TaskReader extends Reader<Task> {
      * Returns the list of all Tasks in the workspace with the specified
      * AssignmentStatus. Allowed AssignmentStatus values are pending, reserved,
      * assigned, canceled, and completed..
-     * 
+     *
      * @param assignmentStatus Returns the list of all Tasks in the workspace with
      *                         the specified AssignmentStatus.
      * @return this
@@ -85,7 +85,7 @@ public class TaskReader extends Reader<Task> {
     /**
      * Returns the list of Tasks that are being controlled by the Workflow with the
      * specified Sid value..
-     * 
+     *
      * @param workflowSid Returns the list of Tasks that are being controlled by
      *                    the Workflow with the specified Sid value.
      * @return this
@@ -98,7 +98,7 @@ public class TaskReader extends Reader<Task> {
     /**
      * Returns the list of Tasks that are being controlled by the Workflow with the
      * specified FriendlyName value..
-     * 
+     *
      * @param workflowName Returns the list of Tasks that are being controlled by
      *                     the Workflow with the specified FriendlyName value.
      * @return this
@@ -111,7 +111,7 @@ public class TaskReader extends Reader<Task> {
     /**
      * Returns the list of Tasks that are currently waiting in the TaskQueue
      * identified by the Sid specified..
-     * 
+     *
      * @param taskQueueSid Returns the list of Tasks that are currently waiting in
      *                     the TaskQueue identified by the Sid specified.
      * @return this
@@ -124,7 +124,7 @@ public class TaskReader extends Reader<Task> {
     /**
      * Returns the list of Tasks that are currently waiting in the TaskQueue
      * identified by the FriendlyName specified..
-     * 
+     *
      * @param taskQueueName Returns the list of Tasks that are currently waiting in
      *                      the TaskQueue identified by the FriendlyName specified.
      * @return this
@@ -137,7 +137,7 @@ public class TaskReader extends Reader<Task> {
     /**
      * Provide a task attributes expression, and this will return tasks which match
      * the attributes..
-     * 
+     *
      * @param evaluateTaskAttributes Provide a task attributes expression, and this
      *                               will return tasks which match the attributes.
      * @return this
@@ -155,7 +155,7 @@ public class TaskReader extends Reader<Task> {
      * order. To sort the Tasks by Priority and DateCreated pass
      * `Priority:desc,DateCreated:asc`. By Default Tasks are returned sorted by
      * DateCreated in ascending order..
-     * 
+     *
      * @param ordering Use this parameter to control the order of the Tasks
      *                 returned.
      * @return this
@@ -167,7 +167,7 @@ public class TaskReader extends Reader<Task> {
 
     /**
      * The has_addons.
-     * 
+     *
      * @param hasAddons The has_addons
      * @return this
      */
@@ -178,7 +178,7 @@ public class TaskReader extends Reader<Task> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Task ResourceSet
      */
@@ -189,7 +189,7 @@ public class TaskReader extends Reader<Task> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Task ResourceSet
      */
@@ -209,7 +209,7 @@ public class TaskReader extends Reader<Task> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Task ResourceSet
@@ -227,13 +227,13 @@ public class TaskReader extends Reader<Task> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Task> nextPage(final Page<Task> page, 
+    public Page<Task> nextPage(final Page<Task> page,
                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -247,13 +247,13 @@ public class TaskReader extends Reader<Task> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Task> previousPage(final Page<Task> page, 
+    public Page<Task> previousPage(final Page<Task> page,
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -267,7 +267,7 @@ public class TaskReader extends Reader<Task> {
 
     /**
      * Generate a Page of Task Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -302,7 +302,7 @@ public class TaskReader extends Reader<Task> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

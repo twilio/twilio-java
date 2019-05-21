@@ -44,7 +44,7 @@ public class TollFreeReader extends Reader<TollFree> {
 
     /**
      * Construct a new TollFreeReader.
-     * 
+     *
      * @param pathCountryCode The ISO Country code of the country from which to
      *                        read phone numbers
      */
@@ -54,13 +54,13 @@ public class TollFreeReader extends Reader<TollFree> {
 
     /**
      * Construct a new TollFreeReader.
-     * 
+     *
      * @param pathAccountSid The SID of the Account requesting the
      *                       AvailablePhoneNumber resources
      * @param pathCountryCode The ISO Country code of the country from which to
      *                        read phone numbers
      */
-    public TollFreeReader(final String pathAccountSid, 
+    public TollFreeReader(final String pathAccountSid,
                           final String pathCountryCode) {
         this.pathAccountSid = pathAccountSid;
         this.pathCountryCode = pathCountryCode;
@@ -69,7 +69,7 @@ public class TollFreeReader extends Reader<TollFree> {
     /**
      * The area code of the phone numbers to read. Applies to only phone numbers in
      * the US and Canada..
-     * 
+     *
      * @param areaCode The area code of the phone numbers to read
      * @return this
      */
@@ -83,7 +83,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * `a-z`, and `A-Z`. The `*` character matches any single digit. For examples,
      * see [Example
      * 2](https://www.twilio.com/docs/api/rest/available-phone-numbers#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/api/rest/available-phone-numbers#local-get-basic-example-3). If specified, this value must have at least two characters..
-     * 
+     *
      * @param contains The pattern on which to match phone numbers
      * @return this
      */
@@ -95,7 +95,7 @@ public class TollFreeReader extends Reader<TollFree> {
     /**
      * Whether the phone numbers can receive text messages. Can be: `true` or
      * `false`..
-     * 
+     *
      * @param smsEnabled Whether the phone numbers can receive text messages
      * @return this
      */
@@ -107,7 +107,7 @@ public class TollFreeReader extends Reader<TollFree> {
     /**
      * Whether the phone numbers can receive MMS messages. Can be: `true` or
      * `false`..
-     * 
+     *
      * @param mmsEnabled Whether the phone numbers can receive MMS messages
      * @return this
      */
@@ -118,7 +118,7 @@ public class TollFreeReader extends Reader<TollFree> {
 
     /**
      * Whether the phone numbers can receive calls. Can be: `true` or `false`..
-     * 
+     *
      * @param voiceEnabled Whether the phone numbers can receive calls.
      * @return this
      */
@@ -131,7 +131,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * Whether to exclude phone numbers that require an
      * [Address](https://www.twilio.com/docs/usage/api/addresses). Can be: `true` or
      * `false` and the default is `false`..
-     * 
+     *
      * @param excludeAllAddressRequired Whether to exclude phone numbers that
      *                                  require an Address
      * @return this
@@ -145,7 +145,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * Whether to exclude phone numbers that require a local
      * [Address](https://www.twilio.com/docs/usage/api/addresses). Can be: `true` or
      * `false` and the default is `false`..
-     * 
+     *
      * @param excludeLocalAddressRequired Whether to exclude phone numbers that
      *                                    require a local address
      * @return this
@@ -159,7 +159,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * Whether to exclude phone numbers that require a foreign
      * [Address](https://www.twilio.com/docs/usage/api/addresses). Can be: `true` or
      * `false` and the default is `false`..
-     * 
+     *
      * @param excludeForeignAddressRequired Whether to exclude phone numbers that
      *                                      require a foreign address
      * @return this
@@ -172,7 +172,7 @@ public class TollFreeReader extends Reader<TollFree> {
     /**
      * Whether to read phone numbers that are new to the Twilio platform. Can be:
      * `true` or `false` and the default is `true`..
-     * 
+     *
      * @param beta Whether to read phone numbers new to the Twilio platform
      * @return this
      */
@@ -185,7 +185,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * Given a phone number, find a geographically close number within `distance`
      * miles. Distance defaults to 25 miles. Applies to only phone numbers in the US
      * and Canada..
-     * 
+     *
      * @param nearNumber Given a phone number, find a geographically close number
      *                   within distance miles. (US/Canada only)
      * @return this
@@ -199,7 +199,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * Given a phone number, find a geographically close number within `distance`
      * miles. Distance defaults to 25 miles. Applies to only phone numbers in the US
      * and Canada..
-     * 
+     *
      * @param nearNumber Given a phone number, find a geographically close number
      *                   within distance miles. (US/Canada only)
      * @return this
@@ -211,7 +211,7 @@ public class TollFreeReader extends Reader<TollFree> {
     /**
      * Given a latitude/longitude pair `lat,long` find geographically close numbers
      * within `distance` miles. Applies to only phone numbers in the US and Canada..
-     * 
+     *
      * @param nearLatLong Given a latitude/longitude pair lat,long find
      *                    geographically close numbers within distance miles.
      *                    (US/Canada only)
@@ -225,7 +225,7 @@ public class TollFreeReader extends Reader<TollFree> {
     /**
      * The search radius, in miles, for a `near_` query.  Can be up to `500` and the
      * default is `25`. Applies to only phone numbers in the US and Canada..
-     * 
+     *
      * @param distance The search radius, in miles, for a near_ query. (US/Canada
      *                 only)
      * @return this
@@ -239,7 +239,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * Limit results to a particular postal code. Given a phone number, search
      * within the same postal code as that number. Applies to only phone numbers in
      * the US and Canada..
-     * 
+     *
      * @param inPostalCode Limit results to a particular postal code. (US/Canada
      *                     only)
      * @return this
@@ -253,7 +253,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * Limit results to a particular region, state, or province. Given a phone
      * number, search within the same region as that number. Applies to only phone
      * numbers in the US and Canada..
-     * 
+     *
      * @param inRegion Limit results to a particular region. (US/Canada only)
      * @return this
      */
@@ -266,7 +266,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * Limit results to a specific rate center, or given a phone number search
      * within the same rate center as that number. Requires `in_lata` to be set as
      * well. Applies to only phone numbers in the US and Canada..
-     * 
+     *
      * @param inRateCenter Limit results to a specific rate center, or given a
      *                     phone number search within the same rate center as that
      *                     number. (US/Canada only)
@@ -283,7 +283,7 @@ public class TollFreeReader extends Reader<TollFree> {
      * a phone number, search within the same
      * [LATA](http://en.wikipedia.org/wiki/Local_access_and_transport_area) as that
      * number. Applies to only phone numbers in the US and Canada..
-     * 
+     *
      * @param inLata Limit results to a specific local access and transport area.
      *               (US/Canada only)
      * @return this
@@ -296,7 +296,7 @@ public class TollFreeReader extends Reader<TollFree> {
     /**
      * Limit results to a particular locality or city. Given a phone number, search
      * within the same Locality as that number..
-     * 
+     *
      * @param inLocality Limit results to a particular locality
      * @return this
      */
@@ -307,7 +307,7 @@ public class TollFreeReader extends Reader<TollFree> {
 
     /**
      * Whether the phone numbers can receive faxes. Can be: `true` or `false`..
-     * 
+     *
      * @param faxEnabled Whether the phone numbers can receive faxes
      * @return this
      */
@@ -318,7 +318,7 @@ public class TollFreeReader extends Reader<TollFree> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return TollFree ResourceSet
      */
@@ -329,7 +329,7 @@ public class TollFreeReader extends Reader<TollFree> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return TollFree ResourceSet
      */
@@ -350,7 +350,7 @@ public class TollFreeReader extends Reader<TollFree> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return TollFree ResourceSet
@@ -369,13 +369,13 @@ public class TollFreeReader extends Reader<TollFree> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<TollFree> nextPage(final Page<TollFree> page, 
+    public Page<TollFree> nextPage(final Page<TollFree> page,
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -389,13 +389,13 @@ public class TollFreeReader extends Reader<TollFree> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<TollFree> previousPage(final Page<TollFree> page, 
+    public Page<TollFree> previousPage(final Page<TollFree> page,
                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -409,7 +409,7 @@ public class TollFreeReader extends Reader<TollFree> {
 
     /**
      * Generate a Page of TollFree Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -444,7 +444,7 @@ public class TollFreeReader extends Reader<TollFree> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

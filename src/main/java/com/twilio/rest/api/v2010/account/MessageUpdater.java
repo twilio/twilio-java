@@ -24,11 +24,11 @@ public class MessageUpdater extends Updater<Message> {
 
     /**
      * Construct a new MessageUpdater.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      * @param body The text of the message you want to send
      */
-    public MessageUpdater(final String pathSid, 
+    public MessageUpdater(final String pathSid,
                           final String body) {
         this.pathSid = pathSid;
         this.body = body;
@@ -36,14 +36,14 @@ public class MessageUpdater extends Updater<Message> {
 
     /**
      * Construct a new MessageUpdater.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       update
      * @param pathSid The unique string that identifies the resource
      * @param body The text of the message you want to send
      */
-    public MessageUpdater(final String pathAccountSid, 
-                          final String pathSid, 
+    public MessageUpdater(final String pathAccountSid,
+                          final String pathSid,
                           final String body) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -52,7 +52,7 @@ public class MessageUpdater extends Updater<Message> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Message
      */
@@ -92,7 +92,7 @@ public class MessageUpdater extends Updater<Message> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

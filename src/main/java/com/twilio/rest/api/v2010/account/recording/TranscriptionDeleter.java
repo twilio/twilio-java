@@ -24,12 +24,12 @@ public class TranscriptionDeleter extends Deleter<Transcription> {
 
     /**
      * Construct a new TranscriptionDeleter.
-     * 
+     *
      * @param pathRecordingSid The SID of the recording that created the
      *                         transcription to delete
      * @param pathSid The unique string that identifies the resource
      */
-    public TranscriptionDeleter(final String pathRecordingSid, 
+    public TranscriptionDeleter(final String pathRecordingSid,
                                 final String pathSid) {
         this.pathRecordingSid = pathRecordingSid;
         this.pathSid = pathSid;
@@ -37,15 +37,15 @@ public class TranscriptionDeleter extends Deleter<Transcription> {
 
     /**
      * Construct a new TranscriptionDeleter.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       delete
      * @param pathRecordingSid The SID of the recording that created the
      *                         transcription to delete
      * @param pathSid The unique string that identifies the resource
      */
-    public TranscriptionDeleter(final String pathAccountSid, 
-                                final String pathRecordingSid, 
+    public TranscriptionDeleter(final String pathAccountSid,
+                                final String pathRecordingSid,
                                 final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathRecordingSid = pathRecordingSid;
@@ -54,7 +54,7 @@ public class TranscriptionDeleter extends Deleter<Transcription> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

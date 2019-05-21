@@ -31,7 +31,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
 
     /**
      * Construct a new ValidationRequestCreator.
-     * 
+     *
      * @param phoneNumber The phone number to verify in E.164 format
      */
     public ValidationRequestCreator(final com.twilio.type.PhoneNumber phoneNumber) {
@@ -40,12 +40,12 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
 
     /**
      * Construct a new ValidationRequestCreator.
-     * 
+     *
      * @param pathAccountSid The SID of the Account responsible for the new Caller
      *                       ID
      * @param phoneNumber The phone number to verify in E.164 format
      */
-    public ValidationRequestCreator(final String pathAccountSid, 
+    public ValidationRequestCreator(final String pathAccountSid,
                                     final com.twilio.type.PhoneNumber phoneNumber) {
         this.pathAccountSid = pathAccountSid;
         this.phoneNumber = phoneNumber;
@@ -55,7 +55,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
      * A descriptive string that you create to describe the new caller ID resource.
      * It can be up to 64 characters long. The default value is a formatted version
      * of the phone number..
-     * 
+     *
      * @param friendlyName A string to describe the resource
      * @return this
      */
@@ -67,7 +67,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     /**
      * The number of seconds to delay before initiating the verification call. Can
      * be an integer between `0` and `60`, inclusive. The default is `0`..
-     * 
+     *
      * @param callDelay The number of seconds to delay before initiating the
      *                  verification call
      * @return this
@@ -79,7 +79,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
 
     /**
      * The digits to dial after connecting the verification call..
-     * 
+     *
      * @param extension The digits to dial after connecting the verification call
      * @return this
      */
@@ -91,7 +91,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     /**
      * The URL we should call using the `status_callback_method` to send status
      * information about the verification process to your application..
-     * 
+     *
      * @param statusCallback The URL we should call to send status information to
      *                       your application
      * @return this
@@ -104,7 +104,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     /**
      * The URL we should call using the `status_callback_method` to send status
      * information about the verification process to your application..
-     * 
+     *
      * @param statusCallback The URL we should call to send status information to
      *                       your application
      * @return this
@@ -116,7 +116,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     /**
      * The HTTP method we should use to call `status_callback`. Can be: `GET` or
      * `POST`, and the default is `POST`..
-     * 
+     *
      * @param statusCallbackMethod The HTTP method we should use to call
      *                             status_callback
      * @return this
@@ -128,7 +128,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created ValidationRequest
      */
@@ -168,7 +168,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

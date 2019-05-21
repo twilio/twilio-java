@@ -23,11 +23,11 @@ public class EngagementDeleter extends Deleter<Engagement> {
 
     /**
      * Construct a new EngagementDeleter.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      * @param pathSid Engagement Sid.
      */
-    public EngagementDeleter(final String pathFlowSid, 
+    public EngagementDeleter(final String pathFlowSid,
                              final String pathSid) {
         this.pathFlowSid = pathFlowSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class EngagementDeleter extends Deleter<Engagement> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

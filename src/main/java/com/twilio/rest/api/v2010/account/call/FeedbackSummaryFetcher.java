@@ -23,7 +23,7 @@ public class FeedbackSummaryFetcher extends Fetcher<FeedbackSummary> {
 
     /**
      * Construct a new FeedbackSummaryFetcher.
-     * 
+     *
      * @param pathSid A string that uniquely identifies this feedback summary
      *                resource
      */
@@ -33,12 +33,12 @@ public class FeedbackSummaryFetcher extends Fetcher<FeedbackSummary> {
 
     /**
      * Construct a new FeedbackSummaryFetcher.
-     * 
+     *
      * @param pathAccountSid The unique sid that identifies this account
      * @param pathSid A string that uniquely identifies this feedback summary
      *                resource
      */
-    public FeedbackSummaryFetcher(final String pathAccountSid, 
+    public FeedbackSummaryFetcher(final String pathAccountSid,
                                   final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -46,7 +46,7 @@ public class FeedbackSummaryFetcher extends Fetcher<FeedbackSummary> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched FeedbackSummary
      */

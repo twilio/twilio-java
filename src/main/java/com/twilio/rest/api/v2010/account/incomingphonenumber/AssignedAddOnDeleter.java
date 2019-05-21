@@ -28,11 +28,11 @@ public class AssignedAddOnDeleter extends Deleter<AssignedAddOn> {
 
     /**
      * Construct a new AssignedAddOnDeleter.
-     * 
+     *
      * @param pathResourceSid The SID of the Phone Number that installed this Add-on
      * @param pathSid The unique string that identifies the resource
      */
-    public AssignedAddOnDeleter(final String pathResourceSid, 
+    public AssignedAddOnDeleter(final String pathResourceSid,
                                 final String pathSid) {
         this.pathResourceSid = pathResourceSid;
         this.pathSid = pathSid;
@@ -40,14 +40,14 @@ public class AssignedAddOnDeleter extends Deleter<AssignedAddOn> {
 
     /**
      * Construct a new AssignedAddOnDeleter.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       delete
      * @param pathResourceSid The SID of the Phone Number that installed this Add-on
      * @param pathSid The unique string that identifies the resource
      */
-    public AssignedAddOnDeleter(final String pathAccountSid, 
-                                final String pathResourceSid, 
+    public AssignedAddOnDeleter(final String pathAccountSid,
+                                final String pathResourceSid,
                                 final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathResourceSid = pathResourceSid;
@@ -56,7 +56,7 @@ public class AssignedAddOnDeleter extends Deleter<AssignedAddOn> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

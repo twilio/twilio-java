@@ -31,13 +31,13 @@ public class StreamMessageCreator extends Creator<StreamMessage> {
 
     /**
      * Construct a new StreamMessageCreator.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathStreamSid The stream_sid
      * @param data Stream Message body.
      */
-    public StreamMessageCreator(final String pathServiceSid, 
-                                final String pathStreamSid, 
+    public StreamMessageCreator(final String pathServiceSid,
+                                final String pathStreamSid,
                                 final Map<String, Object> data) {
         this.pathServiceSid = pathServiceSid;
         this.pathStreamSid = pathStreamSid;
@@ -46,7 +46,7 @@ public class StreamMessageCreator extends Creator<StreamMessage> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created StreamMessage
      */
@@ -85,7 +85,7 @@ public class StreamMessageCreator extends Creator<StreamMessage> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

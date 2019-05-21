@@ -28,13 +28,13 @@ public class MemberUpdater extends Updater<Member> {
 
     /**
      * Construct a new MemberUpdater.
-     * 
+     *
      * @param pathQueueSid The SID of the Queue in which to find the members
      * @param pathCallSid The Call SID of the resource(s) to update
      * @param url The absolute URL of the Queue resource
      */
-    public MemberUpdater(final String pathQueueSid, 
-                         final String pathCallSid, 
+    public MemberUpdater(final String pathQueueSid,
+                         final String pathCallSid,
                          final URI url) {
         this.pathQueueSid = pathQueueSid;
         this.pathCallSid = pathCallSid;
@@ -43,16 +43,16 @@ public class MemberUpdater extends Updater<Member> {
 
     /**
      * Construct a new MemberUpdater.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       update
      * @param pathQueueSid The SID of the Queue in which to find the members
      * @param pathCallSid The Call SID of the resource(s) to update
      * @param url The absolute URL of the Queue resource
      */
-    public MemberUpdater(final String pathAccountSid, 
-                         final String pathQueueSid, 
-                         final String pathCallSid, 
+    public MemberUpdater(final String pathAccountSid,
+                         final String pathQueueSid,
+                         final String pathCallSid,
                          final URI url) {
         this.pathAccountSid = pathAccountSid;
         this.pathQueueSid = pathQueueSid;
@@ -64,7 +64,7 @@ public class MemberUpdater extends Updater<Member> {
      * How to pass the update request data. Can be `GET` or `POST` and the default
      * is `POST`. `POST` sends the data as encoded form data and `GET` sends the
      * data as query parameters..
-     * 
+     *
      * @param method How to pass the update request data
      * @return this
      */
@@ -75,7 +75,7 @@ public class MemberUpdater extends Updater<Member> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Member
      */
@@ -115,7 +115,7 @@ public class MemberUpdater extends Updater<Member> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -37,7 +37,7 @@ public class Payload extends Resource {
 
     /**
      * Create a PayloadFetcher to execute fetch.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource to
      *                       fetch
      * @param pathReferenceSid The SID of the recording to which the AddOnResult
@@ -47,16 +47,16 @@ public class Payload extends Resource {
      * @param pathSid The unique string that identifies the resource to fetch
      * @return PayloadFetcher capable of executing the fetch
      */
-    public static PayloadFetcher fetcher(final String pathAccountSid, 
-                                         final String pathReferenceSid, 
-                                         final String pathAddOnResultSid, 
+    public static PayloadFetcher fetcher(final String pathAccountSid,
+                                         final String pathReferenceSid,
+                                         final String pathAddOnResultSid,
                                          final String pathSid) {
         return new PayloadFetcher(pathAccountSid, pathReferenceSid, pathAddOnResultSid, pathSid);
     }
 
     /**
      * Create a PayloadFetcher to execute fetch.
-     * 
+     *
      * @param pathReferenceSid The SID of the recording to which the AddOnResult
      *                         resource that contains the payload to fetch belongs
      * @param pathAddOnResultSid The SID of the AddOnResult to which the payload to
@@ -64,15 +64,15 @@ public class Payload extends Resource {
      * @param pathSid The unique string that identifies the resource to fetch
      * @return PayloadFetcher capable of executing the fetch
      */
-    public static PayloadFetcher fetcher(final String pathReferenceSid, 
-                                         final String pathAddOnResultSid, 
+    public static PayloadFetcher fetcher(final String pathReferenceSid,
+                                         final String pathAddOnResultSid,
                                          final String pathSid) {
         return new PayloadFetcher(pathReferenceSid, pathAddOnResultSid, pathSid);
     }
 
     /**
      * Create a PayloadReader to execute read.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       read
      * @param pathReferenceSid The SID of the recording to which the AddOnResult
@@ -81,29 +81,29 @@ public class Payload extends Resource {
      *                           to read belongs
      * @return PayloadReader capable of executing the read
      */
-    public static PayloadReader reader(final String pathAccountSid, 
-                                       final String pathReferenceSid, 
+    public static PayloadReader reader(final String pathAccountSid,
+                                       final String pathReferenceSid,
                                        final String pathAddOnResultSid) {
         return new PayloadReader(pathAccountSid, pathReferenceSid, pathAddOnResultSid);
     }
 
     /**
      * Create a PayloadReader to execute read.
-     * 
+     *
      * @param pathReferenceSid The SID of the recording to which the AddOnResult
      *                         resource that contains the payloads to read belongs
      * @param pathAddOnResultSid The SID of the AddOnResult to which the payloads
      *                           to read belongs
      * @return PayloadReader capable of executing the read
      */
-    public static PayloadReader reader(final String pathReferenceSid, 
+    public static PayloadReader reader(final String pathReferenceSid,
                                        final String pathAddOnResultSid) {
         return new PayloadReader(pathReferenceSid, pathAddOnResultSid);
     }
 
     /**
      * Create a PayloadDeleter to execute delete.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       delete
      * @param pathReferenceSid The SID of the recording to which the AddOnResult
@@ -113,16 +113,16 @@ public class Payload extends Resource {
      * @param pathSid The unique string that identifies the resource
      * @return PayloadDeleter capable of executing the delete
      */
-    public static PayloadDeleter deleter(final String pathAccountSid, 
-                                         final String pathReferenceSid, 
-                                         final String pathAddOnResultSid, 
+    public static PayloadDeleter deleter(final String pathAccountSid,
+                                         final String pathReferenceSid,
+                                         final String pathAddOnResultSid,
                                          final String pathSid) {
         return new PayloadDeleter(pathAccountSid, pathReferenceSid, pathAddOnResultSid, pathSid);
     }
 
     /**
      * Create a PayloadDeleter to execute delete.
-     * 
+     *
      * @param pathReferenceSid The SID of the recording to which the AddOnResult
      *                         resource that contains the payloads to delete belongs
      * @param pathAddOnResultSid The SID of the AddOnResult to which the payloads
@@ -130,15 +130,15 @@ public class Payload extends Resource {
      * @param pathSid The unique string that identifies the resource
      * @return PayloadDeleter capable of executing the delete
      */
-    public static PayloadDeleter deleter(final String pathReferenceSid, 
-                                         final String pathAddOnResultSid, 
+    public static PayloadDeleter deleter(final String pathReferenceSid,
+                                         final String pathAddOnResultSid,
                                          final String pathSid) {
         return new PayloadDeleter(pathReferenceSid, pathAddOnResultSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a Payload object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Payload object represented by the provided JSON
@@ -157,7 +157,7 @@ public class Payload extends Resource {
     /**
      * Converts a JSON InputStream into a Payload object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Payload object represented by the provided JSON
@@ -187,25 +187,25 @@ public class Payload extends Resource {
 
     @JsonCreator
     private Payload(@JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("add_on_result_sid")
-                    final String addOnResultSid, 
+                    final String addOnResultSid,
                     @JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("label")
-                    final String label, 
+                    final String label,
                     @JsonProperty("add_on_sid")
-                    final String addOnSid, 
+                    final String addOnSid,
                     @JsonProperty("add_on_configuration_sid")
-                    final String addOnConfigurationSid, 
+                    final String addOnConfigurationSid,
                     @JsonProperty("content_type")
-                    final String contentType, 
+                    final String contentType,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("reference_sid")
-                    final String referenceSid, 
+                    final String referenceSid,
                     @JsonProperty("subresource_uris")
                     final Map<String, String> subresourceUris) {
         this.sid = sid;
@@ -223,7 +223,7 @@ public class Payload extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -232,7 +232,7 @@ public class Payload extends Resource {
 
     /**
      * Returns The The SID of the AddOnResult to which the payload belongs.
-     * 
+     *
      * @return The SID of the AddOnResult to which the payload belongs
      */
     public final String getAddOnResultSid() {
@@ -241,7 +241,7 @@ public class Payload extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -250,7 +250,7 @@ public class Payload extends Resource {
 
     /**
      * Returns The The string that describes the payload.
-     * 
+     *
      * @return The string that describes the payload
      */
     public final String getLabel() {
@@ -259,7 +259,7 @@ public class Payload extends Resource {
 
     /**
      * Returns The The SID of the Add-on to which the result belongs.
-     * 
+     *
      * @return The SID of the Add-on to which the result belongs
      */
     public final String getAddOnSid() {
@@ -268,7 +268,7 @@ public class Payload extends Resource {
 
     /**
      * Returns The The SID of the Add-on configuration.
-     * 
+     *
      * @return The SID of the Add-on configuration
      */
     public final String getAddOnConfigurationSid() {
@@ -277,7 +277,7 @@ public class Payload extends Resource {
 
     /**
      * Returns The The MIME type of the payload.
-     * 
+     *
      * @return The MIME type of the payload
      */
     public final String getContentType() {
@@ -286,7 +286,7 @@ public class Payload extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT that the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
@@ -296,7 +296,7 @@ public class Payload extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT that the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -306,7 +306,7 @@ public class Payload extends Resource {
     /**
      * Returns The The SID of the recording to which the AddOnResult resource that
      * contains the payload belongs.
-     * 
+     *
      * @return The SID of the recording to which the AddOnResult resource that
      *         contains the payload belongs
      */
@@ -316,7 +316,7 @@ public class Payload extends Resource {
 
     /**
      * Returns The A list of related resources identified by their relative URIs.
-     * 
+     *
      * @return A list of related resources identified by their relative URIs
      */
     public final Map<String, String> getSubresourceUris() {
@@ -335,16 +335,16 @@ public class Payload extends Resource {
 
         Payload other = (Payload) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(addOnResultSid, other.addOnResultSid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(label, other.label) && 
-               Objects.equals(addOnSid, other.addOnSid) && 
-               Objects.equals(addOnConfigurationSid, other.addOnConfigurationSid) && 
-               Objects.equals(contentType, other.contentType) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(referenceSid, other.referenceSid) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(addOnResultSid, other.addOnResultSid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(label, other.label) &&
+               Objects.equals(addOnSid, other.addOnSid) &&
+               Objects.equals(addOnConfigurationSid, other.addOnConfigurationSid) &&
+               Objects.equals(contentType, other.contentType) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(referenceSid, other.referenceSid) &&
                Objects.equals(subresourceUris, other.subresourceUris);
     }
 

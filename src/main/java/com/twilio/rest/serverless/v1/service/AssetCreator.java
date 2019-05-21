@@ -28,11 +28,11 @@ public class AssetCreator extends Creator<Asset> {
 
     /**
      * Construct a new AssetCreator.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param friendlyName A human-readable description of this Asset.
      */
-    public AssetCreator(final String pathServiceSid, 
+    public AssetCreator(final String pathServiceSid,
                         final String friendlyName) {
         this.pathServiceSid = pathServiceSid;
         this.friendlyName = friendlyName;
@@ -40,7 +40,7 @@ public class AssetCreator extends Creator<Asset> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Asset
      */
@@ -79,7 +79,7 @@ public class AssetCreator extends Creator<Asset> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

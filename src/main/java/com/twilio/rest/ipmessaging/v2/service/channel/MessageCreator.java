@@ -32,12 +32,12 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Construct a new MessageCreator.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to create the resource under
      * @param pathChannelSid The unique ID of the channel the new resource belongs
      *                       to
      */
-    public MessageCreator(final String pathServiceSid, 
+    public MessageCreator(final String pathServiceSid,
                           final String pathChannelSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -46,7 +46,7 @@ public class MessageCreator extends Creator<Message> {
     /**
      * The [identity](https://www.twilio.com/docs/chat/identity) of the new
      * message's author. The default value is `system`..
-     * 
+     *
      * @param from The identity of the new message's author
      * @return this
      */
@@ -57,7 +57,7 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * A valid JSON string that contains application-specific data..
-     * 
+     *
      * @param attributes A valid JSON string that contains application-specific data
      * @return this
      */
@@ -71,7 +71,7 @@ public class MessageCreator extends Creator<Message> {
      * format, to assign to the resource as the date it was created. The default is
      * the current time set by the Chat service. This parameter should only be used
      * when a Chat's history is being recreated from a backup/separate source..
-     * 
+     *
      * @param dateCreated The ISO 8601 date and time in GMT when the resource was
      *                    created
      * @return this
@@ -87,7 +87,7 @@ public class MessageCreator extends Creator<Message> {
      * default value is `null`. Note that this parameter should only be used when a
      * Chat's history is being recreated from a backup/separate source  and where a
      * Message was previously updated..
-     * 
+     *
      * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
      *                    updated
      * @return this
@@ -100,7 +100,7 @@ public class MessageCreator extends Creator<Message> {
     /**
      * The [identity](https://www.twilio.com/docs/chat/identity) of the User who
      * last updated the Message, if applicable..
-     * 
+     *
      * @param lastUpdatedBy The Identity of the User who last updated the Message
      * @return this
      */
@@ -113,7 +113,7 @@ public class MessageCreator extends Creator<Message> {
      * The message to send to the channel. Can also be an empty string or `null`,
      * which sets the value as an empty string. You can send structured data in the
      * body by serializing it as a string..
-     * 
+     *
      * @param body The message to send to the channel
      * @return this
      */
@@ -125,7 +125,7 @@ public class MessageCreator extends Creator<Message> {
     /**
      * The SID of the [Media](https://www.twilio.com/docs/chat/rest/media) to attach
      * to the new Message..
-     * 
+     *
      * @param mediaSid  The Media Sid to be attached to the new Message
      * @return this
      */
@@ -136,7 +136,7 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Message
      */
@@ -175,7 +175,7 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

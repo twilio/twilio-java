@@ -23,7 +23,7 @@ public class FeedbackSummaryDeleter extends Deleter<FeedbackSummary> {
 
     /**
      * Construct a new FeedbackSummaryDeleter.
-     * 
+     *
      * @param pathSid A string that uniquely identifies this feedback summary
      *                resource
      */
@@ -33,12 +33,12 @@ public class FeedbackSummaryDeleter extends Deleter<FeedbackSummary> {
 
     /**
      * Construct a new FeedbackSummaryDeleter.
-     * 
+     *
      * @param pathAccountSid The unique sid that identifies this account
      * @param pathSid A string that uniquely identifies this feedback summary
      *                resource
      */
-    public FeedbackSummaryDeleter(final String pathAccountSid, 
+    public FeedbackSummaryDeleter(final String pathAccountSid,
                                   final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -46,7 +46,7 @@ public class FeedbackSummaryDeleter extends Deleter<FeedbackSummary> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

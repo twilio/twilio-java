@@ -40,7 +40,7 @@ public class HighriskSpecialPrefix extends Resource {
 
     /**
      * Create a HighriskSpecialPrefixReader to execute read.
-     * 
+     *
      * @param pathIsoCode The ISO 3166-1 country code
      * @return HighriskSpecialPrefixReader capable of executing the read
      */
@@ -51,7 +51,7 @@ public class HighriskSpecialPrefix extends Resource {
     /**
      * Converts a JSON String into a HighriskSpecialPrefix object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return HighriskSpecialPrefix object represented by the provided JSON
@@ -70,7 +70,7 @@ public class HighriskSpecialPrefix extends Resource {
     /**
      * Converts a JSON InputStream into a HighriskSpecialPrefix object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return HighriskSpecialPrefix object represented by the provided JSON
@@ -96,7 +96,7 @@ public class HighriskSpecialPrefix extends Resource {
 
     /**
      * Returns The A prefix that includes the E.164 assigned country code.
-     * 
+     *
      * @return A prefix that includes the E.164 assigned country code
      */
     public final String getPrefix() {

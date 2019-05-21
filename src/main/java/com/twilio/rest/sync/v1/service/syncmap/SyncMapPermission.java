@@ -40,49 +40,49 @@ public class SyncMapPermission extends Resource {
 
     /**
      * Create a SyncMapPermissionFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid Sync Service Instance SID or unique name.
      * @param pathMapSid Sync Map SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync Map Permission
      *                     applies.
      * @return SyncMapPermissionFetcher capable of executing the fetch
      */
-    public static SyncMapPermissionFetcher fetcher(final String pathServiceSid, 
-                                                   final String pathMapSid, 
+    public static SyncMapPermissionFetcher fetcher(final String pathServiceSid,
+                                                   final String pathMapSid,
                                                    final String pathIdentity) {
         return new SyncMapPermissionFetcher(pathServiceSid, pathMapSid, pathIdentity);
     }
 
     /**
      * Create a SyncMapPermissionDeleter to execute delete.
-     * 
+     *
      * @param pathServiceSid Sync Service Instance SID or unique name
      * @param pathMapSid Sync Map SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync Map Permission
      *                     applies.
      * @return SyncMapPermissionDeleter capable of executing the delete
      */
-    public static SyncMapPermissionDeleter deleter(final String pathServiceSid, 
-                                                   final String pathMapSid, 
+    public static SyncMapPermissionDeleter deleter(final String pathServiceSid,
+                                                   final String pathMapSid,
                                                    final String pathIdentity) {
         return new SyncMapPermissionDeleter(pathServiceSid, pathMapSid, pathIdentity);
     }
 
     /**
      * Create a SyncMapPermissionReader to execute read.
-     * 
+     *
      * @param pathServiceSid Sync Service Instance SID or unique name.
      * @param pathMapSid Sync Map SID or unique name.
      * @return SyncMapPermissionReader capable of executing the read
      */
-    public static SyncMapPermissionReader reader(final String pathServiceSid, 
+    public static SyncMapPermissionReader reader(final String pathServiceSid,
                                                  final String pathMapSid) {
         return new SyncMapPermissionReader(pathServiceSid, pathMapSid);
     }
 
     /**
      * Create a SyncMapPermissionUpdater to execute update.
-     * 
+     *
      * @param pathServiceSid Sync Service Instance SID or unique name.
      * @param pathMapSid Sync Map SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync Map Permission
@@ -92,11 +92,11 @@ public class SyncMapPermission extends Resource {
      * @param manage Manage access.
      * @return SyncMapPermissionUpdater capable of executing the update
      */
-    public static SyncMapPermissionUpdater updater(final String pathServiceSid, 
-                                                   final String pathMapSid, 
-                                                   final String pathIdentity, 
-                                                   final Boolean read, 
-                                                   final Boolean write, 
+    public static SyncMapPermissionUpdater updater(final String pathServiceSid,
+                                                   final String pathMapSid,
+                                                   final String pathIdentity,
+                                                   final Boolean read,
+                                                   final Boolean write,
                                                    final Boolean manage) {
         return new SyncMapPermissionUpdater(pathServiceSid, pathMapSid, pathIdentity, read, write, manage);
     }
@@ -104,7 +104,7 @@ public class SyncMapPermission extends Resource {
     /**
      * Converts a JSON String into a SyncMapPermission object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SyncMapPermission object represented by the provided JSON
@@ -123,7 +123,7 @@ public class SyncMapPermission extends Resource {
     /**
      * Converts a JSON InputStream into a SyncMapPermission object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SyncMapPermission object represented by the provided JSON
@@ -150,19 +150,19 @@ public class SyncMapPermission extends Resource {
 
     @JsonCreator
     private SyncMapPermission(@JsonProperty("account_sid")
-                              final String accountSid, 
+                              final String accountSid,
                               @JsonProperty("service_sid")
-                              final String serviceSid, 
+                              final String serviceSid,
                               @JsonProperty("map_sid")
-                              final String mapSid, 
+                              final String mapSid,
                               @JsonProperty("identity")
-                              final String identity, 
+                              final String identity,
                               @JsonProperty("read")
-                              final Boolean read, 
+                              final Boolean read,
                               @JsonProperty("write")
-                              final Boolean write, 
+                              final Boolean write,
                               @JsonProperty("manage")
-                              final Boolean manage, 
+                              final Boolean manage,
                               @JsonProperty("url")
                               final URI url) {
         this.accountSid = accountSid;
@@ -177,7 +177,7 @@ public class SyncMapPermission extends Resource {
 
     /**
      * Returns The Twilio Account SID..
-     * 
+     *
      * @return Twilio Account SID.
      */
     public final String getAccountSid() {
@@ -186,7 +186,7 @@ public class SyncMapPermission extends Resource {
 
     /**
      * Returns The Sync Service Instance SID..
-     * 
+     *
      * @return Sync Service Instance SID.
      */
     public final String getServiceSid() {
@@ -195,7 +195,7 @@ public class SyncMapPermission extends Resource {
 
     /**
      * Returns The Sync Map SID..
-     * 
+     *
      * @return Sync Map SID.
      */
     public final String getMapSid() {
@@ -204,7 +204,7 @@ public class SyncMapPermission extends Resource {
 
     /**
      * Returns The Identity of the user to whom the Sync Map Permission applies..
-     * 
+     *
      * @return Identity of the user to whom the Sync Map Permission applies.
      */
     public final String getIdentity() {
@@ -213,7 +213,7 @@ public class SyncMapPermission extends Resource {
 
     /**
      * Returns The Read access..
-     * 
+     *
      * @return Read access.
      */
     public final Boolean getRead() {
@@ -222,7 +222,7 @@ public class SyncMapPermission extends Resource {
 
     /**
      * Returns The Write access..
-     * 
+     *
      * @return Write access.
      */
     public final Boolean getWrite() {
@@ -231,7 +231,7 @@ public class SyncMapPermission extends Resource {
 
     /**
      * Returns The Manage access..
-     * 
+     *
      * @return Manage access.
      */
     public final Boolean getManage() {
@@ -240,7 +240,7 @@ public class SyncMapPermission extends Resource {
 
     /**
      * Returns The URL of this Sync Map Permission..
-     * 
+     *
      * @return URL of this Sync Map Permission.
      */
     public final URI getUrl() {
@@ -259,13 +259,13 @@ public class SyncMapPermission extends Resource {
 
         SyncMapPermission other = (SyncMapPermission) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(mapSid, other.mapSid) && 
-               Objects.equals(identity, other.identity) && 
-               Objects.equals(read, other.read) && 
-               Objects.equals(write, other.write) && 
-               Objects.equals(manage, other.manage) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(mapSid, other.mapSid) &&
+               Objects.equals(identity, other.identity) &&
+               Objects.equals(read, other.read) &&
+               Objects.equals(write, other.write) &&
+               Objects.equals(manage, other.manage) &&
                Objects.equals(url, other.url);
     }
 

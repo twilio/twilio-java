@@ -67,7 +67,7 @@ public class Participant extends Resource {
 
     /**
      * Create a ParticipantFetcher to execute fetch.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource to
      *                       fetch
      * @param pathConferenceSid The SID of the conference with the participant to
@@ -75,28 +75,28 @@ public class Participant extends Resource {
      * @param pathCallSid The Call SID of the resource to fetch
      * @return ParticipantFetcher capable of executing the fetch
      */
-    public static ParticipantFetcher fetcher(final String pathAccountSid, 
-                                             final String pathConferenceSid, 
+    public static ParticipantFetcher fetcher(final String pathAccountSid,
+                                             final String pathConferenceSid,
                                              final String pathCallSid) {
         return new ParticipantFetcher(pathAccountSid, pathConferenceSid, pathCallSid);
     }
 
     /**
      * Create a ParticipantFetcher to execute fetch.
-     * 
+     *
      * @param pathConferenceSid The SID of the conference with the participant to
      *                          fetch
      * @param pathCallSid The Call SID of the resource to fetch
      * @return ParticipantFetcher capable of executing the fetch
      */
-    public static ParticipantFetcher fetcher(final String pathConferenceSid, 
+    public static ParticipantFetcher fetcher(final String pathConferenceSid,
                                              final String pathCallSid) {
         return new ParticipantFetcher(pathConferenceSid, pathCallSid);
     }
 
     /**
      * Create a ParticipantUpdater to execute update.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       update
      * @param pathConferenceSid The SID of the conference with the participant to
@@ -104,58 +104,58 @@ public class Participant extends Resource {
      * @param pathCallSid The Call SID of the resources to update
      * @return ParticipantUpdater capable of executing the update
      */
-    public static ParticipantUpdater updater(final String pathAccountSid, 
-                                             final String pathConferenceSid, 
+    public static ParticipantUpdater updater(final String pathAccountSid,
+                                             final String pathConferenceSid,
                                              final String pathCallSid) {
         return new ParticipantUpdater(pathAccountSid, pathConferenceSid, pathCallSid);
     }
 
     /**
      * Create a ParticipantUpdater to execute update.
-     * 
+     *
      * @param pathConferenceSid The SID of the conference with the participant to
      *                          update
      * @param pathCallSid The Call SID of the resources to update
      * @return ParticipantUpdater capable of executing the update
      */
-    public static ParticipantUpdater updater(final String pathConferenceSid, 
+    public static ParticipantUpdater updater(final String pathConferenceSid,
                                              final String pathCallSid) {
         return new ParticipantUpdater(pathConferenceSid, pathCallSid);
     }
 
     /**
      * Create a ParticipantCreator to execute create.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param pathConferenceSid The SID of the participant's conference
      * @param from The `from` phone number used to invite a participant
      * @param to The number, client id, or sip address of the new participant
      * @return ParticipantCreator capable of executing the create
      */
-    public static ParticipantCreator creator(final String pathAccountSid, 
-                                             final String pathConferenceSid, 
-                                             final com.twilio.type.PhoneNumber from, 
+    public static ParticipantCreator creator(final String pathAccountSid,
+                                             final String pathConferenceSid,
+                                             final com.twilio.type.PhoneNumber from,
                                              final com.twilio.type.PhoneNumber to) {
         return new ParticipantCreator(pathAccountSid, pathConferenceSid, from, to);
     }
 
     /**
      * Create a ParticipantCreator to execute create.
-     * 
+     *
      * @param pathConferenceSid The SID of the participant's conference
      * @param from The `from` phone number used to invite a participant
      * @param to The number, client id, or sip address of the new participant
      * @return ParticipantCreator capable of executing the create
      */
-    public static ParticipantCreator creator(final String pathConferenceSid, 
-                                             final com.twilio.type.PhoneNumber from, 
+    public static ParticipantCreator creator(final String pathConferenceSid,
+                                             final com.twilio.type.PhoneNumber from,
                                              final com.twilio.type.PhoneNumber to) {
         return new ParticipantCreator(pathConferenceSid, from, to);
     }
 
     /**
      * Create a ParticipantDeleter to execute delete.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       delete
      * @param pathConferenceSid The SID of the conference with the participants to
@@ -163,42 +163,42 @@ public class Participant extends Resource {
      * @param pathCallSid The Call SID of the resources to delete
      * @return ParticipantDeleter capable of executing the delete
      */
-    public static ParticipantDeleter deleter(final String pathAccountSid, 
-                                             final String pathConferenceSid, 
+    public static ParticipantDeleter deleter(final String pathAccountSid,
+                                             final String pathConferenceSid,
                                              final String pathCallSid) {
         return new ParticipantDeleter(pathAccountSid, pathConferenceSid, pathCallSid);
     }
 
     /**
      * Create a ParticipantDeleter to execute delete.
-     * 
+     *
      * @param pathConferenceSid The SID of the conference with the participants to
      *                          delete
      * @param pathCallSid The Call SID of the resources to delete
      * @return ParticipantDeleter capable of executing the delete
      */
-    public static ParticipantDeleter deleter(final String pathConferenceSid, 
+    public static ParticipantDeleter deleter(final String pathConferenceSid,
                                              final String pathCallSid) {
         return new ParticipantDeleter(pathConferenceSid, pathCallSid);
     }
 
     /**
      * Create a ParticipantReader to execute read.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       read
      * @param pathConferenceSid The SID of the conference with the participants to
      *                          read
      * @return ParticipantReader capable of executing the read
      */
-    public static ParticipantReader reader(final String pathAccountSid, 
+    public static ParticipantReader reader(final String pathAccountSid,
                                            final String pathConferenceSid) {
         return new ParticipantReader(pathAccountSid, pathConferenceSid);
     }
 
     /**
      * Create a ParticipantReader to execute read.
-     * 
+     *
      * @param pathConferenceSid The SID of the conference with the participants to
      *                          read
      * @return ParticipantReader capable of executing the read
@@ -210,7 +210,7 @@ public class Participant extends Resource {
     /**
      * Converts a JSON String into a Participant object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Participant object represented by the provided JSON
@@ -229,7 +229,7 @@ public class Participant extends Resource {
     /**
      * Converts a JSON InputStream into a Participant object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Participant object represented by the provided JSON
@@ -261,29 +261,29 @@ public class Participant extends Resource {
 
     @JsonCreator
     private Participant(@JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("call_sid")
-                        final String callSid, 
+                        final String callSid,
                         @JsonProperty("call_sid_to_coach")
-                        final String callSidToCoach, 
+                        final String callSidToCoach,
                         @JsonProperty("coaching")
-                        final Boolean coaching, 
+                        final Boolean coaching,
                         @JsonProperty("conference_sid")
-                        final String conferenceSid, 
+                        final String conferenceSid,
                         @JsonProperty("date_created")
-                        final String dateCreated, 
+                        final String dateCreated,
                         @JsonProperty("date_updated")
-                        final String dateUpdated, 
+                        final String dateUpdated,
                         @JsonProperty("end_conference_on_exit")
-                        final Boolean endConferenceOnExit, 
+                        final Boolean endConferenceOnExit,
                         @JsonProperty("muted")
-                        final Boolean muted, 
+                        final Boolean muted,
                         @JsonProperty("hold")
-                        final Boolean hold, 
+                        final Boolean hold,
                         @JsonProperty("start_conference_on_enter")
-                        final Boolean startConferenceOnEnter, 
+                        final Boolean startConferenceOnEnter,
                         @JsonProperty("status")
-                        final Participant.Status status, 
+                        final Participant.Status status,
                         @JsonProperty("uri")
                         final String uri) {
         this.accountSid = accountSid;
@@ -303,7 +303,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -312,7 +312,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The The SID of the Call the resource is associated with.
-     * 
+     *
      * @return The SID of the Call the resource is associated with
      */
     public final String getCallSid() {
@@ -321,7 +321,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The The SID of the participant who is being `coached`.
-     * 
+     *
      * @return The SID of the participant who is being `coached`
      */
     public final String getCallSidToCoach() {
@@ -330,7 +330,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The Indicates if the participant changed to coach.
-     * 
+     *
      * @return Indicates if the participant changed to coach
      */
     public final Boolean getCoaching() {
@@ -339,7 +339,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The The SID of the conference the participant is in.
-     * 
+     *
      * @return The SID of the conference the participant is in
      */
     public final String getConferenceSid() {
@@ -348,7 +348,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT that the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
@@ -358,7 +358,7 @@ public class Participant extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT that the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -367,7 +367,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The Whether the conference ends when the participant leaves.
-     * 
+     *
      * @return Whether the conference ends when the participant leaves
      */
     public final Boolean getEndConferenceOnExit() {
@@ -376,7 +376,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The Whether the participant is muted.
-     * 
+     *
      * @return Whether the participant is muted
      */
     public final Boolean getMuted() {
@@ -385,7 +385,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The Whether the participant is on hold.
-     * 
+     *
      * @return Whether the participant is on hold
      */
     public final Boolean getHold() {
@@ -395,7 +395,7 @@ public class Participant extends Resource {
     /**
      * Returns The Whether the conference starts when the participant joins the
      * conference.
-     * 
+     *
      * @return Whether the conference starts when the participant joins the
      *         conference
      */
@@ -405,7 +405,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The The status of the participant's call in a session.
-     * 
+     *
      * @return The status of the participant's call in a session
      */
     public final Participant.Status getStatus() {
@@ -414,7 +414,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The The URI of the resource, relative to `https://api.twilio.com`.
-     * 
+     *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
@@ -433,18 +433,18 @@ public class Participant extends Resource {
 
         Participant other = (Participant) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(callSid, other.callSid) && 
-               Objects.equals(callSidToCoach, other.callSidToCoach) && 
-               Objects.equals(coaching, other.coaching) && 
-               Objects.equals(conferenceSid, other.conferenceSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(endConferenceOnExit, other.endConferenceOnExit) && 
-               Objects.equals(muted, other.muted) && 
-               Objects.equals(hold, other.hold) && 
-               Objects.equals(startConferenceOnEnter, other.startConferenceOnEnter) && 
-               Objects.equals(status, other.status) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(callSid, other.callSid) &&
+               Objects.equals(callSidToCoach, other.callSidToCoach) &&
+               Objects.equals(coaching, other.coaching) &&
+               Objects.equals(conferenceSid, other.conferenceSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(endConferenceOnExit, other.endConferenceOnExit) &&
+               Objects.equals(muted, other.muted) &&
+               Objects.equals(hold, other.hold) &&
+               Objects.equals(startConferenceOnEnter, other.startConferenceOnEnter) &&
+               Objects.equals(status, other.status) &&
                Objects.equals(uri, other.uri);
     }
 

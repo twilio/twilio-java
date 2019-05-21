@@ -30,7 +30,7 @@ public class CurrentCallFetcher extends Fetcher<CurrentCall> {
      * The originating Phone Number, given in E.164 format
      * (https://en.wikipedia.org/wiki/E.164). This phone number should be a Twilio
      * number, otherwise it will return an error with HTTP Status Code 400..
-     * 
+     *
      * @param from The originating Phone Number
      * @return this
      */
@@ -42,7 +42,7 @@ public class CurrentCallFetcher extends Fetcher<CurrentCall> {
     /**
      * The terminating Phone Number, given in E.164 format
      * (https://en.wikipedia.org/wiki/E.164)..
-     * 
+     *
      * @param to The terminating Phone Number
      * @return this
      */
@@ -53,7 +53,7 @@ public class CurrentCallFetcher extends Fetcher<CurrentCall> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched CurrentCall
      */
@@ -92,7 +92,7 @@ public class CurrentCallFetcher extends Fetcher<CurrentCall> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

@@ -28,11 +28,11 @@ public class FunctionFetcher extends Fetcher<Function> {
 
     /**
      * Construct a new FunctionFetcher.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathSid Function Sid.
      */
-    public FunctionFetcher(final String pathServiceSid, 
+    public FunctionFetcher(final String pathServiceSid,
                            final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class FunctionFetcher extends Fetcher<Function> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Function
      */

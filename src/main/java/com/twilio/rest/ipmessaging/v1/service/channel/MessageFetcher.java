@@ -24,14 +24,14 @@ public class MessageFetcher extends Fetcher<Message> {
 
     /**
      * Construct a new MessageFetcher.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to fetch the resource from
      * @param pathChannelSid The unique ID of the Channel the message to fetch
      *                       belongs to
      * @param pathSid The unique string that identifies the resource
      */
-    public MessageFetcher(final String pathServiceSid, 
-                          final String pathChannelSid, 
+    public MessageFetcher(final String pathServiceSid,
+                          final String pathChannelSid,
                           final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -40,7 +40,7 @@ public class MessageFetcher extends Fetcher<Message> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Message
      */

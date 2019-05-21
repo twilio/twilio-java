@@ -23,7 +23,7 @@ public class MessageDeleter extends Deleter<Message> {
 
     /**
      * Construct a new MessageDeleter.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public MessageDeleter(final String pathSid) {
@@ -32,12 +32,12 @@ public class MessageDeleter extends Deleter<Message> {
 
     /**
      * Construct a new MessageDeleter.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       delete
      * @param pathSid The unique string that identifies the resource
      */
-    public MessageDeleter(final String pathAccountSid, 
+    public MessageDeleter(final String pathAccountSid,
                           final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -45,7 +45,7 @@ public class MessageDeleter extends Deleter<Message> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

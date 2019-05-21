@@ -24,7 +24,7 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
 
     /**
      * Construct a new IpAccessControlListReader.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk from which to read the IP Access
      *                     Control Lists
      */
@@ -34,7 +34,7 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return IpAccessControlList ResourceSet
      */
@@ -45,7 +45,7 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return IpAccessControlList ResourceSet
      */
@@ -65,7 +65,7 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return IpAccessControlList ResourceSet
@@ -83,13 +83,13 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<IpAccessControlList> nextPage(final Page<IpAccessControlList> page, 
+    public Page<IpAccessControlList> nextPage(final Page<IpAccessControlList> page,
                                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -103,13 +103,13 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<IpAccessControlList> previousPage(final Page<IpAccessControlList> page, 
+    public Page<IpAccessControlList> previousPage(final Page<IpAccessControlList> page,
                                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -123,7 +123,7 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
 
     /**
      * Generate a Page of IpAccessControlList Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -158,7 +158,7 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

@@ -29,7 +29,7 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
 
     /**
      * Construct a new OriginationUrlCreator.
-     * 
+     *
      * @param pathTrunkSid The SID of the Trunk to associate the resource with
      * @param weight The value that determines the relative load the URI should
      *               receive compared to others with the same priority
@@ -39,11 +39,11 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
      * @param sipUrl The SIP address you want Twilio to route your Origination
      *               calls to
      */
-    public OriginationUrlCreator(final String pathTrunkSid, 
-                                 final Integer weight, 
-                                 final Integer priority, 
-                                 final Boolean enabled, 
-                                 final String friendlyName, 
+    public OriginationUrlCreator(final String pathTrunkSid,
+                                 final Integer weight,
+                                 final Integer priority,
+                                 final Boolean enabled,
+                                 final String friendlyName,
                                  final URI sipUrl) {
         this.pathTrunkSid = pathTrunkSid;
         this.weight = weight;
@@ -55,7 +55,7 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created OriginationUrl
      */
@@ -94,7 +94,7 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

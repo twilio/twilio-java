@@ -29,14 +29,14 @@ public class DocumentPermissionDeleter extends Deleter<DocumentPermission> {
 
     /**
      * Construct a new DocumentPermissionDeleter.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathDocumentSid Sync Document SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync Document
      *                     Permission applies.
      */
-    public DocumentPermissionDeleter(final String pathServiceSid, 
-                                     final String pathDocumentSid, 
+    public DocumentPermissionDeleter(final String pathServiceSid,
+                                     final String pathDocumentSid,
                                      final String pathIdentity) {
         this.pathServiceSid = pathServiceSid;
         this.pathDocumentSid = pathDocumentSid;
@@ -45,7 +45,7 @@ public class DocumentPermissionDeleter extends Deleter<DocumentPermission> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

@@ -32,7 +32,7 @@ public class Identity extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -41,7 +41,7 @@ public class Identity extends TwiML {
 
     /**
      * Identity of the client to dial
-     * 
+     *
      * @return Identity of the client to dial
      */
     public String getClientIdentity() {

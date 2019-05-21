@@ -74,7 +74,7 @@ public class ShortCodeTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.MESSAGING.toString(),
                                           "/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ShortCodes/SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -106,7 +106,7 @@ public class ShortCodeTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.MESSAGING.toString(),
                                           "/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ShortCodes");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -138,7 +138,7 @@ public class ShortCodeTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.MESSAGING.toString(),
                                           "/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ShortCodes/SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

@@ -31,7 +31,7 @@ public class StyleSheetUpdater extends Updater<StyleSheet> {
 
     /**
      * Construct a new StyleSheetUpdater.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant
      */
     public StyleSheetUpdater(final String pathAssistantSid) {
@@ -40,7 +40,7 @@ public class StyleSheetUpdater extends Updater<StyleSheet> {
 
     /**
      * The JSON Style sheet string.
-     * 
+     *
      * @param styleSheet The JSON Style sheet string
      * @return this
      */
@@ -51,7 +51,7 @@ public class StyleSheetUpdater extends Updater<StyleSheet> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated StyleSheet
      */
@@ -90,7 +90,7 @@ public class StyleSheetUpdater extends Updater<StyleSheet> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

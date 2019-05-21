@@ -67,7 +67,7 @@ public class Client extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -76,7 +76,7 @@ public class Client extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -104,7 +104,7 @@ public class Client extends TwiML {
 
     /**
      * Client URL
-     * 
+     *
      * @return Client URL
      */
     public URI getUrl() {
@@ -113,7 +113,7 @@ public class Client extends TwiML {
 
     /**
      * Client URL Method
-     * 
+     *
      * @return Client URL Method
      */
     public HttpMethod getMethod() {
@@ -122,7 +122,7 @@ public class Client extends TwiML {
 
     /**
      * Events to trigger status callback
-     * 
+     *
      * @return Events to trigger status callback
      */
     public List<Client.Event> getStatusCallbackEvents() {
@@ -143,7 +143,7 @@ public class Client extends TwiML {
 
     /**
      * Status Callback URL
-     * 
+     *
      * @return Status Callback URL
      */
     public URI getStatusCallback() {
@@ -152,7 +152,7 @@ public class Client extends TwiML {
 
     /**
      * Status Callback URL Method
-     * 
+     *
      * @return Status Callback URL Method
      */
     public HttpMethod getStatusCallbackMethod() {
@@ -161,7 +161,7 @@ public class Client extends TwiML {
 
     /**
      * Client identity
-     * 
+     *
      * @return Client identity
      */
     public String getIdentity() {

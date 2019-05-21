@@ -37,12 +37,12 @@ public class EngagementContext extends Resource {
 
     /**
      * Create a EngagementContextFetcher to execute fetch.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      * @param pathEngagementSid Engagement Sid.
      * @return EngagementContextFetcher capable of executing the fetch
      */
-    public static EngagementContextFetcher fetcher(final String pathFlowSid, 
+    public static EngagementContextFetcher fetcher(final String pathFlowSid,
                                                    final String pathEngagementSid) {
         return new EngagementContextFetcher(pathFlowSid, pathEngagementSid);
     }
@@ -50,7 +50,7 @@ public class EngagementContext extends Resource {
     /**
      * Converts a JSON String into a EngagementContext object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return EngagementContext object represented by the provided JSON
@@ -69,7 +69,7 @@ public class EngagementContext extends Resource {
     /**
      * Converts a JSON InputStream into a EngagementContext object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return EngagementContext object represented by the provided JSON
@@ -93,13 +93,13 @@ public class EngagementContext extends Resource {
 
     @JsonCreator
     private EngagementContext(@JsonProperty("account_sid")
-                              final String accountSid, 
+                              final String accountSid,
                               @JsonProperty("context")
-                              final Map<String, Object> context, 
+                              final Map<String, Object> context,
                               @JsonProperty("engagement_sid")
-                              final String engagementSid, 
+                              final String engagementSid,
                               @JsonProperty("flow_sid")
-                              final String flowSid, 
+                              final String flowSid,
                               @JsonProperty("url")
                               final URI url) {
         this.accountSid = accountSid;
@@ -111,7 +111,7 @@ public class EngagementContext extends Resource {
 
     /**
      * Returns The Account Sid..
-     * 
+     *
      * @return Account Sid.
      */
     public final String getAccountSid() {
@@ -120,7 +120,7 @@ public class EngagementContext extends Resource {
 
     /**
      * Returns The Flow state..
-     * 
+     *
      * @return Flow state.
      */
     public final Map<String, Object> getContext() {
@@ -129,7 +129,7 @@ public class EngagementContext extends Resource {
 
     /**
      * Returns The Engagement Sid..
-     * 
+     *
      * @return Engagement Sid.
      */
     public final String getEngagementSid() {
@@ -138,7 +138,7 @@ public class EngagementContext extends Resource {
 
     /**
      * Returns The Flow Sid..
-     * 
+     *
      * @return Flow Sid.
      */
     public final String getFlowSid() {
@@ -147,7 +147,7 @@ public class EngagementContext extends Resource {
 
     /**
      * Returns The The URL of this resource..
-     * 
+     *
      * @return The URL of this resource.
      */
     public final URI getUrl() {
@@ -166,10 +166,10 @@ public class EngagementContext extends Resource {
 
         EngagementContext other = (EngagementContext) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(context, other.context) && 
-               Objects.equals(engagementSid, other.engagementSid) && 
-               Objects.equals(flowSid, other.flowSid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(context, other.context) &&
+               Objects.equals(engagementSid, other.engagementSid) &&
+               Objects.equals(flowSid, other.flowSid) &&
                Objects.equals(url, other.url);
     }
 

@@ -22,7 +22,7 @@ public class AwsFetcher extends Fetcher<Aws> {
 
     /**
      * Construct a new AwsFetcher.
-     * 
+     *
      * @param pathSid The unique string that identifies the resource
      */
     public AwsFetcher(final String pathSid) {
@@ -31,7 +31,7 @@ public class AwsFetcher extends Fetcher<Aws> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Aws
      */

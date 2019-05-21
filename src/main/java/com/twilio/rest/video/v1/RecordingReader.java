@@ -34,7 +34,7 @@ public class RecordingReader extends Reader<Recording> {
 
     /**
      * Only show Recordings with the given status..
-     * 
+     *
      * @param status Only show Recordings with the given status.
      * @return this
      */
@@ -46,7 +46,7 @@ public class RecordingReader extends Reader<Recording> {
     /**
      * Only show the Recordings with the given source Sid (you can use this to
      * filter Recordings by `TrackSid` for Video Room Recordings..
-     * 
+     *
      * @param sourceSid Only show the Recordings with the given source Sid.
      * @return this
      */
@@ -58,7 +58,7 @@ public class RecordingReader extends Reader<Recording> {
     /**
      * Only show Recordings that have this GroupingSid, which may include a
      * ParticipantSid and/or a RoomSid..
-     * 
+     *
      * @param groupingSid Only show Recordings that have this GroupingSid.
      * @return this
      */
@@ -70,7 +70,7 @@ public class RecordingReader extends Reader<Recording> {
     /**
      * Only show Recordings that have this GroupingSid, which may include a
      * ParticipantSid and/or a RoomSid..
-     * 
+     *
      * @param groupingSid Only show Recordings that have this GroupingSid.
      * @return this
      */
@@ -81,7 +81,7 @@ public class RecordingReader extends Reader<Recording> {
     /**
      * Only show Recordings that started on or after this ISO8601 date-time with
      * timezone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`..
-     * 
+     *
      * @param dateCreatedAfter Only show Recordings that started on or after this
      *                         ISO8601 date-time with timezone.
      * @return this
@@ -94,7 +94,7 @@ public class RecordingReader extends Reader<Recording> {
     /**
      * Only show Recordings that started before this ISO8601 date-time with
      * timezone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`..
-     * 
+     *
      * @param dateCreatedBefore Only show Recordings that started before this
      *                          ISO8601 date-time with timezone.
      * @return this
@@ -107,7 +107,7 @@ public class RecordingReader extends Reader<Recording> {
     /**
      * Only show Recordings that have this media type. Can be either `audio` or
      * `video`..
-     * 
+     *
      * @param mediaType Only show Recordings that have this media type.
      * @return this
      */
@@ -118,7 +118,7 @@ public class RecordingReader extends Reader<Recording> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Recording ResourceSet
      */
@@ -129,7 +129,7 @@ public class RecordingReader extends Reader<Recording> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Recording ResourceSet
      */
@@ -149,7 +149,7 @@ public class RecordingReader extends Reader<Recording> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Recording ResourceSet
@@ -167,13 +167,13 @@ public class RecordingReader extends Reader<Recording> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Recording> nextPage(final Page<Recording> page, 
+    public Page<Recording> nextPage(final Page<Recording> page,
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -187,13 +187,13 @@ public class RecordingReader extends Reader<Recording> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Recording> previousPage(final Page<Recording> page, 
+    public Page<Recording> previousPage(final Page<Recording> page,
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -207,7 +207,7 @@ public class RecordingReader extends Reader<Recording> {
 
     /**
      * Generate a Page of Recording Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -242,7 +242,7 @@ public class RecordingReader extends Reader<Recording> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

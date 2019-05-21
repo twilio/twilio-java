@@ -27,15 +27,15 @@ public class RoleCreator extends Creator<Role> {
 
     /**
      * Construct a new RoleCreator.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to create the resource under
      * @param friendlyName A string to describe the new resource
      * @param type The type of role
      * @param permission A permission the role should have
      */
-    public RoleCreator(final String pathServiceSid, 
-                       final String friendlyName, 
-                       final Role.RoleType type, 
+    public RoleCreator(final String pathServiceSid,
+                       final String friendlyName,
+                       final Role.RoleType type,
                        final List<String> permission) {
         this.pathServiceSid = pathServiceSid;
         this.friendlyName = friendlyName;
@@ -45,7 +45,7 @@ public class RoleCreator extends Creator<Role> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Role
      */
@@ -84,7 +84,7 @@ public class RoleCreator extends Creator<Role> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

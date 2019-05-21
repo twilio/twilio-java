@@ -37,20 +37,20 @@ public class Queue extends Resource {
 
     /**
      * Create a QueueFetcher to execute fetch.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       fetch
      * @param pathSid The unique string that identifies this resource
      * @return QueueFetcher capable of executing the fetch
      */
-    public static QueueFetcher fetcher(final String pathAccountSid, 
+    public static QueueFetcher fetcher(final String pathAccountSid,
                                        final String pathSid) {
         return new QueueFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a QueueFetcher to execute fetch.
-     * 
+     *
      * @param pathSid The unique string that identifies this resource
      * @return QueueFetcher capable of executing the fetch
      */
@@ -60,20 +60,20 @@ public class Queue extends Resource {
 
     /**
      * Create a QueueUpdater to execute update.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       update
      * @param pathSid The unique string that identifies this resource
      * @return QueueUpdater capable of executing the update
      */
-    public static QueueUpdater updater(final String pathAccountSid, 
+    public static QueueUpdater updater(final String pathAccountSid,
                                        final String pathSid) {
         return new QueueUpdater(pathAccountSid, pathSid);
     }
 
     /**
      * Create a QueueUpdater to execute update.
-     * 
+     *
      * @param pathSid The unique string that identifies this resource
      * @return QueueUpdater capable of executing the update
      */
@@ -83,20 +83,20 @@ public class Queue extends Resource {
 
     /**
      * Create a QueueDeleter to execute delete.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       delete
      * @param pathSid The unique string that identifies this resource
      * @return QueueDeleter capable of executing the delete
      */
-    public static QueueDeleter deleter(final String pathAccountSid, 
+    public static QueueDeleter deleter(final String pathAccountSid,
                                        final String pathSid) {
         return new QueueDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a QueueDeleter to execute delete.
-     * 
+     *
      * @param pathSid The unique string that identifies this resource
      * @return QueueDeleter capable of executing the delete
      */
@@ -106,7 +106,7 @@ public class Queue extends Resource {
 
     /**
      * Create a QueueReader to execute read.
-     * 
+     *
      * @param pathAccountSid The unique id of the Account responsible for creating
      *                       this Call
      * @return QueueReader capable of executing the read
@@ -117,7 +117,7 @@ public class Queue extends Resource {
 
     /**
      * Create a QueueReader to execute read.
-     * 
+     *
      * @return QueueReader capable of executing the read
      */
     public static QueueReader reader() {
@@ -126,19 +126,19 @@ public class Queue extends Resource {
 
     /**
      * Create a QueueCreator to execute create.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param friendlyName A string to describe this resource
      * @return QueueCreator capable of executing the create
      */
-    public static QueueCreator creator(final String pathAccountSid, 
+    public static QueueCreator creator(final String pathAccountSid,
                                        final String friendlyName) {
         return new QueueCreator(pathAccountSid, friendlyName);
     }
 
     /**
      * Create a QueueCreator to execute create.
-     * 
+     *
      * @param friendlyName A string to describe this resource
      * @return QueueCreator capable of executing the create
      */
@@ -148,7 +148,7 @@ public class Queue extends Resource {
 
     /**
      * Converts a JSON String into a Queue object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Queue object represented by the provided JSON
@@ -167,7 +167,7 @@ public class Queue extends Resource {
     /**
      * Converts a JSON InputStream into a Queue object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Queue object represented by the provided JSON
@@ -196,23 +196,23 @@ public class Queue extends Resource {
 
     @JsonCreator
     private Queue(@JsonProperty("account_sid")
-                  final String accountSid, 
+                  final String accountSid,
                   @JsonProperty("average_wait_time")
-                  final Integer averageWaitTime, 
+                  final Integer averageWaitTime,
                   @JsonProperty("current_size")
-                  final Integer currentSize, 
+                  final Integer currentSize,
                   @JsonProperty("date_created")
-                  final String dateCreated, 
+                  final String dateCreated,
                   @JsonProperty("date_updated")
-                  final String dateUpdated, 
+                  final String dateUpdated,
                   @JsonProperty("friendly_name")
-                  final String friendlyName, 
+                  final String friendlyName,
                   @JsonProperty("max_size")
-                  final Integer maxSize, 
+                  final Integer maxSize,
                   @JsonProperty("sid")
-                  final String sid, 
+                  final String sid,
                   @JsonProperty("uri")
-                  final String uri, 
+                  final String uri,
                   @JsonProperty("subresource_uris")
                   final Map<String, String> subresourceUris) {
         this.accountSid = accountSid;
@@ -229,7 +229,7 @@ public class Queue extends Resource {
 
     /**
      * Returns The The SID of the Account that created this resource.
-     * 
+     *
      * @return The SID of the Account that created this resource
      */
     public final String getAccountSid() {
@@ -238,7 +238,7 @@ public class Queue extends Resource {
 
     /**
      * Returns The Average wait time of members in the queue.
-     * 
+     *
      * @return Average wait time of members in the queue
      */
     public final Integer getAverageWaitTime() {
@@ -247,7 +247,7 @@ public class Queue extends Resource {
 
     /**
      * Returns The The number of calls currently in the queue..
-     * 
+     *
      * @return The number of calls currently in the queue.
      */
     public final Integer getCurrentSize() {
@@ -256,7 +256,7 @@ public class Queue extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT that this resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that this resource was created
      */
     public final DateTime getDateCreated() {
@@ -266,7 +266,7 @@ public class Queue extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT that this resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -275,7 +275,7 @@ public class Queue extends Resource {
 
     /**
      * Returns The A string that you assigned to describe this resource.
-     * 
+     *
      * @return A string that you assigned to describe this resource
      */
     public final String getFriendlyName() {
@@ -284,7 +284,7 @@ public class Queue extends Resource {
 
     /**
      * Returns The The max number of calls allowed in the queue.
-     * 
+     *
      * @return The max number of calls allowed in the queue
      */
     public final Integer getMaxSize() {
@@ -293,7 +293,7 @@ public class Queue extends Resource {
 
     /**
      * Returns The The unique string that identifies this resource.
-     * 
+     *
      * @return The unique string that identifies this resource
      */
     public final String getSid() {
@@ -302,7 +302,7 @@ public class Queue extends Resource {
 
     /**
      * Returns The The URI of this resource, relative to `https://api.twilio.com`.
-     * 
+     *
      * @return The URI of this resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
@@ -311,7 +311,7 @@ public class Queue extends Resource {
 
     /**
      * Returns The Queue Instance Subresources.
-     * 
+     *
      * @return Queue Instance Subresources
      */
     public final Map<String, String> getSubresourceUris() {
@@ -330,15 +330,15 @@ public class Queue extends Resource {
 
         Queue other = (Queue) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(averageWaitTime, other.averageWaitTime) && 
-               Objects.equals(currentSize, other.currentSize) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(maxSize, other.maxSize) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(uri, other.uri) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(averageWaitTime, other.averageWaitTime) &&
+               Objects.equals(currentSize, other.currentSize) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(maxSize, other.maxSize) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(uri, other.uri) &&
                Objects.equals(subresourceUris, other.subresourceUris);
     }
 

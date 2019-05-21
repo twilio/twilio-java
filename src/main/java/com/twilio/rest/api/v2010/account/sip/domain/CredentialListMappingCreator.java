@@ -24,13 +24,13 @@ public class CredentialListMappingCreator extends Creator<CredentialListMapping>
 
     /**
      * Construct a new CredentialListMappingCreator.
-     * 
+     *
      * @param pathDomainSid A string that identifies the SIP Domain for which the
      *                      CredentialList resource will be mapped
      * @param credentialListSid A string that identifies the CredentialList
      *                          resource to map to the SIP domain
      */
-    public CredentialListMappingCreator(final String pathDomainSid, 
+    public CredentialListMappingCreator(final String pathDomainSid,
                                         final String credentialListSid) {
         this.pathDomainSid = pathDomainSid;
         this.credentialListSid = credentialListSid;
@@ -38,15 +38,15 @@ public class CredentialListMappingCreator extends Creator<CredentialListMapping>
 
     /**
      * Construct a new CredentialListMappingCreator.
-     * 
+     *
      * @param pathAccountSid The unique sid that identifies this account
      * @param pathDomainSid A string that identifies the SIP Domain for which the
      *                      CredentialList resource will be mapped
      * @param credentialListSid A string that identifies the CredentialList
      *                          resource to map to the SIP domain
      */
-    public CredentialListMappingCreator(final String pathAccountSid, 
-                                        final String pathDomainSid, 
+    public CredentialListMappingCreator(final String pathAccountSid,
+                                        final String pathDomainSid,
                                         final String credentialListSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
@@ -55,7 +55,7 @@ public class CredentialListMappingCreator extends Creator<CredentialListMapping>
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created CredentialListMapping
      */
@@ -95,7 +95,7 @@ public class CredentialListMappingCreator extends Creator<CredentialListMapping>
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

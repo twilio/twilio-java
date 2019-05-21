@@ -40,49 +40,49 @@ public class SyncListPermission extends Resource {
 
     /**
      * Create a SyncListPermissionFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid Sync Service Instance SID or unique name.
      * @param pathListSid Sync List SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync List Permission
      *                     applies.
      * @return SyncListPermissionFetcher capable of executing the fetch
      */
-    public static SyncListPermissionFetcher fetcher(final String pathServiceSid, 
-                                                    final String pathListSid, 
+    public static SyncListPermissionFetcher fetcher(final String pathServiceSid,
+                                                    final String pathListSid,
                                                     final String pathIdentity) {
         return new SyncListPermissionFetcher(pathServiceSid, pathListSid, pathIdentity);
     }
 
     /**
      * Create a SyncListPermissionDeleter to execute delete.
-     * 
+     *
      * @param pathServiceSid Sync Service Instance SID or unique name.
      * @param pathListSid Sync List SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync List Permission
      *                     applies.
      * @return SyncListPermissionDeleter capable of executing the delete
      */
-    public static SyncListPermissionDeleter deleter(final String pathServiceSid, 
-                                                    final String pathListSid, 
+    public static SyncListPermissionDeleter deleter(final String pathServiceSid,
+                                                    final String pathListSid,
                                                     final String pathIdentity) {
         return new SyncListPermissionDeleter(pathServiceSid, pathListSid, pathIdentity);
     }
 
     /**
      * Create a SyncListPermissionReader to execute read.
-     * 
+     *
      * @param pathServiceSid Sync Service Instance SID or unique name.
      * @param pathListSid Sync List SID or unique name.
      * @return SyncListPermissionReader capable of executing the read
      */
-    public static SyncListPermissionReader reader(final String pathServiceSid, 
+    public static SyncListPermissionReader reader(final String pathServiceSid,
                                                   final String pathListSid) {
         return new SyncListPermissionReader(pathServiceSid, pathListSid);
     }
 
     /**
      * Create a SyncListPermissionUpdater to execute update.
-     * 
+     *
      * @param pathServiceSid Sync Service Instance SID or unique name.
      * @param pathListSid Sync List SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync List Permission
@@ -92,11 +92,11 @@ public class SyncListPermission extends Resource {
      * @param manage Manage access.
      * @return SyncListPermissionUpdater capable of executing the update
      */
-    public static SyncListPermissionUpdater updater(final String pathServiceSid, 
-                                                    final String pathListSid, 
-                                                    final String pathIdentity, 
-                                                    final Boolean read, 
-                                                    final Boolean write, 
+    public static SyncListPermissionUpdater updater(final String pathServiceSid,
+                                                    final String pathListSid,
+                                                    final String pathIdentity,
+                                                    final Boolean read,
+                                                    final Boolean write,
                                                     final Boolean manage) {
         return new SyncListPermissionUpdater(pathServiceSid, pathListSid, pathIdentity, read, write, manage);
     }
@@ -104,7 +104,7 @@ public class SyncListPermission extends Resource {
     /**
      * Converts a JSON String into a SyncListPermission object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SyncListPermission object represented by the provided JSON
@@ -123,7 +123,7 @@ public class SyncListPermission extends Resource {
     /**
      * Converts a JSON InputStream into a SyncListPermission object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SyncListPermission object represented by the provided JSON
@@ -150,19 +150,19 @@ public class SyncListPermission extends Resource {
 
     @JsonCreator
     private SyncListPermission(@JsonProperty("account_sid")
-                               final String accountSid, 
+                               final String accountSid,
                                @JsonProperty("service_sid")
-                               final String serviceSid, 
+                               final String serviceSid,
                                @JsonProperty("list_sid")
-                               final String listSid, 
+                               final String listSid,
                                @JsonProperty("identity")
-                               final String identity, 
+                               final String identity,
                                @JsonProperty("read")
-                               final Boolean read, 
+                               final Boolean read,
                                @JsonProperty("write")
-                               final Boolean write, 
+                               final Boolean write,
                                @JsonProperty("manage")
-                               final Boolean manage, 
+                               final Boolean manage,
                                @JsonProperty("url")
                                final URI url) {
         this.accountSid = accountSid;
@@ -177,7 +177,7 @@ public class SyncListPermission extends Resource {
 
     /**
      * Returns The Twilio Account SID..
-     * 
+     *
      * @return Twilio Account SID.
      */
     public final String getAccountSid() {
@@ -186,7 +186,7 @@ public class SyncListPermission extends Resource {
 
     /**
      * Returns The Sync Service Instance SID..
-     * 
+     *
      * @return Sync Service Instance SID.
      */
     public final String getServiceSid() {
@@ -195,7 +195,7 @@ public class SyncListPermission extends Resource {
 
     /**
      * Returns The Sync List SID..
-     * 
+     *
      * @return Sync List SID.
      */
     public final String getListSid() {
@@ -204,7 +204,7 @@ public class SyncListPermission extends Resource {
 
     /**
      * Returns The Identity of the user to whom the Sync List Permission applies..
-     * 
+     *
      * @return Identity of the user to whom the Sync List Permission applies.
      */
     public final String getIdentity() {
@@ -213,7 +213,7 @@ public class SyncListPermission extends Resource {
 
     /**
      * Returns The Read access..
-     * 
+     *
      * @return Read access.
      */
     public final Boolean getRead() {
@@ -222,7 +222,7 @@ public class SyncListPermission extends Resource {
 
     /**
      * Returns The Write access..
-     * 
+     *
      * @return Write access.
      */
     public final Boolean getWrite() {
@@ -231,7 +231,7 @@ public class SyncListPermission extends Resource {
 
     /**
      * Returns The Manage access..
-     * 
+     *
      * @return Manage access.
      */
     public final Boolean getManage() {
@@ -240,7 +240,7 @@ public class SyncListPermission extends Resource {
 
     /**
      * Returns The URL of this Sync List Permission..
-     * 
+     *
      * @return URL of this Sync List Permission.
      */
     public final URI getUrl() {
@@ -259,13 +259,13 @@ public class SyncListPermission extends Resource {
 
         SyncListPermission other = (SyncListPermission) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(listSid, other.listSid) && 
-               Objects.equals(identity, other.identity) && 
-               Objects.equals(read, other.read) && 
-               Objects.equals(write, other.write) && 
-               Objects.equals(manage, other.manage) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(listSid, other.listSid) &&
+               Objects.equals(identity, other.identity) &&
+               Objects.equals(read, other.read) &&
+               Objects.equals(write, other.write) &&
+               Objects.equals(manage, other.manage) &&
                Objects.equals(url, other.url);
     }
 

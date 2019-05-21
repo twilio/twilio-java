@@ -107,7 +107,7 @@ public class VerificationTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.VERIFY.toString(),
                                           "/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Verifications/sid");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

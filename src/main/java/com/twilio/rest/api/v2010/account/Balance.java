@@ -35,7 +35,7 @@ public class Balance extends Resource {
 
     /**
      * Create a BalanceFetcher to execute fetch.
-     * 
+     *
      * @param pathAccountSid Account Sid.
      * @return BalanceFetcher capable of executing the fetch
      */
@@ -45,7 +45,7 @@ public class Balance extends Resource {
 
     /**
      * Create a BalanceFetcher to execute fetch.
-     * 
+     *
      * @return BalanceFetcher capable of executing the fetch
      */
     public static BalanceFetcher fetcher() {
@@ -54,7 +54,7 @@ public class Balance extends Resource {
 
     /**
      * Converts a JSON String into a Balance object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Balance object represented by the provided JSON
@@ -73,7 +73,7 @@ public class Balance extends Resource {
     /**
      * Converts a JSON InputStream into a Balance object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Balance object represented by the provided JSON
@@ -95,9 +95,9 @@ public class Balance extends Resource {
 
     @JsonCreator
     private Balance(@JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("balance")
-                    final String balance, 
+                    final String balance,
                     @JsonProperty("currency")
                     final String currency) {
         this.accountSid = accountSid;
@@ -107,7 +107,7 @@ public class Balance extends Resource {
 
     /**
      * Returns The Account Sid..
-     * 
+     *
      * @return Account Sid.
      */
     public final String getAccountSid() {
@@ -116,7 +116,7 @@ public class Balance extends Resource {
 
     /**
      * Returns The Account balance.
-     * 
+     *
      * @return Account balance
      */
     public final String getBalance() {
@@ -125,7 +125,7 @@ public class Balance extends Resource {
 
     /**
      * Returns The Currency units.
-     * 
+     *
      * @return Currency units
      */
     public final String getCurrency() {
@@ -144,8 +144,8 @@ public class Balance extends Resource {
 
         Balance other = (Balance) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(balance, other.balance) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(balance, other.balance) &&
                Objects.equals(currency, other.currency);
     }
 

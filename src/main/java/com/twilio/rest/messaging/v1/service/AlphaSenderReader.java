@@ -28,7 +28,7 @@ public class AlphaSenderReader extends Reader<AlphaSender> {
 
     /**
      * Construct a new AlphaSenderReader.
-     * 
+     *
      * @param pathServiceSid The service_sid
      */
     public AlphaSenderReader(final String pathServiceSid) {
@@ -37,7 +37,7 @@ public class AlphaSenderReader extends Reader<AlphaSender> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return AlphaSender ResourceSet
      */
@@ -48,7 +48,7 @@ public class AlphaSenderReader extends Reader<AlphaSender> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return AlphaSender ResourceSet
      */
@@ -68,7 +68,7 @@ public class AlphaSenderReader extends Reader<AlphaSender> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return AlphaSender ResourceSet
@@ -86,13 +86,13 @@ public class AlphaSenderReader extends Reader<AlphaSender> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<AlphaSender> nextPage(final Page<AlphaSender> page, 
+    public Page<AlphaSender> nextPage(final Page<AlphaSender> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -106,13 +106,13 @@ public class AlphaSenderReader extends Reader<AlphaSender> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<AlphaSender> previousPage(final Page<AlphaSender> page, 
+    public Page<AlphaSender> previousPage(final Page<AlphaSender> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -126,7 +126,7 @@ public class AlphaSenderReader extends Reader<AlphaSender> {
 
     /**
      * Generate a Page of AlphaSender Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -161,7 +161,7 @@ public class AlphaSenderReader extends Reader<AlphaSender> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

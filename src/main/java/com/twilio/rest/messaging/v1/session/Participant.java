@@ -69,7 +69,7 @@ public class Participant extends Resource {
 
     /**
      * Create a ParticipantCreator to execute create.
-     * 
+     *
      * @param pathSessionSid The unique id of the Session for this participant.
      * @return ParticipantCreator capable of executing the create
      */
@@ -79,31 +79,31 @@ public class Participant extends Resource {
 
     /**
      * Create a ParticipantUpdater to execute update.
-     * 
+     *
      * @param pathSessionSid The unique id of the Session for this participant.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return ParticipantUpdater capable of executing the update
      */
-    public static ParticipantUpdater updater(final String pathSessionSid, 
+    public static ParticipantUpdater updater(final String pathSessionSid,
                                              final String pathSid) {
         return new ParticipantUpdater(pathSessionSid, pathSid);
     }
 
     /**
      * Create a ParticipantFetcher to execute fetch.
-     * 
+     *
      * @param pathSessionSid The unique id of the Session for this participant.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return ParticipantFetcher capable of executing the fetch
      */
-    public static ParticipantFetcher fetcher(final String pathSessionSid, 
+    public static ParticipantFetcher fetcher(final String pathSessionSid,
                                              final String pathSid) {
         return new ParticipantFetcher(pathSessionSid, pathSid);
     }
 
     /**
      * Create a ParticipantReader to execute read.
-     * 
+     *
      * @param pathSessionSid The unique id of the Session for this participant.
      * @return ParticipantReader capable of executing the read
      */
@@ -113,12 +113,12 @@ public class Participant extends Resource {
 
     /**
      * Create a ParticipantDeleter to execute delete.
-     * 
+     *
      * @param pathSessionSid The unique id of the Session for this participant.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return ParticipantDeleter capable of executing the delete
      */
-    public static ParticipantDeleter deleter(final String pathSessionSid, 
+    public static ParticipantDeleter deleter(final String pathSessionSid,
                                              final String pathSid) {
         return new ParticipantDeleter(pathSessionSid, pathSid);
     }
@@ -126,7 +126,7 @@ public class Participant extends Resource {
     /**
      * Converts a JSON String into a Participant object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Participant object represented by the provided JSON
@@ -145,7 +145,7 @@ public class Participant extends Resource {
     /**
      * Converts a JSON InputStream into a Participant object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Participant object represented by the provided JSON
@@ -177,29 +177,29 @@ public class Participant extends Resource {
 
     @JsonCreator
     private Participant(@JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("service_sid")
-                        final String serviceSid, 
+                        final String serviceSid,
                         @JsonProperty("messaging_service_sid")
-                        final String messagingServiceSid, 
+                        final String messagingServiceSid,
                         @JsonProperty("session_sid")
-                        final String sessionSid, 
+                        final String sessionSid,
                         @JsonProperty("sid")
-                        final String sid, 
+                        final String sid,
                         @JsonProperty("identity")
-                        final String identity, 
+                        final String identity,
                         @JsonProperty("twilio_address")
-                        final String twilioAddress, 
+                        final String twilioAddress,
                         @JsonProperty("user_address")
-                        final String userAddress, 
+                        final String userAddress,
                         @JsonProperty("attributes")
-                        final String attributes, 
+                        final String attributes,
                         @JsonProperty("type")
-                        final Participant.ParticipantType type, 
+                        final Participant.ParticipantType type,
                         @JsonProperty("date_created")
-                        final String dateCreated, 
+                        final String dateCreated,
                         @JsonProperty("date_updated")
-                        final String dateUpdated, 
+                        final String dateUpdated,
                         @JsonProperty("url")
                         final URI url) {
         this.accountSid = accountSid;
@@ -219,7 +219,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The The unique id of the Account responsible for this session..
-     * 
+     *
      * @return The unique id of the Account responsible for this session.
      */
     public final String getAccountSid() {
@@ -228,7 +228,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The The unique id of the Chat Service this session belongs to..
-     * 
+     *
      * @return The unique id of the Chat Service this session belongs to.
      */
     public final String getServiceSid() {
@@ -237,7 +237,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The The unique id of the SMS Service this session belongs to..
-     * 
+     *
      * @return The unique id of the SMS Service this session belongs to.
      */
     public final String getMessagingServiceSid() {
@@ -246,7 +246,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The The unique id of the Session for this participant..
-     * 
+     *
      * @return The unique id of the Session for this participant.
      */
     public final String getSessionSid() {
@@ -255,7 +255,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The A 34 character string that uniquely identifies this resource..
-     * 
+     *
      * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
@@ -265,7 +265,7 @@ public class Participant extends Resource {
     /**
      * Returns The A unique string identifier for the session participant as Chat
      * User..
-     * 
+     *
      * @return A unique string identifier for the session participant as Chat User.
      */
     public final String getIdentity() {
@@ -275,7 +275,7 @@ public class Participant extends Resource {
     /**
      * Returns The The address of the Twilio phone number that the participant is in
      * contact with..
-     * 
+     *
      * @return The address of the Twilio phone number that the participant is in
      *         contact with.
      */
@@ -285,7 +285,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The The address of the participant's device..
-     * 
+     *
      * @return The address of the participant's device.
      */
     public final String getUserAddress() {
@@ -295,7 +295,7 @@ public class Participant extends Resource {
     /**
      * Returns The An optional string metadata field you can use to store any data
      * you wish..
-     * 
+     *
      * @return An optional string metadata field you can use to store any data you
      *         wish.
      */
@@ -305,7 +305,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The The type of twilio product, participant is a user of..
-     * 
+     *
      * @return The type of twilio product, participant is a user of.
      */
     public final Participant.ParticipantType getType() {
@@ -314,7 +314,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The The date that this resource was created..
-     * 
+     *
      * @return The date that this resource was created.
      */
     public final DateTime getDateCreated() {
@@ -323,7 +323,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The The date that this resource was last updated..
-     * 
+     *
      * @return The date that this resource was last updated.
      */
     public final DateTime getDateUpdated() {
@@ -332,7 +332,7 @@ public class Participant extends Resource {
 
     /**
      * Returns The An absolute URL for this participant..
-     * 
+     *
      * @return An absolute URL for this participant.
      */
     public final URI getUrl() {
@@ -351,18 +351,18 @@ public class Participant extends Resource {
 
         Participant other = (Participant) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(messagingServiceSid, other.messagingServiceSid) && 
-               Objects.equals(sessionSid, other.sessionSid) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(identity, other.identity) && 
-               Objects.equals(twilioAddress, other.twilioAddress) && 
-               Objects.equals(userAddress, other.userAddress) && 
-               Objects.equals(attributes, other.attributes) && 
-               Objects.equals(type, other.type) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
+               Objects.equals(sessionSid, other.sessionSid) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(identity, other.identity) &&
+               Objects.equals(twilioAddress, other.twilioAddress) &&
+               Objects.equals(userAddress, other.userAddress) &&
+               Objects.equals(attributes, other.attributes) &&
+               Objects.equals(type, other.type) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
     }
 

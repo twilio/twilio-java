@@ -27,7 +27,7 @@ public class StyleSheetFetcher extends Fetcher<StyleSheet> {
 
     /**
      * Construct a new StyleSheetFetcher.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant
      */
     public StyleSheetFetcher(final String pathAssistantSid) {
@@ -36,7 +36,7 @@ public class StyleSheetFetcher extends Fetcher<StyleSheet> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched StyleSheet
      */

@@ -31,15 +31,15 @@ public class ChallengeUpdater extends Updater<Challenge> {
 
     /**
      * Construct a new ChallengeUpdater.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique identity of the Entity
      * @param pathFactorSid Factor Sid.
      * @param pathSid A string that uniquely identifies this Challenge, or `latest`.
      */
-    public ChallengeUpdater(final String pathServiceSid, 
-                            final String pathIdentity, 
-                            final String pathFactorSid, 
+    public ChallengeUpdater(final String pathServiceSid,
+                            final String pathIdentity,
+                            final String pathFactorSid,
                             final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathIdentity = pathIdentity;
@@ -50,7 +50,7 @@ public class ChallengeUpdater extends Updater<Challenge> {
     /**
      * The optional payload needed to verify the Challenge. E.g., a TOTP would use
      * the numeric code..
-     * 
+     *
      * @param authPayload Optional payload to verify the Challenge
      * @return this
      */
@@ -61,7 +61,7 @@ public class ChallengeUpdater extends Updater<Challenge> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Challenge
      */
@@ -100,7 +100,7 @@ public class ChallengeUpdater extends Updater<Challenge> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

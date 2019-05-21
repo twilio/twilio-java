@@ -26,11 +26,11 @@ public class UserCreator extends Creator<User> {
 
     /**
      * Construct a new UserCreator.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to create the new resource under
      * @param identity The `identity` value that identifies the new resource's User
      */
-    public UserCreator(final String pathServiceSid, 
+    public UserCreator(final String pathServiceSid,
                        final String identity) {
         this.pathServiceSid = pathServiceSid;
         this.identity = identity;
@@ -39,7 +39,7 @@ public class UserCreator extends Creator<User> {
     /**
      * The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles)
      * assigned to the new User..
-     * 
+     *
      * @param roleSid The SID of the Role assigned to this user
      * @return this
      */
@@ -50,7 +50,7 @@ public class UserCreator extends Creator<User> {
 
     /**
      * A valid JSON string that contains application-specific data..
-     * 
+     *
      * @param attributes A valid JSON string that contains application-specific data
      * @return this
      */
@@ -62,7 +62,7 @@ public class UserCreator extends Creator<User> {
     /**
      * A descriptive string that you create to describe the new resource. This value
      * is often used for display purposes..
-     * 
+     *
      * @param friendlyName A string to describe the new resource
      * @return this
      */
@@ -73,7 +73,7 @@ public class UserCreator extends Creator<User> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created User
      */
@@ -112,7 +112,7 @@ public class UserCreator extends Creator<User> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

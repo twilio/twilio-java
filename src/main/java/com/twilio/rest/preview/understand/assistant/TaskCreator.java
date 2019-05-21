@@ -36,13 +36,13 @@ public class TaskCreator extends Creator<Task> {
 
     /**
      * Construct a new TaskCreator.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant.
      * @param uniqueName A user-provided string that uniquely identifies this
      *                   resource as an alternative to the sid. Unique up to 64
      *                   characters long.
      */
-    public TaskCreator(final String pathAssistantSid, 
+    public TaskCreator(final String pathAssistantSid,
                        final String uniqueName) {
         this.pathAssistantSid = pathAssistantSid;
         this.uniqueName = uniqueName;
@@ -51,7 +51,7 @@ public class TaskCreator extends Creator<Task> {
     /**
      * A user-provided string that identifies this resource. It is non-unique and
      * can up to 255 characters long..
-     * 
+     *
      * @param friendlyName A user-provided string that identifies this resource. It
      *                     is non-unique and can up to 255 characters long.
      * @return this
@@ -64,7 +64,7 @@ public class TaskCreator extends Creator<Task> {
     /**
      * A user-provided JSON object encoded as a string to specify the actions for
      * this task. It is optional and non-unique..
-     * 
+     *
      * @param actions A user-provided JSON object encoded as a string to specify
      *                the actions for this task. It is optional and non-unique.
      * @return this
@@ -76,7 +76,7 @@ public class TaskCreator extends Creator<Task> {
 
     /**
      * User-provided HTTP endpoint where from the assistant fetches actions.
-     * 
+     *
      * @param actionsUrl User-provided HTTP endpoint where from the assistant
      *                   fetches actions
      * @return this
@@ -88,7 +88,7 @@ public class TaskCreator extends Creator<Task> {
 
     /**
      * User-provided HTTP endpoint where from the assistant fetches actions.
-     * 
+     *
      * @param actionsUrl User-provided HTTP endpoint where from the assistant
      *                   fetches actions
      * @return this
@@ -99,7 +99,7 @@ public class TaskCreator extends Creator<Task> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Task
      */
@@ -138,7 +138,7 @@ public class TaskCreator extends Creator<Task> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

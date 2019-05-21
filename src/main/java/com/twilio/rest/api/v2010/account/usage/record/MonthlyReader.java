@@ -36,7 +36,7 @@ public class MonthlyReader extends Reader<Monthly> {
 
     /**
      * Construct a new MonthlyReader.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       read
      */
@@ -47,7 +47,7 @@ public class MonthlyReader extends Reader<Monthly> {
     /**
      * The [usage
      * category](https://www.twilio.com/docs/api/rest/usage-records#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved..
-     * 
+     *
      * @param category The usage category of the UsageRecord resources to read
      * @return this
      */
@@ -61,7 +61,7 @@ public class MonthlyReader extends Reader<Monthly> {
      * in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the
      * current date, such as: `-30days`, which will set the start date to be 30 days
      * before the current date..
-     * 
+     *
      * @param startDate Only include usage that has occurred on or after this date
      * @return this
      */
@@ -75,7 +75,7 @@ public class MonthlyReader extends Reader<Monthly> {
      * GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the
      * current date, such as: `+30days`, which will set the end date to 30 days from
      * the current date..
-     * 
+     *
      * @param endDate Only include usage that occurred on or before this date
      * @return this
      */
@@ -88,7 +88,7 @@ public class MonthlyReader extends Reader<Monthly> {
      * Whether to include usage from the master account and all its subaccounts. Can
      * be: `true` (the default) to include usage from the master account and all
      * subaccounts or `false` to retrieve usage from only the specified account..
-     * 
+     *
      * @param includeSubaccounts Whether to include usage from the master account
      *                           and all its subaccounts
      * @return this
@@ -100,7 +100,7 @@ public class MonthlyReader extends Reader<Monthly> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Monthly ResourceSet
      */
@@ -111,7 +111,7 @@ public class MonthlyReader extends Reader<Monthly> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Monthly ResourceSet
      */
@@ -132,7 +132,7 @@ public class MonthlyReader extends Reader<Monthly> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Monthly ResourceSet
@@ -151,13 +151,13 @@ public class MonthlyReader extends Reader<Monthly> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Monthly> nextPage(final Page<Monthly> page, 
+    public Page<Monthly> nextPage(final Page<Monthly> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -171,13 +171,13 @@ public class MonthlyReader extends Reader<Monthly> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Monthly> previousPage(final Page<Monthly> page, 
+    public Page<Monthly> previousPage(final Page<Monthly> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -191,7 +191,7 @@ public class MonthlyReader extends Reader<Monthly> {
 
     /**
      * Generate a Page of Monthly Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -226,7 +226,7 @@ public class MonthlyReader extends Reader<Monthly> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

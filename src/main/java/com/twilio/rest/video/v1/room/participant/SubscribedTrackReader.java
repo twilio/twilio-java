@@ -25,12 +25,12 @@ public class SubscribedTrackReader extends Reader<SubscribedTrack> {
 
     /**
      * Construct a new SubscribedTrackReader.
-     * 
+     *
      * @param pathRoomSid Unique Room identifier where the Tracks are subscribed.
      * @param pathParticipantSid Unique Participant identifier that subscribes to
      *                           this Track.
      */
-    public SubscribedTrackReader(final String pathRoomSid, 
+    public SubscribedTrackReader(final String pathRoomSid,
                                  final String pathParticipantSid) {
         this.pathRoomSid = pathRoomSid;
         this.pathParticipantSid = pathParticipantSid;
@@ -38,7 +38,7 @@ public class SubscribedTrackReader extends Reader<SubscribedTrack> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return SubscribedTrack ResourceSet
      */
@@ -49,7 +49,7 @@ public class SubscribedTrackReader extends Reader<SubscribedTrack> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return SubscribedTrack ResourceSet
      */
@@ -69,7 +69,7 @@ public class SubscribedTrackReader extends Reader<SubscribedTrack> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return SubscribedTrack ResourceSet
@@ -87,13 +87,13 @@ public class SubscribedTrackReader extends Reader<SubscribedTrack> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<SubscribedTrack> nextPage(final Page<SubscribedTrack> page, 
+    public Page<SubscribedTrack> nextPage(final Page<SubscribedTrack> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -107,13 +107,13 @@ public class SubscribedTrackReader extends Reader<SubscribedTrack> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<SubscribedTrack> previousPage(final Page<SubscribedTrack> page, 
+    public Page<SubscribedTrack> previousPage(final Page<SubscribedTrack> page,
                                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -127,7 +127,7 @@ public class SubscribedTrackReader extends Reader<SubscribedTrack> {
 
     /**
      * Generate a Page of SubscribedTrack Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -162,7 +162,7 @@ public class SubscribedTrackReader extends Reader<SubscribedTrack> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

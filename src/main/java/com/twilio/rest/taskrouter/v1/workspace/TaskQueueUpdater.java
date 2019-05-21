@@ -29,11 +29,11 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
 
     /**
      * Construct a new TaskQueueUpdater.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathSid The sid
      */
-    public TaskQueueUpdater(final String pathWorkspaceSid, 
+    public TaskQueueUpdater(final String pathWorkspaceSid,
                             final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
@@ -42,7 +42,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     /**
      * Human readable description of this TaskQueue (for example "Support – Tier 1",
      * "Sales" or "Escalation").
-     * 
+     *
      * @param friendlyName Human readable description of this TaskQueue
      * @return this
      */
@@ -57,7 +57,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
      * parameter is provided, Tasks will wait in this queue until they are either
      * deleted or moved to another queue. Additional examples on how to describing
      * Worker selection criteria below..
-     * 
+     *
      * @param targetWorkers A string describing the Worker selection criteria for
      *                      any Tasks that enter this TaskQueue.
      * @return this
@@ -70,7 +70,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     /**
      * ActivitySID that will be assigned to Workers when they are reserved for a
      * task from this TaskQueue..
-     * 
+     *
      * @param reservationActivitySid ActivitySID that will be assigned to Workers
      *                               when they are reserved for a task from this
      *                               TaskQueue.
@@ -84,7 +84,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     /**
      * ActivitySID that will be assigned to Workers when they are assigned a task
      * from this TaskQueue..
-     * 
+     *
      * @param assignmentActivitySid ActivitySID that will be assigned to Workers
      *                              when they are assigned a task from this
      *                              TaskQueue.
@@ -98,7 +98,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     /**
      * The maximum amount of workers to create reservations for the assignment of a
      * task while in this queue. Maximum of 50..
-     * 
+     *
      * @param maxReservedWorkers The maximum amount of workers to create
      *                           reservations for the assignment of a task while in
      *                           this queue.
@@ -115,7 +115,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
      * to assign the oldest Task. Default is FIFO. [Click
      * here](https://www.twilio.com/docs/api/taskrouter/last-first-out-lifo) to
      * learn more..
-     * 
+     *
      * @param taskOrder TaskOrder will determine which order the Tasks will be
      *                  assigned to Workers.
      * @return this
@@ -127,7 +127,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated TaskQueue
      */
@@ -166,7 +166,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

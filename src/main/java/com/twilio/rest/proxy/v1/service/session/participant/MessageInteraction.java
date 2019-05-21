@@ -114,62 +114,62 @@ public class MessageInteraction extends Resource {
 
     /**
      * Create a MessageInteractionCreator to execute create.
-     * 
+     *
      * @param pathServiceSid The SID of the parent Service resource
      * @param pathSessionSid The SID of the parent Session resource
      * @param pathParticipantSid The SID of the Participant resource
      * @param body Message body
      * @return MessageInteractionCreator capable of executing the create
      */
-    public static MessageInteractionCreator creator(final String pathServiceSid, 
-                                                    final String pathSessionSid, 
-                                                    final String pathParticipantSid, 
+    public static MessageInteractionCreator creator(final String pathServiceSid,
+                                                    final String pathSessionSid,
+                                                    final String pathParticipantSid,
                                                     final String body) {
         return new MessageInteractionCreator(pathServiceSid, pathSessionSid, pathParticipantSid, body);
     }
 
     /**
      * Create a MessageInteractionCreator to execute create.
-     * 
+     *
      * @param pathServiceSid The SID of the parent Service resource
      * @param pathSessionSid The SID of the parent Session resource
      * @param pathParticipantSid The SID of the Participant resource
      * @param mediaUrl Reserved
      * @return MessageInteractionCreator capable of executing the create
      */
-    public static MessageInteractionCreator creator(final String pathServiceSid, 
-                                                    final String pathSessionSid, 
-                                                    final String pathParticipantSid, 
+    public static MessageInteractionCreator creator(final String pathServiceSid,
+                                                    final String pathSessionSid,
+                                                    final String pathParticipantSid,
                                                     final List<URI> mediaUrl) {
         return new MessageInteractionCreator(pathServiceSid, pathSessionSid, pathParticipantSid, mediaUrl);
     }
 
     /**
      * Create a MessageInteractionFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to fetch the resource from
      * @param pathSessionSid The SID of the parent Session
      * @param pathParticipantSid The SID of the Participant resource
      * @param pathSid The unique string that identifies the resource
      * @return MessageInteractionFetcher capable of executing the fetch
      */
-    public static MessageInteractionFetcher fetcher(final String pathServiceSid, 
-                                                    final String pathSessionSid, 
-                                                    final String pathParticipantSid, 
+    public static MessageInteractionFetcher fetcher(final String pathServiceSid,
+                                                    final String pathSessionSid,
+                                                    final String pathParticipantSid,
                                                     final String pathSid) {
         return new MessageInteractionFetcher(pathServiceSid, pathSessionSid, pathParticipantSid, pathSid);
     }
 
     /**
      * Create a MessageInteractionReader to execute read.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to read the resource from
      * @param pathSessionSid The SID of the parent Session
      * @param pathParticipantSid The SID of the Participant resource
      * @return MessageInteractionReader capable of executing the read
      */
-    public static MessageInteractionReader reader(final String pathServiceSid, 
-                                                  final String pathSessionSid, 
+    public static MessageInteractionReader reader(final String pathServiceSid,
+                                                  final String pathSessionSid,
                                                   final String pathParticipantSid) {
         return new MessageInteractionReader(pathServiceSid, pathSessionSid, pathParticipantSid);
     }
@@ -177,7 +177,7 @@ public class MessageInteraction extends Resource {
     /**
      * Converts a JSON String into a MessageInteraction object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return MessageInteraction object represented by the provided JSON
@@ -196,7 +196,7 @@ public class MessageInteraction extends Resource {
     /**
      * Converts a JSON InputStream into a MessageInteraction object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return MessageInteraction object represented by the provided JSON
@@ -235,43 +235,43 @@ public class MessageInteraction extends Resource {
 
     @JsonCreator
     private MessageInteraction(@JsonProperty("sid")
-                               final String sid, 
+                               final String sid,
                                @JsonProperty("session_sid")
-                               final String sessionSid, 
+                               final String sessionSid,
                                @JsonProperty("service_sid")
-                               final String serviceSid, 
+                               final String serviceSid,
                                @JsonProperty("account_sid")
-                               final String accountSid, 
+                               final String accountSid,
                                @JsonProperty("data")
-                               final String data, 
+                               final String data,
                                @JsonProperty("type")
-                               final MessageInteraction.Type type, 
+                               final MessageInteraction.Type type,
                                @JsonProperty("participant_sid")
-                               final String participantSid, 
+                               final String participantSid,
                                @JsonProperty("inbound_participant_sid")
-                               final String inboundParticipantSid, 
+                               final String inboundParticipantSid,
                                @JsonProperty("inbound_resource_sid")
-                               final String inboundResourceSid, 
+                               final String inboundResourceSid,
                                @JsonProperty("inbound_resource_status")
-                               final MessageInteraction.ResourceStatus inboundResourceStatus, 
+                               final MessageInteraction.ResourceStatus inboundResourceStatus,
                                @JsonProperty("inbound_resource_type")
-                               final String inboundResourceType, 
+                               final String inboundResourceType,
                                @JsonProperty("inbound_resource_url")
-                               final URI inboundResourceUrl, 
+                               final URI inboundResourceUrl,
                                @JsonProperty("outbound_participant_sid")
-                               final String outboundParticipantSid, 
+                               final String outboundParticipantSid,
                                @JsonProperty("outbound_resource_sid")
-                               final String outboundResourceSid, 
+                               final String outboundResourceSid,
                                @JsonProperty("outbound_resource_status")
-                               final MessageInteraction.ResourceStatus outboundResourceStatus, 
+                               final MessageInteraction.ResourceStatus outboundResourceStatus,
                                @JsonProperty("outbound_resource_type")
-                               final String outboundResourceType, 
+                               final String outboundResourceType,
                                @JsonProperty("outbound_resource_url")
-                               final URI outboundResourceUrl, 
+                               final URI outboundResourceUrl,
                                @JsonProperty("date_created")
-                               final String dateCreated, 
+                               final String dateCreated,
                                @JsonProperty("date_updated")
-                               final String dateUpdated, 
+                               final String dateUpdated,
                                @JsonProperty("url")
                                final URI url) {
         this.sid = sid;
@@ -298,7 +298,7 @@ public class MessageInteraction extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -307,7 +307,7 @@ public class MessageInteraction extends Resource {
 
     /**
      * Returns The The SID of the resource's parent Session.
-     * 
+     *
      * @return The SID of the resource's parent Session
      */
     public final String getSessionSid() {
@@ -316,7 +316,7 @@ public class MessageInteraction extends Resource {
 
     /**
      * Returns The The SID of the resource's parent Service.
-     * 
+     *
      * @return The SID of the resource's parent Service
      */
     public final String getServiceSid() {
@@ -325,7 +325,7 @@ public class MessageInteraction extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -335,7 +335,7 @@ public class MessageInteraction extends Resource {
     /**
      * Returns The A JSON string that includes the message body sent to the
      * participant.
-     * 
+     *
      * @return A JSON string that includes the message body sent to the participant
      */
     public final String getData() {
@@ -344,7 +344,7 @@ public class MessageInteraction extends Resource {
 
     /**
      * Returns The The Type of Message Interaction.
-     * 
+     *
      * @return The Type of Message Interaction
      */
     public final MessageInteraction.Type getType() {
@@ -353,7 +353,7 @@ public class MessageInteraction extends Resource {
 
     /**
      * Returns The The SID of the Participant resource.
-     * 
+     *
      * @return The SID of the Participant resource
      */
     public final String getParticipantSid() {
@@ -362,7 +362,7 @@ public class MessageInteraction extends Resource {
 
     /**
      * Returns The Always empty for Message Interactions.
-     * 
+     *
      * @return Always empty for Message Interactions
      */
     public final String getInboundParticipantSid() {
@@ -371,7 +371,7 @@ public class MessageInteraction extends Resource {
 
     /**
      * Returns The Always empty for Message Interactions.
-     * 
+     *
      * @return Always empty for Message Interactions
      */
     public final String getInboundResourceSid() {
@@ -380,7 +380,7 @@ public class MessageInteraction extends Resource {
 
     /**
      * Returns The Always empty for Message Interactions.
-     * 
+     *
      * @return Always empty for Message Interactions
      */
     public final MessageInteraction.ResourceStatus getInboundResourceStatus() {
@@ -389,7 +389,7 @@ public class MessageInteraction extends Resource {
 
     /**
      * Returns The Always empty for Message Interactions.
-     * 
+     *
      * @return Always empty for Message Interactions
      */
     public final String getInboundResourceType() {
@@ -398,7 +398,7 @@ public class MessageInteraction extends Resource {
 
     /**
      * Returns The Always empty for Message Interactions.
-     * 
+     *
      * @return Always empty for Message Interactions
      */
     public final URI getInboundResourceUrl() {
@@ -407,7 +407,7 @@ public class MessageInteraction extends Resource {
 
     /**
      * Returns The The SID of the outbound Participant resource.
-     * 
+     *
      * @return The SID of the outbound Participant resource
      */
     public final String getOutboundParticipantSid() {
@@ -416,7 +416,7 @@ public class MessageInteraction extends Resource {
 
     /**
      * Returns The The SID of the outbound Message resource.
-     * 
+     *
      * @return The SID of the outbound Message resource
      */
     public final String getOutboundResourceSid() {
@@ -425,7 +425,7 @@ public class MessageInteraction extends Resource {
 
     /**
      * Returns The The outbound resource status.
-     * 
+     *
      * @return The outbound resource status
      */
     public final MessageInteraction.ResourceStatus getOutboundResourceStatus() {
@@ -434,7 +434,7 @@ public class MessageInteraction extends Resource {
 
     /**
      * Returns The The outbound resource type.
-     * 
+     *
      * @return The outbound resource type
      */
     public final String getOutboundResourceType() {
@@ -443,7 +443,7 @@ public class MessageInteraction extends Resource {
 
     /**
      * Returns The The URL of the Twilio message resource.
-     * 
+     *
      * @return The URL of the Twilio message resource
      */
     public final URI getOutboundResourceUrl() {
@@ -452,7 +452,7 @@ public class MessageInteraction extends Resource {
 
     /**
      * Returns The The ISO 8601 date and time in GMT when the resource was created.
-     * 
+     *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
@@ -462,7 +462,7 @@ public class MessageInteraction extends Resource {
     /**
      * Returns The The ISO 8601 date and time in GMT when the resource was last
      * updated.
-     * 
+     *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -471,7 +471,7 @@ public class MessageInteraction extends Resource {
 
     /**
      * Returns The The absolute URL of the MessageInteraction resource.
-     * 
+     *
      * @return The absolute URL of the MessageInteraction resource
      */
     public final URI getUrl() {
@@ -490,25 +490,25 @@ public class MessageInteraction extends Resource {
 
         MessageInteraction other = (MessageInteraction) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(sessionSid, other.sessionSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(data, other.data) && 
-               Objects.equals(type, other.type) && 
-               Objects.equals(participantSid, other.participantSid) && 
-               Objects.equals(inboundParticipantSid, other.inboundParticipantSid) && 
-               Objects.equals(inboundResourceSid, other.inboundResourceSid) && 
-               Objects.equals(inboundResourceStatus, other.inboundResourceStatus) && 
-               Objects.equals(inboundResourceType, other.inboundResourceType) && 
-               Objects.equals(inboundResourceUrl, other.inboundResourceUrl) && 
-               Objects.equals(outboundParticipantSid, other.outboundParticipantSid) && 
-               Objects.equals(outboundResourceSid, other.outboundResourceSid) && 
-               Objects.equals(outboundResourceStatus, other.outboundResourceStatus) && 
-               Objects.equals(outboundResourceType, other.outboundResourceType) && 
-               Objects.equals(outboundResourceUrl, other.outboundResourceUrl) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(sessionSid, other.sessionSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(data, other.data) &&
+               Objects.equals(type, other.type) &&
+               Objects.equals(participantSid, other.participantSid) &&
+               Objects.equals(inboundParticipantSid, other.inboundParticipantSid) &&
+               Objects.equals(inboundResourceSid, other.inboundResourceSid) &&
+               Objects.equals(inboundResourceStatus, other.inboundResourceStatus) &&
+               Objects.equals(inboundResourceType, other.inboundResourceType) &&
+               Objects.equals(inboundResourceUrl, other.inboundResourceUrl) &&
+               Objects.equals(outboundParticipantSid, other.outboundParticipantSid) &&
+               Objects.equals(outboundResourceSid, other.outboundResourceSid) &&
+               Objects.equals(outboundResourceStatus, other.outboundResourceStatus) &&
+               Objects.equals(outboundResourceType, other.outboundResourceType) &&
+               Objects.equals(outboundResourceUrl, other.outboundResourceUrl) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
     }
 

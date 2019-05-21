@@ -24,12 +24,12 @@ public class CredentialDeleter extends Deleter<Credential> {
 
     /**
      * Construct a new CredentialDeleter.
-     * 
+     *
      * @param pathCredentialListSid The unique id that identifies the credential
      *                              list that contains the desired credentials
      * @param pathSid The unique id that identifies the resource to delete
      */
-    public CredentialDeleter(final String pathCredentialListSid, 
+    public CredentialDeleter(final String pathCredentialListSid,
                              final String pathSid) {
         this.pathCredentialListSid = pathCredentialListSid;
         this.pathSid = pathSid;
@@ -37,15 +37,15 @@ public class CredentialDeleter extends Deleter<Credential> {
 
     /**
      * Construct a new CredentialDeleter.
-     * 
+     *
      * @param pathAccountSid The unique id of the Account that is responsible for
      *                       this resource.
      * @param pathCredentialListSid The unique id that identifies the credential
      *                              list that contains the desired credentials
      * @param pathSid The unique id that identifies the resource to delete
      */
-    public CredentialDeleter(final String pathAccountSid, 
-                             final String pathCredentialListSid, 
+    public CredentialDeleter(final String pathAccountSid,
+                             final String pathCredentialListSid,
                              final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathCredentialListSid = pathCredentialListSid;
@@ -54,7 +54,7 @@ public class CredentialDeleter extends Deleter<Credential> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

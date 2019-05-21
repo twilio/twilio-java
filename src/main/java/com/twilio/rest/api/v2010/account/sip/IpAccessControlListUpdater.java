@@ -24,11 +24,11 @@ public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
 
     /**
      * Construct a new IpAccessControlListUpdater.
-     * 
+     *
      * @param pathSid A string that identifies the resource to update
      * @param friendlyName A human readable description of this resource
      */
-    public IpAccessControlListUpdater(final String pathSid, 
+    public IpAccessControlListUpdater(final String pathSid,
                                       final String friendlyName) {
         this.pathSid = pathSid;
         this.friendlyName = friendlyName;
@@ -36,13 +36,13 @@ public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
 
     /**
      * Construct a new IpAccessControlListUpdater.
-     * 
+     *
      * @param pathAccountSid The unique sid that identifies this account
      * @param pathSid A string that identifies the resource to update
      * @param friendlyName A human readable description of this resource
      */
-    public IpAccessControlListUpdater(final String pathAccountSid, 
-                                      final String pathSid, 
+    public IpAccessControlListUpdater(final String pathAccountSid,
+                                      final String pathSid,
                                       final String friendlyName) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -51,7 +51,7 @@ public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated IpAccessControlList
      */
@@ -91,7 +91,7 @@ public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

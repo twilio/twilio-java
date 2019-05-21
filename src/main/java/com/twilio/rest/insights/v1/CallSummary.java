@@ -183,7 +183,7 @@ public class CallSummary extends Resource {
 
     /**
      * Create a CallSummaryFetcher to execute fetch.
-     * 
+     *
      * @param pathCallSid The call_sid
      * @return CallSummaryFetcher capable of executing the fetch
      */
@@ -194,7 +194,7 @@ public class CallSummary extends Resource {
     /**
      * Converts a JSON String into a CallSummary object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return CallSummary object represented by the provided JSON
@@ -213,7 +213,7 @@ public class CallSummary extends Resource {
     /**
      * Converts a JSON InputStream into a CallSummary object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return CallSummary object represented by the provided JSON
@@ -251,41 +251,41 @@ public class CallSummary extends Resource {
 
     @JsonCreator
     private CallSummary(@JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("call_sid")
-                        final String callSid, 
+                        final String callSid,
                         @JsonProperty("call_type")
-                        final CallSummary.CallType callType, 
+                        final CallSummary.CallType callType,
                         @JsonProperty("call_state")
-                        final CallSummary.CallState callState, 
+                        final CallSummary.CallState callState,
                         @JsonProperty("processing_state")
-                        final CallSummary.ProcessingState processingState, 
+                        final CallSummary.ProcessingState processingState,
                         @JsonProperty("direction")
-                        final CallSummary.Direction direction, 
+                        final CallSummary.Direction direction,
                         @JsonProperty("disconnected_by")
-                        final CallSummary.DisconnectedBy disconnectedBy, 
+                        final CallSummary.DisconnectedBy disconnectedBy,
                         @JsonProperty("start_time")
-                        final String startTime, 
+                        final String startTime,
                         @JsonProperty("end_time")
-                        final String endTime, 
+                        final String endTime,
                         @JsonProperty("duration")
-                        final Integer duration, 
+                        final Integer duration,
                         @JsonProperty("connect_duration")
-                        final Integer connectDuration, 
+                        final Integer connectDuration,
                         @JsonProperty("from")
-                        final Map<String, Object> from, 
+                        final Map<String, Object> from,
                         @JsonProperty("to")
-                        final Map<String, Object> to, 
+                        final Map<String, Object> to,
                         @JsonProperty("carrier_edge")
-                        final Map<String, Object> carrierEdge, 
+                        final Map<String, Object> carrierEdge,
                         @JsonProperty("client_edge")
-                        final Map<String, Object> clientEdge, 
+                        final Map<String, Object> clientEdge,
                         @JsonProperty("sdk_edge")
-                        final Map<String, Object> sdkEdge, 
+                        final Map<String, Object> sdkEdge,
                         @JsonProperty("sip_edge")
-                        final Map<String, Object> sipEdge, 
+                        final Map<String, Object> sipEdge,
                         @JsonProperty("tags")
-                        final List<String> tags, 
+                        final List<String> tags,
                         @JsonProperty("url")
                         final URI url) {
         this.accountSid = accountSid;
@@ -311,7 +311,7 @@ public class CallSummary extends Resource {
 
     /**
      * Returns The The account_sid.
-     * 
+     *
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -320,7 +320,7 @@ public class CallSummary extends Resource {
 
     /**
      * Returns The The call_sid.
-     * 
+     *
      * @return The call_sid
      */
     public final String getCallSid() {
@@ -329,7 +329,7 @@ public class CallSummary extends Resource {
 
     /**
      * Returns The The call_type.
-     * 
+     *
      * @return The call_type
      */
     public final CallSummary.CallType getCallType() {
@@ -338,7 +338,7 @@ public class CallSummary extends Resource {
 
     /**
      * Returns The The call_state.
-     * 
+     *
      * @return The call_state
      */
     public final CallSummary.CallState getCallState() {
@@ -347,7 +347,7 @@ public class CallSummary extends Resource {
 
     /**
      * Returns The The processing_state.
-     * 
+     *
      * @return The processing_state
      */
     public final CallSummary.ProcessingState getProcessingState() {
@@ -356,7 +356,7 @@ public class CallSummary extends Resource {
 
     /**
      * Returns The The direction.
-     * 
+     *
      * @return The direction
      */
     public final CallSummary.Direction getDirection() {
@@ -365,7 +365,7 @@ public class CallSummary extends Resource {
 
     /**
      * Returns The The disconnected_by.
-     * 
+     *
      * @return The disconnected_by
      */
     public final CallSummary.DisconnectedBy getDisconnectedBy() {
@@ -374,7 +374,7 @@ public class CallSummary extends Resource {
 
     /**
      * Returns The The start_time.
-     * 
+     *
      * @return The start_time
      */
     public final DateTime getStartTime() {
@@ -383,7 +383,7 @@ public class CallSummary extends Resource {
 
     /**
      * Returns The The end_time.
-     * 
+     *
      * @return The end_time
      */
     public final DateTime getEndTime() {
@@ -392,7 +392,7 @@ public class CallSummary extends Resource {
 
     /**
      * Returns The The duration.
-     * 
+     *
      * @return The duration
      */
     public final Integer getDuration() {
@@ -401,7 +401,7 @@ public class CallSummary extends Resource {
 
     /**
      * Returns The The connect_duration.
-     * 
+     *
      * @return The connect_duration
      */
     public final Integer getConnectDuration() {
@@ -410,7 +410,7 @@ public class CallSummary extends Resource {
 
     /**
      * Returns The The from.
-     * 
+     *
      * @return The from
      */
     public final Map<String, Object> getFrom() {
@@ -419,7 +419,7 @@ public class CallSummary extends Resource {
 
     /**
      * Returns The The to.
-     * 
+     *
      * @return The to
      */
     public final Map<String, Object> getTo() {
@@ -428,7 +428,7 @@ public class CallSummary extends Resource {
 
     /**
      * Returns The The carrier_edge.
-     * 
+     *
      * @return The carrier_edge
      */
     public final Map<String, Object> getCarrierEdge() {
@@ -437,7 +437,7 @@ public class CallSummary extends Resource {
 
     /**
      * Returns The The client_edge.
-     * 
+     *
      * @return The client_edge
      */
     public final Map<String, Object> getClientEdge() {
@@ -446,7 +446,7 @@ public class CallSummary extends Resource {
 
     /**
      * Returns The The sdk_edge.
-     * 
+     *
      * @return The sdk_edge
      */
     public final Map<String, Object> getSdkEdge() {
@@ -455,7 +455,7 @@ public class CallSummary extends Resource {
 
     /**
      * Returns The The sip_edge.
-     * 
+     *
      * @return The sip_edge
      */
     public final Map<String, Object> getSipEdge() {
@@ -464,7 +464,7 @@ public class CallSummary extends Resource {
 
     /**
      * Returns The The tags.
-     * 
+     *
      * @return The tags
      */
     public final List<String> getTags() {
@@ -473,7 +473,7 @@ public class CallSummary extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -492,24 +492,24 @@ public class CallSummary extends Resource {
 
         CallSummary other = (CallSummary) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(callSid, other.callSid) && 
-               Objects.equals(callType, other.callType) && 
-               Objects.equals(callState, other.callState) && 
-               Objects.equals(processingState, other.processingState) && 
-               Objects.equals(direction, other.direction) && 
-               Objects.equals(disconnectedBy, other.disconnectedBy) && 
-               Objects.equals(startTime, other.startTime) && 
-               Objects.equals(endTime, other.endTime) && 
-               Objects.equals(duration, other.duration) && 
-               Objects.equals(connectDuration, other.connectDuration) && 
-               Objects.equals(from, other.from) && 
-               Objects.equals(to, other.to) && 
-               Objects.equals(carrierEdge, other.carrierEdge) && 
-               Objects.equals(clientEdge, other.clientEdge) && 
-               Objects.equals(sdkEdge, other.sdkEdge) && 
-               Objects.equals(sipEdge, other.sipEdge) && 
-               Objects.equals(tags, other.tags) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(callSid, other.callSid) &&
+               Objects.equals(callType, other.callType) &&
+               Objects.equals(callState, other.callState) &&
+               Objects.equals(processingState, other.processingState) &&
+               Objects.equals(direction, other.direction) &&
+               Objects.equals(disconnectedBy, other.disconnectedBy) &&
+               Objects.equals(startTime, other.startTime) &&
+               Objects.equals(endTime, other.endTime) &&
+               Objects.equals(duration, other.duration) &&
+               Objects.equals(connectDuration, other.connectDuration) &&
+               Objects.equals(from, other.from) &&
+               Objects.equals(to, other.to) &&
+               Objects.equals(carrierEdge, other.carrierEdge) &&
+               Objects.equals(clientEdge, other.clientEdge) &&
+               Objects.equals(sdkEdge, other.sdkEdge) &&
+               Objects.equals(sipEdge, other.sipEdge) &&
+               Objects.equals(tags, other.tags) &&
                Objects.equals(url, other.url);
     }
 

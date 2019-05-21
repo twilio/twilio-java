@@ -31,7 +31,7 @@ public class SyncMapPermissionUpdater extends Updater<SyncMapPermission> {
 
     /**
      * Construct a new SyncMapPermissionUpdater.
-     * 
+     *
      * @param pathServiceSid Sync Service Instance SID or unique name.
      * @param pathMapSid Sync Map SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync Map Permission
@@ -40,11 +40,11 @@ public class SyncMapPermissionUpdater extends Updater<SyncMapPermission> {
      * @param write Write access.
      * @param manage Manage access.
      */
-    public SyncMapPermissionUpdater(final String pathServiceSid, 
-                                    final String pathMapSid, 
-                                    final String pathIdentity, 
-                                    final Boolean read, 
-                                    final Boolean write, 
+    public SyncMapPermissionUpdater(final String pathServiceSid,
+                                    final String pathMapSid,
+                                    final String pathIdentity,
+                                    final Boolean read,
+                                    final Boolean write,
                                     final Boolean manage) {
         this.pathServiceSid = pathServiceSid;
         this.pathMapSid = pathMapSid;
@@ -56,7 +56,7 @@ public class SyncMapPermissionUpdater extends Updater<SyncMapPermission> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated SyncMapPermission
      */
@@ -95,7 +95,7 @@ public class SyncMapPermissionUpdater extends Updater<SyncMapPermission> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

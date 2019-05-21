@@ -27,7 +27,7 @@ public class ExportFetcher extends Fetcher<Export> {
 
     /**
      * Construct a new ExportFetcher.
-     * 
+     *
      * @param pathResourceType The resource_type
      */
     public ExportFetcher(final String pathResourceType) {
@@ -36,7 +36,7 @@ public class ExportFetcher extends Fetcher<Export> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Export
      */

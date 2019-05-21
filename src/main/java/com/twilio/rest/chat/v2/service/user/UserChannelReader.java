@@ -25,12 +25,12 @@ public class UserChannelReader extends Reader<UserChannel> {
 
     /**
      * Construct a new UserChannelReader.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to read the resources from
      * @param pathUserSid The SID of the User to fetch the User Channel resources
      *                    from
      */
-    public UserChannelReader(final String pathServiceSid, 
+    public UserChannelReader(final String pathServiceSid,
                              final String pathUserSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathUserSid = pathUserSid;
@@ -38,7 +38,7 @@ public class UserChannelReader extends Reader<UserChannel> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return UserChannel ResourceSet
      */
@@ -49,7 +49,7 @@ public class UserChannelReader extends Reader<UserChannel> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return UserChannel ResourceSet
      */
@@ -69,7 +69,7 @@ public class UserChannelReader extends Reader<UserChannel> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return UserChannel ResourceSet
@@ -87,13 +87,13 @@ public class UserChannelReader extends Reader<UserChannel> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<UserChannel> nextPage(final Page<UserChannel> page, 
+    public Page<UserChannel> nextPage(final Page<UserChannel> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -107,13 +107,13 @@ public class UserChannelReader extends Reader<UserChannel> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<UserChannel> previousPage(final Page<UserChannel> page, 
+    public Page<UserChannel> previousPage(final Page<UserChannel> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -127,7 +127,7 @@ public class UserChannelReader extends Reader<UserChannel> {
 
     /**
      * Generate a Page of UserChannel Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -162,7 +162,7 @@ public class UserChannelReader extends Reader<UserChannel> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

@@ -37,7 +37,7 @@ public class Media extends Resource {
 
     /**
      * Create a MediaDeleter to execute delete.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       delete
      * @param pathMessageSid The SID of the Message resource that this Media
@@ -45,28 +45,28 @@ public class Media extends Resource {
      * @param pathSid The unique string that identifies this resource
      * @return MediaDeleter capable of executing the delete
      */
-    public static MediaDeleter deleter(final String pathAccountSid, 
-                                       final String pathMessageSid, 
+    public static MediaDeleter deleter(final String pathAccountSid,
+                                       final String pathMessageSid,
                                        final String pathSid) {
         return new MediaDeleter(pathAccountSid, pathMessageSid, pathSid);
     }
 
     /**
      * Create a MediaDeleter to execute delete.
-     * 
+     *
      * @param pathMessageSid The SID of the Message resource that this Media
      *                       resource belongs to
      * @param pathSid The unique string that identifies this resource
      * @return MediaDeleter capable of executing the delete
      */
-    public static MediaDeleter deleter(final String pathMessageSid, 
+    public static MediaDeleter deleter(final String pathMessageSid,
                                        final String pathSid) {
         return new MediaDeleter(pathMessageSid, pathSid);
     }
 
     /**
      * Create a MediaFetcher to execute fetch.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       fetch
      * @param pathMessageSid The SID of the Message resource that this Media
@@ -74,42 +74,42 @@ public class Media extends Resource {
      * @param pathSid The unique string that identifies this resource
      * @return MediaFetcher capable of executing the fetch
      */
-    public static MediaFetcher fetcher(final String pathAccountSid, 
-                                       final String pathMessageSid, 
+    public static MediaFetcher fetcher(final String pathAccountSid,
+                                       final String pathMessageSid,
                                        final String pathSid) {
         return new MediaFetcher(pathAccountSid, pathMessageSid, pathSid);
     }
 
     /**
      * Create a MediaFetcher to execute fetch.
-     * 
+     *
      * @param pathMessageSid The SID of the Message resource that this Media
      *                       resource belongs to
      * @param pathSid The unique string that identifies this resource
      * @return MediaFetcher capable of executing the fetch
      */
-    public static MediaFetcher fetcher(final String pathMessageSid, 
+    public static MediaFetcher fetcher(final String pathMessageSid,
                                        final String pathSid) {
         return new MediaFetcher(pathMessageSid, pathSid);
     }
 
     /**
      * Create a MediaReader to execute read.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       read
      * @param pathMessageSid The SID of the Message resource that this Media
      *                       resource belongs to
      * @return MediaReader capable of executing the read
      */
-    public static MediaReader reader(final String pathAccountSid, 
+    public static MediaReader reader(final String pathAccountSid,
                                      final String pathMessageSid) {
         return new MediaReader(pathAccountSid, pathMessageSid);
     }
 
     /**
      * Create a MediaReader to execute read.
-     * 
+     *
      * @param pathMessageSid The SID of the Message resource that this Media
      *                       resource belongs to
      * @return MediaReader capable of executing the read
@@ -120,7 +120,7 @@ public class Media extends Resource {
 
     /**
      * Converts a JSON String into a Media object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Media object represented by the provided JSON
@@ -139,7 +139,7 @@ public class Media extends Resource {
     /**
      * Converts a JSON InputStream into a Media object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Media object represented by the provided JSON
@@ -165,17 +165,17 @@ public class Media extends Resource {
 
     @JsonCreator
     private Media(@JsonProperty("account_sid")
-                  final String accountSid, 
+                  final String accountSid,
                   @JsonProperty("content_type")
-                  final String contentType, 
+                  final String contentType,
                   @JsonProperty("date_created")
-                  final String dateCreated, 
+                  final String dateCreated,
                   @JsonProperty("date_updated")
-                  final String dateUpdated, 
+                  final String dateUpdated,
                   @JsonProperty("parent_sid")
-                  final String parentSid, 
+                  final String parentSid,
                   @JsonProperty("sid")
-                  final String sid, 
+                  final String sid,
                   @JsonProperty("uri")
                   final String uri) {
         this.accountSid = accountSid;
@@ -189,7 +189,7 @@ public class Media extends Resource {
 
     /**
      * Returns The The SID of the Account that created this resource.
-     * 
+     *
      * @return The SID of the Account that created this resource
      */
     public final String getAccountSid() {
@@ -198,7 +198,7 @@ public class Media extends Resource {
 
     /**
      * Returns The The default mime-type of the media.
-     * 
+     *
      * @return The default mime-type of the media
      */
     public final String getContentType() {
@@ -207,7 +207,7 @@ public class Media extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT that this resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that this resource was created
      */
     public final DateTime getDateCreated() {
@@ -217,7 +217,7 @@ public class Media extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT that this resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT that this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -226,7 +226,7 @@ public class Media extends Resource {
 
     /**
      * Returns The The SID of the resource that created the media.
-     * 
+     *
      * @return The SID of the resource that created the media
      */
     public final String getParentSid() {
@@ -235,7 +235,7 @@ public class Media extends Resource {
 
     /**
      * Returns The The unique string that identifies this resource.
-     * 
+     *
      * @return The unique string that identifies this resource
      */
     public final String getSid() {
@@ -244,7 +244,7 @@ public class Media extends Resource {
 
     /**
      * Returns The The URI of this resource, relative to `https://api.twilio.com`.
-     * 
+     *
      * @return The URI of this resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
@@ -263,12 +263,12 @@ public class Media extends Resource {
 
         Media other = (Media) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(contentType, other.contentType) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(parentSid, other.parentSid) && 
-               Objects.equals(sid, other.sid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(contentType, other.contentType) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(parentSid, other.parentSid) &&
+               Objects.equals(sid, other.sid) &&
                Objects.equals(uri, other.uri);
     }
 

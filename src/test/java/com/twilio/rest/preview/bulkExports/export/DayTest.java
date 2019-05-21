@@ -42,7 +42,7 @@ public class DayTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
                                           "/BulkExports/Exports/resource_type/Days");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

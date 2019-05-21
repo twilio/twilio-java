@@ -42,7 +42,7 @@ public class RatePlanTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.WIRELESS.toString(),
                                           "/v1/RatePlans");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -86,7 +86,7 @@ public class RatePlanTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.WIRELESS.toString(),
                                           "/v1/RatePlans/WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -118,7 +118,7 @@ public class RatePlanTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.WIRELESS.toString(),
                                           "/v1/RatePlans");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -150,7 +150,7 @@ public class RatePlanTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.WIRELESS.toString(),
                                           "/v1/RatePlans/WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -182,7 +182,7 @@ public class RatePlanTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.WIRELESS.toString(),
                                           "/v1/RatePlans/WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

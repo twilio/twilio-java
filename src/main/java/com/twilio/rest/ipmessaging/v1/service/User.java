@@ -38,43 +38,43 @@ public class User extends Resource {
 
     /**
      * Create a UserFetcher to execute fetch.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to fetch the resource from
      * @param pathSid The unique string that identifies the resource
      * @return UserFetcher capable of executing the fetch
      */
-    public static UserFetcher fetcher(final String pathServiceSid, 
+    public static UserFetcher fetcher(final String pathServiceSid,
                                       final String pathSid) {
         return new UserFetcher(pathServiceSid, pathSid);
     }
 
     /**
      * Create a UserDeleter to execute delete.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to delete the resource from
      * @param pathSid The unique string that identifies the resource
      * @return UserDeleter capable of executing the delete
      */
-    public static UserDeleter deleter(final String pathServiceSid, 
+    public static UserDeleter deleter(final String pathServiceSid,
                                       final String pathSid) {
         return new UserDeleter(pathServiceSid, pathSid);
     }
 
     /**
      * Create a UserCreator to execute create.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to create the new resource under
      * @param identity The `identity` value that identifies the new resource's User
      * @return UserCreator capable of executing the create
      */
-    public static UserCreator creator(final String pathServiceSid, 
+    public static UserCreator creator(final String pathServiceSid,
                                       final String identity) {
         return new UserCreator(pathServiceSid, identity);
     }
 
     /**
      * Create a UserReader to execute read.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to read the resources from
      * @return UserReader capable of executing the read
      */
@@ -84,19 +84,19 @@ public class User extends Resource {
 
     /**
      * Create a UserUpdater to execute update.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to update the resource from
      * @param pathSid The unique string that identifies the resource
      * @return UserUpdater capable of executing the update
      */
-    public static UserUpdater updater(final String pathServiceSid, 
+    public static UserUpdater updater(final String pathServiceSid,
                                       final String pathSid) {
         return new UserUpdater(pathServiceSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a User object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return User object represented by the provided JSON
@@ -115,7 +115,7 @@ public class User extends Resource {
     /**
      * Converts a JSON InputStream into a User object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return User object represented by the provided JSON
@@ -148,31 +148,31 @@ public class User extends Resource {
 
     @JsonCreator
     private User(@JsonProperty("sid")
-                 final String sid, 
+                 final String sid,
                  @JsonProperty("account_sid")
-                 final String accountSid, 
+                 final String accountSid,
                  @JsonProperty("service_sid")
-                 final String serviceSid, 
+                 final String serviceSid,
                  @JsonProperty("attributes")
-                 final String attributes, 
+                 final String attributes,
                  @JsonProperty("friendly_name")
-                 final String friendlyName, 
+                 final String friendlyName,
                  @JsonProperty("role_sid")
-                 final String roleSid, 
+                 final String roleSid,
                  @JsonProperty("identity")
-                 final String identity, 
+                 final String identity,
                  @JsonProperty("is_online")
-                 final Boolean isOnline, 
+                 final Boolean isOnline,
                  @JsonProperty("is_notifiable")
-                 final Boolean isNotifiable, 
+                 final Boolean isNotifiable,
                  @JsonProperty("date_created")
-                 final String dateCreated, 
+                 final String dateCreated,
                  @JsonProperty("date_updated")
-                 final String dateUpdated, 
+                 final String dateUpdated,
                  @JsonProperty("joined_channels_count")
-                 final Integer joinedChannelsCount, 
+                 final Integer joinedChannelsCount,
                  @JsonProperty("links")
-                 final Map<String, String> links, 
+                 final Map<String, String> links,
                  @JsonProperty("url")
                  final URI url) {
         this.sid = sid;
@@ -193,7 +193,7 @@ public class User extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -202,7 +202,7 @@ public class User extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -211,7 +211,7 @@ public class User extends Resource {
 
     /**
      * Returns The The SID of the Service that the resource is associated with.
-     * 
+     *
      * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
@@ -220,7 +220,7 @@ public class User extends Resource {
 
     /**
      * Returns The The JSON string that stores application-specific data.
-     * 
+     *
      * @return The JSON string that stores application-specific data
      */
     public final String getAttributes() {
@@ -229,7 +229,7 @@ public class User extends Resource {
 
     /**
      * Returns The The string that you assigned to describe the resource.
-     * 
+     *
      * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
@@ -238,7 +238,7 @@ public class User extends Resource {
 
     /**
      * Returns The The SID of the assigned to the user.
-     * 
+     *
      * @return The SID of the assigned to the user
      */
     public final String getRoleSid() {
@@ -247,7 +247,7 @@ public class User extends Resource {
 
     /**
      * Returns The The string that identifies the resource's User.
-     * 
+     *
      * @return The string that identifies the resource's User
      */
     public final String getIdentity() {
@@ -257,7 +257,7 @@ public class User extends Resource {
     /**
      * Returns The Whether the User is actively connected to the Service instance
      * and online.
-     * 
+     *
      * @return Whether the User is actively connected to the Service instance and
      *         online
      */
@@ -268,7 +268,7 @@ public class User extends Resource {
     /**
      * Returns The Whether the User has a potentially valid Push Notification
      * registration for the Service instance.
-     * 
+     *
      * @return Whether the User has a potentially valid Push Notification
      *         registration for the Service instance
      */
@@ -278,7 +278,7 @@ public class User extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
@@ -288,7 +288,7 @@ public class User extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -297,7 +297,7 @@ public class User extends Resource {
 
     /**
      * Returns The The number of Channels this User is a Member of.
-     * 
+     *
      * @return The number of Channels this User is a Member of
      */
     public final Integer getJoinedChannelsCount() {
@@ -307,7 +307,7 @@ public class User extends Resource {
     /**
      * Returns The The absolute URLs of the Channel and Binding resources related to
      * the user.
-     * 
+     *
      * @return The absolute URLs of the Channel and Binding resources related to
      *         the user
      */
@@ -317,7 +317,7 @@ public class User extends Resource {
 
     /**
      * Returns The The absolute URL of the User resource.
-     * 
+     *
      * @return The absolute URL of the User resource
      */
     public final URI getUrl() {
@@ -336,19 +336,19 @@ public class User extends Resource {
 
         User other = (User) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(attributes, other.attributes) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(roleSid, other.roleSid) && 
-               Objects.equals(identity, other.identity) && 
-               Objects.equals(isOnline, other.isOnline) && 
-               Objects.equals(isNotifiable, other.isNotifiable) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(joinedChannelsCount, other.joinedChannelsCount) && 
-               Objects.equals(links, other.links) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(attributes, other.attributes) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(roleSid, other.roleSid) &&
+               Objects.equals(identity, other.identity) &&
+               Objects.equals(isOnline, other.isOnline) &&
+               Objects.equals(isNotifiable, other.isNotifiable) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(joinedChannelsCount, other.joinedChannelsCount) &&
+               Objects.equals(links, other.links) &&
                Objects.equals(url, other.url);
     }
 

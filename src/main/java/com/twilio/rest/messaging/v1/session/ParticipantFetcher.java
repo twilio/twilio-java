@@ -28,11 +28,11 @@ public class ParticipantFetcher extends Fetcher<Participant> {
 
     /**
      * Construct a new ParticipantFetcher.
-     * 
+     *
      * @param pathSessionSid The unique id of the Session for this participant.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
-    public ParticipantFetcher(final String pathSessionSid, 
+    public ParticipantFetcher(final String pathSessionSid,
                               final String pathSid) {
         this.pathSessionSid = pathSessionSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Participant
      */

@@ -23,11 +23,11 @@ public class WorkflowDeleter extends Deleter<Workflow> {
 
     /**
      * Construct a new WorkflowDeleter.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathSid The sid
      */
-    public WorkflowDeleter(final String pathWorkspaceSid, 
+    public WorkflowDeleter(final String pathWorkspaceSid,
                            final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class WorkflowDeleter extends Deleter<Workflow> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

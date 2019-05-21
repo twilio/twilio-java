@@ -22,7 +22,7 @@ public class FlexFlowFetcher extends Fetcher<FlexFlow> {
 
     /**
      * Construct a new FlexFlowFetcher.
-     * 
+     *
      * @param pathSid The unique ID of the FlexFlow
      */
     public FlexFlowFetcher(final String pathSid) {
@@ -31,7 +31,7 @@ public class FlexFlowFetcher extends Fetcher<FlexFlow> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched FlexFlow
      */

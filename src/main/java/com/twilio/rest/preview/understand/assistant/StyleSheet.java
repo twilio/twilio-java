@@ -42,7 +42,7 @@ public class StyleSheet extends Resource {
 
     /**
      * Create a StyleSheetFetcher to execute fetch.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant
      * @return StyleSheetFetcher capable of executing the fetch
      */
@@ -52,7 +52,7 @@ public class StyleSheet extends Resource {
 
     /**
      * Create a StyleSheetUpdater to execute update.
-     * 
+     *
      * @param pathAssistantSid The unique ID of the Assistant
      * @return StyleSheetUpdater capable of executing the update
      */
@@ -63,7 +63,7 @@ public class StyleSheet extends Resource {
     /**
      * Converts a JSON String into a StyleSheet object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return StyleSheet object represented by the provided JSON
@@ -82,7 +82,7 @@ public class StyleSheet extends Resource {
     /**
      * Converts a JSON InputStream into a StyleSheet object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return StyleSheet object represented by the provided JSON
@@ -105,11 +105,11 @@ public class StyleSheet extends Resource {
 
     @JsonCreator
     private StyleSheet(@JsonProperty("account_sid")
-                       final String accountSid, 
+                       final String accountSid,
                        @JsonProperty("assistant_sid")
-                       final String assistantSid, 
+                       final String assistantSid,
                        @JsonProperty("url")
-                       final URI url, 
+                       final URI url,
                        @JsonProperty("data")
                        final Map<String, Object> data) {
         this.accountSid = accountSid;
@@ -120,7 +120,7 @@ public class StyleSheet extends Resource {
 
     /**
      * Returns The The unique ID of the Account that created this Assistant.
-     * 
+     *
      * @return The unique ID of the Account that created this Assistant
      */
     public final String getAccountSid() {
@@ -129,7 +129,7 @@ public class StyleSheet extends Resource {
 
     /**
      * Returns The The unique ID of the Assistant.
-     * 
+     *
      * @return The unique ID of the Assistant
      */
     public final String getAssistantSid() {
@@ -138,7 +138,7 @@ public class StyleSheet extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -147,7 +147,7 @@ public class StyleSheet extends Resource {
 
     /**
      * Returns The The JSON style sheet object.
-     * 
+     *
      * @return The JSON style sheet object
      */
     public final Map<String, Object> getData() {
@@ -166,9 +166,9 @@ public class StyleSheet extends Resource {
 
         StyleSheet other = (StyleSheet) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(assistantSid, other.assistantSid) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(assistantSid, other.assistantSid) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(data, other.data);
     }
 

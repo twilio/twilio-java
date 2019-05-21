@@ -68,7 +68,7 @@ public class Webhook extends Resource {
 
     /**
      * Create a WebhookFetcher to execute fetch.
-     * 
+     *
      * @return WebhookFetcher capable of executing the fetch
      */
     public static WebhookFetcher fetcher() {
@@ -77,7 +77,7 @@ public class Webhook extends Resource {
 
     /**
      * Create a WebhookUpdater to execute update.
-     * 
+     *
      * @return WebhookUpdater capable of executing the update
      */
     public static WebhookUpdater updater() {
@@ -86,7 +86,7 @@ public class Webhook extends Resource {
 
     /**
      * Converts a JSON String into a Webhook object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Webhook object represented by the provided JSON
@@ -105,7 +105,7 @@ public class Webhook extends Resource {
     /**
      * Converts a JSON InputStream into a Webhook object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Webhook object represented by the provided JSON
@@ -134,23 +134,23 @@ public class Webhook extends Resource {
 
     @JsonCreator
     private Webhook(@JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("service_sid")
-                    final String serviceSid, 
+                    final String serviceSid,
                     @JsonProperty("webhook_method")
-                    final String webhookMethod, 
+                    final String webhookMethod,
                     @JsonProperty("webhook_filters")
-                    final List<String> webhookFilters, 
+                    final List<String> webhookFilters,
                     @JsonProperty("pre_webhook_url")
-                    final String preWebhookUrl, 
+                    final String preWebhookUrl,
                     @JsonProperty("post_webhook_url")
-                    final String postWebhookUrl, 
+                    final String postWebhookUrl,
                     @JsonProperty("pre_webhook_retry_count")
-                    final Integer preWebhookRetryCount, 
+                    final Integer preWebhookRetryCount,
                     @JsonProperty("post_webhook_retry_count")
-                    final Integer postWebhookRetryCount, 
+                    final Integer postWebhookRetryCount,
                     @JsonProperty("target")
-                    final Webhook.Target target, 
+                    final Webhook.Target target,
                     @JsonProperty("url")
                     final URI url) {
         this.accountSid = accountSid;
@@ -167,7 +167,7 @@ public class Webhook extends Resource {
 
     /**
      * Returns The The unique id of the Account responsible for this session..
-     * 
+     *
      * @return The unique id of the Account responsible for this session.
      */
     public final String getAccountSid() {
@@ -176,7 +176,7 @@ public class Webhook extends Resource {
 
     /**
      * Returns The The unique id of the Chat Service this session belongs to..
-     * 
+     *
      * @return The unique id of the Chat Service this session belongs to.
      */
     public final String getServiceSid() {
@@ -185,7 +185,7 @@ public class Webhook extends Resource {
 
     /**
      * Returns The The HTTP method to be used when sending a webhook request..
-     * 
+     *
      * @return The HTTP method to be used when sending a webhook request.
      */
     public final String getWebhookMethod() {
@@ -195,7 +195,7 @@ public class Webhook extends Resource {
     /**
      * Returns The The list of webhook event triggers that are enabled for this
      * Service..
-     * 
+     *
      * @return The list of webhook event triggers that are enabled for this Service.
      */
     public final List<String> getWebhookFilters() {
@@ -205,7 +205,7 @@ public class Webhook extends Resource {
     /**
      * Returns The The absolute url the pre-event webhook request should be sent
      * to..
-     * 
+     *
      * @return The absolute url the pre-event webhook request should be sent to.
      */
     public final String getPreWebhookUrl() {
@@ -215,7 +215,7 @@ public class Webhook extends Resource {
     /**
      * Returns The The absolute url the post-event webhook request should be sent
      * to..
-     * 
+     *
      * @return The absolute url the post-event webhook request should be sent to.
      */
     public final String getPostWebhookUrl() {
@@ -225,7 +225,7 @@ public class Webhook extends Resource {
     /**
      * Returns The The number of retries in case of pre-event webhook request
      * failures..
-     * 
+     *
      * @return The number of retries in case of pre-event webhook request failures.
      */
     public final Integer getPreWebhookRetryCount() {
@@ -235,7 +235,7 @@ public class Webhook extends Resource {
     /**
      * Returns The The number of retries in case of post-event webhook request
      * failures..
-     * 
+     *
      * @return The number of retries in case of post-event webhook request failures.
      */
     public final Integer getPostWebhookRetryCount() {
@@ -244,7 +244,7 @@ public class Webhook extends Resource {
 
     /**
      * Returns The The routing target of the webhook..
-     * 
+     *
      * @return The routing target of the webhook.
      */
     public final Webhook.Target getTarget() {
@@ -253,7 +253,7 @@ public class Webhook extends Resource {
 
     /**
      * Returns The An absolute URL for this webhook..
-     * 
+     *
      * @return An absolute URL for this webhook.
      */
     public final URI getUrl() {
@@ -272,15 +272,15 @@ public class Webhook extends Resource {
 
         Webhook other = (Webhook) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(webhookMethod, other.webhookMethod) && 
-               Objects.equals(webhookFilters, other.webhookFilters) && 
-               Objects.equals(preWebhookUrl, other.preWebhookUrl) && 
-               Objects.equals(postWebhookUrl, other.postWebhookUrl) && 
-               Objects.equals(preWebhookRetryCount, other.preWebhookRetryCount) && 
-               Objects.equals(postWebhookRetryCount, other.postWebhookRetryCount) && 
-               Objects.equals(target, other.target) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(webhookMethod, other.webhookMethod) &&
+               Objects.equals(webhookFilters, other.webhookFilters) &&
+               Objects.equals(preWebhookUrl, other.preWebhookUrl) &&
+               Objects.equals(postWebhookUrl, other.postWebhookUrl) &&
+               Objects.equals(preWebhookRetryCount, other.preWebhookRetryCount) &&
+               Objects.equals(postWebhookRetryCount, other.postWebhookRetryCount) &&
+               Objects.equals(target, other.target) &&
                Objects.equals(url, other.url);
     }
 

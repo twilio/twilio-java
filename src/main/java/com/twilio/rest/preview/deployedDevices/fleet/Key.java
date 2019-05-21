@@ -43,31 +43,31 @@ public class Key extends Resource {
 
     /**
      * Create a KeyFetcher to execute fetch.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @param pathSid A string that uniquely identifies the Key.
      * @return KeyFetcher capable of executing the fetch
      */
-    public static KeyFetcher fetcher(final String pathFleetSid, 
+    public static KeyFetcher fetcher(final String pathFleetSid,
                                      final String pathSid) {
         return new KeyFetcher(pathFleetSid, pathSid);
     }
 
     /**
      * Create a KeyDeleter to execute delete.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @param pathSid A string that uniquely identifies the Key.
      * @return KeyDeleter capable of executing the delete
      */
-    public static KeyDeleter deleter(final String pathFleetSid, 
+    public static KeyDeleter deleter(final String pathFleetSid,
                                      final String pathSid) {
         return new KeyDeleter(pathFleetSid, pathSid);
     }
 
     /**
      * Create a KeyCreator to execute create.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @return KeyCreator capable of executing the create
      */
@@ -77,7 +77,7 @@ public class Key extends Resource {
 
     /**
      * Create a KeyReader to execute read.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @return KeyReader capable of executing the read
      */
@@ -87,19 +87,19 @@ public class Key extends Resource {
 
     /**
      * Create a KeyUpdater to execute update.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @param pathSid A string that uniquely identifies the Key.
      * @return KeyUpdater capable of executing the update
      */
-    public static KeyUpdater updater(final String pathFleetSid, 
+    public static KeyUpdater updater(final String pathFleetSid,
                                      final String pathSid) {
         return new KeyUpdater(pathFleetSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a Key object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Key object represented by the provided JSON
@@ -118,7 +118,7 @@ public class Key extends Resource {
     /**
      * Converts a JSON InputStream into a Key object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Key object represented by the provided JSON
@@ -146,21 +146,21 @@ public class Key extends Resource {
 
     @JsonCreator
     private Key(@JsonProperty("sid")
-                final String sid, 
+                final String sid,
                 @JsonProperty("url")
-                final URI url, 
+                final URI url,
                 @JsonProperty("friendly_name")
-                final String friendlyName, 
+                final String friendlyName,
                 @JsonProperty("fleet_sid")
-                final String fleetSid, 
+                final String fleetSid,
                 @JsonProperty("account_sid")
-                final String accountSid, 
+                final String accountSid,
                 @JsonProperty("device_sid")
-                final String deviceSid, 
+                final String deviceSid,
                 @JsonProperty("secret")
-                final String secret, 
+                final String secret,
                 @JsonProperty("date_created")
-                final String dateCreated, 
+                final String dateCreated,
                 @JsonProperty("date_updated")
                 final String dateUpdated) {
         this.sid = sid;
@@ -176,7 +176,7 @@ public class Key extends Resource {
 
     /**
      * Returns The A string that uniquely identifies this Key..
-     * 
+     *
      * @return A string that uniquely identifies this Key.
      */
     public final String getSid() {
@@ -185,7 +185,7 @@ public class Key extends Resource {
 
     /**
      * Returns The URL of this Key..
-     * 
+     *
      * @return URL of this Key.
      */
     public final URI getUrl() {
@@ -194,7 +194,7 @@ public class Key extends Resource {
 
     /**
      * Returns The A human readable description for this Key..
-     * 
+     *
      * @return A human readable description for this Key.
      */
     public final String getFriendlyName() {
@@ -203,7 +203,7 @@ public class Key extends Resource {
 
     /**
      * Returns The The unique identifier of the Fleet..
-     * 
+     *
      * @return The unique identifier of the Fleet.
      */
     public final String getFleetSid() {
@@ -212,7 +212,7 @@ public class Key extends Resource {
 
     /**
      * Returns The The unique SID that identifies this Account..
-     * 
+     *
      * @return The unique SID that identifies this Account.
      */
     public final String getAccountSid() {
@@ -221,7 +221,7 @@ public class Key extends Resource {
 
     /**
      * Returns The The unique identifier of a mapped Device..
-     * 
+     *
      * @return The unique identifier of a mapped Device.
      */
     public final String getDeviceSid() {
@@ -230,7 +230,7 @@ public class Key extends Resource {
 
     /**
      * Returns The The key secret..
-     * 
+     *
      * @return The key secret.
      */
     public final String getSecret() {
@@ -239,7 +239,7 @@ public class Key extends Resource {
 
     /**
      * Returns The The date this Key credential was created..
-     * 
+     *
      * @return The date this Key credential was created.
      */
     public final DateTime getDateCreated() {
@@ -248,7 +248,7 @@ public class Key extends Resource {
 
     /**
      * Returns The The date this Key credential was updated..
-     * 
+     *
      * @return The date this Key credential was updated.
      */
     public final DateTime getDateUpdated() {
@@ -267,14 +267,14 @@ public class Key extends Resource {
 
         Key other = (Key) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(fleetSid, other.fleetSid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(deviceSid, other.deviceSid) && 
-               Objects.equals(secret, other.secret) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(fleetSid, other.fleetSid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(deviceSid, other.deviceSid) &&
+               Objects.equals(secret, other.secret) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated);
     }
 

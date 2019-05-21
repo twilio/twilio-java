@@ -34,7 +34,7 @@ public class CompositionReader extends Reader<Composition> {
 
     /**
      * Only show Compositions with the given status..
-     * 
+     *
      * @param status Only show Compositions with the given status.
      * @return this
      */
@@ -46,7 +46,7 @@ public class CompositionReader extends Reader<Composition> {
     /**
      * Only show Compositions created on or after this ISO8601 date-time with
      * timezone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`..
-     * 
+     *
      * @param dateCreatedAfter Only show Compositions created on or after this
      *                         ISO8601 date-time with timezone.
      * @return this
@@ -59,7 +59,7 @@ public class CompositionReader extends Reader<Composition> {
     /**
      * Only show Compositions created before this ISO8601 date-time with timezone,
      * given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`..
-     * 
+     *
      * @param dateCreatedBefore Only show Compositions created before this ISO8601
      *                          date-time with timezone.
      * @return this
@@ -71,7 +71,7 @@ public class CompositionReader extends Reader<Composition> {
 
     /**
      * Only show Compositions with the given Room SID..
-     * 
+     *
      * @param roomSid Only show Compositions with the given Room SID.
      * @return this
      */
@@ -82,7 +82,7 @@ public class CompositionReader extends Reader<Composition> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Composition ResourceSet
      */
@@ -93,7 +93,7 @@ public class CompositionReader extends Reader<Composition> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Composition ResourceSet
      */
@@ -113,7 +113,7 @@ public class CompositionReader extends Reader<Composition> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Composition ResourceSet
@@ -131,13 +131,13 @@ public class CompositionReader extends Reader<Composition> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Composition> nextPage(final Page<Composition> page, 
+    public Page<Composition> nextPage(final Page<Composition> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -151,13 +151,13 @@ public class CompositionReader extends Reader<Composition> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Composition> previousPage(final Page<Composition> page, 
+    public Page<Composition> previousPage(final Page<Composition> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -171,7 +171,7 @@ public class CompositionReader extends Reader<Composition> {
 
     /**
      * Generate a Page of Composition Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -206,7 +206,7 @@ public class CompositionReader extends Reader<Composition> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

@@ -89,7 +89,7 @@ public class SsmlSayAs extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -98,7 +98,7 @@ public class SsmlSayAs extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -117,7 +117,7 @@ public class SsmlSayAs extends TwiML {
 
     /**
      * Specify the type of words are spoken
-     * 
+     *
      * @return Specify the type of words are spoken
      */
     public SsmlSayAs.InterpretAs getInterpretAs() {
@@ -126,7 +126,7 @@ public class SsmlSayAs extends TwiML {
 
     /**
      * Specify the format of the date when interpret-as is set to date
-     * 
+     *
      * @return Specify the format of the date when interpret-as is set to date
      */
     public SsmlSayAs.Role getRole() {
@@ -135,7 +135,7 @@ public class SsmlSayAs extends TwiML {
 
     /**
      * Words to be interpreted
-     * 
+     *
      * @return Words to be interpreted
      */
     public String getWords() {

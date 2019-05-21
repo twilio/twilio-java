@@ -38,40 +38,40 @@ public class WorkerChannel extends Resource {
 
     /**
      * Create a WorkerChannelReader to execute read.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathWorkerSid The worker_sid
      * @return WorkerChannelReader capable of executing the read
      */
-    public static WorkerChannelReader reader(final String pathWorkspaceSid, 
+    public static WorkerChannelReader reader(final String pathWorkspaceSid,
                                              final String pathWorkerSid) {
         return new WorkerChannelReader(pathWorkspaceSid, pathWorkerSid);
     }
 
     /**
      * Create a WorkerChannelFetcher to execute fetch.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathWorkerSid The worker_sid
      * @param pathSid The sid
      * @return WorkerChannelFetcher capable of executing the fetch
      */
-    public static WorkerChannelFetcher fetcher(final String pathWorkspaceSid, 
-                                               final String pathWorkerSid, 
+    public static WorkerChannelFetcher fetcher(final String pathWorkspaceSid,
+                                               final String pathWorkerSid,
                                                final String pathSid) {
         return new WorkerChannelFetcher(pathWorkspaceSid, pathWorkerSid, pathSid);
     }
 
     /**
      * Create a WorkerChannelUpdater to execute update.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathWorkerSid The worker_sid
      * @param pathSid The sid
      * @return WorkerChannelUpdater capable of executing the update
      */
-    public static WorkerChannelUpdater updater(final String pathWorkspaceSid, 
-                                               final String pathWorkerSid, 
+    public static WorkerChannelUpdater updater(final String pathWorkspaceSid,
+                                               final String pathWorkerSid,
                                                final String pathSid) {
         return new WorkerChannelUpdater(pathWorkspaceSid, pathWorkerSid, pathSid);
     }
@@ -79,7 +79,7 @@ public class WorkerChannel extends Resource {
     /**
      * Converts a JSON String into a WorkerChannel object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return WorkerChannel object represented by the provided JSON
@@ -98,7 +98,7 @@ public class WorkerChannel extends Resource {
     /**
      * Converts a JSON InputStream into a WorkerChannel object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return WorkerChannel object represented by the provided JSON
@@ -130,29 +130,29 @@ public class WorkerChannel extends Resource {
 
     @JsonCreator
     private WorkerChannel(@JsonProperty("account_sid")
-                          final String accountSid, 
+                          final String accountSid,
                           @JsonProperty("assigned_tasks")
-                          final Integer assignedTasks, 
+                          final Integer assignedTasks,
                           @JsonProperty("available")
-                          final Boolean available, 
+                          final Boolean available,
                           @JsonProperty("available_capacity_percentage")
-                          final Integer availableCapacityPercentage, 
+                          final Integer availableCapacityPercentage,
                           @JsonProperty("configured_capacity")
-                          final Integer configuredCapacity, 
+                          final Integer configuredCapacity,
                           @JsonProperty("date_created")
-                          final String dateCreated, 
+                          final String dateCreated,
                           @JsonProperty("date_updated")
-                          final String dateUpdated, 
+                          final String dateUpdated,
                           @JsonProperty("sid")
-                          final String sid, 
+                          final String sid,
                           @JsonProperty("task_channel_sid")
-                          final String taskChannelSid, 
+                          final String taskChannelSid,
                           @JsonProperty("task_channel_unique_name")
-                          final String taskChannelUniqueName, 
+                          final String taskChannelUniqueName,
                           @JsonProperty("worker_sid")
-                          final String workerSid, 
+                          final String workerSid,
                           @JsonProperty("workspace_sid")
-                          final String workspaceSid, 
+                          final String workspaceSid,
                           @JsonProperty("url")
                           final URI url) {
         this.accountSid = accountSid;
@@ -172,7 +172,7 @@ public class WorkerChannel extends Resource {
 
     /**
      * Returns The The unique ID of the Account that owns this WorkerChannel..
-     * 
+     *
      * @return The unique ID of the Account that owns this WorkerChannel.
      */
     public final String getAccountSid() {
@@ -182,7 +182,7 @@ public class WorkerChannel extends Resource {
     /**
      * Returns The The total number of tasks assigned to Worker for this TaskChannel
      * type..
-     * 
+     *
      * @return The total number of tasks assigned to Worker for this TaskChannel
      *         type.
      */
@@ -193,7 +193,7 @@ public class WorkerChannel extends Resource {
     /**
      * Returns The Boolean value indicating whether the worker should receive Tasks
      * of this TaskChannel type..
-     * 
+     *
      * @return Boolean value indicating whether the worker should receive Tasks of
      *         this TaskChannel type.
      */
@@ -204,7 +204,7 @@ public class WorkerChannel extends Resource {
     /**
      * Returns The The current available capacity between 0 to 100 for this
      * TaskChannel..
-     * 
+     *
      * @return The current available capacity between 0 to 100 for this TaskChannel.
      */
     public final Integer getAvailableCapacityPercentage() {
@@ -213,7 +213,7 @@ public class WorkerChannel extends Resource {
 
     /**
      * Returns The The current configured capacity for the WorkerChannel..
-     * 
+     *
      * @return The current configured capacity for the WorkerChannel.
      */
     public final Integer getConfiguredCapacity() {
@@ -222,7 +222,7 @@ public class WorkerChannel extends Resource {
 
     /**
      * Returns The The date this Activity was created..
-     * 
+     *
      * @return The date this Activity was created.
      */
     public final DateTime getDateCreated() {
@@ -231,7 +231,7 @@ public class WorkerChannel extends Resource {
 
     /**
      * Returns The The date this Activity was updated..
-     * 
+     *
      * @return The date this Activity was updated.
      */
     public final DateTime getDateUpdated() {
@@ -240,7 +240,7 @@ public class WorkerChannel extends Resource {
 
     /**
      * Returns The The unique ID for this WorkerChannel..
-     * 
+     *
      * @return The unique ID for this WorkerChannel.
      */
     public final String getSid() {
@@ -249,7 +249,7 @@ public class WorkerChannel extends Resource {
 
     /**
      * Returns The The unique ID of the TaskChannel..
-     * 
+     *
      * @return The unique ID of the TaskChannel.
      */
     public final String getTaskChannelSid() {
@@ -258,7 +258,7 @@ public class WorkerChannel extends Resource {
 
     /**
      * Returns The The unique name of TaskChannel, such as 'voice', 'sms', etc..
-     * 
+     *
      * @return The unique name of TaskChannel, such as 'voice', 'sms', etc.
      */
     public final String getTaskChannelUniqueName() {
@@ -267,7 +267,7 @@ public class WorkerChannel extends Resource {
 
     /**
      * Returns The The unique ID of the Worker that this WorkerChannel belongs to..
-     * 
+     *
      * @return The unique ID of the Worker that this WorkerChannel belongs to.
      */
     public final String getWorkerSid() {
@@ -277,7 +277,7 @@ public class WorkerChannel extends Resource {
     /**
      * Returns The The unique ID of the Workspace that this WorkerChannel belongs
      * to..
-     * 
+     *
      * @return The unique ID of the Workspace that this WorkerChannel belongs to.
      */
     public final String getWorkspaceSid() {
@@ -286,7 +286,7 @@ public class WorkerChannel extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -305,18 +305,18 @@ public class WorkerChannel extends Resource {
 
         WorkerChannel other = (WorkerChannel) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(assignedTasks, other.assignedTasks) && 
-               Objects.equals(available, other.available) && 
-               Objects.equals(availableCapacityPercentage, other.availableCapacityPercentage) && 
-               Objects.equals(configuredCapacity, other.configuredCapacity) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(taskChannelSid, other.taskChannelSid) && 
-               Objects.equals(taskChannelUniqueName, other.taskChannelUniqueName) && 
-               Objects.equals(workerSid, other.workerSid) && 
-               Objects.equals(workspaceSid, other.workspaceSid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(assignedTasks, other.assignedTasks) &&
+               Objects.equals(available, other.available) &&
+               Objects.equals(availableCapacityPercentage, other.availableCapacityPercentage) &&
+               Objects.equals(configuredCapacity, other.configuredCapacity) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(taskChannelSid, other.taskChannelSid) &&
+               Objects.equals(taskChannelUniqueName, other.taskChannelUniqueName) &&
+               Objects.equals(workerSid, other.workerSid) &&
+               Objects.equals(workspaceSid, other.workspaceSid) &&
                Objects.equals(url, other.url);
     }
 

@@ -38,43 +38,43 @@ public class Workflow extends Resource {
 
     /**
      * Create a WorkflowFetcher to execute fetch.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathSid The sid
      * @return WorkflowFetcher capable of executing the fetch
      */
-    public static WorkflowFetcher fetcher(final String pathWorkspaceSid, 
+    public static WorkflowFetcher fetcher(final String pathWorkspaceSid,
                                           final String pathSid) {
         return new WorkflowFetcher(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a WorkflowUpdater to execute update.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathSid The sid
      * @return WorkflowUpdater capable of executing the update
      */
-    public static WorkflowUpdater updater(final String pathWorkspaceSid, 
+    public static WorkflowUpdater updater(final String pathWorkspaceSid,
                                           final String pathSid) {
         return new WorkflowUpdater(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a WorkflowDeleter to execute delete.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param pathSid The sid
      * @return WorkflowDeleter capable of executing the delete
      */
-    public static WorkflowDeleter deleter(final String pathWorkspaceSid, 
+    public static WorkflowDeleter deleter(final String pathWorkspaceSid,
                                           final String pathSid) {
         return new WorkflowDeleter(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a WorkflowReader to execute read.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @return WorkflowReader capable of executing the read
      */
@@ -84,15 +84,15 @@ public class Workflow extends Resource {
 
     /**
      * Create a WorkflowCreator to execute create.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @param friendlyName A string representing a human readable name for this
      *                     Workflow.
      * @param configuration JSON document configuring the rules for this Workflow.
      * @return WorkflowCreator capable of executing the create
      */
-    public static WorkflowCreator creator(final String pathWorkspaceSid, 
-                                          final String friendlyName, 
+    public static WorkflowCreator creator(final String pathWorkspaceSid,
+                                          final String friendlyName,
                                           final String configuration) {
         return new WorkflowCreator(pathWorkspaceSid, friendlyName, configuration);
     }
@@ -100,7 +100,7 @@ public class Workflow extends Resource {
     /**
      * Converts a JSON String into a Workflow object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Workflow object represented by the provided JSON
@@ -119,7 +119,7 @@ public class Workflow extends Resource {
     /**
      * Converts a JSON InputStream into a Workflow object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Workflow object represented by the provided JSON
@@ -151,29 +151,29 @@ public class Workflow extends Resource {
 
     @JsonCreator
     private Workflow(@JsonProperty("account_sid")
-                     final String accountSid, 
+                     final String accountSid,
                      @JsonProperty("assignment_callback_url")
-                     final URI assignmentCallbackUrl, 
+                     final URI assignmentCallbackUrl,
                      @JsonProperty("configuration")
-                     final String configuration, 
+                     final String configuration,
                      @JsonProperty("date_created")
-                     final String dateCreated, 
+                     final String dateCreated,
                      @JsonProperty("date_updated")
-                     final String dateUpdated, 
+                     final String dateUpdated,
                      @JsonProperty("document_content_type")
-                     final String documentContentType, 
+                     final String documentContentType,
                      @JsonProperty("fallback_assignment_callback_url")
-                     final URI fallbackAssignmentCallbackUrl, 
+                     final URI fallbackAssignmentCallbackUrl,
                      @JsonProperty("friendly_name")
-                     final String friendlyName, 
+                     final String friendlyName,
                      @JsonProperty("sid")
-                     final String sid, 
+                     final String sid,
                      @JsonProperty("task_reservation_timeout")
-                     final Integer taskReservationTimeout, 
+                     final Integer taskReservationTimeout,
                      @JsonProperty("workspace_sid")
-                     final String workspaceSid, 
+                     final String workspaceSid,
                      @JsonProperty("url")
-                     final URI url, 
+                     final URI url,
                      @JsonProperty("links")
                      final Map<String, String> links) {
         this.accountSid = accountSid;
@@ -193,7 +193,7 @@ public class Workflow extends Resource {
 
     /**
      * Returns The The ID of the account that owns this Workflow.
-     * 
+     *
      * @return The ID of the account that owns this Workflow
      */
     public final String getAccountSid() {
@@ -203,7 +203,7 @@ public class Workflow extends Resource {
     /**
      * Returns The The URL that will be called whenever a task managed by this
      * Workflow is assigned to a Worker..
-     * 
+     *
      * @return The URL that will be called whenever a task managed by this Workflow
      *         is assigned to a Worker.
      */
@@ -213,7 +213,7 @@ public class Workflow extends Resource {
 
     /**
      * Returns The JSON document configuring the rules for this Workflow..
-     * 
+     *
      * @return JSON document configuring the rules for this Workflow.
      */
     public final String getConfiguration() {
@@ -222,7 +222,7 @@ public class Workflow extends Resource {
 
     /**
      * Returns The The date this workflow was created..
-     * 
+     *
      * @return The date this workflow was created.
      */
     public final DateTime getDateCreated() {
@@ -231,7 +231,7 @@ public class Workflow extends Resource {
 
     /**
      * Returns The The date this workflow was last updated..
-     * 
+     *
      * @return The date this workflow was last updated.
      */
     public final DateTime getDateUpdated() {
@@ -240,7 +240,7 @@ public class Workflow extends Resource {
 
     /**
      * Returns The The document_content_type.
-     * 
+     *
      * @return The document_content_type
      */
     public final String getDocumentContentType() {
@@ -250,7 +250,7 @@ public class Workflow extends Resource {
     /**
      * Returns The If the request to the AssignmentCallbackUrl fails, the assignment
      * callback will be made to this URL..
-     * 
+     *
      * @return If the request to the AssignmentCallbackUrl fails, the assignment
      *         callback will be made to this URL.
      */
@@ -260,7 +260,7 @@ public class Workflow extends Resource {
 
     /**
      * Returns The Human readable description of this Workflow.
-     * 
+     *
      * @return Human readable description of this Workflow
      */
     public final String getFriendlyName() {
@@ -269,7 +269,7 @@ public class Workflow extends Resource {
 
     /**
      * Returns The The unique ID of the Workflow.
-     * 
+     *
      * @return The unique ID of the Workflow
      */
     public final String getSid() {
@@ -279,7 +279,7 @@ public class Workflow extends Resource {
     /**
      * Returns The Determines how long TaskRouter will wait for a confirmation
      * response from your application after assigning a Task to a worker..
-     * 
+     *
      * @return Determines how long TaskRouter will wait for a confirmation response
      *         from your application after assigning a Task to a worker.
      */
@@ -289,7 +289,7 @@ public class Workflow extends Resource {
 
     /**
      * Returns The The ID of the Workspace that contains this Workflow.
-     * 
+     *
      * @return The ID of the Workspace that contains this Workflow
      */
     public final String getWorkspaceSid() {
@@ -298,7 +298,7 @@ public class Workflow extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -307,7 +307,7 @@ public class Workflow extends Resource {
 
     /**
      * Returns The The links.
-     * 
+     *
      * @return The links
      */
     public final Map<String, String> getLinks() {
@@ -326,18 +326,18 @@ public class Workflow extends Resource {
 
         Workflow other = (Workflow) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(assignmentCallbackUrl, other.assignmentCallbackUrl) && 
-               Objects.equals(configuration, other.configuration) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(documentContentType, other.documentContentType) && 
-               Objects.equals(fallbackAssignmentCallbackUrl, other.fallbackAssignmentCallbackUrl) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(taskReservationTimeout, other.taskReservationTimeout) && 
-               Objects.equals(workspaceSid, other.workspaceSid) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(assignmentCallbackUrl, other.assignmentCallbackUrl) &&
+               Objects.equals(configuration, other.configuration) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(documentContentType, other.documentContentType) &&
+               Objects.equals(fallbackAssignmentCallbackUrl, other.fallbackAssignmentCallbackUrl) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(taskReservationTimeout, other.taskReservationTimeout) &&
+               Objects.equals(workspaceSid, other.workspaceSid) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

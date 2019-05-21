@@ -37,7 +37,7 @@ public class SsmlW extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -46,7 +46,7 @@ public class SsmlW extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -63,7 +63,7 @@ public class SsmlW extends TwiML {
     /**
      * Customize the pronunciation of words by specifying the word’s part of speech
      * or alternate meaning
-     * 
+     *
      * @return Customize the pronunciation of words by specifying the word’s part
      *         of speech or alternate meaning
      */
@@ -73,7 +73,7 @@ public class SsmlW extends TwiML {
 
     /**
      * Words to speak
-     * 
+     *
      * @return Words to speak
      */
     public String getWords() {

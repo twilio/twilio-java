@@ -43,7 +43,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceCreator to execute create.
-     * 
+     *
      * @param friendlyName A human readable description of this resource.
      * @return ServiceCreator capable of executing the create
      */
@@ -53,7 +53,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceDeleter to execute delete.
-     * 
+     *
      * @param pathSid A string that uniquely identifies this Service.
      * @return ServiceDeleter capable of executing the delete
      */
@@ -63,7 +63,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceFetcher to execute fetch.
-     * 
+     *
      * @param pathSid A string that uniquely identifies this Service.
      * @return ServiceFetcher capable of executing the fetch
      */
@@ -73,7 +73,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceReader to execute read.
-     * 
+     *
      * @return ServiceReader capable of executing the read
      */
     public static ServiceReader reader() {
@@ -82,7 +82,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceUpdater to execute update.
-     * 
+     *
      * @param pathSid A string that uniquely identifies this Service.
      * @return ServiceUpdater capable of executing the update
      */
@@ -92,7 +92,7 @@ public class Service extends Resource {
 
     /**
      * Converts a JSON String into a Service object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
@@ -111,7 +111,7 @@ public class Service extends Resource {
     /**
      * Converts a JSON InputStream into a Service object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
@@ -137,17 +137,17 @@ public class Service extends Resource {
 
     @JsonCreator
     private Service(@JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("friendly_name")
-                    final String friendlyName, 
+                    final String friendlyName,
                     @JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("url")
-                    final URI url, 
+                    final URI url,
                     @JsonProperty("links")
                     final Map<String, String> links) {
         this.sid = sid;
@@ -161,7 +161,7 @@ public class Service extends Resource {
 
     /**
      * Returns The A string that uniquely identifies this Service..
-     * 
+     *
      * @return A string that uniquely identifies this Service.
      */
     public final String getSid() {
@@ -170,7 +170,7 @@ public class Service extends Resource {
 
     /**
      * Returns The A human readable description of this resource..
-     * 
+     *
      * @return A human readable description of this resource.
      */
     public final String getFriendlyName() {
@@ -179,7 +179,7 @@ public class Service extends Resource {
 
     /**
      * Returns The Account Sid..
-     * 
+     *
      * @return Account Sid.
      */
     public final String getAccountSid() {
@@ -188,7 +188,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The date this Service was created.
-     * 
+     *
      * @return The date this Service was created
      */
     public final DateTime getDateCreated() {
@@ -197,7 +197,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The date this Service was updated.
-     * 
+     *
      * @return The date this Service was updated
      */
     public final DateTime getDateUpdated() {
@@ -206,7 +206,7 @@ public class Service extends Resource {
 
     /**
      * Returns The The URL of this resource..
-     * 
+     *
      * @return The URL of this resource.
      */
     public final URI getUrl() {
@@ -215,7 +215,7 @@ public class Service extends Resource {
 
     /**
      * Returns The Nested resource URLs..
-     * 
+     *
      * @return Nested resource URLs.
      */
     public final Map<String, String> getLinks() {
@@ -234,12 +234,12 @@ public class Service extends Resource {
 
         Service other = (Service) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

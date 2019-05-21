@@ -29,13 +29,13 @@ public class VariableFetcher extends Fetcher<Variable> {
 
     /**
      * Construct a new VariableFetcher.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathEnvironmentSid Environment Sid.
      * @param pathSid Variable Sid.
      */
-    public VariableFetcher(final String pathServiceSid, 
-                           final String pathEnvironmentSid, 
+    public VariableFetcher(final String pathServiceSid,
+                           final String pathEnvironmentSid,
                            final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathEnvironmentSid = pathEnvironmentSid;
@@ -44,7 +44,7 @@ public class VariableFetcher extends Fetcher<Variable> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Variable
      */

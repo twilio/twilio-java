@@ -30,15 +30,15 @@ public class ChallengeDeleter extends Deleter<Challenge> {
 
     /**
      * Construct a new ChallengeDeleter.
-     * 
+     *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique identity of the Entity
      * @param pathFactorSid Factor Sid.
      * @param pathSid A string that uniquely identifies this Challenge.
      */
-    public ChallengeDeleter(final String pathServiceSid, 
-                            final String pathIdentity, 
-                            final String pathFactorSid, 
+    public ChallengeDeleter(final String pathServiceSid,
+                            final String pathIdentity,
+                            final String pathFactorSid,
                             final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathIdentity = pathIdentity;
@@ -48,7 +48,7 @@ public class ChallengeDeleter extends Deleter<Challenge> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

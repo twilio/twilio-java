@@ -41,14 +41,14 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Construct a new MessageCreator.
-     * 
+     *
      * @param to The destination phone number
      * @param from The phone number that initiated the message
      * @param body The text of the message you want to send. Can be up to 1,600
      *             characters in length.
      */
-    public MessageCreator(final com.twilio.type.PhoneNumber to, 
-                          final com.twilio.type.PhoneNumber from, 
+    public MessageCreator(final com.twilio.type.PhoneNumber to,
+                          final com.twilio.type.PhoneNumber from,
                           final String body) {
         this.to = to;
         this.from = from;
@@ -57,16 +57,16 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Construct a new MessageCreator.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param to The destination phone number
      * @param from The phone number that initiated the message
      * @param body The text of the message you want to send. Can be up to 1,600
      *             characters in length.
      */
-    public MessageCreator(final String pathAccountSid, 
-                          final com.twilio.type.PhoneNumber to, 
-                          final com.twilio.type.PhoneNumber from, 
+    public MessageCreator(final String pathAccountSid,
+                          final com.twilio.type.PhoneNumber to,
+                          final com.twilio.type.PhoneNumber from,
                           final String body) {
         this.pathAccountSid = pathAccountSid;
         this.to = to;
@@ -76,13 +76,13 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Construct a new MessageCreator.
-     * 
+     *
      * @param to The destination phone number
      * @param from The phone number that initiated the message
      * @param mediaUrl The URL of the media to send with the message
      */
-    public MessageCreator(final com.twilio.type.PhoneNumber to, 
-                          final com.twilio.type.PhoneNumber from, 
+    public MessageCreator(final com.twilio.type.PhoneNumber to,
+                          final com.twilio.type.PhoneNumber from,
                           final List<URI> mediaUrl) {
         this.to = to;
         this.from = from;
@@ -91,15 +91,15 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Construct a new MessageCreator.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param to The destination phone number
      * @param from The phone number that initiated the message
      * @param mediaUrl The URL of the media to send with the message
      */
-    public MessageCreator(final String pathAccountSid, 
-                          final com.twilio.type.PhoneNumber to, 
-                          final com.twilio.type.PhoneNumber from, 
+    public MessageCreator(final String pathAccountSid,
+                          final com.twilio.type.PhoneNumber to,
+                          final com.twilio.type.PhoneNumber from,
                           final List<URI> mediaUrl) {
         this.pathAccountSid = pathAccountSid;
         this.to = to;
@@ -109,15 +109,15 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Construct a new MessageCreator.
-     * 
+     *
      * @param to The destination phone number
      * @param messagingServiceSid The SID of the Messaging Service you want to
      *                            associate with the message.
      * @param body The text of the message you want to send. Can be up to 1,600
      *             characters in length.
      */
-    public MessageCreator(final com.twilio.type.PhoneNumber to, 
-                          final String messagingServiceSid, 
+    public MessageCreator(final com.twilio.type.PhoneNumber to,
+                          final String messagingServiceSid,
                           final String body) {
         this.to = to;
         this.messagingServiceSid = messagingServiceSid;
@@ -126,7 +126,7 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Construct a new MessageCreator.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param to The destination phone number
      * @param messagingServiceSid The SID of the Messaging Service you want to
@@ -134,9 +134,9 @@ public class MessageCreator extends Creator<Message> {
      * @param body The text of the message you want to send. Can be up to 1,600
      *             characters in length.
      */
-    public MessageCreator(final String pathAccountSid, 
-                          final com.twilio.type.PhoneNumber to, 
-                          final String messagingServiceSid, 
+    public MessageCreator(final String pathAccountSid,
+                          final com.twilio.type.PhoneNumber to,
+                          final String messagingServiceSid,
                           final String body) {
         this.pathAccountSid = pathAccountSid;
         this.to = to;
@@ -146,14 +146,14 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Construct a new MessageCreator.
-     * 
+     *
      * @param to The destination phone number
      * @param messagingServiceSid The SID of the Messaging Service you want to
      *                            associate with the message.
      * @param mediaUrl The URL of the media to send with the message
      */
-    public MessageCreator(final com.twilio.type.PhoneNumber to, 
-                          final String messagingServiceSid, 
+    public MessageCreator(final com.twilio.type.PhoneNumber to,
+                          final String messagingServiceSid,
                           final List<URI> mediaUrl) {
         this.to = to;
         this.messagingServiceSid = messagingServiceSid;
@@ -162,16 +162,16 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Construct a new MessageCreator.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param to The destination phone number
      * @param messagingServiceSid The SID of the Messaging Service you want to
      *                            associate with the message.
      * @param mediaUrl The URL of the media to send with the message
      */
-    public MessageCreator(final String pathAccountSid, 
-                          final com.twilio.type.PhoneNumber to, 
-                          final String messagingServiceSid, 
+    public MessageCreator(final String pathAccountSid,
+                          final com.twilio.type.PhoneNumber to,
+                          final String messagingServiceSid,
                           final List<URI> mediaUrl) {
         this.pathAccountSid = pathAccountSid;
         this.to = to;
@@ -190,7 +190,7 @@ public class MessageCreator extends Creator<Message> {
      * we use this URL instead of the Status Callback URL of the [Messaging
      * Service](https://www.twilio.com/docs/sms/services/api). URLs must contain a
      * valid hostname and underscores are not allowed..
-     * 
+     *
      * @param statusCallback The URL we should call to send status information to
      *                       your application
      * @return this
@@ -211,7 +211,7 @@ public class MessageCreator extends Creator<Message> {
      * we use this URL instead of the Status Callback URL of the [Messaging
      * Service](https://www.twilio.com/docs/sms/services/api). URLs must contain a
      * valid hostname and underscores are not allowed..
-     * 
+     *
      * @param statusCallback The URL we should call to send status information to
      *                       your application
      * @return this
@@ -228,7 +228,7 @@ public class MessageCreator extends Creator<Message> {
      * `message_status_callback`. If a `status_callback` parameter is also passed,
      * it will be ignored and the application's `message_status_callback` parameter
      * will be used..
-     * 
+     *
      * @param applicationSid The application to use for callbacks
      * @return this
      */
@@ -244,7 +244,7 @@ public class MessageCreator extends Creator<Message> {
      * message is sent. If the cost exceeds `max_price`, the message will fail and a
      * status of `Failed` is sent to the status callback. If `MaxPrice` is not set,
      * the message cost is not checked..
-     * 
+     *
      * @param maxPrice The total maximum price up to 4 decimal places in US dollars
      *                 acceptable for the message to be delivered.
      * @return this
@@ -260,7 +260,7 @@ public class MessageCreator extends Creator<Message> {
      * confirm delivery of the message using the [Message Feedback
      * API](https://www.twilio.com/docs/sms/api/message-feedback). This parameter is
      * `false` by default..
-     * 
+     *
      * @param provideFeedback Whether to confirm delivery of the message
      * @return this
      */
@@ -276,7 +276,7 @@ public class MessageCreator extends Creator<Message> {
      * message has been accepted by a carrier, however, we cannot guarantee that the
      * message will not be queued after this period. We recommend that this value be
      * at least 5 seconds..
-     * 
+     *
      * @param validityPeriod The number of seconds that the message can remain in
      *                       our outgoing queue.
      * @return this
@@ -288,7 +288,7 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Reserved.
-     * 
+     *
      * @param forceDelivery Reserved
      * @return this
      */
@@ -300,7 +300,7 @@ public class MessageCreator extends Creator<Message> {
     /**
      * Whether to detect Unicode characters that have a similar GSM-7 character and
      * replace them. Can be: `true` or `false`..
-     * 
+     *
      * @param smartEncoded Whether to detect Unicode characters that have a similar
      *                     GSM-7 character and replace them
      * @return this
@@ -314,7 +314,7 @@ public class MessageCreator extends Creator<Message> {
      * A JSON string that represents an interactive message. An interactive message
      * is a category of messages that includes a list picker, a time picker, and an
      * Apple Pay request..
-     * 
+     *
      * @param interactiveData A JSON string that represents an interactive message
      * @return this
      */
@@ -325,7 +325,7 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Whether to forcefully whitelist a from:to pair. Can be: `true` or `false`..
-     * 
+     *
      * @param forceOptIn Whether to forcefully whitelist a from:to pair
      * @return this
      */
@@ -339,7 +339,7 @@ public class MessageCreator extends Creator<Message> {
      * [E.164](https://www.twilio.com/docs/glossary/what-e164) format, an
      * [alphanumeric sender
      * ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or a [Channel Endpoint address](https://www.twilio.com/docs/sms/channels#channel-addresses) that is enabled for the type of message you want to send. Phone numbers or [short codes](https://www.twilio.com/docs/sms/api/short-codes) purchased from Twilio also work here. You cannot, for example, spoof messages from a private cell phone number. If you are using `messaging_service_sid`, this parameter must be empty..
-     * 
+     *
      * @param from The phone number that initiated the message
      * @return this
      */
@@ -353,7 +353,7 @@ public class MessageCreator extends Creator<Message> {
      * [E.164](https://www.twilio.com/docs/glossary/what-e164) format, an
      * [alphanumeric sender
      * ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or a [Channel Endpoint address](https://www.twilio.com/docs/sms/channels#channel-addresses) that is enabled for the type of message you want to send. Phone numbers or [short codes](https://www.twilio.com/docs/sms/api/short-codes) purchased from Twilio also work here. You cannot, for example, spoof messages from a private cell phone number. If you are using `messaging_service_sid`, this parameter must be empty..
-     * 
+     *
      * @param from The phone number that initiated the message
      * @return this
      */
@@ -364,7 +364,7 @@ public class MessageCreator extends Creator<Message> {
     /**
      * The SID of the [Messaging
      * Service](https://www.twilio.com/docs/sms/services#send-a-message-with-copilot) you want to associate with the Message. Set this parameter to use the [Messaging Service Settings and Copilot Features](https://www.twilio.com/console/sms/services) you have configured and leave the `from` parameter empty. When only this parameter is set, Twilio will use your enabled Copilot Features to select the `from` phone number for delivery..
-     * 
+     *
      * @param messagingServiceSid The SID of the Messaging Service you want to
      *                            associate with the message.
      * @return this
@@ -377,7 +377,7 @@ public class MessageCreator extends Creator<Message> {
     /**
      * The text of the message you want to send. Can be up to 1,600 characters in
      * length..
-     * 
+     *
      * @param body The text of the message you want to send. Can be up to 1,600
      *             characters in length.
      * @return this
@@ -395,7 +395,7 @@ public class MessageCreator extends Creator<Message> {
      * image in the message body, provide multiple `media_url` parameters in the
      * POST request. You can include up to 10 `media_url` parameters per message.
      * You can send images in an SMS message in only the US and Canada..
-     * 
+     *
      * @param mediaUrl The URL of the media to send with the message
      * @return this
      */
@@ -412,7 +412,7 @@ public class MessageCreator extends Creator<Message> {
      * image in the message body, provide multiple `media_url` parameters in the
      * POST request. You can include up to 10 `media_url` parameters per message.
      * You can send images in an SMS message in only the US and Canada..
-     * 
+     *
      * @param mediaUrl The URL of the media to send with the message
      * @return this
      */
@@ -428,7 +428,7 @@ public class MessageCreator extends Creator<Message> {
      * image in the message body, provide multiple `media_url` parameters in the
      * POST request. You can include up to 10 `media_url` parameters per message.
      * You can send images in an SMS message in only the US and Canada..
-     * 
+     *
      * @param mediaUrl The URL of the media to send with the message
      * @return this
      */
@@ -438,7 +438,7 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Message
      */
@@ -478,7 +478,7 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -30,7 +30,7 @@ public class DeviceReader extends Reader<Device> {
 
     /**
      * Construct a new DeviceReader.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      */
     public DeviceReader(final String pathFleetSid) {
@@ -40,7 +40,7 @@ public class DeviceReader extends Reader<Device> {
     /**
      * Filters the resulting list of Devices by a unique string identifier of the
      * Deployment they are associated with..
-     * 
+     *
      * @param deploymentSid Find all Devices grouped under the specified Deployment.
      * @return this
      */
@@ -51,7 +51,7 @@ public class DeviceReader extends Reader<Device> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Device ResourceSet
      */
@@ -62,7 +62,7 @@ public class DeviceReader extends Reader<Device> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Device ResourceSet
      */
@@ -82,7 +82,7 @@ public class DeviceReader extends Reader<Device> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Device ResourceSet
@@ -100,13 +100,13 @@ public class DeviceReader extends Reader<Device> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Device> nextPage(final Page<Device> page, 
+    public Page<Device> nextPage(final Page<Device> page,
                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -120,13 +120,13 @@ public class DeviceReader extends Reader<Device> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Device> previousPage(final Page<Device> page, 
+    public Page<Device> previousPage(final Page<Device> page,
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -140,7 +140,7 @@ public class DeviceReader extends Reader<Device> {
 
     /**
      * Generate a Page of Device Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -175,7 +175,7 @@ public class DeviceReader extends Reader<Device> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

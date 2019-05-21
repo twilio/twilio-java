@@ -24,12 +24,12 @@ public class IpAccessControlListMappingFetcher extends Fetcher<IpAccessControlLi
 
     /**
      * Construct a new IpAccessControlListMappingFetcher.
-     * 
+     *
      * @param pathDomainSid A string that uniquely identifies the SIP Domain
      * @param pathSid A 34 character string that uniquely identifies the resource
      *                to fetch.
      */
-    public IpAccessControlListMappingFetcher(final String pathDomainSid, 
+    public IpAccessControlListMappingFetcher(final String pathDomainSid,
                                              final String pathSid) {
         this.pathDomainSid = pathDomainSid;
         this.pathSid = pathSid;
@@ -37,15 +37,15 @@ public class IpAccessControlListMappingFetcher extends Fetcher<IpAccessControlLi
 
     /**
      * Construct a new IpAccessControlListMappingFetcher.
-     * 
+     *
      * @param pathAccountSid The unique id of the Account that is responsible for
      *                       this resource.
      * @param pathDomainSid A string that uniquely identifies the SIP Domain
      * @param pathSid A 34 character string that uniquely identifies the resource
      *                to fetch.
      */
-    public IpAccessControlListMappingFetcher(final String pathAccountSid, 
-                                             final String pathDomainSid, 
+    public IpAccessControlListMappingFetcher(final String pathAccountSid,
+                                             final String pathDomainSid,
                                              final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
@@ -54,7 +54,7 @@ public class IpAccessControlListMappingFetcher extends Fetcher<IpAccessControlLi
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched IpAccessControlListMapping
      */

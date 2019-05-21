@@ -25,12 +25,12 @@ public class TaskChannelUpdater extends Updater<TaskChannel> {
 
     /**
      * Construct a new TaskChannelUpdater.
-     * 
+     *
      * @param pathWorkspaceSid The unique ID of the Workspace that this TaskChannel
      *                         belongs to.
      * @param pathSid The unique ID for this TaskChannel.
      */
-    public TaskChannelUpdater(final String pathWorkspaceSid, 
+    public TaskChannelUpdater(final String pathWorkspaceSid,
                               final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
@@ -38,7 +38,7 @@ public class TaskChannelUpdater extends Updater<TaskChannel> {
 
     /**
      * Toggle the FriendlyName for the TaskChannel.
-     * 
+     *
      * @param friendlyName Toggle the FriendlyName for the TaskChannel
      * @return this
      */
@@ -50,7 +50,7 @@ public class TaskChannelUpdater extends Updater<TaskChannel> {
     /**
      * A boolean that if true; mean that the channel will prioritize workers that
      * have been idle.
-     * 
+     *
      * @param channelOptimizedRouting If true then prioritize longest idle workers
      * @return this
      */
@@ -61,7 +61,7 @@ public class TaskChannelUpdater extends Updater<TaskChannel> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated TaskChannel
      */
@@ -100,7 +100,7 @@ public class TaskChannelUpdater extends Updater<TaskChannel> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

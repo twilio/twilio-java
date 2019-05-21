@@ -27,7 +27,7 @@ public class AssistantDeleter extends Deleter<Assistant> {
 
     /**
      * Construct a new AssistantDeleter.
-     * 
+     *
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public AssistantDeleter(final String pathSid) {
@@ -36,7 +36,7 @@ public class AssistantDeleter extends Deleter<Assistant> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

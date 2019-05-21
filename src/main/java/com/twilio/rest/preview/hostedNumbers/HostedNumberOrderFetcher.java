@@ -27,7 +27,7 @@ public class HostedNumberOrderFetcher extends Fetcher<HostedNumberOrder> {
 
     /**
      * Construct a new HostedNumberOrderFetcher.
-     * 
+     *
      * @param pathSid HostedNumberOrder sid.
      */
     public HostedNumberOrderFetcher(final String pathSid) {
@@ -36,7 +36,7 @@ public class HostedNumberOrderFetcher extends Fetcher<HostedNumberOrder> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched HostedNumberOrder
      */

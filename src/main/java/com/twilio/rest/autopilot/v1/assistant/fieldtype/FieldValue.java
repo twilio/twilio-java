@@ -43,7 +43,7 @@ public class FieldValue extends Resource {
 
     /**
      * Create a FieldValueFetcher to execute fetch.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         FieldType associated with the resource to fetch
      * @param pathFieldTypeSid The SID of the Field Type associated with  the Field
@@ -51,29 +51,29 @@ public class FieldValue extends Resource {
      * @param pathSid The unique string that identifies the resource
      * @return FieldValueFetcher capable of executing the fetch
      */
-    public static FieldValueFetcher fetcher(final String pathAssistantSid, 
-                                            final String pathFieldTypeSid, 
+    public static FieldValueFetcher fetcher(final String pathAssistantSid,
+                                            final String pathFieldTypeSid,
                                             final String pathSid) {
         return new FieldValueFetcher(pathAssistantSid, pathFieldTypeSid, pathSid);
     }
 
     /**
      * Create a FieldValueReader to execute read.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         FieldType associated with the resources to read
      * @param pathFieldTypeSid The SID of the Field Type associated with the Field
      *                         Value to read
      * @return FieldValueReader capable of executing the read
      */
-    public static FieldValueReader reader(final String pathAssistantSid, 
+    public static FieldValueReader reader(final String pathAssistantSid,
                                           final String pathFieldTypeSid) {
         return new FieldValueReader(pathAssistantSid, pathFieldTypeSid);
     }
 
     /**
      * Create a FieldValueCreator to execute create.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         FieldType associated with the new resource
      * @param pathFieldTypeSid The SID of the Field Type associated with the Field
@@ -83,16 +83,16 @@ public class FieldValue extends Resource {
      * @param value The Field Value data
      * @return FieldValueCreator capable of executing the create
      */
-    public static FieldValueCreator creator(final String pathAssistantSid, 
-                                            final String pathFieldTypeSid, 
-                                            final String language, 
+    public static FieldValueCreator creator(final String pathAssistantSid,
+                                            final String pathFieldTypeSid,
+                                            final String language,
                                             final String value) {
         return new FieldValueCreator(pathAssistantSid, pathFieldTypeSid, language, value);
     }
 
     /**
      * Create a FieldValueDeleter to execute delete.
-     * 
+     *
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         FieldType associated with the resources to delete
      * @param pathFieldTypeSid The SID of the Field Type associated with the Field
@@ -100,8 +100,8 @@ public class FieldValue extends Resource {
      * @param pathSid The unique string that identifies the resource
      * @return FieldValueDeleter capable of executing the delete
      */
-    public static FieldValueDeleter deleter(final String pathAssistantSid, 
-                                            final String pathFieldTypeSid, 
+    public static FieldValueDeleter deleter(final String pathAssistantSid,
+                                            final String pathFieldTypeSid,
                                             final String pathSid) {
         return new FieldValueDeleter(pathAssistantSid, pathFieldTypeSid, pathSid);
     }
@@ -109,7 +109,7 @@ public class FieldValue extends Resource {
     /**
      * Converts a JSON String into a FieldValue object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return FieldValue object represented by the provided JSON
@@ -128,7 +128,7 @@ public class FieldValue extends Resource {
     /**
      * Converts a JSON InputStream into a FieldValue object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return FieldValue object represented by the provided JSON
@@ -157,23 +157,23 @@ public class FieldValue extends Resource {
 
     @JsonCreator
     private FieldValue(@JsonProperty("account_sid")
-                       final String accountSid, 
+                       final String accountSid,
                        @JsonProperty("date_created")
-                       final String dateCreated, 
+                       final String dateCreated,
                        @JsonProperty("date_updated")
-                       final String dateUpdated, 
+                       final String dateUpdated,
                        @JsonProperty("field_type_sid")
-                       final String fieldTypeSid, 
+                       final String fieldTypeSid,
                        @JsonProperty("language")
-                       final String language, 
+                       final String language,
                        @JsonProperty("assistant_sid")
-                       final String assistantSid, 
+                       final String assistantSid,
                        @JsonProperty("sid")
-                       final String sid, 
+                       final String sid,
                        @JsonProperty("value")
-                       final String value, 
+                       final String value,
                        @JsonProperty("url")
-                       final URI url, 
+                       final URI url,
                        @JsonProperty("synonym_of")
                        final String synonymOf) {
         this.accountSid = accountSid;
@@ -190,7 +190,7 @@ public class FieldValue extends Resource {
 
     /**
      * Returns The The SID of the Account that created the resource.
-     * 
+     *
      * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
@@ -199,7 +199,7 @@ public class FieldValue extends Resource {
 
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was created.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
@@ -209,7 +209,7 @@ public class FieldValue extends Resource {
     /**
      * Returns The The RFC 2822 date and time in GMT when the resource was last
      * updated.
-     * 
+     *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -218,7 +218,7 @@ public class FieldValue extends Resource {
 
     /**
      * Returns The The SID of the Field Type associated with the Field Value.
-     * 
+     *
      * @return The SID of the Field Type associated with the Field Value
      */
     public final String getFieldTypeSid() {
@@ -228,7 +228,7 @@ public class FieldValue extends Resource {
     /**
      * Returns The The ISO language-country tag that identifies the language of the
      * value.
-     * 
+     *
      * @return The ISO language-country tag that identifies the language of the
      *         value
      */
@@ -239,7 +239,7 @@ public class FieldValue extends Resource {
     /**
      * Returns The The SID of the Assistant that is the parent of the FieldType
      * associated with the resource.
-     * 
+     *
      * @return The SID of the Assistant that is the parent of the FieldType
      *         associated with the resource
      */
@@ -249,7 +249,7 @@ public class FieldValue extends Resource {
 
     /**
      * Returns The The unique string that identifies the resource.
-     * 
+     *
      * @return The unique string that identifies the resource
      */
     public final String getSid() {
@@ -258,7 +258,7 @@ public class FieldValue extends Resource {
 
     /**
      * Returns The The Field Value data.
-     * 
+     *
      * @return The Field Value data
      */
     public final String getValue() {
@@ -267,7 +267,7 @@ public class FieldValue extends Resource {
 
     /**
      * Returns The The absolute URL of the FieldValue resource.
-     * 
+     *
      * @return The absolute URL of the FieldValue resource
      */
     public final URI getUrl() {
@@ -276,7 +276,7 @@ public class FieldValue extends Resource {
 
     /**
      * Returns The The word for which the field value is a synonym of.
-     * 
+     *
      * @return The word for which the field value is a synonym of
      */
     public final String getSynonymOf() {
@@ -295,15 +295,15 @@ public class FieldValue extends Resource {
 
         FieldValue other = (FieldValue) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(fieldTypeSid, other.fieldTypeSid) && 
-               Objects.equals(language, other.language) && 
-               Objects.equals(assistantSid, other.assistantSid) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(value, other.value) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(fieldTypeSid, other.fieldTypeSid) &&
+               Objects.equals(language, other.language) &&
+               Objects.equals(assistantSid, other.assistantSid) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(value, other.value) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(synonymOf, other.synonymOf);
     }
 

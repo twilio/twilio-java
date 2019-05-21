@@ -23,11 +23,11 @@ public class ExecutionDeleter extends Deleter<Execution> {
 
     /**
      * Construct a new ExecutionDeleter.
-     * 
+     *
      * @param pathFlowSid Flow Sid.
      * @param pathSid Execution Sid.
      */
-    public ExecutionDeleter(final String pathFlowSid, 
+    public ExecutionDeleter(final String pathFlowSid,
                             final String pathSid) {
         this.pathFlowSid = pathFlowSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class ExecutionDeleter extends Deleter<Execution> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

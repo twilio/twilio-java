@@ -22,7 +22,7 @@ public class WorkspaceDeleter extends Deleter<Workspace> {
 
     /**
      * Construct a new WorkspaceDeleter.
-     * 
+     *
      * @param pathSid The sid
      */
     public WorkspaceDeleter(final String pathSid) {
@@ -31,7 +31,7 @@ public class WorkspaceDeleter extends Deleter<Workspace> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override

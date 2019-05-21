@@ -27,12 +27,12 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
     /**
      * Construct a new PhoneNumberCreator.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param phoneNumberSid Phone Number SID for the Phone Number being added to
      *                       the Service.
      */
-    public PhoneNumberCreator(final String pathServiceSid, 
+    public PhoneNumberCreator(final String pathServiceSid,
                               final String phoneNumberSid) {
         this.pathServiceSid = pathServiceSid;
         this.phoneNumberSid = phoneNumberSid;
@@ -40,7 +40,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created PhoneNumber
      */
@@ -79,7 +79,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

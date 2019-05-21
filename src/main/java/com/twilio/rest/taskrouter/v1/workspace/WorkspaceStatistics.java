@@ -37,7 +37,7 @@ public class WorkspaceStatistics extends Resource {
 
     /**
      * Create a WorkspaceStatisticsFetcher to execute fetch.
-     * 
+     *
      * @param pathWorkspaceSid The workspace_sid
      * @return WorkspaceStatisticsFetcher capable of executing the fetch
      */
@@ -48,7 +48,7 @@ public class WorkspaceStatistics extends Resource {
     /**
      * Converts a JSON String into a WorkspaceStatistics object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return WorkspaceStatistics object represented by the provided JSON
@@ -67,7 +67,7 @@ public class WorkspaceStatistics extends Resource {
     /**
      * Converts a JSON InputStream into a WorkspaceStatistics object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return WorkspaceStatistics object represented by the provided JSON
@@ -91,13 +91,13 @@ public class WorkspaceStatistics extends Resource {
 
     @JsonCreator
     private WorkspaceStatistics(@JsonProperty("realtime")
-                                final Map<String, Object> realtime, 
+                                final Map<String, Object> realtime,
                                 @JsonProperty("cumulative")
-                                final Map<String, Object> cumulative, 
+                                final Map<String, Object> cumulative,
                                 @JsonProperty("account_sid")
-                                final String accountSid, 
+                                final String accountSid,
                                 @JsonProperty("workspace_sid")
-                                final String workspaceSid, 
+                                final String workspaceSid,
                                 @JsonProperty("url")
                                 final URI url) {
         this.realtime = realtime;
@@ -109,7 +109,7 @@ public class WorkspaceStatistics extends Resource {
 
     /**
      * Returns The The realtime.
-     * 
+     *
      * @return The realtime
      */
     public final Map<String, Object> getRealtime() {
@@ -118,7 +118,7 @@ public class WorkspaceStatistics extends Resource {
 
     /**
      * Returns The The cumulative.
-     * 
+     *
      * @return The cumulative
      */
     public final Map<String, Object> getCumulative() {
@@ -127,7 +127,7 @@ public class WorkspaceStatistics extends Resource {
 
     /**
      * Returns The The account_sid.
-     * 
+     *
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -136,7 +136,7 @@ public class WorkspaceStatistics extends Resource {
 
     /**
      * Returns The The workspace_sid.
-     * 
+     *
      * @return The workspace_sid
      */
     public final String getWorkspaceSid() {
@@ -145,7 +145,7 @@ public class WorkspaceStatistics extends Resource {
 
     /**
      * Returns The The url.
-     * 
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -164,10 +164,10 @@ public class WorkspaceStatistics extends Resource {
 
         WorkspaceStatistics other = (WorkspaceStatistics) o;
 
-        return Objects.equals(realtime, other.realtime) && 
-               Objects.equals(cumulative, other.cumulative) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(workspaceSid, other.workspaceSid) && 
+        return Objects.equals(realtime, other.realtime) &&
+               Objects.equals(cumulative, other.cumulative) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(workspaceSid, other.workspaceSid) &&
                Objects.equals(url, other.url);
     }
 

@@ -28,11 +28,11 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
 
     /**
      * Construct a new ShortCodeUpdater.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to update the resource from
      * @param pathSid The unique string that identifies the resource
      */
-    public ShortCodeUpdater(final String pathServiceSid, 
+    public ShortCodeUpdater(final String pathServiceSid,
                             final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -43,7 +43,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
      * participant using proxy pool logic. See [Reserved Phone
      * Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more
      * information..
-     * 
+     *
      * @param isReserved Whether the short code should be reserved for manual
      *                   assignment to participants only
      * @return this
@@ -55,7 +55,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated ShortCode
      */
@@ -94,7 +94,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

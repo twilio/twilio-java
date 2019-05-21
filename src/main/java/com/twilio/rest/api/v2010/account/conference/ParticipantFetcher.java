@@ -24,12 +24,12 @@ public class ParticipantFetcher extends Fetcher<Participant> {
 
     /**
      * Construct a new ParticipantFetcher.
-     * 
+     *
      * @param pathConferenceSid The SID of the conference with the participant to
      *                          fetch
      * @param pathCallSid The Call SID of the resource to fetch
      */
-    public ParticipantFetcher(final String pathConferenceSid, 
+    public ParticipantFetcher(final String pathConferenceSid,
                               final String pathCallSid) {
         this.pathConferenceSid = pathConferenceSid;
         this.pathCallSid = pathCallSid;
@@ -37,15 +37,15 @@ public class ParticipantFetcher extends Fetcher<Participant> {
 
     /**
      * Construct a new ParticipantFetcher.
-     * 
+     *
      * @param pathAccountSid The SID of the Account that created the resource to
      *                       fetch
      * @param pathConferenceSid The SID of the conference with the participant to
      *                          fetch
      * @param pathCallSid The Call SID of the resource to fetch
      */
-    public ParticipantFetcher(final String pathAccountSid, 
-                              final String pathConferenceSid, 
+    public ParticipantFetcher(final String pathAccountSid,
+                              final String pathConferenceSid,
                               final String pathCallSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathConferenceSid = pathConferenceSid;
@@ -54,7 +54,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Participant
      */

@@ -48,7 +48,7 @@ public class NotificationCreator extends Creator<Notification> {
 
     /**
      * Construct a new NotificationCreator.
-     * 
+     *
      * @param pathServiceSid The SID of the Service to create the resource under
      */
     public NotificationCreator(final String pathServiceSid) {
@@ -60,7 +60,7 @@ public class NotificationCreator extends Creator<Notification> {
      * APNS, translates to `aps.alert.body`. For SMS, translates to `body`. SMS
      * requires either this `body` value, or `media_urls` attribute defined in the
      * `sms` parameter of the notification..
-     * 
+     *
      * @param body The notification body text
      * @return this
      */
@@ -78,7 +78,7 @@ public class NotificationCreator extends Creator<Notification> {
      * can wake up a sleeping device. For FCM and GCM, `high` is the same as `High`
      * priority. For APNS, `high` is a priority `10`. SMS does not support this
      * property..
-     * 
+     *
      * @param priority The priority of the notification
      * @return this
      */
@@ -94,7 +94,7 @@ public class NotificationCreator extends Creator<Notification> {
      * the TTL elapses. Zero means that the notification delivery is attempted
      * immediately, only once, and is not stored for future delivery. SMS does not
      * support this property..
-     * 
+     *
      * @param ttl How long, in seconds, the notification is valid
      * @return this
      */
@@ -108,7 +108,7 @@ public class NotificationCreator extends Creator<Notification> {
      * `data.twi_title` value. For APNS, this translates to the `aps.alert.title`
      * value. SMS does not support this property. This field is not visible on iOS
      * phones and tablets but appears on Apple Watch and Android devices..
-     * 
+     *
      * @param title The notification title
      * @return this
      */
@@ -121,7 +121,7 @@ public class NotificationCreator extends Creator<Notification> {
      * The name of the sound to be played for the notification. For FCM and GCM,
      * this Translates to `data.twi_sound`.  For APNS, this translates to
      * `aps.sound`.  SMS does not support this property..
-     * 
+     *
      * @param sound The name of the sound to be played for the notification
      * @return this
      */
@@ -135,7 +135,7 @@ public class NotificationCreator extends Creator<Notification> {
      * `aps.category` value. For GCM, translates to the `data.twi_action` value. For
      * SMS, this parameter is not supported and is omitted from deliveries to those
      * channels..
-     * 
+     *
      * @param action The actions to display for the notification
      * @return this
      */
@@ -155,7 +155,7 @@ public class NotificationCreator extends Creator<Notification> {
      * Custom keys that start with `twi_` are not allowed and are rejected as 400
      * Bad request with no delivery attempted. For SMS, this parameter is not
      * supported and is omitted from deliveries to those channels..
-     * 
+     *
      * @param data The custom key-value pairs of the notification's payload
      * @return this
      */
@@ -170,7 +170,7 @@ public class NotificationCreator extends Creator<Notification> {
      * item, therefore the `aps` key must be used to change standard attributes.
      * Adds custom key-value pairs to the root of the dictionary. See the [APNS
      * documentation](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html) for more details. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed..
-     * 
+     *
      * @param apn The APNS-specific payload that overrides corresponding attributes
      *            in a generic payload for APNS Bindings
      * @return this
@@ -190,7 +190,7 @@ public class NotificationCreator extends Creator<Notification> {
      * for future use. Custom keys that start with `twi_` are not allowed. GCM also
      * [reserves certain
      * keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref)..
-     * 
+     *
      * @param gcm The GCM-specific payload that overrides corresponding attributes
      *            in generic payload for GCM Bindings
      * @return this
@@ -210,7 +210,7 @@ public class NotificationCreator extends Creator<Notification> {
      * `status_callback` parameter overrides the corresponding parameter in the
      * messaging service, if configured. The `media_urls` property expects a JSON
      * array..
-     * 
+     *
      * @param sms The SMS-specific payload that overrides corresponding attributes
      *            in generic payload for SMS Bindings
      * @return this
@@ -222,7 +222,7 @@ public class NotificationCreator extends Creator<Notification> {
 
     /**
      * Deprecated..
-     * 
+     *
      * @param facebookMessenger Deprecated
      * @return this
      */
@@ -236,7 +236,7 @@ public class NotificationCreator extends Creator<Notification> {
      * generic payload for FCM Bindings. This property maps to the root JSON
      * dictionary. See the [FCM
      * documentation](https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream) for more details. Target parameters `to`, `registration_ids`, `condition`, and `notification_key` are not allowed in this parameter. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed. FCM also [reserves certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref), which cannot be used in that channel..
-     * 
+     *
      * @param fcm The FCM-specific payload that overrides corresponding attributes
      *            in generic payload for FCM Bindings
      * @return this
@@ -248,7 +248,7 @@ public class NotificationCreator extends Creator<Notification> {
 
     /**
      * The Segment resource is deprecated. Use the `tag` parameter, instead..
-     * 
+     *
      * @param segment A Segment to notify
      * @return this
      */
@@ -259,7 +259,7 @@ public class NotificationCreator extends Creator<Notification> {
 
     /**
      * The Segment resource is deprecated. Use the `tag` parameter, instead..
-     * 
+     *
      * @param segment A Segment to notify
      * @return this
      */
@@ -269,7 +269,7 @@ public class NotificationCreator extends Creator<Notification> {
 
     /**
      * Deprecated..
-     * 
+     *
      * @param alexa Deprecated
      * @return this
      */
@@ -282,7 +282,7 @@ public class NotificationCreator extends Creator<Notification> {
      * The destination address specified as a JSON string.  Multiple `to_binding`
      * parameters can be included but the total size of the request entity should
      * not exceed 1MB. This is typically sufficient for 10,000 phone numbers..
-     * 
+     *
      * @param toBinding The destination address specified as a JSON string
      * @return this
      */
@@ -295,7 +295,7 @@ public class NotificationCreator extends Creator<Notification> {
      * The destination address specified as a JSON string.  Multiple `to_binding`
      * parameters can be included but the total size of the request entity should
      * not exceed 1MB. This is typically sufficient for 10,000 phone numbers..
-     * 
+     *
      * @param toBinding The destination address specified as a JSON string
      * @return this
      */
@@ -309,7 +309,7 @@ public class NotificationCreator extends Creator<Notification> {
      * [Service](https://www.twilio.com/docs/notify/api/service-resource). Delivery
      * will be attempted only to Bindings with an Identity in this list. No more
      * than 20 items are allowed in this list..
-     * 
+     *
      * @param identity The `identity` value that identifies the new resource's User
      * @return this
      */
@@ -324,7 +324,7 @@ public class NotificationCreator extends Creator<Notification> {
      * [Service](https://www.twilio.com/docs/notify/api/service-resource). Delivery
      * will be attempted only to Bindings with an Identity in this list. No more
      * than 20 items are allowed in this list..
-     * 
+     *
      * @param identity The `identity` value that identifies the new resource's User
      * @return this
      */
@@ -338,7 +338,7 @@ public class NotificationCreator extends Creator<Notification> {
      * available to notify all Bindings in a Service instance. Similarly, the
      * implicit tags `apn`, `fcm`, `gcm`, `sms` and `facebook-messenger` are
      * available to notify all Bindings in a specific channel..
-     * 
+     *
      * @param tag A tag that selects the Bindings to notify
      * @return this
      */
@@ -353,7 +353,7 @@ public class NotificationCreator extends Creator<Notification> {
      * available to notify all Bindings in a Service instance. Similarly, the
      * implicit tags `apn`, `fcm`, `gcm`, `sms` and `facebook-messenger` are
      * available to notify all Bindings in a specific channel..
-     * 
+     *
      * @param tag A tag that selects the Bindings to notify
      * @return this
      */
@@ -363,7 +363,7 @@ public class NotificationCreator extends Creator<Notification> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Notification
      */
@@ -402,7 +402,7 @@ public class NotificationCreator extends Creator<Notification> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

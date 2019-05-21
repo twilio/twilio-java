@@ -32,7 +32,7 @@ public class Body extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -41,7 +41,7 @@ public class Body extends TwiML {
 
     /**
      * Message Body
-     * 
+     *
      * @return Message Body
      */
     public String getMessage() {

@@ -43,43 +43,43 @@ public class Certificate extends Resource {
 
     /**
      * Create a CertificateFetcher to execute fetch.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @param pathSid A string that uniquely identifies the Certificate.
      * @return CertificateFetcher capable of executing the fetch
      */
-    public static CertificateFetcher fetcher(final String pathFleetSid, 
+    public static CertificateFetcher fetcher(final String pathFleetSid,
                                              final String pathSid) {
         return new CertificateFetcher(pathFleetSid, pathSid);
     }
 
     /**
      * Create a CertificateDeleter to execute delete.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @param pathSid A string that uniquely identifies the Certificate.
      * @return CertificateDeleter capable of executing the delete
      */
-    public static CertificateDeleter deleter(final String pathFleetSid, 
+    public static CertificateDeleter deleter(final String pathFleetSid,
                                              final String pathSid) {
         return new CertificateDeleter(pathFleetSid, pathSid);
     }
 
     /**
      * Create a CertificateCreator to execute create.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @param certificateData The public certificate data.
      * @return CertificateCreator capable of executing the create
      */
-    public static CertificateCreator creator(final String pathFleetSid, 
+    public static CertificateCreator creator(final String pathFleetSid,
                                              final String certificateData) {
         return new CertificateCreator(pathFleetSid, certificateData);
     }
 
     /**
      * Create a CertificateReader to execute read.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @return CertificateReader capable of executing the read
      */
@@ -89,12 +89,12 @@ public class Certificate extends Resource {
 
     /**
      * Create a CertificateUpdater to execute update.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @param pathSid A string that uniquely identifies the Certificate.
      * @return CertificateUpdater capable of executing the update
      */
-    public static CertificateUpdater updater(final String pathFleetSid, 
+    public static CertificateUpdater updater(final String pathFleetSid,
                                              final String pathSid) {
         return new CertificateUpdater(pathFleetSid, pathSid);
     }
@@ -102,7 +102,7 @@ public class Certificate extends Resource {
     /**
      * Converts a JSON String into a Certificate object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Certificate object represented by the provided JSON
@@ -121,7 +121,7 @@ public class Certificate extends Resource {
     /**
      * Converts a JSON InputStream into a Certificate object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Certificate object represented by the provided JSON
@@ -149,21 +149,21 @@ public class Certificate extends Resource {
 
     @JsonCreator
     private Certificate(@JsonProperty("sid")
-                        final String sid, 
+                        final String sid,
                         @JsonProperty("url")
-                        final URI url, 
+                        final URI url,
                         @JsonProperty("friendly_name")
-                        final String friendlyName, 
+                        final String friendlyName,
                         @JsonProperty("fleet_sid")
-                        final String fleetSid, 
+                        final String fleetSid,
                         @JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("device_sid")
-                        final String deviceSid, 
+                        final String deviceSid,
                         @JsonProperty("thumbprint")
-                        final String thumbprint, 
+                        final String thumbprint,
                         @JsonProperty("date_created")
-                        final String dateCreated, 
+                        final String dateCreated,
                         @JsonProperty("date_updated")
                         final String dateUpdated) {
         this.sid = sid;
@@ -179,7 +179,7 @@ public class Certificate extends Resource {
 
     /**
      * Returns The A string that uniquely identifies this Certificate..
-     * 
+     *
      * @return A string that uniquely identifies this Certificate.
      */
     public final String getSid() {
@@ -188,7 +188,7 @@ public class Certificate extends Resource {
 
     /**
      * Returns The URL of this Certificate..
-     * 
+     *
      * @return URL of this Certificate.
      */
     public final URI getUrl() {
@@ -197,7 +197,7 @@ public class Certificate extends Resource {
 
     /**
      * Returns The A human readable description for this Certificate..
-     * 
+     *
      * @return A human readable description for this Certificate.
      */
     public final String getFriendlyName() {
@@ -206,7 +206,7 @@ public class Certificate extends Resource {
 
     /**
      * Returns The The unique identifier of the Fleet..
-     * 
+     *
      * @return The unique identifier of the Fleet.
      */
     public final String getFleetSid() {
@@ -215,7 +215,7 @@ public class Certificate extends Resource {
 
     /**
      * Returns The The unique SID that identifies this Account..
-     * 
+     *
      * @return The unique SID that identifies this Account.
      */
     public final String getAccountSid() {
@@ -224,7 +224,7 @@ public class Certificate extends Resource {
 
     /**
      * Returns The The unique identifier of a mapped Device..
-     * 
+     *
      * @return The unique identifier of a mapped Device.
      */
     public final String getDeviceSid() {
@@ -233,7 +233,7 @@ public class Certificate extends Resource {
 
     /**
      * Returns The A Certificate unique payload hash..
-     * 
+     *
      * @return A Certificate unique payload hash.
      */
     public final String getThumbprint() {
@@ -242,7 +242,7 @@ public class Certificate extends Resource {
 
     /**
      * Returns The The date this Certificate was created..
-     * 
+     *
      * @return The date this Certificate was created.
      */
     public final DateTime getDateCreated() {
@@ -251,7 +251,7 @@ public class Certificate extends Resource {
 
     /**
      * Returns The The date this Certificate was updated..
-     * 
+     *
      * @return The date this Certificate was updated.
      */
     public final DateTime getDateUpdated() {
@@ -270,14 +270,14 @@ public class Certificate extends Resource {
 
         Certificate other = (Certificate) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(fleetSid, other.fleetSid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(deviceSid, other.deviceSid) && 
-               Objects.equals(thumbprint, other.thumbprint) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(fleetSid, other.fleetSid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(deviceSid, other.deviceSid) &&
+               Objects.equals(thumbprint, other.thumbprint) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated);
     }
 

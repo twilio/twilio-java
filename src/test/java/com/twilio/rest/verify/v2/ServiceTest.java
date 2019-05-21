@@ -74,7 +74,7 @@ public class ServiceTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.VERIFY.toString(),
                                           "/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -106,7 +106,7 @@ public class ServiceTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.VERIFY.toString(),
                                           "/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -138,7 +138,7 @@ public class ServiceTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.VERIFY.toString(),
                                           "/v2/Services");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -170,7 +170,7 @@ public class ServiceTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.VERIFY.toString(),
                                           "/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

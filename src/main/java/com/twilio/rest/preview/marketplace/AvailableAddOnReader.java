@@ -27,7 +27,7 @@ import com.twilio.rest.Domains;
 public class AvailableAddOnReader extends Reader<AvailableAddOn> {
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return AvailableAddOn ResourceSet
      */
@@ -38,7 +38,7 @@ public class AvailableAddOnReader extends Reader<AvailableAddOn> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return AvailableAddOn ResourceSet
      */
@@ -58,7 +58,7 @@ public class AvailableAddOnReader extends Reader<AvailableAddOn> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return AvailableAddOn ResourceSet
@@ -76,13 +76,13 @@ public class AvailableAddOnReader extends Reader<AvailableAddOn> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<AvailableAddOn> nextPage(final Page<AvailableAddOn> page, 
+    public Page<AvailableAddOn> nextPage(final Page<AvailableAddOn> page,
                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -96,13 +96,13 @@ public class AvailableAddOnReader extends Reader<AvailableAddOn> {
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<AvailableAddOn> previousPage(final Page<AvailableAddOn> page, 
+    public Page<AvailableAddOn> previousPage(final Page<AvailableAddOn> page,
                                              final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
@@ -116,7 +116,7 @@ public class AvailableAddOnReader extends Reader<AvailableAddOn> {
 
     /**
      * Generate a Page of AvailableAddOn Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -151,7 +151,7 @@ public class AvailableAddOnReader extends Reader<AvailableAddOn> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

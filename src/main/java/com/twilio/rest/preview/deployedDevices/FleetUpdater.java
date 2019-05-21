@@ -29,7 +29,7 @@ public class FleetUpdater extends Updater<Fleet> {
 
     /**
      * Construct a new FleetUpdater.
-     * 
+     *
      * @param pathSid A string that uniquely identifies the Fleet.
      */
     public FleetUpdater(final String pathSid) {
@@ -39,7 +39,7 @@ public class FleetUpdater extends Updater<Fleet> {
     /**
      * Provides a human readable descriptive text for this Fleet, up to 256
      * characters long..
-     * 
+     *
      * @param friendlyName A human readable description for this Fleet.
      * @return this
      */
@@ -51,7 +51,7 @@ public class FleetUpdater extends Updater<Fleet> {
     /**
      * Provides a string identifier of a Deployment that is going to be used as a
      * default one for this Fleet..
-     * 
+     *
      * @param defaultDeploymentSid A default Deployment SID.
      * @return this
      */
@@ -62,7 +62,7 @@ public class FleetUpdater extends Updater<Fleet> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Fleet
      */
@@ -101,7 +101,7 @@ public class FleetUpdater extends Updater<Fleet> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

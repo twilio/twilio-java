@@ -42,7 +42,7 @@ public class CurrentCallTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
                                           "/TrustedComms/CurrentCall");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

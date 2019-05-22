@@ -135,7 +135,7 @@ public class Call extends Resource {
      */
     public static CallCreator creator(final String pathAccountSid,
                                       final com.twilio.type.Endpoint to,
-                                      final com.twilio.type.PhoneNumber from,
+                                      final com.twilio.type.Endpoint from,
                                       final URI url) {
         return new CallCreator(pathAccountSid, to, from, url);
     }
@@ -149,7 +149,7 @@ public class Call extends Resource {
      * @return CallCreator capable of executing the create
      */
     public static CallCreator creator(final com.twilio.type.Endpoint to,
-                                      final com.twilio.type.PhoneNumber from,
+                                      final com.twilio.type.Endpoint from,
                                       final URI url) {
         return new CallCreator(to, from, url);
     }
@@ -166,7 +166,7 @@ public class Call extends Resource {
      */
     public static CallCreator creator(final String pathAccountSid,
                                       final com.twilio.type.Endpoint to,
-                                      final com.twilio.type.PhoneNumber from,
+                                      final com.twilio.type.Endpoint from,
                                       final String applicationSid) {
         return new CallCreator(pathAccountSid, to, from, applicationSid);
     }
@@ -181,7 +181,7 @@ public class Call extends Resource {
      * @return CallCreator capable of executing the create
      */
     public static CallCreator creator(final com.twilio.type.Endpoint to,
-                                      final com.twilio.type.PhoneNumber from,
+                                      final com.twilio.type.Endpoint from,
                                       final String applicationSid) {
         return new CallCreator(to, from, applicationSid);
     }

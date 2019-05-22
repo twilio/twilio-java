@@ -25,7 +25,7 @@ import java.util.List;
 public class CallCreator extends Creator<Call> {
     private String pathAccountSid;
     private final com.twilio.type.Endpoint to;
-    private final com.twilio.type.PhoneNumber from;
+    private final com.twilio.type.Endpoint from;
     private URI url;
     private String applicationSid;
     private HttpMethod method;
@@ -59,7 +59,7 @@ public class CallCreator extends Creator<Call> {
      * @param url The absolute URL that returns TwiML for this call
      */
     public CallCreator(final com.twilio.type.Endpoint to,
-                       final com.twilio.type.PhoneNumber from,
+                       final com.twilio.type.Endpoint from,
                        final URI url) {
         this.to = to;
         this.from = from;
@@ -76,7 +76,7 @@ public class CallCreator extends Creator<Call> {
      */
     public CallCreator(final String pathAccountSid,
                        final com.twilio.type.Endpoint to,
-                       final com.twilio.type.PhoneNumber from,
+                       final com.twilio.type.Endpoint from,
                        final URI url) {
         this.pathAccountSid = pathAccountSid;
         this.to = to;
@@ -93,7 +93,7 @@ public class CallCreator extends Creator<Call> {
      *                       the call
      */
     public CallCreator(final com.twilio.type.Endpoint to,
-                       final com.twilio.type.PhoneNumber from,
+                       final com.twilio.type.Endpoint from,
                        final String applicationSid) {
         this.to = to;
         this.from = from;
@@ -111,7 +111,7 @@ public class CallCreator extends Creator<Call> {
      */
     public CallCreator(final String pathAccountSid,
                        final com.twilio.type.Endpoint to,
-                       final com.twilio.type.PhoneNumber from,
+                       final com.twilio.type.Endpoint from,
                        final String applicationSid) {
         this.pathAccountSid = pathAccountSid;
         this.to = to;
@@ -585,7 +585,7 @@ public class CallCreator extends Creator<Call> {
         }
 
         if (from != null) {
-            request.addPostParam("From", from.toString());
+            request.addPostParam("From", from.getEndpoint());
         }
 
         if (url != null) {

@@ -78,7 +78,7 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>18.0</version>
+      <version>28.0-android</version>
     </dependency>
     <dependency>
       <groupId>joda-time</groupId>
@@ -294,6 +294,20 @@
 <!--            </goals>-->
 <!--          </execution>-->
 <!--        </executions>-->
+      </plugin>
+
+      <plugin>
+        <groupId>org.owasp</groupId><artifactId>dependency-check-maven</artifactId><version>5.0.0</version>
+        <configuration>
+          <suppressionFile>${project.basedir}/owasp-dependency-checker-suppressions.xml</suppressionFile>
+          <failBuildOnCVSS>1</failBuildOnCVSS>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals><goal>check</goal></goals>
+          </execution>
+        </executions>
       </plugin>
 
     </plugins>

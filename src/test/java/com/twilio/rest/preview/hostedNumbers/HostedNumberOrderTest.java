@@ -156,7 +156,7 @@ public class HostedNumberOrderTest {
     public void testReadEmptyResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"meta\": {\"first_page_url\": \"https://preview.twilio.com/HostedNumbers/HostedNumberOrders?PageSize=50&Page=0\",\"key\": \"items\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://preview.twilio.com/HostedNumbers/HostedNumberOrders?PageSize=50&Page=0\"},\"items\": []}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"meta\": {\"first_page_url\": \"https://preview.twilio.com/HostedNumbers/HostedNumberOrders?Status=completed&FriendlyName=example&PhoneNumber=%2B19193608000&UniqueName=something123&IncomingPhoneNumberSid=PNzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz&PageSize=50&Page=0\",\"key\": \"items\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://preview.twilio.com/HostedNumbers/HostedNumberOrders?Status=completed&FriendlyName=example&PhoneNumber=%2B19193608000&UniqueName=something123&IncomingPhoneNumberSid=PNzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz&PageSize=50&Page=0\"},\"items\": []}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

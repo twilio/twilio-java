@@ -44,7 +44,6 @@ public class PhoneCallTest {
                                                       "/TrustedComms/Business/PhoneCalls");
                         request.addPostParam("From", serialize("from"));
         request.addPostParam("To", serialize("to"));
-        request.addPostParam("Url", serialize("url"));
                         twilioRestClient.request(request);
                         times = 1;
                         result = new Response("", 500);
@@ -53,7 +52,7 @@ public class PhoneCallTest {
                     }};
 
         try {
-            PhoneCall.creator("from", "to", "url").create();
+            PhoneCall.creator("from", "to").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -67,6 +66,6 @@ public class PhoneCallTest {
             result = new ObjectMapper();
         }};
 
-        PhoneCall.creator("from", "to", "url").create();
+        PhoneCall.creator("from", "to").create();
     }
 }

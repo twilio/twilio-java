@@ -68,7 +68,8 @@ public class Verification extends Resource {
     }
 
     public enum Status {
-        CANCELED("canceled");
+        CANCELED("canceled"),
+        APPROVED("approved");
 
         private final String value;
 

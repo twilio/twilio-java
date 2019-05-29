@@ -28,7 +28,8 @@ public class RoomReader extends Reader<Room> {
     private DateTime dateCreatedBefore;
 
     /**
-     * Only show Rooms with the given status..
+     * Only show Rooms with the given status: `in-progress` (default), or
+     * `completed`.
      *
      * @param status Only show Rooms with the given status.
      * @return this

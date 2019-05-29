@@ -1,6 +1,20 @@
 twilio-java changelog
 =====================
 
+[2019-05-29] Version 7.38.1
+----------------------------
+**Library**
+- [PR #461](https://github.com/twilio/twilio-java/pull/461): Add SubscribeRule and SubscribeRulesUpdate. Thanks to [@innerverse](https://github.com/innerverse)!
+- [PR #456](https://github.com/twilio/twilio-java/pull/456): Code cleanup. Thanks to [@ethanwood17](https://github.com/ethanwood17)!
+- [PR #444](https://github.com/twilio/twilio-java/pull/444): maven-compiler-plugin 3.8.0. Thanks to [@sullis](https://github.com/sullis)!
+- [PR #460](https://github.com/twilio/twilio-java/pull/460): jackson 2.9.9. Thanks to [@sullis](https://github.com/sullis)!
+- [PR #457](https://github.com/twilio/twilio-java/pull/457): Update the call create 'from' param to be endpoint type for client identifier support. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #458](https://github.com/twilio/twilio-java/pull/458): Prefix client identifiers with 'client:' if not already prefixed. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Verify**
+- Add `approved` to status enum
+
+
 [2019-05-15] Version 7.38.0
 ----------------------------
 **Api**

@@ -44,15 +44,13 @@ public class PhoneCall extends Resource {
     /**
      * Create a PhoneCallCreator to execute create.
      *
-     * @param from The originating Phone Number
+     * @param from Twilio number from which to originate the call
      * @param to The terminating Phone Number
-     * @param url The Twiml URL
      * @return PhoneCallCreator capable of executing the create
      */
     public static PhoneCallCreator creator(final String from,
-                                           final String to,
-                                           final String url) {
-        return new PhoneCallCreator(from, to, url);
+                                           final String to) {
+        return new PhoneCallCreator(from, to);
     }
 
     /**

@@ -58,8 +58,8 @@ public class SubscribeRule {
         }
 
         @JsonCreator
-        public static Type forValue(final String value) {
-            return Promoter.enumFromString(value, Type.values());
+        public static Kind forValue(final String value) {
+            return Promoter.enumFromString(value, Kind.values());
         }
 
         @JsonValue
@@ -85,8 +85,8 @@ public class SubscribeRule {
         }
 
         @JsonCreator
-        public static Type forValue(final String value) {
-            return Promoter.enumFromString(value, Type.values());
+        public static Priority forValue(final String value) {
+            return Promoter.enumFromString(value, Priority.values());
         }
 
         @JsonValue

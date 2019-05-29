@@ -13,7 +13,7 @@ public class SubscribeRuleTest extends TypeTest {
     @Test
     public void testBuilderOneFilter() {
         try {
-            SubscribeRule.builder().withType(SubscribeRule.Type.INCLUDE).build();
+            SubscribeRule.builder().withType(SubscribeRule.Type.INCLUDE).withPublisher(null).build();
         } catch (IllegalArgumentException e) {
             return;
         }
@@ -23,7 +23,7 @@ public class SubscribeRuleTest extends TypeTest {
     @Test
     public void testBuilderMustHaveType() {
         try {
-            SubscribeRule.builder().withPublisher("alice").build();
+            SubscribeRule.builder().withType(null).withPublisher("alice").build();
         } catch (IllegalArgumentException e) {
             return;
         }

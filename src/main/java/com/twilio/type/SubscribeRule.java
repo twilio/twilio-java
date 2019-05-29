@@ -100,8 +100,8 @@ public class SubscribeRule {
         }
     }
 
-    private static final SubscribeRule subscribeAll = builder().withAll().withType(Type.INCLUDE).build();
-    private static final SubscribeRule subscribeNone = builder().withAll().withType(Type.EXCLUDE).build();
+    private static final SubscribeRule subscribeAll = builder().withType(Type.INCLUDE).withAll().build();
+    private static final SubscribeRule subscribeNone = builder().withType(Type.EXCLUDE).withAll().build();
 
     @JsonProperty("type")
     private final Type type;
@@ -144,11 +144,39 @@ public class SubscribeRule {
         this.priority = null;
     }
 
-    public static SubscriptionRuleBuilder builder() {
-        return new SubscriptionRuleBuilder();
+    public static BuilderStart builder() {
+        return new Builder();
     }
 
-    public static class SubscriptionRuleBuilder {
+    public interface BuilderStart {
+        BuilderMiddle withType(final Type type);
+    }
+
+    public interface BuilderMiddle {
+        BuilderMiddleBuild withPublisher(final String publisher);
+        BuilderMiddleBuild withKind(final Kind kind);
+        BuilderMiddleBuild withTrack(final String track);
+        BuilderMiddleBuild withPriority(final Priority priority);
+        BuilderBuild withAll();
+    }
+
+    public interface BuilderMiddleBuild {
+        BuilderMiddleBuild withPublisher(final String publisher);
+        BuilderMiddleBuild withKind(final Kind kind);
+        BuilderMiddleBuild withTrack(final String track);
+        BuilderMiddleBuild withPriority(final Priority priority);
+        SubscribeRule build();
+    }
+
+    public interface BuilderBuild {
+        SubscribeRule build();
+    }
+
+    public static class Builder implements
+            BuilderStart,
+            BuilderMiddle,
+            BuilderMiddleBuild,
+            BuilderBuild {
         private Type type;
         private Boolean all;
         private String publisher;
@@ -156,30 +184,31 @@ public class SubscribeRule {
         private String track;
         private Priority priority;
 
-        private SubscriptionRuleBuilder() {
+        private Builder() {
         }
 
-        public SubscriptionRuleBuilder withType(final Type type) {
+        public BuilderMiddle withType(final Type type) {
             this.type = type;
             return this;
         }
-        private SubscriptionRuleBuilder withAll() {
+
+        public BuilderBuild withAll() {
             this.all = true;
             return this;
         }
-        public SubscriptionRuleBuilder withPublisher(final String publisher) {
+        public BuilderMiddleBuild withPublisher(final String publisher) {
             this.publisher = publisher;
             return this;
         }
-        public SubscriptionRuleBuilder withKind(final Kind kind) {
+        public BuilderMiddleBuild withKind(final Kind kind) {
             this.kind = kind;
             return this;
         }
-        public SubscriptionRuleBuilder withTrack(final String track) {
+        public BuilderMiddleBuild withTrack(final String track) {
             this.track = track;
             return this;
         }
-        public SubscriptionRuleBuilder withPriority(final Priority priority) {
+        public BuilderMiddleBuild withPriority(final Priority priority) {
             this.priority = priority;
             return this;
         }

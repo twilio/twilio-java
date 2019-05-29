@@ -1,9 +1,9 @@
 package com.twilio.type;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.twilio.converter.Promoter;
 
 import com.google.common.base.MoreObjects;
@@ -24,10 +24,10 @@ public class SubscribeRule {
         INCLUDE("include"),
         EXCLUDE("exclude");
 
-        private final String type;
+        private final String value;
 
-        Type(final String type) {
-            this.type = type;
+        Type(final String value) {
+            this.value = value;
         }
 
         @JsonCreator
@@ -35,11 +35,14 @@ public class SubscribeRule {
             return Promoter.enumFromString(value, Type.values());
         }
 
+        @JsonValue
+        public String value() {
+            return this.value;
+        }
+
         @Override
         public String toString() {
-            return MoreObjects.toStringHelper(this)
-                    .add("type", this.type)
-                    .toString();
+            return value;
         }
     }
 
@@ -48,22 +51,25 @@ public class SubscribeRule {
         DATA("data"),
         VIDEO("video");
 
-        private final String kind;
+        private final String value;
 
-        Kind(final String kind) {
-            this.kind = kind;
+        Kind(final String value) {
+            this.value = value;
         }
 
         @JsonCreator
-        public static Kind forValue(final String value) {
-            return Promoter.enumFromString(value, Kind.values());
+        public static Type forValue(final String value) {
+            return Promoter.enumFromString(value, Type.values());
+        }
+
+        @JsonValue
+        public String value() {
+            return this.value;
         }
 
         @Override
         public String toString() {
-            return MoreObjects.toStringHelper(this)
-                    .add("kind", this.kind)
-                    .toString();
+            return value;
         }
     }
 
@@ -72,26 +78,30 @@ public class SubscribeRule {
         MEDIUM("medium"),
         HIGH("high");
 
-        private final String priority;
-        Priority(final String priority) {
-            this.priority = priority;
+        private final String value;
+
+        Priority(final String value) {
+            this.value = value;
         }
 
         @JsonCreator
-        public static Priority forValue(final String value) {
-            return Promoter.enumFromString(value, Priority.values());
+        public static Type forValue(final String value) {
+            return Promoter.enumFromString(value, Type.values());
+        }
+
+        @JsonValue
+        public String value() {
+            return this.value;
         }
 
         @Override
         public String toString() {
-            return MoreObjects.toStringHelper(this)
-                    .add("priority", this.priority)
-                    .toString();
+            return value;
         }
     }
 
-    private static final SubscribeRule subscribeAll = builder().withAll(true).withType(Type.INCLUDE).build();
-    private static final SubscribeRule subscribeNone = builder().withAll(true).withType(Type.EXCLUDE).build();
+    private static final SubscribeRule subscribeAll = builder().withAll().withType(Type.INCLUDE).build();
+    private static final SubscribeRule subscribeNone = builder().withAll().withType(Type.EXCLUDE).build();
 
     @JsonProperty("type")
     private final Type type;
@@ -119,47 +129,19 @@ public class SubscribeRule {
             @JsonProperty("priority") final Priority priority) {
         this.type = type;
         this.all = all;
-        this.kind = kind;
-        this.priority = priority;
         this.publisher = publisher;
         this.track = track;
+        this.kind = kind;
+        this.priority = priority;
     }
 
     public SubscribeRule() {
         this.type = null;
         this.all = null;
-        this.kind = null;
-        this.priority = null;
         this.publisher = null;
         this.track = null;
-    }
-
-    @JsonIgnore
-    public boolean isValid() {
-        // every rule must have a type
-        if (getType() == null) {
-            return false;
-        }
-
-        // at least one filter must be set
-        if (getKind() == null
-                && getAll() == null
-                && getTrack() == null
-                && getPublisher() == null
-                && getPriority() == null)
-            return false;
-
-        // "all" == false is invalid - if it's present, it must be true
-        if (getAll() != null && !getAll()) {
-            return false;
-        }
-
-        // "all" is exclusive of any other filter
-        return getAll() == null
-                || (getKind() == null
-                && getPriority() == null
-                && getPublisher() == null
-                && getTrack() == null);
+        this.kind = null;
+        this.priority = null;
     }
 
     public static SubscriptionRuleBuilder builder() {
@@ -181,8 +163,8 @@ public class SubscribeRule {
             this.type = type;
             return this;
         }
-        public SubscriptionRuleBuilder withAll(final Boolean all) {
-            this.all = all;
+        private SubscriptionRuleBuilder withAll() {
+            this.all = true;
             return this;
         }
         public SubscriptionRuleBuilder withPublisher(final String publisher) {
@@ -202,7 +184,28 @@ public class SubscribeRule {
             return this;
         }
 
+        private boolean hasOneFilter() {
+            // at least one filter must be set
+            return this.kind != null
+                    || this.all != null
+                    || this.track != null
+                    || this.publisher != null
+                    || this.priority != null;
+        }
+
+        private boolean hasType() {
+            // every rule must have a type
+            return this.type != null;
+        }
+
         public SubscribeRule build() {
+            if (!hasType()) {
+                throw new IllegalArgumentException("Subscribe Rule must have a type");
+            }
+            if (!hasOneFilter()) {
+                throw new IllegalArgumentException("Subscribe Rule must have at least one filter");
+            }
+
             return new SubscribeRule(this.type, this.all, this.publisher, this.track, this.kind, this.priority);
         }
     }

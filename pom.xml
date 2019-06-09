@@ -140,6 +140,12 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.tngtech.archunit</groupId>
+      <artifactId>archunit</artifactId>
+      <version>0.10.2</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>

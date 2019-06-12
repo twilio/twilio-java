@@ -8,6 +8,7 @@
 package com.twilio.rest.verify.v2.service;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Converter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -16,6 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+import java.util.Map;
 
 /**
  * PLEASE NOTE that this class contains beta products that are subject to
@@ -31,6 +34,7 @@ public class VerificationCreator extends Creator<Verification> {
     private String customCode;
     private String amount;
     private String payee;
+    private Map<String, Object> rateLimits;
 
     /**
      * Construct a new VerificationCreator.
@@ -123,6 +127,20 @@ public class VerificationCreator extends Creator<Verification> {
     }
 
     /**
+     * The custom key-value pairs of Programmable Rate Limits. Keys should be the
+     * unique_name configured while creating you Rate Limit along with the
+     * associated values for each particular request. You may include multiple Rate
+     * Limit values in each request..
+     *
+     * @param rateLimits The custom key-value pairs of Programmable Rate Limits.
+     * @return this
+     */
+    public VerificationCreator setRateLimits(final Map<String, Object> rateLimits) {
+        this.rateLimits = rateLimits;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -197,6 +215,10 @@ public class VerificationCreator extends Creator<Verification> {
 
         if (payee != null) {
             request.addPostParam("Payee", payee);
+        }
+
+        if (rateLimits != null) {
+            request.addPostParam("RateLimits", Converter.mapToJson(rateLimits));
         }
     }
 }

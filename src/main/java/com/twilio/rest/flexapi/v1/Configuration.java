@@ -37,7 +37,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Configuration extends Resource {
-    private static final long serialVersionUID = 255908785798075L;
+    private static final long serialVersionUID = 182726752735342L;
 
     public enum Status {
         OK("ok"),
@@ -160,6 +160,7 @@ public class Configuration extends Resource {
     private final Map<String, Object> publicAttributes;
     private final Boolean pluginServiceEnabled;
     private final Map<String, Object> pluginServiceAttributes;
+    private final List<Map<String, Object>> integrations;
     private final URI url;
 
     @JsonCreator
@@ -223,6 +224,8 @@ public class Configuration extends Resource {
                           final Boolean pluginServiceEnabled,
                           @JsonProperty("plugin_service_attributes")
                           final Map<String, Object> pluginServiceAttributes,
+                          @JsonProperty("integrations")
+                          final List<Map<String, Object>> integrations,
                           @JsonProperty("url")
                           final URI url) {
         this.accountSid = accountSid;
@@ -255,6 +258,7 @@ public class Configuration extends Resource {
         this.publicAttributes = publicAttributes;
         this.pluginServiceEnabled = pluginServiceEnabled;
         this.pluginServiceAttributes = pluginServiceAttributes;
+        this.integrations = integrations;
         this.url = url;
     }
 
@@ -534,6 +538,15 @@ public class Configuration extends Resource {
     }
 
     /**
+     * Returns The Integration parameters.
+     *
+     * @return Integration parameters
+     */
+    public final List<Map<String, Object>> getIntegrations() {
+        return this.integrations;
+    }
+
+    /**
      * Returns The The URL for this resource.
      *
      * @return The URL for this resource
@@ -584,6 +597,7 @@ public class Configuration extends Resource {
                Objects.equals(publicAttributes, other.publicAttributes) &&
                Objects.equals(pluginServiceEnabled, other.pluginServiceEnabled) &&
                Objects.equals(pluginServiceAttributes, other.pluginServiceAttributes) &&
+               Objects.equals(integrations, other.integrations) &&
                Objects.equals(url, other.url);
     }
 
@@ -619,6 +633,7 @@ public class Configuration extends Resource {
                             publicAttributes,
                             pluginServiceEnabled,
                             pluginServiceAttributes,
+                            integrations,
                             url);
     }
 
@@ -655,6 +670,7 @@ public class Configuration extends Resource {
                           .add("publicAttributes", publicAttributes)
                           .add("pluginServiceEnabled", pluginServiceEnabled)
                           .add("pluginServiceAttributes", pluginServiceAttributes)
+                          .add("integrations", integrations)
                           .add("url", url)
                           .toString();
     }

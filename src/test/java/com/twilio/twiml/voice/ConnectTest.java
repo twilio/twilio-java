@@ -62,7 +62,7 @@ public class ConnectTest {
     public void testElementWithChildren() {
         Connect.Builder builder = new Connect.Builder();
 
-        builder.room(new Room.Builder("name").participantidentity("participantIdentity").build());
+        builder.room(new Room.Builder("name").participantIdentity("participant_identity").build());
 
         builder.autopilot(new Autopilot.Builder("name").build());
 
@@ -71,7 +71,7 @@ public class ConnectTest {
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Connect>" +
-                "<Room participantidentity=\"participantIdentity\">name</Room>" +
+                "<Room participantIdentity=\"participant_identity\">name</Room>" +
                 "<Autopilot>name</Autopilot>" +
             "</Connect>",
             elem.toXml()

@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.sync.v1;
+package com.twilio.rest.verify.v2.service;
 
-import com.twilio.base.Deleter;
+import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -21,37 +21,43 @@ import com.twilio.rest.Domains;
  * PLEASE NOTE that this class contains beta products that are subject to
  * change. Use them with caution.
  */
-public class ServiceDeleter extends Deleter<Service> {
+public class RateLimitFetcher extends Fetcher<RateLimit> {
+    private final String pathServiceSid;
     private final String pathSid;
 
     /**
-     * Construct a new ServiceDeleter.
+     * Construct a new RateLimitFetcher.
      *
-     * @param pathSid A unique identifier for this service instance.
+     * @param pathServiceSid The SID of the Service that the resource is associated
+     *                       with
+     * @param pathSid The unique string that identifies the resource
      */
-    public ServiceDeleter(final String pathSid) {
+    public RateLimitFetcher(final String pathServiceSid,
+                            final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * Make the request to the Twilio API to perform the delete.
+     * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
+     * @return Fetched RateLimit
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public boolean delete(final TwilioRestClient client) {
+    public RateLimit fetch(final TwilioRestClient client) {
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathSid + "",
+            HttpMethod.GET,
+            Domains.VERIFY.toString(),
+            "/v2/Services/" + this.pathServiceSid + "/RateLimits/" + this.pathSid + "",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Service delete failed: Unable to connect to server");
+            throw new ApiConnectionException("RateLimit fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -67,6 +73,6 @@ public class ServiceDeleter extends Deleter<Service> {
             );
         }
 
-        return response.getStatusCode() == 204;
+        return RateLimit.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

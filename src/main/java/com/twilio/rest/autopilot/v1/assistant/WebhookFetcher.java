@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.sync.v1;
+package com.twilio.rest.autopilot.v1.assistant;
 
-import com.twilio.base.Deleter;
+import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -18,40 +18,47 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  */
-public class ServiceDeleter extends Deleter<Service> {
+public class WebhookFetcher extends Fetcher<Webhook> {
+    private final String pathAssistantSid;
     private final String pathSid;
 
     /**
-     * Construct a new ServiceDeleter.
+     * Construct a new WebhookFetcher.
      *
-     * @param pathSid A unique identifier for this service instance.
+     * @param pathAssistantSid The SID of the Assistant that is the parent of the
+     *                         resource to fetch
+     * @param pathSid The unique string that identifies the resource to fetch
      */
-    public ServiceDeleter(final String pathSid) {
+    public WebhookFetcher(final String pathAssistantSid,
+                          final String pathSid) {
+        this.pathAssistantSid = pathAssistantSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * Make the request to the Twilio API to perform the delete.
+     * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
+     * @return Fetched Webhook
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public boolean delete(final TwilioRestClient client) {
+    public Webhook fetch(final TwilioRestClient client) {
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathSid + "",
+            HttpMethod.GET,
+            Domains.AUTOPILOT.toString(),
+            "/v1/Assistants/" + this.pathAssistantSid + "/Webhooks/" + this.pathSid + "",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Service delete failed: Unable to connect to server");
+            throw new ApiConnectionException("Webhook fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -67,6 +74,6 @@ public class ServiceDeleter extends Deleter<Service> {
             );
         }
 
-        return response.getStatusCode() == 204;
+        return Webhook.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

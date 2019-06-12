@@ -30,7 +30,6 @@ import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.net.URI;
 import java.util.Currency;
 import java.util.List;
@@ -39,7 +38,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Message extends Resource {
-    private static final long serialVersionUID = 61377418909039L;
+    private static final long serialVersionUID = 109887542891677L;
 
     public enum Status {
         QUEUED("queued"),
@@ -50,7 +49,9 @@ public class Message extends Resource {
         UNDELIVERED("undelivered"),
         RECEIVING("receiving"),
         RECEIVED("received"),
-        ACCEPTED("accepted");
+        ACCEPTED("accepted"),
+        SCHEDULED("scheduled"),
+        READ("read");
 
         private final String value;
 
@@ -445,7 +446,7 @@ public class Message extends Resource {
     private final String messagingServiceSid;
     private final String numMedia;
     private final String numSegments;
-    private final BigDecimal price;
+    private final String price;
     private final Currency priceUnit;
     private final String sid;
     private final Message.Status status;
@@ -481,7 +482,7 @@ public class Message extends Resource {
                     @JsonProperty("num_segments")
                     final String numSegments,
                     @JsonProperty("price")
-                    final BigDecimal price,
+                    final String price,
                     @JsonProperty("price_unit")
                     @JsonDeserialize(using = com.twilio.converter.CurrencyDeserializer.class)
                     final Currency priceUnit,
@@ -640,7 +641,7 @@ public class Message extends Resource {
      *
      * @return The amount billed for the message
      */
-    public final BigDecimal getPrice() {
+    public final String getPrice() {
         return this.price;
     }
 

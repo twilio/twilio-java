@@ -16,11 +16,11 @@ import org.junit.Test;
 public class RoomTest {
     @Test
     public void testElementWithParams() {
-        Room elem = new Room.Builder("name").participantidentity("participantIdentity").build();
+        Room elem = new Room.Builder("name").participantIdentity("participant_identity").build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Room participantidentity=\"participantIdentity\">name</Room>",
+            "<Room participantIdentity=\"participant_identity\">name</Room>",
             elem.toXml()
         );
     }

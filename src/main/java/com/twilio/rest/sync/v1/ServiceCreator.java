@@ -29,6 +29,8 @@ public class ServiceCreator extends Creator<Service> {
     private URI webhookUrl;
     private Boolean reachabilityWebhooksEnabled;
     private Boolean aclEnabled;
+    private Boolean reachabilityDebouncingEnabled;
+    private Integer reachabilityDebouncingWindow;
 
     /**
      * Human-readable name for this service instance.
@@ -95,6 +97,42 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
+     * `true` or `false` - If false, every endpoint disconnection immediately yields
+     * a reachability webhook (if enabled). If true, then 'disconnection' webhook
+     * events will only be fired after a configurable delay. Intervening
+     * reconnections would effectively cancel that webhook. Defaults to false..
+     *
+     * @param reachabilityDebouncingEnabled true or false - Determines whether
+     *                                      transient disconnections (i.e. an
+     *                                      immediate reconnect succeeds) cause
+     *                                      reachability webhooks.
+     * @return this
+     */
+    public ServiceCreator setReachabilityDebouncingEnabled(final Boolean reachabilityDebouncingEnabled) {
+        this.reachabilityDebouncingEnabled = reachabilityDebouncingEnabled;
+        return this;
+    }
+
+    /**
+     * Reachability webhook delay period in milliseconds. Determines the delay after
+     * which a Sync identity is declared actually offline, measured from the moment
+     * the last running client disconnects. If all endpoints remain offline
+     * throughout this delay, then reachability webhooks will be fired (if enabled).
+     * A reconnection by any endpoint during this window — from the same identity —
+     * means no reachability webhook would be fired. Must be between 1000 and 30000.
+     * Defaults to 5000..
+     *
+     * @param reachabilityDebouncingWindow Determines how long an identity must be
+     *                                     offline before reachability webhooks
+     *                                     fire.
+     * @return this
+     */
+    public ServiceCreator setReachabilityDebouncingWindow(final Integer reachabilityDebouncingWindow) {
+        this.reachabilityDebouncingWindow = reachabilityDebouncingWindow;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -153,6 +191,14 @@ public class ServiceCreator extends Creator<Service> {
 
         if (aclEnabled != null) {
             request.addPostParam("AclEnabled", aclEnabled.toString());
+        }
+
+        if (reachabilityDebouncingEnabled != null) {
+            request.addPostParam("ReachabilityDebouncingEnabled", reachabilityDebouncingEnabled.toString());
+        }
+
+        if (reachabilityDebouncingWindow != null) {
+            request.addPostParam("ReachabilityDebouncingWindow", reachabilityDebouncingWindow.toString());
         }
     }
 }

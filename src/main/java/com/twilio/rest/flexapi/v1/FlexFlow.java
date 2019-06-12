@@ -43,7 +43,8 @@ public class FlexFlow extends Resource {
         SMS("sms"),
         FACEBOOK("facebook"),
         WHATSAPP("whatsapp"),
-        LINE("line");
+        LINE("line"),
+        CUSTOM("custom");
 
         private final String value;
 

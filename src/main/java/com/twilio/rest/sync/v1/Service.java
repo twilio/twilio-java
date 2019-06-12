@@ -38,12 +38,12 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 123093367857654L;
+    private static final long serialVersionUID = 58048653691582L;
 
     /**
      * Create a ServiceFetcher to execute fetch.
      *
-     * @param pathSid The sid
+     * @param pathSid A unique identifier for this service instance.
      * @return ServiceFetcher capable of executing the fetch
      */
     public static ServiceFetcher fetcher(final String pathSid) {
@@ -53,7 +53,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceDeleter to execute delete.
      *
-     * @param pathSid The sid
+     * @param pathSid A unique identifier for this service instance.
      * @return ServiceDeleter capable of executing the delete
      */
     public static ServiceDeleter deleter(final String pathSid) {
@@ -81,7 +81,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceUpdater to execute update.
      *
-     * @param pathSid The sid
+     * @param pathSid A unique identifier for this service instance.
      * @return ServiceUpdater capable of executing the update
      */
     public static ServiceUpdater updater(final String pathSid) {
@@ -135,6 +135,8 @@ public class Service extends Resource {
     private final URI webhookUrl;
     private final Boolean reachabilityWebhooksEnabled;
     private final Boolean aclEnabled;
+    private final Boolean reachabilityDebouncingEnabled;
+    private final Integer reachabilityDebouncingWindow;
     private final Map<String, String> links;
 
     @JsonCreator
@@ -158,6 +160,10 @@ public class Service extends Resource {
                     final Boolean reachabilityWebhooksEnabled,
                     @JsonProperty("acl_enabled")
                     final Boolean aclEnabled,
+                    @JsonProperty("reachability_debouncing_enabled")
+                    final Boolean reachabilityDebouncingEnabled,
+                    @JsonProperty("reachability_debouncing_window")
+                    final Integer reachabilityDebouncingWindow,
                     @JsonProperty("links")
                     final Map<String, String> links) {
         this.sid = sid;
@@ -170,13 +176,15 @@ public class Service extends Resource {
         this.webhookUrl = webhookUrl;
         this.reachabilityWebhooksEnabled = reachabilityWebhooksEnabled;
         this.aclEnabled = aclEnabled;
+        this.reachabilityDebouncingEnabled = reachabilityDebouncingEnabled;
+        this.reachabilityDebouncingWindow = reachabilityDebouncingWindow;
         this.links = links;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The A unique identifier for this service instance..
      *
-     * @return The sid
+     * @return A unique identifier for this service instance.
      */
     public final String getSid() {
         return this.sid;
@@ -269,6 +277,28 @@ public class Service extends Resource {
     }
 
     /**
+     * Returns The true or false - Determines whether transient disconnections (i.e.
+     * an immediate reconnect succeeds) cause reachability webhooks..
+     *
+     * @return true or false - Determines whether transient disconnections (i.e. an
+     *         immediate reconnect succeeds) cause reachability webhooks.
+     */
+    public final Boolean getReachabilityDebouncingEnabled() {
+        return this.reachabilityDebouncingEnabled;
+    }
+
+    /**
+     * Returns The Determines how long an identity must be offline before
+     * reachability webhooks fire..
+     *
+     * @return Determines how long an identity must be offline before reachability
+     *         webhooks fire.
+     */
+    public final Integer getReachabilityDebouncingWindow() {
+        return this.reachabilityDebouncingWindow;
+    }
+
+    /**
      * Returns The The links.
      *
      * @return The links
@@ -299,6 +329,8 @@ public class Service extends Resource {
                Objects.equals(webhookUrl, other.webhookUrl) &&
                Objects.equals(reachabilityWebhooksEnabled, other.reachabilityWebhooksEnabled) &&
                Objects.equals(aclEnabled, other.aclEnabled) &&
+               Objects.equals(reachabilityDebouncingEnabled, other.reachabilityDebouncingEnabled) &&
+               Objects.equals(reachabilityDebouncingWindow, other.reachabilityDebouncingWindow) &&
                Objects.equals(links, other.links);
     }
 
@@ -314,6 +346,8 @@ public class Service extends Resource {
                             webhookUrl,
                             reachabilityWebhooksEnabled,
                             aclEnabled,
+                            reachabilityDebouncingEnabled,
+                            reachabilityDebouncingWindow,
                             links);
     }
 
@@ -330,6 +364,8 @@ public class Service extends Resource {
                           .add("webhookUrl", webhookUrl)
                           .add("reachabilityWebhooksEnabled", reachabilityWebhooksEnabled)
                           .add("aclEnabled", aclEnabled)
+                          .add("reachabilityDebouncingEnabled", reachabilityDebouncingEnabled)
+                          .add("reachabilityDebouncingWindow", reachabilityDebouncingWindow)
                           .add("links", links)
                           .toString();
     }

@@ -16,7 +16,7 @@ import java.util.Map;
  * TwiML wrapper for {@code <Room>}
  */
 public class Room extends TwiML {
-    private final String participantidentity;
+    private final String participantIdentity;
     private final String name;
 
     /**
@@ -31,7 +31,7 @@ public class Room extends TwiML {
      */
     private Room(Builder b) {
         super("Room", b);
-        this.participantidentity = b.participantidentity;
+        this.participantIdentity = b.participantIdentity;
         this.name = b.name;
     }
 
@@ -53,8 +53,8 @@ public class Room extends TwiML {
         // Preserve order of attributes
         Map<String, String> attrs = new HashMap<>();
 
-        if (this.getParticipantidentity() != null) {
-            attrs.put("participantidentity", this.getParticipantidentity());
+        if (this.getParticipantIdentity() != null) {
+            attrs.put("participantIdentity", this.getParticipantIdentity());
         }
 
         return attrs;
@@ -65,8 +65,8 @@ public class Room extends TwiML {
      *
      * @return Participant identity when connecting to the Room
      */
-    public String getParticipantidentity() {
-        return participantidentity;
+    public String getParticipantIdentity() {
+        return participantIdentity;
     }
 
     /**
@@ -82,7 +82,7 @@ public class Room extends TwiML {
      * Create a new {@code <Room>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
-        private String participantidentity;
+        private String participantIdentity;
         private String name;
 
         /**
@@ -95,8 +95,8 @@ public class Room extends TwiML {
         /**
          * Participant identity when connecting to the Room
          */
-        public Builder participantidentity(String participantidentity) {
-            this.participantidentity = participantidentity;
+        public Builder participantIdentity(String participantIdentity) {
+            this.participantIdentity = participantIdentity;
             return this;
         }
 

@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CurrentCall extends Resource {
-    private static final long serialVersionUID = 191613885069158L;
+    private static final long serialVersionUID = 212286172550611L;
 
     /**
      * Create a CurrentCallFetcher to execute fetch.
@@ -91,8 +91,16 @@ public class CurrentCall extends Resource {
     private final String sid;
     private final String from;
     private final String to;
+    private final String status;
     private final String reason;
     private final DateTime createdAt;
+    private final String caller;
+    private final String logo;
+    private final String bgColor;
+    private final String fontColor;
+    private final String useCase;
+    private final String manager;
+    private final String shieldImg;
     private final URI url;
 
     @JsonCreator
@@ -102,63 +110,161 @@ public class CurrentCall extends Resource {
                         final String from,
                         @JsonProperty("to")
                         final String to,
+                        @JsonProperty("status")
+                        final String status,
                         @JsonProperty("reason")
                         final String reason,
                         @JsonProperty("created_at")
                         final String createdAt,
+                        @JsonProperty("caller")
+                        final String caller,
+                        @JsonProperty("logo")
+                        final String logo,
+                        @JsonProperty("bg_color")
+                        final String bgColor,
+                        @JsonProperty("font_color")
+                        final String fontColor,
+                        @JsonProperty("use_case")
+                        final String useCase,
+                        @JsonProperty("manager")
+                        final String manager,
+                        @JsonProperty("shield_img")
+                        final String shieldImg,
                         @JsonProperty("url")
                         final URI url) {
         this.sid = sid;
         this.from = from;
         this.to = to;
+        this.status = status;
         this.reason = reason;
         this.createdAt = DateConverter.iso8601DateTimeFromString(createdAt);
+        this.caller = caller;
+        this.logo = logo;
+        this.bgColor = bgColor;
+        this.fontColor = fontColor;
+        this.useCase = useCase;
+        this.manager = manager;
+        this.shieldImg = shieldImg;
         this.url = url;
     }
 
     /**
-     * Returns The A string that uniquely identifies this Current Call..
+     * Returns The A string that uniquely identifies this current phone call..
      *
-     * @return A string that uniquely identifies this Current Call.
+     * @return A string that uniquely identifies this current phone call.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The originating Phone Number.
+     * Returns The The originating phone number.
      *
-     * @return The originating Phone Number
+     * @return The originating phone number
      */
     public final String getFrom() {
         return this.from;
     }
 
     /**
-     * Returns The The terminating Phone Number.
+     * Returns The The terminating phone number.
      *
-     * @return The terminating Phone Number
+     * @return The terminating phone number
      */
     public final String getTo() {
         return this.to;
     }
 
     /**
-     * Returns The The business reason for this phone call.
+     * Returns The The status of the current phone call.
      *
-     * @return The business reason for this phone call
+     * @return The status of the current phone call
+     */
+    public final String getStatus() {
+        return this.status;
+    }
+
+    /**
+     * Returns The The business reason for this current phone call.
+     *
+     * @return The business reason for this current phone call
      */
     public final String getReason() {
         return this.reason;
     }
 
     /**
-     * Returns The The date this Current Call was created.
+     * Returns The The date this current phone call was created.
      *
-     * @return The date this Current Call was created
+     * @return The date this current phone call was created
      */
     public final DateTime getCreatedAt() {
         return this.createdAt;
+    }
+
+    /**
+     * Returns The Caller name of the current phone call.
+     *
+     * @return Caller name of the current phone call
+     */
+    public final String getCaller() {
+        return this.caller;
+    }
+
+    /**
+     * Returns The Logo URL of the caller.
+     *
+     * @return Logo URL of the caller
+     */
+    public final String getLogo() {
+        return this.logo;
+    }
+
+    /**
+     * Returns The Background color of the current phone call.
+     *
+     * @return Background color of the current phone call
+     */
+    public final String getBgColor() {
+        return this.bgColor;
+    }
+
+    /**
+     * Returns The Font color of the current phone call.
+     *
+     * @return Font color of the current phone call
+     */
+    public final String getFontColor() {
+        return this.fontColor;
+    }
+
+    /**
+     * Returns The The use case for the current phone call.
+     *
+     * @return The use case for the current phone call
+     */
+    public final String getUseCase() {
+        return this.useCase;
+    }
+
+    /**
+     * Returns The The name of the CPS organization.
+     *
+     * @return The name of the CPS organization
+     */
+    public final String getManager() {
+        return this.manager;
+    }
+
+    /**
+     * Returns The Shield image URL that serves as authenticity proof of the current
+     * phone call.
+     *
+     * @return Shield image URL that serves as authenticity proof of the current
+     *         phone call
+     */
+    public final String getShieldImg() {
+        return this.shieldImg;
     }
 
     /**
@@ -185,8 +291,16 @@ public class CurrentCall extends Resource {
         return Objects.equals(sid, other.sid) &&
                Objects.equals(from, other.from) &&
                Objects.equals(to, other.to) &&
+               Objects.equals(status, other.status) &&
                Objects.equals(reason, other.reason) &&
                Objects.equals(createdAt, other.createdAt) &&
+               Objects.equals(caller, other.caller) &&
+               Objects.equals(logo, other.logo) &&
+               Objects.equals(bgColor, other.bgColor) &&
+               Objects.equals(fontColor, other.fontColor) &&
+               Objects.equals(useCase, other.useCase) &&
+               Objects.equals(manager, other.manager) &&
+               Objects.equals(shieldImg, other.shieldImg) &&
                Objects.equals(url, other.url);
     }
 
@@ -195,8 +309,16 @@ public class CurrentCall extends Resource {
         return Objects.hash(sid,
                             from,
                             to,
+                            status,
                             reason,
                             createdAt,
+                            caller,
+                            logo,
+                            bgColor,
+                            fontColor,
+                            useCase,
+                            manager,
+                            shieldImg,
                             url);
     }
 
@@ -206,8 +328,16 @@ public class CurrentCall extends Resource {
                           .add("sid", sid)
                           .add("from", from)
                           .add("to", to)
+                          .add("status", status)
                           .add("reason", reason)
                           .add("createdAt", createdAt)
+                          .add("caller", caller)
+                          .add("logo", logo)
+                          .add("bgColor", bgColor)
+                          .add("fontColor", fontColor)
+                          .add("useCase", useCase)
+                          .add("manager", manager)
+                          .add("shieldImg", shieldImg)
                           .add("url", url)
                           .toString();
     }

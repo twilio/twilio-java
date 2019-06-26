@@ -1,7 +1,7 @@
 language: java
 sudo: false
 before_install:
-  - wget https://github.com/sormuras/bach/raw/1.0.5/install-jdk.sh
+  - wget https://github.com/sormuras/bach/raw/master/install-jdk.sh
 matrix:
   include:
 # OpenJDK
@@ -17,7 +17,7 @@ matrix:
     - name: 'Oracle JDK 8'
       jdk: oraclejdk8
     - name: 'Oracle JDK 11'
-      jdk: oraclejdk11
+      install: . ./install-jdk.sh -L BCL -F 11
     - name: 'Oracle JDK 12'
       install: . ./install-jdk.sh -L BCL -F 12
   allow_failures:

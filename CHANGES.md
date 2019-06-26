@@ -1,6 +1,21 @@
 twilio-java changelog
 =====================
 
+[2019-06-26] Version 7.40.0
+----------------------------
+**Library**
+- [PR #464](https://github.com/twilio/twilio-java/pull/464): Add [archunit] rules. Thanks to [@sullis](https://github.com/sullis)!
+
+**Autopilot**
+- Adds two new properties in Assistant i.e needs_model_build and development_stage
+
+**Preview**
+- Changed phone numbers from _URL|Path_ to `X-XCNAM-Sensitive` headers **(breaking change)**
+
+**Verify**
+- Add `MessagingConfiguration` resource to verify service
+
+
 [2019-06-12] Version 7.39.0
 ----------------------------
 **Autopilot**

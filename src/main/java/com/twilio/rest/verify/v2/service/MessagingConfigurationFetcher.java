@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.trustedComms;
+package com.twilio.rest.verify.v2.service;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -18,31 +18,46 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
-public class CurrentCallFetcher extends Fetcher<CurrentCall> {
+public class MessagingConfigurationFetcher extends Fetcher<MessagingConfiguration> {
+    private final String pathServiceSid;
+    private final String pathCountry;
+
+    /**
+     * Construct a new MessagingConfigurationFetcher.
+     *
+     * @param pathServiceSid The SID of the Service that the resource is associated
+     *                       with
+     * @param pathCountry The ISO-3166-1 country code of the country or `all`.
+     */
+    public MessagingConfigurationFetcher(final String pathServiceSid,
+                                         final String pathCountry) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathCountry = pathCountry;
+    }
+
     /**
      * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched CurrentCall
+     * @return Fetched MessagingConfiguration
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public CurrentCall fetch(final TwilioRestClient client) {
+    public MessagingConfiguration fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.PREVIEW.toString(),
-            "/TrustedComms/CurrentCall",
+            Domains.VERIFY.toString(),
+            "/v2/Services/" + this.pathServiceSid + "/MessagingConfigurations/" + this.pathCountry + "",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("CurrentCall fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("MessagingConfiguration fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -58,6 +73,6 @@ public class CurrentCallFetcher extends Fetcher<CurrentCall> {
             );
         }
 
-        return CurrentCall.fromJson(response.getStream(), client.getObjectMapper());
+        return MessagingConfiguration.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

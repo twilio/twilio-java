@@ -22,27 +22,27 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class CurrentCallFetcher extends Fetcher<CurrentCall> {
+public class CpsFetcher extends Fetcher<Cps> {
     /**
      * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched CurrentCall
+     * @return Fetched Cps
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public CurrentCall fetch(final TwilioRestClient client) {
+    public Cps fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/TrustedComms/CurrentCall",
+            "/TrustedComms/CPS",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("CurrentCall fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("Cps fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -58,6 +58,6 @@ public class CurrentCallFetcher extends Fetcher<CurrentCall> {
             );
         }
 
-        return CurrentCall.fromJson(response.getStream(), client.getObjectMapper());
+        return Cps.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

@@ -36,6 +36,7 @@ public class AssistantUpdater extends Updater<Assistant> {
     private String callbackEvents;
     private Map<String, Object> styleSheet;
     private Map<String, Object> defaults;
+    private String developmentStage;
 
     /**
      * Construct a new AssistantUpdater.
@@ -144,6 +145,17 @@ public class AssistantUpdater extends Updater<Assistant> {
     }
 
     /**
+     * A string describing the state of the assistant..
+     *
+     * @param developmentStage A string describing the state of the assistant.
+     * @return this
+     */
+    public AssistantUpdater setDevelopmentStage(final String developmentStage) {
+        this.developmentStage = developmentStage;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -214,6 +226,10 @@ public class AssistantUpdater extends Updater<Assistant> {
 
         if (defaults != null) {
             request.addPostParam("Defaults", Converter.mapToJson(defaults));
+        }
+
+        if (developmentStage != null) {
+            request.addPostParam("DevelopmentStage", developmentStage);
         }
     }
 }

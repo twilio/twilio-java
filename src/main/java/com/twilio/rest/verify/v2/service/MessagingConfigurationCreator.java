@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.fax.v1;
+package com.twilio.rest.verify.v2.service;
 
-import com.twilio.base.Updater;
+import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -21,44 +21,41 @@ import com.twilio.rest.Domains;
  * PLEASE NOTE that this class contains beta products that are subject to
  * change. Use them with caution.
  */
-public class FaxUpdater extends Updater<Fax> {
-    private final String pathSid;
-    private Fax.UpdateStatus status;
+public class MessagingConfigurationCreator extends Creator<MessagingConfiguration> {
+    private final String pathServiceSid;
+    private final String country;
+    private final String messagingServiceSid;
 
     /**
-     * Construct a new FaxUpdater.
+     * Construct a new MessagingConfigurationCreator.
      *
-     * @param pathSid The unique string that identifies the resource
+     * @param pathServiceSid The SID of the Service that the resource is associated
+     *                       with
+     * @param country The ISO-3166-1 country code of the country or `all`.
+     * @param messagingServiceSid The SID of the Messaging Service used for this
+     *                            configuration.
      */
-    public FaxUpdater(final String pathSid) {
-        this.pathSid = pathSid;
+    public MessagingConfigurationCreator(final String pathServiceSid,
+                                         final String country,
+                                         final String messagingServiceSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.country = country;
+        this.messagingServiceSid = messagingServiceSid;
     }
 
     /**
-     * The new
-     * [status](https://www.twilio.com/docs/api/fax/rest/faxes-resource#fax-status-values) of the resource. Can be only `canceled`. This may fail if transmission has already started..
-     *
-     * @param status The new status of the resource
-     * @return this
-     */
-    public FaxUpdater setStatus(final Fax.UpdateStatus status) {
-        this.status = status;
-        return this;
-    }
-
-    /**
-     * Make the request to the Twilio API to perform the update.
+     * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Updated Fax
+     * @return Created MessagingConfiguration
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Fax update(final TwilioRestClient client) {
+    public MessagingConfiguration create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            Domains.FAX.toString(),
-            "/v1/Faxes/" + this.pathSid + "",
+            Domains.VERIFY.toString(),
+            "/v2/Services/" + this.pathServiceSid + "/MessagingConfigurations",
             client.getRegion()
         );
 
@@ -66,7 +63,7 @@ public class FaxUpdater extends Updater<Fax> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Fax update failed: Unable to connect to server");
+            throw new ApiConnectionException("MessagingConfiguration creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -82,7 +79,7 @@ public class FaxUpdater extends Updater<Fax> {
             );
         }
 
-        return Fax.fromJson(response.getStream(), client.getObjectMapper());
+        return MessagingConfiguration.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -91,8 +88,12 @@ public class FaxUpdater extends Updater<Fax> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (status != null) {
-            request.addPostParam("Status", status.toString());
+        if (country != null) {
+            request.addPostParam("Country", country);
+        }
+
+        if (messagingServiceSid != null) {
+            request.addPostParam("MessagingServiceSid", messagingServiceSid);
         }
     }
 }

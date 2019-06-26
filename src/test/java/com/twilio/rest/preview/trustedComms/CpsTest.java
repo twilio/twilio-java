@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.verify.v2.service;
+package com.twilio.rest.preview.trustedComms;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;
@@ -27,7 +27,7 @@ import java.net.URI;
 import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;
 
-public class VerificationCheckTest {
+public class CpsTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
@@ -37,12 +37,12 @@ public class VerificationCheckTest {
     }
 
     @Test
-    public void testCreateRequest() {
+    public void testFetchRequest() {
         new NonStrictExpectations() {{
-            Request request = new Request(HttpMethod.POST,
-                                          Domains.VERIFY.toString(),
-                                          "/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/VerificationCheck");
-            request.addPostParam("Code", serialize("code"));
+            Request request = new Request(HttpMethod.GET,
+                                          Domains.PREVIEW.toString(),
+                                          "/TrustedComms/CPS");
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -51,20 +51,20 @@ public class VerificationCheckTest {
         }};
 
         try {
-            VerificationCheck.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "code").create();
+            Cps.fetcher().fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
 
     @Test
-    public void testVerificationChecksResponse() {
+    public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"sid\": \"VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"service_sid\": \"VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"to\": \"+14159373912\",\"channel\": \"sms\",\"status\": \"approved\",\"valid\": true,\"amount\": null,\"payee\": null,\"date_created\": \"2015-07-30T20:00:00Z\",\"date_updated\": \"2015-07-30T20:00:00Z\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            result = new Response("{\"phone_number\": \"+1500123\",\"cps_url\": \"https://preview.twilio.com/TrustedComms/CurrentCall\",\"url\": \"https://preview.twilio.com/TrustedComms/CPS\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
 
-        VerificationCheck.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "code").create();
+        assertNotNull(Cps.fetcher().fetch());
     }
 }

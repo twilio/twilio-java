@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Assistant extends Resource {
-    private static final long serialVersionUID = 17320483220293L;
+    private static final long serialVersionUID = 244014125424501L;
 
     /**
      * Create a AssistantFetcher to execute fetch.
@@ -134,6 +134,8 @@ public class Assistant extends Resource {
     private final String latestModelBuildSid;
     private final Map<String, String> links;
     private final Boolean logQueries;
+    private final String developmentStage;
+    private final Boolean needsModelBuild;
     private final String sid;
     private final String uniqueName;
     private final URI url;
@@ -155,6 +157,10 @@ public class Assistant extends Resource {
                       final Map<String, String> links,
                       @JsonProperty("log_queries")
                       final Boolean logQueries,
+                      @JsonProperty("development_stage")
+                      final String developmentStage,
+                      @JsonProperty("needs_model_build")
+                      final Boolean needsModelBuild,
                       @JsonProperty("sid")
                       final String sid,
                       @JsonProperty("unique_name")
@@ -172,6 +178,8 @@ public class Assistant extends Resource {
         this.latestModelBuildSid = latestModelBuildSid;
         this.links = links;
         this.logQueries = logQueries;
+        this.developmentStage = developmentStage;
+        this.needsModelBuild = needsModelBuild;
         this.sid = sid;
         this.uniqueName = uniqueName;
         this.url = url;
@@ -244,6 +252,24 @@ public class Assistant extends Resource {
     }
 
     /**
+     * Returns The A string describing the state of the assistant..
+     *
+     * @return A string describing the state of the assistant.
+     */
+    public final String getDevelopmentStage() {
+        return this.developmentStage;
+    }
+
+    /**
+     * Returns The Whether model needs to be rebuilt.
+     *
+     * @return Whether model needs to be rebuilt
+     */
+    public final Boolean getNeedsModelBuild() {
+        return this.needsModelBuild;
+    }
+
+    /**
      * Returns The The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
@@ -308,6 +334,8 @@ public class Assistant extends Resource {
                Objects.equals(latestModelBuildSid, other.latestModelBuildSid) &&
                Objects.equals(links, other.links) &&
                Objects.equals(logQueries, other.logQueries) &&
+               Objects.equals(developmentStage, other.developmentStage) &&
+               Objects.equals(needsModelBuild, other.needsModelBuild) &&
                Objects.equals(sid, other.sid) &&
                Objects.equals(uniqueName, other.uniqueName) &&
                Objects.equals(url, other.url) &&
@@ -324,6 +352,8 @@ public class Assistant extends Resource {
                             latestModelBuildSid,
                             links,
                             logQueries,
+                            developmentStage,
+                            needsModelBuild,
                             sid,
                             uniqueName,
                             url,
@@ -341,6 +371,8 @@ public class Assistant extends Resource {
                           .add("latestModelBuildSid", latestModelBuildSid)
                           .add("links", links)
                           .add("logQueries", logQueries)
+                          .add("developmentStage", developmentStage)
+                          .add("needsModelBuild", needsModelBuild)
                           .add("sid", sid)
                           .add("uniqueName", uniqueName)
                           .add("url", url)

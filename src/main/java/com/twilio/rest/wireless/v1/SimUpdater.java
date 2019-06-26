@@ -122,8 +122,7 @@ public class SimUpdater extends Updater<Sim> {
     /**
      * The Sid or UniqueName of the
      * [RatePlan](https://www.twilio.com/docs/api/wireless/rest-api/rate-plan) that
-     * this Sim should use. *Note:* the RatePlan of a Sim can only be modified when
-     * the Sim has a `suspended` or `deactivated` status..
+     * this Sim should use..
      *
      * @param ratePlan The Sid or UniqueName of the RatePlan that this Sim should
      *                 use.

@@ -7,6 +7,7 @@ import com.twilio.exception.InvalidRequestException;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
+import javax.xml.bind.DatatypeConverter;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -93,7 +94,7 @@ public class Request {
         String credentials = this.username + ":" + this.password;
         try {
 
-            String encoded = Base64.getEncoder().encodeToString(credentials.getBytes("ascii"));
+            String encoded = DatatypeConverter.printBase64Binary(credentials.getBytes("ascii"));
             return "Basic " + encoded;
 
         } catch (final UnsupportedEncodingException e) {

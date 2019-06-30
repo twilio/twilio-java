@@ -284,15 +284,16 @@
           <xmlOutput>true</xmlOutput>
           <failOnError>false</failOnError>
         </configuration>
-        <executions>
-          <execution>
-            <id>analyse-compile</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
+        <!-- Slows down feedback cycle, maybe add to compile phase later? -->
+<!--        <executions>-->
+<!--          <execution>-->
+<!--            <id>analyse-compile</id>-->
+<!--            <phase>compile</phase>-->
+<!--            <goals>-->
+<!--              <goal>check</goal>-->
+<!--            </goals>-->
+<!--          </execution>-->
+<!--        </executions>-->
       </plugin>
 
     </plugins>

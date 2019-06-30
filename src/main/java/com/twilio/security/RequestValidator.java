@@ -83,7 +83,7 @@ public class RequestValidator {
             mac.init(signingKey);
 
             byte[] rawHmac = mac.doFinal(builder.toString().getBytes(StandardCharsets.UTF_8));
-            return new String(Base64.getEncoder().encode(rawHmac));
+            return DatatypeConverter.printBase64Binary(rawHmac);
 
         } catch (Exception e) {
             return null;

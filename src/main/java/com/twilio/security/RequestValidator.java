@@ -1,13 +1,11 @@
 package com.twilio.security;
 
-import org.apache.commons.codec.binary.Hex;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.digest.MessageDigestAlgorithms;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -15,11 +13,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class RequestValidator {
 
@@ -58,13 +52,13 @@ public class RequestValidator {
     public boolean validateBody(String body, String expectedSHA) {
         MessageDigest digest;
         try {
-            digest = MessageDigest.getInstance(MessageDigestAlgorithms.SHA_256);
+            digest = MessageDigest.getInstance("SHA-256");
         } catch (NoSuchAlgorithmException e) {
             return false;
         }
 
         byte[] hash = digest.digest(body.getBytes(StandardCharsets.UTF_8));
-        String hexString = new String(Hex.encodeHex(hash));
+        String hexString = DatatypeConverter.printHexBinary(hash).toLowerCase();
 
         return secureCompare(expectedSHA, hexString);
     }
@@ -89,7 +83,7 @@ public class RequestValidator {
             mac.init(signingKey);
 
             byte[] rawHmac = mac.doFinal(builder.toString().getBytes(StandardCharsets.UTF_8));
-            return new String(Base64.encodeBase64(rawHmac));
+            return new String(Base64.getEncoder().encode(rawHmac));
 
         } catch (Exception e) {
             return null;

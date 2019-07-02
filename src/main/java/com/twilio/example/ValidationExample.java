@@ -8,8 +8,8 @@ import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.rest.api.v2010.account.NewSigningKey;
 import com.twilio.twiml.TwiMLException;
 import com.twilio.type.PhoneNumber;
-import org.apache.commons.codec.binary.Base64;
 
+import javax.xml.bind.DatatypeConverter;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 
@@ -39,7 +39,7 @@ public class ValidationExample {
 
         // Create a public key and signing key using the default client
         PublicKey key = PublicKey.creator(
-            Base64.encodeBase64String(pk.getEncoded())
+            DatatypeConverter.printBase64Binary(pk.getEncoded())
         ).setFriendlyName("Public Key").create(client);
 
         NewSigningKey signingKey = NewSigningKey.creator().create(client);

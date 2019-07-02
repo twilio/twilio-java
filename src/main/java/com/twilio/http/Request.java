@@ -4,21 +4,17 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Range;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.InvalidRequestException;
-import org.apache.commons.codec.binary.Base64;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
+import javax.xml.bind.DatatypeConverter;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class Request {
 
@@ -98,7 +94,7 @@ public class Request {
         String credentials = this.username + ":" + this.password;
         try {
 
-            String encoded = new Base64().encodeAsString(credentials.getBytes("ascii"));
+            String encoded = DatatypeConverter.printBase64Binary(credentials.getBytes("ascii"));
             return "Basic " + encoded;
 
         } catch (final UnsupportedEncodingException e) {

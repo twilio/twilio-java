@@ -95,6 +95,12 @@
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
       <version>4.5.6</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-codec</groupId>
+          <artifactId>commons-codec</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -264,6 +270,30 @@
           <forkCount>8</forkCount>
           <reuseForks>true</reuseForks>
         </configuration>
+      </plugin>
+
+      <!-- Run spotbugs separately: mvn spotbugs:check -->
+      <!-- To view results via gui: mvn spotbugs:gui -->
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>3.1.12</version>
+        <configuration>
+          <effort>Max</effort>
+          <threshold>Low</threshold>
+          <xmlOutput>true</xmlOutput>
+          <failOnError>false</failOnError>
+        </configuration>
+        <!-- Slows down feedback cycle, maybe add to compile phase later? -->
+<!--        <executions>-->
+<!--          <execution>-->
+<!--            <id>analyse-compile</id>-->
+<!--            <phase>compile</phase>-->
+<!--            <goals>-->
+<!--              <goal>check</goal>-->
+<!--            </goals>-->
+<!--          </execution>-->
+<!--        </executions>-->
       </plugin>
 
     </plugins>

@@ -4,29 +4,37 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.twilio.Twilio;
 import com.twilio.exception.ApiException;
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHeaders;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpVersion;
-import org.apache.http.client.utils.HttpClientUtils;
-import org.apache.http.entity.BufferedHttpEntity;
+import org.apache.http.*;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.RequestBuilder;
+import org.apache.http.client.utils.HttpClientUtils;
+import org.apache.http.conn.ConnectionKeepAliveStrategy;
+import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicHeader;
+import org.apache.http.message.BasicHeaderElementIterator;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.protocol.HttpContext;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 public class NetworkHttpClient extends HttpClient {
 
-    private static final int CONNECTION_TIMEOUT = 10000;
-    private static final int SOCKET_TIMEOUT = 30500;
+    public static final int CONNECTION_TIMEOUT = 10000;
+
+    public static final int SOCKET_TIMEOUT = 30500;
+
+    public static final int DEFAULT_MAX_PER_ROUTE = 10;
+
+    public static final int MAX_TOTAL = 20;
+
+    public static final int VALIDATE_AFTER_INACTIVITY = 1000;
+
+    public static final int KEEP_ALIVE_TIMEOUT = 30 * 1000;
 
     private final org.apache.http.client.HttpClient client;
 
@@ -34,17 +42,35 @@ public class NetworkHttpClient extends HttpClient {
      * Create a new HTTP Client.
      */
     public NetworkHttpClient() {
-        RequestConfig config = RequestConfig.custom()
-            .setConnectTimeout(CONNECTION_TIMEOUT)
-            .setSocketTimeout(SOCKET_TIMEOUT)
-            .build();
+        this(defaultHttpClientBuilder());
+    }
 
-        Collection<Header> headers = Lists.<Header>newArrayList(
-            new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
-            new BasicHeader(HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION + " (" + Twilio.JAVA_VERSION + ")"),
-            new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
-            new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
-        );
+    /**
+     * Create a new HTTP Client using custom configuration.
+     * @param clientBuilder an HttpClientBuilder.
+     */
+    public NetworkHttpClient(HttpClientBuilder clientBuilder) {
+        client = clientBuilder
+                .setDefaultHeaders(twilioHeaders())
+                .build();
+    }
+
+    private static List<Header> twilioHeaders() {
+        return Lists.<Header>newArrayList(
+                    new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
+                    new BasicHeader(
+                            HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION + " (" + Twilio.JAVA_VERSION + ") custom"
+                    ),
+                    new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
+                    new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
+            );
+    }
+
+    public static HttpClientBuilder defaultHttpClientBuilder() {
+        RequestConfig config = RequestConfig.custom()
+                .setConnectTimeout(CONNECTION_TIMEOUT)
+                .setSocketTimeout(SOCKET_TIMEOUT)
+                .build();
 
         String googleAppEngineVersion = System.getProperty("com.google.appengine.runtime.version");
         boolean isNotGoogleAppEngine = Strings.isNullOrEmpty(googleAppEngineVersion);
@@ -56,34 +82,38 @@ public class NetworkHttpClient extends HttpClient {
         }
 
         PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
-	      connectionManager.setDefaultMaxPerRoute(10);
-	      connectionManager.setMaxTotal(10*2);
+        connectionManager.setDefaultMaxPerRoute(DEFAULT_MAX_PER_ROUTE);
+        connectionManager.setMaxTotal(MAX_TOTAL);
+        connectionManager.setValidateAfterInactivity(VALIDATE_AFTER_INACTIVITY);
 
-        clientBuilder
-            .setConnectionManager(connectionManager)
-            .setDefaultRequestConfig(config)
-            .setDefaultHeaders(headers);
-
-        client = clientBuilder.build();
+        return clientBuilder
+                .setConnectionManager(connectionManager)
+                .setKeepAliveStrategy(getKeepAliveStrategy())
+                .setDefaultRequestConfig(config);
     }
 
-    /**
-     * Create a new HTTP Client using custom configuration.
-     * @param clientBuilder an HttpClientBuilder.
-     */
-    public NetworkHttpClient(HttpClientBuilder clientBuilder) {
-        Collection<Header> headers = Lists.<Header>newArrayList(
-                new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
-                new BasicHeader(
-                    HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION + " (" + Twilio.JAVA_VERSION + ") custom"
-                ),
-                new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
-                new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
-        );
+    public static ConnectionKeepAliveStrategy getKeepAliveStrategy() {
+        return new ConnectionKeepAliveStrategy() {
+                @Override
+                public long getKeepAliveDuration(HttpResponse httpResponse, HttpContext httpContext) {
+                    // Honor 'keep-alive' header
+                    HeaderElementIterator it = new BasicHeaderElementIterator(httpResponse.headerIterator(HTTP.CONN_KEEP_ALIVE));
 
-        client = clientBuilder
-                .setDefaultHeaders(headers)
-                .build();
+                    while (it.hasNext()) {
+                        HeaderElement he = it.nextElement();
+                        String param = he.getName();
+                        String value = he.getValue();
+                        if (value != null && param.equalsIgnoreCase("timeout")) {
+                            try {
+                                return Long.parseLong(value) * 1000;
+                            } catch (NumberFormatException ignore) {
+                            }
+                        }
+                    }
+
+                    return KEEP_ALIVE_TIMEOUT;
+                }
+            };
     }
 
     /**

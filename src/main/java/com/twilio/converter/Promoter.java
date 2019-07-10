@@ -18,7 +18,7 @@ public class Promoter {
     public static URI uriFromString(final String url) {
         try {
             return new URI(url);
-        } catch (URISyntaxException e) {
+        } catch (URISyntaxException | NullPointerException e) {
             return null;
         }
     }

@@ -15,7 +15,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -25,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.SubscribeRule;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SubscribeRules extends Resource {
-    private static final long serialVersionUID = 203579789225780L;
+    private static final long serialVersionUID = 98678820953889L;
 
     /**
      * Create a SubscribeRulesFetcher to execute fetch.
@@ -107,7 +107,7 @@ public class SubscribeRules extends Resource {
 
     private final String participantSid;
     private final String roomSid;
-    private final List<Map<String, Object>> rules;
+    private final List<SubscribeRule> rules;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
 
@@ -117,7 +117,7 @@ public class SubscribeRules extends Resource {
                            @JsonProperty("room_sid")
                            final String roomSid,
                            @JsonProperty("rules")
-                           final List<Map<String, Object>> rules,
+                           final List<SubscribeRule> rules,
                            @JsonProperty("date_created")
                            final String dateCreated,
                            @JsonProperty("date_updated")
@@ -154,7 +154,7 @@ public class SubscribeRules extends Resource {
      * @return A collection of Subscribe Rules to include or exclude matching
      *         Tracks.
      */
-    public final List<Map<String, Object>> getRules() {
+    public final List<SubscribeRule> getRules() {
         return this.rules;
     }
 

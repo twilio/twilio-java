@@ -60,7 +60,7 @@ public class SubscribeRulesTest {
     public void testReadEmptyResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"participant_sid\": \"PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"room_sid\": \"RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": null,\"date_updated\": null,\"rules\": []}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"participant_sid\": \"PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"room_sid\": \"RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": null,\"date_updated\": null,\"rules\": [{\"type\": \"include\",\"all\": true,\"publisher\": null,\"track\": null,\"kind\": null,\"priority\": null}]}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -92,7 +92,7 @@ public class SubscribeRulesTest {
     public void testUpdateFiltersResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"participant_sid\": \"PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"room_sid\": \"RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": null,\"date_updated\": null,\"rules\": [{\"type\": \"exclude\",\"all\": true}]}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"participant_sid\": \"PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"room_sid\": \"RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": null,\"date_updated\": null,\"rules\": [{\"type\": \"exclude\",\"all\": true,\"publisher\": null,\"track\": null,\"kind\": null,\"priority\": null}]}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

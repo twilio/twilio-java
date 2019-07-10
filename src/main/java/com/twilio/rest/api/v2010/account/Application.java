@@ -40,22 +40,19 @@ public class Application extends Resource {
      * Create a ApplicationCreator to execute create.
      *
      * @param pathAccountSid The SID of the Account that will create the resource
-     * @param friendlyName A string to describe the new resource
      * @return ApplicationCreator capable of executing the create
      */
-    public static ApplicationCreator creator(final String pathAccountSid,
-                                             final String friendlyName) {
-        return new ApplicationCreator(pathAccountSid, friendlyName);
+    public static ApplicationCreator creator(final String pathAccountSid) {
+        return new ApplicationCreator(pathAccountSid);
     }
 
     /**
      * Create a ApplicationCreator to execute create.
      *
-     * @param friendlyName A string to describe the new resource
      * @return ApplicationCreator capable of executing the create
      */
-    public static ApplicationCreator creator(final String friendlyName) {
-        return new ApplicationCreator(friendlyName);
+    public static ApplicationCreator creator() {
+        return new ApplicationCreator();
     }
 
     /**

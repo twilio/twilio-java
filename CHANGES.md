@@ -1,6 +1,23 @@
 twilio-java changelog
 =====================
 
+[2019-07-10] Version 7.40.1
+----------------------------
+**Library**
+- [PR #459](https://github.com/twilio/twilio-java/pull/459): Update library dependencies. Thanks to [@duttonw](https://github.com/duttonw)!
+- [PR #469](https://github.com/twilio/twilio-java/pull/469): Add urls property in ice servers. Thanks to [@FMV1491](https://github.com/FMV1491)!
+- [PR #467](https://github.com/twilio/twilio-java/pull/467): Remove VS Code settings. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+- [PR #465](https://github.com/twilio/twilio-java/pull/465): Replace commons codec. Thanks to [@jasonsoooz](https://github.com/jasonsoooz)!
+- [PR #466](https://github.com/twilio/twilio-java/pull/466): Ignore local settings. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Api**
+- Make `friendly_name` optional for applications create
+- Add new property `as_of` date to Usage Record API calls
+
+**Wireless**
+- Added Usage Records resource.
+
+
 [2019-06-26] Version 7.40.0
 ----------------------------
 **Library**

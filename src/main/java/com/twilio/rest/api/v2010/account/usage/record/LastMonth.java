@@ -37,7 +37,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LastMonth extends Resource {
-    private static final long serialVersionUID = 64962400986061L;
+    private static final long serialVersionUID = 263660164098858L;
 
     public enum Category {
         AGENT_CONFERENCE("agent-conference"),
@@ -365,6 +365,7 @@ public class LastMonth extends Resource {
 
     private final String accountSid;
     private final String apiVersion;
+    private final String asOf;
     private final LastMonth.Category category;
     private final String count;
     private final String countUnit;
@@ -383,6 +384,8 @@ public class LastMonth extends Resource {
                       final String accountSid,
                       @JsonProperty("api_version")
                       final String apiVersion,
+                      @JsonProperty("as_of")
+                      final String asOf,
                       @JsonProperty("category")
                       final LastMonth.Category category,
                       @JsonProperty("count")
@@ -410,6 +413,7 @@ public class LastMonth extends Resource {
                       final String usageUnit) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
+        this.asOf = asOf;
         this.category = category;
         this.count = count;
         this.countUnit = countUnit;
@@ -440,6 +444,15 @@ public class LastMonth extends Resource {
      */
     public final String getApiVersion() {
         return this.apiVersion;
+    }
+
+    /**
+     * Returns The Usage records up to date as of this timestamp.
+     *
+     * @return Usage records up to date as of this timestamp
+     */
+    public final String getAsOf() {
+        return this.asOf;
     }
 
     /**
@@ -564,6 +577,7 @@ public class LastMonth extends Resource {
 
         return Objects.equals(accountSid, other.accountSid) &&
                Objects.equals(apiVersion, other.apiVersion) &&
+               Objects.equals(asOf, other.asOf) &&
                Objects.equals(category, other.category) &&
                Objects.equals(count, other.count) &&
                Objects.equals(countUnit, other.countUnit) &&
@@ -582,6 +596,7 @@ public class LastMonth extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid,
                             apiVersion,
+                            asOf,
                             category,
                             count,
                             countUnit,
@@ -601,6 +616,7 @@ public class LastMonth extends Resource {
         return MoreObjects.toStringHelper(this)
                           .add("accountSid", accountSid)
                           .add("apiVersion", apiVersion)
+                          .add("asOf", asOf)
                           .add("category", category)
                           .add("count", count)
                           .add("countUnit", countUnit)

@@ -45,6 +45,7 @@ A huge thanks to all of our contributors:
 - Phani
 - RonaldWentworth
 - Sam Kimbrel
+- Sean C. Sullivan
 - Sunil Veluvali
 - Takuji Shimokawa
 - Thomas Wilsher

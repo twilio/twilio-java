@@ -67,37 +67,11 @@
         </plugins>
       </build>
     </profile>
-      <profile>
-        <id>owasp-enable</id>
-        <!-- owasp only supports 1.8+ -->
-        <activation>
-          <jdk>[1.8,)</jdk>
-        </activation>
-        <build>
-          <plugins>
-            <plugin>
-              <groupId>org.owasp</groupId><artifactId>dependency-check-maven</artifactId><version>5.0.0</version>
-              <configuration>
-                <suppressionFile>${project.basedir}/owasp-dependency-checker-suppressions.xml</suppressionFile>
-                <failBuildOnCVSS>1</failBuildOnCVSS>
-                <skip>${dependency.skip}</skip>
-              </configuration>
-              <executions>
-                <execution>
-                  <phase>verify</phase>
-                  <goals>
-                    <goal>check</goal>
-                  </goals>
-                </execution>
-              </executions>
-            </plugin>
-          </plugins>
-        </build>
-      </profile>
   </profiles>
 
   <properties>
     <jackson.version>2.9.9</jackson.version>
+    <jackson.databind.version>2.9.9.1</jackson.databind.version>
     <skip.tests>false</skip.tests>
     <dependency.skip>false</dependency.skip>
   </properties>
@@ -151,7 +125,7 @@
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>${jackson.version}</version>
+      <version>${jackson.databind.version}</version>
     </dependency>
 
     <!-- XML Generation -->

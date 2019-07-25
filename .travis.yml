@@ -23,6 +23,7 @@ matrix:
   allow_failures:
     - name: 'OpenJDK 7'
     - name: 'OpenJDK 12'
+    - name: 'Oracle JDK 8' # See https://travis-ci.community/t/expected-feature-release-number-in-range-of-9-to-12-but-got-8-installing-oraclejdk8/1345/14
     - name: 'Oracle JDK 11' # See https://travis-ci.community/t/cannot-install-oracle-jdk-11/3892/3
     - name: 'Oracle JDK 12'
 services:
@@ -40,4 +41,4 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-    jdk: oraclejdk8
+    jdk: openjdk8

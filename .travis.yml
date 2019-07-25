@@ -21,6 +21,7 @@ matrix:
     - name: 'Oracle JDK 12'
       install: . ./install-jdk.sh -L BCL -F 12
   allow_failures:
+    - name: 'OpenJDK 7'
     - name: 'OpenJDK 12'
     - name: 'Oracle JDK 11' # See https://travis-ci.community/t/cannot-install-oracle-jdk-11/3892/3
     - name: 'Oracle JDK 12'

@@ -97,7 +97,7 @@
   </profiles>
 
   <properties>
-    <jackson.version>2.9.9</jackson.version>
+    <jackson.version>2.9.9.1</jackson.version>
     <skip.tests>false</skip.tests>
     <dependency.skip>false</dependency.skip>
   </properties>

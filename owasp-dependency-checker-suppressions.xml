@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd">
-<suppress>
-   <notes><![CDATA[Until 2.9.9.1 or 2.9.10 is released ignore for now until this is resolved https://github.com/FasterXML/jackson-databind/issues/2341
-   and https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062
-   file name: jackson-databind-2.9.9.jar
-   ]]></notes>
-   <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
-   <cve>CVE-2019-12814</cve>
-</suppress>
+
 </suppressions>

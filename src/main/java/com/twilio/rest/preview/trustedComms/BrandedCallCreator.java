@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.serverless.v1.service.function;
+package com.twilio.rest.preview.trustedComms;
 
 import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;
@@ -22,45 +22,39 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class FunctionVersionCreator extends Creator<FunctionVersion> {
-    private final String pathServiceSid;
-    private final String pathFunctionSid;
-    private final String path;
-    private final FunctionVersion.Visibility visibility;
+public class BrandedCallCreator extends Creator<BrandedCall> {
+    private final String from;
+    private final String to;
+    private final String reason;
 
     /**
-     * Construct a new FunctionVersionCreator.
+     * Construct a new BrandedCallCreator.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathFunctionSid Function Sid.
-     * @param path The URL-friendly string by which this Function Version can be
-     *             referenced.
-     * @param visibility The access control which determines how the Function
-     *                   Version can be accessed.
+     * @param from Twilio number from which to brand the call
+     * @param to The terminating Phone Number
+     * @param reason The business reason for this phone call
      */
-    public FunctionVersionCreator(final String pathServiceSid,
-                                  final String pathFunctionSid,
-                                  final String path,
-                                  final FunctionVersion.Visibility visibility) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathFunctionSid = pathFunctionSid;
-        this.path = path;
-        this.visibility = visibility;
+    public BrandedCallCreator(final String from,
+                              final String to,
+                              final String reason) {
+        this.from = from;
+        this.to = to;
+        this.reason = reason;
     }
 
     /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Created FunctionVersion
+     * @return Created BrandedCall
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public FunctionVersion create(final TwilioRestClient client) {
+    public BrandedCall create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Functions/" + this.pathFunctionSid + "/Versions",
+            Domains.PREVIEW.toString(),
+            "/TrustedComms/Business/BrandedCalls",
             client.getRegion()
         );
 
@@ -68,7 +62,7 @@ public class FunctionVersionCreator extends Creator<FunctionVersion> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("FunctionVersion creation failed: Unable to connect to server");
+            throw new ApiConnectionException("BrandedCall creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -84,7 +78,7 @@ public class FunctionVersionCreator extends Creator<FunctionVersion> {
             );
         }
 
-        return FunctionVersion.fromJson(response.getStream(), client.getObjectMapper());
+        return BrandedCall.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -93,12 +87,16 @@ public class FunctionVersionCreator extends Creator<FunctionVersion> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (path != null) {
-            request.addPostParam("Path", path);
+        if (from != null) {
+            request.addPostParam("From", from);
         }
 
-        if (visibility != null) {
-            request.addPostParam("Visibility", visibility.toString());
+        if (to != null) {
+            request.addPostParam("To", to);
+        }
+
+        if (reason != null) {
+            request.addPostParam("Reason", reason);
         }
     }
 }

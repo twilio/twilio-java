@@ -25,7 +25,7 @@ public class RatePlanUpdater extends Updater<RatePlan> {
     /**
      * Construct a new RatePlanUpdater.
      *
-     * @param pathSid The sid
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public RatePlanUpdater(final String pathSid) {
         this.pathSid = pathSid;

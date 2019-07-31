@@ -164,4 +164,36 @@ public class VariableTest {
 
         Variable.updater("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
+
+    @Test
+    public void testDeleteRequest() {
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.DELETE,
+                                          Domains.SERVERLESS.toString(),
+                                          "/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables/ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
+
+        try {
+            Variable.deleter("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            fail("Expected TwilioException to be thrown for 500");
+        } catch (TwilioException e) {}
+    }
+
+    @Test
+    public void testDeleteResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("null", TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        Variable.deleter("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+    }
 }

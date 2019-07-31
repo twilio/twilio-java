@@ -42,7 +42,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CallSummary extends Resource {
-    private static final long serialVersionUID = 53516542498336L;
+    private static final long serialVersionUID = 89303228836856L;
 
     public enum CallType {
         CARRIER("carrier"),
@@ -249,6 +249,7 @@ public class CallSummary extends Resource {
     private final List<String> tags;
     private final URI url;
     private final Map<String, Object> attributes;
+    private final Map<String, Object> properties;
 
     @JsonCreator
     private CallSummary(@JsonProperty("account_sid")
@@ -290,7 +291,9 @@ public class CallSummary extends Resource {
                         @JsonProperty("url")
                         final URI url,
                         @JsonProperty("attributes")
-                        final Map<String, Object> attributes) {
+                        final Map<String, Object> attributes,
+                        @JsonProperty("properties")
+                        final Map<String, Object> properties) {
         this.accountSid = accountSid;
         this.callSid = callSid;
         this.callType = callType;
@@ -311,6 +314,7 @@ public class CallSummary extends Resource {
         this.tags = tags;
         this.url = url;
         this.attributes = attributes;
+        this.properties = properties;
     }
 
     /**
@@ -493,6 +497,15 @@ public class CallSummary extends Resource {
         return this.attributes;
     }
 
+    /**
+     * Returns The The properties.
+     *
+     * @return The properties
+     */
+    public final Map<String, Object> getProperties() {
+        return this.properties;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -524,7 +537,8 @@ public class CallSummary extends Resource {
                Objects.equals(sipEdge, other.sipEdge) &&
                Objects.equals(tags, other.tags) &&
                Objects.equals(url, other.url) &&
-               Objects.equals(attributes, other.attributes);
+               Objects.equals(attributes, other.attributes) &&
+               Objects.equals(properties, other.properties);
     }
 
     @Override
@@ -548,7 +562,8 @@ public class CallSummary extends Resource {
                             sipEdge,
                             tags,
                             url,
-                            attributes);
+                            attributes,
+                            properties);
     }
 
     @Override
@@ -574,6 +589,7 @@ public class CallSummary extends Resource {
                           .add("tags", tags)
                           .add("url", url)
                           .add("attributes", attributes)
+                          .add("properties", properties)
                           .toString();
     }
 }

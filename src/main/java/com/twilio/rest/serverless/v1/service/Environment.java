@@ -76,6 +76,18 @@ public class Environment extends Resource {
     }
 
     /**
+     * Create a EnvironmentDeleter to execute delete.
+     *
+     * @param pathServiceSid Service Sid.
+     * @param pathSid Environment Sid.
+     * @return EnvironmentDeleter capable of executing the delete
+     */
+    public static EnvironmentDeleter deleter(final String pathServiceSid,
+                                             final String pathSid) {
+        return new EnvironmentDeleter(pathServiceSid, pathSid);
+    }
+
+    /**
      * Converts a JSON String into a Environment object using the provided
      * ObjectMapper.
      *

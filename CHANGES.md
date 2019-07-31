@@ -1,6 +1,21 @@
 twilio-java changelog
 =====================
 
+[2019-07-31] Version 7.41.0
+----------------------------
+**Library**
+- [PR #473](https://github.com/twilio/twilio-java/pull/473): Security vulnerability fix by updating jackson-databind version to 2.9.9.1. Thanks to [@krantitalluri](https://github.com/krantitalluri)!
+
+**Insights**
+- Added `properties` to summary.
+
+**Preview**
+- Added endpoint to brand a call without initiating it, so it can be initiated manually by the Customer
+
+**Twiml**
+- Update `<Conference>` recording events **(breaking change)**
+
+
 [2019-07-10] Version 7.40.1
 ----------------------------
 **Library**

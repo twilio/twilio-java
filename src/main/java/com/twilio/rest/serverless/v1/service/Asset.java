@@ -64,6 +64,18 @@ public class Asset extends Resource {
     }
 
     /**
+     * Create a AssetDeleter to execute delete.
+     *
+     * @param pathServiceSid Service Sid.
+     * @param pathSid Asset Sid.
+     * @return AssetDeleter capable of executing the delete
+     */
+    public static AssetDeleter deleter(final String pathServiceSid,
+                                       final String pathSid) {
+        return new AssetDeleter(pathServiceSid, pathSid);
+    }
+
+    /**
      * Create a AssetCreator to execute create.
      *
      * @param pathServiceSid Service Sid.

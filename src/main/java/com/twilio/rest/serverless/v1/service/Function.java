@@ -64,6 +64,18 @@ public class Function extends Resource {
     }
 
     /**
+     * Create a FunctionDeleter to execute delete.
+     *
+     * @param pathServiceSid Service Sid.
+     * @param pathSid Function Sid.
+     * @return FunctionDeleter capable of executing the delete
+     */
+    public static FunctionDeleter deleter(final String pathServiceSid,
+                                          final String pathSid) {
+        return new FunctionDeleter(pathServiceSid, pathSid);
+    }
+
+    /**
      * Create a FunctionCreator to execute create.
      *
      * @param pathServiceSid Service Sid.

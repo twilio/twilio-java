@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.wireless.v1;
+package com.twilio.rest.serverless.v1.service;
 
-import com.twilio.base.Fetcher;
+import com.twilio.base.Deleter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -17,38 +17,46 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class RatePlanFetcher extends Fetcher<RatePlan> {
+/**
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
+ */
+public class AssetDeleter extends Deleter<Asset> {
+    private final String pathServiceSid;
     private final String pathSid;
 
     /**
-     * Construct a new RatePlanFetcher.
+     * Construct a new AssetDeleter.
      *
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathServiceSid Service Sid.
+     * @param pathSid Asset Sid.
      */
-    public RatePlanFetcher(final String pathSid) {
+    public AssetDeleter(final String pathServiceSid,
+                        final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch.
+     * Make the request to the Twilio API to perform the delete.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched RatePlan
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public RatePlan fetch(final TwilioRestClient client) {
+    public boolean delete(final TwilioRestClient client) {
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.WIRELESS.toString(),
-            "/v1/RatePlans/" + this.pathSid + "",
+            HttpMethod.DELETE,
+            Domains.SERVERLESS.toString(),
+            "/v1/Services/" + this.pathServiceSid + "/Assets/" + this.pathSid + "",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("RatePlan fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("Asset delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -64,6 +72,6 @@ public class RatePlanFetcher extends Fetcher<RatePlan> {
             );
         }
 
-        return RatePlan.fromJson(response.getStream(), client.getObjectMapper());
+        return response.getStatusCode() == 204;
     }
 }

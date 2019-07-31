@@ -49,7 +49,7 @@ public class RatePlan extends Resource {
     /**
      * Create a RatePlanFetcher to execute fetch.
      *
-     * @param pathSid The sid
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return RatePlanFetcher capable of executing the fetch
      */
     public static RatePlanFetcher fetcher(final String pathSid) {
@@ -68,7 +68,7 @@ public class RatePlan extends Resource {
     /**
      * Create a RatePlanUpdater to execute update.
      *
-     * @param pathSid The sid
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return RatePlanUpdater capable of executing the update
      */
     public static RatePlanUpdater updater(final String pathSid) {
@@ -78,7 +78,7 @@ public class RatePlan extends Resource {
     /**
      * Create a RatePlanDeleter to execute delete.
      *
-     * @param pathSid The sid
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return RatePlanDeleter capable of executing the delete
      */
     public static RatePlanDeleter deleter(final String pathSid) {
@@ -242,9 +242,9 @@ public class RatePlan extends Resource {
 
     /**
      * Returns The The model by which to meter data usage, in accordance with the
-     * two available data metering models..
+     * available data metering models..
      *
-     * @return The model by which to meter data usage, in accordance with the two
+     * @return The model by which to meter data usage, in accordance with the
      *         available data metering models.
      */
     public final String getDataMetering() {
@@ -253,10 +253,10 @@ public class RatePlan extends Resource {
 
     /**
      * Returns The Network-enforced limit specifying the total Megabytes of data
-     * usage allowed during one month on the home network..
+     * usage allowed during one month on the 'home' (T-Mobile USA) network..
      *
      * @return Network-enforced limit specifying the total Megabytes of data usage
-     *         allowed during one month on the home network.
+     *         allowed during one month on the 'home' (T-Mobile USA) network.
      */
     public final Integer getDataLimit() {
         return this.dataLimit;
@@ -284,40 +284,48 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The Defines whether SIMs can roam onto other networks in the SIM's
-     * home country..
+     * Returns The Defines whether SIMs can roam onto networks other than the 'home'
+     * (T-Mobile USA) network in the United States..
      *
-     * @return Defines whether SIMs can roam onto other networks in the SIM's home
-     *         country.
+     * @return Defines whether SIMs can roam onto networks other than the 'home'
+     *         (T-Mobile USA) network in the United States.
      */
     public final Boolean getNationalRoamingEnabled() {
         return this.nationalRoamingEnabled;
     }
 
     /**
-     * Returns The Network-enforced limit specifying the total Megabytes of national
-     * roaming data usage allowed during one month..
+     * Returns The Network-enforced limit specifying the total Megabytes of
+     * 'national roaming' data usage allowed during one month on networks in the
+     * United States other than the 'home' (T-Mobile USA) network..
      *
-     * @return Network-enforced limit specifying the total Megabytes of national
-     *         roaming data usage allowed during one month.
+     * @return Network-enforced limit specifying the total Megabytes of 'national
+     *         roaming' data usage allowed during one month on networks in the
+     *         United States other than the 'home' (T-Mobile USA) network.
      */
     public final Integer getNationalRoamingDataLimit() {
         return this.nationalRoamingDataLimit;
     }
 
     /**
-     * Returns The The international_roaming.
+     * Returns The Defines whether SIMs are capable of using GPRS/3G/4G/LTE data
+     * connectivity and messaging outside of the United States..
      *
-     * @return The international_roaming
+     * @return Defines whether SIMs are capable of using GPRS/3G/4G/LTE data
+     *         connectivity and messaging outside of the United States.
      */
     public final List<String> getInternationalRoaming() {
         return this.internationalRoaming;
     }
 
     /**
-     * Returns The The international_roaming_data_limit.
+     * Returns The Network-enforced limit specifying the total Megabytes of
+     * 'international roaming' (non-US) data usage (download and upload combined)
+     * allowed during one month..
      *
-     * @return The international_roaming_data_limit
+     * @return Network-enforced limit specifying the total Megabytes of
+     *         'international roaming' (non-US) data usage (download and upload
+     *         combined) allowed during one month.
      */
     public final Integer getInternationalRoamingDataLimit() {
         return this.internationalRoamingDataLimit;

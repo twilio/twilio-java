@@ -131,4 +131,36 @@ public class EnvironmentTest {
 
         Environment.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "unique_name").create();
     }
+
+    @Test
+    public void testDeleteRequest() {
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.DELETE,
+                                          Domains.SERVERLESS.toString(),
+                                          "/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
+
+        try {
+            Environment.deleter("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            fail("Expected TwilioException to be thrown for 500");
+        } catch (TwilioException e) {}
+    }
+
+    @Test
+    public void testDeleteResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("null", TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        Environment.deleter("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+    }
 }

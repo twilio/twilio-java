@@ -15,7 +15,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
@@ -41,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AssetVersion extends Resource {
-    private static final long serialVersionUID = 67271772185302L;
+    private static final long serialVersionUID = 182506144428248L;
 
     public enum Visibility {
         PUBLIC("public"),
@@ -96,24 +95,6 @@ public class AssetVersion extends Resource {
     }
 
     /**
-     * Create a AssetVersionCreator to execute create.
-     *
-     * @param pathServiceSid Service Sid.
-     * @param pathAssetSid Asset Sid.
-     * @param path The URL-friendly string by which this Asset Version can be
-     *             referenced.
-     * @param visibility The access control which determines how the Asset Version
-     *                   can be accessed.
-     * @return AssetVersionCreator capable of executing the create
-     */
-    public static AssetVersionCreator creator(final String pathServiceSid,
-                                              final String pathAssetSid,
-                                              final String path,
-                                              final AssetVersion.Visibility visibility) {
-        return new AssetVersionCreator(pathServiceSid, pathAssetSid, path, visibility);
-    }
-
-    /**
      * Converts a JSON String into a AssetVersion object using the provided
      * ObjectMapper.
      *
@@ -157,7 +138,6 @@ public class AssetVersion extends Resource {
     private final String assetSid;
     private final String path;
     private final AssetVersion.Visibility visibility;
-    private final Map<String, Object> preSignedUploadUrl;
     private final DateTime dateCreated;
     private final URI url;
 
@@ -174,8 +154,6 @@ public class AssetVersion extends Resource {
                          final String path,
                          @JsonProperty("visibility")
                          final AssetVersion.Visibility visibility,
-                         @JsonProperty("pre_signed_upload_url")
-                         final Map<String, Object> preSignedUploadUrl,
                          @JsonProperty("date_created")
                          final String dateCreated,
                          @JsonProperty("url")
@@ -186,7 +164,6 @@ public class AssetVersion extends Resource {
         this.assetSid = assetSid;
         this.path = path;
         this.visibility = visibility;
-        this.preSignedUploadUrl = preSignedUploadUrl;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.url = url;
     }
@@ -250,17 +227,6 @@ public class AssetVersion extends Resource {
     }
 
     /**
-     * Returns The The object which provides the details required for uploading this
-     * Asset Version..
-     *
-     * @return The object which provides the details required for uploading this
-     *         Asset Version.
-     */
-    public final Map<String, Object> getPreSignedUploadUrl() {
-        return this.preSignedUploadUrl;
-    }
-
-    /**
      * Returns The The date that this Asset Version was created..
      *
      * @return The date that this Asset Version was created.
@@ -296,7 +262,6 @@ public class AssetVersion extends Resource {
                Objects.equals(assetSid, other.assetSid) &&
                Objects.equals(path, other.path) &&
                Objects.equals(visibility, other.visibility) &&
-               Objects.equals(preSignedUploadUrl, other.preSignedUploadUrl) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(url, other.url);
     }
@@ -309,7 +274,6 @@ public class AssetVersion extends Resource {
                             assetSid,
                             path,
                             visibility,
-                            preSignedUploadUrl,
                             dateCreated,
                             url);
     }
@@ -323,7 +287,6 @@ public class AssetVersion extends Resource {
                           .add("assetSid", assetSid)
                           .add("path", path)
                           .add("visibility", visibility)
-                          .add("preSignedUploadUrl", preSignedUploadUrl)
                           .add("dateCreated", dateCreated)
                           .add("url", url)
                           .toString();

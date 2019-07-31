@@ -15,7 +15,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
@@ -41,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FunctionVersion extends Resource {
-    private static final long serialVersionUID = 44094398576696L;
+    private static final long serialVersionUID = 219697752660692L;
 
     public enum Visibility {
         PUBLIC("public"),
@@ -96,24 +95,6 @@ public class FunctionVersion extends Resource {
     }
 
     /**
-     * Create a FunctionVersionCreator to execute create.
-     *
-     * @param pathServiceSid Service Sid.
-     * @param pathFunctionSid Function Sid.
-     * @param path The URL-friendly string by which this Function Version can be
-     *             referenced.
-     * @param visibility The access control which determines how the Function
-     *                   Version can be accessed.
-     * @return FunctionVersionCreator capable of executing the create
-     */
-    public static FunctionVersionCreator creator(final String pathServiceSid,
-                                                 final String pathFunctionSid,
-                                                 final String path,
-                                                 final FunctionVersion.Visibility visibility) {
-        return new FunctionVersionCreator(pathServiceSid, pathFunctionSid, path, visibility);
-    }
-
-    /**
      * Converts a JSON String into a FunctionVersion object using the provided
      * ObjectMapper.
      *
@@ -156,7 +137,6 @@ public class FunctionVersion extends Resource {
     private final String serviceSid;
     private final String functionSid;
     private final String path;
-    private final Map<String, Object> preSignedUploadUrl;
     private final FunctionVersion.Visibility visibility;
     private final DateTime dateCreated;
     private final URI url;
@@ -172,8 +152,6 @@ public class FunctionVersion extends Resource {
                             final String functionSid,
                             @JsonProperty("path")
                             final String path,
-                            @JsonProperty("pre_signed_upload_url")
-                            final Map<String, Object> preSignedUploadUrl,
                             @JsonProperty("visibility")
                             final FunctionVersion.Visibility visibility,
                             @JsonProperty("date_created")
@@ -185,7 +163,6 @@ public class FunctionVersion extends Resource {
         this.serviceSid = serviceSid;
         this.functionSid = functionSid;
         this.path = path;
-        this.preSignedUploadUrl = preSignedUploadUrl;
         this.visibility = visibility;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.url = url;
@@ -239,17 +216,6 @@ public class FunctionVersion extends Resource {
     }
 
     /**
-     * Returns The The object which provides the details required for uploading this
-     * Function Version..
-     *
-     * @return The object which provides the details required for uploading this
-     *         Function Version.
-     */
-    public final Map<String, Object> getPreSignedUploadUrl() {
-        return this.preSignedUploadUrl;
-    }
-
-    /**
      * Returns The The access control which determines how the Function Version can
      * be accessed..
      *
@@ -295,7 +261,6 @@ public class FunctionVersion extends Resource {
                Objects.equals(serviceSid, other.serviceSid) &&
                Objects.equals(functionSid, other.functionSid) &&
                Objects.equals(path, other.path) &&
-               Objects.equals(preSignedUploadUrl, other.preSignedUploadUrl) &&
                Objects.equals(visibility, other.visibility) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(url, other.url);
@@ -308,7 +273,6 @@ public class FunctionVersion extends Resource {
                             serviceSid,
                             functionSid,
                             path,
-                            preSignedUploadUrl,
                             visibility,
                             dateCreated,
                             url);
@@ -322,7 +286,6 @@ public class FunctionVersion extends Resource {
                           .add("serviceSid", serviceSid)
                           .add("functionSid", functionSid)
                           .add("path", path)
-                          .add("preSignedUploadUrl", preSignedUploadUrl)
                           .add("visibility", visibility)
                           .add("dateCreated", dateCreated)
                           .add("url", url)

@@ -109,10 +109,7 @@ public class Conference extends TwiML {
     }
 
     public enum RecordingEvent {
-        STARTED("started"),
-        STOPPED("stopped"),
-        PAUSED("paused"),
-        RESUMED("resumed"),
+        IN_PROGRESS("in-progress"),
         COMPLETED("completed"),
         ABSENT("absent");
 

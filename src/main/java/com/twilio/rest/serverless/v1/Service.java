@@ -61,6 +61,16 @@ public class Service extends Resource {
     }
 
     /**
+     * Create a ServiceDeleter to execute delete.
+     *
+     * @param pathSid Serverless Service Sid or unique name.
+     * @return ServiceDeleter capable of executing the delete
+     */
+    public static ServiceDeleter deleter(final String pathSid) {
+        return new ServiceDeleter(pathSid);
+    }
+
+    /**
      * Create a ServiceCreator to execute create.
      *
      * @param uniqueName A unique, addressable name of this Service.

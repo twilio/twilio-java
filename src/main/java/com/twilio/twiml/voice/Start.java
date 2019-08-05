@@ -16,24 +16,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * TwiML wrapper for {@code <Connect>}
+ * TwiML wrapper for {@code <Start>}
  */
-public class Connect extends TwiML {
+public class Start extends TwiML {
     private final URI action;
     private final HttpMethod method;
 
     /**
      * For XML Serialization/Deserialization
      */
-    private Connect() {
+    private Start() {
         this(new Builder());
     }
 
     /**
-     * Create a new {@code <Connect>} element
+     * Create a new {@code <Start>} element
      */
-    private Connect(Builder b) {
-        super("Connect", b);
+    private Start(Builder b) {
+        super("Start", b);
         this.action = b.action;
         this.method = b.method;
     }
@@ -76,7 +76,7 @@ public class Connect extends TwiML {
     }
 
     /**
-     * Create a new {@code <Connect>} element
+     * Create a new {@code <Start>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
         private URI action;
@@ -107,22 +107,6 @@ public class Connect extends TwiML {
         }
 
         /**
-         * Add a child {@code <Room>} element
-         */
-        public Builder room(Room room) {
-            this.children.add(room);
-            return this;
-        }
-
-        /**
-         * Add a child {@code <Autopilot>} element
-         */
-        public Builder autopilot(Autopilot autopilot) {
-            this.children.add(autopilot);
-            return this;
-        }
-
-        /**
          * Add a child {@code <Stream>} element
          */
         public Builder stream(Stream stream) {
@@ -131,10 +115,18 @@ public class Connect extends TwiML {
         }
 
         /**
-         * Create and return resulting {@code <Connect>} element
+         * Add a child {@code <Siprec>} element
          */
-        public Connect build() {
-            return new Connect(this);
+        public Builder siprec(Siprec siprec) {
+            this.children.add(siprec);
+            return this;
+        }
+
+        /**
+         * Create and return resulting {@code <Start>} element
+         */
+        public Start build() {
+            return new Start(this);
         }
     }
 }

@@ -7,64 +7,46 @@
 
 package com.twilio.twiml.voice;
 
-import com.twilio.http.HttpMethod;
 import com.twilio.twiml.GenericNode;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.net.URI;
-
 /**
- * Test class for {@link Connect}
+ * Test class for {@link Stop}
  */
-public class ConnectTest {
+public class StopTest {
     @Test
     public void testEmptyElement() {
-        Connect elem = new Connect.Builder().build();
+        Stop elem = new Stop.Builder().build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Connect/>",
+            "<Stop/>",
             elem.toXml()
         );
     }
 
     @Test
     public void testEmptyElementUrl() {
-        Connect elem = new Connect.Builder().build();
+        Stop elem = new Stop.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CConnect%2F%3E", elem.toUrl());
-    }
-
-    @Test
-    public void testElementWithParams() {
-        Connect elem = new Connect.Builder().action(URI.create("https://example.com")).method(HttpMethod.GET).build();
-
-        Assert.assertEquals(
-            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Connect action=\"https://example.com\" method=\"GET\"/>",
-            elem.toXml()
-        );
+        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CStop%2F%3E", elem.toUrl());
     }
 
     @Test
     public void testElementWithExtraAttributes() {
-        Connect elem = new Connect.Builder().option("foo", "bar").option("a", "b").build();
+        Stop elem = new Stop.Builder().option("foo", "bar").option("a", "b").build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Connect a=\"b\" foo=\"bar\"/>",
+            "<Stop a=\"b\" foo=\"bar\"/>",
             elem.toXml()
         );
     }
 
     @Test
     public void testElementWithChildren() {
-        Connect.Builder builder = new Connect.Builder();
-
-        builder.room(new Room.Builder("name").participantIdentity("participant_identity").build());
-
-        builder.autopilot(new Autopilot.Builder("name").build());
+        Stop.Builder builder = new Stop.Builder();
 
         builder.stream(new Stream.Builder()
                     .name("name")
@@ -73,32 +55,33 @@ public class ConnectTest {
                     .track(Stream.Track.INBOUND_TRACK)
                     .build());
 
-        Connect elem = builder.build();
+        builder.siprec(new Siprec.Builder().name("name").connectorName("connector_name").build());
+
+        Stop elem = builder.build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Connect>" +
-                "<Room participantIdentity=\"participant_identity\">name</Room>" +
-                "<Autopilot>name</Autopilot>" +
+            "<Stop>" +
                 "<Stream connectorName=\"connector_name\" name=\"name\" track=\"inbound_track\" url=\"url\"/>" +
-            "</Connect>",
+                "<Siprec connectorName=\"connector_name\" name=\"name\"/>" +
+            "</Stop>",
             elem.toXml()
         );
     }
 
     @Test
     public void testElementWithTextNode() {
-        Connect.Builder builder = new Connect.Builder();
+        Stop.Builder builder = new Stop.Builder();
 
         builder.addText("Hey no tags!");
 
-        Connect elem = builder.build();
+        Stop elem = builder.build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Connect>" +
+            "<Stop>" +
             "Hey no tags!" +
-            "</Connect>",
+            "</Stop>",
             elem.toXml()
         );
     }
@@ -108,7 +91,7 @@ public class ConnectTest {
         GenericNode.Builder child = new GenericNode.Builder("Child");
         child.addText("content");
 
-        Connect.Builder builder = new Connect.Builder();
+        Stop.Builder builder = new Stop.Builder();
 
         builder.addText("before");
         builder.addChild(child.build());
@@ -116,11 +99,11 @@ public class ConnectTest {
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Connect>" +
+            "<Stop>" +
             "before" +
             "<Child>content</Child>" +
             "after" +
-            "</Connect>",
+            "</Stop>",
             builder.build().toXml()
         );
     }
@@ -131,16 +114,16 @@ public class ConnectTest {
         genericBuilder.addText("Some text");
         GenericNode node = genericBuilder.build();
 
-        Connect.Builder builder = new Connect.Builder();
-        Connect elem = builder.addChild(node).build();
+        Stop.Builder builder = new Stop.Builder();
+        Stop elem = builder.addChild(node).build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Connect>" +
+            "<Stop>" +
             "<genericTag>" +
             "Some text" +
             "</genericTag>" +
-            "</Connect>",
+            "</Stop>",
             elem.toXml()
         );
     }
@@ -150,16 +133,16 @@ public class ConnectTest {
         GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
         GenericNode node = genericBuilder.option("key", "value").addText("someText").build();
 
-        Connect.Builder builder = new Connect.Builder();
-        Connect elem = builder.addChild(node).build();
+        Stop.Builder builder = new Stop.Builder();
+        Stop elem = builder.addChild(node).build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Connect>" +
+            "<Stop>" +
             "<genericTag key=\"value\">" +
             "someText" +
             "</genericTag>" +
-            "</Connect>",
+            "</Stop>",
             elem.toXml()
         );
     }

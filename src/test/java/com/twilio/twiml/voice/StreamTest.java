@@ -7,98 +7,89 @@
 
 package com.twilio.twiml.voice;
 
-import com.twilio.http.HttpMethod;
 import com.twilio.twiml.GenericNode;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.net.URI;
-
 /**
- * Test class for {@link Connect}
+ * Test class for {@link Stream}
  */
-public class ConnectTest {
+public class StreamTest {
     @Test
     public void testEmptyElement() {
-        Connect elem = new Connect.Builder().build();
+        Stream elem = new Stream.Builder().build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Connect/>",
+            "<Stream/>",
             elem.toXml()
         );
     }
 
     @Test
     public void testEmptyElementUrl() {
-        Connect elem = new Connect.Builder().build();
+        Stream elem = new Stream.Builder().build();
 
-        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CConnect%2F%3E", elem.toUrl());
+        Assert.assertEquals("%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CStream%2F%3E", elem.toUrl());
     }
 
     @Test
     public void testElementWithParams() {
-        Connect elem = new Connect.Builder().action(URI.create("https://example.com")).method(HttpMethod.GET).build();
+        Stream elem = new Stream.Builder()
+            .name("name")
+            .connectorName("connector_name")
+            .url("url")
+            .track(Stream.Track.INBOUND_TRACK)
+            .build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Connect action=\"https://example.com\" method=\"GET\"/>",
+            "<Stream connectorName=\"connector_name\" name=\"name\" track=\"inbound_track\" url=\"url\"/>",
             elem.toXml()
         );
     }
 
     @Test
     public void testElementWithExtraAttributes() {
-        Connect elem = new Connect.Builder().option("foo", "bar").option("a", "b").build();
+        Stream elem = new Stream.Builder().option("foo", "bar").option("a", "b").build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Connect a=\"b\" foo=\"bar\"/>",
+            "<Stream a=\"b\" foo=\"bar\"/>",
             elem.toXml()
         );
     }
 
     @Test
     public void testElementWithChildren() {
-        Connect.Builder builder = new Connect.Builder();
+        Stream.Builder builder = new Stream.Builder();
 
-        builder.room(new Room.Builder("name").participantIdentity("participant_identity").build());
+        builder.parameter(new Parameter.Builder().name("name").value("value").build());
 
-        builder.autopilot(new Autopilot.Builder("name").build());
-
-        builder.stream(new Stream.Builder()
-                    .name("name")
-                    .connectorName("connector_name")
-                    .url("url")
-                    .track(Stream.Track.INBOUND_TRACK)
-                    .build());
-
-        Connect elem = builder.build();
+        Stream elem = builder.build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Connect>" +
-                "<Room participantIdentity=\"participant_identity\">name</Room>" +
-                "<Autopilot>name</Autopilot>" +
-                "<Stream connectorName=\"connector_name\" name=\"name\" track=\"inbound_track\" url=\"url\"/>" +
-            "</Connect>",
+            "<Stream>" +
+                "<Parameter name=\"name\" value=\"value\"/>" +
+            "</Stream>",
             elem.toXml()
         );
     }
 
     @Test
     public void testElementWithTextNode() {
-        Connect.Builder builder = new Connect.Builder();
+        Stream.Builder builder = new Stream.Builder();
 
         builder.addText("Hey no tags!");
 
-        Connect elem = builder.build();
+        Stream elem = builder.build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Connect>" +
+            "<Stream>" +
             "Hey no tags!" +
-            "</Connect>",
+            "</Stream>",
             elem.toXml()
         );
     }
@@ -108,7 +99,7 @@ public class ConnectTest {
         GenericNode.Builder child = new GenericNode.Builder("Child");
         child.addText("content");
 
-        Connect.Builder builder = new Connect.Builder();
+        Stream.Builder builder = new Stream.Builder();
 
         builder.addText("before");
         builder.addChild(child.build());
@@ -116,11 +107,11 @@ public class ConnectTest {
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Connect>" +
+            "<Stream>" +
             "before" +
             "<Child>content</Child>" +
             "after" +
-            "</Connect>",
+            "</Stream>",
             builder.build().toXml()
         );
     }
@@ -131,16 +122,16 @@ public class ConnectTest {
         genericBuilder.addText("Some text");
         GenericNode node = genericBuilder.build();
 
-        Connect.Builder builder = new Connect.Builder();
-        Connect elem = builder.addChild(node).build();
+        Stream.Builder builder = new Stream.Builder();
+        Stream elem = builder.addChild(node).build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Connect>" +
+            "<Stream>" +
             "<genericTag>" +
             "Some text" +
             "</genericTag>" +
-            "</Connect>",
+            "</Stream>",
             elem.toXml()
         );
     }
@@ -150,16 +141,16 @@ public class ConnectTest {
         GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
         GenericNode node = genericBuilder.option("key", "value").addText("someText").build();
 
-        Connect.Builder builder = new Connect.Builder();
-        Connect elem = builder.addChild(node).build();
+        Stream.Builder builder = new Stream.Builder();
+        Stream elem = builder.addChild(node).build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Connect>" +
+            "<Stream>" +
             "<genericTag key=\"value\">" +
             "someText" +
             "</genericTag>" +
-            "</Connect>",
+            "</Stream>",
             elem.toXml()
         );
     }

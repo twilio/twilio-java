@@ -1,6 +1,20 @@
 twilio-java changelog
 =====================
 
+[2019-08-05] Version 7.41.1
+----------------------------
+**Library**
+- [PR #472](https://github.com/twilio/twilio-java/pull/472): add [Sean Sullivan] to authors document. Thanks to [@sullis](https://github.com/sullis)!
+
+**Preview**
+- Added support for the header `Twilio-Sandbox-Mode` to mock all Voice dependencies
+
+**Twiml**
+- Add support for `<Siprec>` noun
+- Add support for `<Stream>` noun
+- Create verbs `<Start>` and `<Stop>`
+
+
 [2019-07-31] Version 7.41.0
 ----------------------------
 **Library**

@@ -26,6 +26,8 @@ import com.twilio.twiml.voice.Redirect;
 import com.twilio.twiml.voice.Reject;
 import com.twilio.twiml.voice.Say;
 import com.twilio.twiml.voice.Sms;
+import com.twilio.twiml.voice.Start;
+import com.twilio.twiml.voice.Stop;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -185,6 +187,10 @@ public class VoiceResponseTest {
                     .attempts(Promoter.listOfOne(1))
                     .build());
 
+        builder.start(new Start.Builder().action(URI.create("https://example.com")).method(HttpMethod.GET).build());
+
+        builder.stop(new Stop.Builder().build());
+
         VoiceResponse elem = builder.build();
 
         Assert.assertEquals(
@@ -207,6 +213,8 @@ public class VoiceResponseTest {
                 "<Sms action=\"https://example.com\" from=\"+15017122661\" method=\"GET\" statusCallback=\"https://example.com\" to=\"+15558675310\">message</Sms>" +
                 "<Pay action=\"https://example.com\" chargeAmount=\"charge_amount\" currency=\"currency\" description=\"description\" input=\"dtmf\" language=\"de-DE\" maxAttempts=\"1\" paymentConnector=\"payment_connector\" postalCode=\"postal_code\" securityCode=\"true\" statusCallback=\"https://example.com\" statusCallbackMethod=\"GET\" timeout=\"1\" tokenType=\"one-time\" validCardTypes=\"visa\"/>" +
                 "<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\"/>" +
+                "<Start action=\"https://example.com\" method=\"GET\"/>" +
+                "<Stop/>" +
             "</Response>",
             elem.toXml()
         );

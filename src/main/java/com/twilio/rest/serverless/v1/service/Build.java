@@ -93,6 +93,18 @@ public class Build extends Resource {
     }
 
     /**
+     * Create a BuildDeleter to execute delete.
+     *
+     * @param pathServiceSid Service Sid.
+     * @param pathSid Build Sid.
+     * @return BuildDeleter capable of executing the delete
+     */
+    public static BuildDeleter deleter(final String pathServiceSid,
+                                       final String pathSid) {
+        return new BuildDeleter(pathServiceSid, pathSid);
+    }
+
+    /**
      * Create a BuildCreator to execute create.
      *
      * @param pathServiceSid Service Sid.

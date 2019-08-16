@@ -15,7 +15,7 @@ public enum Domains {
     CHAT("chat"),
     CONVERSATIONS("conversations"),
     FAX("fax"),
-    FLEXAPI("flex"),
+    FLEXAPI("flex-api"),
     INSIGHTS("insights"),
     IPMESSAGING("chat"),
     LOOKUPS("lookups"),

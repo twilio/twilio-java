@@ -33,7 +33,7 @@ Use the following dependency in your project to grab via Maven:
 
 or Gradle:
 ```groovy
-compile "com.twilio.sdk:twilio:7.X.X"
+implementation "com.twilio.sdk:twilio:7.X.X"
 ````
 
 If you want to compile it yourself, here's how:

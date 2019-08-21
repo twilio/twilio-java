@@ -37,7 +37,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Configuration extends Resource {
-    private static final long serialVersionUID = 182726752735342L;
+    private static final long serialVersionUID = 139572178793473L;
 
     public enum Status {
         OK("ok"),
@@ -161,6 +161,7 @@ public class Configuration extends Resource {
     private final Boolean pluginServiceEnabled;
     private final Map<String, Object> pluginServiceAttributes;
     private final List<Map<String, Object>> integrations;
+    private final Map<String, Object> outboundCallFlows;
     private final URI url;
 
     @JsonCreator
@@ -226,6 +227,8 @@ public class Configuration extends Resource {
                           final Map<String, Object> pluginServiceAttributes,
                           @JsonProperty("integrations")
                           final List<Map<String, Object>> integrations,
+                          @JsonProperty("outbound_call_flows")
+                          final Map<String, Object> outboundCallFlows,
                           @JsonProperty("url")
                           final URI url) {
         this.accountSid = accountSid;
@@ -259,6 +262,7 @@ public class Configuration extends Resource {
         this.pluginServiceEnabled = pluginServiceEnabled;
         this.pluginServiceAttributes = pluginServiceAttributes;
         this.integrations = integrations;
+        this.outboundCallFlows = outboundCallFlows;
         this.url = url;
     }
 
@@ -547,6 +551,15 @@ public class Configuration extends Resource {
     }
 
     /**
+     * Returns The Outbound call flows Attributes.
+     *
+     * @return Outbound call flows Attributes
+     */
+    public final Map<String, Object> getOutboundCallFlows() {
+        return this.outboundCallFlows;
+    }
+
+    /**
      * Returns The The URL for this resource.
      *
      * @return The URL for this resource
@@ -598,6 +611,7 @@ public class Configuration extends Resource {
                Objects.equals(pluginServiceEnabled, other.pluginServiceEnabled) &&
                Objects.equals(pluginServiceAttributes, other.pluginServiceAttributes) &&
                Objects.equals(integrations, other.integrations) &&
+               Objects.equals(outboundCallFlows, other.outboundCallFlows) &&
                Objects.equals(url, other.url);
     }
 
@@ -634,6 +648,7 @@ public class Configuration extends Resource {
                             pluginServiceEnabled,
                             pluginServiceAttributes,
                             integrations,
+                            outboundCallFlows,
                             url);
     }
 
@@ -671,6 +686,7 @@ public class Configuration extends Resource {
                           .add("pluginServiceEnabled", pluginServiceEnabled)
                           .add("pluginServiceAttributes", pluginServiceAttributes)
                           .add("integrations", integrations)
+                          .add("outboundCallFlows", outboundCallFlows)
                           .add("url", url)
                           .toString();
     }

@@ -32,6 +32,7 @@ public class ServiceUpdater extends Updater<Service> {
     private Boolean aclEnabled;
     private Boolean reachabilityDebouncingEnabled;
     private Integer reachabilityDebouncingWindow;
+    private Boolean webhooksFromRestEnabled;
 
     /**
      * Construct a new ServiceUpdater.
@@ -143,6 +144,20 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
+     * `true` or `false` - controls whether this instance fires webhooks when Sync
+     * objects are updated through REST. Defaults to false..
+     *
+     * @param webhooksFromRestEnabled true or false - controls whether this
+     *                                instance fires webhooks when Sync objects are
+     *                                updated through REST
+     * @return this
+     */
+    public ServiceUpdater setWebhooksFromRestEnabled(final Boolean webhooksFromRestEnabled) {
+        this.webhooksFromRestEnabled = webhooksFromRestEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -209,6 +224,10 @@ public class ServiceUpdater extends Updater<Service> {
 
         if (reachabilityDebouncingWindow != null) {
             request.addPostParam("ReachabilityDebouncingWindow", reachabilityDebouncingWindow.toString());
+        }
+
+        if (webhooksFromRestEnabled != null) {
+            request.addPostParam("WebhooksFromRestEnabled", webhooksFromRestEnabled.toString());
         }
     }
 }

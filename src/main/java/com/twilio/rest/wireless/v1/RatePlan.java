@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RatePlan extends Resource {
-    private static final long serialVersionUID = 106587229564985L;
+    private static final long serialVersionUID = 187833777753811L;
 
     /**
      * Create a RatePlanReader to execute read.

@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.autopilot.v1.assistant.fieldtype;
+package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -19,51 +19,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- */
-public class FieldValueReader extends Reader<FieldValue> {
-    private final String pathAssistantSid;
-    private final String pathFieldTypeSid;
-    private String language;
-
-    /**
-     * Construct a new FieldValueReader.
-     *
-     * @param pathAssistantSid The SID of the Assistant that is the parent of the
-     *                         FieldType associated with the resources to read
-     * @param pathFieldTypeSid The SID of the Field Type associated with the Field
-     *                         Value to read
-     */
-    public FieldValueReader(final String pathAssistantSid,
-                            final String pathFieldTypeSid) {
-        this.pathAssistantSid = pathAssistantSid;
-        this.pathFieldTypeSid = pathFieldTypeSid;
-    }
-
-    /**
-     * The [ISO
-     * language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) tag that specifies the language of the value. Currently supported tags: `en-US`.
-     *
-     * @param language The ISO language-country tag that identifies the language of
-     *                 the value
-     * @return this
-     */
-    public FieldValueReader setLanguage(final String language) {
-        this.language = language;
-        return this;
-    }
-
+public class ChannelReader extends Reader<Channel> {
     /**
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return FieldValue ResourceSet
+     * @return Channel ResourceSet
      */
     @Override
-    public ResourceSet<FieldValue> read(final TwilioRestClient client) {
+    public ResourceSet<Channel> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -71,15 +35,15 @@ public class FieldValueReader extends Reader<FieldValue> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return FieldValue ResourceSet
+     * @return Channel ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<FieldValue> firstPage(final TwilioRestClient client) {
+    public Page<Channel> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/FieldTypes/" + this.pathFieldTypeSid + "/FieldValues",
+            Domains.FLEXAPI.toString(),
+            "/v1/Channels",
             client.getRegion()
         );
 
@@ -92,11 +56,11 @@ public class FieldValueReader extends Reader<FieldValue> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return FieldValue ResourceSet
+     * @return Channel ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<FieldValue> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Channel> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -113,12 +77,12 @@ public class FieldValueReader extends Reader<FieldValue> {
      * @return Next Page
      */
     @Override
-    public Page<FieldValue> nextPage(final Page<FieldValue> page,
-                                     final TwilioRestClient client) {
+    public Page<Channel> nextPage(final Page<Channel> page,
+                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                Domains.AUTOPILOT.toString(),
+                Domains.FLEXAPI.toString(),
                 client.getRegion()
             )
         );
@@ -133,12 +97,12 @@ public class FieldValueReader extends Reader<FieldValue> {
      * @return Previous Page
      */
     @Override
-    public Page<FieldValue> previousPage(final Page<FieldValue> page,
-                                         final TwilioRestClient client) {
+    public Page<Channel> previousPage(final Page<Channel> page,
+                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(
-                Domains.AUTOPILOT.toString(),
+                Domains.FLEXAPI.toString(),
                 client.getRegion()
             )
         );
@@ -146,17 +110,17 @@ public class FieldValueReader extends Reader<FieldValue> {
     }
 
     /**
-     * Generate a Page of FieldValue Resources for a given request.
+     * Generate a Page of Channel Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<FieldValue> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Channel> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("FieldValue read failed: Unable to connect to server");
+            throw new ApiConnectionException("Channel read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -173,9 +137,9 @@ public class FieldValueReader extends Reader<FieldValue> {
         }
 
         return Page.fromJson(
-            "field_values",
+            "flex_chat_channels",
             response.getContent(),
-            FieldValue.class,
+            Channel.class,
             client.getObjectMapper()
         );
     }
@@ -186,10 +150,6 @@ public class FieldValueReader extends Reader<FieldValue> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (language != null) {
-            request.addQueryParam("Language", language);
-        }
-
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

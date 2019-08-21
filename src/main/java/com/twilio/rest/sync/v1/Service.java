@@ -38,7 +38,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 58048653691582L;
+    private static final long serialVersionUID = 2344628544363L;
 
     /**
      * Create a ServiceFetcher to execute fetch.
@@ -133,6 +133,7 @@ public class Service extends Resource {
     private final DateTime dateUpdated;
     private final URI url;
     private final URI webhookUrl;
+    private final Boolean webhooksFromRestEnabled;
     private final Boolean reachabilityWebhooksEnabled;
     private final Boolean aclEnabled;
     private final Boolean reachabilityDebouncingEnabled;
@@ -156,6 +157,8 @@ public class Service extends Resource {
                     final URI url,
                     @JsonProperty("webhook_url")
                     final URI webhookUrl,
+                    @JsonProperty("webhooks_from_rest_enabled")
+                    final Boolean webhooksFromRestEnabled,
                     @JsonProperty("reachability_webhooks_enabled")
                     final Boolean reachabilityWebhooksEnabled,
                     @JsonProperty("acl_enabled")
@@ -174,6 +177,7 @@ public class Service extends Resource {
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
         this.webhookUrl = webhookUrl;
+        this.webhooksFromRestEnabled = webhooksFromRestEnabled;
         this.reachabilityWebhooksEnabled = reachabilityWebhooksEnabled;
         this.aclEnabled = aclEnabled;
         this.reachabilityDebouncingEnabled = reachabilityDebouncingEnabled;
@@ -256,6 +260,17 @@ public class Service extends Resource {
 
     /**
      * Returns The true or false - controls whether this instance fires webhooks
+     * when Sync objects are updated through REST.
+     *
+     * @return true or false - controls whether this instance fires webhooks when
+     *         Sync objects are updated through REST
+     */
+    public final Boolean getWebhooksFromRestEnabled() {
+        return this.webhooksFromRestEnabled;
+    }
+
+    /**
+     * Returns The true or false - controls whether this instance fires webhooks
      * when client endpoints connect to Sync.
      *
      * @return true or false - controls whether this instance fires webhooks when
@@ -327,6 +342,7 @@ public class Service extends Resource {
                Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url) &&
                Objects.equals(webhookUrl, other.webhookUrl) &&
+               Objects.equals(webhooksFromRestEnabled, other.webhooksFromRestEnabled) &&
                Objects.equals(reachabilityWebhooksEnabled, other.reachabilityWebhooksEnabled) &&
                Objects.equals(aclEnabled, other.aclEnabled) &&
                Objects.equals(reachabilityDebouncingEnabled, other.reachabilityDebouncingEnabled) &&
@@ -344,6 +360,7 @@ public class Service extends Resource {
                             dateUpdated,
                             url,
                             webhookUrl,
+                            webhooksFromRestEnabled,
                             reachabilityWebhooksEnabled,
                             aclEnabled,
                             reachabilityDebouncingEnabled,
@@ -362,6 +379,7 @@ public class Service extends Resource {
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)
                           .add("webhookUrl", webhookUrl)
+                          .add("webhooksFromRestEnabled", webhooksFromRestEnabled)
                           .add("reachabilityWebhooksEnabled", reachabilityWebhooksEnabled)
                           .add("aclEnabled", aclEnabled)
                           .add("reachabilityDebouncingEnabled", reachabilityDebouncingEnabled)

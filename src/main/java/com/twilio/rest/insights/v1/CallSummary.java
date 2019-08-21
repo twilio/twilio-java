@@ -42,7 +42,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CallSummary extends Resource {
-    private static final long serialVersionUID = 89303228836856L;
+    private static final long serialVersionUID = 48207038577913L;
 
     public enum CallType {
         CARRIER("carrier"),
@@ -127,60 +127,6 @@ public class CallSummary extends Resource {
         }
     }
 
-    public enum Direction {
-        INBOUND("inbound"),
-        OUTBOUND_API("outbound_api"),
-        OUTBOUND_DIAL("outbound_dial"),
-        TRUNKING_ORIGINATING("trunking_originating"),
-        TRUNKING_TERMINATING("trunking_terminating");
-
-        private final String value;
-
-        private Direction(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        /**
-         * Generate a Direction from a string.
-         * @param value string value
-         * @return generated Direction
-         */
-        @JsonCreator
-        public static Direction forValue(final String value) {
-            return Promoter.enumFromString(value, Direction.values());
-        }
-    }
-
-    public enum DisconnectedBy {
-        CALLEE("callee"),
-        CALLER("caller"),
-        UNKNOWN("unknown");
-
-        private final String value;
-
-        private DisconnectedBy(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        /**
-         * Generate a DisconnectedBy from a string.
-         * @param value string value
-         * @return generated DisconnectedBy
-         */
-        @JsonCreator
-        public static DisconnectedBy forValue(final String value) {
-            return Promoter.enumFromString(value, DisconnectedBy.values());
-        }
-    }
-
     /**
      * Create a CallSummaryFetcher to execute fetch.
      *
@@ -234,8 +180,6 @@ public class CallSummary extends Resource {
     private final CallSummary.CallType callType;
     private final CallSummary.CallState callState;
     private final CallSummary.ProcessingState processingState;
-    private final CallSummary.Direction direction;
-    private final CallSummary.DisconnectedBy disconnectedBy;
     private final DateTime startTime;
     private final DateTime endTime;
     private final Integer duration;
@@ -262,10 +206,6 @@ public class CallSummary extends Resource {
                         final CallSummary.CallState callState,
                         @JsonProperty("processing_state")
                         final CallSummary.ProcessingState processingState,
-                        @JsonProperty("direction")
-                        final CallSummary.Direction direction,
-                        @JsonProperty("disconnected_by")
-                        final CallSummary.DisconnectedBy disconnectedBy,
                         @JsonProperty("start_time")
                         final String startTime,
                         @JsonProperty("end_time")
@@ -299,8 +239,6 @@ public class CallSummary extends Resource {
         this.callType = callType;
         this.callState = callState;
         this.processingState = processingState;
-        this.direction = direction;
-        this.disconnectedBy = disconnectedBy;
         this.startTime = DateConverter.iso8601DateTimeFromString(startTime);
         this.endTime = DateConverter.iso8601DateTimeFromString(endTime);
         this.duration = duration;
@@ -360,24 +298,6 @@ public class CallSummary extends Resource {
      */
     public final CallSummary.ProcessingState getProcessingState() {
         return this.processingState;
-    }
-
-    /**
-     * Returns The The direction.
-     *
-     * @return The direction
-     */
-    public final CallSummary.Direction getDirection() {
-        return this.direction;
-    }
-
-    /**
-     * Returns The The disconnected_by.
-     *
-     * @return The disconnected_by
-     */
-    public final CallSummary.DisconnectedBy getDisconnectedBy() {
-        return this.disconnectedBy;
     }
 
     /**
@@ -523,8 +443,6 @@ public class CallSummary extends Resource {
                Objects.equals(callType, other.callType) &&
                Objects.equals(callState, other.callState) &&
                Objects.equals(processingState, other.processingState) &&
-               Objects.equals(direction, other.direction) &&
-               Objects.equals(disconnectedBy, other.disconnectedBy) &&
                Objects.equals(startTime, other.startTime) &&
                Objects.equals(endTime, other.endTime) &&
                Objects.equals(duration, other.duration) &&
@@ -548,8 +466,6 @@ public class CallSummary extends Resource {
                             callType,
                             callState,
                             processingState,
-                            direction,
-                            disconnectedBy,
                             startTime,
                             endTime,
                             duration,
@@ -574,8 +490,6 @@ public class CallSummary extends Resource {
                           .add("callType", callType)
                           .add("callState", callState)
                           .add("processingState", processingState)
-                          .add("direction", direction)
-                          .add("disconnectedBy", disconnectedBy)
                           .add("startTime", startTime)
                           .add("endTime", endTime)
                           .add("duration", duration)

@@ -24,7 +24,9 @@ public class Prompt extends TwiML {
         EXPIRATION_DATE("expiration-date"),
         SECURITY_CODE("security-code"),
         POSTAL_CODE("postal-code"),
-        PAYMENT_PROCESSING("payment-processing");
+        PAYMENT_PROCESSING("payment-processing"),
+        BANK_ACCOUNT_NUMBER("bank-account-number"),
+        BANK_ROUTING_NUMBER("bank-routing-number");
 
         private final String value;
 
@@ -127,9 +129,9 @@ public class Prompt extends TwiML {
     }
 
     /**
-     * Name of the credit card data element
+     * Name of the payment source data element
      *
-     * @return Name of the credit card data element
+     * @return Name of the payment source data element
      */
     public Prompt.For getFor_() {
         return for_;
@@ -208,7 +210,7 @@ public class Prompt extends TwiML {
         private List<Integer> attempt;
 
         /**
-         * Name of the credit card data element
+         * Name of the payment source data element
          */
         public Builder for_(Prompt.For for_) {
             this.for_ = for_;

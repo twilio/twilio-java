@@ -36,8 +36,6 @@ public class MessageCreator extends Creator<Message> {
     private Integer validityPeriod;
     private Boolean forceDelivery;
     private Boolean smartEncoded;
-    private String interactiveData;
-    private Boolean forceOptIn;
 
     /**
      * Construct a new MessageCreator.
@@ -311,30 +309,6 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * A JSON string that represents an interactive message. An interactive message
-     * is a category of messages that includes a list picker, a time picker, and an
-     * Apple Pay request..
-     *
-     * @param interactiveData A JSON string that represents an interactive message
-     * @return this
-     */
-    public MessageCreator setInteractiveData(final String interactiveData) {
-        this.interactiveData = interactiveData;
-        return this;
-    }
-
-    /**
-     * Whether to forcefully whitelist a from:to pair. Can be: `true` or `false`..
-     *
-     * @param forceOptIn Whether to forcefully whitelist a from:to pair
-     * @return this
-     */
-    public MessageCreator setForceOptIn(final Boolean forceOptIn) {
-        this.forceOptIn = forceOptIn;
-        return this;
-    }
-
-    /**
      * A Twilio phone number in
      * [E.164](https://www.twilio.com/docs/glossary/what-e164) format, an
      * [alphanumeric sender
@@ -530,14 +504,6 @@ public class MessageCreator extends Creator<Message> {
 
         if (smartEncoded != null) {
             request.addPostParam("SmartEncoded", smartEncoded.toString());
-        }
-
-        if (interactiveData != null) {
-            request.addPostParam("InteractiveData", interactiveData);
-        }
-
-        if (forceOptIn != null) {
-            request.addPostParam("ForceOptIn", forceOptIn.toString());
         }
     }
 }

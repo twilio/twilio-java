@@ -165,13 +165,16 @@ public class VoiceResponseTest {
         builder.pay(new Pay.Builder()
                     .input(Pay.Input.DTMF)
                     .action(URI.create("https://example.com"))
+                    .bankAccountType(Pay.BankAccountType.CONSUMER_CHECKING)
                     .statusCallback(URI.create("https://example.com"))
                     .statusCallbackMethod(Pay.StatusCallbackMethod.GET)
                     .timeout(1)
                     .maxAttempts(1)
                     .securityCode(true)
                     .postalCode("postal_code")
+                    .minPostalCodeLength(1)
                     .paymentConnector("payment_connector")
+                    .paymentMethod(Pay.PaymentMethod.ACH_DEBIT)
                     .tokenType(Pay.TokenType.ONE_TIME)
                     .chargeAmount("charge_amount")
                     .currency("currency")
@@ -211,7 +214,7 @@ public class VoiceResponseTest {
                 "<Reject reason=\"rejected\"/>" +
                 "<Say language=\"da-DK\" loop=\"1\" voice=\"man\">message</Say>" +
                 "<Sms action=\"https://example.com\" from=\"+15017122661\" method=\"GET\" statusCallback=\"https://example.com\" to=\"+15558675310\">message</Sms>" +
-                "<Pay action=\"https://example.com\" chargeAmount=\"charge_amount\" currency=\"currency\" description=\"description\" input=\"dtmf\" language=\"de-DE\" maxAttempts=\"1\" paymentConnector=\"payment_connector\" postalCode=\"postal_code\" securityCode=\"true\" statusCallback=\"https://example.com\" statusCallbackMethod=\"GET\" timeout=\"1\" tokenType=\"one-time\" validCardTypes=\"visa\"/>" +
+                "<Pay action=\"https://example.com\" bankAccountType=\"consumer-checking\" chargeAmount=\"charge_amount\" currency=\"currency\" description=\"description\" input=\"dtmf\" language=\"de-DE\" maxAttempts=\"1\" minPostalCodeLength=\"1\" paymentConnector=\"payment_connector\" paymentMethod=\"ach-debit\" postalCode=\"postal_code\" securityCode=\"true\" statusCallback=\"https://example.com\" statusCallbackMethod=\"GET\" timeout=\"1\" tokenType=\"one-time\" validCardTypes=\"visa\"/>" +
                 "<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\"/>" +
                 "<Start action=\"https://example.com\" method=\"GET\"/>" +
                 "<Stop/>" +

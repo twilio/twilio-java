@@ -1,7 +1,13 @@
 # twilio-java
 
 [![Build Status](https://travis-ci.org/twilio/twilio-java.png?branch=master)](https://travis-ci.org/twilio/twilio-java)
-[![Maven Central](https://img.shields.io/maven-central/v/com.twilio.sdk/twilio.svg)](http://mvnrepository.com/artifact/com.twilio.sdk/twilio)
+[![Maven Central](https://img.shields.io/maven-central/v/com.twilio.sdk/twilio.svg)](https://mvnrepository.com/artifact/com.twilio.sdk/twilio)
+
+## Documentation
+
+The documentation for the Twilio API can be found [here][apidocs].
+
+The Java library documentation can be found [here][libdocs].
 
 ## Recent Update
 
@@ -20,7 +26,7 @@ in-line code documentation here in the library.
 
 # Installing
 
-twilio-java uses Maven.  At present the jars *are* available from a public [maven](http://mvnrepository.com/artifact/com.twilio.sdk/twilio) repository.
+twilio-java uses Maven.  At present the jars *are* available from a public [maven](https://mvnrepository.com/artifact/com.twilio.sdk/twilio) repository.
 
 Use the following dependency in your project to grab via Maven:
 
@@ -40,11 +46,12 @@ If you want to compile it yourself, here's how:
 
     $ git clone git@github.com:twilio/twilio-java
     $ cd twilio-java
-    $ mvn install       # Requires maven, download from http://maven.apache.org/download.html
+    $ mvn install       # Requires maven, download from https://maven.apache.org/download.html
 
 # Quickstart
 
 ### Send a SMS
+
 ```java
 String accountSid = "ACXXXXXX"; // Your Account SID from www.twilio.com/user/account
 String authToken = "XXXXXXXX"; // Your Auth Token from www.twilio.com/user/account
@@ -61,6 +68,7 @@ System.out.println(message.getSid());
 ```
 
 ### Make a call
+
 ```java
 String accountSid = "ACXXXXXX"; // Your Account SID from www.twilio.com/user/account
 String authToken = "XXXXXXXX"; // Your Auth Token from www.twilio.com/user/account
@@ -79,8 +87,11 @@ System.out.println(call.getSid());
 ```
 
 ### Generating TwiML
-To control phone calls, your application needs to output [TwiML](http://www.twilio.com/docs/api/twiml/).
+
+To control phone calls, your application needs to output [TwiML](twiml "TwiML - Twilio Markup Language").
+
 TwiML in twilio-java now use the builder pattern!
+
 ```java
 TwiML twiml = new VoiceResponse.Builder()
     .say(new Say.Builder("Hello World!").build())
@@ -96,11 +107,6 @@ That will output XML that looks like this:
 </Response>
 ```
 
-
-# Documentation
-
-The documentation for the Twilio API can be found [here.](http://twilio.com/docs/api)
-
 ## Docker Image
 
 The `Dockerfile` present in this repository and its respective `twilio/twilio-java` Docker image are currently used by Twilio for testing purposes only.
@@ -110,3 +116,7 @@ The `Dockerfile` present in this repository and its respective `twilio/twilio-ja
 If you need help installing or using the library, please check the [Twilio Support Help Center](https://support.twilio.com) first, and [file a support ticket](https://twilio.com/help/contact) if you don't find an answer to your question.
 
 If you've instead found a bug in the library or would like new features added, go ahead and open issues or pull requests against this repo!
+
+[apidocs]: https://www.twilio.com/docs/api
+[twiml]: https://www.twilio.com/docs/api/twiml
+[libdocs]: https://twilio.github.io/twilio-java

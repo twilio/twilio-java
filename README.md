@@ -88,7 +88,7 @@ System.out.println(call.getSid());
 
 ### Generating TwiML
 
-To control phone calls, your application needs to output [TwiML](twiml "TwiML - Twilio Markup Language").
+To control phone calls, your application needs to output [TwiML][twiml].
 
 TwiML in twilio-java now use the builder pattern!
 

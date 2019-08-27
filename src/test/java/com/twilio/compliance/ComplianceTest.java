@@ -33,6 +33,8 @@ public class ComplianceTest {
             .beAnnotatedWith(com.fasterxml.jackson.annotation.JsonIgnoreProperties.class)
             .andShould()
             .haveOnlyFinalFields()
+            .andShould()
+            .haveOnlyPrivateConstructors()
             .check(twilioClasses);
     }
 }

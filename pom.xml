@@ -216,7 +216,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.10.3</version>
+        <version>3.1.1</version>
         <configuration>
           <reportOutputDirectory>${env.TWILIO_DOCS_ROOT}</reportOutputDirectory>
           <destDir>java/${project.version}</destDir>

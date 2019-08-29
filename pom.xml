@@ -228,7 +228,7 @@
           <use>true</use>
           <windowtitle>Twilio Java</windowtitle>
           <doctitle><![CDATA[<h1>Twilio Java</h1>]]></doctitle>
-          <bottom><![CDATA[<i>Copyright &#169; 2016 Twilio, Inc. All Rights Reserved.</i>]]></bottom>
+          <bottom><![CDATA[<i>Copyright &#169; 2019 Twilio, Inc. All Rights Reserved.</i>]]></bottom>
         </configuration>
         <executions>
           <execution>

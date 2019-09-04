@@ -28,8 +28,9 @@ public class DocumentDeleter extends Deleter<Document> {
     /**
      * Construct a new DocumentDeleter.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Sync Service with the Document resource
+     *                       to delete
+     * @param pathSid The SID of the Document resource to delete
      */
     public DocumentDeleter(final String pathServiceSid,
                            final String pathSid) {

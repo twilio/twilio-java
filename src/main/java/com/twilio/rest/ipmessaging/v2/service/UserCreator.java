@@ -37,7 +37,7 @@ public class UserCreator extends Creator<User> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/roles) assigned
+     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/roles) to assign
      * to the new User..
      *
      * @param roleSid The SID of the Role assigned to this user

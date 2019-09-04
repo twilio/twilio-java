@@ -29,10 +29,12 @@ public class DocumentPermissionFetcher extends Fetcher<DocumentPermission> {
     /**
      * Construct a new DocumentPermissionFetcher.
      *
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathDocumentSid Sync Document SID or unique name.
-     * @param pathIdentity Identity of the user to whom the Sync Document
-     *                     Permission applies.
+     * @param pathServiceSid The SID of the Sync Service with the Document
+     *                       Permission resource to fetch
+     * @param pathDocumentSid The SID of the Sync Document with the Document
+     *                        Permission resource to fetch
+     * @param pathIdentity The application-defined string that uniquely identifies
+     *                     the User's Document Permission resource to fetch
      */
     public DocumentPermissionFetcher(final String pathServiceSid,
                                      final String pathDocumentSid,

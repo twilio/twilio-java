@@ -30,8 +30,9 @@ public class SyncMapUpdater extends Updater<SyncMap> {
     /**
      * Construct a new SyncMapUpdater.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map resource
+     *                       to update
+     * @param pathSid The SID of the Sync Map resource to update
      */
     public SyncMapUpdater(final String pathServiceSid,
                           final String pathSid) {
@@ -40,9 +41,10 @@ public class SyncMapUpdater extends Updater<SyncMap> {
     }
 
     /**
-     * Alias for collection_ttl. If both are provided, this value is ignored..
+     * An alias for `collection_ttl`. If both parameters are provided, this value is
+     * ignored..
      *
-     * @param ttl Alias for collection_ttl
+     * @param ttl An alias for collection_ttl
      * @return this
      */
     public SyncMapUpdater setTtl(final Integer ttl) {
@@ -51,10 +53,13 @@ public class SyncMapUpdater extends Updater<SyncMap> {
     }
 
     /**
-     * New time-to-live of this Map in seconds. In the range [1, 31 536 000 (1
-     * year)], or 0 for infinity..
+     * How long, in seconds, before the Sync Map expires (time-to-live) and is
+     * deleted. Can be an integer from 0 to 31,536,000 (1 year). The default value
+     * is `0`, which means the Sync Map does not expire. The Sync Map might not be
+     * deleted immediately after it expires..
      *
-     * @param collectionTtl New time-to-live of this Map in seconds.
+     * @param collectionTtl How long, in seconds, before the Sync Map expires and
+     *                      is deleted
      * @return this
      */
     public SyncMapUpdater setCollectionTtl(final Integer collectionTtl) {

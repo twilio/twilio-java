@@ -24,8 +24,8 @@ public class EngagementFetcher extends Fetcher<Engagement> {
     /**
      * Construct a new EngagementFetcher.
      *
-     * @param pathFlowSid Flow Sid.
-     * @param pathSid Engagement Sid.
+     * @param pathFlowSid Flow SID
+     * @param pathSid The SID of the Engagement resource to fetch
      */
     public EngagementFetcher(final String pathFlowSid,
                              final String pathSid) {

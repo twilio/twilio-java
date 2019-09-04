@@ -33,16 +33,18 @@ public class DocumentCreator extends Creator<Document> {
     /**
      * Construct a new DocumentCreator.
      *
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid The SID of the Sync Service to associate the Document
+     *                       resource to create with
      */
     public DocumentCreator(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
     /**
-     * Human-readable name for this document.
+     * An application-defined string that uniquely identifies the Sync Document.
      *
-     * @param uniqueName Human-readable name for this document
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   Sync Document
      * @return this
      */
     public DocumentCreator setUniqueName(final String uniqueName) {
@@ -51,9 +53,11 @@ public class DocumentCreator extends Creator<Document> {
     }
 
     /**
-     * JSON data to be stored in this document.
+     * A JSON string that represents an arbitrary, schema-less object that the Sync
+     * Document stores. Can be up to 16KB in length..
      *
-     * @param data JSON data to be stored in this document
+     * @param data A JSON string that represents an arbitrary, schema-less object
+     *             that the Sync Document stores
      * @return this
      */
     public DocumentCreator setData(final Map<String, Object> data) {
@@ -62,11 +66,13 @@ public class DocumentCreator extends Creator<Document> {
     }
 
     /**
-     * Time-to-live of this Document in seconds, defaults to no expiration. In the
-     * range [1, 31 536 000 (1 year)], or 0 for infinity..
+     * How long, in seconds, before the Sync Document expires and is deleted (the
+     * Sync Document's time-to-live). Can be an integer from 0 to 31,536,000 (1
+     * year). The default value is `0`, which means the Sync Document does not
+     * expire. The Sync Document might not be deleted immediately after it expires..
      *
-     * @param ttl Time-to-live of this Document in seconds, defaults to no
-     *            expiration.
+     * @param ttl How long, in seconds, before the Sync Document expires and is
+     *            deleted
      * @return this
      */
     public DocumentCreator setTtl(final Integer ttl) {

@@ -32,9 +32,12 @@ public class StreamMessageCreator extends Creator<StreamMessage> {
     /**
      * Construct a new StreamMessageCreator.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathStreamSid The stream_sid
-     * @param data Stream Message body.
+     * @param pathServiceSid The SID of the Sync Service to create the new Stream
+     *                       Message in
+     * @param pathStreamSid The SID of the Sync Stream to create the new Stream
+     *                      Message resource for
+     * @param data A JSON string that represents an arbitrary, schema-less object
+     *             that makes up the Stream Message body
      */
     public StreamMessageCreator(final String pathServiceSid,
                                 final String pathStreamSid,

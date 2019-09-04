@@ -28,9 +28,9 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
     /**
      * Only include usage that has occurred on or before this date. Format is [ISO
-     * 8601](http://www.iso.org/iso/home/standards/iso8601.htm)..
+     * 8601](https://www.iso.org/iso-8601-date-and-time-format.html)..
      *
-     * @param end Only include usage that has occurred on or before this date.
+     * @param end Only include usage that has occurred on or before this date
      * @return this
      */
     public UsageRecordReader setEnd(final DateTime end) {
@@ -40,9 +40,9 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
     /**
      * Only include usage that has occurred on or after this date. Format is [ISO
-     * 8601](http://www.iso.org/iso/home/standards/iso8601.htm)..
+     * 8601](https://www.iso.org/iso-8601-date-and-time-format.html)..
      *
-     * @param start Only include usage that has occurred on or after this date.
+     * @param start Only include usage that has occurred on or after this date
      * @return this
      */
     public UsageRecordReader setStart(final DateTime start) {
@@ -51,11 +51,11 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     }
 
     /**
-     * The time-based grouping that results are aggregated by. Valid values are
-     * `daily`, `hourly`, `all`. `all` will return one Usage Record for the entire
-     * period..
+     * How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. A
+     * value of `all` returns one Usage Record that describes the usage for the
+     * entire period..
      *
-     * @param granularity The time-based grouping that results are aggregated by.
+     * @param granularity The time-based grouping that results are aggregated by
      * @return this
      */
     public UsageRecordReader setGranularity(final UsageRecord.Granularity granularity) {

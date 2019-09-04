@@ -91,7 +91,7 @@ public class Channel extends Resource {
      * Create a ChannelFetcher to execute fetch.
      *
      * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the resource
      * @return ChannelFetcher capable of executing the fetch
      */
     public static ChannelFetcher fetcher(final String pathServiceSid,
@@ -103,7 +103,7 @@ public class Channel extends Resource {
      * Create a ChannelDeleter to execute delete.
      *
      * @param pathServiceSid The SID of the Service to delete the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Channel resource to delete
      * @return ChannelDeleter capable of executing the delete
      */
     public static ChannelDeleter deleter(final String pathServiceSid,
@@ -114,7 +114,8 @@ public class Channel extends Resource {
     /**
      * Create a ChannelCreator to execute create.
      *
-     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param pathServiceSid The SID of the Service to create the Channel resource
+     *                       under
      * @return ChannelCreator capable of executing the create
      */
     public static ChannelCreator creator(final String pathServiceSid) {
@@ -135,7 +136,7 @@ public class Channel extends Resource {
      * Create a ChannelUpdater to execute update.
      *
      * @param pathServiceSid The SID of the Service to update the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Channel resource to update
      * @return ChannelUpdater capable of executing the update
      */
     public static ChannelUpdater updater(final String pathServiceSid,
@@ -305,19 +306,19 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
      * updated.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was last updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
@@ -342,9 +343,9 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The number of Messages in the Channel.
+     * Returns The The number of Messages that have been passed in the Channel.
      *
-     * @return The number of Messages in the Channel
+     * @return The number of Messages that have been passed in the Channel
      */
     public final Integer getMessagesCount() {
         return this.messagesCount;

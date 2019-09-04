@@ -27,9 +27,9 @@ public class SimReader extends Reader<Sim> {
     private String simRegistrationCode;
 
     /**
-     * Only return Sims with this status..
+     * Only return Sim resources with this status..
      *
-     * @param status Only return Sims with this status.
+     * @param status Only return Sim resources with this status
      * @return this
      */
     public SimReader setStatus(final Sim.Status status) {
@@ -38,10 +38,10 @@ public class SimReader extends Reader<Sim> {
     }
 
     /**
-     * Return Sims with this Iccid. Currently this should be a list with maximum
-     * size 1..
+     * Only return Sim resources with this ICCID. Currently this should be a list
+     * with maximum size 1..
      *
-     * @param iccid Return Sims with this Iccid.
+     * @param iccid Only return Sim resources with this ICCID
      * @return this
      */
     public SimReader setIccid(final String iccid) {
@@ -50,9 +50,11 @@ public class SimReader extends Reader<Sim> {
     }
 
     /**
-     * Only return Sims with this Rate Plan..
+     * The `sid` or `unique_name` of the [RatePlan
+     * resource](https://www.twilio.com/docs/wireless/api/rate-plan) used by the Sim
+     * resources to read..
      *
-     * @param ratePlan Only return Sims with this Rate Plan.
+     * @param ratePlan Only return Sim resources with this Rate Plan
      * @return this
      */
     public SimReader setRatePlan(final String ratePlan) {
@@ -61,9 +63,9 @@ public class SimReader extends Reader<Sim> {
     }
 
     /**
-     * Only return Sims with this EID..
+     * Deprecated..
      *
-     * @param eId Only return Sims with this EID.
+     * @param eId Deprecated
      * @return this
      */
     public SimReader setEId(final String eId) {
@@ -72,9 +74,10 @@ public class SimReader extends Reader<Sim> {
     }
 
     /**
-     * Only return Sims with this registration code..
+     * Only return Sim resources with this registration code..
      *
-     * @param simRegistrationCode Only return Sims with this registration code.
+     * @param simRegistrationCode Only return Sim resources with this registration
+     *                            code
      * @return this
      */
     public SimReader setSimRegistrationCode(final String simRegistrationCode) {

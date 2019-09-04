@@ -74,7 +74,7 @@ public class Flow extends Resource {
     /**
      * Create a FlowFetcher to execute fetch.
      *
-     * @param pathSid A string that uniquely identifies this Flow.
+     * @param pathSid The SID that identifies the resource to fetch
      * @return FlowFetcher capable of executing the fetch
      */
     public static FlowFetcher fetcher(final String pathSid) {
@@ -84,7 +84,7 @@ public class Flow extends Resource {
     /**
      * Create a FlowDeleter to execute delete.
      *
-     * @param pathSid A string that uniquely identifies this Flow.
+     * @param pathSid The SID that identifies the resource to delete
      * @return FlowDeleter capable of executing the delete
      */
     public static FlowDeleter deleter(final String pathSid) {
@@ -169,81 +169,82 @@ public class Flow extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Flow..
+     * Returns The The unique string that identifies the resource.
      *
-     * @return A string that uniquely identifies this Flow.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return Account Sid.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The A human readable description of this resource..
+     * Returns The The string that you assigned to describe the Flow.
      *
-     * @return A human readable description of this resource.
+     * @return The string that you assigned to describe the Flow
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The Status of this Flow.
+     * Returns The The status of the Flow.
      *
-     * @return The Status of this Flow
+     * @return The status of the Flow
      */
     public final Flow.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The latest version number of this Flow's definition..
+     * Returns The The latest version number of the Flow's definition.
      *
-     * @return The latest version number of this Flow's definition.
+     * @return The latest version number of the Flow's definition
      */
     public final Integer getVersion() {
         return this.version;
     }
 
     /**
-     * Returns The The date this Flow was created.
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date this Flow was created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Flow was updated.
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * updated.
      *
-     * @return The date this Flow was updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The The absolute URL of the resource.
      *
-     * @return The URL of this resource.
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Nested resource URLs..
+     * Returns The Nested resource URLs.
      *
-     * @return Nested resource URLs.
+     * @return Nested resource URLs
      */
     public final Map<String, String> getLinks() {
         return this.links;

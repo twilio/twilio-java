@@ -29,7 +29,8 @@ public class DocumentReader extends Reader<Document> {
     /**
      * Construct a new DocumentReader.
      *
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid The SID of the Sync Service with the Document
+     *                       resources to read
      */
     public DocumentReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;

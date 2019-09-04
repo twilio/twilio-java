@@ -28,8 +28,9 @@ public class SyncMapDeleter extends Deleter<SyncMap> {
     /**
      * Construct a new SyncMapDeleter.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map resource
+     *                       to delete
+     * @param pathSid The SID of the Sync Map resource to delete
      */
     public SyncMapDeleter(final String pathServiceSid,
                           final String pathSid) {

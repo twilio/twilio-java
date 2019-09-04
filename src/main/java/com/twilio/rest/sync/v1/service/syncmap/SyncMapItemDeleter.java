@@ -29,9 +29,11 @@ public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
     /**
      * Construct a new SyncMapItemDeleter.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathMapSid The map_sid
-     * @param pathKey The key
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map Item
+     *                       resource to delete
+     * @param pathMapSid The SID of the Sync Map with the Sync Map Item resource to
+     *                   delete
+     * @param pathKey The key value of the Sync Map Item resource to delete
      */
     public SyncMapItemDeleter(final String pathServiceSid,
                               final String pathMapSid,

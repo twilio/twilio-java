@@ -41,10 +41,12 @@ public class SyncMapPermission extends Resource {
     /**
      * Create a SyncMapPermissionFetcher to execute fetch.
      *
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathMapSid Sync Map SID or unique name.
-     * @param pathIdentity Identity of the user to whom the Sync Map Permission
-     *                     applies.
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map
+     *                       Permission resource to fetch
+     * @param pathMapSid The SID of the Sync Map with the Sync Map Permission
+     *                   resource to fetch
+     * @param pathIdentity The application-defined string that uniquely identifies
+     *                     the User's Sync Map Permission resource to fetch
      * @return SyncMapPermissionFetcher capable of executing the fetch
      */
     public static SyncMapPermissionFetcher fetcher(final String pathServiceSid,
@@ -56,10 +58,12 @@ public class SyncMapPermission extends Resource {
     /**
      * Create a SyncMapPermissionDeleter to execute delete.
      *
-     * @param pathServiceSid Sync Service Instance SID or unique name
-     * @param pathMapSid Sync Map SID or unique name.
-     * @param pathIdentity Identity of the user to whom the Sync Map Permission
-     *                     applies.
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map
+     *                       Permission resource to delete
+     * @param pathMapSid The SID of the Sync Map with the Sync Map Permission
+     *                   resource to delete
+     * @param pathIdentity The application-defined string that uniquely identifies
+     *                     the User's Sync Map Permission resource to delete
      * @return SyncMapPermissionDeleter capable of executing the delete
      */
     public static SyncMapPermissionDeleter deleter(final String pathServiceSid,
@@ -71,8 +75,10 @@ public class SyncMapPermission extends Resource {
     /**
      * Create a SyncMapPermissionReader to execute read.
      *
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathMapSid Sync Map SID or unique name.
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map
+     *                       Permission resources to read
+     * @param pathMapSid The SID of the Sync Map with the Permission resources to
+     *                   read
      * @return SyncMapPermissionReader capable of executing the read
      */
     public static SyncMapPermissionReader reader(final String pathServiceSid,
@@ -83,13 +89,15 @@ public class SyncMapPermission extends Resource {
     /**
      * Create a SyncMapPermissionUpdater to execute update.
      *
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathMapSid Sync Map SID or unique name.
-     * @param pathIdentity Identity of the user to whom the Sync Map Permission
-     *                     applies.
-     * @param read Read access.
-     * @param write Write access.
-     * @param manage Manage access.
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map
+     *                       Permission resource to update
+     * @param pathMapSid The SID of the Sync Map with the Sync Map Permission
+     *                   resource to update
+     * @param pathIdentity The application-defined string that uniquely identifies
+     *                     the User's Sync Map Permission resource to update
+     * @param read Read access
+     * @param write Write access
+     * @param manage Manage access
      * @return SyncMapPermissionUpdater capable of executing the update
      */
     public static SyncMapPermissionUpdater updater(final String pathServiceSid,
@@ -176,72 +184,73 @@ public class SyncMapPermission extends Resource {
     }
 
     /**
-     * Returns The Twilio Account SID..
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return Twilio Account SID.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Sync Service Instance SID..
+     * Returns The The SID of the Sync Service that the resource is associated with.
      *
-     * @return Sync Service Instance SID.
+     * @return The SID of the Sync Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The Sync Map SID..
+     * Returns The Sync Map SID.
      *
-     * @return Sync Map SID.
+     * @return Sync Map SID
      */
     public final String getMapSid() {
         return this.mapSid;
     }
 
     /**
-     * Returns The Identity of the user to whom the Sync Map Permission applies..
+     * Returns The The identity of the user to whom the Sync Document Permission
+     * applies.
      *
-     * @return Identity of the user to whom the Sync Map Permission applies.
+     * @return The identity of the user to whom the Sync Document Permission applies
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns The Read access..
+     * Returns The Read access.
      *
-     * @return Read access.
+     * @return Read access
      */
     public final Boolean getRead() {
         return this.read;
     }
 
     /**
-     * Returns The Write access..
+     * Returns The Write access.
      *
-     * @return Write access.
+     * @return Write access
      */
     public final Boolean getWrite() {
         return this.write;
     }
 
     /**
-     * Returns The Manage access..
+     * Returns The Manage access.
      *
-     * @return Manage access.
+     * @return Manage access
      */
     public final Boolean getManage() {
         return this.manage;
     }
 
     /**
-     * Returns The URL of this Sync Map Permission..
+     * Returns The The absolute URL of the Sync Map Permission resource.
      *
-     * @return URL of this Sync Map Permission.
+     * @return The absolute URL of the Sync Map Permission resource
      */
     public final URI getUrl() {
         return this.url;

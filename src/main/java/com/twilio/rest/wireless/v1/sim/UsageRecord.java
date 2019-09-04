@@ -64,7 +64,7 @@ public class UsageRecord extends Resource {
     /**
      * Create a UsageRecordReader to execute read.
      *
-     * @param pathSimSid The sim_sid
+     * @param pathSimSid The SID of the Sim resource to read the usage from
      * @return UsageRecordReader capable of executing the read
      */
     public static UsageRecordReader reader(final String pathSimSid) {
@@ -134,48 +134,49 @@ public class UsageRecord extends Resource {
     }
 
     /**
-     * Returns The The unique id of the SIM resource that this Usage Record is for..
+     * Returns The The SID of the Sim resource that this Usage Record is for.
      *
-     * @return The unique id of the SIM resource that this Usage Record is for.
+     * @return The SID of the Sim resource that this Usage Record is for
      */
     public final String getSimSid() {
         return this.simSid;
     }
 
     /**
-     * Returns The The unique id of the Account that the SIM belongs to..
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The unique id of the Account that the SIM belongs to.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The time period for which usage is reported..
+     * Returns The The time period for which the usage is reported.
      *
-     * @return The time period for which usage is reported.
+     * @return The time period for which the usage is reported
      */
     public final Map<String, Object> getPeriod() {
         return this.period;
     }
 
     /**
-     * Returns The An object representing the Commands usage for the SIM over the
-     * period..
+     * Returns The An object that describes the SIM's usage of Commands during the
+     * specified period.
      *
-     * @return An object representing the Commands usage for the SIM over the
-     *         period.
+     * @return An object that describes the SIM's usage of Commands during the
+     *         specified period
      */
     public final Map<String, Object> getCommands() {
         return this.commands;
     }
 
     /**
-     * Returns The An object representing the Data usage for the SIM over the
-     * period..
+     * Returns The An object that describes the SIM's data usage during the
+     * specified period.
      *
-     * @return An object representing the Data usage for the SIM over the period.
+     * @return An object that describes the SIM's data usage during the specified
+     *         period
      */
     public final Map<String, Object> getData() {
         return this.data;

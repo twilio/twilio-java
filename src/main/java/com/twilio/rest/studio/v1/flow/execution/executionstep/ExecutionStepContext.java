@@ -38,9 +38,9 @@ public class ExecutionStepContext extends Resource {
     /**
      * Create a ExecutionStepContextFetcher to execute fetch.
      *
-     * @param pathFlowSid Flow Sid.
-     * @param pathExecutionSid Execution Sid.
-     * @param pathStepSid Step Sid.
+     * @param pathFlowSid The SID of the Flow
+     * @param pathExecutionSid The SID of the Execution
+     * @param pathStepSid Step SID
      * @return ExecutionStepContextFetcher capable of executing the fetch
      */
     public static ExecutionStepContextFetcher fetcher(final String pathFlowSid,
@@ -116,54 +116,54 @@ public class ExecutionStepContext extends Resource {
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return Account Sid.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Flow state..
+     * Returns The The current state of the flow.
      *
-     * @return Flow state.
+     * @return The current state of the flow
      */
     public final Map<String, Object> getContext() {
         return this.context;
     }
 
     /**
-     * Returns The Execution Sid..
+     * Returns The The SID of the Execution.
      *
-     * @return Execution Sid.
+     * @return The SID of the Execution
      */
     public final String getExecutionSid() {
         return this.executionSid;
     }
 
     /**
-     * Returns The Flow Sid..
+     * Returns The The SID of the Flow.
      *
-     * @return Flow Sid.
+     * @return The SID of the Flow
      */
     public final String getFlowSid() {
         return this.flowSid;
     }
 
     /**
-     * Returns The Step Sid..
+     * Returns The Step SID.
      *
-     * @return Step Sid.
+     * @return Step SID
      */
     public final String getStepSid() {
         return this.stepSid;
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The The absolute URL of the resource.
      *
-     * @return The URL of this resource.
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;

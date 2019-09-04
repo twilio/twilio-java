@@ -33,8 +33,9 @@ public class DocumentUpdater extends Updater<Document> {
     /**
      * Construct a new DocumentUpdater.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Sync Service with the Document resource
+     *                       to update
+     * @param pathSid The SID of the Document resource to update
      */
     public DocumentUpdater(final String pathServiceSid,
                            final String pathSid) {
@@ -43,10 +44,11 @@ public class DocumentUpdater extends Updater<Document> {
     }
 
     /**
-     * Contains an arbitrary JSON object to be stored in this Document. Serialized
-     * to string to respect HTTP form input, up to 16KB..
+     * A JSON string that represents an arbitrary, schema-less object that the Sync
+     * Document stores. Can be up to 16KB in length..
      *
-     * @param data Contains an arbitrary JSON object to be stored in this Document.
+     * @param data A JSON string that represents an arbitrary, schema-less object
+     *             that the Sync Document stores
      * @return this
      */
     public DocumentUpdater setData(final Map<String, Object> data) {
@@ -55,10 +57,13 @@ public class DocumentUpdater extends Updater<Document> {
     }
 
     /**
-     * New time-to-live of this Document in seconds. In the range [1, 31 536 000 (1
-     * year)], or 0 for infinity..
+     * How long, in seconds, before the Sync Document expires and is deleted
+     * (time-to-live). Can be an integer from 0 to 31,536,000 (1 year). The default
+     * value is `0`, which means the Document resource does not expire. The Document
+     * resource might not be deleted immediately after it expires..
      *
-     * @param ttl New time-to-live of this Document in seconds.
+     * @param ttl How long, in seconds, before the Document resource expires and is
+     *            deleted
      * @return this
      */
     public DocumentUpdater setTtl(final Integer ttl) {

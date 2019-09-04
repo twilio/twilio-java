@@ -30,6 +30,7 @@ public class MessageCreator extends Creator<Message> {
     private String body;
     private DateTime dateCreated;
     private DateTime dateUpdated;
+    private String attributes;
 
     /**
      * Construct a new MessageCreator.
@@ -84,6 +85,20 @@ public class MessageCreator extends Creator<Message> {
      */
     public MessageCreator setDateUpdated(final DateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
+        return this;
+    }
+
+    /**
+     * A string metadata field you can use to store any data you wish. The string
+     * value must contain structurally valid JSON if specified.  **Note** that if
+     * the attributes are not set "{}" will be returned..
+     *
+     * @param attributes A string metadata field you can use to store any data you
+     *                   wish.
+     * @return this
+     */
+    public MessageCreator setAttributes(final String attributes) {
+        this.attributes = attributes;
         return this;
     }
 
@@ -146,6 +161,10 @@ public class MessageCreator extends Creator<Message> {
 
         if (dateUpdated != null) {
             request.addPostParam("DateUpdated", dateUpdated.toString());
+        }
+
+        if (attributes != null) {
+            request.addPostParam("Attributes", attributes);
         }
     }
 }

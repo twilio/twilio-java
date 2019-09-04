@@ -28,8 +28,9 @@ public class SyncStreamFetcher extends Fetcher<SyncStream> {
     /**
      * Construct a new SyncStreamFetcher.
      *
-     * @param pathServiceSid Service Instance SID or unique name.
-     * @param pathSid Stream SID or unique name.
+     * @param pathServiceSid The SID of the Sync Service with the Sync Stream
+     *                       resource to fetch
+     * @param pathSid The SID of the Stream resource to fetch
      */
     public SyncStreamFetcher(final String pathServiceSid,
                              final String pathSid) {

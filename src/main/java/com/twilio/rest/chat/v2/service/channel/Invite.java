@@ -41,7 +41,7 @@ public class Invite extends Resource {
      *
      * @param pathServiceSid The SID of the Service to fetch the resource from
      * @param pathChannelSid The SID of the Channel the resource to fetch belongs to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Invite resource to fetch
      * @return InviteFetcher capable of executing the fetch
      */
     public static InviteFetcher fetcher(final String pathServiceSid,
@@ -82,7 +82,7 @@ public class Invite extends Resource {
      * @param pathServiceSid The SID of the Service to delete the resource from
      * @param pathChannelSid The SID of the Channel the resource to delete belongs
      *                       to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Invite resource to delete
      * @return InviteDeleter capable of executing the delete
      */
     public static InviteDeleter deleter(final String pathServiceSid,
@@ -218,19 +218,19 @@ public class Invite extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
      * updated.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was last updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;

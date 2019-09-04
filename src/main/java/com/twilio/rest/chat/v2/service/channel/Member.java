@@ -66,8 +66,8 @@ public class Member extends Resource {
      * Create a MemberFetcher to execute fetch.
      *
      * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathChannelSid The unique ID of the channel the member belongs to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathChannelSid The SID of the channel the member belongs to
+     * @param pathSid The SID of the Member resource to fetch
      * @return MemberFetcher capable of executing the fetch
      */
     public static MemberFetcher fetcher(final String pathServiceSid,
@@ -80,7 +80,7 @@ public class Member extends Resource {
      * Create a MemberCreator to execute create.
      *
      * @param pathServiceSid The SID of the Service to create the resource under
-     * @param pathChannelSid The unique ID of the channel the new member belongs to
+     * @param pathChannelSid The SID of the channel the new member belongs to
      * @param identity The `identity` value that identifies the new resource's User
      * @return MemberCreator capable of executing the create
      */
@@ -94,7 +94,7 @@ public class Member extends Resource {
      * Create a MemberReader to execute read.
      *
      * @param pathServiceSid The SID of the Service to read the resources from
-     * @param pathChannelSid The unique ID of the channel the member belongs to
+     * @param pathChannelSid The SID of the channel the member belongs to
      * @return MemberReader capable of executing the read
      */
     public static MemberReader reader(final String pathServiceSid,
@@ -106,9 +106,9 @@ public class Member extends Resource {
      * Create a MemberDeleter to execute delete.
      *
      * @param pathServiceSid The SID of the Service to delete the resource from
-     * @param pathChannelSid The unique ID of the channel the message to delete
+     * @param pathChannelSid The SID of the channel the Member resource to delete
      *                       belongs to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Member resource to delete
      * @return MemberDeleter capable of executing the delete
      */
     public static MemberDeleter deleter(final String pathServiceSid,
@@ -121,9 +121,8 @@ public class Member extends Resource {
      * Create a MemberUpdater to execute update.
      *
      * @param pathServiceSid The SID of the Service to create the resource under
-     * @param pathChannelSid The unique ID of the channel the member to update
-     *                       belongs to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathChannelSid The SID of the channel the member to update belongs to
+     * @param pathSid The SID of the Member resource to update
      * @return MemberUpdater capable of executing the update
      */
     public static MemberUpdater updater(final String pathServiceSid,
@@ -240,9 +239,9 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Channel for the member.
+     * Returns The The SID of the Channel for the member.
      *
-     * @return The unique ID of the Channel for the member
+     * @return The SID of the Channel for the member
      */
     public final String getChannelSid() {
         return this.channelSid;
@@ -267,19 +266,19 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
      * updated.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was last updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
@@ -306,10 +305,10 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 based timestamp string that represents the date-time
+     * Returns The The ISO 8601 based timestamp string that represents the datetime
      * of the last Message read event for the Member within the Channel.
      *
-     * @return The ISO 8601 based timestamp string that represents the date-time of
+     * @return The ISO 8601 based timestamp string that represents the datetime of
      *         the last Message read event for the Member within the Channel
      */
     public final DateTime getLastConsumptionTimestamp() {

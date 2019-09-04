@@ -27,7 +27,7 @@ public class UserBindingDeleter extends Deleter<UserBinding> {
      *
      * @param pathServiceSid The SID of the Service to delete the resource from
      * @param pathUserSid The SID of the User of the User Bindings to delete
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the User Binding resource to delete
      */
     public UserBindingDeleter(final String pathServiceSid,
                               final String pathUserSid,

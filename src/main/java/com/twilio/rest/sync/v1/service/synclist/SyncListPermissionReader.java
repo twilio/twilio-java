@@ -30,8 +30,10 @@ public class SyncListPermissionReader extends Reader<SyncListPermission> {
     /**
      * Construct a new SyncListPermissionReader.
      *
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathListSid Sync List SID or unique name.
+     * @param pathServiceSid The SID of the Sync Service with the Sync List
+     *                       Permission resources to read
+     * @param pathListSid The SID of the Sync List with the Sync List Permission
+     *                    resources to read
      */
     public SyncListPermissionReader(final String pathServiceSid,
                                     final String pathListSid) {

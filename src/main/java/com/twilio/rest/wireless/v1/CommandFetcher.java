@@ -23,7 +23,7 @@ public class CommandFetcher extends Fetcher<Command> {
     /**
      * Construct a new CommandFetcher.
      *
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSid The SID that identifies the resource to fetch
      */
     public CommandFetcher(final String pathSid) {
         this.pathSid = pathSid;

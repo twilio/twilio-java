@@ -37,7 +37,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Configuration extends Resource {
-    private static final long serialVersionUID = 139572178793473L;
+    private static final long serialVersionUID = 221111822220476L;
 
     public enum Status {
         OK("ok"),
@@ -162,6 +162,8 @@ public class Configuration extends Resource {
     private final Map<String, Object> pluginServiceAttributes;
     private final List<Map<String, Object>> integrations;
     private final Map<String, Object> outboundCallFlows;
+    private final List<String> featuresEnabled;
+    private final List<String> serverlessServiceSids;
     private final URI url;
 
     @JsonCreator
@@ -229,6 +231,10 @@ public class Configuration extends Resource {
                           final List<Map<String, Object>> integrations,
                           @JsonProperty("outbound_call_flows")
                           final Map<String, Object> outboundCallFlows,
+                          @JsonProperty("features_enabled")
+                          final List<String> featuresEnabled,
+                          @JsonProperty("serverless_service_sids")
+                          final List<String> serverlessServiceSids,
                           @JsonProperty("url")
                           final URI url) {
         this.accountSid = accountSid;
@@ -263,6 +269,8 @@ public class Configuration extends Resource {
         this.pluginServiceAttributes = pluginServiceAttributes;
         this.integrations = integrations;
         this.outboundCallFlows = outboundCallFlows;
+        this.featuresEnabled = featuresEnabled;
+        this.serverlessServiceSids = serverlessServiceSids;
         this.url = url;
     }
 
@@ -560,6 +568,24 @@ public class Configuration extends Resource {
     }
 
     /**
+     * Returns The List of enabled features.
+     *
+     * @return List of enabled features
+     */
+    public final List<String> getFeaturesEnabled() {
+        return this.featuresEnabled;
+    }
+
+    /**
+     * Returns The List of serverless services sids.
+     *
+     * @return List of serverless services sids
+     */
+    public final List<String> getServerlessServiceSids() {
+        return this.serverlessServiceSids;
+    }
+
+    /**
      * Returns The The URL for this resource.
      *
      * @return The URL for this resource
@@ -612,6 +638,8 @@ public class Configuration extends Resource {
                Objects.equals(pluginServiceAttributes, other.pluginServiceAttributes) &&
                Objects.equals(integrations, other.integrations) &&
                Objects.equals(outboundCallFlows, other.outboundCallFlows) &&
+               Objects.equals(featuresEnabled, other.featuresEnabled) &&
+               Objects.equals(serverlessServiceSids, other.serverlessServiceSids) &&
                Objects.equals(url, other.url);
     }
 
@@ -649,6 +677,8 @@ public class Configuration extends Resource {
                             pluginServiceAttributes,
                             integrations,
                             outboundCallFlows,
+                            featuresEnabled,
+                            serverlessServiceSids,
                             url);
     }
 
@@ -687,6 +717,8 @@ public class Configuration extends Resource {
                           .add("pluginServiceAttributes", pluginServiceAttributes)
                           .add("integrations", integrations)
                           .add("outboundCallFlows", outboundCallFlows)
+                          .add("featuresEnabled", featuresEnabled)
+                          .add("serverlessServiceSids", serverlessServiceSids)
                           .add("url", url)
                           .toString();
     }

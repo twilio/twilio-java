@@ -32,13 +32,15 @@ public class SyncListPermissionUpdater extends Updater<SyncListPermission> {
     /**
      * Construct a new SyncListPermissionUpdater.
      *
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathListSid Sync List SID or unique name.
-     * @param pathIdentity Identity of the user to whom the Sync List Permission
-     *                     applies.
-     * @param read Read access.
-     * @param write Write access.
-     * @param manage Manage access.
+     * @param pathServiceSid The SID of the Sync Service with the Sync List
+     *                       Permission resource to update
+     * @param pathListSid The SID of the Sync List with the Sync List Permission
+     *                    resource to update
+     * @param pathIdentity The application-defined string that uniquely identifies
+     *                     the User's Sync List Permission resource to update
+     * @param read Read access
+     * @param write Write access
+     * @param manage Manage access
      */
     public SyncListPermissionUpdater(final String pathServiceSid,
                                      final String pathListSid,

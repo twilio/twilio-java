@@ -92,9 +92,8 @@ public class Message extends Resource {
      * Create a MessageFetcher to execute fetch.
      *
      * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathChannelSid The unique ID of the Channel the message to fetch
-     *                       belongs to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathChannelSid The SID of the Channel the message to fetch belongs to
+     * @param pathSid The SID of the Message resource to fetch
      * @return MessageFetcher capable of executing the fetch
      */
     public static MessageFetcher fetcher(final String pathServiceSid,
@@ -107,8 +106,7 @@ public class Message extends Resource {
      * Create a MessageCreator to execute create.
      *
      * @param pathServiceSid The SID of the Service to create the resource under
-     * @param pathChannelSid The unique ID of the channel the new resource belongs
-     *                       to
+     * @param pathChannelSid The SID of the Channel the new resource belongs to
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator creator(final String pathServiceSid,
@@ -120,8 +118,7 @@ public class Message extends Resource {
      * Create a MessageReader to execute read.
      *
      * @param pathServiceSid The SID of the Service to read the resources from
-     * @param pathChannelSid The unique ID of the Channel the message to read
-     *                       belongs to
+     * @param pathChannelSid The SID of the Channel the message to read belongs to
      * @return MessageReader capable of executing the read
      */
     public static MessageReader reader(final String pathServiceSid,
@@ -133,9 +130,8 @@ public class Message extends Resource {
      * Create a MessageDeleter to execute delete.
      *
      * @param pathServiceSid The SID of the Service to delete the resource from
-     * @param pathChannelSid The unique ID of the channel the message to delete
-     *                       belongs to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathChannelSid The SID of the Channel the message to delete belongs to
+     * @param pathSid The SID of the Message resource to delete
      * @return MessageDeleter capable of executing the delete
      */
     public static MessageDeleter deleter(final String pathServiceSid,
@@ -148,8 +144,8 @@ public class Message extends Resource {
      * Create a MessageUpdater to execute update.
      *
      * @param pathServiceSid The SID of the Service to update the resource from
-     * @param pathChannelSid The unique ID of the Channel the message belongs to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathChannelSid The SID of the Channel the message belongs to
+     * @param pathSid The SID of the Message resource to update
      * @return MessageUpdater capable of executing the update
      */
     public static MessageUpdater updater(final String pathServiceSid,
@@ -309,9 +305,9 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Channel the Message resource belongs to.
+     * Returns The The SID of the Channel the Message resource belongs to.
      *
-     * @return The unique ID of the Channel the Message resource belongs to
+     * @return The SID of the Channel the Message resource belongs to
      */
     public final String getChannelSid() {
         return this.channelSid;
@@ -355,9 +351,9 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The identity of the message's author.
+     * Returns The The Identity of the message's author.
      *
-     * @return The identity of the message's author
+     * @return The Identity of the message's author
      */
     public final String getFrom() {
         return this.from;

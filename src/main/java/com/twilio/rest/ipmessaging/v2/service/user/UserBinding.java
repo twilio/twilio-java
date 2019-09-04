@@ -68,7 +68,7 @@ public class UserBinding extends Resource {
      * Create a UserBindingReader to execute read.
      *
      * @param pathServiceSid The SID of the Service to read the resource from
-     * @param pathUserSid The SID of the User of the User Bindings to read
+     * @param pathUserSid The SID of the User with the User Bindings to read
      * @return UserBindingReader capable of executing the read
      */
     public static UserBindingReader reader(final String pathServiceSid,
@@ -80,8 +80,8 @@ public class UserBinding extends Resource {
      * Create a UserBindingFetcher to execute fetch.
      *
      * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathUserSid The SID of the User for the binding
-     * @param pathSid The unique string that identifies the resource
+     * @param pathUserSid The SID of the User with the binding
+     * @param pathSid The SID of the User Binding resource to fetch
      * @return UserBindingFetcher capable of executing the fetch
      */
     public static UserBindingFetcher fetcher(final String pathServiceSid,
@@ -95,7 +95,7 @@ public class UserBinding extends Resource {
      *
      * @param pathServiceSid The SID of the Service to delete the resource from
      * @param pathUserSid The SID of the User of the User Bindings to delete
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the User Binding resource to delete
      * @return UserBindingDeleter capable of executing the delete
      */
     public static UserBindingDeleter deleter(final String pathServiceSid,
@@ -222,19 +222,19 @@ public class UserBinding extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
      * updated.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was last updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
@@ -259,9 +259,9 @@ public class UserBinding extends Resource {
     }
 
     /**
-     * Returns The The SID of the User for the binding.
+     * Returns The The SID of the User with the binding.
      *
-     * @return The SID of the User for the binding
+     * @return The SID of the User with the binding
      */
     public final String getUserSid() {
         return this.userSid;

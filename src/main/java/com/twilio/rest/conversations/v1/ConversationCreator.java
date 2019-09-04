@@ -29,6 +29,7 @@ public class ConversationCreator extends Creator<Conversation> {
     private DateTime dateCreated;
     private DateTime dateUpdated;
     private String messagingServiceSid;
+    private String attributes;
 
     /**
      * The human-readable name of this conversation, limited to 256 characters.
@@ -75,6 +76,20 @@ public class ConversationCreator extends Creator<Conversation> {
      */
     public ConversationCreator setMessagingServiceSid(final String messagingServiceSid) {
         this.messagingServiceSid = messagingServiceSid;
+        return this;
+    }
+
+    /**
+     * An optional string metadata field you can use to store any data you wish. The
+     * string value must contain structurally valid JSON if specified.  **Note**
+     * that if the attributes are not set "{}" will be returned..
+     *
+     * @param attributes An optional string metadata field you can use to store any
+     *                   data you wish.
+     * @return this
+     */
+    public ConversationCreator setAttributes(final String attributes) {
+        this.attributes = attributes;
         return this;
     }
 
@@ -137,6 +152,10 @@ public class ConversationCreator extends Creator<Conversation> {
 
         if (messagingServiceSid != null) {
             request.addPostParam("MessagingServiceSid", messagingServiceSid);
+        }
+
+        if (attributes != null) {
+            request.addPostParam("Attributes", attributes);
         }
     }
 }

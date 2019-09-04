@@ -26,9 +26,10 @@ public class CommandReader extends Reader<Command> {
     private Command.Transport transport;
 
     /**
-     * Only return Commands to or from this SIM..
+     * The `sid` or `unique_name` of the [Sim
+     * resources](https://www.twilio.com/docs/wireless/api/sim) to read..
      *
-     * @param sim Only return Commands to or from this SIM.
+     * @param sim The sid or unique_name of the Sim resources to read
      * @return this
      */
     public CommandReader setSim(final String sim) {
@@ -37,9 +38,10 @@ public class CommandReader extends Reader<Command> {
     }
 
     /**
-     * Only return Commands with this status value..
+     * The status of the resources to read. Can be: `queued`, `sent`, `delivered`,
+     * `received`, or `failed`..
      *
-     * @param status Only return Commands with this status value.
+     * @param status The status of the resources to read
      * @return this
      */
     public CommandReader setStatus(final Command.Status status) {
@@ -50,7 +52,7 @@ public class CommandReader extends Reader<Command> {
     /**
      * Only return Commands with this direction value..
      *
-     * @param direction Only return Commands with this direction value.
+     * @param direction Only return Commands with this direction value
      * @return this
      */
     public CommandReader setDirection(final Command.Direction direction) {
@@ -59,9 +61,9 @@ public class CommandReader extends Reader<Command> {
     }
 
     /**
-     * Only return Commands with this transport value..
+     * Only return Commands with this transport value. Can be: `sms` or `ip`..
      *
-     * @param transport Only return Commands with this transport value.
+     * @param transport Only return Commands with this transport value
      * @return this
      */
     public CommandReader setTransport(final Command.Transport transport) {

@@ -43,7 +43,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceFetcher to execute fetch.
      *
-     * @param pathSid A unique identifier for this service instance.
+     * @param pathSid The SID of the Service resource to fetch
      * @return ServiceFetcher capable of executing the fetch
      */
     public static ServiceFetcher fetcher(final String pathSid) {
@@ -53,7 +53,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceDeleter to execute delete.
      *
-     * @param pathSid A unique identifier for this service instance.
+     * @param pathSid The SID of the Service resource to delete
      * @return ServiceDeleter capable of executing the delete
      */
     public static ServiceDeleter deleter(final String pathSid) {
@@ -81,7 +81,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceUpdater to execute update.
      *
-     * @param pathSid A unique identifier for this service instance.
+     * @param pathSid The SID of the Service resource to update
      * @return ServiceUpdater capable of executing the update
      */
     public static ServiceUpdater updater(final String pathSid) {
@@ -186,137 +186,136 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The A unique identifier for this service instance..
+     * Returns The The unique string that identifies the resource.
      *
-     * @return A unique identifier for this service instance.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique_name.
+     * Returns The An application-defined string that uniquely identifies the
+     * resource.
      *
-     * @return The unique_name
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Human-readable name for this service instance.
+     * Returns The The string that you assigned to describe the resource.
      *
-     * @return Human-readable name for this service instance
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date_created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * updated.
      *
-     * @return The date_updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the Service resource.
      *
-     * @return The url
+     * @return The absolute URL of the Service resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The A URL that will receive event updates when objects are
-     * manipulated..
+     * Returns The The URL we call when Sync objects are manipulated.
      *
-     * @return A URL that will receive event updates when objects are manipulated.
+     * @return The URL we call when Sync objects are manipulated
      */
     public final URI getWebhookUrl() {
         return this.webhookUrl;
     }
 
     /**
-     * Returns The true or false - controls whether this instance fires webhooks
-     * when Sync objects are updated through REST.
+     * Returns The Whether the Service instance should call webhook_url when the
+     * REST API is used to update Sync objects.
      *
-     * @return true or false - controls whether this instance fires webhooks when
-     *         Sync objects are updated through REST
+     * @return Whether the Service instance should call webhook_url when the REST
+     *         API is used to update Sync objects
      */
     public final Boolean getWebhooksFromRestEnabled() {
         return this.webhooksFromRestEnabled;
     }
 
     /**
-     * Returns The true or false - controls whether this instance fires webhooks
-     * when client endpoints connect to Sync.
+     * Returns The Whether the service instance calls webhook_url when client
+     * endpoints connect to Sync.
      *
-     * @return true or false - controls whether this instance fires webhooks when
-     *         client endpoints connect to Sync
+     * @return Whether the service instance calls webhook_url when client endpoints
+     *         connect to Sync
      */
     public final Boolean getReachabilityWebhooksEnabled() {
         return this.reachabilityWebhooksEnabled;
     }
 
     /**
-     * Returns The true or false - determines whether token identities must be
-     * granted access to Sync objects via the Permissions API in this Service..
+     * Returns The Whether token identities in the Service must be granted access to
+     * Sync objects by using the Permissions resource.
      *
-     * @return true or false - determines whether token identities must be granted
-     *         access to Sync objects via the Permissions API in this Service.
+     * @return Whether token identities in the Service must be granted access to
+     *         Sync objects by using the Permissions resource
      */
     public final Boolean getAclEnabled() {
         return this.aclEnabled;
     }
 
     /**
-     * Returns The true or false - Determines whether transient disconnections (i.e.
-     * an immediate reconnect succeeds) cause reachability webhooks..
+     * Returns The Whether every endpoint_disconnected event occurs after a
+     * configurable delay.
      *
-     * @return true or false - Determines whether transient disconnections (i.e. an
-     *         immediate reconnect succeeds) cause reachability webhooks.
+     * @return Whether every endpoint_disconnected event occurs after a
+     *         configurable delay
      */
     public final Boolean getReachabilityDebouncingEnabled() {
         return this.reachabilityDebouncingEnabled;
     }
 
     /**
-     * Returns The Determines how long an identity must be offline before
-     * reachability webhooks fire..
+     * Returns The The reachability event delay in milliseconds.
      *
-     * @return Determines how long an identity must be offline before reachability
-     *         webhooks fire.
+     * @return The reachability event delay in milliseconds
      */
     public final Integer getReachabilityDebouncingWindow() {
         return this.reachabilityDebouncingWindow;
     }
 
     /**
-     * Returns The The links.
+     * Returns The The URLs of related resources.
      *
-     * @return The links
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;

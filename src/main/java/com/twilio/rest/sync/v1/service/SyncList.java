@@ -43,8 +43,9 @@ public class SyncList extends Resource {
     /**
      * Create a SyncListFetcher to execute fetch.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Sync Service with the Sync List
+     *                       resource to fetch
+     * @param pathSid The SID of the Sync List resource to fetch
      * @return SyncListFetcher capable of executing the fetch
      */
     public static SyncListFetcher fetcher(final String pathServiceSid,
@@ -55,8 +56,9 @@ public class SyncList extends Resource {
     /**
      * Create a SyncListDeleter to execute delete.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Sync Service with the Sync List
+     *                       resource to delete
+     * @param pathSid The SID of the Sync List resource to delete
      * @return SyncListDeleter capable of executing the delete
      */
     public static SyncListDeleter deleter(final String pathServiceSid,
@@ -67,7 +69,8 @@ public class SyncList extends Resource {
     /**
      * Create a SyncListCreator to execute create.
      *
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid The SID of the Sync Service  to create the new Sync
+     *                       List in
      * @return SyncListCreator capable of executing the create
      */
     public static SyncListCreator creator(final String pathServiceSid) {
@@ -77,8 +80,9 @@ public class SyncList extends Resource {
     /**
      * Create a SyncListUpdater to execute update.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Sync Service with the Sync List
+     *                       resource to update
+     * @param pathSid The SID of the Sync List resource to update
      * @return SyncListUpdater capable of executing the update
      */
     public static SyncListUpdater updater(final String pathServiceSid,
@@ -89,7 +93,8 @@ public class SyncList extends Resource {
     /**
      * Create a SyncListReader to execute read.
      *
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid The SID of the Sync Service with the Sync List
+     *                       resources to read
      * @return SyncListReader capable of executing the read
      */
     public static SyncListReader reader(final String pathServiceSid) {
@@ -183,106 +188,101 @@ public class SyncList extends Resource {
     }
 
     /**
-     * Returns The The unique 34-character SID identifier of the List..
+     * Returns The The unique string that identifies the resource.
      *
-     * @return The unique 34-character SID identifier of the List.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique and addressable name of this List..
+     * Returns The An application-defined string that uniquely identifies the
+     * resource.
      *
-     * @return The unique and addressable name of this List.
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The unique SID identifier of the Twilio Account..
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The unique SID identifier of the Twilio Account.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique SID identifier of the Service Instance that hosts this
-     * List object..
+     * Returns The The SID of the Sync Service that the resource is associated with.
      *
-     * @return The unique SID identifier of the Service Instance that hosts this
-     *         List object.
+     * @return The SID of the Sync Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The absolute URL for this List..
+     * Returns The The absolute URL of the Sync List resource.
      *
-     * @return The absolute URL for this List.
+     * @return The absolute URL of the Sync List resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The A dictionary of URL links to nested resources of this List..
+     * Returns The The URLs of the Sync List's nested resources.
      *
-     * @return A dictionary of URL links to nested resources of this List.
+     * @return The URLs of the Sync List's nested resources
      */
     public final Map<String, String> getLinks() {
         return this.links;
     }
 
     /**
-     * Returns The Contains the current revision of this List, represented by a
-     * string identifier..
+     * Returns The The current revision of the Sync List, represented as a string.
      *
-     * @return Contains the current revision of this List, represented by a string
-     *         identifier.
+     * @return The current revision of the Sync List, represented as a string
      */
     public final String getRevision() {
         return this.revision;
     }
 
     /**
-     * Returns The Contains the date this List expires and gets deleted
-     * automatically..
+     * Returns The The ISO 8601 date and time in GMT when the Sync List expires.
      *
-     * @return Contains the date this List expires and gets deleted automatically.
+     * @return The ISO 8601 date and time in GMT when the Sync List expires
      */
     public final DateTime getDateExpires() {
         return this.dateExpires;
     }
 
     /**
-     * Returns The The date this List was created, given in UTC ISO 8601 format..
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date this List was created, given in UTC ISO 8601 format.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The Specifies the date this List was last updated, given in UTC ISO
-     * 8601 format..
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * updated.
      *
-     * @return Specifies the date this List was last updated, given in UTC ISO 8601
-     *         format.
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The identity of the List creator..
+     * Returns The The identity of the Sync List's creator.
      *
-     * @return The identity of the List creator.
+     * @return The identity of the Sync List's creator
      */
     public final String getCreatedBy() {
         return this.createdBy;

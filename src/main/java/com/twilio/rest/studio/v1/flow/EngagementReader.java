@@ -25,7 +25,7 @@ public class EngagementReader extends Reader<Engagement> {
     /**
      * Construct a new EngagementReader.
      *
-     * @param pathFlowSid Flow Sid.
+     * @param pathFlowSid The SID of the Flow to read Engagements from
      */
     public EngagementReader(final String pathFlowSid) {
         this.pathFlowSid = pathFlowSid;

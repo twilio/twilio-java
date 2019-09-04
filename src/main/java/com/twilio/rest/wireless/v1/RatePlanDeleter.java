@@ -23,7 +23,7 @@ public class RatePlanDeleter extends Deleter<RatePlan> {
     /**
      * Construct a new RatePlanDeleter.
      *
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSid The SID that identifies the resource to delete
      */
     public RatePlanDeleter(final String pathSid) {
         this.pathSid = pathSid;

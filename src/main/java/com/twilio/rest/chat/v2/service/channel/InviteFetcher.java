@@ -27,7 +27,7 @@ public class InviteFetcher extends Fetcher<Invite> {
      *
      * @param pathServiceSid The SID of the Service to fetch the resource from
      * @param pathChannelSid The SID of the Channel the resource to fetch belongs to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Invite resource to fetch
      */
     public InviteFetcher(final String pathServiceSid,
                          final String pathChannelSid,

@@ -66,7 +66,7 @@ public class User extends Resource {
      * Create a UserFetcher to execute fetch.
      *
      * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the User resource to fetch
      * @return UserFetcher capable of executing the fetch
      */
     public static UserFetcher fetcher(final String pathServiceSid,
@@ -78,7 +78,7 @@ public class User extends Resource {
      * Create a UserDeleter to execute delete.
      *
      * @param pathServiceSid The SID of the Service to delete the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of  the User resource to delete
      * @return UserDeleter capable of executing the delete
      */
     public static UserDeleter deleter(final String pathServiceSid,
@@ -101,7 +101,7 @@ public class User extends Resource {
     /**
      * Create a UserReader to execute read.
      *
-     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathServiceSid The SID of the Service to read the User resources from
      * @return UserReader capable of executing the read
      */
     public static UserReader reader(final String pathServiceSid) {
@@ -112,7 +112,7 @@ public class User extends Resource {
      * Create a UserUpdater to execute update.
      *
      * @param pathServiceSid The SID of the Service to update the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the User resource to update
      * @return UserUpdater capable of executing the update
      */
     public static UserUpdater updater(final String pathServiceSid,
@@ -303,28 +303,28 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
      * updated.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was last updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The number of Channels this User is a Member of.
+     * Returns The The number of Channels the User is a Member of.
      *
-     * @return The number of Channels this User is a Member of
+     * @return The number of Channels the User is a Member of
      */
     public final Integer getJoinedChannelsCount() {
         return this.joinedChannelsCount;

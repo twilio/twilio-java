@@ -28,7 +28,7 @@ public class InviteDeleter extends Deleter<Invite> {
      * @param pathServiceSid The SID of the Service to delete the resource from
      * @param pathChannelSid The SID of the Channel the resource to delete belongs
      *                       to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Invite resource to delete
      */
     public InviteDeleter(final String pathServiceSid,
                          final String pathChannelSid,

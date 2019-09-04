@@ -26,6 +26,7 @@ public class BrandedCallCreator extends Creator<BrandedCall> {
     private final String from;
     private final String to;
     private final String reason;
+    private String callSid;
 
     /**
      * Construct a new BrandedCallCreator.
@@ -40,6 +41,17 @@ public class BrandedCallCreator extends Creator<BrandedCall> {
         this.from = from;
         this.to = to;
         this.reason = reason;
+    }
+
+    /**
+     * The call_sid.
+     *
+     * @param callSid The call_sid
+     * @return this
+     */
+    public BrandedCallCreator setCallSid(final String callSid) {
+        this.callSid = callSid;
+        return this;
     }
 
     /**
@@ -97,6 +109,10 @@ public class BrandedCallCreator extends Creator<BrandedCall> {
 
         if (reason != null) {
             request.addPostParam("Reason", reason);
+        }
+
+        if (callSid != null) {
+            request.addPostParam("CallSid", callSid);
         }
     }
 }

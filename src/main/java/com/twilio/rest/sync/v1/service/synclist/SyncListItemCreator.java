@@ -35,10 +35,10 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
     /**
      * Construct a new SyncListItemCreator.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathListSid The list_sid
-     * @param data Contains arbitrary user-defined, schema-less data that this List
-     *             Item stores, represented by a JSON object, up to 16KB.
+     * @param pathServiceSid The SID of the Sync Service to create the List Item in
+     * @param pathListSid The SID of the Sync List to add the new List Item to
+     * @param data A JSON string that represents an arbitrary, schema-less object
+     *             that the List Item stores
      */
     public SyncListItemCreator(final String pathServiceSid,
                                final String pathListSid,
@@ -49,9 +49,10 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
     }
 
     /**
-     * Alias for item_ttl. If both are provided, this value is ignored..
+     * An alias for `item_ttl`. If both parameters are provided, this value is
+     * ignored..
      *
-     * @param ttl Alias for item_ttl
+     * @param ttl An alias for item_ttl
      * @return this
      */
     public SyncListItemCreator setTtl(final Integer ttl) {
@@ -60,13 +61,12 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
     }
 
     /**
-     * Time-to-live of this item in seconds, defaults to no expiration. In the range
-     * [1, 31 536 000 (1 year)], or 0 for infinity. Upon expiry, the list item will
-     * be cleaned up at least in a matter of hours, and often within seconds, making
-     * this a good tool for garbage management..
+     * How long, in seconds, before the List Item expires (time-to-live) and is
+     * deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value
+     * is `0`, which means the List Item does not expire. The List Item might not be
+     * deleted immediately after it expires..
      *
-     * @param itemTtl Time-to-live of this item in seconds, defaults to no
-     *                expiration.
+     * @param itemTtl How long, in seconds, before the List Item expires
      * @return this
      */
     public SyncListItemCreator setItemTtl(final Integer itemTtl) {
@@ -75,13 +75,13 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
     }
 
     /**
-     * Time-to-live of this item's parent List in seconds, defaults to no
-     * expiration. In the range [1, 31 536 000 (1 year)], or 0 for infinity. This
-     * parameter can only be used when the list item's data or ttl is updated in the
-     * same request..
+     * How long, in seconds, before the List Item's parent Sync List expires
+     * (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1
+     * year). The default value is `0`, which means the parent Sync List does not
+     * expire. The Sync List might not be deleted immediately after it expires..
      *
-     * @param collectionTtl Time-to-live of this item's parent List in seconds,
-     *                      defaults to no expiration.
+     * @param collectionTtl How long, in seconds, before the List Item's parent
+     *                      Sync List expires
      * @return this
      */
     public SyncListItemCreator setCollectionTtl(final Integer collectionTtl) {

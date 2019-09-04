@@ -39,7 +39,7 @@ public class BindingReader extends Reader<Binding> {
     /**
      * The push technology used by the Binding resources to read.  Can be: `apn`,
      * `gcm`, or `fcm`.  See [push notification
-     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information..
+     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info..
      *
      * @param bindingType The push technology used by the Binding resources to read
      * @return this
@@ -52,7 +52,7 @@ public class BindingReader extends Reader<Binding> {
     /**
      * The push technology used by the Binding resources to read.  Can be: `apn`,
      * `gcm`, or `fcm`.  See [push notification
-     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information..
+     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info..
      *
      * @param bindingType The push technology used by the Binding resources to read
      * @return this

@@ -36,11 +36,11 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
     /**
      * Construct a new SyncMapItemCreator.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathMapSid The map_sid
-     * @param key The unique user-defined key of this Map Item.
-     * @param data Contains arbitrary user-defined, schema-less data that this Map
-     *             Item stores, represented by a JSON object, up to 16KB.
+     * @param pathServiceSid The SID of the Sync Service to create the Map Item in
+     * @param pathMapSid The SID of the Sync Map to add the new Map Item to
+     * @param key The unique, user-defined key for the Map Item
+     * @param data A JSON string that represents an arbitrary, schema-less object
+     *             that the Map Item stores
      */
     public SyncMapItemCreator(final String pathServiceSid,
                               final String pathMapSid,
@@ -53,9 +53,10 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
     }
 
     /**
-     * Alias for item_ttl. If both are provided, this value is ignored..
+     * An alias for `item_ttl`. If both parameters are provided, this value is
+     * ignored..
      *
-     * @param ttl Alias for item_ttl
+     * @param ttl An alias for item_ttl
      * @return this
      */
     public SyncMapItemCreator setTtl(final Integer ttl) {
@@ -64,13 +65,12 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
     }
 
     /**
-     * Time-to-live of this item in seconds, defaults to no expiration. In the range
-     * [1, 31 536 000 (1 year)], or 0 for infinity. Upon expiry, the map item will
-     * be cleaned up at least in a matter of hours, and often within seconds, making
-     * this a good tool for garbage management..
+     * How long, in seconds, before the Map Item expires (time-to-live) and is
+     * deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value
+     * is `0`, which means the Map Item does not expire.  The Map Item might not be
+     * deleted immediately after it expires..
      *
-     * @param itemTtl Time-to-live of this item in seconds, defaults to no
-     *                expiration.
+     * @param itemTtl How long, in seconds, before the Map Item expires
      * @return this
      */
     public SyncMapItemCreator setItemTtl(final Integer itemTtl) {
@@ -79,12 +79,13 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
     }
 
     /**
-     * Time-to-live of this item's parent Map in seconds, defaults to no expiration.
-     * In the range [1, 31 536 000 (1 year)], or 0 for infinity. This parameter can
-     * only be used when the map item's data or ttl is updated in the same request..
+     * How long, in seconds, before the Map Item's parent Sync Map expires
+     * (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1
+     * year). The default value is `0`, which means the parent Sync Map does not
+     * expire. The Sync Map might not be deleted immediately after it expires..
      *
-     * @param collectionTtl Time-to-live of this item's parent Map in seconds,
-     *                      defaults to no expiration.
+     * @param collectionTtl How long, in seconds, before the Map Item's parent Sync
+     *                      Map expires and is deleted
      * @return this
      */
     public SyncMapItemCreator setCollectionTtl(final Integer collectionTtl) {

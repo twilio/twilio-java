@@ -26,8 +26,8 @@ public class StepReader extends Reader<Step> {
     /**
      * Construct a new StepReader.
      *
-     * @param pathFlowSid Flow Sid.
-     * @param pathEngagementSid Engagement Sid.
+     * @param pathFlowSid The SID of the Flow
+     * @param pathEngagementSid The SID of the Engagement
      */
     public StepReader(final String pathFlowSid,
                       final String pathEngagementSid) {

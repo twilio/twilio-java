@@ -28,8 +28,9 @@ public class SyncStreamDeleter extends Deleter<SyncStream> {
     /**
      * Construct a new SyncStreamDeleter.
      *
-     * @param pathServiceSid Service Instance SID or unique name.
-     * @param pathSid Stream SID or unique name.
+     * @param pathServiceSid The SID of the Sync Service with the Sync Stream
+     *                       resource to delete
+     * @param pathSid The SID of the Stream resource to delete
      */
     public SyncStreamDeleter(final String pathServiceSid,
                              final String pathSid) {

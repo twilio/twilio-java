@@ -78,7 +78,7 @@ public class Binding extends Resource {
      * Create a BindingFetcher to execute fetch.
      *
      * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the resource to fetch
      * @return BindingFetcher capable of executing the fetch
      */
     public static BindingFetcher fetcher(final String pathServiceSid,
@@ -90,7 +90,7 @@ public class Binding extends Resource {
      * Create a BindingDeleter to execute delete.
      *
      * @param pathServiceSid The SID of the Service to delete the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the resource to delete
      * @return BindingDeleter capable of executing the delete
      */
     public static BindingDeleter deleter(final String pathServiceSid,
@@ -206,28 +206,29 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the resource is associated with.
+     * Returns The The SID of the Service that the Binding resource is associated
+     * with.
      *
-     * @return The SID of the Service that the resource is associated with
+     * @return The SID of the Service that the Binding resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
      * updated.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was last updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
@@ -288,9 +289,9 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The The absolute URLs of the Users for the Binding.
+     * Returns The The absolute URLs of the Binding's User.
      *
-     * @return The absolute URLs of the Users for the Binding
+     * @return The absolute URLs of the Binding's User
      */
     public final Map<String, String> getLinks() {
         return this.links;

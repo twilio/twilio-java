@@ -28,8 +28,7 @@ public class MessageReader extends Reader<Message> {
      * Construct a new MessageReader.
      *
      * @param pathServiceSid The SID of the Service to read the resources from
-     * @param pathChannelSid The unique ID of the Channel the message to read
-     *                       belongs to
+     * @param pathChannelSid The SID of the Channel the message to read belongs to
      */
     public MessageReader(final String pathServiceSid,
                          final String pathChannelSid) {

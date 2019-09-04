@@ -104,9 +104,10 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookFetcher to execute fetch.
      *
-     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathServiceSid The SID of the Service with the Channel to fetch the
+     *                       Webhook resource from
      * @param pathChannelSid The SID of the Channel the resource to fetch belongs to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Channel Webhook resource to fetch
      * @return WebhookFetcher capable of executing the fetch
      */
     public static WebhookFetcher fetcher(final String pathServiceSid,
@@ -118,7 +119,8 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookCreator to execute create.
      *
-     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param pathServiceSid The SID of the Service with the Channel to create the
+     *                       resource under
      * @param pathChannelSid The SID of the Channel the new resource belongs to
      * @param type The type of webhook
      * @return WebhookCreator capable of executing the create
@@ -132,10 +134,11 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookUpdater to execute update.
      *
-     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathServiceSid The SID of the Service with the Channel that has the
+     *                       Webhook resource to update
      * @param pathChannelSid The SID of the Channel the resource to update belongs
      *                       to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the resource
      * @return WebhookUpdater capable of executing the update
      */
     public static WebhookUpdater updater(final String pathServiceSid,
@@ -147,10 +150,11 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookDeleter to execute delete.
      *
-     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathServiceSid The SID of the Service with the Channel to delete the
+     *                       Webhook resource from
      * @param pathChannelSid The SID of the channel the resource to delete belongs
      *                       to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Channel Webhook resource to delete
      * @return WebhookDeleter capable of executing the delete
      */
     public static WebhookDeleter deleter(final String pathServiceSid,
@@ -255,18 +259,20 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the resource is associated with.
+     * Returns The The SID of the Service that the Channel Webhook resource is
+     * associated with.
      *
-     * @return The SID of the Service that the resource is associated with
+     * @return The SID of the Service that the Channel Webhook resource is
+     *         associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The SID of the Channel the ChannelWebhook resource belongs to.
+     * Returns The The SID of the Channel the Channel Webhook resource belongs to.
      *
-     * @return The SID of the Channel the ChannelWebhook resource belongs to
+     * @return The SID of the Channel the Channel Webhook resource belongs to
      */
     public final String getChannelSid() {
         return this.channelSid;
@@ -282,9 +288,9 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The The absolute URL of the Channel Webhook resource.
      *
-     * @return The absolute URL of the resource
+     * @return The absolute URL of the Channel Webhook resource
      */
     public final URI getUrl() {
         return this.url;
@@ -302,19 +308,19 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
      * updated.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was last updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;

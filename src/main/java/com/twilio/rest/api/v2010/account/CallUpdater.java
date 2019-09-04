@@ -30,6 +30,7 @@ public class CallUpdater extends Updater<Call> {
     private HttpMethod fallbackMethod;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
+    private String twiml;
 
     /**
      * Construct a new CallUpdater.
@@ -190,6 +191,18 @@ public class CallUpdater extends Updater<Call> {
     }
 
     /**
+     * TwiML instructions for the call Twilio will use without fetching Twiml from
+     * url. Twiml and url parameters are mutually exclusive.
+     *
+     * @param twiml TwiML instructions for the call
+     * @return this
+     */
+    public CallUpdater setTwiml(final String twiml) {
+        this.twiml = twiml;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -261,6 +274,10 @@ public class CallUpdater extends Updater<Call> {
 
         if (statusCallbackMethod != null) {
             request.addPostParam("StatusCallbackMethod", statusCallbackMethod.toString());
+        }
+
+        if (twiml != null) {
+            request.addPostParam("Twiml", twiml);
         }
     }
 }

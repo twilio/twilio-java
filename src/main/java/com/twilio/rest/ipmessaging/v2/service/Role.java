@@ -67,7 +67,7 @@ public class Role extends Resource {
      * Create a RoleFetcher to execute fetch.
      *
      * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Role resource to fetch
      * @return RoleFetcher capable of executing the fetch
      */
     public static RoleFetcher fetcher(final String pathServiceSid,
@@ -79,7 +79,7 @@ public class Role extends Resource {
      * Create a RoleDeleter to execute delete.
      *
      * @param pathServiceSid The SID of the Service to delete the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Role resource to delete
      * @return RoleDeleter capable of executing the delete
      */
     public static RoleDeleter deleter(final String pathServiceSid,
@@ -117,7 +117,7 @@ public class Role extends Resource {
      * Create a RoleUpdater to execute update.
      *
      * @param pathServiceSid The SID of the Service to update the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Role resource to update
      * @param permission A permission the role should have
      * @return RoleUpdater capable of executing the update
      */
@@ -259,19 +259,19 @@ public class Role extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
      * updated.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was last updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;

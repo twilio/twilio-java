@@ -33,7 +33,7 @@ public class ChannelUpdater extends Updater<Channel> {
      * Construct a new ChannelUpdater.
      *
      * @param pathServiceSid The SID of the Service to update the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Channel resource to update
      */
     public ChannelUpdater(final String pathServiceSid,
                           final String pathSid) {
@@ -81,7 +81,10 @@ public class ChannelUpdater extends Updater<Channel> {
 
     /**
      * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was created..
+     * format, to assign to the resource as the date it was created. The default
+     * value is the current time set by the Chat service.  Note that this should
+     * only be used in cases where a Channel is being recreated from a
+     * backup/separate source..
      *
      * @param dateCreated The ISO 8601 date and time in GMT when the resource was
      *                    created

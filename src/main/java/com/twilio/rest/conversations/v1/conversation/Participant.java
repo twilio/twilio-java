@@ -41,7 +41,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Participant extends Resource {
-    private static final long serialVersionUID = 65240842807107L;
+    private static final long serialVersionUID = 167297652471309L;
 
     public enum WebhookEnabledType {
         TRUE("true"),
@@ -171,6 +171,7 @@ public class Participant extends Resource {
     private final String conversationSid;
     private final String sid;
     private final String identity;
+    private final String attributes;
     private final Map<String, Object> messagingBinding;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
@@ -185,6 +186,8 @@ public class Participant extends Resource {
                         final String sid,
                         @JsonProperty("identity")
                         final String identity,
+                        @JsonProperty("attributes")
+                        final String attributes,
                         @JsonProperty("messaging_binding")
                         final Map<String, Object> messagingBinding,
                         @JsonProperty("date_created")
@@ -197,6 +200,7 @@ public class Participant extends Resource {
         this.conversationSid = conversationSid;
         this.sid = sid;
         this.identity = identity;
+        this.attributes = attributes;
         this.messagingBinding = messagingBinding;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
@@ -239,6 +243,17 @@ public class Participant extends Resource {
      */
     public final String getIdentity() {
         return this.identity;
+    }
+
+    /**
+     * Returns The An optional string metadata field you can use to store any data
+     * you wish..
+     *
+     * @return An optional string metadata field you can use to store any data you
+     *         wish.
+     */
+    public final String getAttributes() {
+        return this.attributes;
     }
 
     /**
@@ -295,6 +310,7 @@ public class Participant extends Resource {
                Objects.equals(conversationSid, other.conversationSid) &&
                Objects.equals(sid, other.sid) &&
                Objects.equals(identity, other.identity) &&
+               Objects.equals(attributes, other.attributes) &&
                Objects.equals(messagingBinding, other.messagingBinding) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
@@ -307,6 +323,7 @@ public class Participant extends Resource {
                             conversationSid,
                             sid,
                             identity,
+                            attributes,
                             messagingBinding,
                             dateCreated,
                             dateUpdated,
@@ -320,6 +337,7 @@ public class Participant extends Resource {
                           .add("conversationSid", conversationSid)
                           .add("sid", sid)
                           .add("identity", identity)
+                          .add("attributes", attributes)
                           .add("messagingBinding", messagingBinding)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)

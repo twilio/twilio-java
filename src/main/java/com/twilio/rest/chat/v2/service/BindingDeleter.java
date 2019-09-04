@@ -25,7 +25,7 @@ public class BindingDeleter extends Deleter<Binding> {
      * Construct a new BindingDeleter.
      *
      * @param pathServiceSid The SID of the Service to delete the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the resource to delete
      */
     public BindingDeleter(final String pathServiceSid,
                           final String pathSid) {

@@ -33,8 +33,9 @@ public class SyncListItemReader extends Reader<SyncListItem> {
     /**
      * Construct a new SyncListItemReader.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathListSid The list_sid
+     * @param pathServiceSid The SID of the Sync Service with the List Item
+     *                       resources to read
+     * @param pathListSid The SID of the Sync List with the List Items to read
      */
     public SyncListItemReader(final String pathServiceSid,
                               final String pathListSid) {
@@ -43,9 +44,10 @@ public class SyncListItemReader extends Reader<SyncListItem> {
     }
 
     /**
-     * A string; `asc` or `desc`.
+     * How to order the List Items returned by their `index` value. Can be: `asc`
+     * (ascending) or `desc` (descending) and the default is ascending..
      *
-     * @param order A string; asc or desc
+     * @param order The order to return the List Items
      * @return this
      */
     public SyncListItemReader setOrder(final SyncListItem.QueryResultOrder order) {
@@ -54,10 +56,9 @@ public class SyncListItemReader extends Reader<SyncListItem> {
     }
 
     /**
-     * An integer representing Item index offset (inclusive). If not present, query
-     * is performed from the start or end, depending on the Order query parameter..
+     * The `index` of the first Sync List Item resource to read. See also `bounds`..
      *
-     * @param from An integer representing Item index offset.
+     * @param from The index of the first Sync List Item resource to read
      * @return this
      */
     public SyncListItemReader setFrom(final String from) {
@@ -66,9 +67,13 @@ public class SyncListItemReader extends Reader<SyncListItem> {
     }
 
     /**
-     * The bounds.
+     * Whether to include the List Item referenced by the `from` parameter. Can be:
+     * `inclusive` to include the List Item referenced by the `from` parameter or
+     * `exclusive` to start with the next List Item. The default value is
+     * `inclusive`..
      *
-     * @param bounds The bounds
+     * @param bounds Whether to include the List Item referenced by the from
+     *               parameter
      * @return this
      */
     public SyncListItemReader setBounds(final SyncListItem.QueryFromBoundType bounds) {

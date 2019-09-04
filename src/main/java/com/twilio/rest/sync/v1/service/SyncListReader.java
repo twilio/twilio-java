@@ -29,7 +29,8 @@ public class SyncListReader extends Reader<SyncList> {
     /**
      * Construct a new SyncListReader.
      *
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid The SID of the Sync Service with the Sync List
+     *                       resources to read
      */
     public SyncListReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;

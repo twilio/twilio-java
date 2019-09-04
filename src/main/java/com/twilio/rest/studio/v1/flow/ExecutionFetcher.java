@@ -24,8 +24,8 @@ public class ExecutionFetcher extends Fetcher<Execution> {
     /**
      * Construct a new ExecutionFetcher.
      *
-     * @param pathFlowSid Flow Sid.
-     * @param pathSid Execution Sid.
+     * @param pathFlowSid The SID of the Flow
+     * @param pathSid The SID of the Execution resource to fetch
      */
     public ExecutionFetcher(final String pathFlowSid,
                             final String pathSid) {

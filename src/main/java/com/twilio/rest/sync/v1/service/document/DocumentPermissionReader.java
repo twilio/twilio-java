@@ -30,8 +30,10 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
     /**
      * Construct a new DocumentPermissionReader.
      *
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathDocumentSid Sync Document SID or unique name.
+     * @param pathServiceSid The SID of the Sync Service with the Document
+     *                       Permission resources to read
+     * @param pathDocumentSid The SID of the Sync Document with the Document
+     *                        Permission resources to read
      */
     public DocumentPermissionReader(final String pathServiceSid,
                                     final String pathDocumentSid) {

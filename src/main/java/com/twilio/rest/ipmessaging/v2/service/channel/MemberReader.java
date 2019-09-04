@@ -31,7 +31,7 @@ public class MemberReader extends Reader<Member> {
      * Construct a new MemberReader.
      *
      * @param pathServiceSid The SID of the Service to read the resources from
-     * @param pathChannelSid The unique ID of the channel the member belongs to
+     * @param pathChannelSid The SID of the channel the member belongs to
      */
     public MemberReader(final String pathServiceSid,
                         final String pathChannelSid) {
@@ -41,7 +41,7 @@ public class MemberReader extends Reader<Member> {
 
     /**
      * The [User](https://www.twilio.com/docs/chat/rest/users)'s `identity` value of
-     * the resources to read. See [access
+     * the Member resources to read. See [access
      * tokens](https://www.twilio.com/docs/chat/create-tokens) for more details..
      *
      * @param identity The `identity` value of the resources to read
@@ -54,7 +54,7 @@ public class MemberReader extends Reader<Member> {
 
     /**
      * The [User](https://www.twilio.com/docs/chat/rest/users)'s `identity` value of
-     * the resources to read. See [access
+     * the Member resources to read. See [access
      * tokens](https://www.twilio.com/docs/chat/create-tokens) for more details..
      *
      * @param identity The `identity` value of the resources to read

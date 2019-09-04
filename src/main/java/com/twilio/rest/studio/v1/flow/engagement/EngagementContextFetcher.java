@@ -24,8 +24,8 @@ public class EngagementContextFetcher extends Fetcher<EngagementContext> {
     /**
      * Construct a new EngagementContextFetcher.
      *
-     * @param pathFlowSid Flow Sid.
-     * @param pathEngagementSid Engagement Sid.
+     * @param pathFlowSid Flow SID
+     * @param pathEngagementSid Engagement SID
      */
     public EngagementContextFetcher(final String pathFlowSid,
                                     final String pathEngagementSid) {

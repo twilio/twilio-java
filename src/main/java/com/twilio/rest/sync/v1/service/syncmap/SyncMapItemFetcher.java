@@ -29,9 +29,11 @@ public class SyncMapItemFetcher extends Fetcher<SyncMapItem> {
     /**
      * Construct a new SyncMapItemFetcher.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathMapSid The map_sid
-     * @param pathKey The key
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map Item
+     *                       resource to fetch
+     * @param pathMapSid The SID of the Sync Map with the Sync Map Item resource to
+     *                   fetch
+     * @param pathKey The key value of the Sync Map Item resource to fetch
      */
     public SyncMapItemFetcher(final String pathServiceSid,
                               final String pathMapSid,

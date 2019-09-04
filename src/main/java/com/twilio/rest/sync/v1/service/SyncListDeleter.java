@@ -28,8 +28,9 @@ public class SyncListDeleter extends Deleter<SyncList> {
     /**
      * Construct a new SyncListDeleter.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Sync Service with the Sync List
+     *                       resource to delete
+     * @param pathSid The SID of the Sync List resource to delete
      */
     public SyncListDeleter(final String pathServiceSid,
                            final String pathSid) {

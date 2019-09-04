@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BrandedCall extends Resource {
-    private static final long serialVersionUID = 27681298031024L;
+    private static final long serialVersionUID = 186540956820921L;
 
     /**
      * Create a BrandedCallCreator to execute create.
@@ -101,6 +101,7 @@ public class BrandedCall extends Resource {
     private final String from;
     private final String logo;
     private final String reason;
+    private final String sid;
     private final String status;
     private final String to;
     private final URI url;
@@ -123,6 +124,8 @@ public class BrandedCall extends Resource {
                         final String logo,
                         @JsonProperty("reason")
                         final String reason,
+                        @JsonProperty("sid")
+                        final String sid,
                         @JsonProperty("status")
                         final String status,
                         @JsonProperty("to")
@@ -139,6 +142,7 @@ public class BrandedCall extends Resource {
         this.from = from;
         this.logo = logo;
         this.reason = reason;
+        this.sid = sid;
         this.status = status;
         this.to = to;
         this.url = url;
@@ -218,6 +222,15 @@ public class BrandedCall extends Resource {
     }
 
     /**
+     * Returns The A string that uniquely identifies this current phone call..
+     *
+     * @return A string that uniquely identifies this current phone call.
+     */
+    public final String getSid() {
+        return this.sid;
+    }
+
+    /**
      * Returns The The status of the current phone call.
      *
      * @return The status of the current phone call
@@ -273,6 +286,7 @@ public class BrandedCall extends Resource {
                Objects.equals(from, other.from) &&
                Objects.equals(logo, other.logo) &&
                Objects.equals(reason, other.reason) &&
+               Objects.equals(sid, other.sid) &&
                Objects.equals(status, other.status) &&
                Objects.equals(to, other.to) &&
                Objects.equals(url, other.url) &&
@@ -289,6 +303,7 @@ public class BrandedCall extends Resource {
                             from,
                             logo,
                             reason,
+                            sid,
                             status,
                             to,
                             url,
@@ -306,6 +321,7 @@ public class BrandedCall extends Resource {
                           .add("from", from)
                           .add("logo", logo)
                           .add("reason", reason)
+                          .add("sid", sid)
                           .add("status", status)
                           .add("to", to)
                           .add("url", url)

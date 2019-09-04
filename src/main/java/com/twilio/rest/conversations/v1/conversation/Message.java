@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Message extends Resource {
-    private static final long serialVersionUID = 205597331783586L;
+    private static final long serialVersionUID = 67892017604626L;
 
     public enum WebhookEnabledType {
         TRUE("true"),
@@ -170,6 +170,7 @@ public class Message extends Resource {
     private final Integer index;
     private final String author;
     private final String body;
+    private final String attributes;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
@@ -187,6 +188,8 @@ public class Message extends Resource {
                     final String author,
                     @JsonProperty("body")
                     final String body,
+                    @JsonProperty("attributes")
+                    final String attributes,
                     @JsonProperty("date_created")
                     final String dateCreated,
                     @JsonProperty("date_updated")
@@ -199,6 +202,7 @@ public class Message extends Resource {
         this.index = index;
         this.author = author;
         this.body = body;
+        this.attributes = attributes;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -259,6 +263,15 @@ public class Message extends Resource {
     }
 
     /**
+     * Returns The A string metadata field you can use to store any data you wish..
+     *
+     * @return A string metadata field you can use to store any data you wish.
+     */
+    public final String getAttributes() {
+        return this.attributes;
+    }
+
+    /**
      * Returns The The date that this resource was created..
      *
      * @return The date that this resource was created.
@@ -303,6 +316,7 @@ public class Message extends Resource {
                Objects.equals(index, other.index) &&
                Objects.equals(author, other.author) &&
                Objects.equals(body, other.body) &&
+               Objects.equals(attributes, other.attributes) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
@@ -316,6 +330,7 @@ public class Message extends Resource {
                             index,
                             author,
                             body,
+                            attributes,
                             dateCreated,
                             dateUpdated,
                             url);
@@ -330,6 +345,7 @@ public class Message extends Resource {
                           .add("index", index)
                           .add("author", author)
                           .add("body", body)
+                          .add("attributes", attributes)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)

@@ -25,9 +25,9 @@ public class StepContextFetcher extends Fetcher<StepContext> {
     /**
      * Construct a new StepContextFetcher.
      *
-     * @param pathFlowSid Flow Sid.
-     * @param pathEngagementSid Engagement Sid.
-     * @param pathStepSid Step Sid.
+     * @param pathFlowSid The SID of the Flow
+     * @param pathEngagementSid The SID of the Engagement
+     * @param pathStepSid Step SID
      */
     public StepContextFetcher(final String pathFlowSid,
                               final String pathEngagementSid,

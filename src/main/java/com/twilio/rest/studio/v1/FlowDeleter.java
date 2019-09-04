@@ -23,7 +23,7 @@ public class FlowDeleter extends Deleter<Flow> {
     /**
      * Construct a new FlowDeleter.
      *
-     * @param pathSid A string that uniquely identifies this Flow.
+     * @param pathSid The SID that identifies the resource to delete
      */
     public FlowDeleter(final String pathSid) {
         this.pathSid = pathSid;

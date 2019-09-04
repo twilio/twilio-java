@@ -34,11 +34,11 @@ public class RatePlanCreator extends Creator<RatePlan> {
     private Integer internationalRoamingDataLimit;
 
     /**
-     * A user-provided string that uniquely identifies this resource as an
-     * alternative to the Sid..
+     * An application-defined string that uniquely identifies the resource. It can
+     * be used in place of the resource's `sid` in the URL to address the resource..
      *
-     * @param uniqueName A user-provided string that uniquely identifies this
-     *                   resource as an alternative to the Sid.
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      * @return this
      */
     public RatePlanCreator setUniqueName(final String uniqueName) {
@@ -47,9 +47,10 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
-     * A user-provided string that identifies this resource. Non-unique..
+     * A descriptive string that you create to describe the resource. It does not
+     * have to be unique..
      *
-     * @param friendlyName A user-provided string that identifies this resource.
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public RatePlanCreator setFriendlyName(final String friendlyName) {
@@ -58,10 +59,9 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
-     * Defines whether SIMs are capable of using GPRS/3G/LTE data connectivity..
+     * Whether SIMs can use GPRS/3G/4G/LTE data connectivity..
      *
-     * @param dataEnabled Defines whether SIMs are capable of using GPRS/3G/LTE
-     *                    data connectivity.
+     * @param dataEnabled Whether SIMs can use GPRS/3G/4G/LTE data connectivity
      * @return this
      */
     public RatePlanCreator setDataEnabled(final Boolean dataEnabled) {
@@ -70,14 +70,13 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
-     * Network-enforced limit specifying the total Megabytes of data usage (download
-     * and upload combined) allowed during one month on the 'home' (T-Mobile USA)
-     * network. Metering begins on the day of activation and ends on the same day of
-     * the following month.  Max value is 2TB. Default value is `1000`..
+     * The total data usage (download and upload combined) in Megabytes that the
+     * Network allows during one month on the home network (T-Mobile USA). The
+     * metering period begins the day of activation and ends on the same day in the
+     * following month. Can be up to 2TB and the default value is `1000`..
      *
-     * @param dataLimit Network-enforced limit specifying the total Megabytes of
-     *                  data usage allowed during one month on the 'home' (T-Mobile
-     *                  USA) network.
+     * @param dataLimit The total data usage in Megabytes that the Network allows
+     *                  during one month on the home network
      * @return this
      */
     public RatePlanCreator setDataLimit(final Integer dataLimit) {
@@ -86,12 +85,11 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
-     * The model by which to meter data usage, in accordance with the available
-     * [data metering
-     * models](https://www.twilio.com/docs/wireless/api/rate-plan#payg-vs-quota-data-plans). Valid options are `payg` and `quota-1`, `quota-10`, and `quota-50`. Defaults to `payg`..
+     * The model used to meter data usage. Can be: `payg` and `quota-1`, `quota-10`,
+     * and `quota-50`. Learn more about the available [data metering
+     * models](https://www.twilio.com/docs/wireless/api/rate-plan#payg-vs-quota-data-plans)..
      *
-     * @param dataMetering The model by which to meter data usage, in accordance
-     *                     with the available data metering models.
+     * @param dataMetering The model used to meter data usage
      * @return this
      */
     public RatePlanCreator setDataMetering(final String dataMetering) {
@@ -100,14 +98,11 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
-     * Defines whether SIMs are capable of making and sending and receiving SMS
-     * messages via either
-     * [Commands](https://www.twilio.com/docs/wireless/api/commands) or Programmable
-     * SMS APIs..
+     * Whether SIMs can make, send, and receive SMS using
+     * [Commands](https://www.twilio.com/docs/wireless/api/commands)..
      *
-     * @param messagingEnabled Defines whether SIMs are capable of making and
-     *                         sending and receiving SMS messages via either
-     *                         Commands or Programmable SMS APIs.
+     * @param messagingEnabled Whether SIMs can make, send, and receive SMS using
+     *                         Commands
      * @return this
      */
     public RatePlanCreator setMessagingEnabled(final Boolean messagingEnabled) {
@@ -116,10 +111,9 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
-     * Defines whether SIMs are capable of making and receiving voice calls..
+     * Whether SIMs can make and receive voice calls..
      *
-     * @param voiceEnabled Defines whether SIMs are capable of making and receiving
-     *                     voice calls.
+     * @param voiceEnabled Whether SIMs can make and receive voice calls
      * @return this
      */
     public RatePlanCreator setVoiceEnabled(final Boolean voiceEnabled) {
@@ -128,13 +122,12 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
-     * Defines whether SIMs can roam onto networks other than the 'home' (T-Mobile
-     * USA) network in the United States. See ['national'
-     * roaming](https://www.twilio.com/docs/api/wireless/rest-api/rate-plan#national-roaming)..
+     * Whether SIMs can roam on networks other than the home network (T-Mobile USA)
+     * in the United States. See [national
+     * roaming](https://www.twilio.com/docs/wireless/api/rate-plan#national-roaming)..
      *
-     * @param nationalRoamingEnabled Defines whether SIMs can roam onto networks
-     *                               other than the 'home' (T-Mobile USA) network in
-     *                               the United States.
+     * @param nationalRoamingEnabled Whether SIMs can roam on networks other than
+     *                               the home network in the United States
      * @return this
      */
     public RatePlanCreator setNationalRoamingEnabled(final Boolean nationalRoamingEnabled) {
@@ -143,13 +136,13 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
-     * Defines whether SIMs are capable of using GPRS/3G/4G/LTE data connectivity
-     * and messaging outside of the United States. Acceptable values are `data` and
-     * `messaging`..
+     * The list of services that SIMs capable of using GPRS/3G/4G/LTE data
+     * connectivity can use outside of the United States. Can be: `data`, `voice`,
+     * and `messaging`..
      *
-     * @param internationalRoaming Defines whether SIMs are capable of using
-     *                             GPRS/3G/4G/LTE data connectivity and messaging
-     *                             outside of the United States.
+     * @param internationalRoaming The services that SIMs capable of using
+     *                             GPRS/3G/4G/LTE data connectivity can use outside
+     *                             of the United States
      * @return this
      */
     public RatePlanCreator setInternationalRoaming(final List<String> internationalRoaming) {
@@ -158,13 +151,13 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
-     * Defines whether SIMs are capable of using GPRS/3G/4G/LTE data connectivity
-     * and messaging outside of the United States. Acceptable values are `data` and
-     * `messaging`..
+     * The list of services that SIMs capable of using GPRS/3G/4G/LTE data
+     * connectivity can use outside of the United States. Can be: `data`, `voice`,
+     * and `messaging`..
      *
-     * @param internationalRoaming Defines whether SIMs are capable of using
-     *                             GPRS/3G/4G/LTE data connectivity and messaging
-     *                             outside of the United States.
+     * @param internationalRoaming The services that SIMs capable of using
+     *                             GPRS/3G/4G/LTE data connectivity can use outside
+     *                             of the United States
      * @return this
      */
     public RatePlanCreator setInternationalRoaming(final String internationalRoaming) {
@@ -172,16 +165,16 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
-     * Network-enforced limit specifying the total Megabytes of national roaming
-     * data usage (download and upload combined) allowed during one month on
-     * networks in the United States other than the 'home' (T-Mobile USA) network.
-     * See ['national'
-     * roaming](https://www.twilio.com/docs/api/wireless/rest-api/rate-plan#national-roaming). Max value is 2TB..
+     * The total data usage (download and upload combined) in Megabytes that the
+     * Network allows during one month on non-home networks in the United States.
+     * The metering period begins the day of activation and ends on the same day in
+     * the following month. Can be up to 2TB. See [national
+     * roaming](https://www.twilio.com/docs/wireless/api/rate-plan#national-roaming)
+     * for more info..
      *
-     * @param nationalRoamingDataLimit Network-enforced limit specifying the total
-     *                                 Megabytes of data usage allowed during one
-     *                                 month on networks in the United States other
-     *                                 than the 'home' (T-Mobile USA) network.
+     * @param nationalRoamingDataLimit The total data usage in Megabytes that the
+     *                                 Network allows during one month on non-home
+     *                                 networks in the United States
      * @return this
      */
     public RatePlanCreator setNationalRoamingDataLimit(final Integer nationalRoamingDataLimit) {
@@ -190,15 +183,14 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
-     * Network-enforced limit specifying the total Megabytes of international
-     * roaming (non-US) data usage (download and upload combined) allowed during one
-     * month. Max value is 2TB. Default value is the lesser of `DataLimit` and
-     * `1000`MB..
+     * The total data usage (download and upload combined) in Megabytes that the
+     * Network allows during one month when roaming outside the United States. Can
+     * be up to 2TB..
      *
-     * @param internationalRoamingDataLimit Network-enforced limit specifying the
-     *                                      total Megabytes of international roaming
-     *                                      (non-US) data usage (download and upload
-     *                                      combined) allowed during one month.
+     * @param internationalRoamingDataLimit The total data usage (download and
+     *                                      upload combined) in Megabytes that the
+     *                                      Network allows during one month when
+     *                                      roaming outside the United States
      * @return this
      */
     public RatePlanCreator setInternationalRoamingDataLimit(final Integer internationalRoamingDataLimit) {

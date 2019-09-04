@@ -23,7 +23,7 @@ public class FlowFetcher extends Fetcher<Flow> {
     /**
      * Construct a new FlowFetcher.
      *
-     * @param pathSid A string that uniquely identifies this Flow.
+     * @param pathSid The SID that identifies the resource to fetch
      */
     public FlowFetcher(final String pathSid) {
         this.pathSid = pathSid;

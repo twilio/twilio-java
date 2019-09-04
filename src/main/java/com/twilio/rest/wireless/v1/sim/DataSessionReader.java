@@ -29,16 +29,17 @@ public class DataSessionReader extends Reader<DataSession> {
     /**
      * Construct a new DataSessionReader.
      *
-     * @param pathSimSid The sim_sid
+     * @param pathSimSid The SID of the Sim resource with the Data Sessions to read
      */
     public DataSessionReader(final String pathSimSid) {
         this.pathSimSid = pathSimSid;
     }
 
     /**
-     * The end.
+     * The date that the record ended, given as GMT in [ISO
+     * 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format..
      *
-     * @param end The end
+     * @param end The date that the record ended, given as GMT in ISO 8601 format
      * @return this
      */
     public DataSessionReader setEnd(final DateTime end) {
@@ -47,9 +48,11 @@ public class DataSessionReader extends Reader<DataSession> {
     }
 
     /**
-     * The start.
+     * The date that the Data Session started, given as GMT in [ISO
+     * 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format..
      *
-     * @param start The start
+     * @param start The date that the Data Session started, given as GMT in ISO
+     *              8601 format
      * @return this
      */
     public DataSessionReader setStart(final DateTime start) {

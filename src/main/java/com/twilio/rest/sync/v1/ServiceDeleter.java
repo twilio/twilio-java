@@ -27,7 +27,7 @@ public class ServiceDeleter extends Deleter<Service> {
     /**
      * Construct a new ServiceDeleter.
      *
-     * @param pathSid A unique identifier for this service instance.
+     * @param pathSid The SID of the Service resource to delete
      */
     public ServiceDeleter(final String pathSid) {
         this.pathSid = pathSid;

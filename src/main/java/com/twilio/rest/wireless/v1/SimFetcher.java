@@ -23,7 +23,7 @@ public class SimFetcher extends Fetcher<Sim> {
     /**
      * Construct a new SimFetcher.
      *
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSid The SID that identifies the resource to fetch
      */
     public SimFetcher(final String pathSid) {
         this.pathSid = pathSid;

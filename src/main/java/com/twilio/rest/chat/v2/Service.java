@@ -41,7 +41,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceFetcher to execute fetch.
      *
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Service resource to fetch
      * @return ServiceFetcher capable of executing the fetch
      */
     public static ServiceFetcher fetcher(final String pathSid) {
@@ -51,7 +51,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceDeleter to execute delete.
      *
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Service resource to delete
      * @return ServiceDeleter capable of executing the delete
      */
     public static ServiceDeleter deleter(final String pathSid) {
@@ -80,7 +80,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceUpdater to execute update.
      *
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Service resource to update
      * @return ServiceUpdater capable of executing the update
      */
     public static ServiceUpdater updater(final String pathSid) {
@@ -374,10 +374,10 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The list of WebHook events that are enabled for this Service
+     * Returns The The list of webhook events that are enabled for this Service
      * instance.
      *
-     * @return The list of WebHook events that are enabled for this Service instance
+     * @return The list of webhook events that are enabled for this Service instance
      */
     public final List<String> getWebhookFilters() {
         return this.webhookFilters;

@@ -24,8 +24,8 @@ public class EngagementDeleter extends Deleter<Engagement> {
     /**
      * Construct a new EngagementDeleter.
      *
-     * @param pathFlowSid Flow Sid.
-     * @param pathSid Engagement Sid.
+     * @param pathFlowSid The SID of the Flow to delete Engagements from
+     * @param pathSid The SID of the Engagement resource to delete
      */
     public EngagementDeleter(final String pathFlowSid,
                              final String pathSid) {

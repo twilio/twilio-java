@@ -28,7 +28,7 @@ public class UserUpdater extends Updater<User> {
      * Construct a new UserUpdater.
      *
      * @param pathServiceSid The SID of the Service to update the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the User resource to update
      */
     public UserUpdater(final String pathServiceSid,
                        final String pathSid) {
@@ -37,8 +37,8 @@ public class UserUpdater extends Updater<User> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/roles) assigned
-     * to this user..
+     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/roles) to assign
+     * to the User..
      *
      * @param roleSid The SID id of the Role assigned to this user
      * @return this

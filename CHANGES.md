@@ -1,6 +1,33 @@
 twilio-java changelog
 =====================
 
+[2019-09-04] Version 7.42.0
+----------------------------
+**Library**
+- [PR #480](https://github.com/twilio/twilio-java/pull/480): fix Javadoc copyright year. Thanks to [@sullis](https://github.com/sullis)!
+- [PR #478](https://github.com/twilio/twilio-java/pull/478): Upgrade maven-source-plugin to 3.1.0. Thanks to [@sullis](https://github.com/sullis)!
+- [PR #479](https://github.com/twilio/twilio-java/pull/479): Upgrade maven-javadoc-plugin to 3.1.1. Thanks to [@sullis](https://github.com/sullis)!
+- [PR #471](https://github.com/twilio/twilio-java/pull/471): Catch NPE when creating URI. Thanks to [@pulkitsethi](https://github.com/pulkitsethi)!
+- [PR #410](https://github.com/twilio/twilio-java/pull/410): Add jsonToMap in converter. Thanks to [@igracia](https://github.com/igracia)!
+- [PR #477](https://github.com/twilio/twilio-java/pull/477): ComplianceTest: resources haveOnlyPrivateConstructors(). Thanks to [@sullis](https://github.com/sullis)!
+- [PR #476](https://github.com/twilio/twilio-java/pull/476): Upgrade archunit to version 0.11.0. Thanks to [@sullis](https://github.com/sullis)!
+
+**Api**
+-  Pass Twiml in call update request
+
+**Conversations**
+- Add attributes to Conversations resources
+
+**Flex**
+- Adding `features_enabled` and `serverless_service_sids` to Flex Configuration
+
+**Messaging**
+- Message API required params updated **(breaking change)**
+
+**Preview**
+- Added support for the optional `CallSid` to `/BrandedCalls` endpoint
+
+
 [2019-08-21] Version 7.41.2
 ----------------------------
 **Library**

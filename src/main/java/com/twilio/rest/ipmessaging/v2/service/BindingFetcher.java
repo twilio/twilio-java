@@ -25,7 +25,7 @@ public class BindingFetcher extends Fetcher<Binding> {
      * Construct a new BindingFetcher.
      *
      * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the resource to fetch
      */
     public BindingFetcher(final String pathServiceSid,
                           final String pathSid) {

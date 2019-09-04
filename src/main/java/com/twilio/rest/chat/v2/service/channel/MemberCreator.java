@@ -34,7 +34,7 @@ public class MemberCreator extends Creator<Member> {
      * Construct a new MemberCreator.
      *
      * @param pathServiceSid The SID of the Service to create the resource under
-     * @param pathChannelSid The unique ID of the channel the new member belongs to
+     * @param pathChannelSid The SID of the channel the new member belongs to
      * @param identity The `identity` value that identifies the new resource's User
      */
     public MemberCreator(final String pathServiceSid,
@@ -75,14 +75,13 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * The ISO 8601 timestamp string that represents the date-time of the last
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last
      * [Message](https://www.twilio.com/docs/chat/rest/messages) read event for the
      * Member within the [Channel](https://www.twilio.com/docs/chat/channels)..
      *
      * @param lastConsumptionTimestamp The ISO 8601 based timestamp string
-     *                                 representing the date-time of the last
-     *                                 Message read event for the Member within the
-     *                                 Channel
+     *                                 representing the datetime of the last Message
+     *                                 read event for the member within the Channel
      * @return this
      */
     public MemberCreator setLastConsumptionTimestamp(final DateTime lastConsumptionTimestamp) {
@@ -109,7 +108,7 @@ public class MemberCreator extends Creator<Member> {
     /**
      * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
      * format, to assign to the resource as the date it was last updated. The
-     * default value is `null`.  Note that this parameter should only be used when a
+     * default value is `null`. Note that this parameter should only be used when a
      * Member is being recreated from a backup/separate source and where a Member
      * was previously updated..
      *

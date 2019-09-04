@@ -30,16 +30,21 @@ public class SyncListCreator extends Creator<SyncList> {
     /**
      * Construct a new SyncListCreator.
      *
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid The SID of the Sync Service  to create the new Sync
+     *                       List in
      */
     public SyncListCreator(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
     /**
-     * Human-readable name for this list.
+     * An application-defined string that uniquely identifies the resource. This
+     * value must be unique within its Service and it can be up to 320 characters
+     * long. The `unique_name` value can be used as an alternative to the `sid` in
+     * the URL path to address the resource..
      *
-     * @param uniqueName Human-readable name for this list
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      * @return this
      */
     public SyncListCreator setUniqueName(final String uniqueName) {
@@ -59,11 +64,13 @@ public class SyncListCreator extends Creator<SyncList> {
     }
 
     /**
-     * Time-to-live of this List in seconds, defaults to no expiration. In the range
-     * [1, 31 536 000 (1 year)], or 0 for infinity..
+     * How long, in seconds, before the Sync List expires (time-to-live) and is
+     * deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value
+     * is `0`, which means the Sync List does not expire. The Sync List might not be
+     * deleted immediately after it expires..
      *
-     * @param collectionTtl Time-to-live of this List in seconds, defaults to no
-     *                      expiration.
+     * @param collectionTtl How long, in seconds, before the Sync List expires and
+     *                      is deleted
      * @return this
      */
     public SyncListCreator setCollectionTtl(final Integer collectionTtl) {

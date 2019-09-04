@@ -41,10 +41,12 @@ public class SyncListPermission extends Resource {
     /**
      * Create a SyncListPermissionFetcher to execute fetch.
      *
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathListSid Sync List SID or unique name.
-     * @param pathIdentity Identity of the user to whom the Sync List Permission
-     *                     applies.
+     * @param pathServiceSid The SID of the Sync Service with the Sync List
+     *                       Permission resource to fetch
+     * @param pathListSid The SID of the Sync List with the Sync List Permission
+     *                    resource to fetch
+     * @param pathIdentity The application-defined string that uniquely identifies
+     *                     the User's Sync List Permission resource to fetch
      * @return SyncListPermissionFetcher capable of executing the fetch
      */
     public static SyncListPermissionFetcher fetcher(final String pathServiceSid,
@@ -56,10 +58,12 @@ public class SyncListPermission extends Resource {
     /**
      * Create a SyncListPermissionDeleter to execute delete.
      *
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathListSid Sync List SID or unique name.
-     * @param pathIdentity Identity of the user to whom the Sync List Permission
-     *                     applies.
+     * @param pathServiceSid The SID of the Sync Service with the Sync List
+     *                       Permission resource to delete
+     * @param pathListSid The SID of the Sync List with the Sync List Permission
+     *                    resource to delete
+     * @param pathIdentity The application-defined string that uniquely identifies
+     *                     the User's Sync List Permission resource to delete
      * @return SyncListPermissionDeleter capable of executing the delete
      */
     public static SyncListPermissionDeleter deleter(final String pathServiceSid,
@@ -71,8 +75,10 @@ public class SyncListPermission extends Resource {
     /**
      * Create a SyncListPermissionReader to execute read.
      *
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathListSid Sync List SID or unique name.
+     * @param pathServiceSid The SID of the Sync Service with the Sync List
+     *                       Permission resources to read
+     * @param pathListSid The SID of the Sync List with the Sync List Permission
+     *                    resources to read
      * @return SyncListPermissionReader capable of executing the read
      */
     public static SyncListPermissionReader reader(final String pathServiceSid,
@@ -83,13 +89,15 @@ public class SyncListPermission extends Resource {
     /**
      * Create a SyncListPermissionUpdater to execute update.
      *
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathListSid Sync List SID or unique name.
-     * @param pathIdentity Identity of the user to whom the Sync List Permission
-     *                     applies.
-     * @param read Read access.
-     * @param write Write access.
-     * @param manage Manage access.
+     * @param pathServiceSid The SID of the Sync Service with the Sync List
+     *                       Permission resource to update
+     * @param pathListSid The SID of the Sync List with the Sync List Permission
+     *                    resource to update
+     * @param pathIdentity The application-defined string that uniquely identifies
+     *                     the User's Sync List Permission resource to update
+     * @param read Read access
+     * @param write Write access
+     * @param manage Manage access
      * @return SyncListPermissionUpdater capable of executing the update
      */
     public static SyncListPermissionUpdater updater(final String pathServiceSid,
@@ -176,72 +184,73 @@ public class SyncListPermission extends Resource {
     }
 
     /**
-     * Returns The Twilio Account SID..
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return Twilio Account SID.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Sync Service Instance SID..
+     * Returns The The SID of the Sync Service that the resource is associated with.
      *
-     * @return Sync Service Instance SID.
+     * @return The SID of the Sync Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The Sync List SID..
+     * Returns The The SID of the Sync List to which the Permission applies.
      *
-     * @return Sync List SID.
+     * @return The SID of the Sync List to which the Permission applies
      */
     public final String getListSid() {
         return this.listSid;
     }
 
     /**
-     * Returns The Identity of the user to whom the Sync List Permission applies..
+     * Returns The The identity of the user to whom the Sync List Permission
+     * applies.
      *
-     * @return Identity of the user to whom the Sync List Permission applies.
+     * @return The identity of the user to whom the Sync List Permission applies
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns The Read access..
+     * Returns The Read access.
      *
-     * @return Read access.
+     * @return Read access
      */
     public final Boolean getRead() {
         return this.read;
     }
 
     /**
-     * Returns The Write access..
+     * Returns The Write access.
      *
-     * @return Write access.
+     * @return Write access
      */
     public final Boolean getWrite() {
         return this.write;
     }
 
     /**
-     * Returns The Manage access..
+     * Returns The Manage access.
      *
-     * @return Manage access.
+     * @return Manage access
      */
     public final Boolean getManage() {
         return this.manage;
     }
 
     /**
-     * Returns The URL of this Sync List Permission..
+     * Returns The The absolute URL of the Sync List Permission resource.
      *
-     * @return URL of this Sync List Permission.
+     * @return The absolute URL of the Sync List Permission resource
      */
     public final URI getUrl() {
         return this.url;

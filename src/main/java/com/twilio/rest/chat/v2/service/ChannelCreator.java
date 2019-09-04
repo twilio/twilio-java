@@ -32,7 +32,8 @@ public class ChannelCreator extends Creator<Channel> {
     /**
      * Construct a new ChannelCreator.
      *
-     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param pathServiceSid The SID of the Service to create the Channel resource
+     *                       under
      */
     public ChannelCreator(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
@@ -52,12 +53,12 @@ public class ChannelCreator extends Creator<Channel> {
 
     /**
      * An application-defined string that uniquely identifies the resource. It can
-     * be used to address the resource in place of the resource's `sid` in the URL.
-     * This value must be 64 characters or less in length and be unique within the
-     * Service..
+     * be used to address the resource in place of the Channel resource's `sid` in
+     * the URL. This value must be 64 characters or less in length and be unique
+     * within the Service..
      *
      * @param uniqueName An application-defined string that uniquely identifies the
-     *                   resource
+     *                   Channel resource
      * @return this
      */
     public ChannelCreator setUniqueName(final String uniqueName) {
@@ -90,9 +91,10 @@ public class ChannelCreator extends Creator<Channel> {
 
     /**
      * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was created. The default is
-     * the current time set by the Chat service.  Note that this should only be used
-     * in cases where a Channel is being recreated from a backup/separate source..
+     * format, to assign to the resource as the date it was created. The default
+     * value is the current time set by the Chat service.  Note that this should
+     * only be used in cases where a Channel is being recreated from a
+     * backup/separate source..
      *
      * @param dateCreated The ISO 8601 date and time in GMT when the resource was
      *                    created
@@ -106,9 +108,9 @@ public class ChannelCreator extends Creator<Channel> {
     /**
      * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
      * format, to assign to the resource as the date it was last updated. The
-     * default value is `null`.  Note that this should only be used in cases where a
-     * Channel is being recreated from a backup/separate source  and where a Message
-     * was previously updated..
+     * default value is `null`. Note that this parameter should only be used in
+     * cases where a Channel is being recreated from a backup/separate source  and
+     * where a Message was previously updated..
      *
      * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
      *                    updated

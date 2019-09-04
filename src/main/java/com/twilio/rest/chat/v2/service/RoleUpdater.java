@@ -28,7 +28,7 @@ public class RoleUpdater extends Updater<Role> {
      * Construct a new RoleUpdater.
      *
      * @param pathServiceSid The SID of the Service to update the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Role resource to update
      * @param permission A permission the role should have
      */
     public RoleUpdater(final String pathServiceSid,

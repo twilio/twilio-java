@@ -29,7 +29,8 @@ public class SyncMapReader extends Reader<SyncMap> {
     /**
      * Construct a new SyncMapReader.
      *
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map
+     *                       resources to read
      */
     public SyncMapReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;

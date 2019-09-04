@@ -29,7 +29,7 @@ public class CredentialUpdater extends Updater<Credential> {
     /**
      * Construct a new CredentialUpdater.
      *
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Credential resource to update
      */
     public CredentialUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -50,7 +50,7 @@ public class CredentialUpdater extends Updater<Credential> {
     /**
      * [APN only] The URL encoded representation of the certificate. For example,
      * `-----BEGIN CERTIFICATE-----
-     * MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A==
+     * MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A==
      * -----END CERTIFICATE-----`.
      *
      * @param certificate [APN only] The URL encoded representation of the
@@ -65,7 +65,7 @@ public class CredentialUpdater extends Updater<Credential> {
     /**
      * [APN only] The URL encoded representation of the private key. For example,
      * `-----BEGIN RSA PRIVATE KEY-----
-     * MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR.
+     * MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG...
      * -----END RSA PRIVATE KEY-----`.
      *
      * @param privateKey [APN only] The URL encoded representation of the private

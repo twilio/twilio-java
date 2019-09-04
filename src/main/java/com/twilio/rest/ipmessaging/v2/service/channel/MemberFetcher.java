@@ -26,8 +26,8 @@ public class MemberFetcher extends Fetcher<Member> {
      * Construct a new MemberFetcher.
      *
      * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathChannelSid The unique ID of the channel the member belongs to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathChannelSid The SID of the channel the member belongs to
+     * @param pathSid The SID of the Member resource to fetch
      */
     public MemberFetcher(final String pathServiceSid,
                          final String pathChannelSid,

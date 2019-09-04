@@ -29,10 +29,10 @@ public class ExecutionCreator extends Creator<Execution> {
     /**
      * Construct a new ExecutionCreator.
      *
-     * @param pathFlowSid Flow Sid.
-     * @param to The Contact phone number to start a Studio Flow Execution.
+     * @param pathFlowSid The SID of the Flow
+     * @param to The Contact phone number to start a Studio Flow Execution
      * @param from The Twilio phone number to send messages or initiate calls from
-     *             during the Flow Execution.
+     *             during the Flow Execution
      */
     public ExecutionCreator(final String pathFlowSid,
                             final com.twilio.type.PhoneNumber to,
@@ -43,16 +43,15 @@ public class ExecutionCreator extends Creator<Execution> {
     }
 
     /**
-     * JSON data that will be added to your flow's context and can accessed as
-     * variables inside your flow. For example, if you pass in
-     * `Parameters={"name":"Zeke"}`, then inside a widget you can reference the
-     * variable `{{flow.data.name}}` which will return the string "Zeke". Note: the
-     * JSON value must explicitly be passed as a string, not as a hash object.
-     * Depending on your particular HTTP library, you may need to add quotes or URL
-     * encode your JSON string..
+     * JSON data that will be added to the Flow's context and that can be accessed
+     * as variables inside your Flow. For example, if you pass in
+     * `Parameters={"name":"Zeke"}`, a widget in your Flow can reference the
+     * variable `{{flow.data.name}}`, which returns "Zeke". Note: the JSON value
+     * must explicitly be passed as a string, not as a hash object. Depending on
+     * your particular HTTP library, you may need to add quotes or URL encode the
+     * JSON string..
      *
-     * @param parameters JSON data that will be added to your flow's context and
-     *                   can accessed as variables inside your flow.
+     * @param parameters JSON data that will be added to the Flow's context
      * @return this
      */
     public ExecutionCreator setParameters(final Map<String, Object> parameters) {

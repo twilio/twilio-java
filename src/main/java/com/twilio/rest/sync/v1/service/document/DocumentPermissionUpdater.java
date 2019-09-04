@@ -32,13 +32,15 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
     /**
      * Construct a new DocumentPermissionUpdater.
      *
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathDocumentSid Sync Document SID or unique name.
-     * @param pathIdentity Identity of the user to whom the Sync Document
-     *                     Permission applies.
-     * @param read Read access.
-     * @param write Write access.
-     * @param manage Manage access.
+     * @param pathServiceSid The SID of the Sync Service with the Document
+     *                       Permission resource to update
+     * @param pathDocumentSid The SID of the Sync Document with the Document
+     *                        Permission resource to update
+     * @param pathIdentity The application-defined string that uniquely identifies
+     *                     the User's Document Permission resource to update
+     * @param read Read access
+     * @param write Write access
+     * @param manage Manage access
      */
     public DocumentPermissionUpdater(final String pathServiceSid,
                                      final String pathDocumentSid,

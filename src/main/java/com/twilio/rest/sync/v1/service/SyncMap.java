@@ -43,8 +43,9 @@ public class SyncMap extends Resource {
     /**
      * Create a SyncMapFetcher to execute fetch.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map resource
+     *                       to fetch
+     * @param pathSid The SID of the Sync Map resource to fetch
      * @return SyncMapFetcher capable of executing the fetch
      */
     public static SyncMapFetcher fetcher(final String pathServiceSid,
@@ -55,8 +56,9 @@ public class SyncMap extends Resource {
     /**
      * Create a SyncMapDeleter to execute delete.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map resource
+     *                       to delete
+     * @param pathSid The SID of the Sync Map resource to delete
      * @return SyncMapDeleter capable of executing the delete
      */
     public static SyncMapDeleter deleter(final String pathServiceSid,
@@ -67,7 +69,7 @@ public class SyncMap extends Resource {
     /**
      * Create a SyncMapCreator to execute create.
      *
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid The SID of the Sync Service to create the Sync Map in
      * @return SyncMapCreator capable of executing the create
      */
     public static SyncMapCreator creator(final String pathServiceSid) {
@@ -77,8 +79,9 @@ public class SyncMap extends Resource {
     /**
      * Create a SyncMapUpdater to execute update.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map resource
+     *                       to update
+     * @param pathSid The SID of the Sync Map resource to update
      * @return SyncMapUpdater capable of executing the update
      */
     public static SyncMapUpdater updater(final String pathServiceSid,
@@ -89,7 +92,8 @@ public class SyncMap extends Resource {
     /**
      * Create a SyncMapReader to execute read.
      *
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map
+     *                       resources to read
      * @return SyncMapReader capable of executing the read
      */
     public static SyncMapReader reader(final String pathServiceSid) {
@@ -182,106 +186,101 @@ public class SyncMap extends Resource {
     }
 
     /**
-     * Returns The The unique 34-character SID identifier of the Map..
+     * Returns The The unique string that identifies the resource.
      *
-     * @return The unique 34-character SID identifier of the Map.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique and addressable name of this Map..
+     * Returns The An application-defined string that uniquely identifies the
+     * resource.
      *
-     * @return The unique and addressable name of this Map.
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The unique SID identifier of the Twilio Account..
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The unique SID identifier of the Twilio Account.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique SID identifier of the Service Instance that hosts this
-     * Map object..
+     * Returns The The SID of the Sync Service that the resource is associated with.
      *
-     * @return The unique SID identifier of the Service Instance that hosts this
-     *         Map object.
+     * @return The SID of the Sync Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The absolute URL for this Map..
+     * Returns The The absolute URL of the Sync Map resource.
      *
-     * @return The absolute URL for this Map.
+     * @return The absolute URL of the Sync Map resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The A dictionary of URL links to nested resources of this Map..
+     * Returns The The URLs of the Sync Map's nested resources.
      *
-     * @return A dictionary of URL links to nested resources of this Map.
+     * @return The URLs of the Sync Map's nested resources
      */
     public final Map<String, String> getLinks() {
         return this.links;
     }
 
     /**
-     * Returns The Contains the current revision of this Map, represented by a
-     * string identifier..
+     * Returns The The current revision of the Sync Map, represented as a string.
      *
-     * @return Contains the current revision of this Map, represented by a string
-     *         identifier.
+     * @return The current revision of the Sync Map, represented as a string
      */
     public final String getRevision() {
         return this.revision;
     }
 
     /**
-     * Returns The Contains the date this Map expires and gets deleted
-     * automatically..
+     * Returns The The ISO 8601 date and time in GMT when the Sync Map expires.
      *
-     * @return Contains the date this Map expires and gets deleted automatically.
+     * @return The ISO 8601 date and time in GMT when the Sync Map expires
      */
     public final DateTime getDateExpires() {
         return this.dateExpires;
     }
 
     /**
-     * Returns The The date this Map was created, given in UTC ISO 8601 format..
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date this Map was created, given in UTC ISO 8601 format.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The Specifies the date this Map was last updated, given in UTC ISO
-     * 8601 format..
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * updated.
      *
-     * @return Specifies the date this Map was last updated, given in UTC ISO 8601
-     *         format.
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The identity of the Map creator..
+     * Returns The The identity of the Sync Map's creator.
      *
-     * @return The identity of the Map creator.
+     * @return The identity of the Sync Map's creator
      */
     public final String getCreatedBy() {
         return this.createdBy;

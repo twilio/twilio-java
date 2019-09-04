@@ -85,7 +85,7 @@ public class Credential extends Resource {
     /**
      * Create a CredentialFetcher to execute fetch.
      *
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Credential resource to fetch
      * @return CredentialFetcher capable of executing the fetch
      */
     public static CredentialFetcher fetcher(final String pathSid) {
@@ -95,7 +95,7 @@ public class Credential extends Resource {
     /**
      * Create a CredentialUpdater to execute update.
      *
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Credential resource to update
      * @return CredentialUpdater capable of executing the update
      */
     public static CredentialUpdater updater(final String pathSid) {
@@ -105,7 +105,7 @@ public class Credential extends Resource {
     /**
      * Create a CredentialDeleter to execute delete.
      *
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Credential resource to delete
      * @return CredentialDeleter capable of executing the delete
      */
     public static CredentialDeleter deleter(final String pathSid) {
@@ -232,19 +232,19 @@ public class Credential extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
      * updated.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was last updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;

@@ -29,9 +29,11 @@ public class SyncListItemFetcher extends Fetcher<SyncListItem> {
     /**
      * Construct a new SyncListItemFetcher.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathListSid The list_sid
-     * @param pathIndex The index
+     * @param pathServiceSid The SID of the Sync Service with the Sync List Item
+     *                       resource to fetch
+     * @param pathListSid The SID of the Sync List with the Sync List Item resource
+     *                    to fetch
+     * @param pathIndex The index of the Sync List Item resource to fetch
      */
     public SyncListItemFetcher(final String pathServiceSid,
                                final String pathListSid,

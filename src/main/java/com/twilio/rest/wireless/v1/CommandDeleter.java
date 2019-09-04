@@ -23,7 +23,7 @@ public class CommandDeleter extends Deleter<Command> {
     /**
      * Construct a new CommandDeleter.
      *
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSid The SID that identifies the resource to delete
      */
     public CommandDeleter(final String pathSid) {
         this.pathSid = pathSid;

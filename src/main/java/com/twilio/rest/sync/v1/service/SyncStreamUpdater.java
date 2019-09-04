@@ -29,8 +29,9 @@ public class SyncStreamUpdater extends Updater<SyncStream> {
     /**
      * Construct a new SyncStreamUpdater.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Sync Service with the Sync Stream
+     *                       resource to update
+     * @param pathSid The SID of the Stream resource to update
      */
     public SyncStreamUpdater(final String pathServiceSid,
                              final String pathSid) {
@@ -39,10 +40,12 @@ public class SyncStreamUpdater extends Updater<SyncStream> {
     }
 
     /**
-     * New time-to-live of this Stream in seconds. In the range [1, 31 536 000 (1
-     * year)], or 0 for infinity..
+     * How long, in seconds, before the Stream expires and is deleted
+     * (time-to-live). Can be an integer from 0 to 31,536,000 (1 year). The default
+     * value is `0`, which means the Stream does not expire. The Sync Map might not
+     * be deleted immediately after it expires..
      *
-     * @param ttl Stream TTL.
+     * @param ttl How long, in seconds, before the Stream expires and is deleted
      * @return this
      */
     public SyncStreamUpdater setTtl(final Integer ttl) {

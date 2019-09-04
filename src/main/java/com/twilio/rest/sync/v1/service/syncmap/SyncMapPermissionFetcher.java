@@ -29,10 +29,12 @@ public class SyncMapPermissionFetcher extends Fetcher<SyncMapPermission> {
     /**
      * Construct a new SyncMapPermissionFetcher.
      *
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathMapSid Sync Map SID or unique name.
-     * @param pathIdentity Identity of the user to whom the Sync Map Permission
-     *                     applies.
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map
+     *                       Permission resource to fetch
+     * @param pathMapSid The SID of the Sync Map with the Sync Map Permission
+     *                   resource to fetch
+     * @param pathIdentity The application-defined string that uniquely identifies
+     *                     the User's Sync Map Permission resource to fetch
      */
     public SyncMapPermissionFetcher(final String pathServiceSid,
                                     final String pathMapSid,

@@ -129,40 +129,40 @@ public class UsageRecord extends Resource {
     }
 
     /**
-     * Returns The The unique id of the Account..
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The unique id of the Account.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The time period for which usage is reported..
+     * Returns The The time period for which usage is reported.
      *
-     * @return The time period for which usage is reported.
+     * @return The time period for which usage is reported
      */
     public final Map<String, Object> getPeriod() {
         return this.period;
     }
 
     /**
-     * Returns The An object representing the aggregated Commands usage for all SIMs
-     * over the period..
+     * Returns The An object that describes the aggregated Commands usage for all
+     * SIMs during the specified period.
      *
-     * @return An object representing the aggregated Commands usage for all SIMs
-     *         over the period.
+     * @return An object that describes the aggregated Commands usage for all SIMs
+     *         during the specified period
      */
     public final Map<String, Object> getCommands() {
         return this.commands;
     }
 
     /**
-     * Returns The An object representing the aggregated Data usage for all SIMs
-     * over the period..
+     * Returns The An object that describes the aggregated Data usage for all SIMs
+     * over the period.
      *
-     * @return An object representing the aggregated Data usage for all SIMs over
-     *         the period.
+     * @return An object that describes the aggregated Data usage for all SIMs over
+     *         the period
      */
     public final Map<String, Object> getData() {
         return this.data;

@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Conversation extends Resource {
-    private static final long serialVersionUID = 109455478432991L;
+    private static final long serialVersionUID = 39396284340348L;
 
     public enum WebhookEnabledType {
         TRUE("true"),
@@ -158,6 +158,7 @@ public class Conversation extends Resource {
     private final String messagingServiceSid;
     private final String sid;
     private final String friendlyName;
+    private final String attributes;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
@@ -174,6 +175,8 @@ public class Conversation extends Resource {
                          final String sid,
                          @JsonProperty("friendly_name")
                          final String friendlyName,
+                         @JsonProperty("attributes")
+                         final String attributes,
                          @JsonProperty("date_created")
                          final String dateCreated,
                          @JsonProperty("date_updated")
@@ -187,6 +190,7 @@ public class Conversation extends Resource {
         this.messagingServiceSid = messagingServiceSid;
         this.sid = sid;
         this.friendlyName = friendlyName;
+        this.attributes = attributes;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -236,6 +240,17 @@ public class Conversation extends Resource {
      */
     public final String getFriendlyName() {
         return this.friendlyName;
+    }
+
+    /**
+     * Returns The An optional string metadata field you can use to store any data
+     * you wish..
+     *
+     * @return An optional string metadata field you can use to store any data you
+     *         wish.
+     */
+    public final String getAttributes() {
+        return this.attributes;
     }
 
     /**
@@ -291,6 +306,7 @@ public class Conversation extends Resource {
                Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
                Objects.equals(sid, other.sid) &&
                Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(attributes, other.attributes) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url) &&
@@ -304,6 +320,7 @@ public class Conversation extends Resource {
                             messagingServiceSid,
                             sid,
                             friendlyName,
+                            attributes,
                             dateCreated,
                             dateUpdated,
                             url,
@@ -318,6 +335,7 @@ public class Conversation extends Resource {
                           .add("messagingServiceSid", messagingServiceSid)
                           .add("sid", sid)
                           .add("friendlyName", friendlyName)
+                          .add("attributes", attributes)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)

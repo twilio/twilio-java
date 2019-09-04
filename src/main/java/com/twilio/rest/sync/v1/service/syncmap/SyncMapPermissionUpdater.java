@@ -32,13 +32,15 @@ public class SyncMapPermissionUpdater extends Updater<SyncMapPermission> {
     /**
      * Construct a new SyncMapPermissionUpdater.
      *
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathMapSid Sync Map SID or unique name.
-     * @param pathIdentity Identity of the user to whom the Sync Map Permission
-     *                     applies.
-     * @param read Read access.
-     * @param write Write access.
-     * @param manage Manage access.
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map
+     *                       Permission resource to update
+     * @param pathMapSid The SID of the Sync Map with the Sync Map Permission
+     *                   resource to update
+     * @param pathIdentity The application-defined string that uniquely identifies
+     *                     the User's Sync Map Permission resource to update
+     * @param read Read access
+     * @param write Write access
+     * @param manage Manage access
      */
     public SyncMapPermissionUpdater(final String pathServiceSid,
                                     final String pathMapSid,

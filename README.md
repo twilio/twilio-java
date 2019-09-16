@@ -24,7 +24,7 @@ Developer Preview status. Such products are explicitly documented as
 Beta/Developer Preview both in the Twilio docs and console, as well as through
 in-line code documentation here in the library.
 
-# Installing
+## Installing
 
 twilio-java uses Maven.  At present the jars *are* available from a public [maven](https://mvnrepository.com/artifact/com.twilio.sdk/twilio) repository.
 
@@ -48,7 +48,11 @@ If you want to compile it yourself, here's how:
     $ cd twilio-java
     $ mvn install       # Requires maven, download from https://maven.apache.org/download.html
 
-# Quickstart
+## Versions
+
+`twilio-java` uses a modified version of [Semantic Versioning](https://semver.org) for all changes. [See this document](VERSIONS.md) for details.
+
+## Quickstart
 
 ### Send a SMS
 
@@ -111,7 +115,7 @@ That will output XML that looks like this:
 
 The `Dockerfile` present in this repository and its respective `twilio/twilio-java` Docker image are currently used by Twilio for testing purposes only.
 
-# Getting help
+## Getting help
 
 If you need help installing or using the library, please check the [Twilio Support Help Center](https://support.twilio.com) first, and [file a support ticket](https://twilio.com/help/contact) if you don't find an answer to your question.
 

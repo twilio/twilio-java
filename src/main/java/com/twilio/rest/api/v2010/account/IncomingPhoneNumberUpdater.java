@@ -69,7 +69,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The SID of the [Account](https://www.twilio.com/docs/api/rest/account) that
+     * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that
      * created the IncomingPhoneNumber resource to update.  For more information,
      * see [Exchanging Numbers Between
      * Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers)..

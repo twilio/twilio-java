@@ -57,7 +57,7 @@ public class TriggerReader extends Reader<Trigger> {
     /**
      * The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or
      * `price` as described in the [UsageRecords
-     * documentation](https://www.twilio.com/docs/api/rest/usage-records#usage-count-price)..
+     * documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price)..
      *
      * @param triggerBy The trigger field of the UsageTriggers to read
      * @return this
@@ -69,7 +69,7 @@ public class TriggerReader extends Reader<Trigger> {
 
     /**
      * The usage category of the UsageTriggers to read. Must be a supported [usage
-     * categories](https://www.twilio.com/docs/api/rest/usage-records#usage-categories)..
+     * categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories)..
      *
      * @param usageCategory The usage category of the UsageTriggers to read
      * @return this

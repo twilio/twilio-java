@@ -48,9 +48,7 @@ public class FeedbackCreator extends Creator<Feedback> {
     /**
      * Whether the feedback has arrived. Can be: `unconfirmed` or `confirmed`. If
      * `provide_feedback`=`true` in [the initial HTTP
-     * POST](https://www.twilio.com/docs/sms/api/message#create-a-message-resource),
-     * the initial value of this property is `unconfirmed`. After the message
-     * arrives, update the value to `confirmed`..
+     * POST](https://www.twilio.com/docs/sms/api/message-resource#create-a-message-resource), the initial value of this property is `unconfirmed`. After the message arrives, update the value to `confirmed`..
      *
      * @param outcome Whether the feedback has arrived
      * @return this

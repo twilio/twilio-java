@@ -34,26 +34,16 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Alert extends Resource {
-    private static final long serialVersionUID = 84420812948753L;
+    private static final long serialVersionUID = 254359080075749L;
 
     /**
      * Create a AlertFetcher to execute fetch.
      *
-     * @param pathSid The sid
+     * @param pathSid A 34 character string that uniquely identifies this Alert.
      * @return AlertFetcher capable of executing the fetch
      */
     public static AlertFetcher fetcher(final String pathSid) {
         return new AlertFetcher(pathSid);
-    }
-
-    /**
-     * Create a AlertDeleter to execute delete.
-     *
-     * @param pathSid The sid
-     * @return AlertDeleter capable of executing the delete
-     */
-    public static AlertDeleter deleter(final String pathSid) {
-        return new AlertDeleter(pathSid);
     }
 
     /**
@@ -119,6 +109,8 @@ public class Alert extends Resource {
     private final String responseHeaders;
     private final String sid;
     private final URI url;
+    private final String requestHeaders;
+    private final String serviceSid;
 
     @JsonCreator
     private Alert(@JsonProperty("account_sid")
@@ -154,7 +146,11 @@ public class Alert extends Resource {
                   @JsonProperty("sid")
                   final String sid,
                   @JsonProperty("url")
-                  final URI url) {
+                  final URI url,
+                  @JsonProperty("request_headers")
+                  final String requestHeaders,
+                  @JsonProperty("service_sid")
+                  final String serviceSid) {
         this.accountSid = accountSid;
         this.alertText = alertText;
         this.apiVersion = apiVersion;
@@ -172,6 +168,8 @@ public class Alert extends Resource {
         this.responseHeaders = responseHeaders;
         this.sid = sid;
         this.url = url;
+        this.requestHeaders = requestHeaders;
+        this.serviceSid = serviceSid;
     }
 
     /**
@@ -338,6 +336,24 @@ public class Alert extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns The The request_headers.
+     *
+     * @return The request_headers
+     */
+    public final String getRequestHeaders() {
+        return this.requestHeaders;
+    }
+
+    /**
+     * Returns The The service_sid.
+     *
+     * @return The service_sid
+     */
+    public final String getServiceSid() {
+        return this.serviceSid;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -366,7 +382,9 @@ public class Alert extends Resource {
                Objects.equals(responseBody, other.responseBody) &&
                Objects.equals(responseHeaders, other.responseHeaders) &&
                Objects.equals(sid, other.sid) &&
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) &&
+               Objects.equals(requestHeaders, other.requestHeaders) &&
+               Objects.equals(serviceSid, other.serviceSid);
     }
 
     @Override
@@ -387,7 +405,9 @@ public class Alert extends Resource {
                             responseBody,
                             responseHeaders,
                             sid,
-                            url);
+                            url,
+                            requestHeaders,
+                            serviceSid);
     }
 
     @Override
@@ -410,6 +430,8 @@ public class Alert extends Resource {
                           .add("responseHeaders", responseHeaders)
                           .add("sid", sid)
                           .add("url", url)
+                          .add("requestHeaders", requestHeaders)
+                          .add("serviceSid", serviceSid)
                           .toString();
     }
 }

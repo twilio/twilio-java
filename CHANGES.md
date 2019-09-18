@@ -1,6 +1,18 @@
 twilio-java changelog
 =====================
 
+[2019-09-18] Version 7.43.0
+----------------------------
+**Numbers**
+- Add v2 of the Identites API
+
+**Preview**
+- Changed authentication method for SDK Trusted Comms endpoints: `/CPS`, `/CurrentCall`, and `/Devices`. Please use `Authorization: Bearer <xCNAM JWT>` **(breaking change)**
+
+**Voice**
+- Add Recordings endpoints
+
+
 [2019-09-04] Version 7.42.0
 ----------------------------
 **Library**

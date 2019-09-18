@@ -77,8 +77,8 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The service role assigned to users when they are added to the service. See
-     * the [Role resource](https://www.twilio.com/docs/chat/api/roles) for more info
-     * about roles..
+     * the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for
+     * more info about roles..
      *
      * @param defaultServiceRoleSid The service role assigned to users when they
      *                              are added to the service
@@ -91,8 +91,8 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The channel role assigned to users when they are added to a channel. See the
-     * [Role resource](https://www.twilio.com/docs/chat/api/roles) for more info
-     * about roles..
+     * [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more
+     * info about roles..
      *
      * @param defaultChannelRoleSid The channel role assigned to users when they
      *                              are added to a channel
@@ -105,8 +105,8 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The channel role assigned to a channel creator when they join a new channel.
-     * See the [Role resource](https://www.twilio.com/docs/chat/api/roles) for more
-     * info about roles..
+     * See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource)
+     * for more info about roles..
      *
      * @param defaultChannelCreatorRoleSid The channel role assigned to a channel
      *                                     creator when they join a new channel

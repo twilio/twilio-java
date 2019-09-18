@@ -78,7 +78,7 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * The [Call](https://www.twilio.com/docs/api/voice/call) SID of the resources
+     * The [Call](https://www.twilio.com/docs/voice/api/call) SID of the resources
      * to read..
      *
      * @param callSid The Call SID of the resources to read

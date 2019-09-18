@@ -46,7 +46,7 @@ public class AllTimeReader extends Reader<AllTime> {
 
     /**
      * The [usage
-     * category](https://www.twilio.com/docs/api/rest/usage-records#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved..
+     * category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved..
      *
      * @param category The usage category of the UsageRecord resources to read
      * @return this

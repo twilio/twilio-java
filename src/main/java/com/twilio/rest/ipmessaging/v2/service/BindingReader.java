@@ -62,8 +62,8 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The [User](https://www.twilio.com/docs/chat/rest/users)'s `identity` value of
-     * the resources to read. See [access
+     * The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity`
+     * value of the resources to read. See [access
      * tokens](https://www.twilio.com/docs/chat/create-tokens) for more details..
      *
      * @param identity The `identity` value of the resources to read
@@ -75,8 +75,8 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The [User](https://www.twilio.com/docs/chat/rest/users)'s `identity` value of
-     * the resources to read. See [access
+     * The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity`
+     * value of the resources to read. See [access
      * tokens](https://www.twilio.com/docs/chat/create-tokens) for more details..
      *
      * @param identity The `identity` value of the resources to read

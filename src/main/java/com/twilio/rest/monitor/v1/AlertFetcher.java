@@ -23,7 +23,7 @@ public class AlertFetcher extends Fetcher<Alert> {
     /**
      * Construct a new AlertFetcher.
      *
-     * @param pathSid The sid
+     * @param pathSid A 34 character string that uniquely identifies this Alert.
      */
     public AlertFetcher(final String pathSid) {
         this.pathSid = pathSid;

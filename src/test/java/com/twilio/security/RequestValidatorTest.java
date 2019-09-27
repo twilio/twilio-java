@@ -80,4 +80,38 @@ public class RequestValidatorTest {
         Assert.assertFalse("Validation should have failed with no bodySHA256", isValid);
     }
 
+    @Test
+    public void testValidateRemovesPortHttps() {
+        String url = this.url.replace(".com", ".com:1234");
+        boolean isValid = validator.validate(url, params, signature);
+
+        Assert.assertTrue("Validator did not strip port from url", isValid);
+    }
+
+    @Test
+    public void testValidateRemovesPortHttp() {
+        String url = this.url.replace(".com", ".com:1234").replace("https", "http");
+        String expectedSignature = "Zmvh+3yNM1Phv2jhDCwEM3q5ebU="; // hash of http uri with port 1234
+        boolean isValid = validator.validate(url, params, expectedSignature);
+
+        Assert.assertTrue("Validator did not strip port from url", isValid);
+    }
+
+    @Test
+    public void testValidateAddsPortHttps() {
+        String expectedSignature = "kvajT1Ptam85bY51eRf/AJRuM3w="; // hash of https uri with port 443
+        boolean isValid = validator.validate(url, params, expectedSignature);
+        
+        Assert.assertTrue("Validator did not add port 443 to https url", isValid);
+    }
+    
+    @Test
+    public void testValidateAddsPortHttp() {
+        String url = this.url.replace("https", "http");
+        String expectedSignature = "0ZXoZLH/DfblKGATFgpif+LLRf4="; // hash of http uri with port 80
+        boolean isValid = validator.validate(url, params, expectedSignature);
+
+        Assert.assertTrue("Validator did not add port 80 to http url", isValid);
+    }
+
 }

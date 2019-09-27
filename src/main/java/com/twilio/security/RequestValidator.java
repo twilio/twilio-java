@@ -9,6 +9,7 @@ import javax.xml.bind.DatatypeConverter;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -26,8 +27,13 @@ public class RequestValidator {
     }
 
     public boolean validate(String url, Map<String, String> params, String expectedSignature) {
-        String signature = getValidationSignature(url, params);
-        return secureCompare(signature, expectedSignature);
+        // check signature of url with and without port, since sig generation on back
+        // end is inconsistent
+        String signatureWithPort= getValidationSignature(addPort(url), params);
+        String signatureWithoutPort= getValidationSignature(removePort(url), params);
+        // If either url produces a valid signature, we accept the request as valid
+        return secureCompare(signatureWithPort, expectedSignature) || 
+            secureCompare(signatureWithoutPort, expectedSignature);
     }
 
     public boolean validate(String url, String body, String expectedSignature) throws URISyntaxException {
@@ -105,6 +111,25 @@ public class RequestValidator {
             mismatch |= a.charAt(i) ^ b.charAt(i);
         }
         return mismatch == 0;
+    }
+
+    private String removePort(String url) {
+        try {
+            URI parsedUrl = new URI(url);
+            return (parsedUrl.getPort()) == -1 ? url : url.replaceFirst(":\\d+", "");
+        } catch (Exception e) {
+            return "";
+        }
+    }
+    
+    private String addPort(String url) {
+        try {
+            URI parsedUrl = new URI(url);
+            String port = Objects.equals(parsedUrl.getScheme(), "https") ? "443" : "80";
+            return (parsedUrl.getPort()) != -1 ? url : url.replace(".com", ".com:" + port);
+        } catch (Exception e) {
+            return "";
+        }
     }
 
 }

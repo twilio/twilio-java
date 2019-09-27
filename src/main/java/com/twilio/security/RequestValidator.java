@@ -29,8 +29,8 @@ public class RequestValidator {
     public boolean validate(String url, Map<String, String> params, String expectedSignature) {
         // check signature of url with and without port, since sig generation on back
         // end is inconsistent
-        String signatureWithPort= getValidationSignature(addPort(url), params);
-        String signatureWithoutPort= getValidationSignature(removePort(url), params);
+        String signatureWithPort = getValidationSignature(addPort(url), params);
+        String signatureWithoutPort = getValidationSignature(removePort(url), params);
         // If either url produces a valid signature, we accept the request as valid
         return secureCompare(signatureWithPort, expectedSignature) || 
             secureCompare(signatureWithoutPort, expectedSignature);
@@ -116,9 +116,9 @@ public class RequestValidator {
     private String removePort(String url) {
         try {
             URI parsedUrl = new URI(url);
-            return (parsedUrl.getPort()) == -1 ? url : url.replaceFirst(":\\d+", "");
+            return (parsedUrl.getPort() == -1) ? url : updatePort(parsedUrl, -1);
         } catch (Exception e) {
-            return "";
+            return url;
         }
     }
     
@@ -129,16 +129,24 @@ public class RequestValidator {
                 return url;
             }
             int port = Objects.equals(parsedUrl.getScheme(), "https") ? 443 : 80;
-            return new URI(
-                parsedUrl.getScheme(),
-                parsedUrl.getUserInfo(),
-                parsedUrl.getHost(), 
-                port,
-                parsedUrl.getPath(),
-                parsedUrl.getQuery(),
-                parsedUrl.getFragment()).toString();
+            return updatePort(parsedUrl, port);
         } catch (Exception e) {
-            return "";
+            return url;
+        }
+    }
+
+    private String updatePort(URI url, int newPort) {
+        try {
+            return new URI(
+                url.getScheme(),
+                url.getUserInfo(),
+                url.getHost(), 
+                newPort,
+                url.getPath(),
+                url.getQuery(),
+                url.getFragment()).toString();
+        } catch (Exception e) {
+            return url.toString();
         }
     }
 

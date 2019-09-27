@@ -125,8 +125,18 @@ public class RequestValidator {
     private String addPort(String url) {
         try {
             URI parsedUrl = new URI(url);
-            String port = Objects.equals(parsedUrl.getScheme(), "https") ? "443" : "80";
-            return (parsedUrl.getPort()) != -1 ? url : url.replace(".com", ".com:" + port);
+            if (parsedUrl.getPort() != -1) {
+                return url;
+            }
+            int port = Objects.equals(parsedUrl.getScheme(), "https") ? 443 : 80;
+            return new URI(
+                parsedUrl.getScheme(),
+                parsedUrl.getUserInfo(),
+                parsedUrl.getHost(), 
+                port,
+                parsedUrl.getPath(),
+                parsedUrl.getQuery(),
+                parsedUrl.getFragment()).toString();
         } catch (Exception e) {
             return "";
         }

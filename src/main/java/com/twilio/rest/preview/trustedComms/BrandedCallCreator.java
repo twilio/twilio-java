@@ -44,9 +44,9 @@ public class BrandedCallCreator extends Creator<BrandedCall> {
     }
 
     /**
-     * The call_sid.
+     * The Call sid this Branded Call should link to..
      *
-     * @param callSid The call_sid
+     * @param callSid The Call sid this Branded Call should link to
      * @return this
      */
     public BrandedCallCreator setCallSid(final String callSid) {

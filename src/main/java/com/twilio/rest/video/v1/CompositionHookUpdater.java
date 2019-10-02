@@ -44,10 +44,8 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
     /**
      * Construct a new CompositionHookUpdater.
      *
-     * @param pathSid A 34-character string that uniquely identifies the
-     *                Composition Hook to update, specified as a path parameter.
-     * @param friendlyName Friendly name of the Composition Hook to be shown in the
-     *                     console.
+     * @param pathSid The SID that identifies the resource to update
+     * @param friendlyName A unique string to describe the resource
      */
     public CompositionHookUpdater(final String pathSid,
                                   final String friendlyName) {
@@ -56,12 +54,11 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
     }
 
     /**
-     * Boolean flag indicating if the Composition Hook is active. Possible values
-     * are `true` or `false`. When `true`, the Composition Hook will be triggered
-     * for every completed Group Room on this account. When `false`, the Composition
-     * Hook never triggers..
+     * Whether the composition hook is active. When `true`, the composition hook
+     * will be triggered for every completed Group Room in the account. When
+     * `false`, the composition hook never triggers..
      *
-     * @param enabled Boolean flag indicating if the Composition Hook is active.
+     * @param enabled Whether the composition hook is active
      * @return this
      */
     public CompositionHookUpdater setEnabled(final Boolean enabled) {
@@ -70,11 +67,12 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
     }
 
     /**
-     * A JSON object defining the video layout of the Composition Hook in terms of
-     * regions. See the section [Specifying Video
-     * Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for further information..
+     * A JSON object that describes the video layout of the composition hook in
+     * terms of regions. See [Specifying Video
+     * Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info..
      *
-     * @param videoLayout The JSON video layout description.
+     * @param videoLayout A JSON object that describes the video layout of the
+     *                    composition hook
      * @return this
      */
     public CompositionHookUpdater setVideoLayout(final Map<String, Object> videoLayout) {
@@ -83,13 +81,16 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
     }
 
     /**
-     * An array of audio sources to merge. All the specified sources must belong to
-     * the same Group Room. It can include zero or more Track names. These can be
-     * specified using wildcards (e.g. `student*`). The use of `[*]` has semantics
-     * "all if any" meaning zero or more (i.e. all) depending on whether the Group
-     * Room had audio tracks..
+     * An array of track names from the same group room to merge into the
+     * compositions created by the composition hook. Can include zero or more track
+     * names. A composition triggered by the composition hook includes all audio
+     * sources specified in `audio_sources` except those specified in
+     * `audio_sources_excluded`. The track names in this parameter can include an
+     * asterisk as a wild card character, which matches zero or more characters in a
+     * track name. For example, `student*` includes tracks named `student` as well
+     * as `studentTeam`..
      *
-     * @param audioSources A list of audio sources related to this Composition Hook.
+     * @param audioSources An array of track names from the same group room to merge
      * @return this
      */
     public CompositionHookUpdater setAudioSources(final List<String> audioSources) {
@@ -98,13 +99,16 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
     }
 
     /**
-     * An array of audio sources to merge. All the specified sources must belong to
-     * the same Group Room. It can include zero or more Track names. These can be
-     * specified using wildcards (e.g. `student*`). The use of `[*]` has semantics
-     * "all if any" meaning zero or more (i.e. all) depending on whether the Group
-     * Room had audio tracks..
+     * An array of track names from the same group room to merge into the
+     * compositions created by the composition hook. Can include zero or more track
+     * names. A composition triggered by the composition hook includes all audio
+     * sources specified in `audio_sources` except those specified in
+     * `audio_sources_excluded`. The track names in this parameter can include an
+     * asterisk as a wild card character, which matches zero or more characters in a
+     * track name. For example, `student*` includes tracks named `student` as well
+     * as `studentTeam`..
      *
-     * @param audioSources A list of audio sources related to this Composition Hook.
+     * @param audioSources An array of track names from the same group room to merge
      * @return this
      */
     public CompositionHookUpdater setAudioSources(final String audioSources) {
@@ -112,14 +116,15 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
     }
 
     /**
-     * An array of audio sources to exclude from the Composition Hook. Any new
-     * Composition triggered by the Composition Hook shall include all audio sources
-     * specified in `AudioSources` except for the ones specified in
-     * `AudioSourcesExcluded`. This parameter may include zero or more Track names.
-     * These can be specified using wildcards (e.g. `student*`)..
+     * An array of track names to exclude. A composition triggered by the
+     * composition hook includes all audio sources specified in `audio_sources`
+     * except for those specified in `audio_sources_excluded`. The track names in
+     * this parameter can include an asterisk as a wild card character, which
+     * matches zero or more characters in a track name. For example, `student*`
+     * excludes `student` as well as `studentTeam`. This parameter can also be
+     * empty..
      *
-     * @param audioSourcesExcluded A list of audio sources excluded related to this
-     *                             Composition Hook.
+     * @param audioSourcesExcluded An array of track names to exclude
      * @return this
      */
     public CompositionHookUpdater setAudioSourcesExcluded(final List<String> audioSourcesExcluded) {
@@ -128,14 +133,15 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
     }
 
     /**
-     * An array of audio sources to exclude from the Composition Hook. Any new
-     * Composition triggered by the Composition Hook shall include all audio sources
-     * specified in `AudioSources` except for the ones specified in
-     * `AudioSourcesExcluded`. This parameter may include zero or more Track names.
-     * These can be specified using wildcards (e.g. `student*`)..
+     * An array of track names to exclude. A composition triggered by the
+     * composition hook includes all audio sources specified in `audio_sources`
+     * except for those specified in `audio_sources_excluded`. The track names in
+     * this parameter can include an asterisk as a wild card character, which
+     * matches zero or more characters in a track name. For example, `student*`
+     * excludes `student` as well as `studentTeam`. This parameter can also be
+     * empty..
      *
-     * @param audioSourcesExcluded A list of audio sources excluded related to this
-     *                             Composition Hook.
+     * @param audioSourcesExcluded An array of track names to exclude
      * @return this
      */
     public CompositionHookUpdater setAudioSourcesExcluded(final String audioSourcesExcluded) {
@@ -143,15 +149,16 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
     }
 
     /**
-     * When activated, clips all the intervals where there is no active media in the
-     * Compositions triggered by the Composition Hook. This results in shorter
-     * compositions in cases when the Room was created but no Participant joined for
-     * some time, or if all the Participants left the room and joined at a later
-     * stage, as those gaps will be removed. You can find further information in the
-     * [Specifying Video
-     * Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) section. Defaults to `true`..
+     * Whether to clip the intervals where there is no active media in the
+     * compositions triggered by the composition hook. The default is `true`.
+     * Compositions with `trim` enabled are shorter when the Room is created and no
+     * Participant joins for a while as well as if all the Participants leave the
+     * room and join later, because those gaps will be removed. See [Specifying
+     * Video
+     * Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info..
      *
-     * @param trim Boolean flag for clipping intervals that have no media.
+     * @param trim Whether to clip the intervals where there is no active media in
+     *             the Compositions triggered by the composition hook
      * @return this
      */
     public CompositionHookUpdater setTrim(final Boolean trim) {
@@ -160,14 +167,14 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
     }
 
     /**
-     * Container format of the Composition media files created by the Composition
-     * Hook. Can be any of the following: `mp4`, `webm`. The use of `mp4` or `webm`
-     * makes mandatory the specification of `AudioSources` and/or one `VideoLayout`
-     * element containing a valid `video_sources` list, otherwise an error is fired.
-     * Defaults to `webm`..
+     * The container format of the media files used by the compositions created by
+     * the composition hook. Can be: `mp4` or `webm` and the default is `webm`. If
+     * `mp4` or `webm`, `audio_sources` must have one or more tracks and/or a
+     * `video_layout` element must contain a valid `video_sources` list, otherwise
+     * an error occurs..
      *
-     * @param format Container format of the Composition Hook media file. Any of
-     *               the following: `mp4`, `webm`.
+     * @param format The container format of the media files used by the
+     *               compositions created by the composition hook
      * @return this
      */
     public CompositionHookUpdater setFormat(final CompositionHook.Format format) {
@@ -176,19 +183,28 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
     }
 
     /**
-     * A string representing the number of pixels for rows (width) and columns
-     * (height) of the generated composed video. This string must have the format
-     * `{width}x{height}`. This parameter must comply with the following
-     * constraints: `width &gt;= 16 &amp;&amp; width &lt;= 1280`, `height &gt;= 16
-     * &amp;&amp; height &lt;= 1280`, `width * height &lt;= 921,600`. Typical values
-     * are: HD = `1280x720`, PAL = `1024x576`, VGA = `640x480`, CIF = `320x240`.
-     * Note that the `Resolution` implicitly imposes an aspect ratio to the
-     * resulting composition. When the original video tracks get constrained by this
-     * aspect ratio they are scaled-down to fit. You can find detailed information
-     * in the [Specifying Video
-     * Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) section. Defaults to `640x480`..
+     * A string that describes the columns (width) and rows (height) of the
+     * generated composed video in pixels. Defaults to `640x480`.
+     * The string's format is `{width}x{height}` where:
      *
-     * @param resolution Pixel resolution of the composed video.
+     * * 16 &lt;= `{width}` &lt;= 1280
+     * * 16 &lt;= `{height}` &lt;= 1280
+     * * `{width}` * `{height}` &lt;= 921,600
+     *
+     * Typical values are:
+     *
+     * * HD = `1280x720`
+     * * PAL = `1024x576`
+     * * VGA = `640x480`
+     * * CIF = `320x240`
+     *
+     * Note that the `resolution` imposes an aspect ratio to the resulting
+     * composition. When the original video tracks are constrained by the aspect
+     * ratio, they are scaled to fit. See [Specifying Video
+     * Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info..
+     *
+     * @param resolution A string that describes the columns (width) and rows
+     *                   (height) of the generated composed video in pixels
      * @return this
      */
     public CompositionHookUpdater setResolution(final String resolution) {
@@ -197,11 +213,12 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
     }
 
     /**
-     * A URL that Twilio sends asynchronous webhook requests to on every composition
-     * event. If not provided, status callback events will not be dispatched..
+     * The URL we should call using the `status_callback_method` to send status
+     * information to your application on every composition event. If not provided,
+     * status callback events will not be dispatched..
      *
-     * @param statusCallback A URL that Twilio sends asynchronous webhook requests
-     *                       to on every composition event.
+     * @param statusCallback The URL we should call to send status information to
+     *                       your application
      * @return this
      */
     public CompositionHookUpdater setStatusCallback(final URI statusCallback) {
@@ -210,11 +227,12 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
     }
 
     /**
-     * A URL that Twilio sends asynchronous webhook requests to on every composition
-     * event. If not provided, status callback events will not be dispatched..
+     * The URL we should call using the `status_callback_method` to send status
+     * information to your application on every composition event. If not provided,
+     * status callback events will not be dispatched..
      *
-     * @param statusCallback A URL that Twilio sends asynchronous webhook requests
-     *                       to on every composition event.
+     * @param statusCallback The URL we should call to send status information to
+     *                       your application
      * @return this
      */
     public CompositionHookUpdater setStatusCallback(final String statusCallback) {
@@ -222,11 +240,11 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
     }
 
     /**
-     * HTTP method Twilio should use when requesting the above URL. Defaults to
-     * `POST`..
+     * The HTTP method we should use to call `status_callback`. Can be: `POST` or
+     * `GET` and the default is `POST`..
      *
-     * @param statusCallbackMethod HTTP method Twilio should use when requesting
-     *                             the above URL.
+     * @param statusCallbackMethod The HTTP method we should use to call
+     *                             status_callback
      * @return this
      */
     public CompositionHookUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {

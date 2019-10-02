@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
@@ -30,6 +31,7 @@ import org.joda.time.DateTime;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -39,7 +41,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Message extends Resource {
-    private static final long serialVersionUID = 67892017604626L;
+    private static final long serialVersionUID = 134141461829306L;
 
     public enum WebhookEnabledType {
         TRUE("true"),
@@ -169,6 +171,7 @@ public class Message extends Resource {
     private final Integer index;
     private final String author;
     private final String body;
+    private final List<Map<String, Object>> media;
     private final String attributes;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
@@ -187,6 +190,8 @@ public class Message extends Resource {
                     final String author,
                     @JsonProperty("body")
                     final String body,
+                    @JsonProperty("media")
+                    final List<Map<String, Object>> media,
                     @JsonProperty("attributes")
                     final String attributes,
                     @JsonProperty("date_created")
@@ -201,6 +206,7 @@ public class Message extends Resource {
         this.index = index;
         this.author = author;
         this.body = body;
+        this.media = media;
         this.attributes = attributes;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
@@ -262,6 +268,17 @@ public class Message extends Resource {
     }
 
     /**
+     * Returns The An array of objects that describe the Message's media if
+     * attached, otherwise, null..
+     *
+     * @return An array of objects that describe the Message's media if attached,
+     *         otherwise, null.
+     */
+    public final List<Map<String, Object>> getMedia() {
+        return this.media;
+    }
+
+    /**
      * Returns The A string metadata field you can use to store any data you wish..
      *
      * @return A string metadata field you can use to store any data you wish.
@@ -315,6 +332,7 @@ public class Message extends Resource {
                Objects.equals(index, other.index) &&
                Objects.equals(author, other.author) &&
                Objects.equals(body, other.body) &&
+               Objects.equals(media, other.media) &&
                Objects.equals(attributes, other.attributes) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
@@ -329,6 +347,7 @@ public class Message extends Resource {
                             index,
                             author,
                             body,
+                            media,
                             attributes,
                             dateCreated,
                             dateUpdated,
@@ -344,6 +363,7 @@ public class Message extends Resource {
                           .add("index", index)
                           .add("author", author)
                           .add("body", body)
+                          .add("media", media)
                           .add("attributes", attributes)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)

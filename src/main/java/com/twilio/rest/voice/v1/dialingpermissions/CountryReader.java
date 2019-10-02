@@ -34,7 +34,7 @@ public class CountryReader extends Reader<Country> {
 
     /**
      * Filter to retrieve the country permissions by specifying the [ISO country
-     * code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+     * code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
      *
      * @param isoCode Filter to retrieve the country permissions by specifying the
      *                ISO country code

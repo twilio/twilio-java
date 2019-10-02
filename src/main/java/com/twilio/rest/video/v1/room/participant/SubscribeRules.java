@@ -44,9 +44,10 @@ public class SubscribeRules extends Resource {
     /**
      * Create a SubscribeRulesFetcher to execute fetch.
      *
-     * @param pathRoomSid Unique Room identifier where the Subscribe Rules apply
-     * @param pathParticipantSid Unique Participant identifier to apply Subscribe
-     *                           Rules.
+     * @param pathRoomSid The SID of the Room resource where the subscribe rules to
+     *                    fetch apply
+     * @param pathParticipantSid The SID of the Participant resource with the
+     *                           subscribe rules to fetch
      * @return SubscribeRulesFetcher capable of executing the fetch
      */
     public static SubscribeRulesFetcher fetcher(final String pathRoomSid,
@@ -57,9 +58,10 @@ public class SubscribeRules extends Resource {
     /**
      * Create a SubscribeRulesUpdater to execute update.
      *
-     * @param pathRoomSid Unique Room identifier where the Subscribe Rules apply
-     * @param pathParticipantSid Unique Participant identifier to apply Subscribe
-     *                           Rules.
+     * @param pathRoomSid The SID of the Room resource where the subscribe rules to
+     *                    update apply
+     * @param pathParticipantSid The SID of the Participant resource to update the
+     *                           Subscribe Rules
      * @return SubscribeRulesUpdater capable of executing the update
      */
     public static SubscribeRulesUpdater updater(final String pathRoomSid,
@@ -130,47 +132,48 @@ public class SubscribeRules extends Resource {
     }
 
     /**
-     * Returns The The unique Participant identifier for the Subscribe Rules..
+     * Returns The The SID of the Participant resource for the Subscribe Rules.
      *
-     * @return The unique Participant identifier for the Subscribe Rules.
+     * @return The SID of the Participant resource for the Subscribe Rules
      */
     public final String getParticipantSid() {
         return this.participantSid;
     }
 
     /**
-     * Returns The The unique Room identifier for the Subscribe Rules.
+     * Returns The The SID of the Room resource for the Subscribe Rules.
      *
-     * @return The unique Room identifier for the Subscribe Rules
+     * @return The SID of the Room resource for the Subscribe Rules
      */
     public final String getRoomSid() {
         return this.roomSid;
     }
 
     /**
-     * Returns The A collection of Subscribe Rules to include or exclude matching
-     * Tracks..
+     * Returns The A collection of Subscribe Rules that describe how to include or
+     * exclude matching tracks.
      *
-     * @return A collection of Subscribe Rules to include or exclude matching
-     *         Tracks.
+     * @return A collection of Subscribe Rules that describe how to include or
+     *         exclude matching tracks
      */
     public final List<SubscribeRule> getRules() {
         return this.rules;
     }
 
     /**
-     * Returns The The date that this resource was created..
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date that this resource was created.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated..
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * updated.
      *
-     * @return The date that this resource was last updated.
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;

@@ -29,8 +29,8 @@ public class MessageDeleter extends Deleter<Message> {
     /**
      * Construct a new MessageDeleter.
      *
-     * @param pathSessionSid The unique id of the Session for this message.
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSessionSid The SID of the Session with the message to delete
+     * @param pathSid The SID that identifies the resource to delete
      */
     public MessageDeleter(final String pathSessionSid,
                           final String pathSid) {

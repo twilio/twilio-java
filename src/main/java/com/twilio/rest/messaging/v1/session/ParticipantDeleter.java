@@ -29,8 +29,8 @@ public class ParticipantDeleter extends Deleter<Participant> {
     /**
      * Construct a new ParticipantDeleter.
      *
-     * @param pathSessionSid The unique id of the Session for this participant.
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSessionSid The SID of the Session with the participant to delete
+     * @param pathSid The SID that identifies the resource to delete
      */
     public ParticipantDeleter(final String pathSessionSid,
                               final String pathSid) {

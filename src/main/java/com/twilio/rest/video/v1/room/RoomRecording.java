@@ -146,8 +146,8 @@ public class RoomRecording extends Resource {
     /**
      * Create a RoomRecordingFetcher to execute fetch.
      *
-     * @param pathRoomSid The room_sid
-     * @param pathSid The sid
+     * @param pathRoomSid The SID of the Room resource with the recording to fetch
+     * @param pathSid The SID that identifies the resource to fetch
      * @return RoomRecordingFetcher capable of executing the fetch
      */
     public static RoomRecordingFetcher fetcher(final String pathRoomSid,
@@ -158,7 +158,8 @@ public class RoomRecording extends Resource {
     /**
      * Create a RoomRecordingReader to execute read.
      *
-     * @param pathRoomSid The room_sid
+     * @param pathRoomSid The SID of the room with the RoomRecording resources to
+     *                    read
      * @return RoomRecordingReader capable of executing the read
      */
     public static RoomRecordingReader reader(final String pathRoomSid) {
@@ -168,8 +169,9 @@ public class RoomRecording extends Resource {
     /**
      * Create a RoomRecordingDeleter to execute delete.
      *
-     * @param pathRoomSid The room_sid
-     * @param pathSid The sid
+     * @param pathRoomSid The SID of the room with the RoomRecording resource to
+     *                    delete
+     * @param pathSid The SID that identifies the resource to delete
      * @return RoomRecordingDeleter capable of executing the delete
      */
     public static RoomRecordingDeleter deleter(final String pathRoomSid,
@@ -284,144 +286,147 @@ public class RoomRecording extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The status.
+     * Returns The The status of the recording.
      *
-     * @return The status
+     * @return The status of the recording
      */
     public final RoomRecording.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date_created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The The unique string that identifies the resource.
      *
-     * @return The sid
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The source_sid.
+     * Returns The The SID of the recording source.
      *
-     * @return The source_sid
+     * @return The SID of the recording source
      */
     public final String getSourceSid() {
         return this.sourceSid;
     }
 
     /**
-     * Returns The The size.
+     * Returns The The size of the recorded track in bytes.
      *
-     * @return The size
+     * @return The size of the recorded track in bytes
      */
     public final Long getSize() {
         return this.size;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the resource.
      *
-     * @return The url
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The type.
+     * Returns The The recording's media type.
      *
-     * @return The type
+     * @return The recording's media type
      */
     public final RoomRecording.Type getType() {
         return this.type;
     }
 
     /**
-     * Returns The The duration.
+     * Returns The The duration of the recording in seconds.
      *
-     * @return The duration
+     * @return The duration of the recording in seconds
      */
     public final Integer getDuration() {
         return this.duration;
     }
 
     /**
-     * Returns The The container_format.
+     * Returns The The file format for the recording.
      *
-     * @return The container_format
+     * @return The file format for the recording
      */
     public final RoomRecording.Format getContainerFormat() {
         return this.containerFormat;
     }
 
     /**
-     * Returns The The codec.
+     * Returns The The codec used for the recording.
      *
-     * @return The codec
+     * @return The codec used for the recording
      */
     public final RoomRecording.Codec getCodec() {
         return this.codec;
     }
 
     /**
-     * Returns The The grouping_sids.
+     * Returns The A list of SIDs related to the Recording.
      *
-     * @return The grouping_sids
+     * @return A list of SIDs related to the Recording
      */
     public final Map<String, Object> getGroupingSids() {
         return this.groupingSids;
     }
 
     /**
-     * Returns The The track_name.
+     * Returns The The name that was given to the source track of the recording.
      *
-     * @return The track_name
+     * @return The name that was given to the source track of the recording
      */
     public final String getTrackName() {
         return this.trackName;
     }
 
     /**
-     * Returns The The offset.
+     * Returns The The number of milliseconds between a point in time that is common
+     * to all rooms in a group and when the source room of the recording started.
      *
-     * @return The offset
+     * @return The number of milliseconds between a point in time that is common to
+     *         all rooms in a group and when the source room of the recording
+     *         started
      */
     public final Long getOffset() {
         return this.offset;
     }
 
     /**
-     * Returns The The room_sid.
+     * Returns The The SID of the Room resource the recording is associated with.
      *
-     * @return The room_sid
+     * @return The SID of the Room resource the recording is associated with
      */
     public final String getRoomSid() {
         return this.roomSid;
     }
 
     /**
-     * Returns The The links.
+     * Returns The The URLs of related resources.
      *
-     * @return The links
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;

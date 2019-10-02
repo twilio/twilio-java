@@ -29,7 +29,7 @@ public class ShortCodeDeleter extends Deleter<ShortCode> {
      * Construct a new ShortCodeDeleter.
      *
      * @param pathServiceSid The SID of the Service to delete the resource from
-     * @param pathSid The unique string that identifies this resource
+     * @param pathSid The SID that identifies the resource to delete
      */
     public ShortCodeDeleter(final String pathServiceSid,
                             final String pathSid) {

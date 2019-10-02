@@ -29,8 +29,9 @@ public class WebhookDeleter extends Deleter<Webhook> {
     /**
      * Construct a new WebhookDeleter.
      *
-     * @param pathSessionSid The unique id of the Session for this webhook.
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSessionSid The SID of the Session with the Webhook resource to
+     *                       delete
+     * @param pathSid The SID that identifies the resource to delete
      */
     public WebhookDeleter(final String pathSessionSid,
                           final String pathSid) {

@@ -166,95 +166,95 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this session..
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The unique id of the Account responsible for this session.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique id of the Chat Service this session belongs to..
+     * Returns The The SID of the Chat Service that the resource is associated with.
      *
-     * @return The unique id of the Chat Service this session belongs to.
+     * @return The SID of the Chat Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The HTTP method to be used when sending a webhook request..
+     * Returns The The HTTP method to use when sending a webhook request.
      *
-     * @return The HTTP method to be used when sending a webhook request.
+     * @return The HTTP method to use when sending a webhook request
      */
     public final String getWebhookMethod() {
         return this.webhookMethod;
     }
 
     /**
-     * Returns The The list of webhook event triggers that are enabled for this
-     * Service..
+     * Returns The The list of webhook event triggers that are enabled for the
+     * Service.
      *
-     * @return The list of webhook event triggers that are enabled for this Service.
+     * @return The list of webhook event triggers that are enabled for the Service
      */
     public final List<String> getWebhookFilters() {
         return this.webhookFilters;
     }
 
     /**
-     * Returns The The absolute url the pre-event webhook request should be sent
-     * to..
+     * Returns The The absolute URL of the pre-event webhook.
      *
-     * @return The absolute url the pre-event webhook request should be sent to.
+     * @return The absolute URL of the pre-event webhook
      */
     public final String getPreWebhookUrl() {
         return this.preWebhookUrl;
     }
 
     /**
-     * Returns The The absolute url the post-event webhook request should be sent
-     * to..
+     * Returns The The absolute URL of the post-event webhook.
      *
-     * @return The absolute url the post-event webhook request should be sent to.
+     * @return The absolute URL of the post-event webhook
      */
     public final String getPostWebhookUrl() {
         return this.postWebhookUrl;
     }
 
     /**
-     * Returns The The number of retries in case of pre-event webhook request
-     * failures..
+     * Returns The The number of times to try the pre-event webhook request if the
+     * first attempt fails.
      *
-     * @return The number of retries in case of pre-event webhook request failures.
+     * @return The number of times to try the pre-event webhook request if the
+     *         first attempt fails
      */
     public final Integer getPreWebhookRetryCount() {
         return this.preWebhookRetryCount;
     }
 
     /**
-     * Returns The The number of retries in case of post-event webhook request
-     * failures..
+     * Returns The The number of times to try the post-event webhook request if the
+     * first attempt fails.
      *
-     * @return The number of retries in case of post-event webhook request failures.
+     * @return The number of times to try the post-event webhook request if the
+     *         first attempt fails
      */
     public final Integer getPostWebhookRetryCount() {
         return this.postWebhookRetryCount;
     }
 
     /**
-     * Returns The The routing target of the webhook..
+     * Returns The The routing target of the webhook.
      *
-     * @return The routing target of the webhook.
+     * @return The routing target of the webhook
      */
     public final Webhook.Target getTarget() {
         return this.target;
     }
 
     /**
-     * Returns The An absolute URL for this webhook..
+     * Returns The The absolute URL of the webhook.
      *
-     * @return An absolute URL for this webhook.
+     * @return The absolute URL of the webhook
      */
     public final URI getUrl() {
         return this.url;

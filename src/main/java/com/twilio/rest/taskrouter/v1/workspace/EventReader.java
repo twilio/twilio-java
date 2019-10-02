@@ -38,18 +38,17 @@ public class EventReader extends Reader<Event> {
     /**
      * Construct a new EventReader.
      *
-     * @param pathWorkspaceSid Filter events by those pertaining to a particular
-     *                         workspace
+     * @param pathWorkspaceSid The SID of the Workspace with the Events to read
      */
     public EventReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     /**
-     * Filter events by an end date. This is helpful for defining a range of events
-     * to capture. Input is a GMT ISO 8601 Timestamp..
+     * Only include Events that occurred on or before this date, specified in GMT as
+     * an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time..
      *
-     * @param endDate Filter events by an end date.
+     * @param endDate Only include usage that occurred on or before this date
      * @return this
      */
     public EventReader setEndDate(final DateTime endDate) {
@@ -58,9 +57,9 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * Filter events by those of a certain event type.
+     * The type of Events to read. Returns only Events of the type specified..
      *
-     * @param eventType Filter events by those of a certain event type
+     * @param eventType The type of Events to read
      * @return this
      */
     public EventReader setEventType(final String eventType) {
@@ -69,11 +68,10 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * Filter events by up to 'x' minutes in the past. This is helpful for events
-     * for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to
-     * see trends. Defaults to 15 minutes..
+     * The period of events to read in minutes. Returns only Events that occurred
+     * since this many minutes in the past. The default is `15` minutes..
      *
-     * @param minutes Filter events by up to 'x' minutes in the past.
+     * @param minutes The period of events to read in minutes
      * @return this
      */
     public EventReader setMinutes(final Integer minutes) {
@@ -82,10 +80,10 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * Filter events by those pertaining to a particular reservation.
+     * The SID of the Reservation with the Events to read. Returns only Events that
+     * pertain to the specified Reservation..
      *
-     * @param reservationSid Filter events by those pertaining to a particular
-     *                       reservation
+     * @param reservationSid The SID of the Reservation with the Events to read
      * @return this
      */
     public EventReader setReservationSid(final String reservationSid) {
@@ -94,10 +92,10 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * Filter events by a start date. This is helpful for defining a range of events
-     * to capture. Input is a GMT ISO 8601 Timestamp..
+     * Only include Events from on or after this date and time, specified in [ISO
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601) format..
      *
-     * @param startDate Filter events by a start date.
+     * @param startDate Only include Events from on or after this date
      * @return this
      */
     public EventReader setStartDate(final DateTime startDate) {
@@ -106,9 +104,10 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * Filter events by those pertaining to a particular queue.
+     * The SID of the TaskQueue with the Events to read. Returns only the Events
+     * that pertain to the specified TaskQueue..
      *
-     * @param taskQueueSid Filter events by those pertaining to a particular queue
+     * @param taskQueueSid The SID of the TaskQueue with the Events to read
      * @return this
      */
     public EventReader setTaskQueueSid(final String taskQueueSid) {
@@ -117,9 +116,10 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * Filter events by those pertaining to a particular task.
+     * The SID of the Task with the Events to read. Returns only the Events that
+     * pertain to the specified Task..
      *
-     * @param taskSid Filter events by those pertaining to a particular task
+     * @param taskSid The SID of the Task with the Events to read
      * @return this
      */
     public EventReader setTaskSid(final String taskSid) {
@@ -128,9 +128,10 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * Filter events by those pertaining to a particular worker.
+     * The SID of the Worker with the Events to read. Returns only the Events that
+     * pertain to the specified Worker..
      *
-     * @param workerSid Filter events by those pertaining to a particular worker
+     * @param workerSid The SID of the Worker with the Events to read
      * @return this
      */
     public EventReader setWorkerSid(final String workerSid) {
@@ -139,9 +140,10 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * Filter events by those pertaining to a particular workflow.
+     * The SID of the Workflow with the Events to read. Returns only the Events that
+     * pertain to the specified Workflow..
      *
-     * @param workflowSid Filter events by those pertaining to a particular workflow
+     * @param workflowSid The SID of the Worker with the Events to read
      * @return this
      */
     public EventReader setWorkflowSid(final String workflowSid) {
@@ -150,10 +152,10 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * Filter events by those pertaining to a particular task channel.
+     * The TaskChannel with the Events to read. Returns only the Events that pertain
+     * to the specified TaskChannel..
      *
-     * @param taskChannel Filter events by those pertaining to a particular task
-     *                    channel
+     * @param taskChannel The TaskChannel with the Events to read
      * @return this
      */
     public EventReader setTaskChannel(final String taskChannel) {
@@ -162,9 +164,9 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * Filter events by those pertaining to a particular event.
+     * The SID of the Event resource to read..
      *
-     * @param sid Filter events by those pertaining to a particular event
+     * @param sid The unique string that identifies the resource
      * @return this
      */
     public EventReader setSid(final String sid) {

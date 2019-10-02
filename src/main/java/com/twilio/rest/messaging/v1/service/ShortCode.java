@@ -46,7 +46,7 @@ public class ShortCode extends Resource {
      * Create a ShortCodeCreator to execute create.
      *
      * @param pathServiceSid The SID of the Service to create the resource under
-     * @param shortCodeSid SID of the ShortCode being added to the Service.
+     * @param shortCodeSid The SID of the ShortCode being added to the Service
      * @return ShortCodeCreator capable of executing the create
      */
     public static ShortCodeCreator creator(final String pathServiceSid,
@@ -58,7 +58,7 @@ public class ShortCode extends Resource {
      * Create a ShortCodeDeleter to execute delete.
      *
      * @param pathServiceSid The SID of the Service to delete the resource from
-     * @param pathSid The unique string that identifies this resource
+     * @param pathSid The SID that identifies the resource to delete
      * @return ShortCodeDeleter capable of executing the delete
      */
     public static ShortCodeDeleter deleter(final String pathServiceSid,
@@ -69,7 +69,7 @@ public class ShortCode extends Resource {
     /**
      * Create a ShortCodeReader to execute read.
      *
-     * @param pathServiceSid The SID of the Service to read the resource from
+     * @param pathServiceSid The SID of the Service to read the resources from
      * @return ShortCodeReader capable of executing the read
      */
     public static ShortCodeReader reader(final String pathServiceSid) {
@@ -80,7 +80,7 @@ public class ShortCode extends Resource {
      * Create a ShortCodeFetcher to execute fetch.
      *
      * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathSid The unique string that identifies this resource
+     * @param pathSid The SID that identifies the resource to fetch
      * @return ShortCodeFetcher capable of executing the fetch
      */
     public static ShortCodeFetcher fetcher(final String pathServiceSid,
@@ -167,84 +167,84 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies this resource.
+     * Returns The The unique string that identifies the resource.
      *
-     * @return The unique string that identifies this resource
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The SID of the Account that created this resource.
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The SID of the Account that created this resource
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The SID of the Service that this resource is associated with.
+     * Returns The The SID of the Service that the resource is associated with.
      *
-     * @return The SID of the Service that this resource is associated with
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that this resource was created.
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The RFC 2822 date and time in GMT that this resource was created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that this resource was last
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
      * updated.
      *
-     * @return The RFC 2822 date and time in GMT that this resource was last updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The E.164 format of the short code..
+     * Returns The The E.164 format of the short code.
      *
-     * @return The E.164 format of the short code.
+     * @return The E.164 format of the short code
      */
     public final String getShortCode() {
         return this.shortCode;
     }
 
     /**
-     * Returns The The 2-character ISO Country Code of the number..
+     * Returns The The 2-character ISO Country Code of the number.
      *
-     * @return The 2-character ISO Country Code of the number.
+     * @return The 2-character ISO Country Code of the number
      */
     public final String getCountryCode() {
         return this.countryCode;
     }
 
     /**
-     * Returns The Any array of values that indicate whether the number can receive
-     * calls or messages..
+     * Returns The An array of values that describe whether the number can receive
+     * calls or messages.
      *
-     * @return Any array of values that indicate whether the number can receive
-     *         calls or messages.
+     * @return An array of values that describe whether the number can receive
+     *         calls or messages
      */
     public final List<Map<String, Object>> getCapabilities() {
         return this.capabilities;
     }
 
     /**
-     * Returns The The absolute URL of this ShortCode resource.
+     * Returns The The absolute URL of the ShortCode resource.
      *
-     * @return The absolute URL of this ShortCode resource
+     * @return The absolute URL of the ShortCode resource
      */
     public final URI getUrl() {
         return this.url;

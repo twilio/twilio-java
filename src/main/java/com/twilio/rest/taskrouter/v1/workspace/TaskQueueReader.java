@@ -28,17 +28,16 @@ public class TaskQueueReader extends Reader<TaskQueue> {
     /**
      * Construct a new TaskQueueReader.
      *
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskQueue to read
      */
     public TaskQueueReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     /**
-     * Filter by a human readable description of a TaskQueue (for example "Customer
-     * Support" or "2014 Election Campaign").
+     * The `friendly_name` of the TaskQueue resources to read..
      *
-     * @param friendlyName Filter by a human readable description of a TaskQueue
+     * @param friendlyName The friendly_name of the TaskQueue resources to read
      * @return this
      */
     public TaskQueueReader setFriendlyName(final String friendlyName) {
@@ -47,13 +46,10 @@ public class TaskQueueReader extends Reader<TaskQueue> {
     }
 
     /**
-     * Provide a Worker attributes expression, and this will return the list of
-     * TaskQueues that would distribute tasks to a worker with these attributes..
+     * The attributes of the Workers to read. Returns the TaskQueues with Workers
+     * that match the attributes specified in this parameter..
      *
-     * @param evaluateWorkerAttributes Provide a Worker attributes expression, and
-     *                                 this will return the list of TaskQueues that
-     *                                 would distribute tasks to a worker with these
-     *                                 attributes.
+     * @param evaluateWorkerAttributes The attributes of the Workers to read
      * @return this
      */
     public TaskQueueReader setEvaluateWorkerAttributes(final String evaluateWorkerAttributes) {
@@ -62,9 +58,9 @@ public class TaskQueueReader extends Reader<TaskQueue> {
     }
 
     /**
-     * The worker_sid.
+     * The SID of the Worker with the TaskQueue resources to read..
      *
-     * @param workerSid The worker_sid
+     * @param workerSid The SID of the Worker with the TaskQueue resources to read
      * @return this
      */
     public TaskQueueReader setWorkerSid(final String workerSid) {

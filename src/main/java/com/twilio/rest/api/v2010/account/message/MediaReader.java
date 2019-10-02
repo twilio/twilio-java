@@ -53,13 +53,14 @@ public class MediaReader extends Reader<Media> {
     }
 
     /**
-     * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
-     * read. You can also specify inequality, such as `DateCreated&lt;=YYYY-MM-DD`
-     * for media generated at or before midnight on a date, and
-     * `DateCreated&gt;=YYYY-MM-DD` for media generated at or after midnight on a
-     * date..
+     * Only include media that was created on this date. Specify a date as
+     * `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was
+     * created on this date. You can also specify an inequality, such as
+     * `StartTime&lt;=YYYY-MM-DD`, to read media that was created on or before
+     * midnight of this date, and `StartTime&gt;=YYYY-MM-DD` to read media that was
+     * created on or after midnight of this date..
      *
-     * @param absoluteDateCreated The `YYYY-MM-DD` value of the resources to read
+     * @param absoluteDateCreated Only include media that was created on this date
      * @return this
      */
     public MediaReader setDateCreated(final DateTime absoluteDateCreated) {
@@ -69,13 +70,14 @@ public class MediaReader extends Reader<Media> {
     }
 
     /**
-     * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
-     * read. You can also specify inequality, such as `DateCreated&lt;=YYYY-MM-DD`
-     * for media generated at or before midnight on a date, and
-     * `DateCreated&gt;=YYYY-MM-DD` for media generated at or after midnight on a
-     * date..
+     * Only include media that was created on this date. Specify a date as
+     * `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was
+     * created on this date. You can also specify an inequality, such as
+     * `StartTime&lt;=YYYY-MM-DD`, to read media that was created on or before
+     * midnight of this date, and `StartTime&gt;=YYYY-MM-DD` to read media that was
+     * created on or after midnight of this date..
      *
-     * @param rangeDateCreated The `YYYY-MM-DD` value of the resources to read
+     * @param rangeDateCreated Only include media that was created on this date
      * @return this
      */
     public MediaReader setDateCreated(final Range<DateTime> rangeDateCreated) {

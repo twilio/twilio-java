@@ -30,7 +30,8 @@ public class WebhookReader extends Reader<Webhook> {
     /**
      * Construct a new WebhookReader.
      *
-     * @param pathSessionSid The unique id of the Session for this webhook.
+     * @param pathSessionSid The SID of the Session with the Webhook resources to
+     *                       read
      */
     public WebhookReader(final String pathSessionSid) {
         this.pathSessionSid = pathSessionSid;

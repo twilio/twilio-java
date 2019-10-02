@@ -23,7 +23,7 @@ public class FlexFlowDeleter extends Deleter<FlexFlow> {
     /**
      * Construct a new FlexFlowDeleter.
      *
-     * @param pathSid The unique ID of the FlexFlow
+     * @param pathSid The SID that identifies the resource to delete
      */
     public FlexFlowDeleter(final String pathSid) {
         this.pathSid = pathSid;

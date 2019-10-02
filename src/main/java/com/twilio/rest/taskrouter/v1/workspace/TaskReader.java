@@ -37,17 +37,17 @@ public class TaskReader extends Reader<Task> {
     /**
      * Construct a new TaskReader.
      *
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Tasks to read
      */
     public TaskReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     /**
-     * Retrieve the list of all Tasks in the workspace with the specified priority..
+     * The priority value of the Tasks to read. Returns the list of all Tasks in the
+     * Workspace with the specified priority..
      *
-     * @param priority Retrieve the list of all Tasks in the workspace with the
-     *                 specified priority.
+     * @param priority The priority value of the Tasks to read
      * @return this
      */
     public TaskReader setPriority(final Integer priority) {
@@ -56,12 +56,12 @@ public class TaskReader extends Reader<Task> {
     }
 
     /**
-     * Returns the list of all Tasks in the workspace with the specified
-     * AssignmentStatus. Allowed AssignmentStatus values are pending, reserved,
-     * assigned, canceled, and completed..
+     * The `assignment_status` of the Tasks to read. Can be: `pending`, `reserved`,
+     * `assigned`, `canceled`, and `completed`. Returns all Tasks in the Workspace
+     * with the specified `assignment_status`..
      *
-     * @param assignmentStatus Returns the list of all Tasks in the workspace with
-     *                         the specified AssignmentStatus.
+     * @param assignmentStatus Returns the list of all Tasks in the Workspace with
+     *                         the specified assignment_status
      * @return this
      */
     public TaskReader setAssignmentStatus(final List<String> assignmentStatus) {
@@ -70,12 +70,12 @@ public class TaskReader extends Reader<Task> {
     }
 
     /**
-     * Returns the list of all Tasks in the workspace with the specified
-     * AssignmentStatus. Allowed AssignmentStatus values are pending, reserved,
-     * assigned, canceled, and completed..
+     * The `assignment_status` of the Tasks to read. Can be: `pending`, `reserved`,
+     * `assigned`, `canceled`, and `completed`. Returns all Tasks in the Workspace
+     * with the specified `assignment_status`..
      *
-     * @param assignmentStatus Returns the list of all Tasks in the workspace with
-     *                         the specified AssignmentStatus.
+     * @param assignmentStatus Returns the list of all Tasks in the Workspace with
+     *                         the specified assignment_status
      * @return this
      */
     public TaskReader setAssignmentStatus(final String assignmentStatus) {
@@ -83,11 +83,10 @@ public class TaskReader extends Reader<Task> {
     }
 
     /**
-     * Returns the list of Tasks that are being controlled by the Workflow with the
-     * specified Sid value..
+     * The SID of the Workflow with the Tasks to read. Returns the Tasks controlled
+     * by the Workflow identified by this SID..
      *
-     * @param workflowSid Returns the list of Tasks that are being controlled by
-     *                    the Workflow with the specified Sid value.
+     * @param workflowSid The SID of the Workflow with the Tasks to read
      * @return this
      */
     public TaskReader setWorkflowSid(final String workflowSid) {
@@ -96,11 +95,10 @@ public class TaskReader extends Reader<Task> {
     }
 
     /**
-     * Returns the list of Tasks that are being controlled by the Workflow with the
-     * specified FriendlyName value..
+     * The friendly name of the Workflow with the Tasks to read. Returns the Tasks
+     * controlled by the Workflow identified by this friendly name..
      *
-     * @param workflowName Returns the list of Tasks that are being controlled by
-     *                     the Workflow with the specified FriendlyName value.
+     * @param workflowName The friendly name of the Workflow with the Tasks to read
      * @return this
      */
     public TaskReader setWorkflowName(final String workflowName) {
@@ -109,11 +107,10 @@ public class TaskReader extends Reader<Task> {
     }
 
     /**
-     * Returns the list of Tasks that are currently waiting in the TaskQueue
-     * identified by the Sid specified..
+     * The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in
+     * the TaskQueue identified by this SID..
      *
-     * @param taskQueueSid Returns the list of Tasks that are currently waiting in
-     *                     the TaskQueue identified by the Sid specified.
+     * @param taskQueueSid The SID of the TaskQueue with the Tasks to read
      * @return this
      */
     public TaskReader setTaskQueueSid(final String taskQueueSid) {
@@ -122,11 +119,11 @@ public class TaskReader extends Reader<Task> {
     }
 
     /**
-     * Returns the list of Tasks that are currently waiting in the TaskQueue
-     * identified by the FriendlyName specified..
+     * The `friendly_name` of the TaskQueue with the Tasks to read. Returns the
+     * Tasks waiting in the TaskQueue identified by this friendly name..
      *
-     * @param taskQueueName Returns the list of Tasks that are currently waiting in
-     *                      the TaskQueue identified by the FriendlyName specified.
+     * @param taskQueueName The friendly_name of the TaskQueue with the Tasks to
+     *                      read
      * @return this
      */
     public TaskReader setTaskQueueName(final String taskQueueName) {
@@ -135,11 +132,10 @@ public class TaskReader extends Reader<Task> {
     }
 
     /**
-     * Provide a task attributes expression, and this will return tasks which match
-     * the attributes..
+     * The attributes of the Tasks to read. Returns the Tasks that match the
+     * attributes specified in this parameter..
      *
-     * @param evaluateTaskAttributes Provide a task attributes expression, and this
-     *                               will return tasks which match the attributes.
+     * @param evaluateTaskAttributes The task attributes of the Tasks to read
      * @return this
      */
     public TaskReader setEvaluateTaskAttributes(final String evaluateTaskAttributes) {
@@ -148,16 +144,15 @@ public class TaskReader extends Reader<Task> {
     }
 
     /**
-     * Use this parameter to control the order of the Tasks returned. The value
-     * should be passed in `Attribute:Order` format, where Attribute can be either
-     * `Priority` or `DateCreated` and Order can be either `asc` or `desc`. For
-     * example, `Priority:desc` returns Tasks ordered by Priority in descending
-     * order. To sort the Tasks by Priority and DateCreated pass
-     * `Priority:desc,DateCreated:asc`. By Default Tasks are returned sorted by
-     * DateCreated in ascending order..
+     * How to order the returned Task resources. y default, Tasks are sorted by
+     * ascending DateCreated. This value is specified as: `Attribute:Order`, where
+     * `Attribute` can be either `Priority` or `DateCreated` and `Order` can be
+     * either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in
+     * descending order of their Priority. Multiple sort orders can be specified in
+     * a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns
+     * the Tasks in descending Priority order and ascending DateCreated Order..
      *
-     * @param ordering Use this parameter to control the order of the Tasks
-     *                 returned.
+     * @param ordering Controls the order of the Tasks returned
      * @return this
      */
     public TaskReader setOrdering(final String ordering) {
@@ -166,9 +161,10 @@ public class TaskReader extends Reader<Task> {
     }
 
     /**
-     * The has_addons.
+     * Whether to read Tasks with addons. If `true`, returns only Tasks with addons.
+     * If `false`, returns only Tasks without addons..
      *
-     * @param hasAddons The has_addons
+     * @param hasAddons Whether to read Tasks with addons
      * @return this
      */
     public TaskReader setHasAddons(final Boolean hasAddons) {

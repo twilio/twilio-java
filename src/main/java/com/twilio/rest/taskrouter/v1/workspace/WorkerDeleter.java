@@ -24,8 +24,8 @@ public class WorkerDeleter extends Deleter<Worker> {
     /**
      * Construct a new WorkerDeleter.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Worker to delete
+     * @param pathSid The SID of the resource to delete
      */
     public WorkerDeleter(final String pathWorkspaceSid,
                          final String pathSid) {

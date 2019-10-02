@@ -44,7 +44,7 @@ public class Asset extends Resource {
     /**
      * Create a AssetReader to execute read.
      *
-     * @param pathServiceSid Service Sid.
+     * @param pathServiceSid The SID of the Service to read the Asset resource from
      * @return AssetReader capable of executing the read
      */
     public static AssetReader reader(final String pathServiceSid) {
@@ -54,8 +54,8 @@ public class Asset extends Resource {
     /**
      * Create a AssetFetcher to execute fetch.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathSid Asset Sid.
+     * @param pathServiceSid The SID of the Service to fetch the Asset resource from
+     * @param pathSid The SID that identifies the Asset resource to fetch
      * @return AssetFetcher capable of executing the fetch
      */
     public static AssetFetcher fetcher(final String pathServiceSid,
@@ -66,8 +66,9 @@ public class Asset extends Resource {
     /**
      * Create a AssetDeleter to execute delete.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathSid Asset Sid.
+     * @param pathServiceSid The SID of the Service to delete the Asset resource
+     *                       from
+     * @param pathSid The SID that identifies the Asset resource to delete
      * @return AssetDeleter capable of executing the delete
      */
     public static AssetDeleter deleter(final String pathServiceSid,
@@ -78,8 +79,9 @@ public class Asset extends Resource {
     /**
      * Create a AssetCreator to execute create.
      *
-     * @param pathServiceSid Service Sid.
-     * @param friendlyName A human-readable description of this Asset.
+     * @param pathServiceSid The SID of the Service to create the Asset resource
+     *                       under
+     * @param friendlyName A string to describe the Asset resource
      * @return AssetCreator capable of executing the create
      */
     public static AssetCreator creator(final String pathServiceSid,
@@ -90,9 +92,10 @@ public class Asset extends Resource {
     /**
      * Create a AssetUpdater to execute update.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathSid Asset Sid.
-     * @param friendlyName A human-readable description of this Asset.
+     * @param pathServiceSid The SID of the Service to update the Asset resource
+     *                       from
+     * @param pathSid The SID that identifies the Asset resource to update
+     * @param friendlyName A string to describe the Asset resource
      * @return AssetUpdater capable of executing the update
      */
     public static AssetUpdater updater(final String pathServiceSid,
@@ -175,72 +178,76 @@ public class Asset extends Resource {
     }
 
     /**
-     * Returns The Asset Sid..
+     * Returns The The unique string that identifies the Asset resource.
      *
-     * @return Asset Sid.
+     * @return The unique string that identifies the Asset resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The The SID of the Account that created the Asset resource.
      *
-     * @return Account Sid.
+     * @return The SID of the Account that created the Asset resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Service Sid..
+     * Returns The The SID of the Service that the Asset resource is associated
+     * with.
      *
-     * @return Service Sid.
+     * @return The SID of the Service that the Asset resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The A human-readable description of this Asset..
+     * Returns The The string that you assigned to describe the Asset resource.
      *
-     * @return A human-readable description of this Asset.
+     * @return The string that you assigned to describe the Asset resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date that this Asset was created..
+     * Returns The The ISO 8601 date and time in GMT when the Asset resource was
+     * created.
      *
-     * @return The date that this Asset was created.
+     * @return The ISO 8601 date and time in GMT when the Asset resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this Asset was updated..
+     * Returns The The ISO 8601 date and time in GMT when the Asset resource was
+     * last updated.
      *
-     * @return The date that this Asset was updated.
+     * @return The ISO 8601 date and time in GMT when the Asset resource was last
+     *         updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL of this Asset..
+     * Returns The The absolute URL of the Asset resource.
      *
-     * @return The URL of this Asset.
+     * @return The absolute URL of the Asset resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Nested resource URLs..
+     * Returns The The links to the nested resources of the asset.
      *
-     * @return Nested resource URLs.
+     * @return The links to the nested resources of the asset
      */
     public final Map<String, String> getLinks() {
         return this.links;

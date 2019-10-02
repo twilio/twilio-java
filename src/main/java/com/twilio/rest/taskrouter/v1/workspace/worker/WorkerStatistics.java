@@ -38,8 +38,9 @@ public class WorkerStatistics extends Resource {
     /**
      * Create a WorkerStatisticsFetcher to execute fetch.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathWorkerSid The worker_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the WorkerChannel to
+     *                         fetch
+     * @param pathWorkerSid The SID of the Worker with the WorkerChannel to fetch
      * @return WorkerStatisticsFetcher capable of executing the fetch
      */
     public static WorkerStatisticsFetcher fetcher(final String pathWorkspaceSid,
@@ -110,45 +111,45 @@ public class WorkerStatistics extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The cumulative.
+     * Returns The An object that contains the cumulative statistics for the Worker.
      *
-     * @return The cumulative
+     * @return An object that contains the cumulative statistics for the Worker
      */
     public final Map<String, Object> getCumulative() {
         return this.cumulative;
     }
 
     /**
-     * Returns The The worker_sid.
+     * Returns The The SID of the Worker that contains the WorkerChannel.
      *
-     * @return The worker_sid
+     * @return The SID of the Worker that contains the WorkerChannel
      */
     public final String getWorkerSid() {
         return this.workerSid;
     }
 
     /**
-     * Returns The The workspace_sid.
+     * Returns The The SID of the Workspace that contains the WorkerChannel.
      *
-     * @return The workspace_sid
+     * @return The SID of the Workspace that contains the WorkerChannel
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the WorkerChannel statistics resource.
      *
-     * @return The url
+     * @return The absolute URL of the WorkerChannel statistics resource
      */
     public final URI getUrl() {
         return this.url;

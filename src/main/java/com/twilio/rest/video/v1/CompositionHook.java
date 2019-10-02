@@ -72,8 +72,7 @@ public class CompositionHook extends Resource {
     /**
      * Create a CompositionHookFetcher to execute fetch.
      *
-     * @param pathSid The Composition Hook Sid that uniquely identifies the
-     *                Composition Hook to fetch.
+     * @param pathSid The SID that identifies the resource to fetch
      * @return CompositionHookFetcher capable of executing the fetch
      */
     public static CompositionHookFetcher fetcher(final String pathSid) {
@@ -92,8 +91,7 @@ public class CompositionHook extends Resource {
     /**
      * Create a CompositionHookDeleter to execute delete.
      *
-     * @param pathSid The Recording Composition Hook Sid that uniquely identifies
-     *                the Recording Composition Hook to delete.
+     * @param pathSid The SID that identifies the resource to delete
      * @return CompositionHookDeleter capable of executing the delete
      */
     public static CompositionHookDeleter deleter(final String pathSid) {
@@ -103,8 +101,7 @@ public class CompositionHook extends Resource {
     /**
      * Create a CompositionHookCreator to execute create.
      *
-     * @param friendlyName Friendly name of the Composition Hook to be shown in the
-     *                     console.
+     * @param friendlyName A unique string to describe the resource
      * @return CompositionHookCreator capable of executing the create
      */
     public static CompositionHookCreator creator(final String friendlyName) {
@@ -114,10 +111,8 @@ public class CompositionHook extends Resource {
     /**
      * Create a CompositionHookUpdater to execute update.
      *
-     * @param pathSid A 34-character string that uniquely identifies the
-     *                Composition Hook to update, specified as a path parameter.
-     * @param friendlyName Friendly name of the Composition Hook to be shown in the
-     *                     console.
+     * @param pathSid The SID that identifies the resource to update
+     * @param friendlyName A unique string to describe the resource
      * @return CompositionHookUpdater capable of executing the update
      */
     public static CompositionHookUpdater updater(final String pathSid,
@@ -228,142 +223,144 @@ public class CompositionHook extends Resource {
     }
 
     /**
-     * Returns The Twilio Account SID..
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return Twilio Account SID.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Friendly name of the Composition Hook to be shown in the
-     * console..
+     * Returns The The string that you assigned to describe the resource.
      *
-     * @return Friendly name of the Composition Hook to be shown in the console.
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The Boolean flag indicating if the Composition Hook is active..
+     * Returns The Whether the CompositionHook is active.
      *
-     * @return Boolean flag indicating if the Composition Hook is active.
+     * @return Whether the CompositionHook is active
      */
     public final Boolean getEnabled() {
         return this.enabled;
     }
 
     /**
-     * Returns The Date when the Composition Hook Resource was created..
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return Date when the Composition Hook Resource was created.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The Date when the Composition Hook was last updated..
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * updated.
      *
-     * @return Date when the Composition Hook was last updated.
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final String getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The A 34-character string that uniquely identifies this Composition
-     * Hook..
+     * Returns The The unique string that identifies the resource.
      *
-     * @return A 34-character string that uniquely identifies this Composition Hook.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A list of audio sources related to this Composition Hook..
+     * Returns The The array of track names to include in the compositions created
+     * by the composition hook.
      *
-     * @return A list of audio sources related to this Composition Hook.
+     * @return The array of track names to include in the compositions created by
+     *         the composition hook
      */
     public final List<String> getAudioSources() {
         return this.audioSources;
     }
 
     /**
-     * Returns The A list of audio sources excluded related to this Composition
-     * Hook..
+     * Returns The The array of track names to exclude from the compositions created
+     * by the composition hook.
      *
-     * @return A list of audio sources excluded related to this Composition Hook.
+     * @return The array of track names to exclude from the compositions created by
+     *         the composition hook
      */
     public final List<String> getAudioSourcesExcluded() {
         return this.audioSourcesExcluded;
     }
 
     /**
-     * Returns The The JSON video layout description..
+     * Returns The A JSON object that describes the video layout of the Composition.
      *
-     * @return The JSON video layout description.
+     * @return A JSON object that describes the video layout of the Composition
      */
     public final Map<String, Object> getVideoLayout() {
         return this.videoLayout;
     }
 
     /**
-     * Returns The Pixel resolution of the composed video..
+     * Returns The The dimensions of the video image in pixels expressed as columns
+     * (width) and rows (height).
      *
-     * @return Pixel resolution of the composed video.
+     * @return The dimensions of the video image in pixels expressed as columns
+     *         (width) and rows (height)
      */
     public final String getResolution() {
         return this.resolution;
     }
 
     /**
-     * Returns The Boolean flag for clipping intervals that have no media..
+     * Returns The Whether intervals with no media are clipped.
      *
-     * @return Boolean flag for clipping intervals that have no media.
+     * @return Whether intervals with no media are clipped
      */
     public final Boolean getTrim() {
         return this.trim;
     }
 
     /**
-     * Returns The The file format for the Compositions triggered by the Composition
-     * Hook..
+     * Returns The The container format of the media files used by the compositions
+     * created by the composition hook.
      *
-     * @return The file format for the Compositions triggered by the Composition
-     *         Hook.
+     * @return The container format of the media files used by the compositions
+     *         created by the composition hook
      */
     public final CompositionHook.Format getFormat() {
         return this.format;
     }
 
     /**
-     * Returns The A URL that Twilio sends asynchronous webhook requests to on every
-     * composition event..
+     * Returns The The URL to send status information to your application.
      *
-     * @return A URL that Twilio sends asynchronous webhook requests to on every
-     *         composition event.
+     * @return The URL to send status information to your application
      */
     public final String getStatusCallback() {
         return this.statusCallback;
     }
 
     /**
-     * Returns The HTTP method Twilio should use when requesting the above URL..
+     * Returns The The HTTP method we should use to call status_callback.
      *
-     * @return HTTP method Twilio should use when requesting the above URL.
+     * @return The HTTP method we should use to call status_callback
      */
     public final HttpMethod getStatusCallbackMethod() {
         return this.statusCallbackMethod;
     }
 
     /**
-     * Returns The The absolute URL for this resource..
+     * Returns The The absolute URL of the resource.
      *
-     * @return The absolute URL for this resource.
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;

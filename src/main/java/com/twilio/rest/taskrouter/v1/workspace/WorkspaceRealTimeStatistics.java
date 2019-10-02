@@ -39,7 +39,7 @@ public class WorkspaceRealTimeStatistics extends Resource {
     /**
      * Create a WorkspaceRealTimeStatisticsFetcher to execute fetch.
      *
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid The SID of the Workspace to fetch
      * @return WorkspaceRealTimeStatisticsFetcher capable of executing the fetch
      */
     public static WorkspaceRealTimeStatisticsFetcher fetcher(final String pathWorkspaceSid) {
@@ -129,18 +129,18 @@ public class WorkspaceRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The A breakdown of Workers by Activity.
+     * Returns The The number of current Workers by Activity.
      *
-     * @return A breakdown of Workers by Activity
+     * @return The number of current Workers by Activity
      */
     public final List<Map<String, Object>> getActivityStatistics() {
         return this.activityStatistics;
@@ -156,27 +156,27 @@ public class WorkspaceRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The longest_task_waiting_sid.
+     * Returns The The SID of the longest waiting Task.
      *
-     * @return The longest_task_waiting_sid
+     * @return The SID of the longest waiting Task
      */
     public final String getLongestTaskWaitingSid() {
         return this.longestTaskWaitingSid;
     }
 
     /**
-     * Returns The The tasks_by_priority.
+     * Returns The The number of Tasks by priority.
      *
-     * @return The tasks_by_priority
+     * @return The number of Tasks by priority
      */
     public final Map<String, Object> getTasksByPriority() {
         return this.tasksByPriority;
     }
 
     /**
-     * Returns The The Tasks broken down by status.
+     * Returns The The number of Tasks by their current status.
      *
-     * @return The Tasks broken down by status
+     * @return The number of Tasks by their current status
      */
     public final Map<String, Object> getTasksByStatus() {
         return this.tasksByStatus;
@@ -192,27 +192,27 @@ public class WorkspaceRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Workers in the workspace.
+     * Returns The The total number of Workers in the Workspace.
      *
-     * @return The total number of Workers in the workspace
+     * @return The total number of Workers in the Workspace
      */
     public final Integer getTotalWorkers() {
         return this.totalWorkers;
     }
 
     /**
-     * Returns The The workspace_sid.
+     * Returns The The SID of the Workspace.
      *
-     * @return The workspace_sid
+     * @return The SID of the Workspace
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the Workspace statistics resource.
      *
-     * @return The url
+     * @return The absolute URL of the Workspace statistics resource
      */
     public final URI getUrl() {
         return this.url;

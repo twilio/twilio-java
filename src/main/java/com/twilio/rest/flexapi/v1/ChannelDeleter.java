@@ -23,7 +23,7 @@ public class ChannelDeleter extends Deleter<Channel> {
     /**
      * Construct a new ChannelDeleter.
      *
-     * @param pathSid Flex Chat Channel Sid
+     * @param pathSid The SID of the Flex chat channel resource to delete
      */
     public ChannelDeleter(final String pathSid) {
         this.pathSid = pathSid;

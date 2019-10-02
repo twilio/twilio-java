@@ -28,8 +28,7 @@ public class CompositionHookFetcher extends Fetcher<CompositionHook> {
     /**
      * Construct a new CompositionHookFetcher.
      *
-     * @param pathSid The Composition Hook Sid that uniquely identifies the
-     *                Composition Hook to fetch.
+     * @param pathSid The SID that identifies the resource to fetch
      */
     public CompositionHookFetcher(final String pathSid) {
         this.pathSid = pathSid;

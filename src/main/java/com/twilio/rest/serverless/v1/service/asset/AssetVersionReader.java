@@ -31,8 +31,10 @@ public class AssetVersionReader extends Reader<AssetVersion> {
     /**
      * Construct a new AssetVersionReader.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathAssetSid Asset Sid.
+     * @param pathServiceSid The SID of the Service to read the AssetVersion
+     *                       resource from
+     * @param pathAssetSid The SID of the Asset resource that is the parent of the
+     *                     AssetVersion resources to read
      */
     public AssetVersionReader(final String pathServiceSid,
                               final String pathAssetSid) {

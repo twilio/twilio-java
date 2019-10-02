@@ -65,7 +65,7 @@ public class Workspace extends Resource {
     /**
      * Create a WorkspaceFetcher to execute fetch.
      *
-     * @param pathSid The sid
+     * @param pathSid The SID of the resource to fetch
      * @return WorkspaceFetcher capable of executing the fetch
      */
     public static WorkspaceFetcher fetcher(final String pathSid) {
@@ -75,7 +75,7 @@ public class Workspace extends Resource {
     /**
      * Create a WorkspaceUpdater to execute update.
      *
-     * @param pathSid The sid
+     * @param pathSid The SID of the resource to update
      * @return WorkspaceUpdater capable of executing the update
      */
     public static WorkspaceUpdater updater(final String pathSid) {
@@ -94,7 +94,7 @@ public class Workspace extends Resource {
     /**
      * Create a WorkspaceCreator to execute create.
      *
-     * @param friendlyName Human readable description of this workspace
+     * @param friendlyName A string to describe the Workspace resource
      * @return WorkspaceCreator capable of executing the create
      */
     public static WorkspaceCreator creator(final String friendlyName) {
@@ -104,7 +104,7 @@ public class Workspace extends Resource {
     /**
      * Create a WorkspaceDeleter to execute delete.
      *
-     * @param pathSid The sid
+     * @param pathSid The SID of the resource to delete
      * @return WorkspaceDeleter capable of executing the delete
      */
     public static WorkspaceDeleter deleter(final String pathSid) {
@@ -214,149 +214,143 @@ public class Workspace extends Resource {
     }
 
     /**
-     * Returns The The ID of the account that owns this Workflow.
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The ID of the account that owns this Workflow
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The time the Workspace was created, given as GMT in ISO 8601
-     * format..
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The time the Workspace was created, given as GMT in ISO 8601 format.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The time the Workspace was last updated, given as GMT in ISO 8601
-     * format..
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * updated.
      *
-     * @return The time the Workspace was last updated, given as GMT in ISO 8601
-     *         format.
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The human readable name of the default activity..
+     * Returns The The name of the default activity.
      *
-     * @return The human readable name of the default activity.
+     * @return The name of the default activity
      */
     public final String getDefaultActivityName() {
         return this.defaultActivityName;
     }
 
     /**
-     * Returns The The ID of the Activity that will be used when new Workers are
-     * created in this Workspace..
+     * Returns The The SID of the Activity that will be used when new Workers are
+     * created in the Workspace.
      *
-     * @return The ID of the Activity that will be used when new Workers are
-     *         created in this Workspace.
+     * @return The SID of the Activity that will be used when new Workers are
+     *         created in the Workspace
      */
     public final String getDefaultActivitySid() {
         return this.defaultActivitySid;
     }
 
     /**
-     * Returns The If provided, the Workspace will publish events to this URL..
+     * Returns The The URL we call when an event occurs.
      *
-     * @return If provided, the Workspace will publish events to this URL.
+     * @return The URL we call when an event occurs
      */
     public final URI getEventCallbackUrl() {
         return this.eventCallbackUrl;
     }
 
     /**
-     * Returns The Use this parameter to receive webhooks on EventCallbackUrl for
-     * specific events on a workspace..
+     * Returns The The list of Workspace events for which to call
+     * event_callback_url.
      *
-     * @return Use this parameter to receive webhooks on EventCallbackUrl for
-     *         specific events on a workspace.
+     * @return The list of Workspace events for which to call event_callback_url
      */
     public final String getEventsFilter() {
         return this.eventsFilter;
     }
 
     /**
-     * Returns The Filter by a workspace's friendly name..
+     * Returns The The string that you assigned to describe the Workspace resource.
      *
-     * @return Filter by a workspace's friendly name.
+     * @return The string that you assigned to describe the Workspace resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The Multi tasking allows workers to handle multiple tasks
-     * simultaneously..
+     * Returns The Whether multi-tasking is enabled.
      *
-     * @return Multi tasking allows workers to handle multiple tasks simultaneously.
+     * @return Whether multi-tasking is enabled
      */
     public final Boolean getMultiTaskEnabled() {
         return this.multiTaskEnabled;
     }
 
     /**
-     * Returns The The unique ID of the Workspace.
+     * Returns The The unique string that identifies the resource.
      *
-     * @return The unique ID of the Workspace
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The human readable name of the timeout activity..
+     * Returns The The name of the timeout activity.
      *
-     * @return The human readable name of the timeout activity.
+     * @return The name of the timeout activity
      */
     public final String getTimeoutActivityName() {
         return this.timeoutActivityName;
     }
 
     /**
-     * Returns The The ID of the Activity that will be assigned to a Worker when a
-     * Task reservation times out without a response..
+     * Returns The The SID of the Activity that will be assigned to a Worker when a
+     * Task reservation times out without a response.
      *
-     * @return The ID of the Activity that will be assigned to a Worker when a Task
-     *         reservation times out without a response.
+     * @return The SID of the Activity that will be assigned to a Worker when a
+     *         Task reservation times out without a response
      */
     public final String getTimeoutActivitySid() {
         return this.timeoutActivitySid;
     }
 
     /**
-     * Returns The Use this parameter to configure whether to prioritize LIFO or
-     * FIFO when workers are receiving Tasks from combination of LIFO and FIFO
-     * TaskQueues..
+     * Returns The The type of TaskQueue to prioritize when Workers are receiving
+     * Tasks from both types of TaskQueues.
      *
-     * @return Use this parameter to configure whether to prioritize LIFO or FIFO
-     *         when workers are receiving Tasks from combination of LIFO and FIFO
-     *         TaskQueues.
+     * @return The type of TaskQueue to prioritize when Workers are receiving Tasks
+     *         from both types of TaskQueues
      */
     public final Workspace.QueueOrder getPrioritizeQueueOrder() {
         return this.prioritizeQueueOrder;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the Workspace resource.
      *
-     * @return The url
+     * @return The absolute URL of the Workspace resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The The URLs of related resources.
      *
-     * @return The links
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;

@@ -71,8 +71,10 @@ public class FunctionVersion extends Resource {
     /**
      * Create a FunctionVersionReader to execute read.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathFunctionSid Function Sid.
+     * @param pathServiceSid The SID of the Service to read the FunctionVersion
+     *                       resources from
+     * @param pathFunctionSid The SID of the function that is the parent of the
+     *                        FunctionVersion resources to read
      * @return FunctionVersionReader capable of executing the read
      */
     public static FunctionVersionReader reader(final String pathServiceSid,
@@ -83,9 +85,11 @@ public class FunctionVersion extends Resource {
     /**
      * Create a FunctionVersionFetcher to execute fetch.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathFunctionSid Function Sid.
-     * @param pathSid Function Version Sid.
+     * @param pathServiceSid The SID of the Service to fetch the FunctionVersion
+     *                       resource from
+     * @param pathFunctionSid The SID of the function that is the parent of the
+     *                        FunctionVersion resource to fetch
+     * @param pathSid The SID that identifies the FunctionVersion resource to fetch
      * @return FunctionVersionFetcher capable of executing the fetch
      */
     public static FunctionVersionFetcher fetcher(final String pathServiceSid,
@@ -169,76 +173,81 @@ public class FunctionVersion extends Resource {
     }
 
     /**
-     * Returns The Function Version Sid..
+     * Returns The The unique string that identifies the FunctionVersion resource.
      *
-     * @return Function Version Sid.
+     * @return The unique string that identifies the FunctionVersion resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The The SID of the Account that created the FunctionVersion resource.
      *
-     * @return Account Sid.
+     * @return The SID of the Account that created the FunctionVersion resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Service Sid..
+     * Returns The The SID of the Service that the FunctionVersion resource is
+     * associated with.
      *
-     * @return Service Sid.
+     * @return The SID of the Service that the FunctionVersion resource is
+     *         associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The Function Sid..
+     * Returns The The SID of the function that is the parent of the function
+     * version.
      *
-     * @return Function Sid.
+     * @return The SID of the function that is the parent of the function version
      */
     public final String getFunctionSid() {
         return this.functionSid;
     }
 
     /**
-     * Returns The The URL-friendly string by which this Function Version can be
-     * referenced..
+     * Returns The The URL-friendly string by which the function version can be
+     * referenced.
      *
-     * @return The URL-friendly string by which this Function Version can be
-     *         referenced.
+     * @return The URL-friendly string by which the function version can be
+     *         referenced
      */
     public final String getPath() {
         return this.path;
     }
 
     /**
-     * Returns The The access control which determines how the Function Version can
-     * be accessed..
+     * Returns The The access control that determines how the function version can
+     * be accessed.
      *
-     * @return The access control which determines how the Function Version can be
-     *         accessed.
+     * @return The access control that determines how the function version can be
+     *         accessed
      */
     public final FunctionVersion.Visibility getVisibility() {
         return this.visibility;
     }
 
     /**
-     * Returns The The date that this Function Version was created..
+     * Returns The The ISO 8601 date and time in GMT when the FunctionVersion
+     * resource was created.
      *
-     * @return The date that this Function Version was created.
+     * @return The ISO 8601 date and time in GMT when the FunctionVersion resource
+     *         was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The URL of this Function Version..
+     * Returns The The absolute URL of the FunctionVersion resource.
      *
-     * @return The URL of this Function Version.
+     * @return The absolute URL of the FunctionVersion resource
      */
     public final URI getUrl() {
         return this.url;

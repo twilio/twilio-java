@@ -70,7 +70,7 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantCreator to execute create.
      *
-     * @param pathSessionSid The unique id of the Session for this participant.
+     * @param pathSessionSid The SID of the Session for the participant
      * @return ParticipantCreator capable of executing the create
      */
     public static ParticipantCreator creator(final String pathSessionSid) {
@@ -80,8 +80,8 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantUpdater to execute update.
      *
-     * @param pathSessionSid The unique id of the Session for this participant.
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSessionSid The SID of the Session with the participant to update
+     * @param pathSid The SID that identifies the resource to update
      * @return ParticipantUpdater capable of executing the update
      */
     public static ParticipantUpdater updater(final String pathSessionSid,
@@ -92,8 +92,8 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantFetcher to execute fetch.
      *
-     * @param pathSessionSid The unique id of the Session for this participant.
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSessionSid The SID of the Session with the participant to fetch
+     * @param pathSid The SID that identifies the resource to fetch
      * @return ParticipantFetcher capable of executing the fetch
      */
     public static ParticipantFetcher fetcher(final String pathSessionSid,
@@ -104,7 +104,7 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantReader to execute read.
      *
-     * @param pathSessionSid The unique id of the Session for this participant.
+     * @param pathSessionSid The SID of the Session with the participants to read
      * @return ParticipantReader capable of executing the read
      */
     public static ParticipantReader reader(final String pathSessionSid) {
@@ -114,8 +114,8 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantDeleter to execute delete.
      *
-     * @param pathSessionSid The unique id of the Session for this participant.
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSessionSid The SID of the Session with the participant to delete
+     * @param pathSid The SID that identifies the resource to delete
      * @return ParticipantDeleter capable of executing the delete
      */
     public static ParticipantDeleter deleter(final String pathSessionSid,
@@ -218,55 +218,54 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this session..
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The unique id of the Account responsible for this session.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique id of the Chat Service this session belongs to..
+     * Returns The The SID of the Service the session belongs to.
      *
-     * @return The unique id of the Chat Service this session belongs to.
+     * @return The SID of the Service the session belongs to
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The unique id of the SMS Service this session belongs to..
+     * Returns The The SID of the SMS Service the session belongs to.
      *
-     * @return The unique id of the SMS Service this session belongs to.
+     * @return The SID of the SMS Service the session belongs to
      */
     public final String getMessagingServiceSid() {
         return this.messagingServiceSid;
     }
 
     /**
-     * Returns The The unique id of the Session for this participant..
+     * Returns The The SID of the Session for the participant.
      *
-     * @return The unique id of the Session for this participant.
+     * @return The SID of the Session for the participant
      */
     public final String getSessionSid() {
         return this.sessionSid;
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The The unique string that identifies the resource.
      *
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A unique string identifier for the session participant as Chat
-     * User..
+     * Returns The The string that identifies the resource's User.
      *
-     * @return A unique string identifier for the session participant as Chat User.
+     * @return The string that identifies the resource's User
      */
     public final String getIdentity() {
         return this.identity;
@@ -274,66 +273,65 @@ public class Participant extends Resource {
 
     /**
      * Returns The The address of the Twilio phone number that the participant is in
-     * contact with..
+     * contact with.
      *
      * @return The address of the Twilio phone number that the participant is in
-     *         contact with.
+     *         contact with
      */
     public final String getTwilioAddress() {
         return this.twilioAddress;
     }
 
     /**
-     * Returns The The address of the participant's device..
+     * Returns The The address of the participant's device.
      *
-     * @return The address of the participant's device.
+     * @return The address of the participant's device
      */
     public final String getUserAddress() {
         return this.userAddress;
     }
 
     /**
-     * Returns The An optional string metadata field you can use to store any data
-     * you wish..
+     * Returns The The JSON string that stores application-specific data.
      *
-     * @return An optional string metadata field you can use to store any data you
-     *         wish.
+     * @return The JSON string that stores application-specific data
      */
     public final String getAttributes() {
         return this.attributes;
     }
 
     /**
-     * Returns The The type of twilio product, participant is a user of..
+     * Returns The The type of messaging used by the participant.
      *
-     * @return The type of twilio product, participant is a user of.
+     * @return The type of messaging used by the participant
      */
     public final Participant.ParticipantType getType() {
         return this.type;
     }
 
     /**
-     * Returns The The date that this resource was created..
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date that this resource was created.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated..
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * updated.
      *
-     * @return The date that this resource was last updated.
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The An absolute URL for this participant..
+     * Returns The The absolute URL of the participant.
      *
-     * @return An absolute URL for this participant.
+     * @return The absolute URL of the participant
      */
     public final URI getUrl() {
         return this.url;

@@ -26,9 +26,10 @@ public class SubscribedTrackReader extends Reader<SubscribedTrack> {
     /**
      * Construct a new SubscribedTrackReader.
      *
-     * @param pathRoomSid Unique Room identifier where the Tracks are subscribed.
-     * @param pathParticipantSid Unique Participant identifier that subscribes to
-     *                           this Track.
+     * @param pathRoomSid The SID of the Room resource with the Track resources to
+     *                    read
+     * @param pathParticipantSid The SID of the participant that subscribes to the
+     *                           Track resources to read
      */
     public SubscribedTrackReader(final String pathRoomSid,
                                  final String pathParticipantSid) {

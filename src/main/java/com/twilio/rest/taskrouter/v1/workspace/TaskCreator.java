@@ -28,19 +28,19 @@ public class TaskCreator extends Creator<Task> {
     /**
      * Construct a new TaskCreator.
      *
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid The SID of the Workspace that the new Task belongs to
      */
     public TaskCreator(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     /**
-     * The amount of time in seconds the task is allowed to live up to a maximum of
-     * 2 weeks. Defaults to 24 hours. On timeout, `task.canceled` event will fire
-     * with description "Task TTL Exceeded"..
+     * The amount of time in seconds the new task is allowed to live. Can be up to a
+     * maximum of 2 weeks (1,209,600 seconds). The default value is 24 hours (86,400
+     * seconds). On timeout, the `task.canceled` event will fire with description
+     * `Task TTL Exceeded`..
      *
-     * @param timeout The amount of time in seconds the task is allowed to live up
-     *                to a maximum of 2 weeks.
+     * @param timeout The amount of time in seconds the task is allowed to live
      * @return this
      */
     public TaskCreator setTimeout(final Integer timeout) {
@@ -49,12 +49,12 @@ public class TaskCreator extends Creator<Task> {
     }
 
     /**
-     * Override priority for the Task. When supplied, the Task will take on the
-     * given priority unless it matches a Workflow Target with a Priority set. When
-     * not supplied, the Task will take on the priority of the matching Workflow
-     * Target..
+     * The priority to assign the new task and override the default. When supplied,
+     * the new Task will have this priority unless it matches a Workflow Target with
+     * a Priority set. When not supplied, the new Task will have the priority of the
+     * matching Workflow Target..
      *
-     * @param priority Override priority for the Task.
+     * @param priority The priority to assign the new task and override the default
      * @return this
      */
     public TaskCreator setPriority(final Integer priority) {
@@ -63,12 +63,11 @@ public class TaskCreator extends Creator<Task> {
     }
 
     /**
-     * When MultiTasking is enabled specify the type of the task by passing either
-     * TaskChannel Unique Name or Task Channel Sid. Default value is "default".
+     * When MultiTasking is enabled, specify the TaskChannel by passing either its
+     * `unique_name` or `sid`. Default value is `default`..
      *
-     * @param taskChannel When MultiTasking is enabled specify the type of the task
-     *                    by passing either TaskChannel Unique Name or Task Channel
-     *                    Sid.
+     * @param taskChannel When MultiTasking is enabled specify the TaskChannel by
+     *                    passing either its unique_name or SID
      * @return this
      */
     public TaskCreator setTaskChannel(final String taskChannel) {
@@ -77,13 +76,12 @@ public class TaskCreator extends Creator<Task> {
     }
 
     /**
-     * The WorkflowSid for the Workflow that you would like to handle routing for
-     * this Task. If there is only one Workflow defined for the Workspace that you
-     * are posting a task to, then this is an optional parameter, and that single
-     * workflow will be used..
+     * The SID of the Workflow that you would like to handle routing for the new
+     * Task. If there is only one Workflow defined for the Workspace that you are
+     * posting the new task to, this parameter is optional..
      *
-     * @param workflowSid The WorkflowSid for the Workflow that you would like to
-     *                    handle routing for this Task.
+     * @param workflowSid The SID of the Workflow that you would like to handle
+     *                    routing for the new Task
      * @return this
      */
     public TaskCreator setWorkflowSid(final String workflowSid) {
@@ -92,13 +90,13 @@ public class TaskCreator extends Creator<Task> {
     }
 
     /**
-     * Url-encoded JSON string describing the attributes of this task. This data
-     * will be passed back to the Workflow's AssignmentCallbackURL when the Task is
-     * assigned to a Worker. An example task: `{ "task_type": "call",
-     * "twilio_call_sid": "CAxxx", "customer_ticket_number": "12345" }`.
+     * A URL-encoded JSON string with the attributes of the new task. This value is
+     * passed to the Workflow's `assignment_callback_url` when the Task is assigned
+     * to a Worker. For example: `{ "task_type": "call", "twilio_call_sid": "CAxxx",
+     * "customer_ticket_number": "12345" }`..
      *
-     * @param attributes Url-encoded JSON string describing the attributes of this
-     *                   task.
+     * @param attributes A URL-encoded JSON string describing the attributes of the
+     *                   task
      * @return this
      */
     public TaskCreator setAttributes(final String attributes) {

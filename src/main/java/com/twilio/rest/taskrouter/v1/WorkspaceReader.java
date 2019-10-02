@@ -23,11 +23,10 @@ public class WorkspaceReader extends Reader<Workspace> {
     private String friendlyName;
 
     /**
-     * Filter by a workspace's friendly name. This is a human readable description
-     * of this Workspace (for example "Customer Support" or "2014 Election
-     * Campaign").
+     * The `friendly_name` of the Workspace resources to read. For example `Customer
+     * Support` or `2014 Election Campaign`..
      *
-     * @param friendlyName Filter by a workspace's friendly name.
+     * @param friendlyName The friendly_name of the Workspace resources to read
      * @return this
      */
     public WorkspaceReader setFriendlyName(final String friendlyName) {

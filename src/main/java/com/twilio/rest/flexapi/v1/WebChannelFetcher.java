@@ -23,7 +23,7 @@ public class WebChannelFetcher extends Fetcher<WebChannel> {
     /**
      * Construct a new WebChannelFetcher.
      *
-     * @param pathSid Flex Chat Channel Sid
+     * @param pathSid The SID of the WebChannel resource to fetch
      */
     public WebChannelFetcher(final String pathSid) {
         this.pathSid = pathSid;

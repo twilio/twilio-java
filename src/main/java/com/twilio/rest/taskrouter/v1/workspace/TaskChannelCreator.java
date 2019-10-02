@@ -26,11 +26,11 @@ public class TaskChannelCreator extends Creator<TaskChannel> {
     /**
      * Construct a new TaskChannelCreator.
      *
-     * @param pathWorkspaceSid The unique ID of the Workspace that this TaskChannel
-     *                         belongs to.
-     * @param friendlyName String representing user-friendly name for the
-     *                     TaskChannel
-     * @param uniqueName String representing unique name for the TaskChannel
+     * @param pathWorkspaceSid The SID of the Workspace that the new TaskChannel
+     *                         belongs to
+     * @param friendlyName A string to describe the TaskChannel resource
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   TaskChannel
      */
     public TaskChannelCreator(final String pathWorkspaceSid,
                               final String friendlyName,
@@ -41,10 +41,11 @@ public class TaskChannelCreator extends Creator<TaskChannel> {
     }
 
     /**
-     * A boolean that if true; mean that the channel will prioritize workers that
-     * have been idle.
+     * Whether the TaskChannel should prioritize Workers that have been idle. If
+     * `true`, Workers that have been idle the longest are prioritized..
      *
-     * @param channelOptimizedRouting If true then prioritize longest idle workers
+     * @param channelOptimizedRouting Whether the TaskChannel should prioritize
+     *                                Workers that have been idle
      * @return this
      */
     public TaskChannelCreator setChannelOptimizedRouting(final Boolean channelOptimizedRouting) {

@@ -24,8 +24,8 @@ public class RoomRecordingFetcher extends Fetcher<RoomRecording> {
     /**
      * Construct a new RoomRecordingFetcher.
      *
-     * @param pathRoomSid The room_sid
-     * @param pathSid The sid
+     * @param pathRoomSid The SID of the Room resource with the recording to fetch
+     * @param pathSid The SID that identifies the resource to fetch
      */
     public RoomRecordingFetcher(final String pathRoomSid,
                                 final String pathSid) {

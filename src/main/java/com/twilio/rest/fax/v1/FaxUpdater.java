@@ -36,7 +36,9 @@ public class FaxUpdater extends Updater<Fax> {
 
     /**
      * The new
-     * [status](https://www.twilio.com/docs/fax/api/faxes-resource#fax-status-values) of the resource. Can be only `canceled`. This may fail if transmission has already started..
+     * [status](https://www.twilio.com/docs/fax/api/fax-resource#fax-status-values)
+     * of the resource. Can be only `canceled`. This may fail if transmission has
+     * already started..
      *
      * @param status The new status of the resource
      * @return this

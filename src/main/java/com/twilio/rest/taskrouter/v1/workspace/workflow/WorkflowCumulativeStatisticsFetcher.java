@@ -31,8 +31,9 @@ public class WorkflowCumulativeStatisticsFetcher extends Fetcher<WorkflowCumulat
     /**
      * Construct a new WorkflowCumulativeStatisticsFetcher.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathWorkflowSid The workflow_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the resource to fetch
+     * @param pathWorkflowSid Returns the list of Tasks that are being controlled
+     *                        by the Workflow with the specified Sid value
      */
     public WorkflowCumulativeStatisticsFetcher(final String pathWorkspaceSid,
                                                final String pathWorkflowSid) {
@@ -41,10 +42,10 @@ public class WorkflowCumulativeStatisticsFetcher extends Fetcher<WorkflowCumulat
     }
 
     /**
-     * Filter cumulative statistics by an end date. This is helpful for defining a
-     * range of statistics to capture. Input is a GMT ISO 8601 Timestamp.
+     * Only include usage that occurred on or before this date, specified in GMT as
+     * an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time..
      *
-     * @param endDate Filter cumulative statistics by an end date.
+     * @param endDate Only include usage that occurred on or before this date
      * @return this
      */
     public WorkflowCumulativeStatisticsFetcher setEndDate(final DateTime endDate) {
@@ -53,11 +54,11 @@ public class WorkflowCumulativeStatisticsFetcher extends Fetcher<WorkflowCumulat
     }
 
     /**
-     * Filter cumulative statistics by up to 'x' minutes in the past. This is
-     * helpful for statistics for the last 15 minutes, 240 minutes (4 hours), and
-     * 480 minutes (8 hours) to see trends. Defaults to 15 minutes..
+     * Only calculate statistics since this many minutes in the past. The default 15
+     * minutes. This is helpful for displaying statistics for the last 15 minutes,
+     * 240 minutes (4 hours), and 480 minutes (8 hours) to see trends..
      *
-     * @param minutes Filter cumulative statistics by up to 'x' minutes in the past.
+     * @param minutes Only calculate statistics since this many minutes in the past
      * @return this
      */
     public WorkflowCumulativeStatisticsFetcher setMinutes(final Integer minutes) {
@@ -66,10 +67,10 @@ public class WorkflowCumulativeStatisticsFetcher extends Fetcher<WorkflowCumulat
     }
 
     /**
-     * Filter cumulative statistics by a start date. This is helpful for defining a
-     * range of statistics to capture. Input is a GMT ISO 8601 Timestamp.
+     * Only calculate statistics from this date and time and later, specified in
+     * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format..
      *
-     * @param startDate Filter cumulative statistics by a start date.
+     * @param startDate Only calculate statistics from on or after this date
      * @return this
      */
     public WorkflowCumulativeStatisticsFetcher setStartDate(final DateTime startDate) {
@@ -78,10 +79,11 @@ public class WorkflowCumulativeStatisticsFetcher extends Fetcher<WorkflowCumulat
     }
 
     /**
-     * Filter real-time and cumulative statistics by TaskChannel. Takes in a Unique
-     * Name ("voice", "sms", "default", etc.) or a TaskChannelSid..
+     * Only calculate cumulative statistics on this TaskChannel. Can be the
+     * TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or
+     * `default`..
      *
-     * @param taskChannel Filter real-time and cumulative statistics by TaskChannel.
+     * @param taskChannel Only calculate cumulative statistics on this TaskChannel
      * @return this
      */
     public WorkflowCumulativeStatisticsFetcher setTaskChannel(final String taskChannel) {
@@ -90,15 +92,16 @@ public class WorkflowCumulativeStatisticsFetcher extends Fetcher<WorkflowCumulat
     }
 
     /**
-     * A comma separated values for viewing splits of tasks canceled and accepted
-     * above the given threshold in seconds. Ex: "5,30" would show splits of tasks
-     * that were canceled or accepted before or after 5 seconds and respectively, 30
-     * seconds. This is great for showing short abandoned tasks or tasks that failed
-     * to meet your SLA..
+     * A comma separated list of values that describes the thresholds, in seconds,
+     * to calculate statistics on. For each threshold specified, the number of Tasks
+     * canceled and reservations accepted above and below the specified thresholds
+     * in seconds are computed. For example, `5,30` would show splits of Tasks that
+     * were canceled or accepted before and after 5 seconds and before and after 30
+     * seconds. This can be used to show short abandoned Tasks or Tasks that failed
+     * to meet an SLA..
      *
-     * @param splitByWaitTime A comma separated values for viewing splits of tasks
-     *                        canceled and accepted above the given threshold in
-     *                        seconds.
+     * @param splitByWaitTime A comma separated list of values that describes the
+     *                        thresholds to calculate statistics on
      * @return this
      */
     public WorkflowCumulativeStatisticsFetcher setSplitByWaitTime(final String splitByWaitTime) {

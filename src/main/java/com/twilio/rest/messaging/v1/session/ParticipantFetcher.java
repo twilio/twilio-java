@@ -29,8 +29,8 @@ public class ParticipantFetcher extends Fetcher<Participant> {
     /**
      * Construct a new ParticipantFetcher.
      *
-     * @param pathSessionSid The unique id of the Session for this participant.
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSessionSid The SID of the Session with the participant to fetch
+     * @param pathSid The SID that identifies the resource to fetch
      */
     public ParticipantFetcher(final String pathSessionSid,
                               final String pathSid) {

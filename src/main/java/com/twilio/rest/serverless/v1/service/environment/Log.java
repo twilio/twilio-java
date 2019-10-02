@@ -71,8 +71,9 @@ public class Log extends Resource {
     /**
      * Create a LogReader to execute read.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathEnvironmentSid Environment Sid.
+     * @param pathServiceSid The SID of the Service to read the Log resource from
+     * @param pathEnvironmentSid The SID of the environment with the Log resources
+     *                           to read
      * @return LogReader capable of executing the read
      */
     public static LogReader reader(final String pathServiceSid,
@@ -83,9 +84,10 @@ public class Log extends Resource {
     /**
      * Create a LogFetcher to execute fetch.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathEnvironmentSid Environment Sid.
-     * @param pathSid Log Sid.
+     * @param pathServiceSid The SID of the Service to fetch the Log resource from
+     * @param pathEnvironmentSid The SID of the environment with the Log resource
+     *                           to fetch
+     * @param pathSid The SID that identifies the Log resource to fetch
      * @return LogFetcher capable of executing the fetch
      */
     public static LogFetcher fetcher(final String pathServiceSid,
@@ -180,99 +182,100 @@ public class Log extends Resource {
     }
 
     /**
-     * Returns The Log Sid..
+     * Returns The The unique string that identifies the Log resource.
      *
-     * @return Log Sid.
+     * @return The unique string that identifies the Log resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The The SID of the Account that created the Log resource.
      *
-     * @return Account Sid.
+     * @return The SID of the Account that created the Log resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Service Sid..
+     * Returns The The SID of the Service that the Log resource is associated with.
      *
-     * @return Service Sid.
+     * @return The SID of the Service that the Log resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The Environment Sid..
+     * Returns The The SID of the environment in which the log occurred.
      *
-     * @return Environment Sid.
+     * @return The SID of the environment in which the log occurred
      */
     public final String getEnvironmentSid() {
         return this.environmentSid;
     }
 
     /**
-     * Returns The Deployment Sid..
+     * Returns The The SID of the deployment that corresponds to the log.
      *
-     * @return Deployment Sid.
+     * @return The SID of the deployment that corresponds to the log
      */
     public final String getDeploymentSid() {
         return this.deploymentSid;
     }
 
     /**
-     * Returns The Function Sid..
+     * Returns The The SID of the function whose invocation produced the log.
      *
-     * @return Function Sid.
+     * @return The SID of the function whose invocation produced the log
      */
     public final String getFunctionSid() {
         return this.functionSid;
     }
 
     /**
-     * Returns The The request_sid.
+     * Returns The The SID of the request associated with the log.
      *
-     * @return The request_sid
+     * @return The SID of the request associated with the log
      */
     public final String getRequestSid() {
         return this.requestSid;
     }
 
     /**
-     * Returns The The level.
+     * Returns The The log level.
      *
-     * @return The level
+     * @return The log level
      */
     public final Log.Level getLevel() {
         return this.level;
     }
 
     /**
-     * Returns The The message.
+     * Returns The The log message.
      *
-     * @return The message
+     * @return The log message
      */
     public final String getMessage() {
         return this.message;
     }
 
     /**
-     * Returns The The date that this Log was created..
+     * Returns The The ISO 8601 date and time in GMT when the Log resource was
+     * created.
      *
-     * @return The date that this Log was created.
+     * @return The ISO 8601 date and time in GMT when the Log resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The URL of this Log..
+     * Returns The The absolute URL of the Log resource.
      *
-     * @return The URL of this Log.
+     * @return The absolute URL of the Log resource
      */
     public final URI getUrl() {
         return this.url;

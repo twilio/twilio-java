@@ -29,8 +29,9 @@ public class EnvironmentFetcher extends Fetcher<Environment> {
     /**
      * Construct a new EnvironmentFetcher.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathSid Environment Sid.
+     * @param pathServiceSid The SID of the Service to fetch the Environment
+     *                       resource from
+     * @param pathSid The SID of the Environment resource to fetch
      */
     public EnvironmentFetcher(final String pathServiceSid,
                               final String pathSid) {

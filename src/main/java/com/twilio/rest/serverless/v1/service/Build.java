@@ -73,7 +73,7 @@ public class Build extends Resource {
     /**
      * Create a BuildReader to execute read.
      *
-     * @param pathServiceSid Service Sid.
+     * @param pathServiceSid The SID of the Service to read the Build resources from
      * @return BuildReader capable of executing the read
      */
     public static BuildReader reader(final String pathServiceSid) {
@@ -83,8 +83,8 @@ public class Build extends Resource {
     /**
      * Create a BuildFetcher to execute fetch.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathSid Build Sid.
+     * @param pathServiceSid The SID of the Service to fetch the Build resource from
+     * @param pathSid The SID of the Build resource to fetch
      * @return BuildFetcher capable of executing the fetch
      */
     public static BuildFetcher fetcher(final String pathServiceSid,
@@ -95,8 +95,9 @@ public class Build extends Resource {
     /**
      * Create a BuildDeleter to execute delete.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathSid Build Sid.
+     * @param pathServiceSid The SID of the Service to delete the Build resource
+     *                       from
+     * @param pathSid The SID of the Build resource to delete
      * @return BuildDeleter capable of executing the delete
      */
     public static BuildDeleter deleter(final String pathServiceSid,
@@ -107,7 +108,8 @@ public class Build extends Resource {
     /**
      * Create a BuildCreator to execute create.
      *
-     * @param pathServiceSid Service Sid.
+     * @param pathServiceSid The SID of the Service to create the Build resource
+     *                       under
      * @return BuildCreator capable of executing the create
      */
     public static BuildCreator creator(final String pathServiceSid) {
@@ -196,90 +198,97 @@ public class Build extends Resource {
     }
 
     /**
-     * Returns The Build Sid..
+     * Returns The The unique string that identifies the Build resource.
      *
-     * @return Build Sid.
+     * @return The unique string that identifies the Build resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The The SID of the Account that created the Build resource.
      *
-     * @return Account Sid.
+     * @return The SID of the Account that created the Build resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Service Sid..
+     * Returns The The SID of the Service that the Build resource is associated
+     * with.
      *
-     * @return Service Sid.
+     * @return The SID of the Service that the Build resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The current state of the Build..
+     * Returns The The status of the build.
      *
-     * @return The current state of the Build.
+     * @return The status of the build
      */
     public final Build.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The List of Asset Version Sids..
+     * Returns The The list of AssetVersion resource SIDs that are included in the
+     * build.
      *
-     * @return List of Asset Version Sids.
+     * @return The list of AssetVersion resource SIDs that are included in the build
      */
     public final List<Map<String, Object>> getAssetVersions() {
         return this.assetVersions;
     }
 
     /**
-     * Returns The List of Function Version Sids..
+     * Returns The List of the Variable resource SIDs.
      *
-     * @return List of Function Version Sids.
+     * @return List of the Variable resource SIDs
      */
     public final List<Map<String, Object>> getFunctionVersions() {
         return this.functionVersions;
     }
 
     /**
-     * Returns The List of Dependencies..
+     * Returns The A list of objects that describe the Dependencies included in the
+     * build.
      *
-     * @return List of Dependencies.
+     * @return A list of objects that describe the Dependencies included in the
+     *         build
      */
     public final List<Map<String, Object>> getDependencies() {
         return this.dependencies;
     }
 
     /**
-     * Returns The The date that this Build was created..
+     * Returns The The ISO 8601 date and time in GMT when the Build resource was
+     * created.
      *
-     * @return The date that this Build was created.
+     * @return The ISO 8601 date and time in GMT when the Build resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this Build was updated..
+     * Returns The The ISO 8601 date and time in GMT when the Build resource was
+     * last updated.
      *
-     * @return The date that this Build was updated.
+     * @return The ISO 8601 date and time in GMT when the Build resource was last
+     *         updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL of this Build..
+     * Returns The The absolute URL of the Build resource.
      *
-     * @return The URL of this Build.
+     * @return The absolute URL of the Build resource
      */
     public final URI getUrl() {
         return this.url;

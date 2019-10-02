@@ -33,18 +33,18 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     /**
      * Construct a new WorkspaceUpdater.
      *
-     * @param pathSid The sid
+     * @param pathSid The SID of the resource to update
      */
     public WorkspaceUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
     /**
-     * The ID of the Activity that will be used when new Workers are created in this
+     * The SID of the Activity that will be used when new Workers are created in the
      * Workspace..
      *
-     * @param defaultActivitySid The ID of the Activity that will be used when new
-     *                           Workers are created in this Workspace.
+     * @param defaultActivitySid The SID of the Activity that will be used when new
+     *                           Workers are created in the Workspace
      * @return this
      */
     public WorkspaceUpdater setDefaultActivitySid(final String defaultActivitySid) {
@@ -53,11 +53,11 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * The Workspace will publish events to this URL. You can use this to gather
-     * data for reporting. See [Events][/docs/taskrouter/api/events] for more
+     * The URL we should call when an event occurs. See [Workspace
+     * Events](https://www.twilio.com/docs/taskrouter/api/event) for more
      * information..
      *
-     * @param eventCallbackUrl The Workspace will publish events to this URL.
+     * @param eventCallbackUrl The URL we should call when an event occurs
      * @return this
      */
     public WorkspaceUpdater setEventCallbackUrl(final URI eventCallbackUrl) {
@@ -66,11 +66,11 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * The Workspace will publish events to this URL. You can use this to gather
-     * data for reporting. See [Events][/docs/taskrouter/api/events] for more
+     * The URL we should call when an event occurs. See [Workspace
+     * Events](https://www.twilio.com/docs/taskrouter/api/event) for more
      * information..
      *
-     * @param eventCallbackUrl The Workspace will publish events to this URL.
+     * @param eventCallbackUrl The URL we should call when an event occurs
      * @return this
      */
     public WorkspaceUpdater setEventCallbackUrl(final String eventCallbackUrl) {
@@ -78,14 +78,13 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * Use this parameter to receive webhooks on EventCallbackUrl for specific
-     * events on a workspace. For example if
-     * 'EventsFilter=task.created,task.canceled,worker.activity.update', then
-     * TaskRouter will webhook to EventCallbackUrl only when a task is created,
-     * canceled or a worker activity is updated..
+     * The list of Workspace events for which to call event_callback_url. For
+     * example if `EventsFilter=task.created,task.canceled,worker.activity.update`,
+     * then TaskRouter will call event_callback_url only when a task is created,
+     * canceled, or a Worker activity is updated..
      *
-     * @param eventsFilter Use this parameter to receive webhooks on
-     *                     EventCallbackUrl for specific events on a workspace.
+     * @param eventsFilter The list of Workspace events for which to call
+     *                     event_callback_url
      * @return this
      */
     public WorkspaceUpdater setEventsFilter(final String eventsFilter) {
@@ -94,10 +93,10 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * Human readable description of this workspace (for example "Sales Call Center"
-     * or "Customer Support Team").
+     * A descriptive string that you create to describe the Workspace resource. For
+     * example: `Sales Call Center` or `Customer Support Team`..
      *
-     * @param friendlyName Human readable description of this workspace
+     * @param friendlyName A string to describe the Workspace resource
      * @return this
      */
     public WorkspaceUpdater setFriendlyName(final String friendlyName) {
@@ -106,12 +105,15 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * Enable or Disable Multitasking by passing either *true* or *False* with the
-     * POST request. Learn more by visiting
-     * [Multitasking][/docs/taskrouter/multitasking]..
+     * Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or
+     * `false` to disable it. The default is `false`. Multi-tasking allows Workers
+     * to handle multiple Tasks simultaneously. When enabled (`true`), each Worker
+     * can receive parallel reservations up to the per-channel maximums defined in
+     * the Workers section. Otherwise, each Worker will only receive a new
+     * reservation when the previous task is completed. Learn more at
+     * [Multitasking][https://www.twilio.com/docs/taskrouter/multitasking]..
      *
-     * @param multiTaskEnabled Enable or Disable Multitasking by passing either
-     *                         true or False with the POST request.
+     * @param multiTaskEnabled Whether multi-tasking is enabled
      * @return this
      */
     public WorkspaceUpdater setMultiTaskEnabled(final Boolean multiTaskEnabled) {
@@ -120,12 +122,12 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * The ID of the Activity that will be assigned to a Worker when a Task
+     * The SID of the Activity that will be assigned to a Worker when a Task
      * reservation times out without a response..
      *
-     * @param timeoutActivitySid The ID of the Activity that will be assigned to a
+     * @param timeoutActivitySid The SID of the Activity that will be assigned to a
      *                           Worker when a Task reservation times out without a
-     *                           response.
+     *                           response
      * @return this
      */
     public WorkspaceUpdater setTimeoutActivitySid(final String timeoutActivitySid) {
@@ -134,16 +136,13 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * Use this parameter to configure whether to prioritize LIFO or FIFO when
-     * workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
-     * Default is FIFO. [Click
-     * here][/docs/taskrouter/queue-ordering-last-first-out-lifo] to learn more
-     * about LIFO and the use of the parameter..
+     * The type of TaskQueue to prioritize when Workers are receiving Tasks from
+     * both types of TaskQueues. Can be: `LIFO` or `FIFO` and the default is `FIFO`.
+     * For more information, see [Queue
+     * Ordering][https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo]..
      *
-     * @param prioritizeQueueOrder Use this parameter to configure whether to
-     *                             prioritize LIFO or FIFO when workers are
-     *                             receiving Tasks from combination of LIFO and FIFO
-     *                             TaskQueues.
+     * @param prioritizeQueueOrder The type of TaskQueue to prioritize when Workers
+     *                             are receiving Tasks from both types of TaskQueues
      * @return this
      */
     public WorkspaceUpdater setPrioritizeQueueOrder(final Workspace.QueueOrder prioritizeQueueOrder) {

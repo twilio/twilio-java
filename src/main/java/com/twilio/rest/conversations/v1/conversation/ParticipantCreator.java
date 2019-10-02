@@ -44,7 +44,7 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * A unique string identifier for the conversation participant as [Chat
-     * User](https://www.twilio.com/docs/api/chat/rest/users). This parameter is
+     * User](https://www.twilio.com/docs/chat/rest/user-resource). This parameter is
      * non-null if (and only if) the participant is using the Programmable Chat SDK
      * to communicate. Limited to 256 characters..
      *

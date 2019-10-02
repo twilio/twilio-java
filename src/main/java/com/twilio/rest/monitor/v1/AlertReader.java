@@ -27,10 +27,10 @@ public class AlertReader extends Reader<Alert> {
     private LocalDate endDate;
 
     /**
-     * Only show alerts for this log-level.  One of 'error', 'warning', 'notice', or
-     * 'debug'..
+     * Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`,
+     * or `debug`..
      *
-     * @param logLevel Only show alerts for this log-level.
+     * @param logLevel Only show alerts for this log-level
      * @return this
      */
     public AlertReader setLogLevel(final String logLevel) {
@@ -39,13 +39,11 @@ public class AlertReader extends Reader<Alert> {
     }
 
     /**
-     * Only show Alerts on or after this date.  Useful in combination with `EndDate`
-     * to define a date-range of Alerts.  Input is a [UTC ISO 8601
-     * Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC), but time of day is
-     * ignored by the filter. Queries for Alerts older than 30 days are not
+     * Only include alerts that occurred on or after this date. Specify the date in
+     * GMT and format as `YYYY-MM-DD`. Queries for alerts older than 30 days are not
      * supported..
      *
-     * @param startDate Only show Alerts on or after this date.
+     * @param startDate Only include alerts that occurred on or after this date
      * @return this
      */
     public AlertReader setStartDate(final LocalDate startDate) {
@@ -54,13 +52,11 @@ public class AlertReader extends Reader<Alert> {
     }
 
     /**
-     * Only show Alerts on or before this date.  Useful in combination with
-     * `StartDate` to define a date-range of Alerts.  Input is a [UTC ISO 8601
-     * Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC), but time of day is
-     * ignored by the filter. Queries for Alerts older than 30 days are not
+     * Only include alerts that occurred on or before this date. Specify the date in
+     * GMT and format as `YYYY-MM-DD`. Queries for alerts older than 30 days are not
      * supported..
      *
-     * @param endDate Only show Alerts on or before this date.
+     * @param endDate Only include alerts that occurred on or before this date
      * @return this
      */
     public AlertReader setEndDate(final LocalDate endDate) {

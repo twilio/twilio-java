@@ -30,9 +30,10 @@ public class LogFetcher extends Fetcher<Log> {
     /**
      * Construct a new LogFetcher.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathEnvironmentSid Environment Sid.
-     * @param pathSid Log Sid.
+     * @param pathServiceSid The SID of the Service to fetch the Log resource from
+     * @param pathEnvironmentSid The SID of the environment with the Log resource
+     *                           to fetch
+     * @param pathSid The SID that identifies the Log resource to fetch
      */
     public LogFetcher(final String pathServiceSid,
                       final String pathEnvironmentSid,

@@ -25,10 +25,11 @@ public class SubscribedTrackFetcher extends Fetcher<SubscribedTrack> {
     /**
      * Construct a new SubscribedTrackFetcher.
      *
-     * @param pathRoomSid Unique Room identifier where this Track is subscribed.
-     * @param pathParticipantSid Unique Participant identifier that subscribes to
-     *                           this Track.
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathRoomSid The SID of the Room where the Track resource to fetch is
+     *                    subscribed
+     * @param pathParticipantSid The SID of the participant that subscribes to the
+     *                           Track resource to fetch
+     * @param pathSid The SID that identifies the resource to fetch
      */
     public SubscribedTrackFetcher(final String pathRoomSid,
                                   final String pathParticipantSid,

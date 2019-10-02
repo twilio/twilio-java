@@ -73,7 +73,7 @@ public class WebChannel extends Resource {
     /**
      * Create a WebChannelFetcher to execute fetch.
      *
-     * @param pathSid Flex Chat Channel Sid
+     * @param pathSid The SID of the WebChannel resource to fetch
      * @return WebChannelFetcher capable of executing the fetch
      */
     public static WebChannelFetcher fetcher(final String pathSid) {
@@ -83,10 +83,10 @@ public class WebChannel extends Resource {
     /**
      * Create a WebChannelCreator to execute create.
      *
-     * @param flexFlowSid The unique ID of the FlexFlow
-     * @param identity Chat identity
-     * @param customerFriendlyName Customer friendly name
-     * @param chatFriendlyName Chat channel friendly name
+     * @param flexFlowSid The SID of the FlexFlow
+     * @param identity The chat identity
+     * @param customerFriendlyName The chat participant's friendly name
+     * @param chatFriendlyName The chat channel's friendly name
      * @return WebChannelCreator capable of executing the create
      */
     public static WebChannelCreator creator(final String flexFlowSid,
@@ -99,7 +99,7 @@ public class WebChannel extends Resource {
     /**
      * Create a WebChannelUpdater to execute update.
      *
-     * @param pathSid Channel Sid.
+     * @param pathSid The SID that identifies the resource to update
      * @return WebChannelUpdater capable of executing the update
      */
     public static WebChannelUpdater updater(final String pathSid) {
@@ -109,7 +109,7 @@ public class WebChannel extends Resource {
     /**
      * Create a WebChannelDeleter to execute delete.
      *
-     * @param pathSid Flex Chat Channel Sid
+     * @param pathSid The SID that identifies the resource to delete
      * @return WebChannelDeleter capable of executing the delete
      */
     public static WebChannelDeleter deleter(final String pathSid) {
@@ -183,58 +183,57 @@ public class WebChannel extends Resource {
     }
 
     /**
-     * Returns The The ID of the account that owns this Workflow.
+     * Returns The The SID of the Account that created the resource and owns this
+     * Workflow.
      *
-     * @return The ID of the account that owns this Workflow
+     * @return The SID of the Account that created the resource and owns this
+     *         Workflow
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique ID of the FlexFlow.
+     * Returns The The SID of the FlexFlow.
      *
-     * @return The unique ID of the FlexFlow
+     * @return The SID of the FlexFlow
      */
     public final String getFlexFlowSid() {
         return this.flexFlowSid;
     }
 
     /**
-     * Returns The Flex Chat Channel Sid.
+     * Returns The The unique string that identifies the WebChannel resource.
      *
-     * @return Flex Chat Channel Sid
+     * @return The unique string that identifies the WebChannel resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the WebChannel resource.
      *
-     * @return The url
+     * @return The absolute URL of the WebChannel resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The time the Flex Chat Channel was created, given as GMT in ISO
-     * 8601 format..
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The time the Flex Chat Channel was created, given as GMT in ISO 8601
-     *         format.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The time the Flex Chat Channel was last updated, given as GMT in
-     * ISO 8601 format..
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * updated.
      *
-     * @return The time the Flex Chat Channel was last updated, given as GMT in ISO
-     *         8601 format.
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;

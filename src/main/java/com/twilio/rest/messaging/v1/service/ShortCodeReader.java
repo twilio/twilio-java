@@ -29,7 +29,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
     /**
      * Construct a new ShortCodeReader.
      *
-     * @param pathServiceSid The SID of the Service to read the resource from
+     * @param pathServiceSid The SID of the Service to read the resources from
      */
     public ShortCodeReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;

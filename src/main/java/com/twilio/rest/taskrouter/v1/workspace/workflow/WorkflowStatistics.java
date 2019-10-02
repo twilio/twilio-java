@@ -38,8 +38,9 @@ public class WorkflowStatistics extends Resource {
     /**
      * Create a WorkflowStatisticsFetcher to execute fetch.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathWorkflowSid The workflow_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Workflow to fetch
+     * @param pathWorkflowSid Returns the list of Tasks that are being controlled
+     *                        by the Workflow with the specified SID value
      * @return WorkflowStatisticsFetcher capable of executing the fetch
      */
     public static WorkflowStatisticsFetcher fetcher(final String pathWorkspaceSid,
@@ -114,54 +115,58 @@ public class WorkflowStatistics extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The cumulative.
+     * Returns The An object that contains the cumulative statistics for the
+     * Workflow.
      *
-     * @return The cumulative
+     * @return An object that contains the cumulative statistics for the Workflow
      */
     public final Map<String, Object> getCumulative() {
         return this.cumulative;
     }
 
     /**
-     * Returns The The realtime.
+     * Returns The An object that contains the real-time statistics for the
+     * Workflow.
      *
-     * @return The realtime
+     * @return An object that contains the real-time statistics for the Workflow
      */
     public final Map<String, Object> getRealtime() {
         return this.realtime;
     }
 
     /**
-     * Returns The The workflow_sid.
+     * Returns The Returns the list of Tasks that are being controlled by the
+     * Workflow with the specified SID value.
      *
-     * @return The workflow_sid
+     * @return Returns the list of Tasks that are being controlled by the Workflow
+     *         with the specified SID value
      */
     public final String getWorkflowSid() {
         return this.workflowSid;
     }
 
     /**
-     * Returns The The workspace_sid.
+     * Returns The The SID of the Workspace that contains the Workflow.
      *
-     * @return The workspace_sid
+     * @return The SID of the Workspace that contains the Workflow
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the Workflow statistics resource.
      *
-     * @return The url
+     * @return The absolute URL of the Workflow statistics resource
      */
     public final URI getUrl() {
         return this.url;

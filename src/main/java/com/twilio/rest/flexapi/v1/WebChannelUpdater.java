@@ -25,16 +25,16 @@ public class WebChannelUpdater extends Updater<WebChannel> {
     /**
      * Construct a new WebChannelUpdater.
      *
-     * @param pathSid Channel Sid.
+     * @param pathSid The SID that identifies the resource to update
      */
     public WebChannelUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
     /**
-     * Chat status, can only used to make chat 'inactive'.
+     * The chat status. Can only be `inactive`..
      *
-     * @param chatStatus Chat status
+     * @param chatStatus The chat status
      * @return this
      */
     public WebChannelUpdater setChatStatus(final WebChannel.ChatStatus chatStatus) {
@@ -43,9 +43,9 @@ public class WebChannelUpdater extends Updater<WebChannel> {
     }
 
     /**
-     * Post-engagement data.
+     * The post-engagement data..
      *
-     * @param postEngagementData Post-engagement data
+     * @param postEngagementData The post-engagement data
      * @return this
      */
     public WebChannelUpdater setPostEngagementData(final String postEngagementData) {

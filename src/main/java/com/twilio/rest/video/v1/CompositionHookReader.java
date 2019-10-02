@@ -33,9 +33,11 @@ public class CompositionHookReader extends Reader<CompositionHook> {
     private String friendlyName;
 
     /**
-     * Only show Composition Hooks that are enabled or disabled..
+     * Read only CompositionHook resources with an `enabled` value that matches this
+     * parameter..
      *
-     * @param enabled Only show Composition Hooks enabled or disabled.
+     * @param enabled Read only CompositionHook resources with an enabled value
+     *                that matches this parameter
      * @return this
      */
     public CompositionHookReader setEnabled(final Boolean enabled) {
@@ -44,11 +46,11 @@ public class CompositionHookReader extends Reader<CompositionHook> {
     }
 
     /**
-     * Only show Composition Hooks created on or after this ISO8601 date-time with
-     * timezone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`..
+     * Read only CompositionHook resources created on or after this [ISO
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone..
      *
-     * @param dateCreatedAfter Only show Composition Hooks created on or after this
-     *                         ISO8601 date-time with timezone.
+     * @param dateCreatedAfter Read only CompositionHook resources created on or
+     *                         after this ISO 8601 datetime with time zone
      * @return this
      */
     public CompositionHookReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
@@ -57,11 +59,11 @@ public class CompositionHookReader extends Reader<CompositionHook> {
     }
 
     /**
-     * Only show Composition Hooks created before this ISO8601 date-time with
-     * timezone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`..
+     * Read only CompositionHook resources created before this [ISO
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone..
      *
-     * @param dateCreatedBefore Only show Composition Hooks created before this
-     *                          ISO8601 date-time with timezone.
+     * @param dateCreatedBefore Read only CompositionHook resources created before
+     *                          this ISO 8601 datetime with time zone
      * @return this
      */
     public CompositionHookReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
@@ -70,12 +72,12 @@ public class CompositionHookReader extends Reader<CompositionHook> {
     }
 
     /**
-     * Only show Composition Hooks with friendly name that match this
-     * case-insensitive string, of up to 100 characters in length. Filtering by
-     * partial friendly names is allowed, using wildcards (e.g. `*my*hook*`)..
+     * Read only CompositionHook resources with friendly names that match this
+     * string. The match is not case sensitive and can include asterisk `*`
+     * characters as wildcard match..
      *
-     * @param friendlyName Only show Composition Hooks with friendly name that
-     *                     match this name.
+     * @param friendlyName Read only CompositionHook resources with friendly names
+     *                     that match this string
      * @return this
      */
     public CompositionHookReader setFriendlyName(final String friendlyName) {

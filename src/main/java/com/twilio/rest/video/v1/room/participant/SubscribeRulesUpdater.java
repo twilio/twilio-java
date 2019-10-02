@@ -32,9 +32,10 @@ public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
     /**
      * Construct a new SubscribeRulesUpdater.
      *
-     * @param pathRoomSid Unique Room identifier where the Subscribe Rules apply
-     * @param pathParticipantSid Unique Participant identifier to apply Subscribe
-     *                           Rules.
+     * @param pathRoomSid The SID of the Room resource where the subscribe rules to
+     *                    update apply
+     * @param pathParticipantSid The SID of the Participant resource to update the
+     *                           Subscribe Rules
      */
     public SubscribeRulesUpdater(final String pathRoomSid,
                                  final String pathParticipantSid) {
@@ -43,10 +44,10 @@ public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
     }
 
     /**
-     * A JSON-encoded array of Subscribe Rules. See the [Specifying Subscribe
+     * A JSON-encoded array of subscribe rules. See the [Specifying Subscribe
      * Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information..
      *
-     * @param rules A JSON-encoded array of Subscribe Rules.
+     * @param rules A JSON-encoded array of subscribe rules
      * @return this
      */
     public SubscribeRulesUpdater setRules(final Map<String, Object> rules) {

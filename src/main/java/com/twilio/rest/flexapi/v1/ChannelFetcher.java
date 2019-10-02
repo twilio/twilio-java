@@ -23,7 +23,8 @@ public class ChannelFetcher extends Fetcher<Channel> {
     /**
      * Construct a new ChannelFetcher.
      *
-     * @param pathSid Flex Chat Channel Sid
+     * @param pathSid The SID that identifies the Flex chat channel resource to
+     *                fetch
      */
     public ChannelFetcher(final String pathSid) {
         this.pathSid = pathSid;

@@ -29,8 +29,9 @@ public class EnvironmentDeleter extends Deleter<Environment> {
     /**
      * Construct a new EnvironmentDeleter.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathSid Environment Sid.
+     * @param pathServiceSid The SID of the Service to delete the Environment
+     *                       resource from
+     * @param pathSid The SID that identifies the Environment resource to delete
      */
     public EnvironmentDeleter(final String pathServiceSid,
                               final String pathSid) {

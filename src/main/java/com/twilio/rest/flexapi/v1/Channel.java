@@ -48,7 +48,8 @@ public class Channel extends Resource {
     /**
      * Create a ChannelFetcher to execute fetch.
      *
-     * @param pathSid Flex Chat Channel Sid
+     * @param pathSid The SID that identifies the Flex chat channel resource to
+     *                fetch
      * @return ChannelFetcher capable of executing the fetch
      */
     public static ChannelFetcher fetcher(final String pathSid) {
@@ -58,10 +59,11 @@ public class Channel extends Resource {
     /**
      * Create a ChannelCreator to execute create.
      *
-     * @param flexFlowSid The unique ID of the FlexFlow
-     * @param identity Chat User identity
-     * @param chatUserFriendlyName Customer friendly name
-     * @param chatFriendlyName Chat channel friendly name
+     * @param flexFlowSid The SID of the FlexFlow
+     * @param identity The identity value that identifies the new resource's chat
+     *                 User
+     * @param chatUserFriendlyName The chat participant's friendly name
+     * @param chatFriendlyName The chat channel's friendly name
      * @return ChannelCreator capable of executing the create
      */
     public static ChannelCreator creator(final String flexFlowSid,
@@ -74,7 +76,7 @@ public class Channel extends Resource {
     /**
      * Create a ChannelDeleter to execute delete.
      *
-     * @param pathSid Flex Chat Channel Sid
+     * @param pathSid The SID of the Flex chat channel resource to delete
      * @return ChannelDeleter capable of executing the delete
      */
     public static ChannelDeleter deleter(final String pathSid) {
@@ -155,76 +157,78 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The ID of the account that owns this Workflow.
+     * Returns The The SID of the Account that created the resource and owns this
+     * Workflow.
      *
-     * @return The ID of the account that owns this Workflow
+     * @return The SID of the Account that created the resource and owns this
+     *         Workflow
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique ID of the FlexFlow.
+     * Returns The The SID of the FlexFlow.
      *
-     * @return The unique ID of the FlexFlow
+     * @return The SID of the FlexFlow
      */
     public final String getFlexFlowSid() {
         return this.flexFlowSid;
     }
 
     /**
-     * Returns The Flex Chat Channel Sid.
+     * Returns The The unique string that identifies the resource.
      *
-     * @return Flex Chat Channel Sid
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Chat User Sid..
+     * Returns The The SID of the chat user.
      *
-     * @return Chat User Sid.
+     * @return The SID of the chat user
      */
     public final String getUserSid() {
         return this.userSid;
     }
 
     /**
-     * Returns The TaskRouter Task Sid..
+     * Returns The The SID of the TaskRouter task.
      *
-     * @return TaskRouter Task Sid.
+     * @return The SID of the TaskRouter task
      */
     public final String getTaskSid() {
         return this.taskSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the Flex chat channel resource.
      *
-     * @return The url
+     * @return The absolute URL of the Flex chat channel resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The time the Flex Chat Channel was created, given as GMT in ISO
-     * 8601 format..
+     * Returns The The ISO 8601 date and time in GMT when the Flex chat channel was
+     * created.
      *
-     * @return The time the Flex Chat Channel was created, given as GMT in ISO 8601
-     *         format.
+     * @return The ISO 8601 date and time in GMT when the Flex chat channel was
+     *         created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The time the Flex Chat Channel was last updated, given as GMT in
-     * ISO 8601 format..
+     * Returns The The ISO 8601 date and time in GMT when the Flex chat channel was
+     * last updated.
      *
-     * @return The time the Flex Chat Channel was last updated, given as GMT in ISO
-     *         8601 format.
+     * @return The ISO 8601 date and time in GMT when the Flex chat channel was
+     *         last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;

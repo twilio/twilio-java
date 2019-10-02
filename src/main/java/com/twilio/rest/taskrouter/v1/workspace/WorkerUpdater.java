@@ -28,8 +28,8 @@ public class WorkerUpdater extends Updater<Worker> {
     /**
      * Construct a new WorkerUpdater.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Worker to update
+     * @param pathSid The SID of the resource to update
      */
     public WorkerUpdater(final String pathWorkspaceSid,
                          final String pathSid) {
@@ -38,9 +38,12 @@ public class WorkerUpdater extends Updater<Worker> {
     }
 
     /**
-     * The activity_sid.
+     * The SID of a valid Activity that will describe the Worker's initial state.
+     * See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for
+     * more information..
      *
-     * @param activitySid The activity_sid
+     * @param activitySid The SID of the Activity that describes the Worker's
+     *                    initial state
      * @return this
      */
     public WorkerUpdater setActivitySid(final String activitySid) {
@@ -49,9 +52,12 @@ public class WorkerUpdater extends Updater<Worker> {
     }
 
     /**
-     * The attributes.
+     * The JSON string that describes the Worker. For example: `{ "email":
+     * "Bob@example.com", "phone": "+5095551234" }`. This data is passed to the
+     * `assignment_callback_url` when TaskRouter assigns a Task to the Worker.
+     * Defaults to {}..
      *
-     * @param attributes The attributes
+     * @param attributes The JSON string that describes the Worker
      * @return this
      */
     public WorkerUpdater setAttributes(final String attributes) {
@@ -60,9 +66,10 @@ public class WorkerUpdater extends Updater<Worker> {
     }
 
     /**
-     * The friendly_name.
+     * A descriptive string that you create to describe the Worker. It can be up to
+     * 64 characters long..
      *
-     * @param friendlyName The friendly_name
+     * @param friendlyName A string to describe the Worker
      * @return this
      */
     public WorkerUpdater setFriendlyName(final String friendlyName) {
@@ -71,9 +78,9 @@ public class WorkerUpdater extends Updater<Worker> {
     }
 
     /**
-     * The reject_pending_reservations.
+     * Whether to reject pending reservations..
      *
-     * @param rejectPendingReservations The reject_pending_reservations
+     * @param rejectPendingReservations Whether to reject pending reservations
      * @return this
      */
     public WorkerUpdater setRejectPendingReservations(final Boolean rejectPendingReservations) {

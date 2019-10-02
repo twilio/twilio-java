@@ -69,8 +69,8 @@ public class Task extends Resource {
     /**
      * Create a TaskFetcher to execute fetch.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Task to fetch
+     * @param pathSid The SID of the resource to fetch
      * @return TaskFetcher capable of executing the fetch
      */
     public static TaskFetcher fetcher(final String pathWorkspaceSid,
@@ -81,8 +81,8 @@ public class Task extends Resource {
     /**
      * Create a TaskUpdater to execute update.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Task to update
+     * @param pathSid The SID of the resource to update
      * @return TaskUpdater capable of executing the update
      */
     public static TaskUpdater updater(final String pathWorkspaceSid,
@@ -93,8 +93,8 @@ public class Task extends Resource {
     /**
      * Create a TaskDeleter to execute delete.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Task to delete
+     * @param pathSid The SID of the resource to delete
      * @return TaskDeleter capable of executing the delete
      */
     public static TaskDeleter deleter(final String pathWorkspaceSid,
@@ -105,7 +105,7 @@ public class Task extends Resource {
     /**
      * Create a TaskReader to execute read.
      *
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Tasks to read
      * @return TaskReader capable of executing the read
      */
     public static TaskReader reader(final String pathWorkspaceSid) {
@@ -115,7 +115,7 @@ public class Task extends Resource {
     /**
      * Create a TaskCreator to execute create.
      *
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid The SID of the Workspace that the new Task belongs to
      * @return TaskCreator capable of executing the create
      */
     public static TaskCreator creator(final String pathWorkspaceSid) {
@@ -244,192 +244,183 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The ID of the account that owns this Task.
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The ID of the account that owns this Task
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The number of seconds since this task was created..
+     * Returns The The number of seconds since the task was created.
      *
-     * @return The number of seconds since this task was created.
+     * @return The number of seconds since the task was created
      */
     public final Integer getAge() {
         return this.age;
     }
 
     /**
-     * Returns The Returns the list of all Tasks in the workspace with the specified
-     * AssignmentStatus..
+     * Returns The The current status of the Task's assignment.
      *
-     * @return Returns the list of all Tasks in the workspace with the specified
-     *         AssignmentStatus.
+     * @return The current status of the Task's assignment
      */
     public final Task.Status getAssignmentStatus() {
         return this.assignmentStatus;
     }
 
     /**
-     * Returns The The user-defined JSON string describing the custom attributes of
-     * this work..
+     * Returns The The JSON string with custom attributes of the work.
      *
-     * @return The user-defined JSON string describing the custom attributes of
-     *         this work.
+     * @return The JSON string with custom attributes of the work
      */
     public final String getAttributes() {
         return this.attributes;
     }
 
     /**
-     * Returns The The addon data for all installed addons is returned with this
-     * attribute.
+     * Returns The An object that contains the addon data for all installed addons.
      *
-     * @return The addon data for all installed addons is returned with this
-     *         attribute
+     * @return An object that contains the addon data for all installed addons
      */
     public final String getAddons() {
         return this.addons;
     }
 
     /**
-     * Returns The Date this task was created, given as ISO 8601 format..
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return Date this task was created, given as ISO 8601 format.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The Date this task was updated, given as ISO 8601 format..
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * updated.
      *
-     * @return Date this task was updated, given as ISO 8601 format.
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The Retrieve the list of all Tasks in the workspace with the
-     * specified priority..
+     * Returns The Retrieve the list of all Tasks in the Workspace with the
+     * specified priority.
      *
-     * @return Retrieve the list of all Tasks in the workspace with the specified
-     *         priority.
+     * @return Retrieve the list of all Tasks in the Workspace with the specified
+     *         priority
      */
     public final Integer getPriority() {
         return this.priority;
     }
 
     /**
-     * Returns The The reason the task was canceled  or completed.
+     * Returns The The reason the task was canceled or completed.
      *
-     * @return The reason the task was canceled  or completed
+     * @return The reason the task was canceled or completed
      */
     public final String getReason() {
         return this.reason;
     }
 
     /**
-     * Returns The The unique ID of the Task.
+     * Returns The The unique string that identifies the resource.
      *
-     * @return The unique ID of the Task
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Returns the list of Tasks that are currently waiting in the
-     * TaskQueue identified by the Sid specified..
+     * Returns The The SID of the TaskQueue.
      *
-     * @return Returns the list of Tasks that are currently waiting in the
-     *         TaskQueue identified by the Sid specified.
+     * @return The SID of the TaskQueue
      */
     public final String getTaskQueueSid() {
         return this.taskQueueSid;
     }
 
     /**
-     * Returns The The task_queue_friendly_name.
+     * Returns The The friendly name of the TaskQueue.
      *
-     * @return The task_queue_friendly_name
+     * @return The friendly name of the TaskQueue
      */
     public final String getTaskQueueFriendlyName() {
         return this.taskQueueFriendlyName;
     }
 
     /**
-     * Returns The The ID of the Task Channel.
+     * Returns The The SID of the TaskChannel.
      *
-     * @return The ID of the Task Channel
+     * @return The SID of the TaskChannel
      */
     public final String getTaskChannelSid() {
         return this.taskChannelSid;
     }
 
     /**
-     * Returns The The unique name of the Task Channel.
+     * Returns The The unique name of the TaskChannel.
      *
-     * @return The unique name of the Task Channel
+     * @return The unique name of the TaskChannel
      */
     public final String getTaskChannelUniqueName() {
         return this.taskChannelUniqueName;
     }
 
     /**
-     * Returns The The amount of time in seconds the task is allowed to live.
+     * Returns The The amount of time in seconds that the task is allowed to live.
      *
-     * @return The amount of time in seconds the task is allowed to live
+     * @return The amount of time in seconds that the task is allowed to live
      */
     public final Integer getTimeout() {
         return this.timeout;
     }
 
     /**
-     * Returns The Returns the list of Tasks that are being controlled by the
-     * Workflow with the specified Sid value..
+     * Returns The The SID of the Workflow that is controlling the Task.
      *
-     * @return Returns the list of Tasks that are being controlled by the Workflow
-     *         with the specified Sid value.
+     * @return The SID of the Workflow that is controlling the Task
      */
     public final String getWorkflowSid() {
         return this.workflowSid;
     }
 
     /**
-     * Returns The The workflow_friendly_name.
+     * Returns The The friendly name of the Workflow that is controlling the Task.
      *
-     * @return The workflow_friendly_name
+     * @return The friendly name of the Workflow that is controlling the Task
      */
     public final String getWorkflowFriendlyName() {
         return this.workflowFriendlyName;
     }
 
     /**
-     * Returns The The ID of the Workspace that holds this Task.
+     * Returns The The SID of the Workspace that contains the Task.
      *
-     * @return The ID of the Workspace that holds this Task
+     * @return The SID of the Workspace that contains the Task
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the Task resource.
      *
-     * @return The url
+     * @return The absolute URL of the Task resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The The URLs of related resources.
      *
-     * @return The links
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;

@@ -40,8 +40,9 @@ public class WorkflowCumulativeStatistics extends Resource {
     /**
      * Create a WorkflowCumulativeStatisticsFetcher to execute fetch.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathWorkflowSid The workflow_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the resource to fetch
+     * @param pathWorkflowSid Returns the list of Tasks that are being controlled
+     *                        by the Workflow with the specified Sid value
      * @return WorkflowCumulativeStatisticsFetcher capable of executing the fetch
      */
     public static WorkflowCumulativeStatisticsFetcher fetcher(final String pathWorkspaceSid,
@@ -180,36 +181,39 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The average time from Task creation to acceptance.
+     * Returns The The average time in seconds between Task creation and acceptance.
      *
-     * @return The average time from Task creation to acceptance
+     * @return The average time in seconds between Task creation and acceptance
      */
     public final Integer getAvgTaskAcceptanceTime() {
         return this.avgTaskAcceptanceTime;
     }
 
     /**
-     * Returns The The start_time.
+     * Returns The The beginning of the interval during which these statistics were
+     * calculated.
      *
-     * @return The start_time
+     * @return The beginning of the interval during which these statistics were
+     *         calculated
      */
     public final DateTime getStartTime() {
         return this.startTime;
     }
 
     /**
-     * Returns The The end_time.
+     * Returns The The end of the interval during which these statistics were
+     * calculated.
      *
-     * @return The end_time
+     * @return The end of the interval during which these statistics were calculated
      */
     public final DateTime getEndTime() {
         return this.endTime;
@@ -270,29 +274,29 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The splits of the tasks canceled and accepted based on the
-     * provided SplitByWaitTime parameter..
+     * Returns The A list of objects that describe the Tasks canceled and
+     * reservations accepted above and below the specified thresholds.
      *
-     * @return The splits of the tasks canceled and accepted based on the provided
-     *         SplitByWaitTime parameter.
+     * @return A list of objects that describe the Tasks canceled and reservations
+     *         accepted above and below the specified thresholds
      */
     public final Map<String, Object> getSplitByWaitTime() {
         return this.splitByWaitTime;
     }
 
     /**
-     * Returns The The wait duration stats for tasks that were accepted..
+     * Returns The The wait duration statistics for Tasks that were accepted.
      *
-     * @return The wait duration stats for tasks that were accepted.
+     * @return The wait duration statistics for Tasks that were accepted
      */
     public final Map<String, Object> getWaitDurationUntilAccepted() {
         return this.waitDurationUntilAccepted;
     }
 
     /**
-     * Returns The The wait duration stats for tasks that were canceled..
+     * Returns The The wait duration statistics for Tasks that were canceled.
      *
-     * @return The wait duration stats for tasks that were canceled.
+     * @return The wait duration statistics for Tasks that were canceled
      */
     public final Map<String, Object> getWaitDurationUntilCanceled() {
         return this.waitDurationUntilCanceled;
@@ -317,9 +321,9 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Tasks that entered this Workflow.
+     * Returns The The total number of Tasks that entered the Workflow.
      *
-     * @return The total number of Tasks that entered this Workflow
+     * @return The total number of Tasks that entered the Workflow
      */
     public final Integer getTasksEntered() {
         return this.tasksEntered;
@@ -354,27 +358,29 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The workflow_sid.
+     * Returns The Returns the list of Tasks that are being controlled by the
+     * Workflow with the specified Sid value.
      *
-     * @return The workflow_sid
+     * @return Returns the list of Tasks that are being controlled by the Workflow
+     *         with the specified Sid value
      */
     public final String getWorkflowSid() {
         return this.workflowSid;
     }
 
     /**
-     * Returns The The workspace_sid.
+     * Returns The The SID of the Workspace that contains the Workflow..
      *
-     * @return The workspace_sid
+     * @return The SID of the Workspace that contains the Workflow.
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the Workflow statistics resource.
      *
-     * @return The url
+     * @return The absolute URL of the Workflow statistics resource
      */
     public final URI getUrl() {
         return this.url;

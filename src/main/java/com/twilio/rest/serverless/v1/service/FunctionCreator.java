@@ -29,8 +29,9 @@ public class FunctionCreator extends Creator<Function> {
     /**
      * Construct a new FunctionCreator.
      *
-     * @param pathServiceSid Service Sid.
-     * @param friendlyName A human-readable description of this Function.
+     * @param pathServiceSid The SID of the Service to create the Function resource
+     *                       under
+     * @param friendlyName A string to describe the Function resource
      */
     public FunctionCreator(final String pathServiceSid,
                            final String friendlyName) {

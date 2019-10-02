@@ -41,8 +41,8 @@ public class WebhookCreator extends Creator<Webhook> {
     /**
      * Construct a new WebhookCreator.
      *
-     * @param pathSessionSid The unique id of the Session for this webhook.
-     * @param target The target of this webhook.
+     * @param pathSessionSid The SID of the Session for the webhook
+     * @param target The target of the webhook
      */
     public WebhookCreator(final String pathSessionSid,
                           final Webhook.Target target) {
@@ -51,10 +51,10 @@ public class WebhookCreator extends Creator<Webhook> {
     }
 
     /**
-     * The absolute url the webhook request should be sent to..
+     * The absolute URL the webhook request should be sent to..
      *
-     * @param configurationUrl The absolute url the webhook request should be sent
-     *                         to.
+     * @param configurationUrl The absolute URL the webhook request should be sent
+     *                         to
      * @return this
      */
     public WebhookCreator setConfigurationUrl(final String configurationUrl) {
@@ -63,10 +63,11 @@ public class WebhookCreator extends Creator<Webhook> {
     }
 
     /**
-     * The HTTP method to be used when sending a webhook request..
+     * The HTTP method we should use when sending a webhook request to `url`. Can be
+     * `POST` or `GET`..
      *
-     * @param configurationMethod The HTTP method to be used when sending a webhook
-     *                            request.
+     * @param configurationMethod The HTTP method we should use when sending a
+     *                            webhook request to url
      * @return this
      */
     public WebhookCreator setConfigurationMethod(final Webhook.Method configurationMethod) {
@@ -75,10 +76,10 @@ public class WebhookCreator extends Creator<Webhook> {
     }
 
     /**
-     * The list of events, firing webhook event for this Session..
+     * The list of events that trigger a webhook event for the Session..
      *
-     * @param configurationFilters The list of events, firing webhook event for
-     *                             this Session.
+     * @param configurationFilters The list of events that trigger a webhook event
+     *                             for the Session
      * @return this
      */
     public WebhookCreator setConfigurationFilters(final List<String> configurationFilters) {
@@ -87,10 +88,10 @@ public class WebhookCreator extends Creator<Webhook> {
     }
 
     /**
-     * The list of events, firing webhook event for this Session..
+     * The list of events that trigger a webhook event for the Session..
      *
-     * @param configurationFilters The list of events, firing webhook event for
-     *                             this Session.
+     * @param configurationFilters The list of events that trigger a webhook event
+     *                             for the Session
      * @return this
      */
     public WebhookCreator setConfigurationFilters(final String configurationFilters) {
@@ -98,10 +99,10 @@ public class WebhookCreator extends Creator<Webhook> {
     }
 
     /**
-     * The list of keywords, firing webhook event for this Session..
+     * The list of keywords, firing webhook event for the Session..
      *
      * @param configurationTriggers The list of keywords, firing webhook event for
-     *                              this Session.
+     *                              the Session
      * @return this
      */
     public WebhookCreator setConfigurationTriggers(final List<String> configurationTriggers) {
@@ -110,10 +111,10 @@ public class WebhookCreator extends Creator<Webhook> {
     }
 
     /**
-     * The list of keywords, firing webhook event for this Session..
+     * The list of keywords, firing webhook event for the Session..
      *
      * @param configurationTriggers The list of keywords, firing webhook event for
-     *                              this Session.
+     *                              the Session
      * @return this
      */
     public WebhookCreator setConfigurationTriggers(final String configurationTriggers) {
@@ -121,10 +122,10 @@ public class WebhookCreator extends Creator<Webhook> {
     }
 
     /**
-     * The studio flow sid, where the webhook should be sent to..
+     * The SID of the studio flow where the webhook should be sent to..
      *
-     * @param configurationFlowSid The studio flow sid, where the webhook should be
-     *                             sent to.
+     * @param configurationFlowSid The SID of the studio flow where the webhook
+     *                             should be sent to
      * @return this
      */
     public WebhookCreator setConfigurationFlowSid(final String configurationFlowSid) {
@@ -133,11 +134,11 @@ public class WebhookCreator extends Creator<Webhook> {
     }
 
     /**
-     * The number of retries in case of webhook request failures. Maximum 3 retries
-     * are allowed, the default value is 0..
+     * The number of times to call the webhook request if the first attempt fails.
+     * Can be up to 3 and the default is 0..
      *
-     * @param configurationRetryCount The number of retries in case of webhook
-     *                                request failures.
+     * @param configurationRetryCount The number of times to call the webhook
+     *                                request if the first attempt fails
      * @return this
      */
     public WebhookCreator setConfigurationRetryCount(final Integer configurationRetryCount) {
@@ -146,11 +147,11 @@ public class WebhookCreator extends Creator<Webhook> {
     }
 
     /**
-     * The message index for which and it's successors the webhook will be replayed.
-     * Not set by default.
+     * The message index for which and its successors the webhook will be replayed.
+     * Not set by default..
      *
-     * @param configurationReplayAfter The message index for which and it's
-     *                                 successors the webhook will be replayed.
+     * @param configurationReplayAfter The message index for which and its
+     *                                 successors the webhook will be replayed
      * @return this
      */
     public WebhookCreator setConfigurationReplayAfter(final Integer configurationReplayAfter) {
@@ -159,10 +160,10 @@ public class WebhookCreator extends Creator<Webhook> {
     }
 
     /**
-     * The flag whether buffering should be applied to messages. Not set by default.
+     * Whether buffering should be applied to messages. Not set by default..
      *
-     * @param configurationBufferMessages The flag whether buffering should be
-     *                                    applied to messages.
+     * @param configurationBufferMessages Whether buffering should be applied to
+     *                                    messages
      * @return this
      */
     public WebhookCreator setConfigurationBufferMessages(final Boolean configurationBufferMessages) {
@@ -171,9 +172,9 @@ public class WebhookCreator extends Creator<Webhook> {
     }
 
     /**
-     * The period of buffering messages. Default is 3000 ms..
+     * The period to buffer messages in milliseconds. Default is 3,000 ms..
      *
-     * @param configurationBufferWindow The period of buffering messages.
+     * @param configurationBufferWindow The period to buffer messages
      * @return this
      */
     public WebhookCreator setConfigurationBufferWindow(final Integer configurationBufferWindow) {

@@ -24,8 +24,8 @@ public class WorkflowFetcher extends Fetcher<Workflow> {
     /**
      * Construct a new WorkflowFetcher.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Workflow to fetch
+     * @param pathSid The SID of the resource
      */
     public WorkflowFetcher(final String pathWorkspaceSid,
                            final String pathSid) {

@@ -25,8 +25,9 @@ public class WorkflowRealTimeStatisticsFetcher extends Fetcher<WorkflowRealTimeS
     /**
      * Construct a new WorkflowRealTimeStatisticsFetcher.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathWorkflowSid The workflow_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Workflow to fetch
+     * @param pathWorkflowSid Returns the list of Tasks that are being controlled
+     *                        by the Workflow with the specified SID value
      */
     public WorkflowRealTimeStatisticsFetcher(final String pathWorkspaceSid,
                                              final String pathWorkflowSid) {
@@ -35,10 +36,11 @@ public class WorkflowRealTimeStatisticsFetcher extends Fetcher<WorkflowRealTimeS
     }
 
     /**
-     * Filter real-time and cumulative statistics by TaskChannel. Takes in a Unique
-     * Name ("voice", "sms", "default", etc.) or a TaskChannelSid..
+     * Only calculate real-time statistics on this TaskChannel. Can be the
+     * TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or
+     * `default`..
      *
-     * @param taskChannel Filter real-time and cumulative statistics by TaskChannel.
+     * @param taskChannel Only calculate real-time statistics on this TaskChannel
      * @return this
      */
     public WorkflowRealTimeStatisticsFetcher setTaskChannel(final String taskChannel) {

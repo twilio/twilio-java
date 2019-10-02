@@ -40,8 +40,9 @@ public class TaskQueueCumulativeStatistics extends Resource {
     /**
      * Create a TaskQueueCumulativeStatisticsFetcher to execute fetch.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathTaskQueueSid The task_queue_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskQueue to fetch
+     * @param pathTaskQueueSid The SID of the TaskQueue for which to fetch
+     *                         statistics
      * @return TaskQueueCumulativeStatisticsFetcher capable of executing the fetch
      */
     public static TaskQueueCumulativeStatisticsFetcher fetcher(final String pathWorkspaceSid,
@@ -176,132 +177,130 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The average time from Task creation to reservation acceptance
-     * while in this TaskQueue.
+     * Returns The The average time in seconds between Task creation and acceptance.
      *
-     * @return The average time from Task creation to reservation acceptance while
-     *         in this TaskQueue
+     * @return The average time in seconds between Task creation and acceptance
      */
     public final Integer getAvgTaskAcceptanceTime() {
         return this.avgTaskAcceptanceTime;
     }
 
     /**
-     * Returns The The start_time.
+     * Returns The The beginning of the interval during which these statistics were
+     * calculated.
      *
-     * @return The start_time
+     * @return The beginning of the interval during which these statistics were
+     *         calculated
      */
     public final DateTime getStartTime() {
         return this.startTime;
     }
 
     /**
-     * Returns The The end_time.
+     * Returns The The end of the interval during which these statistics were
+     * calculated.
      *
-     * @return The end_time
+     * @return The end of the interval during which these statistics were calculated
      */
     public final DateTime getEndTime() {
         return this.endTime;
     }
 
     /**
-     * Returns The The total number of Reservations that were created for Tasks
-     * while in this TaskQueue.
+     * Returns The The total number of Reservations created for Tasks in the
+     * TaskQueue.
      *
-     * @return The total number of Reservations that were created for Tasks while
-     *         in this TaskQueue
+     * @return The total number of Reservations created for Tasks in the TaskQueue
      */
     public final Integer getReservationsCreated() {
         return this.reservationsCreated;
     }
 
     /**
-     * Returns The The total number of Reservations that were accepted for Tasks
-     * while in this TaskQueue.
+     * Returns The The total number of Reservations accepted for Tasks in the
+     * TaskQueue.
      *
-     * @return The total number of Reservations that were accepted for Tasks while
-     *         in this TaskQueue
+     * @return The total number of Reservations accepted for Tasks in the TaskQueue
      */
     public final Integer getReservationsAccepted() {
         return this.reservationsAccepted;
     }
 
     /**
-     * Returns The The total number of Reservations that were rejected for Tasks
-     * while in this TaskQueue.
+     * Returns The The total number of Reservations rejected for Tasks in the
+     * TaskQueue.
      *
-     * @return The total number of Reservations that were rejected for Tasks while
-     *         in this TaskQueue
+     * @return The total number of Reservations rejected for Tasks in the TaskQueue
      */
     public final Integer getReservationsRejected() {
         return this.reservationsRejected;
     }
 
     /**
-     * Returns The The total number of Reservations that were timed out for Tasks
-     * while in this TaskQueue.
+     * Returns The The total number of Reservations that timed out for Tasks in the
+     * TaskQueue.
      *
-     * @return The total number of Reservations that were timed out for Tasks while
-     *         in this TaskQueue
+     * @return The total number of Reservations that timed out for Tasks in the
+     *         TaskQueue
      */
     public final Integer getReservationsTimedOut() {
         return this.reservationsTimedOut;
     }
 
     /**
-     * Returns The The total number of Reservations that were canceled for Tasks
-     * while in this TaskQueue.
+     * Returns The The total number of Reservations canceled for Tasks in the
+     * TaskQueue.
      *
-     * @return The total number of Reservations that were canceled for Tasks while
-     *         in this TaskQueue
+     * @return The total number of Reservations canceled for Tasks in the TaskQueue
      */
     public final Integer getReservationsCanceled() {
         return this.reservationsCanceled;
     }
 
     /**
-     * Returns The The total number of Reservations that were rescinded.
+     * Returns The The total number of Reservations rescinded.
      *
-     * @return The total number of Reservations that were rescinded
+     * @return The total number of Reservations rescinded
      */
     public final Integer getReservationsRescinded() {
         return this.reservationsRescinded;
     }
 
     /**
-     * Returns The The splits of the tasks canceled and accepted based on the
-     * provided SplitByWaitTime parameter.
+     * Returns The A list of objects that describe the Tasks canceled and
+     * reservations accepted above and below the specified thresholds.
      *
-     * @return The splits of the tasks canceled and accepted based on the provided
-     *         SplitByWaitTime parameter
+     * @return A list of objects that describe the Tasks canceled and reservations
+     *         accepted above and below the specified thresholds
      */
     public final Map<String, Object> getSplitByWaitTime() {
         return this.splitByWaitTime;
     }
 
     /**
-     * Returns The The task_queue_sid.
+     * Returns The The SID of the TaskQueue from which these statistics were
+     * calculated.
      *
-     * @return The task_queue_sid
+     * @return The SID of the TaskQueue from which these statistics were calculated
      */
     public final String getTaskQueueSid() {
         return this.taskQueueSid;
     }
 
     /**
-     * Returns The The wait duration stats for tasks that were accepted while in
-     * this TaskQueue.
+     * Returns The The wait duration statistics for Tasks accepted while in the
+     * TaskQueue.
      *
-     * @return The wait duration stats for tasks that were accepted while in this
+     * @return The wait duration statistics for Tasks accepted while in the
      *         TaskQueue
      */
     public final Map<String, Object> getWaitDurationUntilAccepted() {
@@ -309,10 +308,10 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The wait duration stats for tasks that were canceled while in
-     * this TaskQueue.
+     * Returns The The wait duration statistics for Tasks canceled while in the
+     * TaskQueue.
      *
-     * @return The wait duration stats for tasks that were canceled while in this
+     * @return The wait duration statistics for Tasks canceled while in the
      *         TaskQueue
      */
     public final Map<String, Object> getWaitDurationUntilCanceled() {
@@ -320,66 +319,64 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Tasks canceled while in this TaskQueue.
+     * Returns The The total number of Tasks canceled in the TaskQueue.
      *
-     * @return The total number of Tasks canceled while in this TaskQueue
+     * @return The total number of Tasks canceled in the TaskQueue
      */
     public final Integer getTasksCanceled() {
         return this.tasksCanceled;
     }
 
     /**
-     * Returns The The total number of Tasks completed while in this TaskQueue.
+     * Returns The The total number of Tasks completed in the TaskQueue.
      *
-     * @return The total number of Tasks completed while in this TaskQueue
+     * @return The total number of Tasks completed in the TaskQueue
      */
     public final Integer getTasksCompleted() {
         return this.tasksCompleted;
     }
 
     /**
-     * Returns The The total number of Tasks that were deleted while in this
-     * TaskQueue.
+     * Returns The The total number of Tasks deleted in the TaskQueue.
      *
-     * @return The total number of Tasks that were deleted while in this TaskQueue
+     * @return The total number of Tasks deleted in the TaskQueue
      */
     public final Integer getTasksDeleted() {
         return this.tasksDeleted;
     }
 
     /**
-     * Returns The The total number of Tasks entered into this TaskQueue.
+     * Returns The The total number of Tasks entered into the TaskQueue.
      *
-     * @return The total number of Tasks entered into this TaskQueue
+     * @return The total number of Tasks entered into the TaskQueue
      */
     public final Integer getTasksEntered() {
         return this.tasksEntered;
     }
 
     /**
-     * Returns The The total number of Tasks moved to another TaskQueue from this
-     * TaskQueue.
+     * Returns The The total number of Tasks that were moved from one queue to
+     * another.
      *
-     * @return The total number of Tasks moved to another TaskQueue from this
-     *         TaskQueue
+     * @return The total number of Tasks that were moved from one queue to another
      */
     public final Integer getTasksMoved() {
         return this.tasksMoved;
     }
 
     /**
-     * Returns The The workspace_sid.
+     * Returns The The SID of the Workspace that contains the TaskQueue.
      *
-     * @return The workspace_sid
+     * @return The SID of the Workspace that contains the TaskQueue
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the TaskQueue statistics resource.
      *
-     * @return The url
+     * @return The absolute URL of the TaskQueue statistics resource
      */
     public final URI getUrl() {
         return this.url;

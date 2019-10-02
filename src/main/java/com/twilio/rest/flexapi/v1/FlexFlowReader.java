@@ -23,9 +23,9 @@ public class FlexFlowReader extends Reader<FlexFlow> {
     private String friendlyName;
 
     /**
-     * Human readable description of this FlexFlow.
+     * The `friendly_name` of the FlexFlow resources to read..
      *
-     * @param friendlyName Human readable description of this FlexFlow
+     * @param friendlyName The `friendly_name` of the FlexFlow resources to read
      * @return this
      */
     public FlexFlowReader setFriendlyName(final String friendlyName) {

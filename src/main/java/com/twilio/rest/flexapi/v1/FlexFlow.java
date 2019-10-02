@@ -105,7 +105,7 @@ public class FlexFlow extends Resource {
     /**
      * Create a FlexFlowFetcher to execute fetch.
      *
-     * @param pathSid The unique ID of the FlexFlow
+     * @param pathSid The SID that identifies the resource to fetch
      * @return FlexFlowFetcher capable of executing the fetch
      */
     public static FlexFlowFetcher fetcher(final String pathSid) {
@@ -115,9 +115,9 @@ public class FlexFlow extends Resource {
     /**
      * Create a FlexFlowCreator to execute create.
      *
-     * @param friendlyName Human readable description of this FlexFlow
-     * @param chatServiceSid Service Sid.
-     * @param channelType Channel type
+     * @param friendlyName A string to describe the resource
+     * @param chatServiceSid The SID of the chat service
+     * @param channelType The channel type
      * @return FlexFlowCreator capable of executing the create
      */
     public static FlexFlowCreator creator(final String friendlyName,
@@ -129,7 +129,7 @@ public class FlexFlow extends Resource {
     /**
      * Create a FlexFlowUpdater to execute update.
      *
-     * @param pathSid The unique ID of the FlexFlow
+     * @param pathSid The SID that identifies the resource to update
      * @return FlexFlowUpdater capable of executing the update
      */
     public static FlexFlowUpdater updater(final String pathSid) {
@@ -139,7 +139,7 @@ public class FlexFlow extends Resource {
     /**
      * Create a FlexFlowDeleter to execute delete.
      *
-     * @param pathSid The unique ID of the FlexFlow
+     * @param pathSid The SID that identifies the resource to delete
      * @return FlexFlowDeleter capable of executing the delete
      */
     public static FlexFlowDeleter deleter(final String pathSid) {
@@ -241,120 +241,118 @@ public class FlexFlow extends Resource {
     }
 
     /**
-     * Returns The The ID of the account that owns this Workflow.
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The ID of the account that owns this Workflow
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The time the FlexFlow was created, given as GMT in ISO 8601
-     * format..
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The time the FlexFlow was created, given as GMT in ISO 8601 format.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The time the FlexFlow was last updated, given as GMT in ISO 8601
-     * format..
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * updated.
      *
-     * @return The time the FlexFlow was last updated, given as GMT in ISO 8601
-     *         format.
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The unique ID of the FlexFlow.
+     * Returns The The unique string that identifies the resource.
      *
-     * @return The unique ID of the FlexFlow
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Human readable description of this FlexFlow.
+     * Returns The The string that you assigned to describe the resource.
      *
-     * @return Human readable description of this FlexFlow
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The Service Sid..
+     * Returns The The SID of the chat service.
      *
-     * @return Service Sid.
+     * @return The SID of the chat service
      */
     public final String getChatServiceSid() {
         return this.chatServiceSid;
     }
 
     /**
-     * Returns The Channel type.
+     * Returns The The channel type.
      *
-     * @return Channel type
+     * @return The channel type
      */
     public final FlexFlow.ChannelType getChannelType() {
         return this.channelType;
     }
 
     /**
-     * Returns The Channel contact Identity.
+     * Returns The The channel contact's Identity.
      *
-     * @return Channel contact Identity
+     * @return The channel contact's Identity
      */
     public final String getContactIdentity() {
         return this.contactIdentity;
     }
 
     /**
-     * Returns The Boolean flag for enabling or disabling the FlexFlow.
+     * Returns The Whether the FlexFlow is enabled.
      *
-     * @return Boolean flag for enabling or disabling the FlexFlow
+     * @return Whether the FlexFlow is enabled
      */
     public final Boolean getEnabled() {
         return this.enabled;
     }
 
     /**
-     * Returns The Integration type.
+     * Returns The The integration type.
      *
-     * @return Integration type
+     * @return The integration type
      */
     public final FlexFlow.IntegrationType getIntegrationType() {
         return this.integrationType;
     }
 
     /**
-     * Returns The Integration block.
+     * Returns The An object that contains specific parameters for the integration.
      *
-     * @return Integration block
+     * @return An object that contains specific parameters for the integration
      */
     public final Map<String, Object> getIntegration() {
         return this.integration;
     }
 
     /**
-     * Returns The Long Lived flag for new Channel.
+     * Returns The Whether new channels are long-lived.
      *
-     * @return Long Lived flag for new Channel
+     * @return Whether new channels are long-lived
      */
     public final Boolean getLongLived() {
         return this.longLived;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the FlexFlow resource.
      *
-     * @return The url
+     * @return The absolute URL of the FlexFlow resource
      */
     public final URI getUrl() {
         return this.url;

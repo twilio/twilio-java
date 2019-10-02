@@ -24,8 +24,8 @@ public class WorkerFetcher extends Fetcher<Worker> {
     /**
      * Construct a new WorkerFetcher.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Worker to fetch
+     * @param pathSid The SID of the resource to fetch
      */
     public WorkerFetcher(final String pathWorkspaceSid,
                          final String pathSid) {

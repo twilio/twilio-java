@@ -26,8 +26,9 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
     /**
      * Construct a new WorkerChannelReader.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathWorkerSid The worker_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the WorkerChannels to
+     *                         read
+     * @param pathWorkerSid The SID of the Worker with the WorkerChannels to read
      */
     public WorkerChannelReader(final String pathWorkspaceSid,
                                final String pathWorkerSid) {

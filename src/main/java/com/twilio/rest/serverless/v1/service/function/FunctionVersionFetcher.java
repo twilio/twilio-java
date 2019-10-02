@@ -30,9 +30,11 @@ public class FunctionVersionFetcher extends Fetcher<FunctionVersion> {
     /**
      * Construct a new FunctionVersionFetcher.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathFunctionSid Function Sid.
-     * @param pathSid Function Version Sid.
+     * @param pathServiceSid The SID of the Service to fetch the FunctionVersion
+     *                       resource from
+     * @param pathFunctionSid The SID of the function that is the parent of the
+     *                        FunctionVersion resource to fetch
+     * @param pathSid The SID that identifies the FunctionVersion resource to fetch
      */
     public FunctionVersionFetcher(final String pathServiceSid,
                                   final String pathFunctionSid,

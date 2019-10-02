@@ -23,7 +23,7 @@ public class RoomFetcher extends Fetcher<Room> {
     /**
      * Construct a new RoomFetcher.
      *
-     * @param pathSid The Room Sid or name that uniquely identifies this resource.
+     * @param pathSid The SID that identifies the resource to fetch
      */
     public RoomFetcher(final String pathSid) {
         this.pathSid = pathSid;

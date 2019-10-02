@@ -30,7 +30,7 @@ public class ParticipantReader extends Reader<Participant> {
     /**
      * Construct a new ParticipantReader.
      *
-     * @param pathSessionSid The unique id of the Session for this participant.
+     * @param pathSessionSid The SID of the Session with the participants to read
      */
     public ParticipantReader(final String pathSessionSid) {
         this.pathSessionSid = pathSessionSid;

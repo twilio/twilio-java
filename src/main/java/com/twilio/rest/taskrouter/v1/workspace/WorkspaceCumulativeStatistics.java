@@ -40,7 +40,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
     /**
      * Create a WorkspaceCumulativeStatisticsFetcher to execute fetch.
      *
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid The SID of the Workspace to fetch
      * @return WorkspaceCumulativeStatisticsFetcher capable of executing the fetch
      */
     public static WorkspaceCumulativeStatisticsFetcher fetcher(final String pathWorkspaceSid) {
@@ -174,36 +174,39 @@ public class WorkspaceCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The average time from Task creation to acceptance.
+     * Returns The The average time in seconds between Task creation and acceptance.
      *
-     * @return The average time from Task creation to acceptance
+     * @return The average time in seconds between Task creation and acceptance
      */
     public final Integer getAvgTaskAcceptanceTime() {
         return this.avgTaskAcceptanceTime;
     }
 
     /**
-     * Returns The The start_time.
+     * Returns The The beginning of the interval during which these statistics were
+     * calculated.
      *
-     * @return The start_time
+     * @return The beginning of the interval during which these statistics were
+     *         calculated
      */
     public final DateTime getStartTime() {
         return this.startTime;
     }
 
     /**
-     * Returns The The end_time.
+     * Returns The The end of the interval during which these statistics were
+     * calculated.
      *
-     * @return The end_time
+     * @return The end of the interval during which these statistics were calculated
      */
     public final DateTime getEndTime() {
         return this.endTime;
@@ -264,29 +267,29 @@ public class WorkspaceCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The splits of the tasks canceled and accepted based on the
-     * provided SplitByWaitTime parameter..
+     * Returns The A list of objects that describe the Tasks canceled and
+     * reservations accepted above and below the specified thresholds.
      *
-     * @return The splits of the tasks canceled and accepted based on the provided
-     *         SplitByWaitTime parameter.
+     * @return A list of objects that describe the Tasks canceled and reservations
+     *         accepted above and below the specified thresholds
      */
     public final Map<String, Object> getSplitByWaitTime() {
         return this.splitByWaitTime;
     }
 
     /**
-     * Returns The The wait duration stats for tasks that were accepted..
+     * Returns The The wait duration statistics for Tasks that were accepted.
      *
-     * @return The wait duration stats for tasks that were accepted.
+     * @return The wait duration statistics for Tasks that were accepted
      */
     public final Map<String, Object> getWaitDurationUntilAccepted() {
         return this.waitDurationUntilAccepted;
     }
 
     /**
-     * Returns The The wait duration stats for tasks that were canceled..
+     * Returns The The wait duration statistics for Tasks that were canceled.
      *
-     * @return The wait duration stats for tasks that were canceled.
+     * @return The wait duration statistics for Tasks that were canceled
      */
     public final Map<String, Object> getWaitDurationUntilCanceled() {
         return this.waitDurationUntilCanceled;
@@ -348,18 +351,18 @@ public class WorkspaceCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The workspace_sid.
+     * Returns The The SID of the Workspace.
      *
-     * @return The workspace_sid
+     * @return The SID of the Workspace
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the Workspace statistics resource.
      *
-     * @return The url
+     * @return The absolute URL of the Workspace statistics resource
      */
     public final URI getUrl() {
         return this.url;

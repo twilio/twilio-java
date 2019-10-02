@@ -1,6 +1,18 @@
 twilio-java changelog
 =====================
 
+[2019-10-02] Version 7.43.1
+---------------------------
+**Library**
+- [PR #481](https://github.com/twilio/twilio-java/pull/481): added request validation for urls with and without ports. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Conversations**
+- Add media to Conversations Message resource
+
+**Supersim**
+- Add List endpoint to Sims resource for Super Sim Pilot
+
+
 [2019-09-18] Version 7.43.0
 ----------------------------
 **Numbers**

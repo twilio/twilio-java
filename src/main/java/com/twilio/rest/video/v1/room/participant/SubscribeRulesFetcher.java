@@ -28,9 +28,10 @@ public class SubscribeRulesFetcher extends Fetcher<SubscribeRules> {
     /**
      * Construct a new SubscribeRulesFetcher.
      *
-     * @param pathRoomSid Unique Room identifier where the Subscribe Rules apply
-     * @param pathParticipantSid Unique Participant identifier to apply Subscribe
-     *                           Rules.
+     * @param pathRoomSid The SID of the Room resource where the subscribe rules to
+     *                    fetch apply
+     * @param pathParticipantSid The SID of the Participant resource with the
+     *                           subscribe rules to fetch
      */
     public SubscribeRulesFetcher(final String pathRoomSid,
                                  final String pathParticipantSid) {

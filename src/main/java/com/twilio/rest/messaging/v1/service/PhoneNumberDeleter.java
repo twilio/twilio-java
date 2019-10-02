@@ -28,8 +28,8 @@ public class PhoneNumberDeleter extends Deleter<PhoneNumber> {
     /**
      * Construct a new PhoneNumberDeleter.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathSid The SID that identifies the resource to delete
      */
     public PhoneNumberDeleter(final String pathServiceSid,
                               final String pathSid) {

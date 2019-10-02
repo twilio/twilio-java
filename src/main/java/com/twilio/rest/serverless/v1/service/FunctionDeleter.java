@@ -29,8 +29,9 @@ public class FunctionDeleter extends Deleter<Function> {
     /**
      * Construct a new FunctionDeleter.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathSid Function Sid.
+     * @param pathServiceSid The SID of the Service to delete the Function resource
+     *                       from
+     * @param pathSid The SID of the Function resource to delete
      */
     public FunctionDeleter(final String pathServiceSid,
                            final String pathSid) {

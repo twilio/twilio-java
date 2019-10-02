@@ -30,9 +30,11 @@ public class VariableDeleter extends Deleter<Variable> {
     /**
      * Construct a new VariableDeleter.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathEnvironmentSid Environment Sid.
-     * @param pathSid Variable Sid.
+     * @param pathServiceSid The SID of the Service to delete the Variable resource
+     *                       from
+     * @param pathEnvironmentSid The SID of the environment with the Variables to
+     *                           delete
+     * @param pathSid The SID of the Variable resource to delete
      */
     public VariableDeleter(final String pathServiceSid,
                            final String pathEnvironmentSid,

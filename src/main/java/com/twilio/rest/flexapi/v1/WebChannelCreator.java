@@ -28,10 +28,10 @@ public class WebChannelCreator extends Creator<WebChannel> {
     /**
      * Construct a new WebChannelCreator.
      *
-     * @param flexFlowSid The unique ID of the FlexFlow
-     * @param identity Chat identity
-     * @param customerFriendlyName Customer friendly name
-     * @param chatFriendlyName Chat channel friendly name
+     * @param flexFlowSid The SID of the FlexFlow
+     * @param identity The chat identity
+     * @param customerFriendlyName The chat participant's friendly name
+     * @param chatFriendlyName The chat channel's friendly name
      */
     public WebChannelCreator(final String flexFlowSid,
                              final String identity,
@@ -44,9 +44,9 @@ public class WebChannelCreator extends Creator<WebChannel> {
     }
 
     /**
-     * Chat channel unique name.
+     * The chat channel's unique name..
      *
-     * @param chatUniqueName Chat channel unique name
+     * @param chatUniqueName The chat channel's unique name
      * @return this
      */
     public WebChannelCreator setChatUniqueName(final String chatUniqueName) {
@@ -55,9 +55,9 @@ public class WebChannelCreator extends Creator<WebChannel> {
     }
 
     /**
-     * Pre-engagement data.
+     * The pre-engagement data..
      *
-     * @param preEngagementData Pre-engagement data
+     * @param preEngagementData The pre-engagement data
      * @return this
      */
     public WebChannelCreator setPreEngagementData(final String preEngagementData) {

@@ -51,8 +51,7 @@ public class RecordingSettings extends Resource {
     /**
      * Create a RecordingSettingsCreator to execute create.
      *
-     * @param friendlyName Friendly name of the configuration to be shown in the
-     *                     console
+     * @param friendlyName A string to describe the resource
      * @return RecordingSettingsCreator capable of executing the create
      */
     public static RecordingSettingsCreator creator(final String friendlyName) {
@@ -134,82 +133,72 @@ public class RecordingSettings extends Resource {
     }
 
     /**
-     * Returns The The Twilio Account SID associated with this item.
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The Twilio Account SID associated with this item
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Friendly name of the configuration to be shown in the console.
+     * Returns The The string that you assigned to describe the resource.
      *
-     * @return Friendly name of the configuration to be shown in the console
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The SID of the Stored Credential resource CRxx.
+     * Returns The The SID of the stored Credential resource.
      *
-     * @return SID of the Stored Credential resource CRxx
+     * @return The SID of the stored Credential resource
      */
     public final String getAwsCredentialsSid() {
         return this.awsCredentialsSid;
     }
 
     /**
-     * Returns The URL of the S3 bucket where the recordings should be stored. We
-     * only support DNS-compliant URLs like
-     * http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/recordings,
-     * where recordings is the path where you want recordings to be stored..
+     * Returns The The URL of the AWS S3 bucket where the recordings are stored.
      *
-     * @return URL of the S3 bucket where the recordings should be stored. We only
-     *         support DNS-compliant URLs like
-     *         http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/recordings, where recordings is the path where you want recordings to be stored.
+     * @return The URL of the AWS S3 bucket where the recordings are stored
      */
     public final URI getAwsS3Url() {
         return this.awsS3Url;
     }
 
     /**
-     * Returns The true|false When set to true, all Recordings will be written to
-     * the AwsS3Url specified above. When set to false, all Recordings will be
-     * stored in Twilio's cloud..
+     * Returns The Whether all recordings are written to the aws_s3_url.
      *
-     * @return true|false When set to true, all Recordings will be written to the
-     *         AwsS3Url specified above. When set to false, all Recordings will be
-     *         stored in Twilio's cloud.
+     * @return Whether all recordings are written to the aws_s3_url
      */
     public final Boolean getAwsStorageEnabled() {
         return this.awsStorageEnabled;
     }
 
     /**
-     * Returns The SID of the Public Key resource CRxx.
+     * Returns The The SID of the Public Key resource used for encryption.
      *
-     * @return SID of the Public Key resource CRxx
+     * @return The SID of the Public Key resource used for encryption
      */
     public final String getEncryptionKeySid() {
         return this.encryptionKeySid;
     }
 
     /**
-     * Returns The true|false When set to true, all Recordings will be stored
-     * encrypted..
+     * Returns The Whether all recordings are stored in an encrypted form.
      *
-     * @return true|false When set to true, all Recordings will be stored encrypted.
+     * @return Whether all recordings are stored in an encrypted form
      */
     public final Boolean getEncryptionEnabled() {
         return this.encryptionEnabled;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the resource.
      *
-     * @return The url
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;

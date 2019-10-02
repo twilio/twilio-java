@@ -28,7 +28,7 @@ public class SessionDeleter extends Deleter<Session> {
     /**
      * Construct a new SessionDeleter.
      *
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSid The SID that identifies the resource to delete
      */
     public SessionDeleter(final String pathSid) {
         this.pathSid = pathSid;

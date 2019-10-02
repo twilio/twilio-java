@@ -26,17 +26,16 @@ public class WorkflowReader extends Reader<Workflow> {
     /**
      * Construct a new WorkflowReader.
      *
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Workflow to read
      */
     public WorkflowReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     /**
-     * Human readable description of this Workflow (for example "Customer Support"
-     * or "2014 Election Campaign").
+     * The `friendly_name` of the Workflow resources to read..
      *
-     * @param friendlyName Human readable description of this Workflow
+     * @param friendlyName The friendly_name of the Workflow resources to read
      * @return this
      */
     public WorkflowReader setFriendlyName(final String friendlyName) {

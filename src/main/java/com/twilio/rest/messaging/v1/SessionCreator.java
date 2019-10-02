@@ -35,17 +35,17 @@ public class SessionCreator extends Creator<Session> {
     /**
      * Construct a new SessionCreator.
      *
-     * @param messagingServiceSid The unique id of the SMS Service this session
-     *                            belongs to.
+     * @param messagingServiceSid The SID of the SMS Service the session belongs to
      */
     public SessionCreator(final String messagingServiceSid) {
         this.messagingServiceSid = messagingServiceSid;
     }
 
     /**
-     * The human-readable name of this session. Optional..
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
      *
-     * @param friendlyName The human-readable name of this session.
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public SessionCreator setFriendlyName(final String friendlyName) {
@@ -54,12 +54,9 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
-     * An optional string metadata field you can use to store any data you wish. The
-     * string value must contain structurally valid JSON if specified.  **Note**
-     * that if the attributes are not set "{}" will be returned..
+     * A JSON string that stores application-specific data..
      *
-     * @param attributes An optional string metadata field you can use to store any
-     *                   data you wish.
+     * @param attributes A JSON string that stores application-specific data
      * @return this
      */
     public SessionCreator setAttributes(final String attributes) {
@@ -68,9 +65,11 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
-     * The date that this resource was created..
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was created..
      *
-     * @param dateCreated The date that this resource was created.
+     * @param dateCreated The ISO 8601 date and time in GMT when the resource was
+     *                    created
      * @return this
      */
     public SessionCreator setDateCreated(final DateTime dateCreated) {
@@ -79,9 +78,11 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
-     * The date that this resource was last updated..
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was last updated..
      *
-     * @param dateUpdated The date that this resource was last updated.
+     * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
+     *                    updated
      * @return this
      */
     public SessionCreator setDateUpdated(final DateTime dateUpdated) {
@@ -90,10 +91,10 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
-     * Identity of the session's creator. If the Session was created through the
+     * The Identity of the session's creator. If the Session was created through the
      * API, the value will be `system`.
      *
-     * @param createdBy Identity of the session's creator.
+     * @param createdBy The Identity of the session's creator
      * @return this
      */
     public SessionCreator setCreatedBy(final String createdBy) {

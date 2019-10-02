@@ -46,13 +46,15 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
-     * read. You can also specify inequality: `DateCreated&lt;=YYYY-MM-DD` will
-     * return recordings generated at or before midnight on a given date, and
-     * `DateCreated&gt;=YYYY-MM-DD` returns recordings generated at or after
-     * midnight on a date..
+     * Only include recordings that were created on this date. Specify a date as
+     * `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were
+     * created on this date. You can also specify an inequality, such as
+     * `DateCreated&lt;=YYYY-MM-DD`, to read recordings that were created on or
+     * before midnight of this date, and `DateCreated&gt;=YYYY-MM-DD` to read
+     * recordings that were created on or after midnight of this date..
      *
-     * @param absoluteDateCreated The `YYYY-MM-DD` value of the resources to read
+     * @param absoluteDateCreated Only include recordings that were created on this
+     *                            date
      * @return this
      */
     public RecordingReader setDateCreated(final DateTime absoluteDateCreated) {
@@ -62,13 +64,15 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
-     * read. You can also specify inequality: `DateCreated&lt;=YYYY-MM-DD` will
-     * return recordings generated at or before midnight on a given date, and
-     * `DateCreated&gt;=YYYY-MM-DD` returns recordings generated at or after
-     * midnight on a date..
+     * Only include recordings that were created on this date. Specify a date as
+     * `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were
+     * created on this date. You can also specify an inequality, such as
+     * `DateCreated&lt;=YYYY-MM-DD`, to read recordings that were created on or
+     * before midnight of this date, and `DateCreated&gt;=YYYY-MM-DD` to read
+     * recordings that were created on or after midnight of this date..
      *
-     * @param rangeDateCreated The `YYYY-MM-DD` value of the resources to read
+     * @param rangeDateCreated Only include recordings that were created on this
+     *                         date
      * @return this
      */
     public RecordingReader setDateCreated(final Range<DateTime> rangeDateCreated) {

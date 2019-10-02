@@ -44,8 +44,10 @@ public class Deployment extends Resource {
     /**
      * Create a DeploymentReader to execute read.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathEnvironmentSid Environment Sid.
+     * @param pathServiceSid The SID of the Service to read the Deployment
+     *                       resources from
+     * @param pathEnvironmentSid The SID of the environment used by the Deployment
+     *                           resources to read
      * @return DeploymentReader capable of executing the read
      */
     public static DeploymentReader reader(final String pathServiceSid,
@@ -56,9 +58,11 @@ public class Deployment extends Resource {
     /**
      * Create a DeploymentFetcher to execute fetch.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathEnvironmentSid Environment Sid.
-     * @param pathSid Deployment Sid.
+     * @param pathServiceSid The SID of the Service to fetch the Deployment
+     *                       resource from
+     * @param pathEnvironmentSid The SID of the environment used by the Deployment
+     *                           to fetch
+     * @param pathSid The SID that identifies the Deployment resource to fetch
      * @return DeploymentFetcher capable of executing the fetch
      */
     public static DeploymentFetcher fetcher(final String pathServiceSid,
@@ -70,9 +74,10 @@ public class Deployment extends Resource {
     /**
      * Create a DeploymentCreator to execute create.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathEnvironmentSid Environment Sid.
-     * @param buildSid Build Sid.
+     * @param pathServiceSid The SID of the Service to create the Deployment
+     *                       resource under
+     * @param pathEnvironmentSid The SID of the environment for the deployment
+     * @param buildSid The SID of the build for the deployment
      * @return DeploymentCreator capable of executing the create
      */
     public static DeploymentCreator creator(final String pathServiceSid,
@@ -156,72 +161,78 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The Deployment Sid..
+     * Returns The The unique string that identifies the Deployment resource.
      *
-     * @return Deployment Sid.
+     * @return The unique string that identifies the Deployment resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The The SID of the Account that created the Deployment resource.
      *
-     * @return Account Sid.
+     * @return The SID of the Account that created the Deployment resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Service Sid..
+     * Returns The The SID of the Service that the Deployment resource is associated
+     * with.
      *
-     * @return Service Sid.
+     * @return The SID of the Service that the Deployment resource is associated
+     *         with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The Environment Sid..
+     * Returns The The SID of the environment for the deployment.
      *
-     * @return Environment Sid.
+     * @return The SID of the environment for the deployment
      */
     public final String getEnvironmentSid() {
         return this.environmentSid;
     }
 
     /**
-     * Returns The Build Sid..
+     * Returns The The SID of the build for the deployment.
      *
-     * @return Build Sid.
+     * @return The SID of the build for the deployment
      */
     public final String getBuildSid() {
         return this.buildSid;
     }
 
     /**
-     * Returns The The date that this Deployment was created..
+     * Returns The The ISO 8601 date and time in GMT when the Deployment resource
+     * was created.
      *
-     * @return The date that this Deployment was created.
+     * @return The ISO 8601 date and time in GMT when the Deployment resource was
+     *         created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this Deployment was updated..
+     * Returns The The ISO 8601 date and time in GMT when the Deployment resource
+     * was last updated.
      *
-     * @return The date that this Deployment was updated.
+     * @return The ISO 8601 date and time in GMT when the Deployment resource was
+     *         last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL of this Deployment..
+     * Returns The The absolute URL of the Deployment resource.
      *
-     * @return The URL of this Deployment.
+     * @return The absolute URL of the Deployment resource
      */
     public final URI getUrl() {
         return this.url;

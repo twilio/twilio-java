@@ -31,16 +31,18 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
     /**
      * Construct a new RoomRecordingReader.
      *
-     * @param pathRoomSid The room_sid
+     * @param pathRoomSid The SID of the room with the RoomRecording resources to
+     *                    read
      */
     public RoomRecordingReader(final String pathRoomSid) {
         this.pathRoomSid = pathRoomSid;
     }
 
     /**
-     * The status.
+     * Read only the recordings with this status. Can be: `processing`, `completed`,
+     * or `deleted`..
      *
-     * @param status The status
+     * @param status Read only the recordings with this status
      * @return this
      */
     public RoomRecordingReader setStatus(final RoomRecording.Status status) {
@@ -49,9 +51,9 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
     }
 
     /**
-     * The source_sid.
+     * Read only the recordings that have this `source_sid`..
      *
-     * @param sourceSid The source_sid
+     * @param sourceSid Read only the recordings that have this source_sid
      * @return this
      */
     public RoomRecordingReader setSourceSid(final String sourceSid) {
@@ -60,9 +62,11 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
     }
 
     /**
-     * The date_created_after.
+     * Read only recordings that started on or after this [ISO
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone..
      *
-     * @param dateCreatedAfter The date_created_after
+     * @param dateCreatedAfter Read only Recordings that started on or after this
+     *                         ISO 8601 datetime with time zone
      * @return this
      */
     public RoomRecordingReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
@@ -71,9 +75,11 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
     }
 
     /**
-     * The date_created_before.
+     * Read only Recordings that started before this [ISO
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone..
      *
-     * @param dateCreatedBefore The date_created_before
+     * @param dateCreatedBefore Read only Recordings that started before this ISO
+     *                          8601 date-time with time zone
      * @return this
      */
     public RoomRecordingReader setDateCreatedBefore(final DateTime dateCreatedBefore) {

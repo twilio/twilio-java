@@ -38,7 +38,7 @@ public class WorkspaceStatistics extends Resource {
     /**
      * Create a WorkspaceStatisticsFetcher to execute fetch.
      *
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid The SID of the Workspace to fetch
      * @return WorkspaceStatisticsFetcher capable of executing the fetch
      */
     public static WorkspaceStatisticsFetcher fetcher(final String pathWorkspaceSid) {
@@ -108,45 +108,47 @@ public class WorkspaceStatistics extends Resource {
     }
 
     /**
-     * Returns The The realtime.
+     * Returns The n object that contains the real-time statistics for the
+     * Workspace.
      *
-     * @return The realtime
+     * @return n object that contains the real-time statistics for the Workspace
      */
     public final Map<String, Object> getRealtime() {
         return this.realtime;
     }
 
     /**
-     * Returns The The cumulative.
+     * Returns The An object that contains the cumulative statistics for the
+     * Workspace.
      *
-     * @return The cumulative
+     * @return An object that contains the cumulative statistics for the Workspace
      */
     public final Map<String, Object> getCumulative() {
         return this.cumulative;
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The workspace_sid.
+     * Returns The The SID of the Workspace.
      *
-     * @return The workspace_sid
+     * @return The SID of the Workspace
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the Workspace statistics resource.
      *
-     * @return The url
+     * @return The absolute URL of the Workspace statistics resource
      */
     public final URI getUrl() {
         return this.url;

@@ -25,9 +25,10 @@ public class WorkerChannelFetcher extends Fetcher<WorkerChannel> {
     /**
      * Construct a new WorkerChannelFetcher.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathWorkerSid The worker_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the WorkerChannel to
+     *                         fetch
+     * @param pathWorkerSid The SID of the Worker with the WorkerChannel to fetch
+     * @param pathSid The SID of the to fetch
      */
     public WorkerChannelFetcher(final String pathWorkspaceSid,
                                 final String pathWorkerSid,

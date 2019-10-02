@@ -32,9 +32,11 @@ public class VariableUpdater extends Updater<Variable> {
     /**
      * Construct a new VariableUpdater.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathEnvironmentSid Environment Sid.
-     * @param pathSid Variable Sid.
+     * @param pathServiceSid The SID of the Service to update the Variable resource
+     *                       under
+     * @param pathEnvironmentSid The SID of the environment with the Variable
+     *                           resource to update
+     * @param pathSid The SID of the Variable resource to update
      */
     public VariableUpdater(final String pathServiceSid,
                            final String pathEnvironmentSid,
@@ -45,10 +47,10 @@ public class VariableUpdater extends Updater<Variable> {
     }
 
     /**
-     * A string by which this Variable can be referenced, fewer than 128 characters.
-     * Optional..
+     * A string by which the Variable resource can be referenced. Must be less than
+     * 128 characters long..
      *
-     * @param key A string by which this Variable can be referenced.
+     * @param key A string by which the Variable resource can be referenced
      * @return this
      */
     public VariableUpdater setKey(final String key) {
@@ -57,10 +59,10 @@ public class VariableUpdater extends Updater<Variable> {
     }
 
     /**
-     * A string that contains the actual value of this Variable, less than 450
-     * bytes. Optional..
+     * A string that contains the actual value of the variable. Must have less than
+     * 450 bytes..
      *
-     * @param value A string that contains the actual value of this Variable.
+     * @param value A string that contains the actual value of the variable
      * @return this
      */
     public VariableUpdater setValue(final String value) {

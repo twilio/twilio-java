@@ -30,9 +30,11 @@ public class DeploymentFetcher extends Fetcher<Deployment> {
     /**
      * Construct a new DeploymentFetcher.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathEnvironmentSid Environment Sid.
-     * @param pathSid Deployment Sid.
+     * @param pathServiceSid The SID of the Service to fetch the Deployment
+     *                       resource from
+     * @param pathEnvironmentSid The SID of the environment used by the Deployment
+     *                           to fetch
+     * @param pathSid The SID that identifies the Deployment resource to fetch
      */
     public DeploymentFetcher(final String pathServiceSid,
                              final String pathEnvironmentSid,

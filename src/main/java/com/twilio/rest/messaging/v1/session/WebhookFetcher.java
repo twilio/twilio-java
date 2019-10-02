@@ -29,8 +29,9 @@ public class WebhookFetcher extends Fetcher<Webhook> {
     /**
      * Construct a new WebhookFetcher.
      *
-     * @param pathSessionSid The unique id of the Session for this webhook.
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSessionSid The SID of the Session with the Webhook resource to
+     *                       fetch
+     * @param pathSid The SID of the resource to fetch
      */
     public WebhookFetcher(final String pathSessionSid,
                           final String pathSid) {

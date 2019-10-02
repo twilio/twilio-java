@@ -30,7 +30,7 @@ public class MessageReader extends Reader<Message> {
     /**
      * Construct a new MessageReader.
      *
-     * @param pathSessionSid The unique id of the Session for this message.
+     * @param pathSessionSid The SID of the Session with the messages to read
      */
     public MessageReader(final String pathSessionSid) {
         this.pathSessionSid = pathSessionSid;

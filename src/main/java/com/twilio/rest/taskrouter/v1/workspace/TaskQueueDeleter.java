@@ -24,8 +24,8 @@ public class TaskQueueDeleter extends Deleter<TaskQueue> {
     /**
      * Construct a new TaskQueueDeleter.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskQueue to delete
+     * @param pathSid The SID of the resource to delete
      */
     public TaskQueueDeleter(final String pathWorkspaceSid,
                             final String pathSid) {

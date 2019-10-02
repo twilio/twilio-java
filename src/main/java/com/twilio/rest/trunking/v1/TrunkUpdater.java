@@ -55,7 +55,8 @@ public class TrunkUpdater extends Updater<Trunk> {
      * The unique address you reserve on Twilio to which you route your SIP traffic.
      * Domain names can contain letters, digits, and `-` and must end with
      * `pstn.twilio.com`. See [Termination
-     * Settings](https://www.twilio.com/docs/sip-trunking/getting-started#termination) for more information..
+     * Settings](https://www.twilio.com/docs/sip-trunking#termination) for more
+     * information..
      *
      * @param domainName The unique address you reserve on Twilio to which you
      *                   route your SIP traffic
@@ -71,7 +72,8 @@ public class TrunkUpdater extends Updater<Trunk> {
      * occurs while sending SIP traffic towards the configured Origination URL. We
      * retrieve TwiML from the URL and execute the instructions like any other
      * normal TwiML call. See [Disaster
-     * Recovery](https://www.twilio.com/docs/sip-trunking/getting-started#disaster-recovery) for more information..
+     * Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for
+     * more information..
      *
      * @param disasterRecoveryUrl The HTTP URL that we should call if an error
      *                            occurs while sending SIP traffic towards your
@@ -88,7 +90,8 @@ public class TrunkUpdater extends Updater<Trunk> {
      * occurs while sending SIP traffic towards the configured Origination URL. We
      * retrieve TwiML from the URL and execute the instructions like any other
      * normal TwiML call. See [Disaster
-     * Recovery](https://www.twilio.com/docs/sip-trunking/getting-started#disaster-recovery) for more information..
+     * Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for
+     * more information..
      *
      * @param disasterRecoveryUrl The HTTP URL that we should call if an error
      *                            occurs while sending SIP traffic towards your
@@ -116,8 +119,8 @@ public class TrunkUpdater extends Updater<Trunk> {
      * The recording settings for the trunk. Can be: `do-not-record`,
      * `record-from-ringing`, `record-from-answer`. If set to `record-from-ringing`
      * or `record-from-answer`, all calls going through the trunk will be recorded.
-     * See
-     * [Recording](https://www.twilio.com/docs/sip-trunking/getting-started#recording) for more information..
+     * See [Recording](https://www.twilio.com/docs/sip-trunking#recording) for more
+     * information..
      *
      * @param recording The recording settings for the trunk
      * @return this
@@ -131,7 +134,8 @@ public class TrunkUpdater extends Updater<Trunk> {
      * Whether Secure Trunking is enabled for the trunk. If enabled, all calls going
      * through the trunk will be secure using SRTP for media and TLS for signaling.
      * If disabled, then RTP will be used for media. See [Secure
-     * Trunking](https://www.twilio.com/docs/sip-trunking/getting-started#securetrunking) for more information..
+     * Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more
+     * information..
      *
      * @param secure Whether Secure Trunking is enabled for the trunk
      * @return this

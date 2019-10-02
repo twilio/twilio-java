@@ -35,17 +35,17 @@ public class MessageCreator extends Creator<Message> {
     /**
      * Construct a new MessageCreator.
      *
-     * @param pathSessionSid The unique id of the Session for this message.
+     * @param pathSessionSid The SID of the Session for the message
      */
     public MessageCreator(final String pathSessionSid) {
         this.pathSessionSid = pathSessionSid;
     }
 
     /**
-     * The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the
-     * message's author. Defaults to `system`..
+     * The [identity](https://www.twilio.com/docs/chat/identity) of the message's
+     * author. Defaults to `system`..
      *
-     * @param author The identity of the message's author.
+     * @param author The identity of the message's author
      * @return this
      */
     public MessageCreator setAuthor(final String author) {
@@ -54,11 +54,9 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * A string metadata field you can use to store any data you wish. The string
-     * value must contain structurally valid JSON if specified..
+     * A JSON string that stores application-specific data..
      *
-     * @param attributes A string metadata field you can use to store any data you
-     *                   wish.
+     * @param attributes A JSON string that stores application-specific data
      * @return this
      */
     public MessageCreator setAttributes(final String attributes) {
@@ -67,9 +65,11 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The date that this resource was created..
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was created..
      *
-     * @param dateCreated The date that this resource was created.
+     * @param dateCreated The ISO 8601 date and time in GMT when the resource was
+     *                    created
      * @return this
      */
     public MessageCreator setDateCreated(final DateTime dateCreated) {
@@ -78,10 +78,11 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The date that this resource was last updated. `null` if the message has not
-     * been edited..
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was last updated..
      *
-     * @param dateUpdated The date that this resource was last updated.
+     * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
+     *                    updated
      * @return this
      */
     public MessageCreator setDateUpdated(final DateTime dateUpdated) {
@@ -90,9 +91,9 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The contents of the message..
+     * The message body..
      *
-     * @param body The contents of the message.
+     * @param body The message body
      * @return this
      */
     public MessageCreator setBody(final String body) {

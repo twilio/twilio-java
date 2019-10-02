@@ -24,8 +24,8 @@ public class WorkflowDeleter extends Deleter<Workflow> {
     /**
      * Construct a new WorkflowDeleter.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Workflow to delete
+     * @param pathSid The SID of the Workflow resource to delete
      */
     public WorkflowDeleter(final String pathWorkspaceSid,
                            final String pathSid) {

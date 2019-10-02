@@ -24,8 +24,8 @@ public class TaskFetcher extends Fetcher<Task> {
     /**
      * Construct a new TaskFetcher.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Task to fetch
+     * @param pathSid The SID of the resource to fetch
      */
     public TaskFetcher(final String pathWorkspaceSid,
                        final String pathSid) {

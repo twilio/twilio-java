@@ -29,8 +29,9 @@ public class BuildDeleter extends Deleter<Build> {
     /**
      * Construct a new BuildDeleter.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathSid Build Sid.
+     * @param pathServiceSid The SID of the Service to delete the Build resource
+     *                       from
+     * @param pathSid The SID of the Build resource to delete
      */
     public BuildDeleter(final String pathServiceSid,
                         final String pathSid) {

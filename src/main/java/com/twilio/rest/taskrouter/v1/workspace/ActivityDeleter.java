@@ -24,8 +24,9 @@ public class ActivityDeleter extends Deleter<Activity> {
     /**
      * Construct a new ActivityDeleter.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Activity resources
+     *                         to delete
+     * @param pathSid The SID of the Activity resource to delete
      */
     public ActivityDeleter(final String pathWorkspaceSid,
                            final String pathSid) {

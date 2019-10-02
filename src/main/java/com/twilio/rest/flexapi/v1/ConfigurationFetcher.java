@@ -21,9 +21,9 @@ public class ConfigurationFetcher extends Fetcher<Configuration> {
     private String uiVersion;
 
     /**
-     * Pinned UI version.
+     * The Pinned UI version of the Configuration resource to fetch..
      *
-     * @param uiVersion Pinned UI version
+     * @param uiVersion The Pinned UI version of the Configuration resource to fetch
      * @return this
      */
     public ConfigurationFetcher setUiVersion(final String uiVersion) {

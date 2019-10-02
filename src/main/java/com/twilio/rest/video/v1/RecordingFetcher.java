@@ -23,8 +23,7 @@ public class RecordingFetcher extends Fetcher<Recording> {
     /**
      * Construct a new RecordingFetcher.
      *
-     * @param pathSid The Recording Sid that uniquely identifies the Recording to
-     *                fetch.
+     * @param pathSid The SID that identifies the resource to fetch
      */
     public RecordingFetcher(final String pathSid) {
         this.pathSid = pathSid;

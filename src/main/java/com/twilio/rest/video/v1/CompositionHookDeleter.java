@@ -28,8 +28,7 @@ public class CompositionHookDeleter extends Deleter<CompositionHook> {
     /**
      * Construct a new CompositionHookDeleter.
      *
-     * @param pathSid The Recording Composition Hook Sid that uniquely identifies
-     *                the Recording Composition Hook to delete.
+     * @param pathSid The SID that identifies the resource to delete
      */
     public CompositionHookDeleter(final String pathSid) {
         this.pathSid = pathSid;

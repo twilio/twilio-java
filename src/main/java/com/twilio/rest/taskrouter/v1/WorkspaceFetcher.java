@@ -23,7 +23,7 @@ public class WorkspaceFetcher extends Fetcher<Workspace> {
     /**
      * Construct a new WorkspaceFetcher.
      *
-     * @param pathSid The sid
+     * @param pathSid The SID of the resource to fetch
      */
     public WorkspaceFetcher(final String pathSid) {
         this.pathSid = pathSid;

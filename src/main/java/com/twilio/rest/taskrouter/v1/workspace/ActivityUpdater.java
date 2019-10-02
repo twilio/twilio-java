@@ -25,8 +25,9 @@ public class ActivityUpdater extends Updater<Activity> {
     /**
      * Construct a new ActivityUpdater.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Activity resources
+     *                         to update
+     * @param pathSid The SID of the Activity resource to update
      */
     public ActivityUpdater(final String pathWorkspaceSid,
                            final String pathSid) {
@@ -35,12 +36,12 @@ public class ActivityUpdater extends Updater<Activity> {
     }
 
     /**
-     * A human-readable name for the Activity, such as 'on-call', 'break', 'email',
-     * etc. These names will be used to calculate and expose statistics about
-     * workers, and give you visibility into the state of each of your workers..
+     * A descriptive string that you create to describe the Activity resource. It
+     * can be up to 64 characters long. These names are used to calculate and expose
+     * statistics about Workers, and provide visibility into the state of each
+     * Worker. Examples of friendly names include: `on-call`, `break`, and `email`..
      *
-     * @param friendlyName A human-readable name for the Activity, such as
-     *                     'on-call', 'break', 'email', etc.
+     * @param friendlyName A string to describe the Activity resource
      * @return this
      */
     public ActivityUpdater setFriendlyName(final String friendlyName) {

@@ -23,7 +23,7 @@ public class WorkspaceDeleter extends Deleter<Workspace> {
     /**
      * Construct a new WorkspaceDeleter.
      *
-     * @param pathSid The sid
+     * @param pathSid The SID of the resource to delete
      */
     public WorkspaceDeleter(final String pathSid) {
         this.pathSid = pathSid;

@@ -44,7 +44,7 @@ public class Session extends Resource {
     /**
      * Create a SessionFetcher to execute fetch.
      *
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSid The SID that identifies the resource to fetch
      * @return SessionFetcher capable of executing the fetch
      */
     public static SessionFetcher fetcher(final String pathSid) {
@@ -54,7 +54,7 @@ public class Session extends Resource {
     /**
      * Create a SessionDeleter to execute delete.
      *
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSid The SID that identifies the resource to delete
      * @return SessionDeleter capable of executing the delete
      */
     public static SessionDeleter deleter(final String pathSid) {
@@ -64,8 +64,7 @@ public class Session extends Resource {
     /**
      * Create a SessionCreator to execute create.
      *
-     * @param messagingServiceSid The unique id of the SMS Service this session
-     *                            belongs to.
+     * @param messagingServiceSid The SID of the SMS Service the session belongs to
      * @return SessionCreator capable of executing the create
      */
     public static SessionCreator creator(final String messagingServiceSid) {
@@ -75,7 +74,7 @@ public class Session extends Resource {
     /**
      * Create a SessionUpdater to execute update.
      *
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSid The SID that identifies the resource to update
      * @return SessionUpdater capable of executing the update
      */
     public static SessionUpdater updater(final String pathSid) {
@@ -177,103 +176,102 @@ public class Session extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The The unique string that identifies the resource.
      *
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this session..
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The unique id of the Account responsible for this session.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique id of the Chat Service this session belongs to..
+     * Returns The The SID of the Service that the resource is associated with.
      *
-     * @return The unique id of the Chat Service this session belongs to.
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The unique id of the SMS Service this session belongs to..
+     * Returns The The SID of the SMS Service the session belongs to.
      *
-     * @return The unique id of the SMS Service this session belongs to.
+     * @return The SID of the SMS Service the session belongs to
      */
     public final String getMessagingServiceSid() {
         return this.messagingServiceSid;
     }
 
     /**
-     * Returns The The human-readable name of this session..
+     * Returns The The string that you assigned to describe the resource.
      *
-     * @return The human-readable name of this session.
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The An optional string metadata field you can use to store any data
-     * you wish..
+     * Returns The The JSON string that stores application-specific data.
      *
-     * @return An optional string metadata field you can use to store any data you
-     *         wish.
+     * @return The JSON string that stores application-specific data
      */
     public final String getAttributes() {
         return this.attributes;
     }
 
     /**
-     * Returns The Identity of the session's creator..
+     * Returns The The Identity of the session's creator.
      *
-     * @return Identity of the session's creator.
+     * @return The Identity of the session's creator
      */
     public final String getCreatedBy() {
         return this.createdBy;
     }
 
     /**
-     * Returns The The date that this resource was created..
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date that this resource was created.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated..
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * updated.
      *
-     * @return The date that this resource was last updated.
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The An absolute URL for this session..
+     * Returns The The absolute URL of the session.
      *
-     * @return An absolute URL for this session.
+     * @return The absolute URL of the session
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Absolute URLs to access the Participants and Messages for this
-     * Session..
+     * Returns The The absolute URLs of the Participants, Interactions, and Messages
+     * for the Session.
      *
-     * @return Absolute URLs to access the Participants and Messages for this
-     *         Session.
+     * @return The absolute URLs of the Participants, Interactions, and Messages
+     *         for the Session
      */
     public final Map<String, String> getLinks() {
         return this.links;

@@ -23,7 +23,7 @@ public class FlexFlowFetcher extends Fetcher<FlexFlow> {
     /**
      * Construct a new FlexFlowFetcher.
      *
-     * @param pathSid The unique ID of the FlexFlow
+     * @param pathSid The SID that identifies the resource to fetch
      */
     public FlexFlowFetcher(final String pathSid) {
         this.pathSid = pathSid;

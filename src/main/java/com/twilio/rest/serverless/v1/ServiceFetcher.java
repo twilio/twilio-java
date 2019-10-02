@@ -28,7 +28,7 @@ public class ServiceFetcher extends Fetcher<Service> {
     /**
      * Construct a new ServiceFetcher.
      *
-     * @param pathSid Serverless Service Sid or unique name.
+     * @param pathSid The SID of the Service resource to fetch
      */
     public ServiceFetcher(final String pathSid) {
         this.pathSid = pathSid;

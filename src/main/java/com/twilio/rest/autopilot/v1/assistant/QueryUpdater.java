@@ -56,7 +56,7 @@ public class QueryUpdater extends Updater<Query> {
     }
 
     /**
-     * The new status of the resource. Can be: `pending_review`, `reviewed`, or
+     * The new status of the resource. Can be: `pending-review`, `reviewed`, or
      * `discarded`.
      *
      * @param status The new status of the resource

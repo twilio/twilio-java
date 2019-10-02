@@ -32,18 +32,18 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     /**
      * Construct a new WorkersStatisticsFetcher.
      *
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Worker to fetch
      */
     public WorkersStatisticsFetcher(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     /**
-     * Filter cumulative statistics by up to 'x' minutes in the past. This is
-     * helpful for statistics for the last 15 minutes, 240 minutes (4 hours), and
-     * 480 minutes (8 hours) to see trends. Defaults to 15 minutes..
+     * Only calculate statistics since this many minutes in the past. The default 15
+     * minutes. This is helpful for displaying statistics for the last 15 minutes,
+     * 240 minutes (4 hours), and 480 minutes (8 hours) to see trends..
      *
-     * @param minutes Filter cumulative statistics by up to 'x' minutes in the past.
+     * @param minutes Only calculate statistics since this many minutes in the past
      * @return this
      */
     public WorkersStatisticsFetcher setMinutes(final Integer minutes) {
@@ -52,11 +52,10 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     }
 
     /**
-     * Filter cumulative statistics by a start date. This is helpful for defining a
-     * range of statistics to capture. Input is a string of the format:
-     * yyyy-MM-dd'T'HH:mm:ss'Z'..
+     * Only calculate statistics from this date and time and later, specified in
+     * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format..
      *
-     * @param startDate Filter cumulative statistics by a start date.
+     * @param startDate Only calculate statistics from on or after this date
      * @return this
      */
     public WorkersStatisticsFetcher setStartDate(final DateTime startDate) {
@@ -65,11 +64,10 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     }
 
     /**
-     * Filter cumulative statistics by a end date. This is helpful for defining a
-     * range of statistics to capture. Input is a string of the format:
-     * yyyy-MM-dd'T'HH:mm:ss'Z'..
+     * Only calculate statistics from this date and time and earlier, specified in
+     * GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time..
      *
-     * @param endDate Filter cumulative statistics by a end date.
+     * @param endDate Only calculate statistics from this date and time and earlier
      * @return this
      */
     public WorkersStatisticsFetcher setEndDate(final DateTime endDate) {
@@ -78,11 +76,10 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     }
 
     /**
-     * Filter the real-time and cumulative statistics based on Workers tied to a
-     * particular queue.
+     * The SID of the TaskQueue for which to fetch Worker statistics..
      *
-     * @param taskQueueSid Filter the real-time and cumulative statistics based on
-     *                     Workers tied to a particular queue
+     * @param taskQueueSid The SID of the TaskQueue for which to fetch Worker
+     *                     statistics
      * @return this
      */
     public WorkersStatisticsFetcher setTaskQueueSid(final String taskQueueSid) {
@@ -91,11 +88,10 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     }
 
     /**
-     * Filter the real-time and cumulative statistics based on Workers tied to a
-     * particular queue.
+     * The `friendly_name` of the TaskQueue for which to fetch Worker statistics..
      *
-     * @param taskQueueName Filter the real-time and cumulative statistics based on
-     *                      Workers tied to a particular queue
+     * @param taskQueueName The friendly_name of the TaskQueue for which to fetch
+     *                      Worker statistics
      * @return this
      */
     public WorkersStatisticsFetcher setTaskQueueName(final String taskQueueName) {
@@ -104,9 +100,10 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     }
 
     /**
-     * The friendly_name.
+     * Only include Workers with `friendly_name` values that match this parameter..
      *
-     * @param friendlyName The friendly_name
+     * @param friendlyName Only include Workers with `friendly_name` values that
+     *                     match this parameter
      * @return this
      */
     public WorkersStatisticsFetcher setFriendlyName(final String friendlyName) {
@@ -115,10 +112,10 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     }
 
     /**
-     * Filter cumulative statistics by TaskChannel. Takes in a Unique Name ("voice",
-     * "sms", "default", etc.) or a TaskChannelSid..
+     * Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID
+     * or its `unique_name`, such as `voice`, `sms`, or `default`..
      *
-     * @param taskChannel Filter cumulative statistics by TaskChannel.
+     * @param taskChannel Only calculate statistics on this TaskChannel
      * @return this
      */
     public WorkersStatisticsFetcher setTaskChannel(final String taskChannel) {

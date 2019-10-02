@@ -65,8 +65,8 @@ public class TaskQueue extends Resource {
     /**
      * Create a TaskQueueFetcher to execute fetch.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskQueue to fetch
+     * @param pathSid The SID of the resource to
      * @return TaskQueueFetcher capable of executing the fetch
      */
     public static TaskQueueFetcher fetcher(final String pathWorkspaceSid,
@@ -77,8 +77,8 @@ public class TaskQueue extends Resource {
     /**
      * Create a TaskQueueUpdater to execute update.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskQueue to update
+     * @param pathSid The SID of the resource to update
      * @return TaskQueueUpdater capable of executing the update
      */
     public static TaskQueueUpdater updater(final String pathWorkspaceSid,
@@ -89,7 +89,7 @@ public class TaskQueue extends Resource {
     /**
      * Create a TaskQueueReader to execute read.
      *
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskQueue to read
      * @return TaskQueueReader capable of executing the read
      */
     public static TaskQueueReader reader(final String pathWorkspaceSid) {
@@ -99,8 +99,9 @@ public class TaskQueue extends Resource {
     /**
      * Create a TaskQueueCreator to execute create.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param friendlyName Human readable description of this TaskQueue
+     * @param pathWorkspaceSid The SID of the Workspace that the new TaskQueue
+     *                         belongs to
+     * @param friendlyName A string to describe the resource
      * @return TaskQueueCreator capable of executing the create
      */
     public static TaskQueueCreator creator(final String pathWorkspaceSid,
@@ -111,8 +112,8 @@ public class TaskQueue extends Resource {
     /**
      * Create a TaskQueueDeleter to execute delete.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskQueue to delete
+     * @param pathSid The SID of the resource to delete
      * @return TaskQueueDeleter capable of executing the delete
      */
     public static TaskQueueDeleter deleter(final String pathWorkspaceSid,
@@ -223,92 +224,99 @@ public class TaskQueue extends Resource {
     }
 
     /**
-     * Returns The The ID of the Account that owns this TaskQueue.
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The ID of the Account that owns this TaskQueue
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The ActivitySID to assign workers once a task is assigned for them.
+     * Returns The The SID of the Activity to assign Workers when a task is assigned
+     * for them.
      *
-     * @return ActivitySID to assign workers once a task is assigned for them
+     * @return The SID of the Activity to assign Workers when a task is assigned
+     *         for them
      */
     public final String getAssignmentActivitySid() {
         return this.assignmentActivitySid;
     }
 
     /**
-     * Returns The The assignment_activity_name.
+     * Returns The The name of the Activity to assign Workers when a task is
+     * assigned for them.
      *
-     * @return The assignment_activity_name
+     * @return The name of the Activity to assign Workers when a task is assigned
+     *         for them
      */
     public final String getAssignmentActivityName() {
         return this.assignmentActivityName;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The The RFC 2822 date and time in GMT when the resource was created.
      *
-     * @return The date_created
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The The RFC 2822 date and time in GMT when the resource was last
+     * updated.
      *
-     * @return The date_updated
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The Filter by a human readable description of a TaskQueue.
+     * Returns The The string that you assigned to describe the resource.
      *
-     * @return Filter by a human readable description of a TaskQueue
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The maximum amount of workers to create reservations for the
-     * assignment of a task while in this queue..
+     * Returns The The maximum number of Workers to reserve.
      *
-     * @return The maximum amount of workers to create reservations for the
-     *         assignment of a task while in this queue.
+     * @return The maximum number of Workers to reserve
      */
     public final Integer getMaxReservedWorkers() {
         return this.maxReservedWorkers;
     }
 
     /**
-     * Returns The ActivitySID to assign workers once a task is reserved for them.
+     * Returns The The SID of the Activity to assign Workers once a task is reserved
+     * for them.
      *
-     * @return ActivitySID to assign workers once a task is reserved for them
+     * @return The SID of the Activity to assign Workers once a task is reserved
+     *         for them
      */
     public final String getReservationActivitySid() {
         return this.reservationActivitySid;
     }
 
     /**
-     * Returns The The reservation_activity_name.
+     * Returns The The name of the Activity to assign Workers once a task is
+     * reserved for them.
      *
-     * @return The reservation_activity_name
+     * @return The name of the Activity to assign Workers once a task is reserved
+     *         for them
      */
     public final String getReservationActivityName() {
         return this.reservationActivityName;
     }
 
     /**
-     * Returns The The unique ID of the TaskQueue.
+     * Returns The The unique string that identifies the resource.
      *
-     * @return The unique ID of the TaskQueue
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
@@ -316,48 +324,46 @@ public class TaskQueue extends Resource {
 
     /**
      * Returns The A string describing the Worker selection criteria for any Tasks
-     * that enter this TaskQueue..
+     * that enter the TaskQueue.
      *
      * @return A string describing the Worker selection criteria for any Tasks that
-     *         enter this TaskQueue.
+     *         enter the TaskQueue
      */
     public final String getTargetWorkers() {
         return this.targetWorkers;
     }
 
     /**
-     * Returns The TaskOrder will determine which order the Tasks will be assigned
-     * to Workers..
+     * Returns The How Tasks will be assigned to Workers.
      *
-     * @return TaskOrder will determine which order the Tasks will be assigned to
-     *         Workers.
+     * @return How Tasks will be assigned to Workers
      */
     public final TaskQueue.TaskOrder getTaskOrder() {
         return this.taskOrder;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the TaskQueue resource.
      *
-     * @return The url
+     * @return The absolute URL of the TaskQueue resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The ID of the Workspace that owns this TaskQueue.
+     * Returns The The SID of the Workspace that contains the TaskQueue.
      *
-     * @return The ID of the Workspace that owns this TaskQueue
+     * @return The SID of the Workspace that contains the TaskQueue
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The links.
+     * Returns The The URLs of related resources.
      *
-     * @return The links
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;

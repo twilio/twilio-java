@@ -71,8 +71,10 @@ public class AssetVersion extends Resource {
     /**
      * Create a AssetVersionReader to execute read.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathAssetSid Asset Sid.
+     * @param pathServiceSid The SID of the Service to read the AssetVersion
+     *                       resource from
+     * @param pathAssetSid The SID of the Asset resource that is the parent of the
+     *                     AssetVersion resources to read
      * @return AssetVersionReader capable of executing the read
      */
     public static AssetVersionReader reader(final String pathServiceSid,
@@ -83,9 +85,11 @@ public class AssetVersion extends Resource {
     /**
      * Create a AssetVersionFetcher to execute fetch.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathAssetSid Asset Sid.
-     * @param pathSid Asset Version Sid.
+     * @param pathServiceSid The SID of the Service to fetch the AssetVersion
+     *                       resource from
+     * @param pathAssetSid The SID of the Asset resource that is the parent of the
+     *                     AssetVersion resource to fetch
+     * @param pathSid The SID that identifies the AssetVersion resource to fetch
      * @return AssetVersionFetcher capable of executing the fetch
      */
     public static AssetVersionFetcher fetcher(final String pathServiceSid,
@@ -169,76 +173,80 @@ public class AssetVersion extends Resource {
     }
 
     /**
-     * Returns The Asset Version Sid..
+     * Returns The The unique string that identifies the AssetVersion resource.
      *
-     * @return Asset Version Sid.
+     * @return The unique string that identifies the AssetVersion resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The The SID of the Account that created the AssetVersion resource.
      *
-     * @return Account Sid.
+     * @return The SID of the Account that created the AssetVersion resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Service Sid..
+     * Returns The The SID of the Service that the AssetVersion resource is
+     * associated with.
      *
-     * @return Service Sid.
+     * @return The SID of the Service that the AssetVersion resource is associated
+     *         with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The Asset Sid..
+     * Returns The The SID of the Asset resource that is the parent of the asset
+     * version.
      *
-     * @return Asset Sid.
+     * @return The SID of the Asset resource that is the parent of the asset version
      */
     public final String getAssetSid() {
         return this.assetSid;
     }
 
     /**
-     * Returns The The URL-friendly string by which this Asset Version can be
-     * referenced..
+     * Returns The The URL-friendly string by which the asset version can be
+     * referenced.
      *
-     * @return The URL-friendly string by which this Asset Version can be
-     *         referenced.
+     * @return The URL-friendly string by which the asset version can be referenced
      */
     public final String getPath() {
         return this.path;
     }
 
     /**
-     * Returns The The access control which determines how the Asset Version can be
-     * accessed..
+     * Returns The The access control that determines how the asset version can be
+     * accessed.
      *
-     * @return The access control which determines how the Asset Version can be
-     *         accessed.
+     * @return The access control that determines how the asset version can be
+     *         accessed
      */
     public final AssetVersion.Visibility getVisibility() {
         return this.visibility;
     }
 
     /**
-     * Returns The The date that this Asset Version was created..
+     * Returns The The ISO 8601 date and time in GMT when the AssetVersion resource
+     * was created.
      *
-     * @return The date that this Asset Version was created.
+     * @return The ISO 8601 date and time in GMT when the AssetVersion resource was
+     *         created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The URL of this Asset Version..
+     * Returns The The absolute URL of the AssetVersion resource.
      *
-     * @return The URL of this Asset Version.
+     * @return The absolute URL of the AssetVersion resource
      */
     public final URI getUrl() {
         return this.url;

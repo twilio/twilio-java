@@ -175,7 +175,7 @@ public class Fax extends Resource {
      * Create a FaxCreator to execute create.
      *
      * @param to The phone number to receive the fax
-     * @param mediaUrl The Twilio-hosted URL of the PDF that contains the fax
+     * @param mediaUrl The URL of the PDF that contains the fax
      * @return FaxCreator capable of executing the create
      */
     public static FaxCreator creator(final String to,

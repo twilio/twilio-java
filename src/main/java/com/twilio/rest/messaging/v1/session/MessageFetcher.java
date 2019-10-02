@@ -29,8 +29,8 @@ public class MessageFetcher extends Fetcher<Message> {
     /**
      * Construct a new MessageFetcher.
      *
-     * @param pathSessionSid The unique id of the Session for this message.
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSessionSid The SID of the Session with the message to fetch
+     * @param pathSid The SID that identifies the resource to fetch
      */
     public MessageFetcher(final String pathSessionSid,
                           final String pathSid) {

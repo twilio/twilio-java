@@ -29,7 +29,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
     /**
      * Construct a new PhoneNumberReader.
      *
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid The SID of the Service to read the resources from
      */
     public PhoneNumberReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;

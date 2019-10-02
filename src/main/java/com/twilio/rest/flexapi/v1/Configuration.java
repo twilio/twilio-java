@@ -275,320 +275,323 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this configuration.
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The unique id of the Account responsible for this configuration
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The time the Configuration was created, given as GMT in ISO 8601
-     * format.
+     * Returns The The ISO 8601 date and time in GMT when the Configuration resource
+     * was created.
      *
-     * @return The time the Configuration was created, given as GMT in ISO 8601
-     *         format
+     * @return The ISO 8601 date and time in GMT when the Configuration resource
+     *         was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The time the Configuration was last updated, given as GMT in ISO
-     * 8601 format.
+     * Returns The The ISO 8601 date and time in GMT when the Configuration resource
+     * was last updated.
      *
-     * @return The time the Configuration was last updated, given as GMT in ISO
-     *         8601 format
+     * @return The ISO 8601 date and time in GMT when the Configuration resource
+     *         was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The Attiributes.
+     * Returns The An object that contains application-specific data.
      *
-     * @return Attiributes
+     * @return An object that contains application-specific data
      */
     public final Map<String, Object> getAttributes() {
         return this.attributes;
     }
 
     /**
-     * Returns The Status of the Flex onboarding.
+     * Returns The The status of the Flex onboarding.
      *
-     * @return Status of the Flex onboarding
+     * @return The status of the Flex onboarding
      */
     public final Configuration.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The unique ID of the TaskRouter Workspace.
+     * Returns The The SID of the TaskRouter Workspace.
      *
-     * @return The unique ID of the TaskRouter Workspace
+     * @return The SID of the TaskRouter Workspace
      */
     public final String getTaskrouterWorkspaceSid() {
         return this.taskrouterWorkspaceSid;
     }
 
     /**
-     * Returns The The unique ID of the TaskRouter Target Workflow.
+     * Returns The The SID of the TaskRouter target Workflow.
      *
-     * @return The unique ID of the TaskRouter Target Workflow
+     * @return The SID of the TaskRouter target Workflow
      */
     public final String getTaskrouterTargetWorkflowSid() {
         return this.taskrouterTargetWorkflowSid;
     }
 
     /**
-     * Returns The The unique ID of the TaskRouter Target TaskQueue.
+     * Returns The The SID of the TaskRouter Target TaskQueue.
      *
-     * @return The unique ID of the TaskRouter Target TaskQueue
+     * @return The SID of the TaskRouter Target TaskQueue
      */
     public final String getTaskrouterTargetTaskqueueSid() {
         return this.taskrouterTargetTaskqueueSid;
     }
 
     /**
-     * Returns The Array of TaskRouter TaskQueues.
+     * Returns The The list of TaskRouter TaskQueues.
      *
-     * @return Array of TaskRouter TaskQueues
+     * @return The list of TaskRouter TaskQueues
      */
     public final List<Map<String, Object>> getTaskrouterTaskqueues() {
         return this.taskrouterTaskqueues;
     }
 
     /**
-     * Returns The Skill description for TaskRouter workers.
+     * Returns The The Skill description for TaskRouter workers.
      *
-     * @return Skill description for TaskRouter workers
+     * @return The Skill description for TaskRouter workers
      */
     public final List<Map<String, Object>> getTaskrouterSkills() {
         return this.taskrouterSkills;
     }
 
     /**
-     * Returns The TaskRouter default channel capacities and availability for
+     * Returns The The TaskRouter default channel capacities and availability for
      * workers.
      *
-     * @return TaskRouter default channel capacities and availability for workers
+     * @return The TaskRouter default channel capacities and availability for
+     *         workers
      */
     public final Map<String, Object> getTaskrouterWorkerChannels() {
         return this.taskrouterWorkerChannels;
     }
 
     /**
-     * Returns The The taskrouter_worker_attributes.
+     * Returns The The TaskRouter Worker attributes.
      *
-     * @return The taskrouter_worker_attributes
+     * @return The TaskRouter Worker attributes
      */
     public final Map<String, Object> getTaskrouterWorkerAttributes() {
         return this.taskrouterWorkerAttributes;
     }
 
     /**
-     * Returns The The unique ID of the offline activity.
+     * Returns The The TaskRouter SID of the offline activity.
      *
-     * @return The unique ID of the offline activity
+     * @return The TaskRouter SID of the offline activity
      */
     public final String getTaskrouterOfflineActivitySid() {
         return this.taskrouterOfflineActivitySid;
     }
 
     /**
-     * Returns The Flex resources hosting URL for the main UI.
+     * Returns The The URL where the Flex instance is hosted.
      *
-     * @return Flex resources hosting URL for the main UI
+     * @return The URL where the Flex instance is hosted
      */
     public final URI getRuntimeDomain() {
         return this.runtimeDomain;
     }
 
     /**
-     * Returns The Unique 34 character ID of the Messaging Service.
+     * Returns The The SID of the Messaging service instance.
      *
-     * @return Unique 34 character ID of the Messaging Service
+     * @return The SID of the Messaging service instance
      */
     public final String getMessagingServiceInstanceSid() {
         return this.messagingServiceInstanceSid;
     }
 
     /**
-     * Returns The The unique id of the Chat Service this user belongs to.
+     * Returns The The SID of the chat service this user belongs to.
      *
-     * @return The unique id of the Chat Service this user belongs to
+     * @return The SID of the chat service this user belongs to
      */
     public final String getChatServiceInstanceSid() {
         return this.chatServiceInstanceSid;
     }
 
     /**
-     * Returns The Main language of the Flex UI.
+     * Returns The The primary language of the Flex UI.
      *
-     * @return Main language of the Flex UI
+     * @return The primary language of the Flex UI
      */
     public final String getUiLanguage() {
         return this.uiLanguage;
     }
 
     /**
-     * Returns The UI Attributes.
+     * Returns The The object that describes Flex UI characteristics and settings.
      *
-     * @return UI Attributes
+     * @return The object that describes Flex UI characteristics and settings
      */
     public final Map<String, Object> getUiAttributes() {
         return this.uiAttributes;
     }
 
     /**
-     * Returns The Pinned UI version.
+     * Returns The The Pinned UI version.
      *
-     * @return Pinned UI version
+     * @return The Pinned UI version
      */
     public final String getUiVersion() {
         return this.uiVersion;
     }
 
     /**
-     * Returns The Flex Service version.
+     * Returns The The Flex Service version.
      *
-     * @return Flex Service version
+     * @return The Flex Service version
      */
     public final String getServiceVersion() {
         return this.serviceVersion;
     }
 
     /**
-     * Returns The Call recording enabled.
+     * Returns The Whether call recording is enabled.
      *
-     * @return Call recording enabled
+     * @return Whether call recording is enabled
      */
     public final Boolean getCallRecordingEnabled() {
         return this.callRecordingEnabled;
     }
 
     /**
-     * Returns The Call recording webhook url.
+     * Returns The The call recording webhook URL.
      *
-     * @return Call recording webhook url
+     * @return The call recording webhook URL
      */
     public final URI getCallRecordingWebhookUrl() {
         return this.callRecordingWebhookUrl;
     }
 
     /**
-     * Returns The Flag indicating whether CRM is present for Flex.
+     * Returns The Whether CRM is present for Flex.
      *
-     * @return Flag indicating whether CRM is present for Flex
+     * @return Whether CRM is present for Flex
      */
     public final Boolean getCrmEnabled() {
         return this.crmEnabled;
     }
 
     /**
-     * Returns The CRM Type.
+     * Returns The The CRM Type.
      *
-     * @return CRM Type
+     * @return The CRM Type
      */
     public final String getCrmType() {
         return this.crmType;
     }
 
     /**
-     * Returns The CRM Callback URL.
+     * Returns The The CRM Callback URL.
      *
-     * @return CRM Callback URL
+     * @return The CRM Callback URL
      */
     public final URI getCrmCallbackUrl() {
         return this.crmCallbackUrl;
     }
 
     /**
-     * Returns The CRM Fallback URL.
+     * Returns The The CRM Fallback URL.
      *
-     * @return CRM Fallback URL
+     * @return The CRM Fallback URL
      */
     public final URI getCrmFallbackUrl() {
         return this.crmFallbackUrl;
     }
 
     /**
-     * Returns The CRM Attributes.
+     * Returns The An object that contains the CRM attributes.
      *
-     * @return CRM Attributes
+     * @return An object that contains the CRM attributes
      */
     public final Map<String, Object> getCrmAttributes() {
         return this.crmAttributes;
     }
 
     /**
-     * Returns The Public Attributes.
+     * Returns The The list of public attributes.
      *
-     * @return Public Attributes
+     * @return The list of public attributes
      */
     public final Map<String, Object> getPublicAttributes() {
         return this.publicAttributes;
     }
 
     /**
-     * Returns The Is plugin service Enabled.
+     * Returns The Whether the plugin service enabled.
      *
-     * @return Is plugin service Enabled
+     * @return Whether the plugin service enabled
      */
     public final Boolean getPluginServiceEnabled() {
         return this.pluginServiceEnabled;
     }
 
     /**
-     * Returns The Plugin service Attributes.
+     * Returns The The plugin service attributes.
      *
-     * @return Plugin service Attributes
+     * @return The plugin service attributes
      */
     public final Map<String, Object> getPluginServiceAttributes() {
         return this.pluginServiceAttributes;
     }
 
     /**
-     * Returns The Integration parameters.
+     * Returns The A list of objects that contain the configurations for the
+     * Integrations supported in this configuration.
      *
-     * @return Integration parameters
+     * @return A list of objects that contain the configurations for the
+     *         Integrations supported in this configuration
      */
     public final List<Map<String, Object>> getIntegrations() {
         return this.integrations;
     }
 
     /**
-     * Returns The Outbound call flows Attributes.
+     * Returns The The list of outbound call flows.
      *
-     * @return Outbound call flows Attributes
+     * @return The list of outbound call flows
      */
     public final Map<String, Object> getOutboundCallFlows() {
         return this.outboundCallFlows;
     }
 
     /**
-     * Returns The List of enabled features.
+     * Returns The The list of enabled features.
      *
-     * @return List of enabled features
+     * @return The list of enabled features
      */
     public final List<String> getFeaturesEnabled() {
         return this.featuresEnabled;
     }
 
     /**
-     * Returns The List of serverless services sids.
+     * Returns The The list of serverless service SIDs.
      *
-     * @return List of serverless services sids
+     * @return The list of serverless service SIDs
      */
     public final List<String> getServerlessServiceSids() {
         return this.serverlessServiceSids;
     }
 
     /**
-     * Returns The The URL for this resource.
+     * Returns The The absolute URL of the Configuration resource.
      *
-     * @return The URL for this resource
+     * @return The absolute URL of the Configuration resource
      */
     public final URI getUrl() {
         return this.url;

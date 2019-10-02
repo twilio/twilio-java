@@ -24,8 +24,8 @@ public class TaskDeleter extends Deleter<Task> {
     /**
      * Construct a new TaskDeleter.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Task to delete
+     * @param pathSid The SID of the resource to delete
      */
     public TaskDeleter(final String pathWorkspaceSid,
                        final String pathSid) {

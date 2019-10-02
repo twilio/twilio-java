@@ -44,8 +44,8 @@ public class Message extends Resource {
     /**
      * Create a MessageFetcher to execute fetch.
      *
-     * @param pathSessionSid The unique id of the Session for this message.
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSessionSid The SID of the Session with the message to fetch
+     * @param pathSid The SID that identifies the resource to fetch
      * @return MessageFetcher capable of executing the fetch
      */
     public static MessageFetcher fetcher(final String pathSessionSid,
@@ -56,7 +56,7 @@ public class Message extends Resource {
     /**
      * Create a MessageCreator to execute create.
      *
-     * @param pathSessionSid The unique id of the Session for this message.
+     * @param pathSessionSid The SID of the Session for the message
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator creator(final String pathSessionSid) {
@@ -66,8 +66,8 @@ public class Message extends Resource {
     /**
      * Create a MessageUpdater to execute update.
      *
-     * @param pathSessionSid The unique id of the Session for this message.
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSessionSid The SID of the Session with the message to update
+     * @param pathSid The SID that identifies the resource to update
      * @return MessageUpdater capable of executing the update
      */
     public static MessageUpdater updater(final String pathSessionSid,
@@ -78,7 +78,7 @@ public class Message extends Resource {
     /**
      * Create a MessageReader to execute read.
      *
-     * @param pathSessionSid The unique id of the Session for this message.
+     * @param pathSessionSid The SID of the Session with the messages to read
      * @return MessageReader capable of executing the read
      */
     public static MessageReader reader(final String pathSessionSid) {
@@ -88,8 +88,8 @@ public class Message extends Resource {
     /**
      * Create a MessageDeleter to execute delete.
      *
-     * @param pathSessionSid The unique id of the Session for this message.
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSessionSid The SID of the Session with the message to delete
+     * @param pathSid The SID that identifies the resource to delete
      * @return MessageDeleter capable of executing the delete
      */
     public static MessageDeleter deleter(final String pathSessionSid,
@@ -187,45 +187,45 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this message..
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The unique id of the Account responsible for this message.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique id of the Chat Service this message belongs to..
+     * Returns The The SID of the Service that the resource is associated with.
      *
-     * @return The unique id of the Chat Service this message belongs to.
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The unique id of the SMS Service this message belongs to..
+     * Returns The The SID of the Messaging Service the message belongs to.
      *
-     * @return The unique id of the SMS Service this message belongs to.
+     * @return The SID of the Messaging Service the message belongs to
      */
     public final String getMessagingServiceSid() {
         return this.messagingServiceSid;
     }
 
     /**
-     * Returns The The unique id of the Session for this message..
+     * Returns The The SID of the Session for the message.
      *
-     * @return The unique id of the Session for this message.
+     * @return The SID of the Session for the message
      */
     public final String getSessionSid() {
         return this.sessionSid;
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The The unique string that identifies the resource.
      *
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
@@ -242,54 +242,55 @@ public class Message extends Resource {
 
     /**
      * Returns The The identity or the address of the device of the message's
-     * author..
+     * author.
      *
-     * @return The identity or the address of the device of the message's author.
+     * @return The identity or the address of the device of the message's author
      */
     public final String getAuthor() {
         return this.author;
     }
 
     /**
-     * Returns The The contents of the message..
+     * Returns The The message body.
      *
-     * @return The contents of the message.
+     * @return The message body
      */
     public final String getBody() {
         return this.body;
     }
 
     /**
-     * Returns The A string metadata field you can use to store any data you wish..
+     * Returns The The JSON string that stores application-specific data.
      *
-     * @return A string metadata field you can use to store any data you wish.
+     * @return The JSON string that stores application-specific data
      */
     public final String getAttributes() {
         return this.attributes;
     }
 
     /**
-     * Returns The The date that this resource was created..
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date that this resource was created.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated..
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * updated.
      *
-     * @return The date that this resource was last updated.
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The An absolute URL for this message..
+     * Returns The The absolute URL of the message.
      *
-     * @return An absolute URL for this message.
+     * @return The absolute URL of the message
      */
     public final URI getUrl() {
         return this.url;

@@ -28,7 +28,7 @@ public class SessionFetcher extends Fetcher<Session> {
     /**
      * Construct a new SessionFetcher.
      *
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSid The SID that identifies the resource to fetch
      */
     public SessionFetcher(final String pathSid) {
         this.pathSid = pathSid;

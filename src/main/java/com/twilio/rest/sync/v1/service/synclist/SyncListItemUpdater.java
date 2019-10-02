@@ -78,8 +78,9 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
     /**
      * How long, in seconds, before the List Item expires (time-to-live) and is
      * deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value
-     * is `0`, which means the List Item does not expire. The List Item might not be
-     * deleted immediately after it expires..
+     * is `0`, which means the List Item does not expire. The List Item will be
+     * deleted automatically after it expires, but there can be a delay between the
+     * expiration time and the resources's deletion..
      *
      * @param itemTtl How long, in seconds, before the List Item expires
      * @return this
@@ -93,7 +94,9 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
      * How long, in seconds, before the List Item's parent Sync List expires
      * (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1
      * year). The default value is `0`, which means the parent Sync List does not
-     * expire. The Sync List might not be deleted immediately after it expires..
+     * expire. The Sync List will be deleted automatically after it expires, but
+     * there can be a delay between the expiration time and the resources's
+     * deletion..
      *
      * @param collectionTtl How long, in seconds, before the List Item's parent
      *                      Sync List expires

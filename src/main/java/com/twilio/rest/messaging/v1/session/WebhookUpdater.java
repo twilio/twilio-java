@@ -40,8 +40,8 @@ public class WebhookUpdater extends Updater<Webhook> {
     /**
      * Construct a new WebhookUpdater.
      *
-     * @param pathSessionSid The unique id of the Session for this webhook.
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSessionSid The SID of the Session for the webhook
+     * @param pathSid The SID that identifies the resource to update
      */
     public WebhookUpdater(final String pathSessionSid,
                           final String pathSid) {
@@ -50,10 +50,10 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The absolute url the webhook request should be sent to..
+     * The absolute URL the webhook request should be sent to..
      *
-     * @param configurationUrl The absolute url the webhook request should be sent
-     *                         to.
+     * @param configurationUrl The absolute URL the webhook request should be sent
+     *                         to
      * @return this
      */
     public WebhookUpdater setConfigurationUrl(final String configurationUrl) {
@@ -62,10 +62,11 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The HTTP method to be used when sending a webhook request..
+     * The HTTP method we should use when sending a webhook request to `url`. Can be
+     * `POST` or `GET`..
      *
-     * @param configurationMethod The HTTP method to be used when sending a webhook
-     *                            request.
+     * @param configurationMethod The HTTP method we should use when sending a
+     *                            webhook request to url
      * @return this
      */
     public WebhookUpdater setConfigurationMethod(final Webhook.Method configurationMethod) {
@@ -74,10 +75,10 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The list of events, firing webhook event for this Session..
+     * The list of events that trigger a webhook event for the Session..
      *
-     * @param configurationFilters The list of events, firing webhook event for
-     *                             this Session.
+     * @param configurationFilters The list of events that trigger a  webhook event
+     *                             for the Session
      * @return this
      */
     public WebhookUpdater setConfigurationFilters(final List<String> configurationFilters) {
@@ -86,10 +87,10 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The list of events, firing webhook event for this Session..
+     * The list of events that trigger a webhook event for the Session..
      *
-     * @param configurationFilters The list of events, firing webhook event for
-     *                             this Session.
+     * @param configurationFilters The list of events that trigger a  webhook event
+     *                             for the Session
      * @return this
      */
     public WebhookUpdater setConfigurationFilters(final String configurationFilters) {
@@ -97,10 +98,10 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The list of keywords, firing webhook event for this Session..
+     * The list of keywords that trigger a webhook event for the Session..
      *
-     * @param configurationTriggers The list of keywords, firing webhook event for
-     *                              this Session.
+     * @param configurationTriggers The list of keywords, that trigger a webhook
+     *                              event for the Session
      * @return this
      */
     public WebhookUpdater setConfigurationTriggers(final List<String> configurationTriggers) {
@@ -109,10 +110,10 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The list of keywords, firing webhook event for this Session..
+     * The list of keywords that trigger a webhook event for the Session..
      *
-     * @param configurationTriggers The list of keywords, firing webhook event for
-     *                              this Session.
+     * @param configurationTriggers The list of keywords, that trigger a webhook
+     *                              event for the Session
      * @return this
      */
     public WebhookUpdater setConfigurationTriggers(final String configurationTriggers) {
@@ -120,10 +121,10 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The studio flow sid, where the webhook should be sent to..
+     * The SID of the studio flow where the webhook should be sent to..
      *
-     * @param configurationFlowSid The studio flow sid, where the webhook should be
-     *                             sent to.
+     * @param configurationFlowSid The SID of the studio flow where the webhook
+     *                             should be sent to
      * @return this
      */
     public WebhookUpdater setConfigurationFlowSid(final String configurationFlowSid) {
@@ -132,11 +133,11 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The number of retries in case of webhook request failures. Maximum 3 retries
-     * are allowed, the default value is 0..
+     * The number of times to try the webhook request if the first attempt fails.
+     * Can be up to 3 and the default is 0..
      *
-     * @param configurationRetryCount The number of retries in case of webhook
-     *                                request failures.
+     * @param configurationRetryCount The number of times to try the webhook
+     *                                request if the first attempt fails
      * @return this
      */
     public WebhookUpdater setConfigurationRetryCount(final Integer configurationRetryCount) {
@@ -145,10 +146,10 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The flag whether buffering should be applied to messages. Not set by default.
+     * Whether buffering should be applied to messages. Not set by default..
      *
-     * @param configurationBufferMessages The flag whether buffering should be
-     *                                    applied to messages.
+     * @param configurationBufferMessages Whether buffering should be applied to
+     *                                    messages
      * @return this
      */
     public WebhookUpdater setConfigurationBufferMessages(final Boolean configurationBufferMessages) {
@@ -157,9 +158,9 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The period of buffering messages. Default is 3000 ms..
+     * The period to buffer messages in milliseconds. Default is 3,000 ms..
      *
-     * @param configurationBufferWindow The period of buffering messages.
+     * @param configurationBufferWindow The period to buffer messages
      * @return this
      */
     public WebhookUpdater setConfigurationBufferWindow(final Integer configurationBufferWindow) {

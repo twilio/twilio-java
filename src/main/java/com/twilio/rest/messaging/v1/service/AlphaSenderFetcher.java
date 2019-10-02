@@ -28,8 +28,9 @@ public class AlphaSenderFetcher extends Fetcher<AlphaSender> {
     /**
      * Construct a new AlphaSenderFetcher.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Messaging Service to fetch the resource
+     *                       from
+     * @param pathSid The SID that identifies the resource to fetch
      */
     public AlphaSenderFetcher(final String pathServiceSid,
                               final String pathSid) {

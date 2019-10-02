@@ -34,8 +34,8 @@ public class ParticipantUpdater extends Updater<Participant> {
     /**
      * Construct a new ParticipantUpdater.
      *
-     * @param pathSessionSid The unique id of the Session for this participant.
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSessionSid The SID of the Session with the participant to update
+     * @param pathSid The SID that identifies the resource to update
      */
     public ParticipantUpdater(final String pathSessionSid,
                               final String pathSid) {
@@ -44,12 +44,9 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * An optional string metadata field you can use to store any data you wish. The
-     * string value must contain structurally valid JSON if specified.  **Note**
-     * that if the attributes are not set "{}" will be returned..
+     * A JSON string that stores application-specific data..
      *
-     * @param attributes An optional string metadata field you can use to store any
-     *                   data you wish.
+     * @param attributes A JSON string that stores application-specific data
      * @return this
      */
     public ParticipantUpdater setAttributes(final String attributes) {
@@ -58,11 +55,13 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * The date that this resource was created. This is useful when bulk-importing
-     * messages from another system, as the provided value will be trusted and
-     * displayed on SDK clients..
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was created. This is used
+     * when importing messages from another system, as the provided value will be
+     * trusted and displayed on SDK clients..
      *
-     * @param dateCreated The date that this resource was created.
+     * @param dateCreated The ISO 8601 date and time in GMT when the resource was
+     *                    created
      * @return this
      */
     public ParticipantUpdater setDateCreated(final DateTime dateCreated) {
@@ -71,9 +70,11 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * The date that this resource was last updated..
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was last updated..
      *
-     * @param dateUpdated The date that this resource was last updated.
+     * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
+     *                    updated
      * @return this
      */
     public ParticipantUpdater setDateUpdated(final DateTime dateUpdated) {

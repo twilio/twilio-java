@@ -40,8 +40,8 @@ public class Event extends Resource {
     /**
      * Create a EventFetcher to execute fetch.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Event to fetch
+     * @param pathSid The SID of the resource to fetch
      * @return EventFetcher capable of executing the fetch
      */
     public static EventFetcher fetcher(final String pathWorkspaceSid,
@@ -52,8 +52,7 @@ public class Event extends Resource {
     /**
      * Create a EventReader to execute read.
      *
-     * @param pathWorkspaceSid Filter events by those pertaining to a particular
-     *                         workspace
+     * @param pathWorkspaceSid The SID of the Workspace with the Events to read
      * @return EventReader capable of executing the read
      */
     public static EventReader reader(final String pathWorkspaceSid) {
@@ -170,36 +169,36 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The account owning this event.
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The account owning this event
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The actor_sid.
+     * Returns The The SID of the resource that triggered the event.
      *
-     * @return The actor_sid
+     * @return The SID of the resource that triggered the event
      */
     public final String getActorSid() {
         return this.actorSid;
     }
 
     /**
-     * Returns The The actor_type.
+     * Returns The The type of resource that triggered the event.
      *
-     * @return The actor_type
+     * @return The type of resource that triggered the event
      */
     public final String getActorType() {
         return this.actorType;
     }
 
     /**
-     * Returns The The actor_url.
+     * Returns The The absolute URL of the resource that triggered the event.
      *
-     * @return The actor_url
+     * @return The absolute URL of the resource that triggered the event
      */
     public final URI getActorUrl() {
         return this.actorUrl;
@@ -215,108 +214,108 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The Data about this specific event..
+     * Returns The Data about the event.
      *
-     * @return Data about this specific event.
+     * @return Data about the event
      */
     public final Map<String, Object> getEventData() {
         return this.eventData;
     }
 
     /**
-     * Returns The The time this event was sent.
+     * Returns The The time the event was sent.
      *
-     * @return The time this event was sent
+     * @return The time the event was sent
      */
     public final DateTime getEventDate() {
         return this.eventDate;
     }
 
     /**
-     * Returns The The time this event was sent in ms.
+     * Returns The The time the event was sent in milliseconds.
      *
-     * @return The time this event was sent in ms
+     * @return The time the event was sent in milliseconds
      */
     public final Long getEventDateMs() {
         return this.eventDateMs;
     }
 
     /**
-     * Returns The An identifier for this event.
+     * Returns The The identifier for the event.
      *
-     * @return An identifier for this event
+     * @return The identifier for the event
      */
     public final String getEventType() {
         return this.eventType;
     }
 
     /**
-     * Returns The The sid of the object this event is most relevant to.
+     * Returns The The SID of the object the event is most relevant to.
      *
-     * @return The sid of the object this event is most relevant to
+     * @return The SID of the object the event is most relevant to
      */
     public final String getResourceSid() {
         return this.resourceSid;
     }
 
     /**
-     * Returns The The type of object this event is most relevant to.
+     * Returns The The type of object the event is most relevant to.
      *
-     * @return The type of object this event is most relevant to
+     * @return The type of object the event is most relevant to
      */
     public final String getResourceType() {
         return this.resourceType;
     }
 
     /**
-     * Returns The The resource_url.
+     * Returns The The URL of the resource the event is most relevant to.
      *
-     * @return The resource_url
+     * @return The URL of the resource the event is most relevant to
      */
     public final URI getResourceUrl() {
         return this.resourceUrl;
     }
 
     /**
-     * Returns The The sid.
+     * Returns The The unique string that identifies the resource.
      *
-     * @return The sid
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The source.
+     * Returns The Where the Event originated.
      *
-     * @return The source
+     * @return Where the Event originated
      */
     public final String getSource() {
         return this.source;
     }
 
     /**
-     * Returns The The source_ip_address.
+     * Returns The The IP from which the Event originated.
      *
-     * @return The source_ip_address
+     * @return The IP from which the Event originated
      */
     public final String getSourceIpAddress() {
         return this.sourceIpAddress;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the Event resource.
      *
-     * @return The url
+     * @return The absolute URL of the Event resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The workspace_sid.
+     * Returns The The SID of the Workspace that contains the Event.
      *
-     * @return The workspace_sid
+     * @return The SID of the Workspace that contains the Event
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;

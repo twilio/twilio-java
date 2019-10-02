@@ -35,10 +35,9 @@ public class WebhookUpdater extends Updater<Webhook> {
     private Webhook.Target target;
 
     /**
-     * The HTTP method to be used when sending a webhook request..
+     * The HTTP method to use when sending a webhook request..
      *
-     * @param webhookMethod The HTTP method to be used when sending a webhook
-     *                      request.
+     * @param webhookMethod The HTTP method to use when sending a webhook request
      * @return this
      */
     public WebhookUpdater setWebhookMethod(final String webhookMethod) {
@@ -47,10 +46,10 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The list of webhook event triggers that are enabled for this Service..
+     * The list of webhook event triggers that are enabled for the Service..
      *
      * @param webhookFilters The list of webhook event triggers that are enabled
-     *                       for this Service.
+     *                       for the Service
      * @return this
      */
     public WebhookUpdater setWebhookFilters(final List<String> webhookFilters) {
@@ -59,10 +58,10 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The list of webhook event triggers that are enabled for this Service..
+     * The list of webhook event triggers that are enabled for the Service..
      *
      * @param webhookFilters The list of webhook event triggers that are enabled
-     *                       for this Service.
+     *                       for the Service
      * @return this
      */
     public WebhookUpdater setWebhookFilters(final String webhookFilters) {
@@ -70,10 +69,9 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The absolute url the pre-event webhook request should be sent to..
+     * The absolute URL of the pre-event webhook..
      *
-     * @param preWebhookUrl The absolute url the pre-event webhook request should
-     *                      be sent to.
+     * @param preWebhookUrl The absolute URL of the pre-event webhook
      * @return this
      */
     public WebhookUpdater setPreWebhookUrl(final String preWebhookUrl) {
@@ -82,10 +80,9 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The absolute url the post-event webhook request should be sent to..
+     * The absolute URL of the post-event webhook..
      *
-     * @param postWebhookUrl The absolute url the post-event webhook request should
-     *                       be sent to.
+     * @param postWebhookUrl The absolute URL of the post-event webhook
      * @return this
      */
     public WebhookUpdater setPostWebhookUrl(final String postWebhookUrl) {
@@ -94,11 +91,11 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The number of retries in case of pre-event webhook request failures. Maximum
-     * 3 retries are allowed, the default value is 0..
+     * The number of times to try the pre-event webhook request if the first attempt
+     * fails. Can be up to 3 and the default is 0..
      *
-     * @param preWebhookRetryCount The number of retries in case of pre-event
-     *                             webhook request failures.
+     * @param preWebhookRetryCount The number of times to try the pre-event webhook
+     *                             request if the first attempt fails
      * @return this
      */
     public WebhookUpdater setPreWebhookRetryCount(final Integer preWebhookRetryCount) {
@@ -107,11 +104,11 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The number of retries in case of post-event webhook request failures. Maximum
-     * 3 retries are allowed, the default value is 0..
+     * The number of times to try the post-event webhook request if the first
+     * attempt fails. Can be up to 3 and the default is 0..
      *
-     * @param postWebhookRetryCount The number of retries in case of post-event
-     *                              webhook request failures.
+     * @param postWebhookRetryCount The number of times to try the post-event
+     *                              webhook request if the first attempt fails
      * @return this
      */
     public WebhookUpdater setPostWebhookRetryCount(final Integer postWebhookRetryCount) {
@@ -120,10 +117,10 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The routing target of the webhook. Can be ordinary or route internally to
+     * The routing target of the webhook. Can be ordinary or routed internally to
      * Flex.
      *
-     * @param target The routing target of the webhook.
+     * @param target The routing target of the webhook
      * @return this
      */
     public WebhookUpdater setTarget(final Webhook.Target target) {

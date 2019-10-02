@@ -30,7 +30,8 @@ public class EnvironmentReader extends Reader<Environment> {
     /**
      * Construct a new EnvironmentReader.
      *
-     * @param pathServiceSid Service Sid.
+     * @param pathServiceSid The SID of the Service to read the Environment
+     *                       resources from
      */
     public EnvironmentReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;

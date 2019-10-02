@@ -29,8 +29,8 @@ public class AssetFetcher extends Fetcher<Asset> {
     /**
      * Construct a new AssetFetcher.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathSid Asset Sid.
+     * @param pathServiceSid The SID of the Service to fetch the Asset resource from
+     * @param pathSid The SID that identifies the Asset resource to fetch
      */
     public AssetFetcher(final String pathServiceSid,
                         final String pathSid) {

@@ -44,7 +44,8 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
 
     /**
      * The phone number to verify. Either this parameter or the `verification_sid`
-     * must be specified.
+     * must be specified. Phone numbers must be in [E.164
+     * format](https://www.twilio.com/docs/glossary/what-e164)..
      *
      * @param to The phone number to verify
      * @return this

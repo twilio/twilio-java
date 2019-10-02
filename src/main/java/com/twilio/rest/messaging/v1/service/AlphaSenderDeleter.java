@@ -28,8 +28,8 @@ public class AlphaSenderDeleter extends Deleter<AlphaSender> {
     /**
      * Construct a new AlphaSenderDeleter.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathSid The SID that identifies the resource to delete
      */
     public AlphaSenderDeleter(final String pathServiceSid,
                               final String pathSid) {

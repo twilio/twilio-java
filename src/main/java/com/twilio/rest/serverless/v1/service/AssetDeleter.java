@@ -29,8 +29,9 @@ public class AssetDeleter extends Deleter<Asset> {
     /**
      * Construct a new AssetDeleter.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathSid Asset Sid.
+     * @param pathServiceSid The SID of the Service to delete the Asset resource
+     *                       from
+     * @param pathSid The SID that identifies the Asset resource to delete
      */
     public AssetDeleter(final String pathServiceSid,
                         final String pathSid) {

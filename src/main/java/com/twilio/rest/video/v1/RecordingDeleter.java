@@ -23,8 +23,7 @@ public class RecordingDeleter extends Deleter<Recording> {
     /**
      * Construct a new RecordingDeleter.
      *
-     * @param pathSid The Recording Sid that uniquely identifies the Recording to
-     *                delete.
+     * @param pathSid The SID that identifies the resource to delete
      */
     public RecordingDeleter(final String pathSid) {
         this.pathSid = pathSid;

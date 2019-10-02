@@ -24,8 +24,9 @@ public class RoomRecordingDeleter extends Deleter<RoomRecording> {
     /**
      * Construct a new RoomRecordingDeleter.
      *
-     * @param pathRoomSid The room_sid
-     * @param pathSid The sid
+     * @param pathRoomSid The SID of the room with the RoomRecording resource to
+     *                    delete
+     * @param pathSid The SID that identifies the resource to delete
      */
     public RoomRecordingDeleter(final String pathRoomSid,
                                 final String pathSid) {

@@ -30,18 +30,17 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * Construct a new ServiceUpdater.
      *
-     * @param pathSid Service Sid.
+     * @param pathSid The SID of the Service resource to update
      */
     public ServiceUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
     /**
-     * A boolean value that indicates whether to inject Account credentials into a
-     * Function invocation context. Optional..
+     * Whether to inject Account credentials into a function invocation context..
      *
      * @param includeCredentials Whether to inject Account credentials into a
-     *                           Function invocation context.
+     *                           function invocation context
      * @return this
      */
     public ServiceUpdater setIncludeCredentials(final Boolean includeCredentials) {
@@ -50,10 +49,10 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * A human-readable description of this Service, fewer than 256 characters.
-     * Optional.
+     * A descriptive string that you create to describe the Service resource. It can
+     * be up to 255 characters long..
      *
-     * @param friendlyName A human-readable description of this Service.
+     * @param friendlyName A string to describe the Service resource
      * @return this
      */
     public ServiceUpdater setFriendlyName(final String friendlyName) {

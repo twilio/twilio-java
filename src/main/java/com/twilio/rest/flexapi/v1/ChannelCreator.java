@@ -32,10 +32,11 @@ public class ChannelCreator extends Creator<Channel> {
     /**
      * Construct a new ChannelCreator.
      *
-     * @param flexFlowSid The unique ID of the FlexFlow
-     * @param identity Chat User identity
-     * @param chatUserFriendlyName Customer friendly name
-     * @param chatFriendlyName Chat channel friendly name
+     * @param flexFlowSid The SID of the FlexFlow
+     * @param identity The identity value that identifies the new resource's chat
+     *                 User
+     * @param chatUserFriendlyName The chat participant's friendly name
+     * @param chatFriendlyName The chat channel's friendly name
      */
     public ChannelCreator(final String flexFlowSid,
                           final String identity,
@@ -48,9 +49,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * Target Contact Identity, for example phone number for SMS.
+     * The Target Contact Identity, for example the phone number of an SMS..
      *
-     * @param target Target Contact Identity
+     * @param target The Target Contact Identity
      * @return this
      */
     public ChannelCreator setTarget(final String target) {
@@ -59,9 +60,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * Chat channel unique name.
+     * The chat channel's unique name..
      *
-     * @param chatUniqueName Chat channel unique name
+     * @param chatUniqueName The chat channel's unique name
      * @return this
      */
     public ChannelCreator setChatUniqueName(final String chatUniqueName) {
@@ -70,9 +71,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * Pre-engagement data.
+     * The pre-engagement data..
      *
-     * @param preEngagementData Pre-engagement data
+     * @param preEngagementData The pre-engagement data
      * @return this
      */
     public ChannelCreator setPreEngagementData(final String preEngagementData) {
@@ -81,9 +82,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The unique SID identifier of the Taskrouter task.
+     * The SID of the TaskRouter task..
      *
-     * @param taskSid TaskRouter Task Sid.
+     * @param taskSid The SID of the TaskRouter task
      * @return this
      */
     public ChannelCreator setTaskSid(final String taskSid) {
@@ -92,9 +93,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * Task attributes to be added for the TaskRouter Task.
+     * The task attributes to be added for the TaskRouter Task..
      *
-     * @param taskAttributes Task attributes to be added for the TaskRouter Task
+     * @param taskAttributes The task attributes to be added for the TaskRouter Task
      * @return this
      */
     public ChannelCreator setTaskAttributes(final String taskAttributes) {
@@ -103,9 +104,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * Boolean flag determining whether channel is created as long lived or not.
+     * Whether to create the channel as long-lived..
      *
-     * @param longLived Long Lived flag
+     * @param longLived Whether to create the channel as long-lived
      * @return this
      */
     public ChannelCreator setLongLived(final Boolean longLived) {

@@ -97,7 +97,8 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookReader to execute read.
      *
-     * @param pathSessionSid The unique id of the Session for this webhook.
+     * @param pathSessionSid The SID of the Session with the Webhook resources to
+     *                       read
      * @return WebhookReader capable of executing the read
      */
     public static WebhookReader reader(final String pathSessionSid) {
@@ -107,8 +108,9 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookFetcher to execute fetch.
      *
-     * @param pathSessionSid The unique id of the Session for this webhook.
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSessionSid The SID of the Session with the Webhook resource to
+     *                       fetch
+     * @param pathSid The SID of the resource to fetch
      * @return WebhookFetcher capable of executing the fetch
      */
     public static WebhookFetcher fetcher(final String pathSessionSid,
@@ -119,8 +121,8 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookCreator to execute create.
      *
-     * @param pathSessionSid The unique id of the Session for this webhook.
-     * @param target The target of this webhook.
+     * @param pathSessionSid The SID of the Session for the webhook
+     * @param target The target of the webhook
      * @return WebhookCreator capable of executing the create
      */
     public static WebhookCreator creator(final String pathSessionSid,
@@ -131,8 +133,8 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookUpdater to execute update.
      *
-     * @param pathSessionSid The unique id of the Session for this webhook.
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSessionSid The SID of the Session for the webhook
+     * @param pathSid The SID that identifies the resource to update
      * @return WebhookUpdater capable of executing the update
      */
     public static WebhookUpdater updater(final String pathSessionSid,
@@ -143,8 +145,9 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookDeleter to execute delete.
      *
-     * @param pathSessionSid The unique id of the Session for this webhook.
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSessionSid The SID of the Session with the Webhook resource to
+     *                       delete
+     * @param pathSid The SID that identifies the resource to delete
      * @return WebhookDeleter capable of executing the delete
      */
     public static WebhookDeleter deleter(final String pathSessionSid,
@@ -226,72 +229,73 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The The unique string that identifies the resource.
      *
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this session..
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The unique id of the Account responsible for this session.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique id of the Session for this webhook..
+     * Returns The The SID of the Session for the webhook.
      *
-     * @return The unique id of the Session for this webhook.
+     * @return The SID of the Session for the webhook
      */
     public final String getSessionSid() {
         return this.sessionSid;
     }
 
     /**
-     * Returns The The target of this webhook..
+     * Returns The The target of the webhook.
      *
-     * @return The target of this webhook.
+     * @return The target of the webhook
      */
     public final String getTarget() {
         return this.target;
     }
 
     /**
-     * Returns The An absolute URL for this webhook..
+     * Returns The The absolute URL of the webhook.
      *
-     * @return An absolute URL for this webhook.
+     * @return The absolute URL of the webhook
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The configuration of this webhook..
+     * Returns The The configuration of the webhook.
      *
-     * @return The configuration of this webhook.
+     * @return The configuration of the webhook
      */
     public final Map<String, Object> getConfiguration() {
         return this.configuration;
     }
 
     /**
-     * Returns The The date that this resource was created..
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date that this resource was created.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated..
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * updated.
      *
-     * @return The date that this resource was last updated.
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;

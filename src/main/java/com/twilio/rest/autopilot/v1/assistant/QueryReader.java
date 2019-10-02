@@ -66,7 +66,7 @@ public class QueryReader extends Reader<Query> {
     }
 
     /**
-     * The status of the resources to read. Can be: `pending_review`, `reviewed`, or
+     * The status of the resources to read. Can be: `pending-review`, `reviewed`, or
      * `discarded`.
      *
      * @param status The status of the resources to read

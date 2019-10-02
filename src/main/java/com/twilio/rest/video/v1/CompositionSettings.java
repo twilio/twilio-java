@@ -51,8 +51,8 @@ public class CompositionSettings extends Resource {
     /**
      * Create a CompositionSettingsCreator to execute create.
      *
-     * @param friendlyName Friendly name of the configuration to be shown in the
-     *                     console
+     * @param friendlyName A descriptive string that you create to describe the
+     *                     resource
      * @return CompositionSettingsCreator capable of executing the create
      */
     public static CompositionSettingsCreator creator(final String friendlyName) {
@@ -134,83 +134,72 @@ public class CompositionSettings extends Resource {
     }
 
     /**
-     * Returns The The Twilio Account SID associated with this item.
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The Twilio Account SID associated with this item
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Friendly name of the configuration to be shown in the console.
+     * Returns The The string that you assigned to describe the resource.
      *
-     * @return Friendly name of the configuration to be shown in the console
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The SID of the Stored Credential resource CRxx.
+     * Returns The The SID of the stored Credential resource.
      *
-     * @return SID of the Stored Credential resource CRxx
+     * @return The SID of the stored Credential resource
      */
     public final String getAwsCredentialsSid() {
         return this.awsCredentialsSid;
     }
 
     /**
-     * Returns The URL of the S3 bucket where the compositions should be stored. We
-     * only support DNS-compliant URLs like
-     * http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/compositions,
-     * where compositions is the path where you want compositions to be stored..
+     * Returns The The URL of the AWS S3 bucket where the compositions are stored.
      *
-     * @return URL of the S3 bucket where the compositions should be stored. We
-     *         only support DNS-compliant URLs like
-     *         http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/compositions, where compositions is the path where you want compositions to be stored.
+     * @return The URL of the AWS S3 bucket where the compositions are stored
      */
     public final URI getAwsS3Url() {
         return this.awsS3Url;
     }
 
     /**
-     * Returns The true|false When set to true, all Compositions will be written to
-     * the AwsS3Url specified above. When set to false, all Compositions will be
-     * stored in Twilio's cloud..
+     * Returns The Whether all compositions are written to the aws_s3_url.
      *
-     * @return true|false When set to true, all Compositions will be written to the
-     *         AwsS3Url specified above. When set to false, all Compositions will be
-     *         stored in Twilio's cloud.
+     * @return Whether all compositions are written to the aws_s3_url
      */
     public final Boolean getAwsStorageEnabled() {
         return this.awsStorageEnabled;
     }
 
     /**
-     * Returns The SID of the Public Key resource CRxx.
+     * Returns The The SID of the Public Key resource used for encryption.
      *
-     * @return SID of the Public Key resource CRxx
+     * @return The SID of the Public Key resource used for encryption
      */
     public final String getEncryptionKeySid() {
         return this.encryptionKeySid;
     }
 
     /**
-     * Returns The true|false When set to true, all Compositions will be stored
-     * encrypted..
+     * Returns The Whether all compositions are stored in an encrypted form.
      *
-     * @return true|false When set to true, all Compositions will be stored
-     *         encrypted.
+     * @return Whether all compositions are stored in an encrypted form
      */
     public final Boolean getEncryptionEnabled() {
         return this.encryptionEnabled;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the resource.
      *
-     * @return The url
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;

@@ -36,19 +36,16 @@ public class ParticipantCreator extends Creator<Participant> {
     /**
      * Construct a new ParticipantCreator.
      *
-     * @param pathSessionSid The unique id of the Session for this participant.
+     * @param pathSessionSid The SID of the Session for the participant
      */
     public ParticipantCreator(final String pathSessionSid) {
         this.pathSessionSid = pathSessionSid;
     }
 
     /**
-     * An optional string metadata field you can use to store any data you wish. The
-     * string value must contain structurally valid JSON if specified.  **Note**
-     * that if the attributes are not set "{}" will be returned..
+     * A JSON string that stores application-specific data..
      *
-     * @param attributes An optional string metadata field you can use to store any
-     *                   data you wish.
+     * @param attributes A JSON string that stores application-specific data
      * @return this
      */
     public ParticipantCreator setAttributes(final String attributes) {
@@ -57,13 +54,13 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The address of the Twilio phone number (or WhatsApp number, or Messenger Page
-     * ID) that the participant is in contact with. This field, together with
+     * The address of the Twilio phone number, WhatsApp number, or Messenger Page ID
+     * that the participant is in contact with. This field, together with
      * user_address, is only null when the participant is interacting from a Chat
      * endpoint (see the 'identity' field)..
      *
      * @param twilioAddress The address of the Twilio phone number that the
-     *                      participant is in contact with.
+     *                      participant is in contact with
      * @return this
      */
     public ParticipantCreator setTwilioAddress(final String twilioAddress) {
@@ -72,11 +69,13 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The date that this resource was created. This is most often useful when
-     * bulk-importing messages from another system, as the provided value will be
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was created. This is used
+     * when importing messages from another system, as the provided value will be
      * trusted and displayed on SDK clients..
      *
-     * @param dateCreated The date that this resource was created.
+     * @param dateCreated The ISO 8601 date and time in GMT when the resource was
+     *                    created
      * @return this
      */
     public ParticipantCreator setDateCreated(final DateTime dateCreated) {
@@ -85,11 +84,13 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The date that this resource was last updated. This is most often provided
-     * when bulk-importing messages from another system, as the provided value will
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was last updated. This is
+     * used when importing messages from another system, as the provided value will
      * be trusted and displayed on SDK clients..
      *
-     * @param dateUpdated The date that this resource was last updated.
+     * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
+     *                    updated
      * @return this
      */
     public ParticipantCreator setDateUpdated(final DateTime dateUpdated) {
@@ -98,13 +99,12 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * A unique string identifier for the session participant as [Chat
-     * User](https://www.twilio.com/docs/api/chat/rest/users). This parameter is
-     * non-null if (and only if) the participant is using the Programmable Chat SDK
-     * to communicate..
+     * The application-defined string that uniquely identifies the [Chat
+     * User](https://www.twilio.com/docs/chat/rest/user-resource) as the session
+     * participant. This parameter is null unless the participant is using the
+     * Programmable Chat SDK to communicate..
      *
-     * @param identity A unique string identifier for the session participant as
-     *                 Chat User.
+     * @param identity The string that identifies the resource's User
      * @return this
      */
     public ParticipantCreator setIdentity(final String identity) {
@@ -113,12 +113,12 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The address of the participant's device, e.g. a phone number or Messenger ID.
-     * Together with the Twilio Address, this determines a participant uniquely.
-     * This field (with twilio_address) is only null when the participant is
-     * interacting from a Chat endpoint (see the 'identity' field)..
+     * The address of the participant's device. Can be a phone number or Messenger
+     * ID. Together with the Twilio Address, this determines a participant uniquely.
+     * This field (with twilio_address) is null when the participant is interacting
+     * from a Chat endpoint (see the `identity` field)..
      *
-     * @param userAddress The address of the participant's device.
+     * @param userAddress The address of the participant's device
      * @return this
      */
     public ParticipantCreator setUserAddress(final String userAddress) {

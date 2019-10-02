@@ -24,8 +24,8 @@ public class TaskQueueFetcher extends Fetcher<TaskQueue> {
     /**
      * Construct a new TaskQueueFetcher.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskQueue to fetch
+     * @param pathSid The SID of the resource to
      */
     public TaskQueueFetcher(final String pathWorkspaceSid,
                             final String pathSid) {

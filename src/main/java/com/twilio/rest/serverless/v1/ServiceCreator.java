@@ -30,8 +30,9 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * Construct a new ServiceCreator.
      *
-     * @param uniqueName A unique, addressable name of this Service.
-     * @param friendlyName A human-readable description of this Service.
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   Service resource
+     * @param friendlyName A string to describe the Service resource
      */
     public ServiceCreator(final String uniqueName,
                           final String friendlyName) {
@@ -40,11 +41,11 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * A boolean value that indicates whether to inject Account credentials into a
-     * Function invocation context. Optional, default `false`..
+     * Whether to inject Account credentials into a function invocation context. The
+     * default value is `false`..
      *
      * @param includeCredentials Whether to inject Account credentials into a
-     *                           Function invocation context.
+     *                           function invocation context
      * @return this
      */
     public ServiceCreator setIncludeCredentials(final Boolean includeCredentials) {

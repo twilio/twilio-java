@@ -26,9 +26,10 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
     /**
      * Construct a new PublishedTrackReader.
      *
-     * @param pathRoomSid Unique Room identifier where this Track is published.
-     * @param pathParticipantSid Unique Participant identifier that publishes this
-     *                           Track.
+     * @param pathRoomSid The SID of the Room resource where the Track resources to
+     *                    read are published
+     * @param pathParticipantSid The SID of the Participant resource with the
+     *                           published tracks to read
      */
     public PublishedTrackReader(final String pathRoomSid,
                                 final String pathParticipantSid) {

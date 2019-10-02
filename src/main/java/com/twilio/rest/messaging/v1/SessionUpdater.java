@@ -35,16 +35,17 @@ public class SessionUpdater extends Updater<Session> {
     /**
      * Construct a new SessionUpdater.
      *
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSid The SID that identifies the resource to update
      */
     public SessionUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
     /**
-     * The human-readable name of this session. Optional..
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
      *
-     * @param friendlyName The human-readable name of this session.
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public SessionUpdater setFriendlyName(final String friendlyName) {
@@ -53,12 +54,9 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * An optional string metadata field you can use to store any data you wish. The
-     * string value must contain structurally valid JSON if specified.  **Note**
-     * that if the attributes are not set "{}" will be returned..
+     * A JSON string that stores application-specific data..
      *
-     * @param attributes An optional string metadata field you can use to store any
-     *                   data you wish.
+     * @param attributes A JSON string that stores application-specific data
      * @return this
      */
     public SessionUpdater setAttributes(final String attributes) {
@@ -67,9 +65,11 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * The date that this resource was created..
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was created..
      *
-     * @param dateCreated The date that this resource was created.
+     * @param dateCreated The ISO 8601 date and time in GMT when the resource was
+     *                    created
      * @return this
      */
     public SessionUpdater setDateCreated(final DateTime dateCreated) {
@@ -78,9 +78,11 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * The date that this resource was last updated..
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was last updated..
      *
-     * @param dateUpdated The date that this resource was last updated.
+     * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
+     *                    updated
      * @return this
      */
     public SessionUpdater setDateUpdated(final DateTime dateUpdated) {
@@ -89,10 +91,10 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * Identity of the session's creator. If the Session was created through the
+     * The Identity of the session's creator. If the Session was created through the
      * API, the value will be `system`.
      *
-     * @param createdBy Identity of the session's creator.
+     * @param createdBy The Identity of the session's creator
      * @return this
      */
     public SessionUpdater setCreatedBy(final String createdBy) {

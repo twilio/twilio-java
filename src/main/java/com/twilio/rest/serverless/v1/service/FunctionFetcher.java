@@ -29,8 +29,9 @@ public class FunctionFetcher extends Fetcher<Function> {
     /**
      * Construct a new FunctionFetcher.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathSid Function Sid.
+     * @param pathServiceSid The SID of the Service to fetch the Function resource
+     *                       from
+     * @param pathSid The SID of the Function resource to fetch
      */
     public FunctionFetcher(final String pathServiceSid,
                            final String pathSid) {

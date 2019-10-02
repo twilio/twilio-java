@@ -31,19 +31,18 @@ public class ParticipantReader extends Reader<Participant> {
     /**
      * Construct a new ParticipantReader.
      *
-     * @param pathRoomSid A system-generated 34-character string that uniquely
-     *                    identifies this Room.
+     * @param pathRoomSid The SID of the room with the Participant resources to read
      */
     public ParticipantReader(final String pathRoomSid) {
         this.pathRoomSid = pathRoomSid;
     }
 
     /**
-     * Only show Participants with the given Status.  For `in-progress` Rooms the
-     * default Status is `connected`, for `completed` Rooms only `disconnected`
-     * Participants are returned..
+     * Read only the participants with this status. Can be: `connected` or
+     * `disconnected`. For `in-progress` Rooms the default Status is `connected`,
+     * for `completed` Rooms only `disconnected` Participants are returned..
      *
-     * @param status Only show Participants with the given Status.
+     * @param status Read only the participants with this status
      * @return this
      */
     public ParticipantReader setStatus(final Participant.Status status) {
@@ -52,11 +51,11 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * Only show Participants that connected to the Room using the provided
-     * Identity..
+     * Read only the Participants with this
+     * [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity`
+     * value..
      *
-     * @param identity Only show Participants that connected to the Room using the
-     *                 provided Identity.
+     * @param identity Read only the Participants with this user identity value
      * @return this
      */
     public ParticipantReader setIdentity(final String identity) {
@@ -65,11 +64,11 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * Only show Participants that started after this date, given as an [UTC ISO
-     * 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC)..
+     * Read only Participants that started after this date in [ISO
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format..
      *
-     * @param dateCreatedAfter Only show Participants that started after this date,
-     *                         given as an UTC ISO 8601 Timestamp.
+     * @param dateCreatedAfter Read only Participants that started after this date
+     *                         in UTC ISO 8601 format
      * @return this
      */
     public ParticipantReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
@@ -78,11 +77,11 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * Only show Participants that started before this date, given as an [UTC ISO
-     * 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC)..
+     * Read only Participants that started before this date in [ISO
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format..
      *
-     * @param dateCreatedBefore Only show Participants that started before this
-     *                          date, given as an UTC ISO 8601 Timestamp.
+     * @param dateCreatedBefore Read only Participants that started before this
+     *                          date in ISO 8601 format
      * @return this
      */
     public ParticipantReader setDateCreatedBefore(final DateTime dateCreatedBefore) {

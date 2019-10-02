@@ -24,8 +24,8 @@ public class RoomUpdater extends Updater<Room> {
     /**
      * Construct a new RoomUpdater.
      *
-     * @param pathSid The Room Sid or name that uniquely identifies this resource.
-     * @param status Set to completed to end the Room.
+     * @param pathSid The SID that identifies the resource to update
+     * @param status The new status of the resource
      */
     public RoomUpdater(final String pathSid,
                        final Room.RoomStatus status) {

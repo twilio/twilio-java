@@ -30,9 +30,10 @@ public class DeploymentCreator extends Creator<Deployment> {
     /**
      * Construct a new DeploymentCreator.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathEnvironmentSid Environment Sid.
-     * @param buildSid Build Sid.
+     * @param pathServiceSid The SID of the Service to create the Deployment
+     *                       resource under
+     * @param pathEnvironmentSid The SID of the environment for the deployment
+     * @param buildSid The SID of the build for the deployment
      */
     public DeploymentCreator(final String pathServiceSid,
                              final String pathEnvironmentSid,

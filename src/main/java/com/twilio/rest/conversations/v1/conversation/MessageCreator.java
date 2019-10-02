@@ -30,6 +30,7 @@ public class MessageCreator extends Creator<Message> {
     private DateTime dateCreated;
     private DateTime dateUpdated;
     private String attributes;
+    private String mediaSid;
 
     /**
      * Construct a new MessageCreator.
@@ -102,6 +103,17 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
+     * The Media Sid to be attached to the new Message..
+     *
+     * @param mediaSid The Media Sid to be attached to the new Message.
+     * @return this
+     */
+    public MessageCreator setMediaSid(final String mediaSid) {
+        this.mediaSid = mediaSid;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -164,6 +176,10 @@ public class MessageCreator extends Creator<Message> {
 
         if (attributes != null) {
             request.addPostParam("Attributes", attributes);
+        }
+
+        if (mediaSid != null) {
+            request.addPostParam("MediaSid", mediaSid);
         }
     }
 }

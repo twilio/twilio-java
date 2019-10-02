@@ -23,7 +23,7 @@ public class WebChannelDeleter extends Deleter<WebChannel> {
     /**
      * Construct a new WebChannelDeleter.
      *
-     * @param pathSid Flex Chat Channel Sid
+     * @param pathSid The SID that identifies the resource to delete
      */
     public WebChannelDeleter(final String pathSid) {
         this.pathSid = pathSid;

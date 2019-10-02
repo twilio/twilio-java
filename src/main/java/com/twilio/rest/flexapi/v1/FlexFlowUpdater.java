@@ -41,16 +41,16 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     /**
      * Construct a new FlexFlowUpdater.
      *
-     * @param pathSid The unique ID of the FlexFlow
+     * @param pathSid The SID that identifies the resource to update
      */
     public FlexFlowUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
     /**
-     * Human readable description of this FlexFlow.
+     * A descriptive string that you create to describe the FlexFlow resource..
      *
-     * @param friendlyName Human readable description of this FlexFlow
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public FlexFlowUpdater setFriendlyName(final String friendlyName) {
@@ -59,9 +59,9 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * The unique SID identifier of the chat service.
+     * The SID of the chat service..
      *
-     * @param chatServiceSid Service Sid.
+     * @param chatServiceSid The SID of the chat service
      * @return this
      */
     public FlexFlowUpdater setChatServiceSid(final String chatServiceSid) {
@@ -70,9 +70,9 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * Channel type (web | facebook | sms).
+     * The channel type. Can be: `web`, `facebook`, or `sms`..
      *
-     * @param channelType Channel type
+     * @param channelType The channel type
      * @return this
      */
     public FlexFlowUpdater setChannelType(final FlexFlow.ChannelType channelType) {
@@ -81,9 +81,9 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * Channel contact Identity (number / contact).
+     * The channel contact's Identity..
      *
-     * @param contactIdentity Channel contact Identity
+     * @param contactIdentity The channel contact's Identity
      * @return this
      */
     public FlexFlowUpdater setContactIdentity(final String contactIdentity) {
@@ -92,9 +92,9 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * Boolean flag for enabling or disabling the FlexFlow.
+     * Whether the FlexFlow is enabled..
      *
-     * @param enabled Boolean flag for enabling or disabling the FlexFlow
+     * @param enabled Whether the FlexFlow is enabled
      * @return this
      */
     public FlexFlowUpdater setEnabled(final Boolean enabled) {
@@ -103,9 +103,9 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * Integration type (studio | external | task).
+     * The integration type. Can be: `studio`, `external`, or `task`..
      *
-     * @param integrationType Integration type
+     * @param integrationType The integration type
      * @return this
      */
     public FlexFlowUpdater setIntegrationType(final FlexFlow.IntegrationType integrationType) {
@@ -114,9 +114,9 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * The unique SID identifier of the Flow for Studio integration type.
+     * The SID of the Flow when `integration_type` is `studio`..
      *
-     * @param integrationFlowSid Flow Sid.
+     * @param integrationFlowSid The SID of the Flow
      * @return this
      */
     public FlexFlowUpdater setIntegrationFlowSid(final String integrationFlowSid) {
@@ -125,9 +125,9 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * External Webhook Url for External integration type.
+     * The External Webhook URL when `integration_type` is `external`..
      *
-     * @param integrationUrl External Webhook Url
+     * @param integrationUrl The External Webhook URL
      * @return this
      */
     public FlexFlowUpdater setIntegrationUrl(final URI integrationUrl) {
@@ -136,9 +136,9 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * External Webhook Url for External integration type.
+     * The External Webhook URL when `integration_type` is `external`..
      *
-     * @param integrationUrl External Webhook Url
+     * @param integrationUrl The External Webhook URL
      * @return this
      */
     public FlexFlowUpdater setIntegrationUrl(final String integrationUrl) {
@@ -146,9 +146,9 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * Workspace Sid for a new task for Task integration type.
+     * The Workspace SID for a new task when `integration_type` is `task`..
      *
-     * @param integrationWorkspaceSid Workspace Sid for a new task
+     * @param integrationWorkspaceSid The Workspace SID for a new task
      * @return this
      */
     public FlexFlowUpdater setIntegrationWorkspaceSid(final String integrationWorkspaceSid) {
@@ -157,9 +157,9 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * Workflow Sid for a new task for Task integration type.
+     * The Workflow SID for a new task when `integration_type` is `task`..
      *
-     * @param integrationWorkflowSid Workflow Sid for a new task
+     * @param integrationWorkflowSid The Workflow SID for a new task
      * @return this
      */
     public FlexFlowUpdater setIntegrationWorkflowSid(final String integrationWorkflowSid) {
@@ -168,9 +168,10 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * Task Channel for a new task for Task integration type (default is 'default').
+     * The task channel for a new task when `integration_type` is `task`. The
+     * default is `default`..
      *
-     * @param integrationChannel Task Channel for a new task
+     * @param integrationChannel task channel for a new task
      * @return this
      */
     public FlexFlowUpdater setIntegrationChannel(final String integrationChannel) {
@@ -179,10 +180,10 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * Task timeout in seconds for a new task for Task integration type (default
-     * 86400).
+     * The task timeout in seconds for a new task when `integration_type` is `task`.
+     * The default is `86,400` seconds (24 hours)..
      *
-     * @param integrationTimeout Task timeout in seconds for a new task
+     * @param integrationTimeout The task timeout in seconds for a new task
      * @return this
      */
     public FlexFlowUpdater setIntegrationTimeout(final Integer integrationTimeout) {
@@ -191,9 +192,10 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * Task priority for a new task for Task integration type (default 0).
+     * The task priority of a new task when `integration_type` is `task`. The
+     * default priority is `0`..
      *
-     * @param integrationPriority Task priority for a new task
+     * @param integrationPriority The task priority of a new task
      * @return this
      */
     public FlexFlowUpdater setIntegrationPriority(final Integer integrationPriority) {
@@ -202,10 +204,12 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * Flag for task creation, either creating task with the channel, or if true
-     * create task whwn first message arrives (for Task integration type).
+     * Whether to create a task when the first message arrives when
+     * `integration_type` is `task`. If `false`, the task is created with the
+     * channel..
      *
-     * @param integrationCreationOnMessage Flag for task creation
+     * @param integrationCreationOnMessage Whether to create a task when the first
+     *                                     message arrives
      * @return this
      */
     public FlexFlowUpdater setIntegrationCreationOnMessage(final Boolean integrationCreationOnMessage) {
@@ -214,9 +218,9 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * Default Flag defining whether the new channels created are long lived or not.
+     * Whether new channels created are long-lived..
      *
-     * @param longLived Long Lived flag for new Channel
+     * @param longLived Whether new channels created are long-lived
      * @return this
      */
     public FlexFlowUpdater setLongLived(final Boolean longLived) {

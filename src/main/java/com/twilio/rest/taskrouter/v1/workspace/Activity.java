@@ -39,8 +39,9 @@ public class Activity extends Resource {
     /**
      * Create a ActivityFetcher to execute fetch.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Activity resources
+     *                         to fetch
+     * @param pathSid The SID of the resource to fetch
      * @return ActivityFetcher capable of executing the fetch
      */
     public static ActivityFetcher fetcher(final String pathWorkspaceSid,
@@ -51,8 +52,9 @@ public class Activity extends Resource {
     /**
      * Create a ActivityUpdater to execute update.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Activity resources
+     *                         to update
+     * @param pathSid The SID of the Activity resource to update
      * @return ActivityUpdater capable of executing the update
      */
     public static ActivityUpdater updater(final String pathWorkspaceSid,
@@ -63,8 +65,9 @@ public class Activity extends Resource {
     /**
      * Create a ActivityDeleter to execute delete.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Activity resources
+     *                         to delete
+     * @param pathSid The SID of the Activity resource to delete
      * @return ActivityDeleter capable of executing the delete
      */
     public static ActivityDeleter deleter(final String pathWorkspaceSid,
@@ -75,7 +78,8 @@ public class Activity extends Resource {
     /**
      * Create a ActivityReader to execute read.
      *
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Activity resources
+     *                         to read
      * @return ActivityReader capable of executing the read
      */
     public static ActivityReader reader(final String pathWorkspaceSid) {
@@ -85,9 +89,9 @@ public class Activity extends Resource {
     /**
      * Create a ActivityCreator to execute create.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param friendlyName A human-readable name for the Activity, such as 'On
-     *                     Call', 'Break', 'Email', etc.
+     * @param pathWorkspaceSid The SID of the Workspace that the new Activity
+     *                         belongs to
+     * @param friendlyName A string to describe the Activity resource
      * @return ActivityCreator capable of executing the create
      */
     public static ActivityCreator creator(final String pathWorkspaceSid,
@@ -170,72 +174,75 @@ public class Activity extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that owns this Activity..
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The unique ID of the Account that owns this Activity.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Filter by activities that are available or unavailable..
+     * Returns The Whether the Worker should be eligible to receive a Task when it
+     * occupies the Activity.
      *
-     * @return Filter by activities that are available or unavailable.
+     * @return Whether the Worker should be eligible to receive a Task when it
+     *         occupies the Activity
      */
     public final Boolean getAvailable() {
         return this.available;
     }
 
     /**
-     * Returns The The date this Activity was created..
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date this Activity was created.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Activity was updated..
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * updated.
      *
-     * @return The date this Activity was updated.
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The Filter by an Activity's friendly name.
+     * Returns The The string that you assigned to describe the Activity resource.
      *
-     * @return Filter by an Activity's friendly name
+     * @return The string that you assigned to describe the Activity resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The unique ID for this Activity..
+     * Returns The The unique string that identifies the resource.
      *
-     * @return The unique ID for this Activity.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique ID of the Workspace that this Activity belongs to..
+     * Returns The The SID of the Workspace that contains the Activity.
      *
-     * @return The unique ID of the Workspace that this Activity belongs to.
+     * @return The SID of the Workspace that contains the Activity
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the Activity resource.
      *
-     * @return The url
+     * @return The absolute URL of the Activity resource
      */
     public final URI getUrl() {
         return this.url;

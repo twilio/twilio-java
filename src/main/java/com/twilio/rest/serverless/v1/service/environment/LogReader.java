@@ -32,8 +32,9 @@ public class LogReader extends Reader<Log> {
     /**
      * Construct a new LogReader.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathEnvironmentSid Environment Sid.
+     * @param pathServiceSid The SID of the Service to read the Log resource from
+     * @param pathEnvironmentSid The SID of the environment with the Log resources
+     *                           to read
      */
     public LogReader(final String pathServiceSid,
                      final String pathEnvironmentSid) {
@@ -42,10 +43,10 @@ public class LogReader extends Reader<Log> {
     }
 
     /**
-     * The unique SID identifier of the Function whose invocation produced this
-     * Log..
+     * The SID of the function whose invocation produced the Log resources to read..
      *
-     * @param functionSid Function Sid.
+     * @param functionSid The SID of the function whose invocation produced the Log
+     *                    resources to read
      * @return this
      */
     public LogReader setFunctionSid(final String functionSid) {

@@ -39,9 +39,9 @@ public class TaskChannel extends Resource {
     /**
      * Create a TaskChannelFetcher to execute fetch.
      *
-     * @param pathWorkspaceSid The unique ID of the Workspace that this TaskChannel
-     *                         belongs to.
-     * @param pathSid The unique ID for this TaskChannel.
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskChannel to
+     *                         fetch
+     * @param pathSid The SID of the TaskChannel resource to fetch
      * @return TaskChannelFetcher capable of executing the fetch
      */
     public static TaskChannelFetcher fetcher(final String pathWorkspaceSid,
@@ -52,8 +52,7 @@ public class TaskChannel extends Resource {
     /**
      * Create a TaskChannelReader to execute read.
      *
-     * @param pathWorkspaceSid The unique ID of the Workspace that this TaskChannel
-     *                         belongs to.
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskChannel to read
      * @return TaskChannelReader capable of executing the read
      */
     public static TaskChannelReader reader(final String pathWorkspaceSid) {
@@ -63,9 +62,9 @@ public class TaskChannel extends Resource {
     /**
      * Create a TaskChannelUpdater to execute update.
      *
-     * @param pathWorkspaceSid The unique ID of the Workspace that this TaskChannel
-     *                         belongs to.
-     * @param pathSid The unique ID for this TaskChannel.
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskChannel to
+     *                         update
+     * @param pathSid The SID of the TaskChannel resource to update
      * @return TaskChannelUpdater capable of executing the update
      */
     public static TaskChannelUpdater updater(final String pathWorkspaceSid,
@@ -76,9 +75,9 @@ public class TaskChannel extends Resource {
     /**
      * Create a TaskChannelDeleter to execute delete.
      *
-     * @param pathWorkspaceSid The unique ID of the Workspace that this TaskChannel
-     *                         belongs to.
-     * @param pathSid The unique ID for this TaskChannel.
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskChannel to
+     *                         delete
+     * @param pathSid The SID of the TaskChannel resource to delete
      * @return TaskChannelDeleter capable of executing the delete
      */
     public static TaskChannelDeleter deleter(final String pathWorkspaceSid,
@@ -89,11 +88,11 @@ public class TaskChannel extends Resource {
     /**
      * Create a TaskChannelCreator to execute create.
      *
-     * @param pathWorkspaceSid The unique ID of the Workspace that this TaskChannel
-     *                         belongs to.
-     * @param friendlyName String representing user-friendly name for the
-     *                     TaskChannel
-     * @param uniqueName String representing unique name for the TaskChannel
+     * @param pathWorkspaceSid The SID of the Workspace that the new TaskChannel
+     *                         belongs to
+     * @param friendlyName A string to describe the TaskChannel resource
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   TaskChannel
      * @return TaskChannelCreator capable of executing the create
      */
     public static TaskChannelCreator creator(final String pathWorkspaceSid,
@@ -185,90 +184,94 @@ public class TaskChannel extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that owns this TaskChannel..
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The unique ID of the Account that owns this TaskChannel.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The date this TaskChannel was created..
+     * Returns The The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date this TaskChannel was created.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this TaskChannel was updated..
+     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * updated.
      *
-     * @return The date this TaskChannel was updated.
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The friendly name of this TaskChannel.
+     * Returns The The string that you assigned to describe the resource.
      *
-     * @return The friendly name of this TaskChannel
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The unique ID for this TaskChannel..
+     * Returns The The unique string that identifies the resource.
      *
-     * @return The unique ID for this TaskChannel.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique name of TaskChannel, such as 'voice', 'sms', etc..
+     * Returns The An application-defined string that uniquely identifies the
+     * TaskChannel.
      *
-     * @return The unique name of TaskChannel, such as 'voice', 'sms', etc.
+     * @return An application-defined string that uniquely identifies the
+     *         TaskChannel
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The unique ID of the Workspace that this TaskChannel belongs to..
+     * Returns The The SID of the Workspace that contains the TaskChannel.
      *
-     * @return The unique ID of the Workspace that this TaskChannel belongs to.
+     * @return The SID of the Workspace that contains the TaskChannel
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The If true then prioritize longest idle workers.
+     * Returns The Whether the TaskChannel will prioritize Workers that have been
+     * idle.
      *
-     * @return If true then prioritize longest idle workers
+     * @return Whether the TaskChannel will prioritize Workers that have been idle
      */
     public final Boolean getChannelOptimizedRouting() {
         return this.channelOptimizedRouting;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the TaskChannel resource.
      *
-     * @return The url
+     * @return The absolute URL of the TaskChannel resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The The URLs of related resources.
      *
-     * @return The links
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;

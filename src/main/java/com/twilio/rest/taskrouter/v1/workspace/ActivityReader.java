@@ -27,16 +27,17 @@ public class ActivityReader extends Reader<Activity> {
     /**
      * Construct a new ActivityReader.
      *
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Activity resources
+     *                         to read
      */
     public ActivityReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     /**
-     * Filter by an Activity's friendly name.
+     * The `friendly_name` of the Activity resources to read..
      *
-     * @param friendlyName Filter by an Activity's friendly name
+     * @param friendlyName The friendly_name of the Activity resources to read
      * @return this
      */
     public ActivityReader setFriendlyName(final String friendlyName) {
@@ -45,11 +46,13 @@ public class ActivityReader extends Reader<Activity> {
     }
 
     /**
-     * Filter by activities that are available or unavailable. (Note: This can be
-     * 'true', '1'' or 'yes' to indicate a true value. All other values will
-     * represent false).
+     * Whether return only Activity resources that are available or unavailable. A
+     * value of `true` returns only available activities. Values of '1' or `yes`
+     * also indicate `true`. All other values represent `false` and return
+     * activities that are unavailable..
      *
-     * @param available Filter by activities that are available or unavailable.
+     * @param available Whether to return activities that are available or
+     *                  unavailable
      * @return this
      */
     public ActivityReader setAvailable(final String available) {

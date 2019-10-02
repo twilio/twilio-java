@@ -39,8 +39,9 @@ public class TaskQueueRealTimeStatistics extends Resource {
     /**
      * Create a TaskQueueRealTimeStatisticsFetcher to execute fetch.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathTaskQueueSid The task_queue_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskQueue to fetch
+     * @param pathTaskQueueSid The SID of the TaskQueue for which to fetch
+     *                         statistics
      * @return TaskQueueRealTimeStatisticsFetcher capable of executing the fetch
      */
     public static TaskQueueRealTimeStatisticsFetcher fetcher(final String pathWorkspaceSid,
@@ -139,18 +140,18 @@ public class TaskQueueRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The The SID of the Account that created the resource.
      *
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The current Worker status count breakdown by Activity.
+     * Returns The The number of current Workers by Activity.
      *
-     * @return The current Worker status count breakdown by Activity
+     * @return The number of current Workers by Activity
      */
     public final List<Map<String, Object>> getActivityStatistics() {
         return this.activityStatistics;
@@ -175,48 +176,48 @@ public class TaskQueueRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The task_queue_sid.
+     * Returns The The SID of the TaskQueue from which these statistics were
+     * calculated.
      *
-     * @return The task_queue_sid
+     * @return The SID of the TaskQueue from which these statistics were calculated
      */
     public final String getTaskQueueSid() {
         return this.taskQueueSid;
     }
 
     /**
-     * Returns The The Tasks broken down by priority.
+     * Returns The The number of Tasks by priority.
      *
-     * @return The Tasks broken down by priority
+     * @return The number of Tasks by priority
      */
     public final Map<String, Object> getTasksByPriority() {
         return this.tasksByPriority;
     }
 
     /**
-     * Returns The The Tasks broken down by status.
+     * Returns The The number of Tasks by their current status.
      *
-     * @return The Tasks broken down by status
+     * @return The number of Tasks by their current status
      */
     public final Map<String, Object> getTasksByStatus() {
         return this.tasksByStatus;
     }
 
     /**
-     * Returns The The total number of Workers available for Tasks in this
-     * TaskQueue.
+     * Returns The The total number of Workers available for Tasks in the TaskQueue.
      *
-     * @return The total number of Workers available for Tasks in this TaskQueue
+     * @return The total number of Workers available for Tasks in the TaskQueue
      */
     public final Integer getTotalAvailableWorkers() {
         return this.totalAvailableWorkers;
     }
 
     /**
-     * Returns The The total number of Workers eligible for Tasks in this TaskQueue,
-     * irrespective of Activity state..
+     * Returns The The total number of Workers eligible for Tasks in the TaskQueue,
+     * independent of their Activity state.
      *
-     * @return The total number of Workers eligible for Tasks in this TaskQueue,
-     *         irrespective of Activity state.
+     * @return The total number of Workers eligible for Tasks in the TaskQueue,
+     *         independent of their Activity state
      */
     public final Integer getTotalEligibleWorkers() {
         return this.totalEligibleWorkers;
@@ -232,18 +233,18 @@ public class TaskQueueRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The workspace_sid.
+     * Returns The The SID of the Workspace that contains the TaskQueue.
      *
-     * @return The workspace_sid
+     * @return The SID of the Workspace that contains the TaskQueue
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The The absolute URL of the TaskQueue statistics resource.
      *
-     * @return The url
+     * @return The absolute URL of the TaskQueue statistics resource
      */
     public final URI getUrl() {
         return this.url;

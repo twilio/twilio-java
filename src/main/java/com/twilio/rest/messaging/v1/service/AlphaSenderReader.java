@@ -29,7 +29,7 @@ public class AlphaSenderReader extends Reader<AlphaSender> {
     /**
      * Construct a new AlphaSenderReader.
      *
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid The SID of the Service to read the resources from
      */
     public AlphaSenderReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;

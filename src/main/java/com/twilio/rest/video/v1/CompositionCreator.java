@@ -42,18 +42,20 @@ public class CompositionCreator extends Creator<Composition> {
     /**
      * Construct a new CompositionCreator.
      *
-     * @param roomSid Twilio Room SID.
+     * @param roomSid The SID of the Group Room with the media tracks to be used as
+     *                composition sources
      */
     public CompositionCreator(final String roomSid) {
         this.roomSid = roomSid;
     }
 
     /**
-     * A JSON object defining the video layout of the Composition in terms of
-     * regions. See the section [Specifying Video
-     * Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) below for further information..
+     * An object that describes the video layout of the composition in terms of
+     * regions. See [Specifying Video
+     * Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info..
      *
-     * @param videoLayout The JSON video layout description.
+     * @param videoLayout An object that describes the video layout of the
+     *                    composition
      * @return this
      */
     public CompositionCreator setVideoLayout(final Map<String, Object> videoLayout) {
@@ -62,17 +64,15 @@ public class CompositionCreator extends Creator<Composition> {
     }
 
     /**
-     * An array of audio sources to merge. All the specified sources must belong to
-     * the same Group Room. It can include:
+     * An array of track names from the same group room to merge into the new
+     * composition. Can include zero or more track names. The new composition
+     * includes all audio sources specified in `audio_sources` except for those
+     * specified in `audio_sources_excluded`. The track names in this parameter can
+     * include an asterisk as a wild card character, which will match zero or more
+     * characters in a track name. For example, `student*` includes `student` as
+     * well as `studentTeam`..
      *
-     * * Zero or more `RecordingTrackSid`
-     * * Zero or more `MediaTrackSid`
-     * * Zero or more `ParticipantSid`
-     * * Zero or more Track names. These can be specified using wildcards (e.g.
-     * `student*`). The use of `[*]` has semantics "all if any" meaning zero or more
-     * (i.e. all) depending on whether the target room had audio tracks..
-     *
-     * @param audioSources A list of audio sources related to this Composition.
+     * @param audioSources An array of track names from the same group room to merge
      * @return this
      */
     public CompositionCreator setAudioSources(final List<String> audioSources) {
@@ -81,17 +81,15 @@ public class CompositionCreator extends Creator<Composition> {
     }
 
     /**
-     * An array of audio sources to merge. All the specified sources must belong to
-     * the same Group Room. It can include:
+     * An array of track names from the same group room to merge into the new
+     * composition. Can include zero or more track names. The new composition
+     * includes all audio sources specified in `audio_sources` except for those
+     * specified in `audio_sources_excluded`. The track names in this parameter can
+     * include an asterisk as a wild card character, which will match zero or more
+     * characters in a track name. For example, `student*` includes `student` as
+     * well as `studentTeam`..
      *
-     * * Zero or more `RecordingTrackSid`
-     * * Zero or more `MediaTrackSid`
-     * * Zero or more `ParticipantSid`
-     * * Zero or more Track names. These can be specified using wildcards (e.g.
-     * `student*`). The use of `[*]` has semantics "all if any" meaning zero or more
-     * (i.e. all) depending on whether the target room had audio tracks..
-     *
-     * @param audioSources A list of audio sources related to this Composition.
+     * @param audioSources An array of track names from the same group room to merge
      * @return this
      */
     public CompositionCreator setAudioSources(final String audioSources) {
@@ -99,19 +97,14 @@ public class CompositionCreator extends Creator<Composition> {
     }
 
     /**
-     * An array of audio sources to exclude from the Composition. Any new
-     * Composition shall include all audio sources specified in `AudioSources`
-     * except for the ones specified in `AudioSourcesExcluded`. This parameter may
-     * include:
+     * An array of track names to exclude. The new composition includes all audio
+     * sources specified in `audio_sources` except for those specified in
+     * `audio_sources_excluded`. The track names in this parameter can include an
+     * asterisk as a wild card character, which will match zero or more characters
+     * in a track name. For example, `student*` excludes `student` as well as
+     * `studentTeam`. This parameter can also be empty..
      *
-     * * Zero or more `RecordingTrackSid`
-     * * Zero or more `MediaTrackSid`
-     * * Zero or more `ParticipantSid`
-     * * Zero or more Track names. These can be specified using wildcards (e.g.
-     * `student*`).
-     *
-     * @param audioSourcesExcluded A list of audio sources excluded related to this
-     *                             Composition.
+     * @param audioSourcesExcluded An array of track names to exclude
      * @return this
      */
     public CompositionCreator setAudioSourcesExcluded(final List<String> audioSourcesExcluded) {
@@ -120,19 +113,14 @@ public class CompositionCreator extends Creator<Composition> {
     }
 
     /**
-     * An array of audio sources to exclude from the Composition. Any new
-     * Composition shall include all audio sources specified in `AudioSources`
-     * except for the ones specified in `AudioSourcesExcluded`. This parameter may
-     * include:
+     * An array of track names to exclude. The new composition includes all audio
+     * sources specified in `audio_sources` except for those specified in
+     * `audio_sources_excluded`. The track names in this parameter can include an
+     * asterisk as a wild card character, which will match zero or more characters
+     * in a track name. For example, `student*` excludes `student` as well as
+     * `studentTeam`. This parameter can also be empty..
      *
-     * * Zero or more `RecordingTrackSid`
-     * * Zero or more `MediaTrackSid`
-     * * Zero or more `ParticipantSid`
-     * * Zero or more Track names. These can be specified using wildcards (e.g.
-     * `student*`).
-     *
-     * @param audioSourcesExcluded A list of audio sources excluded related to this
-     *                             Composition.
+     * @param audioSourcesExcluded An array of track names to exclude
      * @return this
      */
     public CompositionCreator setAudioSourcesExcluded(final String audioSourcesExcluded) {
@@ -140,14 +128,13 @@ public class CompositionCreator extends Creator<Composition> {
     }
 
     /**
-     * A string representing the number of pixels for rows (width) and columns
-     * (height) of the generated composed video. This string must have the format
-     * `{width}x{height}`. This parameter must comply with the following
-     * constraints:
+     * A string that describes the columns (width) and rows (height) of the
+     * generated composed video in pixels. Defaults to `640x480`.
+     * The string's format is `{width}x{height}` where:
      *
-     * * `width &gt;= 16 &amp;&amp; width &lt;= 1280`
-     * * `height &gt;= 16 &amp;&amp; height &lt;= 1280`
-     * * `width * height &lt;= 921,600`
+     * * 16 &lt;= `{width}` &lt;= 1280
+     * * 16 &lt;= `{height}` &lt;= 1280
+     * * `{width}` * `{height}` &lt;= 921,600
      *
      * Typical values are:
      *
@@ -156,13 +143,13 @@ public class CompositionCreator extends Creator<Composition> {
      * * VGA = `640x480`
      * * CIF = `320x240`
      *
-     * Note that the `Resolution` implicitly imposes an aspect ratio to the
-     * resulting composition. When the original video tracks get constrained by this
-     * aspect ratio they are scaled-down to fit. You can find detailed information
-     * in the [Specifying Video
-     * Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) section. Defaults to `640x480`..
+     * Note that the `resolution` imposes an aspect ratio to the resulting
+     * composition. When the original video tracks are constrained by the aspect
+     * ratio, they are scaled to fit. See [Specifying Video
+     * Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info..
      *
-     * @param resolution Pixel resolution of the composed video.
+     * @param resolution A string that describes the columns (width) and rows
+     *                   (height) of the generated composed video in pixels
      * @return this
      */
     public CompositionCreator setResolution(final String resolution) {
@@ -171,13 +158,12 @@ public class CompositionCreator extends Creator<Composition> {
     }
 
     /**
-     * Container format of the Composition media file. Can be any of the following:
-     * `mp4`, `webm`. The use of `mp4` or `webm` makes mandatory the specification
-     * of `AudioSources` and/or one `VideoLayout` element containing a valid
-     * `video_sources` list, otherwise an error is fired. Defaults to `webm`..
+     * The container format of the composition's media files. Can be: `mp4` or
+     * `webm` and the default is `webm`. If you specify `mp4` or `webm`, you must
+     * also specify one or more `audio_sources` and/or a `video_layout` element that
+     * contains a valid `video_sources` list, otherwise an error occurs..
      *
-     * @param format Container format of the Composition media file. Any of the
-     *               following: `mp4`, `webm`.
+     * @param format The container format of the composition's media files
      * @return this
      */
     public CompositionCreator setFormat(final Composition.Format format) {
@@ -186,11 +172,12 @@ public class CompositionCreator extends Creator<Composition> {
     }
 
     /**
-     * A URL that Twilio sends asynchronous webhook requests to on every composition
-     * event. If not provided, status callback events will not be dispatched..
+     * The URL we should call using the `status_callback_method` to send status
+     * information to your application on every composition event. If not provided,
+     * status callback events will not be dispatched..
      *
-     * @param statusCallback A URL that Twilio sends asynchronous webhook requests
-     *                       to on every composition event.
+     * @param statusCallback The URL we should call to send status information to
+     *                       your application
      * @return this
      */
     public CompositionCreator setStatusCallback(final URI statusCallback) {
@@ -199,11 +186,12 @@ public class CompositionCreator extends Creator<Composition> {
     }
 
     /**
-     * A URL that Twilio sends asynchronous webhook requests to on every composition
-     * event. If not provided, status callback events will not be dispatched..
+     * The URL we should call using the `status_callback_method` to send status
+     * information to your application on every composition event. If not provided,
+     * status callback events will not be dispatched..
      *
-     * @param statusCallback A URL that Twilio sends asynchronous webhook requests
-     *                       to on every composition event.
+     * @param statusCallback The URL we should call to send status information to
+     *                       your application
      * @return this
      */
     public CompositionCreator setStatusCallback(final String statusCallback) {
@@ -211,11 +199,11 @@ public class CompositionCreator extends Creator<Composition> {
     }
 
     /**
-     * HTTP method Twilio should use when requesting the above URL. Defaults to
-     * `POST`..
+     * The HTTP method we should use to call `status_callback`. Can be: `POST` or
+     * `GET` and the default is `POST`..
      *
-     * @param statusCallbackMethod HTTP method Twilio should use when requesting
-     *                             the above URL.
+     * @param statusCallbackMethod The HTTP method we should use to call
+     *                             status_callback
      * @return this
      */
     public CompositionCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
@@ -224,14 +212,15 @@ public class CompositionCreator extends Creator<Composition> {
     }
 
     /**
-     * When activated, clips all the Composition intervals where there is no active
-     * media. This results in shorter compositions in cases when the Room was
-     * created but no Participant joined for some time, or if all the Participants
-     * left the room and joined at a later stage, as those gaps will be removed. You
-     * can find further information in the [Specifying Video
-     * Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) section. Defaults to `true`..
+     * Whether to clip the intervals where there is no active media in the
+     * composition. The default is `true`. Compositions with `trim` enabled are
+     * shorter when the Room is created and no Participant joins for a while as well
+     * as if all the Participants leave the room and join later, because those gaps
+     * will be removed. See [Specifying Video
+     * Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info..
      *
-     * @param trim Boolean flag for clipping intervals that have no media.
+     * @param trim Whether to clip the intervals where there is no active media in
+     *             the composition
      * @return this
      */
     public CompositionCreator setTrim(final Boolean trim) {

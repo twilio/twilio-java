@@ -162,7 +162,7 @@ public class CompositionHook extends Resource {
     private final String friendlyName;
     private final Boolean enabled;
     private final DateTime dateCreated;
-    private final String dateUpdated;
+    private final DateTime dateUpdated;
     private final String sid;
     private final List<String> audioSources;
     private final List<String> audioSourcesExcluded;
@@ -170,7 +170,7 @@ public class CompositionHook extends Resource {
     private final String resolution;
     private final Boolean trim;
     private final CompositionHook.Format format;
-    private final String statusCallback;
+    private final URI statusCallback;
     private final HttpMethod statusCallbackMethod;
     private final URI url;
 
@@ -200,7 +200,7 @@ public class CompositionHook extends Resource {
                             @JsonProperty("format")
                             final CompositionHook.Format format,
                             @JsonProperty("status_callback")
-                            final String statusCallback,
+                            final URI statusCallback,
                             @JsonProperty("status_callback_method")
                             final HttpMethod statusCallbackMethod,
                             @JsonProperty("url")
@@ -209,7 +209,7 @@ public class CompositionHook extends Resource {
         this.friendlyName = friendlyName;
         this.enabled = enabled;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateUpdated = dateUpdated;
+        this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.sid = sid;
         this.audioSources = audioSources;
         this.audioSourcesExcluded = audioSourcesExcluded;
@@ -264,7 +264,7 @@ public class CompositionHook extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
-    public final String getDateUpdated() {
+    public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -344,7 +344,7 @@ public class CompositionHook extends Resource {
      *
      * @return The URL to send status information to your application
      */
-    public final String getStatusCallback() {
+    public final URI getStatusCallback() {
         return this.statusCallback;
     }
 

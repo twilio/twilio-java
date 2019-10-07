@@ -202,9 +202,9 @@ public class Composition extends Resource {
                         @JsonProperty("date_created")
                         final String dateCreated,
                         @JsonProperty("date_completed")
-                        final DateTime dateCompleted,
+                        final String dateCompleted,
                         @JsonProperty("date_deleted")
-                        final DateTime dateDeleted,
+                        final String dateDeleted,
                         @JsonProperty("sid")
                         final String sid,
                         @JsonProperty("room_sid")

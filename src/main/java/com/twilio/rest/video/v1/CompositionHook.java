@@ -184,7 +184,7 @@ public class CompositionHook extends Resource {
                             @JsonProperty("date_created")
                             final String dateCreated,
                             @JsonProperty("date_updated")
-                            final DateTime dateUpdated,
+                            final String dateUpdated,
                             @JsonProperty("sid")
                             final String sid,
                             @JsonProperty("audio_sources")

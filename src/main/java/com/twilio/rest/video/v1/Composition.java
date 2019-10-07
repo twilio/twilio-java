@@ -178,8 +178,8 @@ public class Composition extends Resource {
     private final String accountSid;
     private final Composition.Status status;
     private final DateTime dateCreated;
-    private final String dateCompleted;
-    private final String dateDeleted;
+    private final DateTime dateCompleted;
+    private final DateTime dateDeleted;
     private final String sid;
     private final String roomSid;
     private final List<String> audioSources;
@@ -202,9 +202,9 @@ public class Composition extends Resource {
                         @JsonProperty("date_created")
                         final String dateCreated,
                         @JsonProperty("date_completed")
-                        final String dateCompleted,
+                        final DateTime dateCompleted,
                         @JsonProperty("date_deleted")
-                        final String dateDeleted,
+                        final DateTime dateDeleted,
                         @JsonProperty("sid")
                         final String sid,
                         @JsonProperty("room_sid")
@@ -234,8 +234,8 @@ public class Composition extends Resource {
         this.accountSid = accountSid;
         this.status = status;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateCompleted = dateCompleted;
-        this.dateDeleted = dateDeleted;
+        this.dateCompleted = DateConverter.iso8601DateTimeFromString(dateCompleted);
+        this.dateDeleted = DateConverter.iso8601DateTimeFromString(dateDeleted);
         this.sid = sid;
         this.roomSid = roomSid;
         this.audioSources = audioSources;
@@ -283,7 +283,7 @@ public class Composition extends Resource {
      *
      * @return Date when the media processing task finished
      */
-    public final String getDateCompleted() {
+    public final DateTime getDateCompleted() {
         return this.dateCompleted;
     }
 
@@ -294,7 +294,7 @@ public class Composition extends Resource {
      * @return The ISO 8601 date and time in GMT when the composition generated
      *         media was deleted
      */
-    public final String getDateDeleted() {
+    public final DateTime getDateDeleted() {
         return this.dateDeleted;
     }
 

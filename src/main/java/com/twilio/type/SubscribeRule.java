@@ -75,7 +75,7 @@ public class SubscribeRule {
 
     public enum Priority {
         LOW("low"),
-        MEDIUM("medium"),
+        STANDARD("standard"),
         HIGH("high");
 
         private final String value;

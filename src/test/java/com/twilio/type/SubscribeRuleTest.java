@@ -51,14 +51,14 @@ public class SubscribeRuleTest extends TypeTest {
                 "    \"track\": \"screen\",\n" +
                 "    \"kind\": \"video\",\n" +
                 "    \"publisher\": \"alice\",\n" +
-                "    \"priority\": \"medium\"\n" +
+                "    \"priority\": \"standard\"\n" +
                 "}";
 
         SubscribeRule r = fromJson(json, SubscribeRule.class);
         Assert.assertEquals(SubscribeRule.Type.EXCLUDE, r.getType());
         Assert.assertEquals(SubscribeRule.Kind.VIDEO, r.getKind());
         Assert.assertEquals("alice", r.getPublisher());
-        Assert.assertEquals(SubscribeRule.Priority.MEDIUM, r.getPriority());
+        Assert.assertEquals(SubscribeRule.Priority.STANDARD, r.getPriority());
         Assert.assertNull(r.getAll());
 
         Assert.assertTrue(convertsToAndFromJson(r, SubscribeRule.class));

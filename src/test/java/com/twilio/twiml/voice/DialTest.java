@@ -96,7 +96,7 @@ public class DialTest {
                     .maxParticipants(1)
                     .record(Conference.Record.DO_NOT_RECORD)
                     .region(Conference.Region.US1)
-                    .whisper("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+                    .coach("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
                     .trim(Conference.Trim.TRIM_SILENCE)
                     .statusCallbackEvents(Promoter.listOfOne(Conference.Event.START))
                     .statusCallback(URI.create("https://example.com"))
@@ -141,7 +141,7 @@ public class DialTest {
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Dial>" +
                 "<Client method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">identity</Client>" +
-                "<Conference beep=\"true\" endConferenceOnExit=\"true\" eventCallbackUrl=\"https://example.com\" maxParticipants=\"1\" muted=\"true\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" region=\"us1\" startConferenceOnEnter=\"true\" statusCallback=\"https://example.com\" statusCallbackEvent=\"start\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" waitMethod=\"GET\" waitUrl=\"https://example.com\" whisper=\"CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\">name</Conference>" +
+                "<Conference beep=\"true\" coach=\"CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" endConferenceOnExit=\"true\" eventCallbackUrl=\"https://example.com\" maxParticipants=\"1\" muted=\"true\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" region=\"us1\" startConferenceOnEnter=\"true\" statusCallback=\"https://example.com\" statusCallbackEvent=\"start\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" waitMethod=\"GET\" waitUrl=\"https://example.com\">name</Conference>" +
                 "<Number method=\"GET\" sendDigits=\"send_digits\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">+15017122661</Number>" +
                 "<Queue method=\"GET\" postWorkActivitySid=\"post_work_activity_sid\" reservationSid=\"reservation_sid\" url=\"https://example.com\">name</Queue>" +
                 "<Sim>DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</Sim>" +

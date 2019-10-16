@@ -133,7 +133,7 @@ public class Conference extends TwiML {
     private final Integer maxParticipants;
     private final Conference.Record record;
     private final Conference.Region region;
-    private final String whisper;
+    private final String coach;
     private final Conference.Trim trim;
     private final List<Conference.Event> statusCallbackEvent;
     private final URI statusCallback;
@@ -165,7 +165,7 @@ public class Conference extends TwiML {
         this.maxParticipants = b.maxParticipants;
         this.record = b.record;
         this.region = b.region;
-        this.whisper = b.whisper;
+        this.coach = b.coach;
         this.trim = b.trim;
         this.statusCallbackEvent = b.statusCallbackEvent;
         this.statusCallback = b.statusCallback;
@@ -222,8 +222,8 @@ public class Conference extends TwiML {
         if (this.getRegion() != null) {
             attrs.put("region", this.getRegion().toString());
         }
-        if (this.getWhisper() != null) {
-            attrs.put("whisper", this.getWhisper());
+        if (this.getCoach() != null) {
+            attrs.put("coach", this.getCoach());
         }
         if (this.getTrim() != null) {
             attrs.put("trim", this.getTrim().toString());
@@ -335,12 +335,12 @@ public class Conference extends TwiML {
     }
 
     /**
-     * Call whisper
+     * Call coach
      *
-     * @return Call whisper
+     * @return Call coach
      */
-    public String getWhisper() {
-        return whisper;
+    public String getCoach() {
+        return coach;
     }
 
     /**
@@ -461,7 +461,7 @@ public class Conference extends TwiML {
         private Integer maxParticipants;
         private Conference.Record record;
         private Conference.Region region;
-        private String whisper;
+        private String coach;
         private Conference.Trim trim;
         private List<Conference.Event> statusCallbackEvent;
         private URI statusCallback;
@@ -560,10 +560,10 @@ public class Conference extends TwiML {
         }
 
         /**
-         * Call whisper
+         * Call coach
          */
-        public Builder whisper(String whisper) {
-            this.whisper = whisper;
+        public Builder coach(String coach) {
+            this.coach = coach;
             return this;
         }
 

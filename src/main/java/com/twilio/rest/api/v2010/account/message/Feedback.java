@@ -38,7 +38,7 @@ public class Feedback extends Resource {
 
     public enum Outcome {
         CONFIRMED("confirmed"),
-        UMCONFIRMED("umconfirmed");
+        UNCONFIRMED("unconfirmed");
 
         private final String value;
 

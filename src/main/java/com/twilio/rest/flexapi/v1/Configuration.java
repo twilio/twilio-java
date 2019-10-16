@@ -37,7 +37,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Configuration extends Resource {
-    private static final long serialVersionUID = 221111822220476L;
+    private static final long serialVersionUID = 107853613982384L;
 
     public enum Status {
         OK("ok"),
@@ -162,7 +162,6 @@ public class Configuration extends Resource {
     private final Map<String, Object> pluginServiceAttributes;
     private final List<Map<String, Object>> integrations;
     private final Map<String, Object> outboundCallFlows;
-    private final List<String> featuresEnabled;
     private final List<String> serverlessServiceSids;
     private final URI url;
 
@@ -231,8 +230,6 @@ public class Configuration extends Resource {
                           final List<Map<String, Object>> integrations,
                           @JsonProperty("outbound_call_flows")
                           final Map<String, Object> outboundCallFlows,
-                          @JsonProperty("features_enabled")
-                          final List<String> featuresEnabled,
                           @JsonProperty("serverless_service_sids")
                           final List<String> serverlessServiceSids,
                           @JsonProperty("url")
@@ -269,7 +266,6 @@ public class Configuration extends Resource {
         this.pluginServiceAttributes = pluginServiceAttributes;
         this.integrations = integrations;
         this.outboundCallFlows = outboundCallFlows;
-        this.featuresEnabled = featuresEnabled;
         this.serverlessServiceSids = serverlessServiceSids;
         this.url = url;
     }
@@ -571,15 +567,6 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The list of enabled features.
-     *
-     * @return The list of enabled features
-     */
-    public final List<String> getFeaturesEnabled() {
-        return this.featuresEnabled;
-    }
-
-    /**
      * Returns The The list of serverless service SIDs.
      *
      * @return The list of serverless service SIDs
@@ -641,7 +628,6 @@ public class Configuration extends Resource {
                Objects.equals(pluginServiceAttributes, other.pluginServiceAttributes) &&
                Objects.equals(integrations, other.integrations) &&
                Objects.equals(outboundCallFlows, other.outboundCallFlows) &&
-               Objects.equals(featuresEnabled, other.featuresEnabled) &&
                Objects.equals(serverlessServiceSids, other.serverlessServiceSids) &&
                Objects.equals(url, other.url);
     }
@@ -680,7 +666,6 @@ public class Configuration extends Resource {
                             pluginServiceAttributes,
                             integrations,
                             outboundCallFlows,
-                            featuresEnabled,
                             serverlessServiceSids,
                             url);
     }
@@ -720,7 +705,6 @@ public class Configuration extends Resource {
                           .add("pluginServiceAttributes", pluginServiceAttributes)
                           .add("integrations", integrations)
                           .add("outboundCallFlows", outboundCallFlows)
-                          .add("featuresEnabled", featuresEnabled)
                           .add("serverlessServiceSids", serverlessServiceSids)
                           .add("url", url)
                           .toString();

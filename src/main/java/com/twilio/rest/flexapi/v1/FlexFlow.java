@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FlexFlow extends Resource {
-    private static final long serialVersionUID = 227807363812436L;
+    private static final long serialVersionUID = 100371261398167L;
 
     public enum ChannelType {
         WEB("web"),
@@ -196,6 +196,7 @@ public class FlexFlow extends Resource {
     private final FlexFlow.IntegrationType integrationType;
     private final Map<String, Object> integration;
     private final Boolean longLived;
+    private final Boolean janitorEnabled;
     private final URI url;
 
     @JsonCreator
@@ -223,6 +224,8 @@ public class FlexFlow extends Resource {
                      final Map<String, Object> integration,
                      @JsonProperty("long_lived")
                      final Boolean longLived,
+                     @JsonProperty("janitor_enabled")
+                     final Boolean janitorEnabled,
                      @JsonProperty("url")
                      final URI url) {
         this.accountSid = accountSid;
@@ -237,6 +240,7 @@ public class FlexFlow extends Resource {
         this.integrationType = integrationType;
         this.integration = integration;
         this.longLived = longLived;
+        this.janitorEnabled = janitorEnabled;
         this.url = url;
     }
 
@@ -350,6 +354,15 @@ public class FlexFlow extends Resource {
     }
 
     /**
+     * Returns The Boolean flag for enabling or disabling the Janitor.
+     *
+     * @return Boolean flag for enabling or disabling the Janitor
+     */
+    public final Boolean getJanitorEnabled() {
+        return this.janitorEnabled;
+    }
+
+    /**
      * Returns The The absolute URL of the FlexFlow resource.
      *
      * @return The absolute URL of the FlexFlow resource
@@ -382,6 +395,7 @@ public class FlexFlow extends Resource {
                Objects.equals(integrationType, other.integrationType) &&
                Objects.equals(integration, other.integration) &&
                Objects.equals(longLived, other.longLived) &&
+               Objects.equals(janitorEnabled, other.janitorEnabled) &&
                Objects.equals(url, other.url);
     }
 
@@ -399,6 +413,7 @@ public class FlexFlow extends Resource {
                             integrationType,
                             integration,
                             longLived,
+                            janitorEnabled,
                             url);
     }
 
@@ -417,6 +432,7 @@ public class FlexFlow extends Resource {
                           .add("integrationType", integrationType)
                           .add("integration", integration)
                           .add("longLived", longLived)
+                          .add("janitorEnabled", janitorEnabled)
                           .add("url", url)
                           .toString();
     }

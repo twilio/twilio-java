@@ -37,6 +37,7 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     private Integer integrationPriority;
     private Boolean integrationCreationOnMessage;
     private Boolean longLived;
+    private Boolean janitorEnabled;
 
     /**
      * Construct a new FlexFlowUpdater.
@@ -229,6 +230,17 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
+     * Boolean flag for enabling or disabling the Janitor.
+     *
+     * @param janitorEnabled Boolean flag for enabling or disabling the Janitor
+     * @return this
+     */
+    public FlexFlowUpdater setJanitorEnabled(final Boolean janitorEnabled) {
+        this.janitorEnabled = janitorEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -331,6 +343,10 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
 
         if (longLived != null) {
             request.addPostParam("LongLived", longLived.toString());
+        }
+
+        if (janitorEnabled != null) {
+            request.addPostParam("JanitorEnabled", janitorEnabled.toString());
         }
     }
 }

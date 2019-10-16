@@ -1,6 +1,30 @@
 twilio-java changelog
 =====================
 
+[2019-10-16] Version 7.44.0
+---------------------------
+**Library**
+- [PR #483](https://github.com/twilio/twilio-java/pull/483): VIDEO-2338 TrackPriority.STANDARD before GA. Thanks to [@innerverse](https://github.com/innerverse)!
+- [PR #482](https://github.com/twilio/twilio-java/pull/482): breaking: Correct video composition date and callback types. Thanks to [@childish-sambino](https://github.com/childish-sambino)! **(breaking change)**
+
+**Api**
+- Add new property `attempt` to sms_messages
+- Fixed a typo in the documentation for Feedback outcome enum **(breaking change)**
+- Update the call price to be optional for deserializing **(breaking change)**
+
+**Flex**
+- Added `JanitorEnabled` attribute to Flex Flow
+- Change `features_enabled` Flex Configuration key to private **(breaking change)**
+
+**Supersim**
+- Add Fetch endpoint to Fleets resource for Super Sim Pilot
+- Allow assigning a Sim to a Fleet for Super Sim Pilot
+- Add Create endpoint to Fleets resource for Super Sim Pilot
+
+**Twiml**
+- Update `<Conference>` rename "whisper" attribute to "coach" **(breaking change)**
+
+
 [2019-10-02] Version 7.43.1
 ---------------------------
 **Library**

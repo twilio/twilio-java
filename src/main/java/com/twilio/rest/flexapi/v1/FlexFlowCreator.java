@@ -36,6 +36,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     private Integer integrationPriority;
     private Boolean integrationCreationOnMessage;
     private Boolean longLived;
+    private Boolean janitorEnabled;
 
     /**
      * Construct a new FlexFlowCreator.
@@ -201,6 +202,17 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
+     * Boolean flag for enabling or disabling the Janitor.
+     *
+     * @param janitorEnabled Boolean flag for enabling or disabling the Janitor
+     * @return this
+     */
+    public FlexFlowCreator setJanitorEnabled(final Boolean janitorEnabled) {
+        this.janitorEnabled = janitorEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -303,6 +315,10 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
 
         if (longLived != null) {
             request.addPostParam("LongLived", longLived.toString());
+        }
+
+        if (janitorEnabled != null) {
+            request.addPostParam("JanitorEnabled", janitorEnabled.toString());
         }
     }
 }

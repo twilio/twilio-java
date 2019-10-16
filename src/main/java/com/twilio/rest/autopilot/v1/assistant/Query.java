@@ -231,10 +231,10 @@ public class Query extends Resource {
 
     /**
      * Returns The The natural language analysis results that include the Task
-     * recognized, the confidence score, and a list of identified Fields.
+     * recognized and a list of identified Fields.
      *
      * @return The natural language analysis results that include the Task
-     *         recognized, the confidence score, and a list of identified Fields
+     *         recognized and a list of identified Fields
      */
     public final Map<String, Object> getResults() {
         return this.results;

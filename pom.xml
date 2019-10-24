@@ -67,6 +67,73 @@
         </plugins>
       </build>
     </profile>
+
+    <profile>
+      <id>release</id>
+      <activation>
+          <property>
+              <name>release</name>
+          </property>
+      </activation>
+      <build>
+          <plugins>
+              <!-- To release to Maven central -->
+              <plugin>
+                  <groupid>org.sonatype.plugins</groupid>
+                  <artifactid>nexus-staging-maven-plugin</artifactid>
+                  <version>1.6.8</version>
+                  <extensions>true</extensions>
+                  <configuration>
+                      <serverid>ossrh</serverid>
+                      <nexusurl>https://oss.sonatype.org/</nexusurl>
+                      <autoreleaseafterclose>true</autoreleaseafterclose>
+                  </configuration>
+              </plugin>
+              <!-- To generate javadoc -->
+              <plugin>
+                  <groupid>org.apache.maven.plugins</groupid>
+                  <artifactid>maven-source-plugin</artifactid>
+                  <version>3.0.1</version>
+                  <executions>
+                      <execution>
+                          <id>attach-sources</id>
+                          <goals>
+                              <goal>jar-no-fork</goal>
+                          </goals>
+                      </execution>
+                  </executions>
+              </plugin>
+              <plugin>
+                  <groupid>org.apache.maven.plugins</groupid>
+                  <artifactid>maven-javadoc-plugin</artifactid>
+                  <version>2.10.4</version>
+                  <executions>
+                      <execution>
+                          <id>attach-javadocs</id>
+                          <goals>
+                              <goal>jar</goal>
+                          </goals>
+                      </execution>
+                  </executions>
+              </plugin>
+              <!-- To sign the artifacts -->
+              <plugin>
+                  <groupid>org.apache.maven.plugins</groupid>
+                  <artifactid>maven-gpg-plugin</artifactid>
+                  <version>1.6</version>
+                  <executions>
+                      <execution>
+                          <id>sign-artifacts</id>
+                          <phase>verify</phase>
+                          <goals>
+                              <goal>sign</goal>
+                          </goals>
+                      </execution>
+                  </executions>
+              </plugin>
+          </plugins>
+      </build>
+    </profile>
   </profiles>
 
   <properties>

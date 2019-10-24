@@ -39,13 +39,13 @@ notifications:
 ## export GPG details
 before_install:
     if [[ "$TRAVIS_BRANCH" == "master" ]]; then
-      echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
-      echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
+      echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import &&
+      echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust;
     fi
   
 install:
     if [[ "$TRAVIS_BRANCH" == "master" ]]; then
-      mvn --settings .maven.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
+      mvn --settings .maven.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V;
     fi
 
 deploy:

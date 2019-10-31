@@ -207,7 +207,7 @@ public class CallCreator extends Creator<Call> {
      * specified, we send the `completed` status. If you want to receive multiple
      * events, specify each one in a separate `status_callback_event` parameter. See
      * the code sample for [monitoring call
-     * progress](https://www.twilio.com/docs/voice/api/call?code-sample=code-create-a-call-and-specify-a-statuscallbackevent). If an `application_sid` is present, this parameter is ignored..
+     * progress](https://www.twilio.com/docs/voice/api/call-resource?code-sample=code-create-a-call-resource-and-specify-a-statuscallbackevent&amp;code-sdk-version=json). If an `application_sid` is present, this parameter is ignored..
      *
      * @param statusCallbackEvent The call progress events that we send to the
      *                            `status_callback` URL.
@@ -224,7 +224,7 @@ public class CallCreator extends Creator<Call> {
      * specified, we send the `completed` status. If you want to receive multiple
      * events, specify each one in a separate `status_callback_event` parameter. See
      * the code sample for [monitoring call
-     * progress](https://www.twilio.com/docs/voice/api/call?code-sample=code-create-a-call-and-specify-a-statuscallbackevent). If an `application_sid` is present, this parameter is ignored..
+     * progress](https://www.twilio.com/docs/voice/api/call-resource?code-sample=code-create-a-call-resource-and-specify-a-statuscallbackevent&amp;code-sdk-version=json). If an `application_sid` is present, this parameter is ignored..
      *
      * @param statusCallbackEvent The call progress events that we send to the
      *                            `status_callback` URL.
@@ -283,10 +283,11 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * Set this parameter to `true` to record the phone call. The `recording_url`
-     * will be sent to the `status_callback` URL. The default is `false`..
+     * Whether to record the call. Can be `true` to record the phone call, or
+     * `false` to not. The default is `false`. The `recording_url` is sent to the
+     * `status_callback` URL..
      *
-     * @param record Whether or not to record the call
+     * @param record Whether to record the call
      * @return this
      */
     public CallCreator setRecord(final Boolean record) {
@@ -361,9 +362,9 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * Detect if a human, answering machine, or fax has picked up the call. Can be:
-     * `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return
-     * `AnsweredBy` as soon as the called party is identified. Use
+     * Whether to detect if a human, answering machine, or fax has picked up the
+     * call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like
+     * us to return `AnsweredBy` as soon as the called party is identified. Use
      * `DetectMessageEnd`, if you would like to leave a message on an answering
      * machine. If `send_digits` is provided, this parameter is ignored. For more
      * information, see [Answering Machine

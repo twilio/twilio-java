@@ -27,7 +27,7 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * The `sid` or `unique_name` of the [Sim
-     * resources](https://www.twilio.com/docs/wireless/api/sim) to read..
+     * resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read..
      *
      * @param sim The sid or unique_name of the Sim resources to read
      * @return this

@@ -214,7 +214,7 @@ public class Call extends Resource {
      *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       fetch
-     * @param pathSid The unique string that identifies this resource
+     * @param pathSid The SID of the Call resource to fetch
      * @return CallFetcher capable of executing the fetch
      */
     public static CallFetcher fetcher(final String pathAccountSid,
@@ -225,7 +225,7 @@ public class Call extends Resource {
     /**
      * Create a CallFetcher to execute fetch.
      *
-     * @param pathSid The unique string that identifies this resource
+     * @param pathSid The SID of the Call resource to fetch
      * @return CallFetcher capable of executing the fetch
      */
     public static CallFetcher fetcher(final String pathSid) {

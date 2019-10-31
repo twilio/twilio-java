@@ -82,7 +82,8 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * Whether token identities in the Service must be granted access to Sync
      * objects by using the
-     * [Permissions](https://www.twilio.com/docs/sync/api/permissions) resource..
+     * [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions)
+     * resource..
      *
      * @param aclEnabled Whether token identities in the Service must be granted
      *                   access to Sync objects by using the Permissions resource

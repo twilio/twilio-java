@@ -39,11 +39,12 @@ public class SimUpdater extends Updater<Sim> {
     private HttpMethod voiceMethod;
     private URI voiceUrl;
     private Sim.ResetStatus resetStatus;
+    private String accountSid;
 
     /**
      * Construct a new SimUpdater.
      *
-     * @param pathSid The SID that identifies the resource to update
+     * @param pathSid The SID of the Sim resource to update
      */
     public SimUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -63,10 +64,10 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The HTTP method we use to call `callback_url`. Can be: `POST` or `GET`, and
-     * the default is `POST`..
+     * The HTTP method we should use to call `callback_url`. Can be: `POST` or
+     * `GET`. The default is `POST`..
      *
-     * @param callbackMethod The HTTP method we use to call callback_url
+     * @param callbackMethod The HTTP method we should use to call callback_url
      * @return this
      */
     public SimUpdater setCallbackMethod(final HttpMethod callbackMethod) {
@@ -75,13 +76,14 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The URL we call using the `callback_url` when the SIM has finished updating.
-     * When the SIM transitions from `new` to `ready` or from any status to
-     * `deactivated`, we call this URL when the status changes to an intermediate
+     * The URL we should call using the `callback_url` when the SIM has finished
+     * updating. When the SIM transitions from `new` to `ready` or from any status
+     * to `deactivated`, we call this URL when the status changes to an intermediate
      * status (`ready` or `deactivated`) and again when the status changes to its
      * final status (`active` or `canceled`)..
      *
-     * @param callbackUrl The URL we call when the SIM has finished updating
+     * @param callbackUrl The URL we should call when the Sim resource has finished
+     *                    updating
      * @return this
      */
     public SimUpdater setCallbackUrl(final URI callbackUrl) {
@@ -90,13 +92,14 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The URL we call using the `callback_url` when the SIM has finished updating.
-     * When the SIM transitions from `new` to `ready` or from any status to
-     * `deactivated`, we call this URL when the status changes to an intermediate
+     * The URL we should call using the `callback_url` when the SIM has finished
+     * updating. When the SIM transitions from `new` to `ready` or from any status
+     * to `deactivated`, we call this URL when the status changes to an intermediate
      * status (`ready` or `deactivated`) and again when the status changes to its
      * final status (`active` or `canceled`)..
      *
-     * @param callbackUrl The URL we call when the SIM has finished updating
+     * @param callbackUrl The URL we should call when the Sim resource has finished
+     *                    updating
      * @return this
      */
     public SimUpdater setCallbackUrl(final String callbackUrl) {
@@ -104,10 +107,10 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * A descriptive string that you create to describe the resource. It does not
-     * need to be unique..
+     * A descriptive string that you create to describe the Sim resource. It does
+     * not need to be unique..
      *
-     * @param friendlyName A string to describe the resource
+     * @param friendlyName A string to describe the Sim resource
      * @return this
      */
     public SimUpdater setFriendlyName(final String friendlyName) {
@@ -116,12 +119,12 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The `sid` or `unique_name` of the [RatePlan
-     * resource](https://www.twilio.com/docs/wireless/api/rate-plan) that this SIM
-     * should use..
+     * The SID or unique name of the [RatePlan
+     * resource](https://www.twilio.com/docs/wireless/api/rateplan-resource) to
+     * which the Sim resource should be assigned..
      *
-     * @param ratePlan The sid or unique_name of the RatePlan resource that this
-     *                 SIM should use
+     * @param ratePlan The SID or unique name of the RatePlan resource to which the
+     *                 Sim resource should be assigned
      * @return this
      */
     public SimUpdater setRatePlan(final String ratePlan) {
@@ -130,10 +133,10 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The new status of the resource. Can be: `ready`, `active`, `suspended` or
-     * `deactivated`; however the SIM might support additional values..
+     * The new status of the Sim resource. Can be: `ready`, `active`, `suspended`,
+     * or `deactivated`..
      *
-     * @param status The new status of the resource
+     * @param status The new status of the Sim resource
      * @return this
      */
     public SimUpdater setStatus(final Sim.Status status) {
@@ -142,10 +145,10 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The HTTP method we use to call `commands_callback_url`.  Can be: `POST` or
-     * `GET`, and the default is `POST`..
+     * The HTTP method we should use to call `commands_callback_url`. Can be: `POST`
+     * or `GET`. The default is `POST`..
      *
-     * @param commandsCallbackMethod The HTTP method we use to call
+     * @param commandsCallbackMethod The HTTP method we should use to call
      *                               commands_callback_url
      * @return this
      */
@@ -155,12 +158,13 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The URL we call using the `commands_callback_method` when the SIM originates
-     * a [Command](https://www.twilio.com/docs/wireless/api/commands). Your server
-     * should respond with an HTTP status code in the 200 range; any response body
-     * is ignored..
+     * The URL we should call using the `commands_callback_method` when the SIM
+     * sends a [Command](https://www.twilio.com/docs/wireless/api/command-resource).
+     * Your server should respond with an HTTP status code in the 200 range; any
+     * response body is ignored..
      *
-     * @param commandsCallbackUrl he URL we call when the SIM originates a Command
+     * @param commandsCallbackUrl The URL we should call when the SIM sends a
+     *                            Command
      * @return this
      */
     public SimUpdater setCommandsCallbackUrl(final URI commandsCallbackUrl) {
@@ -169,12 +173,13 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The URL we call using the `commands_callback_method` when the SIM originates
-     * a [Command](https://www.twilio.com/docs/wireless/api/commands). Your server
-     * should respond with an HTTP status code in the 200 range; any response body
-     * is ignored..
+     * The URL we should call using the `commands_callback_method` when the SIM
+     * sends a [Command](https://www.twilio.com/docs/wireless/api/command-resource).
+     * Your server should respond with an HTTP status code in the 200 range; any
+     * response body is ignored..
      *
-     * @param commandsCallbackUrl he URL we call when the SIM originates a Command
+     * @param commandsCallbackUrl The URL we should call when the SIM sends a
+     *                            Command
      * @return this
      */
     public SimUpdater setCommandsCallbackUrl(final String commandsCallbackUrl) {
@@ -182,9 +187,11 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The HTTP method we use to call `sms_fallback_url`. Can be: `GET` or `POST`..
+     * The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or
+     * `POST`. Default is `POST`..
      *
-     * @param smsFallbackMethod The HTTP method we use to call sms_fallback_url
+     * @param smsFallbackMethod The HTTP method we should use to call
+     *                          sms_fallback_url
      * @return this
      */
     public SimUpdater setSmsFallbackMethod(final HttpMethod smsFallbackMethod) {
@@ -193,11 +200,12 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The URL we call using the `sms_fallback_method` when an error occurs while
-     * retrieving or executing the TwiML requested from `sms_url`..
+     * The URL we should call using the `sms_fallback_method` when an error occurs
+     * while retrieving or executing the TwiML requested from `sms_url`..
      *
-     * @param smsFallbackUrl The URL we call when an error occurs while retrieving
-     *                       or executing the TwiML requested from sms_url
+     * @param smsFallbackUrl The URL we should call when an error occurs while
+     *                       retrieving or executing the TwiML requested from
+     *                       sms_url
      * @return this
      */
     public SimUpdater setSmsFallbackUrl(final URI smsFallbackUrl) {
@@ -206,11 +214,12 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The URL we call using the `sms_fallback_method` when an error occurs while
-     * retrieving or executing the TwiML requested from `sms_url`..
+     * The URL we should call using the `sms_fallback_method` when an error occurs
+     * while retrieving or executing the TwiML requested from `sms_url`..
      *
-     * @param smsFallbackUrl The URL we call when an error occurs while retrieving
-     *                       or executing the TwiML requested from sms_url
+     * @param smsFallbackUrl The URL we should call when an error occurs while
+     *                       retrieving or executing the TwiML requested from
+     *                       sms_url
      * @return this
      */
     public SimUpdater setSmsFallbackUrl(final String smsFallbackUrl) {
@@ -218,9 +227,10 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The HTTP method we use to call `sms_url`. Can be: `GET` or `POST`..
+     * The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
+     * Default is `POST`..
      *
-     * @param smsMethod The HTTP method we use to call sms_url
+     * @param smsMethod The HTTP method we should use to call sms_url
      * @return this
      */
     public SimUpdater setSmsMethod(final HttpMethod smsMethod) {
@@ -229,12 +239,12 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The URL we call using the `sms_method` when the SIM-connected device sends an
-     * SMS message that is not a
-     * [Command](https://www.twilio.com/docs/wireless/api/commands)..
+     * The URL we should call using the `sms_method` when the SIM-connected device
+     * sends an SMS message that is not a
+     * [Command](https://www.twilio.com/docs/wireless/api/command-resource)..
      *
-     * @param smsUrl The URL we call when the SIM-connected device sends an SMS
-     *               message that is not a Command
+     * @param smsUrl The URL we should call when the SIM-connected device sends an
+     *               SMS message that is not a Command
      * @return this
      */
     public SimUpdater setSmsUrl(final URI smsUrl) {
@@ -243,12 +253,12 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The URL we call using the `sms_method` when the SIM-connected device sends an
-     * SMS message that is not a
-     * [Command](https://www.twilio.com/docs/wireless/api/commands)..
+     * The URL we should call using the `sms_method` when the SIM-connected device
+     * sends an SMS message that is not a
+     * [Command](https://www.twilio.com/docs/wireless/api/command-resource)..
      *
-     * @param smsUrl The URL we call when the SIM-connected device sends an SMS
-     *               message that is not a Command
+     * @param smsUrl The URL we should call when the SIM-connected device sends an
+     *               SMS message that is not a Command
      * @return this
      */
     public SimUpdater setSmsUrl(final String smsUrl) {
@@ -256,10 +266,11 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The HTTP method we use to call `voice_fallback_url`. Can be: `GET` or
+     * The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or
      * `POST`..
      *
-     * @param voiceFallbackMethod The HTTP method we use to call voice_fallback_url
+     * @param voiceFallbackMethod The HTTP method we should use to call
+     *                            voice_fallback_url
      * @return this
      */
     public SimUpdater setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod) {
@@ -268,10 +279,10 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The URL we call using the `voice_fallback_method` when an error occurs while
-     * retrieving or executing the TwiML requested from `voice_url`..
+     * The URL we should call using the `voice_fallback_method` when an error occurs
+     * while retrieving or executing the TwiML requested from `voice_url`..
      *
-     * @param voiceFallbackUrl The URL we call when an error occurs while
+     * @param voiceFallbackUrl The URL we should call when an error occurs while
      *                         retrieving or executing the TwiML requested from
      *                         voice_url
      * @return this
@@ -282,10 +293,10 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The URL we call using the `voice_fallback_method` when an error occurs while
-     * retrieving or executing the TwiML requested from `voice_url`..
+     * The URL we should call using the `voice_fallback_method` when an error occurs
+     * while retrieving or executing the TwiML requested from `voice_url`..
      *
-     * @param voiceFallbackUrl The URL we call when an error occurs while
+     * @param voiceFallbackUrl The URL we should call when an error occurs while
      *                         retrieving or executing the TwiML requested from
      *                         voice_url
      * @return this
@@ -295,9 +306,10 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The HTTP method we use when we call `voice_url`. Can be: `GET` or `POST`..
+     * The HTTP method we should use when we call `voice_url`. Can be: `GET` or
+     * `POST`..
      *
-     * @param voiceMethod The HTTP method we use when we call voice_url
+     * @param voiceMethod The HTTP method we should use when we call voice_url
      * @return this
      */
     public SimUpdater setVoiceMethod(final HttpMethod voiceMethod) {
@@ -306,11 +318,11 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The URL we call using the `voice_method` when the SIM-connected device makes
-     * a voice call..
+     * The URL we should call using the `voice_method` when the SIM-connected device
+     * makes a voice call..
      *
-     * @param voiceUrl The URL we call when the SIM-connected device makes a voice
-     *                 call
+     * @param voiceUrl The URL we should call when the SIM-connected device makes a
+     *                 voice call
      * @return this
      */
     public SimUpdater setVoiceUrl(final URI voiceUrl) {
@@ -319,11 +331,11 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The URL we call using the `voice_method` when the SIM-connected device makes
-     * a voice call..
+     * The URL we should call using the `voice_method` when the SIM-connected device
+     * makes a voice call..
      *
-     * @param voiceUrl The URL we call when the SIM-connected device makes a voice
-     *                 call
+     * @param voiceUrl The URL we should call when the SIM-connected device makes a
+     *                 voice call
      * @return this
      */
     public SimUpdater setVoiceUrl(final String voiceUrl) {
@@ -339,6 +351,24 @@ public class SimUpdater extends Updater<Sim> {
      */
     public SimUpdater setResetStatus(final Sim.ResetStatus resetStatus) {
         this.resetStatus = resetStatus;
+        return this;
+    }
+
+    /**
+     * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to
+     * which the Sim resource should belong. The Account SID can only be that of the
+     * requesting Account or that of a
+     * [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the
+     * requesting Account. Only valid when the Sim resource's status is `new`. For
+     * more information, see the [Move SIMs between Subaccounts
+     * documentation](https://www.twilio.com/docs/wireless/api/sim-resource#move-sims-between-subaccounts)..
+     *
+     * @param accountSid The SID of the Account to which the Sim resource should
+     *                   belong
+     * @return this
+     */
+    public SimUpdater setAccountSid(final String accountSid) {
+        this.accountSid = accountSid;
         return this;
     }
 
@@ -453,6 +483,10 @@ public class SimUpdater extends Updater<Sim> {
 
         if (resetStatus != null) {
             request.addPostParam("ResetStatus", resetStatus.toString());
+        }
+
+        if (accountSid != null) {
+            request.addPostParam("AccountSid", accountSid.toString());
         }
     }
 }

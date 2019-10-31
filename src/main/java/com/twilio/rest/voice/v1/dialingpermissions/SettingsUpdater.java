@@ -26,10 +26,10 @@ public class SettingsUpdater extends Updater<Settings> {
     private Boolean dialingPermissionsInheritance;
 
     /**
-     * `true` for this sub-account to inherit voice dialing permissions from the
+     * `true` for the sub-account to inherit voice dialing permissions from the
      * Master Project; otherwise `false`..
      *
-     * @param dialingPermissionsInheritance `true` for this sub-account to inherit
+     * @param dialingPermissionsInheritance `true` for the sub-account to inherit
      *                                      voice dialing permissions from the
      *                                      Master Project; otherwise `false`
      * @return this

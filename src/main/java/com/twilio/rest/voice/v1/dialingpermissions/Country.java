@@ -146,18 +146,18 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The Name of the country.
+     * Returns The The name of the country.
      *
-     * @return Name of the country
+     * @return The name of the country
      */
     public final String getName() {
         return this.name;
     }
 
     /**
-     * Returns The Name of the continent.
+     * Returns The The name of the continent in which the country is located.
      *
-     * @return Name of the continent
+     * @return The name of the continent in which the country is located
      */
     public final String getContinent() {
         return this.continent;
@@ -173,30 +173,28 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The `true`, if dialing to low-risk numbers is enabled, else `false`.
+     * Returns The Whether dialing to low-risk numbers is enabled.
      *
-     * @return `true`, if dialing to low-risk numbers is enabled, else `false`
+     * @return Whether dialing to low-risk numbers is enabled
      */
     public final Boolean getLowRiskNumbersEnabled() {
         return this.lowRiskNumbersEnabled;
     }
 
     /**
-     * Returns The `true`, if dialing to high-risk special services numbers is
-     * enabled, else `false`.
+     * Returns The Whether dialing to high-risk special services numbers is enabled.
      *
-     * @return `true`, if dialing to high-risk special services numbers is enabled,
-     *         else `false`
+     * @return Whether dialing to high-risk special services numbers is enabled
      */
     public final Boolean getHighRiskSpecialNumbersEnabled() {
         return this.highRiskSpecialNumbersEnabled;
     }
 
     /**
-     * Returns The `true`, if dialing to high-risk toll fraud numbers is enabled,
-     * else `false`.
+     * Returns The Whether dialing to high-risk toll fraud numbers is enabled, else
+     * `false`.
      *
-     * @return `true`, if dialing to high-risk toll fraud numbers is enabled, else
+     * @return Whether dialing to high-risk toll fraud numbers is enabled, else
      *         `false`
      */
     public final Boolean getHighRiskTollfraudNumbersEnabled() {

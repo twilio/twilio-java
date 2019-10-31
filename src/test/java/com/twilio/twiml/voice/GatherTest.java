@@ -81,7 +81,7 @@ public class GatherTest {
     public void testElementWithChildren() {
         Gather.Builder builder = new Gather.Builder();
 
-        builder.say(new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.DA_DK).build());
+        builder.say(new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.ARB).build());
 
         builder.pause(new Pause.Builder().length(1).build());
 
@@ -92,7 +92,7 @@ public class GatherTest {
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Gather>" +
-                "<Say language=\"da-DK\" loop=\"1\" voice=\"man\">message</Say>" +
+                "<Say language=\"arb\" loop=\"1\" voice=\"man\">message</Say>" +
                 "<Pause length=\"1\"/>" +
                 "<Play digits=\"digits\" loop=\"1\">https://example.com</Play>" +
             "</Gather>",

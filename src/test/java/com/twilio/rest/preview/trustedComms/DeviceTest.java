@@ -61,7 +61,7 @@ public class DeviceTest {
     public void testCreateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"sid\": \"DDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"binding_sid\": \"BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"phone_number\": \"+573000000000\",\"url\": \"https://preview.twilio.com/TrustedComms/Devices\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            result = new Response("{\"binding_sid\": \"BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"phone_number\": \"+573000000000\",\"sid\": \"DDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"url\": \"https://preview.twilio.com/TrustedComms/Devices\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

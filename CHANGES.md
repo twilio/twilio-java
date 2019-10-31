@@ -1,6 +1,34 @@
 twilio-java changelog
 =====================
 
+[2019-10-31] Version 7.45.0
+---------------------------
+**Api**
+- Add new usage categories to the public api `sms-messages-carrierfees` and `mms-messages-carrierfees`
+
+**Conversations**
+- Add ProjectedAddress to Conversations Participant resource
+
+**Preview**
+- Implemented different `Sid` for Current Calls (Verified by Twilio), instead of relying in `Call.Sid` from Voice API team **(breaking change)**
+
+**Supersim**
+- Add List endpoint to Commands resource for Super Sim Pilot
+- Add UsageRecords resource for the Super Sim Pilot
+- Add List endpoint to UsageRecords resource for the Super Sim Pilot
+- Allow assigning a Sim to a Fleet by Fleet SID or Unique Name for Super SIM Pilot
+- Add Update endpoint to Fleets resource for Super Sim Pilot
+- Add Fetch endpoint to Commands resource for Super Sim Pilot
+- Allow filtering the Sims resource List endpoint by Fleet
+- Add List endpoint to Fleets resource for Super Sim Pilot
+
+**Wireless**
+- Added `account_sid` to Sim update parameters.
+
+**Twiml**
+- Add new locales and voices for `Say` from Polly
+
+
 [2019-10-16] Version 7.44.0
 ---------------------------
 **Library**

@@ -88,33 +88,33 @@ public class Device extends Resource {
         }
     }
 
-    private final String sid;
-    private final String phoneNumber;
     private final String bindingSid;
+    private final String phoneNumber;
+    private final String sid;
     private final URI url;
 
     @JsonCreator
-    private Device(@JsonProperty("sid")
-                   final String sid,
+    private Device(@JsonProperty("binding_sid")
+                   final String bindingSid,
                    @JsonProperty("phone_number")
                    final String phoneNumber,
-                   @JsonProperty("binding_sid")
-                   final String bindingSid,
+                   @JsonProperty("sid")
+                   final String sid,
                    @JsonProperty("url")
                    final URI url) {
-        this.sid = sid;
-        this.phoneNumber = phoneNumber;
         this.bindingSid = bindingSid;
+        this.phoneNumber = phoneNumber;
+        this.sid = sid;
         this.url = url;
     }
 
     /**
-     * Returns The A string that uniquely identifies this Device..
+     * Returns The Binding Sid..
      *
-     * @return A string that uniquely identifies this Device.
+     * @return Binding Sid.
      */
-    public final String getSid() {
-        return this.sid;
+    public final String getBindingSid() {
+        return this.bindingSid;
     }
 
     /**
@@ -127,12 +127,12 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The Binding Sid..
+     * Returns The A string that uniquely identifies this Device..
      *
-     * @return Binding Sid.
+     * @return A string that uniquely identifies this Device.
      */
-    public final String getBindingSid() {
-        return this.bindingSid;
+    public final String getSid() {
+        return this.sid;
     }
 
     /**
@@ -156,26 +156,26 @@ public class Device extends Resource {
 
         Device other = (Device) o;
 
-        return Objects.equals(sid, other.sid) &&
+        return Objects.equals(bindingSid, other.bindingSid) &&
                Objects.equals(phoneNumber, other.phoneNumber) &&
-               Objects.equals(bindingSid, other.bindingSid) &&
+               Objects.equals(sid, other.sid) &&
                Objects.equals(url, other.url);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid,
+        return Objects.hash(bindingSid,
                             phoneNumber,
-                            bindingSid,
+                            sid,
                             url);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("phoneNumber", phoneNumber)
                           .add("bindingSid", bindingSid)
+                          .add("phoneNumber", phoneNumber)
+                          .add("sid", sid)
                           .add("url", url)
                           .toString();
     }

@@ -60,7 +60,7 @@ public class CpsTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"phone_number\": \"+1500123\",\"cps_url\": \"https://preview.twilio.com/TrustedComms/CurrentCall\",\"url\": \"https://preview.twilio.com/TrustedComms/CPS\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"cps_url\": \"https://preview.twilio.com/TrustedComms/CurrentCall\",\"phone_number\": \"+1500123\",\"url\": \"https://preview.twilio.com/TrustedComms/CPS\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

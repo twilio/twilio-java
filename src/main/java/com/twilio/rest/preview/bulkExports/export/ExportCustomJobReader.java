@@ -5,12 +5,11 @@
  *       /       /
  */
 
-package com.twilio.rest.wireless.v1.sim;
+package com.twilio.rest.preview.bulkExports.export;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -19,59 +18,47 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
-public class UsageRecordReader extends Reader<UsageRecord> {
-    private final String pathSimSid;
-    private DateTime end;
-    private DateTime start;
-    private UsageRecord.Granularity granularity;
+/**
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
+ */
+public class ExportCustomJobReader extends Reader<ExportCustomJob> {
+    private final String pathResourceType;
+    private String nextToken;
+    private String previousToken;
 
     /**
-     * Construct a new UsageRecordReader.
+     * Construct a new ExportCustomJobReader.
      *
-     * @param pathSimSid The SID of the Sim resource to read the usage from
+     * @param pathResourceType The type of communication – Messages, Calls
      */
-    public UsageRecordReader(final String pathSimSid) {
-        this.pathSimSid = pathSimSid;
+    public ExportCustomJobReader(final String pathResourceType) {
+        this.pathResourceType = pathResourceType;
     }
 
     /**
-     * Only include usage that occurred on or before this date, specified in [ISO
-     * 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is
-     * the current time..
+     * The token for the next page of job results, and may be null if there are no
+     * more pages.
      *
-     * @param end Only include usage that occurred on or before this date
+     * @param nextToken The token for the next page of job results
      * @return this
      */
-    public UsageRecordReader setEnd(final DateTime end) {
-        this.end = end;
+    public ExportCustomJobReader setNextToken(final String nextToken) {
+        this.nextToken = nextToken;
         return this;
     }
 
     /**
-     * Only include usage that has occurred on or after this date, specified in [ISO
-     * 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is
-     * on month before the `end` parameter value..
+     * The token for the previous page of results, and may be null if this is the
+     * first page.
      *
-     * @param start Only include usage that has occurred on or after this date
+     * @param previousToken The token for the previous page of result
      * @return this
      */
-    public UsageRecordReader setStart(final DateTime start) {
-        this.start = start;
-        return this;
-    }
-
-    /**
-     * How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The
-     * default is `all`. A value of `all` returns one Usage Record that describes
-     * the usage for the entire period..
-     *
-     * @param granularity The time-based grouping that results are aggregated by
-     * @return this
-     */
-    public UsageRecordReader setGranularity(final UsageRecord.Granularity granularity) {
-        this.granularity = granularity;
+    public ExportCustomJobReader setPreviousToken(final String previousToken) {
+        this.previousToken = previousToken;
         return this;
     }
 
@@ -79,10 +66,10 @@ public class UsageRecordReader extends Reader<UsageRecord> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return UsageRecord ResourceSet
+     * @return ExportCustomJob ResourceSet
      */
     @Override
-    public ResourceSet<UsageRecord> read(final TwilioRestClient client) {
+    public ResourceSet<ExportCustomJob> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -90,15 +77,15 @@ public class UsageRecordReader extends Reader<UsageRecord> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return UsageRecord ResourceSet
+     * @return ExportCustomJob ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<UsageRecord> firstPage(final TwilioRestClient client) {
+    public Page<ExportCustomJob> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.WIRELESS.toString(),
-            "/v1/Sims/" + this.pathSimSid + "/UsageRecords",
+            Domains.PREVIEW.toString(),
+            "/BulkExports/Exports/" + this.pathResourceType + "/Jobs",
             client.getRegion()
         );
 
@@ -111,11 +98,11 @@ public class UsageRecordReader extends Reader<UsageRecord> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return UsageRecord ResourceSet
+     * @return ExportCustomJob ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<UsageRecord> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<ExportCustomJob> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -132,12 +119,12 @@ public class UsageRecordReader extends Reader<UsageRecord> {
      * @return Next Page
      */
     @Override
-    public Page<UsageRecord> nextPage(final Page<UsageRecord> page,
-                                      final TwilioRestClient client) {
+    public Page<ExportCustomJob> nextPage(final Page<ExportCustomJob> page,
+                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                Domains.WIRELESS.toString(),
+                Domains.PREVIEW.toString(),
                 client.getRegion()
             )
         );
@@ -152,12 +139,12 @@ public class UsageRecordReader extends Reader<UsageRecord> {
      * @return Previous Page
      */
     @Override
-    public Page<UsageRecord> previousPage(final Page<UsageRecord> page,
-                                          final TwilioRestClient client) {
+    public Page<ExportCustomJob> previousPage(final Page<ExportCustomJob> page,
+                                              final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(
-                Domains.WIRELESS.toString(),
+                Domains.PREVIEW.toString(),
                 client.getRegion()
             )
         );
@@ -165,17 +152,17 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     }
 
     /**
-     * Generate a Page of UsageRecord Resources for a given request.
+     * Generate a Page of ExportCustomJob Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<UsageRecord> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<ExportCustomJob> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("UsageRecord read failed: Unable to connect to server");
+            throw new ApiConnectionException("ExportCustomJob read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -192,9 +179,9 @@ public class UsageRecordReader extends Reader<UsageRecord> {
         }
 
         return Page.fromJson(
-            "usage_records",
+            "jobs",
             response.getContent(),
-            UsageRecord.class,
+            ExportCustomJob.class,
             client.getObjectMapper()
         );
     }
@@ -205,16 +192,12 @@ public class UsageRecordReader extends Reader<UsageRecord> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (end != null) {
-            request.addQueryParam("End", end.toString());
+        if (nextToken != null) {
+            request.addQueryParam("NextToken", nextToken);
         }
 
-        if (start != null) {
-            request.addQueryParam("Start", start.toString());
-        }
-
-        if (granularity != null) {
-            request.addQueryParam("Granularity", granularity.toString());
+        if (previousToken != null) {
+            request.addQueryParam("PreviousToken", previousToken);
         }
 
         if (getPageSize() != null) {

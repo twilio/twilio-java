@@ -27,8 +27,10 @@ public class ReservationReader extends Reader<Reservation> {
     /**
      * Construct a new ReservationReader.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathTaskSid The task_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskReservation
+     *                         resources to read
+     * @param pathTaskSid The SID of the reserved Task resource with the
+     *                    TaskReservation resources to read
      */
     public ReservationReader(final String pathWorkspaceSid,
                              final String pathTaskSid) {
@@ -38,7 +40,7 @@ public class ReservationReader extends Reader<Reservation> {
 
     /**
      * Returns the list of reservations for a task with a specified
-     * ReservationStatus.
+     * ReservationStatus.  Can be: `pending`, `accepted`, `rejected`, or `timeout`..
      *
      * @param reservationStatus Returns the list of reservations for a task with a
      *                          specified ReservationStatus

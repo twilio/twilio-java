@@ -31,6 +31,7 @@ public class ParticipantCreator extends Creator<Participant> {
     private DateTime dateCreated;
     private DateTime dateUpdated;
     private String attributes;
+    private String messagingBindingProjectedAddress;
 
     /**
      * Construct a new ParticipantCreator.
@@ -61,7 +62,7 @@ public class ParticipantCreator extends Creator<Participant> {
      * The address of the participant's device, e.g. a phone number or Messenger ID.
      * Together with the Proxy address, this determines a participant uniquely. This
      * field (with proxy_address) is only null when the participant is interacting
-     * from a Chat endpoint (see the 'identity' field). Limited to 256 characters..
+     * from a Chat endpoint (see the 'identity' field)..
      *
      * @param messagingBindingAddress The address of the participant's device.
      * @return this
@@ -75,7 +76,7 @@ public class ParticipantCreator extends Creator<Participant> {
      * The address of the Twilio phone number (or WhatsApp number, or Messenger Page
      * ID) that the participant is in contact with. This field, together with
      * participant address, is only null when the participant is interacting from a
-     * Chat endpoint (see the 'identity' field). Limited to 256 characters..
+     * Chat endpoint (see the 'identity' field)..
      *
      * @param messagingBindingProxyAddress The address of the Twilio phone number
      *                                     that the participant is in contact with.
@@ -119,6 +120,19 @@ public class ParticipantCreator extends Creator<Participant> {
      */
     public ParticipantCreator setAttributes(final String attributes) {
         this.attributes = attributes;
+        return this;
+    }
+
+    /**
+     * The address of the Twilio phone number that is used in Group MMS.
+     * Communication mask for the Chat participant with Identity..
+     *
+     * @param messagingBindingProjectedAddress The address of the Twilio phone
+     *                                         number that is used in Group MMS.
+     * @return this
+     */
+    public ParticipantCreator setMessagingBindingProjectedAddress(final String messagingBindingProjectedAddress) {
+        this.messagingBindingProjectedAddress = messagingBindingProjectedAddress;
         return this;
     }
 
@@ -189,6 +203,10 @@ public class ParticipantCreator extends Creator<Participant> {
 
         if (attributes != null) {
             request.addPostParam("Attributes", attributes);
+        }
+
+        if (messagingBindingProjectedAddress != null) {
+            request.addPostParam("MessagingBinding.ProjectedAddress", messagingBindingProjectedAddress);
         }
     }
 }

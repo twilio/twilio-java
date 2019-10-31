@@ -23,7 +23,7 @@ public class SimDeleter extends Deleter<Sim> {
     /**
      * Construct a new SimDeleter.
      *
-     * @param pathSid The SID that identifies the resource to delete
+     * @param pathSid The SID of the Sim Resource to delete
      */
     public SimDeleter(final String pathSid) {
         this.pathSid = pathSid;

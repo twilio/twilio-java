@@ -107,8 +107,8 @@ public class Queue extends Resource {
     /**
      * Create a QueueReader to execute read.
      *
-     * @param pathAccountSid The unique id of the Account responsible for creating
-     *                       this Call
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       fetch
      * @return QueueReader capable of executing the read
      */
     public static QueueReader reader(final String pathAccountSid) {

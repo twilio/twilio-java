@@ -60,7 +60,7 @@ public class CurrentCallTest {
     public void testReadFoundResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"sid\": \"CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"from\": \"+1500123\",\"to\": \"+1500456\",\"status\": \"ringing\",\"reason\": \"Hello Jhon, your bank appointment has been confirmed.\",\"created_at\": \"2019-05-01T20:00:00Z\",\"caller\": \"Owl Bank\",\"logo\": \"https://www.twilio.com/marketing/bundles/company/img/logos/red/twilio-logo-red.png\",\"bg_color\": \"#fff\",\"font_color\": \"#f22f46\",\"use_case\": \"conversational\",\"manager\": \"Twilio\",\"shield_img\": \"https://www.twilio.com/marketing/bundles/company/img/badges/red/twilio-badge-red.png\",\"url\": \"https://preview.twilio.com/TrustedComms/CurrentCall\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"bg_color\": \"#fff\",\"caller\": \"Owl Bank\",\"created_at\": \"2019-05-01T20:00:00Z\",\"font_color\": \"#f22f46\",\"from\": \"+1500123\",\"logo\": \"https://www.twilio.com/marketing/bundles/company/img/logos/red/twilio-logo-red.png\",\"manager\": \"Twilio\",\"reason\": \"Hello Jhon, your bank appointment has been confirmed.\",\"shield_img\": \"https://www.twilio.com/marketing/bundles/company/img/badges/red/twilio-badge-red.png\",\"sid\": \"CQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"status\": \"ringing\",\"to\": \"+1500456\",\"url\": \"https://preview.twilio.com/TrustedComms/CurrentCall\",\"use_case\": \"conversational\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

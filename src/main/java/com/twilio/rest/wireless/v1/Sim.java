@@ -95,7 +95,7 @@ public class Sim extends Resource {
     /**
      * Create a SimFetcher to execute fetch.
      *
-     * @param pathSid The SID that identifies the resource to fetch
+     * @param pathSid The SID of the Sim resource to fetch
      * @return SimFetcher capable of executing the fetch
      */
     public static SimFetcher fetcher(final String pathSid) {
@@ -114,7 +114,7 @@ public class Sim extends Resource {
     /**
      * Create a SimUpdater to execute update.
      *
-     * @param pathSid The SID that identifies the resource to update
+     * @param pathSid The SID of the Sim resource to update
      * @return SimUpdater capable of executing the update
      */
     public static SimUpdater updater(final String pathSid) {
@@ -124,7 +124,7 @@ public class Sim extends Resource {
     /**
      * Create a SimDeleter to execute delete.
      *
-     * @param pathSid The SID that identifies the resource to delete
+     * @param pathSid The SID of the Sim Resource to delete
      * @return SimDeleter capable of executing the delete
      */
     public static SimDeleter deleter(final String pathSid) {
@@ -269,9 +269,9 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The The unique string that identifies the Sim resource.
      *
-     * @return The unique string that identifies the resource
+     * @return The unique string that identifies the Sim resource
      */
     public final String getSid() {
         return this.sid;
@@ -288,27 +288,29 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The The SID of the Account to which the Sim resource belongs.
      *
-     * @return The SID of the Account that created the resource
+     * @return The SID of the Account to which the Sim resource belongs
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The SID of the RatePlan resource configured for this SIM.
+     * Returns The The SID of the RatePlan resource to which the Sim resource is
+     * assigned..
      *
-     * @return The SID of the RatePlan resource configured for this SIM
+     * @return The SID of the RatePlan resource to which the Sim resource is
+     *         assigned.
      */
     public final String getRatePlanSid() {
         return this.ratePlanSid;
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The The string that you assigned to describe the Sim resource.
      *
-     * @return The string that you assigned to describe the resource
+     * @return The string that you assigned to describe the Sim resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
@@ -333,9 +335,9 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The status of the SIM.
+     * Returns The The status of the Sim resource.
      *
-     * @return The status of the SIM
+     * @return The status of the Sim resource
      */
     public final Sim.Status getStatus() {
         return this.status;
@@ -457,10 +459,11 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
+     * Returns The The ISO 8601 date and time in GMT when the Sim resource was last
      * updated.
      *
-     * @return The ISO 8601 date and time in GMT when the resource was last updated
+     * @return The ISO 8601 date and time in GMT when the Sim resource was last
+     *         updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;

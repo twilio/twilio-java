@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BrandedCall extends Resource {
-    private static final long serialVersionUID = 186540956820921L;
+    private static final long serialVersionUID = 3046006266217L;
 
     /**
      * Create a BrandedCallCreator to execute create.
@@ -95,11 +95,16 @@ public class BrandedCall extends Resource {
 
     private final String accountSid;
     private final String bgColor;
+    private final String brandSid;
+    private final String brandedChannelSid;
+    private final String businessSid;
+    private final String callSid;
     private final String caller;
     private final DateTime createdAt;
     private final String fontColor;
     private final String from;
     private final String logo;
+    private final String phoneNumberSid;
     private final String reason;
     private final String sid;
     private final String status;
@@ -112,6 +117,14 @@ public class BrandedCall extends Resource {
                         final String accountSid,
                         @JsonProperty("bg_color")
                         final String bgColor,
+                        @JsonProperty("brand_sid")
+                        final String brandSid,
+                        @JsonProperty("branded_channel_sid")
+                        final String brandedChannelSid,
+                        @JsonProperty("business_sid")
+                        final String businessSid,
+                        @JsonProperty("call_sid")
+                        final String callSid,
                         @JsonProperty("caller")
                         final String caller,
                         @JsonProperty("created_at")
@@ -122,6 +135,8 @@ public class BrandedCall extends Resource {
                         final String from,
                         @JsonProperty("logo")
                         final String logo,
+                        @JsonProperty("phone_number_sid")
+                        final String phoneNumberSid,
                         @JsonProperty("reason")
                         final String reason,
                         @JsonProperty("sid")
@@ -136,11 +151,16 @@ public class BrandedCall extends Resource {
                         final String useCase) {
         this.accountSid = accountSid;
         this.bgColor = bgColor;
+        this.brandSid = brandSid;
+        this.brandedChannelSid = brandedChannelSid;
+        this.businessSid = businessSid;
+        this.callSid = callSid;
         this.caller = caller;
         this.createdAt = DateConverter.iso8601DateTimeFromString(createdAt);
         this.fontColor = fontColor;
         this.from = from;
         this.logo = logo;
+        this.phoneNumberSid = phoneNumberSid;
         this.reason = reason;
         this.sid = sid;
         this.status = status;
@@ -165,6 +185,42 @@ public class BrandedCall extends Resource {
      */
     public final String getBgColor() {
         return this.bgColor;
+    }
+
+    /**
+     * Returns The Brand Sid..
+     *
+     * @return Brand Sid.
+     */
+    public final String getBrandSid() {
+        return this.brandSid;
+    }
+
+    /**
+     * Returns The Branded Channel Sid..
+     *
+     * @return Branded Channel Sid.
+     */
+    public final String getBrandedChannelSid() {
+        return this.brandedChannelSid;
+    }
+
+    /**
+     * Returns The Business Sid..
+     *
+     * @return Business Sid.
+     */
+    public final String getBusinessSid() {
+        return this.businessSid;
+    }
+
+    /**
+     * Returns The A string that uniquely identifies this phone call..
+     *
+     * @return A string that uniquely identifies this phone call.
+     */
+    public final String getCallSid() {
+        return this.callSid;
     }
 
     /**
@@ -213,6 +269,15 @@ public class BrandedCall extends Resource {
     }
 
     /**
+     * Returns The Phone Number Sid..
+     *
+     * @return Phone Number Sid.
+     */
+    public final String getPhoneNumberSid() {
+        return this.phoneNumberSid;
+    }
+
+    /**
      * Returns The The business reason for this current phone call.
      *
      * @return The business reason for this current phone call
@@ -222,9 +287,10 @@ public class BrandedCall extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this current phone call..
+     * Returns The A string that uniquely identifies this current branded phone
+     * call..
      *
-     * @return A string that uniquely identifies this current phone call.
+     * @return A string that uniquely identifies this current branded phone call.
      */
     public final String getSid() {
         return this.sid;
@@ -280,11 +346,16 @@ public class BrandedCall extends Resource {
 
         return Objects.equals(accountSid, other.accountSid) &&
                Objects.equals(bgColor, other.bgColor) &&
+               Objects.equals(brandSid, other.brandSid) &&
+               Objects.equals(brandedChannelSid, other.brandedChannelSid) &&
+               Objects.equals(businessSid, other.businessSid) &&
+               Objects.equals(callSid, other.callSid) &&
                Objects.equals(caller, other.caller) &&
                Objects.equals(createdAt, other.createdAt) &&
                Objects.equals(fontColor, other.fontColor) &&
                Objects.equals(from, other.from) &&
                Objects.equals(logo, other.logo) &&
+               Objects.equals(phoneNumberSid, other.phoneNumberSid) &&
                Objects.equals(reason, other.reason) &&
                Objects.equals(sid, other.sid) &&
                Objects.equals(status, other.status) &&
@@ -297,11 +368,16 @@ public class BrandedCall extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid,
                             bgColor,
+                            brandSid,
+                            brandedChannelSid,
+                            businessSid,
+                            callSid,
                             caller,
                             createdAt,
                             fontColor,
                             from,
                             logo,
+                            phoneNumberSid,
                             reason,
                             sid,
                             status,
@@ -315,11 +391,16 @@ public class BrandedCall extends Resource {
         return MoreObjects.toStringHelper(this)
                           .add("accountSid", accountSid)
                           .add("bgColor", bgColor)
+                          .add("brandSid", brandSid)
+                          .add("brandedChannelSid", brandedChannelSid)
+                          .add("businessSid", businessSid)
+                          .add("callSid", callSid)
                           .add("caller", caller)
                           .add("createdAt", createdAt)
                           .add("fontColor", fontColor)
                           .add("from", from)
                           .add("logo", logo)
+                          .add("phoneNumberSid", phoneNumberSid)
                           .add("reason", reason)
                           .add("sid", sid)
                           .add("status", status)

@@ -35,11 +35,11 @@ public class SayTest {
 
     @Test
     public void testElementWithParams() {
-        Say elem = new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.DA_DK).build();
+        Say elem = new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.ARB).build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Say language=\"da-DK\" loop=\"1\" voice=\"man\">message</Say>",
+            "<Say language=\"arb\" loop=\"1\" voice=\"man\">message</Say>",
             elem.toXml()
         );
     }

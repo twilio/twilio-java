@@ -60,29 +60,6 @@ public class Notification extends Resource {
     }
 
     /**
-     * Create a NotificationDeleter to execute delete.
-     *
-     * @param pathAccountSid The SID of the Account that created the resources to
-     *                       delete
-     * @param pathSid The unique string that identifies the resource
-     * @return NotificationDeleter capable of executing the delete
-     */
-    public static NotificationDeleter deleter(final String pathAccountSid,
-                                              final String pathSid) {
-        return new NotificationDeleter(pathAccountSid, pathSid);
-    }
-
-    /**
-     * Create a NotificationDeleter to execute delete.
-     *
-     * @param pathSid The unique string that identifies the resource
-     * @return NotificationDeleter capable of executing the delete
-     */
-    public static NotificationDeleter deleter(final String pathSid) {
-        return new NotificationDeleter(pathSid);
-    }
-
-    /**
      * Create a NotificationReader to execute read.
      *
      * @param pathAccountSid The SID of the Account that created the resources to

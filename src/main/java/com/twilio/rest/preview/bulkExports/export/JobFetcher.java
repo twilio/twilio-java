@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.taskrouter.v1.workspace.task;
+package com.twilio.rest.preview.bulkExports.export;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -17,48 +17,43 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class ReservationFetcher extends Fetcher<Reservation> {
-    private final String pathWorkspaceSid;
-    private final String pathTaskSid;
-    private final String pathSid;
+/**
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
+ */
+public class JobFetcher extends Fetcher<Job> {
+    private final String pathJobSid;
 
     /**
-     * Construct a new ReservationFetcher.
+     * Construct a new JobFetcher.
      *
-     * @param pathWorkspaceSid The SID of the Workspace with the TaskReservation
-     *                         resource to fetch
-     * @param pathTaskSid The SID of the reserved Task resource with the
-     *                    TaskReservation resource to fetch
-     * @param pathSid The SID of the TaskReservation resource to fetch
+     * @param pathJobSid The job_sid
      */
-    public ReservationFetcher(final String pathWorkspaceSid,
-                              final String pathTaskSid,
-                              final String pathSid) {
-        this.pathWorkspaceSid = pathWorkspaceSid;
-        this.pathTaskSid = pathTaskSid;
-        this.pathSid = pathSid;
+    public JobFetcher(final String pathJobSid) {
+        this.pathJobSid = pathJobSid;
     }
 
     /**
      * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Reservation
+     * @return Fetched Job
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Reservation fetch(final TwilioRestClient client) {
+    public Job fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Tasks/" + this.pathTaskSid + "/Reservations/" + this.pathSid + "",
+            Domains.PREVIEW.toString(),
+            "/BulkExports/Exports/Jobs/" + this.pathJobSid + "",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Reservation fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("Job fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -74,6 +69,6 @@ public class ReservationFetcher extends Fetcher<Reservation> {
             );
         }
 
-        return Reservation.fromJson(response.getStream(), client.getObjectMapper());
+        return Job.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

@@ -38,8 +38,8 @@ public class SimReader extends Reader<Sim> {
     }
 
     /**
-     * Only return Sim resources with this ICCID. Currently this should be a list
-     * with maximum size 1..
+     * Only return Sim resources with this ICCID. This will return a list with a
+     * maximum size of 1..
      *
      * @param iccid Only return Sim resources with this ICCID
      * @return this
@@ -50,11 +50,11 @@ public class SimReader extends Reader<Sim> {
     }
 
     /**
-     * The `sid` or `unique_name` of the [RatePlan
-     * resource](https://www.twilio.com/docs/wireless/api/rate-plan) used by the Sim
-     * resources to read..
+     * The SID or unique name of a [RatePlan
+     * resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only
+     * return Sim resources assigned to this RatePlan resource..
      *
-     * @param ratePlan Only return Sim resources with this Rate Plan
+     * @param ratePlan Only return Sim resources assigned to this RatePlan resource
      * @return this
      */
     public SimReader setRatePlan(final String ratePlan) {
@@ -74,7 +74,8 @@ public class SimReader extends Reader<Sim> {
     }
 
     /**
-     * Only return Sim resources with this registration code..
+     * Only return Sim resources with this registration code. This will return a
+     * list with a maximum size of 1..
      *
      * @param simRegistrationCode Only return Sim resources with this registration
      *                            code

@@ -23,7 +23,7 @@ public class SimFetcher extends Fetcher<Sim> {
     /**
      * Construct a new SimFetcher.
      *
-     * @param pathSid The SID that identifies the resource to fetch
+     * @param pathSid The SID of the Sim resource to fetch
      */
     public SimFetcher(final String pathSid) {
         this.pathSid = pathSid;

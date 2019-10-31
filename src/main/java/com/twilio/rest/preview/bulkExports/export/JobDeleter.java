@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.api.v2010.account;
+package com.twilio.rest.preview.bulkExports.export;
 
 import com.twilio.base.Deleter;
 import com.twilio.exception.ApiConnectionException;
@@ -17,30 +17,21 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class NotificationDeleter extends Deleter<Notification> {
-    private String pathAccountSid;
-    private final String pathSid;
+/**
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
+ */
+public class JobDeleter extends Deleter<Job> {
+    private final String pathJobSid;
 
     /**
-     * Construct a new NotificationDeleter.
+     * Construct a new JobDeleter.
      *
-     * @param pathSid The unique string that identifies the resource
+     * @param pathJobSid The job_sid
      */
-    public NotificationDeleter(final String pathSid) {
-        this.pathSid = pathSid;
-    }
-
-    /**
-     * Construct a new NotificationDeleter.
-     *
-     * @param pathAccountSid The SID of the Account that created the resources to
-     *                       delete
-     * @param pathSid The unique string that identifies the resource
-     */
-    public NotificationDeleter(final String pathAccountSid,
-                               final String pathSid) {
-        this.pathAccountSid = pathAccountSid;
-        this.pathSid = pathSid;
+    public JobDeleter(final String pathJobSid) {
+        this.pathJobSid = pathJobSid;
     }
 
     /**
@@ -51,18 +42,17 @@ public class NotificationDeleter extends Deleter<Notification> {
     @Override
     @SuppressWarnings("checkstyle:linelength")
     public boolean delete(final TwilioRestClient client) {
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.DELETE,
-            Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Notifications/" + this.pathSid + ".json",
+            Domains.PREVIEW.toString(),
+            "/BulkExports/Exports/Jobs/" + this.pathJobSid + "",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Notification delete failed: Unable to connect to server");
+            throw new ApiConnectionException("Job delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {

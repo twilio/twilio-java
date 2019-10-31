@@ -27,8 +27,10 @@ public class ReservationReader extends Reader<Reservation> {
     /**
      * Construct a new ReservationReader.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathWorkerSid The worker_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the WorkerReservation
+     *                         resources to read
+     * @param pathWorkerSid The SID of the reserved Worker resource with the
+     *                      WorkerReservation resources to read
      */
     public ReservationReader(final String pathWorkspaceSid,
                              final String pathWorkerSid) {
@@ -37,10 +39,12 @@ public class ReservationReader extends Reader<Reservation> {
     }
 
     /**
-     * Filter by a worker's reservation status (pending, accepted, rejected,
-     * timeout, canceled, rescinded).
+     * Returns the list of reservations for a worker with a specified
+     * ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`,
+     * `canceled`, or `rescinded`..
      *
-     * @param reservationStatus Filter by a worker's reservation status
+     * @param reservationStatus Returns the list of reservations for a worker with
+     *                          a specified ReservationStatus
      * @return this
      */
     public ReservationReader setReservationStatus(final Reservation.Status reservationStatus) {

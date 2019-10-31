@@ -51,8 +51,8 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls to this phone number, SIP address, Client identifier or SIM
-     * SID..
+     * Only show calls made to this phone number, SIP address, Client identifier or
+     * SIM SID..
      *
      * @param to Phone number or Client identifier of calls to include
      * @return this
@@ -63,8 +63,8 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls to this phone number, SIP address, Client identifier or SIM
-     * SID..
+     * Only show calls made to this phone number, SIP address, Client identifier or
+     * SIM SID..
      *
      * @param to Phone number or Client identifier of calls to include
      * @return this

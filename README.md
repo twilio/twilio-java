@@ -25,6 +25,10 @@ Developer Preview status. Such products are explicitly documented as
 Beta/Developer Preview both in the Twilio docs and console, as well as through
 in-line code documentation here in the library.
 
+### TLS 1.2 Requirements
+
+New accounts and subaccounts are now required to use TLS 1.2 when accessing the REST API. ["Upgrade Required" errors](https://www.twilio.com/docs/api/errors/20426) indicate that TLS 1.0/1.1 is being used.
+
 ## Installing
 
 twilio-java uses Maven.  At present the jars *are* available from a public [maven](https://mvnrepository.com/artifact/com.twilio.sdk/twilio) repository.

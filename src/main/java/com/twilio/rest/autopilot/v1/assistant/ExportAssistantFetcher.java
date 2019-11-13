@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.insights.v1;
+package com.twilio.rest.autopilot.v1.assistant;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -22,51 +22,38 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class CallSummaryFetcher extends Fetcher<CallSummary> {
-    private final String pathCallSid;
-    private CallSummary.ProcessingState processingState;
+public class ExportAssistantFetcher extends Fetcher<ExportAssistant> {
+    private final String pathAssistantSid;
 
     /**
-     * Construct a new CallSummaryFetcher.
+     * Construct a new ExportAssistantFetcher.
      *
-     * @param pathCallSid The call_sid
+     * @param pathAssistantSid The SID of the Assistant to export.
      */
-    public CallSummaryFetcher(final String pathCallSid) {
-        this.pathCallSid = pathCallSid;
-    }
-
-    /**
-     * The processing_state.
-     *
-     * @param processingState The processing_state
-     * @return this
-     */
-    public CallSummaryFetcher setProcessingState(final CallSummary.ProcessingState processingState) {
-        this.processingState = processingState;
-        return this;
+    public ExportAssistantFetcher(final String pathAssistantSid) {
+        this.pathAssistantSid = pathAssistantSid;
     }
 
     /**
      * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched CallSummary
+     * @return Fetched ExportAssistant
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public CallSummary fetch(final TwilioRestClient client) {
+    public ExportAssistant fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.INSIGHTS.toString(),
-            "/v1/Voice/" + this.pathCallSid + "/Summary",
+            Domains.AUTOPILOT.toString(),
+            "/v1/Assistants/" + this.pathAssistantSid + "/Export",
             client.getRegion()
         );
 
-        addQueryParams(request);
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("CallSummary fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("ExportAssistant fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -82,17 +69,6 @@ public class CallSummaryFetcher extends Fetcher<CallSummary> {
             );
         }
 
-        return CallSummary.fromJson(response.getStream(), client.getObjectMapper());
-    }
-
-    /**
-     * Add the requested query string arguments to the Request.
-     *
-     * @param request Request to add query string arguments to
-     */
-    private void addQueryParams(final Request request) {
-        if (processingState != null) {
-            request.addQueryParam("ProcessingState", processingState.toString());
-        }
+        return ExportAssistant.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

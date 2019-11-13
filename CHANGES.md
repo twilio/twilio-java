@@ -1,6 +1,43 @@
 twilio-java changelog
 =====================
 
+[2019-11-13] Version 7.45.1
+---------------------------
+**Library**
+- [PR #487](https://github.com/twilio/twilio-java/pull/487): Bump jackson-databind from 2.9.9.1 to 2.9.10.1. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #486](https://github.com/twilio/twilio-java/pull/486): add TLS 1.2 warning. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+- [PR #485](https://github.com/twilio/twilio-java/pull/485): Move generated docs to common location. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #484](https://github.com/twilio/twilio-java/pull/484): Auto-deploy via Travis CI upon tagged commit to master. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Api**
+- Make `persistent_action` parameter public
+- Add `twiml` optional private parameter for call create
+
+**Autopilot**
+- Add Export resource to Autopilot Assistant.
+
+**Flex**
+- Added Integration.RetryCount attribute to Flex Flow
+- Updating a Flex Flow `channel_type` options documentation
+
+**Insights**
+- Added edges to events and metrics
+- Added new endpoint definitions for Events and Metrics
+
+**Messaging**
+- **create** support for sender registration
+- **fetch** support for fetching a sender
+- **update** support for sender verification
+
+**Supersim**
+- Add `Direction` filter parameter to list commands endpoint
+- Allow filtering commands list by Sim Unique Name
+- Add `Iccid` filter parameter to list sims endpoint
+
+**Twiml**
+- Add support for `<Refer>` verb
+
+
 [2019-10-31] Version 7.45.0
 ---------------------------
 **Api**

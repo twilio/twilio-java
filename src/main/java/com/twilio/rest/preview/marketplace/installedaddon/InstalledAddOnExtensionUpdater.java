@@ -30,9 +30,10 @@ public class InstalledAddOnExtensionUpdater extends Updater<InstalledAddOnExtens
     /**
      * Construct a new InstalledAddOnExtensionUpdater.
      *
-     * @param pathInstalledAddOnSid The installed_add_on_sid
-     * @param pathSid The sid
-     * @param enabled A Boolean indicating if the Extension will be invoked
+     * @param pathInstalledAddOnSid The SID of the InstalledAddOn resource with the
+     *                              extension to update
+     * @param pathSid The SID of the InstalledAddOn Extension resource to update
+     * @param enabled Whether the Extension should be invoked
      */
     public InstalledAddOnExtensionUpdater(final String pathInstalledAddOnSid,
                                           final String pathSid,

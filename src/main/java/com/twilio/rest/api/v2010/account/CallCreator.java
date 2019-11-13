@@ -50,6 +50,7 @@ public class CallCreator extends Creator<Call> {
     private Integer machineDetectionSpeechThreshold;
     private Integer machineDetectionSpeechEndThreshold;
     private Integer machineDetectionSilenceTimeout;
+    private String twiml;
 
     /**
      * Construct a new CallCreator.
@@ -496,6 +497,19 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
+     * TwiML instructions for the call Twilio will use without fetching Twiml from
+     * url parameter. If both `twiml` and `url` are provided then `twiml` parameter
+     * will be ignored..
+     *
+     * @param twiml TwiML instructions for the call
+     * @return this
+     */
+    public CallCreator setTwiml(final String twiml) {
+        this.twiml = twiml;
+        return this;
+    }
+
+    /**
      * The absolute URL that returns the TwiML instructions for the call. We will
      * call this URL using the `method` when the call connects. For more
      * information, see the [Url
@@ -687,6 +701,10 @@ public class CallCreator extends Creator<Call> {
 
         if (machineDetectionSilenceTimeout != null) {
             request.addPostParam("MachineDetectionSilenceTimeout", machineDetectionSilenceTimeout.toString());
+        }
+
+        if (twiml != null) {
+            request.addPostParam("Twiml", twiml);
         }
     }
 }

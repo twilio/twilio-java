@@ -29,8 +29,9 @@ public class AvailableAddOnExtensionFetcher extends Fetcher<AvailableAddOnExtens
     /**
      * Construct a new AvailableAddOnExtensionFetcher.
      *
-     * @param pathAvailableAddOnSid The available_add_on_sid
-     * @param pathSid The unique Extension Sid
+     * @param pathAvailableAddOnSid The SID of the AvailableAddOn resource with the
+     *                              extension to fetch
+     * @param pathSid The SID of the AvailableAddOn Extension resource to fetch
      */
     public AvailableAddOnExtensionFetcher(final String pathAvailableAddOnSid,
                                           final String pathSid) {

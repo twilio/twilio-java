@@ -31,7 +31,6 @@ import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.net.URI;
 import java.util.Currency;
 import java.util.Map;
@@ -39,7 +38,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Call extends Resource {
-    private static final long serialVersionUID = 40711775299714L;
+    private static final long serialVersionUID = 133518260457854L;
 
     public enum Event {
         INITIATED("initiated"),
@@ -328,7 +327,7 @@ public class Call extends Resource {
     private final String groupSid;
     private final String parentCallSid;
     private final String phoneNumberSid;
-    private final BigDecimal price;
+    private final String price;
     private final Currency priceUnit;
     private final String sid;
     private final DateTime startTime;
@@ -372,7 +371,7 @@ public class Call extends Resource {
                  @JsonProperty("phone_number_sid")
                  final String phoneNumberSid,
                  @JsonProperty("price")
-                 final BigDecimal price,
+                 final String price,
                  @JsonProperty("price_unit")
                  @JsonDeserialize(using = com.twilio.converter.CurrencyDeserializer.class)
                  final Currency priceUnit,
@@ -600,7 +599,7 @@ public class Call extends Resource {
      *         account. Populated after the call is completed. May not be
      *         immediately available.
      */
-    public final BigDecimal getPrice() {
+    public final String getPrice() {
         return this.price;
     }
 

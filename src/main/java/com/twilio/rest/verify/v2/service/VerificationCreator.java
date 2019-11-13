@@ -35,13 +35,14 @@ public class VerificationCreator extends Creator<Verification> {
     private String amount;
     private String payee;
     private Map<String, Object> rateLimits;
+    private Map<String, Object> channelConfiguration;
 
     /**
      * Construct a new VerificationCreator.
      *
      * @param pathServiceSid The SID of the verification Service to create the
      *                       resource under
-     * @param to The phone number to verify
+     * @param to The phone number or email to verify
      * @param channel The verification method to use
      */
     public VerificationCreator(final String pathServiceSid,
@@ -141,6 +142,18 @@ public class VerificationCreator extends Creator<Verification> {
     }
 
     /**
+     * Channel specific configuration in json format: For email must include 'from'
+     * and 'from_name'..
+     *
+     * @param channelConfiguration Channel specific configuration in json format.
+     * @return this
+     */
+    public VerificationCreator setChannelConfiguration(final Map<String, Object> channelConfiguration) {
+        this.channelConfiguration = channelConfiguration;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -219,6 +232,10 @@ public class VerificationCreator extends Creator<Verification> {
 
         if (rateLimits != null) {
             request.addPostParam("RateLimits", Converter.mapToJson(rateLimits));
+        }
+
+        if (channelConfiguration != null) {
+            request.addPostParam("ChannelConfiguration", Converter.mapToJson(channelConfiguration));
         }
     }
 }

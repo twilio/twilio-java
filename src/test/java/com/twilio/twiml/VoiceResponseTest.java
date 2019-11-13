@@ -23,6 +23,7 @@ import com.twilio.twiml.voice.Prompt;
 import com.twilio.twiml.voice.Queue;
 import com.twilio.twiml.voice.Record;
 import com.twilio.twiml.voice.Redirect;
+import com.twilio.twiml.voice.Refer;
 import com.twilio.twiml.voice.Reject;
 import com.twilio.twiml.voice.Say;
 import com.twilio.twiml.voice.Sms;
@@ -194,6 +195,8 @@ public class VoiceResponseTest {
 
         builder.stop(new Stop.Builder().build());
 
+        builder.refer(new Refer.Builder().action(URI.create("https://example.com")).method(HttpMethod.GET).build());
+
         VoiceResponse elem = builder.build();
 
         Assert.assertEquals(
@@ -218,6 +221,7 @@ public class VoiceResponseTest {
                 "<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\"/>" +
                 "<Start action=\"https://example.com\" method=\"GET\"/>" +
                 "<Stop/>" +
+                "<Refer action=\"https://example.com\" method=\"GET\"/>" +
             "</Response>",
             elem.toXml()
         );

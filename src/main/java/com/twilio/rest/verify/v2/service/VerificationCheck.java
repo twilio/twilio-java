@@ -42,7 +42,8 @@ public class VerificationCheck extends Resource {
 
     public enum Channel {
         SMS("sms"),
-        CALL("call");
+        CALL("call"),
+        EMAIL("email");
 
         private final String value;
 

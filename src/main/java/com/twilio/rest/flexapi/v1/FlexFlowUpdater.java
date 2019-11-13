@@ -38,6 +38,7 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     private Boolean integrationCreationOnMessage;
     private Boolean longLived;
     private Boolean janitorEnabled;
+    private Integer integrationRetryCount;
 
     /**
      * Construct a new FlexFlowUpdater.
@@ -71,7 +72,8 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * The channel type. Can be: `web`, `facebook`, or `sms`..
+     * The channel type. Can be: `web`, `facebook`, `sms`, `whatsapp`, `line` or
+     * `custom`..
      *
      * @param channelType The channel type
      * @return this
@@ -241,6 +243,19 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
+     * The number of times to retry the webhook if the first attempt fails. Can be
+     * an integer between 0 and 3, inclusive, and the default is 0..
+     *
+     * @param integrationRetryCount The number of times to retry the webhook if the
+     *                              first attempt fails
+     * @return this
+     */
+    public FlexFlowUpdater setIntegrationRetryCount(final Integer integrationRetryCount) {
+        this.integrationRetryCount = integrationRetryCount;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -347,6 +362,10 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
 
         if (janitorEnabled != null) {
             request.addPostParam("JanitorEnabled", janitorEnabled.toString());
+        }
+
+        if (integrationRetryCount != null) {
+            request.addPostParam("Integration.RetryCount", integrationRetryCount.toString());
         }
     }
 }

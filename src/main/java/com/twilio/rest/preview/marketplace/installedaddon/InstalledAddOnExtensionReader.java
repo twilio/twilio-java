@@ -30,7 +30,8 @@ public class InstalledAddOnExtensionReader extends Reader<InstalledAddOnExtensio
     /**
      * Construct a new InstalledAddOnExtensionReader.
      *
-     * @param pathInstalledAddOnSid The installed_add_on_sid
+     * @param pathInstalledAddOnSid The SID of the InstalledAddOn resource with the
+     *                              extensions to read
      */
     public InstalledAddOnExtensionReader(final String pathInstalledAddOnSid) {
         this.pathInstalledAddOnSid = pathInstalledAddOnSid;

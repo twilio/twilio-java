@@ -28,7 +28,7 @@ public class InstalledAddOnFetcher extends Fetcher<InstalledAddOn> {
     /**
      * Construct a new InstalledAddOnFetcher.
      *
-     * @param pathSid The unique Installed Add-on Sid
+     * @param pathSid The SID of the InstalledAddOn resource to fetch
      */
     public InstalledAddOnFetcher(final String pathSid) {
         this.pathSid = pathSid;

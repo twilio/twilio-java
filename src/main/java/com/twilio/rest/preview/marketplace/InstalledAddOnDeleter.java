@@ -28,7 +28,7 @@ public class InstalledAddOnDeleter extends Deleter<InstalledAddOn> {
     /**
      * Construct a new InstalledAddOnDeleter.
      *
-     * @param pathSid The Installed Add-on Sid to delete
+     * @param pathSid The SID of the InstalledAddOn resource to delete
      */
     public InstalledAddOnDeleter(final String pathSid) {
         this.pathSid = pathSid;

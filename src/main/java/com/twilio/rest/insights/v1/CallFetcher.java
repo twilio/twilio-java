@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.marketplace;
+package com.twilio.rest.insights.v1;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -22,15 +22,15 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class AvailableAddOnFetcher extends Fetcher<AvailableAddOn> {
+public class CallFetcher extends Fetcher<Call> {
     private final String pathSid;
 
     /**
-     * Construct a new AvailableAddOnFetcher.
+     * Construct a new CallFetcher.
      *
-     * @param pathSid The SID of the AvailableAddOn resource to fetch
+     * @param pathSid The sid
      */
-    public AvailableAddOnFetcher(final String pathSid) {
+    public CallFetcher(final String pathSid) {
         this.pathSid = pathSid;
     }
 
@@ -38,22 +38,22 @@ public class AvailableAddOnFetcher extends Fetcher<AvailableAddOn> {
      * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched AvailableAddOn
+     * @return Fetched Call
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public AvailableAddOn fetch(final TwilioRestClient client) {
+    public Call fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.PREVIEW.toString(),
-            "/marketplace/AvailableAddOns/" + this.pathSid + "",
+            Domains.INSIGHTS.toString(),
+            "/v1/Voice/" + this.pathSid + "",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("AvailableAddOn fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("Call fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -69,6 +69,6 @@ public class AvailableAddOnFetcher extends Fetcher<AvailableAddOn> {
             );
         }
 
-        return AvailableAddOn.fromJson(response.getStream(), client.getObjectMapper());
+        return Call.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

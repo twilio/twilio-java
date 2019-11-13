@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.marketplace;
+package com.twilio.rest.insights.v1.call;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -22,38 +22,51 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class AvailableAddOnFetcher extends Fetcher<AvailableAddOn> {
-    private final String pathSid;
+public class CallSummaryFetcher extends Fetcher<CallSummary> {
+    private final String pathCallSid;
+    private CallSummary.ProcessingState processingState;
 
     /**
-     * Construct a new AvailableAddOnFetcher.
+     * Construct a new CallSummaryFetcher.
      *
-     * @param pathSid The SID of the AvailableAddOn resource to fetch
+     * @param pathCallSid The call_sid
      */
-    public AvailableAddOnFetcher(final String pathSid) {
-        this.pathSid = pathSid;
+    public CallSummaryFetcher(final String pathCallSid) {
+        this.pathCallSid = pathCallSid;
+    }
+
+    /**
+     * The processing_state.
+     *
+     * @param processingState The processing_state
+     * @return this
+     */
+    public CallSummaryFetcher setProcessingState(final CallSummary.ProcessingState processingState) {
+        this.processingState = processingState;
+        return this;
     }
 
     /**
      * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched AvailableAddOn
+     * @return Fetched CallSummary
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public AvailableAddOn fetch(final TwilioRestClient client) {
+    public CallSummary fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.PREVIEW.toString(),
-            "/marketplace/AvailableAddOns/" + this.pathSid + "",
+            Domains.INSIGHTS.toString(),
+            "/v1/Voice/" + this.pathCallSid + "/Summary",
             client.getRegion()
         );
 
+        addQueryParams(request);
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("AvailableAddOn fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("CallSummary fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -69,6 +82,17 @@ public class AvailableAddOnFetcher extends Fetcher<AvailableAddOn> {
             );
         }
 
-        return AvailableAddOn.fromJson(response.getStream(), client.getObjectMapper());
+        return CallSummary.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested query string arguments to the Request.
+     *
+     * @param request Request to add query string arguments to
+     */
+    private void addQueryParams(final Request request) {
+        if (processingState != null) {
+            request.addQueryParam("ProcessingState", processingState.toString());
+        }
     }
 }

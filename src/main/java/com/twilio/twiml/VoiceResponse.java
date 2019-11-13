@@ -21,6 +21,7 @@ import com.twilio.twiml.voice.Prompt;
 import com.twilio.twiml.voice.Queue;
 import com.twilio.twiml.voice.Record;
 import com.twilio.twiml.voice.Redirect;
+import com.twilio.twiml.voice.Refer;
 import com.twilio.twiml.voice.Reject;
 import com.twilio.twiml.voice.Say;
 import com.twilio.twiml.voice.Sms;
@@ -198,6 +199,14 @@ public class VoiceResponse extends TwiML {
          */
         public Builder stop(Stop stop) {
             this.children.add(stop);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <Refer>} element
+         */
+        public Builder refer(Refer refer) {
+            this.children.add(refer);
             return this;
         }
 

@@ -37,6 +37,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     private Boolean integrationCreationOnMessage;
     private Boolean longLived;
     private Boolean janitorEnabled;
+    private Integer integrationRetryCount;
 
     /**
      * Construct a new FlexFlowCreator.
@@ -213,6 +214,19 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
+     * The number of times to retry the webhook if the first attempt fails. Can be
+     * an integer between 0 and 3, inclusive, and the default is 0..
+     *
+     * @param integrationRetryCount The number of times to retry the webhook if the
+     *                              first attempt fails
+     * @return this
+     */
+    public FlexFlowCreator setIntegrationRetryCount(final Integer integrationRetryCount) {
+        this.integrationRetryCount = integrationRetryCount;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -319,6 +333,10 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
 
         if (janitorEnabled != null) {
             request.addPostParam("JanitorEnabled", janitorEnabled.toString());
+        }
+
+        if (integrationRetryCount != null) {
+            request.addPostParam("Integration.RetryCount", integrationRetryCount.toString());
         }
     }
 }

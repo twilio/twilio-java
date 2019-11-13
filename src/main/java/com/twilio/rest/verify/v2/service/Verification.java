@@ -40,11 +40,12 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Verification extends Resource {
-    private static final long serialVersionUID = 203139503984797L;
+    private static final long serialVersionUID = 90062652968318L;
 
     public enum Channel {
         SMS("sms"),
-        CALL("call");
+        CALL("call"),
+        EMAIL("email");
 
         private final String value;
 
@@ -97,7 +98,7 @@ public class Verification extends Resource {
      *
      * @param pathServiceSid The SID of the verification Service to create the
      *                       resource under
-     * @param to The phone number to verify
+     * @param to The phone number or email to verify
      * @param channel The verification method to use
      * @return VerificationCreator capable of executing the create
      */
@@ -176,7 +177,7 @@ public class Verification extends Resource {
     private final String sid;
     private final String serviceSid;
     private final String accountSid;
-    private final com.twilio.type.PhoneNumber to;
+    private final String to;
     private final Verification.Channel channel;
     private final String status;
     private final Boolean valid;
@@ -195,7 +196,7 @@ public class Verification extends Resource {
                          @JsonProperty("account_sid")
                          final String accountSid,
                          @JsonProperty("to")
-                         final com.twilio.type.PhoneNumber to,
+                         final String to,
                          @JsonProperty("channel")
                          final Verification.Channel channel,
                          @JsonProperty("status")
@@ -257,11 +258,11 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The The phone number being verified.
+     * Returns The The phone number or email being verified.
      *
-     * @return The phone number being verified
+     * @return The phone number or email being verified
      */
-    public final com.twilio.type.PhoneNumber getTo() {
+    public final String getTo() {
         return this.to;
     }
 

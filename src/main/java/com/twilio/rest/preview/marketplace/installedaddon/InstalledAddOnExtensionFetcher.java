@@ -29,8 +29,9 @@ public class InstalledAddOnExtensionFetcher extends Fetcher<InstalledAddOnExtens
     /**
      * Construct a new InstalledAddOnExtensionFetcher.
      *
-     * @param pathInstalledAddOnSid The installed_add_on_sid
-     * @param pathSid The unique Extension Sid
+     * @param pathInstalledAddOnSid The SID of the InstalledAddOn resource with the
+     *                              extension to fetch
+     * @param pathSid The SID of the InstalledAddOn Extension resource to fetch
      */
     public InstalledAddOnExtensionFetcher(final String pathInstalledAddOnSid,
                                           final String pathSid) {

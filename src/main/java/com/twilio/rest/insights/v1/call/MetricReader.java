@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.marketplace.availableaddon;
+package com.twilio.rest.insights.v1.call;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -24,27 +24,50 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtension> {
-    private final String pathAvailableAddOnSid;
+public class MetricReader extends Reader<Metric> {
+    private final String pathCallSid;
+    private Metric.TwilioEdge edge;
+    private Metric.StreamDirection direction;
 
     /**
-     * Construct a new AvailableAddOnExtensionReader.
+     * Construct a new MetricReader.
      *
-     * @param pathAvailableAddOnSid The SID of the AvailableAddOn resource with the
-     *                              extensions to read
+     * @param pathCallSid The call_sid
      */
-    public AvailableAddOnExtensionReader(final String pathAvailableAddOnSid) {
-        this.pathAvailableAddOnSid = pathAvailableAddOnSid;
+    public MetricReader(final String pathCallSid) {
+        this.pathCallSid = pathCallSid;
+    }
+
+    /**
+     * The edge.
+     *
+     * @param edge The edge
+     * @return this
+     */
+    public MetricReader setEdge(final Metric.TwilioEdge edge) {
+        this.edge = edge;
+        return this;
+    }
+
+    /**
+     * The direction.
+     *
+     * @param direction The direction
+     * @return this
+     */
+    public MetricReader setDirection(final Metric.StreamDirection direction) {
+        this.direction = direction;
+        return this;
     }
 
     /**
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return AvailableAddOnExtension ResourceSet
+     * @return Metric ResourceSet
      */
     @Override
-    public ResourceSet<AvailableAddOnExtension> read(final TwilioRestClient client) {
+    public ResourceSet<Metric> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -52,15 +75,15 @@ public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtensio
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return AvailableAddOnExtension ResourceSet
+     * @return Metric ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<AvailableAddOnExtension> firstPage(final TwilioRestClient client) {
+    public Page<Metric> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.PREVIEW.toString(),
-            "/marketplace/AvailableAddOns/" + this.pathAvailableAddOnSid + "/Extensions",
+            Domains.INSIGHTS.toString(),
+            "/v1/Voice/" + this.pathCallSid + "/Metrics",
             client.getRegion()
         );
 
@@ -73,11 +96,11 @@ public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtensio
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return AvailableAddOnExtension ResourceSet
+     * @return Metric ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<AvailableAddOnExtension> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Metric> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -94,12 +117,12 @@ public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtensio
      * @return Next Page
      */
     @Override
-    public Page<AvailableAddOnExtension> nextPage(final Page<AvailableAddOnExtension> page,
-                                                  final TwilioRestClient client) {
+    public Page<Metric> nextPage(final Page<Metric> page,
+                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
+                Domains.INSIGHTS.toString(),
                 client.getRegion()
             )
         );
@@ -114,12 +137,12 @@ public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtensio
      * @return Previous Page
      */
     @Override
-    public Page<AvailableAddOnExtension> previousPage(final Page<AvailableAddOnExtension> page,
-                                                      final TwilioRestClient client) {
+    public Page<Metric> previousPage(final Page<Metric> page,
+                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
+                Domains.INSIGHTS.toString(),
                 client.getRegion()
             )
         );
@@ -127,17 +150,17 @@ public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtensio
     }
 
     /**
-     * Generate a Page of AvailableAddOnExtension Resources for a given request.
+     * Generate a Page of Metric Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<AvailableAddOnExtension> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Metric> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("AvailableAddOnExtension read failed: Unable to connect to server");
+            throw new ApiConnectionException("Metric read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -154,9 +177,9 @@ public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtensio
         }
 
         return Page.fromJson(
-            "extensions",
+            "metrics",
             response.getContent(),
-            AvailableAddOnExtension.class,
+            Metric.class,
             client.getObjectMapper()
         );
     }
@@ -167,6 +190,14 @@ public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtensio
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
+        if (edge != null) {
+            request.addQueryParam("Edge", edge.toString());
+        }
+
+        if (direction != null) {
+            request.addQueryParam("Direction", direction.toString());
+        }
+
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

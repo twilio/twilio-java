@@ -33,7 +33,7 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
     /**
      * Construct a new InstalledAddOnUpdater.
      *
-     * @param pathSid The sid
+     * @param pathSid The SID of the InstalledAddOn resource to update
      */
     public InstalledAddOnUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -41,7 +41,7 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
 
     /**
      * Valid JSON object that conform to the configuration schema exposed by the
-     * associated Available Add-on resource. This is only required by Add-ons that
+     * associated AvailableAddOn resource. This is only required by Add-ons that
      * need to be configured.
      *
      * @param configuration The JSON object representing the configuration
@@ -53,11 +53,11 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
     }
 
     /**
-     * The human-readable string that uniquely identifies this Add-on installation
-     * for an Account..
+     * An application-defined string that uniquely identifies the resource. This
+     * value must be unique within the Account..
      *
-     * @param uniqueName The string that uniquely identifies this Add-on
-     *                   installation
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      * @return this
      */
     public InstalledAddOnUpdater setUniqueName(final String uniqueName) {

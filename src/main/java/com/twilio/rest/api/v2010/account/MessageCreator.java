@@ -36,6 +36,7 @@ public class MessageCreator extends Creator<Message> {
     private Integer validityPeriod;
     private Boolean forceDelivery;
     private Boolean smartEncoded;
+    private List<String> persistentAction;
 
     /**
      * Construct a new MessageCreator.
@@ -309,6 +310,27 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
+     * Rich actions for Channels Messages..
+     *
+     * @param persistentAction Rich actions for Channels Messages.
+     * @return this
+     */
+    public MessageCreator setPersistentAction(final List<String> persistentAction) {
+        this.persistentAction = persistentAction;
+        return this;
+    }
+
+    /**
+     * Rich actions for Channels Messages..
+     *
+     * @param persistentAction Rich actions for Channels Messages.
+     * @return this
+     */
+    public MessageCreator setPersistentAction(final String persistentAction) {
+        return setPersistentAction(Promoter.listOfOne(persistentAction));
+    }
+
+    /**
      * A Twilio phone number in
      * [E.164](https://www.twilio.com/docs/glossary/what-e164) format, an
      * [alphanumeric sender
@@ -364,11 +386,13 @@ public class MessageCreator extends Creator<Message> {
     /**
      * The URL of the media to send with the message. The media can be of type
      * `gif`, `png`, and `jpeg` and will be formatted correctly on the recipient's
-     * device. [Other types](https://www.twilio.com/docs/sms/accepted-mime-types) of
-     * media are also accepted. The media size limit is 5MB. To send more than one
-     * image in the message body, provide multiple `media_url` parameters in the
-     * POST request. You can include up to 10 `media_url` parameters per message.
-     * You can send images in an SMS message in only the US and Canada..
+     * device. The media size limit is 5MB for supported file types (JPEG, PNG, GIF)
+     * and 500KB for [other
+     * types](https://www.twilio.com/docs/sms/accepted-mime-types) of accepted
+     * media. To send more than one image in the message body, provide multiple
+     * `media_url` parameters in the POST request. You can include up to 10
+     * `media_url` parameters per message. You can send images in an SMS message in
+     * only the US and Canada..
      *
      * @param mediaUrl The URL of the media to send with the message
      * @return this
@@ -381,11 +405,13 @@ public class MessageCreator extends Creator<Message> {
     /**
      * The URL of the media to send with the message. The media can be of type
      * `gif`, `png`, and `jpeg` and will be formatted correctly on the recipient's
-     * device. [Other types](https://www.twilio.com/docs/sms/accepted-mime-types) of
-     * media are also accepted. The media size limit is 5MB. To send more than one
-     * image in the message body, provide multiple `media_url` parameters in the
-     * POST request. You can include up to 10 `media_url` parameters per message.
-     * You can send images in an SMS message in only the US and Canada..
+     * device. The media size limit is 5MB for supported file types (JPEG, PNG, GIF)
+     * and 500KB for [other
+     * types](https://www.twilio.com/docs/sms/accepted-mime-types) of accepted
+     * media. To send more than one image in the message body, provide multiple
+     * `media_url` parameters in the POST request. You can include up to 10
+     * `media_url` parameters per message. You can send images in an SMS message in
+     * only the US and Canada..
      *
      * @param mediaUrl The URL of the media to send with the message
      * @return this
@@ -397,11 +423,13 @@ public class MessageCreator extends Creator<Message> {
     /**
      * The URL of the media to send with the message. The media can be of type
      * `gif`, `png`, and `jpeg` and will be formatted correctly on the recipient's
-     * device. [Other types](https://www.twilio.com/docs/sms/accepted-mime-types) of
-     * media are also accepted. The media size limit is 5MB. To send more than one
-     * image in the message body, provide multiple `media_url` parameters in the
-     * POST request. You can include up to 10 `media_url` parameters per message.
-     * You can send images in an SMS message in only the US and Canada..
+     * device. The media size limit is 5MB for supported file types (JPEG, PNG, GIF)
+     * and 500KB for [other
+     * types](https://www.twilio.com/docs/sms/accepted-mime-types) of accepted
+     * media. To send more than one image in the message body, provide multiple
+     * `media_url` parameters in the POST request. You can include up to 10
+     * `media_url` parameters per message. You can send images in an SMS message in
+     * only the US and Canada..
      *
      * @param mediaUrl The URL of the media to send with the message
      * @return this
@@ -504,6 +532,12 @@ public class MessageCreator extends Creator<Message> {
 
         if (smartEncoded != null) {
             request.addPostParam("SmartEncoded", smartEncoded.toString());
+        }
+
+        if (persistentAction != null) {
+            for (String prop : persistentAction) {
+                request.addPostParam("PersistentAction", prop);
+            }
         }
     }
 }

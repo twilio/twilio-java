@@ -70,6 +70,18 @@ public class VerificationTest {
     }
 
     @Test
+    public void testCreateVerificationEmailResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"sid\": \"VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"service_sid\": \"VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"to\": \"mail@email.com\",\"channel\": \"email\",\"status\": \"pending\",\"valid\": false,\"date_created\": \"2015-07-30T20:00:00Z\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"lookup\": {\"carrier\": {\"error_code\": null,\"name\": null,\"mobile_country_code\": null,\"mobile_network_code\": null,\"type\": null}},\"amount\": null,\"payee\": null,\"url\": \"https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        Verification.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "to", "channel").create();
+    }
+
+    @Test
     public void testCreateVerificationWithRateLimitsResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);

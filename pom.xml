@@ -79,9 +79,9 @@
 						<version>1.6.8</version>
 						<extensions>true</extensions>
 						<configuration>
-							<serverid>ossrh</serverid>
-							<nexusurl>https://oss.sonatype.org/</nexusurl>
-							<autoreleaseafterclose>true</autoreleaseafterclose>
+							<serverId>ossrh</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
 						</configuration>
 					</plugin>
 					<plugin>

@@ -59,14 +59,20 @@ If you want to compile it yourself, here's how:
 
 ## Quickstart
 
+### Initialize the client
+
+```java
+// Find your Account SID and Auth Token at twilio.com/console
+// DANGER! This is insecure. See http://twil.io/secure
+String accountSid = "ACXXXXXX";
+String authToken = "XXXXXXXX";
+
+Twilio.init(accountSid, authToken);
+```
+
 ### Send a SMS
 
 ```java
-String accountSid = "ACXXXXXX"; // Your Account SID from www.twilio.com/user/account
-String authToken = "XXXXXXXX"; // Your Auth Token from www.twilio.com/user/account
-
-Twilio.init(accountSid, authToken);
-
 Message message = Message.creator(
     new PhoneNumber("+15558881234"),  // To number
     new PhoneNumber("+15559994321"),  // From number
@@ -79,11 +85,6 @@ System.out.println(message.getSid());
 ### Make a call
 
 ```java
-String accountSid = "ACXXXXXX"; // Your Account SID from www.twilio.com/user/account
-String authToken = "XXXXXXXX"; // Your Auth Token from www.twilio.com/user/account
-
-Twilio.init(accountSid, authToken);
-
 Call call = Call.creator(
     new PhoneNumber("+15558881234"),  // To number
     new PhoneNumber("+15559994321"),  // From number
@@ -93,6 +94,20 @@ Call call = Call.creator(
 ).create();
 
 System.out.println(call.getSid());
+```
+
+### Use a different client
+
+```java
+TwilioRestClient client = new TwilioRestClient.Builder(accountSid, authToken).build();
+
+Message message = Message.creator(
+    new PhoneNumber("+15558881234"),  // To number
+    new PhoneNumber("+15559994321"),  // From number
+    "Hello world!"                    // SMS body
+).create(client);  // Pass the client here
+
+System.out.println(message.getSid());
 ```
 
 ### Generating TwiML

@@ -3,7 +3,7 @@ sudo: false
 before_install:
   - wget https://github.com/sormuras/bach/raw/master/install-jdk.sh
   - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import || true
-  - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
+  - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust || true
 matrix:
   include:
 # OpenJDK

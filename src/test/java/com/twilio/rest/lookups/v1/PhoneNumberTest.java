@@ -41,7 +41,7 @@ public class PhoneNumberTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.LOOKUPS.toString(),
-                                          "/v1/PhoneNumbers/+15017122661");
+                                          "/v1/PhoneNumbers/%2B15017122661");
 
             twilioRestClient.request(request);
             times = 1;

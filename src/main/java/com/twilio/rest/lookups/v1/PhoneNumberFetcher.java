@@ -135,7 +135,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.LOOKUPS.toString(),
-            "/v1/PhoneNumbers/" + this.pathPhoneNumber + "",
+            "/v1/PhoneNumbers/" + this.pathPhoneNumber.encode("utf-8") + "",
             client.getRegion()
         );
 

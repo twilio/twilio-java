@@ -59,7 +59,7 @@ If you want to compile it yourself, here's how:
 
 ## Quickstart
 
-### Initialize the client
+### Initialize the Client
 
 ```java
 // Find your Account SID and Auth Token at twilio.com/console
@@ -70,7 +70,7 @@ String authToken = "XXXXXXXX";
 Twilio.init(accountSid, authToken);
 ```
 
-### Send a SMS
+### Send an SMS
 
 ```java
 Message message = Message.creator(
@@ -82,7 +82,7 @@ Message message = Message.creator(
 System.out.println(message.getSid());
 ```
 
-### Make a call
+### Make a Call
 
 ```java
 Call call = Call.creator(
@@ -96,7 +96,25 @@ Call call = Call.creator(
 System.out.println(call.getSid());
 ```
 
-### Use a different client
+### Handling Exceptions
+
+```java
+import com.twilio.exception.ApiException;
+
+try {
+    Message message = Message.creator(
+        new PhoneNumber("+15558881234"),  // To number
+        new PhoneNumber("+15559994321"),  // From number
+        "Hello world!"                    // SMS body
+    ).create();
+    
+    System.out.println(message.getSid());
+} catch (final ApiException e) {
+    System.err.println(e);
+}
+```
+
+### Using a Different Client
 
 ```java
 TwilioRestClient client = new TwilioRestClient.Builder(accountSid, authToken).build();
@@ -135,7 +153,7 @@ That will output XML that looks like this:
 
 The `Dockerfile` present in this repository and its respective `twilio/twilio-java` Docker image are currently used by Twilio for testing purposes only.
 
-## Getting help
+## Getting Help
 
 If you need help installing or using the library, please check the [Twilio Support Help Center](https://support.twilio.com) first, and [file a support ticket](https://twilio.com/help/contact) if you don't find an answer to your question.
 

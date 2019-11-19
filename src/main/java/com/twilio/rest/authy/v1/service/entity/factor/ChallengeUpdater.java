@@ -28,7 +28,6 @@ public class ChallengeUpdater extends Updater<Challenge> {
     private final String pathFactorSid;
     private final String pathSid;
     private String authPayload;
-    private String twilioAuthySandboxMode;
 
     /**
      * Construct a new ChallengeUpdater.

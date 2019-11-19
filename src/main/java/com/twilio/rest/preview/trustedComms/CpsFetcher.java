@@ -23,9 +23,6 @@ import com.twilio.rest.Domains;
  * access, please contact help@twilio.com.
  */
 public class CpsFetcher extends Fetcher<Cps> {
-    private String twilioSandboxMode;
-    private String xXcnamSensitivePhoneNumber;
-
     /**
      * Make the request to the Twilio API to perform the fetch.
      *
@@ -42,7 +39,6 @@ public class CpsFetcher extends Fetcher<Cps> {
             client.getRegion()
         );
 
-        addQueryParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -63,20 +59,5 @@ public class CpsFetcher extends Fetcher<Cps> {
         }
 
         return Cps.fromJson(response.getStream(), client.getObjectMapper());
-    }
-
-    /**
-     * Add the requested query string arguments to the Request.
-     *
-     * @param request Request to add query string arguments to
-     */
-    private void addQueryParams(final Request request) {
-        if (twilioSandboxMode != null) {
-            request.addQueryParam("TwilioSandboxMode", twilioSandboxMode);
-        }
-
-        if (xXcnamSensitivePhoneNumber != null) {
-            request.addQueryParam("XXcnamSensitivePhoneNumber", xXcnamSensitivePhoneNumber);
-        }
     }
 }

@@ -27,7 +27,6 @@ public class FactorUpdater extends Updater<Factor> {
     private final String pathIdentity;
     private final String pathSid;
     private String authPayload;
-    private String twilioAuthySandboxMode;
 
     /**
      * Construct a new FactorUpdater.

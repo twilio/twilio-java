@@ -24,7 +24,6 @@ import com.twilio.rest.Domains;
  */
 public class ServiceDeleter extends Deleter<Service> {
     private final String pathSid;
-    private String twilioAuthySandboxMode;
 
     /**
      * Construct a new ServiceDeleter.

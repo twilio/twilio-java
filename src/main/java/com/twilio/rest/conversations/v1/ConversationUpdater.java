@@ -29,7 +29,6 @@ public class ConversationUpdater extends Updater<Conversation> {
     private DateTime dateCreated;
     private DateTime dateUpdated;
     private String attributes;
-    private Conversation.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new ConversationUpdater.

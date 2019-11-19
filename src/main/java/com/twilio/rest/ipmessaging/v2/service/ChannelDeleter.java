@@ -20,7 +20,6 @@ import com.twilio.rest.Domains;
 public class ChannelDeleter extends Deleter<Channel> {
     private final String pathServiceSid;
     private final String pathSid;
-    private Channel.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new ChannelDeleter.

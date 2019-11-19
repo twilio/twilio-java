@@ -26,7 +26,6 @@ import com.twilio.rest.Domains;
  */
 public class EntityReader extends Reader<Entity> {
     private final String pathServiceSid;
-    private String twilioAuthySandboxMode;
 
     /**
      * Construct a new EntityReader.
@@ -167,10 +166,6 @@ public class EntityReader extends Reader<Entity> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (twilioAuthySandboxMode != null) {
-            request.addQueryParam("TwilioAuthySandboxMode", twilioAuthySandboxMode);
-        }
-
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

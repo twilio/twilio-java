@@ -32,7 +32,6 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
     private Integer ttl;
     private Integer itemTtl;
     private Integer collectionTtl;
-    private String ifMatch;
 
     /**
      * Construct a new SyncListItemUpdater.

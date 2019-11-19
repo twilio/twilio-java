@@ -29,7 +29,6 @@ public class DocumentUpdater extends Updater<Document> {
     private final String pathServiceSid;
     private final String pathSid;
     private final Map<String, Object> data;
-    private String ifMatch;
 
     /**
      * Construct a new DocumentUpdater.

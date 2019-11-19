@@ -28,7 +28,6 @@ public class FactorCreator extends Creator<Factor> {
     private final String binding;
     private final String friendlyName;
     private final Factor.FactorTypes factorType;
-    private String twilioAuthySandboxMode;
 
     /**
      * Construct a new FactorCreator.

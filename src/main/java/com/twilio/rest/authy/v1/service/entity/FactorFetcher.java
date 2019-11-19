@@ -26,7 +26,6 @@ public class FactorFetcher extends Fetcher<Factor> {
     private final String pathServiceSid;
     private final String pathIdentity;
     private final String pathSid;
-    private String twilioAuthySandboxMode;
 
     /**
      * Construct a new FactorFetcher.
@@ -59,7 +58,6 @@ public class FactorFetcher extends Fetcher<Factor> {
             client.getRegion()
         );
 
-        addQueryParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -80,16 +78,5 @@ public class FactorFetcher extends Fetcher<Factor> {
         }
 
         return Factor.fromJson(response.getStream(), client.getObjectMapper());
-    }
-
-    /**
-     * Add the requested query string arguments to the Request.
-     *
-     * @param request Request to add query string arguments to
-     */
-    private void addQueryParams(final Request request) {
-        if (twilioAuthySandboxMode != null) {
-            request.addQueryParam("TwilioAuthySandboxMode", twilioAuthySandboxMode);
-        }
     }
 }

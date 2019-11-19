@@ -26,7 +26,6 @@ public class FactorDeleter extends Deleter<Factor> {
     private final String pathServiceSid;
     private final String pathIdentity;
     private final String pathSid;
-    private String twilioAuthySandboxMode;
 
     /**
      * Construct a new FactorDeleter.

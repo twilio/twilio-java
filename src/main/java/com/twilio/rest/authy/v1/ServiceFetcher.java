@@ -24,7 +24,6 @@ import com.twilio.rest.Domains;
  */
 public class ServiceFetcher extends Fetcher<Service> {
     private final String pathSid;
-    private String twilioAuthySandboxMode;
 
     /**
      * Construct a new ServiceFetcher.
@@ -51,7 +50,6 @@ public class ServiceFetcher extends Fetcher<Service> {
             client.getRegion()
         );
 
-        addQueryParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -72,16 +70,5 @@ public class ServiceFetcher extends Fetcher<Service> {
         }
 
         return Service.fromJson(response.getStream(), client.getObjectMapper());
-    }
-
-    /**
-     * Add the requested query string arguments to the Request.
-     *
-     * @param request Request to add query string arguments to
-     */
-    private void addQueryParams(final Request request) {
-        if (twilioAuthySandboxMode != null) {
-            request.addQueryParam("TwilioAuthySandboxMode", twilioAuthySandboxMode);
-        }
     }
 }

@@ -24,7 +24,6 @@ import com.twilio.rest.Domains;
 public class ParticipantDeleter extends Deleter<Participant> {
     private final String pathConversationSid;
     private final String pathSid;
-    private Participant.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new ParticipantDeleter.

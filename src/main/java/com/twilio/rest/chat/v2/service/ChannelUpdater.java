@@ -28,7 +28,6 @@ public class ChannelUpdater extends Updater<Channel> {
     private DateTime dateCreated;
     private DateTime dateUpdated;
     private String createdBy;
-    private Channel.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new ChannelUpdater.

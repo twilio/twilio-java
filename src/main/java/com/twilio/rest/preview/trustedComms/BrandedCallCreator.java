@@ -27,7 +27,6 @@ public class BrandedCallCreator extends Creator<BrandedCall> {
     private final String to;
     private final String reason;
     private String callSid;
-    private String twilioSandboxMode;
 
     /**
      * Construct a new BrandedCallCreator.

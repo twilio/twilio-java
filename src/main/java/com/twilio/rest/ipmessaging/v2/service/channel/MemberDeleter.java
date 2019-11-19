@@ -21,7 +21,6 @@ public class MemberDeleter extends Deleter<Member> {
     private final String pathServiceSid;
     private final String pathChannelSid;
     private final String pathSid;
-    private Member.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new MemberDeleter.

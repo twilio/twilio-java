@@ -25,7 +25,6 @@ import com.twilio.rest.Domains;
 public class ServiceUpdater extends Updater<Service> {
     private final String pathSid;
     private String friendlyName;
-    private String twilioAuthySandboxMode;
 
     /**
      * Construct a new ServiceUpdater.

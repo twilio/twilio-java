@@ -32,7 +32,6 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
     private Integer ttl;
     private Integer itemTtl;
     private Integer collectionTtl;
-    private String ifMatch;
 
     /**
      * Construct a new SyncMapItemUpdater.

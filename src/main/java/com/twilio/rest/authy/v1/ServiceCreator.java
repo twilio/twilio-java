@@ -24,7 +24,6 @@ import com.twilio.rest.Domains;
  */
 public class ServiceCreator extends Creator<Service> {
     private final String friendlyName;
-    private String twilioAuthySandboxMode;
 
     /**
      * Construct a new ServiceCreator.

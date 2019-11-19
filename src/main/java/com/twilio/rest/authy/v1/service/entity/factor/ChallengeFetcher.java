@@ -27,7 +27,6 @@ public class ChallengeFetcher extends Fetcher<Challenge> {
     private final String pathIdentity;
     private final String pathFactorSid;
     private final String pathSid;
-    private String twilioAuthySandboxMode;
 
     /**
      * Construct a new ChallengeFetcher.
@@ -63,7 +62,6 @@ public class ChallengeFetcher extends Fetcher<Challenge> {
             client.getRegion()
         );
 
-        addQueryParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -84,16 +82,5 @@ public class ChallengeFetcher extends Fetcher<Challenge> {
         }
 
         return Challenge.fromJson(response.getStream(), client.getObjectMapper());
-    }
-
-    /**
-     * Add the requested query string arguments to the Request.
-     *
-     * @param request Request to add query string arguments to
-     */
-    private void addQueryParams(final Request request) {
-        if (twilioAuthySandboxMode != null) {
-            request.addQueryParam("TwilioAuthySandboxMode", twilioAuthySandboxMode);
-        }
     }
 }

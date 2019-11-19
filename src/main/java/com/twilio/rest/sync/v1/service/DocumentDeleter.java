@@ -24,7 +24,6 @@ import com.twilio.rest.Domains;
 public class DocumentDeleter extends Deleter<Document> {
     private final String pathServiceSid;
     private final String pathSid;
-    private String ifMatch;
 
     /**
      * Construct a new DocumentDeleter.

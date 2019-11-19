@@ -54,6 +54,7 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     private Integer timeout;
     private String trim;
     private URI url;
+    private String twilioSandboxMode;
 
     /**
      * Construct a new PhoneCallCreator.

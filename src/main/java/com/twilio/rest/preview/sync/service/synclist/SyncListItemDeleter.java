@@ -26,6 +26,7 @@ public class SyncListItemDeleter extends Deleter<SyncListItem> {
     private final String pathServiceSid;
     private final String pathListSid;
     private final Integer pathIndex;
+    private String ifMatch;
 
     /**
      * Construct a new SyncListItemDeleter.

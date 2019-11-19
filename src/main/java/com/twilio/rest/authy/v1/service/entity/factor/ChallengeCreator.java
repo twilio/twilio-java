@@ -31,6 +31,7 @@ public class ChallengeCreator extends Creator<Challenge> {
     private DateTime expirationDate;
     private String details;
     private String hiddenDetails;
+    private String twilioAuthySandboxMode;
 
     /**
      * Construct a new ChallengeCreator.

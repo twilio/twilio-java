@@ -29,6 +29,7 @@ public class ParticipantUpdater extends Updater<Participant> {
     private DateTime dateCreated;
     private DateTime dateUpdated;
     private String attributes;
+    private Participant.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new ParticipantUpdater.

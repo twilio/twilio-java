@@ -23,6 +23,7 @@ import com.twilio.rest.Domains;
  */
 public class ConversationDeleter extends Deleter<Conversation> {
     private final String pathSid;
+    private Conversation.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new ConversationDeleter.

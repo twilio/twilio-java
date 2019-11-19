@@ -62,7 +62,7 @@ public class ReferTest {
     public void testElementWithChildren() {
         Refer.Builder builder = new Refer.Builder();
 
-        builder.referSip(new ReferSip.Builder(URI.create("https://example.com")).build());
+        builder.sip(new ReferSip.Builder(URI.create("https://example.com")).build());
 
         Refer elem = builder.build();
 

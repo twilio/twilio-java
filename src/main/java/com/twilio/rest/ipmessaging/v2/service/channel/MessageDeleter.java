@@ -21,6 +21,7 @@ public class MessageDeleter extends Deleter<Message> {
     private final String pathServiceSid;
     private final String pathChannelSid;
     private final String pathSid;
+    private Message.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new MessageDeleter.

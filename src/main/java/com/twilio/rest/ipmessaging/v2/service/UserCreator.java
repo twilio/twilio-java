@@ -23,6 +23,7 @@ public class UserCreator extends Creator<User> {
     private String roleSid;
     private String attributes;
     private String friendlyName;
+    private User.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new UserCreator.

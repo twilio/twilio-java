@@ -23,6 +23,10 @@ import com.twilio.rest.Domains;
  * access, please contact help@twilio.com.
  */
 public class CurrentCallFetcher extends Fetcher<CurrentCall> {
+    private String twilioSandboxMode;
+    private String xXcnamSensitivePhoneNumberFrom;
+    private String xXcnamSensitivePhoneNumberTo;
+
     /**
      * Make the request to the Twilio API to perform the fetch.
      *
@@ -39,6 +43,7 @@ public class CurrentCallFetcher extends Fetcher<CurrentCall> {
             client.getRegion()
         );
 
+        addQueryParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -59,5 +64,24 @@ public class CurrentCallFetcher extends Fetcher<CurrentCall> {
         }
 
         return CurrentCall.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested query string arguments to the Request.
+     *
+     * @param request Request to add query string arguments to
+     */
+    private void addQueryParams(final Request request) {
+        if (twilioSandboxMode != null) {
+            request.addQueryParam("TwilioSandboxMode", twilioSandboxMode);
+        }
+
+        if (xXcnamSensitivePhoneNumberFrom != null) {
+            request.addQueryParam("XXcnamSensitivePhoneNumberFrom", xXcnamSensitivePhoneNumberFrom);
+        }
+
+        if (xXcnamSensitivePhoneNumberTo != null) {
+            request.addQueryParam("XXcnamSensitivePhoneNumberTo", xXcnamSensitivePhoneNumberTo);
+        }
     }
 }

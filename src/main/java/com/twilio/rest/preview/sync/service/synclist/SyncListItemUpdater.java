@@ -30,6 +30,7 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
     private final String pathListSid;
     private final Integer pathIndex;
     private final Map<String, Object> data;
+    private String ifMatch;
 
     /**
      * Construct a new SyncListItemUpdater.

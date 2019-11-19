@@ -28,6 +28,7 @@ public class ChannelCreator extends Creator<Channel> {
     private DateTime dateCreated;
     private DateTime dateUpdated;
     private String createdBy;
+    private Channel.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new ChannelCreator.

@@ -25,6 +25,8 @@ import com.twilio.rest.Domains;
  * access, please contact help@twilio.com.
  */
 public class ServiceReader extends Reader<Service> {
+    private String twilioAuthySandboxMode;
+
     /**
      * Make the request to the Twilio API to perform the read.
      *
@@ -155,6 +157,10 @@ public class ServiceReader extends Reader<Service> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
+        if (twilioAuthySandboxMode != null) {
+            request.addQueryParam("TwilioAuthySandboxMode", twilioAuthySandboxMode);
+        }
+
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

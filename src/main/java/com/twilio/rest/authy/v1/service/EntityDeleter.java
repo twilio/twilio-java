@@ -25,6 +25,7 @@ import com.twilio.rest.Domains;
 public class EntityDeleter extends Deleter<Entity> {
     private final String pathServiceSid;
     private final String pathIdentity;
+    private String twilioAuthySandboxMode;
 
     /**
      * Construct a new EntityDeleter.

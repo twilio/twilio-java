@@ -25,6 +25,7 @@ public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
     private final String pathServiceSid;
     private final String pathMapSid;
     private final String pathKey;
+    private String ifMatch;
 
     /**
      * Construct a new SyncMapItemDeleter.

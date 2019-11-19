@@ -25,6 +25,7 @@ import com.twilio.rest.Domains;
 public class DeviceCreator extends Creator<Device> {
     private final String phoneNumber;
     private final String pushToken;
+    private String twilioSandboxMode;
 
     /**
      * Construct a new DeviceCreator.

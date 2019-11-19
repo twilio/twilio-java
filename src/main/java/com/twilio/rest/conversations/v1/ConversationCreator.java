@@ -29,6 +29,7 @@ public class ConversationCreator extends Creator<Conversation> {
     private DateTime dateUpdated;
     private String messagingServiceSid;
     private String attributes;
+    private Conversation.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * The human-readable name of this conversation, limited to 256 characters.

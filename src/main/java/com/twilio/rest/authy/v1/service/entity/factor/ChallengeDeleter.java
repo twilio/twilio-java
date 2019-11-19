@@ -27,6 +27,7 @@ public class ChallengeDeleter extends Deleter<Challenge> {
     private final String pathIdentity;
     private final String pathFactorSid;
     private final String pathSid;
+    private String twilioAuthySandboxMode;
 
     /**
      * Construct a new ChallengeDeleter.

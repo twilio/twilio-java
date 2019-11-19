@@ -32,6 +32,7 @@ public class ParticipantCreator extends Creator<Participant> {
     private DateTime dateUpdated;
     private String attributes;
     private String messagingBindingProjectedAddress;
+    private Participant.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new ParticipantCreator.

@@ -30,6 +30,7 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
     private final String pathMapSid;
     private final String pathKey;
     private final Map<String, Object> data;
+    private String ifMatch;
 
     /**
      * Construct a new SyncMapItemUpdater.

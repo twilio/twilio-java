@@ -25,6 +25,7 @@ import com.twilio.rest.Domains;
 public class EntityCreator extends Creator<Entity> {
     private final String pathServiceSid;
     private final String identity;
+    private String twilioAuthySandboxMode;
 
     /**
      * Construct a new EntityCreator.

@@ -29,6 +29,7 @@ public class MessageUpdater extends Updater<Message> {
     private DateTime dateUpdated;
     private String lastUpdatedBy;
     private String from;
+    private Message.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new MessageUpdater.

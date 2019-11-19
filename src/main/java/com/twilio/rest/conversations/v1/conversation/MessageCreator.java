@@ -31,6 +31,7 @@ public class MessageCreator extends Creator<Message> {
     private DateTime dateUpdated;
     private String attributes;
     private String mediaSid;
+    private Message.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new MessageCreator.

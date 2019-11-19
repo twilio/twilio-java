@@ -27,6 +27,7 @@ import com.twilio.rest.Domains;
 public class FactorReader extends Reader<Factor> {
     private final String pathServiceSid;
     private final String pathIdentity;
+    private String twilioAuthySandboxMode;
 
     /**
      * Construct a new FactorReader.
@@ -170,6 +171,10 @@ public class FactorReader extends Reader<Factor> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
+        if (twilioAuthySandboxMode != null) {
+            request.addQueryParam("TwilioAuthySandboxMode", twilioAuthySandboxMode);
+        }
+
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

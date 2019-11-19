@@ -109,9 +109,19 @@ public class Refer extends TwiML {
         /**
          * Add a child {@code <Sip>} element
          */
-        public Builder referSip(ReferSip referSip) {
+        public Builder sip(ReferSip referSip) {
             this.children.add(referSip);
             return this;
+        }
+
+        /**
+         * @deprecated
+         * This method is deprecated. Use {@link #sip(ReferSip)}.
+         * Add a child {@code <Sip>} element
+         */
+        @Deprecated
+        public Builder referSip(ReferSip referSip) {
+            return sip(referSip);
         }
 
         /**

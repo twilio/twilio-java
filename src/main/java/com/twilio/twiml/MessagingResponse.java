@@ -22,7 +22,7 @@ public class MessagingResponse extends TwiML {
     }
 
     /**
-     * Create a new {@code <MessagingResponse>} element
+     * Create a new {@code <Response>} element
      */
     private MessagingResponse(Builder b) {
         super("Response", b);

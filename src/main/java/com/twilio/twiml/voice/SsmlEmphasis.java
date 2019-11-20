@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * TwiML wrapper for {@code <Emphasis>}
+ * TwiML wrapper for {@code <emphasis>}
  */
 public class SsmlEmphasis extends TwiML {
     public enum Level {
@@ -43,7 +43,7 @@ public class SsmlEmphasis extends TwiML {
     }
 
     /**
-     * Create a new {@code <SsmlEmphasis>} element
+     * Create a new {@code <emphasis>} element
      */
     private SsmlEmphasis(Builder b) {
         super("emphasis", b);
@@ -95,14 +95,14 @@ public class SsmlEmphasis extends TwiML {
     }
 
     /**
-     * Create a new {@code <Emphasis>} element
+     * Create a new {@code <emphasis>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
         private SsmlEmphasis.Level level;
         private String words;
 
         /**
-         * Create a {@code <Emphasis>} with words
+         * Create a {@code <emphasis>} with words
          */
         public Builder(String words) {
             this.words = words;
@@ -117,7 +117,7 @@ public class SsmlEmphasis extends TwiML {
         }
 
         /**
-         * Create and return resulting {@code <Emphasis>} element
+         * Create and return resulting {@code <emphasis>} element
          */
         public SsmlEmphasis build() {
             return new SsmlEmphasis(this);

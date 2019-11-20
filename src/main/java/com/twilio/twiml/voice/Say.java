@@ -282,9 +282,9 @@ public class Say extends TwiML {
         }
 
         /**
-         * @deprecated
-         * This method is deprecated. Use {@link #break_(SsmlBreak)}.
          * Add a child {@code <break>} element
+         *
+         * @deprecated use {@link #break_(SsmlBreak)}.
          */
         @Deprecated
         public Builder ssmlBreak(SsmlBreak ssmlBreak) {
@@ -300,9 +300,9 @@ public class Say extends TwiML {
         }
 
         /**
-         * @deprecated
-         * This method is deprecated. Use {@link #emphasis(SsmlEmphasis)}.
          * Add a child {@code <emphasis>} element
+         *
+         * @deprecated use {@link #emphasis(SsmlEmphasis)}.
          */
         @Deprecated
         public Builder ssmlEmphasis(SsmlEmphasis ssmlEmphasis) {
@@ -318,9 +318,9 @@ public class Say extends TwiML {
         }
 
         /**
-         * @deprecated
-         * This method is deprecated. Use {@link #lang(SsmlLang)}.
          * Add a child {@code <lang>} element
+         *
+         * @deprecated use {@link #lang(SsmlLang)}.
          */
         @Deprecated
         public Builder ssmlLang(SsmlLang ssmlLang) {
@@ -336,9 +336,9 @@ public class Say extends TwiML {
         }
 
         /**
-         * @deprecated
-         * This method is deprecated. Use {@link #p(SsmlP)}.
          * Add a child {@code <p>} element
+         *
+         * @deprecated use {@link #p(SsmlP)}.
          */
         @Deprecated
         public Builder ssmlP(SsmlP ssmlP) {
@@ -354,9 +354,9 @@ public class Say extends TwiML {
         }
 
         /**
-         * @deprecated
-         * This method is deprecated. Use {@link #phoneme(SsmlPhoneme)}.
          * Add a child {@code <phoneme>} element
+         *
+         * @deprecated use {@link #phoneme(SsmlPhoneme)}.
          */
         @Deprecated
         public Builder ssmlPhoneme(SsmlPhoneme ssmlPhoneme) {
@@ -372,9 +372,9 @@ public class Say extends TwiML {
         }
 
         /**
-         * @deprecated
-         * This method is deprecated. Use {@link #prosody(SsmlProsody)}.
          * Add a child {@code <prosody>} element
+         *
+         * @deprecated use {@link #prosody(SsmlProsody)}.
          */
         @Deprecated
         public Builder ssmlProsody(SsmlProsody ssmlProsody) {
@@ -390,9 +390,9 @@ public class Say extends TwiML {
         }
 
         /**
-         * @deprecated
-         * This method is deprecated. Use {@link #s(SsmlS)}.
          * Add a child {@code <s>} element
+         *
+         * @deprecated use {@link #s(SsmlS)}.
          */
         @Deprecated
         public Builder ssmlS(SsmlS ssmlS) {
@@ -408,9 +408,9 @@ public class Say extends TwiML {
         }
 
         /**
-         * @deprecated
-         * This method is deprecated. Use {@link #sayAs(SsmlSayAs)}.
          * Add a child {@code <say-as>} element
+         *
+         * @deprecated use {@link #sayAs(SsmlSayAs)}.
          */
         @Deprecated
         public Builder ssmlSayAs(SsmlSayAs ssmlSayAs) {
@@ -426,9 +426,9 @@ public class Say extends TwiML {
         }
 
         /**
-         * @deprecated
-         * This method is deprecated. Use {@link #sub(SsmlSub)}.
          * Add a child {@code <sub>} element
+         *
+         * @deprecated use {@link #sub(SsmlSub)}.
          */
         @Deprecated
         public Builder ssmlSub(SsmlSub ssmlSub) {
@@ -444,9 +444,9 @@ public class Say extends TwiML {
         }
 
         /**
-         * @deprecated
-         * This method is deprecated. Use {@link #w(SsmlW)}.
          * Add a child {@code <w>} element
+         *
+         * @deprecated use {@link #w(SsmlW)}.
          */
         @Deprecated
         public Builder ssmlW(SsmlW ssmlW) {

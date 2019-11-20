@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * TwiML wrapper for {@code <Sub>}
+ * TwiML wrapper for {@code <sub>}
  */
 public class SsmlSub extends TwiML {
     private final String alias;
@@ -27,7 +27,7 @@ public class SsmlSub extends TwiML {
     }
 
     /**
-     * Create a new {@code <SsmlSub>} element
+     * Create a new {@code <sub>} element
      */
     private SsmlSub(Builder b) {
         super("sub", b);
@@ -81,14 +81,14 @@ public class SsmlSub extends TwiML {
     }
 
     /**
-     * Create a new {@code <Sub>} element
+     * Create a new {@code <sub>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
         private String alias;
         private String words;
 
         /**
-         * Create a {@code <Sub>} with words
+         * Create a {@code <sub>} with words
          */
         public Builder(String words) {
             this.words = words;
@@ -104,7 +104,7 @@ public class SsmlSub extends TwiML {
         }
 
         /**
-         * Create and return resulting {@code <Sub>} element
+         * Create and return resulting {@code <sub>} element
          */
         public SsmlSub build() {
             return new SsmlSub(this);

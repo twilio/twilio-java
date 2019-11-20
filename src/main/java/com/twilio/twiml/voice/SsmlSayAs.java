@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * TwiML wrapper for {@code <Say-As>}
+ * TwiML wrapper for {@code <say-as>}
  */
 public class SsmlSayAs extends TwiML {
     public enum InterpretAs {
@@ -78,7 +78,7 @@ public class SsmlSayAs extends TwiML {
     }
 
     /**
-     * Create a new {@code <SsmlSayAs>} element
+     * Create a new {@code <say-as>} element
      */
     private SsmlSayAs(Builder b) {
         super("say-as", b);
@@ -143,7 +143,7 @@ public class SsmlSayAs extends TwiML {
     }
 
     /**
-     * Create a new {@code <Say-As>} element
+     * Create a new {@code <say-as>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
         private SsmlSayAs.InterpretAs interpretAs;
@@ -151,7 +151,7 @@ public class SsmlSayAs extends TwiML {
         private String words;
 
         /**
-         * Create a {@code <Say-As>} with words
+         * Create a {@code <say-as>} with words
          */
         public Builder(String words) {
             this.words = words;
@@ -174,7 +174,7 @@ public class SsmlSayAs extends TwiML {
         }
 
         /**
-         * Create and return resulting {@code <Say-As>} element
+         * Create and return resulting {@code <say-as>} element
          */
         public SsmlSayAs build() {
             return new SsmlSayAs(this);

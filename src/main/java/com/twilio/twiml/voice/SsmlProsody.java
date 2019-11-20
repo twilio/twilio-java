@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * TwiML wrapper for {@code <Prosody>}
+ * TwiML wrapper for {@code <prosody>}
  */
 public class SsmlProsody extends TwiML {
     private final String volume;
@@ -29,7 +29,7 @@ public class SsmlProsody extends TwiML {
     }
 
     /**
-     * Create a new {@code <SsmlProsody>} element
+     * Create a new {@code <prosody>} element
      */
     private SsmlProsody(Builder b) {
         super("prosody", b);
@@ -112,7 +112,7 @@ public class SsmlProsody extends TwiML {
     }
 
     /**
-     * Create a new {@code <Prosody>} element
+     * Create a new {@code <prosody>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
         private String volume;
@@ -121,7 +121,7 @@ public class SsmlProsody extends TwiML {
         private String words;
 
         /**
-         * Create a {@code <Prosody>} with words
+         * Create a {@code <prosody>} with words
          */
         public Builder(String words) {
             this.words = words;
@@ -154,7 +154,7 @@ public class SsmlProsody extends TwiML {
         }
 
         /**
-         * Create and return resulting {@code <Prosody>} element
+         * Create and return resulting {@code <prosody>} element
          */
         public SsmlProsody build() {
             return new SsmlProsody(this);

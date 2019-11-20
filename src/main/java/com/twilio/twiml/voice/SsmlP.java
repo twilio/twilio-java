@@ -10,7 +10,7 @@ package com.twilio.twiml.voice;
 import com.twilio.twiml.TwiML;
 
 /**
- * TwiML wrapper for {@code <P>}
+ * TwiML wrapper for {@code <p>}
  */
 public class SsmlP extends TwiML {
     private final String words;
@@ -23,7 +23,7 @@ public class SsmlP extends TwiML {
     }
 
     /**
-     * Create a new {@code <SsmlP>} element
+     * Create a new {@code <p>} element
      */
     private SsmlP(Builder b) {
         super("p", b);
@@ -49,20 +49,20 @@ public class SsmlP extends TwiML {
     }
 
     /**
-     * Create a new {@code <P>} element
+     * Create a new {@code <p>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
         private String words;
 
         /**
-         * Create a {@code <P>} with words
+         * Create a {@code <p>} with words
          */
         public Builder(String words) {
             this.words = words;
         }
 
         /**
-         * Create and return resulting {@code <P>} element
+         * Create and return resulting {@code <p>} element
          */
         public SsmlP build() {
             return new SsmlP(this);

@@ -10,7 +10,7 @@ package com.twilio.twiml.voice;
 import com.twilio.twiml.TwiML;
 
 /**
- * TwiML wrapper for {@code <S>}
+ * TwiML wrapper for {@code <s>}
  */
 public class SsmlS extends TwiML {
     private final String words;
@@ -23,7 +23,7 @@ public class SsmlS extends TwiML {
     }
 
     /**
-     * Create a new {@code <SsmlS>} element
+     * Create a new {@code <s>} element
      */
     private SsmlS(Builder b) {
         super("s", b);
@@ -49,20 +49,20 @@ public class SsmlS extends TwiML {
     }
 
     /**
-     * Create a new {@code <S>} element
+     * Create a new {@code <s>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
         private String words;
 
         /**
-         * Create a {@code <S>} with words
+         * Create a {@code <s>} with words
          */
         public Builder(String words) {
             this.words = words;
         }
 
         /**
-         * Create and return resulting {@code <S>} element
+         * Create and return resulting {@code <s>} element
          */
         public SsmlS build() {
             return new SsmlS(this);

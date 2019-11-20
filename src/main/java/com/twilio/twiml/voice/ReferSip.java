@@ -26,7 +26,7 @@ public class ReferSip extends TwiML {
     }
 
     /**
-     * Create a new {@code <ReferSip>} element
+     * Create a new {@code <Sip>} element
      */
     private ReferSip(Builder b) {
         super("Sip", b);

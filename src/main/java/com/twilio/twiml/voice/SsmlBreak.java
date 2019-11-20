@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * TwiML wrapper for {@code <Break>}
+ * TwiML wrapper for {@code <break>}
  */
 public class SsmlBreak extends TwiML {
     public enum Strength {
@@ -46,7 +46,7 @@ public class SsmlBreak extends TwiML {
     }
 
     /**
-     * Create a new {@code <SsmlBreak>} element
+     * Create a new {@code <break>} element
      */
     private SsmlBreak(Builder b) {
         super("break", b);
@@ -94,7 +94,7 @@ public class SsmlBreak extends TwiML {
     }
 
     /**
-     * Create a new {@code <Break>} element
+     * Create a new {@code <break>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
         private SsmlBreak.Strength strength;
@@ -118,7 +118,7 @@ public class SsmlBreak extends TwiML {
         }
 
         /**
-         * Create and return resulting {@code <Break>} element
+         * Create and return resulting {@code <break>} element
          */
         public SsmlBreak build() {
             return new SsmlBreak(this);

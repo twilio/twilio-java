@@ -274,83 +274,183 @@ public class Say extends TwiML {
         }
 
         /**
-         * Add a child {@code <Break>} element
+         * Add a child {@code <break>} element
          */
-        public Builder ssmlBreak(SsmlBreak ssmlBreak) {
+        public Builder break_(SsmlBreak ssmlBreak) {
             this.children.add(ssmlBreak);
             return this;
         }
 
         /**
-         * Add a child {@code <Emphasis>} element
+         * Add a child {@code <break>} element
+         *
+         * @deprecated use {@link #break_(SsmlBreak)}.
          */
-        public Builder ssmlEmphasis(SsmlEmphasis ssmlEmphasis) {
+        @Deprecated
+        public Builder ssmlBreak(SsmlBreak ssmlBreak) {
+            return break_(ssmlBreak);
+        }
+
+        /**
+         * Add a child {@code <emphasis>} element
+         */
+        public Builder emphasis(SsmlEmphasis ssmlEmphasis) {
             this.children.add(ssmlEmphasis);
             return this;
         }
 
         /**
-         * Add a child {@code <Lang>} element
+         * Add a child {@code <emphasis>} element
+         *
+         * @deprecated use {@link #emphasis(SsmlEmphasis)}.
          */
-        public Builder ssmlLang(SsmlLang ssmlLang) {
+        @Deprecated
+        public Builder ssmlEmphasis(SsmlEmphasis ssmlEmphasis) {
+            return emphasis(ssmlEmphasis);
+        }
+
+        /**
+         * Add a child {@code <lang>} element
+         */
+        public Builder lang(SsmlLang ssmlLang) {
             this.children.add(ssmlLang);
             return this;
         }
 
         /**
-         * Add a child {@code <P>} element
+         * Add a child {@code <lang>} element
+         *
+         * @deprecated use {@link #lang(SsmlLang)}.
          */
-        public Builder ssmlP(SsmlP ssmlP) {
+        @Deprecated
+        public Builder ssmlLang(SsmlLang ssmlLang) {
+            return lang(ssmlLang);
+        }
+
+        /**
+         * Add a child {@code <p>} element
+         */
+        public Builder p(SsmlP ssmlP) {
             this.children.add(ssmlP);
             return this;
         }
 
         /**
-         * Add a child {@code <Phoneme>} element
+         * Add a child {@code <p>} element
+         *
+         * @deprecated use {@link #p(SsmlP)}.
          */
-        public Builder ssmlPhoneme(SsmlPhoneme ssmlPhoneme) {
+        @Deprecated
+        public Builder ssmlP(SsmlP ssmlP) {
+            return p(ssmlP);
+        }
+
+        /**
+         * Add a child {@code <phoneme>} element
+         */
+        public Builder phoneme(SsmlPhoneme ssmlPhoneme) {
             this.children.add(ssmlPhoneme);
             return this;
         }
 
         /**
-         * Add a child {@code <Prosody>} element
+         * Add a child {@code <phoneme>} element
+         *
+         * @deprecated use {@link #phoneme(SsmlPhoneme)}.
          */
-        public Builder ssmlProsody(SsmlProsody ssmlProsody) {
+        @Deprecated
+        public Builder ssmlPhoneme(SsmlPhoneme ssmlPhoneme) {
+            return phoneme(ssmlPhoneme);
+        }
+
+        /**
+         * Add a child {@code <prosody>} element
+         */
+        public Builder prosody(SsmlProsody ssmlProsody) {
             this.children.add(ssmlProsody);
             return this;
         }
 
         /**
-         * Add a child {@code <S>} element
+         * Add a child {@code <prosody>} element
+         *
+         * @deprecated use {@link #prosody(SsmlProsody)}.
          */
-        public Builder ssmlS(SsmlS ssmlS) {
+        @Deprecated
+        public Builder ssmlProsody(SsmlProsody ssmlProsody) {
+            return prosody(ssmlProsody);
+        }
+
+        /**
+         * Add a child {@code <s>} element
+         */
+        public Builder s(SsmlS ssmlS) {
             this.children.add(ssmlS);
             return this;
         }
 
         /**
-         * Add a child {@code <Say-As>} element
+         * Add a child {@code <s>} element
+         *
+         * @deprecated use {@link #s(SsmlS)}.
          */
-        public Builder ssmlSayAs(SsmlSayAs ssmlSayAs) {
+        @Deprecated
+        public Builder ssmlS(SsmlS ssmlS) {
+            return s(ssmlS);
+        }
+
+        /**
+         * Add a child {@code <say-as>} element
+         */
+        public Builder sayAs(SsmlSayAs ssmlSayAs) {
             this.children.add(ssmlSayAs);
             return this;
         }
 
         /**
-         * Add a child {@code <Sub>} element
+         * Add a child {@code <say-as>} element
+         *
+         * @deprecated use {@link #sayAs(SsmlSayAs)}.
          */
-        public Builder ssmlSub(SsmlSub ssmlSub) {
+        @Deprecated
+        public Builder ssmlSayAs(SsmlSayAs ssmlSayAs) {
+            return sayAs(ssmlSayAs);
+        }
+
+        /**
+         * Add a child {@code <sub>} element
+         */
+        public Builder sub(SsmlSub ssmlSub) {
             this.children.add(ssmlSub);
             return this;
         }
 
         /**
-         * Add a child {@code <W>} element
+         * Add a child {@code <sub>} element
+         *
+         * @deprecated use {@link #sub(SsmlSub)}.
          */
-        public Builder ssmlW(SsmlW ssmlW) {
+        @Deprecated
+        public Builder ssmlSub(SsmlSub ssmlSub) {
+            return sub(ssmlSub);
+        }
+
+        /**
+         * Add a child {@code <w>} element
+         */
+        public Builder w(SsmlW ssmlW) {
             this.children.add(ssmlW);
             return this;
+        }
+
+        /**
+         * Add a child {@code <w>} element
+         *
+         * @deprecated use {@link #w(SsmlW)}.
+         */
+        @Deprecated
+        public Builder ssmlW(SsmlW ssmlW) {
+            return w(ssmlW);
         }
 
         /**

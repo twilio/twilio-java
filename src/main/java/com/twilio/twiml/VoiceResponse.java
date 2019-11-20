@@ -40,7 +40,7 @@ public class VoiceResponse extends TwiML {
     }
 
     /**
-     * Create a new {@code <VoiceResponse>} element
+     * Create a new {@code <Response>} element
      */
     private VoiceResponse(Builder b) {
         super("Response", b);

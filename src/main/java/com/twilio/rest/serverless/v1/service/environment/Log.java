@@ -25,7 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -142,7 +142,7 @@ public class Log extends Resource {
     private final String requestSid;
     private final Log.Level level;
     private final String message;
-    private final DateTime dateCreated;
+    private final ZonedDateTime dateCreated;
     private final URI url;
 
     @JsonCreator
@@ -268,7 +268,7 @@ public class Log extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the Log resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 

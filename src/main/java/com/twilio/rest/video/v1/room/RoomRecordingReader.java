@@ -19,14 +19,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 public class RoomRecordingReader extends Reader<RoomRecording> {
     private final String pathRoomSid;
     private RoomRecording.Status status;
     private String sourceSid;
-    private DateTime dateCreatedAfter;
-    private DateTime dateCreatedBefore;
+    private ZonedDateTime dateCreatedAfter;
+    private ZonedDateTime dateCreatedBefore;
 
     /**
      * Construct a new RoomRecordingReader.
@@ -63,26 +63,26 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
 
     /**
      * Read only recordings that started on or after this [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone..
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601) ZonedDateTime with time zone..
      *
      * @param dateCreatedAfter Read only Recordings that started on or after this
-     *                         ISO 8601 datetime with time zone
+     *                         ISO 8601 ZonedDateTime with time zone
      * @return this
      */
-    public RoomRecordingReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
+    public RoomRecordingReader setDateCreatedAfter(final ZonedDateTime dateCreatedAfter) {
         this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
 
     /**
      * Read only Recordings that started before this [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone..
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601) ZonedDateTime with time zone..
      *
      * @param dateCreatedBefore Read only Recordings that started before this ISO
      *                          8601 date-time with time zone
      * @return this
      */
-    public RoomRecordingReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
+    public RoomRecordingReader setDateCreatedBefore(final ZonedDateTime dateCreatedBefore) {
         this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }

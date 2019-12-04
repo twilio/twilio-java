@@ -19,7 +19,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
@@ -28,8 +28,8 @@ import org.joda.time.DateTime;
  */
 public class CompositionHookReader extends Reader<CompositionHook> {
     private Boolean enabled;
-    private DateTime dateCreatedAfter;
-    private DateTime dateCreatedBefore;
+    private ZonedDateTime dateCreatedAfter;
+    private ZonedDateTime dateCreatedBefore;
     private String friendlyName;
 
     /**
@@ -47,26 +47,26 @@ public class CompositionHookReader extends Reader<CompositionHook> {
 
     /**
      * Read only CompositionHook resources created on or after this [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone..
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601) ZonedDateTime with time zone..
      *
      * @param dateCreatedAfter Read only CompositionHook resources created on or
-     *                         after this ISO 8601 datetime with time zone
+     *                         after this ISO 8601 ZonedDateTime with time zone
      * @return this
      */
-    public CompositionHookReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
+    public CompositionHookReader setDateCreatedAfter(final ZonedDateTime dateCreatedAfter) {
         this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
 
     /**
      * Read only CompositionHook resources created before this [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone..
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601) ZonedDateTime with time zone..
      *
      * @param dateCreatedBefore Read only CompositionHook resources created before
-     *                          this ISO 8601 datetime with time zone
+     *                          this ISO 8601 ZonedDateTime with time zone
      * @return this
      */
-    public CompositionHookReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
+    public CompositionHookReader setDateCreatedBefore(final ZonedDateTime dateCreatedBefore) {
         this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }

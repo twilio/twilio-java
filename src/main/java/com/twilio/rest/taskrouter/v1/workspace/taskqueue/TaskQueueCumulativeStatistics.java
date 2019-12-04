@@ -25,7 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -90,8 +90,8 @@ public class TaskQueueCumulativeStatistics extends Resource {
 
     private final String accountSid;
     private final Integer avgTaskAcceptanceTime;
-    private final DateTime startTime;
-    private final DateTime endTime;
+    private final ZonedDateTime startTime;
+    private final ZonedDateTime endTime;
     private final Integer reservationsCreated;
     private final Integer reservationsAccepted;
     private final Integer reservationsRejected;
@@ -201,7 +201,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
      * @return The beginning of the interval during which these statistics were
      *         calculated
      */
-    public final DateTime getStartTime() {
+    public final ZonedDateTime getStartTime() {
         return this.startTime;
     }
 
@@ -211,7 +211,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
      *
      * @return The end of the interval during which these statistics were calculated
      */
-    public final DateTime getEndTime() {
+    public final ZonedDateTime getEndTime() {
         return this.endTime;
     }
 

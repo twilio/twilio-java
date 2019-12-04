@@ -4,8 +4,6 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Range;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.InvalidRequestException;
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.UnsupportedEncodingException;
@@ -14,12 +12,15 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Request {
 
-    public static final String QUERY_STRING_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
-    public static final String QUERY_STRING_DATE_FORMAT = "yyyy-MM-dd";
+    public static final DateTimeFormatter QUERY_STRING_DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+    public static final DateTimeFormatter QUERY_STRING_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private final HttpMethod method;
     private final String url;
@@ -148,12 +149,12 @@ public class Request {
      */
     public void addQueryDateRange(final String name, final Range<LocalDate> range) {
         if (range.hasLowerBound()) {
-            String value = range.lowerEndpoint().toString(QUERY_STRING_DATE_FORMAT);
+            String value = range.lowerEndpoint().format(QUERY_STRING_DATE_FORMAT);
             addQueryParam(name + ">", value);
         }
 
         if (range.hasUpperBound()) {
-            String value = range.upperEndpoint().toString(QUERY_STRING_DATE_FORMAT);
+            String value = range.upperEndpoint().format(QUERY_STRING_DATE_FORMAT);
             addQueryParam(name + "<", value);
         }
     }
@@ -164,14 +165,14 @@ public class Request {
      * @param name name of query parameter
      * @param range date range
      */
-    public void addQueryDateTimeRange(final String name, final Range<DateTime> range) {
+    public void addQueryDateTimeRange(final String name, final Range<ZonedDateTime> range) {
         if (range.hasLowerBound()) {
-            String value = range.lowerEndpoint().toString(QUERY_STRING_DATE_TIME_FORMAT);
+            String value = range.lowerEndpoint().format(QUERY_STRING_DATE_TIME_FORMAT);
             addQueryParam(name + ">", value);
         }
 
         if (range.hasUpperBound()) {
-            String value = range.upperEndpoint().toString(QUERY_STRING_DATE_TIME_FORMAT);
+            String value = range.upperEndpoint().format(QUERY_STRING_DATE_TIME_FORMAT);
             addQueryParam(name + "<", value);
         }
     }

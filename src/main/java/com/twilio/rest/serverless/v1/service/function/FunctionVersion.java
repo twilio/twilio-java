@@ -25,7 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -142,7 +142,7 @@ public class FunctionVersion extends Resource {
     private final String functionSid;
     private final String path;
     private final FunctionVersion.Visibility visibility;
-    private final DateTime dateCreated;
+    private final ZonedDateTime dateCreated;
     private final URI url;
 
     @JsonCreator
@@ -241,7 +241,7 @@ public class FunctionVersion extends Resource {
      * @return The ISO 8601 date and time in GMT when the Function Version resource
      *         was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 

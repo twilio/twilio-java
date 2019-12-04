@@ -19,15 +19,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 public class EventReader extends Reader<Event> {
     private final String pathWorkspaceSid;
-    private DateTime endDate;
+    private ZonedDateTime endDate;
     private String eventType;
     private Integer minutes;
     private String reservationSid;
-    private DateTime startDate;
+    private ZonedDateTime startDate;
     private String taskQueueSid;
     private String taskSid;
     private String workerSid;
@@ -51,7 +51,7 @@ public class EventReader extends Reader<Event> {
      * @param endDate Only include usage that occurred on or before this date
      * @return this
      */
-    public EventReader setEndDate(final DateTime endDate) {
+    public EventReader setEndDate(final ZonedDateTime endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -98,7 +98,7 @@ public class EventReader extends Reader<Event> {
      * @param startDate Only include Events from on or after this date
      * @return this
      */
-    public EventReader setStartDate(final DateTime startDate) {
+    public EventReader setStartDate(final ZonedDateTime startDate) {
         this.startDate = startDate;
         return this;
     }

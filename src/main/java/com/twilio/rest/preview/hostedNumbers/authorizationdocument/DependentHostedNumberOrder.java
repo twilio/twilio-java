@@ -26,7 +26,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.PhoneNumberCapabilities;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -159,8 +159,8 @@ public class DependentHostedNumberOrder extends Resource {
     private final String uniqueName;
     private final DependentHostedNumberOrder.Status status;
     private final String failureReason;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final Integer verificationAttempts;
     private final String email;
     private final List<String> ccEmails;
@@ -344,7 +344,7 @@ public class DependentHostedNumberOrder extends Resource {
      *
      * @return The date this HostedNumberOrder was created.
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -353,7 +353,7 @@ public class DependentHostedNumberOrder extends Resource {
      *
      * @return The date this HostedNumberOrder was updated.
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 

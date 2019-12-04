@@ -4,30 +4,12 @@ before_install:
   - wget https://github.com/sormuras/bach/raw/master/install-jdk.sh
   - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import || true
   - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust || true
-matrix:
-  include:
-# OpenJDK
-    - name: 'OpenJDK 7'
-      jdk: openjdk7
-    - name: 'OpenJDK 8'
-      jdk: openjdk8
-    - name: 'OpenJDK 11'
-      install: . ./install-jdk.sh -L GPL -F 11
-    - name: 'OpenJDK 12'
-      install: . ./install-jdk.sh -L GPL -F 12
-# Oracle JDK
-    - name: 'Oracle JDK 8'
-      jdk: oraclejdk8
-    - name: 'Oracle JDK 11'
-      jdk: oraclejdk11
-    - name: 'Oracle JDK 12'
-      install: . ./install-jdk.sh -L BCL -F 12
-  allow_failures:
-    - name: 'OpenJDK 7'
-    - name: 'OpenJDK 12'
-    - name: 'Oracle JDK 8' # See https://travis-ci.community/t/expected-feature-release-number-in-range-of-9-to-12-but-got-8-installing-oraclejdk8/1345/14
-    - name: 'Oracle JDK 11' # See https://travis-ci.community/t/cannot-install-oracle-jdk-11/3892/3
-    - name: 'Oracle JDK 12'
+
+jdk:
+  - openjdk8
+  - oraclejdk11
+  - openjdk11
+
 services:
   - docker
 notifications:

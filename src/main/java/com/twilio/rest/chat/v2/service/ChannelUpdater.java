@@ -17,7 +17,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 public class ChannelUpdater extends Updater<Channel> {
     private final String pathServiceSid;
@@ -25,8 +25,8 @@ public class ChannelUpdater extends Updater<Channel> {
     private String friendlyName;
     private String uniqueName;
     private String attributes;
-    private DateTime dateCreated;
-    private DateTime dateUpdated;
+    private ZonedDateTime dateCreated;
+    private ZonedDateTime dateUpdated;
     private String createdBy;
 
     /**
@@ -90,7 +90,7 @@ public class ChannelUpdater extends Updater<Channel> {
      *                    created
      * @return this
      */
-    public ChannelUpdater setDateCreated(final DateTime dateCreated) {
+    public ChannelUpdater setDateCreated(final ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
@@ -103,7 +103,7 @@ public class ChannelUpdater extends Updater<Channel> {
      *                    updated
      * @return this
      */
-    public ChannelUpdater setDateUpdated(final DateTime dateUpdated) {
+    public ChannelUpdater setDateUpdated(final ZonedDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }

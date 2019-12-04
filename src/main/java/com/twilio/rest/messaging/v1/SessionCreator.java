@@ -17,7 +17,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
@@ -28,8 +28,8 @@ public class SessionCreator extends Creator<Session> {
     private final String messagingServiceSid;
     private String friendlyName;
     private String attributes;
-    private DateTime dateCreated;
-    private DateTime dateUpdated;
+    private ZonedDateTime dateCreated;
+    private ZonedDateTime dateUpdated;
     private String createdBy;
 
     /**
@@ -72,7 +72,7 @@ public class SessionCreator extends Creator<Session> {
      *                    created
      * @return this
      */
-    public SessionCreator setDateCreated(final DateTime dateCreated) {
+    public SessionCreator setDateCreated(final ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
@@ -85,7 +85,7 @@ public class SessionCreator extends Creator<Session> {
      *                    updated
      * @return this
      */
-    public SessionCreator setDateUpdated(final DateTime dateUpdated) {
+    public SessionCreator setDateUpdated(final ZonedDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }

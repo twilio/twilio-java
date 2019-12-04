@@ -19,15 +19,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 public class EventReader extends Reader<Event> {
     private String actorSid;
     private String eventType;
     private String resourceSid;
     private String sourceIpAddress;
-    private DateTime startDate;
-    private DateTime endDate;
+    private ZonedDateTime startDate;
+    private ZonedDateTime endDate;
 
     /**
      * Only include events initiated by this Actor. Useful for auditing actions
@@ -85,7 +85,7 @@ public class EventReader extends Reader<Event> {
      * @param startDate Only include events that occurred on or after this date
      * @return this
      */
-    public EventReader setStartDate(final DateTime startDate) {
+    public EventReader setStartDate(final ZonedDateTime startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -97,7 +97,7 @@ public class EventReader extends Reader<Event> {
      * @param endDate Only include events that occurred on or before this date
      * @return this
      */
-    public EventReader setEndDate(final DateTime endDate) {
+    public EventReader setEndDate(final ZonedDateTime endDate) {
         this.endDate = endDate;
         return this;
     }

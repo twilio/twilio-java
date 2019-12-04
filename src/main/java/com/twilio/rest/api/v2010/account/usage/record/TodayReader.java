@@ -7,6 +7,8 @@
 
 package com.twilio.rest.api.v2010.account.usage.record;
 
+import java.time.LocalDate;
+
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
@@ -19,7 +21,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.LocalDate;
 
 public class TodayReader extends Reader<Today> {
     private String pathAccountSid;

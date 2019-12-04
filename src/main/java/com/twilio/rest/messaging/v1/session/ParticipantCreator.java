@@ -17,7 +17,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
@@ -30,8 +30,8 @@ public class ParticipantCreator extends Creator<Participant> {
     private String userAddress;
     private String attributes;
     private String twilioAddress;
-    private DateTime dateCreated;
-    private DateTime dateUpdated;
+    private ZonedDateTime dateCreated;
+    private ZonedDateTime dateUpdated;
 
     /**
      * Construct a new ParticipantCreator.
@@ -78,7 +78,7 @@ public class ParticipantCreator extends Creator<Participant> {
      *                    created
      * @return this
      */
-    public ParticipantCreator setDateCreated(final DateTime dateCreated) {
+    public ParticipantCreator setDateCreated(final ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
@@ -93,7 +93,7 @@ public class ParticipantCreator extends Creator<Participant> {
      *                    updated
      * @return this
      */
-    public ParticipantCreator setDateUpdated(final DateTime dateUpdated) {
+    public ParticipantCreator setDateUpdated(final ZonedDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }

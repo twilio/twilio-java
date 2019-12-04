@@ -24,7 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -120,11 +120,11 @@ public class Notification extends Resource {
     private final String accountSid;
     private final String apiVersion;
     private final String callSid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String errorCode;
     private final String log;
-    private final DateTime messageDate;
+    private final ZonedDateTime messageDate;
     private final String messageText;
     private final URI moreInfo;
     private final HttpMethod requestMethod;
@@ -221,7 +221,7 @@ public class Notification extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -231,7 +231,7 @@ public class Notification extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -258,7 +258,7 @@ public class Notification extends Resource {
      *
      * @return The date the notification was generated
      */
-    public final DateTime getMessageDate() {
+    public final ZonedDateTime getMessageDate() {
         return this.messageDate;
     }
 

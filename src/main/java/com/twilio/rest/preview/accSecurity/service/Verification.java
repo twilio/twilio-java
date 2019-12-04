@@ -25,7 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -125,8 +125,8 @@ public class Verification extends Resource {
     private final Verification.Channel channel;
     private final String status;
     private final Boolean valid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
 
     @JsonCreator
     private Verification(@JsonProperty("sid")
@@ -226,7 +226,7 @@ public class Verification extends Resource {
      *
      * @return The date this Verification was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -235,7 +235,7 @@ public class Verification extends Resource {
      *
      * @return The date this Verification was updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 

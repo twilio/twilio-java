@@ -25,7 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -102,7 +102,7 @@ public class Event extends Resource {
     private final URI actorUrl;
     private final String description;
     private final Map<String, Object> eventData;
-    private final DateTime eventDate;
+    private final ZonedDateTime eventDate;
     private final Long eventDateMs;
     private final String eventType;
     private final String resourceSid;
@@ -227,7 +227,7 @@ public class Event extends Resource {
      *
      * @return The time the event was sent
      */
-    public final DateTime getEventDate() {
+    public final ZonedDateTime getEventDate() {
         return this.eventDate;
     }
 

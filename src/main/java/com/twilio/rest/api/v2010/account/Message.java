@@ -26,7 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -436,9 +436,9 @@ public class Message extends Resource {
     private final String accountSid;
     private final String apiVersion;
     private final String body;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
-    private final DateTime dateSent;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
+    private final ZonedDateTime dateSent;
     private final Message.Direction direction;
     private final Integer errorCode;
     private final String errorMessage;
@@ -550,7 +550,7 @@ public class Message extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -560,7 +560,7 @@ public class Message extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -569,7 +569,7 @@ public class Message extends Resource {
      *
      * @return The RFC 2822 date and time in GMT when the message was sent
      */
-    public final DateTime getDateSent() {
+    public final ZonedDateTime getDateSent() {
         return this.dateSent;
     }
 

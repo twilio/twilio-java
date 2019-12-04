@@ -7,6 +7,8 @@
 
 package com.twilio.rest.api.v2010.account;
 
+import java.time.LocalDate;
+
 import com.google.common.collect.Range;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -20,7 +22,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.LocalDate;
 
 public class NotificationReader extends Reader<Notification> {
     private String pathAccountSid;
@@ -224,7 +225,7 @@ public class NotificationReader extends Reader<Notification> {
         }
 
         if (absoluteMessageDate != null) {
-            request.addQueryParam("MessageDate", absoluteMessageDate.toString(Request.QUERY_STRING_DATE_FORMAT));
+            request.addQueryParam("MessageDate", absoluteMessageDate.format(Request.QUERY_STRING_DATE_FORMAT));
         } else if (rangeMessageDate != null) {
             request.addQueryDateRange("MessageDate", rangeMessageDate);
         }

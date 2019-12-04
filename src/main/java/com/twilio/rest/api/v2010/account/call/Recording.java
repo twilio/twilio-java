@@ -27,7 +27,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -271,9 +271,9 @@ public class Recording extends Resource {
     private final String apiVersion;
     private final String callSid;
     private final String conferenceSid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
-    private final DateTime startTime;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
+    private final ZonedDateTime startTime;
     private final String duration;
     private final String sid;
     private final BigDecimal price;
@@ -383,7 +383,7 @@ public class Recording extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -393,7 +393,7 @@ public class Recording extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -402,7 +402,7 @@ public class Recording extends Resource {
      *
      * @return The start time of the recording, given in RFC 2822 format
      */
-    public final DateTime getStartTime() {
+    public final ZonedDateTime getStartTime() {
         return this.startTime;
     }
 

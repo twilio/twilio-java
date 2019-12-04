@@ -25,7 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -194,14 +194,14 @@ public class Room extends Resource {
 
     private final String sid;
     private final Room.RoomStatus status;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String accountSid;
     private final Boolean enableTurn;
     private final String uniqueName;
     private final URI statusCallback;
     private final HttpMethod statusCallbackMethod;
-    private final DateTime endTime;
+    private final ZonedDateTime endTime;
     private final Integer duration;
     private final Room.RoomType type;
     private final Integer maxParticipants;
@@ -291,7 +291,7 @@ public class Room extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -301,7 +301,7 @@ public class Room extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -356,7 +356,7 @@ public class Room extends Resource {
      *
      * @return The UTC end time of the room in UTC ISO 8601 format
      */
-    public final DateTime getEndTime() {
+    public final ZonedDateTime getEndTime() {
         return this.endTime;
     }
 

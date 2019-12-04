@@ -20,13 +20,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 public class MediaReader extends Reader<Media> {
     private String pathAccountSid;
     private final String pathMessageSid;
-    private DateTime absoluteDateCreated;
-    private Range<DateTime> rangeDateCreated;
+    private ZonedDateTime absoluteDateCreated;
+    private Range<ZonedDateTime> rangeDateCreated;
 
     /**
      * Construct a new MediaReader.
@@ -63,7 +63,7 @@ public class MediaReader extends Reader<Media> {
      * @param absoluteDateCreated Only include media that was created on this date
      * @return this
      */
-    public MediaReader setDateCreated(final DateTime absoluteDateCreated) {
+    public MediaReader setDateCreated(final ZonedDateTime absoluteDateCreated) {
         this.rangeDateCreated = null;
         this.absoluteDateCreated = absoluteDateCreated;
         return this;
@@ -80,7 +80,7 @@ public class MediaReader extends Reader<Media> {
      * @param rangeDateCreated Only include media that was created on this date
      * @return this
      */
-    public MediaReader setDateCreated(final Range<DateTime> rangeDateCreated) {
+    public MediaReader setDateCreated(final Range<ZonedDateTime> rangeDateCreated) {
         this.absoluteDateCreated = null;
         this.rangeDateCreated = rangeDateCreated;
         return this;
@@ -219,7 +219,7 @@ public class MediaReader extends Reader<Media> {
      */
     private void addQueryParams(final Request request) {
         if (absoluteDateCreated != null) {
-            request.addQueryParam("DateCreated", absoluteDateCreated.toString(Request.QUERY_STRING_DATE_TIME_FORMAT));
+            request.addQueryParam("DateCreated", absoluteDateCreated.format(Request.QUERY_STRING_DATE_TIME_FORMAT));
         } else if (rangeDateCreated != null) {
             request.addQueryDateTimeRange("DateCreated", rangeDateCreated);
         }

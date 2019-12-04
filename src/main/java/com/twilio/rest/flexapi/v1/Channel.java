@@ -24,7 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -126,8 +126,8 @@ public class Channel extends Resource {
     private final String userSid;
     private final String taskSid;
     private final URI url;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
 
     @JsonCreator
     private Channel(@JsonProperty("account_sid")
@@ -219,7 +219,7 @@ public class Channel extends Resource {
      * @return The ISO 8601 date and time in GMT when the Flex chat channel was
      *         created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -230,7 +230,7 @@ public class Channel extends Resource {
      * @return The ISO 8601 date and time in GMT when the Flex chat channel was
      *         last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 

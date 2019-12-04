@@ -17,7 +17,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 public class MessageUpdater extends Updater<Message> {
     private final String pathServiceSid;
@@ -25,8 +25,8 @@ public class MessageUpdater extends Updater<Message> {
     private final String pathSid;
     private String body;
     private String attributes;
-    private DateTime dateCreated;
-    private DateTime dateUpdated;
+    private ZonedDateTime dateCreated;
+    private ZonedDateTime dateUpdated;
     private String lastUpdatedBy;
     private String from;
 
@@ -80,7 +80,7 @@ public class MessageUpdater extends Updater<Message> {
      *                    created
      * @return this
      */
-    public MessageUpdater setDateCreated(final DateTime dateCreated) {
+    public MessageUpdater setDateCreated(final ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
@@ -93,7 +93,7 @@ public class MessageUpdater extends Updater<Message> {
      *                    updated
      * @return this
      */
-    public MessageUpdater setDateUpdated(final DateTime dateUpdated) {
+    public MessageUpdater setDateUpdated(final ZonedDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }

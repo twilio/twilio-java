@@ -26,7 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -216,9 +216,9 @@ public class SyncMapItem extends Resource {
     private final URI url;
     private final String revision;
     private final Map<String, Object> data;
-    private final DateTime dateExpires;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateExpires;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String createdBy;
 
     @JsonCreator
@@ -325,7 +325,7 @@ public class SyncMapItem extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the Map Item expires
      */
-    public final DateTime getDateExpires() {
+    public final ZonedDateTime getDateExpires() {
         return this.dateExpires;
     }
 
@@ -334,7 +334,7 @@ public class SyncMapItem extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -344,7 +344,7 @@ public class SyncMapItem extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 

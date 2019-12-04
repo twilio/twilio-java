@@ -26,7 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -118,7 +118,7 @@ public class ExportAssistant extends Resource {
 
     private final String accountSid;
     private final String assistantSid;
-    private final DateTime dateCreated;
+    private final ZonedDateTime dateCreated;
     private final ExportAssistant.Status status;
     private final Integer errorCode;
     private final URI url;
@@ -171,7 +171,7 @@ public class ExportAssistant extends Resource {
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 

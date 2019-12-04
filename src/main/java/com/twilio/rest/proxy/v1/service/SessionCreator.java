@@ -19,7 +19,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 import java.util.List;
 import java.util.Map;
@@ -31,7 +31,7 @@ import java.util.Map;
 public class SessionCreator extends Creator<Session> {
     private final String pathServiceSid;
     private String uniqueName;
-    private DateTime dateExpiry;
+    private ZonedDateTime dateExpiry;
     private Integer ttl;
     private Session.Mode mode;
     private Session.Status status;
@@ -67,7 +67,7 @@ public class SessionCreator extends Creator<Session> {
      * @param dateExpiry The ISO 8601 date when the Session should expire
      * @return this
      */
-    public SessionCreator setDateExpiry(final DateTime dateExpiry) {
+    public SessionCreator setDateExpiry(final ZonedDateTime dateExpiry) {
         this.dateExpiry = dateExpiry;
         return this;
     }

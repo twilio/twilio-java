@@ -7,10 +7,11 @@
 
 package com.twilio.rest.wireless.v1.sim;
 
+import java.time.ZonedDateTime;
+
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -19,12 +20,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
 public class DataSessionReader extends Reader<DataSession> {
     private final String pathSimSid;
-    private DateTime end;
-    private DateTime start;
+    private ZonedDateTime end;
+    private ZonedDateTime start;
 
     /**
      * Construct a new DataSessionReader.
@@ -42,7 +42,7 @@ public class DataSessionReader extends Reader<DataSession> {
      * @param end The date that the record ended, given as GMT in ISO 8601 format
      * @return this
      */
-    public DataSessionReader setEnd(final DateTime end) {
+    public DataSessionReader setEnd(final ZonedDateTime end) {
         this.end = end;
         return this;
     }
@@ -55,7 +55,7 @@ public class DataSessionReader extends Reader<DataSession> {
      *              8601 format
      * @return this
      */
-    public DataSessionReader setStart(final DateTime start) {
+    public DataSessionReader setStart(final ZonedDateTime start) {
         this.start = start;
         return this;
     }

@@ -7,6 +7,8 @@
 
 package com.twilio.rest.api.v2010.account;
 
+import java.time.LocalDate;
+
 import com.google.common.collect.Range;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -20,7 +22,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.LocalDate;
 
 public class ConferenceReader extends Reader<Conference> {
     private String pathAccountSid;
@@ -264,13 +265,13 @@ public class ConferenceReader extends Reader<Conference> {
      */
     private void addQueryParams(final Request request) {
         if (absoluteDateCreated != null) {
-            request.addQueryParam("DateCreated", absoluteDateCreated.toString(Request.QUERY_STRING_DATE_FORMAT));
+            request.addQueryParam("DateCreated", absoluteDateCreated.format(Request.QUERY_STRING_DATE_FORMAT));
         } else if (rangeDateCreated != null) {
             request.addQueryDateRange("DateCreated", rangeDateCreated);
         }
 
         if (absoluteDateUpdated != null) {
-            request.addQueryParam("DateUpdated", absoluteDateUpdated.toString(Request.QUERY_STRING_DATE_FORMAT));
+            request.addQueryParam("DateUpdated", absoluteDateUpdated.format(Request.QUERY_STRING_DATE_FORMAT));
         } else if (rangeDateUpdated != null) {
             request.addQueryDateRange("DateUpdated", rangeDateUpdated);
         }

@@ -21,7 +21,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 public class CallReader extends Reader<Call> {
     private String pathAccountSid;
@@ -29,10 +29,10 @@ public class CallReader extends Reader<Call> {
     private com.twilio.type.PhoneNumber from;
     private String parentCallSid;
     private Call.Status status;
-    private DateTime absoluteStartTime;
-    private Range<DateTime> rangeStartTime;
-    private DateTime absoluteEndTime;
-    private Range<DateTime> rangeEndTime;
+    private ZonedDateTime absoluteStartTime;
+    private Range<ZonedDateTime> rangeStartTime;
+    private ZonedDateTime absoluteEndTime;
+    private Range<ZonedDateTime> rangeEndTime;
 
     /**
      * Construct a new CallReader.
@@ -130,7 +130,7 @@ public class CallReader extends Reader<Call> {
      * @param absoluteStartTime Only include calls that started on this date
      * @return this
      */
-    public CallReader setStartTime(final DateTime absoluteStartTime) {
+    public CallReader setStartTime(final ZonedDateTime absoluteStartTime) {
         this.rangeStartTime = null;
         this.absoluteStartTime = absoluteStartTime;
         return this;
@@ -147,7 +147,7 @@ public class CallReader extends Reader<Call> {
      * @param rangeStartTime Only include calls that started on this date
      * @return this
      */
-    public CallReader setStartTime(final Range<DateTime> rangeStartTime) {
+    public CallReader setStartTime(final Range<ZonedDateTime> rangeStartTime) {
         this.absoluteStartTime = null;
         this.rangeStartTime = rangeStartTime;
         return this;
@@ -164,7 +164,7 @@ public class CallReader extends Reader<Call> {
      * @param absoluteEndTime Only include calls that ended on this date
      * @return this
      */
-    public CallReader setEndTime(final DateTime absoluteEndTime) {
+    public CallReader setEndTime(final ZonedDateTime absoluteEndTime) {
         this.rangeEndTime = null;
         this.absoluteEndTime = absoluteEndTime;
         return this;
@@ -181,7 +181,7 @@ public class CallReader extends Reader<Call> {
      * @param rangeEndTime Only include calls that ended on this date
      * @return this
      */
-    public CallReader setEndTime(final Range<DateTime> rangeEndTime) {
+    public CallReader setEndTime(final Range<ZonedDateTime> rangeEndTime) {
         this.absoluteEndTime = null;
         this.rangeEndTime = rangeEndTime;
         return this;
@@ -336,13 +336,13 @@ public class CallReader extends Reader<Call> {
         }
 
         if (absoluteStartTime != null) {
-            request.addQueryParam("StartTime", absoluteStartTime.toString(Request.QUERY_STRING_DATE_TIME_FORMAT));
+            request.addQueryParam("StartTime", absoluteStartTime.format(Request.QUERY_STRING_DATE_TIME_FORMAT));
         } else if (rangeStartTime != null) {
             request.addQueryDateTimeRange("StartTime", rangeStartTime);
         }
 
         if (absoluteEndTime != null) {
-            request.addQueryParam("EndTime", absoluteEndTime.toString(Request.QUERY_STRING_DATE_TIME_FORMAT));
+            request.addQueryParam("EndTime", absoluteEndTime.format(Request.QUERY_STRING_DATE_TIME_FORMAT));
         } else if (rangeEndTime != null) {
             request.addQueryDateTimeRange("EndTime", rangeEndTime);
         }

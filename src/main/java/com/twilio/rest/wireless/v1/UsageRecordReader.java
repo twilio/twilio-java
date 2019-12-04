@@ -19,11 +19,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 public class UsageRecordReader extends Reader<UsageRecord> {
-    private DateTime end;
-    private DateTime start;
+    private ZonedDateTime end;
+    private ZonedDateTime start;
     private UsageRecord.Granularity granularity;
 
     /**
@@ -33,7 +33,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
      * @param end Only include usage that has occurred on or before this date
      * @return this
      */
-    public UsageRecordReader setEnd(final DateTime end) {
+    public UsageRecordReader setEnd(final ZonedDateTime end) {
         this.end = end;
         return this;
     }
@@ -45,7 +45,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
      * @param start Only include usage that has occurred on or after this date
      * @return this
      */
-    public UsageRecordReader setStart(final DateTime start) {
+    public UsageRecordReader setStart(final ZonedDateTime start) {
         this.start = start;
         return this;
     }

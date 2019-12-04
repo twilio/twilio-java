@@ -17,14 +17,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 public class TaskQueueStatisticsFetcher extends Fetcher<TaskQueueStatistics> {
     private final String pathWorkspaceSid;
     private final String pathTaskQueueSid;
-    private DateTime endDate;
+    private ZonedDateTime endDate;
     private Integer minutes;
-    private DateTime startDate;
+    private ZonedDateTime startDate;
     private String taskChannel;
     private String splitByWaitTime;
 
@@ -48,7 +48,7 @@ public class TaskQueueStatisticsFetcher extends Fetcher<TaskQueueStatistics> {
      * @param endDate Only calculate statistics from on or before this date
      * @return this
      */
-    public TaskQueueStatisticsFetcher setEndDate(final DateTime endDate) {
+    public TaskQueueStatisticsFetcher setEndDate(final ZonedDateTime endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -72,7 +72,7 @@ public class TaskQueueStatisticsFetcher extends Fetcher<TaskQueueStatistics> {
      * @param startDate Only calculate statistics from on or after this date
      * @return this
      */
-    public TaskQueueStatisticsFetcher setStartDate(final DateTime startDate) {
+    public TaskQueueStatisticsFetcher setStartDate(final ZonedDateTime startDate) {
         this.startDate = startDate;
         return this;
     }

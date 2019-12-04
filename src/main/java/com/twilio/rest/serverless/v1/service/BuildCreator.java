@@ -42,9 +42,9 @@ public class BuildCreator extends Creator<Build> {
     }
 
     /**
-     * The list of AssetVersion resource SIDs to include in the build..
+     * The list of Asset Version resource SIDs to include in the build..
      *
-     * @param assetVersions The list of AssetVersion resource SIDs to include in
+     * @param assetVersions The list of Asset Version resource SIDs to include in
      *                      the build
      * @return this
      */
@@ -54,9 +54,9 @@ public class BuildCreator extends Creator<Build> {
     }
 
     /**
-     * The list of AssetVersion resource SIDs to include in the build..
+     * The list of Asset Version resource SIDs to include in the build..
      *
-     * @param assetVersions The list of AssetVersion resource SIDs to include in
+     * @param assetVersions The list of Asset Version resource SIDs to include in
      *                      the build
      * @return this
      */

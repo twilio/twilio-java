@@ -30,11 +30,11 @@ public class AssetVersionFetcher extends Fetcher<AssetVersion> {
     /**
      * Construct a new AssetVersionFetcher.
      *
-     * @param pathServiceSid The SID of the Service to fetch the AssetVersion
+     * @param pathServiceSid The SID of the Service to fetch the Asset Version
      *                       resource from
      * @param pathAssetSid The SID of the Asset resource that is the parent of the
-     *                     AssetVersion resource to fetch
-     * @param pathSid The SID that identifies the AssetVersion resource to fetch
+     *                     Asset Version resource to fetch
+     * @param pathSid The SID that identifies the Asset Version resource to fetch
      */
     public AssetVersionFetcher(final String pathServiceSid,
                                final String pathAssetSid,

@@ -52,7 +52,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     /**
      * Only include usage that has occurred on or after this date, specified in [ISO
      * 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is
-     * on month before the `end` parameter value..
+     * one month before the `end` parameter value..
      *
      * @param start Only include usage that has occurred on or after this date
      * @return this

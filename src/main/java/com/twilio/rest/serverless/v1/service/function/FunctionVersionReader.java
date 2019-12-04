@@ -31,10 +31,10 @@ public class FunctionVersionReader extends Reader<FunctionVersion> {
     /**
      * Construct a new FunctionVersionReader.
      *
-     * @param pathServiceSid The SID of the Service to read the FunctionVersion
+     * @param pathServiceSid The SID of the Service to read the Function Version
      *                       resources from
      * @param pathFunctionSid The SID of the function that is the parent of the
-     *                        FunctionVersion resources to read
+     *                        Function Version resources to read
      */
     public FunctionVersionReader(final String pathServiceSid,
                                  final String pathFunctionSid) {

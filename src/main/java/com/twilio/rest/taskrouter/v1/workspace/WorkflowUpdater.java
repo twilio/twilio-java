@@ -28,6 +28,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
     private URI fallbackAssignmentCallbackUrl;
     private String configuration;
     private Integer taskReservationTimeout;
+    private String reEvaluateTasks;
 
     /**
      * Construct a new WorkflowUpdater.
@@ -139,6 +140,19 @@ public class WorkflowUpdater extends Updater<Workflow> {
     }
 
     /**
+     * Whether or not to re-evaluate Tasks. The default is `false`, which means
+     * Tasks in the Workflow will not be processed through the assignment loop
+     * again..
+     *
+     * @param reEvaluateTasks Whether or not to re-evaluate Tasks
+     * @return this
+     */
+    public WorkflowUpdater setReEvaluateTasks(final String reEvaluateTasks) {
+        this.reEvaluateTasks = reEvaluateTasks;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -201,6 +215,10 @@ public class WorkflowUpdater extends Updater<Workflow> {
 
         if (taskReservationTimeout != null) {
             request.addPostParam("TaskReservationTimeout", taskReservationTimeout.toString());
+        }
+
+        if (reEvaluateTasks != null) {
+            request.addPostParam("ReEvaluateTasks", reEvaluateTasks);
         }
     }
 }

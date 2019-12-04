@@ -45,6 +45,7 @@ public class NotificationCreator extends Creator<Notification> {
     private List<String> segment;
     private Map<String, Object> alexa;
     private List<String> toBinding;
+    private String deliveryCallbackUrl;
 
     /**
      * Construct a new NotificationCreator.
@@ -299,6 +300,17 @@ public class NotificationCreator extends Creator<Notification> {
     }
 
     /**
+     * URL to send webhooks..
+     *
+     * @param deliveryCallbackUrl URL to send webhooks
+     * @return this
+     */
+    public NotificationCreator setDeliveryCallbackUrl(final String deliveryCallbackUrl) {
+        this.deliveryCallbackUrl = deliveryCallbackUrl;
+        return this;
+    }
+
+    /**
      * The `identity` value that uniquely identifies the new resource's
      * [User](https://www.twilio.com/docs/chat/rest/user-resource) within the
      * [Service](https://www.twilio.com/docs/notify/api/service-resource). Delivery
@@ -475,6 +487,10 @@ public class NotificationCreator extends Creator<Notification> {
             for (String prop : toBinding) {
                 request.addPostParam("ToBinding", prop);
             }
+        }
+
+        if (deliveryCallbackUrl != null) {
+            request.addPostParam("DeliveryCallbackUrl", deliveryCallbackUrl);
         }
     }
 }

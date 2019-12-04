@@ -19,8 +19,7 @@ public class Stream extends TwiML {
     public enum Track {
         INBOUND_TRACK("inbound_track"),
         OUTBOUND_TRACK("outbound_track"),
-        BOTH_TRACKS("both_tracks"),
-        MIXED_TRACK("mixed_track");
+        BOTH_TRACKS("both_tracks");
 
         private final String value;
 

@@ -117,6 +117,21 @@ public class UserChannel extends Resource {
     }
 
     /**
+     * Create a UserChannelDeleter to execute delete.
+     *
+     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathUserSid The SID of the User to fetch the User Channel resources
+     *                    from
+     * @param pathChannelSid The SID of the Channel the resource belongs to
+     * @return UserChannelDeleter capable of executing the delete
+     */
+    public static UserChannelDeleter deleter(final String pathServiceSid,
+                                             final String pathUserSid,
+                                             final String pathChannelSid) {
+        return new UserChannelDeleter(pathServiceSid, pathUserSid, pathChannelSid);
+    }
+
+    /**
      * Create a UserChannelUpdater to execute update.
      *
      * @param pathServiceSid The SID of the Service to update the resource from

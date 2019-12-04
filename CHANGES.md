@@ -1,6 +1,36 @@
 twilio-java changelog
 =====================
 
+[2019-12-04] Version 7.46.0
+---------------------------
+**Library**
+- [PR #500](https://github.com/twilio/twilio-java/pull/500): chore: upgrade archunit to version 0.12.0. Thanks to [@sullis](https://github.com/sullis)!
+- [PR #499](https://github.com/twilio/twilio-java/pull/499): docs: add supported language versions to README. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #489](https://github.com/twilio/twilio-java/pull/489): chore: upgrade jackson to version 2.10.1. Thanks to [@sullis](https://github.com/sullis)!
+- [PR #498](https://github.com/twilio/twilio-java/pull/498): fix: Rename child twiml methods to be the tag name and deprecate old methods. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+- [PR #496](https://github.com/twilio/twilio-java/pull/496): docs: add an example for handling exceptions. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #494](https://github.com/twilio/twilio-java/pull/494): fix: Add URI encoding for phone numbers. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+- [PR #492](https://github.com/twilio/twilio-java/pull/492): fix: add new Twiml type to deal with constructor overloading issue. Thanks to [@craigsdennis](https://github.com/craigsdennis)!
+- [PR #491](https://github.com/twilio/twilio-java/pull/491): Allow missing GPG env vars when running on a fork. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #490](https://github.com/twilio/twilio-java/pull/490): docs: add an example using a different HTTP client. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Api**
+- Add optional `twiml` parameter for call create
+
+**Chat**
+- Added `delete` method in UserChannel resource
+
+**Conversations**
+- Allow Messaging Service update
+
+**Taskrouter**
+- Support ReEvaluateTasks parameter on Workflow update
+
+**Twiml**
+- Remove unsupported `mixed_track` value from `<Stream>` **(breaking change)**
+- Add missing fax `<Receive>` optional attributes
+
+
 [2019-11-13] Version 7.45.1
 ---------------------------
 **Library**

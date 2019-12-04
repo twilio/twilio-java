@@ -29,6 +29,7 @@ public class ConversationUpdater extends Updater<Conversation> {
     private DateTime dateCreated;
     private DateTime dateUpdated;
     private String attributes;
+    private String messagingServiceSid;
 
     /**
      * Construct a new ConversationUpdater.
@@ -84,6 +85,20 @@ public class ConversationUpdater extends Updater<Conversation> {
      */
     public ConversationUpdater setAttributes(final String attributes) {
         this.attributes = attributes;
+        return this;
+    }
+
+    /**
+     * The unique id of the [SMS
+     * Service](https://www.twilio.com/docs/sms/services/api) this conversation
+     * belongs to..
+     *
+     * @param messagingServiceSid The unique id of the SMS Service this
+     *                            conversation belongs to.
+     * @return this
+     */
+    public ConversationUpdater setMessagingServiceSid(final String messagingServiceSid) {
+        this.messagingServiceSid = messagingServiceSid;
         return this;
     }
 
@@ -146,6 +161,10 @@ public class ConversationUpdater extends Updater<Conversation> {
 
         if (attributes != null) {
             request.addPostParam("Attributes", attributes);
+        }
+
+        if (messagingServiceSid != null) {
+            request.addPostParam("MessagingServiceSid", messagingServiceSid);
         }
     }
 }

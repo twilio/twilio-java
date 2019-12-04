@@ -71,10 +71,10 @@ public class FunctionVersion extends Resource {
     /**
      * Create a FunctionVersionReader to execute read.
      *
-     * @param pathServiceSid The SID of the Service to read the FunctionVersion
+     * @param pathServiceSid The SID of the Service to read the Function Version
      *                       resources from
      * @param pathFunctionSid The SID of the function that is the parent of the
-     *                        FunctionVersion resources to read
+     *                        Function Version resources to read
      * @return FunctionVersionReader capable of executing the read
      */
     public static FunctionVersionReader reader(final String pathServiceSid,
@@ -85,11 +85,11 @@ public class FunctionVersion extends Resource {
     /**
      * Create a FunctionVersionFetcher to execute fetch.
      *
-     * @param pathServiceSid The SID of the Service to fetch the FunctionVersion
+     * @param pathServiceSid The SID of the Service to fetch the Function Version
      *                       resource from
      * @param pathFunctionSid The SID of the function that is the parent of the
-     *                        FunctionVersion resource to fetch
-     * @param pathSid The SID that identifies the FunctionVersion resource to fetch
+     *                        Function Version resource to fetch
+     * @param pathSid The SID that identifies the Function Version resource to fetch
      * @return FunctionVersionFetcher capable of executing the fetch
      */
     public static FunctionVersionFetcher fetcher(final String pathServiceSid,
@@ -173,28 +173,29 @@ public class FunctionVersion extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the FunctionVersion resource.
+     * Returns The The unique string that identifies the Function Version resource.
      *
-     * @return The unique string that identifies the FunctionVersion resource
+     * @return The unique string that identifies the Function Version resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The SID of the Account that created the FunctionVersion resource.
+     * Returns The The SID of the Account that created the Function Version
+     * resource.
      *
-     * @return The SID of the Account that created the FunctionVersion resource
+     * @return The SID of the Account that created the Function Version resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The SID of the Service that the FunctionVersion resource is
+     * Returns The The SID of the Service that the Function Version resource is
      * associated with.
      *
-     * @return The SID of the Service that the FunctionVersion resource is
+     * @return The SID of the Service that the Function Version resource is
      *         associated with
      */
     public final String getServiceSid() {
@@ -234,10 +235,10 @@ public class FunctionVersion extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the FunctionVersion
+     * Returns The The ISO 8601 date and time in GMT when the Function Version
      * resource was created.
      *
-     * @return The ISO 8601 date and time in GMT when the FunctionVersion resource
+     * @return The ISO 8601 date and time in GMT when the Function Version resource
      *         was created
      */
     public final DateTime getDateCreated() {
@@ -245,9 +246,9 @@ public class FunctionVersion extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the FunctionVersion resource.
+     * Returns The The absolute URL of the Function Version resource.
      *
-     * @return The absolute URL of the FunctionVersion resource
+     * @return The absolute URL of the Function Version resource
      */
     public final URI getUrl() {
         return this.url;

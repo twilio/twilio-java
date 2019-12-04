@@ -235,19 +235,22 @@ public class Build extends Resource {
     }
 
     /**
-     * Returns The The list of AssetVersion resource SIDs that are included in the
+     * Returns The The list of Asset Version resource SIDs that are included in the
      * build.
      *
-     * @return The list of AssetVersion resource SIDs that are included in the build
+     * @return The list of Asset Version resource SIDs that are included in the
+     *         build
      */
     public final List<Map<String, Object>> getAssetVersions() {
         return this.assetVersions;
     }
 
     /**
-     * Returns The List of the Variable resource SIDs.
+     * Returns The The list of Function Version resource SIDs that are included in
+     * the build.
      *
-     * @return List of the Variable resource SIDs
+     * @return The list of Function Version resource SIDs that are included in the
+     *         build
      */
     public final List<Map<String, Object>> getFunctionVersions() {
         return this.functionVersions;

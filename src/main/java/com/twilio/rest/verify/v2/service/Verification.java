@@ -267,9 +267,9 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The The verification method to use.
+     * Returns The The verification method used..
      *
-     * @return The verification method to use
+     * @return The verification method used.
      */
     public final Verification.Channel getChannel() {
         return this.channel;

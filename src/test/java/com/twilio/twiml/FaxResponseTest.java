@@ -51,14 +51,20 @@ public class FaxResponseTest {
     public void testElementWithChildren() {
         FaxResponse.Builder builder = new FaxResponse.Builder();
 
-        builder.receive(new Receive.Builder().action(URI.create("https://example.com")).method(HttpMethod.GET).build());
+        builder.receive(new Receive.Builder()
+                    .action(URI.create("https://example.com"))
+                    .method(HttpMethod.GET)
+                    .mediaType(Receive.MediaType.APPLICATION_PDF)
+                    .pageSize(Receive.PageSize.LETTER)
+                    .storeMedia(true)
+                    .build());
 
         FaxResponse elem = builder.build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Response>" +
-                "<Receive action=\"https://example.com\" method=\"GET\"/>" +
+                "<Receive action=\"https://example.com\" mediaType=\"application/pdf\" method=\"GET\" pageSize=\"letter\" storeMedia=\"true\"/>" +
             "</Response>",
             elem.toXml()
         );

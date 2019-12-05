@@ -5,6 +5,10 @@ before_install:
   - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import || true
   - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust || true
 
+cache:
+  directories:
+    - $HOME/.m2
+
 jdk:
   - openjdk8
   - oraclejdk11

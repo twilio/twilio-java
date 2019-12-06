@@ -26,6 +26,12 @@ public class WorkflowRuleTarget extends TaskRouterResource {
 
     @JsonProperty("timeout")
     private final Integer timeout;
+    
+    @JsonProperty("order_by")
+    private String orderBy;
+    
+    @JsonProperty("skip_if")
+    private String skipIf;
 
     @JsonCreator
     private WorkflowRuleTarget(
@@ -45,6 +51,8 @@ public class WorkflowRuleTarget extends TaskRouterResource {
         this.expression = b.expression;
         this.priority = b.priority;
         this.timeout = b.timeout;
+        this.orderBy = b.orderBy;
+        this.skipIf = b.skipIf;
     }
 
     /**
@@ -80,6 +88,38 @@ public class WorkflowRuleTarget extends TaskRouterResource {
     }
 
     /**
+     * Get the orderBy for the workflow rule target.
+     * @return the orderBy
+     */
+    public String getOrderBy() {
+        return orderBy;
+    }
+
+    /**
+     * Sets the orderBy for the workflow rule target.
+     * @param orderBy the orderBy
+     */
+    public void setOrderBy(String orderBy) {
+        this.orderBy = orderBy;
+    }
+
+    /**
+     * Get the skipIf for the workflow rule target.
+     * @return the skipIf
+     */
+    public String getSkipIf() {
+        return skipIf;
+    }
+
+    /**
+     * Sets the skipIf for the workflow rule target.
+     * @param skipIf the skipIf
+     */
+    public void setSkipIf(String skipIf) {
+        this.skipIf = skipIf;
+    }
+
+    /**
      * Return a string representation of this workflow rule target.
      * @return string representation of target
      */
@@ -90,6 +130,8 @@ public class WorkflowRuleTarget extends TaskRouterResource {
             .add("expression", expression)
             .add("priority", priority)
             .add("timeout", timeout)
+            .add("orderBy", orderBy)
+            .add("skipIf", skipIf)
             .toString();
     }
 
@@ -111,6 +153,8 @@ public class WorkflowRuleTarget extends TaskRouterResource {
         private String expression;
         private Integer priority;
         private Integer timeout;
+        private String orderBy;
+        private String skipIf;
 
         public Builder(String queue) {
             this.queue = queue;
@@ -128,6 +172,16 @@ public class WorkflowRuleTarget extends TaskRouterResource {
 
         public Builder timeout(Integer timeout) {
             this.timeout = timeout;
+            return this;
+        }
+        
+        public Builder orderBy(String orderBy) {
+            this.orderBy = orderBy;
+            return this;
+        }
+        
+        public Builder skipIf(String skipIf) {
+            this.skipIf = skipIf;
             return this;
         }
 

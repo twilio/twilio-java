@@ -16,10 +16,12 @@ public class WorkflowRuleTargetTest {
             .expression("1==1")
             .priority(5)
             .timeout(30)
+            .orderBy("worker.english_level ASC")
+            .skipIf("workers.available == 0")
             .build();
 
         Assert.assertEquals(
-            "{\"queue\":\"QS123\",\"expression\":\"1==1\",\"priority\":5,\"timeout\":30}",
+            "{\"queue\":\"QS123\",\"expression\":\"1==1\",\"priority\":5,\"timeout\":30,\"order_by\":\"worker.english_level ASC\",\"skip_if\":\"workers.available == 0\"}",
             target.toJson()
         );
     }

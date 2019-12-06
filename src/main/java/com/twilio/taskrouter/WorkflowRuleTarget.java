@@ -28,22 +28,26 @@ public class WorkflowRuleTarget extends TaskRouterResource {
     private final Integer timeout;
     
     @JsonProperty("order_by")
-    private String orderBy;
+    private final String orderBy;
     
     @JsonProperty("skip_if")
-    private String skipIf;
+    private final String skipIf;
 
     @JsonCreator
     private WorkflowRuleTarget(
         @JsonProperty("queue") String queue,
         @JsonProperty("expression") String expression,
         @JsonProperty("priority") Integer priority,
-        @JsonProperty("timeout") Integer timeout
+        @JsonProperty("timeout") Integer timeout,
+        @JsonProperty("order_by") String orderBy,
+        @JsonProperty("skip_if") String skipIf
     ) {
         this.queue = queue;
         this.expression = expression;
         this.priority = priority;
         this.timeout = timeout;
+        this.orderBy = orderBy;
+        this.skipIf = skipIf;
     }
 
     private WorkflowRuleTarget(Builder b) throws IllegalArgumentException {
@@ -96,27 +100,11 @@ public class WorkflowRuleTarget extends TaskRouterResource {
     }
 
     /**
-     * Sets the orderBy for the workflow rule target.
-     * @param orderBy the orderBy
-     */
-    public void setOrderBy(String orderBy) {
-        this.orderBy = orderBy;
-    }
-
-    /**
      * Get the skipIf for the workflow rule target.
      * @return the skipIf
      */
     public String getSkipIf() {
         return skipIf;
-    }
-
-    /**
-     * Sets the skipIf for the workflow rule target.
-     * @param skipIf the skipIf
-     */
-    public void setSkipIf(String skipIf) {
-        this.skipIf = skipIf;
     }
 
     /**

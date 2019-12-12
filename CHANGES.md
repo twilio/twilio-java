@@ -1,6 +1,26 @@
 twilio-java changelog
 =====================
 
+[2019-12-12] Version 7.47.0
+---------------------------
+**Library**
+- [PR #504](https://github.com/twilio/twilio-java/pull/504): feat: add 'order_by' and 'skip_if' parameters in WorkflowRuleTarget. Thanks to [@nikhil-vk](https://github.com/nikhil-vk)!
+
+**Api**
+- Make `twiml` conditional for create. One of `url`, `twiml`, or `application_sid` is now required.
+- Add `bundle_sid` parameter to /IncomingPhoneNumbers API
+- Removed discard / obfuscate parameters from ContentRetention, AddressRetention **(breaking change)**
+
+**Chat**
+- Added `last_consumed_message_index` and `last_consumption_timestamp` parameters in update method for UserChannel resource **(breaking change)**
+
+**Conversations**
+- Add Participant SID to Message properties
+
+**Messaging**
+- Fix incorrectly typed capabilities property for ShortCodes. **(breaking change)**
+
+
 [2019-12-04] Version 7.46.0
 ---------------------------
 **Library**

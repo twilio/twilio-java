@@ -40,6 +40,11 @@ public class TollFreeCreator extends Creator<TollFree> {
     private URI voiceUrl;
     private String identitySid;
     private String addressSid;
+    private TollFree.EmergencyStatus emergencyStatus;
+    private String emergencyAddressSid;
+    private String trunkSid;
+    private TollFree.VoiceReceiveMode voiceReceiveMode;
+    private String bundleSid;
 
     /**
      * Construct a new TollFreeCreator.
@@ -337,6 +342,70 @@ public class TollFreeCreator extends Creator<TollFree> {
     }
 
     /**
+     * The configuration status parameter that determines whether the new phone
+     * number is enabled for emergency calling..
+     *
+     * @param emergencyStatus Status determining whether the new phone number is
+     *                        enabled for emergency calling
+     * @return this
+     */
+    public TollFreeCreator setEmergencyStatus(final TollFree.EmergencyStatus emergencyStatus) {
+        this.emergencyStatus = emergencyStatus;
+        return this;
+    }
+
+    /**
+     * The SID of the emergency address configuration to use for emergency calling
+     * from the new phone number..
+     *
+     * @param emergencyAddressSid The emergency address configuration to use for
+     *                            emergency calling
+     * @return this
+     */
+    public TollFreeCreator setEmergencyAddressSid(final String emergencyAddressSid) {
+        this.emergencyAddressSid = emergencyAddressSid;
+        return this;
+    }
+
+    /**
+     * The SID of the Trunk we should use to handle calls to the new phone number.
+     * If a `trunk_sid` is present, we ignore all of the voice urls and voice
+     * applications and use only those set on the Trunk. Setting a `trunk_sid` will
+     * automatically delete your `voice_application_sid` and vice versa..
+     *
+     * @param trunkSid SID of the trunk to handle calls to the new phone number
+     * @return this
+     */
+    public TollFreeCreator setTrunkSid(final String trunkSid) {
+        this.trunkSid = trunkSid;
+        return this;
+    }
+
+    /**
+     * The configuration parameter for the new phone number to receive incoming
+     * voice calls or faxes. Can be: `fax` or `voice` and defaults to `voice`..
+     *
+     * @param voiceReceiveMode Incoming call type: fax or voice
+     * @return this
+     */
+    public TollFreeCreator setVoiceReceiveMode(final TollFree.VoiceReceiveMode voiceReceiveMode) {
+        this.voiceReceiveMode = voiceReceiveMode;
+        return this;
+    }
+
+    /**
+     * The SID of the Bundle resource that you associate with the phone number. Some
+     * regions require a Bundle to meet local Regulations..
+     *
+     * @param bundleSid The SID of the Bundle resource associated with number
+     * @return this
+     */
+    public TollFreeCreator setBundleSid(final String bundleSid) {
+        this.bundleSid = bundleSid;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -452,6 +521,26 @@ public class TollFreeCreator extends Creator<TollFree> {
 
         if (addressSid != null) {
             request.addPostParam("AddressSid", addressSid);
+        }
+
+        if (emergencyStatus != null) {
+            request.addPostParam("EmergencyStatus", emergencyStatus.toString());
+        }
+
+        if (emergencyAddressSid != null) {
+            request.addPostParam("EmergencyAddressSid", emergencyAddressSid);
+        }
+
+        if (trunkSid != null) {
+            request.addPostParam("TrunkSid", trunkSid);
+        }
+
+        if (voiceReceiveMode != null) {
+            request.addPostParam("VoiceReceiveMode", voiceReceiveMode.toString());
+        }
+
+        if (bundleSid != null) {
+            request.addPostParam("BundleSid", bundleSid);
         }
     }
 }

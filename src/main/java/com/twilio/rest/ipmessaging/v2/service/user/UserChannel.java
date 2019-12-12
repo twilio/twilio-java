@@ -139,15 +139,12 @@ public class UserChannel extends Resource {
      *                    from
      * @param pathChannelSid The SID of the Channel with the User Channel resource
      *                       to update
-     * @param notificationLevel The push notification level to assign to the User
-     *                          Channel
      * @return UserChannelUpdater capable of executing the update
      */
     public static UserChannelUpdater updater(final String pathServiceSid,
                                              final String pathUserSid,
-                                             final String pathChannelSid,
-                                             final UserChannel.NotificationLevel notificationLevel) {
-        return new UserChannelUpdater(pathServiceSid, pathUserSid, pathChannelSid, notificationLevel);
+                                             final String pathChannelSid) {
+        return new UserChannelUpdater(pathServiceSid, pathUserSid, pathChannelSid);
     }
 
     /**

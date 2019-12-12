@@ -38,7 +38,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Event extends Resource {
-    private static final long serialVersionUID = 76675305363781L;
+    private static final long serialVersionUID = 164982033524343L;
 
     public enum TwilioEdge {
         UNKNOWN_EDGE("unknown_edge"),
@@ -150,8 +150,6 @@ public class Event extends Resource {
     private final String group;
     private final Event.Level level;
     private final String name;
-    private final Map<String, Object> client;
-    private final Map<String, Object> gateway;
     private final Map<String, Object> carrierEdge;
     private final Map<String, Object> sipEdge;
     private final Map<String, Object> sdkEdge;
@@ -172,10 +170,6 @@ public class Event extends Resource {
                   final Event.Level level,
                   @JsonProperty("name")
                   final String name,
-                  @JsonProperty("client")
-                  final Map<String, Object> client,
-                  @JsonProperty("gateway")
-                  final Map<String, Object> gateway,
                   @JsonProperty("carrier_edge")
                   final Map<String, Object> carrierEdge,
                   @JsonProperty("sip_edge")
@@ -191,8 +185,6 @@ public class Event extends Resource {
         this.group = group;
         this.level = level;
         this.name = name;
-        this.client = client;
-        this.gateway = gateway;
         this.carrierEdge = carrierEdge;
         this.sipEdge = sipEdge;
         this.sdkEdge = sdkEdge;
@@ -263,24 +255,6 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The client.
-     *
-     * @return The client
-     */
-    public final Map<String, Object> getClient() {
-        return this.client;
-    }
-
-    /**
-     * Returns The The gateway.
-     *
-     * @return The gateway
-     */
-    public final Map<String, Object> getGateway() {
-        return this.gateway;
-    }
-
-    /**
      * Returns The The carrier_edge.
      *
      * @return The carrier_edge
@@ -335,8 +309,6 @@ public class Event extends Resource {
                Objects.equals(group, other.group) &&
                Objects.equals(level, other.level) &&
                Objects.equals(name, other.name) &&
-               Objects.equals(client, other.client) &&
-               Objects.equals(gateway, other.gateway) &&
                Objects.equals(carrierEdge, other.carrierEdge) &&
                Objects.equals(sipEdge, other.sipEdge) &&
                Objects.equals(sdkEdge, other.sdkEdge) &&
@@ -352,8 +324,6 @@ public class Event extends Resource {
                             group,
                             level,
                             name,
-                            client,
-                            gateway,
                             carrierEdge,
                             sipEdge,
                             sdkEdge,
@@ -370,8 +340,6 @@ public class Event extends Resource {
                           .add("group", group)
                           .add("level", level)
                           .add("name", name)
-                          .add("client", client)
-                          .add("gateway", gateway)
                           .add("carrierEdge", carrierEdge)
                           .add("sipEdge", sipEdge)
                           .add("sdkEdge", sdkEdge)

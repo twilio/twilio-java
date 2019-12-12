@@ -102,8 +102,7 @@ public class Message extends Resource {
     }
 
     public enum ContentRetention {
-        RETAIN("retain"),
-        DISCARD("discard");
+        RETAIN("retain");
 
         private final String value;
 
@@ -127,8 +126,7 @@ public class Message extends Resource {
     }
 
     public enum AddressRetention {
-        RETAIN("retain"),
-        DISCARD("discard");
+        RETAIN("retain");
 
         private final String value;
 

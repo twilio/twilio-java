@@ -27,6 +27,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.Endpoint;
+import com.twilio.type.Twiml;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -151,6 +152,36 @@ public class Call extends Resource {
                                       final com.twilio.type.Endpoint from,
                                       final URI url) {
         return new CallCreator(to, from, url);
+    }
+
+    /**
+     * Create a CallCreator to execute create.
+     *
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param to Phone number, SIP address, or client identifier to call
+     * @param from Twilio number from which to originate the call
+     * @param twiml TwiML instructions for the call
+     * @return CallCreator capable of executing the create
+     */
+    public static CallCreator creator(final String pathAccountSid,
+                                      final com.twilio.type.Endpoint to,
+                                      final com.twilio.type.Endpoint from,
+                                      final com.twilio.type.Twiml twiml) {
+        return new CallCreator(pathAccountSid, to, from, twiml);
+    }
+
+    /**
+     * Create a CallCreator to execute create.
+     *
+     * @param to Phone number, SIP address, or client identifier to call
+     * @param from Twilio number from which to originate the call
+     * @param twiml TwiML instructions for the call
+     * @return CallCreator capable of executing the create
+     */
+    public static CallCreator creator(final com.twilio.type.Endpoint to,
+                                      final com.twilio.type.Endpoint from,
+                                      final com.twilio.type.Twiml twiml) {
+        return new CallCreator(to, from, twiml);
     }
 
     /**

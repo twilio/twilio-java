@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class IncomingPhoneNumber extends Resource {
-    private static final long serialVersionUID = 145062524051297L;
+    private static final long serialVersionUID = 149023433538541L;
 
     public enum AddressRequirement {
         NONE("none"),
@@ -316,6 +316,7 @@ public class IncomingPhoneNumber extends Resource {
     private final URI voiceUrl;
     private final IncomingPhoneNumber.EmergencyStatus emergencyStatus;
     private final String emergencyAddressSid;
+    private final String bundleSid;
 
     @JsonCreator
     private IncomingPhoneNumber(@JsonProperty("account_sid")
@@ -377,7 +378,9 @@ public class IncomingPhoneNumber extends Resource {
                                 @JsonProperty("emergency_status")
                                 final IncomingPhoneNumber.EmergencyStatus emergencyStatus,
                                 @JsonProperty("emergency_address_sid")
-                                final String emergencyAddressSid) {
+                                final String emergencyAddressSid,
+                                @JsonProperty("bundle_sid")
+                                final String bundleSid) {
         this.accountSid = accountSid;
         this.addressSid = addressSid;
         this.addressRequirements = addressRequirements;
@@ -408,6 +411,7 @@ public class IncomingPhoneNumber extends Resource {
         this.voiceUrl = voiceUrl;
         this.emergencyStatus = emergencyStatus;
         this.emergencyAddressSid = emergencyAddressSid;
+        this.bundleSid = bundleSid;
     }
 
     /**
@@ -689,6 +693,15 @@ public class IncomingPhoneNumber extends Resource {
         return this.emergencyAddressSid;
     }
 
+    /**
+     * Returns The The SID of the Bundle resource associated with number.
+     *
+     * @return The SID of the Bundle resource associated with number
+     */
+    public final String getBundleSid() {
+        return this.bundleSid;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -730,7 +743,8 @@ public class IncomingPhoneNumber extends Resource {
                Objects.equals(voiceMethod, other.voiceMethod) &&
                Objects.equals(voiceUrl, other.voiceUrl) &&
                Objects.equals(emergencyStatus, other.emergencyStatus) &&
-               Objects.equals(emergencyAddressSid, other.emergencyAddressSid);
+               Objects.equals(emergencyAddressSid, other.emergencyAddressSid) &&
+               Objects.equals(bundleSid, other.bundleSid);
     }
 
     @Override
@@ -764,7 +778,8 @@ public class IncomingPhoneNumber extends Resource {
                             voiceMethod,
                             voiceUrl,
                             emergencyStatus,
-                            emergencyAddressSid);
+                            emergencyAddressSid,
+                            bundleSid);
     }
 
     @Override
@@ -800,6 +815,7 @@ public class IncomingPhoneNumber extends Resource {
                           .add("voiceUrl", voiceUrl)
                           .add("emergencyStatus", emergencyStatus)
                           .add("emergencyAddressSid", emergencyAddressSid)
+                          .add("bundleSid", bundleSid)
                           .toString();
     }
 }

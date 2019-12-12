@@ -38,7 +38,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Metric extends Resource {
-    private static final long serialVersionUID = 39703433584304L;
+    private static final long serialVersionUID = 44318563826272L;
 
     public enum TwilioEdge {
         UNKNOWN_EDGE("unknown_edge"),
@@ -147,8 +147,6 @@ public class Metric extends Resource {
     private final String accountSid;
     private final Metric.TwilioEdge edge;
     private final Metric.StreamDirection direction;
-    private final Map<String, Object> gateway;
-    private final Map<String, Object> client;
     private final Map<String, Object> carrierEdge;
     private final Map<String, Object> sipEdge;
     private final Map<String, Object> sdkEdge;
@@ -165,10 +163,6 @@ public class Metric extends Resource {
                    final Metric.TwilioEdge edge,
                    @JsonProperty("direction")
                    final Metric.StreamDirection direction,
-                   @JsonProperty("gateway")
-                   final Map<String, Object> gateway,
-                   @JsonProperty("client")
-                   final Map<String, Object> client,
                    @JsonProperty("carrier_edge")
                    final Map<String, Object> carrierEdge,
                    @JsonProperty("sip_edge")
@@ -182,8 +176,6 @@ public class Metric extends Resource {
         this.accountSid = accountSid;
         this.edge = edge;
         this.direction = direction;
-        this.gateway = gateway;
-        this.client = client;
         this.carrierEdge = carrierEdge;
         this.sipEdge = sipEdge;
         this.sdkEdge = sdkEdge;
@@ -233,24 +225,6 @@ public class Metric extends Resource {
      */
     public final Metric.StreamDirection getDirection() {
         return this.direction;
-    }
-
-    /**
-     * Returns The The gateway.
-     *
-     * @return The gateway
-     */
-    public final Map<String, Object> getGateway() {
-        return this.gateway;
-    }
-
-    /**
-     * Returns The The client.
-     *
-     * @return The client
-     */
-    public final Map<String, Object> getClient() {
-        return this.client;
     }
 
     /**
@@ -306,8 +280,6 @@ public class Metric extends Resource {
                Objects.equals(accountSid, other.accountSid) &&
                Objects.equals(edge, other.edge) &&
                Objects.equals(direction, other.direction) &&
-               Objects.equals(gateway, other.gateway) &&
-               Objects.equals(client, other.client) &&
                Objects.equals(carrierEdge, other.carrierEdge) &&
                Objects.equals(sipEdge, other.sipEdge) &&
                Objects.equals(sdkEdge, other.sdkEdge) &&
@@ -321,8 +293,6 @@ public class Metric extends Resource {
                             accountSid,
                             edge,
                             direction,
-                            gateway,
-                            client,
                             carrierEdge,
                             sipEdge,
                             sdkEdge,
@@ -337,8 +307,6 @@ public class Metric extends Resource {
                           .add("accountSid", accountSid)
                           .add("edge", edge)
                           .add("direction", direction)
-                          .add("gateway", gateway)
-                          .add("client", client)
                           .add("carrierEdge", carrierEdge)
                           .add("sipEdge", sipEdge)
                           .add("sdkEdge", sdkEdge)

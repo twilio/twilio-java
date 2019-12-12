@@ -8,6 +8,7 @@
 package com.twilio.rest.ipmessaging.v2.service.user;
 
 import com.twilio.base.Updater;
+import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -16,12 +17,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import org.joda.time.DateTime;
 
 public class UserChannelUpdater extends Updater<UserChannel> {
     private final String pathServiceSid;
     private final String pathUserSid;
     private final String pathChannelSid;
-    private final UserChannel.NotificationLevel notificationLevel;
+    private UserChannel.NotificationLevel notificationLevel;
+    private Integer lastConsumedMessageIndex;
+    private DateTime lastConsumptionTimestamp;
 
     /**
      * Construct a new UserChannelUpdater.
@@ -31,17 +35,57 @@ public class UserChannelUpdater extends Updater<UserChannel> {
      *                    from
      * @param pathChannelSid The SID of the Channel with the User Channel resource
      *                       to update
-     * @param notificationLevel The push notification level to assign to the User
-     *                          Channel
      */
     public UserChannelUpdater(final String pathServiceSid,
                               final String pathUserSid,
-                              final String pathChannelSid,
-                              final UserChannel.NotificationLevel notificationLevel) {
+                              final String pathChannelSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathUserSid = pathUserSid;
         this.pathChannelSid = pathChannelSid;
+    }
+
+    /**
+     * The push notification level to assign to the User Channel. Can be: `default`
+     * or `muted`..
+     *
+     * @param notificationLevel The push notification level to assign to the User
+     *                          Channel
+     * @return this
+     */
+    public UserChannelUpdater setNotificationLevel(final UserChannel.NotificationLevel notificationLevel) {
         this.notificationLevel = notificationLevel;
+        return this;
+    }
+
+    /**
+     * The index of the last
+     * [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the
+     * [Channel](https://www.twilio.com/docs/chat/channels) that the Member has
+     * read..
+     *
+     * @param lastConsumedMessageIndex The index of the last Message that the
+     *                                 Member has read within the Channel
+     * @return this
+     */
+    public UserChannelUpdater setLastConsumedMessageIndex(final Integer lastConsumedMessageIndex) {
+        this.lastConsumedMessageIndex = lastConsumedMessageIndex;
+        return this;
+    }
+
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last
+     * [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event
+     * for the Member within the
+     * [Channel](https://www.twilio.com/docs/chat/channels)..
+     *
+     * @param lastConsumptionTimestamp The ISO 8601 based timestamp string that
+     *                                 represents the datetime of the last Message
+     *                                 read event for the Member within the Channel
+     * @return this
+     */
+    public UserChannelUpdater setLastConsumptionTimestamp(final DateTime lastConsumptionTimestamp) {
+        this.lastConsumptionTimestamp = lastConsumptionTimestamp;
+        return this;
     }
 
     /**
@@ -91,6 +135,14 @@ public class UserChannelUpdater extends Updater<UserChannel> {
     private void addPostParams(final Request request) {
         if (notificationLevel != null) {
             request.addPostParam("NotificationLevel", notificationLevel.toString());
+        }
+
+        if (lastConsumedMessageIndex != null) {
+            request.addPostParam("LastConsumedMessageIndex", lastConsumedMessageIndex.toString());
+        }
+
+        if (lastConsumptionTimestamp != null) {
+            request.addPostParam("LastConsumptionTimestamp", lastConsumptionTimestamp.toString());
         }
     }
 }

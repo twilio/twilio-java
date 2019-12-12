@@ -45,6 +45,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     private String identitySid;
     private String addressSid;
     private IncomingPhoneNumber.VoiceReceiveMode voiceReceiveMode;
+    private String bundleSid;
 
     /**
      * Construct a new IncomingPhoneNumberCreator.
@@ -417,6 +418,18 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     }
 
     /**
+     * The SID of the Bundle resource that you associate with the phone number. Some
+     * regions require a Bundle to meet local Regulations..
+     *
+     * @param bundleSid The SID of the Bundle resource associated with number
+     * @return this
+     */
+    public IncomingPhoneNumberCreator setBundleSid(final String bundleSid) {
+        this.bundleSid = bundleSid;
+        return this;
+    }
+
+    /**
      * The phone number to purchase specified in
      * [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone
      * numbers consist of a + followed by the country code and subscriber number
@@ -593,6 +606,10 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
 
         if (voiceReceiveMode != null) {
             request.addPostParam("VoiceReceiveMode", voiceReceiveMode.toString());
+        }
+
+        if (bundleSid != null) {
+            request.addPostParam("BundleSid", bundleSid);
         }
     }
 }

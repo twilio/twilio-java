@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Local extends Resource {
-    private static final long serialVersionUID = 75964804463033L;
+    private static final long serialVersionUID = 134229617239258L;
 
     public enum AddressRequirement {
         NONE("none"),
@@ -62,6 +62,56 @@ public class Local extends Resource {
         @JsonCreator
         public static AddressRequirement forValue(final String value) {
             return Promoter.enumFromString(value, AddressRequirement.values());
+        }
+    }
+
+    public enum EmergencyStatus {
+        ACTIVE("Active"),
+        INACTIVE("Inactive");
+
+        private final String value;
+
+        private EmergencyStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a EmergencyStatus from a string.
+         * @param value string value
+         * @return generated EmergencyStatus
+         */
+        @JsonCreator
+        public static EmergencyStatus forValue(final String value) {
+            return Promoter.enumFromString(value, EmergencyStatus.values());
+        }
+    }
+
+    public enum VoiceReceiveMode {
+        VOICE("voice"),
+        FAX("fax");
+
+        private final String value;
+
+        private VoiceReceiveMode(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a VoiceReceiveMode from a string.
+         * @param value string value
+         * @return generated VoiceReceiveMode
+         */
+        @JsonCreator
+        public static VoiceReceiveMode forValue(final String value) {
+            return Promoter.enumFromString(value, VoiceReceiveMode.values());
         }
     }
 
@@ -172,6 +222,9 @@ public class Local extends Resource {
     private final URI voiceFallbackUrl;
     private final HttpMethod voiceMethod;
     private final URI voiceUrl;
+    private final Local.EmergencyStatus emergencyStatus;
+    private final String emergencyAddressSid;
+    private final String bundleSid;
 
     @JsonCreator
     private Local(@JsonProperty("account_sid")
@@ -229,7 +282,13 @@ public class Local extends Resource {
                   @JsonProperty("voice_method")
                   final HttpMethod voiceMethod,
                   @JsonProperty("voice_url")
-                  final URI voiceUrl) {
+                  final URI voiceUrl,
+                  @JsonProperty("emergency_status")
+                  final Local.EmergencyStatus emergencyStatus,
+                  @JsonProperty("emergency_address_sid")
+                  final String emergencyAddressSid,
+                  @JsonProperty("bundle_sid")
+                  final String bundleSid) {
         this.accountSid = accountSid;
         this.addressSid = addressSid;
         this.addressRequirements = addressRequirements;
@@ -258,6 +317,9 @@ public class Local extends Resource {
         this.voiceFallbackUrl = voiceFallbackUrl;
         this.voiceMethod = voiceMethod;
         this.voiceUrl = voiceUrl;
+        this.emergencyStatus = emergencyStatus;
+        this.emergencyAddressSid = emergencyAddressSid;
+        this.bundleSid = bundleSid;
     }
 
     /**
@@ -519,6 +581,33 @@ public class Local extends Resource {
         return this.voiceUrl;
     }
 
+    /**
+     * Returns The Whether the phone number is enabled for emergency calling.
+     *
+     * @return Whether the phone number is enabled for emergency calling
+     */
+    public final Local.EmergencyStatus getEmergencyStatus() {
+        return this.emergencyStatus;
+    }
+
+    /**
+     * Returns The The emergency address configuration to use for emergency calling.
+     *
+     * @return The emergency address configuration to use for emergency calling
+     */
+    public final String getEmergencyAddressSid() {
+        return this.emergencyAddressSid;
+    }
+
+    /**
+     * Returns The The SID of the Bundle resource associated with number.
+     *
+     * @return The SID of the Bundle resource associated with number
+     */
+    public final String getBundleSid() {
+        return this.bundleSid;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -558,7 +647,10 @@ public class Local extends Resource {
                Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) &&
                Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) &&
                Objects.equals(voiceMethod, other.voiceMethod) &&
-               Objects.equals(voiceUrl, other.voiceUrl);
+               Objects.equals(voiceUrl, other.voiceUrl) &&
+               Objects.equals(emergencyStatus, other.emergencyStatus) &&
+               Objects.equals(emergencyAddressSid, other.emergencyAddressSid) &&
+               Objects.equals(bundleSid, other.bundleSid);
     }
 
     @Override
@@ -590,7 +682,10 @@ public class Local extends Resource {
                             voiceFallbackMethod,
                             voiceFallbackUrl,
                             voiceMethod,
-                            voiceUrl);
+                            voiceUrl,
+                            emergencyStatus,
+                            emergencyAddressSid,
+                            bundleSid);
     }
 
     @Override
@@ -624,6 +719,9 @@ public class Local extends Resource {
                           .add("voiceFallbackUrl", voiceFallbackUrl)
                           .add("voiceMethod", voiceMethod)
                           .add("voiceUrl", voiceUrl)
+                          .add("emergencyStatus", emergencyStatus)
+                          .add("emergencyAddressSid", emergencyAddressSid)
+                          .add("bundleSid", bundleSid)
                           .toString();
     }
 }

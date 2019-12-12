@@ -18,6 +18,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.Endpoint;
+import com.twilio.type.Twiml;
 
 import java.net.URI;
 import java.util.List;
@@ -27,6 +28,7 @@ public class CallCreator extends Creator<Call> {
     private final com.twilio.type.Endpoint to;
     private final com.twilio.type.Endpoint from;
     private URI url;
+    private com.twilio.type.Twiml twiml;
     private String applicationSid;
     private HttpMethod method;
     private URI fallbackUrl;
@@ -50,7 +52,6 @@ public class CallCreator extends Creator<Call> {
     private Integer machineDetectionSpeechThreshold;
     private Integer machineDetectionSpeechEndThreshold;
     private Integer machineDetectionSilenceTimeout;
-    private String twiml;
 
     /**
      * Construct a new CallCreator.
@@ -83,6 +84,39 @@ public class CallCreator extends Creator<Call> {
         this.to = to;
         this.from = from;
         this.url = url;
+    }
+
+    /**
+     * Construct a new CallCreator.
+     *
+     * @param to Phone number, SIP address, or client identifier to call
+     * @param from Twilio number from which to originate the call
+     * @param twiml TwiML instructions for the call
+     */
+    public CallCreator(final com.twilio.type.Endpoint to,
+                       final com.twilio.type.Endpoint from,
+                       final com.twilio.type.Twiml twiml) {
+        this.to = to;
+        this.from = from;
+        this.twiml = twiml;
+    }
+
+    /**
+     * Construct a new CallCreator.
+     *
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param to Phone number, SIP address, or client identifier to call
+     * @param from Twilio number from which to originate the call
+     * @param twiml TwiML instructions for the call
+     */
+    public CallCreator(final String pathAccountSid,
+                       final com.twilio.type.Endpoint to,
+                       final com.twilio.type.Endpoint from,
+                       final com.twilio.type.Twiml twiml) {
+        this.pathAccountSid = pathAccountSid;
+        this.to = to;
+        this.from = from;
+        this.twiml = twiml;
     }
 
     /**
@@ -497,19 +531,6 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * TwiML instructions for the call Twilio will use without fetching Twiml from
-     * url parameter. If both `twiml` and `url` are provided then `twiml` parameter
-     * will be ignored..
-     *
-     * @param twiml TwiML instructions for the call
-     * @return this
-     */
-    public CallCreator setTwiml(final String twiml) {
-        this.twiml = twiml;
-        return this;
-    }
-
-    /**
      * The absolute URL that returns the TwiML instructions for the call. We will
      * call this URL using the `method` when the call connects. For more
      * information, see the [Url
@@ -534,6 +555,31 @@ public class CallCreator extends Creator<Call> {
      */
     public CallCreator setUrl(final String url) {
         return setUrl(Promoter.uriFromString(url));
+    }
+
+    /**
+     * TwiML instructions for the call Twilio will use without fetching Twiml from
+     * url parameter. If both `twiml` and `url` are provided then `twiml` parameter
+     * will be ignored..
+     *
+     * @param twiml TwiML instructions for the call
+     * @return this
+     */
+    public CallCreator setTwiml(final com.twilio.type.Twiml twiml) {
+        this.twiml = twiml;
+        return this;
+    }
+
+    /**
+     * TwiML instructions for the call Twilio will use without fetching Twiml from
+     * url parameter. If both `twiml` and `url` are provided then `twiml` parameter
+     * will be ignored..
+     *
+     * @param twiml TwiML instructions for the call
+     * @return this
+     */
+    public CallCreator setTwiml(final String twiml) {
+        return setTwiml(Promoter.twimlFromString(twiml));
     }
 
     /**
@@ -605,6 +651,10 @@ public class CallCreator extends Creator<Call> {
 
         if (url != null) {
             request.addPostParam("Url", url.toString());
+        }
+
+        if (twiml != null) {
+            request.addPostParam("Twiml", twiml.toString());
         }
 
         if (applicationSid != null) {
@@ -701,10 +751,6 @@ public class CallCreator extends Creator<Call> {
 
         if (machineDetectionSilenceTimeout != null) {
             request.addPostParam("MachineDetectionSilenceTimeout", machineDetectionSilenceTimeout.toString());
-        }
-
-        if (twiml != null) {
-            request.addPostParam("Twiml", twiml);
         }
     }
 }

@@ -17,6 +17,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.Twiml;
 
 import java.net.URI;
 
@@ -30,7 +31,7 @@ public class CallUpdater extends Updater<Call> {
     private HttpMethod fallbackMethod;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
-    private String twiml;
+    private com.twilio.type.Twiml twiml;
 
     /**
      * Construct a new CallUpdater.
@@ -197,9 +198,20 @@ public class CallUpdater extends Updater<Call> {
      * @param twiml TwiML instructions for the call
      * @return this
      */
-    public CallUpdater setTwiml(final String twiml) {
+    public CallUpdater setTwiml(final com.twilio.type.Twiml twiml) {
         this.twiml = twiml;
         return this;
+    }
+
+    /**
+     * TwiML instructions for the call Twilio will use without fetching Twiml from
+     * url. Twiml and url parameters are mutually exclusive.
+     *
+     * @param twiml TwiML instructions for the call
+     * @return this
+     */
+    public CallUpdater setTwiml(final String twiml) {
+        return setTwiml(Promoter.twimlFromString(twiml));
     }
 
     /**
@@ -277,7 +289,7 @@ public class CallUpdater extends Updater<Call> {
         }
 
         if (twiml != null) {
-            request.addPostParam("Twiml", twiml);
+            request.addPostParam("Twiml", twiml.toString());
         }
     }
 }

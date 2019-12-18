@@ -20,10 +20,6 @@ import com.twilio.rest.Domains;
 
 import java.util.Map;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class VerificationCreator extends Creator<Verification> {
     private final String pathServiceSid;
     private final String to;
@@ -142,8 +138,8 @@ public class VerificationCreator extends Creator<Verification> {
     }
 
     /**
-     * Channel specific configuration in json format: For email must include 'from'
-     * and 'from_name'..
+     * `email` channel configuration in json format. Must include 'from' and
+     * 'from_name'..
      *
      * @param channelConfiguration Channel specific configuration in json format.
      * @return this

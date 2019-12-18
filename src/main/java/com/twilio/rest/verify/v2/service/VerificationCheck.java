@@ -32,10 +32,6 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VerificationCheck extends Resource {
     private static final long serialVersionUID = 185560198235176L;
@@ -193,9 +189,9 @@ public class VerificationCheck extends Resource {
     }
 
     /**
-     * Returns The The phone number being verified.
+     * Returns The The phone number or email being verified.
      *
-     * @return The phone number being verified
+     * @return The phone number or email being verified
      */
     public final String getTo() {
         return this.to;

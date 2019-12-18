@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -35,7 +36,32 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RatePlan extends Resource {
-    private static final long serialVersionUID = 187833777753811L;
+    private static final long serialVersionUID = 112752591577872L;
+
+    public enum DataLimitStrategy {
+        BLOCK("block"),
+        THROTTLE("throttle");
+
+        private final String value;
+
+        private DataLimitStrategy(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a DataLimitStrategy from a string.
+         * @param value string value
+         * @return generated DataLimitStrategy
+         */
+        @JsonCreator
+        public static DataLimitStrategy forValue(final String value) {
+            return Promoter.enumFromString(value, DataLimitStrategy.values());
+        }
+    }
 
     /**
      * Create a RatePlanReader to execute read.

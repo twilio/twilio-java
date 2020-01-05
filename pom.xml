@@ -129,8 +129,8 @@
     </profile>
   </profiles>
   <properties>
-    <jackson.version>2.10.1</jackson.version>
-    <jackson.databind.version>2.10.1</jackson.databind.version>
+    <jackson.version>2.10.2</jackson.version>
+    <jackson.databind.version>2.10.2</jackson.databind.version>
     <skip.tests>false</skip.tests>
     <dependency.skip>false</dependency.skip>
   </properties>

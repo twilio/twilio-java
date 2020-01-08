@@ -22,6 +22,7 @@ public enum Domains {
     MESSAGING("messaging"),
     MONITOR("monitor"),
     NOTIFY("notify"),
+    NUMBERS("numbers"),
     PREVIEW("preview"),
     PRICING("pricing"),
     PROXY("proxy"),

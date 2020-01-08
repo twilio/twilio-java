@@ -5,12 +5,11 @@
  *       /       /
  */
 
-package com.twilio.rest.serverless.v1.service.environment;
+package com.twilio.rest.numbers.v2.regulatorycompliance;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -19,68 +18,66 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
-/**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- */
-public class LogReader extends Reader<Log> {
-    private final String pathServiceSid;
-    private final String pathEnvironmentSid;
-    private String functionSid;
-    private DateTime startDate;
-    private DateTime endDate;
+public class BundleReader extends Reader<Bundle> {
+    private Bundle.Status status;
+    private String friendlyName;
+    private String regulationSid;
+    private String isoCountry;
+    private String numberType;
 
     /**
-     * Construct a new LogReader.
+     * The verification status of the Bundle resource..
      *
-     * @param pathServiceSid The SID of the Service to read the Log resource from
-     * @param pathEnvironmentSid The SID of the environment with the Log resources
-     *                           to read
-     */
-    public LogReader(final String pathServiceSid,
-                     final String pathEnvironmentSid) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathEnvironmentSid = pathEnvironmentSid;
-    }
-
-    /**
-     * The SID of the function whose invocation produced the Log resources to read..
-     *
-     * @param functionSid The SID of the function whose invocation produced the Log
-     *                    resources to read
+     * @param status The verification status of the Bundle resource
      * @return this
      */
-    public LogReader setFunctionSid(final String functionSid) {
-        this.functionSid = functionSid;
+    public BundleReader setStatus(final Bundle.Status status) {
+        this.status = status;
         return this;
     }
 
     /**
-     * The date/time (in GMT, ISO 8601) after which the Log resources must have been
-     * created. Defaults to 1 day prior to current date/time..
+     * The string that you assigned to describe the resource..
      *
-     * @param startDate The date and time after which the Log resources must have
-     *                  been created.
+     * @param friendlyName The string that you assigned to describe the resource
      * @return this
      */
-    public LogReader setStartDate(final DateTime startDate) {
-        this.startDate = startDate;
+    public BundleReader setFriendlyName(final String friendlyName) {
+        this.friendlyName = friendlyName;
         return this;
     }
 
     /**
-     * The date/time (in GMT, ISO 8601) before which the Log resources must have
-     * been created. Defaults to current date/time..
+     * The unique string of a regulation that is associated to the Bundle resource..
      *
-     * @param endDate The date and time before which the Log resource must have
-     *                been created.
+     * @param regulationSid The unique string of a regulation.
      * @return this
      */
-    public LogReader setEndDate(final DateTime endDate) {
-        this.endDate = endDate;
+    public BundleReader setRegulationSid(final String regulationSid) {
+        this.regulationSid = regulationSid;
+        return this;
+    }
+
+    /**
+     * The ISO country code of the Bundle's phone number country ownership request..
+     *
+     * @param isoCountry The ISO country code of the country
+     * @return this
+     */
+    public BundleReader setIsoCountry(final String isoCountry) {
+        this.isoCountry = isoCountry;
+        return this;
+    }
+
+    /**
+     * The type of phone number of the Bundle's ownership request..
+     *
+     * @param numberType The type of phone number
+     * @return this
+     */
+    public BundleReader setNumberType(final String numberType) {
+        this.numberType = numberType;
         return this;
     }
 
@@ -88,10 +85,10 @@ public class LogReader extends Reader<Log> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Log ResourceSet
+     * @return Bundle ResourceSet
      */
     @Override
-    public ResourceSet<Log> read(final TwilioRestClient client) {
+    public ResourceSet<Bundle> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -99,15 +96,15 @@ public class LogReader extends Reader<Log> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Log ResourceSet
+     * @return Bundle ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Log> firstPage(final TwilioRestClient client) {
+    public Page<Bundle> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Environments/" + this.pathEnvironmentSid + "/Logs",
+            Domains.NUMBERS.toString(),
+            "/v2/RegulatoryCompliance/Bundles",
             client.getRegion()
         );
 
@@ -120,11 +117,11 @@ public class LogReader extends Reader<Log> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Log ResourceSet
+     * @return Bundle ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Log> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Bundle> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -141,12 +138,12 @@ public class LogReader extends Reader<Log> {
      * @return Next Page
      */
     @Override
-    public Page<Log> nextPage(final Page<Log> page,
-                              final TwilioRestClient client) {
+    public Page<Bundle> nextPage(final Page<Bundle> page,
+                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                Domains.SERVERLESS.toString(),
+                Domains.NUMBERS.toString(),
                 client.getRegion()
             )
         );
@@ -161,12 +158,12 @@ public class LogReader extends Reader<Log> {
      * @return Previous Page
      */
     @Override
-    public Page<Log> previousPage(final Page<Log> page,
-                                  final TwilioRestClient client) {
+    public Page<Bundle> previousPage(final Page<Bundle> page,
+                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(
-                Domains.SERVERLESS.toString(),
+                Domains.NUMBERS.toString(),
                 client.getRegion()
             )
         );
@@ -174,17 +171,17 @@ public class LogReader extends Reader<Log> {
     }
 
     /**
-     * Generate a Page of Log Resources for a given request.
+     * Generate a Page of Bundle Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Log> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Bundle> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Log read failed: Unable to connect to server");
+            throw new ApiConnectionException("Bundle read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -201,9 +198,9 @@ public class LogReader extends Reader<Log> {
         }
 
         return Page.fromJson(
-            "logs",
+            "results",
             response.getContent(),
-            Log.class,
+            Bundle.class,
             client.getObjectMapper()
         );
     }
@@ -214,16 +211,24 @@ public class LogReader extends Reader<Log> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (functionSid != null) {
-            request.addQueryParam("FunctionSid", functionSid);
+        if (status != null) {
+            request.addQueryParam("Status", status.toString());
         }
 
-        if (startDate != null) {
-            request.addQueryParam("StartDate", startDate.toString());
+        if (friendlyName != null) {
+            request.addQueryParam("FriendlyName", friendlyName);
         }
 
-        if (endDate != null) {
-            request.addQueryParam("EndDate", endDate.toString());
+        if (regulationSid != null) {
+            request.addQueryParam("RegulationSid", regulationSid);
+        }
+
+        if (isoCountry != null) {
+            request.addQueryParam("IsoCountry", isoCountry);
+        }
+
+        if (numberType != null) {
+            request.addQueryParam("NumberType", numberType);
         }
 
         if (getPageSize() != null) {

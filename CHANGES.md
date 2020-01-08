@@ -1,6 +1,22 @@
 twilio-java changelog
 =====================
 
+[2020-01-08] Version 7.47.2
+---------------------------
+**Library - Chore**
+- [PR #508](https://github.com/twilio/twilio-java/pull/508): update jjwt to v0.9.1. Thanks to [@saksham93](https://github.com/saksham93)!
+- [PR #507](https://github.com/twilio/twilio-java/pull/507): upgrade jackson to 2.10.2. Thanks to [@sullis](https://github.com/sullis)!
+
+**Numbers**
+- Add Regulatory Compliance CRUD APIs
+
+**Studio**
+- Add parameter validation for Studio v2 Flows API
+
+**Twiml**
+- Add support for `speech_model` to `Gather` verb
+
+
 [2019-12-18] Version 7.47.1
 ---------------------------
 **Preview**

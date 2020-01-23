@@ -197,7 +197,7 @@ public class TerminatingSipDomain extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -206,7 +206,7 @@ public class TerminatingSipDomain extends Resource {
     }
 
     /**
-     * Returns The The API version used to process the call.
+     * Returns The API version used to process the call.
      *
      * @return The API version used to process the call
      */
@@ -215,7 +215,7 @@ public class TerminatingSipDomain extends Resource {
     }
 
     /**
-     * Returns The The types of authentication mapped to the domain.
+     * Returns The types of authentication mapped to the domain.
      *
      * @return The types of authentication mapped to the domain
      */
@@ -224,7 +224,7 @@ public class TerminatingSipDomain extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -233,8 +233,7 @@ public class TerminatingSipDomain extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -243,8 +242,8 @@ public class TerminatingSipDomain extends Resource {
     }
 
     /**
-     * Returns The The unique address you reserve on Twilio to which you route your
-     * SIP traffic.
+     * Returns The unique address you reserve on Twilio to which you route your SIP
+     * traffic.
      *
      * @return The unique address you reserve on Twilio to which you route your SIP
      *         traffic
@@ -254,7 +253,7 @@ public class TerminatingSipDomain extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -263,7 +262,7 @@ public class TerminatingSipDomain extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -272,7 +271,7 @@ public class TerminatingSipDomain extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
      */
@@ -281,7 +280,7 @@ public class TerminatingSipDomain extends Resource {
     }
 
     /**
-     * Returns The The HTTP method used with voice_fallback_url.
+     * Returns The HTTP method used with voice_fallback_url.
      *
      * @return The HTTP method used with voice_fallback_url
      */
@@ -290,7 +289,7 @@ public class TerminatingSipDomain extends Resource {
     }
 
     /**
-     * Returns The The URL that we call when an error occurs in executing TwiML.
+     * Returns The URL that we call when an error occurs in executing TwiML.
      *
      * @return The URL that we call when an error occurs in executing TwiML
      */
@@ -299,7 +298,7 @@ public class TerminatingSipDomain extends Resource {
     }
 
     /**
-     * Returns The The HTTP method used with voice_url.
+     * Returns The HTTP method used with voice_url.
      *
      * @return The HTTP method used with voice_url
      */
@@ -308,8 +307,7 @@ public class TerminatingSipDomain extends Resource {
     }
 
     /**
-     * Returns The The HTTP method that we use to call the
-     * voice_status_callback_url.
+     * Returns The HTTP method that we use to call the voice_status_callback_url.
      *
      * @return The HTTP method that we use to call the voice_status_callback_url
      */
@@ -318,8 +316,7 @@ public class TerminatingSipDomain extends Resource {
     }
 
     /**
-     * Returns The The URL that we call to pass status parameters to your
-     * application.
+     * Returns The URL that we call to pass status parameters to your application.
      *
      * @return The URL that we call to pass status parameters to your application
      */
@@ -328,7 +325,7 @@ public class TerminatingSipDomain extends Resource {
     }
 
     /**
-     * Returns The The URL we call when the domain receives a call.
+     * Returns The URL we call when the domain receives a call.
      *
      * @return The URL we call when the domain receives a call
      */
@@ -337,8 +334,7 @@ public class TerminatingSipDomain extends Resource {
     }
 
     /**
-     * Returns The Whether SIP Endpoints can register with the domain to receive
-     * calls.
+     * Returns Whether SIP Endpoints can register with the domain to receive calls.
      *
      * @return Whether SIP Endpoints can register with the domain to receive calls
      */
@@ -347,7 +343,7 @@ public class TerminatingSipDomain extends Resource {
     }
 
     /**
-     * Returns The The SID of the Trunk to which we should route calls.
+     * Returns The SID of the Trunk to which we should route calls.
      *
      * @return The SID of the Trunk to which we should route calls
      */
@@ -356,7 +352,7 @@ public class TerminatingSipDomain extends Resource {
     }
 
     /**
-     * Returns The The URLs of related resources.
+     * Returns The URLs of related resources.
      *
      * @return The URLs of related resources
      */

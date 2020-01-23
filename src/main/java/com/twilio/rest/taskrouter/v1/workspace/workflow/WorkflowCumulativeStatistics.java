@@ -181,7 +181,7 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -190,7 +190,7 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The average time in seconds between Task creation and acceptance.
+     * Returns The average time in seconds between Task creation and acceptance.
      *
      * @return The average time in seconds between Task creation and acceptance
      */
@@ -199,7 +199,7 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The beginning of the interval during which these statistics were
+     * Returns The beginning of the interval during which these statistics were
      * calculated.
      *
      * @return The beginning of the interval during which these statistics were
@@ -210,7 +210,7 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The end of the interval during which these statistics were
+     * Returns The end of the interval during which these statistics were
      * calculated.
      *
      * @return The end of the interval during which these statistics were calculated
@@ -220,7 +220,7 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations that were created for Workers.
+     * Returns The total number of Reservations that were created for Workers.
      *
      * @return The total number of Reservations that were created for Workers
      */
@@ -229,7 +229,7 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations accepted by Workers.
+     * Returns The total number of Reservations accepted by Workers.
      *
      * @return The total number of Reservations accepted by Workers
      */
@@ -238,7 +238,7 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations that were rejected.
+     * Returns The total number of Reservations that were rejected.
      *
      * @return The total number of Reservations that were rejected
      */
@@ -247,7 +247,7 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations that were timed out.
+     * Returns The total number of Reservations that were timed out.
      *
      * @return The total number of Reservations that were timed out
      */
@@ -256,7 +256,7 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations that were canceled.
+     * Returns The total number of Reservations that were canceled.
      *
      * @return The total number of Reservations that were canceled
      */
@@ -265,7 +265,7 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations that were rescinded.
+     * Returns The total number of Reservations that were rescinded.
      *
      * @return The total number of Reservations that were rescinded
      */
@@ -274,8 +274,8 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The A list of objects that describe the Tasks canceled and
-     * reservations accepted above and below the specified thresholds.
+     * Returns A list of objects that describe the Tasks canceled and reservations
+     * accepted above and below the specified thresholds.
      *
      * @return A list of objects that describe the Tasks canceled and reservations
      *         accepted above and below the specified thresholds
@@ -285,7 +285,7 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The wait duration statistics for Tasks that were accepted.
+     * Returns The wait duration statistics for Tasks that were accepted.
      *
      * @return The wait duration statistics for Tasks that were accepted
      */
@@ -294,7 +294,7 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The wait duration statistics for Tasks that were canceled.
+     * Returns The wait duration statistics for Tasks that were canceled.
      *
      * @return The wait duration statistics for Tasks that were canceled
      */
@@ -303,7 +303,7 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Tasks that were canceled.
+     * Returns The total number of Tasks that were canceled.
      *
      * @return The total number of Tasks that were canceled
      */
@@ -312,7 +312,7 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Tasks that were completed.
+     * Returns The total number of Tasks that were completed.
      *
      * @return The total number of Tasks that were completed
      */
@@ -321,7 +321,7 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Tasks that entered the Workflow.
+     * Returns The total number of Tasks that entered the Workflow.
      *
      * @return The total number of Tasks that entered the Workflow
      */
@@ -330,7 +330,7 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Tasks that were deleted.
+     * Returns The total number of Tasks that were deleted.
      *
      * @return The total number of Tasks that were deleted
      */
@@ -339,8 +339,7 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Tasks that were moved from one queue to
-     * another.
+     * Returns The total number of Tasks that were moved from one queue to another.
      *
      * @return The total number of Tasks that were moved from one queue to another
      */
@@ -349,7 +348,7 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Tasks that were timed out of their Workflows.
+     * Returns The total number of Tasks that were timed out of their Workflows.
      *
      * @return The total number of Tasks that were timed out of their Workflows
      */
@@ -358,8 +357,8 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The Returns the list of Tasks that are being controlled by the
-     * Workflow with the specified Sid value.
+     * Returns Returns the list of Tasks that are being controlled by the Workflow
+     * with the specified Sid value.
      *
      * @return Returns the list of Tasks that are being controlled by the Workflow
      *         with the specified Sid value
@@ -369,7 +368,7 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Workspace that contains the Workflow..
+     * Returns The SID of the Workspace that contains the Workflow..
      *
      * @return The SID of the Workspace that contains the Workflow.
      */
@@ -378,7 +377,7 @@ public class WorkflowCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Workflow statistics resource.
+     * Returns The absolute URL of the Workflow statistics resource.
      *
      * @return The absolute URL of the Workflow statistics resource
      */

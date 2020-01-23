@@ -207,7 +207,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this participant..
+     * Returns The unique id of the Account responsible for this participant..
      *
      * @return The unique id of the Account responsible for this participant.
      */
@@ -216,7 +216,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The unique id of the Conversation for this participant..
+     * Returns The unique id of the Conversation for this participant..
      *
      * @return The unique id of the Conversation for this participant.
      */
@@ -225,7 +225,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns A 34 character string that uniquely identifies this resource..
      *
      * @return A 34 character string that uniquely identifies this resource.
      */
@@ -234,8 +234,8 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The A unique string identifier for the conversation participant as
-     * Chat User..
+     * Returns A unique string identifier for the conversation participant as Chat
+     * User..
      *
      * @return A unique string identifier for the conversation participant as Chat
      *         User.
@@ -245,8 +245,8 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The An optional string metadata field you can use to store any data
-     * you wish..
+     * Returns An optional string metadata field you can use to store any data you
+     * wish..
      *
      * @return An optional string metadata field you can use to store any data you
      *         wish.
@@ -256,8 +256,8 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The Information about how this participant exchanges messages with
-     * the conversation..
+     * Returns Information about how this participant exchanges messages with the
+     * conversation..
      *
      * @return Information about how this participant exchanges messages with the
      *         conversation.
@@ -267,7 +267,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was created..
+     * Returns The date that this resource was created..
      *
      * @return The date that this resource was created.
      */
@@ -276,7 +276,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was last updated..
+     * Returns The date that this resource was last updated..
      *
      * @return The date that this resource was last updated.
      */
@@ -285,7 +285,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The An absolute URL for this participant..
+     * Returns An absolute URL for this participant..
      *
      * @return An absolute URL for this participant.
      */

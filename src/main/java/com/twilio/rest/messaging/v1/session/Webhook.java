@@ -229,7 +229,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -238,7 +238,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -247,7 +247,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The SID of the Session for the webhook.
+     * Returns The SID of the Session for the webhook.
      *
      * @return The SID of the Session for the webhook
      */
@@ -256,7 +256,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The target of the webhook.
+     * Returns The target of the webhook.
      *
      * @return The target of the webhook
      */
@@ -265,7 +265,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the webhook.
+     * Returns The absolute URL of the webhook.
      *
      * @return The absolute URL of the webhook
      */
@@ -274,7 +274,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The configuration of the webhook.
+     * Returns The configuration of the webhook.
      *
      * @return The configuration of the webhook
      */
@@ -283,7 +283,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -292,8 +292,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */

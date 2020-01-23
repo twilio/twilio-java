@@ -161,7 +161,7 @@ public class Entity extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Entity..
+     * Returns A string that uniquely identifies this Entity..
      *
      * @return A string that uniquely identifies this Entity.
      */
@@ -170,7 +170,7 @@ public class Entity extends Resource {
     }
 
     /**
-     * Returns The Unique identity of the Entity.
+     * Returns Unique identity of the Entity.
      *
      * @return Unique identity of the Entity
      */
@@ -179,7 +179,7 @@ public class Entity extends Resource {
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns Account Sid..
      *
      * @return Account Sid.
      */
@@ -188,7 +188,7 @@ public class Entity extends Resource {
     }
 
     /**
-     * Returns The Service Sid..
+     * Returns Service Sid..
      *
      * @return Service Sid.
      */
@@ -197,7 +197,7 @@ public class Entity extends Resource {
     }
 
     /**
-     * Returns The The date this Entity was created.
+     * Returns The date this Entity was created.
      *
      * @return The date this Entity was created
      */
@@ -206,7 +206,7 @@ public class Entity extends Resource {
     }
 
     /**
-     * Returns The The date this Entity was updated.
+     * Returns The date this Entity was updated.
      *
      * @return The date this Entity was updated
      */
@@ -215,7 +215,7 @@ public class Entity extends Resource {
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The URL of this resource..
      *
      * @return The URL of this resource.
      */
@@ -224,7 +224,7 @@ public class Entity extends Resource {
     }
 
     /**
-     * Returns The Nested resource URLs..
+     * Returns Nested resource URLs..
      *
      * @return Nested resource URLs.
      */

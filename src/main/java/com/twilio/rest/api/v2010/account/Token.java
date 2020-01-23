@@ -126,7 +126,7 @@ public class Token extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -135,7 +135,7 @@ public class Token extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was created.
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
@@ -144,8 +144,7 @@ public class Token extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
@@ -154,7 +153,7 @@ public class Token extends Resource {
     }
 
     /**
-     * Returns The An array representing the ephemeral credentials.
+     * Returns An array representing the ephemeral credentials.
      *
      * @return An array representing the ephemeral credentials
      */
@@ -163,7 +162,7 @@ public class Token extends Resource {
     }
 
     /**
-     * Returns The The temporary password used for authenticating.
+     * Returns The temporary password used for authenticating.
      *
      * @return The temporary password used for authenticating
      */
@@ -172,7 +171,7 @@ public class Token extends Resource {
     }
 
     /**
-     * Returns The The duration in seconds the credentials are valid.
+     * Returns The duration in seconds the credentials are valid.
      *
      * @return The duration in seconds the credentials are valid
      */
@@ -181,7 +180,7 @@ public class Token extends Resource {
     }
 
     /**
-     * Returns The The temporary username that uniquely identifies a Token.
+     * Returns The temporary username that uniquely identifies a Token.
      *
      * @return The temporary username that uniquely identifies a Token
      */

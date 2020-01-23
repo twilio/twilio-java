@@ -152,7 +152,7 @@ public class SuccessRate extends Resource {
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns Account Sid..
      *
      * @return Account Sid.
      */
@@ -161,7 +161,7 @@ public class SuccessRate extends Resource {
     }
 
     /**
-     * Returns The Business Sid..
+     * Returns Business Sid..
      *
      * @return Business Sid.
      */
@@ -170,7 +170,7 @@ public class SuccessRate extends Resource {
     }
 
     /**
-     * Returns The The end date that for this Success Rate..
+     * Returns The end date that for this Success Rate..
      *
      * @return The end date that for this Success Rate.
      */
@@ -179,7 +179,7 @@ public class SuccessRate extends Resource {
     }
 
     /**
-     * Returns The The Interval of this Success Rate..
+     * Returns The Interval of this Success Rate..
      *
      * @return The Interval of this Success Rate.
      */
@@ -188,7 +188,7 @@ public class SuccessRate extends Resource {
     }
 
     /**
-     * Returns The Values of Success Rate per interval..
+     * Returns Values of Success Rate per interval..
      *
      * @return Values of Success Rate per interval.
      */
@@ -197,7 +197,7 @@ public class SuccessRate extends Resource {
     }
 
     /**
-     * Returns The The start date that for this Success Rate..
+     * Returns The start date that for this Success Rate..
      *
      * @return The start date that for this Success Rate.
      */
@@ -206,7 +206,7 @@ public class SuccessRate extends Resource {
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The URL of this resource..
      *
      * @return The URL of this resource.
      */

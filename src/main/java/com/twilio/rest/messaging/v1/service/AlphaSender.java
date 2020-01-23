@@ -164,7 +164,7 @@ public class AlphaSender extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -173,7 +173,7 @@ public class AlphaSender extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -182,7 +182,7 @@ public class AlphaSender extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the resource is associated with.
+     * Returns The SID of the Service that the resource is associated with.
      *
      * @return The SID of the Service that the resource is associated with
      */
@@ -191,7 +191,7 @@ public class AlphaSender extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -200,8 +200,7 @@ public class AlphaSender extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -210,7 +209,7 @@ public class AlphaSender extends Resource {
     }
 
     /**
-     * Returns The The Alphanumeric Sender ID string.
+     * Returns The Alphanumeric Sender ID string.
      *
      * @return The Alphanumeric Sender ID string
      */
@@ -219,8 +218,8 @@ public class AlphaSender extends Resource {
     }
 
     /**
-     * Returns The An array of values that describe whether the number can receive
-     * calls or messages.
+     * Returns An array of values that describe whether the number can receive calls
+     * or messages.
      *
      * @return An array of values that describe whether the number can receive
      *         calls or messages
@@ -230,7 +229,7 @@ public class AlphaSender extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the AlphaSender resource.
+     * Returns The absolute URL of the AlphaSender resource.
      *
      * @return The absolute URL of the AlphaSender resource
      */

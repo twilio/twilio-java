@@ -269,7 +269,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the Sim resource.
+     * Returns The unique string that identifies the Sim resource.
      *
      * @return The unique string that identifies the Sim resource
      */
@@ -278,8 +278,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The An application-defined string that uniquely identifies the
-     * resource.
+     * Returns An application-defined string that uniquely identifies the resource.
      *
      * @return An application-defined string that uniquely identifies the resource
      */
@@ -288,7 +287,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account to which the Sim resource belongs.
+     * Returns The SID of the Account to which the Sim resource belongs.
      *
      * @return The SID of the Account to which the Sim resource belongs
      */
@@ -297,7 +296,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The SID of the RatePlan resource to which the Sim resource is
+     * Returns The SID of the RatePlan resource to which the Sim resource is
      * assigned..
      *
      * @return The SID of the RatePlan resource to which the Sim resource is
@@ -308,7 +307,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the Sim resource.
+     * Returns The string that you assigned to describe the Sim resource.
      *
      * @return The string that you assigned to describe the Sim resource
      */
@@ -317,7 +316,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The ICCID associated with the SIM.
+     * Returns The ICCID associated with the SIM.
      *
      * @return The ICCID associated with the SIM
      */
@@ -326,7 +325,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The Deprecated.
+     * Returns Deprecated.
      *
      * @return Deprecated
      */
@@ -335,7 +334,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The status of the Sim resource.
+     * Returns The status of the Sim resource.
      *
      * @return The status of the Sim resource
      */
@@ -344,7 +343,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The connectivity reset status of the SIM.
+     * Returns The connectivity reset status of the SIM.
      *
      * @return The connectivity reset status of the SIM
      */
@@ -353,8 +352,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The URL we call when the SIM originates a machine-to-machine
-     * Command.
+     * Returns The URL we call when the SIM originates a machine-to-machine Command.
      *
      * @return The URL we call when the SIM originates a machine-to-machine Command
      */
@@ -363,7 +361,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The HTTP method we use to call commands_callback_url.
+     * Returns The HTTP method we use to call commands_callback_url.
      *
      * @return The HTTP method we use to call commands_callback_url
      */
@@ -372,7 +370,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The HTTP method we use to call sms_fallback_url.
+     * Returns The HTTP method we use to call sms_fallback_url.
      *
      * @return The HTTP method we use to call sms_fallback_url
      */
@@ -381,8 +379,8 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The URL we call when an error occurs while retrieving or
-     * executing the TwiML requested from the sms_url.
+     * Returns The URL we call when an error occurs while retrieving or executing
+     * the TwiML requested from the sms_url.
      *
      * @return The URL we call when an error occurs while retrieving or executing
      *         the TwiML requested from the sms_url
@@ -392,7 +390,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The HTTP method we use to call sms_url.
+     * Returns The HTTP method we use to call sms_url.
      *
      * @return The HTTP method we use to call sms_url
      */
@@ -401,8 +399,8 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The URL we call when the SIM-connected device sends an SMS
-     * message that is not a Command.
+     * Returns The URL we call when the SIM-connected device sends an SMS message
+     * that is not a Command.
      *
      * @return The URL we call when the SIM-connected device sends an SMS message
      *         that is not a Command
@@ -412,7 +410,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The HTTP method we use to call voice_fallback_url.
+     * Returns The HTTP method we use to call voice_fallback_url.
      *
      * @return The HTTP method we use to call voice_fallback_url
      */
@@ -421,8 +419,8 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The URL we call when an error occurs while retrieving or
-     * executing the TwiML requested from voice_url.
+     * Returns The URL we call when an error occurs while retrieving or executing
+     * the TwiML requested from voice_url.
      *
      * @return The URL we call when an error occurs while retrieving or executing
      *         the TwiML requested from voice_url
@@ -432,7 +430,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The HTTP method we use to call voice_url.
+     * Returns The HTTP method we use to call voice_url.
      *
      * @return The HTTP method we use to call voice_url
      */
@@ -441,7 +439,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The URL we call when the SIM-connected device makes a voice call.
+     * Returns The URL we call when the SIM-connected device makes a voice call.
      *
      * @return The URL we call when the SIM-connected device makes a voice call
      */
@@ -450,7 +448,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -459,7 +457,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Sim resource was last
+     * Returns The ISO 8601 date and time in GMT when the Sim resource was last
      * updated.
      *
      * @return The ISO 8601 date and time in GMT when the Sim resource was last
@@ -470,7 +468,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
      */
@@ -479,7 +477,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The URLs of related subresources.
+     * Returns The URLs of related subresources.
      *
      * @return The URLs of related subresources
      */
@@ -488,7 +486,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The Deprecated.
+     * Returns Deprecated.
      *
      * @return Deprecated
      */

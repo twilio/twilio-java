@@ -174,7 +174,7 @@ public class WorkerChannel extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -183,7 +183,7 @@ public class WorkerChannel extends Resource {
     }
 
     /**
-     * Returns The The total number of Tasks assigned to Worker for the TaskChannel
+     * Returns The total number of Tasks assigned to Worker for the TaskChannel
      * type.
      *
      * @return The total number of Tasks assigned to Worker for the TaskChannel type
@@ -193,7 +193,7 @@ public class WorkerChannel extends Resource {
     }
 
     /**
-     * Returns The Whether the Worker should receive Tasks of the TaskChannel type.
+     * Returns Whether the Worker should receive Tasks of the TaskChannel type.
      *
      * @return Whether the Worker should receive Tasks of the TaskChannel type
      */
@@ -202,8 +202,7 @@ public class WorkerChannel extends Resource {
     }
 
     /**
-     * Returns The The current available capacity between 0 to 100 for the
-     * TaskChannel.
+     * Returns The current available capacity between 0 to 100 for the TaskChannel.
      *
      * @return The current available capacity between 0 to 100 for the TaskChannel
      */
@@ -212,7 +211,7 @@ public class WorkerChannel extends Resource {
     }
 
     /**
-     * Returns The The current configured capacity for the WorkerChannel.
+     * Returns The current configured capacity for the WorkerChannel.
      *
      * @return The current configured capacity for the WorkerChannel
      */
@@ -221,7 +220,7 @@ public class WorkerChannel extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -230,8 +229,7 @@ public class WorkerChannel extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -240,7 +238,7 @@ public class WorkerChannel extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -249,7 +247,7 @@ public class WorkerChannel extends Resource {
     }
 
     /**
-     * Returns The The SID of the TaskChannel.
+     * Returns The SID of the TaskChannel.
      *
      * @return The SID of the TaskChannel
      */
@@ -258,7 +256,7 @@ public class WorkerChannel extends Resource {
     }
 
     /**
-     * Returns The The unique name of the TaskChannel, such as 'voice' or 'sms'.
+     * Returns The unique name of the TaskChannel, such as 'voice' or 'sms'.
      *
      * @return The unique name of the TaskChannel, such as 'voice' or 'sms'
      */
@@ -267,7 +265,7 @@ public class WorkerChannel extends Resource {
     }
 
     /**
-     * Returns The The SID of the Worker that contains the WorkerChannel.
+     * Returns The SID of the Worker that contains the WorkerChannel.
      *
      * @return The SID of the Worker that contains the WorkerChannel
      */
@@ -276,7 +274,7 @@ public class WorkerChannel extends Resource {
     }
 
     /**
-     * Returns The The SID of the Workspace that contains the WorkerChannel.
+     * Returns The SID of the Workspace that contains the WorkerChannel.
      *
      * @return The SID of the Workspace that contains the WorkerChannel
      */
@@ -285,7 +283,7 @@ public class WorkerChannel extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the WorkerChannel resource.
+     * Returns The absolute URL of the WorkerChannel resource.
      *
      * @return The absolute URL of the WorkerChannel resource
      */

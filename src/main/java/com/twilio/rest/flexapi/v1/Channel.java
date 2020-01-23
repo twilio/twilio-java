@@ -157,7 +157,7 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource and owns this
+     * Returns The SID of the Account that created the resource and owns this
      * Workflow.
      *
      * @return The SID of the Account that created the resource and owns this
@@ -168,7 +168,7 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The SID of the FlexFlow.
+     * Returns The SID of the FlexFlow.
      *
      * @return The SID of the FlexFlow
      */
@@ -177,7 +177,7 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -186,7 +186,7 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The SID of the chat user.
+     * Returns The SID of the chat user.
      *
      * @return The SID of the chat user
      */
@@ -195,7 +195,7 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The SID of the TaskRouter task.
+     * Returns The SID of the TaskRouter task.
      *
      * @return The SID of the TaskRouter task
      */
@@ -204,7 +204,7 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Flex chat channel resource.
+     * Returns The absolute URL of the Flex chat channel resource.
      *
      * @return The absolute URL of the Flex chat channel resource
      */
@@ -213,7 +213,7 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Flex chat channel was
+     * Returns The ISO 8601 date and time in GMT when the Flex chat channel was
      * created.
      *
      * @return The ISO 8601 date and time in GMT when the Flex chat channel was
@@ -224,8 +224,8 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Flex chat channel was
-     * last updated.
+     * Returns The ISO 8601 date and time in GMT when the Flex chat channel was last
+     * updated.
      *
      * @return The ISO 8601 date and time in GMT when the Flex chat channel was
      *         last updated

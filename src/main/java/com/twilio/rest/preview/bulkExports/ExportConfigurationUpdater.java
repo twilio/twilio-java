@@ -34,16 +34,17 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
     /**
      * Construct a new ExportConfigurationUpdater.
      *
-     * @param pathResourceType The resource_type
+     * @param pathResourceType The type of communication – Messages, Calls
      */
     public ExportConfigurationUpdater(final String pathResourceType) {
         this.pathResourceType = pathResourceType;
     }
 
     /**
-     * The enabled.
+     * If true, Twilio will automatically generate every day's file when the day is
+     * over..
      *
-     * @param enabled The enabled
+     * @param enabled Whether files are automatically generated
      * @return this
      */
     public ExportConfigurationUpdater setEnabled(final Boolean enabled) {
@@ -52,9 +53,9 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
     }
 
     /**
-     * The webhook_url.
+     * Stores the URL destination for the method specified in webhook_method..
      *
-     * @param webhookUrl The webhook_url
+     * @param webhookUrl URL targeted at export
      * @return this
      */
     public ExportConfigurationUpdater setWebhookUrl(final URI webhookUrl) {
@@ -63,9 +64,9 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
     }
 
     /**
-     * The webhook_url.
+     * Stores the URL destination for the method specified in webhook_method..
      *
-     * @param webhookUrl The webhook_url
+     * @param webhookUrl URL targeted at export
      * @return this
      */
     public ExportConfigurationUpdater setWebhookUrl(final String webhookUrl) {
@@ -73,9 +74,11 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
     }
 
     /**
-     * The webhook_method.
+     * Sets whether Twilio should call a webhook URL when the automatic generation
+     * is complete, using GET or POST. The actual destination is set in the
+     * webhook_url.
      *
-     * @param webhookMethod The webhook_method
+     * @param webhookMethod Whether to GET or POST to the webhook url
      * @return this
      */
     public ExportConfigurationUpdater setWebhookMethod(final String webhookMethod) {

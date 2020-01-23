@@ -119,7 +119,7 @@ public class AssistantFallbackActions extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The account_sid.
      *
      * @return The account_sid
      */
@@ -128,7 +128,7 @@ public class AssistantFallbackActions extends Resource {
     }
 
     /**
-     * Returns The The assistant_sid.
+     * Returns The assistant_sid.
      *
      * @return The assistant_sid
      */
@@ -137,7 +137,7 @@ public class AssistantFallbackActions extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The url.
      *
      * @return The url
      */
@@ -146,7 +146,7 @@ public class AssistantFallbackActions extends Resource {
     }
 
     /**
-     * Returns The The data.
+     * Returns The data.
      *
      * @return The data
      */

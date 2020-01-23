@@ -188,7 +188,7 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -197,7 +197,7 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -206,8 +206,7 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -216,7 +215,7 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The The Field Type of the field.
+     * Returns The Field Type of the field.
      *
      * @return The Field Type of the field
      */
@@ -225,9 +224,8 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The The SID of the
-     * [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated
-     * with this Field.
+     * Returns The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task)
+     * resource associated with this Field.
      *
      * @return The SID of the
      *         [Task](https://www.twilio.com/docs/autopilot/api/task) resource
@@ -238,8 +236,8 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The The SID of the Assistant that is the parent of the Task
-     * associated with the resource.
+     * Returns The SID of the Assistant that is the parent of the Task associated
+     * with the resource.
      *
      * @return The SID of the Assistant that is the parent of the Task associated
      *         with the resource
@@ -249,7 +247,7 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -258,8 +256,7 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The An application-defined string that uniquely identifies the
-     * resource.
+     * Returns An application-defined string that uniquely identifies the resource.
      *
      * @return An application-defined string that uniquely identifies the resource
      */
@@ -268,7 +265,7 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Field resource.
+     * Returns The absolute URL of the Field resource.
      *
      * @return The absolute URL of the Field resource
      */

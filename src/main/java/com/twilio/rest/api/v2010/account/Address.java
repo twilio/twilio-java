@@ -269,7 +269,7 @@ public class Address extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that is responsible for the resource.
+     * Returns The SID of the Account that is responsible for the resource.
      *
      * @return The SID of the Account that is responsible for the resource
      */
@@ -278,7 +278,7 @@ public class Address extends Resource {
     }
 
     /**
-     * Returns The The city in which the address is located.
+     * Returns The city in which the address is located.
      *
      * @return The city in which the address is located
      */
@@ -287,7 +287,7 @@ public class Address extends Resource {
     }
 
     /**
-     * Returns The The name associated with the address.
+     * Returns The name associated with the address.
      *
      * @return The name associated with the address
      */
@@ -296,7 +296,7 @@ public class Address extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was created.
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
@@ -305,8 +305,7 @@ public class Address extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
@@ -315,7 +314,7 @@ public class Address extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -324,7 +323,7 @@ public class Address extends Resource {
     }
 
     /**
-     * Returns The The ISO country code of the address.
+     * Returns The ISO country code of the address.
      *
      * @return The ISO country code of the address
      */
@@ -333,7 +332,7 @@ public class Address extends Resource {
     }
 
     /**
-     * Returns The The postal code of the address.
+     * Returns The postal code of the address.
      *
      * @return The postal code of the address
      */
@@ -342,7 +341,7 @@ public class Address extends Resource {
     }
 
     /**
-     * Returns The The state or region of the address.
+     * Returns The state or region of the address.
      *
      * @return The state or region of the address
      */
@@ -351,7 +350,7 @@ public class Address extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -360,7 +359,7 @@ public class Address extends Resource {
     }
 
     /**
-     * Returns The The number and street address of the address.
+     * Returns The number and street address of the address.
      *
      * @return The number and street address of the address
      */
@@ -369,7 +368,7 @@ public class Address extends Resource {
     }
 
     /**
-     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
      *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */
@@ -378,7 +377,7 @@ public class Address extends Resource {
     }
 
     /**
-     * Returns The Whether emergency calling has been enabled on this number.
+     * Returns Whether emergency calling has been enabled on this number.
      *
      * @return Whether emergency calling has been enabled on this number
      */
@@ -387,7 +386,7 @@ public class Address extends Resource {
     }
 
     /**
-     * Returns The Whether the address has been validated to comply with local
+     * Returns Whether the address has been validated to comply with local
      * regulation.
      *
      * @return Whether the address has been validated to comply with local
@@ -398,7 +397,7 @@ public class Address extends Resource {
     }
 
     /**
-     * Returns The Whether the address has been verified to comply with regulation.
+     * Returns Whether the address has been verified to comply with regulation.
      *
      * @return Whether the address has been verified to comply with regulation
      */

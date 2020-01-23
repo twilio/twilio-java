@@ -517,7 +517,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -526,7 +526,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The API version used to process the message.
+     * Returns The API version used to process the message.
      *
      * @return The API version used to process the message
      */
@@ -535,7 +535,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The message text.
+     * Returns The message text.
      *
      * @return The message text
      */
@@ -544,7 +544,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was created.
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
@@ -553,8 +553,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
@@ -563,7 +562,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the message was sent.
+     * Returns The RFC 2822 date and time in GMT when the message was sent.
      *
      * @return The RFC 2822 date and time in GMT when the message was sent
      */
@@ -572,7 +571,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The direction of the message.
+     * Returns The direction of the message.
      *
      * @return The direction of the message
      */
@@ -581,7 +580,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The error code associated with the message.
+     * Returns The error code associated with the message.
      *
      * @return The error code associated with the message
      */
@@ -590,7 +589,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The description of the error_code.
+     * Returns The description of the error_code.
      *
      * @return The description of the error_code
      */
@@ -599,7 +598,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The phone number that initiated the message.
+     * Returns The phone number that initiated the message.
      *
      * @return The phone number that initiated the message
      */
@@ -608,7 +607,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The SID of the Messaging Service used with the message..
+     * Returns The SID of the Messaging Service used with the message..
      *
      * @return The SID of the Messaging Service used with the message.
      */
@@ -617,7 +616,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The number of media files associated with the message.
+     * Returns The number of media files associated with the message.
      *
      * @return The number of media files associated with the message
      */
@@ -626,7 +625,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The number of messages used to deliver the message body.
+     * Returns The number of messages used to deliver the message body.
      *
      * @return The number of messages used to deliver the message body
      */
@@ -635,7 +634,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The amount billed for the message.
+     * Returns The amount billed for the message.
      *
      * @return The amount billed for the message
      */
@@ -644,7 +643,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The currency in which price is measured.
+     * Returns The currency in which price is measured.
      *
      * @return The currency in which price is measured
      */
@@ -653,7 +652,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -662,7 +661,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The status of the message.
+     * Returns The status of the message.
      *
      * @return The status of the message
      */
@@ -671,7 +670,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The A list of related resources identified by their relative URIs.
+     * Returns A list of related resources identified by their relative URIs.
      *
      * @return A list of related resources identified by their relative URIs
      */
@@ -680,7 +679,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The phone number that received the message.
+     * Returns The phone number that received the message.
      *
      * @return The phone number that received the message
      */
@@ -689,7 +688,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
      *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */

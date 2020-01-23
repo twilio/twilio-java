@@ -140,7 +140,7 @@ public class TaskQueueRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -149,7 +149,7 @@ public class TaskQueueRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The number of current Workers by Activity.
+     * Returns The number of current Workers by Activity.
      *
      * @return The number of current Workers by Activity
      */
@@ -158,7 +158,7 @@ public class TaskQueueRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The age of the longest waiting Task.
+     * Returns The age of the longest waiting Task.
      *
      * @return The age of the longest waiting Task
      */
@@ -167,7 +167,7 @@ public class TaskQueueRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the longest waiting Task.
+     * Returns The SID of the longest waiting Task.
      *
      * @return The SID of the longest waiting Task
      */
@@ -176,8 +176,7 @@ public class TaskQueueRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the TaskQueue from which these statistics were
-     * calculated.
+     * Returns The SID of the TaskQueue from which these statistics were calculated.
      *
      * @return The SID of the TaskQueue from which these statistics were calculated
      */
@@ -186,7 +185,7 @@ public class TaskQueueRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The number of Tasks by priority.
+     * Returns The number of Tasks by priority.
      *
      * @return The number of Tasks by priority
      */
@@ -195,7 +194,7 @@ public class TaskQueueRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The number of Tasks by their current status.
+     * Returns The number of Tasks by their current status.
      *
      * @return The number of Tasks by their current status
      */
@@ -204,7 +203,7 @@ public class TaskQueueRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Workers available for Tasks in the TaskQueue.
+     * Returns The total number of Workers available for Tasks in the TaskQueue.
      *
      * @return The total number of Workers available for Tasks in the TaskQueue
      */
@@ -213,7 +212,7 @@ public class TaskQueueRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Workers eligible for Tasks in the TaskQueue,
+     * Returns The total number of Workers eligible for Tasks in the TaskQueue,
      * independent of their Activity state.
      *
      * @return The total number of Workers eligible for Tasks in the TaskQueue,
@@ -224,7 +223,7 @@ public class TaskQueueRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Tasks.
+     * Returns The total number of Tasks.
      *
      * @return The total number of Tasks
      */
@@ -233,7 +232,7 @@ public class TaskQueueRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Workspace that contains the TaskQueue.
+     * Returns The SID of the Workspace that contains the TaskQueue.
      *
      * @return The SID of the Workspace that contains the TaskQueue
      */
@@ -242,7 +241,7 @@ public class TaskQueueRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the TaskQueue statistics resource.
+     * Returns The absolute URL of the TaskQueue statistics resource.
      *
      * @return The absolute URL of the TaskQueue statistics resource
      */

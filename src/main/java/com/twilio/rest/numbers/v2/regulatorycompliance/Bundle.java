@@ -217,7 +217,7 @@ public class Bundle extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource..
+     * Returns The unique string that identifies the resource..
      *
      * @return The unique string that identifies the resource.
      */
@@ -226,7 +226,7 @@ public class Bundle extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -235,7 +235,7 @@ public class Bundle extends Resource {
     }
 
     /**
-     * Returns The The unique string of a regulation..
+     * Returns The unique string of a regulation..
      *
      * @return The unique string of a regulation.
      */
@@ -244,7 +244,7 @@ public class Bundle extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -253,7 +253,7 @@ public class Bundle extends Resource {
     }
 
     /**
-     * Returns The The verification status of the Bundle resource.
+     * Returns The verification status of the Bundle resource.
      *
      * @return The verification status of the Bundle resource
      */
@@ -262,7 +262,7 @@ public class Bundle extends Resource {
     }
 
     /**
-     * Returns The The email address.
+     * Returns The email address.
      *
      * @return The email address
      */
@@ -271,7 +271,7 @@ public class Bundle extends Resource {
     }
 
     /**
-     * Returns The The URL we call to inform your application of status changes..
+     * Returns The URL we call to inform your application of status changes..
      *
      * @return The URL we call to inform your application of status changes.
      */
@@ -280,7 +280,7 @@ public class Bundle extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -289,8 +289,7 @@ public class Bundle extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -299,7 +298,7 @@ public class Bundle extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Bundle resource.
+     * Returns The absolute URL of the Bundle resource.
      *
      * @return The absolute URL of the Bundle resource
      */
@@ -308,7 +307,7 @@ public class Bundle extends Resource {
     }
 
     /**
-     * Returns The The URLs of the Assigned Items of the Bundle resource.
+     * Returns The URLs of the Assigned Items of the Bundle resource.
      *
      * @return The URLs of the Assigned Items of the Bundle resource
      */

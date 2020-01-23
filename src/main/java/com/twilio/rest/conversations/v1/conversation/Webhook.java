@@ -230,7 +230,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns A 34 character string that uniquely identifies this resource..
      *
      * @return A 34 character string that uniquely identifies this resource.
      */
@@ -239,7 +239,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this conversation..
+     * Returns The unique id of the Account responsible for this conversation..
      *
      * @return The unique id of the Account responsible for this conversation.
      */
@@ -248,7 +248,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The unique id of the Conversation for this webhook..
+     * Returns The unique id of the Conversation for this webhook..
      *
      * @return The unique id of the Conversation for this webhook.
      */
@@ -257,7 +257,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The target of this webhook..
+     * Returns The target of this webhook..
      *
      * @return The target of this webhook.
      */
@@ -266,7 +266,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The An absolute URL for this webhook..
+     * Returns An absolute URL for this webhook..
      *
      * @return An absolute URL for this webhook.
      */
@@ -275,7 +275,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The configuration of this webhook..
+     * Returns The configuration of this webhook..
      *
      * @return The configuration of this webhook.
      */
@@ -284,7 +284,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was created..
+     * Returns The date that this resource was created..
      *
      * @return The date that this resource was created.
      */
@@ -293,7 +293,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was last updated..
+     * Returns The date that this resource was last updated..
      *
      * @return The date that this resource was last updated.
      */

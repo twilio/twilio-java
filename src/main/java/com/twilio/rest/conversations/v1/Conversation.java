@@ -197,7 +197,7 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this conversation..
+     * Returns The unique id of the Account responsible for this conversation..
      *
      * @return The unique id of the Account responsible for this conversation.
      */
@@ -206,7 +206,7 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Returns The The unique id of the Chat Service this conversation belongs to..
+     * Returns The unique id of the Chat Service this conversation belongs to..
      *
      * @return The unique id of the Chat Service this conversation belongs to.
      */
@@ -215,7 +215,7 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Returns The The unique id of the SMS Service this conversation belongs to..
+     * Returns The unique id of the SMS Service this conversation belongs to..
      *
      * @return The unique id of the SMS Service this conversation belongs to.
      */
@@ -224,7 +224,7 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns A 34 character string that uniquely identifies this resource..
      *
      * @return A 34 character string that uniquely identifies this resource.
      */
@@ -233,7 +233,7 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Returns The The human-readable name of this conversation..
+     * Returns The human-readable name of this conversation..
      *
      * @return The human-readable name of this conversation.
      */
@@ -242,8 +242,8 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Returns The An optional string metadata field you can use to store any data
-     * you wish..
+     * Returns An optional string metadata field you can use to store any data you
+     * wish..
      *
      * @return An optional string metadata field you can use to store any data you
      *         wish.
@@ -253,7 +253,7 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was created..
+     * Returns The date that this resource was created..
      *
      * @return The date that this resource was created.
      */
@@ -262,7 +262,7 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was last updated..
+     * Returns The date that this resource was last updated..
      *
      * @return The date that this resource was last updated.
      */
@@ -271,7 +271,7 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Returns The An absolute URL for this conversation..
+     * Returns An absolute URL for this conversation..
      *
      * @return An absolute URL for this conversation.
      */
@@ -280,7 +280,7 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Returns The Absolute URLs to access the Participants of this Conversation..
+     * Returns Absolute URLs to access the Participants of this Conversation..
      *
      * @return Absolute URLs to access the Participants of this Conversation.
      */

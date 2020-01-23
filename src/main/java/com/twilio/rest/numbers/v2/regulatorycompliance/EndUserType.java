@@ -118,7 +118,7 @@ public class EndUserType extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the End-User Type resource.
+     * Returns The unique string that identifies the End-User Type resource.
      *
      * @return The unique string that identifies the End-User Type resource
      */
@@ -127,7 +127,7 @@ public class EndUserType extends Resource {
     }
 
     /**
-     * Returns The A human-readable description of the End-User Type resource.
+     * Returns A human-readable description of the End-User Type resource.
      *
      * @return A human-readable description of the End-User Type resource
      */
@@ -136,7 +136,7 @@ public class EndUserType extends Resource {
     }
 
     /**
-     * Returns The A machine-readable description of the End-User Type resource.
+     * Returns A machine-readable description of the End-User Type resource.
      *
      * @return A machine-readable description of the End-User Type resource
      */
@@ -145,7 +145,7 @@ public class EndUserType extends Resource {
     }
 
     /**
-     * Returns The The required information for creating an End-User..
+     * Returns The required information for creating an End-User..
      *
      * @return The required information for creating an End-User.
      */
@@ -154,7 +154,7 @@ public class EndUserType extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the End-User Type resource.
+     * Returns The absolute URL of the End-User Type resource.
      *
      * @return The absolute URL of the End-User Type resource
      */

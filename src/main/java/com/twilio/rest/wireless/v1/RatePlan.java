@@ -218,7 +218,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -227,8 +227,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The An application-defined string that uniquely identifies the
-     * resource.
+     * Returns An application-defined string that uniquely identifies the resource.
      *
      * @return An application-defined string that uniquely identifies the resource
      */
@@ -237,7 +236,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -246,7 +245,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -255,7 +254,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The Whether SIMs can use GPRS/3G/4G/LTE data connectivity.
+     * Returns Whether SIMs can use GPRS/3G/4G/LTE data connectivity.
      *
      * @return Whether SIMs can use GPRS/3G/4G/LTE data connectivity
      */
@@ -264,7 +263,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The model used to meter data usage.
+     * Returns The model used to meter data usage.
      *
      * @return The model used to meter data usage
      */
@@ -273,8 +272,8 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The total data usage in Megabytes that the Network allows during
-     * one month on the home network.
+     * Returns The total data usage in Megabytes that the Network allows during one
+     * month on the home network.
      *
      * @return The total data usage in Megabytes that the Network allows during one
      *         month on the home network
@@ -284,7 +283,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The Whether SIMs can make, send, and receive SMS using Commands.
+     * Returns Whether SIMs can make, send, and receive SMS using Commands.
      *
      * @return Whether SIMs can make, send, and receive SMS using Commands
      */
@@ -293,7 +292,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The Whether SIMs can make and receive voice calls.
+     * Returns Whether SIMs can make and receive voice calls.
      *
      * @return Whether SIMs can make and receive voice calls
      */
@@ -302,8 +301,8 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The Whether SIMs can roam on networks other than the home network in
-     * the United States.
+     * Returns Whether SIMs can roam on networks other than the home network in the
+     * United States.
      *
      * @return Whether SIMs can roam on networks other than the home network in the
      *         United States
@@ -313,8 +312,8 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The total data usage in Megabytes that the Network allows during
-     * one month on non-home networks in the United States.
+     * Returns The total data usage in Megabytes that the Network allows during one
+     * month on non-home networks in the United States.
      *
      * @return The total data usage in Megabytes that the Network allows during one
      *         month on non-home networks in the United States
@@ -324,7 +323,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The services that SIMs capable of using GPRS/3G/4G/LTE data
+     * Returns The services that SIMs capable of using GPRS/3G/4G/LTE data
      * connectivity can use outside of the United States.
      *
      * @return The services that SIMs capable of using GPRS/3G/4G/LTE data
@@ -335,9 +334,8 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The total data usage (download and upload combined) in Megabytes
-     * that the Network allows during one month when roaming outside the United
-     * States.
+     * Returns The total data usage (download and upload combined) in Megabytes that
+     * the Network allows during one month when roaming outside the United States.
      *
      * @return The total data usage (download and upload combined) in Megabytes
      *         that the Network allows during one month when roaming outside the
@@ -348,7 +346,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The date when the resource was created, given as GMT in ISO 8601
+     * Returns The date when the resource was created, given as GMT in ISO 8601
      * format.
      *
      * @return The date when the resource was created, given as GMT in ISO 8601
@@ -359,8 +357,8 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The date when the resource was last updated, given as GMT in ISO
-     * 8601 format.
+     * Returns The date when the resource was last updated, given as GMT in ISO 8601
+     * format.
      *
      * @return The date when the resource was last updated, given as GMT in ISO
      *         8601 format
@@ -370,7 +368,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
      */

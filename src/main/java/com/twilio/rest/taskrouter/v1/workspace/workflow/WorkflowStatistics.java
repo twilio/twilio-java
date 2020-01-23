@@ -115,7 +115,7 @@ public class WorkflowStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -124,8 +124,7 @@ public class WorkflowStatistics extends Resource {
     }
 
     /**
-     * Returns The An object that contains the cumulative statistics for the
-     * Workflow.
+     * Returns An object that contains the cumulative statistics for the Workflow.
      *
      * @return An object that contains the cumulative statistics for the Workflow
      */
@@ -134,8 +133,7 @@ public class WorkflowStatistics extends Resource {
     }
 
     /**
-     * Returns The An object that contains the real-time statistics for the
-     * Workflow.
+     * Returns An object that contains the real-time statistics for the Workflow.
      *
      * @return An object that contains the real-time statistics for the Workflow
      */
@@ -144,8 +142,8 @@ public class WorkflowStatistics extends Resource {
     }
 
     /**
-     * Returns The Returns the list of Tasks that are being controlled by the
-     * Workflow with the specified SID value.
+     * Returns Returns the list of Tasks that are being controlled by the Workflow
+     * with the specified SID value.
      *
      * @return Returns the list of Tasks that are being controlled by the Workflow
      *         with the specified SID value
@@ -155,7 +153,7 @@ public class WorkflowStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Workspace that contains the Workflow.
+     * Returns The SID of the Workspace that contains the Workflow.
      *
      * @return The SID of the Workspace that contains the Workflow
      */
@@ -164,7 +162,7 @@ public class WorkflowStatistics extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Workflow statistics resource.
+     * Returns The absolute URL of the Workflow statistics resource.
      *
      * @return The absolute URL of the Workflow statistics resource
      */

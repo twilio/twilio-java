@@ -202,7 +202,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -211,7 +211,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -220,8 +220,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -230,7 +229,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The natural language analysis results that include the Task
+     * Returns The natural language analysis results that include the Task
      * recognized and a list of identified Fields.
      *
      * @return The natural language analysis results that include the Task
@@ -241,8 +240,8 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The ISO language-country string that specifies the language used
-     * by the Query.
+     * Returns The ISO language-country string that specifies the language used by
+     * the Query.
      *
      * @return The ISO language-country string that specifies the language used by
      *         the Query
@@ -252,7 +251,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The SID of the [Model
+     * Returns The SID of the [Model
      * Build](https://www.twilio.com/docs/autopilot/api/model-build) queried.
      *
      * @return The SID of the [Model
@@ -263,7 +262,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The end-user's natural language input.
+     * Returns The end-user's natural language input.
      *
      * @return The end-user's natural language input
      */
@@ -272,7 +271,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The SID of an optional reference to the Sample created from the
+     * Returns The SID of an optional reference to the Sample created from the
      * query.
      *
      * @return The SID of an optional reference to the Sample created from the query
@@ -282,7 +281,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The SID of the Assistant that is the parent of the resource.
+     * Returns The SID of the Assistant that is the parent of the resource.
      *
      * @return The SID of the Assistant that is the parent of the resource
      */
@@ -291,7 +290,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -300,7 +299,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The status of the Query.
+     * Returns The status of the Query.
      *
      * @return The status of the Query
      */
@@ -309,7 +308,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Query resource.
+     * Returns The absolute URL of the Query resource.
      *
      * @return The absolute URL of the Query resource
      */
@@ -318,7 +317,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The communication channel from where the end-user input came.
+     * Returns The communication channel from where the end-user input came.
      *
      * @return The communication channel from where the end-user input came
      */

@@ -174,7 +174,7 @@ public class Activity extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -183,7 +183,7 @@ public class Activity extends Resource {
     }
 
     /**
-     * Returns The Whether the Worker should be eligible to receive a Task when it
+     * Returns Whether the Worker should be eligible to receive a Task when it
      * occupies the Activity.
      *
      * @return Whether the Worker should be eligible to receive a Task when it
@@ -194,7 +194,7 @@ public class Activity extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -203,8 +203,7 @@ public class Activity extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -213,7 +212,7 @@ public class Activity extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the Activity resource.
+     * Returns The string that you assigned to describe the Activity resource.
      *
      * @return The string that you assigned to describe the Activity resource
      */
@@ -222,7 +221,7 @@ public class Activity extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -231,7 +230,7 @@ public class Activity extends Resource {
     }
 
     /**
-     * Returns The The SID of the Workspace that contains the Activity.
+     * Returns The SID of the Workspace that contains the Activity.
      *
      * @return The SID of the Workspace that contains the Activity
      */
@@ -240,7 +239,7 @@ public class Activity extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Activity resource.
+     * Returns The absolute URL of the Activity resource.
      *
      * @return The absolute URL of the Activity resource
      */

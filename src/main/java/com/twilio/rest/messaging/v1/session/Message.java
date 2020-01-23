@@ -187,7 +187,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -196,7 +196,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the resource is associated with.
+     * Returns The SID of the Service that the resource is associated with.
      *
      * @return The SID of the Service that the resource is associated with
      */
@@ -205,7 +205,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The SID of the Messaging Service the message belongs to.
+     * Returns The SID of the Messaging Service the message belongs to.
      *
      * @return The SID of the Messaging Service the message belongs to
      */
@@ -214,7 +214,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The SID of the Session for the message.
+     * Returns The SID of the Session for the message.
      *
      * @return The SID of the Session for the message
      */
@@ -223,7 +223,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -232,7 +232,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The index of the message within the Session.
+     * Returns The index of the message within the Session.
      *
      * @return The index of the message within the Session
      */
@@ -241,8 +241,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The identity or the address of the device of the message's
-     * author.
+     * Returns The identity or the address of the device of the message's author.
      *
      * @return The identity or the address of the device of the message's author
      */
@@ -251,7 +250,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The message body.
+     * Returns The message body.
      *
      * @return The message body
      */
@@ -260,7 +259,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The JSON string that stores application-specific data.
+     * Returns The JSON string that stores application-specific data.
      *
      * @return The JSON string that stores application-specific data
      */
@@ -269,7 +268,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -278,8 +277,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -288,7 +286,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the message.
+     * Returns The absolute URL of the message.
      *
      * @return The absolute URL of the message
      */

@@ -288,7 +288,7 @@ public class Factor extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Factor..
+     * Returns A string that uniquely identifies this Factor..
      *
      * @return A string that uniquely identifies this Factor.
      */
@@ -297,7 +297,7 @@ public class Factor extends Resource {
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns Account Sid..
      *
      * @return Account Sid.
      */
@@ -306,7 +306,7 @@ public class Factor extends Resource {
     }
 
     /**
-     * Returns The Service Sid..
+     * Returns Service Sid..
      *
      * @return Service Sid.
      */
@@ -315,7 +315,7 @@ public class Factor extends Resource {
     }
 
     /**
-     * Returns The Entity Sid..
+     * Returns Entity Sid..
      *
      * @return Entity Sid.
      */
@@ -324,7 +324,7 @@ public class Factor extends Resource {
     }
 
     /**
-     * Returns The Unique identity of the Entity.
+     * Returns Unique identity of the Entity.
      *
      * @return Unique identity of the Entity
      */
@@ -333,7 +333,7 @@ public class Factor extends Resource {
     }
 
     /**
-     * Returns The The date this Factor was created.
+     * Returns The date this Factor was created.
      *
      * @return The date this Factor was created
      */
@@ -342,7 +342,7 @@ public class Factor extends Resource {
     }
 
     /**
-     * Returns The The date this Factor was updated.
+     * Returns The date this Factor was updated.
      *
      * @return The date this Factor was updated
      */
@@ -351,7 +351,7 @@ public class Factor extends Resource {
     }
 
     /**
-     * Returns The A human readable description of this resource..
+     * Returns A human readable description of this resource..
      *
      * @return A human readable description of this resource.
      */
@@ -360,7 +360,7 @@ public class Factor extends Resource {
     }
 
     /**
-     * Returns The The Status of this Factor.
+     * Returns The Status of this Factor.
      *
      * @return The Status of this Factor
      */
@@ -369,7 +369,7 @@ public class Factor extends Resource {
     }
 
     /**
-     * Returns The The Type of this Factor.
+     * Returns The Type of this Factor.
      *
      * @return The Type of this Factor
      */
@@ -378,7 +378,7 @@ public class Factor extends Resource {
     }
 
     /**
-     * Returns The The Strength of this Factor.
+     * Returns The Strength of this Factor.
      *
      * @return The Strength of this Factor
      */
@@ -387,7 +387,7 @@ public class Factor extends Resource {
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The URL of this resource..
      *
      * @return The URL of this resource.
      */
@@ -396,7 +396,7 @@ public class Factor extends Resource {
     }
 
     /**
-     * Returns The Nested resource URLs..
+     * Returns Nested resource URLs..
      *
      * @return Nested resource URLs.
      */

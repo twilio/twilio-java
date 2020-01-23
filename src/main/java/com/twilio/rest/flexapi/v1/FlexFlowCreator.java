@@ -180,7 +180,9 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     /**
      * Whether to create a task when the first message arrives when
      * `integration_type` is `task`. If `false`, the task is created with the
-     * channel..
+     * channel. **Note** that does not apply when channel type is `web`. Setting the
+     * value to `true` for channel type `web` will result in misconfigured Flex Flow
+     * and no tasks will be created..
      *
      * @param integrationCreationOnMessage Whether to create a task when the first
      *                                     message arrives
@@ -203,7 +205,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
-     * Boolean flag for enabling or disabling the Janitor.
+     * Boolean flag for enabling or disabling the Janitor..
      *
      * @param janitorEnabled Boolean flag for enabling or disabling the Janitor
      * @return this

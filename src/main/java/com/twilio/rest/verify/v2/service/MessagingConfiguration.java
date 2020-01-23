@@ -176,7 +176,7 @@ public class MessagingConfiguration extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -185,7 +185,7 @@ public class MessagingConfiguration extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the resource is associated with.
+     * Returns The SID of the Service that the resource is associated with.
      *
      * @return The SID of the Service that the resource is associated with
      */
@@ -194,7 +194,7 @@ public class MessagingConfiguration extends Resource {
     }
 
     /**
-     * Returns The The ISO-3166-1 country code of the country or `all`..
+     * Returns The ISO-3166-1 country code of the country or `all`..
      *
      * @return The ISO-3166-1 country code of the country or `all`.
      */
@@ -203,7 +203,7 @@ public class MessagingConfiguration extends Resource {
     }
 
     /**
-     * Returns The The SID of the Messaging Service used for this configuration..
+     * Returns The SID of the Messaging Service used for this configuration..
      *
      * @return The SID of the Messaging Service used for this configuration.
      */
@@ -212,7 +212,7 @@ public class MessagingConfiguration extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -221,8 +221,7 @@ public class MessagingConfiguration extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -231,7 +230,7 @@ public class MessagingConfiguration extends Resource {
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The URL of this resource..
      *
      * @return The URL of this resource.
      */

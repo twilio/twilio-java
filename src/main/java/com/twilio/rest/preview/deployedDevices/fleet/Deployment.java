@@ -172,7 +172,7 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Deployment..
+     * Returns A string that uniquely identifies this Deployment..
      *
      * @return A string that uniquely identifies this Deployment.
      */
@@ -181,7 +181,7 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The URL of this Deployment..
+     * Returns URL of this Deployment..
      *
      * @return URL of this Deployment.
      */
@@ -190,7 +190,7 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The A human readable description for this Deployment.
+     * Returns A human readable description for this Deployment.
      *
      * @return A human readable description for this Deployment
      */
@@ -199,7 +199,7 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The The unique identifier of the Fleet..
+     * Returns The unique identifier of the Fleet..
      *
      * @return The unique identifier of the Fleet.
      */
@@ -208,7 +208,7 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The The unique SID that identifies this Account..
+     * Returns The unique SID that identifies this Account..
      *
      * @return The unique SID that identifies this Account.
      */
@@ -217,7 +217,7 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The The unique identifier of the Sync service instance..
+     * Returns The unique identifier of the Sync service instance..
      *
      * @return The unique identifier of the Sync service instance.
      */
@@ -226,7 +226,7 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The The date this Deployment was created..
+     * Returns The date this Deployment was created..
      *
      * @return The date this Deployment was created.
      */
@@ -235,7 +235,7 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The The date this Deployment was updated..
+     * Returns The date this Deployment was updated..
      *
      * @return The date this Deployment was updated.
      */

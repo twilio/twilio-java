@@ -193,7 +193,7 @@ public class Document extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -202,8 +202,7 @@ public class Document extends Resource {
     }
 
     /**
-     * Returns The An application-defined string that uniquely identifies the
-     * resource.
+     * Returns An application-defined string that uniquely identifies the resource.
      *
      * @return An application-defined string that uniquely identifies the resource
      */
@@ -212,7 +211,7 @@ public class Document extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -221,7 +220,7 @@ public class Document extends Resource {
     }
 
     /**
-     * Returns The The SID of the Sync Service that the resource is associated with.
+     * Returns The SID of the Sync Service that the resource is associated with.
      *
      * @return The SID of the Sync Service that the resource is associated with
      */
@@ -230,7 +229,7 @@ public class Document extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Document resource.
+     * Returns The absolute URL of the Document resource.
      *
      * @return The absolute URL of the Document resource
      */
@@ -239,7 +238,7 @@ public class Document extends Resource {
     }
 
     /**
-     * Returns The The URLs of resources related to the Sync Document.
+     * Returns The URLs of resources related to the Sync Document.
      *
      * @return The URLs of resources related to the Sync Document
      */
@@ -248,8 +247,8 @@ public class Document extends Resource {
     }
 
     /**
-     * Returns The The current revision of the Sync Document, represented by a
-     * string identifier.
+     * Returns The current revision of the Sync Document, represented by a string
+     * identifier.
      *
      * @return The current revision of the Sync Document, represented by a string
      *         identifier
@@ -259,7 +258,7 @@ public class Document extends Resource {
     }
 
     /**
-     * Returns The An arbitrary, schema-less object that the Sync Document stores.
+     * Returns An arbitrary, schema-less object that the Sync Document stores.
      *
      * @return An arbitrary, schema-less object that the Sync Document stores
      */
@@ -268,7 +267,7 @@ public class Document extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Sync Document expires.
+     * Returns The ISO 8601 date and time in GMT when the Sync Document expires.
      *
      * @return The ISO 8601 date and time in GMT when the Sync Document expires
      */
@@ -277,7 +276,7 @@ public class Document extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -286,8 +285,7 @@ public class Document extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -296,7 +294,7 @@ public class Document extends Resource {
     }
 
     /**
-     * Returns The The identity of the Sync Document's creator.
+     * Returns The identity of the Sync Document's creator.
      *
      * @return The identity of the Sync Document's creator
      */

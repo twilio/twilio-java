@@ -173,7 +173,7 @@ public class Alert extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -182,7 +182,7 @@ public class Alert extends Resource {
     }
 
     /**
-     * Returns The The text of the alert.
+     * Returns The text of the alert.
      *
      * @return The text of the alert
      */
@@ -191,7 +191,7 @@ public class Alert extends Resource {
     }
 
     /**
-     * Returns The The API version used when the alert was generated.
+     * Returns The API version used when the alert was generated.
      *
      * @return The API version used when the alert was generated
      */
@@ -200,7 +200,7 @@ public class Alert extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -209,8 +209,8 @@ public class Alert extends Resource {
     }
 
     /**
-     * Returns The The date and time when the alert was generated specified in ISO
-     * 8601 format.
+     * Returns The date and time when the alert was generated specified in ISO 8601
+     * format.
      *
      * @return The date and time when the alert was generated specified in ISO 8601
      *         format
@@ -220,8 +220,7 @@ public class Alert extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -230,7 +229,7 @@ public class Alert extends Resource {
     }
 
     /**
-     * Returns The The error code for the condition that generated the alert.
+     * Returns The error code for the condition that generated the alert.
      *
      * @return The error code for the condition that generated the alert
      */
@@ -239,7 +238,7 @@ public class Alert extends Resource {
     }
 
     /**
-     * Returns The The log level.
+     * Returns The log level.
      *
      * @return The log level
      */
@@ -248,7 +247,7 @@ public class Alert extends Resource {
     }
 
     /**
-     * Returns The The URL of the page in our Error Dictionary with more information
+     * Returns The URL of the page in our Error Dictionary with more information
      * about the error condition.
      *
      * @return The URL of the page in our Error Dictionary with more information
@@ -259,7 +258,7 @@ public class Alert extends Resource {
     }
 
     /**
-     * Returns The The method used by the request that generated the alert.
+     * Returns The method used by the request that generated the alert.
      *
      * @return The method used by the request that generated the alert
      */
@@ -268,7 +267,7 @@ public class Alert extends Resource {
     }
 
     /**
-     * Returns The The URL of the request that generated the alert.
+     * Returns The URL of the request that generated the alert.
      *
      * @return The URL of the request that generated the alert
      */
@@ -277,7 +276,7 @@ public class Alert extends Resource {
     }
 
     /**
-     * Returns The The variables passed in the request that generated the alert.
+     * Returns The variables passed in the request that generated the alert.
      *
      * @return The variables passed in the request that generated the alert
      */
@@ -286,7 +285,7 @@ public class Alert extends Resource {
     }
 
     /**
-     * Returns The The SID of the resource for which the alert was generated.
+     * Returns The SID of the resource for which the alert was generated.
      *
      * @return The SID of the resource for which the alert was generated
      */
@@ -295,7 +294,7 @@ public class Alert extends Resource {
     }
 
     /**
-     * Returns The The response body of the request that generated the alert.
+     * Returns The response body of the request that generated the alert.
      *
      * @return The response body of the request that generated the alert
      */
@@ -304,7 +303,7 @@ public class Alert extends Resource {
     }
 
     /**
-     * Returns The The response headers of the request that generated the alert.
+     * Returns The response headers of the request that generated the alert.
      *
      * @return The response headers of the request that generated the alert
      */
@@ -313,7 +312,7 @@ public class Alert extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -322,7 +321,7 @@ public class Alert extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Alert resource.
+     * Returns The absolute URL of the Alert resource.
      *
      * @return The absolute URL of the Alert resource
      */
@@ -331,7 +330,7 @@ public class Alert extends Resource {
     }
 
     /**
-     * Returns The The request headers of the request that generated the alert.
+     * Returns The request headers of the request that generated the alert.
      *
      * @return The request headers of the request that generated the alert
      */
@@ -340,7 +339,7 @@ public class Alert extends Resource {
     }
 
     /**
-     * Returns The The SID of the service or resource that generated the alert.
+     * Returns The SID of the service or resource that generated the alert.
      *
      * @return The SID of the service or resource that generated the alert
      */

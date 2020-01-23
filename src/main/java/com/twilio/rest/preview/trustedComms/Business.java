@@ -108,7 +108,7 @@ public class Business extends Resource {
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns Account Sid..
      *
      * @return Account Sid.
      */
@@ -117,7 +117,7 @@ public class Business extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Business..
+     * Returns A string that uniquely identifies this Business..
      *
      * @return A string that uniquely identifies this Business.
      */
@@ -126,7 +126,7 @@ public class Business extends Resource {
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The URL of this resource..
      *
      * @return The URL of this resource.
      */
@@ -135,7 +135,7 @@ public class Business extends Resource {
     }
 
     /**
-     * Returns The Nested resource URLs..
+     * Returns Nested resource URLs..
      *
      * @return Nested resource URLs.
      */

@@ -118,7 +118,7 @@ public class NewSigningKey extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -127,7 +127,7 @@ public class NewSigningKey extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -136,7 +136,7 @@ public class NewSigningKey extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was created.
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
@@ -145,8 +145,7 @@ public class NewSigningKey extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
@@ -155,7 +154,7 @@ public class NewSigningKey extends Resource {
     }
 
     /**
-     * Returns The The secret your application uses to sign Access Tokens and to
+     * Returns The secret your application uses to sign Access Tokens and to
      * authenticate to the REST API..
      *
      * @return The secret your application uses to sign Access Tokens and to

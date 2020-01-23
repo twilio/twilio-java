@@ -111,7 +111,7 @@ public class WorkerStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -120,7 +120,7 @@ public class WorkerStatistics extends Resource {
     }
 
     /**
-     * Returns The An object that contains the cumulative statistics for the Worker.
+     * Returns An object that contains the cumulative statistics for the Worker.
      *
      * @return An object that contains the cumulative statistics for the Worker
      */
@@ -129,7 +129,7 @@ public class WorkerStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Worker that contains the WorkerChannel.
+     * Returns The SID of the Worker that contains the WorkerChannel.
      *
      * @return The SID of the Worker that contains the WorkerChannel
      */
@@ -138,7 +138,7 @@ public class WorkerStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Workspace that contains the WorkerChannel.
+     * Returns The SID of the Workspace that contains the WorkerChannel.
      *
      * @return The SID of the Workspace that contains the WorkerChannel
      */
@@ -147,7 +147,7 @@ public class WorkerStatistics extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the WorkerChannel statistics resource.
+     * Returns The absolute URL of the WorkerChannel statistics resource.
      *
      * @return The absolute URL of the WorkerChannel statistics resource
      */

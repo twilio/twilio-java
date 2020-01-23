@@ -187,7 +187,7 @@ public class Document extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The sid.
      *
      * @return The sid
      */
@@ -196,7 +196,7 @@ public class Document extends Resource {
     }
 
     /**
-     * Returns The The unique_name.
+     * Returns The unique_name.
      *
      * @return The unique_name
      */
@@ -205,7 +205,7 @@ public class Document extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The account_sid.
      *
      * @return The account_sid
      */
@@ -214,7 +214,7 @@ public class Document extends Resource {
     }
 
     /**
-     * Returns The The service_sid.
+     * Returns The service_sid.
      *
      * @return The service_sid
      */
@@ -223,7 +223,7 @@ public class Document extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The url.
      *
      * @return The url
      */
@@ -232,7 +232,7 @@ public class Document extends Resource {
     }
 
     /**
-     * Returns The The links.
+     * Returns The links.
      *
      * @return The links
      */
@@ -241,7 +241,7 @@ public class Document extends Resource {
     }
 
     /**
-     * Returns The The revision.
+     * Returns The revision.
      *
      * @return The revision
      */
@@ -250,7 +250,7 @@ public class Document extends Resource {
     }
 
     /**
-     * Returns The The data.
+     * Returns The data.
      *
      * @return The data
      */
@@ -259,7 +259,7 @@ public class Document extends Resource {
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The date_created.
      *
      * @return The date_created
      */
@@ -268,7 +268,7 @@ public class Document extends Resource {
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The date_updated.
      *
      * @return The date_updated
      */
@@ -277,7 +277,7 @@ public class Document extends Resource {
     }
 
     /**
-     * Returns The The created_by.
+     * Returns The created_by.
      *
      * @return The created_by
      */

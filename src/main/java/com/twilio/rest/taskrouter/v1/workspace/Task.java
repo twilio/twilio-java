@@ -244,7 +244,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -253,7 +253,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The number of seconds since the task was created.
+     * Returns The number of seconds since the task was created.
      *
      * @return The number of seconds since the task was created
      */
@@ -262,7 +262,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The current status of the Task's assignment.
+     * Returns The current status of the Task's assignment.
      *
      * @return The current status of the Task's assignment
      */
@@ -271,7 +271,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The JSON string with custom attributes of the work.
+     * Returns The JSON string with custom attributes of the work.
      *
      * @return The JSON string with custom attributes of the work
      */
@@ -280,7 +280,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The An object that contains the addon data for all installed addons.
+     * Returns An object that contains the addon data for all installed addons.
      *
      * @return An object that contains the addon data for all installed addons
      */
@@ -289,7 +289,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -298,8 +298,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -308,8 +307,8 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The Retrieve the list of all Tasks in the Workspace with the
-     * specified priority.
+     * Returns Retrieve the list of all Tasks in the Workspace with the specified
+     * priority.
      *
      * @return Retrieve the list of all Tasks in the Workspace with the specified
      *         priority
@@ -319,7 +318,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The reason the task was canceled or completed.
+     * Returns The reason the task was canceled or completed.
      *
      * @return The reason the task was canceled or completed
      */
@@ -328,7 +327,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -337,7 +336,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The SID of the TaskQueue.
+     * Returns The SID of the TaskQueue.
      *
      * @return The SID of the TaskQueue
      */
@@ -346,7 +345,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The friendly name of the TaskQueue.
+     * Returns The friendly name of the TaskQueue.
      *
      * @return The friendly name of the TaskQueue
      */
@@ -355,7 +354,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The SID of the TaskChannel.
+     * Returns The SID of the TaskChannel.
      *
      * @return The SID of the TaskChannel
      */
@@ -364,7 +363,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The unique name of the TaskChannel.
+     * Returns The unique name of the TaskChannel.
      *
      * @return The unique name of the TaskChannel
      */
@@ -373,7 +372,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The amount of time in seconds that the task is allowed to live.
+     * Returns The amount of time in seconds that the task is allowed to live.
      *
      * @return The amount of time in seconds that the task is allowed to live
      */
@@ -382,7 +381,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The SID of the Workflow that is controlling the Task.
+     * Returns The SID of the Workflow that is controlling the Task.
      *
      * @return The SID of the Workflow that is controlling the Task
      */
@@ -391,7 +390,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The friendly name of the Workflow that is controlling the Task.
+     * Returns The friendly name of the Workflow that is controlling the Task.
      *
      * @return The friendly name of the Workflow that is controlling the Task
      */
@@ -400,7 +399,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The SID of the Workspace that contains the Task.
+     * Returns The SID of the Workspace that contains the Task.
      *
      * @return The SID of the Workspace that contains the Task
      */
@@ -409,7 +408,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Task resource.
+     * Returns The absolute URL of the Task resource.
      *
      * @return The absolute URL of the Task resource
      */
@@ -418,7 +417,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The URLs of related resources.
+     * Returns The URLs of related resources.
      *
      * @return The URLs of related resources
      */

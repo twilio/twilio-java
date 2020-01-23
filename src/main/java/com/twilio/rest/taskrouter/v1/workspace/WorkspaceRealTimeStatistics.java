@@ -129,7 +129,7 @@ public class WorkspaceRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -138,7 +138,7 @@ public class WorkspaceRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The number of current Workers by Activity.
+     * Returns The number of current Workers by Activity.
      *
      * @return The number of current Workers by Activity
      */
@@ -147,7 +147,7 @@ public class WorkspaceRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The age of the longest waiting Task.
+     * Returns The age of the longest waiting Task.
      *
      * @return The age of the longest waiting Task
      */
@@ -156,7 +156,7 @@ public class WorkspaceRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the longest waiting Task.
+     * Returns The SID of the longest waiting Task.
      *
      * @return The SID of the longest waiting Task
      */
@@ -165,7 +165,7 @@ public class WorkspaceRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The number of Tasks by priority.
+     * Returns The number of Tasks by priority.
      *
      * @return The number of Tasks by priority
      */
@@ -174,7 +174,7 @@ public class WorkspaceRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The number of Tasks by their current status.
+     * Returns The number of Tasks by their current status.
      *
      * @return The number of Tasks by their current status
      */
@@ -183,7 +183,7 @@ public class WorkspaceRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Tasks.
+     * Returns The total number of Tasks.
      *
      * @return The total number of Tasks
      */
@@ -192,7 +192,7 @@ public class WorkspaceRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Workers in the Workspace.
+     * Returns The total number of Workers in the Workspace.
      *
      * @return The total number of Workers in the Workspace
      */
@@ -201,7 +201,7 @@ public class WorkspaceRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Workspace.
+     * Returns The SID of the Workspace.
      *
      * @return The SID of the Workspace
      */
@@ -210,7 +210,7 @@ public class WorkspaceRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Workspace statistics resource.
+     * Returns The absolute URL of the Workspace statistics resource.
      *
      * @return The absolute URL of the Workspace statistics resource
      */

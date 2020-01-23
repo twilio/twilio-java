@@ -252,7 +252,7 @@ public class Composition extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -261,7 +261,7 @@ public class Composition extends Resource {
     }
 
     /**
-     * Returns The The status of the composition.
+     * Returns The status of the composition.
      *
      * @return The status of the composition
      */
@@ -270,7 +270,7 @@ public class Composition extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -279,7 +279,7 @@ public class Composition extends Resource {
     }
 
     /**
-     * Returns The Date when the media processing task finished.
+     * Returns Date when the media processing task finished.
      *
      * @return Date when the media processing task finished
      */
@@ -288,7 +288,7 @@ public class Composition extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the composition generated
+     * Returns The ISO 8601 date and time in GMT when the composition generated
      * media was deleted.
      *
      * @return The ISO 8601 date and time in GMT when the composition generated
@@ -299,7 +299,7 @@ public class Composition extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -308,8 +308,8 @@ public class Composition extends Resource {
     }
 
     /**
-     * Returns The The SID of the Group Room that generated the audio and video
-     * tracks used in the composition.
+     * Returns The SID of the Group Room that generated the audio and video tracks
+     * used in the composition.
      *
      * @return The SID of the Group Room that generated the audio and video tracks
      *         used in the composition
@@ -319,7 +319,7 @@ public class Composition extends Resource {
     }
 
     /**
-     * Returns The The array of track names to include in the composition.
+     * Returns The array of track names to include in the composition.
      *
      * @return The array of track names to include in the composition
      */
@@ -328,7 +328,7 @@ public class Composition extends Resource {
     }
 
     /**
-     * Returns The The array of track names to exclude from the composition.
+     * Returns The array of track names to exclude from the composition.
      *
      * @return The array of track names to exclude from the composition
      */
@@ -337,7 +337,7 @@ public class Composition extends Resource {
     }
 
     /**
-     * Returns The An object that describes the video layout of the composition.
+     * Returns An object that describes the video layout of the composition.
      *
      * @return An object that describes the video layout of the composition
      */
@@ -346,7 +346,7 @@ public class Composition extends Resource {
     }
 
     /**
-     * Returns The The dimensions of the video image in pixels expressed as columns
+     * Returns The dimensions of the video image in pixels expressed as columns
      * (width) and rows (height).
      *
      * @return The dimensions of the video image in pixels expressed as columns
@@ -357,7 +357,7 @@ public class Composition extends Resource {
     }
 
     /**
-     * Returns The Whether to remove intervals with no media.
+     * Returns Whether to remove intervals with no media.
      *
      * @return Whether to remove intervals with no media
      */
@@ -366,8 +366,8 @@ public class Composition extends Resource {
     }
 
     /**
-     * Returns The The container format of the composition's media files as
-     * specified in the POST request that created the Composition resource.
+     * Returns The container format of the composition's media files as specified in
+     * the POST request that created the Composition resource.
      *
      * @return The container format of the composition's media files as specified
      *         in the POST request that created the Composition resource
@@ -377,7 +377,7 @@ public class Composition extends Resource {
     }
 
     /**
-     * Returns The The average bit rate of the composition's media.
+     * Returns The average bit rate of the composition's media.
      *
      * @return The average bit rate of the composition's media
      */
@@ -386,7 +386,7 @@ public class Composition extends Resource {
     }
 
     /**
-     * Returns The The size of the composed media file in bytes.
+     * Returns The size of the composed media file in bytes.
      *
      * @return The size of the composed media file in bytes
      */
@@ -395,7 +395,7 @@ public class Composition extends Resource {
     }
 
     /**
-     * Returns The The duration of the composition's media file in seconds.
+     * Returns The duration of the composition's media file in seconds.
      *
      * @return The duration of the composition's media file in seconds
      */
@@ -404,7 +404,7 @@ public class Composition extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
      */
@@ -413,7 +413,7 @@ public class Composition extends Resource {
     }
 
     /**
-     * Returns The The URL of the media file associated with the composition.
+     * Returns The URL of the media file associated with the composition.
      *
      * @return The URL of the media file associated with the composition
      */

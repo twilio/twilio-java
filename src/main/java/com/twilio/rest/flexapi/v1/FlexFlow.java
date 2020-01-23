@@ -245,7 +245,7 @@ public class FlexFlow extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -254,7 +254,7 @@ public class FlexFlow extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -263,8 +263,7 @@ public class FlexFlow extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -273,7 +272,7 @@ public class FlexFlow extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -282,7 +281,7 @@ public class FlexFlow extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -291,7 +290,7 @@ public class FlexFlow extends Resource {
     }
 
     /**
-     * Returns The The SID of the chat service.
+     * Returns The SID of the chat service.
      *
      * @return The SID of the chat service
      */
@@ -300,7 +299,7 @@ public class FlexFlow extends Resource {
     }
 
     /**
-     * Returns The The channel type.
+     * Returns The channel type.
      *
      * @return The channel type
      */
@@ -309,7 +308,7 @@ public class FlexFlow extends Resource {
     }
 
     /**
-     * Returns The The channel contact's Identity.
+     * Returns The channel contact's Identity.
      *
      * @return The channel contact's Identity
      */
@@ -318,7 +317,7 @@ public class FlexFlow extends Resource {
     }
 
     /**
-     * Returns The Whether the FlexFlow is enabled.
+     * Returns Whether the FlexFlow is enabled.
      *
      * @return Whether the FlexFlow is enabled
      */
@@ -327,7 +326,7 @@ public class FlexFlow extends Resource {
     }
 
     /**
-     * Returns The The integration type.
+     * Returns The integration type.
      *
      * @return The integration type
      */
@@ -336,7 +335,7 @@ public class FlexFlow extends Resource {
     }
 
     /**
-     * Returns The An object that contains specific parameters for the integration.
+     * Returns An object that contains specific parameters for the integration.
      *
      * @return An object that contains specific parameters for the integration
      */
@@ -345,7 +344,7 @@ public class FlexFlow extends Resource {
     }
 
     /**
-     * Returns The Whether new channels are long-lived.
+     * Returns Whether new channels are long-lived.
      *
      * @return Whether new channels are long-lived
      */
@@ -354,7 +353,7 @@ public class FlexFlow extends Resource {
     }
 
     /**
-     * Returns The Boolean flag for enabling or disabling the Janitor.
+     * Returns Boolean flag for enabling or disabling the Janitor.
      *
      * @return Boolean flag for enabling or disabling the Janitor
      */
@@ -363,7 +362,7 @@ public class FlexFlow extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the FlexFlow resource.
+     * Returns The absolute URL of the FlexFlow resource.
      *
      * @return The absolute URL of the FlexFlow resource
      */

@@ -187,7 +187,7 @@ public class Credential extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -196,7 +196,7 @@ public class Credential extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -205,7 +205,7 @@ public class Credential extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -214,7 +214,7 @@ public class Credential extends Resource {
     }
 
     /**
-     * Returns The The type of push-notification service the credential is for.
+     * Returns The type of push-notification service the credential is for.
      *
      * @return The type of push-notification service the credential is for
      */
@@ -223,7 +223,7 @@ public class Credential extends Resource {
     }
 
     /**
-     * Returns The [APN only] Whether to send the credential to sandbox APNs.
+     * Returns [APN only] Whether to send the credential to sandbox APNs.
      *
      * @return [APN only] Whether to send the credential to sandbox APNs
      */
@@ -232,7 +232,7 @@ public class Credential extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -241,8 +241,7 @@ public class Credential extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -251,7 +250,7 @@ public class Credential extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Credential resource.
+     * Returns The absolute URL of the Credential resource.
      *
      * @return The absolute URL of the Credential resource
      */

@@ -323,7 +323,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -332,7 +332,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The SID of the Address resource associated with the phone number.
+     * Returns The SID of the Address resource associated with the phone number.
      *
      * @return The SID of the Address resource associated with the phone number
      */
@@ -341,8 +341,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The Whether the phone number requires an Address registered with
-     * Twilio..
+     * Returns Whether the phone number requires an Address registered with Twilio..
      *
      * @return Whether the phone number requires an Address registered with Twilio.
      */
@@ -351,7 +350,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The API version used to start a new TwiML session.
+     * Returns The API version used to start a new TwiML session.
      *
      * @return The API version used to start a new TwiML session
      */
@@ -360,7 +359,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The Whether the phone number is new to the Twilio platform.
+     * Returns Whether the phone number is new to the Twilio platform.
      *
      * @return Whether the phone number is new to the Twilio platform
      */
@@ -369,7 +368,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The Indicate if a phone can receive calls or messages.
+     * Returns Indicate if a phone can receive calls or messages.
      *
      * @return Indicate if a phone can receive calls or messages
      */
@@ -378,7 +377,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was created.
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
@@ -387,8 +386,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
@@ -397,7 +395,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -406,7 +404,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The SID of the Identity resource associated with number.
+     * Returns The SID of the Identity resource associated with number.
      *
      * @return The SID of the Identity resource associated with number
      */
@@ -415,7 +413,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The phone number in E.164 format.
+     * Returns The phone number in E.164 format.
      *
      * @return The phone number in E.164 format
      */
@@ -424,7 +422,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The phone number's origin. Can be twilio or hosted..
+     * Returns The phone number's origin. Can be twilio or hosted..
      *
      * @return The phone number's origin. Can be twilio or hosted.
      */
@@ -433,7 +431,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -442,7 +440,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The SID of the application that handles SMS messages sent to the
+     * Returns The SID of the application that handles SMS messages sent to the
      * phone number.
      *
      * @return The SID of the application that handles SMS messages sent to the
@@ -453,7 +451,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The HTTP method used with sms_fallback_url.
+     * Returns The HTTP method used with sms_fallback_url.
      *
      * @return The HTTP method used with sms_fallback_url
      */
@@ -462,7 +460,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The URL that we call when an error occurs while retrieving or
+     * Returns The URL that we call when an error occurs while retrieving or
      * executing the TwiML.
      *
      * @return The URL that we call when an error occurs while retrieving or
@@ -473,7 +471,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The HTTP method to use with sms_url.
+     * Returns The HTTP method to use with sms_url.
      *
      * @return The HTTP method to use with sms_url
      */
@@ -482,7 +480,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The URL we call when the phone number receives an incoming SMS
+     * Returns The URL we call when the phone number receives an incoming SMS
      * message.
      *
      * @return The URL we call when the phone number receives an incoming SMS
@@ -493,7 +491,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The URL to send status information to your application.
+     * Returns The URL to send status information to your application.
      *
      * @return The URL to send status information to your application
      */
@@ -502,7 +500,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The HTTP method we use to call status_callback.
+     * Returns The HTTP method we use to call status_callback.
      *
      * @return The HTTP method we use to call status_callback
      */
@@ -511,7 +509,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The SID of the Trunk that handles calls to the phone number.
+     * Returns The SID of the Trunk that handles calls to the phone number.
      *
      * @return The SID of the Trunk that handles calls to the phone number
      */
@@ -520,7 +518,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
      *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */
@@ -529,8 +527,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The SID of the application that handles calls to the phone
-     * number.
+     * Returns The SID of the application that handles calls to the phone number.
      *
      * @return The SID of the application that handles calls to the phone number
      */
@@ -539,7 +536,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The Whether to lookup the caller's name.
+     * Returns Whether to lookup the caller's name.
      *
      * @return Whether to lookup the caller's name
      */
@@ -548,7 +545,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The HTTP method used with voice_fallback_url.
+     * Returns The HTTP method used with voice_fallback_url.
      *
      * @return The HTTP method used with voice_fallback_url
      */
@@ -557,7 +554,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The URL we call when an error occurs in TwiML.
+     * Returns The URL we call when an error occurs in TwiML.
      *
      * @return The URL we call when an error occurs in TwiML
      */
@@ -566,7 +563,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The HTTP method used with the voice_url.
+     * Returns The HTTP method used with the voice_url.
      *
      * @return The HTTP method used with the voice_url
      */
@@ -575,7 +572,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The URL we call when the phone number receives a call.
+     * Returns The URL we call when the phone number receives a call.
      *
      * @return The URL we call when the phone number receives a call
      */
@@ -584,7 +581,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The Whether the phone number is enabled for emergency calling.
+     * Returns Whether the phone number is enabled for emergency calling.
      *
      * @return Whether the phone number is enabled for emergency calling
      */
@@ -593,7 +590,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The emergency address configuration to use for emergency calling.
+     * Returns The emergency address configuration to use for emergency calling.
      *
      * @return The emergency address configuration to use for emergency calling
      */
@@ -602,7 +599,7 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns The The SID of the Bundle resource associated with number.
+     * Returns The SID of the Bundle resource associated with number.
      *
      * @return The SID of the Bundle resource associated with number
      */

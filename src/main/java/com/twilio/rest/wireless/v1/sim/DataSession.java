@@ -153,7 +153,7 @@ public class DataSession extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -162,7 +162,7 @@ public class DataSession extends Resource {
     }
 
     /**
-     * Returns The The SID of the Sim resource that the Data Session is for.
+     * Returns The SID of the Sim resource that the Data Session is for.
      *
      * @return The SID of the Sim resource that the Data Session is for
      */
@@ -171,7 +171,7 @@ public class DataSession extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -180,7 +180,7 @@ public class DataSession extends Resource {
     }
 
     /**
-     * Returns The The generation of wireless technology that the device was using.
+     * Returns The generation of wireless technology that the device was using.
      *
      * @return The generation of wireless technology that the device was using
      */
@@ -189,8 +189,8 @@ public class DataSession extends Resource {
     }
 
     /**
-     * Returns The The 'mobile country code' is the unique ID of the home country
-     * where the Data Session took place.
+     * Returns The 'mobile country code' is the unique ID of the home country where
+     * the Data Session took place.
      *
      * @return The 'mobile country code' is the unique ID of the home country where
      *         the Data Session took place
@@ -200,7 +200,7 @@ public class DataSession extends Resource {
     }
 
     /**
-     * Returns The The 'mobile network code' is the unique ID specific to the mobile
+     * Returns The 'mobile network code' is the unique ID specific to the mobile
      * operator network where the Data Session took place.
      *
      * @return The 'mobile network code' is the unique ID specific to the mobile
@@ -211,8 +211,8 @@ public class DataSession extends Resource {
     }
 
     /**
-     * Returns The The three letter country code representing where the device's
-     * Data Session took place.
+     * Returns The three letter country code representing where the device's Data
+     * Session took place.
      *
      * @return The three letter country code representing where the device's Data
      *         Session took place
@@ -222,7 +222,7 @@ public class DataSession extends Resource {
     }
 
     /**
-     * Returns The The friendly name of the mobile operator network that the
+     * Returns The friendly name of the mobile operator network that the
      * SIM-connected device is attached to.
      *
      * @return The friendly name of the mobile operator network that the
@@ -233,8 +233,8 @@ public class DataSession extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the cellular tower that the device was attached
-     * to at the moment when the Data Session was last updated.
+     * Returns The unique ID of the cellular tower that the device was attached to
+     * at the moment when the Data Session was last updated.
      *
      * @return The unique ID of the cellular tower that the device was attached to
      *         at the moment when the Data Session was last updated
@@ -244,8 +244,8 @@ public class DataSession extends Resource {
     }
 
     /**
-     * Returns The An object with the estimated location where the device's Data
-     * Session took place.
+     * Returns An object with the estimated location where the device's Data Session
+     * took place.
      *
      * @return An object with the estimated location where the device's Data
      *         Session took place
@@ -255,8 +255,8 @@ public class DataSession extends Resource {
     }
 
     /**
-     * Returns The The number of packets uploaded by the device between the start
-     * time and when the Data Session was last updated.
+     * Returns The number of packets uploaded by the device between the start time
+     * and when the Data Session was last updated.
      *
      * @return The number of packets uploaded by the device between the start time
      *         and when the Data Session was last updated
@@ -266,8 +266,8 @@ public class DataSession extends Resource {
     }
 
     /**
-     * Returns The The number of packets downloaded by the device between the start
-     * time and when the Data Session was last updated.
+     * Returns The number of packets downloaded by the device between the start time
+     * and when the Data Session was last updated.
      *
      * @return The number of packets downloaded by the device between the start
      *         time and when the Data Session was last updated
@@ -277,8 +277,8 @@ public class DataSession extends Resource {
     }
 
     /**
-     * Returns The The date that the resource was last updated, given as GMT in ISO
-     * 8601 format.
+     * Returns The date that the resource was last updated, given as GMT in ISO 8601
+     * format.
      *
      * @return The date that the resource was last updated, given as GMT in ISO
      *         8601 format
@@ -288,7 +288,7 @@ public class DataSession extends Resource {
     }
 
     /**
-     * Returns The The date that the Data Session started, given as GMT in ISO 8601
+     * Returns The date that the Data Session started, given as GMT in ISO 8601
      * format.
      *
      * @return The date that the Data Session started, given as GMT in ISO 8601
@@ -299,7 +299,7 @@ public class DataSession extends Resource {
     }
 
     /**
-     * Returns The The date that the record ended, given as GMT in ISO 8601 format.
+     * Returns The date that the record ended, given as GMT in ISO 8601 format.
      *
      * @return The date that the record ended, given as GMT in ISO 8601 format
      */
@@ -308,7 +308,7 @@ public class DataSession extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the device using the SIM to connect.
+     * Returns The unique ID of the device using the SIM to connect.
      *
      * @return The unique ID of the device using the SIM to connect
      */

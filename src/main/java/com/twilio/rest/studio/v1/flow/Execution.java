@@ -199,7 +199,7 @@ public class Execution extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -208,7 +208,7 @@ public class Execution extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -217,7 +217,7 @@ public class Execution extends Resource {
     }
 
     /**
-     * Returns The The SID of the Flow.
+     * Returns The SID of the Flow.
      *
      * @return The SID of the Flow
      */
@@ -226,7 +226,7 @@ public class Execution extends Resource {
     }
 
     /**
-     * Returns The The SID of the Contact.
+     * Returns The SID of the Contact.
      *
      * @return The SID of the Contact
      */
@@ -235,8 +235,8 @@ public class Execution extends Resource {
     }
 
     /**
-     * Returns The The phone number, SIP address or Client identifier that triggered
-     * the Execution.
+     * Returns The phone number, SIP address or Client identifier that triggered the
+     * Execution.
      *
      * @return The phone number, SIP address or Client identifier that triggered
      *         the Execution
@@ -246,7 +246,7 @@ public class Execution extends Resource {
     }
 
     /**
-     * Returns The The current state of the flow.
+     * Returns The current state of the flow.
      *
      * @return The current state of the flow
      */
@@ -255,7 +255,7 @@ public class Execution extends Resource {
     }
 
     /**
-     * Returns The The status of the Execution.
+     * Returns The status of the Execution.
      *
      * @return The status of the Execution
      */
@@ -264,7 +264,7 @@ public class Execution extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -273,8 +273,7 @@ public class Execution extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -283,7 +282,7 @@ public class Execution extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
      */
@@ -292,7 +291,7 @@ public class Execution extends Resource {
     }
 
     /**
-     * Returns The Nested resource URLs.
+     * Returns Nested resource URLs.
      *
      * @return Nested resource URLs
      */

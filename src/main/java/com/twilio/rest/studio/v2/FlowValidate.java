@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -73,7 +74,7 @@ public class FlowValidate extends Resource {
      */
     public static FlowValidateUpdater updater(final String friendlyName,
                                               final FlowValidate.Status status,
-                                              final String definition) {
+                                              final Map<String, Object> definition) {
         return new FlowValidateUpdater(friendlyName, status, definition);
     }
 
@@ -124,7 +125,7 @@ public class FlowValidate extends Resource {
     }
 
     /**
-     * Returns The The valid.
+     * Returns The valid.
      *
      * @return The valid
      */

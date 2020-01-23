@@ -187,7 +187,7 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Device..
+     * Returns A string that uniquely identifies this Device..
      *
      * @return A string that uniquely identifies this Device.
      */
@@ -196,7 +196,7 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The URL of this Device..
+     * Returns URL of this Device..
      *
      * @return URL of this Device.
      */
@@ -205,7 +205,7 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The A unique, addressable name of this Device..
+     * Returns A unique, addressable name of this Device..
      *
      * @return A unique, addressable name of this Device.
      */
@@ -214,7 +214,7 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The A human readable description for this Device.
+     * Returns A human readable description for this Device.
      *
      * @return A human readable description for this Device
      */
@@ -223,7 +223,7 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The The unique identifier of the Fleet..
+     * Returns The unique identifier of the Fleet..
      *
      * @return The unique identifier of the Fleet.
      */
@@ -232,7 +232,7 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The Device enabled flag..
+     * Returns Device enabled flag..
      *
      * @return Device enabled flag.
      */
@@ -241,7 +241,7 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The The unique SID that identifies this Account..
+     * Returns The unique SID that identifies this Account..
      *
      * @return The unique SID that identifies this Account.
      */
@@ -250,7 +250,7 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The An identifier of the Device user..
+     * Returns An identifier of the Device user..
      *
      * @return An identifier of the Device user.
      */
@@ -259,7 +259,7 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The The unique SID of the Deployment group..
+     * Returns The unique SID of the Deployment group..
      *
      * @return The unique SID of the Deployment group.
      */
@@ -268,7 +268,7 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The The date this Device was created..
+     * Returns The date this Device was created..
      *
      * @return The date this Device was created.
      */
@@ -277,7 +277,7 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The The date this Device was updated..
+     * Returns The date this Device was updated..
      *
      * @return The date this Device was updated.
      */
@@ -286,7 +286,7 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The The date this Device was authenticated..
+     * Returns The date this Device was authenticated..
      *
      * @return The date this Device was authenticated.
      */

@@ -181,7 +181,7 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this Field Value..
+     * Returns The unique ID of the Account that created this Field Value..
      *
      * @return The unique ID of the Account that created this Field Value.
      */
@@ -190,7 +190,7 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was created.
+     * Returns The date that this resource was created.
      *
      * @return The date that this resource was created
      */
@@ -199,7 +199,7 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was last updated.
+     * Returns The date that this resource was last updated.
      *
      * @return The date that this resource was last updated
      */
@@ -208,8 +208,7 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Field Type associated with this Field
-     * Value..
+     * Returns The unique ID of the Field Type associated with this Field Value..
      *
      * @return The unique ID of the Field Type associated with this Field Value.
      */
@@ -218,7 +217,7 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns The An ISO language-country string of the value..
+     * Returns An ISO language-country string of the value..
      *
      * @return An ISO language-country string of the value.
      */
@@ -227,7 +226,7 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Assistant..
+     * Returns The unique ID of the Assistant..
      *
      * @return The unique ID of the Assistant.
      */
@@ -236,7 +235,7 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns A 34 character string that uniquely identifies this resource..
      *
      * @return A 34 character string that uniquely identifies this resource.
      */
@@ -245,7 +244,7 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns The The Field Value itself..
+     * Returns The Field Value itself..
      *
      * @return The Field Value itself.
      */
@@ -254,7 +253,7 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The url.
      *
      * @return The url
      */
@@ -263,8 +262,8 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns The A value that indicates this field value is a synonym of. Empty if
-     * the value is not a synonym..
+     * Returns A value that indicates this field value is a synonym of. Empty if the
+     * value is not a synonym..
      *
      * @return A value that indicates this field value is a synonym of. Empty if
      *         the value is not a synonym.

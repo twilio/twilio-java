@@ -42,7 +42,7 @@ public class Day extends Resource {
     /**
      * Create a DayReader to execute read.
      *
-     * @param pathResourceType The resource_type
+     * @param pathResourceType The type of communication – Messages, Calls
      * @return DayReader capable of executing the read
      */
     public static DayReader reader(final String pathResourceType) {
@@ -107,7 +107,7 @@ public class Day extends Resource {
     }
 
     /**
-     * Returns The The redirect_to.
+     * Returns The redirect_to.
      *
      * @return The redirect_to
      */
@@ -116,27 +116,27 @@ public class Day extends Resource {
     }
 
     /**
-     * Returns The The day.
+     * Returns The date of the data in the file.
      *
-     * @return The day
+     * @return The date of the data in the file
      */
     public final String getDay() {
         return this.day;
     }
 
     /**
-     * Returns The The size.
+     * Returns Size of the file in bytes.
      *
-     * @return The size
+     * @return Size of the file in bytes
      */
     public final Integer getSize() {
         return this.size;
     }
 
     /**
-     * Returns The The resource_type.
+     * Returns The type of communication – Messages, Calls.
      *
-     * @return The resource_type
+     * @return The type of communication – Messages, Calls
      */
     public final String getResourceType() {
         return this.resourceType;

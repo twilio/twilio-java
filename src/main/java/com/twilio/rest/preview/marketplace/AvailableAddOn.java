@@ -130,7 +130,7 @@ public class AvailableAddOn extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -139,7 +139,7 @@ public class AvailableAddOn extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -148,7 +148,7 @@ public class AvailableAddOn extends Resource {
     }
 
     /**
-     * Returns The A short description of the Add-on's functionality.
+     * Returns A short description of the Add-on's functionality.
      *
      * @return A short description of the Add-on's functionality
      */
@@ -157,7 +157,7 @@ public class AvailableAddOn extends Resource {
     }
 
     /**
-     * Returns The How customers are charged for using this Add-on.
+     * Returns How customers are charged for using this Add-on.
      *
      * @return How customers are charged for using this Add-on
      */
@@ -166,7 +166,7 @@ public class AvailableAddOn extends Resource {
     }
 
     /**
-     * Returns The The JSON object with the configuration that must be provided when
+     * Returns The JSON object with the configuration that must be provided when
      * installing a given Add-on.
      *
      * @return The JSON object with the configuration that must be provided when
@@ -177,7 +177,7 @@ public class AvailableAddOn extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
      */
@@ -186,7 +186,7 @@ public class AvailableAddOn extends Resource {
     }
 
     /**
-     * Returns The The URLs of related resources.
+     * Returns The URLs of related resources.
      *
      * @return The URLs of related resources
      */

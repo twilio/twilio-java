@@ -223,7 +223,7 @@ public class CompositionHook extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -232,7 +232,7 @@ public class CompositionHook extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -241,7 +241,7 @@ public class CompositionHook extends Resource {
     }
 
     /**
-     * Returns The Whether the CompositionHook is active.
+     * Returns Whether the CompositionHook is active.
      *
      * @return Whether the CompositionHook is active
      */
@@ -250,7 +250,7 @@ public class CompositionHook extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -259,8 +259,7 @@ public class CompositionHook extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -269,7 +268,7 @@ public class CompositionHook extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -278,8 +277,8 @@ public class CompositionHook extends Resource {
     }
 
     /**
-     * Returns The The array of track names to include in the compositions created
-     * by the composition hook.
+     * Returns The array of track names to include in the compositions created by
+     * the composition hook.
      *
      * @return The array of track names to include in the compositions created by
      *         the composition hook
@@ -289,8 +288,8 @@ public class CompositionHook extends Resource {
     }
 
     /**
-     * Returns The The array of track names to exclude from the compositions created
-     * by the composition hook.
+     * Returns The array of track names to exclude from the compositions created by
+     * the composition hook.
      *
      * @return The array of track names to exclude from the compositions created by
      *         the composition hook
@@ -300,7 +299,7 @@ public class CompositionHook extends Resource {
     }
 
     /**
-     * Returns The A JSON object that describes the video layout of the Composition.
+     * Returns A JSON object that describes the video layout of the Composition.
      *
      * @return A JSON object that describes the video layout of the Composition
      */
@@ -309,7 +308,7 @@ public class CompositionHook extends Resource {
     }
 
     /**
-     * Returns The The dimensions of the video image in pixels expressed as columns
+     * Returns The dimensions of the video image in pixels expressed as columns
      * (width) and rows (height).
      *
      * @return The dimensions of the video image in pixels expressed as columns
@@ -320,7 +319,7 @@ public class CompositionHook extends Resource {
     }
 
     /**
-     * Returns The Whether intervals with no media are clipped.
+     * Returns Whether intervals with no media are clipped.
      *
      * @return Whether intervals with no media are clipped
      */
@@ -329,7 +328,7 @@ public class CompositionHook extends Resource {
     }
 
     /**
-     * Returns The The container format of the media files used by the compositions
+     * Returns The container format of the media files used by the compositions
      * created by the composition hook.
      *
      * @return The container format of the media files used by the compositions
@@ -340,7 +339,7 @@ public class CompositionHook extends Resource {
     }
 
     /**
-     * Returns The The URL to send status information to your application.
+     * Returns The URL to send status information to your application.
      *
      * @return The URL to send status information to your application
      */
@@ -349,7 +348,7 @@ public class CompositionHook extends Resource {
     }
 
     /**
-     * Returns The The HTTP method we should use to call status_callback.
+     * Returns The HTTP method we should use to call status_callback.
      *
      * @return The HTTP method we should use to call status_callback
      */
@@ -358,7 +357,7 @@ public class CompositionHook extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
      */

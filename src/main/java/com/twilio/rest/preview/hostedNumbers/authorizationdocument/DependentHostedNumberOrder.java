@@ -241,7 +241,7 @@ public class DependentHostedNumberOrder extends Resource {
     }
 
     /**
-     * Returns The HostedNumberOrder sid..
+     * Returns HostedNumberOrder sid..
      *
      * @return HostedNumberOrder sid.
      */
@@ -250,7 +250,7 @@ public class DependentHostedNumberOrder extends Resource {
     }
 
     /**
-     * Returns The Account sid..
+     * Returns Account sid..
      *
      * @return Account sid.
      */
@@ -259,7 +259,7 @@ public class DependentHostedNumberOrder extends Resource {
     }
 
     /**
-     * Returns The IncomingPhoneNumber sid..
+     * Returns IncomingPhoneNumber sid..
      *
      * @return IncomingPhoneNumber sid.
      */
@@ -268,7 +268,7 @@ public class DependentHostedNumberOrder extends Resource {
     }
 
     /**
-     * Returns The Address sid..
+     * Returns Address sid..
      *
      * @return Address sid.
      */
@@ -277,7 +277,7 @@ public class DependentHostedNumberOrder extends Resource {
     }
 
     /**
-     * Returns The LOA document sid..
+     * Returns LOA document sid..
      *
      * @return LOA document sid.
      */
@@ -286,7 +286,7 @@ public class DependentHostedNumberOrder extends Resource {
     }
 
     /**
-     * Returns The An E164 formatted phone number..
+     * Returns An E164 formatted phone number..
      *
      * @return An E164 formatted phone number.
      */
@@ -295,7 +295,7 @@ public class DependentHostedNumberOrder extends Resource {
     }
 
     /**
-     * Returns The A mapping of phone number capabilities..
+     * Returns A mapping of phone number capabilities..
      *
      * @return A mapping of phone number capabilities.
      */
@@ -304,7 +304,7 @@ public class DependentHostedNumberOrder extends Resource {
     }
 
     /**
-     * Returns The A human readable description of this resource..
+     * Returns A human readable description of this resource..
      *
      * @return A human readable description of this resource.
      */
@@ -313,7 +313,7 @@ public class DependentHostedNumberOrder extends Resource {
     }
 
     /**
-     * Returns The A unique, developer assigned name of this HostedNumberOrder..
+     * Returns A unique, developer assigned name of this HostedNumberOrder..
      *
      * @return A unique, developer assigned name of this HostedNumberOrder.
      */
@@ -322,7 +322,7 @@ public class DependentHostedNumberOrder extends Resource {
     }
 
     /**
-     * Returns The The Status of this HostedNumberOrder..
+     * Returns The Status of this HostedNumberOrder..
      *
      * @return The Status of this HostedNumberOrder.
      */
@@ -331,7 +331,7 @@ public class DependentHostedNumberOrder extends Resource {
     }
 
     /**
-     * Returns The Why a hosted_number_order reached status "action-required".
+     * Returns Why a hosted_number_order reached status "action-required".
      *
      * @return Why a hosted_number_order reached status "action-required"
      */
@@ -340,7 +340,7 @@ public class DependentHostedNumberOrder extends Resource {
     }
 
     /**
-     * Returns The The date this HostedNumberOrder was created..
+     * Returns The date this HostedNumberOrder was created..
      *
      * @return The date this HostedNumberOrder was created.
      */
@@ -349,7 +349,7 @@ public class DependentHostedNumberOrder extends Resource {
     }
 
     /**
-     * Returns The The date this HostedNumberOrder was updated..
+     * Returns The date this HostedNumberOrder was updated..
      *
      * @return The date this HostedNumberOrder was updated.
      */
@@ -358,8 +358,7 @@ public class DependentHostedNumberOrder extends Resource {
     }
 
     /**
-     * Returns The The number of attempts made to verify ownership of the phone
-     * number..
+     * Returns The number of attempts made to verify ownership of the phone number..
      *
      * @return The number of attempts made to verify ownership of the phone number.
      */
@@ -368,7 +367,7 @@ public class DependentHostedNumberOrder extends Resource {
     }
 
     /**
-     * Returns The Email..
+     * Returns Email..
      *
      * @return Email.
      */
@@ -377,7 +376,7 @@ public class DependentHostedNumberOrder extends Resource {
     }
 
     /**
-     * Returns The A list of emails..
+     * Returns A list of emails..
      *
      * @return A list of emails.
      */
@@ -386,8 +385,7 @@ public class DependentHostedNumberOrder extends Resource {
     }
 
     /**
-     * Returns The The method used for verifying ownership of the number to be
-     * hosted..
+     * Returns The method used for verifying ownership of the number to be hosted..
      *
      * @return The method used for verifying ownership of the number to be hosted.
      */
@@ -396,7 +394,7 @@ public class DependentHostedNumberOrder extends Resource {
     }
 
     /**
-     * Returns The Verification Document Sid..
+     * Returns Verification Document Sid..
      *
      * @return Verification Document Sid.
      */
@@ -405,7 +403,7 @@ public class DependentHostedNumberOrder extends Resource {
     }
 
     /**
-     * Returns The Phone extension to use for ownership verification call..
+     * Returns Phone extension to use for ownership verification call..
      *
      * @return Phone extension to use for ownership verification call.
      */
@@ -414,7 +412,7 @@ public class DependentHostedNumberOrder extends Resource {
     }
 
     /**
-     * Returns The Seconds (0-30) to delay ownership verification call by..
+     * Returns Seconds (0-30) to delay ownership verification call by..
      *
      * @return Seconds (0-30) to delay ownership verification call by.
      */
@@ -423,7 +421,7 @@ public class DependentHostedNumberOrder extends Resource {
     }
 
     /**
-     * Returns The The digits passed during the ownership verification call..
+     * Returns The digits passed during the ownership verification call..
      *
      * @return The digits passed during the ownership verification call.
      */
@@ -432,7 +430,7 @@ public class DependentHostedNumberOrder extends Resource {
     }
 
     /**
-     * Returns The List of IDs for ownership verification calls..
+     * Returns List of IDs for ownership verification calls..
      *
      * @return List of IDs for ownership verification calls.
      */

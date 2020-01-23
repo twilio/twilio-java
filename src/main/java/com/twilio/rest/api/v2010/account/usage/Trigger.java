@@ -583,7 +583,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that this trigger monitors.
+     * Returns The SID of the Account that this trigger monitors.
      *
      * @return The SID of the Account that this trigger monitors
      */
@@ -592,7 +592,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The API version used to create the resource.
+     * Returns The API version used to create the resource.
      *
      * @return The API version used to create the resource
      */
@@ -601,7 +601,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The HTTP method we use to call callback_url.
+     * Returns The HTTP method we use to call callback_url.
      *
      * @return The HTTP method we use to call callback_url
      */
@@ -610,7 +610,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The he URL we call when the trigger fires.
+     * Returns he URL we call when the trigger fires.
      *
      * @return he URL we call when the trigger fires
      */
@@ -619,7 +619,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The current value of the field the trigger is watching.
+     * Returns The current value of the field the trigger is watching.
      *
      * @return The current value of the field the trigger is watching
      */
@@ -628,7 +628,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was created.
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
@@ -637,8 +637,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the trigger was last
-     * fired.
+     * Returns The RFC 2822 date and time in GMT that the trigger was last fired.
      *
      * @return The RFC 2822 date and time in GMT that the trigger was last fired
      */
@@ -647,8 +646,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
@@ -657,7 +655,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the trigger.
+     * Returns The string that you assigned to describe the trigger.
      *
      * @return The string that you assigned to describe the trigger
      */
@@ -666,7 +664,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The frequency of a recurring UsageTrigger.
+     * Returns The frequency of a recurring UsageTrigger.
      *
      * @return The frequency of a recurring UsageTrigger
      */
@@ -675,7 +673,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -684,7 +682,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The field in the UsageRecord resource that fires the trigger.
+     * Returns The field in the UsageRecord resource that fires the trigger.
      *
      * @return The field in the UsageRecord resource that fires the trigger
      */
@@ -693,7 +691,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The value at which the trigger will fire.
+     * Returns The value at which the trigger will fire.
      *
      * @return The value at which the trigger will fire
      */
@@ -702,7 +700,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
      *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */
@@ -711,7 +709,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The usage category the trigger watches.
+     * Returns The usage category the trigger watches.
      *
      * @return The usage category the trigger watches
      */
@@ -720,7 +718,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The URI of the UsageRecord resource this trigger watches.
+     * Returns The URI of the UsageRecord resource this trigger watches.
      *
      * @return The URI of the UsageRecord resource this trigger watches
      */

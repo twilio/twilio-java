@@ -270,7 +270,7 @@ public class Interaction extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -279,7 +279,7 @@ public class Interaction extends Resource {
     }
 
     /**
-     * Returns The The SID of the resource's parent Session.
+     * Returns The SID of the resource's parent Session.
      *
      * @return The SID of the resource's parent Session
      */
@@ -288,7 +288,7 @@ public class Interaction extends Resource {
     }
 
     /**
-     * Returns The The SID of the resource's parent Service.
+     * Returns The SID of the resource's parent Service.
      *
      * @return The SID of the resource's parent Service
      */
@@ -297,7 +297,7 @@ public class Interaction extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -306,8 +306,7 @@ public class Interaction extends Resource {
     }
 
     /**
-     * Returns The A JSON string that includes the message body of message
-     * interactions.
+     * Returns A JSON string that includes the message body of message interactions.
      *
      * @return A JSON string that includes the message body of message interactions
      */
@@ -316,7 +315,7 @@ public class Interaction extends Resource {
     }
 
     /**
-     * Returns The The Type of the Interaction.
+     * Returns The Type of the Interaction.
      *
      * @return The Type of the Interaction
      */
@@ -325,7 +324,7 @@ public class Interaction extends Resource {
     }
 
     /**
-     * Returns The The SID of the inbound Participant resource.
+     * Returns The SID of the inbound Participant resource.
      *
      * @return The SID of the inbound Participant resource
      */
@@ -334,7 +333,7 @@ public class Interaction extends Resource {
     }
 
     /**
-     * Returns The The SID of the inbound resource.
+     * Returns The SID of the inbound resource.
      *
      * @return The SID of the inbound resource
      */
@@ -343,7 +342,7 @@ public class Interaction extends Resource {
     }
 
     /**
-     * Returns The The inbound resource status of the Interaction.
+     * Returns The inbound resource status of the Interaction.
      *
      * @return The inbound resource status of the Interaction
      */
@@ -352,7 +351,7 @@ public class Interaction extends Resource {
     }
 
     /**
-     * Returns The The inbound resource type.
+     * Returns The inbound resource type.
      *
      * @return The inbound resource type
      */
@@ -361,7 +360,7 @@ public class Interaction extends Resource {
     }
 
     /**
-     * Returns The The URL of the Twilio inbound resource.
+     * Returns The URL of the Twilio inbound resource.
      *
      * @return The URL of the Twilio inbound resource
      */
@@ -370,7 +369,7 @@ public class Interaction extends Resource {
     }
 
     /**
-     * Returns The The SID of the outbound Participant.
+     * Returns The SID of the outbound Participant.
      *
      * @return The SID of the outbound Participant
      */
@@ -379,7 +378,7 @@ public class Interaction extends Resource {
     }
 
     /**
-     * Returns The The SID of the outbound resource.
+     * Returns The SID of the outbound resource.
      *
      * @return The SID of the outbound resource
      */
@@ -388,7 +387,7 @@ public class Interaction extends Resource {
     }
 
     /**
-     * Returns The The outbound resource status of the Interaction.
+     * Returns The outbound resource status of the Interaction.
      *
      * @return The outbound resource status of the Interaction
      */
@@ -397,7 +396,7 @@ public class Interaction extends Resource {
     }
 
     /**
-     * Returns The The outbound resource type.
+     * Returns The outbound resource type.
      *
      * @return The outbound resource type
      */
@@ -406,7 +405,7 @@ public class Interaction extends Resource {
     }
 
     /**
-     * Returns The The URL of the Twilio outbound resource.
+     * Returns The URL of the Twilio outbound resource.
      *
      * @return The URL of the Twilio outbound resource
      */
@@ -415,8 +414,7 @@ public class Interaction extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Interaction was
-     * created.
+     * Returns The ISO 8601 date and time in GMT when the Interaction was created.
      *
      * @return The ISO 8601 date and time in GMT when the Interaction was created
      */
@@ -425,8 +423,7 @@ public class Interaction extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -435,7 +432,7 @@ public class Interaction extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Interaction resource.
+     * Returns The absolute URL of the Interaction resource.
      *
      * @return The absolute URL of the Interaction resource
      */

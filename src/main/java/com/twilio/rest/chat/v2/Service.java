@@ -221,7 +221,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -230,7 +230,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -239,7 +239,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -248,7 +248,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -257,8 +257,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -267,7 +266,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The service role assigned to users when they are added to the
+     * Returns The service role assigned to users when they are added to the
      * service.
      *
      * @return The service role assigned to users when they are added to the service
@@ -277,8 +276,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The channel role assigned to users when they are added to a
-     * channel.
+     * Returns The channel role assigned to users when they are added to a channel.
      *
      * @return The channel role assigned to users when they are added to a channel
      */
@@ -287,8 +285,8 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The channel role assigned to a channel creator when they join a
-     * new channel.
+     * Returns The channel role assigned to a channel creator when they join a new
+     * channel.
      *
      * @return The channel role assigned to a channel creator when they join a new
      *         channel
@@ -298,7 +296,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Whether the Message Consumption Horizon feature is enabled.
+     * Returns Whether the Message Consumption Horizon feature is enabled.
      *
      * @return Whether the Message Consumption Horizon feature is enabled
      */
@@ -307,7 +305,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Whether the Reachability Indicator feature is enabled for this
+     * Returns Whether the Reachability Indicator feature is enabled for this
      * Service instance.
      *
      * @return Whether the Reachability Indicator feature is enabled for this
@@ -318,7 +316,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The How long in seconds to wait before assuming the user is no longer
+     * Returns How long in seconds to wait before assuming the user is no longer
      * typing.
      *
      * @return How long in seconds to wait before assuming the user is no longer
@@ -329,7 +327,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The DEPRECATED.
+     * Returns DEPRECATED.
      *
      * @return DEPRECATED
      */
@@ -338,7 +336,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The An object that describes the limits of the service instance.
+     * Returns An object that describes the limits of the service instance.
      *
      * @return An object that describes the limits of the service instance
      */
@@ -347,7 +345,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The webhook URL for pre-event webhooks.
+     * Returns The webhook URL for pre-event webhooks.
      *
      * @return The webhook URL for pre-event webhooks
      */
@@ -356,7 +354,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The URL for post-event webhooks.
+     * Returns The URL for post-event webhooks.
      *
      * @return The URL for post-event webhooks
      */
@@ -365,7 +363,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The HTTP method  to use for both PRE and POST webhooks.
+     * Returns The HTTP method  to use for both PRE and POST webhooks.
      *
      * @return The HTTP method  to use for both PRE and POST webhooks
      */
@@ -374,7 +372,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The list of webhook events that are enabled for this Service
+     * Returns The list of webhook events that are enabled for this Service
      * instance.
      *
      * @return The list of webhook events that are enabled for this Service instance
@@ -384,7 +382,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Count of times webhook will be retried in case of timeout or
+     * Returns Count of times webhook will be retried in case of timeout or
      * 429/503/504 HTTP responses.
      *
      * @return Count of times webhook will be retried in case of timeout or
@@ -395,8 +393,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The number of times calls to the `post_webhook_url` will be
-     * retried.
+     * Returns The number of times calls to the `post_webhook_url` will be retried.
      *
      * @return The number of times calls to the `post_webhook_url` will be retried
      */
@@ -405,7 +402,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The notification configuration for the Service instance.
+     * Returns The notification configuration for the Service instance.
      *
      * @return The notification configuration for the Service instance
      */
@@ -414,7 +411,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The properties of the media that the service supports.
+     * Returns The properties of the media that the service supports.
      *
      * @return The properties of the media that the service supports
      */
@@ -423,7 +420,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Service resource.
+     * Returns The absolute URL of the Service resource.
      *
      * @return The absolute URL of the Service resource
      */
@@ -432,7 +429,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The absolute URLs of the Service's Channels, Roles, and Users.
+     * Returns The absolute URLs of the Service's Channels, Roles, and Users.
      *
      * @return The absolute URLs of the Service's Channels, Roles, and Users
      */

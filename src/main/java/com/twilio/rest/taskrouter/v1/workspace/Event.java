@@ -169,7 +169,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -178,7 +178,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The SID of the resource that triggered the event.
+     * Returns The SID of the resource that triggered the event.
      *
      * @return The SID of the resource that triggered the event
      */
@@ -187,7 +187,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The type of resource that triggered the event.
+     * Returns The type of resource that triggered the event.
      *
      * @return The type of resource that triggered the event
      */
@@ -196,7 +196,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource that triggered the event.
+     * Returns The absolute URL of the resource that triggered the event.
      *
      * @return The absolute URL of the resource that triggered the event
      */
@@ -205,7 +205,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The A description of the event.
+     * Returns A description of the event.
      *
      * @return A description of the event
      */
@@ -214,7 +214,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The Data about the event.
+     * Returns Data about the event.
      *
      * @return Data about the event
      */
@@ -223,7 +223,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The time the event was sent.
+     * Returns The time the event was sent.
      *
      * @return The time the event was sent
      */
@@ -232,7 +232,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The time the event was sent in milliseconds.
+     * Returns The time the event was sent in milliseconds.
      *
      * @return The time the event was sent in milliseconds
      */
@@ -241,7 +241,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The identifier for the event.
+     * Returns The identifier for the event.
      *
      * @return The identifier for the event
      */
@@ -250,7 +250,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The SID of the object the event is most relevant to.
+     * Returns The SID of the object the event is most relevant to.
      *
      * @return The SID of the object the event is most relevant to
      */
@@ -259,7 +259,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The type of object the event is most relevant to.
+     * Returns The type of object the event is most relevant to.
      *
      * @return The type of object the event is most relevant to
      */
@@ -268,7 +268,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The URL of the resource the event is most relevant to.
+     * Returns The URL of the resource the event is most relevant to.
      *
      * @return The URL of the resource the event is most relevant to
      */
@@ -277,7 +277,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -286,7 +286,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The Where the Event originated.
+     * Returns Where the Event originated.
      *
      * @return Where the Event originated
      */
@@ -295,7 +295,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The IP from which the Event originated.
+     * Returns The IP from which the Event originated.
      *
      * @return The IP from which the Event originated
      */
@@ -304,7 +304,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Event resource.
+     * Returns The absolute URL of the Event resource.
      *
      * @return The absolute URL of the Event resource
      */
@@ -313,7 +313,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The SID of the Workspace that contains the Event.
+     * Returns The SID of the Workspace that contains the Event.
      *
      * @return The SID of the Workspace that contains the Event
      */

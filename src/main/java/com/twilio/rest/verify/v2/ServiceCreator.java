@@ -25,6 +25,7 @@ public class ServiceCreator extends Creator<Service> {
     private Boolean dtmfInputRequired;
     private String ttsName;
     private Boolean psd2Enabled;
+    private Boolean doNotShareWarningEnabled;
 
     /**
      * Construct a new ServiceCreator.
@@ -111,6 +112,19 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
+     * Whether to add a privacy warning at the end of an SMS. **Disabled by default
+     * and applies only for SMS.**.
+     *
+     * @param doNotShareWarningEnabled Whether to add a privacy warning at the end
+     *                                 of an SMS.
+     * @return this
+     */
+    public ServiceCreator setDoNotShareWarningEnabled(final Boolean doNotShareWarningEnabled) {
+        this.doNotShareWarningEnabled = doNotShareWarningEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -181,6 +195,10 @@ public class ServiceCreator extends Creator<Service> {
 
         if (psd2Enabled != null) {
             request.addPostParam("Psd2Enabled", psd2Enabled.toString());
+        }
+
+        if (doNotShareWarningEnabled != null) {
+            request.addPostParam("DoNotShareWarningEnabled", doNotShareWarningEnabled.toString());
         }
     }
 }

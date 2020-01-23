@@ -103,7 +103,7 @@ public class Call extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The sid.
      *
      * @return The sid
      */
@@ -112,7 +112,7 @@ public class Call extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The url.
      *
      * @return The url
      */
@@ -121,7 +121,7 @@ public class Call extends Resource {
     }
 
     /**
-     * Returns The The links.
+     * Returns The links.
      *
      * @return The links
      */

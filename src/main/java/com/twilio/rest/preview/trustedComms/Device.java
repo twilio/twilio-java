@@ -109,7 +109,7 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The Binding Sid..
+     * Returns Binding Sid..
      *
      * @return Binding Sid.
      */
@@ -118,7 +118,7 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The The end user Phone Number.
+     * Returns The end user Phone Number.
      *
      * @return The end user Phone Number
      */
@@ -127,7 +127,7 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Device..
+     * Returns A string that uniquely identifies this Device..
      *
      * @return A string that uniquely identifies this Device.
      */
@@ -136,7 +136,7 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The URL of this resource..
      *
      * @return The URL of this resource.
      */

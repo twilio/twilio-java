@@ -183,7 +183,7 @@ public class WebChannel extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource and owns this
+     * Returns The SID of the Account that created the resource and owns this
      * Workflow.
      *
      * @return The SID of the Account that created the resource and owns this
@@ -194,7 +194,7 @@ public class WebChannel extends Resource {
     }
 
     /**
-     * Returns The The SID of the FlexFlow.
+     * Returns The SID of the FlexFlow.
      *
      * @return The SID of the FlexFlow
      */
@@ -203,7 +203,7 @@ public class WebChannel extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the WebChannel resource.
+     * Returns The unique string that identifies the WebChannel resource.
      *
      * @return The unique string that identifies the WebChannel resource
      */
@@ -212,7 +212,7 @@ public class WebChannel extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the WebChannel resource.
+     * Returns The absolute URL of the WebChannel resource.
      *
      * @return The absolute URL of the WebChannel resource
      */
@@ -221,7 +221,7 @@ public class WebChannel extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -230,8 +230,7 @@ public class WebChannel extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */

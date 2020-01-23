@@ -189,7 +189,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The sid.
      *
      * @return The sid
      */
@@ -198,7 +198,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The unique_name.
+     * Returns The unique_name.
      *
      * @return The unique_name
      */
@@ -207,7 +207,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The account_sid.
      *
      * @return The account_sid
      */
@@ -216,7 +216,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The friendly_name.
      *
      * @return The friendly_name
      */
@@ -225,7 +225,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The data_enabled.
+     * Returns The data_enabled.
      *
      * @return The data_enabled
      */
@@ -234,7 +234,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The data_metering.
+     * Returns The data_metering.
      *
      * @return The data_metering
      */
@@ -243,7 +243,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The data_limit.
+     * Returns The data_limit.
      *
      * @return The data_limit
      */
@@ -252,7 +252,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The messaging_enabled.
+     * Returns The messaging_enabled.
      *
      * @return The messaging_enabled
      */
@@ -261,7 +261,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The voice_enabled.
+     * Returns The voice_enabled.
      *
      * @return The voice_enabled
      */
@@ -270,7 +270,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The national_roaming_enabled.
+     * Returns The national_roaming_enabled.
      *
      * @return The national_roaming_enabled
      */
@@ -279,7 +279,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The international_roaming.
+     * Returns The international_roaming.
      *
      * @return The international_roaming
      */
@@ -288,7 +288,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The date_created.
      *
      * @return The date_created
      */
@@ -297,7 +297,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The date_updated.
      *
      * @return The date_updated
      */
@@ -306,7 +306,7 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The url.
      *
      * @return The url
      */

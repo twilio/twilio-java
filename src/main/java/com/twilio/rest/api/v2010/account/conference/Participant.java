@@ -302,7 +302,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -311,7 +311,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The SID of the Call the resource is associated with.
+     * Returns The SID of the Call the resource is associated with.
      *
      * @return The SID of the Call the resource is associated with
      */
@@ -320,7 +320,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The SID of the participant who is being `coached`.
+     * Returns The SID of the participant who is being `coached`.
      *
      * @return The SID of the participant who is being `coached`
      */
@@ -329,7 +329,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The Indicates if the participant changed to coach.
+     * Returns Indicates if the participant changed to coach.
      *
      * @return Indicates if the participant changed to coach
      */
@@ -338,7 +338,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The SID of the conference the participant is in.
+     * Returns The SID of the conference the participant is in.
      *
      * @return The SID of the conference the participant is in
      */
@@ -347,7 +347,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was created.
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
@@ -356,8 +356,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
@@ -366,7 +365,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The Whether the conference ends when the participant leaves.
+     * Returns Whether the conference ends when the participant leaves.
      *
      * @return Whether the conference ends when the participant leaves
      */
@@ -375,7 +374,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The Whether the participant is muted.
+     * Returns Whether the participant is muted.
      *
      * @return Whether the participant is muted
      */
@@ -384,7 +383,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The Whether the participant is on hold.
+     * Returns Whether the participant is on hold.
      *
      * @return Whether the participant is on hold
      */
@@ -393,7 +392,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The Whether the conference starts when the participant joins the
+     * Returns Whether the conference starts when the participant joins the
      * conference.
      *
      * @return Whether the conference starts when the participant joins the
@@ -404,7 +403,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The status of the participant's call in a session.
+     * Returns The status of the participant's call in a session.
      *
      * @return The status of the participant's call in a session
      */
@@ -413,7 +412,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
      *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */

@@ -52,6 +52,7 @@ public class CallCreator extends Creator<Call> {
     private Integer machineDetectionSpeechThreshold;
     private Integer machineDetectionSpeechEndThreshold;
     private Integer machineDetectionSilenceTimeout;
+    private String byoc;
 
     /**
      * Construct a new CallCreator.
@@ -531,6 +532,19 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
+     * The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with.
+     * Note that `byoc` is only meaningful when `to` is a phone number; it will
+     * otherwise be ignored. (Beta).
+     *
+     * @param byoc BYOC trunk SID (Beta)
+     * @return this
+     */
+    public CallCreator setByoc(final String byoc) {
+        this.byoc = byoc;
+        return this;
+    }
+
+    /**
      * The absolute URL that returns the TwiML instructions for the call. We will
      * call this URL using the `method` when the call connects. For more
      * information, see the [Url
@@ -751,6 +765,10 @@ public class CallCreator extends Creator<Call> {
 
         if (machineDetectionSilenceTimeout != null) {
             request.addPostParam("MachineDetectionSilenceTimeout", machineDetectionSilenceTimeout.toString());
+        }
+
+        if (byoc != null) {
+            request.addPostParam("Byoc", byoc);
         }
     }
 }

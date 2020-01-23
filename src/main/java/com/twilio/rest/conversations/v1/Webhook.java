@@ -178,7 +178,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this conversation..
+     * Returns The unique id of the Account responsible for this conversation..
      *
      * @return The unique id of the Account responsible for this conversation.
      */
@@ -187,7 +187,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The HTTP method to be used when sending a webhook request..
+     * Returns The HTTP method to be used when sending a webhook request..
      *
      * @return The HTTP method to be used when sending a webhook request.
      */
@@ -196,7 +196,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The list of webhook event triggers that are enabled for this
+     * Returns The list of webhook event triggers that are enabled for this
      * Service..
      *
      * @return The list of webhook event triggers that are enabled for this Service.
@@ -206,8 +206,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The absolute url the pre-event webhook request should be sent
-     * to..
+     * Returns The absolute url the pre-event webhook request should be sent to..
      *
      * @return The absolute url the pre-event webhook request should be sent to.
      */
@@ -216,8 +215,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The absolute url the post-event webhook request should be sent
-     * to..
+     * Returns The absolute url the post-event webhook request should be sent to..
      *
      * @return The absolute url the post-event webhook request should be sent to.
      */
@@ -226,7 +224,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The routing target of the webhook..
+     * Returns The routing target of the webhook..
      *
      * @return The routing target of the webhook.
      */
@@ -235,7 +233,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The An absolute URL for this webhook..
+     * Returns An absolute URL for this webhook..
      *
      * @return An absolute URL for this webhook.
      */

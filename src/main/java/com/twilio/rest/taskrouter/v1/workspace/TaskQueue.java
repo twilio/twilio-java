@@ -224,7 +224,7 @@ public class TaskQueue extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -233,8 +233,8 @@ public class TaskQueue extends Resource {
     }
 
     /**
-     * Returns The The SID of the Activity to assign Workers when a task is assigned
-     * for them.
+     * Returns The SID of the Activity to assign Workers when a task is assigned for
+     * them.
      *
      * @return The SID of the Activity to assign Workers when a task is assigned
      *         for them
@@ -244,8 +244,8 @@ public class TaskQueue extends Resource {
     }
 
     /**
-     * Returns The The name of the Activity to assign Workers when a task is
-     * assigned for them.
+     * Returns The name of the Activity to assign Workers when a task is assigned
+     * for them.
      *
      * @return The name of the Activity to assign Workers when a task is assigned
      *         for them
@@ -255,7 +255,7 @@ public class TaskQueue extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -264,8 +264,7 @@ public class TaskQueue extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -274,7 +273,7 @@ public class TaskQueue extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -283,7 +282,7 @@ public class TaskQueue extends Resource {
     }
 
     /**
-     * Returns The The maximum number of Workers to reserve.
+     * Returns The maximum number of Workers to reserve.
      *
      * @return The maximum number of Workers to reserve
      */
@@ -292,8 +291,8 @@ public class TaskQueue extends Resource {
     }
 
     /**
-     * Returns The The SID of the Activity to assign Workers once a task is reserved
-     * for them.
+     * Returns The SID of the Activity to assign Workers once a task is reserved for
+     * them.
      *
      * @return The SID of the Activity to assign Workers once a task is reserved
      *         for them
@@ -303,8 +302,8 @@ public class TaskQueue extends Resource {
     }
 
     /**
-     * Returns The The name of the Activity to assign Workers once a task is
-     * reserved for them.
+     * Returns The name of the Activity to assign Workers once a task is reserved
+     * for them.
      *
      * @return The name of the Activity to assign Workers once a task is reserved
      *         for them
@@ -314,7 +313,7 @@ public class TaskQueue extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -323,8 +322,8 @@ public class TaskQueue extends Resource {
     }
 
     /**
-     * Returns The A string describing the Worker selection criteria for any Tasks
-     * that enter the TaskQueue.
+     * Returns A string describing the Worker selection criteria for any Tasks that
+     * enter the TaskQueue.
      *
      * @return A string describing the Worker selection criteria for any Tasks that
      *         enter the TaskQueue
@@ -334,7 +333,7 @@ public class TaskQueue extends Resource {
     }
 
     /**
-     * Returns The How Tasks will be assigned to Workers.
+     * Returns How Tasks will be assigned to Workers.
      *
      * @return How Tasks will be assigned to Workers
      */
@@ -343,7 +342,7 @@ public class TaskQueue extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the TaskQueue resource.
+     * Returns The absolute URL of the TaskQueue resource.
      *
      * @return The absolute URL of the TaskQueue resource
      */
@@ -352,7 +351,7 @@ public class TaskQueue extends Resource {
     }
 
     /**
-     * Returns The The SID of the Workspace that contains the TaskQueue.
+     * Returns The SID of the Workspace that contains the TaskQueue.
      *
      * @return The SID of the Workspace that contains the TaskQueue
      */
@@ -361,7 +360,7 @@ public class TaskQueue extends Resource {
     }
 
     /**
-     * Returns The The URLs of related resources.
+     * Returns The URLs of related resources.
      *
      * @return The URLs of related resources
      */

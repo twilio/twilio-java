@@ -179,7 +179,7 @@ public class SigningKey extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The sid.
      *
      * @return The sid
      */
@@ -188,7 +188,7 @@ public class SigningKey extends Resource {
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The friendly_name.
      *
      * @return The friendly_name
      */
@@ -197,7 +197,7 @@ public class SigningKey extends Resource {
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The date_created.
      *
      * @return The date_created
      */
@@ -206,7 +206,7 @@ public class SigningKey extends Resource {
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The date_updated.
      *
      * @return The date_updated
      */

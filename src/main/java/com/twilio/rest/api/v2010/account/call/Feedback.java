@@ -209,7 +209,7 @@ public class Feedback extends Resource {
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
+     * Returns The unique sid that identifies this account.
      *
      * @return The unique sid that identifies this account
      */
@@ -218,7 +218,7 @@ public class Feedback extends Resource {
     }
 
     /**
-     * Returns The The date this resource was created.
+     * Returns The date this resource was created.
      *
      * @return The date this resource was created
      */
@@ -227,7 +227,7 @@ public class Feedback extends Resource {
     }
 
     /**
-     * Returns The The date this resource was last updated.
+     * Returns The date this resource was last updated.
      *
      * @return The date this resource was last updated
      */
@@ -236,7 +236,7 @@ public class Feedback extends Resource {
     }
 
     /**
-     * Returns The Issues experienced during the call.
+     * Returns Issues experienced during the call.
      *
      * @return Issues experienced during the call
      */
@@ -245,7 +245,7 @@ public class Feedback extends Resource {
     }
 
     /**
-     * Returns The 1 to 5 quality score.
+     * Returns 1 to 5 quality score.
      *
      * @return 1 to 5 quality score
      */
@@ -254,7 +254,7 @@ public class Feedback extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this feedback resource.
+     * Returns A string that uniquely identifies this feedback resource.
      *
      * @return A string that uniquely identifies this feedback resource
      */

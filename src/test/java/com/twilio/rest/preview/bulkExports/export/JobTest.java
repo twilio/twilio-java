@@ -60,7 +60,7 @@ public class JobTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"start_day\": \"start_day\",\"job_sid\": \"JSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"url\": \"https://preview.twilio.com/BulkExports/Exports/Jobs/JSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"friendly_name\",\"end_day\": \"end_day\",\"details\": {},\"resource_type\": \"resource_type\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"start_day\": \"start_day\",\"job_sid\": \"JSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"url\": \"https://preview.twilio.com/BulkExports/Exports/Jobs/JSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"friendly_name\",\"end_day\": \"end_day\",\"details\": {},\"webhook_url\": \"webhook_url\",\"webhook_method\": \"webhook_method\",\"email\": \"email\",\"resource_type\": \"resource_type\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

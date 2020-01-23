@@ -258,7 +258,7 @@ public class Reservation extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -267,7 +267,7 @@ public class Reservation extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -276,8 +276,7 @@ public class Reservation extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -286,7 +285,7 @@ public class Reservation extends Resource {
     }
 
     /**
-     * Returns The The current status of the reservation.
+     * Returns The current status of the reservation.
      *
      * @return The current status of the reservation
      */
@@ -295,7 +294,7 @@ public class Reservation extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -304,7 +303,7 @@ public class Reservation extends Resource {
     }
 
     /**
-     * Returns The The SID of the reserved Task resource.
+     * Returns The SID of the reserved Task resource.
      *
      * @return The SID of the reserved Task resource
      */
@@ -313,7 +312,7 @@ public class Reservation extends Resource {
     }
 
     /**
-     * Returns The The friendly_name of the Worker that is reserved.
+     * Returns The friendly_name of the Worker that is reserved.
      *
      * @return The friendly_name of the Worker that is reserved
      */
@@ -322,7 +321,7 @@ public class Reservation extends Resource {
     }
 
     /**
-     * Returns The The SID of the reserved Worker resource.
+     * Returns The SID of the reserved Worker resource.
      *
      * @return The SID of the reserved Worker resource
      */
@@ -331,7 +330,7 @@ public class Reservation extends Resource {
     }
 
     /**
-     * Returns The The SID of the Workspace that this worker is contained within..
+     * Returns The SID of the Workspace that this worker is contained within..
      *
      * @return The SID of the Workspace that this worker is contained within.
      */
@@ -340,7 +339,7 @@ public class Reservation extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the WorkerReservation resource.
+     * Returns The absolute URL of the WorkerReservation resource.
      *
      * @return The absolute URL of the WorkerReservation resource
      */
@@ -349,7 +348,7 @@ public class Reservation extends Resource {
     }
 
     /**
-     * Returns The The URLs of related resources.
+     * Returns The URLs of related resources.
      *
      * @return The URLs of related resources
      */

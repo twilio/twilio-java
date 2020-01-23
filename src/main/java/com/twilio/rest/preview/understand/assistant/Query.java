@@ -198,7 +198,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this Query..
+     * Returns The unique ID of the Account that created this Query..
      *
      * @return The unique ID of the Account that created this Query.
      */
@@ -207,7 +207,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was created.
+     * Returns The date that this resource was created.
      *
      * @return The date that this resource was created
      */
@@ -216,7 +216,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was last updated.
+     * Returns The date that this resource was last updated.
      *
      * @return The date that this resource was last updated
      */
@@ -225,7 +225,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The natural language analysis results which include the Task
+     * Returns The natural language analysis results which include the Task
      * recognized, the confidence score and a list of identified Fields..
      *
      * @return The natural language analysis results which include the Task
@@ -236,7 +236,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The An ISO language-country string of the sample..
+     * Returns An ISO language-country string of the sample..
      *
      * @return An ISO language-country string of the sample.
      */
@@ -245,7 +245,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Model Build queried..
+     * Returns The unique ID of the Model Build queried..
      *
      * @return The unique ID of the Model Build queried.
      */
@@ -254,7 +254,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The end-user's natural language input..
+     * Returns The end-user's natural language input..
      *
      * @return The end-user's natural language input.
      */
@@ -263,7 +263,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The An optional reference to the Sample created from this query..
+     * Returns An optional reference to the Sample created from this query..
      *
      * @return An optional reference to the Sample created from this query.
      */
@@ -272,7 +272,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the parent Assistant..
+     * Returns The unique ID of the parent Assistant..
      *
      * @return The unique ID of the parent Assistant.
      */
@@ -281,7 +281,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns A 34 character string that uniquely identifies this resource..
      *
      * @return A 34 character string that uniquely identifies this resource.
      */
@@ -290,7 +290,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The A string that described the query status. The values can be:
+     * Returns A string that described the query status. The values can be:
      * pending_review, reviewed, discarded.
      *
      * @return A string that described the query status. The values can be:
@@ -301,7 +301,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The url.
      *
      * @return The url
      */
@@ -310,7 +310,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The communication channel where this end-user input came from.
+     * Returns The communication channel where this end-user input came from.
      *
      * @return The communication channel where this end-user input came from
      */

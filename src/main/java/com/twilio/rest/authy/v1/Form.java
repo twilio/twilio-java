@@ -135,7 +135,7 @@ public class Form extends Resource {
     }
 
     /**
-     * Returns The The Type of this Form.
+     * Returns The Type of this Form.
      *
      * @return The Type of this Form
      */
@@ -144,7 +144,7 @@ public class Form extends Resource {
     }
 
     /**
-     * Returns The Object that contains the available forms for this type..
+     * Returns Object that contains the available forms for this type..
      *
      * @return Object that contains the available forms for this type.
      */
@@ -153,7 +153,7 @@ public class Form extends Resource {
     }
 
     /**
-     * Returns The Additional information for the available forms for this type..
+     * Returns Additional information for the available forms for this type..
      *
      * @return Additional information for the available forms for this type.
      */
@@ -162,7 +162,7 @@ public class Form extends Resource {
     }
 
     /**
-     * Returns The The URL to access the forms for this type..
+     * Returns The URL to access the forms for this type..
      *
      * @return The URL to access the forms for this type.
      */

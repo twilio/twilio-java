@@ -430,7 +430,7 @@ public class Today extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account accrued the usage.
+     * Returns The SID of the Account accrued the usage.
      *
      * @return The SID of the Account accrued the usage
      */
@@ -439,7 +439,7 @@ public class Today extends Resource {
     }
 
     /**
-     * Returns The The API version used to create the resource.
+     * Returns The API version used to create the resource.
      *
      * @return The API version used to create the resource
      */
@@ -448,7 +448,7 @@ public class Today extends Resource {
     }
 
     /**
-     * Returns The Usage records up to date as of this timestamp.
+     * Returns Usage records up to date as of this timestamp.
      *
      * @return Usage records up to date as of this timestamp
      */
@@ -457,7 +457,7 @@ public class Today extends Resource {
     }
 
     /**
-     * Returns The The category of usage.
+     * Returns The category of usage.
      *
      * @return The category of usage
      */
@@ -466,7 +466,7 @@ public class Today extends Resource {
     }
 
     /**
-     * Returns The The number of usage events.
+     * Returns The number of usage events.
      *
      * @return The number of usage events
      */
@@ -475,7 +475,7 @@ public class Today extends Resource {
     }
 
     /**
-     * Returns The The units in which count is measured.
+     * Returns The units in which count is measured.
      *
      * @return The units in which count is measured
      */
@@ -484,7 +484,7 @@ public class Today extends Resource {
     }
 
     /**
-     * Returns The A plain-language description of the usage category.
+     * Returns A plain-language description of the usage category.
      *
      * @return A plain-language description of the usage category
      */
@@ -493,7 +493,7 @@ public class Today extends Resource {
     }
 
     /**
-     * Returns The The last date for which usage is included in the UsageRecord.
+     * Returns The last date for which usage is included in the UsageRecord.
      *
      * @return The last date for which usage is included in the UsageRecord
      */
@@ -502,7 +502,7 @@ public class Today extends Resource {
     }
 
     /**
-     * Returns The The total price of the usage.
+     * Returns The total price of the usage.
      *
      * @return The total price of the usage
      */
@@ -511,7 +511,7 @@ public class Today extends Resource {
     }
 
     /**
-     * Returns The The currency in which `price` is measured.
+     * Returns The currency in which `price` is measured.
      *
      * @return The currency in which `price` is measured
      */
@@ -520,7 +520,7 @@ public class Today extends Resource {
     }
 
     /**
-     * Returns The The first date for which usage is included in this UsageRecord.
+     * Returns The first date for which usage is included in this UsageRecord.
      *
      * @return The first date for which usage is included in this UsageRecord
      */
@@ -529,7 +529,7 @@ public class Today extends Resource {
     }
 
     /**
-     * Returns The A list of related resources identified by their relative URIs.
+     * Returns A list of related resources identified by their relative URIs.
      *
      * @return A list of related resources identified by their relative URIs
      */
@@ -538,7 +538,7 @@ public class Today extends Resource {
     }
 
     /**
-     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
      *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */
@@ -547,7 +547,7 @@ public class Today extends Resource {
     }
 
     /**
-     * Returns The The amount of usage.
+     * Returns The amount of usage.
      *
      * @return The amount of usage
      */
@@ -556,7 +556,7 @@ public class Today extends Resource {
     }
 
     /**
-     * Returns The The units in which usage is measured.
+     * Returns The units in which usage is measured.
      *
      * @return The units in which usage is measured
      */

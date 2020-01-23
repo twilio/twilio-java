@@ -116,7 +116,7 @@ public class Dialogue extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -125,7 +125,7 @@ public class Dialogue extends Resource {
     }
 
     /**
-     * Returns The The SID of the Assistant that is the parent of the resource.
+     * Returns The SID of the Assistant that is the parent of the resource.
      *
      * @return The SID of the Assistant that is the parent of the resource
      */
@@ -134,7 +134,7 @@ public class Dialogue extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -143,7 +143,7 @@ public class Dialogue extends Resource {
     }
 
     /**
-     * Returns The The JSON string that describes the dialogue session object.
+     * Returns The JSON string that describes the dialogue session object.
      *
      * @return The JSON string that describes the dialogue session object
      */
@@ -152,7 +152,7 @@ public class Dialogue extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Dialogue resource.
+     * Returns The absolute URL of the Dialogue resource.
      *
      * @return The absolute URL of the Dialogue resource
      */

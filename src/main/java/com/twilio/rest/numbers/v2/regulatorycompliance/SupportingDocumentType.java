@@ -119,7 +119,7 @@ public class SupportingDocumentType extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the Supporting Document Type
+     * Returns The unique string that identifies the Supporting Document Type
      * resource.
      *
      * @return The unique string that identifies the Supporting Document Type
@@ -130,7 +130,7 @@ public class SupportingDocumentType extends Resource {
     }
 
     /**
-     * Returns The A human-readable description of the Supporting Document Type
+     * Returns A human-readable description of the Supporting Document Type
      * resource.
      *
      * @return A human-readable description of the Supporting Document Type resource
@@ -140,7 +140,7 @@ public class SupportingDocumentType extends Resource {
     }
 
     /**
-     * Returns The The machine-readable description of the Supporting Document Type
+     * Returns The machine-readable description of the Supporting Document Type
      * resource.
      *
      * @return The machine-readable description of the Supporting Document Type
@@ -151,7 +151,7 @@ public class SupportingDocumentType extends Resource {
     }
 
     /**
-     * Returns The The required information for creating a Supporting Document.
+     * Returns The required information for creating a Supporting Document.
      *
      * @return The required information for creating a Supporting Document
      */
@@ -160,7 +160,7 @@ public class SupportingDocumentType extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Supporting Document Type resource.
+     * Returns The absolute URL of the Supporting Document Type resource.
      *
      * @return The absolute URL of the Supporting Document Type resource
      */

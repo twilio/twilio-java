@@ -78,7 +78,7 @@ public class Flow extends Resource {
      */
     public static FlowCreator creator(final String friendlyName,
                                       final Flow.Status status,
-                                      final String definition) {
+                                      final Map<String, Object> definition) {
         return new FlowCreator(friendlyName, status, definition);
     }
 
@@ -217,7 +217,7 @@ public class Flow extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -226,7 +226,7 @@ public class Flow extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -235,7 +235,7 @@ public class Flow extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the Flow.
+     * Returns The string that you assigned to describe the Flow.
      *
      * @return The string that you assigned to describe the Flow
      */
@@ -244,7 +244,7 @@ public class Flow extends Resource {
     }
 
     /**
-     * Returns The JSON representation of flow definition.
+     * Returns JSON representation of flow definition.
      *
      * @return JSON representation of flow definition
      */
@@ -253,7 +253,7 @@ public class Flow extends Resource {
     }
 
     /**
-     * Returns The The status of the Flow.
+     * Returns The status of the Flow.
      *
      * @return The status of the Flow
      */
@@ -262,7 +262,7 @@ public class Flow extends Resource {
     }
 
     /**
-     * Returns The The latest revision number of the Flow's definition.
+     * Returns The latest revision number of the Flow's definition.
      *
      * @return The latest revision number of the Flow's definition
      */
@@ -271,7 +271,7 @@ public class Flow extends Resource {
     }
 
     /**
-     * Returns The Description on change made in the revision.
+     * Returns Description on change made in the revision.
      *
      * @return Description on change made in the revision
      */
@@ -280,7 +280,7 @@ public class Flow extends Resource {
     }
 
     /**
-     * Returns The Boolean if the flow definition is valid.
+     * Returns Boolean if the flow definition is valid.
      *
      * @return Boolean if the flow definition is valid
      */
@@ -289,7 +289,7 @@ public class Flow extends Resource {
     }
 
     /**
-     * Returns The List of error in the flow definition.
+     * Returns List of error in the flow definition.
      *
      * @return List of error in the flow definition
      */
@@ -298,7 +298,7 @@ public class Flow extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -307,8 +307,7 @@ public class Flow extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -317,7 +316,7 @@ public class Flow extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
      */
@@ -326,7 +325,7 @@ public class Flow extends Resource {
     }
 
     /**
-     * Returns The Nested resource URLs.
+     * Returns Nested resource URLs.
      *
      * @return Nested resource URLs
      */

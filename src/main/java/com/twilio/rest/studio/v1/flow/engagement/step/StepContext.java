@@ -116,7 +116,7 @@ public class StepContext extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -125,7 +125,7 @@ public class StepContext extends Resource {
     }
 
     /**
-     * Returns The The current state of the flow.
+     * Returns The current state of the flow.
      *
      * @return The current state of the flow
      */
@@ -134,7 +134,7 @@ public class StepContext extends Resource {
     }
 
     /**
-     * Returns The The SID of the Engagement.
+     * Returns The SID of the Engagement.
      *
      * @return The SID of the Engagement
      */
@@ -143,7 +143,7 @@ public class StepContext extends Resource {
     }
 
     /**
-     * Returns The The SID of the Flow.
+     * Returns The SID of the Flow.
      *
      * @return The SID of the Flow
      */
@@ -152,7 +152,7 @@ public class StepContext extends Resource {
     }
 
     /**
-     * Returns The Step SID.
+     * Returns Step SID.
      *
      * @return Step SID
      */
@@ -161,7 +161,7 @@ public class StepContext extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
      */

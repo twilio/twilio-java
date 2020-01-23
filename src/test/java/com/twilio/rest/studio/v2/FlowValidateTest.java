@@ -44,7 +44,7 @@ public class FlowValidateTest {
                                                       "/v2/Flows/Validate");
                         request.addPostParam("FriendlyName", serialize("friendly_name"));
         request.addPostParam("Status", serialize(FlowValidate.Status.DRAFT));
-        request.addPostParam("Definition", serialize("definition"));
+        request.addPostParam("Definition", serialize(new java.util.HashMap<String, Object>()));
                         twilioRestClient.request(request);
                         times = 1;
                         result = new Response("", 500);
@@ -53,7 +53,7 @@ public class FlowValidateTest {
                     }};
 
         try {
-            FlowValidate.updater("friendly_name", FlowValidate.Status.DRAFT, "definition").update();
+            FlowValidate.updater("friendly_name", FlowValidate.Status.DRAFT, new java.util.HashMap<String, Object>()).update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -67,6 +67,6 @@ public class FlowValidateTest {
             result = new ObjectMapper();
         }};
 
-        FlowValidate.updater("friendly_name", FlowValidate.Status.DRAFT, "definition").update();
+        FlowValidate.updater("friendly_name", FlowValidate.Status.DRAFT, new java.util.HashMap<String, Object>()).update();
     }
 }

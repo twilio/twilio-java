@@ -235,7 +235,7 @@ public class Conference extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created this resource.
+     * Returns The SID of the Account that created this resource.
      *
      * @return The SID of the Account that created this resource
      */
@@ -244,7 +244,7 @@ public class Conference extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that this resource was created.
+     * Returns The RFC 2822 date and time in GMT that this resource was created.
      *
      * @return The RFC 2822 date and time in GMT that this resource was created
      */
@@ -253,7 +253,7 @@ public class Conference extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that this resource was last
+     * Returns The RFC 2822 date and time in GMT that this resource was last
      * updated.
      *
      * @return The RFC 2822 date and time in GMT that this resource was last updated
@@ -263,7 +263,7 @@ public class Conference extends Resource {
     }
 
     /**
-     * Returns The The API version used to create this conference.
+     * Returns The API version used to create this conference.
      *
      * @return The API version used to create this conference
      */
@@ -272,7 +272,7 @@ public class Conference extends Resource {
     }
 
     /**
-     * Returns The A string that you assigned to describe this conference room.
+     * Returns A string that you assigned to describe this conference room.
      *
      * @return A string that you assigned to describe this conference room
      */
@@ -281,8 +281,8 @@ public class Conference extends Resource {
     }
 
     /**
-     * Returns The A string that represents the Twilio Region where the conference
-     * was mixed.
+     * Returns A string that represents the Twilio Region where the conference was
+     * mixed.
      *
      * @return A string that represents the Twilio Region where the conference was
      *         mixed
@@ -292,7 +292,7 @@ public class Conference extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies this resource.
+     * Returns The unique string that identifies this resource.
      *
      * @return The unique string that identifies this resource
      */
@@ -301,7 +301,7 @@ public class Conference extends Resource {
     }
 
     /**
-     * Returns The The status of this conference.
+     * Returns The status of this conference.
      *
      * @return The status of this conference
      */
@@ -310,7 +310,7 @@ public class Conference extends Resource {
     }
 
     /**
-     * Returns The The URI of this resource, relative to `https://api.twilio.com`.
+     * Returns The URI of this resource, relative to `https://api.twilio.com`.
      *
      * @return The URI of this resource, relative to `https://api.twilio.com`
      */
@@ -319,7 +319,7 @@ public class Conference extends Resource {
     }
 
     /**
-     * Returns The A list of related resources identified by their relative URIs.
+     * Returns A list of related resources identified by their relative URIs.
      *
      * @return A list of related resources identified by their relative URIs
      */

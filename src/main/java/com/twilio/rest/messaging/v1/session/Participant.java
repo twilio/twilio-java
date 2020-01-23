@@ -218,7 +218,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -227,7 +227,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service the session belongs to.
+     * Returns The SID of the Service the session belongs to.
      *
      * @return The SID of the Service the session belongs to
      */
@@ -236,7 +236,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The SID of the SMS Service the session belongs to.
+     * Returns The SID of the SMS Service the session belongs to.
      *
      * @return The SID of the SMS Service the session belongs to
      */
@@ -245,7 +245,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The SID of the Session for the participant.
+     * Returns The SID of the Session for the participant.
      *
      * @return The SID of the Session for the participant
      */
@@ -254,7 +254,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -263,7 +263,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The string that identifies the resource's User.
+     * Returns The string that identifies the resource's User.
      *
      * @return The string that identifies the resource's User
      */
@@ -272,7 +272,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The address of the Twilio phone number that the participant is in
+     * Returns The address of the Twilio phone number that the participant is in
      * contact with.
      *
      * @return The address of the Twilio phone number that the participant is in
@@ -283,7 +283,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The address of the participant's device.
+     * Returns The address of the participant's device.
      *
      * @return The address of the participant's device
      */
@@ -292,7 +292,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The JSON string that stores application-specific data.
+     * Returns The JSON string that stores application-specific data.
      *
      * @return The JSON string that stores application-specific data
      */
@@ -301,7 +301,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The type of messaging used by the participant.
+     * Returns The type of messaging used by the participant.
      *
      * @return The type of messaging used by the participant
      */
@@ -310,7 +310,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -319,8 +319,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -329,7 +328,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the participant.
+     * Returns The absolute URL of the participant.
      *
      * @return The absolute URL of the participant
      */

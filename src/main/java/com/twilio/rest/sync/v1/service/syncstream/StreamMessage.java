@@ -106,7 +106,7 @@ public class StreamMessage extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -115,7 +115,7 @@ public class StreamMessage extends Resource {
     }
 
     /**
-     * Returns The Stream Message body.
+     * Returns Stream Message body.
      *
      * @return Stream Message body
      */

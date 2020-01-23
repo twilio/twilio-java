@@ -32,6 +32,7 @@ public class VerificationCreator extends Creator<Verification> {
     private String payee;
     private Map<String, Object> rateLimits;
     private Map<String, Object> channelConfiguration;
+    private String appHash;
 
     /**
      * Construct a new VerificationCreator.
@@ -150,6 +151,18 @@ public class VerificationCreator extends Creator<Verification> {
     }
 
     /**
+     * Your [App
+     * Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be included at the end of an SMS. **Only applies for SMS.**.
+     *
+     * @param appHash App Hash to be included at the end of an SMS.
+     * @return this
+     */
+    public VerificationCreator setAppHash(final String appHash) {
+        this.appHash = appHash;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -232,6 +245,10 @@ public class VerificationCreator extends Creator<Verification> {
 
         if (channelConfiguration != null) {
             request.addPostParam("ChannelConfiguration", Converter.mapToJson(channelConfiguration));
+        }
+
+        if (appHash != null) {
+            request.addPostParam("AppHash", appHash);
         }
     }
 }

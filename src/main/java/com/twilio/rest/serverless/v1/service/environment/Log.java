@@ -182,7 +182,7 @@ public class Log extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the Log resource.
+     * Returns The unique string that identifies the Log resource.
      *
      * @return The unique string that identifies the Log resource
      */
@@ -191,7 +191,7 @@ public class Log extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the Log resource.
+     * Returns The SID of the Account that created the Log resource.
      *
      * @return The SID of the Account that created the Log resource
      */
@@ -200,7 +200,7 @@ public class Log extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the Log resource is associated with.
+     * Returns The SID of the Service that the Log resource is associated with.
      *
      * @return The SID of the Service that the Log resource is associated with
      */
@@ -209,7 +209,7 @@ public class Log extends Resource {
     }
 
     /**
-     * Returns The The SID of the environment in which the log occurred.
+     * Returns The SID of the environment in which the log occurred.
      *
      * @return The SID of the environment in which the log occurred
      */
@@ -218,7 +218,7 @@ public class Log extends Resource {
     }
 
     /**
-     * Returns The The SID of the deployment that corresponds to the log.
+     * Returns The SID of the deployment that corresponds to the log.
      *
      * @return The SID of the deployment that corresponds to the log
      */
@@ -227,7 +227,7 @@ public class Log extends Resource {
     }
 
     /**
-     * Returns The The SID of the function whose invocation produced the log.
+     * Returns The SID of the function whose invocation produced the log.
      *
      * @return The SID of the function whose invocation produced the log
      */
@@ -236,7 +236,7 @@ public class Log extends Resource {
     }
 
     /**
-     * Returns The The SID of the request associated with the log.
+     * Returns The SID of the request associated with the log.
      *
      * @return The SID of the request associated with the log
      */
@@ -245,7 +245,7 @@ public class Log extends Resource {
     }
 
     /**
-     * Returns The The log level.
+     * Returns The log level.
      *
      * @return The log level
      */
@@ -254,7 +254,7 @@ public class Log extends Resource {
     }
 
     /**
-     * Returns The The log message.
+     * Returns The log message.
      *
      * @return The log message
      */
@@ -263,8 +263,7 @@ public class Log extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Log resource was
-     * created.
+     * Returns The ISO 8601 date and time in GMT when the Log resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the Log resource was created
      */
@@ -273,7 +272,7 @@ public class Log extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Log resource.
+     * Returns The absolute URL of the Log resource.
      *
      * @return The absolute URL of the Log resource
      */

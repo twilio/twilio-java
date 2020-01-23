@@ -152,7 +152,7 @@ public class Feedback extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -161,8 +161,7 @@ public class Feedback extends Resource {
     }
 
     /**
-     * Returns The The SID of the Message resource for which the feedback was
-     * provided.
+     * Returns The SID of the Message resource for which the feedback was provided.
      *
      * @return The SID of the Message resource for which the feedback was provided
      */
@@ -171,7 +170,7 @@ public class Feedback extends Resource {
     }
 
     /**
-     * Returns The Whether the feedback has arrived.
+     * Returns Whether the feedback has arrived.
      *
      * @return Whether the feedback has arrived
      */
@@ -180,7 +179,7 @@ public class Feedback extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was created.
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
@@ -189,8 +188,7 @@ public class Feedback extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
@@ -199,7 +197,7 @@ public class Feedback extends Resource {
     }
 
     /**
-     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
      *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */

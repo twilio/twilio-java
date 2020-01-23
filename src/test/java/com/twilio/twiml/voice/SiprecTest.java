@@ -35,11 +35,15 @@ public class SiprecTest {
 
     @Test
     public void testElementWithParams() {
-        Siprec elem = new Siprec.Builder().name("name").connectorName("connector_name").build();
+        Siprec elem = new Siprec.Builder()
+            .name("name")
+            .connectorName("connector_name")
+            .track(Siprec.Track.INBOUND_TRACK)
+            .build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Siprec connectorName=\"connector_name\" name=\"name\"/>",
+            "<Siprec connectorName=\"connector_name\" name=\"name\" track=\"inbound_track\"/>",
             elem.toXml()
         );
     }

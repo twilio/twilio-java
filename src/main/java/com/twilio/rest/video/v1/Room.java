@@ -269,7 +269,7 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -278,7 +278,7 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The The status of the room.
+     * Returns The status of the room.
      *
      * @return The status of the room
      */
@@ -287,7 +287,7 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -296,8 +296,7 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -306,7 +305,7 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -315,7 +314,7 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The Enable Twilio's Network Traversal TURN service.
+     * Returns Enable Twilio's Network Traversal TURN service.
      *
      * @return Enable Twilio's Network Traversal TURN service
      */
@@ -324,8 +323,7 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The An application-defined string that uniquely identifies the
-     * resource.
+     * Returns An application-defined string that uniquely identifies the resource.
      *
      * @return An application-defined string that uniquely identifies the resource
      */
@@ -334,7 +332,7 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The The URL to send status information to your application.
+     * Returns The URL to send status information to your application.
      *
      * @return The URL to send status information to your application
      */
@@ -343,7 +341,7 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The The HTTP method we use to call status_callback.
+     * Returns The HTTP method we use to call status_callback.
      *
      * @return The HTTP method we use to call status_callback
      */
@@ -352,7 +350,7 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The The UTC end time of the room in UTC ISO 8601 format.
+     * Returns The UTC end time of the room in UTC ISO 8601 format.
      *
      * @return The UTC end time of the room in UTC ISO 8601 format
      */
@@ -361,7 +359,7 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The The duration of the room in seconds.
+     * Returns The duration of the room in seconds.
      *
      * @return The duration of the room in seconds
      */
@@ -370,7 +368,7 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The The type of room.
+     * Returns The type of room.
      *
      * @return The type of room
      */
@@ -379,8 +377,7 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The The maximum number of concurrent Participants allowed in the
-     * room.
+     * Returns The maximum number of concurrent Participants allowed in the room.
      *
      * @return The maximum number of concurrent Participants allowed in the room
      */
@@ -389,7 +386,7 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The Whether to start recording when Participants connect.
+     * Returns Whether to start recording when Participants connect.
      *
      * @return Whether to start recording when Participants connect
      */
@@ -398,7 +395,7 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The An array of the video codecs that are supported when publishing a
+     * Returns An array of the video codecs that are supported when publishing a
      * track in the room.
      *
      * @return An array of the video codecs that are supported when publishing a
@@ -409,7 +406,7 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The The region for the media server in Group Rooms.
+     * Returns The region for the media server in Group Rooms.
      *
      * @return The region for the media server in Group Rooms
      */
@@ -418,7 +415,7 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
      */
@@ -427,7 +424,7 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The The URLs of related resources.
+     * Returns The URLs of related resources.
      *
      * @return The URLs of related resources
      */

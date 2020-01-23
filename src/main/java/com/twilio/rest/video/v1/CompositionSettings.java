@@ -134,7 +134,7 @@ public class CompositionSettings extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -143,7 +143,7 @@ public class CompositionSettings extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -152,7 +152,7 @@ public class CompositionSettings extends Resource {
     }
 
     /**
-     * Returns The The SID of the stored Credential resource.
+     * Returns The SID of the stored Credential resource.
      *
      * @return The SID of the stored Credential resource
      */
@@ -161,7 +161,7 @@ public class CompositionSettings extends Resource {
     }
 
     /**
-     * Returns The The URL of the AWS S3 bucket where the compositions are stored.
+     * Returns The URL of the AWS S3 bucket where the compositions are stored.
      *
      * @return The URL of the AWS S3 bucket where the compositions are stored
      */
@@ -170,7 +170,7 @@ public class CompositionSettings extends Resource {
     }
 
     /**
-     * Returns The Whether all compositions are written to the aws_s3_url.
+     * Returns Whether all compositions are written to the aws_s3_url.
      *
      * @return Whether all compositions are written to the aws_s3_url
      */
@@ -179,7 +179,7 @@ public class CompositionSettings extends Resource {
     }
 
     /**
-     * Returns The The SID of the Public Key resource used for encryption.
+     * Returns The SID of the Public Key resource used for encryption.
      *
      * @return The SID of the Public Key resource used for encryption
      */
@@ -188,7 +188,7 @@ public class CompositionSettings extends Resource {
     }
 
     /**
-     * Returns The Whether all compositions are stored in an encrypted form.
+     * Returns Whether all compositions are stored in an encrypted form.
      *
      * @return Whether all compositions are stored in an encrypted form
      */
@@ -197,7 +197,7 @@ public class CompositionSettings extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
      */

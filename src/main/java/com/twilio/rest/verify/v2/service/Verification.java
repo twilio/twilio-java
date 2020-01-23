@@ -227,7 +227,7 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -236,7 +236,7 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the resource is associated with.
+     * Returns The SID of the Service that the resource is associated with.
      *
      * @return The SID of the Service that the resource is associated with
      */
@@ -245,7 +245,7 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -254,7 +254,7 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The The phone number or email being verified.
+     * Returns The phone number or email being verified.
      *
      * @return The phone number or email being verified
      */
@@ -263,7 +263,7 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The The verification method used..
+     * Returns The verification method used..
      *
      * @return The verification method used.
      */
@@ -272,7 +272,7 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The The status of the verification resource.
+     * Returns The status of the verification resource.
      *
      * @return The status of the verification resource
      */
@@ -281,7 +281,7 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The Whether the verification was successful.
+     * Returns Whether the verification was successful.
      *
      * @return Whether the verification was successful
      */
@@ -290,7 +290,7 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The Information about the phone number being verified.
+     * Returns Information about the phone number being verified.
      *
      * @return Information about the phone number being verified
      */
@@ -299,7 +299,7 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The The amount of the associated PSD2 compliant transaction..
+     * Returns The amount of the associated PSD2 compliant transaction..
      *
      * @return The amount of the associated PSD2 compliant transaction.
      */
@@ -308,7 +308,7 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The The payee of the associated PSD2 compliant transaction.
+     * Returns The payee of the associated PSD2 compliant transaction.
      *
      * @return The payee of the associated PSD2 compliant transaction
      */
@@ -317,7 +317,7 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -326,8 +326,7 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -336,7 +335,7 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Verification resource.
+     * Returns The absolute URL of the Verification resource.
      *
      * @return The absolute URL of the Verification resource
      */

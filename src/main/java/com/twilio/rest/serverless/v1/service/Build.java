@@ -198,7 +198,7 @@ public class Build extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the Build resource.
+     * Returns The unique string that identifies the Build resource.
      *
      * @return The unique string that identifies the Build resource
      */
@@ -207,7 +207,7 @@ public class Build extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the Build resource.
+     * Returns The SID of the Account that created the Build resource.
      *
      * @return The SID of the Account that created the Build resource
      */
@@ -216,8 +216,7 @@ public class Build extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the Build resource is associated
-     * with.
+     * Returns The SID of the Service that the Build resource is associated with.
      *
      * @return The SID of the Service that the Build resource is associated with
      */
@@ -226,7 +225,7 @@ public class Build extends Resource {
     }
 
     /**
-     * Returns The The status of the build.
+     * Returns The status of the build.
      *
      * @return The status of the build
      */
@@ -235,7 +234,7 @@ public class Build extends Resource {
     }
 
     /**
-     * Returns The The list of Asset Version resource SIDs that are included in the
+     * Returns The list of Asset Version resource SIDs that are included in the
      * build.
      *
      * @return The list of Asset Version resource SIDs that are included in the
@@ -246,8 +245,8 @@ public class Build extends Resource {
     }
 
     /**
-     * Returns The The list of Function Version resource SIDs that are included in
-     * the build.
+     * Returns The list of Function Version resource SIDs that are included in the
+     * build.
      *
      * @return The list of Function Version resource SIDs that are included in the
      *         build
@@ -257,7 +256,7 @@ public class Build extends Resource {
     }
 
     /**
-     * Returns The A list of objects that describe the Dependencies included in the
+     * Returns A list of objects that describe the Dependencies included in the
      * build.
      *
      * @return A list of objects that describe the Dependencies included in the
@@ -268,7 +267,7 @@ public class Build extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Build resource was
+     * Returns The ISO 8601 date and time in GMT when the Build resource was
      * created.
      *
      * @return The ISO 8601 date and time in GMT when the Build resource was created
@@ -278,8 +277,8 @@ public class Build extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Build resource was
-     * last updated.
+     * Returns The ISO 8601 date and time in GMT when the Build resource was last
+     * updated.
      *
      * @return The ISO 8601 date and time in GMT when the Build resource was last
      *         updated
@@ -289,7 +288,7 @@ public class Build extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Build resource.
+     * Returns The absolute URL of the Build resource.
      *
      * @return The absolute URL of the Build resource
      */

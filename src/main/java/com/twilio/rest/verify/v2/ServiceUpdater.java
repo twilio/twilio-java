@@ -26,6 +26,7 @@ public class ServiceUpdater extends Updater<Service> {
     private Boolean dtmfInputRequired;
     private String ttsName;
     private Boolean psd2Enabled;
+    private Boolean doNotShareWarningEnabled;
 
     /**
      * Construct a new ServiceUpdater.
@@ -124,6 +125,19 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
+     * Whether to add a privacy warning at the end of an SMS. **Disabled by default
+     * and applies only for SMS.**.
+     *
+     * @param doNotShareWarningEnabled Whether to add a privacy warning at the end
+     *                                 of an SMS.
+     * @return this
+     */
+    public ServiceUpdater setDoNotShareWarningEnabled(final Boolean doNotShareWarningEnabled) {
+        this.doNotShareWarningEnabled = doNotShareWarningEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -194,6 +208,10 @@ public class ServiceUpdater extends Updater<Service> {
 
         if (psd2Enabled != null) {
             request.addPostParam("Psd2Enabled", psd2Enabled.toString());
+        }
+
+        if (doNotShareWarningEnabled != null) {
+            request.addPostParam("DoNotShareWarningEnabled", doNotShareWarningEnabled.toString());
         }
     }
 }

@@ -255,7 +255,7 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Returns The The automatically generated index of the List Item.
+     * Returns The automatically generated index of the List Item.
      *
      * @return The automatically generated index of the List Item
      */
@@ -264,7 +264,7 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -273,7 +273,7 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Returns The The SID of the Sync Service that the resource is associated with.
+     * Returns The SID of the Sync Service that the resource is associated with.
      *
      * @return The SID of the Sync Service that the resource is associated with
      */
@@ -282,7 +282,7 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Returns The The SID of the Sync List that contains the List Item.
+     * Returns The SID of the Sync List that contains the List Item.
      *
      * @return The SID of the Sync List that contains the List Item
      */
@@ -291,7 +291,7 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the List Item resource.
+     * Returns The absolute URL of the List Item resource.
      *
      * @return The absolute URL of the List Item resource
      */
@@ -300,7 +300,7 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Returns The The current revision of the item, represented as a string.
+     * Returns The current revision of the item, represented as a string.
      *
      * @return The current revision of the item, represented as a string
      */
@@ -309,7 +309,7 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Returns The An arbitrary, schema-less object that the List Item stores.
+     * Returns An arbitrary, schema-less object that the List Item stores.
      *
      * @return An arbitrary, schema-less object that the List Item stores
      */
@@ -318,7 +318,7 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the List Item expires.
+     * Returns The ISO 8601 date and time in GMT when the List Item expires.
      *
      * @return The ISO 8601 date and time in GMT when the List Item expires
      */
@@ -327,7 +327,7 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -336,8 +336,7 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -346,7 +345,7 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Returns The The identity of the List Item's creator.
+     * Returns The identity of the List Item's creator.
      *
      * @return The identity of the List Item's creator
      */

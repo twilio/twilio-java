@@ -190,7 +190,7 @@ public class SupportingDocument extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -199,7 +199,7 @@ public class SupportingDocument extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -208,7 +208,7 @@ public class SupportingDocument extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -217,7 +217,7 @@ public class SupportingDocument extends Resource {
     }
 
     /**
-     * Returns The The image type of the file.
+     * Returns The image type of the file.
      *
      * @return The image type of the file
      */
@@ -226,7 +226,7 @@ public class SupportingDocument extends Resource {
     }
 
     /**
-     * Returns The The verification status of the Supporting Document resource.
+     * Returns The verification status of the Supporting Document resource.
      *
      * @return The verification status of the Supporting Document resource
      */
@@ -235,7 +235,7 @@ public class SupportingDocument extends Resource {
     }
 
     /**
-     * Returns The The type of the Supporting Document.
+     * Returns The type of the Supporting Document.
      *
      * @return The type of the Supporting Document
      */
@@ -244,8 +244,7 @@ public class SupportingDocument extends Resource {
     }
 
     /**
-     * Returns The The set of parameters that compose the Supporting Documents
-     * resource.
+     * Returns The set of parameters that compose the Supporting Documents resource.
      *
      * @return The set of parameters that compose the Supporting Documents resource
      */
@@ -254,7 +253,7 @@ public class SupportingDocument extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -263,8 +262,7 @@ public class SupportingDocument extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -273,7 +271,7 @@ public class SupportingDocument extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Supporting Document resource.
+     * Returns The absolute URL of the Supporting Document resource.
      *
      * @return The absolute URL of the Supporting Document resource
      */

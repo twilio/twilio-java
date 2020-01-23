@@ -119,7 +119,7 @@ public class ValidationRequest extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -128,7 +128,7 @@ public class ValidationRequest extends Resource {
     }
 
     /**
-     * Returns The The phone number to verify in E.164 format.
+     * Returns The phone number to verify in E.164 format.
      *
      * @return The phone number to verify in E.164 format
      */
@@ -137,7 +137,7 @@ public class ValidationRequest extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -146,8 +146,8 @@ public class ValidationRequest extends Resource {
     }
 
     /**
-     * Returns The The 6 digit validation code that someone must enter to validate
-     * the Caller ID  when `phone_number` is called.
+     * Returns The 6 digit validation code that someone must enter to validate the
+     * Caller ID  when `phone_number` is called.
      *
      * @return The 6 digit validation code that someone must enter to validate the
      *         Caller ID  when `phone_number` is called
@@ -157,7 +157,7 @@ public class ValidationRequest extends Resource {
     }
 
     /**
-     * Returns The The SID of the Call the resource is associated with.
+     * Returns The SID of the Call the resource is associated with.
      *
      * @return The SID of the Call the resource is associated with
      */

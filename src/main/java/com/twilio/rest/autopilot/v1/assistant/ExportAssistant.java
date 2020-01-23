@@ -149,7 +149,7 @@ public class ExportAssistant extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -158,7 +158,7 @@ public class ExportAssistant extends Resource {
     }
 
     /**
-     * Returns The The SID of the Assistant to export..
+     * Returns The SID of the Assistant to export..
      *
      * @return The SID of the Assistant to export.
      */
@@ -167,7 +167,7 @@ public class ExportAssistant extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -176,7 +176,7 @@ public class ExportAssistant extends Resource {
     }
 
     /**
-     * Returns The The status of the export.
+     * Returns The status of the export.
      *
      * @return The status of the export
      */
@@ -185,7 +185,7 @@ public class ExportAssistant extends Resource {
     }
 
     /**
-     * Returns The More information about why the export failed, if `status` is
+     * Returns More information about why the export failed, if `status` is
      * `failed`.
      *
      * @return More information about why the export failed, if `status` is `failed`
@@ -195,7 +195,7 @@ public class ExportAssistant extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Export resource..
+     * Returns The absolute URL of the Export resource..
      *
      * @return The absolute URL of the Export resource.
      */
@@ -204,7 +204,7 @@ public class ExportAssistant extends Resource {
     }
 
     /**
-     * Returns The The JSON string that describes the requested Assistant..
+     * Returns The JSON string that describes the requested Assistant..
      *
      * @return The JSON string that describes the requested Assistant.
      */

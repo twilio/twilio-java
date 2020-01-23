@@ -160,7 +160,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Service..
+     * Returns A string that uniquely identifies this Service..
      *
      * @return A string that uniquely identifies this Service.
      */
@@ -169,7 +169,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The A human readable description of this resource..
+     * Returns A human readable description of this resource..
      *
      * @return A human readable description of this resource.
      */
@@ -178,7 +178,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns Account Sid..
      *
      * @return Account Sid.
      */
@@ -187,7 +187,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The date this Service was created.
+     * Returns The date this Service was created.
      *
      * @return The date this Service was created
      */
@@ -196,7 +196,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The date this Service was updated.
+     * Returns The date this Service was updated.
      *
      * @return The date this Service was updated
      */
@@ -205,7 +205,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The URL of this resource..
      *
      * @return The URL of this resource.
      */
@@ -214,7 +214,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Nested resource URLs..
+     * Returns Nested resource URLs..
      *
      * @return Nested resource URLs.
      */

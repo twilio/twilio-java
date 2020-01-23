@@ -130,7 +130,7 @@ public class AvailableAddOnExtension extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -139,7 +139,7 @@ public class AvailableAddOnExtension extends Resource {
     }
 
     /**
-     * Returns The The SID of the AvailableAddOn resource to which this extension
+     * Returns The SID of the AvailableAddOn resource to which this extension
      * applies.
      *
      * @return The SID of the AvailableAddOn resource to which this extension
@@ -150,7 +150,7 @@ public class AvailableAddOnExtension extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -159,7 +159,7 @@ public class AvailableAddOnExtension extends Resource {
     }
 
     /**
-     * Returns The The name of the Extension's Product.
+     * Returns The name of the Extension's Product.
      *
      * @return The name of the Extension's Product
      */
@@ -168,8 +168,7 @@ public class AvailableAddOnExtension extends Resource {
     }
 
     /**
-     * Returns The An application-defined string that uniquely identifies the
-     * resource.
+     * Returns An application-defined string that uniquely identifies the resource.
      *
      * @return An application-defined string that uniquely identifies the resource
      */
@@ -178,7 +177,7 @@ public class AvailableAddOnExtension extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
      */

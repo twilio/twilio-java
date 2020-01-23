@@ -168,7 +168,7 @@ public class PhoneCall extends Resource {
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns Account Sid..
      *
      * @return Account Sid.
      */
@@ -177,7 +177,7 @@ public class PhoneCall extends Resource {
     }
 
     /**
-     * Returns The Background color of the current phone call.
+     * Returns Background color of the current phone call.
      *
      * @return Background color of the current phone call
      */
@@ -186,7 +186,7 @@ public class PhoneCall extends Resource {
     }
 
     /**
-     * Returns The Brand Sid..
+     * Returns Brand Sid..
      *
      * @return Brand Sid.
      */
@@ -195,7 +195,7 @@ public class PhoneCall extends Resource {
     }
 
     /**
-     * Returns The Branded Channel Sid..
+     * Returns Branded Channel Sid..
      *
      * @return Branded Channel Sid.
      */
@@ -204,7 +204,7 @@ public class PhoneCall extends Resource {
     }
 
     /**
-     * Returns The Business Sid..
+     * Returns Business Sid..
      *
      * @return Business Sid.
      */
@@ -213,7 +213,7 @@ public class PhoneCall extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this phone call..
+     * Returns A string that uniquely identifies this phone call..
      *
      * @return A string that uniquely identifies this phone call.
      */
@@ -222,7 +222,7 @@ public class PhoneCall extends Resource {
     }
 
     /**
-     * Returns The Caller name of the current phone call.
+     * Returns Caller name of the current phone call.
      *
      * @return Caller name of the current phone call
      */
@@ -231,7 +231,7 @@ public class PhoneCall extends Resource {
     }
 
     /**
-     * Returns The The date this Current Call was created.
+     * Returns The date this Current Call was created.
      *
      * @return The date this Current Call was created
      */
@@ -240,7 +240,7 @@ public class PhoneCall extends Resource {
     }
 
     /**
-     * Returns The Font color of the current phone call.
+     * Returns Font color of the current phone call.
      *
      * @return Font color of the current phone call
      */
@@ -249,7 +249,7 @@ public class PhoneCall extends Resource {
     }
 
     /**
-     * Returns The The originating Phone Number.
+     * Returns The originating Phone Number.
      *
      * @return The originating Phone Number
      */
@@ -258,7 +258,7 @@ public class PhoneCall extends Resource {
     }
 
     /**
-     * Returns The Logo URL of the caller.
+     * Returns Logo URL of the caller.
      *
      * @return Logo URL of the caller
      */
@@ -267,7 +267,7 @@ public class PhoneCall extends Resource {
     }
 
     /**
-     * Returns The Phone Number Sid..
+     * Returns Phone Number Sid..
      *
      * @return Phone Number Sid.
      */
@@ -276,7 +276,7 @@ public class PhoneCall extends Resource {
     }
 
     /**
-     * Returns The The business reason for this phone call.
+     * Returns The business reason for this phone call.
      *
      * @return The business reason for this phone call
      */
@@ -285,8 +285,7 @@ public class PhoneCall extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this current branded phone
-     * call..
+     * Returns A string that uniquely identifies this current branded phone call..
      *
      * @return A string that uniquely identifies this current branded phone call.
      */
@@ -295,7 +294,7 @@ public class PhoneCall extends Resource {
     }
 
     /**
-     * Returns The The status of the current phone call.
+     * Returns The status of the current phone call.
      *
      * @return The status of the current phone call
      */
@@ -304,7 +303,7 @@ public class PhoneCall extends Resource {
     }
 
     /**
-     * Returns The The terminating Phone Number.
+     * Returns The terminating Phone Number.
      *
      * @return The terminating Phone Number
      */
@@ -313,7 +312,7 @@ public class PhoneCall extends Resource {
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The URL of this resource..
      *
      * @return The URL of this resource.
      */
@@ -322,7 +321,7 @@ public class PhoneCall extends Resource {
     }
 
     /**
-     * Returns The The use case for the current phone call.
+     * Returns The use case for the current phone call.
      *
      * @return The use case for the current phone call
      */

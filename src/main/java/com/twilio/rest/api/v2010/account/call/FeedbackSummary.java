@@ -240,7 +240,7 @@ public class FeedbackSummary extends Resource {
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
+     * Returns The unique sid that identifies this account.
      *
      * @return The unique sid that identifies this account
      */
@@ -249,7 +249,7 @@ public class FeedbackSummary extends Resource {
     }
 
     /**
-     * Returns The The total number of calls.
+     * Returns The total number of calls.
      *
      * @return The total number of calls
      */
@@ -258,7 +258,7 @@ public class FeedbackSummary extends Resource {
     }
 
     /**
-     * Returns The The total number of calls with a feedback entry.
+     * Returns The total number of calls with a feedback entry.
      *
      * @return The total number of calls with a feedback entry
      */
@@ -267,7 +267,7 @@ public class FeedbackSummary extends Resource {
     }
 
     /**
-     * Returns The The date this resource was created.
+     * Returns The date this resource was created.
      *
      * @return The date this resource was created
      */
@@ -276,7 +276,7 @@ public class FeedbackSummary extends Resource {
     }
 
     /**
-     * Returns The The date this resource was last updated.
+     * Returns The date this resource was last updated.
      *
      * @return The date this resource was last updated
      */
@@ -285,7 +285,7 @@ public class FeedbackSummary extends Resource {
     }
 
     /**
-     * Returns The The latest feedback entry date in the summary.
+     * Returns The latest feedback entry date in the summary.
      *
      * @return The latest feedback entry date in the summary
      */
@@ -294,7 +294,7 @@ public class FeedbackSummary extends Resource {
     }
 
     /**
-     * Returns The Whether the feedback summary includes subaccounts.
+     * Returns Whether the feedback summary includes subaccounts.
      *
      * @return Whether the feedback summary includes subaccounts
      */
@@ -303,7 +303,7 @@ public class FeedbackSummary extends Resource {
     }
 
     /**
-     * Returns The Issues experienced during the call.
+     * Returns Issues experienced during the call.
      *
      * @return Issues experienced during the call
      */
@@ -312,7 +312,7 @@ public class FeedbackSummary extends Resource {
     }
 
     /**
-     * Returns The The average QualityScore of the feedback entries.
+     * Returns The average QualityScore of the feedback entries.
      *
      * @return The average QualityScore of the feedback entries
      */
@@ -321,7 +321,7 @@ public class FeedbackSummary extends Resource {
     }
 
     /**
-     * Returns The The median QualityScore of the feedback entries.
+     * Returns The median QualityScore of the feedback entries.
      *
      * @return The median QualityScore of the feedback entries
      */
@@ -330,7 +330,7 @@ public class FeedbackSummary extends Resource {
     }
 
     /**
-     * Returns The The standard deviation of the quality scores.
+     * Returns The standard deviation of the quality scores.
      *
      * @return The standard deviation of the quality scores
      */
@@ -339,7 +339,7 @@ public class FeedbackSummary extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this feedback entry.
+     * Returns A string that uniquely identifies this feedback entry.
      *
      * @return A string that uniquely identifies this feedback entry
      */
@@ -348,7 +348,7 @@ public class FeedbackSummary extends Resource {
     }
 
     /**
-     * Returns The The earliest feedback entry date in the summary.
+     * Returns The earliest feedback entry date in the summary.
      *
      * @return The earliest feedback entry date in the summary
      */
@@ -357,7 +357,7 @@ public class FeedbackSummary extends Resource {
     }
 
     /**
-     * Returns The The status of the feedback summary.
+     * Returns The status of the feedback summary.
      *
      * @return The status of the feedback summary
      */

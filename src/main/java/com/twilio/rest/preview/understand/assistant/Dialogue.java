@@ -115,7 +115,7 @@ public class Dialogue extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this Field..
+     * Returns The unique ID of the Account that created this Field..
      *
      * @return The unique ID of the Account that created this Field.
      */
@@ -124,7 +124,7 @@ public class Dialogue extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the parent Assistant..
+     * Returns The unique ID of the parent Assistant..
      *
      * @return The unique ID of the parent Assistant.
      */
@@ -133,7 +133,7 @@ public class Dialogue extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Dialogue.
+     * Returns The unique ID of the Dialogue.
      *
      * @return The unique ID of the Dialogue
      */
@@ -142,7 +142,7 @@ public class Dialogue extends Resource {
     }
 
     /**
-     * Returns The The dialogue memory object as json.
+     * Returns The dialogue memory object as json.
      *
      * @return The dialogue memory object as json
      */
@@ -151,7 +151,7 @@ public class Dialogue extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The url.
      *
      * @return The url
      */

@@ -171,7 +171,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the Service resource.
+     * Returns The unique string that identifies the Service resource.
      *
      * @return The unique string that identifies the Service resource
      */
@@ -180,7 +180,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the Service resource.
+     * Returns The SID of the Account that created the Service resource.
      *
      * @return The SID of the Account that created the Service resource
      */
@@ -189,7 +189,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the Service resource.
+     * Returns The string that you assigned to describe the Service resource.
      *
      * @return The string that you assigned to describe the Service resource
      */
@@ -198,8 +198,8 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The An application-defined string that uniquely identifies the
-     * Service resource.
+     * Returns An application-defined string that uniquely identifies the Service
+     * resource.
      *
      * @return An application-defined string that uniquely identifies the Service
      *         resource
@@ -209,7 +209,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Whether to inject Account credentials into a function invocation
+     * Returns Whether to inject Account credentials into a function invocation
      * context.
      *
      * @return Whether to inject Account credentials into a function invocation
@@ -220,7 +220,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Service resource was
+     * Returns The ISO 8601 date and time in GMT when the Service resource was
      * created.
      *
      * @return The ISO 8601 date and time in GMT when the Service resource was
@@ -231,8 +231,8 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Service resource was
-     * last updated.
+     * Returns The ISO 8601 date and time in GMT when the Service resource was last
+     * updated.
      *
      * @return The ISO 8601 date and time in GMT when the Service resource was last
      *         updated
@@ -242,7 +242,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Service resource.
+     * Returns The absolute URL of the Service resource.
      *
      * @return The absolute URL of the Service resource
      */
@@ -251,7 +251,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The URLs of the Service's nested resources.
+     * Returns The URLs of the Service's nested resources.
      *
      * @return The URLs of the Service's nested resources
      */

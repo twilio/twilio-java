@@ -8,6 +8,7 @@
 package com.twilio.rest.studio.v2;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Converter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -17,6 +18,8 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+import java.util.Map;
+
 /**
  * PLEASE NOTE that this class contains beta products that are subject to
  * change. Use them with caution.
@@ -24,7 +27,7 @@ import com.twilio.rest.Domains;
 public class FlowCreator extends Creator<Flow> {
     private final String friendlyName;
     private final Flow.Status status;
-    private final String definition;
+    private final Map<String, Object> definition;
     private String commitMessage;
 
     /**
@@ -36,7 +39,7 @@ public class FlowCreator extends Creator<Flow> {
      */
     public FlowCreator(final String friendlyName,
                        final Flow.Status status,
-                       final String definition) {
+                       final Map<String, Object> definition) {
         this.friendlyName = friendlyName;
         this.status = status;
         this.definition = definition;
@@ -107,7 +110,7 @@ public class FlowCreator extends Creator<Flow> {
         }
 
         if (definition != null) {
-            request.addPostParam("Definition", definition);
+            request.addPostParam("Definition", Converter.mapToJson(definition));
         }
 
         if (commitMessage != null) {

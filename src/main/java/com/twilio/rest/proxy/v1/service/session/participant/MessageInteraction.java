@@ -297,7 +297,7 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -306,7 +306,7 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The The SID of the resource's parent Session.
+     * Returns The SID of the resource's parent Session.
      *
      * @return The SID of the resource's parent Session
      */
@@ -315,7 +315,7 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The The SID of the resource's parent Service.
+     * Returns The SID of the resource's parent Service.
      *
      * @return The SID of the resource's parent Service
      */
@@ -324,7 +324,7 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -333,8 +333,7 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The A JSON string that includes the message body sent to the
-     * participant.
+     * Returns A JSON string that includes the message body sent to the participant.
      *
      * @return A JSON string that includes the message body sent to the participant
      */
@@ -343,7 +342,7 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The The Type of Message Interaction.
+     * Returns The Type of Message Interaction.
      *
      * @return The Type of Message Interaction
      */
@@ -352,7 +351,7 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The The SID of the Participant resource.
+     * Returns The SID of the Participant resource.
      *
      * @return The SID of the Participant resource
      */
@@ -361,7 +360,7 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The Always empty for Message Interactions.
+     * Returns Always empty for Message Interactions.
      *
      * @return Always empty for Message Interactions
      */
@@ -370,7 +369,7 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The Always empty for Message Interactions.
+     * Returns Always empty for Message Interactions.
      *
      * @return Always empty for Message Interactions
      */
@@ -379,7 +378,7 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The Always empty for Message Interactions.
+     * Returns Always empty for Message Interactions.
      *
      * @return Always empty for Message Interactions
      */
@@ -388,7 +387,7 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The Always empty for Message Interactions.
+     * Returns Always empty for Message Interactions.
      *
      * @return Always empty for Message Interactions
      */
@@ -397,7 +396,7 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The Always empty for Message Interactions.
+     * Returns Always empty for Message Interactions.
      *
      * @return Always empty for Message Interactions
      */
@@ -406,7 +405,7 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The The SID of the outbound Participant resource.
+     * Returns The SID of the outbound Participant resource.
      *
      * @return The SID of the outbound Participant resource
      */
@@ -415,7 +414,7 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The The SID of the outbound Message resource.
+     * Returns The SID of the outbound Message resource.
      *
      * @return The SID of the outbound Message resource
      */
@@ -424,7 +423,7 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The The outbound resource status.
+     * Returns The outbound resource status.
      *
      * @return The outbound resource status
      */
@@ -433,7 +432,7 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The The outbound resource type.
+     * Returns The outbound resource type.
      *
      * @return The outbound resource type
      */
@@ -442,7 +441,7 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The The URL of the Twilio message resource.
+     * Returns The URL of the Twilio message resource.
      *
      * @return The URL of the Twilio message resource
      */
@@ -451,7 +450,7 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -460,8 +459,7 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -470,7 +468,7 @@ public class MessageInteraction extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the MessageInteraction resource.
+     * Returns The absolute URL of the MessageInteraction resource.
      *
      * @return The absolute URL of the MessageInteraction resource
      */

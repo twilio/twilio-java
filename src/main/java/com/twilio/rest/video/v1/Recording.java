@@ -275,7 +275,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -284,7 +284,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The status of the recording.
+     * Returns The status of the recording.
      *
      * @return The status of the recording
      */
@@ -293,7 +293,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -302,7 +302,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -311,7 +311,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The SID of the recording source.
+     * Returns The SID of the recording source.
      *
      * @return The SID of the recording source
      */
@@ -320,7 +320,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The size of the recorded track, in bytes.
+     * Returns The size of the recorded track, in bytes.
      *
      * @return The size of the recorded track, in bytes
      */
@@ -329,7 +329,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
      */
@@ -338,7 +338,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The recording's media type.
+     * Returns The recording's media type.
      *
      * @return The recording's media type
      */
@@ -347,7 +347,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The duration of the recording in seconds.
+     * Returns The duration of the recording in seconds.
      *
      * @return The duration of the recording in seconds
      */
@@ -356,7 +356,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The file format for the recording.
+     * Returns The file format for the recording.
      *
      * @return The file format for the recording
      */
@@ -365,7 +365,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The codec used to encode the track.
+     * Returns The codec used to encode the track.
      *
      * @return The codec used to encode the track
      */
@@ -374,7 +374,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The A list of SIDs related to the recording.
+     * Returns A list of SIDs related to the recording.
      *
      * @return A list of SIDs related to the recording
      */
@@ -383,7 +383,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The name that was given to the source track of the recording.
+     * Returns The name that was given to the source track of the recording.
      *
      * @return The name that was given to the source track of the recording
      */
@@ -392,8 +392,8 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The number of milliseconds between a point in time that is common
-     * to all rooms in a group and when the source room of the recording started.
+     * Returns The number of milliseconds between a point in time that is common to
+     * all rooms in a group and when the source room of the recording started.
      *
      * @return The number of milliseconds between a point in time that is common to
      *         all rooms in a group and when the source room of the recording
@@ -404,7 +404,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The URLs of related resources.
+     * Returns The URLs of related resources.
      *
      * @return The URLs of related resources
      */

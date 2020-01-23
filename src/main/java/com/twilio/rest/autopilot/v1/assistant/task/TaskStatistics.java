@@ -120,7 +120,7 @@ public class TaskStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -129,8 +129,8 @@ public class TaskStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Assistant that is the parent of the Task
-     * associated with the resource.
+     * Returns The SID of the Assistant that is the parent of the Task associated
+     * with the resource.
      *
      * @return The SID of the Assistant that is the parent of the Task associated
      *         with the resource
@@ -140,7 +140,7 @@ public class TaskStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Task for which the statistics were collected.
+     * Returns The SID of the Task for which the statistics were collected.
      *
      * @return The SID of the Task for which the statistics were collected
      */
@@ -149,7 +149,7 @@ public class TaskStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Samples associated with the Task.
+     * Returns The total number of Samples associated with the Task.
      *
      * @return The total number of Samples associated with the Task
      */
@@ -158,7 +158,7 @@ public class TaskStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Fields associated with the Task.
+     * Returns The total number of Fields associated with the Task.
      *
      * @return The total number of Fields associated with the Task
      */
@@ -167,7 +167,7 @@ public class TaskStatistics extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the TaskStatistics resource.
+     * Returns The absolute URL of the TaskStatistics resource.
      *
      * @return The absolute URL of the TaskStatistics resource
      */

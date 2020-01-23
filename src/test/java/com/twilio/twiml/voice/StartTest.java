@@ -69,7 +69,11 @@ public class StartTest {
                     .track(Stream.Track.INBOUND_TRACK)
                     .build());
 
-        builder.siprec(new Siprec.Builder().name("name").connectorName("connector_name").build());
+        builder.siprec(new Siprec.Builder()
+                    .name("name")
+                    .connectorName("connector_name")
+                    .track(Siprec.Track.INBOUND_TRACK)
+                    .build());
 
         Start elem = builder.build();
 
@@ -77,7 +81,7 @@ public class StartTest {
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Start>" +
                 "<Stream connectorName=\"connector_name\" name=\"name\" track=\"inbound_track\" url=\"url\"/>" +
-                "<Siprec connectorName=\"connector_name\" name=\"name\"/>" +
+                "<Siprec connectorName=\"connector_name\" name=\"name\" track=\"inbound_track\"/>" +
             "</Start>",
             elem.toXml()
         );

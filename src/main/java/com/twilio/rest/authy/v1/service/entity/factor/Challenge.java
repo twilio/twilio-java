@@ -323,7 +323,7 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Challenge..
+     * Returns A string that uniquely identifies this Challenge..
      *
      * @return A string that uniquely identifies this Challenge.
      */
@@ -332,7 +332,7 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns Account Sid..
      *
      * @return Account Sid.
      */
@@ -341,7 +341,7 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns The Service Sid..
+     * Returns Service Sid..
      *
      * @return Service Sid.
      */
@@ -350,7 +350,7 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns The Entity Sid..
+     * Returns Entity Sid..
      *
      * @return Entity Sid.
      */
@@ -359,7 +359,7 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns The Unique identity of the Entity.
+     * Returns Unique identity of the Entity.
      *
      * @return Unique identity of the Entity
      */
@@ -368,7 +368,7 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns The Factor Sid..
+     * Returns Factor Sid..
      *
      * @return Factor Sid.
      */
@@ -377,7 +377,7 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns The The date this Challenge was created.
+     * Returns The date this Challenge was created.
      *
      * @return The date this Challenge was created
      */
@@ -386,7 +386,7 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns The The date this Challenge was updated.
+     * Returns The date this Challenge was updated.
      *
      * @return The date this Challenge was updated
      */
@@ -395,7 +395,7 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns The The date this Challenge was responded.
+     * Returns The date this Challenge was responded.
      *
      * @return The date this Challenge was responded
      */
@@ -404,7 +404,7 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns The The date this Challenge is expired.
+     * Returns The date this Challenge is expired.
      *
      * @return The date this Challenge is expired
      */
@@ -413,7 +413,7 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns The The Status of this Challenge.
+     * Returns The Status of this Challenge.
      *
      * @return The Status of this Challenge
      */
@@ -422,7 +422,7 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns The The Reason of this Challenge `status`.
+     * Returns The Reason of this Challenge `status`.
      *
      * @return The Reason of this Challenge `status`
      */
@@ -431,7 +431,7 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns The Public details provided to contextualize the Challenge.
+     * Returns Public details provided to contextualize the Challenge.
      *
      * @return Public details provided to contextualize the Challenge
      */
@@ -440,7 +440,7 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns The Hidden details provided to contextualize the Challenge.
+     * Returns Hidden details provided to contextualize the Challenge.
      *
      * @return Hidden details provided to contextualize the Challenge
      */
@@ -449,7 +449,7 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns The The Factor Type of this Challenge.
+     * Returns The Factor Type of this Challenge.
      *
      * @return The Factor Type of this Challenge
      */
@@ -458,7 +458,7 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns The The Factor Strength of this Challenge.
+     * Returns The Factor Strength of this Challenge.
      *
      * @return The Factor Strength of this Challenge
      */
@@ -467,7 +467,7 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The URL of this resource..
      *
      * @return The URL of this resource.
      */

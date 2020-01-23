@@ -183,7 +183,7 @@ public class Metric extends Resource {
     }
 
     /**
-     * Returns The The timestamp.
+     * Returns The timestamp.
      *
      * @return The timestamp
      */
@@ -192,7 +192,7 @@ public class Metric extends Resource {
     }
 
     /**
-     * Returns The The call_sid.
+     * Returns The call_sid.
      *
      * @return The call_sid
      */
@@ -201,7 +201,7 @@ public class Metric extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The account_sid.
      *
      * @return The account_sid
      */
@@ -210,7 +210,7 @@ public class Metric extends Resource {
     }
 
     /**
-     * Returns The The edge.
+     * Returns The edge.
      *
      * @return The edge
      */
@@ -219,7 +219,7 @@ public class Metric extends Resource {
     }
 
     /**
-     * Returns The The direction.
+     * Returns The direction.
      *
      * @return The direction
      */
@@ -228,7 +228,7 @@ public class Metric extends Resource {
     }
 
     /**
-     * Returns The The carrier_edge.
+     * Returns The carrier_edge.
      *
      * @return The carrier_edge
      */
@@ -237,7 +237,7 @@ public class Metric extends Resource {
     }
 
     /**
-     * Returns The The sip_edge.
+     * Returns The sip_edge.
      *
      * @return The sip_edge
      */
@@ -246,7 +246,7 @@ public class Metric extends Resource {
     }
 
     /**
-     * Returns The The sdk_edge.
+     * Returns The sdk_edge.
      *
      * @return The sdk_edge
      */
@@ -255,7 +255,7 @@ public class Metric extends Resource {
     }
 
     /**
-     * Returns The The client_edge.
+     * Returns The client_edge.
      *
      * @return The client_edge
      */

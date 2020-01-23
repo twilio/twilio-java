@@ -173,7 +173,7 @@ public class AssetVersion extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the Asset Version resource.
+     * Returns The unique string that identifies the Asset Version resource.
      *
      * @return The unique string that identifies the Asset Version resource
      */
@@ -182,7 +182,7 @@ public class AssetVersion extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the Asset Version resource.
+     * Returns The SID of the Account that created the Asset Version resource.
      *
      * @return The SID of the Account that created the Asset Version resource
      */
@@ -191,8 +191,8 @@ public class AssetVersion extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the Asset Version resource is
-     * associated with.
+     * Returns The SID of the Service that the Asset Version resource is associated
+     * with.
      *
      * @return The SID of the Service that the Asset Version resource is associated
      *         with
@@ -202,7 +202,7 @@ public class AssetVersion extends Resource {
     }
 
     /**
-     * Returns The The SID of the Asset resource that is the parent of the asset
+     * Returns The SID of the Asset resource that is the parent of the asset
      * version.
      *
      * @return The SID of the Asset resource that is the parent of the asset version
@@ -212,8 +212,7 @@ public class AssetVersion extends Resource {
     }
 
     /**
-     * Returns The The URL-friendly string by which the asset version can be
-     * referenced.
+     * Returns The URL-friendly string by which the asset version can be referenced.
      *
      * @return The URL-friendly string by which the asset version can be referenced
      */
@@ -222,7 +221,7 @@ public class AssetVersion extends Resource {
     }
 
     /**
-     * Returns The The access control that determines how the asset version can be
+     * Returns The access control that determines how the asset version can be
      * accessed.
      *
      * @return The access control that determines how the asset version can be
@@ -233,8 +232,8 @@ public class AssetVersion extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Asset Version resource
-     * was created.
+     * Returns The ISO 8601 date and time in GMT when the Asset Version resource was
+     * created.
      *
      * @return The ISO 8601 date and time in GMT when the Asset Version resource
      *         was created
@@ -244,7 +243,7 @@ public class AssetVersion extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Asset Version resource.
+     * Returns The absolute URL of the Asset Version resource.
      *
      * @return The absolute URL of the Asset Version resource
      */

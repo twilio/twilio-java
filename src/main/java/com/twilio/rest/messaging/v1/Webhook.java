@@ -166,7 +166,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -175,7 +175,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The SID of the Chat Service that the resource is associated with.
+     * Returns The SID of the Chat Service that the resource is associated with.
      *
      * @return The SID of the Chat Service that the resource is associated with
      */
@@ -184,7 +184,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The HTTP method to use when sending a webhook request.
+     * Returns The HTTP method to use when sending a webhook request.
      *
      * @return The HTTP method to use when sending a webhook request
      */
@@ -193,8 +193,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The list of webhook event triggers that are enabled for the
-     * Service.
+     * Returns The list of webhook event triggers that are enabled for the Service.
      *
      * @return The list of webhook event triggers that are enabled for the Service
      */
@@ -203,7 +202,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the pre-event webhook.
+     * Returns The absolute URL of the pre-event webhook.
      *
      * @return The absolute URL of the pre-event webhook
      */
@@ -212,7 +211,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the post-event webhook.
+     * Returns The absolute URL of the post-event webhook.
      *
      * @return The absolute URL of the post-event webhook
      */
@@ -221,8 +220,8 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The number of times to try the pre-event webhook request if the
-     * first attempt fails.
+     * Returns The number of times to try the pre-event webhook request if the first
+     * attempt fails.
      *
      * @return The number of times to try the pre-event webhook request if the
      *         first attempt fails
@@ -232,7 +231,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The number of times to try the post-event webhook request if the
+     * Returns The number of times to try the post-event webhook request if the
      * first attempt fails.
      *
      * @return The number of times to try the post-event webhook request if the
@@ -243,7 +242,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The routing target of the webhook.
+     * Returns The routing target of the webhook.
      *
      * @return The routing target of the webhook
      */
@@ -252,7 +251,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the webhook.
+     * Returns The absolute URL of the webhook.
      *
      * @return The absolute URL of the webhook
      */

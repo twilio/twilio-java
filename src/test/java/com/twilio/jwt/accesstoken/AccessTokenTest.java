@@ -17,7 +17,7 @@ public class AccessTokenTest {
 
     private static final String ACCOUNT_SID = "AC123";
     private static final String SIGNING_KEY_SID = "SK123";
-    private static final String SECRET = "secret";
+    private static final String SECRET = "secretsecretsecretsecretsecret00";
 
     private void validateToken(Claims claims) {
         Assert.assertEquals(SIGNING_KEY_SID, claims.getIssuer());

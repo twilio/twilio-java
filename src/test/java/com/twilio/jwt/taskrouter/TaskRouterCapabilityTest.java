@@ -21,7 +21,7 @@ import io.jsonwebtoken.Jwts;
 public class TaskRouterCapabilityTest {
 
     private static final String ACCOUNT_SID = "AC123";
-    private static final String AUTH_TOKEN = "secret";
+    private static final String AUTH_TOKEN = "secretsecretsecretsecretsecret00";
     private static final String WORKSPACE_SID = "WS123";
     private static final String WORKER_SID = "WK123";
 

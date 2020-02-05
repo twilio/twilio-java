@@ -35,6 +35,8 @@ public class MessageCreator extends Creator<Message> {
     private Boolean provideFeedback;
     private Integer validityPeriod;
     private Boolean forceDelivery;
+    private Message.ContentRetention contentRetention;
+    private Message.AddressRetention addressRetention;
     private Boolean smartEncoded;
     private List<String> persistentAction;
 
@@ -297,6 +299,32 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
+     * Determines if the message content can be stored or redacted based on privacy
+     * settings.
+     *
+     * @param contentRetention Determines if the message content can be stored or
+     *                         redacted based on privacy settings
+     * @return this
+     */
+    public MessageCreator setContentRetention(final Message.ContentRetention contentRetention) {
+        this.contentRetention = contentRetention;
+        return this;
+    }
+
+    /**
+     * Determines if the address can be stored or obfuscated based on privacy
+     * settings.
+     *
+     * @param addressRetention Determines if the address can be stored or
+     *                         obfuscated based on privacy settings
+     * @return this
+     */
+    public MessageCreator setAddressRetention(final Message.AddressRetention addressRetention) {
+        this.addressRetention = addressRetention;
+        return this;
+    }
+
+    /**
      * Whether to detect Unicode characters that have a similar GSM-7 character and
      * replace them. Can be: `true` or `false`..
      *
@@ -528,6 +556,14 @@ public class MessageCreator extends Creator<Message> {
 
         if (forceDelivery != null) {
             request.addPostParam("ForceDelivery", forceDelivery.toString());
+        }
+
+        if (contentRetention != null) {
+            request.addPostParam("ContentRetention", contentRetention.toString());
+        }
+
+        if (addressRetention != null) {
+            request.addPostParam("AddressRetention", addressRetention.toString());
         }
 
         if (smartEncoded != null) {

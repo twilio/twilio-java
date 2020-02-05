@@ -70,7 +70,8 @@ public class Factor extends Resource {
     public enum FactorTypes {
         APP_PUSH("app-push"),
         SMS("sms"),
-        TOTP("totp");
+        TOTP("totp"),
+        PUSH("push");
 
         private final String value;
 
@@ -127,7 +128,7 @@ public class Factor extends Resource {
      *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique identity of the Entity
-     * @param binding A unique binding for this Factor
+     * @param binding A unique binding for this Factor as a json string
      * @param friendlyName The friendly name of this Factor
      * @param factorType The Type of this Factor
      * @return FactorCreator capable of executing the create

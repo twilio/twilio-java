@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Verification extends Resource {
-    private static final long serialVersionUID = 90062652968318L;
+    private static final long serialVersionUID = 216517595769072L;
 
     public enum Channel {
         SMS("sms"),
@@ -180,6 +180,7 @@ public class Verification extends Resource {
     private final Map<String, Object> lookup;
     private final String amount;
     private final String payee;
+    private final Map<String, Object> sendCodeAttempts;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
@@ -205,6 +206,8 @@ public class Verification extends Resource {
                          final String amount,
                          @JsonProperty("payee")
                          final String payee,
+                         @JsonProperty("send_code_attempts")
+                         final Map<String, Object> sendCodeAttempts,
                          @JsonProperty("date_created")
                          final String dateCreated,
                          @JsonProperty("date_updated")
@@ -221,6 +224,7 @@ public class Verification extends Resource {
         this.lookup = lookup;
         this.amount = amount;
         this.payee = payee;
+        this.sendCodeAttempts = sendCodeAttempts;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -317,6 +321,15 @@ public class Verification extends Resource {
     }
 
     /**
+     * Returns An array of verification attempt objects..
+     *
+     * @return An array of verification attempt objects.
+     */
+    public final Map<String, Object> getSendCodeAttempts() {
+        return this.sendCodeAttempts;
+    }
+
+    /**
      * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
@@ -365,6 +378,7 @@ public class Verification extends Resource {
                Objects.equals(lookup, other.lookup) &&
                Objects.equals(amount, other.amount) &&
                Objects.equals(payee, other.payee) &&
+               Objects.equals(sendCodeAttempts, other.sendCodeAttempts) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
@@ -382,6 +396,7 @@ public class Verification extends Resource {
                             lookup,
                             amount,
                             payee,
+                            sendCodeAttempts,
                             dateCreated,
                             dateUpdated,
                             url);
@@ -400,6 +415,7 @@ public class Verification extends Resource {
                           .add("lookup", lookup)
                           .add("amount", amount)
                           .add("payee", payee)
+                          .add("sendCodeAttempts", sendCodeAttempts)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)

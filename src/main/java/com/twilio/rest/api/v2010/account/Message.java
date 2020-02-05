@@ -51,7 +51,8 @@ public class Message extends Resource {
         RECEIVED("received"),
         ACCEPTED("accepted"),
         SCHEDULED("scheduled"),
-        READ("read");
+        READ("read"),
+        PARTIALLY_DELIVERED("partially_delivered");
 
         private final String value;
 

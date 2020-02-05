@@ -25,6 +25,7 @@ public class Say extends TwiML {
         POLLY_ASTRID("Polly.Astrid"),
         POLLY_BIANCA("Polly.Bianca"),
         POLLY_BRIAN("Polly.Brian"),
+        POLLY_CAMILA("Polly.Camila"),
         POLLY_CARLA("Polly.Carla"),
         POLLY_CARMEN("Polly.Carmen"),
         POLLY_CELINE("Polly.Celine"),
@@ -54,6 +55,7 @@ public class Say extends TwiML {
         POLLY_LIV("Polly.Liv"),
         POLLY_LOTTE("Polly.Lotte"),
         POLLY_LUCIA("Polly.Lucia"),
+        POLLY_LUPE("Polly.Lupe"),
         POLLY_MADS("Polly.Mads"),
         POLLY_MAJA("Polly.Maja"),
         POLLY_MARLENE("Polly.Marlene"),
@@ -77,7 +79,20 @@ public class Say extends TwiML {
         POLLY_VICKI("Polly.Vicki"),
         POLLY_VITORIA("Polly.Vitoria"),
         POLLY_ZEINA("Polly.Zeina"),
-        POLLY_ZHIYU("Polly.Zhiyu");
+        POLLY_ZHIYU("Polly.Zhiyu"),
+        POLLY_AMY_NEURAL("Polly.Amy-Neural"),
+        POLLY_EMMA_NEURAL("Polly.Emma-Neural"),
+        POLLY_BRIAN_NEURAL("Polly.Brian-Neural"),
+        POLLY_SALLI_NEURAL("Polly.Salli-Neural"),
+        POLLY_IVY_NEURAL("Polly.Ivy-Neural"),
+        POLLY_JOANNA_NEURAL("Polly.Joanna-Neural"),
+        POLLY_KENDRA_NEURAL("Polly.Kendra-Neural"),
+        POLLY_KIMBERLY_NEURAL("Polly.Kimberly-Neural"),
+        POLLY_JOEY_NEURAL("Polly.Joey-Neural"),
+        POLLY_JUSTIN_NEURAL("Polly.Justin-Neural"),
+        POLLY_MATTHEW_NEURAL("Polly.Matthew-Neural"),
+        POLLY_CAMILA_NEURAL("Polly.Camila-Neural"),
+        POLLY_LUPE_NEURAL("Polly.Lupe-Neural");
 
         private final String value;
 

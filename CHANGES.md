@@ -1,6 +1,34 @@
 twilio-java changelog
 =====================
 
+[2020-02-05] Version 7.47.4
+---------------------------
+**Library - Chore**
+- [PR #514](https://github.com/twilio/twilio-java/pull/514): Update jjwt dependency version 0.10.7. Thanks to [@eager](https://github.com/eager)!
+
+**Library - Test**
+- [PR #506](https://github.com/twilio/twilio-java/pull/506): use [equalsverifier] library to verify 'equals' methods. Thanks to [@sullis](https://github.com/sullis)!
+
+**Api**
+- Making content retention and address retention public
+- Update `status` enum for Messages to include 'partially_delivered'
+
+**Authy**
+- Added support for push factors
+
+**Autopilot**
+- Add one new property in Query i.e dialogue_sid
+
+**Verify**
+- Add `SendCodeAttempts` to create verification response.
+
+**Video**
+- Clarification in composition creation documentation: one source is mandatory, either `audio_sources` or `video_layout`, but on of them has to be provided
+
+**Twiml**
+- Add Polly Neural voices.
+
+
 [2020-01-23] Version 7.47.3
 ---------------------------
 **Library - Docs**

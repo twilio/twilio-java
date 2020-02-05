@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Query extends Resource {
-    private static final long serialVersionUID = 54679602157752L;
+    private static final long serialVersionUID = 161972386699881L;
 
     /**
      * Create a QueryFetcher to execute fetch.
@@ -158,6 +158,7 @@ public class Query extends Resource {
     private final String status;
     private final URI url;
     private final String sourceChannel;
+    private final String dialogueSid;
 
     @JsonCreator
     private Query(@JsonProperty("account_sid")
@@ -185,7 +186,9 @@ public class Query extends Resource {
                   @JsonProperty("url")
                   final URI url,
                   @JsonProperty("source_channel")
-                  final String sourceChannel) {
+                  final String sourceChannel,
+                  @JsonProperty("dialogue_sid")
+                  final String dialogueSid) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
@@ -199,6 +202,7 @@ public class Query extends Resource {
         this.status = status;
         this.url = url;
         this.sourceChannel = sourceChannel;
+        this.dialogueSid = dialogueSid;
     }
 
     /**
@@ -325,6 +329,17 @@ public class Query extends Resource {
         return this.sourceChannel;
     }
 
+    /**
+     * Returns The SID of the
+     * [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue)..
+     *
+     * @return The SID of the
+     *         [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
+     */
+    public final String getDialogueSid() {
+        return this.dialogueSid;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -349,7 +364,8 @@ public class Query extends Resource {
                Objects.equals(sid, other.sid) &&
                Objects.equals(status, other.status) &&
                Objects.equals(url, other.url) &&
-               Objects.equals(sourceChannel, other.sourceChannel);
+               Objects.equals(sourceChannel, other.sourceChannel) &&
+               Objects.equals(dialogueSid, other.dialogueSid);
     }
 
     @Override
@@ -366,7 +382,8 @@ public class Query extends Resource {
                             sid,
                             status,
                             url,
-                            sourceChannel);
+                            sourceChannel,
+                            dialogueSid);
     }
 
     @Override
@@ -385,6 +402,7 @@ public class Query extends Resource {
                           .add("status", status)
                           .add("url", url)
                           .add("sourceChannel", sourceChannel)
+                          .add("dialogueSid", dialogueSid)
                           .toString();
     }
 }

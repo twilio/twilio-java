@@ -39,11 +39,12 @@ public class AlertReader extends Reader<Alert> {
     }
 
     /**
-     * Only include alerts that occurred on or after this date. Specify the date in
-     * GMT and format as `YYYY-MM-DD`. Queries for alerts older than 30 days are not
-     * supported..
+     * Only include alerts that occurred on or after this date and time. Specify the
+     * date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`.
+     * Queries for alerts older than 30 days are not supported..
      *
-     * @param startDate Only include alerts that occurred on or after this date
+     * @param startDate Only include alerts that occurred on or after this date and
+     *                  time
      * @return this
      */
     public AlertReader setStartDate(final LocalDate startDate) {
@@ -52,11 +53,13 @@ public class AlertReader extends Reader<Alert> {
     }
 
     /**
-     * Only include alerts that occurred on or before this date. Specify the date in
-     * GMT and format as `YYYY-MM-DD`. Queries for alerts older than 30 days are not
+     * Only include alerts that occurred on or before this date and time. Specify
+     * the date and time in GMT and format as `YYYY-MM-DD` or
+     * `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not
      * supported..
      *
-     * @param endDate Only include alerts that occurred on or before this date
+     * @param endDate Only include alerts that occurred on or before this date and
+     *                time
      * @return this
      */
     public AlertReader setEndDate(final LocalDate endDate) {

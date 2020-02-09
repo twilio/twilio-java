@@ -5,9 +5,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  * Grant used to access Twilio Chat.
  *
  * <p>
- * For more information see:
- * <a href="https://www.twilio.com/docs/api/rest/access-tokens">
- * https://www.twilio.com/docs/api/rest/access-tokens </a>
+ *     For more information see:
+ *     <a href="https://www.twilio.com/docs/api/rest/access-tokens">
+ *         https://www.twilio.com/docs/api/rest/access-tokens
+ *     </a>
  * </p>
  */
 public class ChatGrant implements Grant {

@@ -1,5 +1,7 @@
 package com.twilio.jwt.accesstoken;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * Grant used to access Twilio Sync.
  *
@@ -44,6 +46,7 @@ public class SyncGrant implements Grant {
     }
 
     @SuppressWarnings("checkstyle:membername")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public class Payload {
         public final String service_sid;
         public final String endpoint_id;

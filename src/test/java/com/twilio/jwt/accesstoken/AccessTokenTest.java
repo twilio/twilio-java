@@ -1,5 +1,7 @@
 package com.twilio.jwt.accesstoken;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.jwt.Jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -335,5 +337,19 @@ public class AccessTokenTest {
         Map<String, Object> outgoingParams = (Map<String, Object>) outgoing.get("params");
         Assert.assertEquals("AP123", outgoing.get("application_sid"));
         Assert.assertEquals("bar", outgoingParams.get("foo"));
+    }
+
+    @Test()
+    public void testNullValues() throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        ChatGrant grant = new ChatGrant()
+            .setDeploymentRoleSid("RL123")
+            .setPushCredentialSid("CR123")
+            .setServiceSid("IS123");
+        String payload = mapper.writeValueAsString(grant);
+        Assert.assertFalse(payload.contains("endpoint_id"));
+        Assert.assertTrue(payload.contains("deployment_role_sid"));
+        Assert.assertTrue(payload.contains("push_credential_sid"));
+        Assert.assertTrue(payload.contains("service_sid"));
     }
 }

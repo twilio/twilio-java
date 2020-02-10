@@ -1,7 +1,5 @@
 package com.twilio.jwt.accesstoken;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.jwt.Jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -33,6 +31,13 @@ public class AccessTokenTest {
         Assert.assertTrue(claims.getExpiration().getTime() > new Date().getTime());
     }
 
+    private Claims getClaimFromJwtToken(Jwt token) {
+        return Jwts.parser()
+                   .setSigningKey(SECRET.getBytes())
+                   .parseClaimsJws(token.toJwt())
+                   .getBody();
+    } 
+
     private void testVoiceToken(Boolean allow) {
         Map<String, Object> params = new HashMap<>();
         params.put("foo", "bar");
@@ -46,11 +51,7 @@ public class AccessTokenTest {
                 .grant(pvg)
                 .build();
 
-        Claims claims =
-            Jwts.parser()
-                .setSigningKey(SECRET.getBytes())
-                .parseClaimsJws(token.toJwt())
-                .getBody();
+        Claims claims = getClaimFromJwtToken(token);
 
         validateToken(claims);
         Map<String, Object> decodedGrants = (Map<String, Object>) claims.get("grants");
@@ -73,11 +74,7 @@ public class AccessTokenTest {
             new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
                 .build();
 
-        Claims claims =
-            Jwts.parser()
-                .setSigningKey(SECRET.getBytes())
-                .parseClaimsJws(token.toJwt())
-                .getBody();
+        Claims claims = getClaimFromJwtToken(token);
 
         validateToken(claims);
     }
@@ -90,11 +87,7 @@ public class AccessTokenTest {
                 .nbf(new Date())
                 .build();
 
-        Claims claims =
-            Jwts.parser()
-                .setSigningKey(SECRET.getBytes())
-                .parseClaimsJws(token.toJwt())
-                .getBody();
+        Claims claims = getClaimFromJwtToken(token);
 
         validateToken(claims);
         Assert.assertTrue(claims.getNotBefore().getTime() <= new Date().getTime());
@@ -108,11 +101,7 @@ public class AccessTokenTest {
                 .grant(cg)
                 .build();
 
-        Claims claims =
-            Jwts.parser()
-                .setSigningKey(SECRET.getBytes())
-                .parseClaimsJws(token.toJwt())
-                .getBody();
+        Claims claims = getClaimFromJwtToken(token);
 
         validateToken(claims);
 
@@ -131,11 +120,7 @@ public class AccessTokenTest {
                 .grant(cg)
                 .build();
 
-        Claims claims =
-            Jwts.parser()
-                .setSigningKey(SECRET.getBytes())
-                .parseClaimsJws(token.toJwt())
-                .getBody();
+        Claims claims = getClaimFromJwtToken(token);
 
         validateToken(claims);
 
@@ -158,11 +143,7 @@ public class AccessTokenTest {
                 .grant(ipg)
                 .build();
 
-        Claims claims =
-            Jwts.parser()
-                .setSigningKey(SECRET.getBytes())
-                .parseClaimsJws(token.toJwt())
-                .getBody();
+        Claims claims = getClaimFromJwtToken(token);
 
         validateToken(claims);
 
@@ -188,11 +169,7 @@ public class AccessTokenTest {
                 .grant(cg)
                 .build();
 
-        Claims claims =
-            Jwts.parser()
-                .setSigningKey(SECRET.getBytes())
-                .parseClaimsJws(token.toJwt())
-                .getBody();
+        Claims claims = getClaimFromJwtToken(token);
 
         validateToken(claims);
 
@@ -216,11 +193,7 @@ public class AccessTokenTest {
                         .grant(sg)
                         .build();
 
-        Claims claims =
-                Jwts.parser()
-                        .setSigningKey(SECRET.getBytes())
-                        .parseClaimsJws(token.toJwt())
-                        .getBody();
+        Claims claims = getClaimFromJwtToken(token);
 
         validateToken(claims);
 
@@ -244,11 +217,7 @@ public class AccessTokenTest {
                         .grant(trg)
                         .build();
 
-        Claims claims =
-                Jwts.parser()
-                        .setSigningKey(SECRET.getBytes())
-                        .parseClaimsJws(token.toJwt())
-                        .getBody();
+        Claims claims = getClaimFromJwtToken(token);
 
         validateToken(claims);
 
@@ -278,11 +247,7 @@ public class AccessTokenTest {
                 .nbf(new Date())
                 .build();
 
-        Claims claims =
-            Jwts.parser()
-                .setSigningKey(SECRET.getBytes())
-                .parseClaimsJws(token.toJwt())
-                .getBody();
+        Claims claims = getClaimFromJwtToken(token);
 
         validateToken(claims);
         Assert.assertTrue(claims.getNotBefore().getTime() <= new Date().getTime());
@@ -319,11 +284,7 @@ public class AccessTokenTest {
                 .grant(pvg)
                 .build();
 
-        Claims claims =
-            Jwts.parser()
-                .setSigningKey(SECRET.getBytes())
-                .parseClaimsJws(token.toJwt())
-                .getBody();
+        Claims claims = getClaimFromJwtToken(token);
 
         validateToken(claims);
         Map<String, Object> decodedGrants = (Map<String, Object>) claims.get("grants");
@@ -340,16 +301,21 @@ public class AccessTokenTest {
     }
 
     @Test()
-    public void testNullValues() throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        ChatGrant grant = new ChatGrant()
-            .setDeploymentRoleSid("RL123")
-            .setPushCredentialSid("CR123")
-            .setServiceSid("IS123");
-        String payload = mapper.writeValueAsString(grant);
-        Assert.assertFalse(payload.contains("endpoint_id"));
-        Assert.assertTrue(payload.contains("deployment_role_sid"));
-        Assert.assertTrue(payload.contains("push_credential_sid"));
-        Assert.assertTrue(payload.contains("service_sid"));
+    public void testNullValues() {
+        ChatGrant cg = new ChatGrant().setDeploymentRoleSid("RL123");
+        Jwt token =
+            new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
+                .grant(cg)
+                .build();
+
+        Claims claims = getClaimFromJwtToken(token);
+        
+        validateToken(claims);
+
+        Map<String, Object> decodedGrants = (Map<String, Object>) claims.get("grants");
+        Map<String, Object> grant = (Map<String, Object>) decodedGrants.get("chat");
+
+        Assert.assertEquals("RL123", grant.get("deployment_role_sid"));
+        Assert.assertFalse(grant.containsKey("endpoint_id"));
     }
 }

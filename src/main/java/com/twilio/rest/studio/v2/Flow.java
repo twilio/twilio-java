@@ -41,7 +41,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Flow extends Resource {
-    private static final long serialVersionUID = 107645608485586L;
+    private static final long serialVersionUID = 261819836792679L;
 
     public enum Status {
         DRAFT("draft"),
@@ -171,6 +171,7 @@ public class Flow extends Resource {
     private final List<Map<String, Object>> errors;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
+    private final URI webhookUrl;
     private final URI url;
     private final Map<String, String> links;
 
@@ -197,6 +198,8 @@ public class Flow extends Resource {
                  final String dateCreated,
                  @JsonProperty("date_updated")
                  final String dateUpdated,
+                 @JsonProperty("webhook_url")
+                 final URI webhookUrl,
                  @JsonProperty("url")
                  final URI url,
                  @JsonProperty("links")
@@ -212,6 +215,7 @@ public class Flow extends Resource {
         this.errors = errors;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.webhookUrl = webhookUrl;
         this.url = url;
         this.links = links;
     }
@@ -316,6 +320,15 @@ public class Flow extends Resource {
     }
 
     /**
+     * Returns The webhook_url.
+     *
+     * @return The webhook_url
+     */
+    public final URI getWebhookUrl() {
+        return this.webhookUrl;
+    }
+
+    /**
      * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
@@ -356,6 +369,7 @@ public class Flow extends Resource {
                Objects.equals(errors, other.errors) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(webhookUrl, other.webhookUrl) &&
                Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
@@ -373,6 +387,7 @@ public class Flow extends Resource {
                             errors,
                             dateCreated,
                             dateUpdated,
+                            webhookUrl,
                             url,
                             links);
     }
@@ -391,6 +406,7 @@ public class Flow extends Resource {
                           .add("errors", errors)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
+                          .add("webhookUrl", webhookUrl)
                           .add("url", url)
                           .add("links", links)
                           .toString();

@@ -56,6 +56,7 @@ public class ParticipantCreator extends Creator<Participant> {
     private List<String> conferenceRecordingStatusCallbackEvent;
     private Boolean coaching;
     private String callSidToCoach;
+    private String byoc;
 
     /**
      * Construct a new ParticipantCreator.
@@ -620,6 +621,19 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
+     * The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with.
+     * Note that `byoc` is only meaningful when `to` is a phone number; it will
+     * otherwise be ignored. (Beta).
+     *
+     * @param byoc BYOC trunk SID (Beta)
+     * @return this
+     */
+    public ParticipantCreator setByoc(final String byoc) {
+        this.byoc = byoc;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -799,6 +813,10 @@ public class ParticipantCreator extends Creator<Participant> {
 
         if (callSidToCoach != null) {
             request.addPostParam("CallSidToCoach", callSidToCoach);
+        }
+
+        if (byoc != null) {
+            request.addPostParam("Byoc", byoc);
         }
     }
 }

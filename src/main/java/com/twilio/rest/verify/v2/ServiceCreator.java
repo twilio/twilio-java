@@ -112,10 +112,12 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * Whether to add a privacy warning at the end of an SMS. **Disabled by default
-     * and applies only for SMS.**.
+     * Whether to add a security warning at the end of an SMS verification body.
+     * Disabled by default and applies only to SMS. Example SMS body: `Your AppName
+     * verification code is: 1234. Don’t share this code with anyone; our employees
+     * will never ask for the code`.
      *
-     * @param doNotShareWarningEnabled Whether to add a privacy warning at the end
+     * @param doNotShareWarningEnabled Whether to add a security warning at the end
      *                                 of an SMS.
      * @return this
      */

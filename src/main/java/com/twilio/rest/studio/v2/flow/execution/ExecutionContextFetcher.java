@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.messaging.v1.session;
+package com.twilio.rest.studio.v2.flow.execution;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -18,47 +18,45 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
-public class WebhookFetcher extends Fetcher<Webhook> {
-    private final String pathSessionSid;
-    private final String pathSid;
+public class ExecutionContextFetcher extends Fetcher<ExecutionContext> {
+    private final String pathFlowSid;
+    private final String pathExecutionSid;
 
     /**
-     * Construct a new WebhookFetcher.
+     * Construct a new ExecutionContextFetcher.
      *
-     * @param pathSessionSid The SID of the Session with the Webhook resource to
-     *                       fetch
-     * @param pathSid The SID of the resource to fetch
+     * @param pathFlowSid The flow_sid
+     * @param pathExecutionSid The execution_sid
      */
-    public WebhookFetcher(final String pathSessionSid,
-                          final String pathSid) {
-        this.pathSessionSid = pathSessionSid;
-        this.pathSid = pathSid;
+    public ExecutionContextFetcher(final String pathFlowSid,
+                                   final String pathExecutionSid) {
+        this.pathFlowSid = pathFlowSid;
+        this.pathExecutionSid = pathExecutionSid;
     }
 
     /**
      * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Webhook
+     * @return Fetched ExecutionContext
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Webhook fetch(final TwilioRestClient client) {
+    public ExecutionContext fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.MESSAGING.toString(),
-            "/v1/Sessions/" + this.pathSessionSid + "/Webhooks/" + this.pathSid + "",
+            Domains.STUDIO.toString(),
+            "/v2/Flows/" + this.pathFlowSid + "/Executions/" + this.pathExecutionSid + "/Context",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Webhook fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("ExecutionContext fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -74,6 +72,6 @@ public class WebhookFetcher extends Fetcher<Webhook> {
             );
         }
 
-        return Webhook.fromJson(response.getStream(), client.getObjectMapper());
+        return ExecutionContext.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.messaging.v1.session;
+package com.twilio.rest.studio.v2.flow.execution;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -18,23 +18,26 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
-public class MessageFetcher extends Fetcher<Message> {
-    private final String pathSessionSid;
+public class ExecutionStepFetcher extends Fetcher<ExecutionStep> {
+    private final String pathFlowSid;
+    private final String pathExecutionSid;
     private final String pathSid;
 
     /**
-     * Construct a new MessageFetcher.
+     * Construct a new ExecutionStepFetcher.
      *
-     * @param pathSessionSid The SID of the Session with the message to fetch
-     * @param pathSid The SID that identifies the resource to fetch
+     * @param pathFlowSid The flow_sid
+     * @param pathExecutionSid The execution_sid
+     * @param pathSid The sid
      */
-    public MessageFetcher(final String pathSessionSid,
-                          final String pathSid) {
-        this.pathSessionSid = pathSessionSid;
+    public ExecutionStepFetcher(final String pathFlowSid,
+                                final String pathExecutionSid,
+                                final String pathSid) {
+        this.pathFlowSid = pathFlowSid;
+        this.pathExecutionSid = pathExecutionSid;
         this.pathSid = pathSid;
     }
 
@@ -42,22 +45,22 @@ public class MessageFetcher extends Fetcher<Message> {
      * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Message
+     * @return Fetched ExecutionStep
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Message fetch(final TwilioRestClient client) {
+    public ExecutionStep fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.MESSAGING.toString(),
-            "/v1/Sessions/" + this.pathSessionSid + "/Messages/" + this.pathSid + "",
+            Domains.STUDIO.toString(),
+            "/v2/Flows/" + this.pathFlowSid + "/Executions/" + this.pathExecutionSid + "/Steps/" + this.pathSid + "",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Message fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("ExecutionStep fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -73,6 +76,6 @@ public class MessageFetcher extends Fetcher<Message> {
             );
         }
 
-        return Message.fromJson(response.getStream(), client.getObjectMapper());
+        return ExecutionStep.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

@@ -39,7 +39,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Call extends Resource {
-    private static final long serialVersionUID = 133518260457854L;
+    private static final long serialVersionUID = 145756659403056L;
 
     public enum Event {
         INITIATED("initiated"),
@@ -366,7 +366,9 @@ public class Call extends Resource {
     private final Map<String, String> subresourceUris;
     private final String to;
     private final String toFormatted;
+    private final String trunkSid;
     private final String uri;
+    private final String queueTime;
 
     @JsonCreator
     private Call(@JsonProperty("account_sid")
@@ -418,8 +420,12 @@ public class Call extends Resource {
                  final String to,
                  @JsonProperty("to_formatted")
                  final String toFormatted,
+                 @JsonProperty("trunk_sid")
+                 final String trunkSid,
                  @JsonProperty("uri")
-                 final String uri) {
+                 final String uri,
+                 @JsonProperty("queue_time")
+                 final String queueTime) {
         this.accountSid = accountSid;
         this.annotation = annotation;
         this.answeredBy = answeredBy;
@@ -444,7 +450,9 @@ public class Call extends Resource {
         this.subresourceUris = subresourceUris;
         this.to = to;
         this.toFormatted = toFormatted;
+        this.trunkSid = trunkSid;
         this.uri = uri;
+        this.queueTime = queueTime;
     }
 
     /**
@@ -706,12 +714,32 @@ public class Call extends Resource {
     }
 
     /**
+     * Returns The (optional) unique identifier of the trunk resource that was used
+     * for this call..
+     *
+     * @return The (optional) unique identifier of the trunk resource that was used
+     *         for this call.
+     */
+    public final String getTrunkSid() {
+        return this.trunkSid;
+    }
+
+    /**
      * Returns The URI of this resource, relative to `https://api.twilio.com`.
      *
      * @return The URI of this resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;
+    }
+
+    /**
+     * Returns The wait time in milliseconds before the call is placed..
+     *
+     * @return The wait time in milliseconds before the call is placed.
+     */
+    public final String getQueueTime() {
+        return this.queueTime;
     }
 
     @Override
@@ -750,7 +778,9 @@ public class Call extends Resource {
                Objects.equals(subresourceUris, other.subresourceUris) &&
                Objects.equals(to, other.to) &&
                Objects.equals(toFormatted, other.toFormatted) &&
-               Objects.equals(uri, other.uri);
+               Objects.equals(trunkSid, other.trunkSid) &&
+               Objects.equals(uri, other.uri) &&
+               Objects.equals(queueTime, other.queueTime);
     }
 
     @Override
@@ -779,7 +809,9 @@ public class Call extends Resource {
                             subresourceUris,
                             to,
                             toFormatted,
-                            uri);
+                            trunkSid,
+                            uri,
+                            queueTime);
     }
 
     @Override
@@ -809,7 +841,9 @@ public class Call extends Resource {
                           .add("subresourceUris", subresourceUris)
                           .add("to", to)
                           .add("toFormatted", toFormatted)
+                          .add("trunkSid", trunkSid)
                           .add("uri", uri)
+                          .add("queueTime", queueTime)
                           .toString();
     }
 }

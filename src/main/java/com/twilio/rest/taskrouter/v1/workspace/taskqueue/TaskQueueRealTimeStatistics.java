@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskQueueRealTimeStatistics extends Resource {
-    private static final long serialVersionUID = 17721333657575L;
+    private static final long serialVersionUID = 241342137056087L;
 
     /**
      * Create a TaskQueueRealTimeStatisticsFetcher to execute fetch.
@@ -91,6 +91,8 @@ public class TaskQueueRealTimeStatistics extends Resource {
     private final List<Map<String, Object>> activityStatistics;
     private final Integer longestTaskWaitingAge;
     private final String longestTaskWaitingSid;
+    private final Integer longestRelativeTaskAgeInQueue;
+    private final String longestRelativeTaskSidInQueue;
     private final String taskQueueSid;
     private final Map<String, Object> tasksByPriority;
     private final Map<String, Object> tasksByStatus;
@@ -109,6 +111,10 @@ public class TaskQueueRealTimeStatistics extends Resource {
                                         final Integer longestTaskWaitingAge,
                                         @JsonProperty("longest_task_waiting_sid")
                                         final String longestTaskWaitingSid,
+                                        @JsonProperty("longest_relative_task_age_in_queue")
+                                        final Integer longestRelativeTaskAgeInQueue,
+                                        @JsonProperty("longest_relative_task_sid_in_queue")
+                                        final String longestRelativeTaskSidInQueue,
                                         @JsonProperty("task_queue_sid")
                                         final String taskQueueSid,
                                         @JsonProperty("tasks_by_priority")
@@ -129,6 +135,8 @@ public class TaskQueueRealTimeStatistics extends Resource {
         this.activityStatistics = activityStatistics;
         this.longestTaskWaitingAge = longestTaskWaitingAge;
         this.longestTaskWaitingSid = longestTaskWaitingSid;
+        this.longestRelativeTaskAgeInQueue = longestRelativeTaskAgeInQueue;
+        this.longestRelativeTaskSidInQueue = longestRelativeTaskSidInQueue;
         this.taskQueueSid = taskQueueSid;
         this.tasksByPriority = tasksByPriority;
         this.tasksByStatus = tasksByStatus;
@@ -173,6 +181,24 @@ public class TaskQueueRealTimeStatistics extends Resource {
      */
     public final String getLongestTaskWaitingSid() {
         return this.longestTaskWaitingSid;
+    }
+
+    /**
+     * Returns The relative age in the TaskQueue for the longest waiting Task..
+     *
+     * @return The relative age in the TaskQueue for the longest waiting Task.
+     */
+    public final Integer getLongestRelativeTaskAgeInQueue() {
+        return this.longestRelativeTaskAgeInQueue;
+    }
+
+    /**
+     * Returns The SID of the Task waiting in the TaskQueue the longest..
+     *
+     * @return The SID of the Task waiting in the TaskQueue the longest.
+     */
+    public final String getLongestRelativeTaskSidInQueue() {
+        return this.longestRelativeTaskSidInQueue;
     }
 
     /**
@@ -265,6 +291,8 @@ public class TaskQueueRealTimeStatistics extends Resource {
                Objects.equals(activityStatistics, other.activityStatistics) &&
                Objects.equals(longestTaskWaitingAge, other.longestTaskWaitingAge) &&
                Objects.equals(longestTaskWaitingSid, other.longestTaskWaitingSid) &&
+               Objects.equals(longestRelativeTaskAgeInQueue, other.longestRelativeTaskAgeInQueue) &&
+               Objects.equals(longestRelativeTaskSidInQueue, other.longestRelativeTaskSidInQueue) &&
                Objects.equals(taskQueueSid, other.taskQueueSid) &&
                Objects.equals(tasksByPriority, other.tasksByPriority) &&
                Objects.equals(tasksByStatus, other.tasksByStatus) &&
@@ -281,6 +309,8 @@ public class TaskQueueRealTimeStatistics extends Resource {
                             activityStatistics,
                             longestTaskWaitingAge,
                             longestTaskWaitingSid,
+                            longestRelativeTaskAgeInQueue,
+                            longestRelativeTaskSidInQueue,
                             taskQueueSid,
                             tasksByPriority,
                             tasksByStatus,
@@ -298,6 +328,8 @@ public class TaskQueueRealTimeStatistics extends Resource {
                           .add("activityStatistics", activityStatistics)
                           .add("longestTaskWaitingAge", longestTaskWaitingAge)
                           .add("longestTaskWaitingSid", longestTaskWaitingSid)
+                          .add("longestRelativeTaskAgeInQueue", longestRelativeTaskAgeInQueue)
+                          .add("longestRelativeTaskSidInQueue", longestRelativeTaskSidInQueue)
                           .add("taskQueueSid", taskQueueSid)
                           .add("tasksByPriority", tasksByPriority)
                           .add("tasksByStatus", tasksByStatus)

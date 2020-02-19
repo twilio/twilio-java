@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.messaging.v1.session;
+package com.twilio.rest.numbers.v2.regulatorycompliance;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -19,32 +19,53 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- */
-public class WebhookReader extends Reader<Webhook> {
-    private final String pathSessionSid;
+public class RegulationReader extends Reader<Regulation> {
+    private Regulation.EndUserType endUserType;
+    private String isoCountry;
+    private String numberType;
 
     /**
-     * Construct a new WebhookReader.
+     * The type of End User the regulation requires - can be `individual` or
+     * `business`..
      *
-     * @param pathSessionSid The SID of the Session with the Webhook resources to
-     *                       read
+     * @param endUserType The type of End User of the Regulation resource
+     * @return this
      */
-    public WebhookReader(final String pathSessionSid) {
-        this.pathSessionSid = pathSessionSid;
+    public RegulationReader setEndUserType(final Regulation.EndUserType endUserType) {
+        this.endUserType = endUserType;
+        return this;
+    }
+
+    /**
+     * The ISO country code of the phone number's country..
+     *
+     * @param isoCountry The ISO country code of the phone number's country
+     * @return this
+     */
+    public RegulationReader setIsoCountry(final String isoCountry) {
+        this.isoCountry = isoCountry;
+        return this;
+    }
+
+    /**
+     * The type of phone number that the regulatory requiremnt is restricting..
+     *
+     * @param numberType The type of phone number being regulated
+     * @return this
+     */
+    public RegulationReader setNumberType(final String numberType) {
+        this.numberType = numberType;
+        return this;
     }
 
     /**
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Webhook ResourceSet
+     * @return Regulation ResourceSet
      */
     @Override
-    public ResourceSet<Webhook> read(final TwilioRestClient client) {
+    public ResourceSet<Regulation> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -52,15 +73,15 @@ public class WebhookReader extends Reader<Webhook> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Webhook ResourceSet
+     * @return Regulation ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Webhook> firstPage(final TwilioRestClient client) {
+    public Page<Regulation> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.MESSAGING.toString(),
-            "/v1/Sessions/" + this.pathSessionSid + "/Webhooks",
+            Domains.NUMBERS.toString(),
+            "/v2/RegulatoryCompliance/Regulations",
             client.getRegion()
         );
 
@@ -73,11 +94,11 @@ public class WebhookReader extends Reader<Webhook> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Webhook ResourceSet
+     * @return Regulation ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Webhook> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Regulation> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -94,12 +115,12 @@ public class WebhookReader extends Reader<Webhook> {
      * @return Next Page
      */
     @Override
-    public Page<Webhook> nextPage(final Page<Webhook> page,
-                                  final TwilioRestClient client) {
+    public Page<Regulation> nextPage(final Page<Regulation> page,
+                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                Domains.MESSAGING.toString(),
+                Domains.NUMBERS.toString(),
                 client.getRegion()
             )
         );
@@ -114,12 +135,12 @@ public class WebhookReader extends Reader<Webhook> {
      * @return Previous Page
      */
     @Override
-    public Page<Webhook> previousPage(final Page<Webhook> page,
-                                      final TwilioRestClient client) {
+    public Page<Regulation> previousPage(final Page<Regulation> page,
+                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(
-                Domains.MESSAGING.toString(),
+                Domains.NUMBERS.toString(),
                 client.getRegion()
             )
         );
@@ -127,17 +148,17 @@ public class WebhookReader extends Reader<Webhook> {
     }
 
     /**
-     * Generate a Page of Webhook Resources for a given request.
+     * Generate a Page of Regulation Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Webhook> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Regulation> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Webhook read failed: Unable to connect to server");
+            throw new ApiConnectionException("Regulation read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -154,9 +175,9 @@ public class WebhookReader extends Reader<Webhook> {
         }
 
         return Page.fromJson(
-            "webhooks",
+            "results",
             response.getContent(),
-            Webhook.class,
+            Regulation.class,
             client.getObjectMapper()
         );
     }
@@ -167,6 +188,18 @@ public class WebhookReader extends Reader<Webhook> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
+        if (endUserType != null) {
+            request.addQueryParam("EndUserType", endUserType.toString());
+        }
+
+        if (isoCountry != null) {
+            request.addQueryParam("IsoCountry", isoCountry);
+        }
+
+        if (numberType != null) {
+            request.addQueryParam("NumberType", numberType);
+        }
+
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

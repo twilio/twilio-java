@@ -28,7 +28,8 @@ public class JobDeleter extends Deleter<Job> {
     /**
      * Construct a new JobDeleter.
      *
-     * @param pathJobSid The job_sid
+     * @param pathJobSid The unique string that that we created to identify the
+     *                   Bulk Export job
      */
     public JobDeleter(final String pathJobSid) {
         this.pathJobSid = pathJobSid;

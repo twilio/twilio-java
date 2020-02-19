@@ -125,10 +125,11 @@ public class VerificationCreator extends Creator<Verification> {
     }
 
     /**
-     * The custom key-value pairs of Programmable Rate Limits. Keys should be the
-     * unique_name configured while creating you Rate Limit along with the
-     * associated values for each particular request. You may include multiple Rate
-     * Limit values in each request..
+     * The custom key-value pairs of Programmable Rate Limits. Keys correspond to
+     * `unique_name` fields defined when [creating your Rate
+     * Limit](https://www.twilio.com/docs/verify/api/service-rate-limits).
+     * Associated value pairs represent values in the request that you are rate
+     * limiting on. You may include multiple Rate Limit values in each request..
      *
      * @param rateLimits The custom key-value pairs of Programmable Rate Limits.
      * @return this
@@ -152,9 +153,9 @@ public class VerificationCreator extends Creator<Verification> {
 
     /**
      * Your [App
-     * Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be included at the end of an SMS. **Only applies for SMS.**.
+     * Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: `&lt;#&gt; Your AppName verification code is: 1234 He42w354ol9`..
      *
-     * @param appHash App Hash to be included at the end of an SMS.
+     * @param appHash Your App Hash to be appended at the end of an SMS.
      * @return this
      */
     public VerificationCreator setAppHash(final String appHash) {

@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskQueueCumulativeStatistics extends Resource {
-    private static final long serialVersionUID = 150757949753643L;
+    private static final long serialVersionUID = 205432946594841L;
 
     /**
      * Create a TaskQueueCumulativeStatisticsFetcher to execute fetch.
@@ -102,6 +102,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     private final String taskQueueSid;
     private final Map<String, Object> waitDurationUntilAccepted;
     private final Map<String, Object> waitDurationUntilCanceled;
+    private final Map<String, Object> waitDurationInQueueUntilAccepted;
     private final Integer tasksCanceled;
     private final Integer tasksCompleted;
     private final Integer tasksDeleted;
@@ -139,6 +140,8 @@ public class TaskQueueCumulativeStatistics extends Resource {
                                           final Map<String, Object> waitDurationUntilAccepted,
                                           @JsonProperty("wait_duration_until_canceled")
                                           final Map<String, Object> waitDurationUntilCanceled,
+                                          @JsonProperty("wait_duration_in_queue_until_accepted")
+                                          final Map<String, Object> waitDurationInQueueUntilAccepted,
                                           @JsonProperty("tasks_canceled")
                                           final Integer tasksCanceled,
                                           @JsonProperty("tasks_completed")
@@ -167,6 +170,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
         this.taskQueueSid = taskQueueSid;
         this.waitDurationUntilAccepted = waitDurationUntilAccepted;
         this.waitDurationUntilCanceled = waitDurationUntilCanceled;
+        this.waitDurationInQueueUntilAccepted = waitDurationInQueueUntilAccepted;
         this.tasksCanceled = tasksCanceled;
         this.tasksCompleted = tasksCompleted;
         this.tasksDeleted = tasksDeleted;
@@ -314,6 +318,17 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
+     * Returns The relative wait duration statistics for Tasks accepted while in the
+     * TaskQueue.
+     *
+     * @return The relative wait duration statistics for Tasks accepted while in
+     *         the TaskQueue
+     */
+    public final Map<String, Object> getWaitDurationInQueueUntilAccepted() {
+        return this.waitDurationInQueueUntilAccepted;
+    }
+
+    /**
      * Returns The total number of Tasks canceled in the TaskQueue.
      *
      * @return The total number of Tasks canceled in the TaskQueue
@@ -402,6 +417,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
                Objects.equals(taskQueueSid, other.taskQueueSid) &&
                Objects.equals(waitDurationUntilAccepted, other.waitDurationUntilAccepted) &&
                Objects.equals(waitDurationUntilCanceled, other.waitDurationUntilCanceled) &&
+               Objects.equals(waitDurationInQueueUntilAccepted, other.waitDurationInQueueUntilAccepted) &&
                Objects.equals(tasksCanceled, other.tasksCanceled) &&
                Objects.equals(tasksCompleted, other.tasksCompleted) &&
                Objects.equals(tasksDeleted, other.tasksDeleted) &&
@@ -427,6 +443,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
                             taskQueueSid,
                             waitDurationUntilAccepted,
                             waitDurationUntilCanceled,
+                            waitDurationInQueueUntilAccepted,
                             tasksCanceled,
                             tasksCompleted,
                             tasksDeleted,
@@ -453,6 +470,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
                           .add("taskQueueSid", taskQueueSid)
                           .add("waitDurationUntilAccepted", waitDurationUntilAccepted)
                           .add("waitDurationUntilCanceled", waitDurationUntilCanceled)
+                          .add("waitDurationInQueueUntilAccepted", waitDurationInQueueUntilAccepted)
                           .add("tasksCanceled", tasksCanceled)
                           .add("tasksCompleted", tasksCompleted)
                           .add("tasksDeleted", tasksDeleted)

@@ -53,7 +53,8 @@ public class Job extends Resource {
     /**
      * Create a JobDeleter to execute delete.
      *
-     * @param pathJobSid The job_sid
+     * @param pathJobSid The unique string that that we created to identify the
+     *                   Bulk Export job
      * @return JobDeleter capable of executing the delete
      */
     public static JobDeleter deleter(final String pathJobSid) {

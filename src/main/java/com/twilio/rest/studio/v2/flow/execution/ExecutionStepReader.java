@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.messaging.v1.session;
+package com.twilio.rest.studio.v2.flow.execution;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -20,30 +20,33 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
-public class MessageReader extends Reader<Message> {
-    private final String pathSessionSid;
+public class ExecutionStepReader extends Reader<ExecutionStep> {
+    private final String pathFlowSid;
+    private final String pathExecutionSid;
 
     /**
-     * Construct a new MessageReader.
+     * Construct a new ExecutionStepReader.
      *
-     * @param pathSessionSid The SID of the Session with the messages to read
+     * @param pathFlowSid The flow_sid
+     * @param pathExecutionSid The execution_sid
      */
-    public MessageReader(final String pathSessionSid) {
-        this.pathSessionSid = pathSessionSid;
+    public ExecutionStepReader(final String pathFlowSid,
+                               final String pathExecutionSid) {
+        this.pathFlowSid = pathFlowSid;
+        this.pathExecutionSid = pathExecutionSid;
     }
 
     /**
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Message ResourceSet
+     * @return ExecutionStep ResourceSet
      */
     @Override
-    public ResourceSet<Message> read(final TwilioRestClient client) {
+    public ResourceSet<ExecutionStep> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -51,15 +54,15 @@ public class MessageReader extends Reader<Message> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Message ResourceSet
+     * @return ExecutionStep ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Message> firstPage(final TwilioRestClient client) {
+    public Page<ExecutionStep> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.MESSAGING.toString(),
-            "/v1/Sessions/" + this.pathSessionSid + "/Messages",
+            Domains.STUDIO.toString(),
+            "/v2/Flows/" + this.pathFlowSid + "/Executions/" + this.pathExecutionSid + "/Steps",
             client.getRegion()
         );
 
@@ -72,11 +75,11 @@ public class MessageReader extends Reader<Message> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Message ResourceSet
+     * @return ExecutionStep ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Message> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<ExecutionStep> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -93,12 +96,12 @@ public class MessageReader extends Reader<Message> {
      * @return Next Page
      */
     @Override
-    public Page<Message> nextPage(final Page<Message> page,
-                                  final TwilioRestClient client) {
+    public Page<ExecutionStep> nextPage(final Page<ExecutionStep> page,
+                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                Domains.MESSAGING.toString(),
+                Domains.STUDIO.toString(),
                 client.getRegion()
             )
         );
@@ -113,12 +116,12 @@ public class MessageReader extends Reader<Message> {
      * @return Previous Page
      */
     @Override
-    public Page<Message> previousPage(final Page<Message> page,
-                                      final TwilioRestClient client) {
+    public Page<ExecutionStep> previousPage(final Page<ExecutionStep> page,
+                                            final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(
-                Domains.MESSAGING.toString(),
+                Domains.STUDIO.toString(),
                 client.getRegion()
             )
         );
@@ -126,17 +129,17 @@ public class MessageReader extends Reader<Message> {
     }
 
     /**
-     * Generate a Page of Message Resources for a given request.
+     * Generate a Page of ExecutionStep Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Message> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<ExecutionStep> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Message read failed: Unable to connect to server");
+            throw new ApiConnectionException("ExecutionStep read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -153,9 +156,9 @@ public class MessageReader extends Reader<Message> {
         }
 
         return Page.fromJson(
-            "messages",
+            "steps",
             response.getContent(),
-            Message.class,
+            ExecutionStep.class,
             client.getObjectMapper()
         );
     }

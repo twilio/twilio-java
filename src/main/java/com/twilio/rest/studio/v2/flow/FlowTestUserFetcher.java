@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.messaging.v1;
+package com.twilio.rest.studio.v2.flow;
 
-import com.twilio.base.Deleter;
+import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -18,41 +18,41 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
-public class SessionDeleter extends Deleter<Session> {
+public class FlowTestUserFetcher extends Fetcher<FlowTestUser> {
     private final String pathSid;
 
     /**
-     * Construct a new SessionDeleter.
+     * Construct a new FlowTestUserFetcher.
      *
-     * @param pathSid The SID that identifies the resource to delete
+     * @param pathSid The sid
      */
-    public SessionDeleter(final String pathSid) {
+    public FlowTestUserFetcher(final String pathSid) {
         this.pathSid = pathSid;
     }
 
     /**
-     * Make the request to the Twilio API to perform the delete.
+     * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
+     * @return Fetched FlowTestUser
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public boolean delete(final TwilioRestClient client) {
+    public FlowTestUser fetch(final TwilioRestClient client) {
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.MESSAGING.toString(),
-            "/v1/Sessions/" + this.pathSid + "",
+            HttpMethod.GET,
+            Domains.STUDIO.toString(),
+            "/v2/Flows/" + this.pathSid + "/TestUsers",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Session delete failed: Unable to connect to server");
+            throw new ApiConnectionException("FlowTestUser fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -68,6 +68,6 @@ public class SessionDeleter extends Deleter<Session> {
             );
         }
 
-        return response.getStatusCode() == 204;
+        return FlowTestUser.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

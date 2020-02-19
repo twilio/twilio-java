@@ -270,9 +270,9 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns Whether to add a privacy warning at the end of an SMS..
+     * Returns Whether to add a security warning at the end of an SMS..
      *
-     * @return Whether to add a privacy warning at the end of an SMS.
+     * @return Whether to add a security warning at the end of an SMS.
      */
     public final Boolean getDoNotShareWarningEnabled() {
         return this.doNotShareWarningEnabled;

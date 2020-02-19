@@ -52,6 +52,9 @@ public class CallCreator extends Creator<Call> {
     private Integer machineDetectionSpeechThreshold;
     private Integer machineDetectionSpeechEndThreshold;
     private Integer machineDetectionSilenceTimeout;
+    private String asyncAmd;
+    private URI asyncAmdStatusCallback;
+    private HttpMethod asyncAmdStatusCallbackMethod;
     private String byoc;
 
     /**
@@ -532,6 +535,59 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
+     * Select whether to perform answering machine detection in the background.
+     * Default, blocks the execution of the call until Answering Machine Detection
+     * is completed. Can be: `true` or `false`..
+     *
+     * @param asyncAmd Enable asynchronous AMD
+     * @return this
+     */
+    public CallCreator setAsyncAmd(final String asyncAmd) {
+        this.asyncAmd = asyncAmd;
+        return this;
+    }
+
+    /**
+     * The URL that we should call using the `async_amd_status_callback_method` to
+     * notify customer application whether the call was answered by human, machine
+     * or fax..
+     *
+     * @param asyncAmdStatusCallback The URL we should call to send amd status
+     *                               information to your application
+     * @return this
+     */
+    public CallCreator setAsyncAmdStatusCallback(final URI asyncAmdStatusCallback) {
+        this.asyncAmdStatusCallback = asyncAmdStatusCallback;
+        return this;
+    }
+
+    /**
+     * The URL that we should call using the `async_amd_status_callback_method` to
+     * notify customer application whether the call was answered by human, machine
+     * or fax..
+     *
+     * @param asyncAmdStatusCallback The URL we should call to send amd status
+     *                               information to your application
+     * @return this
+     */
+    public CallCreator setAsyncAmdStatusCallback(final String asyncAmdStatusCallback) {
+        return setAsyncAmdStatusCallback(Promoter.uriFromString(asyncAmdStatusCallback));
+    }
+
+    /**
+     * The HTTP method we should use when calling the `async_amd_status_callback`
+     * URL. Can be: `GET` or `POST` and the default is `POST`..
+     *
+     * @param asyncAmdStatusCallbackMethod HTTP Method to use with
+     *                                     async_amd_status_callback
+     * @return this
+     */
+    public CallCreator setAsyncAmdStatusCallbackMethod(final HttpMethod asyncAmdStatusCallbackMethod) {
+        this.asyncAmdStatusCallbackMethod = asyncAmdStatusCallbackMethod;
+        return this;
+    }
+
+    /**
      * The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with.
      * Note that `byoc` is only meaningful when `to` is a phone number; it will
      * otherwise be ignored. (Beta).
@@ -765,6 +821,18 @@ public class CallCreator extends Creator<Call> {
 
         if (machineDetectionSilenceTimeout != null) {
             request.addPostParam("MachineDetectionSilenceTimeout", machineDetectionSilenceTimeout.toString());
+        }
+
+        if (asyncAmd != null) {
+            request.addPostParam("AsyncAmd", asyncAmd);
+        }
+
+        if (asyncAmdStatusCallback != null) {
+            request.addPostParam("AsyncAmdStatusCallback", asyncAmdStatusCallback.toString());
+        }
+
+        if (asyncAmdStatusCallbackMethod != null) {
+            request.addPostParam("AsyncAmdStatusCallbackMethod", asyncAmdStatusCallbackMethod.toString());
         }
 
         if (byoc != null) {

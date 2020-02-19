@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.messaging.v1.session;
+package com.twilio.rest.studio.v2.flow;
 
 import com.twilio.base.Deleter;
 import com.twilio.exception.ApiConnectionException;
@@ -18,23 +18,22 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
-public class MessageDeleter extends Deleter<Message> {
-    private final String pathSessionSid;
+public class ExecutionDeleter extends Deleter<Execution> {
+    private final String pathFlowSid;
     private final String pathSid;
 
     /**
-     * Construct a new MessageDeleter.
+     * Construct a new ExecutionDeleter.
      *
-     * @param pathSessionSid The SID of the Session with the message to delete
-     * @param pathSid The SID that identifies the resource to delete
+     * @param pathFlowSid The flow_sid
+     * @param pathSid The sid
      */
-    public MessageDeleter(final String pathSessionSid,
-                          final String pathSid) {
-        this.pathSessionSid = pathSessionSid;
+    public ExecutionDeleter(final String pathFlowSid,
+                            final String pathSid) {
+        this.pathFlowSid = pathFlowSid;
         this.pathSid = pathSid;
     }
 
@@ -48,15 +47,15 @@ public class MessageDeleter extends Deleter<Message> {
     public boolean delete(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
-            Domains.MESSAGING.toString(),
-            "/v1/Sessions/" + this.pathSessionSid + "/Messages/" + this.pathSid + "",
+            Domains.STUDIO.toString(),
+            "/v2/Flows/" + this.pathFlowSid + "/Executions/" + this.pathSid + "",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Message delete failed: Unable to connect to server");
+            throw new ApiConnectionException("Execution delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {

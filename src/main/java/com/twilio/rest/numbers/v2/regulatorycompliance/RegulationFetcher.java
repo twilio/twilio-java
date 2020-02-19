@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.messaging.v1.session;
+package com.twilio.rest.numbers.v2.regulatorycompliance;
 
-import com.twilio.base.Deleter;
+import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -17,46 +17,38 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- */
-public class ParticipantDeleter extends Deleter<Participant> {
-    private final String pathSessionSid;
+public class RegulationFetcher extends Fetcher<Regulation> {
     private final String pathSid;
 
     /**
-     * Construct a new ParticipantDeleter.
+     * Construct a new RegulationFetcher.
      *
-     * @param pathSessionSid The SID of the Session with the participant to delete
-     * @param pathSid The SID that identifies the resource to delete
+     * @param pathSid The unique string that identifies the Regulation resource
      */
-    public ParticipantDeleter(final String pathSessionSid,
-                              final String pathSid) {
-        this.pathSessionSid = pathSessionSid;
+    public RegulationFetcher(final String pathSid) {
         this.pathSid = pathSid;
     }
 
     /**
-     * Make the request to the Twilio API to perform the delete.
+     * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
+     * @return Fetched Regulation
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public boolean delete(final TwilioRestClient client) {
+    public Regulation fetch(final TwilioRestClient client) {
         Request request = new Request(
-            HttpMethod.DELETE,
-            Domains.MESSAGING.toString(),
-            "/v1/Sessions/" + this.pathSessionSid + "/Participants/" + this.pathSid + "",
+            HttpMethod.GET,
+            Domains.NUMBERS.toString(),
+            "/v2/RegulatoryCompliance/Regulations/" + this.pathSid + "",
             client.getRegion()
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Participant delete failed: Unable to connect to server");
+            throw new ApiConnectionException("Regulation fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -72,6 +64,6 @@ public class ParticipantDeleter extends Deleter<Participant> {
             );
         }
 
-        return response.getStatusCode() == 204;
+        return Regulation.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

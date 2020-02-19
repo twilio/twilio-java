@@ -98,7 +98,8 @@ public class Challenge extends Resource {
     public enum FactorTypes {
         APP_PUSH("app-push"),
         SMS("sms"),
-        TOTP("totp");
+        TOTP("totp"),
+        PUSH("push");
 
         private final String value;
 

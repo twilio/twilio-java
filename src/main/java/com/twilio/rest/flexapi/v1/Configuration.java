@@ -37,7 +37,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Configuration extends Resource {
-    private static final long serialVersionUID = 107853613982384L;
+    private static final long serialVersionUID = 268327142878032L;
 
     public enum Status {
         OK("ok"),
@@ -148,6 +148,7 @@ public class Configuration extends Resource {
     private final String chatServiceInstanceSid;
     private final String uiLanguage;
     private final Map<String, Object> uiAttributes;
+    private final Map<String, Object> uiDependencies;
     private final String uiVersion;
     private final String serviceVersion;
     private final Boolean callRecordingEnabled;
@@ -202,6 +203,8 @@ public class Configuration extends Resource {
                           final String uiLanguage,
                           @JsonProperty("ui_attributes")
                           final Map<String, Object> uiAttributes,
+                          @JsonProperty("ui_dependencies")
+                          final Map<String, Object> uiDependencies,
                           @JsonProperty("ui_version")
                           final String uiVersion,
                           @JsonProperty("service_version")
@@ -252,6 +255,7 @@ public class Configuration extends Resource {
         this.chatServiceInstanceSid = chatServiceInstanceSid;
         this.uiLanguage = uiLanguage;
         this.uiAttributes = uiAttributes;
+        this.uiDependencies = uiDependencies;
         this.uiVersion = uiVersion;
         this.serviceVersion = serviceVersion;
         this.callRecordingEnabled = callRecordingEnabled;
@@ -439,6 +443,17 @@ public class Configuration extends Resource {
     }
 
     /**
+     * Returns The object that defines the NPM packages and versions to be used in
+     * Hosted Flex.
+     *
+     * @return The object that defines the NPM packages and versions to be used in
+     *         Hosted Flex
+     */
+    public final Map<String, Object> getUiDependencies() {
+        return this.uiDependencies;
+    }
+
+    /**
      * Returns The Pinned UI version.
      *
      * @return The Pinned UI version
@@ -614,6 +629,7 @@ public class Configuration extends Resource {
                Objects.equals(chatServiceInstanceSid, other.chatServiceInstanceSid) &&
                Objects.equals(uiLanguage, other.uiLanguage) &&
                Objects.equals(uiAttributes, other.uiAttributes) &&
+               Objects.equals(uiDependencies, other.uiDependencies) &&
                Objects.equals(uiVersion, other.uiVersion) &&
                Objects.equals(serviceVersion, other.serviceVersion) &&
                Objects.equals(callRecordingEnabled, other.callRecordingEnabled) &&
@@ -652,6 +668,7 @@ public class Configuration extends Resource {
                             chatServiceInstanceSid,
                             uiLanguage,
                             uiAttributes,
+                            uiDependencies,
                             uiVersion,
                             serviceVersion,
                             callRecordingEnabled,
@@ -691,6 +708,7 @@ public class Configuration extends Resource {
                           .add("chatServiceInstanceSid", chatServiceInstanceSid)
                           .add("uiLanguage", uiLanguage)
                           .add("uiAttributes", uiAttributes)
+                          .add("uiDependencies", uiDependencies)
                           .add("uiVersion", uiVersion)
                           .add("serviceVersion", serviceVersion)
                           .add("callRecordingEnabled", callRecordingEnabled)

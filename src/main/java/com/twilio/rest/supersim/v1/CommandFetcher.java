@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.trustedComms;
+package com.twilio.rest.supersim.v1;
 
-import com.twilio.base.Creator;
+import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -22,43 +22,38 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class DeviceCreator extends Creator<Device> {
-    private final String phoneNumber;
-    private final String pushToken;
+public class CommandFetcher extends Fetcher<Command> {
+    private final String pathSid;
 
     /**
-     * Construct a new DeviceCreator.
+     * Construct a new CommandFetcher.
      *
-     * @param phoneNumber The end user Phone Number
-     * @param pushToken The Push Token for this Phone Number
+     * @param pathSid The SID that identifies the resource to fetch
      */
-    public DeviceCreator(final String phoneNumber,
-                         final String pushToken) {
-        this.phoneNumber = phoneNumber;
-        this.pushToken = pushToken;
+    public CommandFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
-     * Make the request to the Twilio API to perform the create.
+     * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Created Device
+     * @return Fetched Command
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Device create(final TwilioRestClient client) {
+    public Command fetch(final TwilioRestClient client) {
         Request request = new Request(
-            HttpMethod.POST,
-            Domains.PREVIEW.toString(),
-            "/TrustedComms/Devices",
+            HttpMethod.GET,
+            Domains.SUPERSIM.toString(),
+            "/v1/Commands/" + this.pathSid + "",
             client.getRegion()
         );
 
-        addPostParams(request);
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Device creation failed: Unable to connect to server");
+            throw new ApiConnectionException("Command fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -74,21 +69,6 @@ public class DeviceCreator extends Creator<Device> {
             );
         }
 
-        return Device.fromJson(response.getStream(), client.getObjectMapper());
-    }
-
-    /**
-     * Add the requested post parameters to the Request.
-     *
-     * @param request Request to add post params to
-     */
-    private void addPostParams(final Request request) {
-        if (phoneNumber != null) {
-            request.addPostParam("PhoneNumber", phoneNumber);
-        }
-
-        if (pushToken != null) {
-            request.addPostParam("PushToken", pushToken);
-        }
+        return Command.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

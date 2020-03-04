@@ -78,7 +78,8 @@ public class TaskUpdater extends Updater<Task> {
 
     /**
      * The Task's new priority value. When supplied, the Task takes on the specified
-     * priority unless it matches a Workflow Target with a Priority set..
+     * priority unless it matches a Workflow Target with a Priority set. Value can
+     * be 0 to 2^31^ (2,147,483,647)..
      *
      * @param priority The Task's new priority value
      * @return this

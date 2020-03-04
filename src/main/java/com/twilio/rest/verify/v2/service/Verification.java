@@ -31,6 +31,7 @@ import org.joda.time.DateTime;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -180,7 +181,7 @@ public class Verification extends Resource {
     private final Map<String, Object> lookup;
     private final String amount;
     private final String payee;
-    private final Map<String, Object> sendCodeAttempts;
+    private final List<Map<String, Object>> sendCodeAttempts;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
@@ -207,7 +208,7 @@ public class Verification extends Resource {
                          @JsonProperty("payee")
                          final String payee,
                          @JsonProperty("send_code_attempts")
-                         final Map<String, Object> sendCodeAttempts,
+                         final List<Map<String, Object>> sendCodeAttempts,
                          @JsonProperty("date_created")
                          final String dateCreated,
                          @JsonProperty("date_updated")
@@ -325,7 +326,7 @@ public class Verification extends Resource {
      *
      * @return An array of verification attempt objects.
      */
-    public final Map<String, Object> getSendCodeAttempts() {
+    public final List<Map<String, Object>> getSendCodeAttempts() {
         return this.sendCodeAttempts;
     }
 

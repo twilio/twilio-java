@@ -52,7 +52,7 @@ public class TaskCreator extends Creator<Task> {
      * The priority to assign the new task and override the default. When supplied,
      * the new Task will have this priority unless it matches a Workflow Target with
      * a Priority set. When not supplied, the new Task will have the priority of the
-     * matching Workflow Target..
+     * matching Workflow Target. Value can be 0 to 2^31^ (2,147,483,647)..
      *
      * @param priority The priority to assign the new task and override the default
      * @return this

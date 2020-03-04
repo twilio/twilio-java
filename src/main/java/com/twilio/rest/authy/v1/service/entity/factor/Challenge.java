@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Challenge extends Resource {
-    private static final long serialVersionUID = 149233025221094L;
+    private static final long serialVersionUID = 218254684366686L;
 
     public enum ChallengeStatuses {
         PENDING("pending"),
@@ -119,35 +119,6 @@ public class Challenge extends Resource {
         @JsonCreator
         public static FactorTypes forValue(final String value) {
             return Promoter.enumFromString(value, FactorTypes.values());
-        }
-    }
-
-    public enum FactorStrengths {
-        UNKNOWN("unknown"),
-        VERY_LOW("very_low"),
-        LOW("low"),
-        MEDIUM("medium"),
-        HIGH("high"),
-        VERY_HIGH("very_high");
-
-        private final String value;
-
-        private FactorStrengths(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        /**
-         * Generate a FactorStrengths from a string.
-         * @param value string value
-         * @return generated FactorStrengths
-         */
-        @JsonCreator
-        public static FactorStrengths forValue(final String value) {
-            return Promoter.enumFromString(value, FactorStrengths.values());
         }
     }
 
@@ -266,7 +237,6 @@ public class Challenge extends Resource {
     private final String details;
     private final String hiddenDetails;
     private final Challenge.FactorTypes factorType;
-    private final Challenge.FactorStrengths factorStrength;
     private final URI url;
 
     @JsonCreator
@@ -300,8 +270,6 @@ public class Challenge extends Resource {
                       final String hiddenDetails,
                       @JsonProperty("factor_type")
                       final Challenge.FactorTypes factorType,
-                      @JsonProperty("factor_strength")
-                      final Challenge.FactorStrengths factorStrength,
                       @JsonProperty("url")
                       final URI url) {
         this.sid = sid;
@@ -319,7 +287,6 @@ public class Challenge extends Resource {
         this.details = details;
         this.hiddenDetails = hiddenDetails;
         this.factorType = factorType;
-        this.factorStrength = factorStrength;
         this.url = url;
     }
 
@@ -459,15 +426,6 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns The Factor Strength of this Challenge.
-     *
-     * @return The Factor Strength of this Challenge
-     */
-    public final Challenge.FactorStrengths getFactorStrength() {
-        return this.factorStrength;
-    }
-
-    /**
      * Returns The URL of this resource..
      *
      * @return The URL of this resource.
@@ -503,7 +461,6 @@ public class Challenge extends Resource {
                Objects.equals(details, other.details) &&
                Objects.equals(hiddenDetails, other.hiddenDetails) &&
                Objects.equals(factorType, other.factorType) &&
-               Objects.equals(factorStrength, other.factorStrength) &&
                Objects.equals(url, other.url);
     }
 
@@ -524,7 +481,6 @@ public class Challenge extends Resource {
                             details,
                             hiddenDetails,
                             factorType,
-                            factorStrength,
                             url);
     }
 
@@ -546,7 +502,6 @@ public class Challenge extends Resource {
                           .add("details", details)
                           .add("hiddenDetails", hiddenDetails)
                           .add("factorType", factorType)
-                          .add("factorStrength", factorStrength)
                           .add("url", url)
                           .toString();
     }

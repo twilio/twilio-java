@@ -26,6 +26,7 @@ public class ServiceUpdater extends Updater<Service> {
     private final String pathSid;
     private Boolean includeCredentials;
     private String friendlyName;
+    private Boolean uiEditable;
 
     /**
      * Construct a new ServiceUpdater.
@@ -57,6 +58,19 @@ public class ServiceUpdater extends Updater<Service> {
      */
     public ServiceUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
+        return this;
+    }
+
+    /**
+     * Whether the Service's properties and subresources can be edited via the UI.
+     * The default value is `false`..
+     *
+     * @param uiEditable Whether the Service's properties and subresources can be
+     *                   edited via the UI
+     * @return this
+     */
+    public ServiceUpdater setUiEditable(final Boolean uiEditable) {
+        this.uiEditable = uiEditable;
         return this;
     }
 
@@ -111,6 +125,10 @@ public class ServiceUpdater extends Updater<Service> {
 
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+        }
+
+        if (uiEditable != null) {
+            request.addPostParam("UiEditable", uiEditable.toString());
         }
     }
 }

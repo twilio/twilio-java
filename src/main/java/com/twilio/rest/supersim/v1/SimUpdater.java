@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.serverless.v1;
+package com.twilio.rest.supersim.v1;
 
-import com.twilio.base.Creator;
+import com.twilio.base.Updater;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -22,64 +22,73 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class ServiceCreator extends Creator<Service> {
-    private final String uniqueName;
-    private final String friendlyName;
-    private Boolean includeCredentials;
-    private Boolean uiEditable;
+public class SimUpdater extends Updater<Sim> {
+    private final String pathSid;
+    private String uniqueName;
+    private Sim.StatusUpdate status;
+    private String fleet;
 
     /**
-     * Construct a new ServiceCreator.
+     * Construct a new SimUpdater.
+     *
+     * @param pathSid The SID that identifies the resource to update
+     */
+    public SimUpdater(final String pathSid) {
+        this.pathSid = pathSid;
+    }
+
+    /**
+     * An application-defined string that uniquely identifies the resource. It can
+     * be used in place of the resource's `sid` in the URL to address the resource..
      *
      * @param uniqueName An application-defined string that uniquely identifies the
-     *                   Service resource
-     * @param friendlyName A string to describe the Service resource
+     *                   resource
+     * @return this
      */
-    public ServiceCreator(final String uniqueName,
-                          final String friendlyName) {
+    public SimUpdater setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
-        this.friendlyName = friendlyName;
-    }
-
-    /**
-     * Whether to inject Account credentials into a function invocation context. The
-     * default value is `false`..
-     *
-     * @param includeCredentials Whether to inject Account credentials into a
-     *                           function invocation context
-     * @return this
-     */
-    public ServiceCreator setIncludeCredentials(final Boolean includeCredentials) {
-        this.includeCredentials = includeCredentials;
         return this;
     }
 
     /**
-     * Whether the Service's properties and subresources can be edited via the UI.
-     * The default value is `false`..
+     * The new status of the resource. Can be: `active`, `deactivated`, or
+     * `inactive`. See the [Super SIM Status
+     * Values](https://www.twilio.com/docs/iot/supersim/api/sim-resource#status-values) for more info..
      *
-     * @param uiEditable Whether the Service's properties and subresources can be
-     *                   edited via the UI
+     * @param status The new status of the Super SIM
      * @return this
      */
-    public ServiceCreator setUiEditable(final Boolean uiEditable) {
-        this.uiEditable = uiEditable;
+    public SimUpdater setStatus(final Sim.StatusUpdate status) {
+        this.status = status;
         return this;
     }
 
     /**
-     * Make the request to the Twilio API to perform the create.
+     * The SID or unique name of the Fleet to which the SIM resource should be
+     * assigned..
+     *
+     * @param fleet The SID or unique name of the Fleet to which the SIM resource
+     *              should be assigned
+     * @return this
+     */
+    public SimUpdater setFleet(final String fleet) {
+        this.fleet = fleet;
+        return this;
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Created Service
+     * @return Updated Sim
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Service create(final TwilioRestClient client) {
+    public Sim update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            Domains.SERVERLESS.toString(),
-            "/v1/Services",
+            Domains.SUPERSIM.toString(),
+            "/v1/Sims/" + this.pathSid + "",
             client.getRegion()
         );
 
@@ -87,7 +96,7 @@ public class ServiceCreator extends Creator<Service> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Service creation failed: Unable to connect to server");
+            throw new ApiConnectionException("Sim update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -103,7 +112,7 @@ public class ServiceCreator extends Creator<Service> {
             );
         }
 
-        return Service.fromJson(response.getStream(), client.getObjectMapper());
+        return Sim.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -116,16 +125,12 @@ public class ServiceCreator extends Creator<Service> {
             request.addPostParam("UniqueName", uniqueName);
         }
 
-        if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
+        if (status != null) {
+            request.addPostParam("Status", status.toString());
         }
 
-        if (includeCredentials != null) {
-            request.addPostParam("IncludeCredentials", includeCredentials.toString());
-        }
-
-        if (uiEditable != null) {
-            request.addPostParam("UiEditable", uiEditable.toString());
+        if (fleet != null) {
+            request.addPostParam("Fleet", fleet.toString());
         }
     }
 }

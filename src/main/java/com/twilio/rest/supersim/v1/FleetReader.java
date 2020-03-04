@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.bulkExports.export;
+package com.twilio.rest.supersim.v1;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -24,50 +24,15 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class DayReader extends Reader<Day> {
-    private final String pathResourceType;
-    private String nextToken;
-    private String previousToken;
-
-    /**
-     * Construct a new DayReader.
-     *
-     * @param pathResourceType The type of communication – Messages, Calls
-     */
-    public DayReader(final String pathResourceType) {
-        this.pathResourceType = pathResourceType;
-    }
-
-    /**
-     * The next_token.
-     *
-     * @param nextToken The next_token
-     * @return this
-     */
-    public DayReader setNextToken(final String nextToken) {
-        this.nextToken = nextToken;
-        return this;
-    }
-
-    /**
-     * The previous_token.
-     *
-     * @param previousToken The previous_token
-     * @return this
-     */
-    public DayReader setPreviousToken(final String previousToken) {
-        this.previousToken = previousToken;
-        return this;
-    }
-
+public class FleetReader extends Reader<Fleet> {
     /**
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Day ResourceSet
+     * @return Fleet ResourceSet
      */
     @Override
-    public ResourceSet<Day> read(final TwilioRestClient client) {
+    public ResourceSet<Fleet> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -75,15 +40,15 @@ public class DayReader extends Reader<Day> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Day ResourceSet
+     * @return Fleet ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Day> firstPage(final TwilioRestClient client) {
+    public Page<Fleet> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.PREVIEW.toString(),
-            "/BulkExports/Exports/" + this.pathResourceType + "/Days",
+            Domains.SUPERSIM.toString(),
+            "/v1/Fleets",
             client.getRegion()
         );
 
@@ -96,11 +61,11 @@ public class DayReader extends Reader<Day> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Day ResourceSet
+     * @return Fleet ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Day> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Fleet> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -117,12 +82,12 @@ public class DayReader extends Reader<Day> {
      * @return Next Page
      */
     @Override
-    public Page<Day> nextPage(final Page<Day> page,
-                              final TwilioRestClient client) {
+    public Page<Fleet> nextPage(final Page<Fleet> page,
+                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
+                Domains.SUPERSIM.toString(),
                 client.getRegion()
             )
         );
@@ -137,12 +102,12 @@ public class DayReader extends Reader<Day> {
      * @return Previous Page
      */
     @Override
-    public Page<Day> previousPage(final Page<Day> page,
-                                  final TwilioRestClient client) {
+    public Page<Fleet> previousPage(final Page<Fleet> page,
+                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
+                Domains.SUPERSIM.toString(),
                 client.getRegion()
             )
         );
@@ -150,17 +115,17 @@ public class DayReader extends Reader<Day> {
     }
 
     /**
-     * Generate a Page of Day Resources for a given request.
+     * Generate a Page of Fleet Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Day> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Fleet> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Day read failed: Unable to connect to server");
+            throw new ApiConnectionException("Fleet read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -177,9 +142,9 @@ public class DayReader extends Reader<Day> {
         }
 
         return Page.fromJson(
-            "days",
+            "fleets",
             response.getContent(),
-            Day.class,
+            Fleet.class,
             client.getObjectMapper()
         );
     }
@@ -190,14 +155,6 @@ public class DayReader extends Reader<Day> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (nextToken != null) {
-            request.addQueryParam("NextToken", nextToken);
-        }
-
-        if (previousToken != null) {
-            request.addQueryParam("PreviousToken", previousToken);
-        }
-
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

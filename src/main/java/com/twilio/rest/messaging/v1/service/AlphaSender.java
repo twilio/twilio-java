@@ -15,7 +15,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -40,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AlphaSender extends Resource {
-    private static final long serialVersionUID = 107541920381976L;
+    private static final long serialVersionUID = 153057609894951L;
 
     /**
      * Create a AlphaSenderCreator to execute create.
@@ -133,7 +132,7 @@ public class AlphaSender extends Resource {
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final String alphaSender;
-    private final List<Map<String, Object>> capabilities;
+    private final List<String> capabilities;
     private final URI url;
 
     @JsonCreator
@@ -150,7 +149,7 @@ public class AlphaSender extends Resource {
                         @JsonProperty("alpha_sender")
                         final String alphaSender,
                         @JsonProperty("capabilities")
-                        final List<Map<String, Object>> capabilities,
+                        final List<String> capabilities,
                         @JsonProperty("url")
                         final URI url) {
         this.sid = sid;
@@ -224,7 +223,7 @@ public class AlphaSender extends Resource {
      * @return An array of values that describe whether the number can receive
      *         calls or messages
      */
-    public final List<Map<String, Object>> getCapabilities() {
+    public final List<String> getCapabilities() {
         return this.capabilities;
     }
 

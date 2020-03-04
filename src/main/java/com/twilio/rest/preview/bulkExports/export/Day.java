@@ -37,7 +37,19 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Day extends Resource {
-    private static final long serialVersionUID = 270981105820838L;
+    private static final long serialVersionUID = 101410619433718L;
+
+    /**
+     * Create a DayFetcher to execute fetch.
+     *
+     * @param pathResourceType The type of communication – Messages, Calls
+     * @param pathDay The date of the data in the file
+     * @return DayFetcher capable of executing the fetch
+     */
+    public static DayFetcher fetcher(final String pathResourceType,
+                                     final String pathDay) {
+        return new DayFetcher(pathResourceType, pathDay);
+    }
 
     /**
      * Create a DayReader to execute read.
@@ -89,6 +101,8 @@ public class Day extends Resource {
     private final URI redirectTo;
     private final String day;
     private final Integer size;
+    private final String createDate;
+    private final String friendlyName;
     private final String resourceType;
 
     @JsonCreator
@@ -98,11 +112,17 @@ public class Day extends Resource {
                 final String day,
                 @JsonProperty("size")
                 final Integer size,
+                @JsonProperty("create_date")
+                final String createDate,
+                @JsonProperty("friendly_name")
+                final String friendlyName,
                 @JsonProperty("resource_type")
                 final String resourceType) {
         this.redirectTo = redirectTo;
         this.day = day;
         this.size = size;
+        this.createDate = createDate;
+        this.friendlyName = friendlyName;
         this.resourceType = resourceType;
     }
 
@@ -134,6 +154,24 @@ public class Day extends Resource {
     }
 
     /**
+     * Returns The date when resource is created.
+     *
+     * @return The date when resource is created
+     */
+    public final String getCreateDate() {
+        return this.createDate;
+    }
+
+    /**
+     * Returns The friendly name specified when creating the job.
+     *
+     * @return The friendly name specified when creating the job
+     */
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    /**
      * Returns The type of communication – Messages, Calls.
      *
      * @return The type of communication – Messages, Calls
@@ -157,6 +195,8 @@ public class Day extends Resource {
         return Objects.equals(redirectTo, other.redirectTo) &&
                Objects.equals(day, other.day) &&
                Objects.equals(size, other.size) &&
+               Objects.equals(createDate, other.createDate) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
                Objects.equals(resourceType, other.resourceType);
     }
 
@@ -165,6 +205,8 @@ public class Day extends Resource {
         return Objects.hash(redirectTo,
                             day,
                             size,
+                            createDate,
+                            friendlyName,
                             resourceType);
     }
 
@@ -174,6 +216,8 @@ public class Day extends Resource {
                           .add("redirectTo", redirectTo)
                           .add("day", day)
                           .add("size", size)
+                          .add("createDate", createDate)
+                          .add("friendlyName", friendlyName)
                           .add("resourceType", resourceType)
                           .toString();
     }

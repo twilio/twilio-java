@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.authy.v1;
+package com.twilio.rest.supersim.v1;
 
-import com.twilio.base.Creator;
+import com.twilio.base.Updater;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -22,45 +22,45 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class ServiceCreator extends Creator<Service> {
-    private final String friendlyName;
-    private String push;
+public class FleetUpdater extends Updater<Fleet> {
+    private final String pathSid;
+    private String uniqueName;
 
     /**
-     * Construct a new ServiceCreator.
+     * Construct a new FleetUpdater.
      *
-     * @param friendlyName A human readable description of this resource.
+     * @param pathSid The SID that identifies the resource to update
      */
-    public ServiceCreator(final String friendlyName) {
-        this.friendlyName = friendlyName;
+    public FleetUpdater(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
-     * The optional service level push factors configuration. If present it must be
-     * a json string with the following format: {"notify_service_sid":
-     * "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"}.
+     * An application-defined string that uniquely identifies the resource. It can
+     * be used in place of the resource's `sid` in the URL to address the resource..
      *
-     * @param push Optional service level push factors configuration
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      * @return this
      */
-    public ServiceCreator setPush(final String push) {
-        this.push = push;
+    public FleetUpdater setUniqueName(final String uniqueName) {
+        this.uniqueName = uniqueName;
         return this;
     }
 
     /**
-     * Make the request to the Twilio API to perform the create.
+     * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Created Service
+     * @return Updated Fleet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Service create(final TwilioRestClient client) {
+    public Fleet update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            Domains.AUTHY.toString(),
-            "/v1/Services",
+            Domains.SUPERSIM.toString(),
+            "/v1/Fleets/" + this.pathSid + "",
             client.getRegion()
         );
 
@@ -68,7 +68,7 @@ public class ServiceCreator extends Creator<Service> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Service creation failed: Unable to connect to server");
+            throw new ApiConnectionException("Fleet update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -84,7 +84,7 @@ public class ServiceCreator extends Creator<Service> {
             );
         }
 
-        return Service.fromJson(response.getStream(), client.getObjectMapper());
+        return Fleet.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -93,12 +93,8 @@ public class ServiceCreator extends Creator<Service> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
-        }
-
-        if (push != null) {
-            request.addPostParam("Push", push);
+        if (uniqueName != null) {
+            request.addPostParam("UniqueName", uniqueName);
         }
     }
 }

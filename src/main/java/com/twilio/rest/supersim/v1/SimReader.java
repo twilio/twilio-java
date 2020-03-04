@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.bulkExports.export;
+package com.twilio.rest.supersim.v1;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -24,39 +24,45 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class DayReader extends Reader<Day> {
-    private final String pathResourceType;
-    private String nextToken;
-    private String previousToken;
+public class SimReader extends Reader<Sim> {
+    private Sim.Status status;
+    private String fleet;
+    private String iccid;
 
     /**
-     * Construct a new DayReader.
+     * The status of the Sim resources to read. Can be `new`, `active`,
+     * `deactivated`, `inactive`, or `scheduled`..
      *
-     * @param pathResourceType The type of communication – Messages, Calls
-     */
-    public DayReader(final String pathResourceType) {
-        this.pathResourceType = pathResourceType;
-    }
-
-    /**
-     * The next_token.
-     *
-     * @param nextToken The next_token
+     * @param status The status of the Sim resources to read
      * @return this
      */
-    public DayReader setNextToken(final String nextToken) {
-        this.nextToken = nextToken;
+    public SimReader setStatus(final Sim.Status status) {
+        this.status = status;
         return this;
     }
 
     /**
-     * The previous_token.
+     * The SID or unique name of the Fleet to which a list of Sims are assigned..
      *
-     * @param previousToken The previous_token
+     * @param fleet The SID or unique name of the Fleet to which a list of Sims are
+     *              assigned
      * @return this
      */
-    public DayReader setPreviousToken(final String previousToken) {
-        this.previousToken = previousToken;
+    public SimReader setFleet(final String fleet) {
+        this.fleet = fleet;
+        return this;
+    }
+
+    /**
+     * The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID)
+     * associated with a Super SIM to filter the list by. Passing this parameter
+     * will always return a list containing zero or one SIMs..
+     *
+     * @param iccid The ICCID associated with a Super SIM to filter the list by
+     * @return this
+     */
+    public SimReader setIccid(final String iccid) {
+        this.iccid = iccid;
         return this;
     }
 
@@ -64,10 +70,10 @@ public class DayReader extends Reader<Day> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Day ResourceSet
+     * @return Sim ResourceSet
      */
     @Override
-    public ResourceSet<Day> read(final TwilioRestClient client) {
+    public ResourceSet<Sim> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -75,15 +81,15 @@ public class DayReader extends Reader<Day> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Day ResourceSet
+     * @return Sim ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Day> firstPage(final TwilioRestClient client) {
+    public Page<Sim> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.PREVIEW.toString(),
-            "/BulkExports/Exports/" + this.pathResourceType + "/Days",
+            Domains.SUPERSIM.toString(),
+            "/v1/Sims",
             client.getRegion()
         );
 
@@ -96,11 +102,11 @@ public class DayReader extends Reader<Day> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Day ResourceSet
+     * @return Sim ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Day> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Sim> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -117,12 +123,12 @@ public class DayReader extends Reader<Day> {
      * @return Next Page
      */
     @Override
-    public Page<Day> nextPage(final Page<Day> page,
+    public Page<Sim> nextPage(final Page<Sim> page,
                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
+                Domains.SUPERSIM.toString(),
                 client.getRegion()
             )
         );
@@ -137,12 +143,12 @@ public class DayReader extends Reader<Day> {
      * @return Previous Page
      */
     @Override
-    public Page<Day> previousPage(final Page<Day> page,
+    public Page<Sim> previousPage(final Page<Sim> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
+                Domains.SUPERSIM.toString(),
                 client.getRegion()
             )
         );
@@ -150,17 +156,17 @@ public class DayReader extends Reader<Day> {
     }
 
     /**
-     * Generate a Page of Day Resources for a given request.
+     * Generate a Page of Sim Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Day> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Sim> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Day read failed: Unable to connect to server");
+            throw new ApiConnectionException("Sim read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -177,9 +183,9 @@ public class DayReader extends Reader<Day> {
         }
 
         return Page.fromJson(
-            "days",
+            "sims",
             response.getContent(),
-            Day.class,
+            Sim.class,
             client.getObjectMapper()
         );
     }
@@ -190,12 +196,16 @@ public class DayReader extends Reader<Day> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (nextToken != null) {
-            request.addQueryParam("NextToken", nextToken);
+        if (status != null) {
+            request.addQueryParam("Status", status.toString());
         }
 
-        if (previousToken != null) {
-            request.addQueryParam("PreviousToken", previousToken);
+        if (fleet != null) {
+            request.addQueryParam("Fleet", fleet.toString());
+        }
+
+        if (iccid != null) {
+            request.addQueryParam("Iccid", iccid);
         }
 
         if (getPageSize() != null) {

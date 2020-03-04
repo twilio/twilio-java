@@ -5,11 +5,12 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.bulkExports.export;
+package com.twilio.rest.supersim.v1;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -18,45 +19,70 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import org.joda.time.DateTime;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class DayReader extends Reader<Day> {
-    private final String pathResourceType;
-    private String nextToken;
-    private String previousToken;
+public class UsageRecordReader extends Reader<UsageRecord> {
+    private String sim;
+    private UsageRecord.Granularity granularity;
+    private DateTime startTime;
+    private DateTime endTime;
 
     /**
-     * Construct a new DayReader.
+     * SID of a Sim resource. Only show UsageRecords representing usage incurred by
+     * this Super SIM..
      *
-     * @param pathResourceType The type of communication – Messages, Calls
-     */
-    public DayReader(final String pathResourceType) {
-        this.pathResourceType = pathResourceType;
-    }
-
-    /**
-     * The next_token.
-     *
-     * @param nextToken The next_token
+     * @param sim SID of a Sim resource. Only show UsageRecords representing usage
+     *            incurred by this Super SIM.
      * @return this
      */
-    public DayReader setNextToken(final String nextToken) {
-        this.nextToken = nextToken;
+    public UsageRecordReader setSim(final String sim) {
+        this.sim = sim;
         return this;
     }
 
     /**
-     * The previous_token.
+     * Time-based grouping that UsageRecords should be aggregated by. Can be:
+     * `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that
+     * describes the usage for the entire period..
      *
-     * @param previousToken The previous_token
+     * @param granularity Time-based grouping that UsageRecords should be
+     *                    aggregated by. Can be: `hour`, `day`, or `all`. Default is
+     *                    `all`.
      * @return this
      */
-    public DayReader setPreviousToken(final String previousToken) {
-        this.previousToken = previousToken;
+    public UsageRecordReader setGranularity(final UsageRecord.Granularity granularity) {
+        this.granularity = granularity;
+        return this;
+    }
+
+    /**
+     * Only include usage that occurred at or after this time, specified in [ISO
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month
+     * before the `end_time`..
+     *
+     * @param startTime Only include usage that occurred at or after this time.
+     * @return this
+     */
+    public UsageRecordReader setStartTime(final DateTime startTime) {
+        this.startTime = startTime;
+        return this;
+    }
+
+    /**
+     * Only include usage that occurred before this time, specified in [ISO
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current
+     * time..
+     *
+     * @param endTime Only include usage that occurred before this time.
+     * @return this
+     */
+    public UsageRecordReader setEndTime(final DateTime endTime) {
+        this.endTime = endTime;
         return this;
     }
 
@@ -64,10 +90,10 @@ public class DayReader extends Reader<Day> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Day ResourceSet
+     * @return UsageRecord ResourceSet
      */
     @Override
-    public ResourceSet<Day> read(final TwilioRestClient client) {
+    public ResourceSet<UsageRecord> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -75,15 +101,15 @@ public class DayReader extends Reader<Day> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Day ResourceSet
+     * @return UsageRecord ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Day> firstPage(final TwilioRestClient client) {
+    public Page<UsageRecord> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.PREVIEW.toString(),
-            "/BulkExports/Exports/" + this.pathResourceType + "/Days",
+            Domains.SUPERSIM.toString(),
+            "/v1/UsageRecords",
             client.getRegion()
         );
 
@@ -96,11 +122,11 @@ public class DayReader extends Reader<Day> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Day ResourceSet
+     * @return UsageRecord ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Day> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<UsageRecord> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -117,12 +143,12 @@ public class DayReader extends Reader<Day> {
      * @return Next Page
      */
     @Override
-    public Page<Day> nextPage(final Page<Day> page,
-                              final TwilioRestClient client) {
+    public Page<UsageRecord> nextPage(final Page<UsageRecord> page,
+                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
+                Domains.SUPERSIM.toString(),
                 client.getRegion()
             )
         );
@@ -137,12 +163,12 @@ public class DayReader extends Reader<Day> {
      * @return Previous Page
      */
     @Override
-    public Page<Day> previousPage(final Page<Day> page,
-                                  final TwilioRestClient client) {
+    public Page<UsageRecord> previousPage(final Page<UsageRecord> page,
+                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
+                Domains.SUPERSIM.toString(),
                 client.getRegion()
             )
         );
@@ -150,17 +176,17 @@ public class DayReader extends Reader<Day> {
     }
 
     /**
-     * Generate a Page of Day Resources for a given request.
+     * Generate a Page of UsageRecord Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Day> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<UsageRecord> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Day read failed: Unable to connect to server");
+            throw new ApiConnectionException("UsageRecord read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -177,9 +203,9 @@ public class DayReader extends Reader<Day> {
         }
 
         return Page.fromJson(
-            "days",
+            "usage_records",
             response.getContent(),
-            Day.class,
+            UsageRecord.class,
             client.getObjectMapper()
         );
     }
@@ -190,12 +216,20 @@ public class DayReader extends Reader<Day> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (nextToken != null) {
-            request.addQueryParam("NextToken", nextToken);
+        if (sim != null) {
+            request.addQueryParam("Sim", sim.toString());
         }
 
-        if (previousToken != null) {
-            request.addQueryParam("PreviousToken", previousToken);
+        if (granularity != null) {
+            request.addQueryParam("Granularity", granularity.toString());
+        }
+
+        if (startTime != null) {
+            request.addQueryParam("StartTime", startTime.toString());
+        }
+
+        if (endTime != null) {
+            request.addQueryParam("EndTime", endTime.toString());
         }
 
         if (getPageSize() != null) {

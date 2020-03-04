@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -39,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 84226976776172L;
+    private static final long serialVersionUID = 130799423092200L;
 
     /**
      * Create a ServiceCreator to execute create.
@@ -134,6 +135,7 @@ public class Service extends Resource {
     private final DateTime dateUpdated;
     private final URI url;
     private final Map<String, String> links;
+    private final Map<String, Object> configuration;
 
     @JsonCreator
     private Service(@JsonProperty("sid")
@@ -149,7 +151,9 @@ public class Service extends Resource {
                     @JsonProperty("url")
                     final URI url,
                     @JsonProperty("links")
-                    final Map<String, String> links) {
+                    final Map<String, String> links,
+                    @JsonProperty("configuration")
+                    final Map<String, Object> configuration) {
         this.sid = sid;
         this.friendlyName = friendlyName;
         this.accountSid = accountSid;
@@ -157,6 +161,7 @@ public class Service extends Resource {
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
         this.links = links;
+        this.configuration = configuration;
     }
 
     /**
@@ -222,6 +227,15 @@ public class Service extends Resource {
         return this.links;
     }
 
+    /**
+     * Returns The service level configuration of all the factor types..
+     *
+     * @return The service level configuration of all the factor types.
+     */
+    public final Map<String, Object> getConfiguration() {
+        return this.configuration;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -240,7 +254,8 @@ public class Service extends Resource {
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url) &&
-               Objects.equals(links, other.links);
+               Objects.equals(links, other.links) &&
+               Objects.equals(configuration, other.configuration);
     }
 
     @Override
@@ -251,7 +266,8 @@ public class Service extends Resource {
                             dateCreated,
                             dateUpdated,
                             url,
-                            links);
+                            links,
+                            configuration);
     }
 
     @Override
@@ -264,6 +280,7 @@ public class Service extends Resource {
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)
                           .add("links", links)
+                          .add("configuration", configuration)
                           .toString();
     }
 }

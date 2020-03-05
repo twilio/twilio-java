@@ -31,6 +31,19 @@ public class Twilio {
     private Twilio() {}
 
     /**
+     * Ensures that the ListeningExecutorService is shutdown when the JVM exits.
+     */
+    static {
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                if (executorService != null) {
+                    executorService.shutdownNow();
+                }
+            }
+        });
+    }
+
+    /**
      * Initialize the Twilio environment.
      *
      * @param username account to use
@@ -57,8 +70,8 @@ public class Twilio {
     /**
      * Set the username.
      *
-     * @param username account sid to use
-     * @throws AuthenticationException if accountSid is null
+     * @param username account to use
+     * @throws AuthenticationException if username is null
      */
     public static void setUsername(final String username) {
         if (username == null) {
@@ -158,7 +171,7 @@ public class Twilio {
      *
      * @param executorService executor service to use
      */
-    public static void setExecutorService(final ListeningExecutorService executorService) {
+    public static synchronized void setExecutorService(final ListeningExecutorService executorService) {
         Twilio.executorService = executorService;
     }
 
@@ -189,5 +202,14 @@ public class Twilio {
      */
     private static void invalidate() {
         Twilio.restClient = null;
+    }
+
+    /**
+     * Attempts to gracefully shutdown the ListeningExecutorService if it is present.
+     */
+    public static synchronized void destroy() {
+        if (executorService != null) {
+            executorService.shutdown();
+        }
     }
 }

@@ -27,7 +27,7 @@ import java.net.URI;
 import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;
 
-public class SuccessRateTest {
+public class ImpressionsRateTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
@@ -41,7 +41,7 @@ public class SuccessRateTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
-                                          "/TrustedComms/Businesses/BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Insights/SuccessRate");
+                                          "/TrustedComms/Businesses/BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Insights/ImpressionsRate");
 
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class SuccessRateTest {
         }};
 
         try {
-            SuccessRate.fetcher("BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            ImpressionsRate.fetcher("BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -60,11 +60,11 @@ public class SuccessRateTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"business_sid\": \"BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"start\": \"2015-07-30T20:00:00Z\",\"end\": \"2015-07-30T21:00:00Z\",\"interval\": \"minute\",\"reports\": {\"success_rate\": {\"timestamp\": \"2015-07-30T20:00:00\",\"calls\": 1200,\"branded\": 800,\"value\": 66.67}},\"url\": \"https://preview.twilio.com/TrustedComms/Businesses/BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Insights/SuccessRate\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"business_sid\": \"BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"start\": \"2015-07-30T20:00:00Z\",\"end\": \"2015-07-30T21:00:00Z\",\"interval\": \"minute\",\"reports\": {\"impressions_rate\": {\"timestamp\": \"2015-07-30T20:00:00\",\"calls\": 1200,\"impressions\": 800}},\"url\": \"https://preview.twilio.com/TrustedComms/Businesses/BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Insights/ImpressionsRate\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SuccessRate.fetcher("BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(ImpressionsRate.fetcher("BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 }

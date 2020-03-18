@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
@@ -40,7 +41,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Factor extends Resource {
-    private static final long serialVersionUID = 171608504161461L;
+    private static final long serialVersionUID = 39175330410278L;
 
     public enum FactorStatuses {
         UNVERIFIED("unverified"),
@@ -102,14 +103,16 @@ public class Factor extends Resource {
      * @param binding A unique binding for this Factor as a json string
      * @param friendlyName The friendly name of this Factor
      * @param factorType The Type of this Factor
+     * @param config The config for this Factor as a json string
      * @return FactorCreator capable of executing the create
      */
     public static FactorCreator creator(final String pathServiceSid,
                                         final String pathIdentity,
                                         final String binding,
                                         final String friendlyName,
-                                        final Factor.FactorTypes factorType) {
-        return new FactorCreator(pathServiceSid, pathIdentity, binding, friendlyName, factorType);
+                                        final Factor.FactorTypes factorType,
+                                        final String config) {
+        return new FactorCreator(pathServiceSid, pathIdentity, binding, friendlyName, factorType, config);
     }
 
     /**
@@ -213,6 +216,7 @@ public class Factor extends Resource {
     private final String friendlyName;
     private final Factor.FactorStatuses status;
     private final Factor.FactorTypes factorType;
+    private final Map<String, Object> config;
     private final URI url;
     private final Map<String, String> links;
 
@@ -237,6 +241,8 @@ public class Factor extends Resource {
                    final Factor.FactorStatuses status,
                    @JsonProperty("factor_type")
                    final Factor.FactorTypes factorType,
+                   @JsonProperty("config")
+                   final Map<String, Object> config,
                    @JsonProperty("url")
                    final URI url,
                    @JsonProperty("links")
@@ -251,6 +257,7 @@ public class Factor extends Resource {
         this.friendlyName = friendlyName;
         this.status = status;
         this.factorType = factorType;
+        this.config = config;
         this.url = url;
         this.links = links;
     }
@@ -346,6 +353,15 @@ public class Factor extends Resource {
     }
 
     /**
+     * Returns The config.
+     *
+     * @return The config
+     */
+    public final Map<String, Object> getConfig() {
+        return this.config;
+    }
+
+    /**
      * Returns The URL of this resource..
      *
      * @return The URL of this resource.
@@ -385,6 +401,7 @@ public class Factor extends Resource {
                Objects.equals(friendlyName, other.friendlyName) &&
                Objects.equals(status, other.status) &&
                Objects.equals(factorType, other.factorType) &&
+               Objects.equals(config, other.config) &&
                Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
@@ -401,6 +418,7 @@ public class Factor extends Resource {
                             friendlyName,
                             status,
                             factorType,
+                            config,
                             url,
                             links);
     }
@@ -418,6 +436,7 @@ public class Factor extends Resource {
                           .add("friendlyName", friendlyName)
                           .add("status", status)
                           .add("factorType", factorType)
+                          .add("config", config)
                           .add("url", url)
                           .add("links", links)
                           .toString();

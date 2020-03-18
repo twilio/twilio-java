@@ -56,6 +56,7 @@ public class CallCreator extends Creator<Call> {
     private URI asyncAmdStatusCallback;
     private HttpMethod asyncAmdStatusCallbackMethod;
     private String byoc;
+    private String callReason;
 
     /**
      * Construct a new CallCreator.
@@ -601,6 +602,18 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
+     * The Reason for the outgoing call. Use call_reason to specify the purpose of
+     * the call that is presented on the called party's phone. (Beta)..
+     *
+     * @param callReason Reason for the call (Beta)
+     * @return this
+     */
+    public CallCreator setCallReason(final String callReason) {
+        this.callReason = callReason;
+        return this;
+    }
+
+    /**
      * The absolute URL that returns the TwiML instructions for the call. We will
      * call this URL using the `method` when the call connects. For more
      * information, see the [Url
@@ -837,6 +850,10 @@ public class CallCreator extends Creator<Call> {
 
         if (byoc != null) {
             request.addPostParam("Byoc", byoc);
+        }
+
+        if (callReason != null) {
+            request.addPostParam("CallReason", callReason);
         }
     }
 }

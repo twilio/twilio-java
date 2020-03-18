@@ -27,6 +27,8 @@ public class FactorUpdater extends Updater<Factor> {
     private final String pathIdentity;
     private final String pathSid;
     private String authPayload;
+    private String friendlyName;
+    private String config;
 
     /**
      * Construct a new FactorUpdater.
@@ -52,6 +54,29 @@ public class FactorUpdater extends Updater<Factor> {
      */
     public FactorUpdater setAuthPayload(final String authPayload) {
         this.authPayload = authPayload;
+        return this;
+    }
+
+    /**
+     * The new friendly name of this Factor.
+     *
+     * @param friendlyName The friendly name of this Factor
+     * @return this
+     */
+    public FactorUpdater setFriendlyName(final String friendlyName) {
+        this.friendlyName = friendlyName;
+        return this;
+    }
+
+    /**
+     * The new config for this Factor. It must be a json string with the required
+     * properties for the given factor type.
+     *
+     * @param config The config for this Factor as a json string
+     * @return this
+     */
+    public FactorUpdater setConfig(final String config) {
+        this.config = config;
         return this;
     }
 
@@ -102,6 +127,14 @@ public class FactorUpdater extends Updater<Factor> {
     private void addPostParams(final Request request) {
         if (authPayload != null) {
             request.addPostParam("AuthPayload", authPayload);
+        }
+
+        if (friendlyName != null) {
+            request.addPostParam("FriendlyName", friendlyName);
+        }
+
+        if (config != null) {
+            request.addPostParam("Config", config);
         }
     }
 }

@@ -1,6 +1,26 @@
 twilio-java changelog
 =====================
 
+[2020-03-18] Version 7.48.0
+---------------------------
+**Library - Chore**
+- [PR #519](https://github.com/twilio/twilio-java/pull/519): upgrade jackson to 2.10.3. Thanks to [@sullis](https://github.com/sullis)!
+
+**Library - Fix**
+- [PR #502](https://github.com/twilio/twilio-java/pull/502): shut down executorService thread automatically to allow the JVM to shut down gracefully. Thanks to [@Salil999](https://github.com/Salil999)!
+
+**Api**
+- Add optional `emergency_calling_enabled` parameter to SIP Domain
+- Add optional property `call_reason` in the call create request
+
+**Authy**
+- Added `friendly_name` and `config` as optional params to Factor update
+- Added `config` param to Factor creation **(breaking change)**
+
+**Preview**
+- Renamed `SuccessRate` endpoint to `ImpressionsRate` for Branded Calls (fka. Verified by Twilio) **(breaking change)**
+
+
 [2020-03-04] Version 7.47.6
 ---------------------------
 **Library - Chore**

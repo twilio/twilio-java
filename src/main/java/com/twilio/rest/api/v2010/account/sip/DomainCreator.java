@@ -31,6 +31,7 @@ public class DomainCreator extends Creator<Domain> {
     private URI voiceStatusCallbackUrl;
     private HttpMethod voiceStatusCallbackMethod;
     private Boolean sipRegistration;
+    private Boolean emergencyCallingEnabled;
 
     /**
      * Construct a new DomainCreator.
@@ -186,6 +187,19 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
+     * Whether emergency calling is enabled for the domain. If enabled, allows
+     * emergency calls on the domain from phone numbers with validated addresses..
+     *
+     * @param emergencyCallingEnabled Whether emergency calling is enabled for the
+     *                                domain.
+     * @return this
+     */
+    public DomainCreator setEmergencyCallingEnabled(final Boolean emergencyCallingEnabled) {
+        this.emergencyCallingEnabled = emergencyCallingEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -265,6 +279,10 @@ public class DomainCreator extends Creator<Domain> {
 
         if (sipRegistration != null) {
             request.addPostParam("SipRegistration", sipRegistration.toString());
+        }
+
+        if (emergencyCallingEnabled != null) {
+            request.addPostParam("EmergencyCallingEnabled", emergencyCallingEnabled.toString());
         }
     }
 }

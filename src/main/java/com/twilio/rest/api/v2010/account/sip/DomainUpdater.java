@@ -32,6 +32,7 @@ public class DomainUpdater extends Updater<Domain> {
     private URI voiceUrl;
     private Boolean sipRegistration;
     private String domainName;
+    private Boolean emergencyCallingEnabled;
 
     /**
      * Construct a new DomainUpdater.
@@ -200,6 +201,19 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
+     * Whether emergency calling is enabled for the domain. If enabled, allows
+     * emergency calls on the domain from phone numbers with validated addresses..
+     *
+     * @param emergencyCallingEnabled Whether emergency calling is enabled for the
+     *                                domain.
+     * @return this
+     */
+    public DomainUpdater setEmergencyCallingEnabled(final Boolean emergencyCallingEnabled) {
+        this.emergencyCallingEnabled = emergencyCallingEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -279,6 +293,10 @@ public class DomainUpdater extends Updater<Domain> {
 
         if (domainName != null) {
             request.addPostParam("DomainName", domainName);
+        }
+
+        if (emergencyCallingEnabled != null) {
+            request.addPostParam("EmergencyCallingEnabled", emergencyCallingEnabled.toString());
         }
     }
 }

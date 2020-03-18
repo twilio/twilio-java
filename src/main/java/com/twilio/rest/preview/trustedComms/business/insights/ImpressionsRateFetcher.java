@@ -24,7 +24,7 @@ import org.joda.time.DateTime;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class SuccessRateFetcher extends Fetcher<SuccessRate> {
+public class ImpressionsRateFetcher extends Fetcher<ImpressionsRate> {
     private final String pathBusinessSid;
     private String brandSid;
     private String brandedChannelSid;
@@ -32,14 +32,14 @@ public class SuccessRateFetcher extends Fetcher<SuccessRate> {
     private String country;
     private DateTime start;
     private DateTime end;
-    private SuccessRate.Intervals interval;
+    private ImpressionsRate.Intervals interval;
 
     /**
-     * Construct a new SuccessRateFetcher.
+     * Construct a new ImpressionsRateFetcher.
      *
      * @param pathBusinessSid Business Sid.
      */
-    public SuccessRateFetcher(final String pathBusinessSid) {
+    public ImpressionsRateFetcher(final String pathBusinessSid) {
         this.pathBusinessSid = pathBusinessSid;
     }
 
@@ -49,7 +49,7 @@ public class SuccessRateFetcher extends Fetcher<SuccessRate> {
      * @param brandSid Brand Sid.
      * @return this
      */
-    public SuccessRateFetcher setBrandSid(final String brandSid) {
+    public ImpressionsRateFetcher setBrandSid(final String brandSid) {
         this.brandSid = brandSid;
         return this;
     }
@@ -60,7 +60,7 @@ public class SuccessRateFetcher extends Fetcher<SuccessRate> {
      * @param brandedChannelSid Branded Channel Sid.
      * @return this
      */
-    public SuccessRateFetcher setBrandedChannelSid(final String brandedChannelSid) {
+    public ImpressionsRateFetcher setBrandedChannelSid(final String brandedChannelSid) {
         this.brandedChannelSid = brandedChannelSid;
         return this;
     }
@@ -71,7 +71,7 @@ public class SuccessRateFetcher extends Fetcher<SuccessRate> {
      * @param phoneNumberSid Phone Number Sid.
      * @return this
      */
-    public SuccessRateFetcher setPhoneNumberSid(final String phoneNumberSid) {
+    public ImpressionsRateFetcher setPhoneNumberSid(final String phoneNumberSid) {
         this.phoneNumberSid = phoneNumberSid;
         return this;
     }
@@ -82,43 +82,43 @@ public class SuccessRateFetcher extends Fetcher<SuccessRate> {
      * @param country Country 2-letter ISO 3166 code.
      * @return this
      */
-    public SuccessRateFetcher setCountry(final String country) {
+    public ImpressionsRateFetcher setCountry(final String country) {
         this.country = country;
         return this;
     }
 
     /**
-     * The start date that for this Success Rate, given in ISO 8601 format. Default
-     * value is 30 days ago..
+     * The start date that for this Impressions Rate, given in ISO 8601 format.
+     * Default value is 30 days ago..
      *
-     * @param start The start date that for this Success Rate.
+     * @param start The start date that for this Impressions Rate.
      * @return this
      */
-    public SuccessRateFetcher setStart(final DateTime start) {
+    public ImpressionsRateFetcher setStart(final DateTime start) {
         this.start = start;
         return this;
     }
 
     /**
-     * The end date that for this Success Rate, given in ISO 8601 format. Default
-     * value is current timestamp..
+     * The end date that for this Impressions Rate, given in ISO 8601 format.
+     * Default value is current timestamp..
      *
-     * @param end The end date that for this Success Rate.
+     * @param end The end date that for this Impressions Rate.
      * @return this
      */
-    public SuccessRateFetcher setEnd(final DateTime end) {
+    public ImpressionsRateFetcher setEnd(final DateTime end) {
         this.end = end;
         return this;
     }
 
     /**
-     * The Interval of this Success Rate. One of `minute`, `hour`, `day`, `week` or
-     * `month`..
+     * The Interval of this Impressions Rate. One of `minute`, `hour`, `day`, `week`
+     * or `month`..
      *
-     * @param interval The Interval of this Success Rate.
+     * @param interval The Interval of this Impressions Rate.
      * @return this
      */
-    public SuccessRateFetcher setInterval(final SuccessRate.Intervals interval) {
+    public ImpressionsRateFetcher setInterval(final ImpressionsRate.Intervals interval) {
         this.interval = interval;
         return this;
     }
@@ -127,15 +127,15 @@ public class SuccessRateFetcher extends Fetcher<SuccessRate> {
      * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched SuccessRate
+     * @return Fetched ImpressionsRate
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public SuccessRate fetch(final TwilioRestClient client) {
+    public ImpressionsRate fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/TrustedComms/Businesses/" + this.pathBusinessSid + "/Insights/SuccessRate",
+            "/TrustedComms/Businesses/" + this.pathBusinessSid + "/Insights/ImpressionsRate",
             client.getRegion()
         );
 
@@ -143,7 +143,7 @@ public class SuccessRateFetcher extends Fetcher<SuccessRate> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("SuccessRate fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("ImpressionsRate fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -159,7 +159,7 @@ public class SuccessRateFetcher extends Fetcher<SuccessRate> {
             );
         }
 
-        return SuccessRate.fromJson(response.getStream(), client.getObjectMapper());
+        return ImpressionsRate.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**

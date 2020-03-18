@@ -37,7 +37,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Trunk extends Resource {
-    private static final long serialVersionUID = 232614357517076L;
+    private static final long serialVersionUID = 237038422793901L;
 
     public enum RecordingSetting {
         DO_NOT_RECORD("do-not-record"),

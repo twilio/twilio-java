@@ -40,8 +40,8 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SuccessRate extends Resource {
-    private static final long serialVersionUID = 217545107377998L;
+public class ImpressionsRate extends Resource {
+    private static final long serialVersionUID = 11232973759334L;
 
     public enum Intervals {
         MINUTE("minute"),
@@ -72,27 +72,27 @@ public class SuccessRate extends Resource {
     }
 
     /**
-     * Create a SuccessRateFetcher to execute fetch.
+     * Create a ImpressionsRateFetcher to execute fetch.
      *
      * @param pathBusinessSid Business Sid.
-     * @return SuccessRateFetcher capable of executing the fetch
+     * @return ImpressionsRateFetcher capable of executing the fetch
      */
-    public static SuccessRateFetcher fetcher(final String pathBusinessSid) {
-        return new SuccessRateFetcher(pathBusinessSid);
+    public static ImpressionsRateFetcher fetcher(final String pathBusinessSid) {
+        return new ImpressionsRateFetcher(pathBusinessSid);
     }
 
     /**
-     * Converts a JSON String into a SuccessRate object using the provided
+     * Converts a JSON String into a ImpressionsRate object using the provided
      * ObjectMapper.
      *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
-     * @return SuccessRate object represented by the provided JSON
+     * @return ImpressionsRate object represented by the provided JSON
      */
-    public static SuccessRate fromJson(final String json, final ObjectMapper objectMapper) {
+    public static ImpressionsRate fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, SuccessRate.class);
+            return objectMapper.readValue(json, ImpressionsRate.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -101,17 +101,17 @@ public class SuccessRate extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a SuccessRate object using the provided
+     * Converts a JSON InputStream into a ImpressionsRate object using the provided
      * ObjectMapper.
      *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
-     * @return SuccessRate object represented by the provided JSON
+     * @return ImpressionsRate object represented by the provided JSON
      */
-    public static SuccessRate fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static ImpressionsRate fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, SuccessRate.class);
+            return objectMapper.readValue(json, ImpressionsRate.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -122,26 +122,26 @@ public class SuccessRate extends Resource {
     private final String accountSid;
     private final String businessSid;
     private final DateTime end;
-    private final SuccessRate.Intervals interval;
+    private final ImpressionsRate.Intervals interval;
     private final Map<String, Object> reports;
     private final DateTime start;
     private final URI url;
 
     @JsonCreator
-    private SuccessRate(@JsonProperty("account_sid")
-                        final String accountSid,
-                        @JsonProperty("business_sid")
-                        final String businessSid,
-                        @JsonProperty("end")
-                        final String end,
-                        @JsonProperty("interval")
-                        final SuccessRate.Intervals interval,
-                        @JsonProperty("reports")
-                        final Map<String, Object> reports,
-                        @JsonProperty("start")
-                        final String start,
-                        @JsonProperty("url")
-                        final URI url) {
+    private ImpressionsRate(@JsonProperty("account_sid")
+                            final String accountSid,
+                            @JsonProperty("business_sid")
+                            final String businessSid,
+                            @JsonProperty("end")
+                            final String end,
+                            @JsonProperty("interval")
+                            final ImpressionsRate.Intervals interval,
+                            @JsonProperty("reports")
+                            final Map<String, Object> reports,
+                            @JsonProperty("start")
+                            final String start,
+                            @JsonProperty("url")
+                            final URI url) {
         this.accountSid = accountSid;
         this.businessSid = businessSid;
         this.end = DateConverter.iso8601DateTimeFromString(end);
@@ -170,36 +170,36 @@ public class SuccessRate extends Resource {
     }
 
     /**
-     * Returns The end date that for this Success Rate..
+     * Returns The end date that for this Impressions Rate..
      *
-     * @return The end date that for this Success Rate.
+     * @return The end date that for this Impressions Rate.
      */
     public final DateTime getEnd() {
         return this.end;
     }
 
     /**
-     * Returns The Interval of this Success Rate..
+     * Returns The Interval of this Impressions Rate..
      *
-     * @return The Interval of this Success Rate.
+     * @return The Interval of this Impressions Rate.
      */
-    public final SuccessRate.Intervals getInterval() {
+    public final ImpressionsRate.Intervals getInterval() {
         return this.interval;
     }
 
     /**
-     * Returns Values of Success Rate per interval..
+     * Returns Values of Impressions Rate per interval..
      *
-     * @return Values of Success Rate per interval.
+     * @return Values of Impressions Rate per interval.
      */
     public final Map<String, Object> getReports() {
         return this.reports;
     }
 
     /**
-     * Returns The start date that for this Success Rate..
+     * Returns The start date that for this Impressions Rate..
      *
-     * @return The start date that for this Success Rate.
+     * @return The start date that for this Impressions Rate.
      */
     public final DateTime getStart() {
         return this.start;
@@ -224,7 +224,7 @@ public class SuccessRate extends Resource {
             return false;
         }
 
-        SuccessRate other = (SuccessRate) o;
+        ImpressionsRate other = (ImpressionsRate) o;
 
         return Objects.equals(accountSid, other.accountSid) &&
                Objects.equals(businessSid, other.businessSid) &&

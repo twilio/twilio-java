@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Domain extends Resource {
-    private static final long serialVersionUID = 249455221641772L;
+    private static final long serialVersionUID = 114475847190680L;
 
     /**
      * Create a DomainReader to execute read.
@@ -201,6 +201,7 @@ public class Domain extends Resource {
     private final URI voiceUrl;
     private final Map<String, String> subresourceUris;
     private final Boolean sipRegistration;
+    private final Boolean emergencyCallingEnabled;
 
     @JsonCreator
     private Domain(@JsonProperty("account_sid")
@@ -236,7 +237,9 @@ public class Domain extends Resource {
                    @JsonProperty("subresource_uris")
                    final Map<String, String> subresourceUris,
                    @JsonProperty("sip_registration")
-                   final Boolean sipRegistration) {
+                   final Boolean sipRegistration,
+                   @JsonProperty("emergency_calling_enabled")
+                   final Boolean emergencyCallingEnabled) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.authType = authType;
@@ -254,6 +257,7 @@ public class Domain extends Resource {
         this.voiceUrl = voiceUrl;
         this.subresourceUris = subresourceUris;
         this.sipRegistration = sipRegistration;
+        this.emergencyCallingEnabled = emergencyCallingEnabled;
     }
 
     /**
@@ -409,6 +413,15 @@ public class Domain extends Resource {
         return this.sipRegistration;
     }
 
+    /**
+     * Returns Whether emergency calling is enabled for the domain..
+     *
+     * @return Whether emergency calling is enabled for the domain.
+     */
+    public final Boolean getEmergencyCallingEnabled() {
+        return this.emergencyCallingEnabled;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -437,7 +450,8 @@ public class Domain extends Resource {
                Objects.equals(voiceStatusCallbackUrl, other.voiceStatusCallbackUrl) &&
                Objects.equals(voiceUrl, other.voiceUrl) &&
                Objects.equals(subresourceUris, other.subresourceUris) &&
-               Objects.equals(sipRegistration, other.sipRegistration);
+               Objects.equals(sipRegistration, other.sipRegistration) &&
+               Objects.equals(emergencyCallingEnabled, other.emergencyCallingEnabled);
     }
 
     @Override
@@ -458,7 +472,8 @@ public class Domain extends Resource {
                             voiceStatusCallbackUrl,
                             voiceUrl,
                             subresourceUris,
-                            sipRegistration);
+                            sipRegistration,
+                            emergencyCallingEnabled);
     }
 
     @Override
@@ -481,6 +496,7 @@ public class Domain extends Resource {
                           .add("voiceUrl", voiceUrl)
                           .add("subresourceUris", subresourceUris)
                           .add("sipRegistration", sipRegistration)
+                          .add("emergencyCallingEnabled", emergencyCallingEnabled)
                           .toString();
     }
 }

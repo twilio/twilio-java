@@ -77,13 +77,11 @@ public class Deployment extends Resource {
      * @param pathServiceSid The SID of the Service to create the Deployment
      *                       resource under
      * @param pathEnvironmentSid The SID of the environment for the deployment
-     * @param buildSid The SID of the build for the deployment
      * @return DeploymentCreator capable of executing the create
      */
     public static DeploymentCreator creator(final String pathServiceSid,
-                                            final String pathEnvironmentSid,
-                                            final String buildSid) {
-        return new DeploymentCreator(pathServiceSid, pathEnvironmentSid, buildSid);
+                                            final String pathEnvironmentSid) {
+        return new DeploymentCreator(pathServiceSid, pathEnvironmentSid);
     }
 
     /**

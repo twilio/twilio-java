@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FunctionVersion extends Resource {
-    private static final long serialVersionUID = 219697752660692L;
+    private static final long serialVersionUID = 198867416400366L;
 
     public enum Visibility {
         PUBLIC("public"),
@@ -144,6 +144,7 @@ public class FunctionVersion extends Resource {
     private final FunctionVersion.Visibility visibility;
     private final DateTime dateCreated;
     private final URI url;
+    private final Map<String, String> links;
 
     @JsonCreator
     private FunctionVersion(@JsonProperty("sid")
@@ -161,7 +162,9 @@ public class FunctionVersion extends Resource {
                             @JsonProperty("date_created")
                             final String dateCreated,
                             @JsonProperty("url")
-                            final URI url) {
+                            final URI url,
+                            @JsonProperty("links")
+                            final Map<String, String> links) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.serviceSid = serviceSid;
@@ -170,6 +173,7 @@ public class FunctionVersion extends Resource {
         this.visibility = visibility;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.url = url;
+        this.links = links;
     }
 
     /**
@@ -252,6 +256,15 @@ public class FunctionVersion extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns The links.
+     *
+     * @return The links
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -271,7 +284,8 @@ public class FunctionVersion extends Resource {
                Objects.equals(path, other.path) &&
                Objects.equals(visibility, other.visibility) &&
                Objects.equals(dateCreated, other.dateCreated) &&
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) &&
+               Objects.equals(links, other.links);
     }
 
     @Override
@@ -283,7 +297,8 @@ public class FunctionVersion extends Resource {
                             path,
                             visibility,
                             dateCreated,
-                            url);
+                            url,
+                            links);
     }
 
     @Override
@@ -297,6 +312,7 @@ public class FunctionVersion extends Resource {
                           .add("visibility", visibility)
                           .add("dateCreated", dateCreated)
                           .add("url", url)
+                          .add("links", links)
                           .toString();
     }
 }

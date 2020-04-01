@@ -37,7 +37,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Configuration extends Resource {
-    private static final long serialVersionUID = 268327142878032L;
+    private static final long serialVersionUID = 43392007572385L;
 
     public enum Status {
         OK("ok"),
@@ -164,6 +164,8 @@ public class Configuration extends Resource {
     private final List<Map<String, Object>> integrations;
     private final Map<String, Object> outboundCallFlows;
     private final List<String> serverlessServiceSids;
+    private final List<Map<String, Object>> wfmIntegrations;
+    private final Map<String, Object> queueStatsConfiguration;
     private final URI url;
 
     @JsonCreator
@@ -235,6 +237,10 @@ public class Configuration extends Resource {
                           final Map<String, Object> outboundCallFlows,
                           @JsonProperty("serverless_service_sids")
                           final List<String> serverlessServiceSids,
+                          @JsonProperty("wfm_integrations")
+                          final List<Map<String, Object>> wfmIntegrations,
+                          @JsonProperty("queue_stats_configuration")
+                          final Map<String, Object> queueStatsConfiguration,
                           @JsonProperty("url")
                           final URI url) {
         this.accountSid = accountSid;
@@ -271,6 +277,8 @@ public class Configuration extends Resource {
         this.integrations = integrations;
         this.outboundCallFlows = outboundCallFlows;
         this.serverlessServiceSids = serverlessServiceSids;
+        this.wfmIntegrations = wfmIntegrations;
+        this.queueStatsConfiguration = queueStatsConfiguration;
         this.url = url;
     }
 
@@ -591,6 +599,26 @@ public class Configuration extends Resource {
     }
 
     /**
+     * Returns A list of objects that contain the configurations for the WFM
+     * Integrations supported in this configuration.
+     *
+     * @return A list of objects that contain the configurations for the WFM
+     *         Integrations supported in this configuration
+     */
+    public final List<Map<String, Object>> getWfmIntegrations() {
+        return this.wfmIntegrations;
+    }
+
+    /**
+     * Returns Configurable parameters for Queues Statistics.
+     *
+     * @return Configurable parameters for Queues Statistics
+     */
+    public final Map<String, Object> getQueueStatsConfiguration() {
+        return this.queueStatsConfiguration;
+    }
+
+    /**
      * Returns The absolute URL of the Configuration resource.
      *
      * @return The absolute URL of the Configuration resource
@@ -645,6 +673,8 @@ public class Configuration extends Resource {
                Objects.equals(integrations, other.integrations) &&
                Objects.equals(outboundCallFlows, other.outboundCallFlows) &&
                Objects.equals(serverlessServiceSids, other.serverlessServiceSids) &&
+               Objects.equals(wfmIntegrations, other.wfmIntegrations) &&
+               Objects.equals(queueStatsConfiguration, other.queueStatsConfiguration) &&
                Objects.equals(url, other.url);
     }
 
@@ -684,6 +714,8 @@ public class Configuration extends Resource {
                             integrations,
                             outboundCallFlows,
                             serverlessServiceSids,
+                            wfmIntegrations,
+                            queueStatsConfiguration,
                             url);
     }
 
@@ -724,6 +756,8 @@ public class Configuration extends Resource {
                           .add("integrations", integrations)
                           .add("outboundCallFlows", outboundCallFlows)
                           .add("serverlessServiceSids", serverlessServiceSids)
+                          .add("wfmIntegrations", wfmIntegrations)
+                          .add("queueStatsConfiguration", queueStatsConfiguration)
                           .add("url", url)
                           .toString();
     }

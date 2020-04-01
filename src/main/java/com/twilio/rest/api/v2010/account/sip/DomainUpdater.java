@@ -33,6 +33,7 @@ public class DomainUpdater extends Updater<Domain> {
     private Boolean sipRegistration;
     private String domainName;
     private Boolean emergencyCallingEnabled;
+    private Boolean secure;
 
     /**
      * Construct a new DomainUpdater.
@@ -214,6 +215,19 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
+     * Whether secure SIP is enabled for the domain. If enabled, TLS will be
+     * enforced and SRTP will be negotiated on all incoming calls to this sip
+     * domain..
+     *
+     * @param secure Whether secure SIP is enabled for the domain
+     * @return this
+     */
+    public DomainUpdater setSecure(final Boolean secure) {
+        this.secure = secure;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -297,6 +311,10 @@ public class DomainUpdater extends Updater<Domain> {
 
         if (emergencyCallingEnabled != null) {
             request.addPostParam("EmergencyCallingEnabled", emergencyCallingEnabled.toString());
+        }
+
+        if (secure != null) {
+            request.addPostParam("Secure", secure.toString());
         }
     }
 }

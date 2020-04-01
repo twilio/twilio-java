@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.supersim.v1;
+package com.twilio.rest.authy.v1.service.entity.factor;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -24,45 +24,36 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class SimReader extends Reader<Sim> {
-    private Sim.Status status;
-    private String fleet;
-    private String iccid;
+public class ChallengeReader extends Reader<Challenge> {
+    private final String pathServiceSid;
+    private final String pathIdentity;
+    private final String pathFactorSid;
+    private Challenge.ChallengeStatuses status;
 
     /**
-     * The status of the Sim resources to read. Can be `new`, `active`, `inactive`,
-     * or `scheduled`..
+     * Construct a new ChallengeReader.
      *
-     * @param status The status of the Sim resources to read
+     * @param pathServiceSid Service Sid.
+     * @param pathIdentity Unique identity of the Entity
+     * @param pathFactorSid Factor Sid.
+     */
+    public ChallengeReader(final String pathServiceSid,
+                           final String pathIdentity,
+                           final String pathFactorSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathIdentity = pathIdentity;
+        this.pathFactorSid = pathFactorSid;
+    }
+
+    /**
+     * The Status of the Challenges to fetch. One of `pending`, `expired`,
+     * `approved` or `denied`..
+     *
+     * @param status The Status of theChallenges to fetch
      * @return this
      */
-    public SimReader setStatus(final Sim.Status status) {
+    public ChallengeReader setStatus(final Challenge.ChallengeStatuses status) {
         this.status = status;
-        return this;
-    }
-
-    /**
-     * The SID or unique name of the Fleet to which a list of Sims are assigned..
-     *
-     * @param fleet The SID or unique name of the Fleet to which a list of Sims are
-     *              assigned
-     * @return this
-     */
-    public SimReader setFleet(final String fleet) {
-        this.fleet = fleet;
-        return this;
-    }
-
-    /**
-     * The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID)
-     * associated with a Super SIM to filter the list by. Passing this parameter
-     * will always return a list containing zero or one SIMs..
-     *
-     * @param iccid The ICCID associated with a Super SIM to filter the list by
-     * @return this
-     */
-    public SimReader setIccid(final String iccid) {
-        this.iccid = iccid;
         return this;
     }
 
@@ -70,10 +61,10 @@ public class SimReader extends Reader<Sim> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Sim ResourceSet
+     * @return Challenge ResourceSet
      */
     @Override
-    public ResourceSet<Sim> read(final TwilioRestClient client) {
+    public ResourceSet<Challenge> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -81,15 +72,15 @@ public class SimReader extends Reader<Sim> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Sim ResourceSet
+     * @return Challenge ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Sim> firstPage(final TwilioRestClient client) {
+    public Page<Challenge> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.SUPERSIM.toString(),
-            "/v1/Sims",
+            Domains.AUTHY.toString(),
+            "/v1/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Factors/" + this.pathFactorSid + "/Challenges",
             client.getRegion()
         );
 
@@ -102,11 +93,11 @@ public class SimReader extends Reader<Sim> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Sim ResourceSet
+     * @return Challenge ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Sim> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Challenge> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -123,12 +114,12 @@ public class SimReader extends Reader<Sim> {
      * @return Next Page
      */
     @Override
-    public Page<Sim> nextPage(final Page<Sim> page,
-                              final TwilioRestClient client) {
+    public Page<Challenge> nextPage(final Page<Challenge> page,
+                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                Domains.SUPERSIM.toString(),
+                Domains.AUTHY.toString(),
                 client.getRegion()
             )
         );
@@ -143,12 +134,12 @@ public class SimReader extends Reader<Sim> {
      * @return Previous Page
      */
     @Override
-    public Page<Sim> previousPage(final Page<Sim> page,
-                                  final TwilioRestClient client) {
+    public Page<Challenge> previousPage(final Page<Challenge> page,
+                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(
-                Domains.SUPERSIM.toString(),
+                Domains.AUTHY.toString(),
                 client.getRegion()
             )
         );
@@ -156,17 +147,17 @@ public class SimReader extends Reader<Sim> {
     }
 
     /**
-     * Generate a Page of Sim Resources for a given request.
+     * Generate a Page of Challenge Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Sim> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Challenge> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Sim read failed: Unable to connect to server");
+            throw new ApiConnectionException("Challenge read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -183,9 +174,9 @@ public class SimReader extends Reader<Sim> {
         }
 
         return Page.fromJson(
-            "sims",
+            "challenges",
             response.getContent(),
-            Sim.class,
+            Challenge.class,
             client.getObjectMapper()
         );
     }
@@ -198,14 +189,6 @@ public class SimReader extends Reader<Sim> {
     private void addQueryParams(final Request request) {
         if (status != null) {
             request.addQueryParam("Status", status.toString());
-        }
-
-        if (fleet != null) {
-            request.addQueryParam("Fleet", fleet.toString());
-        }
-
-        if (iccid != null) {
-            request.addQueryParam("Iccid", iccid);
         }
 
         if (getPageSize() != null) {

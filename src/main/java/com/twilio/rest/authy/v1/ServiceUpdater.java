@@ -25,6 +25,7 @@ import com.twilio.rest.Domains;
 public class ServiceUpdater extends Updater<Service> {
     private final String pathSid;
     private String friendlyName;
+    private String push;
 
     /**
      * Construct a new ServiceUpdater.
@@ -43,6 +44,19 @@ public class ServiceUpdater extends Updater<Service> {
      */
     public ServiceUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
+        return this;
+    }
+
+    /**
+     * The optional service level push factors configuration. If present it must be
+     * a json string with the following format: {"notify_service_sid":
+     * "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "include_date": true}.
+     *
+     * @param push Optional service level push factors configuration
+     * @return this
+     */
+    public ServiceUpdater setPush(final String push) {
+        this.push = push;
         return this;
     }
 
@@ -93,6 +107,10 @@ public class ServiceUpdater extends Updater<Service> {
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+        }
+
+        if (push != null) {
+            request.addPostParam("Push", push);
         }
     }
 }

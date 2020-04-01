@@ -25,7 +25,7 @@ import com.twilio.rest.Domains;
 public class DeploymentCreator extends Creator<Deployment> {
     private final String pathServiceSid;
     private final String pathEnvironmentSid;
-    private final String buildSid;
+    private String buildSid;
 
     /**
      * Construct a new DeploymentCreator.
@@ -33,14 +33,22 @@ public class DeploymentCreator extends Creator<Deployment> {
      * @param pathServiceSid The SID of the Service to create the Deployment
      *                       resource under
      * @param pathEnvironmentSid The SID of the environment for the deployment
-     * @param buildSid The SID of the build for the deployment
      */
     public DeploymentCreator(final String pathServiceSid,
-                             final String pathEnvironmentSid,
-                             final String buildSid) {
+                             final String pathEnvironmentSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathEnvironmentSid = pathEnvironmentSid;
+    }
+
+    /**
+     * The SID of the build for the deployment..
+     *
+     * @param buildSid The SID of the build for the deployment
+     * @return this
+     */
+    public DeploymentCreator setBuildSid(final String buildSid) {
         this.buildSid = buildSid;
+        return this;
     }
 
     /**

@@ -38,7 +38,7 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * The optional service level push factors configuration. If present it must be
      * a json string with the following format: {"notify_service_sid":
-     * "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"}.
+     * "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "include_date": true}.
      *
      * @param push Optional service level push factors configuration
      * @return this

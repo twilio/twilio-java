@@ -35,7 +35,8 @@ public enum Domains {
     VIDEO("video"),
     VOICE("voice"),
     WIRELESS("wireless"),
-    SUPERSIM("supersim");
+    SUPERSIM("supersim"),
+    BULKEXPORTS("bulkexports");
 
     private final String value;
 

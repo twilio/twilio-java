@@ -169,6 +169,20 @@ public class Challenge extends Resource {
     }
 
     /**
+     * Create a ChallengeReader to execute read.
+     *
+     * @param pathServiceSid Service Sid.
+     * @param pathIdentity Unique identity of the Entity
+     * @param pathFactorSid Factor Sid.
+     * @return ChallengeReader capable of executing the read
+     */
+    public static ChallengeReader reader(final String pathServiceSid,
+                                         final String pathIdentity,
+                                         final String pathFactorSid) {
+        return new ChallengeReader(pathServiceSid, pathIdentity, pathFactorSid);
+    }
+
+    /**
      * Create a ChallengeUpdater to execute update.
      *
      * @param pathServiceSid Service Sid.

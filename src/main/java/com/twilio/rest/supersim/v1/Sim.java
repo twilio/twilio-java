@@ -46,10 +46,7 @@ public class Sim extends Resource {
         NEW("new"),
         READY("ready"),
         ACTIVE("active"),
-        SUSPENDED("suspended"),
-        DEACTIVATED("deactivated"),
         INACTIVE("inactive"),
-        CANCELED("canceled"),
         SCHEDULED("scheduled");
 
         private final String value;
@@ -75,8 +72,6 @@ public class Sim extends Resource {
 
     public enum StatusUpdate {
         ACTIVE("active"),
-        SUSPENDED("suspended"),
-        DEACTIVATED("deactivated"),
         INACTIVE("inactive");
 
         private final String value;

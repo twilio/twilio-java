@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.supersim.v1;
+package com.twilio.rest.bulkexports.v1.export;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -20,49 +20,44 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
-public class SimReader extends Reader<Sim> {
-    private Sim.Status status;
-    private String fleet;
-    private String iccid;
+public class ExportCustomJobReader extends Reader<ExportCustomJob> {
+    private final String pathResourceType;
+    private String nextToken;
+    private String previousToken;
 
     /**
-     * The status of the Sim resources to read. Can be `new`, `active`, `inactive`,
-     * or `scheduled`..
+     * Construct a new ExportCustomJobReader.
      *
-     * @param status The status of the Sim resources to read
+     * @param pathResourceType The type of communication – Messages, Calls
+     */
+    public ExportCustomJobReader(final String pathResourceType) {
+        this.pathResourceType = pathResourceType;
+    }
+
+    /**
+     * The token for the next page of job results, and may be null if there are no
+     * more pages.
+     *
+     * @param nextToken The token for the next page of job results
      * @return this
      */
-    public SimReader setStatus(final Sim.Status status) {
-        this.status = status;
+    public ExportCustomJobReader setNextToken(final String nextToken) {
+        this.nextToken = nextToken;
         return this;
     }
 
     /**
-     * The SID or unique name of the Fleet to which a list of Sims are assigned..
+     * The token for the previous page of results, and may be null if this is the
+     * first page.
      *
-     * @param fleet The SID or unique name of the Fleet to which a list of Sims are
-     *              assigned
+     * @param previousToken The token for the previous page of result
      * @return this
      */
-    public SimReader setFleet(final String fleet) {
-        this.fleet = fleet;
-        return this;
-    }
-
-    /**
-     * The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID)
-     * associated with a Super SIM to filter the list by. Passing this parameter
-     * will always return a list containing zero or one SIMs..
-     *
-     * @param iccid The ICCID associated with a Super SIM to filter the list by
-     * @return this
-     */
-    public SimReader setIccid(final String iccid) {
-        this.iccid = iccid;
+    public ExportCustomJobReader setPreviousToken(final String previousToken) {
+        this.previousToken = previousToken;
         return this;
     }
 
@@ -70,10 +65,10 @@ public class SimReader extends Reader<Sim> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Sim ResourceSet
+     * @return ExportCustomJob ResourceSet
      */
     @Override
-    public ResourceSet<Sim> read(final TwilioRestClient client) {
+    public ResourceSet<ExportCustomJob> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -81,15 +76,15 @@ public class SimReader extends Reader<Sim> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Sim ResourceSet
+     * @return ExportCustomJob ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Sim> firstPage(final TwilioRestClient client) {
+    public Page<ExportCustomJob> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.SUPERSIM.toString(),
-            "/v1/Sims",
+            Domains.BULKEXPORTS.toString(),
+            "/v1/Exports/" + this.pathResourceType + "/Jobs",
             client.getRegion()
         );
 
@@ -102,11 +97,11 @@ public class SimReader extends Reader<Sim> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Sim ResourceSet
+     * @return ExportCustomJob ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Sim> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<ExportCustomJob> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -123,12 +118,12 @@ public class SimReader extends Reader<Sim> {
      * @return Next Page
      */
     @Override
-    public Page<Sim> nextPage(final Page<Sim> page,
-                              final TwilioRestClient client) {
+    public Page<ExportCustomJob> nextPage(final Page<ExportCustomJob> page,
+                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
-                Domains.SUPERSIM.toString(),
+                Domains.BULKEXPORTS.toString(),
                 client.getRegion()
             )
         );
@@ -143,12 +138,12 @@ public class SimReader extends Reader<Sim> {
      * @return Previous Page
      */
     @Override
-    public Page<Sim> previousPage(final Page<Sim> page,
-                                  final TwilioRestClient client) {
+    public Page<ExportCustomJob> previousPage(final Page<ExportCustomJob> page,
+                                              final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(
-                Domains.SUPERSIM.toString(),
+                Domains.BULKEXPORTS.toString(),
                 client.getRegion()
             )
         );
@@ -156,17 +151,17 @@ public class SimReader extends Reader<Sim> {
     }
 
     /**
-     * Generate a Page of Sim Resources for a given request.
+     * Generate a Page of ExportCustomJob Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Sim> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<ExportCustomJob> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Sim read failed: Unable to connect to server");
+            throw new ApiConnectionException("ExportCustomJob read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -183,9 +178,9 @@ public class SimReader extends Reader<Sim> {
         }
 
         return Page.fromJson(
-            "sims",
+            "jobs",
             response.getContent(),
-            Sim.class,
+            ExportCustomJob.class,
             client.getObjectMapper()
         );
     }
@@ -196,16 +191,12 @@ public class SimReader extends Reader<Sim> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (status != null) {
-            request.addQueryParam("Status", status.toString());
+        if (nextToken != null) {
+            request.addQueryParam("NextToken", nextToken);
         }
 
-        if (fleet != null) {
-            request.addQueryParam("Fleet", fleet.toString());
-        }
-
-        if (iccid != null) {
-            request.addQueryParam("Iccid", iccid);
+        if (previousToken != null) {
+            request.addQueryParam("PreviousToken", previousToken);
         }
 
         if (getPageSize() != null) {

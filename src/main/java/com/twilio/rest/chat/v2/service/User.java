@@ -263,9 +263,9 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The SID of the assigned to the user.
+     * Returns The SID of the Role assigned to the user.
      *
-     * @return The SID of the assigned to the user
+     * @return The SID of the Role assigned to the user
      */
     public final String getRoleSid() {
         return this.roleSid;

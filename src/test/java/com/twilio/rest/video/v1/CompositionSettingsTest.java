@@ -60,7 +60,7 @@ public class CompositionSettingsTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"string\",\"aws_credentials_sid\": \"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"encryption_key_sid\": \"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"aws_s3_url\": \"https://my-super-duper-bucket.s3.amazonaws.com/my/path/\",\"aws_storage_enabled\": true,\"encryption_enabled\": true,\"url\": \"https://video.twilio.com/v1/CompositionSettings/Default\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"string\",\"aws_credentials_sid\": \"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"encryption_key_sid\": \"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"aws_s3_url\": \"https://www.twilio.com\",\"aws_storage_enabled\": true,\"encryption_enabled\": true,\"url\": \"https://video.twilio.com/v1/CompositionSettings/Default\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -92,7 +92,7 @@ public class CompositionSettingsTest {
     public void testCreateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"friendly_name\",\"aws_credentials_sid\": \"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"encryption_key_sid\": \"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"aws_s3_url\": \"https://my-super-duper-bucket.s3.amazonaws.com/my/path/\",\"aws_storage_enabled\": true,\"encryption_enabled\": true,\"url\": \"https://video.twilio.com/v1/CompositionSettings/Default\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"friendly_name\",\"aws_credentials_sid\": \"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"encryption_key_sid\": \"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"aws_s3_url\": \"https://www.twilio.com\",\"aws_storage_enabled\": true,\"encryption_enabled\": true,\"url\": \"https://video.twilio.com/v1/CompositionSettings/Default\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

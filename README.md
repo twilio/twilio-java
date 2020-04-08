@@ -55,6 +55,14 @@ If you want to compile it yourself, here's how:
     $ cd twilio-java
     $ mvn install       # Requires maven, download from https://maven.apache.org/download.html
 
+If you want to build your own .jar, execute the following from within the cloned directory:
+
+    $ mvn package
+
+If you run into trouble with local tests, use:
+
+    $ mvn package -Dmaven.test.skip=true
+
 ## Quickstart
 
 ### Initialize the Client

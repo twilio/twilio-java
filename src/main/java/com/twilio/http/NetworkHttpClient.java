@@ -34,11 +34,18 @@ public class NetworkHttpClient extends HttpClient {
      * Create a new HTTP Client.
      */
     public NetworkHttpClient() {
-        RequestConfig config = RequestConfig.custom()
+        this(RequestConfig.custom()
             .setConnectTimeout(CONNECTION_TIMEOUT)
             .setSocketTimeout(SOCKET_TIMEOUT)
-            .build();
+            .build()
+        );
+    }
 
+    /**
+     * Create a new HTTP Client with a custom request config.
+     * @param config a RequestConfig.
+     */
+    public NetworkHttpClient(RequestConfig config) {
         Collection<Header> headers = Lists.<Header>newArrayList(
             new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
             new BasicHeader(HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION + " (" + Twilio.JAVA_VERSION + ")"),

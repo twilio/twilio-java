@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.studio.v2.flow;
+package com.twilio.rest.studio.v1.flow;
 
-import com.twilio.base.Fetcher;
+import com.twilio.base.Updater;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -17,46 +17,47 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
-public class ExecutionFetcher extends Fetcher<Execution> {
+public class ExecutionUpdater extends Updater<Execution> {
     private final String pathFlowSid;
     private final String pathSid;
+    private final Execution.Status status;
 
     /**
-     * Construct a new ExecutionFetcher.
+     * Construct a new ExecutionUpdater.
      *
      * @param pathFlowSid The SID of the Flow
-     * @param pathSid The SID of the Execution resource to fetch
+     * @param pathSid The SID of the Execution resource to update
+     * @param status The status of the Execution
      */
-    public ExecutionFetcher(final String pathFlowSid,
-                            final String pathSid) {
+    public ExecutionUpdater(final String pathFlowSid,
+                            final String pathSid,
+                            final Execution.Status status) {
         this.pathFlowSid = pathFlowSid;
         this.pathSid = pathSid;
+        this.status = status;
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch.
+     * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Execution
+     * @return Updated Execution
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Execution fetch(final TwilioRestClient client) {
+    public Execution update(final TwilioRestClient client) {
         Request request = new Request(
-            HttpMethod.GET,
+            HttpMethod.POST,
             Domains.STUDIO.toString(),
-            "/v2/Flows/" + this.pathFlowSid + "/Executions/" + this.pathSid + "",
+            "/v1/Flows/" + this.pathFlowSid + "/Executions/" + this.pathSid + "",
             client.getRegion()
         );
 
+        addPostParams(request);
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Execution fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("Execution update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -73,5 +74,16 @@ public class ExecutionFetcher extends Fetcher<Execution> {
         }
 
         return Execution.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested post parameters to the Request.
+     *
+     * @param request Request to add post params to
+     */
+    private void addPostParams(final Request request) {
+        if (status != null) {
+            request.addPostParam("Status", status.toString());
+        }
     }
 }

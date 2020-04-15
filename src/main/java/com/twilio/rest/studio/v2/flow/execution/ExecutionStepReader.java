@@ -30,8 +30,8 @@ public class ExecutionStepReader extends Reader<ExecutionStep> {
     /**
      * Construct a new ExecutionStepReader.
      *
-     * @param pathFlowSid The flow_sid
-     * @param pathExecutionSid The execution_sid
+     * @param pathFlowSid The SID of the Flow
+     * @param pathExecutionSid The SID of the Execution
      */
     public ExecutionStepReader(final String pathFlowSid,
                                final String pathExecutionSid) {

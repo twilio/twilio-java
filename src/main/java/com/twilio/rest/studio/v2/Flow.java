@@ -41,7 +41,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Flow extends Resource {
-    private static final long serialVersionUID = 261819836792679L;
+    private static final long serialVersionUID = 55575307420038L;
 
     public enum Status {
         DRAFT("draft"),
@@ -169,6 +169,7 @@ public class Flow extends Resource {
     private final String commitMessage;
     private final Boolean valid;
     private final List<Map<String, Object>> errors;
+    private final List<Map<String, Object>> warnings;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI webhookUrl;
@@ -194,6 +195,8 @@ public class Flow extends Resource {
                  final Boolean valid,
                  @JsonProperty("errors")
                  final List<Map<String, Object>> errors,
+                 @JsonProperty("warnings")
+                 final List<Map<String, Object>> warnings,
                  @JsonProperty("date_created")
                  final String dateCreated,
                  @JsonProperty("date_updated")
@@ -213,6 +216,7 @@ public class Flow extends Resource {
         this.commitMessage = commitMessage;
         this.valid = valid;
         this.errors = errors;
+        this.warnings = warnings;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.webhookUrl = webhookUrl;
@@ -302,6 +306,15 @@ public class Flow extends Resource {
     }
 
     /**
+     * Returns List of warnings in the flow definition.
+     *
+     * @return List of warnings in the flow definition
+     */
+    public final List<Map<String, Object>> getWarnings() {
+        return this.warnings;
+    }
+
+    /**
      * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
@@ -367,6 +380,7 @@ public class Flow extends Resource {
                Objects.equals(commitMessage, other.commitMessage) &&
                Objects.equals(valid, other.valid) &&
                Objects.equals(errors, other.errors) &&
+               Objects.equals(warnings, other.warnings) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(webhookUrl, other.webhookUrl) &&
@@ -385,6 +399,7 @@ public class Flow extends Resource {
                             commitMessage,
                             valid,
                             errors,
+                            warnings,
                             dateCreated,
                             dateUpdated,
                             webhookUrl,
@@ -404,6 +419,7 @@ public class Flow extends Resource {
                           .add("commitMessage", commitMessage)
                           .add("valid", valid)
                           .add("errors", errors)
+                          .add("warnings", warnings)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("webhookUrl", webhookUrl)

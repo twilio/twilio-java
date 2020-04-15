@@ -28,8 +28,8 @@ public class ExecutionDeleter extends Deleter<Execution> {
     /**
      * Construct a new ExecutionDeleter.
      *
-     * @param pathFlowSid The flow_sid
-     * @param pathSid The sid
+     * @param pathFlowSid The SID of the Flow
+     * @param pathSid The SID of the Execution resource to delete
      */
     public ExecutionDeleter(final String pathFlowSid,
                             final String pathSid) {

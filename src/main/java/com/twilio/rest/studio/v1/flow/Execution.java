@@ -113,6 +113,20 @@ public class Execution extends Resource {
     }
 
     /**
+     * Create a ExecutionUpdater to execute update.
+     *
+     * @param pathFlowSid The SID of the Flow
+     * @param pathSid The SID of the Execution resource to update
+     * @param status The status of the Execution
+     * @return ExecutionUpdater capable of executing the update
+     */
+    public static ExecutionUpdater updater(final String pathFlowSid,
+                                           final String pathSid,
+                                           final Execution.Status status) {
+        return new ExecutionUpdater(pathFlowSid, pathSid, status);
+    }
+
+    /**
      * Converts a JSON String into a Execution object using the provided
      * ObjectMapper.
      *

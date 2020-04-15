@@ -201,6 +201,7 @@ public class Gather extends TwiML {
     private final Boolean debug;
     private final Boolean actionOnEmptyResult;
     private final Gather.SpeechModel speechModel;
+    private final Boolean enhanced;
 
     /**
      * For XML Serialization/Deserialization
@@ -231,6 +232,7 @@ public class Gather extends TwiML {
         this.debug = b.debug;
         this.actionOnEmptyResult = b.actionOnEmptyResult;
         this.speechModel = b.speechModel;
+        this.enhanced = b.enhanced;
     }
 
     /**
@@ -292,6 +294,9 @@ public class Gather extends TwiML {
         }
         if (this.getSpeechModel() != null) {
             attrs.put("speechModel", this.getSpeechModel().toString());
+        }
+        if (this.isEnhanced() != null) {
+            attrs.put("enhanced", this.isEnhanced().toString());
         }
 
         return attrs;
@@ -465,6 +470,15 @@ public class Gather extends TwiML {
     }
 
     /**
+     * Use enhanced speech model
+     *
+     * @return Use enhanced speech model
+     */
+    public Boolean isEnhanced() {
+        return enhanced;
+    }
+
+    /**
      * Create a new {@code <Gather>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
@@ -485,6 +499,7 @@ public class Gather extends TwiML {
         private Boolean debug;
         private Boolean actionOnEmptyResult;
         private Gather.SpeechModel speechModel;
+        private Boolean enhanced;
 
         /**
          * Input type Twilio should accept
@@ -644,6 +659,14 @@ public class Gather extends TwiML {
          */
         public Builder speechModel(Gather.SpeechModel speechModel) {
             this.speechModel = speechModel;
+            return this;
+        }
+
+        /**
+         * Use enhanced speech model
+         */
+        public Builder enhanced(Boolean enhanced) {
+            this.enhanced = enhanced;
             return this;
         }
 

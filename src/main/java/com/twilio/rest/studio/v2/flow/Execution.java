@@ -70,7 +70,7 @@ public class Execution extends Resource {
     /**
      * Create a ExecutionReader to execute read.
      *
-     * @param pathFlowSid The flow_sid
+     * @param pathFlowSid The SID of the Flow
      * @return ExecutionReader capable of executing the read
      */
     public static ExecutionReader reader(final String pathFlowSid) {
@@ -80,8 +80,8 @@ public class Execution extends Resource {
     /**
      * Create a ExecutionFetcher to execute fetch.
      *
-     * @param pathFlowSid The flow_sid
-     * @param pathSid The sid
+     * @param pathFlowSid The SID of the Flow
+     * @param pathSid The SID of the Execution resource to fetch
      * @return ExecutionFetcher capable of executing the fetch
      */
     public static ExecutionFetcher fetcher(final String pathFlowSid,
@@ -92,9 +92,10 @@ public class Execution extends Resource {
     /**
      * Create a ExecutionCreator to execute create.
      *
-     * @param pathFlowSid The flow_sid
-     * @param to The to
-     * @param from The from
+     * @param pathFlowSid The SID of the Flow
+     * @param to The Contact phone number to start a Studio Flow Execution
+     * @param from The Twilio phone number to send messages or initiate calls from
+     *             during the Flow Execution
      * @return ExecutionCreator capable of executing the create
      */
     public static ExecutionCreator creator(final String pathFlowSid,
@@ -106,13 +107,27 @@ public class Execution extends Resource {
     /**
      * Create a ExecutionDeleter to execute delete.
      *
-     * @param pathFlowSid The flow_sid
-     * @param pathSid The sid
+     * @param pathFlowSid The SID of the Flow
+     * @param pathSid The SID of the Execution resource to delete
      * @return ExecutionDeleter capable of executing the delete
      */
     public static ExecutionDeleter deleter(final String pathFlowSid,
                                            final String pathSid) {
         return new ExecutionDeleter(pathFlowSid, pathSid);
+    }
+
+    /**
+     * Create a ExecutionUpdater to execute update.
+     *
+     * @param pathFlowSid The SID of the Flow
+     * @param pathSid The SID of the Execution resource to update
+     * @param status The status of the Execution
+     * @return ExecutionUpdater capable of executing the update
+     */
+    public static ExecutionUpdater updater(final String pathFlowSid,
+                                           final String pathSid,
+                                           final Execution.Status status) {
+        return new ExecutionUpdater(pathFlowSid, pathSid, status);
     }
 
     /**
@@ -198,90 +213,92 @@ public class Execution extends Resource {
     }
 
     /**
-     * Returns The sid.
+     * Returns The unique string that identifies the resource.
      *
-     * @return The sid
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The account_sid.
+     * Returns The SID of the Account that created the resource.
      *
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The flow_sid.
+     * Returns The SID of the Flow.
      *
-     * @return The flow_sid
+     * @return The SID of the Flow
      */
     public final String getFlowSid() {
         return this.flowSid;
     }
 
     /**
-     * Returns The contact_channel_address.
+     * Returns The phone number, SIP address or Client identifier that triggered the
+     * Execution.
      *
-     * @return The contact_channel_address
+     * @return The phone number, SIP address or Client identifier that triggered
+     *         the Execution
      */
     public final String getContactChannelAddress() {
         return this.contactChannelAddress;
     }
 
     /**
-     * Returns The context.
+     * Returns The current state of the flow.
      *
-     * @return The context
+     * @return The current state of the flow
      */
     public final Map<String, Object> getContext() {
         return this.context;
     }
 
     /**
-     * Returns The status.
+     * Returns The status of the Execution.
      *
-     * @return The status
+     * @return The status of the Execution
      */
     public final Execution.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The date_created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date_created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The date_updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
-     * @return The date_updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The url.
+     * Returns The absolute URL of the resource.
      *
-     * @return The url
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The links.
+     * Returns Nested resource URLs.
      *
-     * @return The links
+     * @return Nested resource URLs
      */
     public final Map<String, String> getLinks() {
         return this.links;

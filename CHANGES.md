@@ -1,6 +1,34 @@
 twilio-java changelog
 =====================
 
+[2020-04-15] Version 7.49.1
+---------------------------
+**Library - Fix**
+- [PR #523](https://github.com/twilio/twilio-java/pull/523): adding new constructor. Thanks to [@Salil999](https://github.com/Salil999)!
+
+**Library - Docs**
+- [PR #522](https://github.com/twilio/twilio-java/pull/522): instructions on building your own local .jar. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Library - Chore**
+- [PR #521](https://github.com/twilio/twilio-java/pull/521): remove S3 URLs from test data. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Api**
+- Updated description for property `call_reason` in the call create request
+
+**Contacts**
+- Added Read, Delete All, and Delete by SID docs
+- Initial Release
+
+**Studio**
+- Rename `flow_valid` to `flow_validate`
+- Removed `errors` and `warnings` from flows error response and added new property named `details`
+- Add Update Execution endpoints to v1 and v2 to end execution via API
+- Add new `warnings` attribute v2 flow POST api
+
+**Twiml**
+- Add enhanced attribute to use with `speech_model` for the `Gather` verb
+
+
 [2020-04-01] Version 7.49.0
 ---------------------------
 **Library - Fix**

@@ -28,8 +28,8 @@ public class ExecutionContextFetcher extends Fetcher<ExecutionContext> {
     /**
      * Construct a new ExecutionContextFetcher.
      *
-     * @param pathFlowSid The flow_sid
-     * @param pathExecutionSid The execution_sid
+     * @param pathFlowSid The SID of the Flow
+     * @param pathExecutionSid The SID of the Execution
      */
     public ExecutionContextFetcher(final String pathFlowSid,
                                    final String pathExecutionSid) {

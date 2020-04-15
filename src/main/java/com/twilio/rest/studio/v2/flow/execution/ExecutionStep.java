@@ -44,8 +44,8 @@ public class ExecutionStep extends Resource {
     /**
      * Create a ExecutionStepReader to execute read.
      *
-     * @param pathFlowSid The flow_sid
-     * @param pathExecutionSid The execution_sid
+     * @param pathFlowSid The SID of the Flow
+     * @param pathExecutionSid The SID of the Execution
      * @return ExecutionStepReader capable of executing the read
      */
     public static ExecutionStepReader reader(final String pathFlowSid,
@@ -56,9 +56,9 @@ public class ExecutionStep extends Resource {
     /**
      * Create a ExecutionStepFetcher to execute fetch.
      *
-     * @param pathFlowSid The flow_sid
-     * @param pathExecutionSid The execution_sid
-     * @param pathSid The sid
+     * @param pathFlowSid The SID of the Flow
+     * @param pathExecutionSid The SID of the Execution
+     * @param pathSid The unique string that identifies the resource
      * @return ExecutionStepFetcher capable of executing the fetch
      */
     public static ExecutionStepFetcher fetcher(final String pathFlowSid,
@@ -158,108 +158,108 @@ public class ExecutionStep extends Resource {
     }
 
     /**
-     * Returns The sid.
+     * Returns The unique string that identifies the resource.
      *
-     * @return The sid
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The account_sid.
+     * Returns The SID of the Account that created the resource.
      *
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The flow_sid.
+     * Returns The SID of the Flow.
      *
-     * @return The flow_sid
+     * @return The SID of the Flow
      */
     public final String getFlowSid() {
         return this.flowSid;
     }
 
     /**
-     * Returns The execution_sid.
+     * Returns The SID of the Execution.
      *
-     * @return The execution_sid
+     * @return The SID of the Execution
      */
     public final String getExecutionSid() {
         return this.executionSid;
     }
 
     /**
-     * Returns The name.
+     * Returns The event that caused the Flow to transition to the Step.
      *
-     * @return The name
+     * @return The event that caused the Flow to transition to the Step
      */
     public final String getName() {
         return this.name;
     }
 
     /**
-     * Returns The context.
+     * Returns The current state of the flow.
      *
-     * @return The context
+     * @return The current state of the flow
      */
     public final Map<String, Object> getContext() {
         return this.context;
     }
 
     /**
-     * Returns The transitioned_from.
+     * Returns The Widget that preceded the Widget for the Step.
      *
-     * @return The transitioned_from
+     * @return The Widget that preceded the Widget for the Step
      */
     public final String getTransitionedFrom() {
         return this.transitionedFrom;
     }
 
     /**
-     * Returns The transitioned_to.
+     * Returns The Widget that will follow the Widget for the Step.
      *
-     * @return The transitioned_to
+     * @return The Widget that will follow the Widget for the Step
      */
     public final String getTransitionedTo() {
         return this.transitionedTo;
     }
 
     /**
-     * Returns The date_created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date_created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The date_updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
-     * @return The date_updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The url.
+     * Returns The absolute URL of the resource.
      *
-     * @return The url
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The links.
+     * Returns The URLs of related resources.
      *
-     * @return The links
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;

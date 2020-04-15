@@ -33,16 +33,19 @@ public class ExecutionReader extends Reader<Execution> {
     /**
      * Construct a new ExecutionReader.
      *
-     * @param pathFlowSid The flow_sid
+     * @param pathFlowSid The SID of the Flow
      */
     public ExecutionReader(final String pathFlowSid) {
         this.pathFlowSid = pathFlowSid;
     }
 
     /**
-     * The date_created_from.
+     * Only show Execution resources starting on or after this [ISO
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as
+     * `YYYY-MM-DDThh:mm:ss-hh:mm`..
      *
-     * @param dateCreatedFrom The date_created_from
+     * @param dateCreatedFrom Only show Executions that started on or after this
+     *                        ISO 8601 date-time
      * @return this
      */
     public ExecutionReader setDateCreatedFrom(final DateTime dateCreatedFrom) {
@@ -51,9 +54,12 @@ public class ExecutionReader extends Reader<Execution> {
     }
 
     /**
-     * The date_created_to.
+     * Only show Execution resources starting before this [ISO
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as
+     * `YYYY-MM-DDThh:mm:ss-hh:mm`..
      *
-     * @param dateCreatedTo The date_created_to
+     * @param dateCreatedTo Only show Executions that started before this ISO 8601
+     *                      date-time
      * @return this
      */
     public ExecutionReader setDateCreatedTo(final DateTime dateCreatedTo) {

@@ -602,10 +602,10 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * The Reason for the outgoing call. Use call_reason to specify the purpose of
-     * the call that is presented on the called party's phone. (Beta)..
+     * The Reason for the outgoing call. Use it to specify the purpose of the call
+     * that is presented on the called party's phone. (Branded Calls Beta).
      *
-     * @param callReason Reason for the call (Beta)
+     * @param callReason Reason for the call (Branded Calls Beta)
      * @return this
      */
     public CallCreator setCallReason(final String callReason) {

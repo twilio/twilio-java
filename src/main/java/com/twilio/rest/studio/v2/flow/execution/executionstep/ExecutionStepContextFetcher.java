@@ -29,9 +29,9 @@ public class ExecutionStepContextFetcher extends Fetcher<ExecutionStepContext> {
     /**
      * Construct a new ExecutionStepContextFetcher.
      *
-     * @param pathFlowSid The flow_sid
-     * @param pathExecutionSid The execution_sid
-     * @param pathStepSid The step_sid
+     * @param pathFlowSid The SID of the Flow
+     * @param pathExecutionSid The SID of the Execution
+     * @param pathStepSid Step SID
      */
     public ExecutionStepContextFetcher(final String pathFlowSid,
                                        final String pathExecutionSid,

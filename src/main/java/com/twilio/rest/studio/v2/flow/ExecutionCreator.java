@@ -33,9 +33,10 @@ public class ExecutionCreator extends Creator<Execution> {
     /**
      * Construct a new ExecutionCreator.
      *
-     * @param pathFlowSid The flow_sid
-     * @param to The to
-     * @param from The from
+     * @param pathFlowSid The SID of the Flow
+     * @param to The Contact phone number to start a Studio Flow Execution
+     * @param from The Twilio phone number to send messages or initiate calls from
+     *             during the Flow Execution
      */
     public ExecutionCreator(final String pathFlowSid,
                             final com.twilio.type.PhoneNumber to,
@@ -46,9 +47,15 @@ public class ExecutionCreator extends Creator<Execution> {
     }
 
     /**
-     * The parameters.
+     * JSON data that will be added to the Flow's context and that can be accessed
+     * as variables inside your Flow. For example, if you pass in
+     * `Parameters={"name":"Zeke"}`, a widget in your Flow can reference the
+     * variable `{{flow.data.name}}`, which returns "Zeke". Note: the JSON value
+     * must explicitly be passed as a string, not as a hash object. Depending on
+     * your particular HTTP library, you may need to add quotes or URL encode the
+     * JSON string..
      *
-     * @param parameters The parameters
+     * @param parameters JSON data that will be added to the Flow's context
      * @return this
      */
     public ExecutionCreator setParameters(final Map<String, Object> parameters) {

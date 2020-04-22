@@ -52,7 +52,7 @@ public class ApiException extends TwilioException {
      * @param moreInfo more information if available
      * @param status status code
      * @param details additional details about the error
-     * @param cause cause of the exception* @param cause
+     * @param cause cause of the exception
      */
     public ApiException(final String message, final Integer code, final String moreInfo, final Integer status,
                         final Map<String,Object> details, final Throwable cause) {

@@ -67,15 +67,7 @@ public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                restException.getDetails(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

@@ -254,15 +254,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                restException.getDetails(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return FlexFlow.fromJson(response.getStream(), client.getObjectMapper());

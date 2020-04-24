@@ -76,15 +76,7 @@ public class NewKeyCreator extends Creator<NewKey> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                restException.getDetails(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return NewKey.fromJson(response.getStream(), client.getObjectMapper());

@@ -69,6 +69,7 @@ public class SyncListFetcher extends Fetcher<SyncList> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

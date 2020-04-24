@@ -65,6 +65,7 @@ public class VerificationFetcher extends Fetcher<Verification> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -60,6 +60,7 @@ public class CommandFetcher extends Fetcher<Command> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

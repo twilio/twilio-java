@@ -68,6 +68,7 @@ public class DeploymentDeleter extends Deleter<Deployment> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

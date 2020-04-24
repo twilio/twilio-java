@@ -65,6 +65,7 @@ public class AssistantFetcher extends Fetcher<Assistant> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

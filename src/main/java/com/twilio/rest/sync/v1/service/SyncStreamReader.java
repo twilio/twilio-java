@@ -148,6 +148,7 @@ public class SyncStreamReader extends Reader<SyncStream> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

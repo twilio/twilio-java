@@ -65,6 +65,7 @@ public class AssistantFallbackActionsFetcher extends Fetcher<AssistantFallbackAc
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

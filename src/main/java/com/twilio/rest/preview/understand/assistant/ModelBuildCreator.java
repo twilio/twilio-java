@@ -106,6 +106,7 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

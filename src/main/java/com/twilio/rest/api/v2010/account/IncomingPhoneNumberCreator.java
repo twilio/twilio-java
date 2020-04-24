@@ -503,6 +503,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

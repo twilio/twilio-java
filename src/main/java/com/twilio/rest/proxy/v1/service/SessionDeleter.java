@@ -67,6 +67,7 @@ public class SessionDeleter extends Deleter<Session> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

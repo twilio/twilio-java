@@ -139,6 +139,7 @@ public class WebhookUpdater extends Updater<Webhook> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

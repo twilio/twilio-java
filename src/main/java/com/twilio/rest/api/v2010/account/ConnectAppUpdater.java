@@ -226,6 +226,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

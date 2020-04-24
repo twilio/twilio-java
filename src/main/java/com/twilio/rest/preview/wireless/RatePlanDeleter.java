@@ -64,6 +64,7 @@ public class RatePlanDeleter extends Deleter<RatePlan> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

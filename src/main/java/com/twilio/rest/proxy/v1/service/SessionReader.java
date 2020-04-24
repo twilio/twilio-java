@@ -147,6 +147,7 @@ public class SessionReader extends Reader<Session> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

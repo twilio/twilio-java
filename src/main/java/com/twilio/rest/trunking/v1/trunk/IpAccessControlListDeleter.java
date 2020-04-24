@@ -64,6 +64,7 @@ public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

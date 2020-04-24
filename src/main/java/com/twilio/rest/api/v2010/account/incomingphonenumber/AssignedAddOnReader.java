@@ -163,6 +163,7 @@ public class AssignedAddOnReader extends Reader<AssignedAddOn> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

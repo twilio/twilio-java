@@ -69,6 +69,7 @@ public class QueryFetcher extends Fetcher<Query> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

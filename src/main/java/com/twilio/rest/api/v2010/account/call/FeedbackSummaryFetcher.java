@@ -76,6 +76,7 @@ public class FeedbackSummaryFetcher extends Fetcher<FeedbackSummary> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

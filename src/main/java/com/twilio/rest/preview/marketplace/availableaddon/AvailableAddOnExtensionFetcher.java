@@ -70,6 +70,7 @@ public class AvailableAddOnExtensionFetcher extends Fetcher<AvailableAddOnExtens
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

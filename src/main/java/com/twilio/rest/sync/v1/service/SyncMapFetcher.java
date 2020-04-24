@@ -69,6 +69,7 @@ public class SyncMapFetcher extends Fetcher<SyncMap> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

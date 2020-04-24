@@ -64,6 +64,7 @@ public class RoleFetcher extends Fetcher<Role> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

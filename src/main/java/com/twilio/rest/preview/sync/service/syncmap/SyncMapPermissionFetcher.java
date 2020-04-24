@@ -74,6 +74,7 @@ public class SyncMapPermissionFetcher extends Fetcher<SyncMapPermission> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -100,6 +100,7 @@ public class MemberUpdater extends Updater<Member> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

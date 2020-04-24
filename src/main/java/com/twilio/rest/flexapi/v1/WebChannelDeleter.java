@@ -59,6 +59,7 @@ public class WebChannelDeleter extends Deleter<WebChannel> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

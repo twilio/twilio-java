@@ -113,6 +113,7 @@ public class FeedbackCreator extends Creator<Feedback> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -72,6 +72,7 @@ public class FactorDeleter extends Deleter<Factor> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

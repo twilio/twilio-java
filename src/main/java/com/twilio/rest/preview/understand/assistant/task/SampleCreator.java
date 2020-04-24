@@ -95,6 +95,7 @@ public class SampleCreator extends Creator<Sample> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

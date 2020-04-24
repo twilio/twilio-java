@@ -59,6 +59,7 @@ public class ServiceDeleter extends Deleter<Service> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

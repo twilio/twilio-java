@@ -70,6 +70,7 @@ public class FieldTypeFetcher extends Fetcher<FieldType> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

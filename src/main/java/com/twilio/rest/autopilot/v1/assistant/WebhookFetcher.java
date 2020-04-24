@@ -70,6 +70,7 @@ public class WebhookFetcher extends Fetcher<Webhook> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

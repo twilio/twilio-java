@@ -177,6 +177,7 @@ public class AddressUpdater extends Updater<Address> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

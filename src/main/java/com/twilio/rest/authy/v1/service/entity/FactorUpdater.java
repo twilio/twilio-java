@@ -112,6 +112,7 @@ public class FactorUpdater extends Updater<Factor> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -64,6 +64,7 @@ public class WorkerFetcher extends Fetcher<Worker> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -64,6 +64,7 @@ public class AccountCreator extends Creator<Account> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

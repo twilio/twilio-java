@@ -212,6 +212,7 @@ public class RecordReader extends Reader<Record> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

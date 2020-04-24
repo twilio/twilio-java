@@ -81,6 +81,7 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

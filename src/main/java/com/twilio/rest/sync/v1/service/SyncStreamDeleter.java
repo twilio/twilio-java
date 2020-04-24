@@ -68,6 +68,7 @@ public class SyncStreamDeleter extends Deleter<SyncStream> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

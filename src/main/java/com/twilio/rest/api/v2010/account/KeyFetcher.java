@@ -75,6 +75,7 @@ public class KeyFetcher extends Fetcher<Key> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

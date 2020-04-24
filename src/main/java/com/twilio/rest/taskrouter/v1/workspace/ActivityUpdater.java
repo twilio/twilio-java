@@ -81,6 +81,7 @@ public class ActivityUpdater extends Updater<Activity> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

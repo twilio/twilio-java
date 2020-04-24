@@ -152,6 +152,7 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

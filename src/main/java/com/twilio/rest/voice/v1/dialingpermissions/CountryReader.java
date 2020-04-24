@@ -223,6 +223,7 @@ public class CountryReader extends Reader<Country> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

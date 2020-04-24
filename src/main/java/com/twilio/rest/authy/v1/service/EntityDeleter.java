@@ -68,6 +68,7 @@ public class EntityDeleter extends Deleter<Entity> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

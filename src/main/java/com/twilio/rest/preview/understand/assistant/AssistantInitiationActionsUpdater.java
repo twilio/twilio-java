@@ -81,6 +81,7 @@ public class AssistantInitiationActionsUpdater extends Updater<AssistantInitiati
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

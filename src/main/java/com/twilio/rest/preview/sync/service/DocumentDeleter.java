@@ -68,6 +68,7 @@ public class DocumentDeleter extends Deleter<Document> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -64,6 +64,7 @@ public class ItemAssignmentFetcher extends Fetcher<ItemAssignment> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -68,6 +68,7 @@ public class MemberDeleter extends Deleter<Member> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

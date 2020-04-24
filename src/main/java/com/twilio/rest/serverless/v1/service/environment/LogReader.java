@@ -196,6 +196,7 @@ public class LogReader extends Reader<Log> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

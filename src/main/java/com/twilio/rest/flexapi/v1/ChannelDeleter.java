@@ -59,6 +59,7 @@ public class ChannelDeleter extends Deleter<Channel> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

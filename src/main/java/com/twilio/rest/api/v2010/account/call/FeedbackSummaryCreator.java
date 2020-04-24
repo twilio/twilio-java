@@ -140,6 +140,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -438,6 +438,7 @@ public class TollFreeCreator extends Creator<TollFree> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

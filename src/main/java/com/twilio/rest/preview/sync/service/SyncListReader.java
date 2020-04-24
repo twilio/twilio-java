@@ -148,6 +148,7 @@ public class SyncListReader extends Reader<SyncList> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

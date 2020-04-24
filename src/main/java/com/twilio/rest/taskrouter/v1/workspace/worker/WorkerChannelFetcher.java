@@ -69,6 +69,7 @@ public class WorkerChannelFetcher extends Fetcher<WorkerChannel> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

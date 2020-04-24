@@ -69,6 +69,7 @@ public class ModelBuildFetcher extends Fetcher<ModelBuild> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

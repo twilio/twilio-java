@@ -60,6 +60,7 @@ public class SupportingDocumentFetcher extends Fetcher<SupportingDocument> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

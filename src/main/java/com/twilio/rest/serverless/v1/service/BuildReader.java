@@ -148,6 +148,7 @@ public class BuildReader extends Reader<Build> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

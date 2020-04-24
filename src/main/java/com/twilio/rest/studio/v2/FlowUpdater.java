@@ -108,6 +108,7 @@ public class FlowUpdater extends Updater<Flow> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

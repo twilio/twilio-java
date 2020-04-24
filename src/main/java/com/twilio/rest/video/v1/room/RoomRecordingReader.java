@@ -199,6 +199,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

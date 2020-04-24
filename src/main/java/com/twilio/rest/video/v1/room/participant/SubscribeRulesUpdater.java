@@ -87,6 +87,7 @@ public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

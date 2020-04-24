@@ -149,6 +149,7 @@ public class InstalledAddOnExtensionReader extends Reader<InstalledAddOnExtensio
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

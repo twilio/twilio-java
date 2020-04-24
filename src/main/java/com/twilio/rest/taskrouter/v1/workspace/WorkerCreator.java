@@ -97,6 +97,7 @@ public class WorkerCreator extends Creator<Worker> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -104,6 +104,7 @@ public class DocumentUpdater extends Updater<Document> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

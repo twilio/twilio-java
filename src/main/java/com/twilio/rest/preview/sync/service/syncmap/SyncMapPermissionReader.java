@@ -152,6 +152,7 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

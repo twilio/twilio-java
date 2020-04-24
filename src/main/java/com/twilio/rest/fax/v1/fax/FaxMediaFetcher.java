@@ -68,6 +68,7 @@ public class FaxMediaFetcher extends Fetcher<FaxMedia> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -84,6 +84,7 @@ public class AddOnResultFetcher extends Fetcher<AddOnResult> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

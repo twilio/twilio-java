@@ -74,6 +74,7 @@ public class BucketCreator extends Creator<Bucket> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

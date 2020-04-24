@@ -186,6 +186,7 @@ public class CommandReader extends Reader<Command> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

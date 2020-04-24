@@ -297,6 +297,7 @@ public class ParticipantUpdater extends Updater<Participant> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

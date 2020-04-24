@@ -60,6 +60,7 @@ public class RegulationFetcher extends Fetcher<Regulation> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

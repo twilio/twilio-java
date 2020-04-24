@@ -711,6 +711,7 @@ public class CallCreator extends Creator<Call> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

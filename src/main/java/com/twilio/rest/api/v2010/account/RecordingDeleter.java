@@ -74,6 +74,7 @@ public class RecordingDeleter extends Deleter<Recording> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

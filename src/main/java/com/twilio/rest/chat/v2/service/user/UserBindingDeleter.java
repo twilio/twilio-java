@@ -67,6 +67,7 @@ public class UserBindingDeleter extends Deleter<UserBinding> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -86,6 +86,7 @@ public class AssignedAddOnCreator extends Creator<AssignedAddOn> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

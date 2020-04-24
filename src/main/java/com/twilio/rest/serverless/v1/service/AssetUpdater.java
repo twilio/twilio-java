@@ -75,6 +75,7 @@ public class AssetUpdater extends Updater<Asset> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

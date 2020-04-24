@@ -69,6 +69,7 @@ public class AssetFetcher extends Fetcher<Asset> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

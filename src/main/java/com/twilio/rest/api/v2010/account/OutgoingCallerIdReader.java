@@ -188,6 +188,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

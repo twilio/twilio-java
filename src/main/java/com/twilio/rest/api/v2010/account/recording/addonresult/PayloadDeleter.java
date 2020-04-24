@@ -92,6 +92,7 @@ public class PayloadDeleter extends Deleter<Payload> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

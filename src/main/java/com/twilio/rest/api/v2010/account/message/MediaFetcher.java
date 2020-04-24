@@ -84,6 +84,7 @@ public class MediaFetcher extends Fetcher<Media> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

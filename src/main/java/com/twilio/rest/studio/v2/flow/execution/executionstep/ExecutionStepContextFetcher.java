@@ -72,6 +72,7 @@ public class ExecutionStepContextFetcher extends Fetcher<ExecutionStepContext> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

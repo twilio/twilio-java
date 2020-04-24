@@ -69,6 +69,7 @@ public class ShortCodeCreator extends Creator<ShortCode> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

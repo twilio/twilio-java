@@ -172,6 +172,7 @@ public class MetricReader extends Reader<Metric> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

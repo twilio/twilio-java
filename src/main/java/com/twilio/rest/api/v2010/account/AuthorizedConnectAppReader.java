@@ -152,6 +152,7 @@ public class AuthorizedConnectAppReader extends Reader<AuthorizedConnectApp> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

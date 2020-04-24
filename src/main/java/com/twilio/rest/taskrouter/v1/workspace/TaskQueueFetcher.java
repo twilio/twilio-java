@@ -64,6 +64,7 @@ public class TaskQueueFetcher extends Fetcher<TaskQueue> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

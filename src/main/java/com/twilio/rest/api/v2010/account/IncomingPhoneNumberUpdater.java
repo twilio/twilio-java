@@ -457,6 +457,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

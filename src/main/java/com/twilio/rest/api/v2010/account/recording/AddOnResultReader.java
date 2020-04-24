@@ -161,6 +161,7 @@ public class AddOnResultReader extends Reader<AddOnResult> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

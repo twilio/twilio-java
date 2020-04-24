@@ -71,6 +71,7 @@ public class InteractionDeleter extends Deleter<Interaction> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

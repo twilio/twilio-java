@@ -97,6 +97,7 @@ public class AssignedAddOnExtensionFetcher extends Fetcher<AssignedAddOnExtensio
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

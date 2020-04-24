@@ -147,6 +147,7 @@ public class WorkflowCreator extends Creator<Workflow> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

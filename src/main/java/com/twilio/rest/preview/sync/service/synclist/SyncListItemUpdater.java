@@ -81,6 +81,7 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

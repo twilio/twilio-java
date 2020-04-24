@@ -143,6 +143,7 @@ public class FleetCreator extends Creator<Fleet> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

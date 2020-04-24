@@ -69,6 +69,7 @@ public class BuildFetcher extends Fetcher<Build> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

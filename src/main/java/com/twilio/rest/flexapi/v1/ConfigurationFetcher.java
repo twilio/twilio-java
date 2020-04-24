@@ -63,6 +63,7 @@ public class ConfigurationFetcher extends Fetcher<Configuration> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -145,6 +145,7 @@ public class FlexFlowReader extends Reader<FlexFlow> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

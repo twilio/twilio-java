@@ -64,6 +64,7 @@ public class RoomRecordingFetcher extends Fetcher<RoomRecording> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

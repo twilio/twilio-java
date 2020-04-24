@@ -78,6 +78,7 @@ public class RateLimitCreator extends Creator<RateLimit> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

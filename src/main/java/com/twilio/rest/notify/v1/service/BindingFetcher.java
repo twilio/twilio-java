@@ -68,6 +68,7 @@ public class BindingFetcher extends Fetcher<Binding> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

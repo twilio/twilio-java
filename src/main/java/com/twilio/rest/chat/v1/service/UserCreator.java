@@ -103,6 +103,7 @@ public class UserCreator extends Creator<User> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

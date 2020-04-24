@@ -86,6 +86,7 @@ public class FactorCreator extends Creator<Factor> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

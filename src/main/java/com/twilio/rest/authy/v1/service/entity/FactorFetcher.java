@@ -73,6 +73,7 @@ public class FactorFetcher extends Fetcher<Factor> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

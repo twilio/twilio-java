@@ -301,6 +301,7 @@ public class CallReader extends Reader<Call> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

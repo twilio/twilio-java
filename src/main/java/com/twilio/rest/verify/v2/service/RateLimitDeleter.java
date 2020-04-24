@@ -64,6 +64,7 @@ public class RateLimitDeleter extends Deleter<RateLimit> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

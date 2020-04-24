@@ -71,6 +71,7 @@ public class FunctionCreator extends Creator<Function> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

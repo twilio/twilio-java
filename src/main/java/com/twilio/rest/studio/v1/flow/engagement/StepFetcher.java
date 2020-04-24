@@ -68,6 +68,7 @@ public class StepFetcher extends Fetcher<Step> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

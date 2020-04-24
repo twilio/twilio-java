@@ -99,6 +99,7 @@ public class WorkerChannelUpdater extends Updater<WorkerChannel> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

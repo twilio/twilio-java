@@ -67,6 +67,7 @@ public class AlphaSenderDeleter extends Deleter<AlphaSender> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

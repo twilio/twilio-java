@@ -67,6 +67,7 @@ public class FaxMediaDeleter extends Deleter<FaxMedia> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

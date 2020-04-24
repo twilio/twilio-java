@@ -212,6 +212,7 @@ public class MonthlyReader extends Reader<Monthly> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

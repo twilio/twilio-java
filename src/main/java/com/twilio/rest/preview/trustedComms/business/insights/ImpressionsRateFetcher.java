@@ -155,6 +155,7 @@ public class ImpressionsRateFetcher extends Fetcher<ImpressionsRate> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

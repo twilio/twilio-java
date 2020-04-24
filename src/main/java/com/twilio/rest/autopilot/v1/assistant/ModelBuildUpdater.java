@@ -86,6 +86,7 @@ public class ModelBuildUpdater extends Updater<ModelBuild> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

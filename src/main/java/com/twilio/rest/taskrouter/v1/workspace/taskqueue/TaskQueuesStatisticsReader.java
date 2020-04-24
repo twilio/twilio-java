@@ -225,6 +225,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

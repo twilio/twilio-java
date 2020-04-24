@@ -161,6 +161,7 @@ public class SessionCreator extends Creator<Session> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -75,6 +75,7 @@ public class NotificationFetcher extends Fetcher<Notification> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

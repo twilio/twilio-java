@@ -65,6 +65,7 @@ public class AvailableAddOnFetcher extends Fetcher<AvailableAddOn> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

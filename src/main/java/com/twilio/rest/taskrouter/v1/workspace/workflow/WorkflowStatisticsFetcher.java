@@ -141,6 +141,7 @@ public class WorkflowStatisticsFetcher extends Fetcher<WorkflowStatistics> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

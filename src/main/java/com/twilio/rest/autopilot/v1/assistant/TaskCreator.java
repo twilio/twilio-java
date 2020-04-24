@@ -128,6 +128,7 @@ public class TaskCreator extends Creator<Task> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

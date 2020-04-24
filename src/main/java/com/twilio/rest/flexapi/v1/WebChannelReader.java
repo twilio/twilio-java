@@ -132,6 +132,7 @@ public class WebChannelReader extends Reader<WebChannel> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

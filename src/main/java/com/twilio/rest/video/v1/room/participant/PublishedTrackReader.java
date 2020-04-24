@@ -149,6 +149,7 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

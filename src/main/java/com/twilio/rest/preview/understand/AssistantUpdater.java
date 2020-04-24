@@ -195,6 +195,7 @@ public class AssistantUpdater extends Updater<Assistant> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

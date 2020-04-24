@@ -166,6 +166,7 @@ public class CommandCreator extends Creator<Command> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

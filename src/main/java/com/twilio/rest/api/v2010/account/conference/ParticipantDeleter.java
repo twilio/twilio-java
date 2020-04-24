@@ -83,6 +83,7 @@ public class ParticipantDeleter extends Deleter<Participant> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

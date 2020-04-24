@@ -60,6 +60,7 @@ public class WorkspaceFetcher extends Fetcher<Workspace> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -142,6 +142,7 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

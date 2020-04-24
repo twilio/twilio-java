@@ -135,6 +135,7 @@ public class WorkspaceStatisticsFetcher extends Fetcher<WorkspaceStatistics> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

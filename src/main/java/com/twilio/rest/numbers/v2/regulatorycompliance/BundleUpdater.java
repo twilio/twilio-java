@@ -125,6 +125,7 @@ public class BundleUpdater extends Updater<Bundle> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

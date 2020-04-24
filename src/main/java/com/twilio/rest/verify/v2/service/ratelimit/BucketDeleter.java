@@ -68,6 +68,7 @@ public class BucketDeleter extends Deleter<Bucket> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

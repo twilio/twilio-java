@@ -212,6 +212,7 @@ public class TodayReader extends Reader<Today> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

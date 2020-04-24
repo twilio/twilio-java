@@ -74,6 +74,7 @@ public class ConnectAppDeleter extends Deleter<ConnectApp> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

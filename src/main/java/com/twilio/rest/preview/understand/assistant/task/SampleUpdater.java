@@ -116,6 +116,7 @@ public class SampleUpdater extends Updater<Sample> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -81,6 +81,7 @@ public class AssistantFallbackActionsUpdater extends Updater<AssistantFallbackAc
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

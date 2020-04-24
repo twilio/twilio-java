@@ -178,6 +178,7 @@ public class UserBindingReader extends Reader<UserBinding> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

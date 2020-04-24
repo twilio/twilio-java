@@ -69,6 +69,7 @@ public class EntityFetcher extends Fetcher<Entity> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

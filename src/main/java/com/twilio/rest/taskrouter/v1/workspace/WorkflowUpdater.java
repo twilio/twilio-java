@@ -184,6 +184,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

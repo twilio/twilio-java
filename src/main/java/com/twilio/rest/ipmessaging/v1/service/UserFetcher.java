@@ -64,6 +64,7 @@ public class UserFetcher extends Fetcher<User> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -212,6 +212,7 @@ public class YearlyReader extends Reader<Yearly> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

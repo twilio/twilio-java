@@ -65,6 +65,7 @@ public class CompositionFetcher extends Fetcher<Composition> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

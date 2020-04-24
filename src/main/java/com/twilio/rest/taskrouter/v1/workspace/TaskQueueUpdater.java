@@ -151,6 +151,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

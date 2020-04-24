@@ -88,6 +88,7 @@ public class FlowValidateUpdater extends Updater<FlowValidate> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

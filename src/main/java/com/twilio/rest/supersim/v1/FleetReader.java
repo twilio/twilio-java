@@ -137,6 +137,7 @@ public class FleetReader extends Reader<Fleet> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

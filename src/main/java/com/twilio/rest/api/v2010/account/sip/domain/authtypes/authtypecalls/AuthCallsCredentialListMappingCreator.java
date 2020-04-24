@@ -86,6 +86,7 @@ public class AuthCallsCredentialListMappingCreator extends Creator<AuthCallsCred
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

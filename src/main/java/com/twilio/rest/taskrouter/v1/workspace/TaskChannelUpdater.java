@@ -93,6 +93,7 @@ public class TaskChannelUpdater extends Updater<TaskChannel> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

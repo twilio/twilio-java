@@ -148,6 +148,7 @@ public class BucketReader extends Reader<Bucket> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

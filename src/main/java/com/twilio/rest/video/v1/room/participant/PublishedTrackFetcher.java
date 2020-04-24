@@ -70,6 +70,7 @@ public class PublishedTrackFetcher extends Fetcher<PublishedTrack> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

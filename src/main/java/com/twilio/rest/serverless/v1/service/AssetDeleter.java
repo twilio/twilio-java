@@ -69,6 +69,7 @@ public class AssetDeleter extends Deleter<Asset> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

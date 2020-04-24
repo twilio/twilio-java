@@ -216,6 +216,7 @@ public class MobileReader extends Reader<Mobile> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

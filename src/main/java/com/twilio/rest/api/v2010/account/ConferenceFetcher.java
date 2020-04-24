@@ -75,6 +75,7 @@ public class ConferenceFetcher extends Fetcher<Conference> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -67,6 +67,7 @@ public class ShortCodeDeleter extends Deleter<ShortCode> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

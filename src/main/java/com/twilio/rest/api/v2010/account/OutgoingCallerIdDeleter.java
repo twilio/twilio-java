@@ -74,6 +74,7 @@ public class OutgoingCallerIdDeleter extends Deleter<OutgoingCallerId> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

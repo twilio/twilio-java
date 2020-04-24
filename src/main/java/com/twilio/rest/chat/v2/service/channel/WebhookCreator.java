@@ -189,6 +189,7 @@ public class WebhookCreator extends Creator<Webhook> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

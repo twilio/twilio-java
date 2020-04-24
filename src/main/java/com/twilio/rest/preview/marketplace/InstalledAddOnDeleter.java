@@ -64,6 +64,7 @@ public class InstalledAddOnDeleter extends Deleter<InstalledAddOn> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

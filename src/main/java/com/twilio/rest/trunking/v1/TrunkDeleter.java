@@ -59,6 +59,7 @@ public class TrunkDeleter extends Deleter<Trunk> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

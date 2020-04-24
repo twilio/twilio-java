@@ -60,6 +60,7 @@ public class EventFetcher extends Fetcher<Event> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

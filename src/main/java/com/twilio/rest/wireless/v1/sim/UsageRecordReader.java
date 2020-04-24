@@ -187,6 +187,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

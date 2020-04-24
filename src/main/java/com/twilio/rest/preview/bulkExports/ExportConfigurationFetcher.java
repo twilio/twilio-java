@@ -65,6 +65,7 @@ public class ExportConfigurationFetcher extends Fetcher<ExportConfiguration> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -69,6 +69,7 @@ public class TaskDeleter extends Deleter<Task> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

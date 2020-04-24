@@ -65,6 +65,7 @@ public class BusinessFetcher extends Fetcher<Business> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

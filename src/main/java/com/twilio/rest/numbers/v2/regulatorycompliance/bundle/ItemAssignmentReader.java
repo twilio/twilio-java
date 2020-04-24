@@ -143,6 +143,7 @@ public class ItemAssignmentReader extends Reader<ItemAssignment> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -147,6 +147,7 @@ public class TriggerCreator extends Creator<Trigger> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

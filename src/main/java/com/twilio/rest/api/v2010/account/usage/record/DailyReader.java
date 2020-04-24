@@ -212,6 +212,7 @@ public class DailyReader extends Reader<Daily> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

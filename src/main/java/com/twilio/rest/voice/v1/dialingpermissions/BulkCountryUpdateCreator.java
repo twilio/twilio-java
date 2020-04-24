@@ -66,6 +66,7 @@ public class BulkCountryUpdateCreator extends Creator<BulkCountryUpdate> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

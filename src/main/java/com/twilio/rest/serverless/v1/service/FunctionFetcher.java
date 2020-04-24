@@ -70,6 +70,7 @@ public class FunctionFetcher extends Fetcher<Function> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

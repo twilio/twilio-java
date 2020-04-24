@@ -134,6 +134,7 @@ public class ConversationUpdater extends Updater<Conversation> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

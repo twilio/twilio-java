@@ -152,6 +152,7 @@ public class KeyReader extends Reader<Key> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

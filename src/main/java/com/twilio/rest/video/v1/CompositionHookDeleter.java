@@ -64,6 +64,7 @@ public class CompositionHookDeleter extends Deleter<CompositionHook> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

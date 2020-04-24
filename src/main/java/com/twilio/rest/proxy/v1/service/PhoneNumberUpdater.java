@@ -85,6 +85,7 @@ public class PhoneNumberUpdater extends Updater<PhoneNumber> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

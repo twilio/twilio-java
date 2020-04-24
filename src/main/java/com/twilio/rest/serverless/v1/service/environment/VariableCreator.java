@@ -80,6 +80,7 @@ public class VariableCreator extends Creator<Variable> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

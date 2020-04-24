@@ -148,6 +148,7 @@ public class SyncMapReader extends Reader<SyncMap> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

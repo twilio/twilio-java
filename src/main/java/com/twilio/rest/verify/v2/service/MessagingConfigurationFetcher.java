@@ -65,6 +65,7 @@ public class MessagingConfigurationFetcher extends Fetcher<MessagingConfiguratio
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

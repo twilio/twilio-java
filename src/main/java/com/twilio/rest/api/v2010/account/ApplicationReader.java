@@ -165,6 +165,7 @@ public class ApplicationReader extends Reader<Application> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

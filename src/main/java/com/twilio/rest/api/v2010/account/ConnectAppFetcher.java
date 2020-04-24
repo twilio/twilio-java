@@ -75,6 +75,7 @@ public class ConnectAppFetcher extends Fetcher<ConnectApp> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -99,6 +99,7 @@ public class SyncListUpdater extends Updater<SyncList> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

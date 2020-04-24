@@ -117,6 +117,7 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

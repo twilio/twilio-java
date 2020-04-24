@@ -60,6 +60,7 @@ public class FlowFetcher extends Fetcher<Flow> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

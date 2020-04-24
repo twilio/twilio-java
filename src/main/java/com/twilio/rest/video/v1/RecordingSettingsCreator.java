@@ -154,6 +154,7 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

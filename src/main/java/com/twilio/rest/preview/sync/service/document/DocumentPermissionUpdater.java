@@ -87,6 +87,7 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

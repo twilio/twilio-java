@@ -60,6 +60,7 @@ public class TrunkFetcher extends Fetcher<Trunk> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

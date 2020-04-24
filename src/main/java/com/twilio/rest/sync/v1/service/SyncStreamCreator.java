@@ -97,6 +97,7 @@ public class SyncStreamCreator extends Creator<SyncStream> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

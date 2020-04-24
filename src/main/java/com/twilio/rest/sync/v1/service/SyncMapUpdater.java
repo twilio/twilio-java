@@ -100,6 +100,7 @@ public class SyncMapUpdater extends Updater<SyncMap> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

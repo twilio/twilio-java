@@ -226,6 +226,7 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

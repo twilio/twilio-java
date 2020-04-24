@@ -63,6 +63,7 @@ public class EngagementDeleter extends Deleter<Engagement> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

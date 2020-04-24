@@ -84,6 +84,7 @@ public class CredentialFetcher extends Fetcher<Credential> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

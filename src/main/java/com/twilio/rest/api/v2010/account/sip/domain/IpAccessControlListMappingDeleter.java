@@ -83,6 +83,7 @@ public class IpAccessControlListMappingDeleter extends Deleter<IpAccessControlLi
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

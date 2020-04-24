@@ -74,6 +74,7 @@ public class SigningKeyFetcher extends Fetcher<SigningKey> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

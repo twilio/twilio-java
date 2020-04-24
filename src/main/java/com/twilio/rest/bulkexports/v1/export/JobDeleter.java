@@ -64,6 +64,7 @@ public class JobDeleter extends Deleter<Job> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

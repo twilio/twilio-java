@@ -69,6 +69,7 @@ public class FlowRevisionFetcher extends Fetcher<FlowRevision> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

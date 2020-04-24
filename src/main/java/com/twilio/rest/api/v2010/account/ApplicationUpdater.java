@@ -356,6 +356,7 @@ public class ApplicationUpdater extends Updater<Application> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

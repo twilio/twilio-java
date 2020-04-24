@@ -132,6 +132,7 @@ public class SupportingDocumentReader extends Reader<SupportingDocument> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

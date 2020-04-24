@@ -69,6 +69,7 @@ public class ShortCodeFetcher extends Fetcher<ShortCode> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

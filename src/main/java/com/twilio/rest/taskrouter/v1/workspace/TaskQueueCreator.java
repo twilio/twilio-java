@@ -138,6 +138,7 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -174,6 +174,7 @@ public class ExportCustomJobReader extends Reader<ExportCustomJob> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

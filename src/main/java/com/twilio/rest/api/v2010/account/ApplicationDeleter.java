@@ -74,6 +74,7 @@ public class ApplicationDeleter extends Deleter<Application> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

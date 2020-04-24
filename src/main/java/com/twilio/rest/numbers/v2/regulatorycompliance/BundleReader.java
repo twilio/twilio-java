@@ -193,6 +193,7 @@ public class BundleReader extends Reader<Bundle> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -147,6 +147,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

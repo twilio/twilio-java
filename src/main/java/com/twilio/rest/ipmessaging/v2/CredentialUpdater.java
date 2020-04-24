@@ -147,6 +147,7 @@ public class CredentialUpdater extends Updater<Credential> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

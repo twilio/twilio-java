@@ -63,6 +63,7 @@ public class UserDeleter extends Deleter<User> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

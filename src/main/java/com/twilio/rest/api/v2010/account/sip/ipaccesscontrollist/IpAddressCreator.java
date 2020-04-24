@@ -114,6 +114,7 @@ public class IpAddressCreator extends Creator<IpAddress> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

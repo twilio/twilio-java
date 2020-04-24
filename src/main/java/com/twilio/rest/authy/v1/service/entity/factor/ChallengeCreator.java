@@ -114,6 +114,7 @@ public class ChallengeCreator extends Creator<Challenge> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

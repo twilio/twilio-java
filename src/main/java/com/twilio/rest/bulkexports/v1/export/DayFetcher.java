@@ -68,6 +68,7 @@ public class DayFetcher extends Fetcher<Day> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

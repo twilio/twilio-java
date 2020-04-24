@@ -260,6 +260,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

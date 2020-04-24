@@ -150,6 +150,7 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

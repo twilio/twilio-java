@@ -198,6 +198,7 @@ public class BindingReader extends Reader<Binding> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -245,6 +245,7 @@ public class ConferenceReader extends Reader<Conference> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

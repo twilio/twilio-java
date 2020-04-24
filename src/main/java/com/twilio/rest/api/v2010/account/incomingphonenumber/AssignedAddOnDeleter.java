@@ -85,6 +85,7 @@ public class AssignedAddOnDeleter extends Deleter<AssignedAddOn> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

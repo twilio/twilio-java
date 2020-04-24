@@ -201,6 +201,7 @@ public class ParticipantReader extends Reader<Participant> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

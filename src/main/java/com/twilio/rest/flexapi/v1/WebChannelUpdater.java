@@ -85,6 +85,7 @@ public class WebChannelUpdater extends Updater<WebChannel> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

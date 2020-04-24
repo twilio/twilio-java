@@ -54,6 +54,7 @@ public class CompositionSettingsFetcher extends Fetcher<CompositionSettings> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -83,6 +83,7 @@ public class AuthCallsIpAccessControlListMappingDeleter extends Deleter<AuthCall
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

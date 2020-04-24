@@ -64,6 +64,7 @@ public class ConversationFetcher extends Fetcher<Conversation> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

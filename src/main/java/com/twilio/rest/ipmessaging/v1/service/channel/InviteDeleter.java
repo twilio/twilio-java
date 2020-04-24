@@ -68,6 +68,7 @@ public class InviteDeleter extends Deleter<Invite> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -90,6 +90,7 @@ public class SupportingDocumentUpdater extends Updater<SupportingDocument> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

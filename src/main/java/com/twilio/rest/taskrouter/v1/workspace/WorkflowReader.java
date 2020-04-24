@@ -155,6 +155,7 @@ public class WorkflowReader extends Reader<Workflow> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

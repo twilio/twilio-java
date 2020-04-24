@@ -64,6 +64,7 @@ public class ServiceFetcher extends Fetcher<Service> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

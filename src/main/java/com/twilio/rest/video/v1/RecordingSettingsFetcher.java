@@ -54,6 +54,7 @@ public class RecordingSettingsFetcher extends Fetcher<RecordingSettings> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

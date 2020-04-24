@@ -75,6 +75,7 @@ public class FunctionUpdater extends Updater<Function> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

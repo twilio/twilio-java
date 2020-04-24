@@ -78,6 +78,7 @@ public class RateLimitUpdater extends Updater<RateLimit> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

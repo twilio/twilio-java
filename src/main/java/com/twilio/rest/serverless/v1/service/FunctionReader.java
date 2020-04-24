@@ -149,6 +149,7 @@ public class FunctionReader extends Reader<Function> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

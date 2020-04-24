@@ -90,6 +90,7 @@ public class RatePlanUpdater extends Updater<RatePlan> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

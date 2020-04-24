@@ -71,6 +71,7 @@ public class MessagingConfigurationCreator extends Creator<MessagingConfiguratio
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

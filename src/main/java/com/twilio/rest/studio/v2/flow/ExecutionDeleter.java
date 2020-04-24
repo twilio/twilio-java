@@ -67,6 +67,7 @@ public class ExecutionDeleter extends Deleter<Execution> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

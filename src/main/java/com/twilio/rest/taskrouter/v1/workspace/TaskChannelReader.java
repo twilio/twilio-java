@@ -143,6 +143,7 @@ public class TaskChannelReader extends Reader<TaskChannel> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

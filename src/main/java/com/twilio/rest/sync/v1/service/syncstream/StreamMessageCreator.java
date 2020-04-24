@@ -79,6 +79,7 @@ public class StreamMessageCreator extends Creator<StreamMessage> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

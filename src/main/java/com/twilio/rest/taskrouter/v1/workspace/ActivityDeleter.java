@@ -64,6 +64,7 @@ public class ActivityDeleter extends Deleter<Activity> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

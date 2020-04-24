@@ -64,6 +64,7 @@ public class EngagementFetcher extends Fetcher<Engagement> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

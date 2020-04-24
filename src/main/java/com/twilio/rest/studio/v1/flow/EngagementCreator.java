@@ -92,6 +92,7 @@ public class EngagementCreator extends Creator<Engagement> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

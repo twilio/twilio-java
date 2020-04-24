@@ -83,6 +83,7 @@ public class AuthRegistrationsCredentialListMappingDeleter extends Deleter<AuthR
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

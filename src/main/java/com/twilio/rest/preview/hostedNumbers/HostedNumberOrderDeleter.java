@@ -64,6 +64,7 @@ public class HostedNumberOrderDeleter extends Deleter<HostedNumberOrder> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

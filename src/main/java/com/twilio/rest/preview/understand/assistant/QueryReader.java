@@ -187,6 +187,7 @@ public class QueryReader extends Reader<Query> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

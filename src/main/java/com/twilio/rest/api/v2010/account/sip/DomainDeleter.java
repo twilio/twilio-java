@@ -74,6 +74,7 @@ public class DomainDeleter extends Deleter<Domain> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

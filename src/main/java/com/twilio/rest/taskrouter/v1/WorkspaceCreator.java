@@ -159,6 +159,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

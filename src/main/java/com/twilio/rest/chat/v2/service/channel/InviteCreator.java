@@ -82,6 +82,7 @@ public class InviteCreator extends Creator<Invite> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

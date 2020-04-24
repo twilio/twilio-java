@@ -74,6 +74,7 @@ public class AddressDeleter extends Deleter<Address> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

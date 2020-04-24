@@ -102,6 +102,7 @@ public class VariableUpdater extends Updater<Variable> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

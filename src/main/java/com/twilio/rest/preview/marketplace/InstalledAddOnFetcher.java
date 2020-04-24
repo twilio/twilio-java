@@ -65,6 +65,7 @@ public class InstalledAddOnFetcher extends Fetcher<InstalledAddOn> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

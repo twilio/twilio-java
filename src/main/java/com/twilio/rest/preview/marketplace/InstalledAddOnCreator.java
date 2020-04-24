@@ -100,6 +100,7 @@ public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

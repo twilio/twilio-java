@@ -138,6 +138,7 @@ public class ExportCustomJobCreator extends Creator<ExportCustomJob> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

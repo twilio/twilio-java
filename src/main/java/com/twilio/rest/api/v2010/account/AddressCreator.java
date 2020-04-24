@@ -153,6 +153,7 @@ public class AddressCreator extends Creator<Address> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

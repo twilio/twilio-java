@@ -75,6 +75,7 @@ public class WorkspaceRealTimeStatisticsFetcher extends Fetcher<WorkspaceRealTim
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

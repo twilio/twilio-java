@@ -86,6 +86,7 @@ public class AssignedAddOnFetcher extends Fetcher<AssignedAddOn> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

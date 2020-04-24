@@ -64,6 +64,7 @@ public class ExecutionFetcher extends Fetcher<Execution> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -63,6 +63,7 @@ public class RoleDeleter extends Deleter<Role> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

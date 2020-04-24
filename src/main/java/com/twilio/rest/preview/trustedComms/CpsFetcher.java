@@ -54,6 +54,7 @@ public class CpsFetcher extends Fetcher<Cps> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

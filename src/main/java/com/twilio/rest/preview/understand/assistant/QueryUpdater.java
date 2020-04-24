@@ -96,6 +96,7 @@ public class QueryUpdater extends Updater<Query> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

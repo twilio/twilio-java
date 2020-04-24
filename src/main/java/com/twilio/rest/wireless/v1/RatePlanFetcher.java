@@ -60,6 +60,7 @@ public class RatePlanFetcher extends Fetcher<RatePlan> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

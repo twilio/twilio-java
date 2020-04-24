@@ -71,6 +71,7 @@ public class AssetCreator extends Creator<Asset> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -74,6 +74,7 @@ public class DocumentPermissionFetcher extends Fetcher<DocumentPermission> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

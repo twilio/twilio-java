@@ -70,6 +70,7 @@ public class SubscribedTrackFetcher extends Fetcher<SubscribedTrack> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

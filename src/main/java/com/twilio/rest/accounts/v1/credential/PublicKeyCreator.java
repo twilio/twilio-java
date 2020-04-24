@@ -87,6 +87,7 @@ public class PublicKeyCreator extends Creator<PublicKey> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -147,6 +147,7 @@ public class FlowRevisionReader extends Reader<FlowRevision> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

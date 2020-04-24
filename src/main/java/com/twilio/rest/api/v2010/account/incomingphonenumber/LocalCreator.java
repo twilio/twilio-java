@@ -440,6 +440,7 @@ public class LocalCreator extends Creator<Local> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

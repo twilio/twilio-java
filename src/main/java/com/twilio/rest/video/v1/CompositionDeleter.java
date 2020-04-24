@@ -64,6 +64,7 @@ public class CompositionDeleter extends Deleter<Composition> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

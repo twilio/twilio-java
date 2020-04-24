@@ -76,6 +76,7 @@ public class MessageInteractionFetcher extends Fetcher<MessageInteraction> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

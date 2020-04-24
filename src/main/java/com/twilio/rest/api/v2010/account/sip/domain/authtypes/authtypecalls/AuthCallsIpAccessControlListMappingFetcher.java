@@ -84,6 +84,7 @@ public class AuthCallsIpAccessControlListMappingFetcher extends Fetcher<AuthCall
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

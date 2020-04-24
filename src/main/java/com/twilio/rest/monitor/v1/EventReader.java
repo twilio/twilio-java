@@ -214,6 +214,7 @@ public class EventReader extends Reader<Event> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

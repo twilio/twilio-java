@@ -89,6 +89,7 @@ public class KeyUpdater extends Updater<Key> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

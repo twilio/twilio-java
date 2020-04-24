@@ -75,6 +75,7 @@ public class CallFetcher extends Fetcher<Call> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -63,6 +63,7 @@ public class FaxDeleter extends Deleter<Fax> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

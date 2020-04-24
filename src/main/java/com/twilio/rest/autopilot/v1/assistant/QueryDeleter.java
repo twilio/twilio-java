@@ -69,6 +69,7 @@ public class QueryDeleter extends Deleter<Query> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

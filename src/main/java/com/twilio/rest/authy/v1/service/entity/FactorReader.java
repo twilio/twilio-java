@@ -152,6 +152,7 @@ public class FactorReader extends Reader<Factor> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

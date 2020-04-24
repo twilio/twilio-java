@@ -289,6 +289,7 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

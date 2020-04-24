@@ -71,6 +71,7 @@ public class TaskActionsFetcher extends Fetcher<TaskActions> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -91,6 +91,7 @@ public class TaskActionsUpdater extends Updater<TaskActions> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -180,6 +180,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

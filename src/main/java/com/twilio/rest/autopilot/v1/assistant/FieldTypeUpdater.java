@@ -99,6 +99,7 @@ public class FieldTypeUpdater extends Updater<FieldType> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

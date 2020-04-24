@@ -159,6 +159,7 @@ public class IpAccessControlListMappingReader extends Reader<IpAccessControlList
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

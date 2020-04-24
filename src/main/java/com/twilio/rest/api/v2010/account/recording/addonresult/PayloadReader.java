@@ -170,6 +170,7 @@ public class PayloadReader extends Reader<Payload> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

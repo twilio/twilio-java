@@ -64,6 +64,7 @@ public class RoomRecordingDeleter extends Deleter<RoomRecording> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

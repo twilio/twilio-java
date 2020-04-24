@@ -83,6 +83,7 @@ public class MessageUpdater extends Updater<Message> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

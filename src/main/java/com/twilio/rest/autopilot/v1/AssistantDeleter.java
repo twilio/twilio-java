@@ -64,6 +64,7 @@ public class AssistantDeleter extends Deleter<Assistant> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

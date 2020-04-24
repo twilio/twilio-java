@@ -70,6 +70,7 @@ public class VerificationUpdater extends Updater<Verification> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

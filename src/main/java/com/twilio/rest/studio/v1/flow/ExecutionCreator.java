@@ -91,6 +91,7 @@ public class ExecutionCreator extends Creator<Execution> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

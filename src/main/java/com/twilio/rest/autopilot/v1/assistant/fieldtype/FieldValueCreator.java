@@ -94,6 +94,7 @@ public class FieldValueCreator extends Creator<FieldValue> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

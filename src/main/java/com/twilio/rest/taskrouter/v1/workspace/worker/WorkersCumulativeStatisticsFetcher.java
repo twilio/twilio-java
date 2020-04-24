@@ -117,6 +117,7 @@ public class WorkersCumulativeStatisticsFetcher extends Fetcher<WorkersCumulativ
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

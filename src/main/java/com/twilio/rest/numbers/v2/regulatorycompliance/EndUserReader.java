@@ -132,6 +132,7 @@ public class EndUserReader extends Reader<EndUser> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

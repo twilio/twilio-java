@@ -148,6 +148,7 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

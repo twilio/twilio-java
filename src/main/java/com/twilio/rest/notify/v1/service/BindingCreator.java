@@ -151,6 +151,7 @@ public class BindingCreator extends Creator<Binding> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

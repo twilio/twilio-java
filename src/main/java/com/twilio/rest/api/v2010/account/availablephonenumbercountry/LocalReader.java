@@ -430,6 +430,7 @@ public class LocalReader extends Reader<Local> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -81,6 +81,7 @@ public class TokenCreator extends Creator<Token> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

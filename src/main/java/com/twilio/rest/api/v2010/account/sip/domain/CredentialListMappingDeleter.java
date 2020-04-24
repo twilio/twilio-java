@@ -82,6 +82,7 @@ public class CredentialListMappingDeleter extends Deleter<CredentialListMapping>
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

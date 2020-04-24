@@ -146,6 +146,7 @@ public class WorkspaceReader extends Reader<Workspace> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

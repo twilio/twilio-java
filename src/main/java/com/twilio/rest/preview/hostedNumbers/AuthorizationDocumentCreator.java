@@ -109,6 +109,7 @@ public class AuthorizationDocumentCreator extends Creator<AuthorizationDocument>
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

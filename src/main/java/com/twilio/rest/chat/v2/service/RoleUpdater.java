@@ -71,6 +71,7 @@ public class RoleUpdater extends Updater<Role> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

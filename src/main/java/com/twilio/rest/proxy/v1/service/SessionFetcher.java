@@ -68,6 +68,7 @@ public class SessionFetcher extends Fetcher<Session> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

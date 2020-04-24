@@ -108,6 +108,7 @@ public class SimUpdater extends Updater<Sim> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

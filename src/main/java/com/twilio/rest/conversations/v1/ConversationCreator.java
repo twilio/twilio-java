@@ -124,6 +124,7 @@ public class ConversationCreator extends Creator<Conversation> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

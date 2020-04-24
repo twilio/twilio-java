@@ -143,6 +143,7 @@ public class UserReader extends Reader<User> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

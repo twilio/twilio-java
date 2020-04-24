@@ -84,6 +84,7 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

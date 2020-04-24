@@ -130,6 +130,7 @@ public class DeviceCreator extends Creator<Device> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -400,6 +400,7 @@ public class NotificationCreator extends Creator<Notification> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

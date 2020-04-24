@@ -155,6 +155,7 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

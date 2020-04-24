@@ -65,6 +65,7 @@ public class AssistantInitiationActionsFetcher extends Fetcher<AssistantInitiati
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

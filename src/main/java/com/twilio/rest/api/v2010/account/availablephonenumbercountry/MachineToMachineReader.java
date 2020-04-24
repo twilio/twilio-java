@@ -430,6 +430,7 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

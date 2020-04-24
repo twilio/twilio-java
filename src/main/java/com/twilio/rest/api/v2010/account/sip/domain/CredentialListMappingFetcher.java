@@ -83,6 +83,7 @@ public class CredentialListMappingFetcher extends Fetcher<CredentialListMapping>
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

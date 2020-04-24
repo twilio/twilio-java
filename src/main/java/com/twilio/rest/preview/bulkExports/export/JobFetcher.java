@@ -65,6 +65,7 @@ public class JobFetcher extends Fetcher<Job> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

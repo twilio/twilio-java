@@ -236,6 +236,7 @@ public class WorkerReader extends Reader<Worker> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

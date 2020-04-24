@@ -69,6 +69,7 @@ public class ExecutionUpdater extends Updater<Execution> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

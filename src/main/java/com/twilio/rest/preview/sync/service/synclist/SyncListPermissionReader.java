@@ -152,6 +152,7 @@ public class SyncListPermissionReader extends Reader<SyncListPermission> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

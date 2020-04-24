@@ -59,6 +59,7 @@ public class PublicKeyDeleter extends Deleter<PublicKey> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

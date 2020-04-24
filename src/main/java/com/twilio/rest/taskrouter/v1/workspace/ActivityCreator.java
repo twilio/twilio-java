@@ -81,6 +81,7 @@ public class ActivityCreator extends Creator<Activity> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -96,6 +96,7 @@ public class CertificateCreator extends Creator<Certificate> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

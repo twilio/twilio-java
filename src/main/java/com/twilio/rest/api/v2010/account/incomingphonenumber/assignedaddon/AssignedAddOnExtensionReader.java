@@ -174,6 +174,7 @@ public class AssignedAddOnExtensionReader extends Reader<AssignedAddOnExtension>
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

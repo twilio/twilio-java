@@ -162,6 +162,7 @@ public class AuthCallsCredentialListMappingReader extends Reader<AuthCallsCreden
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

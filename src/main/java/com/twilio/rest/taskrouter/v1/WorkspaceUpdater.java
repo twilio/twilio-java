@@ -182,6 +182,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -75,6 +75,7 @@ public class FeedbackSummaryDeleter extends Deleter<FeedbackSummary> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

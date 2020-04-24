@@ -86,6 +86,7 @@ public class AuthCallsIpAccessControlListMappingCreator extends Creator<AuthCall
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

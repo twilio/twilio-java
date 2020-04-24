@@ -132,6 +132,7 @@ public class RatePlanReader extends Reader<RatePlan> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

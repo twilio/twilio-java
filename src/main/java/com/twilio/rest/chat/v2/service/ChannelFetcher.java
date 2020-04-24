@@ -64,6 +64,7 @@ public class ChannelFetcher extends Fetcher<Channel> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

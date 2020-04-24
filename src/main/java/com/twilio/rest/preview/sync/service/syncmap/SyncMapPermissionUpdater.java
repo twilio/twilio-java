@@ -87,6 +87,7 @@ public class SyncMapPermissionUpdater extends Updater<SyncMapPermission> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

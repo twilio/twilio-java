@@ -148,6 +148,7 @@ public class EntityReader extends Reader<Entity> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -88,6 +88,7 @@ public class QueueCreator extends Creator<Queue> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -149,6 +149,7 @@ public class ServiceReader extends Reader<Service> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

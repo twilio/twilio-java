@@ -94,6 +94,7 @@ public class AccountUpdater extends Updater<Account> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

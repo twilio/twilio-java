@@ -97,6 +97,7 @@ public class WebChannelCreator extends Creator<WebChannel> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

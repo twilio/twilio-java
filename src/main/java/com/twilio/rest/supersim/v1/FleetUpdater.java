@@ -80,6 +80,7 @@ public class FleetUpdater extends Updater<Fleet> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

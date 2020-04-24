@@ -96,6 +96,7 @@ public class DeploymentUpdater extends Updater<Deployment> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

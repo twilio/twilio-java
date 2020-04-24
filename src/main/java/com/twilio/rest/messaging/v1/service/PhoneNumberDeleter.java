@@ -67,6 +67,7 @@ public class PhoneNumberDeleter extends Deleter<PhoneNumber> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

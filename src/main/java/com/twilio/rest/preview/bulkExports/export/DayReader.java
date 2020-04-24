@@ -172,6 +172,7 @@ public class DayReader extends Reader<Day> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

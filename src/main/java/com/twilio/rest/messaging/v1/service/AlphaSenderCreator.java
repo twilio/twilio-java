@@ -69,6 +69,7 @@ public class AlphaSenderCreator extends Creator<AlphaSender> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

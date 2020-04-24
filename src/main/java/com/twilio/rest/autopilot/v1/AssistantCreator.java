@@ -165,6 +165,7 @@ public class AssistantCreator extends Creator<Assistant> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

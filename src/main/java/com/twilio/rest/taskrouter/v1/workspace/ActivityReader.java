@@ -172,6 +172,7 @@ public class ActivityReader extends Reader<Activity> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

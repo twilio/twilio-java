@@ -54,6 +54,7 @@ public class CurrentCallFetcher extends Fetcher<CurrentCall> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

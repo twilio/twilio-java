@@ -64,6 +64,7 @@ public class TaskFetcher extends Fetcher<Task> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

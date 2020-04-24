@@ -59,6 +59,7 @@ public class CommandDeleter extends Deleter<Command> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

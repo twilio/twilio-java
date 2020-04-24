@@ -64,6 +64,7 @@ public class WorkflowFetcher extends Fetcher<Workflow> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

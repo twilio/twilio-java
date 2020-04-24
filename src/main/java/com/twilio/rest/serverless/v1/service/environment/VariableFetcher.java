@@ -75,6 +75,7 @@ public class VariableFetcher extends Fetcher<Variable> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

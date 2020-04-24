@@ -86,6 +86,7 @@ public class CredentialListMappingCreator extends Creator<CredentialListMapping>
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

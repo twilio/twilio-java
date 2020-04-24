@@ -60,6 +60,7 @@ public class EndUserTypeFetcher extends Fetcher<EndUserType> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

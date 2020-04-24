@@ -75,6 +75,7 @@ public class SyncListPermissionFetcher extends Fetcher<SyncListPermission> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -212,6 +212,7 @@ public class AllTimeReader extends Reader<AllTime> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

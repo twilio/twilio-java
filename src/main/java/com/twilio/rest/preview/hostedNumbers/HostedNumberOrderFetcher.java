@@ -65,6 +65,7 @@ public class HostedNumberOrderFetcher extends Fetcher<HostedNumberOrder> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

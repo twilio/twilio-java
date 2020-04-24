@@ -83,6 +83,7 @@ public class TranscriptionDeleter extends Deleter<Transcription> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -74,6 +74,7 @@ public class PublicKeyUpdater extends Updater<PublicKey> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

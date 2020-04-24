@@ -86,6 +86,7 @@ public class BrandedCallCreator extends Creator<BrandedCall> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -194,6 +194,7 @@ public class FaxReader extends Reader<Fax> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

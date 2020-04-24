@@ -87,6 +87,7 @@ public class SigningKeyUpdater extends Updater<SigningKey> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

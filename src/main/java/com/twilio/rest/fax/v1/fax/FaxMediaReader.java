@@ -147,6 +147,7 @@ public class FaxMediaReader extends Reader<FaxMedia> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

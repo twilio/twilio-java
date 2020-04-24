@@ -89,6 +89,7 @@ public class AwsCreator extends Creator<Aws> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

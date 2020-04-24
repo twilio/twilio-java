@@ -111,6 +111,7 @@ public class SyncListCreator extends Creator<SyncList> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

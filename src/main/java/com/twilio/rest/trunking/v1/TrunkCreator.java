@@ -186,6 +186,7 @@ public class TrunkCreator extends Creator<Trunk> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

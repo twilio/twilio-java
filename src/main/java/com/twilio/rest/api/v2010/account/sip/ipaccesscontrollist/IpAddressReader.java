@@ -160,6 +160,7 @@ public class IpAddressReader extends Reader<IpAddress> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

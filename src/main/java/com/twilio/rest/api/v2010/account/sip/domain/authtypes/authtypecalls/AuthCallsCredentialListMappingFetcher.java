@@ -84,6 +84,7 @@ public class AuthCallsCredentialListMappingFetcher extends Fetcher<AuthCallsCred
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

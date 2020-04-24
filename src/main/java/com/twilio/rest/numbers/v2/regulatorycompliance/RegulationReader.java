@@ -170,6 +170,7 @@ public class RegulationReader extends Reader<Regulation> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

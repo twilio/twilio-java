@@ -154,6 +154,7 @@ public class DeploymentReader extends Reader<Deployment> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

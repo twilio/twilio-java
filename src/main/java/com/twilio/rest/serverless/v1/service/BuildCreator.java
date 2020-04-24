@@ -132,6 +132,7 @@ public class BuildCreator extends Creator<Build> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

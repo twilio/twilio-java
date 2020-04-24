@@ -75,6 +75,7 @@ public class MessageFetcher extends Fetcher<Message> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

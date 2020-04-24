@@ -148,6 +148,7 @@ public class CredentialCreator extends Creator<Credential> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

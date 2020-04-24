@@ -189,6 +189,7 @@ public class RatePlanCreator extends Creator<RatePlan> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

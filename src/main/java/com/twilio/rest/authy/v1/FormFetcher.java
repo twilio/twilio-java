@@ -65,6 +65,7 @@ public class FormFetcher extends Fetcher<Form> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

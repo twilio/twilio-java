@@ -64,6 +64,7 @@ public class FlowTestUserFetcher extends Fetcher<FlowTestUser> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

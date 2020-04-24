@@ -65,6 +65,7 @@ public class ActivityFetcher extends Fetcher<Activity> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

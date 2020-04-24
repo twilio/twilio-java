@@ -74,6 +74,7 @@ public class LogFetcher extends Fetcher<Log> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

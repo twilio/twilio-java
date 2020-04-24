@@ -86,6 +86,7 @@ public class AuthRegistrationsCredentialListMappingCreator extends Creator<AuthR
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

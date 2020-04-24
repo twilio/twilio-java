@@ -193,6 +193,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -666,6 +666,7 @@ public class ParticipantCreator extends Creator<Participant> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

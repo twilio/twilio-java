@@ -64,6 +64,7 @@ public class MessagingConfigurationDeleter extends Deleter<MessagingConfiguratio
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

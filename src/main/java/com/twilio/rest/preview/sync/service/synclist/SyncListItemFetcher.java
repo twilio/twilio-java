@@ -73,6 +73,7 @@ public class SyncListItemFetcher extends Fetcher<SyncListItem> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

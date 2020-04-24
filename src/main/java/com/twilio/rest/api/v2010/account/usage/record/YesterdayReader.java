@@ -212,6 +212,7 @@ public class YesterdayReader extends Reader<Yesterday> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

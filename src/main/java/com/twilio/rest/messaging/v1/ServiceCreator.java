@@ -291,6 +291,7 @@ public class ServiceCreator extends Creator<Service> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

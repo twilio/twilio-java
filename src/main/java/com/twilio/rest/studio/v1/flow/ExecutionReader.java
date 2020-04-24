@@ -175,6 +175,7 @@ public class ExecutionReader extends Reader<Execution> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

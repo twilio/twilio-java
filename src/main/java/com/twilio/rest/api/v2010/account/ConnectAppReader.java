@@ -152,6 +152,7 @@ public class ConnectAppReader extends Reader<ConnectApp> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

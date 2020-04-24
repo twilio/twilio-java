@@ -68,6 +68,7 @@ public class MessageDeleter extends Deleter<Message> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

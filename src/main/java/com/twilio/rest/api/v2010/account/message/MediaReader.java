@@ -200,6 +200,7 @@ public class MediaReader extends Reader<Media> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

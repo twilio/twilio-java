@@ -161,6 +161,7 @@ public class DeviceReader extends Reader<Device> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

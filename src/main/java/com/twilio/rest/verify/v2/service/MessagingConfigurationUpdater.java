@@ -71,6 +71,7 @@ public class MessagingConfigurationUpdater extends Updater<MessagingConfiguratio
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

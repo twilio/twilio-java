@@ -137,6 +137,7 @@ public class TaskQueueCumulativeStatisticsFetcher extends Fetcher<TaskQueueCumul
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -284,6 +284,7 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

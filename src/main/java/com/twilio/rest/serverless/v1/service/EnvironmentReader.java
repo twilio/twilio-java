@@ -149,6 +149,7 @@ public class EnvironmentReader extends Reader<Environment> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

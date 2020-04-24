@@ -65,6 +65,7 @@ public class ExportAssistantFetcher extends Fetcher<ExportAssistant> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -74,6 +74,7 @@ public class TriggerDeleter extends Deleter<Trigger> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -135,6 +135,7 @@ public class TaskUpdater extends Updater<Task> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -50,6 +50,7 @@ public class ConfigurationCreator extends Creator<Configuration> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

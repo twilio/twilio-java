@@ -63,6 +63,7 @@ public class TaskQueueDeleter extends Deleter<TaskQueue> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

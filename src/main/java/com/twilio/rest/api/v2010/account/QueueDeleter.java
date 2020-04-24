@@ -74,6 +74,7 @@ public class QueueDeleter extends Deleter<Queue> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

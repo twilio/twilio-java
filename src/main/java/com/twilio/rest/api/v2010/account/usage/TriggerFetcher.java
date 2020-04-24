@@ -75,6 +75,7 @@ public class TriggerFetcher extends Fetcher<Trigger> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

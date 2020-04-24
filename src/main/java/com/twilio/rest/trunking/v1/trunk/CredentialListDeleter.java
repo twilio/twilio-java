@@ -64,6 +64,7 @@ public class CredentialListDeleter extends Deleter<CredentialList> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

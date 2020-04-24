@@ -60,6 +60,7 @@ public class RecordingFetcher extends Fetcher<Recording> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -74,6 +74,7 @@ public class IncomingPhoneNumberDeleter extends Deleter<IncomingPhoneNumber> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

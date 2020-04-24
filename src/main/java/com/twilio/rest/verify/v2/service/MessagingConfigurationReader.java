@@ -144,6 +144,7 @@ public class MessagingConfigurationReader extends Reader<MessagingConfiguration>
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

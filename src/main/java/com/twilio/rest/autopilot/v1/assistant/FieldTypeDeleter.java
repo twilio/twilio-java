@@ -69,6 +69,7 @@ public class FieldTypeDeleter extends Deleter<FieldType> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

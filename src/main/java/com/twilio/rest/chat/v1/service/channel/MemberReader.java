@@ -178,6 +178,7 @@ public class MemberReader extends Reader<Member> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

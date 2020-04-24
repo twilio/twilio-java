@@ -183,6 +183,7 @@ public class FaxCreator extends Creator<Fax> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

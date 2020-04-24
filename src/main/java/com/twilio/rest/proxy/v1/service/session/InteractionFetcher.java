@@ -72,6 +72,7 @@ public class InteractionFetcher extends Fetcher<Interaction> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

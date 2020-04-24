@@ -195,6 +195,7 @@ public class VerificationCreator extends Creator<Verification> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

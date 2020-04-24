@@ -246,6 +246,7 @@ public class DomainCreator extends Creator<Domain> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

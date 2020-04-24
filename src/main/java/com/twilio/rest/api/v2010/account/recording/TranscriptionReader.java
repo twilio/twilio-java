@@ -161,6 +161,7 @@ public class TranscriptionReader extends Reader<Transcription> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

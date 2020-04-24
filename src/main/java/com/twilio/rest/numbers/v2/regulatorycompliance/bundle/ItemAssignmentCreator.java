@@ -65,6 +65,7 @@ public class ItemAssignmentCreator extends Creator<ItemAssignment> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

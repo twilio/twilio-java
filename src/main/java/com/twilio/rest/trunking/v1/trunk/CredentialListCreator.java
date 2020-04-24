@@ -67,6 +67,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

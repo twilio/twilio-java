@@ -60,6 +60,7 @@ public class RoomFetcher extends Fetcher<Room> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

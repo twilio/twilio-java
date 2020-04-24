@@ -69,6 +69,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -64,6 +64,7 @@ public class OriginationUrlDeleter extends Deleter<OriginationUrl> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -195,6 +195,7 @@ public class CompositionReader extends Reader<Composition> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

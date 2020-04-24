@@ -161,6 +161,7 @@ public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

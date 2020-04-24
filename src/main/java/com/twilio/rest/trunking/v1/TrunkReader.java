@@ -132,6 +132,7 @@ public class TrunkReader extends Reader<Trunk> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

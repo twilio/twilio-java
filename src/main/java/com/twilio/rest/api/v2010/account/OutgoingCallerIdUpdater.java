@@ -89,6 +89,7 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

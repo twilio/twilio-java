@@ -231,6 +231,7 @@ public class RecordingReader extends Reader<Recording> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

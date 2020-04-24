@@ -219,6 +219,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

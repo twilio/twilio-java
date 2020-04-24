@@ -50,6 +50,7 @@ public class ConfigurationUpdater extends Updater<Configuration> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

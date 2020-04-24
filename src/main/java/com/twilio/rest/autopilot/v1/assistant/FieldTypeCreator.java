@@ -85,6 +85,7 @@ public class FieldTypeCreator extends Creator<FieldType> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

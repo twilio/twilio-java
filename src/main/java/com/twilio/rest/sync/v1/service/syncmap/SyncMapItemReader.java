@@ -197,6 +197,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

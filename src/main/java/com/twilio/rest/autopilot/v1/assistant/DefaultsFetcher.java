@@ -66,6 +66,7 @@ public class DefaultsFetcher extends Fetcher<Defaults> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

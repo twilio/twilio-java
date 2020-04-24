@@ -59,6 +59,7 @@ public class SimDeleter extends Deleter<Sim> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

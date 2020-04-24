@@ -84,6 +84,7 @@ public class IpAddressDeleter extends Deleter<IpAddress> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

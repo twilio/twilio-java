@@ -65,6 +65,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

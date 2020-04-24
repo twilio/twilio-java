@@ -74,6 +74,7 @@ public class SyncListPermissionDeleter extends Deleter<SyncListPermission> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

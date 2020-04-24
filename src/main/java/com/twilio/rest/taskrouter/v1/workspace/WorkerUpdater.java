@@ -120,6 +120,7 @@ public class WorkerUpdater extends Updater<Worker> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

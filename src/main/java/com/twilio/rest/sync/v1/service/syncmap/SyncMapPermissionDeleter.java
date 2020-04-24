@@ -74,6 +74,7 @@ public class SyncMapPermissionDeleter extends Deleter<SyncMapPermission> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

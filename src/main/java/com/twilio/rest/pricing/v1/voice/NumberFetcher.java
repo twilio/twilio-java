@@ -60,6 +60,7 @@ public class NumberFetcher extends Fetcher<Number> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

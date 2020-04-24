@@ -75,6 +75,7 @@ public class FunctionVersionFetcher extends Fetcher<FunctionVersion> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

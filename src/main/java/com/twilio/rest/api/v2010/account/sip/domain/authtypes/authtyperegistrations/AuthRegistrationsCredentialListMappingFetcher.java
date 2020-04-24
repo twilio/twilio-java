@@ -84,6 +84,7 @@ public class AuthRegistrationsCredentialListMappingFetcher extends Fetcher<AuthR
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

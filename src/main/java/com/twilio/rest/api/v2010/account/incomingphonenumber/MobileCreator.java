@@ -441,6 +441,7 @@ public class MobileCreator extends Creator<Mobile> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

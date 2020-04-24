@@ -85,6 +85,7 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

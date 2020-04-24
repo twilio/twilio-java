@@ -137,6 +137,7 @@ public class AvailableAddOnReader extends Reader<AvailableAddOn> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -160,6 +160,7 @@ public class MessageReader extends Reader<Message> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

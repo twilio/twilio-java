@@ -163,6 +163,7 @@ public class ReservationReader extends Reader<Reservation> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

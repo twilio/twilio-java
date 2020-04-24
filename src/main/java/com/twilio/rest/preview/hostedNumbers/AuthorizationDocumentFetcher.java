@@ -65,6 +65,7 @@ public class AuthorizationDocumentFetcher extends Fetcher<AuthorizationDocument>
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

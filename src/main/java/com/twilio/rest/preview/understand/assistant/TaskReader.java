@@ -148,6 +148,7 @@ public class TaskReader extends Reader<Task> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

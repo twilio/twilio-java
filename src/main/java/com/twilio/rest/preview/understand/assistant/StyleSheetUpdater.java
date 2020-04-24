@@ -81,6 +81,7 @@ public class StyleSheetUpdater extends Updater<StyleSheet> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -216,6 +216,7 @@ public class TollFreeReader extends Reader<TollFree> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

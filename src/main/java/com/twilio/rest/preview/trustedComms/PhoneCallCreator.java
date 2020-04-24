@@ -462,6 +462,7 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

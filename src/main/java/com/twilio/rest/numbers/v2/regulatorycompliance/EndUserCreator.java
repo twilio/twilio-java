@@ -81,6 +81,7 @@ public class EndUserCreator extends Creator<EndUser> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

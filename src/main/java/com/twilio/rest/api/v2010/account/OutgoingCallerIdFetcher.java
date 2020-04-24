@@ -75,6 +75,7 @@ public class OutgoingCallerIdFetcher extends Fetcher<OutgoingCallerId> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -133,6 +133,7 @@ public class PaymentUpdater extends Updater<Payment> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

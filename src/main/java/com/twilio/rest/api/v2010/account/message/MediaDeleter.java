@@ -83,6 +83,7 @@ public class MediaDeleter extends Deleter<Media> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

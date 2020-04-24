@@ -106,6 +106,7 @@ public class RecordingUpdater extends Updater<Recording> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

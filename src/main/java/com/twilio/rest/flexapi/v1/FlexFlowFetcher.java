@@ -60,6 +60,7 @@ public class FlexFlowFetcher extends Fetcher<FlexFlow> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

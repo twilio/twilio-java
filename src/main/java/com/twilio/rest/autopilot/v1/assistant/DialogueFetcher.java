@@ -70,6 +70,7 @@ public class DialogueFetcher extends Fetcher<Dialogue> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

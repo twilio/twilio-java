@@ -89,6 +89,7 @@ public class EndUserUpdater extends Updater<EndUser> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

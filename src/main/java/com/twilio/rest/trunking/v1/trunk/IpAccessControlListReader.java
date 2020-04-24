@@ -144,6 +144,7 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -73,6 +73,7 @@ public class SigningKeyDeleter extends Deleter<SigningKey> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

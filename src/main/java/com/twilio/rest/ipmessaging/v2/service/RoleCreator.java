@@ -75,6 +75,7 @@ public class RoleCreator extends Creator<Role> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

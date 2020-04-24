@@ -69,6 +69,7 @@ public class SyncStreamFetcher extends Fetcher<SyncStream> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

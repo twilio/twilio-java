@@ -152,6 +152,7 @@ public class AvailablePhoneNumberCountryReader extends Reader<AvailablePhoneNumb
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -85,6 +85,7 @@ public class IpAccessControlListMappingCreator extends Creator<IpAccessControlLi
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

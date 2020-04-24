@@ -152,6 +152,7 @@ public class FieldReader extends Reader<Field> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

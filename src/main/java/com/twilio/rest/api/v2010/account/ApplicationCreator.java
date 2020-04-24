@@ -349,6 +349,7 @@ public class ApplicationCreator extends Creator<Application> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

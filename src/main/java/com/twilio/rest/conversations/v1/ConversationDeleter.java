@@ -63,6 +63,7 @@ public class ConversationDeleter extends Deleter<Conversation> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

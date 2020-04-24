@@ -74,6 +74,7 @@ public class VariableDeleter extends Deleter<Variable> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

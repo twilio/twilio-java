@@ -64,6 +64,7 @@ public class FleetDeleter extends Deleter<Fleet> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -132,6 +132,7 @@ public class FlowReader extends Reader<Flow> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

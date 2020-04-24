@@ -54,6 +54,7 @@ public class SettingsFetcher extends Fetcher<Settings> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

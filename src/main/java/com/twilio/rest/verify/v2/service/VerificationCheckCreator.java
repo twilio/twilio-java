@@ -121,6 +121,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

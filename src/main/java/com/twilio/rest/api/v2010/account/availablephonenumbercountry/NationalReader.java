@@ -430,6 +430,7 @@ public class NationalReader extends Reader<National> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

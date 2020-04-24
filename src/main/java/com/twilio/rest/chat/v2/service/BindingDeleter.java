@@ -63,6 +63,7 @@ public class BindingDeleter extends Deleter<Binding> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

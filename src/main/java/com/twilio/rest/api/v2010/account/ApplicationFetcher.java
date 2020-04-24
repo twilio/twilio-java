@@ -75,6 +75,7 @@ public class ApplicationFetcher extends Fetcher<Application> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

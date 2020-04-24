@@ -75,6 +75,7 @@ public class WorkersRealTimeStatisticsFetcher extends Fetcher<WorkersRealTimeSta
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

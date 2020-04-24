@@ -65,6 +65,7 @@ public class RateLimitFetcher extends Fetcher<RateLimit> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

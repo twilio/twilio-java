@@ -83,6 +83,7 @@ public class AddOnResultDeleter extends Deleter<AddOnResult> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -65,6 +65,7 @@ public class StyleSheetFetcher extends Fetcher<StyleSheet> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

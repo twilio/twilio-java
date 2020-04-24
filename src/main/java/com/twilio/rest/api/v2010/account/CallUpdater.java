@@ -247,6 +247,7 @@ public class CallUpdater extends Updater<Call> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

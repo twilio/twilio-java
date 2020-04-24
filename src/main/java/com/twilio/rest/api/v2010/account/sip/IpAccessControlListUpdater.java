@@ -82,6 +82,7 @@ public class IpAccessControlListUpdater extends Updater<IpAccessControlList> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

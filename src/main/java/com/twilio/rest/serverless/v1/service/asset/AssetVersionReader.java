@@ -154,6 +154,7 @@ public class AssetVersionReader extends Reader<AssetVersion> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -74,6 +74,7 @@ public class AwsUpdater extends Updater<Aws> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

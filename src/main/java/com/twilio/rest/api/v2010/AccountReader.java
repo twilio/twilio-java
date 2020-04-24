@@ -159,6 +159,7 @@ public class AccountReader extends Reader<Account> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

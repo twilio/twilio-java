@@ -430,6 +430,7 @@ public class VoipReader extends Reader<Voip> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

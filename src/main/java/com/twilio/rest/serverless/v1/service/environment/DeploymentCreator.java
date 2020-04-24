@@ -83,6 +83,7 @@ public class DeploymentCreator extends Creator<Deployment> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

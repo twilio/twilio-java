@@ -68,6 +68,7 @@ public class ExecutionStepFetcher extends Fetcher<ExecutionStep> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

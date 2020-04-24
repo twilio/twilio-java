@@ -64,6 +64,7 @@ public class FaxFetcher extends Fetcher<Fax> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

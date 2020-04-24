@@ -60,6 +60,7 @@ public class WebChannelFetcher extends Fetcher<WebChannel> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

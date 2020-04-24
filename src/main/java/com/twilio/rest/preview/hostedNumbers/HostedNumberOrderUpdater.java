@@ -213,6 +213,7 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

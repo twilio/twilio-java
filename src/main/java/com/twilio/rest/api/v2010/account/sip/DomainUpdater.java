@@ -260,6 +260,7 @@ public class DomainUpdater extends Updater<Domain> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

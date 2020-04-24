@@ -144,6 +144,7 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

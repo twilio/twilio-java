@@ -92,6 +92,7 @@ public class KeyCreator extends Creator<Key> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

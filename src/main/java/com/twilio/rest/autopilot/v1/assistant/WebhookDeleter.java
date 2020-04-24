@@ -69,6 +69,7 @@ public class WebhookDeleter extends Deleter<Webhook> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

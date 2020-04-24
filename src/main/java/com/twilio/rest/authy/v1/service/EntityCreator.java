@@ -70,6 +70,7 @@ public class EntityCreator extends Creator<Entity> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -71,6 +71,7 @@ public class SettingsUpdater extends Updater<Settings> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

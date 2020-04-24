@@ -65,6 +65,7 @@ public class TaskChannelFetcher extends Fetcher<TaskChannel> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

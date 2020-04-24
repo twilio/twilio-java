@@ -143,6 +143,7 @@ public class EngagementReader extends Reader<Engagement> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

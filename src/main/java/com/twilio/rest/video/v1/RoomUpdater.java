@@ -65,6 +65,7 @@ public class RoomUpdater extends Updater<Room> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

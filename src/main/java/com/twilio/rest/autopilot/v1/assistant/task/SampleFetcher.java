@@ -75,6 +75,7 @@ public class SampleFetcher extends Fetcher<Sample> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

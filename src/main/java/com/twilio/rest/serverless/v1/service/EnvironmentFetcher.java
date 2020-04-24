@@ -70,6 +70,7 @@ public class EnvironmentFetcher extends Fetcher<Environment> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

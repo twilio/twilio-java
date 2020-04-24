@@ -151,6 +151,7 @@ public class ChannelUpdater extends Updater<Channel> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

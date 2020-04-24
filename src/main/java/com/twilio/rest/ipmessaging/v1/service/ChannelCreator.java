@@ -115,6 +115,7 @@ public class ChannelCreator extends Creator<Channel> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

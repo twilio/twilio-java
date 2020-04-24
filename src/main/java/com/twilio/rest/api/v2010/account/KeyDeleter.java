@@ -74,6 +74,7 @@ public class KeyDeleter extends Deleter<Key> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -88,6 +88,7 @@ public class FlowCreator extends Creator<Flow> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

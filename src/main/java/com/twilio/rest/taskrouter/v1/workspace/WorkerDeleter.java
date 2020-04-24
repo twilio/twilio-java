@@ -63,6 +63,7 @@ public class WorkerDeleter extends Deleter<Worker> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

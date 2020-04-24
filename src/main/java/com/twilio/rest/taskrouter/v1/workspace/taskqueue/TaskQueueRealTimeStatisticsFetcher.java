@@ -79,6 +79,7 @@ public class TaskQueueRealTimeStatisticsFetcher extends Fetcher<TaskQueueRealTim
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

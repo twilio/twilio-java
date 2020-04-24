@@ -155,6 +155,7 @@ public class MessageInteractionReader extends Reader<MessageInteraction> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

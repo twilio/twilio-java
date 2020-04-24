@@ -59,6 +59,7 @@ public class AwsDeleter extends Deleter<Aws> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

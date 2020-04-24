@@ -74,6 +74,7 @@ public class SampleDeleter extends Deleter<Sample> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

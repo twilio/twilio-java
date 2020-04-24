@@ -127,6 +127,7 @@ public class TriggerUpdater extends Updater<Trigger> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

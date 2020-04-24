@@ -74,6 +74,7 @@ public class FeedbackFetcher extends Fetcher<Feedback> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

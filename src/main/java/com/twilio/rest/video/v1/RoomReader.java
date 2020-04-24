@@ -186,6 +186,7 @@ public class RoomReader extends Reader<Room> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

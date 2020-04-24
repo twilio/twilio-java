@@ -151,6 +151,7 @@ public class InteractionReader extends Reader<Interaction> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

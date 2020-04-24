@@ -64,6 +64,7 @@ public class TaskChannelDeleter extends Deleter<TaskChannel> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -178,6 +178,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -302,6 +302,7 @@ public class PaymentCreator extends Creator<Payment> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

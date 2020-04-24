@@ -68,6 +68,7 @@ public class SyncMapDeleter extends Deleter<SyncMap> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

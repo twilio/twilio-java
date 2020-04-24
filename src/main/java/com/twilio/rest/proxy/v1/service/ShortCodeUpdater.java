@@ -85,6 +85,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

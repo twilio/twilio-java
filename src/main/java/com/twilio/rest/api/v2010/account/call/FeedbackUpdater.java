@@ -113,6 +113,7 @@ public class FeedbackUpdater extends Updater<Feedback> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

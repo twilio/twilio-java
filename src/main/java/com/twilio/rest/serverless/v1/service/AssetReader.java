@@ -148,6 +148,7 @@ public class AssetReader extends Reader<Asset> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

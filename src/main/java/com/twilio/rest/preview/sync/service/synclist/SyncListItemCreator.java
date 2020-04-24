@@ -77,6 +77,7 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

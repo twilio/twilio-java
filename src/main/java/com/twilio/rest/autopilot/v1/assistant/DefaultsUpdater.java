@@ -83,6 +83,7 @@ public class DefaultsUpdater extends Updater<Defaults> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

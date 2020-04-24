@@ -69,6 +69,7 @@ public class DocumentFetcher extends Fetcher<Document> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

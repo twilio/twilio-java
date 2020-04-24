@@ -148,6 +148,7 @@ public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

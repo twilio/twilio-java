@@ -83,6 +83,7 @@ public class IpAddressFetcher extends Fetcher<IpAddress> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

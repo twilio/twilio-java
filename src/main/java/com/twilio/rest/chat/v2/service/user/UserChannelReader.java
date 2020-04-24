@@ -148,6 +148,7 @@ public class UserChannelReader extends Reader<UserChannel> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

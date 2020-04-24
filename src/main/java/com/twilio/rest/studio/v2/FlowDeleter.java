@@ -63,6 +63,7 @@ public class FlowDeleter extends Deleter<Flow> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

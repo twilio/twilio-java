@@ -138,6 +138,7 @@ public class TaskQueueStatisticsFetcher extends Fetcher<TaskQueueStatistics> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -59,6 +59,7 @@ public class WorkspaceDeleter extends Deleter<Workspace> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

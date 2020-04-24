@@ -121,6 +121,7 @@ public class QueryCreator extends Creator<Query> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -78,6 +78,7 @@ public class CallSummaryFetcher extends Fetcher<CallSummary> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

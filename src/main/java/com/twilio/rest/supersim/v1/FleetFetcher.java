@@ -65,6 +65,7 @@ public class FleetFetcher extends Fetcher<Fleet> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

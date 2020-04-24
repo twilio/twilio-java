@@ -136,6 +136,7 @@ public class WorkspaceCumulativeStatisticsFetcher extends Fetcher<WorkspaceCumul
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -84,6 +84,7 @@ public class IpAccessControlListMappingFetcher extends Fetcher<IpAccessControlLi
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

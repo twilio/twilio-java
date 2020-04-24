@@ -75,6 +75,7 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

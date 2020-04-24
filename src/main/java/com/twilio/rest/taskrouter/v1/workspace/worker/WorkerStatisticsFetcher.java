@@ -121,6 +121,7 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -68,6 +68,7 @@ public class ModelBuildDeleter extends Deleter<ModelBuild> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

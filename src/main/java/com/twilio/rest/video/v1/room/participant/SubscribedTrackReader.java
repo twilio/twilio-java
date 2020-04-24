@@ -149,6 +149,7 @@ public class SubscribedTrackReader extends Reader<SubscribedTrack> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -151,6 +151,7 @@ public class ExecutionStepReader extends Reader<ExecutionStep> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

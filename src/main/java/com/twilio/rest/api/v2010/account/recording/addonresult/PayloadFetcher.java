@@ -93,6 +93,7 @@ public class PayloadFetcher extends Fetcher<Payload> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

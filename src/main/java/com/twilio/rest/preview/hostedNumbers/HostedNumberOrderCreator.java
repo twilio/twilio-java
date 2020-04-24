@@ -319,6 +319,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

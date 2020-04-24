@@ -88,6 +88,7 @@ public class SyncListPermissionUpdater extends Updater<SyncListPermission> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

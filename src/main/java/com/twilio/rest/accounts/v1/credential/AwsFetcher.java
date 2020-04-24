@@ -60,6 +60,7 @@ public class AwsFetcher extends Fetcher<Aws> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

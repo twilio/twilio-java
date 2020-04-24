@@ -69,6 +69,7 @@ public class EnvironmentDeleter extends Deleter<Environment> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

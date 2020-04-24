@@ -164,6 +164,7 @@ public class SampleReader extends Reader<Sample> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -85,6 +85,7 @@ public class TaskChannelCreator extends Creator<TaskChannel> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

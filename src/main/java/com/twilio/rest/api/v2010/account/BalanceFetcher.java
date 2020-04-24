@@ -67,6 +67,7 @@ public class BalanceFetcher extends Fetcher<Balance> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -82,6 +82,7 @@ public class NewKeyCreator extends Creator<NewKey> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

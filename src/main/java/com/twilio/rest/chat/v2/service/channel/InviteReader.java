@@ -176,6 +176,7 @@ public class InviteReader extends Reader<Invite> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

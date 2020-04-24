@@ -134,6 +134,7 @@ public class ConferenceUpdater extends Updater<Conference> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -69,6 +69,7 @@ public class AlphaSenderFetcher extends Fetcher<AlphaSender> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

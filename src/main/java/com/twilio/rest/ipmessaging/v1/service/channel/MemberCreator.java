@@ -83,6 +83,7 @@ public class MemberCreator extends Creator<Member> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

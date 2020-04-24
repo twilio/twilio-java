@@ -151,6 +151,7 @@ public class SigningKeyReader extends Reader<SigningKey> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -70,6 +70,7 @@ public class ReservationFetcher extends Fetcher<Reservation> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

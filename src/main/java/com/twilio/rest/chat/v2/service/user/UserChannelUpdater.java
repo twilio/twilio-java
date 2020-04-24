@@ -120,6 +120,7 @@ public class UserChannelUpdater extends Updater<UserChannel> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

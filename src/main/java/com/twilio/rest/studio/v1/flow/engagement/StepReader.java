@@ -147,6 +147,7 @@ public class StepReader extends Reader<Step> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

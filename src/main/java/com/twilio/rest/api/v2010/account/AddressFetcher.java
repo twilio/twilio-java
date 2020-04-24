@@ -75,6 +75,7 @@ public class AddressFetcher extends Fetcher<Address> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

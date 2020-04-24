@@ -201,6 +201,7 @@ public class NotificationReader extends Reader<Notification> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

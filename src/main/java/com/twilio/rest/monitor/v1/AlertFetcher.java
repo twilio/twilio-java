@@ -60,6 +60,7 @@ public class AlertFetcher extends Fetcher<Alert> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

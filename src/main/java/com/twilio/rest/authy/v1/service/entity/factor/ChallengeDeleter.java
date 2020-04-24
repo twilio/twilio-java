@@ -76,6 +76,7 @@ public class ChallengeDeleter extends Deleter<Challenge> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

@@ -132,6 +132,7 @@ public class AwsReader extends Reader<Aws> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

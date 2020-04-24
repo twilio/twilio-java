@@ -65,6 +65,7 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

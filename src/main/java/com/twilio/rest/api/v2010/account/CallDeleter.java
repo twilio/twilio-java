@@ -74,6 +74,7 @@ public class CallDeleter extends Deleter<Call> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

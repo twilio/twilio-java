@@ -132,6 +132,7 @@ public class IpAddressUpdater extends Updater<IpAddress> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

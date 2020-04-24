@@ -198,6 +198,7 @@ public class SimReader extends Reader<Sim> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

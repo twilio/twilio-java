@@ -68,6 +68,7 @@ public class SyncListDeleter extends Deleter<SyncList> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

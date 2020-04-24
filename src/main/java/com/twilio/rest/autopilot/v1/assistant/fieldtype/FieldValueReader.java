@@ -168,6 +168,7 @@ public class FieldValueReader extends Reader<FieldValue> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

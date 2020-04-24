@@ -90,6 +90,7 @@ public class UsageFetcher extends Fetcher<Usage> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

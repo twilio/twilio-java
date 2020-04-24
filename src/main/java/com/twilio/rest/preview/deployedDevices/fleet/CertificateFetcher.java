@@ -69,6 +69,7 @@ public class CertificateFetcher extends Fetcher<Certificate> {
                 restException.getCode(),
                 restException.getMoreInfo(),
                 restException.getStatus(),
+                restException.getDetails(),
                 null
             );
         }

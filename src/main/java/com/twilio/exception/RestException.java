@@ -34,7 +34,7 @@ public class RestException {
     @JsonCreator
     private RestException(@JsonProperty("status") final int status, @JsonProperty("message") final String message,
                           @JsonProperty("code") final Integer code, @JsonProperty("more_info") final String moreInfo,
-                          @JsonProperty("details") final Map<String,Object> details) {
+                          @JsonProperty("details") final Map<String, Object> details) {
         this.status = status;
         this.message = message;
         this.code = code;

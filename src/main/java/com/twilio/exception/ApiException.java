@@ -9,7 +9,7 @@ public class ApiException extends TwilioException {
     private final Integer code;
     private final String moreInfo;
     private final Integer status;
-    private final Map<String,Object> details;
+    private final Map<String, Object> details;
 
     /**
      * Create a new API Exception.

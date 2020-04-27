@@ -54,14 +54,7 @@ public class EventFetcher extends Fetcher<Event> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Event.fromJson(response.getStream(), client.getObjectMapper());

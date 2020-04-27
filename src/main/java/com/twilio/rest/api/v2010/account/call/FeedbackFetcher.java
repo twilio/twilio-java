@@ -68,14 +68,7 @@ public class FeedbackFetcher extends Fetcher<Feedback> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Feedback.fromJson(response.getStream(), client.getObjectMapper());

@@ -58,14 +58,7 @@ public class EngagementFetcher extends Fetcher<Engagement> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Engagement.fromJson(response.getStream(), client.getObjectMapper());

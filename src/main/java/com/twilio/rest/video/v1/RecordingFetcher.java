@@ -54,14 +54,7 @@ public class RecordingFetcher extends Fetcher<Recording> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Recording.fromJson(response.getStream(), client.getObjectMapper());

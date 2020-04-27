@@ -128,14 +128,7 @@ public class ConversationUpdater extends Updater<Conversation> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Conversation.fromJson(response.getStream(), client.getObjectMapper());

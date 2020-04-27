@@ -111,14 +111,7 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return ExportConfiguration.fromJson(response.getStream(), client.getObjectMapper());

@@ -90,14 +90,7 @@ public class CertificateCreator extends Creator<Certificate> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Certificate.fromJson(response.getStream(), client.getObjectMapper());

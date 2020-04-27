@@ -91,14 +91,7 @@ public class WorkerCreator extends Creator<Worker> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Worker.fromJson(response.getStream(), client.getObjectMapper());

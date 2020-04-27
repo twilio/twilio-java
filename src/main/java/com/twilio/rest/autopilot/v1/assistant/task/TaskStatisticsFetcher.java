@@ -65,14 +65,7 @@ public class TaskStatisticsFetcher extends Fetcher<TaskStatistics> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return TaskStatistics.fromJson(response.getStream(), client.getObjectMapper());

@@ -71,14 +71,7 @@ public class ChallengeFetcher extends Fetcher<Challenge> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Challenge.fromJson(response.getStream(), client.getObjectMapper());

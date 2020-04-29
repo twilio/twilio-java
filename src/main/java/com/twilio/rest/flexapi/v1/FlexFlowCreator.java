@@ -194,9 +194,11 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
-     * Whether new channels are long-lived..
+     * When enabled, Flex will keep the chat channel active so that it may be used
+     * for subsequent interactions with a contact identity..
      *
-     * @param longLived Whether new channels are long-lived
+     * @param longLived Reuse this chat channel for future interactions with a
+     *                  contact
      * @return this
      */
     public FlexFlowCreator setLongLived(final Boolean longLived) {
@@ -205,9 +207,11 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
-     * Boolean flag for enabling or disabling the Janitor..
+     * When enabled, the Messaging Channel Janitor will remove active Proxy sessions
+     * if the associated Task is deleted outside of the Flex UI..
      *
-     * @param janitorEnabled Boolean flag for enabling or disabling the Janitor
+     * @param janitorEnabled Remove active Proxy sessions if the corresponding Task
+     *                       is deleted
      * @return this
      */
     public FlexFlowCreator setJanitorEnabled(final Boolean janitorEnabled) {

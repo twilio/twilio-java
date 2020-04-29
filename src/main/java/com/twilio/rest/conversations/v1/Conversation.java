@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Conversation extends Resource {
-    private static final long serialVersionUID = 39396284340348L;
+    private static final long serialVersionUID = 151272997981541L;
 
     public enum WebhookEnabledType {
         TRUE("true"),
@@ -63,6 +63,32 @@ public class Conversation extends Resource {
         @JsonCreator
         public static WebhookEnabledType forValue(final String value) {
             return Promoter.enumFromString(value, WebhookEnabledType.values());
+        }
+    }
+
+    public enum State {
+        INACTIVE("inactive"),
+        ACTIVE("active"),
+        CLOSED("closed");
+
+        private final String value;
+
+        private State(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a State from a string.
+         * @param value string value
+         * @return generated State
+         */
+        @JsonCreator
+        public static State forValue(final String value) {
+            return Promoter.enumFromString(value, State.values());
         }
     }
 
@@ -158,6 +184,7 @@ public class Conversation extends Resource {
     private final String sid;
     private final String friendlyName;
     private final String attributes;
+    private final Conversation.State state;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
@@ -176,6 +203,8 @@ public class Conversation extends Resource {
                          final String friendlyName,
                          @JsonProperty("attributes")
                          final String attributes,
+                         @JsonProperty("state")
+                         final Conversation.State state,
                          @JsonProperty("date_created")
                          final String dateCreated,
                          @JsonProperty("date_updated")
@@ -190,6 +219,7 @@ public class Conversation extends Resource {
         this.sid = sid;
         this.friendlyName = friendlyName;
         this.attributes = attributes;
+        this.state = state;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -253,6 +283,15 @@ public class Conversation extends Resource {
     }
 
     /**
+     * Returns Current state of this conversation..
+     *
+     * @return Current state of this conversation.
+     */
+    public final Conversation.State getState() {
+        return this.state;
+    }
+
+    /**
      * Returns The date that this resource was created..
      *
      * @return The date that this resource was created.
@@ -306,6 +345,7 @@ public class Conversation extends Resource {
                Objects.equals(sid, other.sid) &&
                Objects.equals(friendlyName, other.friendlyName) &&
                Objects.equals(attributes, other.attributes) &&
+               Objects.equals(state, other.state) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url) &&
@@ -320,6 +360,7 @@ public class Conversation extends Resource {
                             sid,
                             friendlyName,
                             attributes,
+                            state,
                             dateCreated,
                             dateUpdated,
                             url,
@@ -335,6 +376,7 @@ public class Conversation extends Resource {
                           .add("sid", sid)
                           .add("friendlyName", friendlyName)
                           .add("attributes", attributes)
+                          .add("state", state)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)

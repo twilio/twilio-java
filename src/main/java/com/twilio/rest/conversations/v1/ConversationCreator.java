@@ -29,6 +29,7 @@ public class ConversationCreator extends Creator<Conversation> {
     private DateTime dateUpdated;
     private String messagingServiceSid;
     private String attributes;
+    private Conversation.State state;
 
     /**
      * The human-readable name of this conversation, limited to 256 characters.
@@ -93,6 +94,18 @@ public class ConversationCreator extends Creator<Conversation> {
     }
 
     /**
+     * Current state of this conversation. Can be either `active`, `inactive` or
+     * `closed` and defaults to `active`.
+     *
+     * @param state Current state of this conversation.
+     * @return this
+     */
+    public ConversationCreator setState(final Conversation.State state) {
+        this.state = state;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -148,6 +161,10 @@ public class ConversationCreator extends Creator<Conversation> {
 
         if (attributes != null) {
             request.addPostParam("Attributes", attributes);
+        }
+
+        if (state != null) {
+            request.addPostParam("State", state.toString());
         }
     }
 }

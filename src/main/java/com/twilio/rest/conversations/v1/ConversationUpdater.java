@@ -30,6 +30,7 @@ public class ConversationUpdater extends Updater<Conversation> {
     private DateTime dateUpdated;
     private String attributes;
     private String messagingServiceSid;
+    private Conversation.State state;
 
     /**
      * Construct a new ConversationUpdater.
@@ -103,6 +104,18 @@ public class ConversationUpdater extends Updater<Conversation> {
     }
 
     /**
+     * Current state of this conversation. Can be either `active`, `inactive` or
+     * `closed` and defaults to `active`.
+     *
+     * @param state Current state of this conversation.
+     * @return this
+     */
+    public ConversationUpdater setState(final Conversation.State state) {
+        this.state = state;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -158,6 +171,10 @@ public class ConversationUpdater extends Updater<Conversation> {
 
         if (messagingServiceSid != null) {
             request.addPostParam("MessagingServiceSid", messagingServiceSid);
+        }
+
+        if (state != null) {
+            request.addPostParam("State", state.toString());
         }
     }
 }

@@ -33,6 +33,7 @@ public class MessageCreator extends Creator<Message> {
     private String applicationSid;
     private BigDecimal maxPrice;
     private Boolean provideFeedback;
+    private Integer attempt;
     private Integer validityPeriod;
     private Boolean forceDelivery;
     private Message.ContentRetention contentRetention;
@@ -267,6 +268,19 @@ public class MessageCreator extends Creator<Message> {
      */
     public MessageCreator setProvideFeedback(final Boolean provideFeedback) {
         this.provideFeedback = provideFeedback;
+        return this;
+    }
+
+    /**
+     * Total number of attempts made ( including this ) to send out the message
+     * regardless of the provider used.
+     *
+     * @param attempt Total numer of attempts made , this inclusive to send out the
+     *                message
+     * @return this
+     */
+    public MessageCreator setAttempt(final Integer attempt) {
+        this.attempt = attempt;
         return this;
     }
 
@@ -541,6 +555,10 @@ public class MessageCreator extends Creator<Message> {
 
         if (provideFeedback != null) {
             request.addPostParam("ProvideFeedback", provideFeedback.toString());
+        }
+
+        if (attempt != null) {
+            request.addPostParam("Attempt", attempt.toString());
         }
 
         if (validityPeriod != null) {

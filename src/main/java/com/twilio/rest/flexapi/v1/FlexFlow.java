@@ -344,18 +344,18 @@ public class FlexFlow extends Resource {
     }
 
     /**
-     * Returns Whether new channels are long-lived.
+     * Returns Re-use this chat channel for future interactions with a contact.
      *
-     * @return Whether new channels are long-lived
+     * @return Re-use this chat channel for future interactions with a contact
      */
     public final Boolean getLongLived() {
         return this.longLived;
     }
 
     /**
-     * Returns Boolean flag for enabling or disabling the Janitor.
+     * Returns Remove active Proxy sessions if the corresponding Task is deleted..
      *
-     * @return Boolean flag for enabling or disabling the Janitor
+     * @return Remove active Proxy sessions if the corresponding Task is deleted.
      */
     public final Boolean getJanitorEnabled() {
         return this.janitorEnabled;

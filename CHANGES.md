@@ -1,6 +1,21 @@
 twilio-java changelog
 =====================
 
+[2020-04-29] Version 7.50.0
+---------------------------
+**Library - Feature**
+- [PR #524](https://github.com/twilio/twilio-java/pull/524): add error details to rest and api exceptions. Thanks to [@ashish-s](https://github.com/ashish-s)!
+
+**Preview**
+- Added `Dispatch` version to `preview`
+
+**Studio**
+- Reroute Create Execution for V2 to the V2 downstream
+
+**Supersim**
+- Add Networks resource
+
+
 [2020-04-15] Version 7.49.1
 ---------------------------
 **Library - Fix**

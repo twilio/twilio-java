@@ -25,6 +25,8 @@ public class Twilio {
     private static String username;
     private static String password;
     private static String accountSid;
+    private static String edge;
+    private static String region;
     private static TwilioRestClient restClient;
     private static ListeningExecutorService executorService;
 
@@ -65,6 +67,38 @@ public class Twilio {
         Twilio.setUsername(username);
         Twilio.setPassword(password);
         Twilio.setAccountSid(accountSid);
+    }
+
+    /**
+     * Initialize the Twilio environment.
+     *
+     * @param username account to use
+     * @param password auth token for the account
+     * @param region region to make request
+     * @param edge edge to make request
+     */
+    public static void init(final String username, final String password, final String region, final String edge) {
+        Twilio.setUsername(username);
+        Twilio.setPassword(password);
+        Twilio.setRegion(region);
+        Twilio.setEdge(edge);
+    }
+
+    /**
+     * Initialize the Twilio environment.
+     *
+     * @param username account to use
+     * @param password auth token for the account
+     * @param accountSid account sid to use
+     * @param region region to make request
+     * @param edge edge to make request
+     */
+    public static void init(final String username, final String password, final String accountSid, final String region, final String edge) {
+        Twilio.setUsername(username);
+        Twilio.setPassword(password);
+        Twilio.setAccountSid(accountSid);
+        Twilio.setRegion(region);
+        Twilio.setEdge(edge);
     }
 
     /**
@@ -122,6 +156,24 @@ public class Twilio {
     }
 
     /**
+     * Set the region.
+     *
+     * @param region region to make request
+     */
+    public static void setRegion(final String region) {
+        Twilio.region = region;
+    }
+
+    /**
+     * Set the edge.
+     *
+     * @param edge edge to make request
+     */
+    public static void setEdge(final String edge) {
+        Twilio.edge = edge;
+    }
+
+    /**
      * Returns (and initializes if not initialized) the Twilio Rest Client.
      *
      * @return the TWilio Rest Client
@@ -138,6 +190,12 @@ public class Twilio {
             TwilioRestClient.Builder builder = new TwilioRestClient.Builder(Twilio.username, Twilio.password);
             if (Twilio.accountSid != null) {
                 builder.accountSid(Twilio.accountSid);
+            }
+            if (Twilio.edge != null) {
+                builder.edge(Twilio.edge);
+            }
+            if (Twilio.region != null) {
+                builder.region(Twilio.region);
             }
             Twilio.restClient = builder.build();
         }

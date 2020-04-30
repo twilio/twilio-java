@@ -82,6 +82,22 @@ public class RequestTest {
     }
 
     @Test
+    public void testConstructURLWithRegion() throws MalformedURLException {
+        Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar", "region");
+        URL expected = new URL("https://api.region.twilio.com/2010-04-01/foobar");
+        URL url = r.constructURL();
+        assertUrlsEqual(expected, url);
+    }
+
+    @Test
+    public void testConstructURLWithRegionAndEdge() throws MalformedURLException {
+        Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar", "edge", "region");
+        URL expected = new URL("https://api.edge.region.twilio.com/2010-04-01/foobar");
+        URL url = r.constructURL();
+        assertUrlsEqual(expected, url);
+    }
+
+    @Test
     public void testAddQueryDateRangeLowerBound() throws MalformedURLException {
         Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar");
         r.addQueryDateRange("baz", Range.greaterThan(new LocalDate(2014, 1, 1)));

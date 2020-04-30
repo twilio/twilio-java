@@ -67,9 +67,34 @@ public class Request {
         final String region
     ) {
         this.method = method;
-        this.url = "https://" + Joiner.on(".").skipNulls().join(domain, region, "twilio", "com") + uri;
+        this.url = this.buildUrl(domain, uri, region, null);
         this.queryParams = new HashMap<>();
         this.postParams = new HashMap<>();
+    }
+
+    /**
+     * Create a new API request.
+     * @param method HTTP Method
+     * @param domain Twilio domain
+     * @param uri uri of request
+     * @param edge edge to make request
+     * @param region region to make request
+     */
+    public Request(
+        final HttpMethod method,
+        final String domain,
+        final String uri,
+        final String edge,
+        final String region
+    ) {
+        this.method = method;
+        this.url = this.buildUrl(domain, uri, region, edge);
+        this.queryParams = new HashMap<>();
+        this.postParams = new HashMap<>();
+    }
+
+    public String buildUrl(String domain, String uri, String region, String edge) {
+        return "https://" + Joiner.on(".").skipNulls().join(domain, edge, region, "twilio", "com") + uri;
     }
 
     public HttpMethod getMethod() {

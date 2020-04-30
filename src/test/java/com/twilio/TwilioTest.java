@@ -2,7 +2,6 @@ package com.twilio;
 
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
-
 import com.twilio.exception.ApiException;
 import com.twilio.exception.AuthenticationException;
 import com.twilio.exception.CertificateValidationException;
@@ -11,6 +10,7 @@ import com.twilio.http.NetworkHttpClient;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import com.twilio.http.TwilioRestClient.Builder;
 
 import org.junit.Test;
 
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.concurrent.Executors;
 
 import mockit.Mocked;
-import mockit.NonStrictExpectations;
+import mockit.Expectations;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -92,7 +92,7 @@ public class TwilioTest {
 
     @Test
     public void testValidateSslCertificateError() {
-        new NonStrictExpectations() {{
+        new Expectations() {{
             final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
             networkHttpClient.makeRequest(request);
             times = 1;
@@ -109,7 +109,7 @@ public class TwilioTest {
 
     @Test
     public void testValidateSslCertificateException() {
-        new NonStrictExpectations() {{
+        new Expectations() {{
             final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
             networkHttpClient.makeRequest(request);
             times = 1;
@@ -126,7 +126,7 @@ public class TwilioTest {
 
     @Test
     public void testValidateSslCertificateSuccess() {
-        new NonStrictExpectations() {{
+        new Expectations() {{
             final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
             networkHttpClient.makeRequest(request);
             times = 1;

@@ -19,6 +19,7 @@ public class TwilioRestClient {
     private final String username;
     private final String password;
     private final String accountSid;
+    private final String edge;
     private final String region;
     private final HttpClient httpClient;
 
@@ -26,6 +27,7 @@ public class TwilioRestClient {
         this.username = b.username;
         this.password = b.password;
         this.accountSid = b.accountSid;
+        this.edge = b.edge;
         this.region = b.region;
         this.httpClient = b.httpClient;
         this.objectMapper = new ObjectMapper();
@@ -46,6 +48,10 @@ public class TwilioRestClient {
         return accountSid;
     }
 
+    public String getEdge() {
+        return edge;
+    }
+
     public String getRegion() {
         return region;
     }
@@ -62,6 +68,7 @@ public class TwilioRestClient {
         private String username;
         private String password;
         private String accountSid;
+        private String edge;
         private String region;
         private HttpClient httpClient;
 
@@ -79,6 +86,11 @@ public class TwilioRestClient {
 
         public Builder accountSid(String accountSid) {
             this.accountSid = accountSid;
+            return this;
+        }
+
+        public Builder edge(String edge) {
+            this.edge = edge;
             return this;
         }
 

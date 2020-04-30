@@ -84,8 +84,8 @@ public class Request {
         final HttpMethod method,
         final String domain,
         final String uri,
-        final String edge,
-        final String region
+        final String region,
+        final String edge
     ) {
         this.method = method;
         this.url = this.buildUrl(domain, uri, region, edge);

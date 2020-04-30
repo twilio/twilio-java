@@ -91,7 +91,7 @@ public class RequestTest {
 
     @Test
     public void testConstructURLWithRegionAndEdge() throws MalformedURLException {
-        Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar", "edge", "region");
+        Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar", "region", "edge");
         URL expected = new URL("https://api.edge.region.twilio.com/2010-04-01/foobar");
         URL url = r.constructURL();
         assertUrlsEqual(expected, url);

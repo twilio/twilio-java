@@ -190,5 +190,10 @@ public class RequestTest {
         assertFalse(request.equals(null));
     }
 
-}
+    public void testBuildUrl() {
+        Request request = new Request(HttpMethod.DELETE, "/uri");
+        String url = request.buildUrl("api", "/uri", "region", "edge");
+        assertEquals("https://api.edge.region.twilio.com/uri", url);
+    }
 
+}

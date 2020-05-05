@@ -10,7 +10,6 @@ import com.twilio.http.NetworkHttpClient;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
-import com.twilio.http.TwilioRestClient.Builder;
 
 import org.junit.Test;
 
@@ -38,6 +37,9 @@ public class TwilioTest {
 
     @Mocked
     private NetworkHttpClient networkHttpClient;
+
+    @Mocked
+    private TwilioRestClient twilioRestClient;
 
     @Test
     public void testGetExecutorService() {
@@ -135,4 +137,97 @@ public class TwilioTest {
 
         Twilio.validateSslCertificate();
     }
+
+    @Test
+    public void testEdgeNoRegion() {
+        new Expectations() {{
+            final Request request = new Request(HttpMethod.GET, "https://api.edge.us1.twilio.com/test");
+            networkHttpClient.makeRequest(request);
+            times = 1;
+            result = new Response("", 200);
+        }};
+
+        Twilio.init("accountSid", "authToken");
+        Twilio.setEdge("edge");
+        Request request = new Request(HttpMethod.GET, "api", "/test", null, Twilio.getEdge());
+        //Request request = new Request(HttpMethod.GET, "https://api.edge.us1.twilio.com/test");
+        Response result = networkHttpClient.makeRequest(request);
+        assertEquals(200, result.getStatusCode());
+    }
 }
+
+//     @Test
+//     public void testEdgePredifinedRegion() {
+//         new Expectations() {{
+//             final Request request = new Request(HttpMethod.GET, "https://api.edge.region.twilio.com/test");
+//             TwilioRestClient twilioRestClient = new TwilioRestClient.Builder("AC123", "AUTH TOKEN").build();
+//             twilioRestClient.request(request);
+//             times = 1;
+//             result = new Response("", 200);
+//         }};
+
+//         Twilio.init("accountSid", "authToken");
+//         Twilio.setEdge("edge");
+//         TwilioRestClient client = Twilio.getRestClient();
+//         Request request = new Request(HttpMethod.GET, "api", "/test", "region", Twilio.getEdge());
+//         Response result = client.request(request);
+//         assertEquals(200, result.getStatusCode());
+//     }
+
+//     @Test
+//     public void testRegionNoEdge() {
+//         new Expectations() {{
+//             final Request request = new Request(HttpMethod.GET, "https://api.au1.twilio.com/test");
+//             TwilioRestClient twilioRestClient = new TwilioRestClient.Builder("AC123", "AUTH TOKEN").build();
+//             twilioRestClient.request(request);
+//             times = 1;
+//             result = new Response("", 200);
+//         }};
+
+//         Twilio.init("accountSid", "authToken");
+//         Twilio.setRegion("au1");
+//         TwilioRestClient client = Twilio.getRestClient();
+//         Request request = new Request(HttpMethod.GET, "api", "/test");
+//         Response result = client.request(request);
+//         assertEquals(200, result.getStatusCode());
+//     }
+
+//     @Test
+//     public void testRegionAndEdge() {
+//         new Expectations() {{
+//             final Request request = new Request(HttpMethod.GET, "https://api.edge.region.twilio.com/test");
+//             TwilioRestClient twilioRestClient = new TwilioRestClient.Builder("AC123", "AUTH TOKEN").build();
+//             twilioRestClient.request(request);
+//             times = 1;
+//             result = new Response("", 200);
+//         }};
+
+//         Twilio.init("accountSid", "authToken");
+//         Twilio.setEdge("edge");
+//         Twilio.setRegion("region");
+//         TwilioRestClient client = Twilio.getRestClient();
+//         Request request = new Request(HttpMethod.GET, "api", "/test", Twilio.getRegion(), Twilio.getEdge());
+//         Response result = client.request(request);
+//         assertEquals(200, result.getStatusCode());
+//     }
+
+//     @Test
+//     public void testRegionExistingRegion() {
+//         new Expectations() {{
+//             final Request request = new Request(HttpMethod.GET, "https://api.region.twilio.com/test");
+//             TwilioRestClient twilioRestClient = new TwilioRestClient.Builder("AC123", "AUTH TOKEN").build();
+//             twilioRestClient.request(request);
+//             times = 1;
+//             result = new Response("", 200);
+//         }};
+
+//         Twilio.init("accountSid", "authToken");
+//         Twilio.setRegion("region");
+//         TwilioRestClient client = Twilio.getRestClient();
+//         assertEquals("region", client.getRegion());
+//         Request request = new Request(HttpMethod.GET, "api", "/test", "region2");
+//         //Request request = new Request(HttpMethod.GET, "https://api.region2.twilio.com/test");
+//         Response result = client.request(request);
+//         assertEquals(200, result.getStatusCode());
+//     }
+// }

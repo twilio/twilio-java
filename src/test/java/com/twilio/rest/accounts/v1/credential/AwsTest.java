@@ -9,8 +9,6 @@ package com.twilio.rest.accounts.v1.credential;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;
-import com.twilio.converter.DateConverter;
-import com.twilio.converter.Promoter;
 import com.twilio.exception.TwilioException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
@@ -18,11 +16,9 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import mockit.Mocked;
-import mockit.NonStrictExpectations;
+import mockit.Expectations;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.net.URI;
 
 import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;
@@ -38,7 +34,7 @@ public class AwsTest {
 
     @Test
     public void testReadRequest() {
-        new NonStrictExpectations() {{
+        new Expectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.ACCOUNTS.toString(),
                                           "/v1/Credentials/AWS");
@@ -58,7 +54,7 @@ public class AwsTest {
 
     @Test
     public void testReadEmptyResponse() {
-        new NonStrictExpectations() {{
+        new Expectations() {{
             twilioRestClient.request((Request) any);
             result = new Response("{\"credentials\": [],\"meta\": {\"first_page_url\": \"https://accounts.twilio.com/v1/Credentials/AWS?PageSize=50&Page=0\",\"key\": \"credentials\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://accounts.twilio.com/v1/Credentials/AWS?PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
@@ -70,7 +66,7 @@ public class AwsTest {
 
     @Test
     public void testReadFullResponse() {
-        new NonStrictExpectations() {{
+        new Expectations() {{
             twilioRestClient.request((Request) any);
             result = new Response("{\"credentials\": [{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2015-07-31T04:00:00Z\",\"date_updated\": \"2015-07-31T04:00:00Z\",\"friendly_name\": \"friendly_name\",\"sid\": \"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"url\": \"https://accounts.twilio.com/v1/Credentials/AWS/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}],\"meta\": {\"first_page_url\": \"https://accounts.twilio.com/v1/Credentials/AWS?PageSize=50&Page=0\",\"key\": \"credentials\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://accounts.twilio.com/v1/Credentials/AWS?PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
@@ -82,7 +78,7 @@ public class AwsTest {
 
     @Test
     public void testCreateRequest() {
-        new NonStrictExpectations() {{
+        new Expectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.ACCOUNTS.toString(),
                                           "/v1/Credentials/AWS");
@@ -102,7 +98,7 @@ public class AwsTest {
 
     @Test
     public void testCreateResponse() {
-        new NonStrictExpectations() {{
+        new Expectations() {{
             twilioRestClient.request((Request) any);
             result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2015-07-31T04:00:00Z\",\"date_updated\": \"2015-07-31T04:00:00Z\",\"friendly_name\": \"friendly_name\",\"sid\": \"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"url\": \"https://accounts.twilio.com/v1/Credentials/AWS/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
             twilioRestClient.getObjectMapper();
@@ -114,7 +110,7 @@ public class AwsTest {
 
     @Test
     public void testFetchRequest() {
-        new NonStrictExpectations() {{
+        new Expectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.ACCOUNTS.toString(),
                                           "/v1/Credentials/AWS/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
@@ -134,7 +130,7 @@ public class AwsTest {
 
     @Test
     public void testFetchResponse() {
-        new NonStrictExpectations() {{
+        new Expectations() {{
             twilioRestClient.request((Request) any);
             result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2015-07-31T04:00:00Z\",\"date_updated\": \"2015-07-31T04:00:00Z\",\"friendly_name\": \"friendly_name\",\"sid\": \"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"url\": \"https://accounts.twilio.com/v1/Credentials/AWS/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
@@ -146,7 +142,7 @@ public class AwsTest {
 
     @Test
     public void testUpdateRequest() {
-        new NonStrictExpectations() {{
+        new Expectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.ACCOUNTS.toString(),
                                           "/v1/Credentials/AWS/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
@@ -166,7 +162,7 @@ public class AwsTest {
 
     @Test
     public void testUpdateResponse() {
-        new NonStrictExpectations() {{
+        new Expectations() {{
             twilioRestClient.request((Request) any);
             result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2015-07-31T04:00:00Z\",\"date_updated\": \"2015-07-31T04:00:00Z\",\"friendly_name\": \"friendly_name\",\"sid\": \"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"url\": \"https://accounts.twilio.com/v1/Credentials/AWS/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
@@ -178,7 +174,7 @@ public class AwsTest {
 
     @Test
     public void testDeleteRequest() {
-        new NonStrictExpectations() {{
+        new Expectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.ACCOUNTS.toString(),
                                           "/v1/Credentials/AWS/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
@@ -198,7 +194,7 @@ public class AwsTest {
 
     @Test
     public void testDeleteResponse() {
-        new NonStrictExpectations() {{
+        new Expectations() {{
             twilioRestClient.request((Request) any);
             result = new Response("null", TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT);
             twilioRestClient.getObjectMapper();

@@ -70,38 +70,6 @@ public class Twilio {
     }
 
     /**
-     * Initialize the Twilio environment.
-     *
-     * @param username account to use
-     * @param password auth token for the account
-     * @param region region to make request
-     * @param edge edge to make request
-     */
-    public static void init(final String username, final String password, final String region, final String edge) {
-        Twilio.setUsername(username);
-        Twilio.setPassword(password);
-        Twilio.setRegion(region);
-        Twilio.setEdge(edge);
-    }
-
-    /**
-     * Initialize the Twilio environment.
-     *
-     * @param username account to use
-     * @param password auth token for the account
-     * @param accountSid account sid to use
-     * @param region region to make request
-     * @param edge edge to make request
-     */
-    public static void init(final String username, final String password, final String accountSid, final String region, final String edge) {
-        Twilio.setUsername(username);
-        Twilio.setPassword(password);
-        Twilio.setAccountSid(accountSid);
-        Twilio.setRegion(region);
-        Twilio.setEdge(edge);
-    }
-
-    /**
      * Set the username.
      *
      * @param username account to use
@@ -161,7 +129,19 @@ public class Twilio {
      * @param region region to make request
      */
     public static void setRegion(final String region) {
+        if (!region.equals(Twilio.region)) {
+            Twilio.invalidate();
+        }
         Twilio.region = region;
+    }
+
+    /**
+     * Returns the region
+     *
+     * @return the region to make request
+     */
+    public static String getRegion() {
+        return Twilio.region;
     }
 
     /**
@@ -171,6 +151,15 @@ public class Twilio {
      */
     public static void setEdge(final String edge) {
         Twilio.edge = edge;
+    }
+
+    /**
+     * Returns the edge
+     *
+     * @return the edge to make request
+     */
+    public static String getEdge() {
+        return Twilio.edge;
     }
 
     /**

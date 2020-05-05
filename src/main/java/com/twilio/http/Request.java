@@ -18,6 +18,7 @@ import java.util.*;
 
 public class Request {
 
+    public static final String DEFAULT_REGION = "us1";
     public static final String QUERY_STRING_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
     public static final String QUERY_STRING_DATE_FORMAT = "yyyy-MM-dd";
 
@@ -28,6 +29,8 @@ public class Request {
 
     private String username;
     private String password;
+    private String edge;
+    private String region;
 
     /**
      * Create a new API request.
@@ -68,6 +71,8 @@ public class Request {
     ) {
         this.method = method;
         this.url = this.buildUrl(domain, uri, region, null);
+        
+        this.region = region;
         this.queryParams = new HashMap<>();
         this.postParams = new HashMap<>();
     }
@@ -77,8 +82,8 @@ public class Request {
      * @param method HTTP Method
      * @param domain Twilio domain
      * @param uri uri of request
-     * @param edge edge to make request
      * @param region region to make request
+     * @param edge edge to make request
      */
     public Request(
         final HttpMethod method,
@@ -88,11 +93,23 @@ public class Request {
         final String edge
     ) {
         this.method = method;
-        this.url = this.buildUrl(domain, uri, region, edge);
+        this.region = region;
+        this.edge = edge;
+        if ( (this.edge != null) && (this.region == null) ) {
+            this.region = DEFAULT_REGION;
+        }
+        this.url = this.buildUrl(domain, uri, this.region, this.edge);
         this.queryParams = new HashMap<>();
         this.postParams = new HashMap<>();
     }
 
+    /**
+     * Build the final Url.
+     * @param domain Twilio domain
+     * @param uri uri of request
+     * @param region region to make request
+     * @param edge edge to make request
+     */
     public String buildUrl(String domain, String uri, String region, String edge) {
         return "https://" + Joiner.on(".").skipNulls().join(domain, edge, region, "twilio", "com") + uri;
     }
@@ -108,6 +125,14 @@ public class Request {
     public void setAuth(final String username, final String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public void setEdge(final String edge) {
+        this.edge = edge;
+    }
+
+    public void setRegion(final String region) {
+        this.region = region;
     }
 
     /**
@@ -291,6 +316,8 @@ public class Request {
                Objects.equals(this.url, other.url) &&
                Objects.equals(this.username, other.username) &&
                Objects.equals(this.password, other.password) &&
+               Objects.equals(this.edge, other.edge) &&
+               Objects.equals(this.region, other.region) &&
                Objects.equals(this.queryParams, other.queryParams) &&
                Objects.equals(this.postParams, other.postParams);
     }

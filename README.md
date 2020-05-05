@@ -158,20 +158,14 @@ That will output XML that looks like this:
 ### Specify Region and/or Edge
 
 ```java
-String region = "au1";
-String edge = "sydney";
-Twilio.init(accountSid, authToken, region, edge);
-```
-
-Alternatively, specify the edge and/or region after initializing the Twilio client:
-
-```java
 Twilio.init(accountSid, authToken);
 Twilio.setRegion("au1");
 Twilio.setEdge("sydney");
 ```
 
 This will result in the `hostname` transforming from `api.twilio.com` to `api.sydney.au1.twilio.com`.
+
+If only an edge is supplied, the default region will be set to `us1`.
 
 ## Docker Image
 

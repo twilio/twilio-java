@@ -31,6 +31,7 @@ public class FleetCreator extends Creator<Fleet> {
     private Boolean commandsEnabled;
     private URI commandsUrl;
     private HttpMethod commandsMethod;
+    private String networkAccessProfile;
 
     /**
      * An application-defined string that uniquely identifies the resource. It can
@@ -112,6 +113,19 @@ public class FleetCreator extends Creator<Fleet> {
     }
 
     /**
+     * The SID or unique name of the Network Access Profile that will control which
+     * cellular network operators the Fleet's SIMs can connect to.
+     *
+     * @param networkAccessProfile The SID or unique name of the Network Access
+     *                             Profile of the Fleet
+     * @return this
+     */
+    public FleetCreator setNetworkAccessProfile(final String networkAccessProfile) {
+        this.networkAccessProfile = networkAccessProfile;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -167,6 +181,10 @@ public class FleetCreator extends Creator<Fleet> {
 
         if (commandsMethod != null) {
             request.addPostParam("CommandsMethod", commandsMethod.toString());
+        }
+
+        if (networkAccessProfile != null) {
+            request.addPostParam("NetworkAccessProfile", networkAccessProfile.toString());
         }
     }
 }

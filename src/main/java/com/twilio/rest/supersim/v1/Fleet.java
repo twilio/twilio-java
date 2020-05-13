@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Fleet extends Resource {
-    private static final long serialVersionUID = 229333365880765L;
+    private static final long serialVersionUID = 242525124232284L;
 
     public enum DataMetering {
         PAYG("payg");
@@ -152,6 +152,7 @@ public class Fleet extends Resource {
     private final Boolean commandsEnabled;
     private final URI commandsUrl;
     private final HttpMethod commandsMethod;
+    private final String networkAccessProfileSid;
 
     @JsonCreator
     private Fleet(@JsonProperty("account_sid")
@@ -175,7 +176,9 @@ public class Fleet extends Resource {
                   @JsonProperty("commands_url")
                   final URI commandsUrl,
                   @JsonProperty("commands_method")
-                  final HttpMethod commandsMethod) {
+                  final HttpMethod commandsMethod,
+                  @JsonProperty("network_access_profile_sid")
+                  final String networkAccessProfileSid) {
         this.accountSid = accountSid;
         this.sid = sid;
         this.uniqueName = uniqueName;
@@ -187,6 +190,7 @@ public class Fleet extends Resource {
         this.commandsEnabled = commandsEnabled;
         this.commandsUrl = commandsUrl;
         this.commandsMethod = commandsMethod;
+        this.networkAccessProfileSid = networkAccessProfileSid;
     }
 
     /**
@@ -296,6 +300,15 @@ public class Fleet extends Resource {
         return this.commandsMethod;
     }
 
+    /**
+     * Returns The SID of the Network Access Profile of the Fleet.
+     *
+     * @return The SID of the Network Access Profile of the Fleet
+     */
+    public final String getNetworkAccessProfileSid() {
+        return this.networkAccessProfileSid;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -318,7 +331,8 @@ public class Fleet extends Resource {
                Objects.equals(dataMetering, other.dataMetering) &&
                Objects.equals(commandsEnabled, other.commandsEnabled) &&
                Objects.equals(commandsUrl, other.commandsUrl) &&
-               Objects.equals(commandsMethod, other.commandsMethod);
+               Objects.equals(commandsMethod, other.commandsMethod) &&
+               Objects.equals(networkAccessProfileSid, other.networkAccessProfileSid);
     }
 
     @Override
@@ -333,7 +347,8 @@ public class Fleet extends Resource {
                             dataMetering,
                             commandsEnabled,
                             commandsUrl,
-                            commandsMethod);
+                            commandsMethod,
+                            networkAccessProfileSid);
     }
 
     @Override
@@ -350,6 +365,7 @@ public class Fleet extends Resource {
                           .add("commandsEnabled", commandsEnabled)
                           .add("commandsUrl", commandsUrl)
                           .add("commandsMethod", commandsMethod)
+                          .add("networkAccessProfileSid", networkAccessProfileSid)
                           .toString();
     }
 }

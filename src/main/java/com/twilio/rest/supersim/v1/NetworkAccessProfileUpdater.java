@@ -22,43 +22,27 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class FleetUpdater extends Updater<Fleet> {
+public class NetworkAccessProfileUpdater extends Updater<NetworkAccessProfile> {
     private final String pathSid;
     private String uniqueName;
-    private String networkAccessProfile;
 
     /**
-     * Construct a new FleetUpdater.
+     * Construct a new NetworkAccessProfileUpdater.
      *
-     * @param pathSid The SID that identifies the resource to update
+     * @param pathSid The sid
      */
-    public FleetUpdater(final String pathSid) {
+    public NetworkAccessProfileUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
     /**
-     * An application-defined string that uniquely identifies the resource. It can
-     * be used in place of the resource's `sid` in the URL to address the resource..
+     * The unique_name.
      *
-     * @param uniqueName An application-defined string that uniquely identifies the
-     *                   resource
+     * @param uniqueName The unique_name
      * @return this
      */
-    public FleetUpdater setUniqueName(final String uniqueName) {
+    public NetworkAccessProfileUpdater setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
-        return this;
-    }
-
-    /**
-     * The SID or unique name of the Network Access Profile that will control which
-     * cellular network operators the Fleet's SIMs can connect to.
-     *
-     * @param networkAccessProfile The SID or unique name of the Network Access
-     *                             Profile of the Fleet
-     * @return this
-     */
-    public FleetUpdater setNetworkAccessProfile(final String networkAccessProfile) {
-        this.networkAccessProfile = networkAccessProfile;
         return this;
     }
 
@@ -66,15 +50,15 @@ public class FleetUpdater extends Updater<Fleet> {
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Updated Fleet
+     * @return Updated NetworkAccessProfile
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Fleet update(final TwilioRestClient client) {
+    public NetworkAccessProfile update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SUPERSIM.toString(),
-            "/v1/Fleets/" + this.pathSid + "",
+            "/v1/NetworkAccessProfiles/" + this.pathSid + "",
             client.getRegion()
         );
 
@@ -82,7 +66,7 @@ public class FleetUpdater extends Updater<Fleet> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Fleet update failed: Unable to connect to server");
+            throw new ApiConnectionException("NetworkAccessProfile update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -91,7 +75,7 @@ public class FleetUpdater extends Updater<Fleet> {
             throw new ApiException(restException);
         }
 
-        return Fleet.fromJson(response.getStream(), client.getObjectMapper());
+        return NetworkAccessProfile.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -102,10 +86,6 @@ public class FleetUpdater extends Updater<Fleet> {
     private void addPostParams(final Request request) {
         if (uniqueName != null) {
             request.addPostParam("UniqueName", uniqueName);
-        }
-
-        if (networkAccessProfile != null) {
-            request.addPostParam("NetworkAccessProfile", networkAccessProfile.toString());
         }
     }
 }

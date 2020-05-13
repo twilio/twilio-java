@@ -24,30 +24,15 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class FleetReader extends Reader<Fleet> {
-    private String networkAccessProfile;
-
-    /**
-     * The SID or unique name of the Network Access Profile that controls which
-     * cellular network operators the Fleet's SIMs can connect to.
-     *
-     * @param networkAccessProfile The SID or unique name of the Network Access
-     *                             Profile of the Fleet
-     * @return this
-     */
-    public FleetReader setNetworkAccessProfile(final String networkAccessProfile) {
-        this.networkAccessProfile = networkAccessProfile;
-        return this;
-    }
-
+public class NetworkAccessProfileReader extends Reader<NetworkAccessProfile> {
     /**
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fleet ResourceSet
+     * @return NetworkAccessProfile ResourceSet
      */
     @Override
-    public ResourceSet<Fleet> read(final TwilioRestClient client) {
+    public ResourceSet<NetworkAccessProfile> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -55,15 +40,15 @@ public class FleetReader extends Reader<Fleet> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fleet ResourceSet
+     * @return NetworkAccessProfile ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Fleet> firstPage(final TwilioRestClient client) {
+    public Page<NetworkAccessProfile> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SUPERSIM.toString(),
-            "/v1/Fleets",
+            "/v1/NetworkAccessProfiles",
             client.getRegion()
         );
 
@@ -76,11 +61,11 @@ public class FleetReader extends Reader<Fleet> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Fleet ResourceSet
+     * @return NetworkAccessProfile ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Fleet> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<NetworkAccessProfile> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -97,8 +82,8 @@ public class FleetReader extends Reader<Fleet> {
      * @return Next Page
      */
     @Override
-    public Page<Fleet> nextPage(final Page<Fleet> page,
-                                final TwilioRestClient client) {
+    public Page<NetworkAccessProfile> nextPage(final Page<NetworkAccessProfile> page,
+                                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(
@@ -117,8 +102,8 @@ public class FleetReader extends Reader<Fleet> {
      * @return Previous Page
      */
     @Override
-    public Page<Fleet> previousPage(final Page<Fleet> page,
-                                    final TwilioRestClient client) {
+    public Page<NetworkAccessProfile> previousPage(final Page<NetworkAccessProfile> page,
+                                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(
@@ -130,17 +115,17 @@ public class FleetReader extends Reader<Fleet> {
     }
 
     /**
-     * Generate a Page of Fleet Resources for a given request.
+     * Generate a Page of NetworkAccessProfile Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Fleet> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<NetworkAccessProfile> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Fleet read failed: Unable to connect to server");
+            throw new ApiConnectionException("NetworkAccessProfile read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -150,9 +135,9 @@ public class FleetReader extends Reader<Fleet> {
         }
 
         return Page.fromJson(
-            "fleets",
+            "network_access_profiles",
             response.getContent(),
-            Fleet.class,
+            NetworkAccessProfile.class,
             client.getObjectMapper()
         );
     }
@@ -163,10 +148,6 @@ public class FleetReader extends Reader<Fleet> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (networkAccessProfile != null) {
-            request.addQueryParam("NetworkAccessProfile", networkAccessProfile.toString());
-        }
-
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

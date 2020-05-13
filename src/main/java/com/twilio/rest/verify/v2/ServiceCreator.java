@@ -26,6 +26,7 @@ public class ServiceCreator extends Creator<Service> {
     private String ttsName;
     private Boolean psd2Enabled;
     private Boolean doNotShareWarningEnabled;
+    private Boolean customCodeEnabled;
 
     /**
      * Construct a new ServiceCreator.
@@ -127,6 +128,19 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
+     * Whether to allow sending verifications with a custom code instead of a
+     * randomly generated one. Not available for all customers..
+     *
+     * @param customCodeEnabled Whether to allow sending verifications with a
+     *                          custom code.
+     * @return this
+     */
+    public ServiceCreator setCustomCodeEnabled(final Boolean customCodeEnabled) {
+        this.customCodeEnabled = customCodeEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -194,6 +208,10 @@ public class ServiceCreator extends Creator<Service> {
 
         if (doNotShareWarningEnabled != null) {
             request.addPostParam("DoNotShareWarningEnabled", doNotShareWarningEnabled.toString());
+        }
+
+        if (customCodeEnabled != null) {
+            request.addPostParam("CustomCodeEnabled", customCodeEnabled.toString());
         }
     }
 }

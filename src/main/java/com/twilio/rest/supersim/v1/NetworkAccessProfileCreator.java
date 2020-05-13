@@ -7,7 +7,8 @@
 
 package com.twilio.rest.supersim.v1;
 
-import com.twilio.base.Updater;
+import com.twilio.base.Creator;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -17,64 +18,62 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+import java.util.List;
+
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class FleetUpdater extends Updater<Fleet> {
-    private final String pathSid;
+public class NetworkAccessProfileCreator extends Creator<NetworkAccessProfile> {
     private String uniqueName;
-    private String networkAccessProfile;
+    private List<String> networks;
 
     /**
-     * Construct a new FleetUpdater.
+     * The unique_name.
      *
-     * @param pathSid The SID that identifies the resource to update
-     */
-    public FleetUpdater(final String pathSid) {
-        this.pathSid = pathSid;
-    }
-
-    /**
-     * An application-defined string that uniquely identifies the resource. It can
-     * be used in place of the resource's `sid` in the URL to address the resource..
-     *
-     * @param uniqueName An application-defined string that uniquely identifies the
-     *                   resource
+     * @param uniqueName The unique_name
      * @return this
      */
-    public FleetUpdater setUniqueName(final String uniqueName) {
+    public NetworkAccessProfileCreator setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
         return this;
     }
 
     /**
-     * The SID or unique name of the Network Access Profile that will control which
-     * cellular network operators the Fleet's SIMs can connect to.
+     * The networks.
      *
-     * @param networkAccessProfile The SID or unique name of the Network Access
-     *                             Profile of the Fleet
+     * @param networks The networks
      * @return this
      */
-    public FleetUpdater setNetworkAccessProfile(final String networkAccessProfile) {
-        this.networkAccessProfile = networkAccessProfile;
+    public NetworkAccessProfileCreator setNetworks(final List<String> networks) {
+        this.networks = networks;
         return this;
     }
 
     /**
-     * Make the request to the Twilio API to perform the update.
+     * The networks.
+     *
+     * @param networks The networks
+     * @return this
+     */
+    public NetworkAccessProfileCreator setNetworks(final String networks) {
+        return setNetworks(Promoter.listOfOne(networks));
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Updated Fleet
+     * @return Created NetworkAccessProfile
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Fleet update(final TwilioRestClient client) {
+    public NetworkAccessProfile create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SUPERSIM.toString(),
-            "/v1/Fleets/" + this.pathSid + "",
+            "/v1/NetworkAccessProfiles",
             client.getRegion()
         );
 
@@ -82,7 +81,7 @@ public class FleetUpdater extends Updater<Fleet> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Fleet update failed: Unable to connect to server");
+            throw new ApiConnectionException("NetworkAccessProfile creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -91,7 +90,7 @@ public class FleetUpdater extends Updater<Fleet> {
             throw new ApiException(restException);
         }
 
-        return Fleet.fromJson(response.getStream(), client.getObjectMapper());
+        return NetworkAccessProfile.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -104,8 +103,10 @@ public class FleetUpdater extends Updater<Fleet> {
             request.addPostParam("UniqueName", uniqueName);
         }
 
-        if (networkAccessProfile != null) {
-            request.addPostParam("NetworkAccessProfile", networkAccessProfile.toString());
+        if (networks != null) {
+            for (String prop : networks) {
+                request.addPostParam("Networks", prop.toString());
+            }
         }
     }
 }

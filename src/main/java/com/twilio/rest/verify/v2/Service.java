@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 105925159469464L;
+    private static final long serialVersionUID = 156279391650454L;
 
     /**
      * Create a ServiceCreator to execute create.
@@ -132,6 +132,7 @@ public class Service extends Resource {
     private final Boolean dtmfInputRequired;
     private final String ttsName;
     private final Boolean doNotShareWarningEnabled;
+    private final Boolean customCodeEnabled;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
@@ -158,6 +159,8 @@ public class Service extends Resource {
                     final String ttsName,
                     @JsonProperty("do_not_share_warning_enabled")
                     final Boolean doNotShareWarningEnabled,
+                    @JsonProperty("custom_code_enabled")
+                    final Boolean customCodeEnabled,
                     @JsonProperty("date_created")
                     final String dateCreated,
                     @JsonProperty("date_updated")
@@ -176,6 +179,7 @@ public class Service extends Resource {
         this.dtmfInputRequired = dtmfInputRequired;
         this.ttsName = ttsName;
         this.doNotShareWarningEnabled = doNotShareWarningEnabled;
+        this.customCodeEnabled = customCodeEnabled;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -279,6 +283,15 @@ public class Service extends Resource {
     }
 
     /**
+     * Returns Whether to allow sending verifications with a custom code..
+     *
+     * @return Whether to allow sending verifications with a custom code.
+     */
+    public final Boolean getCustomCodeEnabled() {
+        return this.customCodeEnabled;
+    }
+
+    /**
      * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
@@ -336,6 +349,7 @@ public class Service extends Resource {
                Objects.equals(dtmfInputRequired, other.dtmfInputRequired) &&
                Objects.equals(ttsName, other.ttsName) &&
                Objects.equals(doNotShareWarningEnabled, other.doNotShareWarningEnabled) &&
+               Objects.equals(customCodeEnabled, other.customCodeEnabled) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url) &&
@@ -354,6 +368,7 @@ public class Service extends Resource {
                             dtmfInputRequired,
                             ttsName,
                             doNotShareWarningEnabled,
+                            customCodeEnabled,
                             dateCreated,
                             dateUpdated,
                             url,
@@ -373,6 +388,7 @@ public class Service extends Resource {
                           .add("dtmfInputRequired", dtmfInputRequired)
                           .add("ttsName", ttsName)
                           .add("doNotShareWarningEnabled", doNotShareWarningEnabled)
+                          .add("customCodeEnabled", customCodeEnabled)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)

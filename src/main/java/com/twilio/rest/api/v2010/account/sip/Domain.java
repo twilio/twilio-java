@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Domain extends Resource {
-    private static final long serialVersionUID = 218123151164964L;
+    private static final long serialVersionUID = 137380357832668L;
 
     /**
      * Create a DomainReader to execute read.
@@ -203,6 +203,8 @@ public class Domain extends Resource {
     private final Boolean sipRegistration;
     private final Boolean emergencyCallingEnabled;
     private final Boolean secure;
+    private final String byocTrunkSid;
+    private final String emergencyCallerSid;
 
     @JsonCreator
     private Domain(@JsonProperty("account_sid")
@@ -242,7 +244,11 @@ public class Domain extends Resource {
                    @JsonProperty("emergency_calling_enabled")
                    final Boolean emergencyCallingEnabled,
                    @JsonProperty("secure")
-                   final Boolean secure) {
+                   final Boolean secure,
+                   @JsonProperty("byoc_trunk_sid")
+                   final String byocTrunkSid,
+                   @JsonProperty("emergency_caller_sid")
+                   final String emergencyCallerSid) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.authType = authType;
@@ -262,6 +268,8 @@ public class Domain extends Resource {
         this.sipRegistration = sipRegistration;
         this.emergencyCallingEnabled = emergencyCallingEnabled;
         this.secure = secure;
+        this.byocTrunkSid = byocTrunkSid;
+        this.emergencyCallerSid = emergencyCallerSid;
     }
 
     /**
@@ -435,6 +443,24 @@ public class Domain extends Resource {
         return this.secure;
     }
 
+    /**
+     * Returns The SID of the BYOC Trunk resource..
+     *
+     * @return The SID of the BYOC Trunk resource.
+     */
+    public final String getByocTrunkSid() {
+        return this.byocTrunkSid;
+    }
+
+    /**
+     * Returns Whether an emergency caller sid is configured for the domain..
+     *
+     * @return Whether an emergency caller sid is configured for the domain.
+     */
+    public final String getEmergencyCallerSid() {
+        return this.emergencyCallerSid;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -465,7 +491,9 @@ public class Domain extends Resource {
                Objects.equals(subresourceUris, other.subresourceUris) &&
                Objects.equals(sipRegistration, other.sipRegistration) &&
                Objects.equals(emergencyCallingEnabled, other.emergencyCallingEnabled) &&
-               Objects.equals(secure, other.secure);
+               Objects.equals(secure, other.secure) &&
+               Objects.equals(byocTrunkSid, other.byocTrunkSid) &&
+               Objects.equals(emergencyCallerSid, other.emergencyCallerSid);
     }
 
     @Override
@@ -488,7 +516,9 @@ public class Domain extends Resource {
                             subresourceUris,
                             sipRegistration,
                             emergencyCallingEnabled,
-                            secure);
+                            secure,
+                            byocTrunkSid,
+                            emergencyCallerSid);
     }
 
     @Override
@@ -513,6 +543,8 @@ public class Domain extends Resource {
                           .add("sipRegistration", sipRegistration)
                           .add("emergencyCallingEnabled", emergencyCallingEnabled)
                           .add("secure", secure)
+                          .add("byocTrunkSid", byocTrunkSid)
+                          .add("emergencyCallerSid", emergencyCallerSid)
                           .toString();
     }
 }

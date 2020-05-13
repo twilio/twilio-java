@@ -33,6 +33,8 @@ public class DomainCreator extends Creator<Domain> {
     private Boolean sipRegistration;
     private Boolean emergencyCallingEnabled;
     private Boolean secure;
+    private String byocTrunkSid;
+    private String emergencyCallerSid;
 
     /**
      * Construct a new DomainCreator.
@@ -214,6 +216,31 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
+     * The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip
+     * Domain will be associated with..
+     *
+     * @param byocTrunkSid The SID of the BYOC Trunk resource.
+     * @return this
+     */
+    public DomainCreator setByocTrunkSid(final String byocTrunkSid) {
+        this.byocTrunkSid = byocTrunkSid;
+        return this;
+    }
+
+    /**
+     * Whether an emergency caller sid is configured for the domain. If present,
+     * this phone number will be used as the callback for the emergency call..
+     *
+     * @param emergencyCallerSid Whether an emergency caller sid is configured for
+     *                           the domain.
+     * @return this
+     */
+    public DomainCreator setEmergencyCallerSid(final String emergencyCallerSid) {
+        this.emergencyCallerSid = emergencyCallerSid;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -294,6 +321,14 @@ public class DomainCreator extends Creator<Domain> {
 
         if (secure != null) {
             request.addPostParam("Secure", secure.toString());
+        }
+
+        if (byocTrunkSid != null) {
+            request.addPostParam("ByocTrunkSid", byocTrunkSid);
+        }
+
+        if (emergencyCallerSid != null) {
+            request.addPostParam("EmergencyCallerSid", emergencyCallerSid);
         }
     }
 }

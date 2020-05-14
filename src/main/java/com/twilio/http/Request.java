@@ -5,6 +5,7 @@ import com.google.common.collect.Range;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.InvalidRequestException;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 
 import javax.xml.bind.DatatypeConverter;
@@ -166,12 +167,12 @@ public class Request {
      */
     public void addQueryDateTimeRange(final String name, final Range<DateTime> range) {
         if (range.hasLowerBound()) {
-            String value = range.lowerEndpoint().toString(QUERY_STRING_DATE_TIME_FORMAT);
+            String value = range.lowerEndpoint().withZone(DateTimeZone.UTC).toString(QUERY_STRING_DATE_TIME_FORMAT);
             addQueryParam(name + ">", value);
         }
 
         if (range.hasUpperBound()) {
-            String value = range.upperEndpoint().toString(QUERY_STRING_DATE_TIME_FORMAT);
+            String value = range.upperEndpoint().withZone(DateTimeZone.UTC).toString(QUERY_STRING_DATE_TIME_FORMAT);
             addQueryParam(name + "<", value);
         }
     }

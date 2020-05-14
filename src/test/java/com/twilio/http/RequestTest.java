@@ -4,6 +4,7 @@ import com.google.common.collect.Range;
 import com.twilio.exception.ApiException;
 import com.twilio.rest.Domains;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 import org.junit.Test;
 
@@ -111,7 +112,7 @@ public class RequestTest {
     @Test
     public void testAddQueryDateTimeRangeLowerBound() throws MalformedURLException {
         Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar");
-        r.addQueryDateTimeRange("baz", Range.greaterThan(new DateTime(2014, 1, 1, 0, 0)));
+        r.addQueryDateTimeRange("baz", Range.greaterThan(new DateTime(2014, 1, 1, 0, 0, DateTimeZone.UTC)));
         URL url = r.constructURL();
         URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz>=2014-01-01T00:00:00");
         assertUrlsEqual(expected, url);
@@ -120,7 +121,7 @@ public class RequestTest {
     @Test
     public void testAddQueryDateTimeRangeUpperBound() throws MalformedURLException {
         Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar");
-        r.addQueryDateTimeRange("baz", Range.lessThan(new DateTime(2014, 1, 1, 22, 0)));
+        r.addQueryDateTimeRange("baz", Range.lessThan(new DateTime(2014, 1, 1, 22, 0, DateTimeZone.UTC)));
         URL url = r.constructURL();
         URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz<=2014-01-01T22:00:00");
         assertUrlsEqual(expected, url);
@@ -129,9 +130,20 @@ public class RequestTest {
     @Test
     public void testAddQueryDateTimeRangeClosed() throws MalformedURLException {
         Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar");
-        r.addQueryDateTimeRange("baz", Range.closed(new DateTime(2014, 1, 10, 14, 0), new DateTime(2014, 6, 1, 16, 0)));
+        r.addQueryDateTimeRange("baz", Range.closed(new DateTime(2014, 1, 10, 14, 0, DateTimeZone.UTC),
+                new DateTime(2014, 6, 1, 16, 0, DateTimeZone.UTC)));
         URL url = r.constructURL();
         URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz>=2014-01-10T14:00:00&baz<=2014-06-01T16:00:00");
+        assertUrlsEqual(expected, url);
+    }
+
+    @Test
+    public void testAddQueryDateTimeRangeClosedNotUTC() throws MalformedURLException {
+        Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar");
+        r.addQueryDateTimeRange("baz", Range.closed(new DateTime(2014, 1, 10, 14, 0, DateTimeZone.forID("America/Chicago")),
+                new DateTime(2014, 6, 1, 16, 0, DateTimeZone.forID("America/Chicago"))));
+        URL url = r.constructURL();
+        URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz>=2014-01-10T20:00:00&baz<=2014-06-01T21:00:00");
         assertUrlsEqual(expected, url);
     }
 

@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Conference extends Resource {
-    private static final long serialVersionUID = 81655469535043L;
+    private static final long serialVersionUID = 11011722206180L;
 
     public enum Status {
         INIT("init"),
@@ -83,6 +83,34 @@ public class Conference extends Resource {
         @JsonCreator
         public static UpdateStatus forValue(final String value) {
             return Promoter.enumFromString(value, UpdateStatus.values());
+        }
+    }
+
+    public enum ReasonConferenceEnded {
+        CONFERENCE_ENDED_VIA_API("conference-ended-via-api"),
+        PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_LEFT("participant-with-end-conference-on-exit-left"),
+        PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_KICKED("participant-with-end-conference-on-exit-kicked"),
+        LAST_PARTICIPANT_KICKED("last-participant-kicked"),
+        LAST_PARTICIPANT_LEFT("last-participant-left");
+
+        private final String value;
+
+        private ReasonConferenceEnded(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a ReasonConferenceEnded from a string.
+         * @param value string value
+         * @return generated ReasonConferenceEnded
+         */
+        @JsonCreator
+        public static ReasonConferenceEnded forValue(final String value) {
+            return Promoter.enumFromString(value, ReasonConferenceEnded.values());
         }
     }
 
@@ -200,6 +228,8 @@ public class Conference extends Resource {
     private final Conference.Status status;
     private final String uri;
     private final Map<String, String> subresourceUris;
+    private final Conference.ReasonConferenceEnded reasonConferenceEnded;
+    private final String callSidEndingConference;
 
     @JsonCreator
     private Conference(@JsonProperty("account_sid")
@@ -221,7 +251,11 @@ public class Conference extends Resource {
                        @JsonProperty("uri")
                        final String uri,
                        @JsonProperty("subresource_uris")
-                       final Map<String, String> subresourceUris) {
+                       final Map<String, String> subresourceUris,
+                       @JsonProperty("reason_conference_ended")
+                       final Conference.ReasonConferenceEnded reasonConferenceEnded,
+                       @JsonProperty("call_sid_ending_conference")
+                       final String callSidEndingConference) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
@@ -232,6 +266,8 @@ public class Conference extends Resource {
         this.status = status;
         this.uri = uri;
         this.subresourceUris = subresourceUris;
+        this.reasonConferenceEnded = reasonConferenceEnded;
+        this.callSidEndingConference = callSidEndingConference;
     }
 
     /**
@@ -327,6 +363,24 @@ public class Conference extends Resource {
         return this.subresourceUris;
     }
 
+    /**
+     * Returns The reason why a conference ended..
+     *
+     * @return The reason why a conference ended.
+     */
+    public final Conference.ReasonConferenceEnded getReasonConferenceEnded() {
+        return this.reasonConferenceEnded;
+    }
+
+    /**
+     * Returns The call SID that caused the conference to end.
+     *
+     * @return The call SID that caused the conference to end
+     */
+    public final String getCallSidEndingConference() {
+        return this.callSidEndingConference;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -348,7 +402,9 @@ public class Conference extends Resource {
                Objects.equals(sid, other.sid) &&
                Objects.equals(status, other.status) &&
                Objects.equals(uri, other.uri) &&
-               Objects.equals(subresourceUris, other.subresourceUris);
+               Objects.equals(subresourceUris, other.subresourceUris) &&
+               Objects.equals(reasonConferenceEnded, other.reasonConferenceEnded) &&
+               Objects.equals(callSidEndingConference, other.callSidEndingConference);
     }
 
     @Override
@@ -362,7 +418,9 @@ public class Conference extends Resource {
                             sid,
                             status,
                             uri,
-                            subresourceUris);
+                            subresourceUris,
+                            reasonConferenceEnded,
+                            callSidEndingConference);
     }
 
     @Override
@@ -378,6 +436,8 @@ public class Conference extends Resource {
                           .add("status", status)
                           .add("uri", uri)
                           .add("subresourceUris", subresourceUris)
+                          .add("reasonConferenceEnded", reasonConferenceEnded)
+                          .add("callSidEndingConference", callSidEndingConference)
                           .toString();
     }
 }

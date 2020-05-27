@@ -82,7 +82,8 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The SID of the TaskRouter task..
+     * The SID of the TaskRouter task. Only valid when integration type is `task`.
+     * `null` for integration types `studio` &amp; `external`.
      *
      * @param taskSid The SID of the TaskRouter task
      * @return this

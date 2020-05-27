@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Log extends Resource {
-    private static final long serialVersionUID = 169623479851999L;
+    private static final long serialVersionUID = 212890795162634L;
 
     public enum Level {
         INFO("info"),
@@ -137,6 +137,7 @@ public class Log extends Resource {
     private final String accountSid;
     private final String serviceSid;
     private final String environmentSid;
+    private final String buildSid;
     private final String deploymentSid;
     private final String functionSid;
     private final String requestSid;
@@ -154,6 +155,8 @@ public class Log extends Resource {
                 final String serviceSid,
                 @JsonProperty("environment_sid")
                 final String environmentSid,
+                @JsonProperty("build_sid")
+                final String buildSid,
                 @JsonProperty("deployment_sid")
                 final String deploymentSid,
                 @JsonProperty("function_sid")
@@ -172,6 +175,7 @@ public class Log extends Resource {
         this.accountSid = accountSid;
         this.serviceSid = serviceSid;
         this.environmentSid = environmentSid;
+        this.buildSid = buildSid;
         this.deploymentSid = deploymentSid;
         this.functionSid = functionSid;
         this.requestSid = requestSid;
@@ -215,6 +219,15 @@ public class Log extends Resource {
      */
     public final String getEnvironmentSid() {
         return this.environmentSid;
+    }
+
+    /**
+     * Returns The SID of the build that corresponds to the log.
+     *
+     * @return The SID of the build that corresponds to the log
+     */
+    public final String getBuildSid() {
+        return this.buildSid;
     }
 
     /**
@@ -296,6 +309,7 @@ public class Log extends Resource {
                Objects.equals(accountSid, other.accountSid) &&
                Objects.equals(serviceSid, other.serviceSid) &&
                Objects.equals(environmentSid, other.environmentSid) &&
+               Objects.equals(buildSid, other.buildSid) &&
                Objects.equals(deploymentSid, other.deploymentSid) &&
                Objects.equals(functionSid, other.functionSid) &&
                Objects.equals(requestSid, other.requestSid) &&
@@ -311,6 +325,7 @@ public class Log extends Resource {
                             accountSid,
                             serviceSid,
                             environmentSid,
+                            buildSid,
                             deploymentSid,
                             functionSid,
                             requestSid,
@@ -327,6 +342,7 @@ public class Log extends Resource {
                           .add("accountSid", accountSid)
                           .add("serviceSid", serviceSid)
                           .add("environmentSid", environmentSid)
+                          .add("buildSid", buildSid)
                           .add("deploymentSid", deploymentSid)
                           .add("functionSid", functionSid)
                           .add("requestSid", requestSid)

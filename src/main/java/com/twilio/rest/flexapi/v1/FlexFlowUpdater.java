@@ -224,7 +224,7 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
 
     /**
      * When enabled, Flex will keep the chat channel active so that it may be used
-     * for subsequent interactions with a contact identity..
+     * for subsequent interactions with a contact identity. Defaults to `false`..
      *
      * @param longLived Reuse this chat channel for future interactions with a
      *                  contact
@@ -237,7 +237,8 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
 
     /**
      * When enabled, the Messaging Channel Janitor will remove active Proxy sessions
-     * if the associated Task is deleted outside of the Flex UI..
+     * if the associated Task is deleted outside of the Flex UI. Defaults to
+     * `false`..
      *
      * @param janitorEnabled Remove active Proxy sessions if the corresponding Task
      *                       is deleted.

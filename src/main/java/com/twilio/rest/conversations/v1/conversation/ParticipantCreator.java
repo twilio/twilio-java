@@ -32,6 +32,7 @@ public class ParticipantCreator extends Creator<Participant> {
     private DateTime dateUpdated;
     private String attributes;
     private String messagingBindingProjectedAddress;
+    private String roleSid;
 
     /**
      * Construct a new ParticipantCreator.
@@ -137,6 +138,18 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
+     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to
+     * assign to the participant..
+     *
+     * @param roleSid The SID of the Role to assign to the participant
+     * @return this
+     */
+    public ParticipantCreator setRoleSid(final String roleSid) {
+        this.roleSid = roleSid;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -200,6 +213,10 @@ public class ParticipantCreator extends Creator<Participant> {
 
         if (messagingBindingProjectedAddress != null) {
             request.addPostParam("MessagingBinding.ProjectedAddress", messagingBindingProjectedAddress);
+        }
+
+        if (roleSid != null) {
+            request.addPostParam("RoleSid", roleSid);
         }
     }
 }

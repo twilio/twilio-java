@@ -28,7 +28,7 @@ public class NetworkAccessProfileFetcher extends Fetcher<NetworkAccessProfile> {
     /**
      * Construct a new NetworkAccessProfileFetcher.
      *
-     * @param pathSid The sid
+     * @param pathSid The SID that identifies the resource to fetch
      */
     public NetworkAccessProfileFetcher(final String pathSid) {
         this.pathSid = pathSid;

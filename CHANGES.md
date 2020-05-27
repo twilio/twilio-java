@@ -1,6 +1,37 @@
 twilio-java changelog
 =====================
 
+[2020-05-27] Version 7.51.0
+---------------------------
+**Library - Fix**
+- [PR #529](https://github.com/twilio/twilio-java/pull/529): Fix datetime filter when the DateTime instances have timezone other than UTC. Thanks to [@adrianboimvaser](https://github.com/adrianboimvaser)!
+
+**Api**
+- Added `reason_conference_ended` and `call_sid_ending_conference` to Conference read/fetch/update
+- Fixed some examples to use the correct "TK" SID prefix for Trunk resources.
+
+**Authy**
+- Renamed `twilio_authy_sandbox_mode` headers to `twilio_sandbox_mode` **(breaking change)**
+- Renamed `Twilio-Authy-*` headers to `Twilio-Veriry-*` **(breaking change)**
+
+**Flex**
+- Adding `flex_service_instance_sid` to Flex Configuration
+
+**Preview**
+- Removed insights preview API from API Definitions **(breaking change)**
+- Added `Channels` endpoint to brand a phone number for BrandedCalls
+
+**Serverless**
+- Add Build Sid to Log results
+
+**Supersim**
+- Add Network Access Profile resource Networks subresource
+- Allow specifying a Data Limit on Fleets
+
+**Trunking**
+- Fixed some examples to use the correct "TK" SID prefix for Trunk resources.
+
+
 [2020-05-13] Version 7.50.1
 ---------------------------
 **Library - Chore**

@@ -28,6 +28,7 @@ import java.net.URI;
 public class FleetCreator extends Creator<Fleet> {
     private String uniqueName;
     private Boolean dataEnabled;
+    private Integer dataLimit;
     private Boolean commandsEnabled;
     private URI commandsUrl;
     private HttpMethod commandsMethod;
@@ -56,6 +57,17 @@ public class FleetCreator extends Creator<Fleet> {
      */
     public FleetCreator setDataEnabled(final Boolean dataEnabled) {
         this.dataEnabled = dataEnabled;
+        return this;
+    }
+
+    /**
+     * The data_limit.
+     *
+     * @param dataLimit The data_limit
+     * @return this
+     */
+    public FleetCreator setDataLimit(final Integer dataLimit) {
+        this.dataLimit = dataLimit;
         return this;
     }
 
@@ -169,6 +181,10 @@ public class FleetCreator extends Creator<Fleet> {
 
         if (dataEnabled != null) {
             request.addPostParam("DataEnabled", dataEnabled.toString());
+        }
+
+        if (dataLimit != null) {
+            request.addPostParam("DataLimit", dataLimit.toString());
         }
 
         if (commandsEnabled != null) {

@@ -30,9 +30,11 @@ public class NetworkAccessProfileCreator extends Creator<NetworkAccessProfile> {
     private List<String> networks;
 
     /**
-     * The unique_name.
+     * An application-defined string that uniquely identifies the resource. It can
+     * be used in place of the resource's `sid` in the URL to address the resource..
      *
-     * @param uniqueName The unique_name
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      * @return this
      */
     public NetworkAccessProfileCreator setUniqueName(final String uniqueName) {
@@ -41,9 +43,11 @@ public class NetworkAccessProfileCreator extends Creator<NetworkAccessProfile> {
     }
 
     /**
-     * The networks.
+     * List of Network SIDs that this Network Access Profile will allow connections
+     * to..
      *
-     * @param networks The networks
+     * @param networks List of Network SIDs that this Network Access Profile will
+     *                 allow connections to
      * @return this
      */
     public NetworkAccessProfileCreator setNetworks(final List<String> networks) {
@@ -52,9 +56,11 @@ public class NetworkAccessProfileCreator extends Creator<NetworkAccessProfile> {
     }
 
     /**
-     * The networks.
+     * List of Network SIDs that this Network Access Profile will allow connections
+     * to..
      *
-     * @param networks The networks
+     * @param networks List of Network SIDs that this Network Access Profile will
+     *                 allow connections to
      * @return this
      */
     public NetworkAccessProfileCreator setNetworks(final String networks) {

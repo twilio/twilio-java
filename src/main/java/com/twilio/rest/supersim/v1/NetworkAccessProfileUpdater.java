@@ -29,16 +29,16 @@ public class NetworkAccessProfileUpdater extends Updater<NetworkAccessProfile> {
     /**
      * Construct a new NetworkAccessProfileUpdater.
      *
-     * @param pathSid The sid
+     * @param pathSid The SID of the resource to update
      */
     public NetworkAccessProfileUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
     /**
-     * The unique_name.
+     * The new unique name of the Network Access Profile..
      *
-     * @param uniqueName The unique_name
+     * @param uniqueName The new unique name of the resource
      * @return this
      */
     public NetworkAccessProfileUpdater setUniqueName(final String uniqueName) {

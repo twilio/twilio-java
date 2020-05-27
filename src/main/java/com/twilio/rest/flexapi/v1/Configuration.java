@@ -37,7 +37,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Configuration extends Resource {
-    private static final long serialVersionUID = 43392007572385L;
+    private static final long serialVersionUID = 278260139571846L;
 
     public enum Status {
         OK("ok"),
@@ -146,6 +146,7 @@ public class Configuration extends Resource {
     private final URI runtimeDomain;
     private final String messagingServiceInstanceSid;
     private final String chatServiceInstanceSid;
+    private final String flexServiceInstanceSid;
     private final String uiLanguage;
     private final Map<String, Object> uiAttributes;
     private final Map<String, Object> uiDependencies;
@@ -201,6 +202,8 @@ public class Configuration extends Resource {
                           final String messagingServiceInstanceSid,
                           @JsonProperty("chat_service_instance_sid")
                           final String chatServiceInstanceSid,
+                          @JsonProperty("flex_service_instance_sid")
+                          final String flexServiceInstanceSid,
                           @JsonProperty("ui_language")
                           final String uiLanguage,
                           @JsonProperty("ui_attributes")
@@ -259,6 +262,7 @@ public class Configuration extends Resource {
         this.runtimeDomain = runtimeDomain;
         this.messagingServiceInstanceSid = messagingServiceInstanceSid;
         this.chatServiceInstanceSid = chatServiceInstanceSid;
+        this.flexServiceInstanceSid = flexServiceInstanceSid;
         this.uiLanguage = uiLanguage;
         this.uiAttributes = uiAttributes;
         this.uiDependencies = uiDependencies;
@@ -430,6 +434,15 @@ public class Configuration extends Resource {
      */
     public final String getChatServiceInstanceSid() {
         return this.chatServiceInstanceSid;
+    }
+
+    /**
+     * Returns The SID of the Flex service instance.
+     *
+     * @return The SID of the Flex service instance
+     */
+    public final String getFlexServiceInstanceSid() {
+        return this.flexServiceInstanceSid;
     }
 
     /**
@@ -655,6 +668,7 @@ public class Configuration extends Resource {
                Objects.equals(runtimeDomain, other.runtimeDomain) &&
                Objects.equals(messagingServiceInstanceSid, other.messagingServiceInstanceSid) &&
                Objects.equals(chatServiceInstanceSid, other.chatServiceInstanceSid) &&
+               Objects.equals(flexServiceInstanceSid, other.flexServiceInstanceSid) &&
                Objects.equals(uiLanguage, other.uiLanguage) &&
                Objects.equals(uiAttributes, other.uiAttributes) &&
                Objects.equals(uiDependencies, other.uiDependencies) &&
@@ -696,6 +710,7 @@ public class Configuration extends Resource {
                             runtimeDomain,
                             messagingServiceInstanceSid,
                             chatServiceInstanceSid,
+                            flexServiceInstanceSid,
                             uiLanguage,
                             uiAttributes,
                             uiDependencies,
@@ -738,6 +753,7 @@ public class Configuration extends Resource {
                           .add("runtimeDomain", runtimeDomain)
                           .add("messagingServiceInstanceSid", messagingServiceInstanceSid)
                           .add("chatServiceInstanceSid", chatServiceInstanceSid)
+                          .add("flexServiceInstanceSid", flexServiceInstanceSid)
                           .add("uiLanguage", uiLanguage)
                           .add("uiAttributes", uiAttributes)
                           .add("uiDependencies", uiDependencies)

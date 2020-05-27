@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class NetworkAccessProfile extends Resource {
-    private static final long serialVersionUID = 65172862700283L;
+    private static final long serialVersionUID = 248233981028647L;
 
     /**
      * Create a NetworkAccessProfileCreator to execute create.
@@ -53,7 +53,7 @@ public class NetworkAccessProfile extends Resource {
     /**
      * Create a NetworkAccessProfileFetcher to execute fetch.
      *
-     * @param pathSid The sid
+     * @param pathSid The SID that identifies the resource to fetch
      * @return NetworkAccessProfileFetcher capable of executing the fetch
      */
     public static NetworkAccessProfileFetcher fetcher(final String pathSid) {
@@ -63,7 +63,7 @@ public class NetworkAccessProfile extends Resource {
     /**
      * Create a NetworkAccessProfileUpdater to execute update.
      *
-     * @param pathSid The sid
+     * @param pathSid The SID of the resource to update
      * @return NetworkAccessProfileUpdater capable of executing the update
      */
     public static NetworkAccessProfileUpdater updater(final String pathSid) {
@@ -123,6 +123,7 @@ public class NetworkAccessProfile extends Resource {
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
+    private final Map<String, String> links;
 
     @JsonCreator
     private NetworkAccessProfile(@JsonProperty("sid")
@@ -136,67 +137,79 @@ public class NetworkAccessProfile extends Resource {
                                  @JsonProperty("date_updated")
                                  final String dateUpdated,
                                  @JsonProperty("url")
-                                 final URI url) {
+                                 final URI url,
+                                 @JsonProperty("links")
+                                 final Map<String, String> links) {
         this.sid = sid;
         this.uniqueName = uniqueName;
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
+        this.links = links;
     }
 
     /**
-     * Returns The sid.
+     * Returns The unique string that identifies the resource.
      *
-     * @return The sid
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The unique_name.
+     * Returns An application-defined string that uniquely identifies the resource.
      *
-     * @return The unique_name
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The account_sid.
+     * Returns The SID of the Account that the Network Access Profile belongs to.
      *
-     * @return The account_sid
+     * @return The SID of the Account that the Network Access Profile belongs to
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The date_created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date_created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The date_updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
-     * @return The date_updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The url.
+     * Returns The absolute URL of the resource.
      *
-     * @return The url
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
+    }
+
+    /**
+     * Returns The links.
+     *
+     * @return The links
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
     }
 
     @Override
@@ -216,7 +229,8 @@ public class NetworkAccessProfile extends Resource {
                Objects.equals(accountSid, other.accountSid) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) &&
+               Objects.equals(links, other.links);
     }
 
     @Override
@@ -226,7 +240,8 @@ public class NetworkAccessProfile extends Resource {
                             accountSid,
                             dateCreated,
                             dateUpdated,
-                            url);
+                            url,
+                            links);
     }
 
     @Override
@@ -238,6 +253,7 @@ public class NetworkAccessProfile extends Resource {
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)
+                          .add("links", links)
                           .toString();
     }
 }

@@ -60,7 +60,7 @@ public class NetworkAccessProfileTest {
     public void testCreateMinimalResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"unique_name\": null,\"sid\": \"HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2020-05-01T20:00:00Z\",\"date_updated\": \"2020-05-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/NetworkAccessProfiles/HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            result = new Response("{\"unique_name\": null,\"sid\": \"HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2020-05-01T20:00:00Z\",\"date_updated\": \"2020-05-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/NetworkAccessProfiles/HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"links\": {\"networks\": \"https://supersim.twilio.com/v1/NetworkAccessProfiles/HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Networks\"}}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -72,7 +72,7 @@ public class NetworkAccessProfileTest {
     public void testCreateWithNameAndNetworksResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"unique_name\": \"My Network Access Profile\",\"sid\": \"HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2020-05-01T20:00:00Z\",\"date_updated\": \"2020-05-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/NetworkAccessProfiles/HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            result = new Response("{\"unique_name\": \"My Network Access Profile\",\"sid\": \"HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2020-05-01T20:00:00Z\",\"date_updated\": \"2020-05-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/NetworkAccessProfiles/HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"links\": {\"networks\": \"https://supersim.twilio.com/v1/NetworkAccessProfiles/HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Networks\"}}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -104,7 +104,7 @@ public class NetworkAccessProfileTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"unique_name\": \"My Network Access Profile\",\"sid\": \"HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2020-05-01T20:00:00Z\",\"date_updated\": \"2020-05-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/NetworkAccessProfiles/HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"unique_name\": \"My Network Access Profile\",\"sid\": \"HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2020-05-01T20:00:00Z\",\"date_updated\": \"2020-05-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/NetworkAccessProfiles/HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"links\": {\"networks\": \"https://supersim.twilio.com/v1/NetworkAccessProfiles/HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Networks\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -136,7 +136,7 @@ public class NetworkAccessProfileTest {
     public void testUpdateUniqueNameResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"unique_name\": \"My Network Access Profile\",\"sid\": \"HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2020-05-01T20:00:00Z\",\"date_updated\": \"2020-05-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/NetworkAccessProfiles/HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"unique_name\": \"My Network Access Profile\",\"sid\": \"HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2020-05-01T20:00:00Z\",\"date_updated\": \"2020-05-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/NetworkAccessProfiles/HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"links\": {\"networks\": \"https://supersim.twilio.com/v1/NetworkAccessProfiles/HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Networks\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -180,7 +180,7 @@ public class NetworkAccessProfileTest {
     public void testReadFullResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/NetworkAccessProfiles?PageSize=50&Page=0\",\"key\": \"network_access_profiles\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/NetworkAccessProfiles?PageSize=50&Page=0\"},\"network_access_profiles\": [{\"unique_name\": \"My Network Access Profile\",\"sid\": \"HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2020-05-01T20:00:00Z\",\"date_updated\": \"2020-05-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/NetworkAccessProfiles/HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}]}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/NetworkAccessProfiles?PageSize=50&Page=0\",\"key\": \"network_access_profiles\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/NetworkAccessProfiles?PageSize=50&Page=0\"},\"network_access_profiles\": [{\"unique_name\": \"My Network Access Profile\",\"sid\": \"HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2020-05-01T20:00:00Z\",\"date_updated\": \"2020-05-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/NetworkAccessProfiles/HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"links\": {\"networks\": \"https://supersim.twilio.com/v1/NetworkAccessProfiles/HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Networks\"}}]}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

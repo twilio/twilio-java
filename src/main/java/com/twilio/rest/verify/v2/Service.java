@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 156279391650454L;
+    private static final long serialVersionUID = 64044796018507L;
 
     /**
      * Create a ServiceCreator to execute create.

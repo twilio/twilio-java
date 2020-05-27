@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Fleet extends Resource {
-    private static final long serialVersionUID = 242525124232284L;
+    private static final long serialVersionUID = 262022242180029L;
 
     public enum DataMetering {
         PAYG("payg");
@@ -148,6 +148,7 @@ public class Fleet extends Resource {
     private final DateTime dateUpdated;
     private final URI url;
     private final Boolean dataEnabled;
+    private final Integer dataLimit;
     private final Fleet.DataMetering dataMetering;
     private final Boolean commandsEnabled;
     private final URI commandsUrl;
@@ -169,6 +170,8 @@ public class Fleet extends Resource {
                   final URI url,
                   @JsonProperty("data_enabled")
                   final Boolean dataEnabled,
+                  @JsonProperty("data_limit")
+                  final Integer dataLimit,
                   @JsonProperty("data_metering")
                   final Fleet.DataMetering dataMetering,
                   @JsonProperty("commands_enabled")
@@ -186,6 +189,7 @@ public class Fleet extends Resource {
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
         this.dataEnabled = dataEnabled;
+        this.dataLimit = dataLimit;
         this.dataMetering = dataMetering;
         this.commandsEnabled = commandsEnabled;
         this.commandsUrl = commandsUrl;
@@ -259,6 +263,17 @@ public class Fleet extends Resource {
     }
 
     /**
+     * Returns The total data usage (download and upload combined) in Megabytes that
+     * each Sim resource assigned to the Fleet resource can consume.
+     *
+     * @return The total data usage (download and upload combined) in Megabytes
+     *         that each Sim resource assigned to the Fleet resource can consume
+     */
+    public final Integer getDataLimit() {
+        return this.dataLimit;
+    }
+
+    /**
      * Returns The model by which a SIM is metered and billed.
      *
      * @return The model by which a SIM is metered and billed
@@ -328,6 +343,7 @@ public class Fleet extends Resource {
                Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url) &&
                Objects.equals(dataEnabled, other.dataEnabled) &&
+               Objects.equals(dataLimit, other.dataLimit) &&
                Objects.equals(dataMetering, other.dataMetering) &&
                Objects.equals(commandsEnabled, other.commandsEnabled) &&
                Objects.equals(commandsUrl, other.commandsUrl) &&
@@ -344,6 +360,7 @@ public class Fleet extends Resource {
                             dateUpdated,
                             url,
                             dataEnabled,
+                            dataLimit,
                             dataMetering,
                             commandsEnabled,
                             commandsUrl,
@@ -361,6 +378,7 @@ public class Fleet extends Resource {
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)
                           .add("dataEnabled", dataEnabled)
+                          .add("dataLimit", dataLimit)
                           .add("dataMetering", dataMetering)
                           .add("commandsEnabled", commandsEnabled)
                           .add("commandsUrl", commandsUrl)

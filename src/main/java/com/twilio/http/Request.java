@@ -1,6 +1,5 @@
 package com.twilio.http;
 
-import com.google.common.base.Joiner;
 import com.google.common.collect.Range;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.InvalidRequestException;
@@ -15,9 +14,12 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Request {
+
+    private static final String DEFAULT_REGION = "us1";
 
     public static final String QUERY_STRING_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
     public static final String QUERY_STRING_DATE_FORMAT = "yyyy-MM-dd";
@@ -27,6 +29,8 @@ public class Request {
     private final Map<String, List<String>> queryParams;
     private final Map<String, List<String>> postParams;
 
+    private String region;
+    private String edge;
     private String username;
     private String password;
 
@@ -34,7 +38,7 @@ public class Request {
      * Create a new API request.
      *
      * @param method HTTP method
-     * @param url url of request
+     * @param url    url of request
      */
     public Request(final HttpMethod method, final String url) {
         this.method = method;
@@ -48,7 +52,7 @@ public class Request {
      *
      * @param method HTTP method
      * @param domain Twilio domain
-     * @param uri uri of request
+     * @param uri    uri of request
      */
     public Request(final HttpMethod method, final String domain, final String uri) {
         this(method, domain, uri, null);
@@ -56,9 +60,10 @@ public class Request {
 
     /**
      * Create a new API request.
+     *
      * @param method HTTP Method
      * @param domain Twilio domain
-     * @param uri uri of request
+     * @param uri    uri of request
      * @param region region to make request
      */
     public Request(
@@ -68,7 +73,8 @@ public class Request {
         final String region
     ) {
         this.method = method;
-        this.url = "https://" + Joiner.on(".").skipNulls().join(domain, region, "twilio", "com") + uri;
+        this.url = "https://" + domain + ".twilio.com" + uri;
+        this.region = region;
         this.queryParams = new HashMap<>();
         this.postParams = new HashMap<>();
     }
@@ -86,23 +92,23 @@ public class Request {
         this.password = password;
     }
 
+    public void setRegion(final String region) {
+        this.region = region;
+    }
+
+    public void setEdge(final String edge) {
+        this.edge = edge;
+    }
+
     /**
      * Create auth string from username and password.
      *
      * @return basic authentication string
      */
     public String getAuthString() {
-        String credentials = this.username + ":" + this.password;
-        try {
-
-            String encoded = DatatypeConverter.printBase64Binary(credentials.getBytes("ascii"));
-            return "Basic " + encoded;
-
-        } catch (final UnsupportedEncodingException e) {
-
-            throw new InvalidRequestException("It must be possible to encode credentials as ascii", credentials, e);
-
-        }
+        final String credentials = this.username + ":" + this.password;
+        final String encoded = DatatypeConverter.printBase64Binary(credentials.getBytes(StandardCharsets.US_ASCII));
+        return "Basic " + encoded;
     }
 
     public String getUsername() {
@@ -122,10 +128,9 @@ public class Request {
      *
      * @return URL for the request
      */
-    @SuppressWarnings("checkstyle:abbreviationaswordinname")
     public URL constructURL() {
         String params = encodeQueryParams();
-        String stringUri = url;
+        String stringUri = buildURL();
 
         if (params.length() > 0) {
             stringUri += "?" + params;
@@ -141,10 +146,42 @@ public class Request {
         }
     }
 
+    private String buildURL() {
+        if (region != null || edge != null) {
+            try {
+                final URL parsedUrl = new URL(url);
+                final String[] pieces = parsedUrl.getHost().split("\\.");
+                final String product = pieces[0];
+                final String domain = joinIgnoreNull(".", pieces[pieces.length - 2], pieces[pieces.length - 1]);
+
+                String targetRegion = region;
+                String targetEdge = edge;
+
+                if (pieces.length == 4) { // product.region.twilio.com
+                    targetRegion = targetRegion != null ? targetRegion : pieces[1];
+                } else if (pieces.length == 5) { // product.edge.region.twilio.com
+                    targetEdge = targetEdge != null ? targetEdge : pieces[1];
+                    targetRegion = targetRegion != null ? targetRegion : pieces[2];
+                }
+
+                if (targetEdge != null && targetRegion == null)
+                    targetRegion = DEFAULT_REGION;
+
+                final String host = joinIgnoreNull(".", product, targetEdge, targetRegion, domain);
+
+                return new URL(parsedUrl.getProtocol(), host, parsedUrl.getPort(), parsedUrl.getFile()).toString();
+            } catch (final MalformedURLException e) {
+                throw new ApiException("Bad URL: " + url, e);
+            }
+        }
+
+        return url;
+    }
+
     /**
      * Add query parameters for date ranges.
      *
-     * @param name name of query parameter
+     * @param name  name of query parameter
      * @param range date range
      */
     public void addQueryDateRange(final String name, final Range<LocalDate> range) {
@@ -162,7 +199,7 @@ public class Request {
     /**
      * Add query parameters for date ranges.
      *
-     * @param name name of query parameter
+     * @param name  name of query parameter
      * @param range date range
      */
     public void addQueryDateTimeRange(final String name, final Range<DateTime> range) {
@@ -180,7 +217,7 @@ public class Request {
     /**
      * Add a query parameter.
      *
-     * @param name name of parameter
+     * @param name  name of parameter
      * @param value value of parameter
      */
     public void addQueryParam(final String name, final String value) {
@@ -190,7 +227,7 @@ public class Request {
     /**
      * Add a form parameter.
      *
-     * @param name name of parameter
+     * @param name  name of parameter
      * @param value value of parameter
      */
     public void addPostParam(final String name, final String value) {
@@ -241,7 +278,27 @@ public class Request {
                 throw new InvalidRequestException("Couldn't encode params", entry.getKey(), e);
             }
         }
-        return Joiner.on("&").join(parameters);
+        return joinIgnoreNull("&", parameters);
+    }
+
+    private static String joinIgnoreNull(final String separator, final String... items) {
+        return joinIgnoreNull(separator, Arrays.asList(items));
+    }
+
+    private static String joinIgnoreNull(final String separator, final List<String> items) {
+        final StringBuilder builder = new StringBuilder();
+
+        for (final String item : items) {
+            if (item != null) {
+                if (builder.length() > 0) {
+                    builder.append(separator);
+                }
+
+                builder.append(item);
+            }
+        }
+
+        return builder.toString();
     }
 
     public Map<String, List<String>> getQueryParams() {
@@ -264,7 +321,7 @@ public class Request {
 
         Request other = (Request) o;
         return Objects.equals(this.method, other.method) &&
-               Objects.equals(this.url, other.url) &&
+               Objects.equals(this.buildURL(), other.buildURL()) &&
                Objects.equals(this.username, other.username) &&
                Objects.equals(this.password, other.password) &&
                Objects.equals(this.queryParams, other.queryParams) &&

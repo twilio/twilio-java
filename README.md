@@ -76,6 +76,18 @@ String authToken = "XXXXXXXX";
 Twilio.init(accountSid, authToken);
 ```
 
+### Specify Region and/or Edge
+
+To take advantage of Twilio's [Global Infrastructure](https://www.twilio.com/docs/global-infrastructure), specify the target Region and/or Edge for the client:
+
+```java
+Twilio.init(accountSid, authToken);
+Twilio.setRegion("au1");
+Twilio.setEdge("sydney");
+```
+
+This will result in the `hostname` transforming from `api.twilio.com` to `api.sydney.au1.twilio.com`.
+
 ### Send an SMS
 
 ```java

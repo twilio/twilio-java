@@ -131,7 +131,7 @@ public class RequestTest {
     public void testAddQueryDateTimeRangeClosed() throws MalformedURLException {
         Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar");
         r.addQueryDateTimeRange("baz", Range.closed(new DateTime(2014, 1, 10, 14, 0, DateTimeZone.UTC),
-                new DateTime(2014, 6, 1, 16, 0, DateTimeZone.UTC)));
+            new DateTime(2014, 6, 1, 16, 0, DateTimeZone.UTC)));
         URL url = r.constructURL();
         URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz>=2014-01-10T14:00:00&baz<=2014-06-01T16:00:00");
         assertUrlsEqual(expected, url);
@@ -141,10 +141,68 @@ public class RequestTest {
     public void testAddQueryDateTimeRangeClosedNotUTC() throws MalformedURLException {
         Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar");
         r.addQueryDateTimeRange("baz", Range.closed(new DateTime(2014, 1, 10, 14, 0, DateTimeZone.forID("America/Chicago")),
-                new DateTime(2014, 6, 1, 16, 0, DateTimeZone.forID("America/Chicago"))));
+            new DateTime(2014, 6, 1, 16, 0, DateTimeZone.forID("America/Chicago"))));
         URL url = r.constructURL();
         URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz>=2014-01-10T20:00:00&baz<=2014-06-01T21:00:00");
         assertUrlsEqual(expected, url);
+    }
+
+    @Test
+    public void testNoEdgeOrRegionInUrl() throws MalformedURLException {
+        final Request request = new Request(HttpMethod.GET, "https://api.twilio.com");
+
+        assertUrlsEqual(new URL("https://api.twilio.com"), request.constructURL());
+
+        request.setRegion("region");
+        assertUrlsEqual(new URL("https://api.region.twilio.com"), request.constructURL());
+
+        request.setEdge("edge");
+        assertUrlsEqual(new URL("https://api.edge.region.twilio.com"), request.constructURL());
+
+        request.setRegion(null);
+        assertUrlsEqual(new URL("https://api.edge.us1.twilio.com"), request.constructURL());
+    }
+
+    @Test
+    public void testRegionInUrl() throws MalformedURLException {
+        final Request request = new Request(HttpMethod.GET, "https://api.urlRegion.twilio.com");
+
+        assertUrlsEqual(new URL("https://api.urlRegion.twilio.com"), request.constructURL());
+
+        request.setRegion("region");
+        assertUrlsEqual(new URL("https://api.region.twilio.com"), request.constructURL());
+
+        request.setEdge("edge");
+        assertUrlsEqual(new URL("https://api.edge.region.twilio.com"), request.constructURL());
+
+        request.setRegion(null);
+        assertUrlsEqual(new URL("https://api.edge.urlRegion.twilio.com"), request.constructURL());
+    }
+
+    @Test
+    public void testRegionAndEdgeInUrl() throws MalformedURLException {
+        final Request request = new Request(HttpMethod.GET, "https://api.urlEdge.urlRegion.twilio.com");
+
+        assertUrlsEqual(new URL("https://api.urlEdge.urlRegion.twilio.com"), request.constructURL());
+
+        request.setRegion("region");
+        assertUrlsEqual(new URL("https://api.urlEdge.region.twilio.com"), request.constructURL());
+
+        request.setEdge("edge");
+        assertUrlsEqual(new URL("https://api.edge.region.twilio.com"), request.constructURL());
+
+        request.setRegion(null);
+        assertUrlsEqual(new URL("https://api.edge.urlRegion.twilio.com"), request.constructURL());
+    }
+
+    @Test
+    public void testRegionInConstructor() throws MalformedURLException {
+        final Request request = new Request(HttpMethod.GET, Domains.ACCOUNTS.toString(), "/path/to/something.json?foo=12.34", "region");
+
+        assertUrlsEqual(new URL("https://accounts.region.twilio.com/path/to/something.json?foo=12.34"), request.constructURL());
+
+        request.setEdge("edge");
+        assertUrlsEqual(new URL("https://accounts.edge.region.twilio.com/path/to/something.json?foo=12.34"), request.constructURL());
     }
 
     @Test
@@ -185,6 +243,4 @@ public class RequestTest {
         assertFalse(request.equals(new Object()));
         assertFalse(request.equals(null));
     }
-
 }
-

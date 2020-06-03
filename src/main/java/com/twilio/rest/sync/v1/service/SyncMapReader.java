@@ -59,8 +59,7 @@ public class SyncMapReader extends Reader<SyncMap> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Maps",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Maps"
         );
 
         addQueryParams(request);
@@ -97,10 +96,7 @@ public class SyncMapReader extends Reader<SyncMap> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.SYNC.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.SYNC.toString())
         );
         return pageForRequest(client, request);
     }
@@ -117,10 +113,7 @@ public class SyncMapReader extends Reader<SyncMap> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.SYNC.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.SYNC.toString())
         );
         return pageForRequest(client, request);
     }

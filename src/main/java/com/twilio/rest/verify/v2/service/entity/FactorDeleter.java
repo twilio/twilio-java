@@ -53,8 +53,7 @@ public class FactorDeleter extends Deleter<Factor> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Factors/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Factors/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

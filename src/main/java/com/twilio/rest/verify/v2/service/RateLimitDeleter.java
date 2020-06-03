@@ -45,8 +45,7 @@ public class RateLimitDeleter extends Deleter<RateLimit> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/RateLimits/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/RateLimits/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

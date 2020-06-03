@@ -56,8 +56,7 @@ public class AssetVersionFetcher extends Fetcher<AssetVersion> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Assets/" + this.pathAssetSid + "/Versions/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Assets/" + this.pathAssetSid + "/Versions/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

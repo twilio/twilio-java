@@ -46,8 +46,7 @@ public class FleetFetcher extends Fetcher<Fleet> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SUPERSIM.toString(),
-            "/v1/Fleets/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Fleets/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

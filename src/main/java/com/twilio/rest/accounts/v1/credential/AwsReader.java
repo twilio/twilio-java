@@ -43,8 +43,7 @@ public class AwsReader extends Reader<Aws> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.ACCOUNTS.toString(),
-            "/v1/Credentials/AWS",
-            client.getRegion()
+            "/v1/Credentials/AWS"
         );
 
         addQueryParams(request);
@@ -81,10 +80,7 @@ public class AwsReader extends Reader<Aws> {
                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.ACCOUNTS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.ACCOUNTS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -101,10 +97,7 @@ public class AwsReader extends Reader<Aws> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.ACCOUNTS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.ACCOUNTS.toString())
         );
         return pageForRequest(client, request);
     }

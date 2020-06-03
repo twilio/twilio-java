@@ -41,8 +41,7 @@ public class NumberFetcher extends Fetcher<Number> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PRICING.toString(),
-            "/v1/Voice/Numbers/" + this.pathNumber.encode("utf-8") + "",
-            client.getRegion()
+            "/v1/Voice/Numbers/" + this.pathNumber.encode("utf-8") + ""
         );
 
         Response response = client.request(request);

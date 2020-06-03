@@ -175,8 +175,7 @@ public class VerificationCreator extends Creator<Verification> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Verifications",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Verifications"
         );
 
         addPostParams(request);

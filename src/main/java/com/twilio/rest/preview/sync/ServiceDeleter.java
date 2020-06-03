@@ -45,8 +45,7 @@ public class ServiceDeleter extends Deleter<Service> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathSid + "",
-            client.getRegion()
+            "/Sync/Services/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

@@ -72,8 +72,7 @@ public class EngagementCreator extends Creator<Engagement> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Engagements",
-            client.getRegion()
+            "/v1/Flows/" + this.pathFlowSid + "/Engagements"
         );
 
         addPostParams(request);

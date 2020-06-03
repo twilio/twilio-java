@@ -45,8 +45,7 @@ public class ConversationFetcher extends Fetcher<Conversation> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.CONVERSATIONS.toString(),
-            "/v1/Conversations/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Conversations/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

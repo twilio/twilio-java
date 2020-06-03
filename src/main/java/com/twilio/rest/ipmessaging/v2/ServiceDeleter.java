@@ -40,8 +40,7 @@ public class ServiceDeleter extends Deleter<Service> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

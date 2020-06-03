@@ -139,8 +139,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces",
-            client.getRegion()
+            "/v1/Workspaces"
         );
 
         addPostParams(request);

@@ -79,8 +79,7 @@ public class FieldTypeUpdater extends Updater<FieldType> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/FieldTypes/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/FieldTypes/" + this.pathSid + ""
         );
 
         addPostParams(request);

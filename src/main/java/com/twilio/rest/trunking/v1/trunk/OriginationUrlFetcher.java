@@ -46,8 +46,7 @@ public class OriginationUrlFetcher extends Fetcher<OriginationUrl> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathTrunkSid + "/OriginationUrls/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathTrunkSid + "/OriginationUrls/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

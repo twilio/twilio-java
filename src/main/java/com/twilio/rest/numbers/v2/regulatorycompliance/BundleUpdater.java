@@ -105,8 +105,7 @@ public class BundleUpdater extends Updater<Bundle> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.NUMBERS.toString(),
-            "/v2/RegulatoryCompliance/Bundles/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/RegulatoryCompliance/Bundles/" + this.pathSid + ""
         );
 
         addPostParams(request);

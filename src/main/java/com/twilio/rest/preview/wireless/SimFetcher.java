@@ -46,8 +46,7 @@ public class SimFetcher extends Fetcher<Sim> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/wireless/Sims/" + this.pathSid + "",
-            client.getRegion()
+            "/wireless/Sims/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

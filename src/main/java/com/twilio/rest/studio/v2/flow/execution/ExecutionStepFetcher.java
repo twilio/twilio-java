@@ -53,8 +53,7 @@ public class ExecutionStepFetcher extends Fetcher<ExecutionStep> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.STUDIO.toString(),
-            "/v2/Flows/" + this.pathFlowSid + "/Executions/" + this.pathExecutionSid + "/Steps/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Flows/" + this.pathFlowSid + "/Executions/" + this.pathExecutionSid + "/Steps/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

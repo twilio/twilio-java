@@ -89,8 +89,7 @@ public class AuthorizationDocumentCreator extends Creator<AuthorizationDocument>
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/HostedNumbers/AuthorizationDocuments",
-            client.getRegion()
+            "/HostedNumbers/AuthorizationDocuments"
         );
 
         addPostParams(request);

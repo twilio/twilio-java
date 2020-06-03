@@ -127,8 +127,7 @@ public class CredentialUpdater extends Updater<Credential> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v1/Credentials/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Credentials/" + this.pathSid + ""
         );
 
         addPostParams(request);

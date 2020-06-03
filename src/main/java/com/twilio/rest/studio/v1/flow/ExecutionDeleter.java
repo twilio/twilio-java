@@ -44,8 +44,7 @@ public class ExecutionDeleter extends Deleter<Execution> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Executions/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Flows/" + this.pathFlowSid + "/Executions/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

@@ -86,8 +86,7 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/ModelBuilds",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/ModelBuilds"
         );
 
         addPostParams(request);

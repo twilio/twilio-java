@@ -61,8 +61,7 @@ public class StyleSheetUpdater extends Updater<StyleSheet> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/StyleSheet",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/StyleSheet"
         );
 
         addPostParams(request);

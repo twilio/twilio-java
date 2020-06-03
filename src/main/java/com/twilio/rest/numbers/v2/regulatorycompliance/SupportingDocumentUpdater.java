@@ -70,8 +70,7 @@ public class SupportingDocumentUpdater extends Updater<SupportingDocument> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.NUMBERS.toString(),
-            "/v2/RegulatoryCompliance/SupportingDocuments/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/RegulatoryCompliance/SupportingDocuments/" + this.pathSid + ""
         );
 
         addPostParams(request);

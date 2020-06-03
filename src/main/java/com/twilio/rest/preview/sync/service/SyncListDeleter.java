@@ -49,8 +49,7 @@ public class SyncListDeleter extends Deleter<SyncList> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathSid + "",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

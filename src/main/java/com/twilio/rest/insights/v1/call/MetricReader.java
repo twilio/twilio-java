@@ -83,8 +83,7 @@ public class MetricReader extends Reader<Metric> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.INSIGHTS.toString(),
-            "/v1/Voice/" + this.pathCallSid + "/Metrics",
-            client.getRegion()
+            "/v1/Voice/" + this.pathCallSid + "/Metrics"
         );
 
         addQueryParams(request);
@@ -121,10 +120,7 @@ public class MetricReader extends Reader<Metric> {
                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.INSIGHTS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.INSIGHTS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -141,10 +137,7 @@ public class MetricReader extends Reader<Metric> {
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.INSIGHTS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.INSIGHTS.toString())
         );
         return pageForRequest(client, request);
     }

@@ -691,8 +691,7 @@ public class CallCreator extends Creator<Call> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls.json"
         );
 
         addPostParams(request);

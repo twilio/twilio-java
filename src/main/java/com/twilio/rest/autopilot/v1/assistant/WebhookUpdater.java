@@ -116,8 +116,7 @@ public class WebhookUpdater extends Updater<Webhook> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/Webhooks/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/Webhooks/" + this.pathSid + ""
         );
 
         addPostParams(request);

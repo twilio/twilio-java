@@ -35,8 +35,7 @@ public class CpsFetcher extends Fetcher<Cps> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/TrustedComms/CPS",
-            client.getRegion()
+            "/TrustedComms/CPS"
         );
 
         Response response = client.request(request);

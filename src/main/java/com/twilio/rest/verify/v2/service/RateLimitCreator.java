@@ -58,8 +58,7 @@ public class RateLimitCreator extends Creator<RateLimit> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/RateLimits",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/RateLimits"
         );
 
         addPostParams(request);

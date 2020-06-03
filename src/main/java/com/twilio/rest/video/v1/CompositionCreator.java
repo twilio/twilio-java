@@ -242,8 +242,7 @@ public class CompositionCreator extends Creator<Composition> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
-            "/v1/Compositions",
-            client.getRegion()
+            "/v1/Compositions"
         );
 
         addPostParams(request);

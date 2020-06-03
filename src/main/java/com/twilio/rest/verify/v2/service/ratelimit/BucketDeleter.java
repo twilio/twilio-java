@@ -49,8 +49,7 @@ public class BucketDeleter extends Deleter<Bucket> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/RateLimits/" + this.pathRateLimitSid + "/Buckets/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/RateLimits/" + this.pathRateLimitSid + "/Buckets/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

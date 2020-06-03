@@ -127,8 +127,7 @@ public class ConversationUpdater extends Updater<Conversation> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CONVERSATIONS.toString(),
-            "/v1/Conversations/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Conversations/" + this.pathSid + ""
         );
 
         addPostParams(request);

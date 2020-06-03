@@ -49,8 +49,7 @@ public class DayFetcher extends Fetcher<Day> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.BULKEXPORTS.toString(),
-            "/v1/Exports/" + this.pathResourceType + "/Days/" + this.pathDay + "",
-            client.getRegion()
+            "/v1/Exports/" + this.pathResourceType + "/Days/" + this.pathDay + ""
         );
 
         Response response = client.request(request);

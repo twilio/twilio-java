@@ -44,8 +44,7 @@ public class ItemAssignmentDeleter extends Deleter<ItemAssignment> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.NUMBERS.toString(),
-            "/v2/RegulatoryCompliance/Bundles/" + this.pathBundleSid + "/ItemAssignments/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/RegulatoryCompliance/Bundles/" + this.pathBundleSid + "/ItemAssignments/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

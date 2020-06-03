@@ -54,8 +54,7 @@ public class EngagementReader extends Reader<Engagement> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Engagements",
-            client.getRegion()
+            "/v1/Flows/" + this.pathFlowSid + "/Engagements"
         );
 
         addQueryParams(request);
@@ -92,10 +91,7 @@ public class EngagementReader extends Reader<Engagement> {
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.STUDIO.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.STUDIO.toString())
         );
         return pageForRequest(client, request);
     }
@@ -112,10 +108,7 @@ public class EngagementReader extends Reader<Engagement> {
                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.STUDIO.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.STUDIO.toString())
         );
         return pageForRequest(client, request);
     }

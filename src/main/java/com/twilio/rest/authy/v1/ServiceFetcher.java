@@ -46,8 +46,7 @@ public class ServiceFetcher extends Fetcher<Service> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.AUTHY.toString(),
-            "/v1/Services/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

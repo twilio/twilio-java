@@ -76,8 +76,7 @@ public class DeploymentUpdater extends Updater<Deployment> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Deployments/" + this.pathSid + "",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Deployments/" + this.pathSid + ""
         );
 
         addPostParams(request);

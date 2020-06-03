@@ -109,8 +109,7 @@ public class TaskCreator extends Creator<Task> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/Tasks",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/Tasks"
         );
 
         addPostParams(request);

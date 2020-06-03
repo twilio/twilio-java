@@ -50,8 +50,7 @@ public class WebhookDeleter extends Deleter<Webhook> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/Webhooks/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/Webhooks/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

@@ -80,8 +80,7 @@ public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/marketplace/InstalledAddOns",
-            client.getRegion()
+            "/marketplace/InstalledAddOns"
         );
 
         addPostParams(request);

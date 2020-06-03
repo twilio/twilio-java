@@ -49,8 +49,7 @@ public class EntityDeleter extends Deleter<Entity> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.AUTHY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + ""
         );
 
         Response response = client.request(request);

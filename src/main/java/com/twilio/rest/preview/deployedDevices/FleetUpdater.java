@@ -72,8 +72,7 @@ public class FleetUpdater extends Updater<Fleet> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathSid + "",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathSid + ""
         );
 
         addPostParams(request);

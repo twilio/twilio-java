@@ -101,8 +101,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/VerificationCheck",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/VerificationCheck"
         );
 
         addPostParams(request);

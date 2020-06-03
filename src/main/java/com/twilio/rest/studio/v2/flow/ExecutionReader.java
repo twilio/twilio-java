@@ -90,8 +90,7 @@ public class ExecutionReader extends Reader<Execution> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.STUDIO.toString(),
-            "/v2/Flows/" + this.pathFlowSid + "/Executions",
-            client.getRegion()
+            "/v2/Flows/" + this.pathFlowSid + "/Executions"
         );
 
         addQueryParams(request);
@@ -128,10 +127,7 @@ public class ExecutionReader extends Reader<Execution> {
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.STUDIO.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.STUDIO.toString())
         );
         return pageForRequest(client, request);
     }
@@ -148,10 +144,7 @@ public class ExecutionReader extends Reader<Execution> {
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.STUDIO.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.STUDIO.toString())
         );
         return pageForRequest(client, request);
     }

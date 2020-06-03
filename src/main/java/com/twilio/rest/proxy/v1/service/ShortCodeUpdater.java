@@ -65,8 +65,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PROXY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/ShortCodes/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/ShortCodes/" + this.pathSid + ""
         );
 
         addPostParams(request);

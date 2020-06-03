@@ -51,8 +51,7 @@ public class MessagingConfigurationUpdater extends Updater<MessagingConfiguratio
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/MessagingConfigurations/" + this.pathCountry + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/MessagingConfigurations/" + this.pathCountry + ""
         );
 
         addPostParams(request);

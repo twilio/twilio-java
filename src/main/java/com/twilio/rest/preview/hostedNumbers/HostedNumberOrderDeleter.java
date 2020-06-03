@@ -45,8 +45,7 @@ public class HostedNumberOrderDeleter extends Deleter<HostedNumberOrder> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/HostedNumbers/HostedNumberOrders/" + this.pathSid + "",
-            client.getRegion()
+            "/HostedNumbers/HostedNumberOrders/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

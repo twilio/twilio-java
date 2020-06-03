@@ -45,8 +45,7 @@ public class RoomRecordingFetcher extends Fetcher<RoomRecording> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/Recordings/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Rooms/" + this.pathRoomSid + "/Recordings/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

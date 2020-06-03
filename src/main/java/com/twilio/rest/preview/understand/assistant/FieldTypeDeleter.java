@@ -49,8 +49,7 @@ public class FieldTypeDeleter extends Deleter<FieldType> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/FieldTypes/" + this.pathSid + "",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/FieldTypes/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

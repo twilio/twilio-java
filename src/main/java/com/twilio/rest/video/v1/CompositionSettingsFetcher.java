@@ -30,8 +30,7 @@ public class CompositionSettingsFetcher extends Fetcher<CompositionSettings> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/CompositionSettings/Default",
-            client.getRegion()
+            "/v1/CompositionSettings/Default"
         );
 
         Response response = client.request(request);

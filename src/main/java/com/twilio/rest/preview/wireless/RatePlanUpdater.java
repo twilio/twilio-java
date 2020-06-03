@@ -70,8 +70,7 @@ public class RatePlanUpdater extends Updater<RatePlan> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/wireless/RatePlans/" + this.pathSid + "",
-            client.getRegion()
+            "/wireless/RatePlans/" + this.pathSid + ""
         );
 
         addPostParams(request);

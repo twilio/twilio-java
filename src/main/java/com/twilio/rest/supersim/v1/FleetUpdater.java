@@ -74,8 +74,7 @@ public class FleetUpdater extends Updater<Fleet> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SUPERSIM.toString(),
-            "/v1/Fleets/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Fleets/" + this.pathSid + ""
         );
 
         addPostParams(request);

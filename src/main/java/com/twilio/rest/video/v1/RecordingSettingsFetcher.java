@@ -30,8 +30,7 @@ public class RecordingSettingsFetcher extends Fetcher<RecordingSettings> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/RecordingSettings/Default",
-            client.getRegion()
+            "/v1/RecordingSettings/Default"
         );
 
         Response response = client.request(request);

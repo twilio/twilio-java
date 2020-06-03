@@ -66,8 +66,7 @@ public class SyncStreamUpdater extends Updater<SyncStream> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Streams/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Streams/" + this.pathSid + ""
         );
 
         addPostParams(request);

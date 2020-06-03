@@ -50,8 +50,7 @@ public class TaskStatisticsFetcher extends Fetcher<TaskStatistics> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/Tasks/" + this.pathTaskSid + "/Statistics",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/Tasks/" + this.pathTaskSid + "/Statistics"
         );
 
         Response response = client.request(request);

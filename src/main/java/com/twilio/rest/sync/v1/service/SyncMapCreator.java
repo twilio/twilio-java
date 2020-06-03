@@ -90,8 +90,7 @@ public class SyncMapCreator extends Creator<SyncMap> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Maps",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Maps"
         );
 
         addPostParams(request);

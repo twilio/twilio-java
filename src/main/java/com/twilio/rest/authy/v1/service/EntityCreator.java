@@ -50,8 +50,7 @@ public class EntityCreator extends Creator<Entity> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.AUTHY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Entities",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Entities"
         );
 
         addPostParams(request);

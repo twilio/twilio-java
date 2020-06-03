@@ -55,8 +55,7 @@ public class ConnectionPolicyTargetReader extends Reader<ConnectionPolicyTarget>
         Request request = new Request(
             HttpMethod.GET,
             Domains.VOICE.toString(),
-            "/v1/ConnectionPolicies/" + this.pathConnectionPolicySid + "/Targets",
-            client.getRegion()
+            "/v1/ConnectionPolicies/" + this.pathConnectionPolicySid + "/Targets"
         );
 
         addQueryParams(request);
@@ -93,10 +92,7 @@ public class ConnectionPolicyTargetReader extends Reader<ConnectionPolicyTarget>
                                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.VOICE.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.VOICE.toString())
         );
         return pageForRequest(client, request);
     }
@@ -113,10 +109,7 @@ public class ConnectionPolicyTargetReader extends Reader<ConnectionPolicyTarget>
                                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.VOICE.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.VOICE.toString())
         );
         return pageForRequest(client, request);
     }

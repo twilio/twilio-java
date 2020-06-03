@@ -40,8 +40,7 @@ public class FlowDeleter extends Deleter<Flow> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Flows/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

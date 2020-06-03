@@ -71,8 +71,7 @@ public class ChallengeUpdater extends Updater<Challenge> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.AUTHY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Factors/" + this.pathFactorSid + "/Challenges/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Factors/" + this.pathFactorSid + "/Challenges/" + this.pathSid + ""
         );
 
         addPostParams(request);

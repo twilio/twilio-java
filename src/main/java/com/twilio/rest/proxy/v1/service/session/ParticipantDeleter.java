@@ -52,8 +52,7 @@ public class ParticipantDeleter extends Deleter<Participant> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PROXY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Sessions/" + this.pathSessionSid + "/Participants/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Sessions/" + this.pathSessionSid + "/Participants/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

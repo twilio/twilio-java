@@ -91,8 +91,7 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/ModelBuilds",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/ModelBuilds"
         );
 
         addPostParams(request);

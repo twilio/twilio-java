@@ -34,8 +34,7 @@ public class WebhookFetcher extends Fetcher<Webhook> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.CONVERSATIONS.toString(),
-            "/v1/Conversations/Webhooks",
-            client.getRegion()
+            "/v1/Conversations/Webhooks"
         );
 
         Response response = client.request(request);

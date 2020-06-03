@@ -54,8 +54,7 @@ public class AwsUpdater extends Updater<Aws> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.ACCOUNTS.toString(),
-            "/v1/Credentials/AWS/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Credentials/AWS/" + this.pathSid + ""
         );
 
         addPostParams(request);

@@ -49,8 +49,7 @@ public class ShortCodeFetcher extends Fetcher<ShortCode> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.MESSAGING.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/ShortCodes/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/ShortCodes/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

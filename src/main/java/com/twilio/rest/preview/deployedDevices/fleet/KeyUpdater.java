@@ -76,8 +76,7 @@ public class KeyUpdater extends Updater<Key> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Keys/" + this.pathSid + "",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Keys/" + this.pathSid + ""
         );
 
         addPostParams(request);

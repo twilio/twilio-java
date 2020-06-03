@@ -58,8 +58,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.MESSAGING.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/ShortCodes",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/ShortCodes"
         );
 
         addQueryParams(request);
@@ -96,10 +95,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.MESSAGING.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.MESSAGING.toString())
         );
         return pageForRequest(client, request);
     }
@@ -116,10 +112,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.MESSAGING.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.MESSAGING.toString())
         );
         return pageForRequest(client, request);
     }

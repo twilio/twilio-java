@@ -50,8 +50,7 @@ public class EnvironmentDeleter extends Deleter<Environment> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Environments/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Environments/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

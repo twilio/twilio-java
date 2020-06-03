@@ -48,8 +48,7 @@ public class AlphaSenderDeleter extends Deleter<AlphaSender> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.MESSAGING.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/AlphaSenders/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/AlphaSenders/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

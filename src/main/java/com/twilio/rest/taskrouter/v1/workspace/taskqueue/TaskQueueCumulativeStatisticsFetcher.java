@@ -117,8 +117,7 @@ public class TaskQueueCumulativeStatisticsFetcher extends Fetcher<TaskQueueCumul
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskQueues/" + this.pathTaskQueueSid + "/CumulativeStatistics",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskQueues/" + this.pathTaskQueueSid + "/CumulativeStatistics"
         );
 
         addQueryParams(request);

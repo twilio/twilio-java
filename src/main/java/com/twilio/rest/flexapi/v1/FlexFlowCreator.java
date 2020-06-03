@@ -245,8 +245,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.FLEXAPI.toString(),
-            "/v1/FlexFlows",
-            client.getRegion()
+            "/v1/FlexFlows"
         );
 
         addPostParams(request);

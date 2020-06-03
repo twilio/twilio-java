@@ -50,8 +50,7 @@ public class VerificationUpdater extends Updater<Verification> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Verifications/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Verifications/" + this.pathSid + ""
         );
 
         addPostParams(request);

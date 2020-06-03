@@ -49,8 +49,7 @@ public class SyncMapDeleter extends Deleter<SyncMap> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

@@ -483,8 +483,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers.json"
         );
 
         addPostParams(request);

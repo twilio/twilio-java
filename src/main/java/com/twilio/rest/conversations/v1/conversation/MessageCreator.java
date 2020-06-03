@@ -125,8 +125,7 @@ public class MessageCreator extends Creator<Message> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CONVERSATIONS.toString(),
-            "/v1/Conversations/" + this.pathConversationSid + "/Messages",
-            client.getRegion()
+            "/v1/Conversations/" + this.pathConversationSid + "/Messages"
         );
 
         addPostParams(request);

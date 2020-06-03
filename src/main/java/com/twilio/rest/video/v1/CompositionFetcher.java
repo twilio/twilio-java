@@ -46,8 +46,7 @@ public class CompositionFetcher extends Fetcher<Composition> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/Compositions/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Compositions/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

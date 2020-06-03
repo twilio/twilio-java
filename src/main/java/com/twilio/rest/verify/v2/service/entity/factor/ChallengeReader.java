@@ -80,8 +80,7 @@ public class ChallengeReader extends Reader<Challenge> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Factors/" + this.pathFactorSid + "/Challenges",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Factors/" + this.pathFactorSid + "/Challenges"
         );
 
         addQueryParams(request);
@@ -118,10 +117,7 @@ public class ChallengeReader extends Reader<Challenge> {
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.VERIFY.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.VERIFY.toString())
         );
         return pageForRequest(client, request);
     }
@@ -138,10 +134,7 @@ public class ChallengeReader extends Reader<Challenge> {
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.VERIFY.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.VERIFY.toString())
         );
         return pageForRequest(client, request);
     }

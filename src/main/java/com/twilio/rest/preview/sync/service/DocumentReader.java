@@ -59,8 +59,7 @@ public class DocumentReader extends Reader<Document> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Documents",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Documents"
         );
 
         addQueryParams(request);
@@ -97,10 +96,7 @@ public class DocumentReader extends Reader<Document> {
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
@@ -117,10 +113,7 @@ public class DocumentReader extends Reader<Document> {
                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }

@@ -43,8 +43,7 @@ public class WebChannelReader extends Reader<WebChannel> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.FLEXAPI.toString(),
-            "/v1/WebChannels",
-            client.getRegion()
+            "/v1/WebChannels"
         );
 
         addQueryParams(request);
@@ -81,10 +80,7 @@ public class WebChannelReader extends Reader<WebChannel> {
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.FLEXAPI.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.FLEXAPI.toString())
         );
         return pageForRequest(client, request);
     }
@@ -101,10 +97,7 @@ public class WebChannelReader extends Reader<WebChannel> {
                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.FLEXAPI.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.FLEXAPI.toString())
         );
         return pageForRequest(client, request);
     }

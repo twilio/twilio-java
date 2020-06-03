@@ -67,8 +67,7 @@ public class PublicKeyCreator extends Creator<PublicKey> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.ACCOUNTS.toString(),
-            "/v1/Credentials/PublicKeys",
-            client.getRegion()
+            "/v1/Credentials/PublicKeys"
         );
 
         addPostParams(request);

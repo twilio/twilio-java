@@ -45,8 +45,7 @@ public class PhoneNumberDeleter extends Deleter<PhoneNumber> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathTrunkSid + "/PhoneNumbers/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathTrunkSid + "/PhoneNumbers/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

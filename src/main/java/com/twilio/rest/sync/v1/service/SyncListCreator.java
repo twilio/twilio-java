@@ -91,8 +91,7 @@ public class SyncListCreator extends Creator<SyncList> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Lists",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Lists"
         );
 
         addPostParams(request);

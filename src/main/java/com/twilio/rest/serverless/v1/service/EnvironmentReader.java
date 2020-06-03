@@ -60,8 +60,7 @@ public class EnvironmentReader extends Reader<Environment> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Environments",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Environments"
         );
 
         addQueryParams(request);
@@ -98,10 +97,7 @@ public class EnvironmentReader extends Reader<Environment> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.SERVERLESS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.SERVERLESS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -118,10 +114,7 @@ public class EnvironmentReader extends Reader<Environment> {
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.SERVERLESS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.SERVERLESS.toString())
         );
         return pageForRequest(client, request);
     }

@@ -46,8 +46,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathTrunkSid + "/PhoneNumbers",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathTrunkSid + "/PhoneNumbers"
         );
 
         addPostParams(request);

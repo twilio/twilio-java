@@ -51,8 +51,7 @@ public class MessagingConfigurationCreator extends Creator<MessagingConfiguratio
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/MessagingConfigurations",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/MessagingConfigurations"
         );
 
         addPostParams(request);

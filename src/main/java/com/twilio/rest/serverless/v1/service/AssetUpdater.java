@@ -55,8 +55,7 @@ public class AssetUpdater extends Updater<Asset> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Assets/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Assets/" + this.pathSid + ""
         );
 
         addPostParams(request);

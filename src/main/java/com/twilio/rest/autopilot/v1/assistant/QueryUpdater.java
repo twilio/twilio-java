@@ -79,8 +79,7 @@ public class QueryUpdater extends Updater<Query> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/Queries/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/Queries/" + this.pathSid + ""
         );
 
         addPostParams(request);

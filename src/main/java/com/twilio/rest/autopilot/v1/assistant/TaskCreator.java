@@ -108,8 +108,7 @@ public class TaskCreator extends Creator<Task> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/Tasks",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/Tasks"
         );
 
         addPostParams(request);

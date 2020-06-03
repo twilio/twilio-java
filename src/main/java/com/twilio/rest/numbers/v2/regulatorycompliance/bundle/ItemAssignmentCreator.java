@@ -45,8 +45,7 @@ public class ItemAssignmentCreator extends Creator<ItemAssignment> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.NUMBERS.toString(),
-            "/v2/RegulatoryCompliance/Bundles/" + this.pathBundleSid + "/ItemAssignments",
-            client.getRegion()
+            "/v2/RegulatoryCompliance/Bundles/" + this.pathBundleSid + "/ItemAssignments"
         );
 
         addPostParams(request);

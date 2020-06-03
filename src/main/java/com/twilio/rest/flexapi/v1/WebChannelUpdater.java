@@ -65,8 +65,7 @@ public class WebChannelUpdater extends Updater<WebChannel> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.FLEXAPI.toString(),
-            "/v1/WebChannels/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/WebChannels/" + this.pathSid + ""
         );
 
         addPostParams(request);

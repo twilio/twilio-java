@@ -45,8 +45,7 @@ public class RatePlanDeleter extends Deleter<RatePlan> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/wireless/RatePlans/" + this.pathSid + "",
-            client.getRegion()
+            "/wireless/RatePlans/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

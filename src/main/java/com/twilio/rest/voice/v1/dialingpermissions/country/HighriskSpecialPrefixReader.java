@@ -59,8 +59,7 @@ public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VOICE.toString(),
-            "/v1/DialingPermissions/Countries/" + this.pathIsoCode + "/HighRiskSpecialPrefixes",
-            client.getRegion()
+            "/v1/DialingPermissions/Countries/" + this.pathIsoCode + "/HighRiskSpecialPrefixes"
         );
 
         addQueryParams(request);
@@ -97,10 +96,7 @@ public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
                                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.VOICE.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.VOICE.toString())
         );
         return pageForRequest(client, request);
     }
@@ -117,10 +113,7 @@ public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
                                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.VOICE.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.VOICE.toString())
         );
         return pageForRequest(client, request);
     }

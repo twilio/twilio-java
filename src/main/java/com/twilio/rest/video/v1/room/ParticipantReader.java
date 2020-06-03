@@ -112,8 +112,7 @@ public class ParticipantReader extends Reader<Participant> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/Participants",
-            client.getRegion()
+            "/v1/Rooms/" + this.pathRoomSid + "/Participants"
         );
 
         addQueryParams(request);
@@ -150,10 +149,7 @@ public class ParticipantReader extends Reader<Participant> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.VIDEO.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.VIDEO.toString())
         );
         return pageForRequest(client, request);
     }
@@ -170,10 +166,7 @@ public class ParticipantReader extends Reader<Participant> {
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.VIDEO.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.VIDEO.toString())
         );
         return pageForRequest(client, request);
     }

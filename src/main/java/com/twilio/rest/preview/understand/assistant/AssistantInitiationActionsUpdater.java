@@ -61,8 +61,7 @@ public class AssistantInitiationActionsUpdater extends Updater<AssistantInitiati
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/InitiationActions",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/InitiationActions"
         );
 
         addPostParams(request);

@@ -41,8 +41,7 @@ public class BundleFetcher extends Fetcher<Bundle> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.NUMBERS.toString(),
-            "/v2/RegulatoryCompliance/Bundles/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/RegulatoryCompliance/Bundles/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

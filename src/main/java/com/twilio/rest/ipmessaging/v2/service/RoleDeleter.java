@@ -44,8 +44,7 @@ public class RoleDeleter extends Deleter<Role> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Roles/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Roles/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

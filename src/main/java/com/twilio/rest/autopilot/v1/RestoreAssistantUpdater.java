@@ -46,8 +46,7 @@ public class RestoreAssistantUpdater extends Updater<RestoreAssistant> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/Restore",
-            client.getRegion()
+            "/v1/Assistants/Restore"
         );
 
         addPostParams(request);

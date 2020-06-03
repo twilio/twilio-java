@@ -77,8 +77,7 @@ public class SyncStreamCreator extends Creator<SyncStream> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Streams",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Streams"
         );
 
         addPostParams(request);

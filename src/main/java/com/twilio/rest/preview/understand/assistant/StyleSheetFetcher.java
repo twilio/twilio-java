@@ -46,8 +46,7 @@ public class StyleSheetFetcher extends Fetcher<StyleSheet> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/StyleSheet",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/StyleSheet"
         );
 
         Response response = client.request(request);

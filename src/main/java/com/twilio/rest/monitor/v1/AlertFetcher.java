@@ -41,8 +41,7 @@ public class AlertFetcher extends Fetcher<Alert> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.MONITOR.toString(),
-            "/v1/Alerts/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Alerts/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

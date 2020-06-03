@@ -52,8 +52,7 @@ public class TaskActionsFetcher extends Fetcher<TaskActions> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/Tasks/" + this.pathTaskSid + "/Actions",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/Tasks/" + this.pathTaskSid + "/Actions"
         );
 
         Response response = client.request(request);

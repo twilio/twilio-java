@@ -43,8 +43,7 @@ public class ConfigurationFetcher extends Fetcher<Configuration> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.FLEXAPI.toString(),
-            "/v1/Configuration",
-            client.getRegion()
+            "/v1/Configuration"
         );
 
         addQueryParams(request);

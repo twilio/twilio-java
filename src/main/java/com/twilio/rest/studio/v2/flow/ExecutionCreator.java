@@ -75,8 +75,7 @@ public class ExecutionCreator extends Creator<Execution> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.STUDIO.toString(),
-            "/v2/Flows/" + this.pathFlowSid + "/Executions",
-            client.getRegion()
+            "/v2/Flows/" + this.pathFlowSid + "/Executions"
         );
 
         addPostParams(request);

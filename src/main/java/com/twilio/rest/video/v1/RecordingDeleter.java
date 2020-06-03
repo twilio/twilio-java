@@ -40,8 +40,7 @@ public class RecordingDeleter extends Deleter<Recording> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.VIDEO.toString(),
-            "/v1/Recordings/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Recordings/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

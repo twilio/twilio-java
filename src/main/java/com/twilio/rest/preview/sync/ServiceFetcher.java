@@ -46,8 +46,7 @@ public class ServiceFetcher extends Fetcher<Service> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathSid + "",
-            client.getRegion()
+            "/Sync/Services/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

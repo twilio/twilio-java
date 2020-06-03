@@ -127,8 +127,7 @@ public class CredentialCreator extends Creator<Credential> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
-            "/v1/Credentials",
-            client.getRegion()
+            "/v1/Credentials"
         );
 
         addPostParams(request);

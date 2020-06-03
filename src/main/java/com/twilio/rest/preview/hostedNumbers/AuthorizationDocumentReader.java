@@ -76,8 +76,7 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/HostedNumbers/AuthorizationDocuments",
-            client.getRegion()
+            "/HostedNumbers/AuthorizationDocuments"
         );
 
         addQueryParams(request);
@@ -114,10 +113,7 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
                                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
@@ -134,10 +130,7 @@ public class AuthorizationDocumentReader extends Reader<AuthorizationDocument> {
                                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }

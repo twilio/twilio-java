@@ -173,8 +173,7 @@ public class TrunkUpdater extends Updater<Trunk> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathSid + ""
         );
 
         addPostParams(request);

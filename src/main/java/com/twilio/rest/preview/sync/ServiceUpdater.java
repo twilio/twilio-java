@@ -107,8 +107,7 @@ public class ServiceUpdater extends Updater<Service> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathSid + "",
-            client.getRegion()
+            "/Sync/Services/" + this.pathSid + ""
         );
 
         addPostParams(request);

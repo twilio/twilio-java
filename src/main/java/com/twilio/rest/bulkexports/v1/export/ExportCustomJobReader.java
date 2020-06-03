@@ -84,8 +84,7 @@ public class ExportCustomJobReader extends Reader<ExportCustomJob> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.BULKEXPORTS.toString(),
-            "/v1/Exports/" + this.pathResourceType + "/Jobs",
-            client.getRegion()
+            "/v1/Exports/" + this.pathResourceType + "/Jobs"
         );
 
         addQueryParams(request);
@@ -122,10 +121,7 @@ public class ExportCustomJobReader extends Reader<ExportCustomJob> {
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.BULKEXPORTS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.BULKEXPORTS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -142,10 +138,7 @@ public class ExportCustomJobReader extends Reader<ExportCustomJob> {
                                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.BULKEXPORTS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.BULKEXPORTS.toString())
         );
         return pageForRequest(client, request);
     }

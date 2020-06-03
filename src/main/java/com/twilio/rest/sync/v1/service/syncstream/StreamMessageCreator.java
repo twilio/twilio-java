@@ -59,8 +59,7 @@ public class StreamMessageCreator extends Creator<StreamMessage> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Streams/" + this.pathStreamSid + "/Messages",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Streams/" + this.pathStreamSid + "/Messages"
         );
 
         addPostParams(request);

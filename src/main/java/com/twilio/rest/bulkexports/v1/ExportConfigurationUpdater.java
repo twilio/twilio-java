@@ -97,8 +97,7 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.BULKEXPORTS.toString(),
-            "/v1/Exports/" + this.pathResourceType + "/Configuration",
-            client.getRegion()
+            "/v1/Exports/" + this.pathResourceType + "/Configuration"
         );
 
         addPostParams(request);

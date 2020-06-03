@@ -128,8 +128,7 @@ public class CredentialCreator extends Creator<Credential> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.NOTIFY.toString(),
-            "/v1/Credentials",
-            client.getRegion()
+            "/v1/Credentials"
         );
 
         addPostParams(request);

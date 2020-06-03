@@ -59,8 +59,7 @@ public class UserChannelReader extends Reader<UserChannel> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.CHAT.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Users/" + this.pathUserSid + "/Channels",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Users/" + this.pathUserSid + "/Channels"
         );
 
         addQueryParams(request);
@@ -97,10 +96,7 @@ public class UserChannelReader extends Reader<UserChannel> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.CHAT.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.CHAT.toString())
         );
         return pageForRequest(client, request);
     }
@@ -117,10 +113,7 @@ public class UserChannelReader extends Reader<UserChannel> {
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.CHAT.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.CHAT.toString())
         );
         return pageForRequest(client, request);
     }

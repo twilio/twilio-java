@@ -45,8 +45,7 @@ public class RoomRecordingDeleter extends Deleter<RoomRecording> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/Recordings/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Rooms/" + this.pathRoomSid + "/Recordings/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

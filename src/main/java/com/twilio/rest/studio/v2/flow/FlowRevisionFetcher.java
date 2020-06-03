@@ -50,8 +50,7 @@ public class FlowRevisionFetcher extends Fetcher<FlowRevision> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.STUDIO.toString(),
-            "/v2/Flows/" + this.pathSid + "/Revisions/" + this.pathRevision + "",
-            client.getRegion()
+            "/v2/Flows/" + this.pathSid + "/Revisions/" + this.pathRevision + ""
         );
 
         Response response = client.request(request);

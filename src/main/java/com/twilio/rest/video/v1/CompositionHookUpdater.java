@@ -264,8 +264,7 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
-            "/v1/CompositionHooks/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/CompositionHooks/" + this.pathSid + ""
         );
 
         addPostParams(request);

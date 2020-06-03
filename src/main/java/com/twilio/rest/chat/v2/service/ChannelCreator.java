@@ -144,8 +144,7 @@ public class ChannelCreator extends Creator<Channel> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels"
         );
 
         addPostParams(request);

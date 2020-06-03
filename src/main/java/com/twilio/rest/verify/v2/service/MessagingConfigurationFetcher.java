@@ -46,8 +46,7 @@ public class MessagingConfigurationFetcher extends Fetcher<MessagingConfiguratio
         Request request = new Request(
             HttpMethod.GET,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/MessagingConfigurations/" + this.pathCountry + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/MessagingConfigurations/" + this.pathCountry + ""
         );
 
         Response response = client.request(request);

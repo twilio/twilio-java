@@ -130,8 +130,7 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathTrunkSid + "/OriginationUrls/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathTrunkSid + "/OriginationUrls/" + this.pathSid + ""
         );
 
         addPostParams(request);

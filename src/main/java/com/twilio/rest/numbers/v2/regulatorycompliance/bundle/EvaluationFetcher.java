@@ -45,8 +45,7 @@ public class EvaluationFetcher extends Fetcher<Evaluation> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.NUMBERS.toString(),
-            "/v2/RegulatoryCompliance/Bundles/" + this.pathBundleSid + "/Evaluations/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/RegulatoryCompliance/Bundles/" + this.pathBundleSid + "/Evaluations/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

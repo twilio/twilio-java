@@ -90,8 +90,7 @@ public class CommandReader extends Reader<Command> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SUPERSIM.toString(),
-            "/v1/Commands",
-            client.getRegion()
+            "/v1/Commands"
         );
 
         addQueryParams(request);
@@ -128,10 +127,7 @@ public class CommandReader extends Reader<Command> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.SUPERSIM.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.SUPERSIM.toString())
         );
         return pageForRequest(client, request);
     }
@@ -148,10 +144,7 @@ public class CommandReader extends Reader<Command> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.SUPERSIM.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.SUPERSIM.toString())
         );
         return pageForRequest(client, request);
     }

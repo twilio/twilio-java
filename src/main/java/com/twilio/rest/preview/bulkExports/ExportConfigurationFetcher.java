@@ -46,8 +46,7 @@ public class ExportConfigurationFetcher extends Fetcher<ExportConfiguration> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/BulkExports/Exports/" + this.pathResourceType + "/Configuration",
-            client.getRegion()
+            "/BulkExports/Exports/" + this.pathResourceType + "/Configuration"
         );
 
         Response response = client.request(request);

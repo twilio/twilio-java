@@ -165,8 +165,7 @@ public class AssistantCreator extends Creator<Assistant> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants",
-            client.getRegion()
+            "/understand/Assistants"
         );
 
         addPostParams(request);

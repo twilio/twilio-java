@@ -49,8 +49,7 @@ public class CertificateDeleter extends Deleter<Certificate> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Certificates/" + this.pathSid + "",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Certificates/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

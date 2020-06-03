@@ -72,8 +72,7 @@ public class DeploymentCreator extends Creator<Deployment> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Deployments",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Deployments"
         );
 
         addPostParams(request);

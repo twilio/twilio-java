@@ -65,8 +65,7 @@ public class IpAccessControlListMappingCreator extends Creator<IpAccessControlLi
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/IpAccessControlListMappings.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/IpAccessControlListMappings.json"
         );
 
         addPostParams(request);

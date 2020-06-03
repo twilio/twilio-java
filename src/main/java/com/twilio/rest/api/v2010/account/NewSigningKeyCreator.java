@@ -62,8 +62,7 @@ public class NewSigningKeyCreator extends Creator<NewSigningKey> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SigningKeys.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SigningKeys.json"
         );
 
         addPostParams(request);

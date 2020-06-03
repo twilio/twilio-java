@@ -63,8 +63,7 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Documents/" + this.pathDocumentSid + "/Permissions",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Documents/" + this.pathDocumentSid + "/Permissions"
         );
 
         addQueryParams(request);
@@ -101,10 +100,7 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
                                              final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
@@ -121,10 +117,7 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
                                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }

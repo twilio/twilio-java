@@ -83,8 +83,7 @@ public class UserCreator extends Creator<User> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Users",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Users"
         );
 
         addPostParams(request);

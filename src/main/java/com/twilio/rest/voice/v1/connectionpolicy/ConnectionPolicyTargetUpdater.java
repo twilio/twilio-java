@@ -127,8 +127,7 @@ public class ConnectionPolicyTargetUpdater extends Updater<ConnectionPolicyTarge
         Request request = new Request(
             HttpMethod.POST,
             Domains.VOICE.toString(),
-            "/v1/ConnectionPolicies/" + this.pathConnectionPolicySid + "/Targets/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/ConnectionPolicies/" + this.pathConnectionPolicySid + "/Targets/" + this.pathSid + ""
         );
 
         addPostParams(request);

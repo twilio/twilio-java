@@ -58,8 +58,7 @@ public class FlowRevisionReader extends Reader<FlowRevision> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.STUDIO.toString(),
-            "/v2/Flows/" + this.pathSid + "/Revisions",
-            client.getRegion()
+            "/v2/Flows/" + this.pathSid + "/Revisions"
         );
 
         addQueryParams(request);
@@ -96,10 +95,7 @@ public class FlowRevisionReader extends Reader<FlowRevision> {
                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.STUDIO.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.STUDIO.toString())
         );
         return pageForRequest(client, request);
     }
@@ -116,10 +112,7 @@ public class FlowRevisionReader extends Reader<FlowRevision> {
                                            final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.STUDIO.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.STUDIO.toString())
         );
         return pageForRequest(client, request);
     }

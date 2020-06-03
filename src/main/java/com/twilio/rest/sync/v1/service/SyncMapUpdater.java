@@ -80,8 +80,7 @@ public class SyncMapUpdater extends Updater<SyncMap> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathSid + ""
         );
 
         addPostParams(request);

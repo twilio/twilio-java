@@ -58,8 +58,7 @@ public class RateLimitUpdater extends Updater<RateLimit> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/RateLimits/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/RateLimits/" + this.pathSid + ""
         );
 
         addPostParams(request);

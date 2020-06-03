@@ -380,8 +380,7 @@ public class NotificationCreator extends Creator<Notification> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.NOTIFY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Notifications",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Notifications"
         );
 
         addPostParams(request);

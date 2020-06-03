@@ -51,8 +51,7 @@ public class RoleUpdater extends Updater<Role> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Roles/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Roles/" + this.pathSid + ""
         );
 
         addPostParams(request);

@@ -47,8 +47,7 @@ public class ConversationReader extends Reader<Conversation> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.CONVERSATIONS.toString(),
-            "/v1/Conversations",
-            client.getRegion()
+            "/v1/Conversations"
         );
 
         addQueryParams(request);
@@ -85,10 +84,7 @@ public class ConversationReader extends Reader<Conversation> {
                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.CONVERSATIONS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.CONVERSATIONS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -105,10 +101,7 @@ public class ConversationReader extends Reader<Conversation> {
                                            final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.CONVERSATIONS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.CONVERSATIONS.toString())
         );
         return pageForRequest(client, request);
     }

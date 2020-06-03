@@ -41,8 +41,7 @@ public class EventFetcher extends Fetcher<Event> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.MONITOR.toString(),
-            "/v1/Events/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Events/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

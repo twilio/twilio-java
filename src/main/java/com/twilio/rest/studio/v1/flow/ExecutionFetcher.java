@@ -45,8 +45,7 @@ public class ExecutionFetcher extends Fetcher<Execution> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Executions/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Flows/" + this.pathFlowSid + "/Executions/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

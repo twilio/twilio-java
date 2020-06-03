@@ -103,8 +103,7 @@ public class ConnectionPolicyTargetCreator extends Creator<ConnectionPolicyTarge
         Request request = new Request(
             HttpMethod.POST,
             Domains.VOICE.toString(),
-            "/v1/ConnectionPolicies/" + this.pathConnectionPolicySid + "/Targets",
-            client.getRegion()
+            "/v1/ConnectionPolicies/" + this.pathConnectionPolicySid + "/Targets"
         );
 
         addPostParams(request);

@@ -55,8 +55,7 @@ public class FieldValueDeleter extends Deleter<FieldValue> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/FieldTypes/" + this.pathFieldTypeSid + "/FieldValues/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/FieldTypes/" + this.pathFieldTypeSid + "/FieldValues/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

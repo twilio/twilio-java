@@ -68,8 +68,7 @@ public class FlowValidateUpdater extends Updater<FlowValidate> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.STUDIO.toString(),
-            "/v2/Flows/Validate",
-            client.getRegion()
+            "/v2/Flows/Validate"
         );
 
         addPostParams(request);

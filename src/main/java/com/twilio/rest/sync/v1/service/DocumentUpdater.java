@@ -84,8 +84,7 @@ public class DocumentUpdater extends Updater<Document> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Documents/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Documents/" + this.pathSid + ""
         );
 
         addPostParams(request);

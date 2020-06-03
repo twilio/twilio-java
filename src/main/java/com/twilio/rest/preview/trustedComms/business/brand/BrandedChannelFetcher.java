@@ -54,8 +54,7 @@ public class BrandedChannelFetcher extends Fetcher<BrandedChannel> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/TrustedComms/Businesses/" + this.pathBusinessSid + "/Brands/" + this.pathBrandSid + "/BrandedChannels/" + this.pathSid + "",
-            client.getRegion()
+            "/TrustedComms/Businesses/" + this.pathBusinessSid + "/Brands/" + this.pathBrandSid + "/BrandedChannels/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

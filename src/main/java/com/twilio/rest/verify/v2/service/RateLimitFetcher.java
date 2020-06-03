@@ -46,8 +46,7 @@ public class RateLimitFetcher extends Fetcher<RateLimit> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/RateLimits/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/RateLimits/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

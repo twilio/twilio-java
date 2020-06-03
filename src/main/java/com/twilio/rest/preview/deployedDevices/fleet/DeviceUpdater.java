@@ -101,8 +101,7 @@ public class DeviceUpdater extends Updater<Device> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Devices/" + this.pathSid + "",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Devices/" + this.pathSid + ""
         );
 
         addPostParams(request);

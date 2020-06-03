@@ -166,8 +166,7 @@ public class TrunkCreator extends Creator<Trunk> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks",
-            client.getRegion()
+            "/v1/Trunks"
         );
 
         addPostParams(request);

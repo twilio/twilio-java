@@ -46,8 +46,7 @@ public class AssistantInitiationActionsFetcher extends Fetcher<AssistantInitiati
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/InitiationActions",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/InitiationActions"
         );
 
         Response response = client.request(request);

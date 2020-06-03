@@ -131,8 +131,7 @@ public class BindingCreator extends Creator<Binding> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.NOTIFY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Bindings",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Bindings"
         );
 
         addPostParams(request);

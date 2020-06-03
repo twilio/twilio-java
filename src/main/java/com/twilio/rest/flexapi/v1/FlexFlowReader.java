@@ -56,8 +56,7 @@ public class FlexFlowReader extends Reader<FlexFlow> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.FLEXAPI.toString(),
-            "/v1/FlexFlows",
-            client.getRegion()
+            "/v1/FlexFlows"
         );
 
         addQueryParams(request);
@@ -94,10 +93,7 @@ public class FlexFlowReader extends Reader<FlexFlow> {
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.FLEXAPI.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.FLEXAPI.toString())
         );
         return pageForRequest(client, request);
     }
@@ -114,10 +110,7 @@ public class FlexFlowReader extends Reader<FlexFlow> {
                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.FLEXAPI.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.FLEXAPI.toString())
         );
         return pageForRequest(client, request);
     }

@@ -58,8 +58,7 @@ public class NetworkAccessProfileUpdater extends Updater<NetworkAccessProfile> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SUPERSIM.toString(),
-            "/v1/NetworkAccessProfiles/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/NetworkAccessProfiles/" + this.pathSid + ""
         );
 
         addPostParams(request);

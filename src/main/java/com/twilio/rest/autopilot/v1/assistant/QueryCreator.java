@@ -84,8 +84,7 @@ public class QueryCreator extends Creator<Query> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/Queries",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/Queries"
         );
 
         addPostParams(request);

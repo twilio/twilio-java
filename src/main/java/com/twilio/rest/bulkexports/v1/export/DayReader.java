@@ -82,8 +82,7 @@ public class DayReader extends Reader<Day> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.BULKEXPORTS.toString(),
-            "/v1/Exports/" + this.pathResourceType + "/Days",
-            client.getRegion()
+            "/v1/Exports/" + this.pathResourceType + "/Days"
         );
 
         addQueryParams(request);
@@ -120,10 +119,7 @@ public class DayReader extends Reader<Day> {
                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.BULKEXPORTS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.BULKEXPORTS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -140,10 +136,7 @@ public class DayReader extends Reader<Day> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.BULKEXPORTS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.BULKEXPORTS.toString())
         );
         return pageForRequest(client, request);
     }

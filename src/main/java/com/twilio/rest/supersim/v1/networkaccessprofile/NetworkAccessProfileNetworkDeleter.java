@@ -50,8 +50,7 @@ public class NetworkAccessProfileNetworkDeleter extends Deleter<NetworkAccessPro
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.SUPERSIM.toString(),
-            "/v1/NetworkAccessProfiles/" + this.pathNetworkAccessProfileSid + "/Networks/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/NetworkAccessProfiles/" + this.pathNetworkAccessProfileSid + "/Networks/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

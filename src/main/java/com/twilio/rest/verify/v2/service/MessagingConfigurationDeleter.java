@@ -45,8 +45,7 @@ public class MessagingConfigurationDeleter extends Deleter<MessagingConfiguratio
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/MessagingConfigurations/" + this.pathCountry + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/MessagingConfigurations/" + this.pathCountry + ""
         );
 
         Response response = client.request(request);

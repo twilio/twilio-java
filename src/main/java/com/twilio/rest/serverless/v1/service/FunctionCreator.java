@@ -51,8 +51,7 @@ public class FunctionCreator extends Creator<Function> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Functions",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Functions"
         );
 
         addPostParams(request);

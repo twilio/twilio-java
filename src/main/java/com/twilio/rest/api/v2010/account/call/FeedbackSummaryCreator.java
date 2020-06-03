@@ -120,8 +120,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/FeedbackSummary.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/FeedbackSummary.json"
         );
 
         addPostParams(request);

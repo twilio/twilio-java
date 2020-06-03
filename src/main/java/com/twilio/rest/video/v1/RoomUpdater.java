@@ -45,8 +45,7 @@ public class RoomUpdater extends Updater<Room> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Rooms/" + this.pathSid + ""
         );
 
         addPostParams(request);

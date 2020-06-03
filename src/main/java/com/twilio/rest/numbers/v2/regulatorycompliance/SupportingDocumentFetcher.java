@@ -41,8 +41,7 @@ public class SupportingDocumentFetcher extends Fetcher<SupportingDocument> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.NUMBERS.toString(),
-            "/v2/RegulatoryCompliance/SupportingDocuments/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/RegulatoryCompliance/SupportingDocuments/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

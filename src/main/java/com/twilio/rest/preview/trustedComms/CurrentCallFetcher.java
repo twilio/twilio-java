@@ -35,8 +35,7 @@ public class CurrentCallFetcher extends Fetcher<CurrentCall> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/TrustedComms/CurrentCall",
-            client.getRegion()
+            "/TrustedComms/CurrentCall"
         );
 
         Response response = client.request(request);

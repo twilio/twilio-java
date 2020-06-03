@@ -45,8 +45,7 @@ public class EventFetcher extends Fetcher<Event> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Events/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Events/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

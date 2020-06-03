@@ -62,8 +62,7 @@ public class SupportingDocumentCreator extends Creator<SupportingDocument> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.NUMBERS.toString(),
-            "/v2/RegulatoryCompliance/SupportingDocuments",
-            client.getRegion()
+            "/v2/RegulatoryCompliance/SupportingDocuments"
         );
 
         addPostParams(request);

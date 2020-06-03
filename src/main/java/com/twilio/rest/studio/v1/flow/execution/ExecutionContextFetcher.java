@@ -45,8 +45,7 @@ public class ExecutionContextFetcher extends Fetcher<ExecutionContext> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Executions/" + this.pathExecutionSid + "/Context",
-            client.getRegion()
+            "/v1/Flows/" + this.pathFlowSid + "/Executions/" + this.pathExecutionSid + "/Context"
         );
 
         Response response = client.request(request);

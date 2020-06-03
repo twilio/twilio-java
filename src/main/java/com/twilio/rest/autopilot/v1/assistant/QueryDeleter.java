@@ -50,8 +50,7 @@ public class QueryDeleter extends Deleter<Query> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/Queries/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/Queries/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

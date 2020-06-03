@@ -51,8 +51,7 @@ public class FlowTestUserUpdater extends Updater<FlowTestUser> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.STUDIO.toString(),
-            "/v2/Flows/" + this.pathSid + "/TestUsers",
-            client.getRegion()
+            "/v2/Flows/" + this.pathSid + "/TestUsers"
         );
 
         addPostParams(request);

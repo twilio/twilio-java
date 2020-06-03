@@ -69,8 +69,7 @@ public class KeyUpdater extends Updater<Key> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Keys/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Keys/" + this.pathSid + ".json"
         );
 
         addPostParams(request);

@@ -40,8 +40,7 @@ public class PublicKeyDeleter extends Deleter<PublicKey> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.ACCOUNTS.toString(),
-            "/v1/Credentials/PublicKeys/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Credentials/PublicKeys/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

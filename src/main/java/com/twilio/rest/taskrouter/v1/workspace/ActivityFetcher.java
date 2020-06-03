@@ -46,8 +46,7 @@ public class ActivityFetcher extends Fetcher<Activity> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Activities/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Activities/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

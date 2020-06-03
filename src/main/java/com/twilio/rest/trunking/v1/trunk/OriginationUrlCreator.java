@@ -65,8 +65,7 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathTrunkSid + "/OriginationUrls",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathTrunkSid + "/OriginationUrls"
         );
 
         addPostParams(request);

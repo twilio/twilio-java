@@ -55,8 +55,7 @@ public class ApplicationDeleter extends Deleter<Application> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Applications/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Applications/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);

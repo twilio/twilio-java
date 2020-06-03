@@ -61,8 +61,7 @@ public class TokenCreator extends Creator<Token> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Tokens.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Tokens.json"
         );
 
         addPostParams(request);

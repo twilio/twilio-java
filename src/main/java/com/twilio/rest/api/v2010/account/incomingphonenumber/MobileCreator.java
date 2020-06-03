@@ -421,8 +421,7 @@ public class MobileCreator extends Creator<Mobile> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/Mobile.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/Mobile.json"
         );
 
         addPostParams(request);

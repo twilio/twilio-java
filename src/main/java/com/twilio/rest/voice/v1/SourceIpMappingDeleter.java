@@ -40,8 +40,7 @@ public class SourceIpMappingDeleter extends Deleter<SourceIpMapping> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.VOICE.toString(),
-            "/v1/SourceIpMappings/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/SourceIpMappings/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

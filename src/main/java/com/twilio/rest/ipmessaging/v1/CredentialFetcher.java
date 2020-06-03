@@ -41,8 +41,7 @@ public class CredentialFetcher extends Fetcher<Credential> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),
-            "/v1/Credentials/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Credentials/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

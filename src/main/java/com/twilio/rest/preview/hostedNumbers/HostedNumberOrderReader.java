@@ -126,8 +126,7 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/HostedNumbers/HostedNumberOrders",
-            client.getRegion()
+            "/HostedNumbers/HostedNumberOrders"
         );
 
         addQueryParams(request);
@@ -164,10 +163,7 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
                                             final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
@@ -184,10 +180,7 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
                                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }

@@ -45,8 +45,7 @@ public class RoleFetcher extends Fetcher<Role> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.CHAT.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Roles/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Roles/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

@@ -55,8 +55,7 @@ public class LogFetcher extends Fetcher<Log> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Environments/" + this.pathEnvironmentSid + "/Logs/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Environments/" + this.pathEnvironmentSid + "/Logs/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

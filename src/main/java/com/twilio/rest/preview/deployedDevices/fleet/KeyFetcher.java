@@ -50,8 +50,7 @@ public class KeyFetcher extends Fetcher<Key> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Keys/" + this.pathSid + "",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Keys/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

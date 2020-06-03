@@ -43,8 +43,7 @@ public class ServiceReader extends Reader<Service> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VERIFY.toString(),
-            "/v2/Services",
-            client.getRegion()
+            "/v2/Services"
         );
 
         addQueryParams(request);
@@ -81,10 +80,7 @@ public class ServiceReader extends Reader<Service> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.VERIFY.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.VERIFY.toString())
         );
         return pageForRequest(client, request);
     }
@@ -101,10 +97,7 @@ public class ServiceReader extends Reader<Service> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.VERIFY.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.VERIFY.toString())
         );
         return pageForRequest(client, request);
     }

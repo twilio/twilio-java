@@ -418,8 +418,7 @@ public class TollFreeCreator extends Creator<TollFree> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/TollFree.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/TollFree.json"
         );
 
         addPostParams(request);

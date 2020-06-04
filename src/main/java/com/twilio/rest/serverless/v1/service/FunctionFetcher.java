@@ -51,8 +51,7 @@ public class FunctionFetcher extends Fetcher<Function> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Functions/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Functions/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

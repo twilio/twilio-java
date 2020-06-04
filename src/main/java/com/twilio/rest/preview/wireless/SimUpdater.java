@@ -301,8 +301,7 @@ public class SimUpdater extends Updater<Sim> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/wireless/Sims/" + this.pathSid + "",
-            client.getRegion()
+            "/wireless/Sims/" + this.pathSid + ""
         );
 
         addPostParams(request);

@@ -56,8 +56,7 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/AuthorizedConnectApps/" + this.pathConnectAppSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/AuthorizedConnectApps/" + this.pathConnectAppSid + ".json"
         );
 
         Response response = client.request(request);

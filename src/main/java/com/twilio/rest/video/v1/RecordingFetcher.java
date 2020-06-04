@@ -41,8 +41,7 @@ public class RecordingFetcher extends Fetcher<Recording> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/Recordings/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Recordings/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

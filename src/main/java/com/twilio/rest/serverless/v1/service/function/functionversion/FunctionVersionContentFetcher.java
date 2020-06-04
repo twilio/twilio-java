@@ -56,8 +56,7 @@ public class FunctionVersionContentFetcher extends Fetcher<FunctionVersionConten
         Request request = new Request(
             HttpMethod.GET,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Functions/" + this.pathFunctionSid + "/Versions/" + this.pathSid + "/Content",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Functions/" + this.pathFunctionSid + "/Versions/" + this.pathSid + "/Content"
         );
 
         Response response = client.request(request);

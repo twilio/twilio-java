@@ -50,8 +50,7 @@ public class BuildFetcher extends Fetcher<Build> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Builds/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Builds/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

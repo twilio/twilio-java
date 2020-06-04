@@ -154,8 +154,7 @@ public class WebhookCreator extends Creator<Webhook> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CONVERSATIONS.toString(),
-            "/v1/Conversations/" + this.pathConversationSid + "/Webhooks",
-            client.getRegion()
+            "/v1/Conversations/" + this.pathConversationSid + "/Webhooks"
         );
 
         addPostParams(request);

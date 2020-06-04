@@ -51,8 +51,7 @@ public class AvailableAddOnExtensionFetcher extends Fetcher<AvailableAddOnExtens
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/marketplace/AvailableAddOns/" + this.pathAvailableAddOnSid + "/Extensions/" + this.pathSid + "",
-            client.getRegion()
+            "/marketplace/AvailableAddOns/" + this.pathAvailableAddOnSid + "/Extensions/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

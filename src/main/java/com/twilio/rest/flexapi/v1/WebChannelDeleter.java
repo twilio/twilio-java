@@ -40,8 +40,7 @@ public class WebChannelDeleter extends Deleter<WebChannel> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.FLEXAPI.toString(),
-            "/v1/WebChannels/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/WebChannels/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

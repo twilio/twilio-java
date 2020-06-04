@@ -48,8 +48,7 @@ public class BalanceFetcher extends Fetcher<Balance> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Balance.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Balance.json"
         );
 
         Response response = client.request(request);

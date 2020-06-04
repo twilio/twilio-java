@@ -71,8 +71,7 @@ public class TaskActionsUpdater extends Updater<TaskActions> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/Tasks/" + this.pathTaskSid + "/Actions",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/Tasks/" + this.pathTaskSid + "/Actions"
         );
 
         addPostParams(request);

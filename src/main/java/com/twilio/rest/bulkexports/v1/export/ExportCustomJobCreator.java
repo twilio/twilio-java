@@ -117,8 +117,7 @@ public class ExportCustomJobCreator extends Creator<ExportCustomJob> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.BULKEXPORTS.toString(),
-            "/v1/Exports/" + this.pathResourceType + "/Jobs",
-            client.getRegion()
+            "/v1/Exports/" + this.pathResourceType + "/Jobs"
         );
 
         addPostParams(request);

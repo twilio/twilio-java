@@ -72,8 +72,7 @@ public class IpRecordCreator extends Creator<IpRecord> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VOICE.toString(),
-            "/v1/IpRecords",
-            client.getRegion()
+            "/v1/IpRecords"
         );
 
         addPostParams(request);

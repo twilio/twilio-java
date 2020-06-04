@@ -41,8 +41,7 @@ public class ServiceCreator extends Creator<Service> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services",
-            client.getRegion()
+            "/v2/Services"
         );
 
         addPostParams(request);

@@ -68,8 +68,7 @@ public class FlowCreator extends Creator<Flow> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.STUDIO.toString(),
-            "/v2/Flows",
-            client.getRegion()
+            "/v2/Flows"
         );
 
         addPostParams(request);

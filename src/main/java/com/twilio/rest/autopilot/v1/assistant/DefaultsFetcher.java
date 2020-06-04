@@ -47,8 +47,7 @@ public class DefaultsFetcher extends Fetcher<Defaults> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/Defaults",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/Defaults"
         );
 
         Response response = client.request(request);

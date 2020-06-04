@@ -206,8 +206,7 @@ public class ByocTrunkCreator extends Creator<ByocTrunk> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VOICE.toString(),
-            "/v1/ByocTrunks",
-            client.getRegion()
+            "/v1/ByocTrunks"
         );
 
         addPostParams(request);

@@ -55,8 +55,7 @@ public class FunctionUpdater extends Updater<Function> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Functions/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Functions/" + this.pathSid + ""
         );
 
         addPostParams(request);

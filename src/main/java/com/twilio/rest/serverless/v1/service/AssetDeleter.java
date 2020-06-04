@@ -50,8 +50,7 @@ public class AssetDeleter extends Deleter<Asset> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Assets/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Assets/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

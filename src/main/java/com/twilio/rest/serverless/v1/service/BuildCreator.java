@@ -112,8 +112,7 @@ public class BuildCreator extends Creator<Build> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Builds",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Builds"
         );
 
         addPostParams(request);

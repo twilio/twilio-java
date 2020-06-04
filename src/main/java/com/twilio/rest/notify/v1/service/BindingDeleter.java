@@ -48,8 +48,7 @@ public class BindingDeleter extends Deleter<Binding> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.NOTIFY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Bindings/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Bindings/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

@@ -68,8 +68,7 @@ public class QueueCreator extends Creator<Queue> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Queues.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Queues.json"
         );
 
         addPostParams(request);

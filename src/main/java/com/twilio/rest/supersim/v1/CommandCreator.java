@@ -90,8 +90,7 @@ public class CommandCreator extends Creator<Command> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SUPERSIM.toString(),
-            "/v1/Commands",
-            client.getRegion()
+            "/v1/Commands"
         );
 
         addPostParams(request);

@@ -43,8 +43,7 @@ public class CountryReader extends Reader<Country> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PRICING.toString(),
-            "/v2/Voice/Countries",
-            client.getRegion()
+            "/v2/Voice/Countries"
         );
 
         addQueryParams(request);
@@ -81,10 +80,7 @@ public class CountryReader extends Reader<Country> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.PRICING.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.PRICING.toString())
         );
         return pageForRequest(client, request);
     }
@@ -101,10 +97,7 @@ public class CountryReader extends Reader<Country> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.PRICING.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.PRICING.toString())
         );
         return pageForRequest(client, request);
     }

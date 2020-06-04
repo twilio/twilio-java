@@ -104,8 +104,7 @@ public class ParticipantUpdater extends Updater<Participant> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CONVERSATIONS.toString(),
-            "/v1/Conversations/" + this.pathConversationSid + "/Participants/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Conversations/" + this.pathConversationSid + "/Participants/" + this.pathSid + ""
         );
 
         addPostParams(request);

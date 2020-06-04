@@ -46,8 +46,7 @@ public class VerificationFetcher extends Fetcher<Verification> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Verifications/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Verifications/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

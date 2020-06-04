@@ -94,8 +94,7 @@ public class DocumentCreator extends Creator<Document> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Documents",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Documents"
         );
 
         addPostParams(request);

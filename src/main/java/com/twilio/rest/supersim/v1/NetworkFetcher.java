@@ -46,8 +46,7 @@ public class NetworkFetcher extends Fetcher<Network> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SUPERSIM.toString(),
-            "/v1/Networks/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Networks/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

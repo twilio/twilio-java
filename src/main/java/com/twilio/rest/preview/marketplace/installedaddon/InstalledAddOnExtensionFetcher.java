@@ -51,8 +51,7 @@ public class InstalledAddOnExtensionFetcher extends Fetcher<InstalledAddOnExtens
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/marketplace/InstalledAddOns/" + this.pathInstalledAddOnSid + "/Extensions/" + this.pathSid + "",
-            client.getRegion()
+            "/marketplace/InstalledAddOns/" + this.pathInstalledAddOnSid + "/Extensions/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

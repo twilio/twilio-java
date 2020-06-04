@@ -67,8 +67,7 @@ public class SigningKeyUpdater extends Updater<SigningKey> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SigningKeys/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SigningKeys/" + this.pathSid + ".json"
         );
 
         addPostParams(request);

@@ -46,8 +46,7 @@ public class BulkCountryUpdateCreator extends Creator<BulkCountryUpdate> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VOICE.toString(),
-            "/v1/DialingPermissions/BulkCountryUpdates",
-            client.getRegion()
+            "/v1/DialingPermissions/BulkCountryUpdates"
         );
 
         addPostParams(request);

@@ -88,8 +88,7 @@ public class NetworkReader extends Reader<Network> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SUPERSIM.toString(),
-            "/v1/Networks",
-            client.getRegion()
+            "/v1/Networks"
         );
 
         addQueryParams(request);
@@ -126,10 +125,7 @@ public class NetworkReader extends Reader<Network> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.SUPERSIM.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.SUPERSIM.toString())
         );
         return pageForRequest(client, request);
     }
@@ -146,10 +142,7 @@ public class NetworkReader extends Reader<Network> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.SUPERSIM.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.SUPERSIM.toString())
         );
         return pageForRequest(client, request);
     }

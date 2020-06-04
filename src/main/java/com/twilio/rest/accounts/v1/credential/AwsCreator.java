@@ -69,8 +69,7 @@ public class AwsCreator extends Creator<Aws> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.ACCOUNTS.toString(),
-            "/v1/Credentials/AWS",
-            client.getRegion()
+            "/v1/Credentials/AWS"
         );
 
         addPostParams(request);

@@ -46,8 +46,7 @@ public class AssistantFetcher extends Fetcher<Assistant> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathSid + "",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

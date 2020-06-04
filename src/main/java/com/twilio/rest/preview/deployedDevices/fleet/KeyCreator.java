@@ -72,8 +72,7 @@ public class KeyCreator extends Creator<Key> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Keys",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Keys"
         );
 
         addPostParams(request);

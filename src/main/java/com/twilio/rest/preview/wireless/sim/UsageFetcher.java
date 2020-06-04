@@ -70,8 +70,7 @@ public class UsageFetcher extends Fetcher<Usage> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/wireless/Sims/" + this.pathSimSid + "/Usage",
-            client.getRegion()
+            "/wireless/Sims/" + this.pathSimSid + "/Usage"
         );
 
         addQueryParams(request);

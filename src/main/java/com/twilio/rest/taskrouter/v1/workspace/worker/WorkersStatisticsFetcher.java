@@ -135,8 +135,7 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/Statistics",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/Statistics"
         );
 
         addQueryParams(request);

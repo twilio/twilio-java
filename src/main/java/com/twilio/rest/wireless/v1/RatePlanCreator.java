@@ -209,8 +209,7 @@ public class RatePlanCreator extends Creator<RatePlan> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.WIRELESS.toString(),
-            "/v1/RatePlans",
-            client.getRegion()
+            "/v1/RatePlans"
         );
 
         addPostParams(request);

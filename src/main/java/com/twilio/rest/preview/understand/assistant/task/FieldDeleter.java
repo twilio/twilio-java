@@ -53,8 +53,7 @@ public class FieldDeleter extends Deleter<Field> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/Tasks/" + this.pathTaskSid + "/Fields/" + this.pathSid + "",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/Tasks/" + this.pathTaskSid + "/Fields/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

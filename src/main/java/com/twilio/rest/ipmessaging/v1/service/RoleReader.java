@@ -54,8 +54,7 @@ public class RoleReader extends Reader<Role> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Roles",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Roles"
         );
 
         addQueryParams(request);
@@ -92,10 +91,7 @@ public class RoleReader extends Reader<Role> {
                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.IPMESSAGING.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.IPMESSAGING.toString())
         );
         return pageForRequest(client, request);
     }
@@ -112,10 +108,7 @@ public class RoleReader extends Reader<Role> {
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.IPMESSAGING.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.IPMESSAGING.toString())
         );
         return pageForRequest(client, request);
     }

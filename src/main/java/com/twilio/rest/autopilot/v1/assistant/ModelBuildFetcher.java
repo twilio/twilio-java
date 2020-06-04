@@ -51,8 +51,7 @@ public class ModelBuildFetcher extends Fetcher<ModelBuild> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/ModelBuilds/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/ModelBuilds/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

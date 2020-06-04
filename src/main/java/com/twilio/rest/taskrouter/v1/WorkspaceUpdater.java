@@ -162,8 +162,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathSid + ""
         );
 
         addPostParams(request);

@@ -44,8 +44,7 @@ public class UserDeleter extends Deleter<User> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.CHAT.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Users/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Users/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

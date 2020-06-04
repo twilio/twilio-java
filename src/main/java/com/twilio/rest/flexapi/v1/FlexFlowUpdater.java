@@ -274,8 +274,7 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.FLEXAPI.toString(),
-            "/v1/FlexFlows/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/FlexFlows/" + this.pathSid + ""
         );
 
         addPostParams(request);

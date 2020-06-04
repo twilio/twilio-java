@@ -56,8 +56,7 @@ public class ShortCodeFetcher extends Fetcher<ShortCode> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SMS/ShortCodes/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SMS/ShortCodes/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);

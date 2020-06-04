@@ -50,8 +50,7 @@ public class AlphaSenderFetcher extends Fetcher<AlphaSender> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.MESSAGING.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/AlphaSenders/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/AlphaSenders/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

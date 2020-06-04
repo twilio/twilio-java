@@ -40,8 +40,7 @@ public class SimDeleter extends Deleter<Sim> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.WIRELESS.toString(),
-            "/v1/Sims/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Sims/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

@@ -45,8 +45,7 @@ public class CredentialListDeleter extends Deleter<CredentialList> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathTrunkSid + "/CredentialLists/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathTrunkSid + "/CredentialLists/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

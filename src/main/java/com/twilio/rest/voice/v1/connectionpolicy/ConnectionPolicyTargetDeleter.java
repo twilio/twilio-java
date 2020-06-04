@@ -45,8 +45,7 @@ public class ConnectionPolicyTargetDeleter extends Deleter<ConnectionPolicyTarge
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.VOICE.toString(),
-            "/v1/ConnectionPolicies/" + this.pathConnectionPolicySid + "/Targets/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/ConnectionPolicies/" + this.pathConnectionPolicySid + "/Targets/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

@@ -45,8 +45,7 @@ public class EngagementFetcher extends Fetcher<Engagement> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Engagements/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Flows/" + this.pathFlowSid + "/Engagements/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

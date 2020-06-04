@@ -30,8 +30,7 @@ public class ConfigurationCreator extends Creator<Configuration> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.FLEXAPI.toString(),
-            "/v1/Configuration",
-            client.getRegion()
+            "/v1/Configuration"
         );
 
         addPostParams(request);

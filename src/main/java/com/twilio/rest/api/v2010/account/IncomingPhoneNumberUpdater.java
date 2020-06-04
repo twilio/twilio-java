@@ -437,8 +437,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/" + this.pathSid + ".json"
         );
 
         addPostParams(request);

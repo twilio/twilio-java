@@ -73,8 +73,7 @@ public class NumberFetcher extends Fetcher<Number> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PRICING.toString(),
-            "/v2/Voice/Numbers/" + this.pathDestinationNumber.encode("utf-8") + "",
-            client.getRegion()
+            "/v2/Voice/Numbers/" + this.pathDestinationNumber.encode("utf-8") + ""
         );
 
         addQueryParams(request);

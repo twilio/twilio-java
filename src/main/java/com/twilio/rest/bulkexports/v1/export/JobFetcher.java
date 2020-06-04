@@ -45,8 +45,7 @@ public class JobFetcher extends Fetcher<Job> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.BULKEXPORTS.toString(),
-            "/v1/Exports/Jobs/" + this.pathJobSid + "",
-            client.getRegion()
+            "/v1/Exports/Jobs/" + this.pathJobSid + ""
         );
 
         Response response = client.request(request);

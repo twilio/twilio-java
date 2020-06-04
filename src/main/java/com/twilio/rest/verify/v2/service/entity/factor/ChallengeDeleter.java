@@ -57,8 +57,7 @@ public class ChallengeDeleter extends Deleter<Challenge> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Factors/" + this.pathFactorSid + "/Challenges/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Factors/" + this.pathFactorSid + "/Challenges/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

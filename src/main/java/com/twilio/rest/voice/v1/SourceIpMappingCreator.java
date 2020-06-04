@@ -45,8 +45,7 @@ public class SourceIpMappingCreator extends Creator<SourceIpMapping> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VOICE.toString(),
-            "/v1/SourceIpMappings",
-            client.getRegion()
+            "/v1/SourceIpMappings"
         );
 
         addPostParams(request);

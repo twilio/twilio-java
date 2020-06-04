@@ -45,8 +45,7 @@ public class AssistantDeleter extends Deleter<Assistant> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathSid + "",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

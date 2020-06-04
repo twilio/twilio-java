@@ -44,8 +44,7 @@ public class FaxDeleter extends Deleter<Fax> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.FAX.toString(),
-            "/v1/Faxes/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Faxes/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

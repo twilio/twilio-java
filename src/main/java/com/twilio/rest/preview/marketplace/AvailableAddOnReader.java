@@ -48,8 +48,7 @@ public class AvailableAddOnReader extends Reader<AvailableAddOn> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/marketplace/AvailableAddOns",
-            client.getRegion()
+            "/marketplace/AvailableAddOns"
         );
 
         addQueryParams(request);
@@ -86,10 +85,7 @@ public class AvailableAddOnReader extends Reader<AvailableAddOn> {
                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
@@ -106,10 +102,7 @@ public class AvailableAddOnReader extends Reader<AvailableAddOn> {
                                              final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }

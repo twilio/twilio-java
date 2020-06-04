@@ -51,8 +51,7 @@ public class SettingsUpdater extends Updater<Settings> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VOICE.toString(),
-            "/v1/Settings",
-            client.getRegion()
+            "/v1/Settings"
         );
 
         addPostParams(request);

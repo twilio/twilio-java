@@ -44,8 +44,7 @@ public class ConversationDeleter extends Deleter<Conversation> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.CONVERSATIONS.toString(),
-            "/v1/Conversations/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Conversations/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

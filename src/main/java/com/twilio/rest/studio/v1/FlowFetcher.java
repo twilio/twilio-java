@@ -41,8 +41,7 @@ public class FlowFetcher extends Fetcher<Flow> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Flows/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

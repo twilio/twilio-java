@@ -46,8 +46,7 @@ public class ExportAssistantFetcher extends Fetcher<ExportAssistant> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/Export",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/Export"
         );
 
         Response response = client.request(request);

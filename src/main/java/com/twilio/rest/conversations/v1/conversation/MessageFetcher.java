@@ -50,8 +50,7 @@ public class MessageFetcher extends Fetcher<Message> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.CONVERSATIONS.toString(),
-            "/v1/Conversations/" + this.pathConversationSid + "/Messages/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Conversations/" + this.pathConversationSid + "/Messages/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

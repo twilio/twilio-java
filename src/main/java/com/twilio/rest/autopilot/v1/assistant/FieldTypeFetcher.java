@@ -51,8 +51,7 @@ public class FieldTypeFetcher extends Fetcher<FieldType> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/FieldTypes/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/FieldTypes/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

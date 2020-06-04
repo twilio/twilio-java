@@ -83,8 +83,7 @@ public class DataSessionReader extends Reader<DataSession> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.WIRELESS.toString(),
-            "/v1/Sims/" + this.pathSimSid + "/DataSessions",
-            client.getRegion()
+            "/v1/Sims/" + this.pathSimSid + "/DataSessions"
         );
 
         addQueryParams(request);
@@ -121,10 +120,7 @@ public class DataSessionReader extends Reader<DataSession> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.WIRELESS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.WIRELESS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -141,10 +137,7 @@ public class DataSessionReader extends Reader<DataSession> {
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.WIRELESS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.WIRELESS.toString())
         );
         return pageForRequest(client, request);
     }

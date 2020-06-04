@@ -46,8 +46,7 @@ public class RatePlanFetcher extends Fetcher<RatePlan> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/wireless/RatePlans/" + this.pathSid + "",
-            client.getRegion()
+            "/wireless/RatePlans/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

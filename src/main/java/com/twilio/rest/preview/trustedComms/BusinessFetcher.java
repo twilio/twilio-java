@@ -46,8 +46,7 @@ public class BusinessFetcher extends Fetcher<Business> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/TrustedComms/Businesses/" + this.pathSid + "",
-            client.getRegion()
+            "/TrustedComms/Businesses/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

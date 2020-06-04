@@ -42,8 +42,7 @@ public class SupportingDocumentTypeFetcher extends Fetcher<SupportingDocumentTyp
         Request request = new Request(
             HttpMethod.GET,
             Domains.NUMBERS.toString(),
-            "/v2/RegulatoryCompliance/SupportingDocumentTypes/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/RegulatoryCompliance/SupportingDocumentTypes/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

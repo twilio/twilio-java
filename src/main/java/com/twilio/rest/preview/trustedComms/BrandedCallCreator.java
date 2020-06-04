@@ -66,8 +66,7 @@ public class BrandedCallCreator extends Creator<BrandedCall> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/TrustedComms/Business/BrandedCalls",
-            client.getRegion()
+            "/TrustedComms/Business/BrandedCalls"
         );
 
         addPostParams(request);

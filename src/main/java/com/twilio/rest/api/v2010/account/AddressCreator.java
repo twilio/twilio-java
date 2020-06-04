@@ -133,8 +133,7 @@ public class AddressCreator extends Creator<Address> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Addresses.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Addresses.json"
         );
 
         addPostParams(request);

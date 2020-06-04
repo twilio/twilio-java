@@ -40,8 +40,7 @@ public class ByocTrunkDeleter extends Deleter<ByocTrunk> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.VOICE.toString(),
-            "/v1/ByocTrunks/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/ByocTrunks/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

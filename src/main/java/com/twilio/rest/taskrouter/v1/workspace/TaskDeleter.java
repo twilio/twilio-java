@@ -44,8 +44,7 @@ public class TaskDeleter extends Deleter<Task> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Tasks/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Tasks/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

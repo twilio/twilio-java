@@ -329,8 +329,7 @@ public class ApplicationCreator extends Creator<Application> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Applications.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Applications.json"
         );
 
         addPostParams(request);

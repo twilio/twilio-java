@@ -46,8 +46,7 @@ public class CountryFetcher extends Fetcher<Country> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VOICE.toString(),
-            "/v1/DialingPermissions/Countries/" + this.pathIsoCode + "",
-            client.getRegion()
+            "/v1/DialingPermissions/Countries/" + this.pathIsoCode + ""
         );
 
         Response response = client.request(request);

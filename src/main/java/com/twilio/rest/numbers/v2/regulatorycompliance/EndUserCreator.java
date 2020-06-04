@@ -61,8 +61,7 @@ public class EndUserCreator extends Creator<EndUser> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.NUMBERS.toString(),
-            "/v2/RegulatoryCompliance/EndUsers",
-            client.getRegion()
+            "/v2/RegulatoryCompliance/EndUsers"
         );
 
         addPostParams(request);

@@ -121,8 +121,7 @@ public class WorkflowCumulativeStatisticsFetcher extends Fetcher<WorkflowCumulat
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workflows/" + this.pathWorkflowSid + "/CumulativeStatistics",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workflows/" + this.pathWorkflowSid + "/CumulativeStatistics"
         );
 
         addQueryParams(request);

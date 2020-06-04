@@ -44,8 +44,7 @@ public class EngagementDeleter extends Deleter<Engagement> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Engagements/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Flows/" + this.pathFlowSid + "/Engagements/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

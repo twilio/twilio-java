@@ -64,8 +64,7 @@ public class TranscriptionDeleter extends Deleter<Transcription> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings/" + this.pathRecordingSid + "/Transcriptions/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings/" + this.pathRecordingSid + "/Transcriptions/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);

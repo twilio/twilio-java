@@ -35,8 +35,7 @@ public class SettingsFetcher extends Fetcher<Settings> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VOICE.toString(),
-            "/v1/Settings",
-            client.getRegion()
+            "/v1/Settings"
         );
 
         Response response = client.request(request);

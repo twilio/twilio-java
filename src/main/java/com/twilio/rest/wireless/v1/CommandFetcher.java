@@ -41,8 +41,7 @@ public class CommandFetcher extends Fetcher<Command> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.WIRELESS.toString(),
-            "/v1/Commands/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Commands/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

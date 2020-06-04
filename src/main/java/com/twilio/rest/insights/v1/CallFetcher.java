@@ -46,8 +46,7 @@ public class CallFetcher extends Fetcher<Call> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.INSIGHTS.toString(),
-            "/v1/Voice/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Voice/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

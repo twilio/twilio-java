@@ -299,8 +299,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/HostedNumbers/HostedNumberOrders",
-            client.getRegion()
+            "/HostedNumbers/HostedNumberOrders"
         );
 
         addPostParams(request);

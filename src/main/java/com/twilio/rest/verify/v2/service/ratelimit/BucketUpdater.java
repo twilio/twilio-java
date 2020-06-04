@@ -74,8 +74,7 @@ public class BucketUpdater extends Updater<Bucket> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/RateLimits/" + this.pathRateLimitSid + "/Buckets/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/RateLimits/" + this.pathRateLimitSid + "/Buckets/" + this.pathSid + ""
         );
 
         addPostParams(request);

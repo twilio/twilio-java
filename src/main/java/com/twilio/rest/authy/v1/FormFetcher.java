@@ -46,8 +46,7 @@ public class FormFetcher extends Fetcher<Form> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.AUTHY.toString(),
-            "/v1/Forms/" + this.pathFormType + "",
-            client.getRegion()
+            "/v1/Forms/" + this.pathFormType + ""
         );
 
         Response response = client.request(request);

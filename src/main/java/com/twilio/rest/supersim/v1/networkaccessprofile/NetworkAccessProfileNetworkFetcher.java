@@ -51,8 +51,7 @@ public class NetworkAccessProfileNetworkFetcher extends Fetcher<NetworkAccessPro
         Request request = new Request(
             HttpMethod.GET,
             Domains.SUPERSIM.toString(),
-            "/v1/NetworkAccessProfiles/" + this.pathNetworkAccessProfileSid + "/Networks/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/NetworkAccessProfiles/" + this.pathNetworkAccessProfileSid + "/Networks/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

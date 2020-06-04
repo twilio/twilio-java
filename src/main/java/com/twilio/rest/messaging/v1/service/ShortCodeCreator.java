@@ -49,8 +49,7 @@ public class ShortCodeCreator extends Creator<ShortCode> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.MESSAGING.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/ShortCodes",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/ShortCodes"
         );
 
         addPostParams(request);

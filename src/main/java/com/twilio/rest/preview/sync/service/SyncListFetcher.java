@@ -50,8 +50,7 @@ public class SyncListFetcher extends Fetcher<SyncList> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathSid + "",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

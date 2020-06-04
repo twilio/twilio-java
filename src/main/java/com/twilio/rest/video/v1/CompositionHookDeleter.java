@@ -45,8 +45,7 @@ public class CompositionHookDeleter extends Deleter<CompositionHook> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.VIDEO.toString(),
-            "/v1/CompositionHooks/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/CompositionHooks/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

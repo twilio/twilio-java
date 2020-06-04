@@ -127,8 +127,7 @@ public class ChannelCreator extends Creator<Channel> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.FLEXAPI.toString(),
-            "/v1/Channels",
-            client.getRegion()
+            "/v1/Channels"
         );
 
         addPostParams(request);

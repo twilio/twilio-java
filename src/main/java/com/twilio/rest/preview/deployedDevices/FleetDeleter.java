@@ -45,8 +45,7 @@ public class FleetDeleter extends Deleter<Fleet> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathSid + "",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

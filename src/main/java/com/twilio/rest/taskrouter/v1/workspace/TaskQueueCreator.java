@@ -118,8 +118,7 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskQueues",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskQueues"
         );
 
         addPostParams(request);

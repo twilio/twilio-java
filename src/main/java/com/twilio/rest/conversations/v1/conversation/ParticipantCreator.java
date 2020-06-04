@@ -161,8 +161,7 @@ public class ParticipantCreator extends Creator<Participant> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CONVERSATIONS.toString(),
-            "/v1/Conversations/" + this.pathConversationSid + "/Participants",
-            client.getRegion()
+            "/v1/Conversations/" + this.pathConversationSid + "/Participants"
         );
 
         addPostParams(request);

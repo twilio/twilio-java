@@ -40,8 +40,7 @@ public class CommandDeleter extends Deleter<Command> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.WIRELESS.toString(),
-            "/v1/Commands/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Commands/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

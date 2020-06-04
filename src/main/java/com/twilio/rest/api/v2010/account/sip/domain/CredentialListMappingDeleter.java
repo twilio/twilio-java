@@ -63,8 +63,7 @@ public class CredentialListMappingDeleter extends Deleter<CredentialListMapping>
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/CredentialListMappings/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/CredentialListMappings/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);

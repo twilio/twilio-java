@@ -77,8 +77,7 @@ public class WorkerCreator extends Creator<Worker> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers"
         );
 
         addPostParams(request);

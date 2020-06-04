@@ -97,8 +97,7 @@ public class ServiceCreator extends Creator<Service> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/Sync/Services",
-            client.getRegion()
+            "/Sync/Services"
         );
 
         addPostParams(request);

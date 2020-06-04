@@ -88,8 +88,7 @@ public class FlowUpdater extends Updater<Flow> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.STUDIO.toString(),
-            "/v2/Flows/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Flows/" + this.pathSid + ""
         );
 
         addPostParams(request);

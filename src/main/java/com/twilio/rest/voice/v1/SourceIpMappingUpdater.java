@@ -45,8 +45,7 @@ public class SourceIpMappingUpdater extends Updater<SourceIpMapping> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VOICE.toString(),
-            "/v1/SourceIpMappings/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/SourceIpMappings/" + this.pathSid + ""
         );
 
         addPostParams(request);

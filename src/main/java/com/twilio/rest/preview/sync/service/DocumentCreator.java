@@ -73,8 +73,7 @@ public class DocumentCreator extends Creator<Document> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Documents",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Documents"
         );
 
         addPostParams(request);

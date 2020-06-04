@@ -175,8 +175,7 @@ public class AssistantUpdater extends Updater<Assistant> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathSid + "",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathSid + ""
         );
 
         addPostParams(request);

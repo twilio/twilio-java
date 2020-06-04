@@ -49,8 +49,7 @@ public class StepContextFetcher extends Fetcher<StepContext> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Engagements/" + this.pathEngagementSid + "/Steps/" + this.pathStepSid + "/Context",
-            client.getRegion()
+            "/v1/Flows/" + this.pathFlowSid + "/Engagements/" + this.pathEngagementSid + "/Steps/" + this.pathStepSid + "/Context"
         );
 
         Response response = client.request(request);

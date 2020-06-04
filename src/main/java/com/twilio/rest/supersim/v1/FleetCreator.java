@@ -149,8 +149,7 @@ public class FleetCreator extends Creator<Fleet> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SUPERSIM.toString(),
-            "/v1/Fleets",
-            client.getRegion()
+            "/v1/Fleets"
         );
 
         addPostParams(request);

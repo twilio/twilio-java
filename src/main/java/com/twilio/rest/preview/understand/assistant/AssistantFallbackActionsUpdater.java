@@ -61,8 +61,7 @@ public class AssistantFallbackActionsUpdater extends Updater<AssistantFallbackAc
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/FallbackActions",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/FallbackActions"
         );
 
         addPostParams(request);

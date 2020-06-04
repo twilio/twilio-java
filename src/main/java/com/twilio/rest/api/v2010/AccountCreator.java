@@ -44,8 +44,7 @@ public class AccountCreator extends Creator<Account> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts.json",
-            client.getRegion()
+            "/2010-04-01/Accounts.json"
         );
 
         addPostParams(request);

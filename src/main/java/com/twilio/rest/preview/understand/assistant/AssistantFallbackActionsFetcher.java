@@ -46,8 +46,7 @@ public class AssistantFallbackActionsFetcher extends Fetcher<AssistantFallbackAc
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/FallbackActions",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/FallbackActions"
         );
 
         Response response = client.request(request);

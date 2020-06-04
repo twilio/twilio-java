@@ -50,8 +50,7 @@ public class BrandFetcher extends Fetcher<Brand> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/TrustedComms/Businesses/" + this.pathBusinessSid + "/Brands/" + this.pathSid + "",
-            client.getRegion()
+            "/TrustedComms/Businesses/" + this.pathBusinessSid + "/Brands/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

@@ -50,8 +50,7 @@ public class SyncMapFetcher extends Fetcher<SyncMap> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Maps/" + this.pathSid + "",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Maps/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

@@ -41,8 +41,7 @@ public class EndUserFetcher extends Fetcher<EndUser> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.NUMBERS.toString(),
-            "/v2/RegulatoryCompliance/EndUsers/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/RegulatoryCompliance/EndUsers/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

@@ -40,8 +40,7 @@ public class CredentialDeleter extends Deleter<Credential> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.IPMESSAGING.toString(),
-            "/v1/Credentials/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Credentials/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

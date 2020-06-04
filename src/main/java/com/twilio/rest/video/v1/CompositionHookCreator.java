@@ -260,8 +260,7 @@ public class CompositionHookCreator extends Creator<CompositionHook> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
-            "/v1/CompositionHooks",
-            client.getRegion()
+            "/v1/CompositionHooks"
         );
 
         addPostParams(request);

@@ -49,8 +49,7 @@ public class BindingFetcher extends Fetcher<Binding> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.NOTIFY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Bindings/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Bindings/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

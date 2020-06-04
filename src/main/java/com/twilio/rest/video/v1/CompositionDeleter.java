@@ -45,8 +45,7 @@ public class CompositionDeleter extends Deleter<Composition> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.VIDEO.toString(),
-            "/v1/Compositions/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Compositions/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

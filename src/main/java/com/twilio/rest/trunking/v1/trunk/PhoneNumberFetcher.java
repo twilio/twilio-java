@@ -46,8 +46,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathTrunkSid + "/PhoneNumbers/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathTrunkSid + "/PhoneNumbers/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

@@ -53,8 +53,7 @@ public class ExecutionStepContextFetcher extends Fetcher<ExecutionStepContext> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.STUDIO.toString(),
-            "/v2/Flows/" + this.pathFlowSid + "/Executions/" + this.pathExecutionSid + "/Steps/" + this.pathStepSid + "/Context",
-            client.getRegion()
+            "/v2/Flows/" + this.pathFlowSid + "/Executions/" + this.pathExecutionSid + "/Steps/" + this.pathStepSid + "/Context"
         );
 
         Response response = client.request(request);

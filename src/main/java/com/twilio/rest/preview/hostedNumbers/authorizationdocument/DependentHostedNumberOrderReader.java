@@ -137,8 +137,7 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/HostedNumbers/AuthorizationDocuments/" + this.pathSigningDocumentSid + "/DependentHostedNumberOrders",
-            client.getRegion()
+            "/HostedNumbers/AuthorizationDocuments/" + this.pathSigningDocumentSid + "/DependentHostedNumberOrders"
         );
 
         addQueryParams(request);
@@ -175,10 +174,7 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
                                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
@@ -195,10 +191,7 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
                                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }

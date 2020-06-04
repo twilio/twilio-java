@@ -50,8 +50,7 @@ public class EntityFetcher extends Fetcher<Entity> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.AUTHY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + ""
         );
 
         Response response = client.request(request);

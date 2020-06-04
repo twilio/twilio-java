@@ -120,8 +120,7 @@ public class BundleCreator extends Creator<Bundle> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.NUMBERS.toString(),
-            "/v2/RegulatoryCompliance/Bundles",
-            client.getRegion()
+            "/v2/RegulatoryCompliance/Bundles"
         );
 
         addPostParams(request);

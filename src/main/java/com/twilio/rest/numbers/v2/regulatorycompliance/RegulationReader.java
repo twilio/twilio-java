@@ -81,8 +81,7 @@ public class RegulationReader extends Reader<Regulation> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.NUMBERS.toString(),
-            "/v2/RegulatoryCompliance/Regulations",
-            client.getRegion()
+            "/v2/RegulatoryCompliance/Regulations"
         );
 
         addQueryParams(request);
@@ -119,10 +118,7 @@ public class RegulationReader extends Reader<Regulation> {
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.NUMBERS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.NUMBERS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -139,10 +135,7 @@ public class RegulationReader extends Reader<Regulation> {
                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.NUMBERS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.NUMBERS.toString())
         );
         return pageForRequest(client, request);
     }

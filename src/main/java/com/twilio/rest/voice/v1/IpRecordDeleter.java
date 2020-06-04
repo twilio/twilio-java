@@ -40,8 +40,7 @@ public class IpRecordDeleter extends Deleter<IpRecord> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.VOICE.toString(),
-            "/v1/IpRecords/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/IpRecords/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

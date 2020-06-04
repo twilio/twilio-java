@@ -46,8 +46,7 @@ public class IpAccessControlListFetcher extends Fetcher<IpAccessControlList> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathTrunkSid + "/IpAccessControlLists/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathTrunkSid + "/IpAccessControlLists/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

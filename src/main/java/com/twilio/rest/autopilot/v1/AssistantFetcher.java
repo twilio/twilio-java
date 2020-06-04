@@ -46,8 +46,7 @@ public class AssistantFetcher extends Fetcher<Assistant> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

@@ -131,8 +131,7 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
-            "/v1/RecordingSettings/Default",
-            client.getRegion()
+            "/v1/RecordingSettings/Default"
         );
 
         addPostParams(request);

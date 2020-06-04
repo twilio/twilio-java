@@ -59,8 +59,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PROXY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/PhoneNumbers",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/PhoneNumbers"
         );
 
         addQueryParams(request);
@@ -97,10 +96,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.PROXY.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.PROXY.toString())
         );
         return pageForRequest(client, request);
     }
@@ -117,10 +113,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.PROXY.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.PROXY.toString())
         );
         return pageForRequest(client, request);
     }

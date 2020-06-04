@@ -76,8 +76,7 @@ public class CertificateCreator extends Creator<Certificate> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Certificates",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Certificates"
         );
 
         addPostParams(request);

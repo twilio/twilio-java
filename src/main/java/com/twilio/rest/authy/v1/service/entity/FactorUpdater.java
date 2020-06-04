@@ -92,8 +92,7 @@ public class FactorUpdater extends Updater<Factor> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.AUTHY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Factors/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Factors/" + this.pathSid + ""
         );
 
         addPostParams(request);

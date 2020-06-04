@@ -46,8 +46,7 @@ public class AuthorizationDocumentFetcher extends Fetcher<AuthorizationDocument>
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/HostedNumbers/AuthorizationDocuments/" + this.pathSid + "",
-            client.getRegion()
+            "/HostedNumbers/AuthorizationDocuments/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

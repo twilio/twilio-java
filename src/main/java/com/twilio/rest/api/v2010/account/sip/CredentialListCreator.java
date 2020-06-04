@@ -56,8 +56,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/CredentialLists.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/CredentialLists.json"
         );
 
         addPostParams(request);

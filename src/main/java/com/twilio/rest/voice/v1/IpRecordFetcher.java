@@ -41,8 +41,7 @@ public class IpRecordFetcher extends Fetcher<IpRecord> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VOICE.toString(),
-            "/v1/IpRecords/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/IpRecords/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

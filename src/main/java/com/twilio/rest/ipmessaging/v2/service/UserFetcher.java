@@ -45,8 +45,7 @@ public class UserFetcher extends Fetcher<User> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Users/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Users/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

@@ -49,8 +49,7 @@ public class DocumentDeleter extends Deleter<Document> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Documents/" + this.pathSid + "",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Documents/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

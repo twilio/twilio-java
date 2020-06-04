@@ -131,8 +131,7 @@ public class CommandCreator extends Creator<Command> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/wireless/Commands",
-            client.getRegion()
+            "/wireless/Commands"
         );
 
         addPostParams(request);

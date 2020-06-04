@@ -77,8 +77,7 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/marketplace/InstalledAddOns/" + this.pathSid + "",
-            client.getRegion()
+            "/marketplace/InstalledAddOns/" + this.pathSid + ""
         );
 
         addPostParams(request);

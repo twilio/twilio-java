@@ -50,8 +50,7 @@ public class DocumentFetcher extends Fetcher<Document> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Documents/" + this.pathSid + "",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Documents/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

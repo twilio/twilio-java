@@ -49,8 +49,7 @@ public class AlphaSenderCreator extends Creator<AlphaSender> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.MESSAGING.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/AlphaSenders",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/AlphaSenders"
         );
 
         addPostParams(request);

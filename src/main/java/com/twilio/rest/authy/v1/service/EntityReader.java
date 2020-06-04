@@ -59,8 +59,7 @@ public class EntityReader extends Reader<Entity> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.AUTHY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Entities",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Entities"
         );
 
         addQueryParams(request);
@@ -97,10 +96,7 @@ public class EntityReader extends Reader<Entity> {
                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.AUTHY.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.AUTHY.toString())
         );
         return pageForRequest(client, request);
     }
@@ -117,10 +113,7 @@ public class EntityReader extends Reader<Entity> {
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.AUTHY.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.AUTHY.toString())
         );
         return pageForRequest(client, request);
     }

@@ -62,8 +62,7 @@ public class ChannelCreator extends Creator<Channel> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/TrustedComms/Businesses/" + this.pathBusinessSid + "/Brands/" + this.pathBrandSid + "/BrandedChannels/" + this.pathBrandedChannelSid + "/Channels",
-            client.getRegion()
+            "/TrustedComms/Businesses/" + this.pathBusinessSid + "/Brands/" + this.pathBrandSid + "/BrandedChannels/" + this.pathBrandedChannelSid + "/Channels"
         );
 
         addPostParams(request);

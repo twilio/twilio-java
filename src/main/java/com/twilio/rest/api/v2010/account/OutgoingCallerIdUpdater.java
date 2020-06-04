@@ -69,8 +69,7 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/OutgoingCallerIds/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/OutgoingCallerIds/" + this.pathSid + ".json"
         );
 
         addPostParams(request);

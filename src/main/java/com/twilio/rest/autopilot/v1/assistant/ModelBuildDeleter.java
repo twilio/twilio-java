@@ -50,8 +50,7 @@ public class ModelBuildDeleter extends Deleter<ModelBuild> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/ModelBuilds/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/ModelBuilds/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

@@ -54,8 +54,7 @@ public class ConnectionPolicyUpdater extends Updater<ConnectionPolicy> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VOICE.toString(),
-            "/v1/ConnectionPolicies/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/ConnectionPolicies/" + this.pathSid + ""
         );
 
         addPostParams(request);

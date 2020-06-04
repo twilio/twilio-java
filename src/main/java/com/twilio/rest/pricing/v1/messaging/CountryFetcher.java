@@ -41,8 +41,7 @@ public class CountryFetcher extends Fetcher<Country> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PRICING.toString(),
-            "/v1/Messaging/Countries/" + this.pathIsoCountry + "",
-            client.getRegion()
+            "/v1/Messaging/Countries/" + this.pathIsoCountry + ""
         );
 
         Response response = client.request(request);

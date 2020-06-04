@@ -86,8 +86,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.WIRELESS.toString(),
-            "/v1/UsageRecords",
-            client.getRegion()
+            "/v1/UsageRecords"
         );
 
         addQueryParams(request);
@@ -124,10 +123,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.WIRELESS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.WIRELESS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -144,10 +140,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.WIRELESS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.WIRELESS.toString())
         );
         return pageForRequest(client, request);
     }

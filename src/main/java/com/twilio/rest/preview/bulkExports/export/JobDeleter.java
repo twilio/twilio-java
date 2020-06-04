@@ -46,8 +46,7 @@ public class JobDeleter extends Deleter<Job> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/BulkExports/Exports/Jobs/" + this.pathJobSid + "",
-            client.getRegion()
+            "/BulkExports/Exports/Jobs/" + this.pathJobSid + ""
         );
 
         Response response = client.request(request);

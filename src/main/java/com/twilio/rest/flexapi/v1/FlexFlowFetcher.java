@@ -41,8 +41,7 @@ public class FlexFlowFetcher extends Fetcher<FlexFlow> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.FLEXAPI.toString(),
-            "/v1/FlexFlows/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/FlexFlows/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

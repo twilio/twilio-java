@@ -54,8 +54,7 @@ public class BucketCreator extends Creator<Bucket> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/RateLimits/" + this.pathRateLimitSid + "/Buckets",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/RateLimits/" + this.pathRateLimitSid + "/Buckets"
         );
 
         addPostParams(request);

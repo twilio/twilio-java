@@ -48,8 +48,7 @@ public class FaxMediaDeleter extends Deleter<FaxMedia> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.FAX.toString(),
-            "/v1/Faxes/" + this.pathFaxSid + "/Media/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Faxes/" + this.pathFaxSid + "/Media/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

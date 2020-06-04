@@ -119,8 +119,7 @@ public class WebhookUpdater extends Updater<Webhook> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CONVERSATIONS.toString(),
-            "/v1/Conversations/Webhooks",
-            client.getRegion()
+            "/v1/Conversations/Webhooks"
         );
 
         addPostParams(request);

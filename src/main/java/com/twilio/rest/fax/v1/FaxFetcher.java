@@ -45,8 +45,7 @@ public class FaxFetcher extends Fetcher<Fax> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.FAX.toString(),
-            "/v1/Faxes/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Faxes/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

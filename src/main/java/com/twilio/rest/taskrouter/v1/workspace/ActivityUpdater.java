@@ -61,8 +61,7 @@ public class ActivityUpdater extends Updater<Activity> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Activities/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Activities/" + this.pathSid + ""
         );
 
         addPostParams(request);

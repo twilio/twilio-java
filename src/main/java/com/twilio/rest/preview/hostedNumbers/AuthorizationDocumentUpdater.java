@@ -163,8 +163,7 @@ public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/HostedNumbers/AuthorizationDocuments/" + this.pathSid + "",
-            client.getRegion()
+            "/HostedNumbers/AuthorizationDocuments/" + this.pathSid + ""
         );
 
         addPostParams(request);

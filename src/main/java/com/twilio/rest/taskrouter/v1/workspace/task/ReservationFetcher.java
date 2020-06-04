@@ -51,8 +51,7 @@ public class ReservationFetcher extends Fetcher<Reservation> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Tasks/" + this.pathTaskSid + "/Reservations/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Tasks/" + this.pathTaskSid + "/Reservations/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

@@ -59,8 +59,7 @@ public class DeploymentReader extends Reader<Deployment> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Deployments",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Deployments"
         );
 
         addQueryParams(request);
@@ -97,10 +96,7 @@ public class DeploymentReader extends Reader<Deployment> {
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
@@ -117,10 +113,7 @@ public class DeploymentReader extends Reader<Deployment> {
                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }

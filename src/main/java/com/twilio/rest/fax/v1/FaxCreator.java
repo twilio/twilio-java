@@ -163,8 +163,7 @@ public class FaxCreator extends Creator<Fax> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.FAX.toString(),
-            "/v1/Faxes",
-            client.getRegion()
+            "/v1/Faxes"
         );
 
         addPostParams(request);

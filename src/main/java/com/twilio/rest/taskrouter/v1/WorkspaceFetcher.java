@@ -41,8 +41,7 @@ public class WorkspaceFetcher extends Fetcher<Workspace> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

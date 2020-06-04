@@ -79,8 +79,7 @@ public class NetworkAccessProfileCreator extends Creator<NetworkAccessProfile> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SUPERSIM.toString(),
-            "/v1/NetworkAccessProfiles",
-            client.getRegion()
+            "/v1/NetworkAccessProfiles"
         );
 
         addPostParams(request);

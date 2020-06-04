@@ -55,8 +55,7 @@ public class RoleCreator extends Creator<Role> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Roles",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Roles"
         );
 
         addPostParams(request);

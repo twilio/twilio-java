@@ -57,8 +57,7 @@ public class FieldFetcher extends Fetcher<Field> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/Tasks/" + this.pathTaskSid + "/Fields/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/Tasks/" + this.pathTaskSid + "/Fields/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

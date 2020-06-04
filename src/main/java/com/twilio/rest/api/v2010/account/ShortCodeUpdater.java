@@ -161,8 +161,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SMS/ShortCodes/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SMS/ShortCodes/" + this.pathSid + ".json"
         );
 
         addPostParams(request);

@@ -63,8 +63,7 @@ public class NotificationFetcher extends Fetcher<Notification> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathCallSid + "/Notifications/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathCallSid + "/Notifications/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);

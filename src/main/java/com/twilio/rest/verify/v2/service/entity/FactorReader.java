@@ -63,8 +63,7 @@ public class FactorReader extends Reader<Factor> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Factors",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Factors"
         );
 
         addQueryParams(request);
@@ -101,10 +100,7 @@ public class FactorReader extends Reader<Factor> {
                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.VERIFY.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.VERIFY.toString())
         );
         return pageForRequest(client, request);
     }
@@ -121,10 +117,7 @@ public class FactorReader extends Reader<Factor> {
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.VERIFY.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.VERIFY.toString())
         );
         return pageForRequest(client, request);
     }

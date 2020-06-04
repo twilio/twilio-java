@@ -46,8 +46,7 @@ public class CompositionHookFetcher extends Fetcher<CompositionHook> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/CompositionHooks/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/CompositionHooks/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

@@ -122,8 +122,7 @@ public class TaskUpdater extends Updater<Task> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/Tasks/" + this.pathSid + "",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/Tasks/" + this.pathSid + ""
         );
 
         addPostParams(request);

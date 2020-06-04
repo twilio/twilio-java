@@ -194,8 +194,7 @@ public class RoomCreator extends Creator<Room> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
-            "/v1/Rooms",
-            client.getRegion()
+            "/v1/Rooms"
         );
 
         addPostParams(request);

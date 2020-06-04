@@ -76,8 +76,7 @@ public class CertificateUpdater extends Updater<Certificate> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Certificates/" + this.pathSid + "",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Certificates/" + this.pathSid + ""
         );
 
         addPostParams(request);

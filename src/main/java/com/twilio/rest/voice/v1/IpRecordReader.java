@@ -43,8 +43,7 @@ public class IpRecordReader extends Reader<IpRecord> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VOICE.toString(),
-            "/v1/IpRecords",
-            client.getRegion()
+            "/v1/IpRecords"
         );
 
         addQueryParams(request);
@@ -81,10 +80,7 @@ public class IpRecordReader extends Reader<IpRecord> {
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.VOICE.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.VOICE.toString())
         );
         return pageForRequest(client, request);
     }
@@ -101,10 +97,7 @@ public class IpRecordReader extends Reader<IpRecord> {
                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.VOICE.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.VOICE.toString())
         );
         return pageForRequest(client, request);
     }

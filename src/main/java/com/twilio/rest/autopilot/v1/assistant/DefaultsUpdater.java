@@ -63,8 +63,7 @@ public class DefaultsUpdater extends Updater<Defaults> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/Defaults",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/Defaults"
         );
 
         addPostParams(request);

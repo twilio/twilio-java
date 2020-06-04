@@ -50,8 +50,7 @@ public class CertificateFetcher extends Fetcher<Certificate> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Certificates/" + this.pathSid + "",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Certificates/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

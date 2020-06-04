@@ -47,8 +47,7 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathTrunkSid + "/IpAccessControlLists",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathTrunkSid + "/IpAccessControlLists"
         );
 
         addPostParams(request);

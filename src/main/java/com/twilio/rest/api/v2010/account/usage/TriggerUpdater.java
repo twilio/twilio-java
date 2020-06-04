@@ -107,8 +107,7 @@ public class TriggerUpdater extends Updater<Trigger> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Usage/Triggers/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Usage/Triggers/" + this.pathSid + ".json"
         );
 
         addPostParams(request);

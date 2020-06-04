@@ -59,8 +59,7 @@ public class ModelBuildReader extends Reader<ModelBuild> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/ModelBuilds",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/ModelBuilds"
         );
 
         addQueryParams(request);
@@ -97,10 +96,7 @@ public class ModelBuildReader extends Reader<ModelBuild> {
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
@@ -117,10 +113,7 @@ public class ModelBuildReader extends Reader<ModelBuild> {
                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }

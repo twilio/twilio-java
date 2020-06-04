@@ -97,8 +97,7 @@ public class WorkersCumulativeStatisticsFetcher extends Fetcher<WorkersCumulativ
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/CumulativeStatistics",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/CumulativeStatistics"
         );
 
         addQueryParams(request);

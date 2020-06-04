@@ -51,8 +51,7 @@ public class QueryFetcher extends Fetcher<Query> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/Queries/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/Queries/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

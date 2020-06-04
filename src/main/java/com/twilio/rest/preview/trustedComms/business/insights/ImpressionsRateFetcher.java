@@ -135,8 +135,7 @@ public class ImpressionsRateFetcher extends Fetcher<ImpressionsRate> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/TrustedComms/Businesses/" + this.pathBusinessSid + "/Insights/ImpressionsRate",
-            client.getRegion()
+            "/TrustedComms/Businesses/" + this.pathBusinessSid + "/Insights/ImpressionsRate"
         );
 
         addQueryParams(request);

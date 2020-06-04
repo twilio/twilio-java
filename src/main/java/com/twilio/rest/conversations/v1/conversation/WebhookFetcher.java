@@ -50,8 +50,7 @@ public class WebhookFetcher extends Fetcher<Webhook> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.CONVERSATIONS.toString(),
-            "/v1/Conversations/" + this.pathConversationSid + "/Webhooks/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Conversations/" + this.pathConversationSid + "/Webhooks/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

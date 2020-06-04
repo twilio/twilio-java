@@ -41,8 +41,7 @@ public class EvaluationCreator extends Creator<Evaluation> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.NUMBERS.toString(),
-            "/v2/RegulatoryCompliance/Bundles/" + this.pathBundleSid + "/Evaluations",
-            client.getRegion()
+            "/v2/RegulatoryCompliance/Bundles/" + this.pathBundleSid + "/Evaluations"
         );
 
         addPostParams(request);

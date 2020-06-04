@@ -41,8 +41,7 @@ public class WebChannelFetcher extends Fetcher<WebChannel> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.FLEXAPI.toString(),
-            "/v1/WebChannels/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/WebChannels/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

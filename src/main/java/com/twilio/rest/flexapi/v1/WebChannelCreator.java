@@ -77,8 +77,7 @@ public class WebChannelCreator extends Creator<WebChannel> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.FLEXAPI.toString(),
-            "/v1/WebChannels",
-            client.getRegion()
+            "/v1/WebChannels"
         );
 
         addPostParams(request);

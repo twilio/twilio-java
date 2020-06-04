@@ -442,8 +442,7 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/TrustedComms/Business/PhoneCalls",
-            client.getRegion()
+            "/TrustedComms/Business/PhoneCalls"
         );
 
         addPostParams(request);

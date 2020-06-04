@@ -43,8 +43,7 @@ public class EndUserReader extends Reader<EndUser> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.NUMBERS.toString(),
-            "/v2/RegulatoryCompliance/EndUsers",
-            client.getRegion()
+            "/v2/RegulatoryCompliance/EndUsers"
         );
 
         addQueryParams(request);
@@ -81,10 +80,7 @@ public class EndUserReader extends Reader<EndUser> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.NUMBERS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.NUMBERS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -101,10 +97,7 @@ public class EndUserReader extends Reader<EndUser> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.NUMBERS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.NUMBERS.toString())
         );
         return pageForRequest(client, request);
     }

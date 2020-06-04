@@ -66,8 +66,7 @@ public class FactorCreator extends Creator<Factor> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Factors",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Factors"
         );
 
         addPostParams(request);

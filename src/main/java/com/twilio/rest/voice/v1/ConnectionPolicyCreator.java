@@ -44,8 +44,7 @@ public class ConnectionPolicyCreator extends Creator<ConnectionPolicy> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VOICE.toString(),
-            "/v1/ConnectionPolicies",
-            client.getRegion()
+            "/v1/ConnectionPolicies"
         );
 
         addPostParams(request);

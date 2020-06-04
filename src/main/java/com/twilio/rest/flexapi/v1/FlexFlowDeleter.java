@@ -40,8 +40,7 @@ public class FlexFlowDeleter extends Deleter<FlexFlow> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.FLEXAPI.toString(),
-            "/v1/FlexFlows/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/FlexFlows/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

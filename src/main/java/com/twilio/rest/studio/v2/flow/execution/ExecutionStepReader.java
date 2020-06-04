@@ -62,8 +62,7 @@ public class ExecutionStepReader extends Reader<ExecutionStep> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.STUDIO.toString(),
-            "/v2/Flows/" + this.pathFlowSid + "/Executions/" + this.pathExecutionSid + "/Steps",
-            client.getRegion()
+            "/v2/Flows/" + this.pathFlowSid + "/Executions/" + this.pathExecutionSid + "/Steps"
         );
 
         addQueryParams(request);
@@ -100,10 +99,7 @@ public class ExecutionStepReader extends Reader<ExecutionStep> {
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.STUDIO.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.STUDIO.toString())
         );
         return pageForRequest(client, request);
     }
@@ -120,10 +116,7 @@ public class ExecutionStepReader extends Reader<ExecutionStep> {
                                             final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.STUDIO.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.STUDIO.toString())
         );
         return pageForRequest(client, request);
     }

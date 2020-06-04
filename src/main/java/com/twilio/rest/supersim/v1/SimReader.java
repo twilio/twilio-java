@@ -89,8 +89,7 @@ public class SimReader extends Reader<Sim> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SUPERSIM.toString(),
-            "/v1/Sims",
-            client.getRegion()
+            "/v1/Sims"
         );
 
         addQueryParams(request);
@@ -127,10 +126,7 @@ public class SimReader extends Reader<Sim> {
                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.SUPERSIM.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.SUPERSIM.toString())
         );
         return pageForRequest(client, request);
     }
@@ -147,10 +143,7 @@ public class SimReader extends Reader<Sim> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.SUPERSIM.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.SUPERSIM.toString())
         );
         return pageForRequest(client, request);
     }

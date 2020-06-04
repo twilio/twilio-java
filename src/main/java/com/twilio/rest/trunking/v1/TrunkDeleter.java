@@ -40,8 +40,7 @@ public class TrunkDeleter extends Deleter<Trunk> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

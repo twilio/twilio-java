@@ -115,8 +115,7 @@ public class WorkspaceStatisticsFetcher extends Fetcher<WorkspaceStatistics> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Statistics",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Statistics"
         );
 
         addQueryParams(request);

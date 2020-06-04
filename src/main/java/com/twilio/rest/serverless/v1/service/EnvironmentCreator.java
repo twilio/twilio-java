@@ -65,8 +65,7 @@ public class EnvironmentCreator extends Creator<Environment> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Environments",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Environments"
         );
 
         addPostParams(request);

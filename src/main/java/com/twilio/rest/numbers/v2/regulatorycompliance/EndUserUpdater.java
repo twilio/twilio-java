@@ -69,8 +69,7 @@ public class EndUserUpdater extends Updater<EndUser> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.NUMBERS.toString(),
-            "/v2/RegulatoryCompliance/EndUsers/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/RegulatoryCompliance/EndUsers/" + this.pathSid + ""
         );
 
         addPostParams(request);

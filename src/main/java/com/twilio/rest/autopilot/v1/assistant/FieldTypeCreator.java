@@ -65,8 +65,7 @@ public class FieldTypeCreator extends Creator<FieldType> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/FieldTypes",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/FieldTypes"
         );
 
         addPostParams(request);

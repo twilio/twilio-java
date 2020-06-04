@@ -51,8 +51,7 @@ public class AssetCreator extends Creator<Asset> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Assets",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Assets"
         );
 
         addPostParams(request);

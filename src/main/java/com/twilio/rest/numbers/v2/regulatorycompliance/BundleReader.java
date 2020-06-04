@@ -104,8 +104,7 @@ public class BundleReader extends Reader<Bundle> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.NUMBERS.toString(),
-            "/v2/RegulatoryCompliance/Bundles",
-            client.getRegion()
+            "/v2/RegulatoryCompliance/Bundles"
         );
 
         addQueryParams(request);
@@ -142,10 +141,7 @@ public class BundleReader extends Reader<Bundle> {
                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.NUMBERS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.NUMBERS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -162,10 +158,7 @@ public class BundleReader extends Reader<Bundle> {
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.NUMBERS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.NUMBERS.toString())
         );
         return pageForRequest(client, request);
     }

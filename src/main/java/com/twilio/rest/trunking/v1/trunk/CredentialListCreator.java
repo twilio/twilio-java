@@ -47,8 +47,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathTrunkSid + "/CredentialLists",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathTrunkSid + "/CredentialLists"
         );
 
         addPostParams(request);

@@ -193,8 +193,7 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/HostedNumbers/HostedNumberOrders/" + this.pathSid + "",
-            client.getRegion()
+            "/HostedNumbers/HostedNumberOrders/" + this.pathSid + ""
         );
 
         addPostParams(request);

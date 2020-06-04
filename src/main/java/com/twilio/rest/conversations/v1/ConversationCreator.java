@@ -117,8 +117,7 @@ public class ConversationCreator extends Creator<Conversation> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CONVERSATIONS.toString(),
-            "/v1/Conversations",
-            client.getRegion()
+            "/v1/Conversations"
         );
 
         addPostParams(request);

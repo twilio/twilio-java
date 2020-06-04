@@ -49,8 +49,7 @@ public class FleetCreator extends Creator<Fleet> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets",
-            client.getRegion()
+            "/DeployedDevices/Fleets"
         );
 
         addPostParams(request);

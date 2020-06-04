@@ -40,8 +40,7 @@ public class ChannelDeleter extends Deleter<Channel> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.FLEXAPI.toString(),
-            "/v1/Channels/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Channels/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

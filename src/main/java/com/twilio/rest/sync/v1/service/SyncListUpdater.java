@@ -79,8 +79,7 @@ public class SyncListUpdater extends Updater<SyncList> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Lists/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Lists/" + this.pathSid + ""
         );
 
         addPostParams(request);

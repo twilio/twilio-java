@@ -46,8 +46,7 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathTrunkSid + "/CredentialLists/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathTrunkSid + "/CredentialLists/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

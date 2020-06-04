@@ -45,8 +45,7 @@ public class InstalledAddOnDeleter extends Deleter<InstalledAddOn> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/marketplace/InstalledAddOns/" + this.pathSid + "",
-            client.getRegion()
+            "/marketplace/InstalledAddOns/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

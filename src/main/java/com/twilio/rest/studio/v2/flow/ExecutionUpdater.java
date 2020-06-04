@@ -53,8 +53,7 @@ public class ExecutionUpdater extends Updater<Execution> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.STUDIO.toString(),
-            "/v2/Flows/" + this.pathFlowSid + "/Executions/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Flows/" + this.pathFlowSid + "/Executions/" + this.pathSid + ""
         );
 
         addPostParams(request);

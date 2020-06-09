@@ -132,6 +132,8 @@ try {
 }
 ```
 
+For more descriptive exception types, please see the [Twilio documentation](https://www.twilio.com/docs/libraries/java/usage-guide#exceptions).
+
 ### Using a Different Client
 
 ```java

@@ -169,7 +169,7 @@ That will output XML that looks like this:
 </Response>
 ```
 
-### Using a Custom HTTP Client
+## Using a Custom HTTP Client
 
 To use a custom HTTP client with this helper library, please see the [Twilio documentation](https://www.twilio.com/docs/libraries/java/custom-http-clients-java).
 

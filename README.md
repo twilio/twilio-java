@@ -169,6 +169,10 @@ That will output XML that looks like this:
 </Response>
 ```
 
+## Using a Custom HTTP Client
+
+To use a custom HTTP client with this helper library, please see the [Twilio documentation](https://www.twilio.com/docs/libraries/java/custom-http-clients-java).
+
 ## Docker Image
 
 The `Dockerfile` present in this repository and its respective `twilio/twilio-java` Docker image are currently used by Twilio for testing purposes only.

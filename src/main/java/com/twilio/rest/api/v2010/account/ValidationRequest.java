@@ -31,7 +31,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ValidationRequest extends Resource {
-    private static final long serialVersionUID = 227253393242231L;
+    private static final long serialVersionUID = 163352133331334L;
 
     /**
      * Create a ValidationRequestCreator to execute create.
@@ -95,27 +95,27 @@ public class ValidationRequest extends Resource {
     }
 
     private final String accountSid;
-    private final com.twilio.type.PhoneNumber phoneNumber;
-    private final String friendlyName;
-    private final Integer validationCode;
     private final String callSid;
+    private final String friendlyName;
+    private final com.twilio.type.PhoneNumber phoneNumber;
+    private final String validationCode;
 
     @JsonCreator
     private ValidationRequest(@JsonProperty("account_sid")
                               final String accountSid,
-                              @JsonProperty("phone_number")
-                              final com.twilio.type.PhoneNumber phoneNumber,
+                              @JsonProperty("call_sid")
+                              final String callSid,
                               @JsonProperty("friendly_name")
                               final String friendlyName,
+                              @JsonProperty("phone_number")
+                              final com.twilio.type.PhoneNumber phoneNumber,
                               @JsonProperty("validation_code")
-                              final Integer validationCode,
-                              @JsonProperty("call_sid")
-                              final String callSid) {
+                              final String validationCode) {
         this.accountSid = accountSid;
-        this.phoneNumber = phoneNumber;
-        this.friendlyName = friendlyName;
-        this.validationCode = validationCode;
         this.callSid = callSid;
+        this.friendlyName = friendlyName;
+        this.phoneNumber = phoneNumber;
+        this.validationCode = validationCode;
     }
 
     /**
@@ -128,12 +128,12 @@ public class ValidationRequest extends Resource {
     }
 
     /**
-     * Returns The phone number to verify in E.164 format.
+     * Returns The SID of the Call the resource is associated with.
      *
-     * @return The phone number to verify in E.164 format
+     * @return The SID of the Call the resource is associated with
      */
-    public final com.twilio.type.PhoneNumber getPhoneNumber() {
-        return this.phoneNumber;
+    public final String getCallSid() {
+        return this.callSid;
     }
 
     /**
@@ -146,23 +146,23 @@ public class ValidationRequest extends Resource {
     }
 
     /**
+     * Returns The phone number to verify in E.164 format.
+     *
+     * @return The phone number to verify in E.164 format
+     */
+    public final com.twilio.type.PhoneNumber getPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    /**
      * Returns The 6 digit validation code that someone must enter to validate the
      * Caller ID  when `phone_number` is called.
      *
      * @return The 6 digit validation code that someone must enter to validate the
      *         Caller ID  when `phone_number` is called
      */
-    public final Integer getValidationCode() {
+    public final String getValidationCode() {
         return this.validationCode;
-    }
-
-    /**
-     * Returns The SID of the Call the resource is associated with.
-     *
-     * @return The SID of the Call the resource is associated with
-     */
-    public final String getCallSid() {
-        return this.callSid;
     }
 
     @Override
@@ -178,29 +178,29 @@ public class ValidationRequest extends Resource {
         ValidationRequest other = (ValidationRequest) o;
 
         return Objects.equals(accountSid, other.accountSid) &&
-               Objects.equals(phoneNumber, other.phoneNumber) &&
+               Objects.equals(callSid, other.callSid) &&
                Objects.equals(friendlyName, other.friendlyName) &&
-               Objects.equals(validationCode, other.validationCode) &&
-               Objects.equals(callSid, other.callSid);
+               Objects.equals(phoneNumber, other.phoneNumber) &&
+               Objects.equals(validationCode, other.validationCode);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(accountSid,
-                            phoneNumber,
+                            callSid,
                             friendlyName,
-                            validationCode,
-                            callSid);
+                            phoneNumber,
+                            validationCode);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
                           .add("accountSid", accountSid)
-                          .add("phoneNumber", phoneNumber)
-                          .add("friendlyName", friendlyName)
-                          .add("validationCode", validationCode)
                           .add("callSid", callSid)
+                          .add("friendlyName", friendlyName)
+                          .add("phoneNumber", phoneNumber)
+                          .add("validationCode", validationCode)
                           .toString();
     }
 }

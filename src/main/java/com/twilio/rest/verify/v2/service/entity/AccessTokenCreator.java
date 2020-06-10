@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.trustedComms.business.brand.brandedchannel;
+package com.twilio.rest.verify.v2.service.entity;
 
 import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;
@@ -22,50 +22,46 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class ChannelCreator extends Creator<Channel> {
-    private final String pathBusinessSid;
-    private final String pathBrandSid;
-    private final String pathBrandedChannelSid;
-    private final String phoneNumberSid;
+public class AccessTokenCreator extends Creator<AccessToken> {
+    private final String pathServiceSid;
+    private final String pathIdentity;
+    private final AccessToken.FactorTypes factorType;
 
     /**
-     * Construct a new ChannelCreator.
+     * Construct a new AccessTokenCreator.
      *
-     * @param pathBusinessSid Business Sid.
-     * @param pathBrandSid Brand Sid.
-     * @param pathBrandedChannelSid Branded Channel Sid.
-     * @param phoneNumberSid Phone Number Sid to be branded.
+     * @param pathServiceSid The service_sid
+     * @param pathIdentity Unique identity of the Entity
+     * @param factorType The Type of this Factor
      */
-    public ChannelCreator(final String pathBusinessSid,
-                          final String pathBrandSid,
-                          final String pathBrandedChannelSid,
-                          final String phoneNumberSid) {
-        this.pathBusinessSid = pathBusinessSid;
-        this.pathBrandSid = pathBrandSid;
-        this.pathBrandedChannelSid = pathBrandedChannelSid;
-        this.phoneNumberSid = phoneNumberSid;
+    public AccessTokenCreator(final String pathServiceSid,
+                              final String pathIdentity,
+                              final AccessToken.FactorTypes factorType) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathIdentity = pathIdentity;
+        this.factorType = factorType;
     }
 
     /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Created Channel
+     * @return Created AccessToken
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Channel create(final TwilioRestClient client) {
+    public AccessToken create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            Domains.PREVIEW.toString(),
-            "/TrustedComms/Businesses/" + this.pathBusinessSid + "/Brands/" + this.pathBrandSid + "/BrandedChannels/" + this.pathBrandedChannelSid + "/Channels"
+            Domains.VERIFY.toString(),
+            "/v2/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/AccessTokens"
         );
 
         addPostParams(request);
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Channel creation failed: Unable to connect to server");
+            throw new ApiConnectionException("AccessToken creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -74,7 +70,7 @@ public class ChannelCreator extends Creator<Channel> {
             throw new ApiException(restException);
         }
 
-        return Channel.fromJson(response.getStream(), client.getObjectMapper());
+        return AccessToken.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -83,8 +79,8 @@ public class ChannelCreator extends Creator<Channel> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (phoneNumberSid != null) {
-            request.addPostParam("PhoneNumberSid", phoneNumberSid);
+        if (factorType != null) {
+            request.addPostParam("FactorType", factorType.toString());
         }
     }
 }

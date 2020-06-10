@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.trustedComms.business.brand.brandedchannel;
+package com.twilio.rest.verify.v2.service.entity;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;
@@ -27,7 +27,7 @@ import java.net.URI;
 import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;
 
-public class ChannelTest {
+public class AccessTokenTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
@@ -40,9 +40,9 @@ public class ChannelTest {
     public void testCreateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          Domains.PREVIEW.toString(),
-                                          "/TrustedComms/Businesses/BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Brands/BZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/BrandedChannels/BWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels");
-            request.addPostParam("PhoneNumberSid", serialize("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
+                                          Domains.VERIFY.toString(),
+                                          "/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/AccessTokens");
+            request.addPostParam("FactorType", serialize(AccessToken.FactorTypes.PUSH));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -51,7 +51,7 @@ public class ChannelTest {
         }};
 
         try {
-            Channel.creator("BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            AccessToken.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", AccessToken.FactorTypes.PUSH).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -60,11 +60,11 @@ public class ChannelTest {
     public void testCreateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"business_sid\": \"BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"brand_sid\": \"BZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"branded_channel_sid\": \"BWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"phone_number_sid\": \"PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"phone_number\": \"+15000000000\",\"url\": \"https://preview.twilio.com/TrustedComms/Businesses/BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Brands/BZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BrandedChannels/BWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            result = new Response("{\"token\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
 
-        Channel.creator("BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        AccessToken.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", AccessToken.FactorTypes.PUSH).create();
     }
 }

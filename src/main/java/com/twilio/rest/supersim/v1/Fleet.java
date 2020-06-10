@@ -69,10 +69,12 @@ public class Fleet extends Resource {
     /**
      * Create a FleetCreator to execute create.
      *
+     * @param networkAccessProfile The SID or unique name of the Network Access
+     *                             Profile of the Fleet
      * @return FleetCreator capable of executing the create
      */
-    public static FleetCreator creator() {
-        return new FleetCreator();
+    public static FleetCreator creator(final String networkAccessProfile) {
+        return new FleetCreator(networkAccessProfile);
     }
 
     /**
@@ -284,10 +286,10 @@ public class Fleet extends Resource {
 
     /**
      * Returns Defines whether SIMs in the Fleet are capable of sending and
-     * receiving Commands via SMS.
+     * receiving machine-to-machine SMS via Commands.
      *
      * @return Defines whether SIMs in the Fleet are capable of sending and
-     *         receiving Commands via SMS
+     *         receiving machine-to-machine SMS via Commands
      */
     public final Boolean getCommandsEnabled() {
         return this.commandsEnabled;
@@ -295,10 +297,10 @@ public class Fleet extends Resource {
 
     /**
      * Returns The URL that will receive a webhook when a SIM in the Fleet
-     * originates a machine-to-machine Command.
+     * originates a machine-to-machine SMS via Commands.
      *
      * @return The URL that will receive a webhook when a SIM in the Fleet
-     *         originates a machine-to-machine Command
+     *         originates a machine-to-machine SMS via Commands
      */
     public final URI getCommandsUrl() {
         return this.commandsUrl;

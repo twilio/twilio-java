@@ -42,7 +42,8 @@ public class Bundle extends Resource {
         PENDING_REVIEW("pending-review"),
         IN_REVIEW("in-review"),
         TWILIO_REJECTED("twilio-rejected"),
-        TWILIO_APPROVED("twilio-approved");
+        TWILIO_APPROVED("twilio-approved"),
+        PROVISIONALLY_APPROVED("provisionally-approved");
 
         private final String value;
 

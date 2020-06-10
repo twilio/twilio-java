@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.api.v2010.account;
+package com.twilio.rest.preview.trustedComms;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;
@@ -27,7 +27,7 @@ import java.net.URI;
 import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;
 
-public class ValidationRequestTest {
+public class BrandsInformationTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
@@ -37,12 +37,12 @@ public class ValidationRequestTest {
     }
 
     @Test
-    public void testCreateRequest() {
+    public void testFetchRequest() {
         new NonStrictExpectations() {{
-            Request request = new Request(HttpMethod.POST,
-                                          Domains.API.toString(),
-                                          "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OutgoingCallerIds.json");
-            request.addPostParam("PhoneNumber", serialize(new com.twilio.type.PhoneNumber("+15017122661")));
+            Request request = new Request(HttpMethod.GET,
+                                          Domains.PREVIEW.toString(),
+                                          "/TrustedComms/BrandsInformation");
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -51,20 +51,20 @@ public class ValidationRequestTest {
         }};
 
         try {
-            ValidationRequest.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15017122661")).create();
+            BrandsInformation.fetcher().fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
 
     @Test
-    public void testCreateResponse() {
+    public void testFetchResultsWithEtagResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"call_sid\": \"CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"friendly_name\",\"phone_number\": \"+18001234567\",\"validation_code\": \"111111\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            result = new Response("{\"update_time\": \"2020-05-19T19:47:51Z\",\"file_link\": \"https://www.twilio.com\",\"file_link_ttl_in_seconds\": \"900\",\"url\": \"https://preview.twilio.com/TrustedComms/BrandsInformation\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
 
-        ValidationRequest.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15017122661")).create();
+        assertNotNull(BrandsInformation.fetcher().fetch());
     }
 }

@@ -143,6 +143,8 @@ public class Service extends Resource {
     private final Map<String, String> links;
     private final String alexaSkillId;
     private final String defaultAlexaNotificationProtocolVersion;
+    private final String deliveryCallbackUrl;
+    private final Boolean deliveryCallbackEnabled;
 
     @JsonCreator
     private Service(@JsonProperty("sid")
@@ -180,7 +182,11 @@ public class Service extends Resource {
                     @JsonProperty("alexa_skill_id")
                     final String alexaSkillId,
                     @JsonProperty("default_alexa_notification_protocol_version")
-                    final String defaultAlexaNotificationProtocolVersion) {
+                    final String defaultAlexaNotificationProtocolVersion,
+                    @JsonProperty("delivery_callback_url")
+                    final String deliveryCallbackUrl,
+                    @JsonProperty("delivery_callback_enabled")
+                    final Boolean deliveryCallbackEnabled) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.friendlyName = friendlyName;
@@ -199,6 +205,8 @@ public class Service extends Resource {
         this.links = links;
         this.alexaSkillId = alexaSkillId;
         this.defaultAlexaNotificationProtocolVersion = defaultAlexaNotificationProtocolVersion;
+        this.deliveryCallbackUrl = deliveryCallbackUrl;
+        this.deliveryCallbackEnabled = deliveryCallbackEnabled;
     }
 
     /**
@@ -363,6 +371,24 @@ public class Service extends Resource {
         return this.defaultAlexaNotificationProtocolVersion;
     }
 
+    /**
+     * Returns Webhook URL.
+     *
+     * @return Webhook URL
+     */
+    public final String getDeliveryCallbackUrl() {
+        return this.deliveryCallbackUrl;
+    }
+
+    /**
+     * Returns Enable delivery callbacks.
+     *
+     * @return Enable delivery callbacks
+     */
+    public final Boolean getDeliveryCallbackEnabled() {
+        return this.deliveryCallbackEnabled;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -392,7 +418,9 @@ public class Service extends Resource {
                Objects.equals(url, other.url) &&
                Objects.equals(links, other.links) &&
                Objects.equals(alexaSkillId, other.alexaSkillId) &&
-               Objects.equals(defaultAlexaNotificationProtocolVersion, other.defaultAlexaNotificationProtocolVersion);
+               Objects.equals(defaultAlexaNotificationProtocolVersion, other.defaultAlexaNotificationProtocolVersion) &&
+               Objects.equals(deliveryCallbackUrl, other.deliveryCallbackUrl) &&
+               Objects.equals(deliveryCallbackEnabled, other.deliveryCallbackEnabled);
     }
 
     @Override
@@ -414,7 +442,9 @@ public class Service extends Resource {
                             url,
                             links,
                             alexaSkillId,
-                            defaultAlexaNotificationProtocolVersion);
+                            defaultAlexaNotificationProtocolVersion,
+                            deliveryCallbackUrl,
+                            deliveryCallbackEnabled);
     }
 
     @Override
@@ -438,6 +468,8 @@ public class Service extends Resource {
                           .add("links", links)
                           .add("alexaSkillId", alexaSkillId)
                           .add("defaultAlexaNotificationProtocolVersion", defaultAlexaNotificationProtocolVersion)
+                          .add("deliveryCallbackUrl", deliveryCallbackUrl)
+                          .add("deliveryCallbackEnabled", deliveryCallbackEnabled)
                           .toString();
     }
 }

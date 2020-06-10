@@ -26,13 +26,23 @@ import java.net.URI;
  * access, please contact help@twilio.com.
  */
 public class FleetCreator extends Creator<Fleet> {
+    private final String networkAccessProfile;
     private String uniqueName;
     private Boolean dataEnabled;
     private Integer dataLimit;
     private Boolean commandsEnabled;
     private URI commandsUrl;
     private HttpMethod commandsMethod;
-    private String networkAccessProfile;
+
+    /**
+     * Construct a new FleetCreator.
+     *
+     * @param networkAccessProfile The SID or unique name of the Network Access
+     *                             Profile of the Fleet
+     */
+    public FleetCreator(final String networkAccessProfile) {
+        this.networkAccessProfile = networkAccessProfile;
+    }
 
     /**
      * An application-defined string that uniquely identifies the resource. It can
@@ -48,8 +58,8 @@ public class FleetCreator extends Creator<Fleet> {
     }
 
     /**
-     * Defines whether SIMs in the Fleet are capable of using
-     * 2G/3G/4G/LTE/CAT-M/NB-IoT data connectivity.
+     * Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M
+     * data connectivity.
      *
      * @param dataEnabled Defines whether SIMs in the Fleet are capable of using
      *                    data connectivity
@@ -61,9 +71,14 @@ public class FleetCreator extends Creator<Fleet> {
     }
 
     /**
-     * The data_limit.
+     * The total data usage (download and upload combined) in Megabytes that each
+     * Sim resource assigned to the Fleet resource can consume during a billing
+     * period (normally one month). Value must be between 1MB (1) and 2TB
+     * (2,000,000)..
      *
-     * @param dataLimit The data_limit
+     * @param dataLimit The total data usage (download and upload combined) in
+     *                  Megabytes that each Sim resource assigned to the Fleet
+     *                  resource can consume
      * @return this
      */
     public FleetCreator setDataLimit(final Integer dataLimit) {
@@ -73,10 +88,11 @@ public class FleetCreator extends Creator<Fleet> {
 
     /**
      * Defines whether SIMs in the Fleet are capable of sending and receiving
-     * Commands via SMS..
+     * machine-to-machine SMS via Commands..
      *
      * @param commandsEnabled Defines whether SIMs in the Fleet are capable of
-     *                        sending and receiving Commands via SMS
+     *                        sending and receiving machine-to-machine SMS via
+     *                        Commands
      * @return this
      */
     public FleetCreator setCommandsEnabled(final Boolean commandsEnabled) {
@@ -86,11 +102,11 @@ public class FleetCreator extends Creator<Fleet> {
 
     /**
      * The URL that will receive a webhook when a SIM in the Fleet originates a
-     * machine-to-machine Command. Your server should respond with an HTTP status
-     * code in the 200 range; any response body will be ignored..
+     * machine-to-machine SMS via Commands. Your server should respond with an HTTP
+     * status code in the 200 range; any response body will be ignored..
      *
      * @param commandsUrl The URL that will receive a webhook when a SIM in the
-     *                    Fleet originates a machine-to-machine Command
+     *                    Fleet originates a machine-to-machine SMS via Commands
      * @return this
      */
     public FleetCreator setCommandsUrl(final URI commandsUrl) {
@@ -100,11 +116,11 @@ public class FleetCreator extends Creator<Fleet> {
 
     /**
      * The URL that will receive a webhook when a SIM in the Fleet originates a
-     * machine-to-machine Command. Your server should respond with an HTTP status
-     * code in the 200 range; any response body will be ignored..
+     * machine-to-machine SMS via Commands. Your server should respond with an HTTP
+     * status code in the 200 range; any response body will be ignored..
      *
      * @param commandsUrl The URL that will receive a webhook when a SIM in the
-     *                    Fleet originates a machine-to-machine Command
+     *                    Fleet originates a machine-to-machine SMS via Commands
      * @return this
      */
     public FleetCreator setCommandsUrl(final String commandsUrl) {
@@ -121,19 +137,6 @@ public class FleetCreator extends Creator<Fleet> {
      */
     public FleetCreator setCommandsMethod(final HttpMethod commandsMethod) {
         this.commandsMethod = commandsMethod;
-        return this;
-    }
-
-    /**
-     * The SID or unique name of the Network Access Profile that will control which
-     * cellular network operators the Fleet's SIMs can connect to.
-     *
-     * @param networkAccessProfile The SID or unique name of the Network Access
-     *                             Profile of the Fleet
-     * @return this
-     */
-    public FleetCreator setNetworkAccessProfile(final String networkAccessProfile) {
-        this.networkAccessProfile = networkAccessProfile;
         return this;
     }
 
@@ -174,6 +177,10 @@ public class FleetCreator extends Creator<Fleet> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
+        if (networkAccessProfile != null) {
+            request.addPostParam("NetworkAccessProfile", networkAccessProfile.toString());
+        }
+
         if (uniqueName != null) {
             request.addPostParam("UniqueName", uniqueName);
         }
@@ -196,10 +203,6 @@ public class FleetCreator extends Creator<Fleet> {
 
         if (commandsMethod != null) {
             request.addPostParam("CommandsMethod", commandsMethod.toString());
-        }
-
-        if (networkAccessProfile != null) {
-            request.addPostParam("NetworkAccessProfile", networkAccessProfile.toString());
         }
     }
 }

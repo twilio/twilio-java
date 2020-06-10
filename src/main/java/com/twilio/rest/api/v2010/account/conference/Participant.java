@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Participant extends Resource {
-    private static final long serialVersionUID = 246599390416338L;
+    private static final long serialVersionUID = 239000322102976L;
 
     public enum Status {
         QUEUED("queued"),
@@ -72,7 +72,8 @@ public class Participant extends Resource {
      *                       fetch
      * @param pathConferenceSid The SID of the conference with the participant to
      *                          fetch
-     * @param pathCallSid The Call SID of the resource to fetch
+     * @param pathCallSid The Call SID or URL encoded label of the participant to
+     *                    fetch
      * @return ParticipantFetcher capable of executing the fetch
      */
     public static ParticipantFetcher fetcher(final String pathAccountSid,
@@ -86,7 +87,8 @@ public class Participant extends Resource {
      *
      * @param pathConferenceSid The SID of the conference with the participant to
      *                          fetch
-     * @param pathCallSid The Call SID of the resource to fetch
+     * @param pathCallSid The Call SID or URL encoded label of the participant to
+     *                    fetch
      * @return ParticipantFetcher capable of executing the fetch
      */
     public static ParticipantFetcher fetcher(final String pathConferenceSid,
@@ -101,7 +103,8 @@ public class Participant extends Resource {
      *                       update
      * @param pathConferenceSid The SID of the conference with the participant to
      *                          update
-     * @param pathCallSid The Call SID of the resources to update
+     * @param pathCallSid The Call SID or URL encoded label of the participant to
+     *                    update
      * @return ParticipantUpdater capable of executing the update
      */
     public static ParticipantUpdater updater(final String pathAccountSid,
@@ -115,7 +118,8 @@ public class Participant extends Resource {
      *
      * @param pathConferenceSid The SID of the conference with the participant to
      *                          update
-     * @param pathCallSid The Call SID of the resources to update
+     * @param pathCallSid The Call SID or URL encoded label of the participant to
+     *                    update
      * @return ParticipantUpdater capable of executing the update
      */
     public static ParticipantUpdater updater(final String pathConferenceSid,
@@ -160,7 +164,8 @@ public class Participant extends Resource {
      *                       delete
      * @param pathConferenceSid The SID of the conference with the participants to
      *                          delete
-     * @param pathCallSid The Call SID of the resources to delete
+     * @param pathCallSid The Call SID or URL encoded label of the participant to
+     *                    delete
      * @return ParticipantDeleter capable of executing the delete
      */
     public static ParticipantDeleter deleter(final String pathAccountSid,
@@ -174,7 +179,8 @@ public class Participant extends Resource {
      *
      * @param pathConferenceSid The SID of the conference with the participants to
      *                          delete
-     * @param pathCallSid The Call SID of the resources to delete
+     * @param pathCallSid The Call SID or URL encoded label of the participant to
+     *                    delete
      * @return ParticipantDeleter capable of executing the delete
      */
     public static ParticipantDeleter deleter(final String pathConferenceSid,

@@ -46,15 +46,13 @@ public class Channel extends Resource {
      * @param pathBrandSid Brand Sid.
      * @param pathBrandedChannelSid Branded Channel Sid.
      * @param phoneNumberSid Phone Number Sid to be branded.
-     * @param phoneNumber Twilio number to assign to the Branded Channel
      * @return ChannelCreator capable of executing the create
      */
     public static ChannelCreator creator(final String pathBusinessSid,
                                          final String pathBrandSid,
                                          final String pathBrandedChannelSid,
-                                         final String phoneNumberSid,
-                                         final String phoneNumber) {
-        return new ChannelCreator(pathBusinessSid, pathBrandSid, pathBrandedChannelSid, phoneNumberSid, phoneNumber);
+                                         final String phoneNumberSid) {
+        return new ChannelCreator(pathBusinessSid, pathBrandSid, pathBrandedChannelSid, phoneNumberSid);
     }
 
     /**

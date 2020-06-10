@@ -42,7 +42,7 @@ public class FleetTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.SUPERSIM.toString(),
                                           "/v1/Fleets");
-
+            request.addPostParam("NetworkAccessProfile", serialize("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -51,7 +51,7 @@ public class FleetTest {
         }};
 
         try {
-            Fleet.creator().create();
+            Fleet.creator("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class FleetTest {
             result = new ObjectMapper();
         }};
 
-        Fleet.creator().create();
+        Fleet.creator("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
     }
 
     @Test

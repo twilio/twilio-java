@@ -29,6 +29,7 @@ public class QueryReader extends Reader<Query> {
     private String language;
     private String modelBuild;
     private String status;
+    private String dialogueSid;
 
     /**
      * Construct a new QueryReader.
@@ -74,6 +75,19 @@ public class QueryReader extends Reader<Query> {
      */
     public QueryReader setStatus(final String status) {
         this.status = status;
+        return this;
+    }
+
+    /**
+     * The SID of the
+     * [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue)..
+     *
+     * @param dialogueSid The SID of the
+     *                    [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
+     * @return this
+     */
+    public QueryReader setDialogueSid(final String dialogueSid) {
+        this.dialogueSid = dialogueSid;
         return this;
     }
 
@@ -203,6 +217,10 @@ public class QueryReader extends Reader<Query> {
 
         if (status != null) {
             request.addQueryParam("Status", status);
+        }
+
+        if (dialogueSid != null) {
+            request.addQueryParam("DialogueSid", dialogueSid);
         }
 
         if (getPageSize() != null) {

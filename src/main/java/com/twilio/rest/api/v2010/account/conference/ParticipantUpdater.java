@@ -42,7 +42,8 @@ public class ParticipantUpdater extends Updater<Participant> {
      *
      * @param pathConferenceSid The SID of the conference with the participant to
      *                          update
-     * @param pathCallSid The Call SID of the resources to update
+     * @param pathCallSid The Call SID or URL encoded label of the participant to
+     *                    update
      */
     public ParticipantUpdater(final String pathConferenceSid,
                               final String pathCallSid) {
@@ -57,7 +58,8 @@ public class ParticipantUpdater extends Updater<Participant> {
      *                       update
      * @param pathConferenceSid The SID of the conference with the participant to
      *                          update
-     * @param pathCallSid The Call SID of the resources to update
+     * @param pathCallSid The Call SID or URL encoded label of the participant to
+     *                    update
      */
     public ParticipantUpdater(final String pathAccountSid,
                               final String pathConferenceSid,

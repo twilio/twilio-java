@@ -29,7 +29,7 @@ public class FleetReader extends Reader<Fleet> {
 
     /**
      * The SID or unique name of the Network Access Profile that controls which
-     * cellular network operators the Fleet's SIMs can connect to.
+     * cellular networks the Fleet's SIMs can connect to.
      *
      * @param networkAccessProfile The SID or unique name of the Network Access
      *                             Profile of the Fleet

@@ -131,7 +131,7 @@
   <properties>
     <jackson.version>2.10.4</jackson.version>
     <jackson.databind.version>2.10.4</jackson.databind.version>
-    <jjwt.version>0.10.7</jjwt.version>
+    <jjwt.version>0.11.2</jjwt.version>
     <skip.tests>false</skip.tests>
     <dependency.skip>false</dependency.skip>
   </properties>

@@ -1,6 +1,48 @@
 twilio-java changelog
 =====================
 
+[2020-06-24] Version 7.53.0
+---------------------------
+**Library - Chore**
+- [PR #535](https://github.com/twilio/twilio-java/pull/535): bump maven-javadoc-plugin from 2.10.4 to 3.2.0. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #542](https://github.com/twilio/twilio-java/pull/542): bump guava from 28.0-android to 29.0-android. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #540](https://github.com/twilio/twilio-java/pull/540): bump equalsverifier from 3.1.12 to 3.4.1. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #541](https://github.com/twilio/twilio-java/pull/541): bump junit from 4.11 to 4.13. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #539](https://github.com/twilio/twilio-java/pull/539): bump jjwt.version from 0.10.7 to 0.11.2. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #536](https://github.com/twilio/twilio-java/pull/536): bump jaxb-api from 2.2 to 2.3.1. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #538](https://github.com/twilio/twilio-java/pull/538): bump maven-source-plugin from 3.0.1 to 3.2.1. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #534](https://github.com/twilio/twilio-java/pull/534): add Dependabot. Thanks to [@sullis](https://github.com/sullis)!
+
+**Api**
+- Added optional `JitterBufferSize` parameter for creating conference participant
+- Added optional `label` property for conference participants
+- Added optional parameter `caller_id` for creating conference participant endpoint.
+
+**Autopilot**
+- Remove Export resource from Autopilot Assistant
+
+**Conversations**
+- Expose Conversation timers
+
+**Monitor**
+- Update start/end date filter params to support date-or-time format **(breaking change)**
+
+**Numbers**
+- Add `provisionally-approved` as a Supporting Document status
+
+**Preview**
+- Removed `Authy` resources. **(breaking change)**
+
+**Supersim**
+- Add ready state to the allowed transitions in the sim update call behind the feature flag supersim.ready-state.v1
+
+**Verify**
+- Webhook resources added to Verify services and put behind the `api.verify.push` beta feature
+
+**Twiml**
+- Add more supported locales for the `Gather` verb.
+
+
 [2020-06-10] Version 7.52.0
 ---------------------------
 **Library - Docs**

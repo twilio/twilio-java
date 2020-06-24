@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.authy.v1;
+package com.twilio.rest.verify.v2.service;
 
 import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;
@@ -17,34 +17,47 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+import java.util.List;
+
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class ServiceCreator extends Creator<Service> {
+public class WebhookCreator extends Creator<Webhook> {
+    private final String pathServiceSid;
     private final String friendlyName;
-    private String push;
+    private final List<String> eventTypes;
+    private final String webhookUrl;
+    private Webhook.Status status;
 
     /**
-     * Construct a new ServiceCreator.
+     * Construct a new WebhookCreator.
      *
-     * @param friendlyName A human readable description of this resource.
+     * @param pathServiceSid Service Sid.
+     * @param friendlyName The string that you assigned to describe the webhook
+     * @param eventTypes The array of events that this Webhook is subscribed to.
+     * @param webhookUrl The URL associated with this Webhook.
      */
-    public ServiceCreator(final String friendlyName) {
+    public WebhookCreator(final String pathServiceSid,
+                          final String friendlyName,
+                          final List<String> eventTypes,
+                          final String webhookUrl) {
+        this.pathServiceSid = pathServiceSid;
         this.friendlyName = friendlyName;
+        this.eventTypes = eventTypes;
+        this.webhookUrl = webhookUrl;
     }
 
     /**
-     * The optional service level push factors configuration. If present it must be
-     * a json string with the following format: {"notify_service_sid":
-     * "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "include_date": true}.
+     * The webhook status. Default value is `enabled`. One of: `enabled` or
+     * `disabled`.
      *
-     * @param push Optional service level push factors configuration
+     * @param status The webhook status
      * @return this
      */
-    public ServiceCreator setPush(final String push) {
-        this.push = push;
+    public WebhookCreator setStatus(final Webhook.Status status) {
+        this.status = status;
         return this;
     }
 
@@ -52,22 +65,22 @@ public class ServiceCreator extends Creator<Service> {
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Created Service
+     * @return Created Webhook
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Service create(final TwilioRestClient client) {
+    public Webhook create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            Domains.AUTHY.toString(),
-            "/v1/Services"
+            Domains.VERIFY.toString(),
+            "/v2/Services/" + this.pathServiceSid + "/Webhooks"
         );
 
         addPostParams(request);
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Service creation failed: Unable to connect to server");
+            throw new ApiConnectionException("Webhook creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -76,7 +89,7 @@ public class ServiceCreator extends Creator<Service> {
             throw new ApiException(restException);
         }
 
-        return Service.fromJson(response.getStream(), client.getObjectMapper());
+        return Webhook.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -89,8 +102,18 @@ public class ServiceCreator extends Creator<Service> {
             request.addPostParam("FriendlyName", friendlyName);
         }
 
-        if (push != null) {
-            request.addPostParam("Push", push);
+        if (eventTypes != null) {
+            for (String prop : eventTypes) {
+                request.addPostParam("EventTypes", prop);
+            }
+        }
+
+        if (webhookUrl != null) {
+            request.addPostParam("WebhookUrl", webhookUrl);
+        }
+
+        if (status != null) {
+            request.addPostParam("Status", status.toString());
         }
     }
 }

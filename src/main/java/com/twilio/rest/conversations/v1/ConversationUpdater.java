@@ -31,6 +31,8 @@ public class ConversationUpdater extends Updater<Conversation> {
     private String attributes;
     private String messagingServiceSid;
     private Conversation.State state;
+    private String timersInactive;
+    private String timersClosed;
 
     /**
      * Construct a new ConversationUpdater.
@@ -116,6 +118,32 @@ public class ConversationUpdater extends Updater<Conversation> {
     }
 
     /**
+     * ISO8601 duration when conversation will be switched to `inactive` state.
+     * Minimum value for this timer is 1 minute..
+     *
+     * @param timersInactive ISO8601 duration when conversation will be switched to
+     *                       `inactive` state.
+     * @return this
+     */
+    public ConversationUpdater setTimersInactive(final String timersInactive) {
+        this.timersInactive = timersInactive;
+        return this;
+    }
+
+    /**
+     * ISO8601 duration when conversation will be switched to `closed` state.
+     * Minimum value for this timer is 10 minutes..
+     *
+     * @param timersClosed ISO8601 duration when conversation will be switched to
+     *                     `closed` state.
+     * @return this
+     */
+    public ConversationUpdater setTimersClosed(final String timersClosed) {
+        this.timersClosed = timersClosed;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -174,6 +202,14 @@ public class ConversationUpdater extends Updater<Conversation> {
 
         if (state != null) {
             request.addPostParam("State", state.toString());
+        }
+
+        if (timersInactive != null) {
+            request.addPostParam("Timers.Inactive", timersInactive);
+        }
+
+        if (timersClosed != null) {
+            request.addPostParam("Timers.Closed", timersClosed);
         }
     }
 }

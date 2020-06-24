@@ -132,8 +132,10 @@ public class Participant extends Resource {
      *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param pathConferenceSid The SID of the participant's conference
-     * @param from The `from` phone number used to invite a participant
-     * @param to The number, client id, or sip address of the new participant
+     * @param from The phone number, Client identifier, or username portion of SIP
+     *             address that made this call.
+     * @param to The phone number, SIP address or Client identifier that received
+     *           this call.
      * @return ParticipantCreator capable of executing the create
      */
     public static ParticipantCreator creator(final String pathAccountSid,
@@ -147,8 +149,10 @@ public class Participant extends Resource {
      * Create a ParticipantCreator to execute create.
      *
      * @param pathConferenceSid The SID of the participant's conference
-     * @param from The `from` phone number used to invite a participant
-     * @param to The number, client id, or sip address of the new participant
+     * @param from The phone number, Client identifier, or username portion of SIP
+     *             address that made this call.
+     * @param to The phone number, SIP address or Client identifier that received
+     *           this call.
      * @return ParticipantCreator capable of executing the create
      */
     public static ParticipantCreator creator(final String pathConferenceSid,
@@ -253,6 +257,7 @@ public class Participant extends Resource {
 
     private final String accountSid;
     private final String callSid;
+    private final String label;
     private final String callSidToCoach;
     private final Boolean coaching;
     private final String conferenceSid;
@@ -270,6 +275,8 @@ public class Participant extends Resource {
                         final String accountSid,
                         @JsonProperty("call_sid")
                         final String callSid,
+                        @JsonProperty("label")
+                        final String label,
                         @JsonProperty("call_sid_to_coach")
                         final String callSidToCoach,
                         @JsonProperty("coaching")
@@ -294,6 +301,7 @@ public class Participant extends Resource {
                         final String uri) {
         this.accountSid = accountSid;
         this.callSid = callSid;
+        this.label = label;
         this.callSidToCoach = callSidToCoach;
         this.coaching = coaching;
         this.conferenceSid = conferenceSid;
@@ -323,6 +331,15 @@ public class Participant extends Resource {
      */
     public final String getCallSid() {
         return this.callSid;
+    }
+
+    /**
+     * Returns The label of this participant.
+     *
+     * @return The label of this participant
+     */
+    public final String getLabel() {
+        return this.label;
     }
 
     /**
@@ -440,6 +457,7 @@ public class Participant extends Resource {
 
         return Objects.equals(accountSid, other.accountSid) &&
                Objects.equals(callSid, other.callSid) &&
+               Objects.equals(label, other.label) &&
                Objects.equals(callSidToCoach, other.callSidToCoach) &&
                Objects.equals(coaching, other.coaching) &&
                Objects.equals(conferenceSid, other.conferenceSid) &&
@@ -457,6 +475,7 @@ public class Participant extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid,
                             callSid,
+                            label,
                             callSidToCoach,
                             coaching,
                             conferenceSid,
@@ -475,6 +494,7 @@ public class Participant extends Resource {
         return MoreObjects.toStringHelper(this)
                           .add("accountSid", accountSid)
                           .add("callSid", callSid)
+                          .add("label", label)
                           .add("callSidToCoach", callSidToCoach)
                           .add("coaching", coaching)
                           .add("conferenceSid", conferenceSid)

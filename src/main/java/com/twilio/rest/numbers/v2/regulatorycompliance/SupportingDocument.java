@@ -43,7 +43,8 @@ public class SupportingDocument extends Resource {
         PENDING_REVIEW("pending-review"),
         REJECTED("rejected"),
         APPROVED("approved"),
-        EXPIRED("expired");
+        EXPIRED("expired"),
+        PROVISIONALLY_APPROVED("provisionally-approved");
 
         private final String value;
 

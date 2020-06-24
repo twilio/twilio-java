@@ -71,6 +71,7 @@ public class Sim extends Resource {
     }
 
     public enum StatusUpdate {
+        READY("ready"),
         ACTIVE("active"),
         INACTIVE("inactive");
 

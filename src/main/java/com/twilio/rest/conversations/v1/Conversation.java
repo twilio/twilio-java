@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
@@ -39,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Conversation extends Resource {
-    private static final long serialVersionUID = 151272997981541L;
+    private static final long serialVersionUID = 104618704631663L;
 
     public enum WebhookEnabledType {
         TRUE("true"),
@@ -187,6 +188,7 @@ public class Conversation extends Resource {
     private final Conversation.State state;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
+    private final Map<String, Object> timers;
     private final URI url;
     private final Map<String, String> links;
 
@@ -209,6 +211,8 @@ public class Conversation extends Resource {
                          final String dateCreated,
                          @JsonProperty("date_updated")
                          final String dateUpdated,
+                         @JsonProperty("timers")
+                         final Map<String, Object> timers,
                          @JsonProperty("url")
                          final URI url,
                          @JsonProperty("links")
@@ -222,6 +226,7 @@ public class Conversation extends Resource {
         this.state = state;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.timers = timers;
         this.url = url;
         this.links = links;
     }
@@ -310,6 +315,15 @@ public class Conversation extends Resource {
     }
 
     /**
+     * Returns Timer date values for this conversation..
+     *
+     * @return Timer date values for this conversation.
+     */
+    public final Map<String, Object> getTimers() {
+        return this.timers;
+    }
+
+    /**
      * Returns An absolute URL for this conversation..
      *
      * @return An absolute URL for this conversation.
@@ -348,6 +362,7 @@ public class Conversation extends Resource {
                Objects.equals(state, other.state) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(timers, other.timers) &&
                Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
@@ -363,6 +378,7 @@ public class Conversation extends Resource {
                             state,
                             dateCreated,
                             dateUpdated,
+                            timers,
                             url,
                             links);
     }
@@ -379,6 +395,7 @@ public class Conversation extends Resource {
                           .add("state", state)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
+                          .add("timers", timers)
                           .add("url", url)
                           .add("links", links)
                           .toString();

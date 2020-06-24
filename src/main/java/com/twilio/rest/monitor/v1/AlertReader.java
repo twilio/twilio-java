@@ -19,12 +19,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.LocalDate;
+import org.joda.time.DateTime;
 
 public class AlertReader extends Reader<Alert> {
     private String logLevel;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private DateTime startDate;
+    private DateTime endDate;
 
     /**
      * Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`,
@@ -47,7 +47,7 @@ public class AlertReader extends Reader<Alert> {
      *                  time
      * @return this
      */
-    public AlertReader setStartDate(final LocalDate startDate) {
+    public AlertReader setStartDate(final DateTime startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -62,7 +62,7 @@ public class AlertReader extends Reader<Alert> {
      *                time
      * @return this
      */
-    public AlertReader setEndDate(final LocalDate endDate) {
+    public AlertReader setEndDate(final DateTime endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -188,11 +188,11 @@ public class AlertReader extends Reader<Alert> {
         }
 
         if (startDate != null) {
-            request.addQueryParam("StartDate", DateConverter.dateStringFromLocalDate(startDate));
+            request.addQueryParam("StartDate", startDate.toString());
         }
 
         if (endDate != null) {
-            request.addQueryParam("EndDate", DateConverter.dateStringFromLocalDate(endDate));
+            request.addQueryParam("EndDate", endDate.toString());
         }
 
         if (getPageSize() != null) {

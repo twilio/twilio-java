@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.authy.v1.service.entity.factor;
+package com.twilio.rest.verify.v2.service;
 
 import com.twilio.base.Deleter;
 import com.twilio.exception.ApiConnectionException;
@@ -22,27 +22,19 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class ChallengeDeleter extends Deleter<Challenge> {
+public class WebhookDeleter extends Deleter<Webhook> {
     private final String pathServiceSid;
-    private final String pathIdentity;
-    private final String pathFactorSid;
     private final String pathSid;
 
     /**
-     * Construct a new ChallengeDeleter.
+     * Construct a new WebhookDeleter.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
-     * @param pathFactorSid Factor Sid.
-     * @param pathSid A string that uniquely identifies this Challenge.
+     * @param pathSid The unique string that identifies the resource to delete
      */
-    public ChallengeDeleter(final String pathServiceSid,
-                            final String pathIdentity,
-                            final String pathFactorSid,
-                            final String pathSid) {
+    public WebhookDeleter(final String pathServiceSid,
+                          final String pathSid) {
         this.pathServiceSid = pathServiceSid;
-        this.pathIdentity = pathIdentity;
-        this.pathFactorSid = pathFactorSid;
         this.pathSid = pathSid;
     }
 
@@ -56,14 +48,14 @@ public class ChallengeDeleter extends Deleter<Challenge> {
     public boolean delete(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
-            Domains.AUTHY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Factors/" + this.pathFactorSid + "/Challenges/" + this.pathSid + ""
+            Domains.VERIFY.toString(),
+            "/v2/Services/" + this.pathServiceSid + "/Webhooks/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Challenge delete failed: Unable to connect to server");
+            throw new ApiConnectionException("Webhook delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {

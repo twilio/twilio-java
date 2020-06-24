@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.authy.v1.service;
+package com.twilio.rest.verify.v2.service;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -24,15 +24,15 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class EntityReader extends Reader<Entity> {
+public class WebhookReader extends Reader<Webhook> {
     private final String pathServiceSid;
 
     /**
-     * Construct a new EntityReader.
+     * Construct a new WebhookReader.
      *
      * @param pathServiceSid Service Sid.
      */
-    public EntityReader(final String pathServiceSid) {
+    public WebhookReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
@@ -40,10 +40,10 @@ public class EntityReader extends Reader<Entity> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Entity ResourceSet
+     * @return Webhook ResourceSet
      */
     @Override
-    public ResourceSet<Entity> read(final TwilioRestClient client) {
+    public ResourceSet<Webhook> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -51,15 +51,15 @@ public class EntityReader extends Reader<Entity> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Entity ResourceSet
+     * @return Webhook ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Entity> firstPage(final TwilioRestClient client) {
+    public Page<Webhook> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.AUTHY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Entities"
+            Domains.VERIFY.toString(),
+            "/v2/Services/" + this.pathServiceSid + "/Webhooks"
         );
 
         addQueryParams(request);
@@ -71,11 +71,11 @@ public class EntityReader extends Reader<Entity> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Entity ResourceSet
+     * @return Webhook ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Entity> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Webhook> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -92,11 +92,11 @@ public class EntityReader extends Reader<Entity> {
      * @return Next Page
      */
     @Override
-    public Page<Entity> nextPage(final Page<Entity> page,
-                                 final TwilioRestClient client) {
+    public Page<Webhook> nextPage(final Page<Webhook> page,
+                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.AUTHY.toString())
+            page.getNextPageUrl(Domains.VERIFY.toString())
         );
         return pageForRequest(client, request);
     }
@@ -109,27 +109,27 @@ public class EntityReader extends Reader<Entity> {
      * @return Previous Page
      */
     @Override
-    public Page<Entity> previousPage(final Page<Entity> page,
-                                     final TwilioRestClient client) {
+    public Page<Webhook> previousPage(final Page<Webhook> page,
+                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.AUTHY.toString())
+            page.getPreviousPageUrl(Domains.VERIFY.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
-     * Generate a Page of Entity Resources for a given request.
+     * Generate a Page of Webhook Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Entity> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Webhook> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Entity read failed: Unable to connect to server");
+            throw new ApiConnectionException("Webhook read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -139,9 +139,9 @@ public class EntityReader extends Reader<Entity> {
         }
 
         return Page.fromJson(
-            "entities",
+            "webhooks",
             response.getContent(),
-            Entity.class,
+            Webhook.class,
             client.getObjectMapper()
         );
     }

@@ -5,8 +5,12 @@ updates:
     schedule:
       interval: "daily"
       time: "02:00"
+    commit_message:
+      prefix: "chore"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "daily"
       time: "02:00"
+    commit_message:
+      prefix: "chore"

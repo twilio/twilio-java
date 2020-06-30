@@ -129,7 +129,8 @@ public class NetworkHttpClient extends HttpClient {
             return new Response(
                 // Consume the entire HTTP response before returning the stream
                 entity == null ? null : new BufferedHttpEntity(entity).getContent(),
-                response.getStatusLine().getStatusCode()
+                response.getStatusLine().getStatusCode(),
+                response.getAllHeaders()
             );
         } catch (IOException e) {
             throw new ApiException(e.getMessage(), e);

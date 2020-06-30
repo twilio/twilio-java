@@ -1,9 +1,9 @@
 package com.twilio.http;
 
 import com.twilio.exception.ApiException;
+import org.apache.http.Header;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
@@ -13,37 +13,62 @@ public class Response {
     private final InputStream stream;
     private final String content;
     private final int statusCode;
+    private final Header[] headers;
 
     /**
      * Create a Response from content string and status code.
      *
-     * @param content content string
+     * @param content    content string
      * @param statusCode status code
      */
     public Response(final String content, final int statusCode) {
+        this(content, statusCode, null);
+    }
+
+    /**
+     * Create a Response from content string, status code, and headers.
+     *
+     * @param content    content string
+     * @param statusCode status code
+     * @param headers    headers
+     */
+    public Response(final String content, final int statusCode, final Header[] headers) {
         this.stream = null;
         this.content = content;
         this.statusCode = statusCode;
+        this.headers = headers;
     }
 
     /**
      * Create a Response from input stream and status code.
      *
-     * @param stream input stream
+     * @param stream     input stream
      * @param statusCode status code
      */
     public Response(final InputStream stream, final int statusCode) {
+        this(stream, statusCode, null);
+    }
+
+    /**
+     * Create a Response from input stream, status code, and headers.
+     *
+     * @param stream     input stream
+     * @param statusCode status code
+     * @param headers    headers
+     */
+    public Response(final InputStream stream, final int statusCode, final Header[] headers) {
         this.stream = stream;
         this.content = null;
         this.statusCode = statusCode;
+        this.headers = headers;
     }
 
     /**
      * Get the the content of the response.
      *
      * <p>
-     *     If there is a content string, that will be returned.
-     *     Otherwise, will get content from input stream
+     * If there is a content string, that will be returned.
+     * Otherwise, will get content from input stream
      * </p>
      *
      * @return the content string
@@ -87,5 +112,9 @@ public class Response {
 
     public int getStatusCode() {
         return statusCode;
+    }
+
+    public Header[] getHeaders() {
+        return headers;
     }
 }

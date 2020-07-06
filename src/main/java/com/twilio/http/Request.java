@@ -23,6 +23,7 @@ public class Request {
 
     public static final String QUERY_STRING_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
     public static final String QUERY_STRING_DATE_FORMAT = "yyyy-MM-dd";
+    private static final String ENCODED_PIPE = "%7C";
 
     private final HttpMethod method;
     private final String url;
@@ -130,7 +131,7 @@ public class Request {
      */
     public URL constructURL() {
         String params = encodeQueryParams();
-        String stringUri = encodeUri(buildURL());
+        String stringUri = resolvePipe(buildURL());
 
         if (params.length() > 0) {
             stringUri += "?" + params;
@@ -146,8 +147,8 @@ public class Request {
         }
     }
     
-    private String encodeUri(String buildURL) {
-        return buildURL.replace("|", "%7C");
+    private String resolvePipe(String buildURL) {
+        return buildURL.replace("|", ENCODED_PIPE);
     }
 
     private String buildURL() {

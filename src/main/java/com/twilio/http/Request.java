@@ -130,7 +130,7 @@ public class Request {
      */
     public URL constructURL() {
         String params = encodeQueryParams();
-        String stringUri = buildURL();
+        String stringUri = encodeUri(buildURL());
 
         if (params.length() > 0) {
             stringUri += "?" + params;
@@ -144,6 +144,10 @@ public class Request {
         } catch (final MalformedURLException e) {
             throw new ApiException("Bad URL: " + stringUri, e);
         }
+    }
+    
+    private String encodeUri(String buildURL) {
+        return buildURL.replace("|", "%7C");
     }
 
     private String buildURL() {

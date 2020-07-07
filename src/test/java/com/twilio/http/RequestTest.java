@@ -14,6 +14,7 @@ import java.net.URL;
 import static com.twilio.Assert.assertQueryStringsEqual;
 import static com.twilio.Assert.assertUrlsEqual;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -42,6 +43,14 @@ public class RequestTest {
         Request request = new Request(HttpMethod.DELETE, "http://{");
         request.constructURL();
         fail("ApiException was expected");
+    }
+
+    @Test
+    public void testConstructURLWithPipe() throws MalformedURLException {
+        Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foo|bar");
+        URL url = r.constructURL();
+        URL expected = new URL("https://api.twilio.com/2010-04-01/foo%7Cbar");
+        assertUrlsEqual(expected, url);
     }
 
     @Test
@@ -196,13 +205,13 @@ public class RequestTest {
     }
 
     @Test
-    public void testRegionInConstructor() throws MalformedURLException {
-        final Request request = new Request(HttpMethod.GET, Domains.ACCOUNTS.toString(), "/path/to/something.json?foo=12.34", "region");
+    public void testRegionInConstructor() {
+        final Request request = new Request(HttpMethod.GET, Domains.ACCOUNTS.toString(), "/path/to/something.json?foo=12.34#bar", "region");
 
-        assertUrlsEqual(new URL("https://accounts.region.twilio.com/path/to/something.json?foo=12.34"), request.constructURL());
+        assertUrlsEqual("https://accounts.region.twilio.com/path/to/something.json?foo=12.34#bar", request.constructURL());
 
         request.setEdge("edge");
-        assertUrlsEqual(new URL("https://accounts.edge.region.twilio.com/path/to/something.json?foo=12.34"), request.constructURL());
+        assertUrlsEqual("https://accounts.edge.region.twilio.com/path/to/something.json?foo=12.34#bar", request.constructURL());
     }
 
     @Test
@@ -240,7 +249,7 @@ public class RequestTest {
     public void testEquals() {
         Request request = new Request(HttpMethod.DELETE, "/uri");
         request.setAuth("username", "password");
-        assertFalse(request.equals(new Object()));
-        assertFalse(request.equals(null));
+        assertNotEquals(request, new Object());
+        assertNotEquals(null, request);
     }
 }

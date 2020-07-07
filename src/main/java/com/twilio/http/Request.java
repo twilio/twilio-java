@@ -147,10 +147,12 @@ public class Request {
     }
 
     private String buildURL() {
-        if (region != null || edge != null) {
-            try {
-                final URL parsedUrl = new URL(url);
-                final String[] pieces = parsedUrl.getHost().split("\\.");
+        try {
+            final URL parsedUrl = new URL(url);
+            String host = parsedUrl.getHost();
+            final String[] pieces = host.split("\\.");
+
+            if (pieces.length > 1) {
                 final String product = pieces[0];
                 final String domain = joinIgnoreNull(".", pieces[pieces.length - 2], pieces[pieces.length - 1]);
 
@@ -167,15 +169,14 @@ public class Request {
                 if (targetEdge != null && targetRegion == null)
                     targetRegion = DEFAULT_REGION;
 
-                final String host = joinIgnoreNull(".", product, targetEdge, targetRegion, domain);
-
-                return new URL(parsedUrl.getProtocol(), host, parsedUrl.getPort(), parsedUrl.getFile()).toString();
-            } catch (final MalformedURLException e) {
-                throw new ApiException("Bad URL: " + url, e);
+                host = joinIgnoreNull(".", product, targetEdge, targetRegion, domain);
             }
-        }
 
-        return url;
+            return new URI(parsedUrl.getProtocol(), parsedUrl.getUserInfo(), host, parsedUrl.getPort(),
+                    parsedUrl.getPath(), parsedUrl.getQuery(), parsedUrl.getRef()).toURL().toString();
+        } catch (final MalformedURLException | URISyntaxException e) {
+            throw new ApiException("Bad URL: " + url, e);
+        }
     }
 
     /**

@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.verify.v2.service.entity;
+package com.twilio.rest.numbers.v2.regulatorycompliance;
 
 import com.twilio.base.Deleter;
 import com.twilio.exception.ApiConnectionException;
@@ -17,28 +17,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- */
-public class FactorDeleter extends Deleter<Factor> {
-    private final String pathServiceSid;
-    private final String pathIdentity;
+public class BundleDeleter extends Deleter<Bundle> {
     private final String pathSid;
 
     /**
-     * Construct a new FactorDeleter.
+     * Construct a new BundleDeleter.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique external identifier of the Entity
-     * @param pathSid A string that uniquely identifies this Factor.
+     * @param pathSid The unique string that identifies the resource.
      */
-    public FactorDeleter(final String pathServiceSid,
-                         final String pathIdentity,
-                         final String pathSid) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathIdentity = pathIdentity;
+    public BundleDeleter(final String pathSid) {
         this.pathSid = pathSid;
     }
 
@@ -52,14 +39,14 @@ public class FactorDeleter extends Deleter<Factor> {
     public boolean delete(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
-            Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Factors/" + this.pathSid + ""
+            Domains.NUMBERS.toString(),
+            "/v2/RegulatoryCompliance/Bundles/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Factor delete failed: Unable to connect to server");
+            throw new ApiConnectionException("Bundle delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {

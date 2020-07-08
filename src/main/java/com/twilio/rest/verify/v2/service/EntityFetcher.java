@@ -30,7 +30,7 @@ public class EntityFetcher extends Fetcher<Entity> {
      * Construct a new EntityFetcher.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
+     * @param pathIdentity Unique external identifier of the Entity
      */
     public EntityFetcher(final String pathServiceSid,
                          final String pathIdentity) {

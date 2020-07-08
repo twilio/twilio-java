@@ -1,6 +1,45 @@
 twilio-java changelog
 =====================
 
+[2020-07-08] Version 7.54.0
+---------------------------
+**Library - Feature**
+- [PR #555](https://github.com/twilio/twilio-java/pull/555): add fax capability to deserialized phone number capabilities. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #553](https://github.com/twilio/twilio-java/pull/553): include API response headers in 'Last Response'. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Chore**
+- [PR #554](https://github.com/twilio/twilio-java/pull/554): bump archunit from 0.13.0 to 0.14.1. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #550](https://github.com/twilio/twilio-java/pull/550): bump cobertura-maven-plugin from 2.2 to 2.7. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #551](https://github.com/twilio/twilio-java/pull/551): bump maven-assembly-plugin from 2.3 to 3.3.0. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #543](https://github.com/twilio/twilio-java/pull/543): bump joda-time from 2.5 to 2.10.6. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #545](https://github.com/twilio/twilio-java/pull/545): bump maven-surefire-plugin from 2.20 to 2.22.2. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #546](https://github.com/twilio/twilio-java/pull/546): bump spotbugs-maven-plugin from 3.1.12 to 4.0.4. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #547](https://github.com/twilio/twilio-java/pull/547): bump maven-checkstyle-plugin from 2.17 to 3.1.1. Thanks to [@dependabot](https://github.com/dependabot)!
+
+**Conversations**
+- Allow Address updates for Participants
+- Message delivery receipts
+
+**Events**
+- Add account_sid to subscription and subscribed_events resources
+
+**Flex**
+- Changed `wfm_integrations` Flex Configuration key to private **(breaking change)**
+
+**Messaging**
+- Add error states to WhatsApp Sender status with failed reason **(breaking change)**
+- Delete WhatsApp Template API
+- Update WhatsApp Template API
+- Add WhatsApp Template Get Api (fetch and read)
+
+**Numbers**
+- Add `valid_until` in the Bundles resource
+- Add API for Bundle deletion
+
+**Verify**
+- Removed support for `sms`, `totp` and `app-push` factor types in Verify push **(breaking change)**
+
+
 [2020-06-24] Version 7.53.0
 ---------------------------
 **Library - Chore**

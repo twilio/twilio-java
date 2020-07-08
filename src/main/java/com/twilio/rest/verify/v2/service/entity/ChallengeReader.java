@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.verify.v2.service.entity.factor;
+package com.twilio.rest.verify.v2.service.entity;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -27,22 +27,30 @@ import com.twilio.rest.Domains;
 public class ChallengeReader extends Reader<Challenge> {
     private final String pathServiceSid;
     private final String pathIdentity;
-    private final String pathFactorSid;
+    private String factorSid;
     private Challenge.ChallengeStatuses status;
 
     /**
      * Construct a new ChallengeReader.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
-     * @param pathFactorSid Factor Sid.
+     * @param pathIdentity Unique external identifier of the Entity
      */
     public ChallengeReader(final String pathServiceSid,
-                           final String pathIdentity,
-                           final String pathFactorSid) {
+                           final String pathIdentity) {
         this.pathServiceSid = pathServiceSid;
         this.pathIdentity = pathIdentity;
-        this.pathFactorSid = pathFactorSid;
+    }
+
+    /**
+     * The unique SID identifier of the Factor..
+     *
+     * @param factorSid Factor Sid.
+     * @return this
+     */
+    public ChallengeReader setFactorSid(final String factorSid) {
+        this.factorSid = factorSid;
+        return this;
     }
 
     /**
@@ -80,7 +88,7 @@ public class ChallengeReader extends Reader<Challenge> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Factors/" + this.pathFactorSid + "/Challenges"
+            "/v2/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Challenges"
         );
 
         addQueryParams(request);
@@ -173,6 +181,10 @@ public class ChallengeReader extends Reader<Challenge> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
+        if (factorSid != null) {
+            request.addQueryParam("FactorSid", factorSid);
+        }
+
         if (status != null) {
             request.addQueryParam("Status", status.toString());
         }

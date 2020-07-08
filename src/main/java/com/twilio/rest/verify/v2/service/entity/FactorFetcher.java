@@ -31,7 +31,7 @@ public class FactorFetcher extends Fetcher<Factor> {
      * Construct a new FactorFetcher.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
+     * @param pathIdentity Unique external identifier of the Entity
      * @param pathSid A string that uniquely identifies this Factor.
      */
     public FactorFetcher(final String pathServiceSid,

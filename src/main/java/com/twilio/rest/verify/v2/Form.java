@@ -42,9 +42,7 @@ public class Form extends Resource {
     private static final long serialVersionUID = 262438037114282L;
 
     public enum FormTypes {
-        FORM_APP_PUSH("form-app-push"),
-        FORM_SMS("form-sms"),
-        FORM_TOTP("form-totp");
+        FORM_PUSH("form-push");
 
         private final String value;
 

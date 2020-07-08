@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Bundle extends Resource {
-    private static final long serialVersionUID = 212604646905053L;
+    private static final long serialVersionUID = 1156865556823L;
 
     public enum Status {
         DRAFT("draft"),
@@ -133,6 +133,16 @@ public class Bundle extends Resource {
     }
 
     /**
+     * Create a BundleDeleter to execute delete.
+     *
+     * @param pathSid The unique string that identifies the resource.
+     * @return BundleDeleter capable of executing the delete
+     */
+    public static BundleDeleter deleter(final String pathSid) {
+        return new BundleDeleter(pathSid);
+    }
+
+    /**
      * Converts a JSON String into a Bundle object using the provided ObjectMapper.
      *
      * @param json Raw JSON String
@@ -174,6 +184,7 @@ public class Bundle extends Resource {
     private final String regulationSid;
     private final String friendlyName;
     private final Bundle.Status status;
+    private final DateTime validUntil;
     private final String email;
     private final URI statusCallback;
     private final DateTime dateCreated;
@@ -192,6 +203,8 @@ public class Bundle extends Resource {
                    final String friendlyName,
                    @JsonProperty("status")
                    final Bundle.Status status,
+                   @JsonProperty("valid_until")
+                   final String validUntil,
                    @JsonProperty("email")
                    final String email,
                    @JsonProperty("status_callback")
@@ -209,6 +222,7 @@ public class Bundle extends Resource {
         this.regulationSid = regulationSid;
         this.friendlyName = friendlyName;
         this.status = status;
+        this.validUntil = DateConverter.iso8601DateTimeFromString(validUntil);
         this.email = email;
         this.statusCallback = statusCallback;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -260,6 +274,17 @@ public class Bundle extends Resource {
      */
     public final Bundle.Status getStatus() {
         return this.status;
+    }
+
+    /**
+     * Returns The ISO 8601 date and time in GMT when the resource will be valid
+     * until..
+     *
+     * @return The ISO 8601 date and time in GMT when the resource will be valid
+     *         until.
+     */
+    public final DateTime getValidUntil() {
+        return this.validUntil;
     }
 
     /**
@@ -333,6 +358,7 @@ public class Bundle extends Resource {
                Objects.equals(regulationSid, other.regulationSid) &&
                Objects.equals(friendlyName, other.friendlyName) &&
                Objects.equals(status, other.status) &&
+               Objects.equals(validUntil, other.validUntil) &&
                Objects.equals(email, other.email) &&
                Objects.equals(statusCallback, other.statusCallback) &&
                Objects.equals(dateCreated, other.dateCreated) &&
@@ -348,6 +374,7 @@ public class Bundle extends Resource {
                             regulationSid,
                             friendlyName,
                             status,
+                            validUntil,
                             email,
                             statusCallback,
                             dateCreated,
@@ -364,6 +391,7 @@ public class Bundle extends Resource {
                           .add("regulationSid", regulationSid)
                           .add("friendlyName", friendlyName)
                           .add("status", status)
+                          .add("validUntil", validUntil)
                           .add("email", email)
                           .add("statusCallback", statusCallback)
                           .add("dateCreated", dateCreated)

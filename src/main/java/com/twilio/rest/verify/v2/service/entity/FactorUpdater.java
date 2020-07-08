@@ -34,7 +34,7 @@ public class FactorUpdater extends Updater<Factor> {
      * Construct a new FactorUpdater.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
+     * @param pathIdentity Unique external identifier of the Entity
      * @param pathSid A string that uniquely identifies this Factor.
      */
     public FactorUpdater(final String pathServiceSid,

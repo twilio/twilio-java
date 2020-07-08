@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -133,6 +134,7 @@ public class Service extends Resource {
     private final String ttsName;
     private final Boolean doNotShareWarningEnabled;
     private final Boolean customCodeEnabled;
+    private final Map<String, Object> push;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
@@ -161,6 +163,8 @@ public class Service extends Resource {
                     final Boolean doNotShareWarningEnabled,
                     @JsonProperty("custom_code_enabled")
                     final Boolean customCodeEnabled,
+                    @JsonProperty("push")
+                    final Map<String, Object> push,
                     @JsonProperty("date_created")
                     final String dateCreated,
                     @JsonProperty("date_updated")
@@ -180,6 +184,7 @@ public class Service extends Resource {
         this.ttsName = ttsName;
         this.doNotShareWarningEnabled = doNotShareWarningEnabled;
         this.customCodeEnabled = customCodeEnabled;
+        this.push = push;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -292,6 +297,15 @@ public class Service extends Resource {
     }
 
     /**
+     * Returns The service level configuration of factor push type..
+     *
+     * @return The service level configuration of factor push type.
+     */
+    public final Map<String, Object> getPush() {
+        return this.push;
+    }
+
+    /**
      * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
@@ -350,6 +364,7 @@ public class Service extends Resource {
                Objects.equals(ttsName, other.ttsName) &&
                Objects.equals(doNotShareWarningEnabled, other.doNotShareWarningEnabled) &&
                Objects.equals(customCodeEnabled, other.customCodeEnabled) &&
+               Objects.equals(push, other.push) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url) &&
@@ -369,6 +384,7 @@ public class Service extends Resource {
                             ttsName,
                             doNotShareWarningEnabled,
                             customCodeEnabled,
+                            push,
                             dateCreated,
                             dateUpdated,
                             url,
@@ -389,6 +405,7 @@ public class Service extends Resource {
                           .add("ttsName", ttsName)
                           .add("doNotShareWarningEnabled", doNotShareWarningEnabled)
                           .add("customCodeEnabled", customCodeEnabled)
+                          .add("push", push)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)

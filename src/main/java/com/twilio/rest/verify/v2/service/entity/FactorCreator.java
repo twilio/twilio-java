@@ -34,7 +34,7 @@ public class FactorCreator extends Creator<Factor> {
      * Construct a new FactorCreator.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
+     * @param pathIdentity Unique external identifier of the Entity
      * @param binding A unique binding for this Factor as a json string
      * @param friendlyName The friendly name of this Factor
      * @param factorType The Type of this Factor

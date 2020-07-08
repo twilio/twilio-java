@@ -30,7 +30,7 @@ public class EntityCreator extends Creator<Entity> {
      * Construct a new EntityCreator.
      *
      * @param pathServiceSid Service Sid.
-     * @param identity Unique identity of the Entity
+     * @param identity Unique external identifier of the Entity
      */
     public EntityCreator(final String pathServiceSid,
                          final String identity) {

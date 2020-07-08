@@ -41,7 +41,7 @@ public class FormTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.VERIFY.toString(),
-                                          "/v2/Forms/form-app-push");
+                                          "/v2/Forms/form-push");
 
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class FormTest {
         }};
 
         try {
-            Form.fetcher(Form.FormTypes.FORM_APP_PUSH).fetch();
+            Form.fetcher(Form.FormTypes.FORM_PUSH).fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -60,11 +60,11 @@ public class FormTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"form_type\": \"form-sms\",\"forms\": {\"create_factor\": {},\"verify_factor\": {},\"create_challenge\": {}},\"form_meta\": {},\"url\": \"https://verify.twilio.com/v2/Forms/form-sms\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"form_type\": \"form-push\",\"forms\": {\"create_factor\": {},\"verify_factor\": {},\"create_challenge\": {}},\"form_meta\": {},\"url\": \"https://verify.twilio.com/v2/Forms/form-push\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Form.fetcher(Form.FormTypes.FORM_APP_PUSH).fetch());
+        assertNotNull(Form.fetcher(Form.FormTypes.FORM_PUSH).fetch());
     }
 }

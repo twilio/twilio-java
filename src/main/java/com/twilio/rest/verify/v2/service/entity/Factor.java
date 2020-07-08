@@ -41,7 +41,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Factor extends Resource {
-    private static final long serialVersionUID = 39175330410278L;
+    private static final long serialVersionUID = 201328569010526L;
 
     public enum FactorStatuses {
         UNVERIFIED("unverified"),
@@ -69,9 +69,6 @@ public class Factor extends Resource {
     }
 
     public enum FactorTypes {
-        APP_PUSH("app-push"),
-        SMS("sms"),
-        TOTP("totp"),
         PUSH("push");
 
         private final String value;
@@ -99,7 +96,7 @@ public class Factor extends Resource {
      * Create a FactorCreator to execute create.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
+     * @param pathIdentity Unique external identifier of the Entity
      * @param binding A unique binding for this Factor as a json string
      * @param friendlyName The friendly name of this Factor
      * @param factorType The Type of this Factor
@@ -119,7 +116,7 @@ public class Factor extends Resource {
      * Create a FactorDeleter to execute delete.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
+     * @param pathIdentity Unique external identifier of the Entity
      * @param pathSid A string that uniquely identifies this Factor.
      * @return FactorDeleter capable of executing the delete
      */
@@ -133,7 +130,7 @@ public class Factor extends Resource {
      * Create a FactorFetcher to execute fetch.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
+     * @param pathIdentity Unique external identifier of the Entity
      * @param pathSid A string that uniquely identifies this Factor.
      * @return FactorFetcher capable of executing the fetch
      */
@@ -147,7 +144,7 @@ public class Factor extends Resource {
      * Create a FactorReader to execute read.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
+     * @param pathIdentity Unique external identifier of the Entity
      * @return FactorReader capable of executing the read
      */
     public static FactorReader reader(final String pathServiceSid,
@@ -159,7 +156,7 @@ public class Factor extends Resource {
      * Create a FactorUpdater to execute update.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
+     * @param pathIdentity Unique external identifier of the Entity
      * @param pathSid A string that uniquely identifies this Factor.
      * @return FactorUpdater capable of executing the update
      */
@@ -218,7 +215,6 @@ public class Factor extends Resource {
     private final Factor.FactorTypes factorType;
     private final Map<String, Object> config;
     private final URI url;
-    private final Map<String, String> links;
 
     @JsonCreator
     private Factor(@JsonProperty("sid")
@@ -244,9 +240,7 @@ public class Factor extends Resource {
                    @JsonProperty("config")
                    final Map<String, Object> config,
                    @JsonProperty("url")
-                   final URI url,
-                   @JsonProperty("links")
-                   final Map<String, String> links) {
+                   final URI url) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.serviceSid = serviceSid;
@@ -259,7 +253,6 @@ public class Factor extends Resource {
         this.factorType = factorType;
         this.config = config;
         this.url = url;
-        this.links = links;
     }
 
     /**
@@ -299,9 +292,9 @@ public class Factor extends Resource {
     }
 
     /**
-     * Returns Unique identity of the Entity.
+     * Returns Unique external identifier of the Entity.
      *
-     * @return Unique identity of the Entity
+     * @return Unique external identifier of the Entity
      */
     public final String getIdentity() {
         return this.identity;
@@ -370,15 +363,6 @@ public class Factor extends Resource {
         return this.url;
     }
 
-    /**
-     * Returns Nested resource URLs..
-     *
-     * @return Nested resource URLs.
-     */
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
-
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -402,8 +386,7 @@ public class Factor extends Resource {
                Objects.equals(status, other.status) &&
                Objects.equals(factorType, other.factorType) &&
                Objects.equals(config, other.config) &&
-               Objects.equals(url, other.url) &&
-               Objects.equals(links, other.links);
+               Objects.equals(url, other.url);
     }
 
     @Override
@@ -419,8 +402,7 @@ public class Factor extends Resource {
                             status,
                             factorType,
                             config,
-                            url,
-                            links);
+                            url);
     }
 
     @Override
@@ -438,7 +420,6 @@ public class Factor extends Resource {
                           .add("factorType", factorType)
                           .add("config", config)
                           .add("url", url)
-                          .add("links", links)
                           .toString();
     }
 }

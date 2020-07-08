@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.verify.v2.service.entity.factor;
+package com.twilio.rest.verify.v2.service.entity;
 
-import com.twilio.base.Deleter;
+import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -22,48 +22,45 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class ChallengeDeleter extends Deleter<Challenge> {
+public class ChallengeFetcher extends Fetcher<Challenge> {
     private final String pathServiceSid;
     private final String pathIdentity;
-    private final String pathFactorSid;
     private final String pathSid;
 
     /**
-     * Construct a new ChallengeDeleter.
+     * Construct a new ChallengeFetcher.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
-     * @param pathFactorSid Factor Sid.
+     * @param pathIdentity Unique external identifier of the Entity
      * @param pathSid A string that uniquely identifies this Challenge.
      */
-    public ChallengeDeleter(final String pathServiceSid,
+    public ChallengeFetcher(final String pathServiceSid,
                             final String pathIdentity,
-                            final String pathFactorSid,
                             final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathIdentity = pathIdentity;
-        this.pathFactorSid = pathFactorSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * Make the request to the Twilio API to perform the delete.
+     * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
+     * @return Fetched Challenge
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public boolean delete(final TwilioRestClient client) {
+    public Challenge fetch(final TwilioRestClient client) {
         Request request = new Request(
-            HttpMethod.DELETE,
+            HttpMethod.GET,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Factors/" + this.pathFactorSid + "/Challenges/" + this.pathSid + ""
+            "/v2/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Challenges/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Challenge delete failed: Unable to connect to server");
+            throw new ApiConnectionException("Challenge fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -72,6 +69,6 @@ public class ChallengeDeleter extends Deleter<Challenge> {
             throw new ApiException(restException);
         }
 
-        return response.getStatusCode() == 204;
+        return Challenge.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

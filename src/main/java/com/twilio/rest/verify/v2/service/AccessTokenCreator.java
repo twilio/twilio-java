@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.verify.v2.service.entity;
+package com.twilio.rest.verify.v2.service;
 
 import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;
@@ -24,21 +24,21 @@ import com.twilio.rest.Domains;
  */
 public class AccessTokenCreator extends Creator<AccessToken> {
     private final String pathServiceSid;
-    private final String pathIdentity;
+    private final String identity;
     private final AccessToken.FactorTypes factorType;
 
     /**
      * Construct a new AccessTokenCreator.
      *
      * @param pathServiceSid The service_sid
-     * @param pathIdentity Unique identity of the Entity
+     * @param identity Unique external identifier of the Entity
      * @param factorType The Type of this Factor
      */
     public AccessTokenCreator(final String pathServiceSid,
-                              final String pathIdentity,
+                              final String identity,
                               final AccessToken.FactorTypes factorType) {
         this.pathServiceSid = pathServiceSid;
-        this.pathIdentity = pathIdentity;
+        this.identity = identity;
         this.factorType = factorType;
     }
 
@@ -54,7 +54,7 @@ public class AccessTokenCreator extends Creator<AccessToken> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/AccessTokens"
+            "/v2/Services/" + this.pathServiceSid + "/AccessTokens"
         );
 
         addPostParams(request);
@@ -79,6 +79,10 @@ public class AccessTokenCreator extends Creator<AccessToken> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
+        if (identity != null) {
+            request.addPostParam("Identity", identity);
+        }
+
         if (factorType != null) {
             request.addPostParam("FactorType", factorType.toString());
         }

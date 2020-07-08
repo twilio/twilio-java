@@ -45,7 +45,7 @@ public class Entity extends Resource {
      * Create a EntityCreator to execute create.
      *
      * @param pathServiceSid Service Sid.
-     * @param identity Unique identity of the Entity
+     * @param identity Unique external identifier of the Entity
      * @return EntityCreator capable of executing the create
      */
     public static EntityCreator creator(final String pathServiceSid,
@@ -57,7 +57,7 @@ public class Entity extends Resource {
      * Create a EntityDeleter to execute delete.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
+     * @param pathIdentity Unique external identifier of the Entity
      * @return EntityDeleter capable of executing the delete
      */
     public static EntityDeleter deleter(final String pathServiceSid,
@@ -69,7 +69,7 @@ public class Entity extends Resource {
      * Create a EntityFetcher to execute fetch.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
+     * @param pathIdentity Unique external identifier of the Entity
      * @return EntityFetcher capable of executing the fetch
      */
     public static EntityFetcher fetcher(final String pathServiceSid,
@@ -170,9 +170,9 @@ public class Entity extends Resource {
     }
 
     /**
-     * Returns Unique identity of the Entity.
+     * Returns Unique external identifier of the Entity.
      *
-     * @return Unique identity of the Entity
+     * @return Unique external identifier of the Entity
      */
     public final String getIdentity() {
         return this.identity;

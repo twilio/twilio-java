@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.verify.v2.service.entity;
+package com.twilio.rest.verify.v2.service;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -67,14 +67,14 @@ public class AccessToken extends Resource {
      * Create a AccessTokenCreator to execute create.
      *
      * @param pathServiceSid The service_sid
-     * @param pathIdentity Unique identity of the Entity
+     * @param identity Unique external identifier of the Entity
      * @param factorType The Type of this Factor
      * @return AccessTokenCreator capable of executing the create
      */
     public static AccessTokenCreator creator(final String pathServiceSid,
-                                             final String pathIdentity,
+                                             final String identity,
                                              final AccessToken.FactorTypes factorType) {
-        return new AccessTokenCreator(pathServiceSid, pathIdentity, factorType);
+        return new AccessTokenCreator(pathServiceSid, identity, factorType);
     }
 
     /**

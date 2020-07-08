@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.verify.v2.service.entity;
+package com.twilio.rest.conversations.v1.conversation.message;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -20,34 +20,34 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
-public class FactorReader extends Reader<Factor> {
-    private final String pathServiceSid;
-    private final String pathIdentity;
+public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
+    private final String pathConversationSid;
+    private final String pathMessageSid;
 
     /**
-     * Construct a new FactorReader.
+     * Construct a new DeliveryReceiptReader.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique external identifier of the Entity
+     * @param pathConversationSid The unique id of the Conversation for this
+     *                            delivery receipt.
+     * @param pathMessageSid The sid of the message the delivery receipt belongs to
      */
-    public FactorReader(final String pathServiceSid,
-                        final String pathIdentity) {
-        this.pathServiceSid = pathServiceSid;
-        this.pathIdentity = pathIdentity;
+    public DeliveryReceiptReader(final String pathConversationSid,
+                                 final String pathMessageSid) {
+        this.pathConversationSid = pathConversationSid;
+        this.pathMessageSid = pathMessageSid;
     }
 
     /**
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Factor ResourceSet
+     * @return DeliveryReceipt ResourceSet
      */
     @Override
-    public ResourceSet<Factor> read(final TwilioRestClient client) {
+    public ResourceSet<DeliveryReceipt> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -55,15 +55,15 @@ public class FactorReader extends Reader<Factor> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Factor ResourceSet
+     * @return DeliveryReceipt ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Factor> firstPage(final TwilioRestClient client) {
+    public Page<DeliveryReceipt> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Factors"
+            Domains.CONVERSATIONS.toString(),
+            "/v1/Conversations/" + this.pathConversationSid + "/Messages/" + this.pathMessageSid + "/Receipts"
         );
 
         addQueryParams(request);
@@ -75,11 +75,11 @@ public class FactorReader extends Reader<Factor> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Factor ResourceSet
+     * @return DeliveryReceipt ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Factor> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<DeliveryReceipt> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -96,11 +96,11 @@ public class FactorReader extends Reader<Factor> {
      * @return Next Page
      */
     @Override
-    public Page<Factor> nextPage(final Page<Factor> page,
-                                 final TwilioRestClient client) {
+    public Page<DeliveryReceipt> nextPage(final Page<DeliveryReceipt> page,
+                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.VERIFY.toString())
+            page.getNextPageUrl(Domains.CONVERSATIONS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -113,27 +113,27 @@ public class FactorReader extends Reader<Factor> {
      * @return Previous Page
      */
     @Override
-    public Page<Factor> previousPage(final Page<Factor> page,
-                                     final TwilioRestClient client) {
+    public Page<DeliveryReceipt> previousPage(final Page<DeliveryReceipt> page,
+                                              final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.VERIFY.toString())
+            page.getPreviousPageUrl(Domains.CONVERSATIONS.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
-     * Generate a Page of Factor Resources for a given request.
+     * Generate a Page of DeliveryReceipt Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Factor> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<DeliveryReceipt> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Factor read failed: Unable to connect to server");
+            throw new ApiConnectionException("DeliveryReceipt read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -143,9 +143,9 @@ public class FactorReader extends Reader<Factor> {
         }
 
         return Page.fromJson(
-            "factors",
+            "delivery_receipts",
             response.getContent(),
-            Factor.class,
+            DeliveryReceipt.class,
             client.getObjectMapper()
         );
     }

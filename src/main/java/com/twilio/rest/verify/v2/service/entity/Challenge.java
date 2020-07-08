@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.verify.v2.service.entity.factor;
+package com.twilio.rest.verify.v2.service.entity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -96,9 +96,6 @@ public class Challenge extends Resource {
     }
 
     public enum FactorTypes {
-        APP_PUSH("app-push"),
-        SMS("sms"),
-        TOTP("totp"),
         PUSH("push");
 
         private final String value;
@@ -126,76 +123,54 @@ public class Challenge extends Resource {
      * Create a ChallengeCreator to execute create.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
-     * @param pathFactorSid Factor Sid.
+     * @param pathIdentity Unique external identifier of the Entity
+     * @param factorSid Factor Sid.
      * @return ChallengeCreator capable of executing the create
      */
     public static ChallengeCreator creator(final String pathServiceSid,
                                            final String pathIdentity,
-                                           final String pathFactorSid) {
-        return new ChallengeCreator(pathServiceSid, pathIdentity, pathFactorSid);
-    }
-
-    /**
-     * Create a ChallengeDeleter to execute delete.
-     *
-     * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
-     * @param pathFactorSid Factor Sid.
-     * @param pathSid A string that uniquely identifies this Challenge.
-     * @return ChallengeDeleter capable of executing the delete
-     */
-    public static ChallengeDeleter deleter(final String pathServiceSid,
-                                           final String pathIdentity,
-                                           final String pathFactorSid,
-                                           final String pathSid) {
-        return new ChallengeDeleter(pathServiceSid, pathIdentity, pathFactorSid, pathSid);
+                                           final String factorSid) {
+        return new ChallengeCreator(pathServiceSid, pathIdentity, factorSid);
     }
 
     /**
      * Create a ChallengeFetcher to execute fetch.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
-     * @param pathFactorSid Factor Sid.
-     * @param pathSid A string that uniquely identifies this Challenge, or `latest`.
+     * @param pathIdentity Unique external identifier of the Entity
+     * @param pathSid A string that uniquely identifies this Challenge.
      * @return ChallengeFetcher capable of executing the fetch
      */
     public static ChallengeFetcher fetcher(final String pathServiceSid,
                                            final String pathIdentity,
-                                           final String pathFactorSid,
                                            final String pathSid) {
-        return new ChallengeFetcher(pathServiceSid, pathIdentity, pathFactorSid, pathSid);
+        return new ChallengeFetcher(pathServiceSid, pathIdentity, pathSid);
     }
 
     /**
      * Create a ChallengeReader to execute read.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
-     * @param pathFactorSid Factor Sid.
+     * @param pathIdentity Unique external identifier of the Entity
      * @return ChallengeReader capable of executing the read
      */
     public static ChallengeReader reader(final String pathServiceSid,
-                                         final String pathIdentity,
-                                         final String pathFactorSid) {
-        return new ChallengeReader(pathServiceSid, pathIdentity, pathFactorSid);
+                                         final String pathIdentity) {
+        return new ChallengeReader(pathServiceSid, pathIdentity);
     }
 
     /**
      * Create a ChallengeUpdater to execute update.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
-     * @param pathFactorSid Factor Sid.
-     * @param pathSid A string that uniquely identifies this Challenge, or `latest`.
+     * @param pathIdentity Unique external identifier of the Entity
+     * @param pathSid A string that uniquely identifies this Challenge.
      * @return ChallengeUpdater capable of executing the update
      */
     public static ChallengeUpdater updater(final String pathServiceSid,
                                            final String pathIdentity,
-                                           final String pathFactorSid,
                                            final String pathSid) {
-        return new ChallengeUpdater(pathServiceSid, pathIdentity, pathFactorSid, pathSid);
+        return new ChallengeUpdater(pathServiceSid, pathIdentity, pathSid);
     }
 
     /**
@@ -341,9 +316,9 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns Unique identity of the Entity.
+     * Returns Unique external identifier of the Entity.
      *
-     * @return Unique identity of the Entity
+     * @return Unique external identifier of the Entity
      */
     public final String getIdentity() {
         return this.identity;

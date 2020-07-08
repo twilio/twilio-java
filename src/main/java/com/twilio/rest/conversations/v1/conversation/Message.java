@@ -41,7 +41,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Message extends Resource {
-    private static final long serialVersionUID = 205187398023238L;
+    private static final long serialVersionUID = 178517243734679L;
 
     public enum WebhookEnabledType {
         TRUE("true"),
@@ -177,6 +177,8 @@ public class Message extends Resource {
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
+    private final Map<String, Object> delivery;
+    private final Map<String, String> links;
 
     @JsonCreator
     private Message(@JsonProperty("account_sid")
@@ -202,7 +204,11 @@ public class Message extends Resource {
                     @JsonProperty("date_updated")
                     final String dateUpdated,
                     @JsonProperty("url")
-                    final URI url) {
+                    final URI url,
+                    @JsonProperty("delivery")
+                    final Map<String, Object> delivery,
+                    @JsonProperty("links")
+                    final Map<String, String> links) {
         this.accountSid = accountSid;
         this.conversationSid = conversationSid;
         this.sid = sid;
@@ -215,6 +221,8 @@ public class Message extends Resource {
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
+        this.delivery = delivery;
+        this.links = links;
     }
 
     /**
@@ -327,6 +335,26 @@ public class Message extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns An object that contains the summary of delivery statuses for the
+     * message to non-chat participants..
+     *
+     * @return An object that contains the summary of delivery statuses for the
+     *         message to non-chat participants.
+     */
+    public final Map<String, Object> getDelivery() {
+        return this.delivery;
+    }
+
+    /**
+     * Returns The links.
+     *
+     * @return The links
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -350,7 +378,9 @@ public class Message extends Resource {
                Objects.equals(participantSid, other.participantSid) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) &&
+               Objects.equals(delivery, other.delivery) &&
+               Objects.equals(links, other.links);
     }
 
     @Override
@@ -366,7 +396,9 @@ public class Message extends Resource {
                             participantSid,
                             dateCreated,
                             dateUpdated,
-                            url);
+                            url,
+                            delivery,
+                            links);
     }
 
     @Override
@@ -384,6 +416,8 @@ public class Message extends Resource {
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)
+                          .add("delivery", delivery)
+                          .add("links", links)
                           .toString();
     }
 }

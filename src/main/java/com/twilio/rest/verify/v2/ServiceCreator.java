@@ -8,6 +8,7 @@
 package com.twilio.rest.verify.v2;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Converter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -16,6 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+import java.util.Map;
 
 public class ServiceCreator extends Creator<Service> {
     private final String friendlyName;
@@ -27,6 +30,7 @@ public class ServiceCreator extends Creator<Service> {
     private Boolean psd2Enabled;
     private Boolean doNotShareWarningEnabled;
     private Boolean customCodeEnabled;
+    private Map<String, Object> push;
 
     /**
      * Construct a new ServiceCreator.
@@ -141,6 +145,19 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
+     * The optional service level push factors configuration. If present it must be
+     * a json string with the following format: {"notify_service_sid":
+     * "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "include_date": true}.
+     *
+     * @param push Optional service level push factors configuration
+     * @return this
+     */
+    public ServiceCreator setPush(final Map<String, Object> push) {
+        this.push = push;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -211,6 +228,10 @@ public class ServiceCreator extends Creator<Service> {
 
         if (customCodeEnabled != null) {
             request.addPostParam("CustomCodeEnabled", customCodeEnabled.toString());
+        }
+
+        if (push != null) {
+            request.addPostParam("Push", Converter.mapToJson(push));
         }
     }
 }

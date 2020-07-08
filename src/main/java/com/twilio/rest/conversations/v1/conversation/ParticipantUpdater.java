@@ -30,6 +30,8 @@ public class ParticipantUpdater extends Updater<Participant> {
     private DateTime dateUpdated;
     private String attributes;
     private String roleSid;
+    private String messagingBindingProxyAddress;
+    private String messagingBindingProjectedAddress;
 
     /**
      * Construct a new ParticipantUpdater.
@@ -93,6 +95,32 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
+     * The address of the Twilio phone number that the participant is in contact
+     * with. 'null' value will remove it..
+     *
+     * @param messagingBindingProxyAddress The address of the Twilio phone number
+     *                                     that the participant is in contact with.
+     * @return this
+     */
+    public ParticipantUpdater setMessagingBindingProxyAddress(final String messagingBindingProxyAddress) {
+        this.messagingBindingProxyAddress = messagingBindingProxyAddress;
+        return this;
+    }
+
+    /**
+     * The address of the Twilio phone number that is used in Group MMS. 'null'
+     * value will remove it..
+     *
+     * @param messagingBindingProjectedAddress The address of the Twilio phone
+     *                                         number that is used in Group MMS.
+     * @return this
+     */
+    public ParticipantUpdater setMessagingBindingProjectedAddress(final String messagingBindingProjectedAddress) {
+        this.messagingBindingProjectedAddress = messagingBindingProjectedAddress;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -143,6 +171,14 @@ public class ParticipantUpdater extends Updater<Participant> {
 
         if (roleSid != null) {
             request.addPostParam("RoleSid", roleSid);
+        }
+
+        if (messagingBindingProxyAddress != null) {
+            request.addPostParam("MessagingBinding.ProxyAddress", messagingBindingProxyAddress);
+        }
+
+        if (messagingBindingProjectedAddress != null) {
+            request.addPostParam("MessagingBinding.ProjectedAddress", messagingBindingProjectedAddress);
         }
     }
 }

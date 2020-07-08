@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.verify.v2.service.entity.factor;
+package com.twilio.rest.verify.v2.service.entity;
 
 import com.twilio.base.Creator;
 import com.twilio.converter.DateConverter;
@@ -27,7 +27,7 @@ import org.joda.time.DateTime;
 public class ChallengeCreator extends Creator<Challenge> {
     private final String pathServiceSid;
     private final String pathIdentity;
-    private final String pathFactorSid;
+    private final String factorSid;
     private DateTime expirationDate;
     private String details;
     private String hiddenDetails;
@@ -36,15 +36,15 @@ public class ChallengeCreator extends Creator<Challenge> {
      * Construct a new ChallengeCreator.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
-     * @param pathFactorSid Factor Sid.
+     * @param pathIdentity Unique external identifier of the Entity
+     * @param factorSid Factor Sid.
      */
     public ChallengeCreator(final String pathServiceSid,
                             final String pathIdentity,
-                            final String pathFactorSid) {
+                            final String factorSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathIdentity = pathIdentity;
-        this.pathFactorSid = pathFactorSid;
+        this.factorSid = factorSid;
     }
 
     /**
@@ -94,7 +94,7 @@ public class ChallengeCreator extends Creator<Challenge> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Factors/" + this.pathFactorSid + "/Challenges"
+            "/v2/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Challenges"
         );
 
         addPostParams(request);
@@ -119,6 +119,10 @@ public class ChallengeCreator extends Creator<Challenge> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
+        if (factorSid != null) {
+            request.addPostParam("FactorSid", factorSid);
+        }
+
         if (expirationDate != null) {
             request.addPostParam("ExpirationDate", expirationDate.toString());
         }

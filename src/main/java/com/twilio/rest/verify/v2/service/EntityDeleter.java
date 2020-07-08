@@ -30,7 +30,7 @@ public class EntityDeleter extends Deleter<Entity> {
      * Construct a new EntityDeleter.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
+     * @param pathIdentity Unique external identifier of the Entity
      */
     public EntityDeleter(final String pathServiceSid,
                          final String pathIdentity) {

@@ -24,8 +24,8 @@ import java.util.List;
 public class ParticipantCreator extends Creator<Participant> {
     private String pathAccountSid;
     private final String pathConferenceSid;
-    private final com.twilio.type.PhoneNumber from;
-    private final com.twilio.type.PhoneNumber to;
+    private final com.twilio.type.Endpoint from;
+    private final com.twilio.type.Endpoint to;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
     private List<String> statusCallbackEvent;
@@ -71,8 +71,8 @@ public class ParticipantCreator extends Creator<Participant> {
      *           this call.
      */
     public ParticipantCreator(final String pathConferenceSid,
-                              final com.twilio.type.PhoneNumber from,
-                              final com.twilio.type.PhoneNumber to) {
+                              final com.twilio.type.Endpoint from,
+                              final com.twilio.type.Endpoint to) {
         this.pathConferenceSid = pathConferenceSid;
         this.from = from;
         this.to = to;
@@ -90,8 +90,8 @@ public class ParticipantCreator extends Creator<Participant> {
      */
     public ParticipantCreator(final String pathAccountSid,
                               final String pathConferenceSid,
-                              final com.twilio.type.PhoneNumber from,
-                              final com.twilio.type.PhoneNumber to) {
+                              final com.twilio.type.Endpoint from,
+                              final com.twilio.type.Endpoint to) {
         this.pathAccountSid = pathAccountSid;
         this.pathConferenceSid = pathConferenceSid;
         this.from = from;

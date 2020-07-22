@@ -1,6 +1,18 @@
 twilio-java changelog
 =====================
 
+[2020-07-22] Version 7.54.1
+---------------------------
+**Library - Fix**
+- [PR #558](https://github.com/twilio/twilio-java/pull/558): encode path parameters. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Api**
+- Add optional Click Tracking and Scheduling parameters to Create action of Message resource
+
+**Supersim**
+- Add callback_url and callback_method parameters to Sim resource update request
+
+
 [2020-07-08] Version 7.54.0
 ---------------------------
 **Library - Feature**

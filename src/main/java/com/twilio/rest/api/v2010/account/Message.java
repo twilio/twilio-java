@@ -174,6 +174,31 @@ public class Message extends Resource {
         }
     }
 
+    public enum ScheduleType {
+        FIXED("fixed"),
+        OPTIMIZE("optimize");
+
+        private final String value;
+
+        private ScheduleType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a ScheduleType from a string.
+         * @param value string value
+         * @return generated ScheduleType
+         */
+        @JsonCreator
+        public static ScheduleType forValue(final String value) {
+            return Promoter.enumFromString(value, ScheduleType.values());
+        }
+    }
+
     /**
      * Create a MessageCreator to execute create.
      *

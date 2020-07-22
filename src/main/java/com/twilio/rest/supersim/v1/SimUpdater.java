@@ -8,6 +8,7 @@
 package com.twilio.rest.supersim.v1;
 
 import com.twilio.base.Updater;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -16,6 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+import java.net.URI;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
@@ -27,6 +30,8 @@ public class SimUpdater extends Updater<Sim> {
     private String uniqueName;
     private Sim.StatusUpdate status;
     private String fleet;
+    private URI callbackUrl;
+    private HttpMethod callbackMethod;
 
     /**
      * Construct a new SimUpdater.
@@ -77,6 +82,41 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
+     * The URL we should call using the `callback_method` after an asynchronous
+     * update has finished..
+     *
+     * @param callbackUrl The URL we should call after the update has finished
+     * @return this
+     */
+    public SimUpdater setCallbackUrl(final URI callbackUrl) {
+        this.callbackUrl = callbackUrl;
+        return this;
+    }
+
+    /**
+     * The URL we should call using the `callback_method` after an asynchronous
+     * update has finished..
+     *
+     * @param callbackUrl The URL we should call after the update has finished
+     * @return this
+     */
+    public SimUpdater setCallbackUrl(final String callbackUrl) {
+        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
+    }
+
+    /**
+     * The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST`
+     * and the default is POST..
+     *
+     * @param callbackMethod The HTTP method we should use to call callback_url
+     * @return this
+     */
+    public SimUpdater setCallbackMethod(final HttpMethod callbackMethod) {
+        this.callbackMethod = callbackMethod;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -123,6 +163,14 @@ public class SimUpdater extends Updater<Sim> {
 
         if (fleet != null) {
             request.addPostParam("Fleet", fleet.toString());
+        }
+
+        if (callbackUrl != null) {
+            request.addPostParam("CallbackUrl", callbackUrl.toString());
+        }
+
+        if (callbackMethod != null) {
+            request.addPostParam("CallbackMethod", callbackMethod.toString());
         }
     }
 }

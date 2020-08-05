@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Mobile extends Resource {
-    private static final long serialVersionUID = 184216057453584L;
+    private static final long serialVersionUID = 89458301105703L;
 
     public enum AddressRequirement {
         NONE("none"),
@@ -216,6 +216,7 @@ public class Mobile extends Resource {
     private final HttpMethod statusCallbackMethod;
     private final String trunkSid;
     private final String uri;
+    private final Mobile.VoiceReceiveMode voiceReceiveMode;
     private final String voiceApplicationSid;
     private final Boolean voiceCallerIdLookup;
     private final HttpMethod voiceFallbackMethod;
@@ -225,6 +226,7 @@ public class Mobile extends Resource {
     private final Mobile.EmergencyStatus emergencyStatus;
     private final String emergencyAddressSid;
     private final String bundleSid;
+    private final String status;
 
     @JsonCreator
     private Mobile(@JsonProperty("account_sid")
@@ -271,6 +273,8 @@ public class Mobile extends Resource {
                    final String trunkSid,
                    @JsonProperty("uri")
                    final String uri,
+                   @JsonProperty("voice_receive_mode")
+                   final Mobile.VoiceReceiveMode voiceReceiveMode,
                    @JsonProperty("voice_application_sid")
                    final String voiceApplicationSid,
                    @JsonProperty("voice_caller_id_lookup")
@@ -288,7 +292,9 @@ public class Mobile extends Resource {
                    @JsonProperty("emergency_address_sid")
                    final String emergencyAddressSid,
                    @JsonProperty("bundle_sid")
-                   final String bundleSid) {
+                   final String bundleSid,
+                   @JsonProperty("status")
+                   final String status) {
         this.accountSid = accountSid;
         this.addressSid = addressSid;
         this.addressRequirements = addressRequirements;
@@ -311,6 +317,7 @@ public class Mobile extends Resource {
         this.statusCallbackMethod = statusCallbackMethod;
         this.trunkSid = trunkSid;
         this.uri = uri;
+        this.voiceReceiveMode = voiceReceiveMode;
         this.voiceApplicationSid = voiceApplicationSid;
         this.voiceCallerIdLookup = voiceCallerIdLookup;
         this.voiceFallbackMethod = voiceFallbackMethod;
@@ -320,6 +327,7 @@ public class Mobile extends Resource {
         this.emergencyStatus = emergencyStatus;
         this.emergencyAddressSid = emergencyAddressSid;
         this.bundleSid = bundleSid;
+        this.status = status;
     }
 
     /**
@@ -527,6 +535,15 @@ public class Mobile extends Resource {
     }
 
     /**
+     * Returns The voice_receive_mode.
+     *
+     * @return The voice_receive_mode
+     */
+    public final Mobile.VoiceReceiveMode getVoiceReceiveMode() {
+        return this.voiceReceiveMode;
+    }
+
+    /**
      * Returns The SID of the application that handles calls to the phone number.
      *
      * @return The SID of the application that handles calls to the phone number
@@ -607,6 +624,15 @@ public class Mobile extends Resource {
         return this.bundleSid;
     }
 
+    /**
+     * Returns The status.
+     *
+     * @return The status
+     */
+    public final String getStatus() {
+        return this.status;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -641,6 +667,7 @@ public class Mobile extends Resource {
                Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
                Objects.equals(trunkSid, other.trunkSid) &&
                Objects.equals(uri, other.uri) &&
+               Objects.equals(voiceReceiveMode, other.voiceReceiveMode) &&
                Objects.equals(voiceApplicationSid, other.voiceApplicationSid) &&
                Objects.equals(voiceCallerIdLookup, other.voiceCallerIdLookup) &&
                Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) &&
@@ -649,7 +676,8 @@ public class Mobile extends Resource {
                Objects.equals(voiceUrl, other.voiceUrl) &&
                Objects.equals(emergencyStatus, other.emergencyStatus) &&
                Objects.equals(emergencyAddressSid, other.emergencyAddressSid) &&
-               Objects.equals(bundleSid, other.bundleSid);
+               Objects.equals(bundleSid, other.bundleSid) &&
+               Objects.equals(status, other.status);
     }
 
     @Override
@@ -676,6 +704,7 @@ public class Mobile extends Resource {
                             statusCallbackMethod,
                             trunkSid,
                             uri,
+                            voiceReceiveMode,
                             voiceApplicationSid,
                             voiceCallerIdLookup,
                             voiceFallbackMethod,
@@ -684,7 +713,8 @@ public class Mobile extends Resource {
                             voiceUrl,
                             emergencyStatus,
                             emergencyAddressSid,
-                            bundleSid);
+                            bundleSid,
+                            status);
     }
 
     @Override
@@ -712,6 +742,7 @@ public class Mobile extends Resource {
                           .add("statusCallbackMethod", statusCallbackMethod)
                           .add("trunkSid", trunkSid)
                           .add("uri", uri)
+                          .add("voiceReceiveMode", voiceReceiveMode)
                           .add("voiceApplicationSid", voiceApplicationSid)
                           .add("voiceCallerIdLookup", voiceCallerIdLookup)
                           .add("voiceFallbackMethod", voiceFallbackMethod)
@@ -721,6 +752,7 @@ public class Mobile extends Resource {
                           .add("emergencyStatus", emergencyStatus)
                           .add("emergencyAddressSid", emergencyAddressSid)
                           .add("bundleSid", bundleSid)
+                          .add("status", status)
                           .toString();
     }
 }

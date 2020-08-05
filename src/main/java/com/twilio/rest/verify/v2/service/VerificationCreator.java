@@ -24,6 +24,7 @@ public class VerificationCreator extends Creator<Verification> {
     private final String pathServiceSid;
     private final String to;
     private final String channel;
+    private String customFriendlyName;
     private String customMessage;
     private String sendDigits;
     private String locale;
@@ -48,6 +49,18 @@ public class VerificationCreator extends Creator<Verification> {
         this.pathServiceSid = pathServiceSid;
         this.to = to;
         this.channel = channel;
+    }
+
+    /**
+     * A custom user defined friendly name that overwrites the existing one in the
+     * verification message.
+     *
+     * @param customFriendlyName A custom user defined friendly name
+     * @return this
+     */
+    public VerificationCreator setCustomFriendlyName(final String customFriendlyName) {
+        this.customFriendlyName = customFriendlyName;
+        return this;
     }
 
     /**
@@ -206,6 +219,10 @@ public class VerificationCreator extends Creator<Verification> {
 
         if (channel != null) {
             request.addPostParam("Channel", channel);
+        }
+
+        if (customFriendlyName != null) {
+            request.addPostParam("CustomFriendlyName", customFriendlyName);
         }
 
         if (customMessage != null) {

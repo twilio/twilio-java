@@ -177,10 +177,11 @@ public class Payment extends Resource {
      *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param pathCallSid The SID of the call that will create the resource.
-     * @param idempotencyKey A unique token for each payment session that should be
-     *                       provided to maintain idempotency of the session.
-     * @param statusCallback The URL we should call to send status of payment
-     *                       session.
+     * @param idempotencyKey A unique token that will be used to ensure that
+     *                       multiple API calls with the same information do not
+     *                       result in multiple transactions.
+     * @param statusCallback Provide an absolute or relative URL to receive status
+     *                       updates regarding your Pay session..
      * @return PaymentCreator capable of executing the create
      */
     public static PaymentCreator creator(final String pathAccountSid,
@@ -194,10 +195,11 @@ public class Payment extends Resource {
      * Create a PaymentCreator to execute create.
      *
      * @param pathCallSid The SID of the call that will create the resource.
-     * @param idempotencyKey A unique token for each payment session that should be
-     *                       provided to maintain idempotency of the session.
-     * @param statusCallback The URL we should call to send status of payment
-     *                       session.
+     * @param idempotencyKey A unique token that will be used to ensure that
+     *                       multiple API calls with the same information do not
+     *                       result in multiple transactions.
+     * @param statusCallback Provide an absolute or relative URL to receive status
+     *                       updates regarding your Pay session..
      * @return PaymentCreator capable of executing the create
      */
     public static PaymentCreator creator(final String pathCallSid,
@@ -212,10 +214,11 @@ public class Payment extends Resource {
      * @param pathAccountSid The SID of the Account that will update the resource
      * @param pathCallSid The SID of the call that will create the resource.
      * @param pathSid The SID of Payments session
-     * @param idempotencyKey A unique token for each payment session that should be
-     *                       provided to maintain idempotency of the session.
-     * @param statusCallback The URL we should call to send status of payment
-     *                       session.
+     * @param idempotencyKey A unique token that will be used to ensure that
+     *                       multiple API calls with the same information do not
+     *                       result in multiple transactions.
+     * @param statusCallback Provide an absolute or relative URL to receive status
+     *                       updates regarding your Pay session.
      * @return PaymentUpdater capable of executing the update
      */
     public static PaymentUpdater updater(final String pathAccountSid,
@@ -231,10 +234,11 @@ public class Payment extends Resource {
      *
      * @param pathCallSid The SID of the call that will create the resource.
      * @param pathSid The SID of Payments session
-     * @param idempotencyKey A unique token for each payment session that should be
-     *                       provided to maintain idempotency of the session.
-     * @param statusCallback The URL we should call to send status of payment
-     *                       session.
+     * @param idempotencyKey A unique token that will be used to ensure that
+     *                       multiple API calls with the same information do not
+     *                       result in multiple transactions.
+     * @param statusCallback Provide an absolute or relative URL to receive status
+     *                       updates regarding your Pay session.
      * @return PaymentUpdater capable of executing the update
      */
     public static PaymentUpdater updater(final String pathCallSid,

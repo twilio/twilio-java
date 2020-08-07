@@ -38,10 +38,11 @@ public class PaymentUpdater extends Updater<Payment> {
      *
      * @param pathCallSid The SID of the call that will create the resource.
      * @param pathSid The SID of Payments session
-     * @param idempotencyKey A unique token for each payment session that should be
-     *                       provided to maintain idempotency of the session.
-     * @param statusCallback The URL we should call to send status of payment
-     *                       session.
+     * @param idempotencyKey A unique token that will be used to ensure that
+     *                       multiple API calls with the same information do not
+     *                       result in multiple transactions.
+     * @param statusCallback Provide an absolute or relative URL to receive status
+     *                       updates regarding your Pay session.
      */
     public PaymentUpdater(final String pathCallSid,
                           final String pathSid,
@@ -59,10 +60,11 @@ public class PaymentUpdater extends Updater<Payment> {
      * @param pathAccountSid The SID of the Account that will update the resource
      * @param pathCallSid The SID of the call that will create the resource.
      * @param pathSid The SID of Payments session
-     * @param idempotencyKey A unique token for each payment session that should be
-     *                       provided to maintain idempotency of the session.
-     * @param statusCallback The URL we should call to send status of payment
-     *                       session.
+     * @param idempotencyKey A unique token that will be used to ensure that
+     *                       multiple API calls with the same information do not
+     *                       result in multiple transactions.
+     * @param statusCallback Provide an absolute or relative URL to receive status
+     *                       updates regarding your Pay session.
      */
     public PaymentUpdater(final String pathAccountSid,
                           final String pathCallSid,
@@ -77,10 +79,12 @@ public class PaymentUpdater extends Updater<Payment> {
     }
 
     /**
-     * Specific payment source information to expect. Can be:
-     * `payment-card-number`,`expiration-date`,`security-code`,`postal-code`,`bank-routing-number`,`bank-account-number`..
+     * The piece of payment information that you wish the caller to enter. Must be
+     * one of `payment-card-number`, `expiration-date`, `security-code`,
+     * `postal-code`, `bank-routing-number`, or `bank-account-number`..
      *
-     * @param capture Specific payment source information to expect.
+     * @param capture The piece of payment information that you wish the caller to
+     *                enter.
      * @return this
      */
     public PaymentUpdater setCapture(final Payment.Capture capture) {
@@ -89,10 +93,13 @@ public class PaymentUpdater extends Updater<Payment> {
     }
 
     /**
-     * Instruction to complete or cancel the transaction. Can be: `complete`,
-     * `cancel.`.
+     * Indicates whether the current payment session should be cancelled or
+     * completed. When `cancel` the payment session is cancelled. When `complete`,
+     * Twilio sends the payment information to the selected &lt;Pay&gt; connector
+     * for processing..
      *
-     * @param status Instruction to complete or cancel the transaction.
+     * @param status Indicates whether the current payment session should be
+     *               cancelled or completed.
      * @return this
      */
     public PaymentUpdater setStatus(final Payment.Status status) {

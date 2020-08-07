@@ -51,10 +51,11 @@ public class PaymentCreator extends Creator<Payment> {
      * Construct a new PaymentCreator.
      *
      * @param pathCallSid The SID of the call that will create the resource.
-     * @param idempotencyKey A unique token for each payment session that should be
-     *                       provided to maintain idempotency of the session.
-     * @param statusCallback The URL we should call to send status of payment
-     *                       session.
+     * @param idempotencyKey A unique token that will be used to ensure that
+     *                       multiple API calls with the same information do not
+     *                       result in multiple transactions.
+     * @param statusCallback Provide an absolute or relative URL to receive status
+     *                       updates regarding your Pay session..
      */
     public PaymentCreator(final String pathCallSid,
                           final String idempotencyKey,
@@ -69,10 +70,11 @@ public class PaymentCreator extends Creator<Payment> {
      *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param pathCallSid The SID of the call that will create the resource.
-     * @param idempotencyKey A unique token for each payment session that should be
-     *                       provided to maintain idempotency of the session.
-     * @param statusCallback The URL we should call to send status of payment
-     *                       session.
+     * @param idempotencyKey A unique token that will be used to ensure that
+     *                       multiple API calls with the same information do not
+     *                       result in multiple transactions.
+     * @param statusCallback Provide an absolute or relative URL to receive status
+     *                       updates regarding your Pay session..
      */
     public PaymentCreator(final String pathAccountSid,
                           final String pathCallSid,
@@ -85,11 +87,11 @@ public class PaymentCreator extends Creator<Payment> {
     }
 
     /**
-     * If Payment source is ACH, type of bank account. Can be: `consumer-checking`,
-     * `consumer-savings`, `commercial-checking`. The default value is
+     * Type of bank account if payment source is ACH. One of `consumer-checking`,
+     * `consumer-savings`, or `commercial-checking`. The default value is
      * `consumer-checking`..
      *
-     * @param bankAccountType If Payment source is ACH, type of bank account.
+     * @param bankAccountType Type of bank account if payment source is ACH.
      * @return this
      */
     public PaymentCreator setBankAccountType(final Payment.BankAccountType bankAccountType) {
@@ -98,11 +100,12 @@ public class PaymentCreator extends Creator<Payment> {
     }
 
     /**
-     * If this field is present and greater than `0.0` payment source will be
-     * charged. Otherwise payment source will be tokenized..
+     * A positive decimal value less than 1,000,000 to charge against the credit
+     * card or bank account. Default currency can be overwritten with `currency`
+     * field. Leave blank or set to 0 to tokenize..
      *
-     * @param chargeAmount If this field is present and greater than `0.0` payment
-     *                     source will be charged.
+     * @param chargeAmount A positive decimal value less than 1,000,000 to charge
+     *                     against the credit card or bank account.
      * @return this
      */
     public PaymentCreator setChargeAmount(final BigDecimal chargeAmount) {
@@ -111,11 +114,12 @@ public class PaymentCreator extends Creator<Payment> {
     }
 
     /**
-     * Currency `charge_amount` is in. It's format should be as specified in [ISO
+     * The currency of the `charge_amount`, formatted as [ISO
      * 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format. The
-     * default value is `USD`..
+     * default value is `USD` and all values allowed from the &lt;Pay&gt; Connector
+     * are accepted..
      *
-     * @param currency Currency `charge_amount` is in.
+     * @param currency The currency of the `charge_amount`.
      * @return this
      */
     public PaymentCreator setCurrency(final String currency) {
@@ -124,9 +128,12 @@ public class PaymentCreator extends Creator<Payment> {
     }
 
     /**
-     * Decription of the charge..
+     * The description can be used to provide more details regarding the
+     * transaction. This information is submitted along with the payment details to
+     * the Payment Connector which are then posted on the transactions..
      *
-     * @param description Decription of the charge.
+     * @param description The description can be used to provide more details
+     *                    regarding the transaction.
      * @return this
      */
     public PaymentCreator setDescription(final String description) {
@@ -135,12 +142,11 @@ public class PaymentCreator extends Creator<Payment> {
     }
 
     /**
-     * Kind of medium customer would enter payment source information in. Currently
-     * only 'DTMF' is supported, which means customer would use keypad of their
-     * phone to enter card number etc..
+     * A list of inputs that should be accepted. Currently only `dtmf` is supported.
+     * All digits captured during a pay session are redacted from the logs..
      *
-     * @param input Kind of medium customer would enter payment source information
-     *              in.
+     * @param input A list of inputs that should be accepted. Currently only `dtmf`
+     *              is supported.
      * @return this
      */
     public PaymentCreator setInput(final String input) {
@@ -149,11 +155,11 @@ public class PaymentCreator extends Creator<Payment> {
     }
 
     /**
-     * If postal code is expected, minimum length of the postal code. When user
-     * enters postal code, this value will be used to validate..
+     * A positive integer that is used to validate the length of the `PostalCode`
+     * inputted by the user. User must enter this many digits..
      *
-     * @param minPostalCodeLength If postal code is expected, minimum length of the
-     *                            postal code.
+     * @param minPostalCodeLength A positive integer that is used to validate the
+     *                            length of the `PostalCode` inputted by the user.
      * @return this
      */
     public PaymentCreator setMinPostalCodeLength(final Integer minPostalCodeLength) {
@@ -162,13 +168,13 @@ public class PaymentCreator extends Creator<Payment> {
     }
 
     /**
-     * Additonal data to be sent over to payment provider. It has to be a JSON
-     * string with only one level object. This parameter can be used to send
-     * information such as customer name, phone number etc. Refer to specific
-     * payment provider's documentation in Twilio console for supported
-     * names/values/format..
+     * A single level JSON string that is required when accepting certain
+     * information specific only to ACH payments. The information that has to be
+     * included here depends on the &lt;Pay&gt; Connector. [Read
+     * more](https://www.twilio.com/console/voice/pay-connectors)..
      *
-     * @param parameter Additonal data to be sent over to payment provider.
+     * @param parameter A single level JSON string that is required when accepting
+     *                  certain information specific only to ACH payments.
      * @return this
      */
     public PaymentCreator setParameter(final Map<String, Object> parameter) {
@@ -177,13 +183,13 @@ public class PaymentCreator extends Creator<Payment> {
     }
 
     /**
-     * Payment connector that you would like Twilio to use for processing payments.
-     * The default value is `Default`, which means you need to have at least one
-     * payment connector configured in Twilio with name 'Default'. If not you must
-     * provide connector configuration name here..
+     * This is the unique name corresponding to the Payment Gateway Connector
+     * installed in the Twilio Add-ons. Learn more about [&lt;Pay&gt;
+     * Connectors](https://www.twilio.com/console/voice/pay-connectors). The default
+     * value is `Default`..
      *
-     * @param paymentConnector Payment connector that you would like Twilio to use
-     *                         for processing payments.
+     * @param paymentConnector This is the unique name corresponding to the Payment
+     *                         Gateway Connector installed in the Twilio Add-ons.
      * @return this
      */
     public PaymentCreator setPaymentConnector(final String paymentConnector) {
@@ -192,10 +198,10 @@ public class PaymentCreator extends Creator<Payment> {
     }
 
     /**
-     * Payment source type. Can be: `credit-card`, `ach-debit`. The default value is
-     * `credit-card`..
+     * Type of payment being captured. One of `credit-card` or `ach-debit`. The
+     * default value is `credit-card`..
      *
-     * @param paymentMethod Payment source type.
+     * @param paymentMethod Type of payment being captured.
      * @return this
      */
     public PaymentCreator setPaymentMethod(final Payment.PaymentMethod paymentMethod) {
@@ -204,11 +210,13 @@ public class PaymentCreator extends Creator<Payment> {
     }
 
     /**
-     * Whether to expect postal code during payment source data gathering. Can be:
-     * `true`, `false`. The default value is `true`..
+     * Indicates whether the credit card postal code (zip code) is a required piece
+     * of payment information that must be provided by the caller. The default is
+     * `true`..
      *
-     * @param postalCode Whether to expect postal code during payment source data
-     *                   gathering.
+     * @param postalCode Indicates whether the credit card PostalCode (zip code) is
+     *                   a required piece of payment information that must be
+     *                   provided by the caller.
      * @return this
      */
     public PaymentCreator setPostalCode(final Boolean postalCode) {
@@ -217,11 +225,13 @@ public class PaymentCreator extends Creator<Payment> {
     }
 
     /**
-     * Whether to expect security code during payment source data gathering. Can be:
-     * `true`, `false`. The default value is `true`..
+     * Indicates whether the credit card security code is a required piece of
+     * payment information that must be provided by the caller. The default is
+     * `true`..
      *
-     * @param securityCode Whether to expect security code during payment source
-     *                     data gathering.
+     * @param securityCode Indicates whether the credit card security code is a
+     *                     required piece of payment information that must be
+     *                     provided by the caller.
      * @return this
      */
     public PaymentCreator setSecurityCode(final Boolean securityCode) {
@@ -230,12 +240,14 @@ public class PaymentCreator extends Creator<Payment> {
     }
 
     /**
-     * The number of seconds that we should allow customer to enter payment
-     * information. Can be an integer between `5` and `600`, inclusive. The default
-     * value is `5`..
+     * The number of seconds that &lt;Pay&gt; should wait for the caller to press a
+     * digit between each subsequent digit, after the first one, before moving on to
+     * validate the digits captured. The default is `5`, maximum is `600`..
      *
-     * @param timeout The number of seconds that we should allow customer to enter
-     *                payment information
+     * @param timeout The number of seconds that &lt;Pay&gt; should wait for the
+     *                caller to press a digit between each subsequent digit, after
+     *                the first one, before moving on to validate the digits
+     *                captured.
      * @return this
      */
     public PaymentCreator setTimeout(final Integer timeout) {
@@ -244,11 +256,13 @@ public class PaymentCreator extends Creator<Payment> {
     }
 
     /**
-     * If tokenization of payment source is desired, this represents type of token.
-     * Can be: `one-time`, `reusable`. The default value is `reusable`..
+     * Indicates whether the payment method should be tokenized as a `one-time` or
+     * `reusable` token. The default value is `reusable`. Do not enter a charge
+     * amount when tokenizing. If a charge amount is entered, the payment method
+     * will be charged and not tokenized..
      *
-     * @param tokenType If tokenization of payment source is desired, this
-     *                  represents type of token.
+     * @param tokenType Indicates whether the payment method should be tokenized as
+     *                  a `one-time` or `reusable` token.
      * @return this
      */
     public PaymentCreator setTokenType(final Payment.TokenType tokenType) {
@@ -257,11 +271,11 @@ public class PaymentCreator extends Creator<Payment> {
     }
 
     /**
-     * List of card types accepted with each card types separated by space. Can be:
-     * `visa`,`nmastercard`,`amex`,`maestro`,`discover`,`optima`,`jcb`,`diners-club`,`enroute`. The default value is `visa mastercard amex`..
+     * Credit card types separated by space that Pay should accept. The default
+     * value is `visa mastercard amex`.
      *
-     * @param validCardTypes List of card types accepted with each card types
-     *                       separated by space.
+     * @param validCardTypes Credit card types separated by space that Pay should
+     *                       accept.
      * @return this
      */
     public PaymentCreator setValidCardTypes(final String validCardTypes) {

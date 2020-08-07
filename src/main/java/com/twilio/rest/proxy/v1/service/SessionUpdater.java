@@ -29,6 +29,7 @@ public class SessionUpdater extends Updater<Session> {
     private DateTime dateExpiry;
     private Integer ttl;
     private Session.Status status;
+    private Boolean failOnParticipantConflict;
 
     /**
      * Construct a new SessionUpdater.
@@ -79,6 +80,25 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
+     * Setting to true (recommended), enables Proxy to return a 400 error (Twilio
+     * error code 80604) when a request to set a Session to in-progress would cause
+     * Participants with the same identifier/proxy_identifier pair to be active in
+     * multiple Sessions. If not provided, or if set to false, requests will be
+     * allowed to succeed and a Debugger event (80801) will be emitted. This causes
+     * calls and messages from affected Participants to be routed incorrectly.
+     * Please note, in a future release, the default behavior will be to reject the
+     * request with a 400 error..
+     *
+     * @param failOnParticipantConflict Opt-in to enable Proxy to return 400 on
+     *                                  detected conflict on re-open request.
+     * @return this
+     */
+    public SessionUpdater setFailOnParticipantConflict(final Boolean failOnParticipantConflict) {
+        this.failOnParticipantConflict = failOnParticipantConflict;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -125,6 +145,10 @@ public class SessionUpdater extends Updater<Session> {
 
         if (status != null) {
             request.addPostParam("Status", status.toString());
+        }
+
+        if (failOnParticipantConflict != null) {
+            request.addPostParam("FailOnParticipantConflict", failOnParticipantConflict.toString());
         }
     }
 }

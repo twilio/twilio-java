@@ -24,8 +24,8 @@ import com.twilio.rest.Domains;
 
 public class AlertReader extends Reader<Alert> {
     private String logLevel;
-    private ZonedDateTime startDate;
-    private ZonedDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     /**
      * Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`,
@@ -48,7 +48,7 @@ public class AlertReader extends Reader<Alert> {
      *                  time
      * @return this
      */
-    public AlertReader setStartDate(final ZonedDateTime startDate) {
+    public AlertReader setStartDate(final LocalDate startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -63,7 +63,7 @@ public class AlertReader extends Reader<Alert> {
      *                time
      * @return this
      */
-    public AlertReader setEndDate(final ZonedDateTime endDate) {
+    public AlertReader setEndDate(final LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }

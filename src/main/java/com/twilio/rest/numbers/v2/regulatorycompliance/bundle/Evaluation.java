@@ -229,7 +229,7 @@ public class Evaluation extends Resource {
      *
      * @return The date_created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 

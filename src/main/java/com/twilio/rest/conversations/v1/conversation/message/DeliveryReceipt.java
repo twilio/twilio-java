@@ -251,7 +251,7 @@ public class DeliveryReceipt extends Resource {
      *
      * @return The date that this resource was created.
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -260,7 +260,7 @@ public class DeliveryReceipt extends Resource {
      *
      * @return The date that this resource was last updated.
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 

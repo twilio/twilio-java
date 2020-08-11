@@ -345,7 +345,7 @@ public class Payment extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -354,7 +354,7 @@ public class Payment extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 

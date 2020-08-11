@@ -113,7 +113,7 @@ public class BrandsInformation extends Resource {
      *
      * @return Creation time of the information retrieved
      */
-    public final DateTime getUpdateTime() {
+    public final ZonedDateTime getUpdateTime() {
         return this.updateTime;
     }
 

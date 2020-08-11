@@ -174,7 +174,7 @@ public class ImpressionsRate extends Resource {
      *
      * @return The end date that for this Impressions Rate.
      */
-    public final DateTime getEnd() {
+    public final ZonedDateTime getEnd() {
         return this.end;
     }
 
@@ -201,7 +201,7 @@ public class ImpressionsRate extends Resource {
      *
      * @return The start date that for this Impressions Rate.
      */
-    public final DateTime getStart() {
+    public final ZonedDateTime getStart() {
         return this.start;
     }
 

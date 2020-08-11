@@ -24,7 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -88,7 +88,7 @@ public class BrandsInformation extends Resource {
         }
     }
 
-    private final DateTime updateTime;
+    private final ZonedDateTime updateTime;
     private final URI fileLink;
     private final String fileLinkTtlInSeconds;
     private final URI url;

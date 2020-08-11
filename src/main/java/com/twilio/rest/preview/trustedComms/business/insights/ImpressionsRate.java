@@ -26,7 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -121,10 +121,10 @@ public class ImpressionsRate extends Resource {
 
     private final String accountSid;
     private final String businessSid;
-    private final DateTime end;
+    private final ZonedDateTime end;
     private final ImpressionsRate.Intervals interval;
     private final Map<String, Object> reports;
-    private final DateTime start;
+    private final ZonedDateTime start;
     private final URI url;
 
     @JsonCreator

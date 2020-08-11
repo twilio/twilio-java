@@ -17,7 +17,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 public class UserChannelUpdater extends Updater<UserChannel> {
     private final String pathServiceSid;
@@ -25,7 +25,7 @@ public class UserChannelUpdater extends Updater<UserChannel> {
     private final String pathChannelSid;
     private UserChannel.NotificationLevel notificationLevel;
     private Integer lastConsumedMessageIndex;
-    private DateTime lastConsumptionTimestamp;
+    private ZonedDateTime lastConsumptionTimestamp;
 
     /**
      * Construct a new UserChannelUpdater.
@@ -83,7 +83,7 @@ public class UserChannelUpdater extends Updater<UserChannel> {
      *                                 read event for the Member within the Channel
      * @return this
      */
-    public UserChannelUpdater setLastConsumptionTimestamp(final DateTime lastConsumptionTimestamp) {
+    public UserChannelUpdater setLastConsumptionTimestamp(final ZonedDateTime lastConsumptionTimestamp) {
         this.lastConsumptionTimestamp = lastConsumptionTimestamp;
         return this;
     }

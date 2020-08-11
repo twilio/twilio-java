@@ -24,7 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -124,7 +124,7 @@ public class ItemAssignment extends Resource {
     private final String bundleSid;
     private final String accountSid;
     private final String objectSid;
-    private final DateTime dateCreated;
+    private final ZonedDateTime dateCreated;
     private final URI url;
 
     @JsonCreator

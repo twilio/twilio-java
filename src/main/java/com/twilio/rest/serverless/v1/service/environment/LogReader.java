@@ -19,7 +19,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
@@ -30,8 +30,8 @@ public class LogReader extends Reader<Log> {
     private final String pathServiceSid;
     private final String pathEnvironmentSid;
     private String functionSid;
-    private DateTime startDate;
-    private DateTime endDate;
+    private ZonedDateTime startDate;
+    private ZonedDateTime endDate;
 
     /**
      * Construct a new LogReader.
@@ -66,7 +66,7 @@ public class LogReader extends Reader<Log> {
      *                  been created.
      * @return this
      */
-    public LogReader setStartDate(final DateTime startDate) {
+    public LogReader setStartDate(final ZonedDateTime startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -79,7 +79,7 @@ public class LogReader extends Reader<Log> {
      *                been created.
      * @return this
      */
-    public LogReader setEndDate(final DateTime endDate) {
+    public LogReader setEndDate(final ZonedDateTime endDate) {
         this.endDate = endDate;
         return this;
     }

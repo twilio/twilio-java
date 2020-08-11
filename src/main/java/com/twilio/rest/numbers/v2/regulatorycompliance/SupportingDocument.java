@@ -26,7 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -153,8 +153,8 @@ public class SupportingDocument extends Resource {
     private final SupportingDocument.Status status;
     private final String type;
     private final Map<String, Object> attributes;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final URI url;
 
     @JsonCreator

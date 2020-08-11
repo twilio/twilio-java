@@ -24,7 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -91,8 +91,8 @@ public class RestoreAssistant extends Resource {
 
     private final String accountSid;
     private final String sid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String uniqueName;
     private final String friendlyName;
     private final Boolean needsModelBuild;

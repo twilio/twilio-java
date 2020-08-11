@@ -26,7 +26,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -140,7 +140,7 @@ public class Evaluation extends Resource {
     private final String bundleSid;
     private final Evaluation.Status status;
     private final List<Map<String, Object>> results;
-    private final DateTime dateCreated;
+    private final ZonedDateTime dateCreated;
     private final URI url;
 
     @JsonCreator

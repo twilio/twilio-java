@@ -65,8 +65,7 @@ public class AssetVersionReader extends Reader<AssetVersion> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Assets/" + this.pathAssetSid + "/Versions",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Assets/" + this.pathAssetSid + "/Versions"
         );
 
         addQueryParams(request);
@@ -103,10 +102,7 @@ public class AssetVersionReader extends Reader<AssetVersion> {
                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.SERVERLESS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.SERVERLESS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -123,10 +119,7 @@ public class AssetVersionReader extends Reader<AssetVersion> {
                                            final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.SERVERLESS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.SERVERLESS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -148,14 +141,7 @@ public class AssetVersionReader extends Reader<AssetVersion> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

@@ -132,7 +132,7 @@ public class SubscribeRules extends Resource {
     }
 
     /**
-     * Returns The The SID of the Participant resource for the Subscribe Rules.
+     * Returns The SID of the Participant resource for the Subscribe Rules.
      *
      * @return The SID of the Participant resource for the Subscribe Rules
      */
@@ -141,7 +141,7 @@ public class SubscribeRules extends Resource {
     }
 
     /**
-     * Returns The The SID of the Room resource for the Subscribe Rules.
+     * Returns The SID of the Room resource for the Subscribe Rules.
      *
      * @return The SID of the Room resource for the Subscribe Rules
      */
@@ -150,7 +150,7 @@ public class SubscribeRules extends Resource {
     }
 
     /**
-     * Returns The A collection of Subscribe Rules that describe how to include or
+     * Returns A collection of Subscribe Rules that describe how to include or
      * exclude matching tracks.
      *
      * @return A collection of Subscribe Rules that describe how to include or
@@ -161,7 +161,7 @@ public class SubscribeRules extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -170,8 +170,7 @@ public class SubscribeRules extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */

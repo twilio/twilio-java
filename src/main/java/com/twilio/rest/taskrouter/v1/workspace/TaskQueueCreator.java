@@ -118,8 +118,7 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskQueues",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskQueues"
         );
 
         addPostParams(request);
@@ -132,14 +131,7 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return TaskQueue.fromJson(response.getStream(), client.getObjectMapper());

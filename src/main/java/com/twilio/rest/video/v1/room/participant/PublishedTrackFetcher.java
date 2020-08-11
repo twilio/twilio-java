@@ -51,8 +51,7 @@ public class PublishedTrackFetcher extends Fetcher<PublishedTrack> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathParticipantSid + "/PublishedTracks/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathParticipantSid + "/PublishedTracks/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -64,14 +63,7 @@ public class PublishedTrackFetcher extends Fetcher<PublishedTrack> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return PublishedTrack.fromJson(response.getStream(), client.getObjectMapper());

@@ -197,7 +197,7 @@ public class AuthorizationDocument extends Resource {
     }
 
     /**
-     * Returns The AuthorizationDocument sid..
+     * Returns AuthorizationDocument sid..
      *
      * @return AuthorizationDocument sid.
      */
@@ -206,7 +206,7 @@ public class AuthorizationDocument extends Resource {
     }
 
     /**
-     * Returns The Address sid..
+     * Returns Address sid..
      *
      * @return Address sid.
      */
@@ -215,7 +215,7 @@ public class AuthorizationDocument extends Resource {
     }
 
     /**
-     * Returns The The Status of this AuthorizationDocument..
+     * Returns The Status of this AuthorizationDocument..
      *
      * @return The Status of this AuthorizationDocument.
      */
@@ -224,7 +224,7 @@ public class AuthorizationDocument extends Resource {
     }
 
     /**
-     * Returns The Email..
+     * Returns Email..
      *
      * @return Email.
      */
@@ -233,7 +233,7 @@ public class AuthorizationDocument extends Resource {
     }
 
     /**
-     * Returns The A list of emails..
+     * Returns A list of emails..
      *
      * @return A list of emails.
      */
@@ -242,7 +242,7 @@ public class AuthorizationDocument extends Resource {
     }
 
     /**
-     * Returns The The date this AuthorizationDocument was created..
+     * Returns The date this AuthorizationDocument was created..
      *
      * @return The date this AuthorizationDocument was created.
      */
@@ -251,7 +251,7 @@ public class AuthorizationDocument extends Resource {
     }
 
     /**
-     * Returns The The date this AuthorizationDocument was updated..
+     * Returns The date this AuthorizationDocument was updated..
      *
      * @return The date this AuthorizationDocument was updated.
      */
@@ -260,7 +260,7 @@ public class AuthorizationDocument extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The url.
      *
      * @return The url
      */
@@ -269,7 +269,7 @@ public class AuthorizationDocument extends Resource {
     }
 
     /**
-     * Returns The The links.
+     * Returns The links.
      *
      * @return The links
      */

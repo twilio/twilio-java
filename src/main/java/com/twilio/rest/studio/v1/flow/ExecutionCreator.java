@@ -71,8 +71,7 @@ public class ExecutionCreator extends Creator<Execution> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Executions",
-            client.getRegion()
+            "/v1/Flows/" + this.pathFlowSid + "/Executions"
         );
 
         addPostParams(request);
@@ -85,14 +84,7 @@ public class ExecutionCreator extends Creator<Execution> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Execution.fromJson(response.getStream(), client.getObjectMapper());

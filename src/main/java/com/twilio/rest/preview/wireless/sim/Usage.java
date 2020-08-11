@@ -128,7 +128,7 @@ public class Usage extends Resource {
     }
 
     /**
-     * Returns The The sim_sid.
+     * Returns The sim_sid.
      *
      * @return The sim_sid
      */
@@ -137,7 +137,7 @@ public class Usage extends Resource {
     }
 
     /**
-     * Returns The The sim_unique_name.
+     * Returns The sim_unique_name.
      *
      * @return The sim_unique_name
      */
@@ -146,7 +146,7 @@ public class Usage extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The account_sid.
      *
      * @return The account_sid
      */
@@ -155,7 +155,7 @@ public class Usage extends Resource {
     }
 
     /**
-     * Returns The The period.
+     * Returns The period.
      *
      * @return The period
      */
@@ -164,7 +164,7 @@ public class Usage extends Resource {
     }
 
     /**
-     * Returns The The commands_usage.
+     * Returns The commands_usage.
      *
      * @return The commands_usage
      */
@@ -173,7 +173,7 @@ public class Usage extends Resource {
     }
 
     /**
-     * Returns The The commands_costs.
+     * Returns The commands_costs.
      *
      * @return The commands_costs
      */
@@ -182,7 +182,7 @@ public class Usage extends Resource {
     }
 
     /**
-     * Returns The The data_usage.
+     * Returns The data_usage.
      *
      * @return The data_usage
      */
@@ -191,7 +191,7 @@ public class Usage extends Resource {
     }
 
     /**
-     * Returns The The data_costs.
+     * Returns The data_costs.
      *
      * @return The data_costs
      */
@@ -200,7 +200,7 @@ public class Usage extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The url.
      *
      * @return The url
      */

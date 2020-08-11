@@ -51,8 +51,7 @@ public class AvailableAddOnExtensionFetcher extends Fetcher<AvailableAddOnExtens
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/marketplace/AvailableAddOns/" + this.pathAvailableAddOnSid + "/Extensions/" + this.pathSid + "",
-            client.getRegion()
+            "/marketplace/AvailableAddOns/" + this.pathAvailableAddOnSid + "/Extensions/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -64,14 +63,7 @@ public class AvailableAddOnExtensionFetcher extends Fetcher<AvailableAddOnExtens
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return AvailableAddOnExtension.fromJson(response.getStream(), client.getObjectMapper());

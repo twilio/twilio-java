@@ -199,7 +199,7 @@ public class Engagement extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -208,7 +208,7 @@ public class Engagement extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -217,7 +217,7 @@ public class Engagement extends Resource {
     }
 
     /**
-     * Returns The The SID of the Flow.
+     * Returns The SID of the Flow.
      *
      * @return The SID of the Flow
      */
@@ -226,7 +226,7 @@ public class Engagement extends Resource {
     }
 
     /**
-     * Returns The The SID of the Contact.
+     * Returns The SID of the Contact.
      *
      * @return The SID of the Contact
      */
@@ -235,7 +235,7 @@ public class Engagement extends Resource {
     }
 
     /**
-     * Returns The The phone number, SIP address or Client identifier that triggered
+     * Returns The phone number, SIP address or Client identifier that triggered
      * this Engagement.
      *
      * @return The phone number, SIP address or Client identifier that triggered
@@ -246,7 +246,7 @@ public class Engagement extends Resource {
     }
 
     /**
-     * Returns The The current state of the execution flow.
+     * Returns The current state of the execution flow.
      *
      * @return The current state of the execution flow
      */
@@ -255,7 +255,7 @@ public class Engagement extends Resource {
     }
 
     /**
-     * Returns The The status of the Engagement.
+     * Returns The status of the Engagement.
      *
      * @return The status of the Engagement
      */
@@ -264,8 +264,7 @@ public class Engagement extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Engagement was
-     * created.
+     * Returns The ISO 8601 date and time in GMT when the Engagement was created.
      *
      * @return The ISO 8601 date and time in GMT when the Engagement was created
      */
@@ -274,7 +273,7 @@ public class Engagement extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Engagement was last
+     * Returns The ISO 8601 date and time in GMT when the Engagement was last
      * updated.
      *
      * @return The ISO 8601 date and time in GMT when the Engagement was last
@@ -285,7 +284,7 @@ public class Engagement extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
      */
@@ -294,7 +293,7 @@ public class Engagement extends Resource {
     }
 
     /**
-     * Returns The The URLs of the Engagement's nested resources.
+     * Returns The URLs of the Engagement's nested resources.
      *
      * @return The URLs of the Engagement's nested resources
      */

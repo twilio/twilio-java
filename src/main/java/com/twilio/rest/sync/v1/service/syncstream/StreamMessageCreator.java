@@ -59,8 +59,7 @@ public class StreamMessageCreator extends Creator<StreamMessage> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Streams/" + this.pathStreamSid + "/Messages",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Streams/" + this.pathStreamSid + "/Messages"
         );
 
         addPostParams(request);
@@ -73,14 +72,7 @@ public class StreamMessageCreator extends Creator<StreamMessage> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return StreamMessage.fromJson(response.getStream(), client.getObjectMapper());

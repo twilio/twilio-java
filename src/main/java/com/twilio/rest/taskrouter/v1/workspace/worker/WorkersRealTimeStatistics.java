@@ -109,7 +109,7 @@ public class WorkersRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -118,7 +118,7 @@ public class WorkersRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The number of current Workers by Activity.
+     * Returns The number of current Workers by Activity.
      *
      * @return The number of current Workers by Activity
      */
@@ -127,7 +127,7 @@ public class WorkersRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Workers.
+     * Returns The total number of Workers.
      *
      * @return The total number of Workers
      */
@@ -136,7 +136,7 @@ public class WorkersRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Workspace that contains the Workers.
+     * Returns The SID of the Workspace that contains the Workers.
      *
      * @return The SID of the Workspace that contains the Workers
      */
@@ -145,7 +145,7 @@ public class WorkersRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Workers statistics resource.
+     * Returns The absolute URL of the Workers statistics resource.
      *
      * @return The absolute URL of the Workers statistics resource
      */

@@ -60,8 +60,7 @@ public class VariableCreator extends Creator<Variable> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Environments/" + this.pathEnvironmentSid + "/Variables",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Environments/" + this.pathEnvironmentSid + "/Variables"
         );
 
         addPostParams(request);
@@ -74,14 +73,7 @@ public class VariableCreator extends Creator<Variable> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Variable.fromJson(response.getStream(), client.getObjectMapper());

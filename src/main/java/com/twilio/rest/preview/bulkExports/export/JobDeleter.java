@@ -28,7 +28,8 @@ public class JobDeleter extends Deleter<Job> {
     /**
      * Construct a new JobDeleter.
      *
-     * @param pathJobSid The job_sid
+     * @param pathJobSid The unique string that that we created to identify the
+     *                   Bulk Export job
      */
     public JobDeleter(final String pathJobSid) {
         this.pathJobSid = pathJobSid;
@@ -45,8 +46,7 @@ public class JobDeleter extends Deleter<Job> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/BulkExports/Exports/Jobs/" + this.pathJobSid + "",
-            client.getRegion()
+            "/BulkExports/Exports/Jobs/" + this.pathJobSid + ""
         );
 
         Response response = client.request(request);
@@ -58,14 +58,7 @@ public class JobDeleter extends Deleter<Job> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

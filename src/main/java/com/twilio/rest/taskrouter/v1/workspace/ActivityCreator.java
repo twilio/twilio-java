@@ -61,8 +61,7 @@ public class ActivityCreator extends Creator<Activity> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Activities",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Activities"
         );
 
         addPostParams(request);
@@ -75,14 +74,7 @@ public class ActivityCreator extends Creator<Activity> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Activity.fromJson(response.getStream(), client.getObjectMapper());

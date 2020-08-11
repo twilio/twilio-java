@@ -47,8 +47,7 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathTrunkSid + "/IpAccessControlLists",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathTrunkSid + "/IpAccessControlLists"
         );
 
         addPostParams(request);
@@ -61,14 +60,7 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return IpAccessControlList.fromJson(response.getStream(), client.getObjectMapper());

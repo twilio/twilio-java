@@ -138,7 +138,7 @@ public class ExportCustomJob extends Resource {
     }
 
     /**
-     * Returns The The friendly name specified when creating the job.
+     * Returns The friendly name specified when creating the job.
      *
      * @return The friendly name specified when creating the job
      */
@@ -147,7 +147,7 @@ public class ExportCustomJob extends Resource {
     }
 
     /**
-     * Returns The The type of communication – Messages, Calls.
+     * Returns The type of communication – Messages, Calls.
      *
      * @return The type of communication – Messages, Calls
      */
@@ -156,7 +156,7 @@ public class ExportCustomJob extends Resource {
     }
 
     /**
-     * Returns The The start time for the export specified when creating the job.
+     * Returns The start time for the export specified when creating the job.
      *
      * @return The start time for the export specified when creating the job
      */
@@ -165,7 +165,7 @@ public class ExportCustomJob extends Resource {
     }
 
     /**
-     * Returns The The end time for the export specified when creating the job.
+     * Returns The end time for the export specified when creating the job.
      *
      * @return The end time for the export specified when creating the job
      */
@@ -174,7 +174,7 @@ public class ExportCustomJob extends Resource {
     }
 
     /**
-     * Returns The The optional webhook url called on completion.
+     * Returns The optional webhook url called on completion.
      *
      * @return The optional webhook url called on completion
      */
@@ -183,7 +183,7 @@ public class ExportCustomJob extends Resource {
     }
 
     /**
-     * Returns The This is the method used to call the webhook.
+     * Returns This is the method used to call the webhook.
      *
      * @return This is the method used to call the webhook
      */
@@ -192,7 +192,7 @@ public class ExportCustomJob extends Resource {
     }
 
     /**
-     * Returns The The optional email to send the completion notification to.
+     * Returns The optional email to send the completion notification to.
      *
      * @return The optional email to send the completion notification to
      */
@@ -201,7 +201,7 @@ public class ExportCustomJob extends Resource {
     }
 
     /**
-     * Returns The The job_sid returned when the export was created.
+     * Returns The job_sid returned when the export was created.
      *
      * @return The job_sid returned when the export was created
      */
@@ -210,7 +210,7 @@ public class ExportCustomJob extends Resource {
     }
 
     /**
-     * Returns The The details.
+     * Returns The details.
      *
      * @return The details
      */

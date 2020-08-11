@@ -238,7 +238,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -247,7 +247,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -256,7 +256,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -265,7 +265,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -274,8 +274,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -284,8 +283,8 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The URL we call using inbound_method when a message is received
-     * by any phone number or short code in the Service.
+     * Returns The URL we call using inbound_method when a message is received by
+     * any phone number or short code in the Service.
      *
      * @return The URL we call using inbound_method when a message is received by
      *         any phone number or short code in the Service
@@ -295,7 +294,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The HTTP method we use to call inbound_request_url.
+     * Returns The HTTP method we use to call inbound_request_url.
      *
      * @return The HTTP method we use to call inbound_request_url
      */
@@ -304,8 +303,8 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The URL that we call using fallback_method if an error occurs
-     * while retrieving or executing the TwiML from the Inbound Request URL.
+     * Returns The URL that we call using fallback_method if an error occurs while
+     * retrieving or executing the TwiML from the Inbound Request URL.
      *
      * @return The URL that we call using fallback_method if an error occurs while
      *         retrieving or executing the TwiML from the Inbound Request URL
@@ -315,7 +314,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The HTTP method we use to call fallback_url.
+     * Returns The HTTP method we use to call fallback_url.
      *
      * @return The HTTP method we use to call fallback_url
      */
@@ -324,7 +323,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The URL we call to pass status updates about message delivery.
+     * Returns The URL we call to pass status updates about message delivery.
      *
      * @return The URL we call to pass status updates about message delivery
      */
@@ -333,7 +332,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Whether to enable Sticky Sender on the Service instance.
+     * Returns Whether to enable Sticky Sender on the Service instance.
      *
      * @return Whether to enable Sticky Sender on the Service instance
      */
@@ -342,7 +341,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Whether to enable the MMS Converter for messages sent through the
+     * Returns Whether to enable the MMS Converter for messages sent through the
      * Service instance.
      *
      * @return Whether to enable the MMS Converter for messages sent through the
@@ -353,7 +352,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Whether to enable Encoding for messages sent through the Service
+     * Returns Whether to enable Encoding for messages sent through the Service
      * instance.
      *
      * @return Whether to enable Encoding for messages sent through the Service
@@ -364,7 +363,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Reserved.
+     * Returns Reserved.
      *
      * @return Reserved
      */
@@ -373,8 +372,8 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Whether to enable Fallback to Long Code for messages sent through
-     * the Service instance.
+     * Returns Whether to enable Fallback to Long Code for messages sent through the
+     * Service instance.
      *
      * @return Whether to enable Fallback to Long Code for messages sent through
      *         the Service instance
@@ -384,7 +383,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Whether to enable Area Code Geomatch on the Service Instance.
+     * Returns Whether to enable Area Code Geomatch on the Service Instance.
      *
      * @return Whether to enable Area Code Geomatch on the Service Instance
      */
@@ -393,7 +392,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Reserved.
+     * Returns Reserved.
      *
      * @return Reserved
      */
@@ -402,7 +401,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The How long, in seconds, messages sent from the Service are valid.
+     * Returns How long, in seconds, messages sent from the Service are valid.
      *
      * @return How long, in seconds, messages sent from the Service are valid
      */
@@ -411,7 +410,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Service resource.
+     * Returns The absolute URL of the Service resource.
      *
      * @return The absolute URL of the Service resource
      */
@@ -420,7 +419,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The absolute URLs of related resources.
+     * Returns The absolute URLs of related resources.
      *
      * @return The absolute URLs of related resources
      */

@@ -55,8 +55,7 @@ public class FunctionUpdater extends Updater<Function> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Functions/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Functions/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -69,14 +68,7 @@ public class FunctionUpdater extends Updater<Function> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Function.fromJson(response.getStream(), client.getObjectMapper());

@@ -51,8 +51,7 @@ public class EnvironmentFetcher extends Fetcher<Environment> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Environments/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Environments/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -64,14 +63,7 @@ public class EnvironmentFetcher extends Fetcher<Environment> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Environment.fromJson(response.getStream(), client.getObjectMapper());

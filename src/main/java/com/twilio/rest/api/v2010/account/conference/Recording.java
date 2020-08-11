@@ -319,7 +319,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -328,7 +328,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The API version used to create the recording.
+     * Returns The API version used to create the recording.
      *
      * @return The API version used to create the recording
      */
@@ -337,7 +337,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The SID of the Call the resource is associated with.
+     * Returns The SID of the Call the resource is associated with.
      *
      * @return The SID of the Call the resource is associated with
      */
@@ -346,8 +346,8 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The Conference SID that identifies the conference associated with
-     * the recording.
+     * Returns The Conference SID that identifies the conference associated with the
+     * recording.
      *
      * @return The Conference SID that identifies the conference associated with
      *         the recording
@@ -357,7 +357,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was created.
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
@@ -366,8 +366,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
@@ -376,7 +375,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The start time of the recording, given in RFC 2822 format.
+     * Returns The start time of the recording, given in RFC 2822 format.
      *
      * @return The start time of the recording, given in RFC 2822 format
      */
@@ -385,7 +384,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The length of the recording in seconds.
+     * Returns The length of the recording in seconds.
      *
      * @return The length of the recording in seconds
      */
@@ -394,7 +393,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -403,7 +402,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The one-time cost of creating the recording..
+     * Returns The one-time cost of creating the recording..
      *
      * @return The one-time cost of creating the recording.
      */
@@ -412,7 +411,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The currency used in the price property..
+     * Returns The currency used in the price property..
      *
      * @return The currency used in the price property.
      */
@@ -421,7 +420,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The status of the recording.
+     * Returns The status of the recording.
      *
      * @return The status of the recording
      */
@@ -430,7 +429,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The number of channels in the final recording file as an integer.
+     * Returns The number of channels in the final recording file as an integer.
      *
      * @return The number of channels in the final recording file as an integer
      */
@@ -439,7 +438,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The How the recording was created.
+     * Returns How the recording was created.
      *
      * @return How the recording was created
      */
@@ -448,7 +447,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The More information about why the recording is missing, if status is
+     * Returns More information about why the recording is missing, if status is
      * `absent`..
      *
      * @return More information about why the recording is missing, if status is
@@ -459,7 +458,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The How to decrypt the recording..
+     * Returns How to decrypt the recording..
      *
      * @return How to decrypt the recording.
      */
@@ -468,7 +467,7 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
      *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */

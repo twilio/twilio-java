@@ -94,8 +94,7 @@ public class CommandReader extends Reader<Command> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.WIRELESS.toString(),
-            "/v1/Commands",
-            client.getRegion()
+            "/v1/Commands"
         );
 
         addQueryParams(request);
@@ -132,10 +131,7 @@ public class CommandReader extends Reader<Command> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.WIRELESS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.WIRELESS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -152,10 +148,7 @@ public class CommandReader extends Reader<Command> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.WIRELESS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.WIRELESS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -177,14 +170,7 @@ public class CommandReader extends Reader<Command> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

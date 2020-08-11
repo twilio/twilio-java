@@ -76,8 +76,7 @@ public class QueryUpdater extends Updater<Query> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/Queries/" + this.pathSid + "",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/Queries/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -90,14 +89,7 @@ public class QueryUpdater extends Updater<Query> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Query.fromJson(response.getStream(), client.getObjectMapper());

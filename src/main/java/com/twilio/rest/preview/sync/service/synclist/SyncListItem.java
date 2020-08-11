@@ -246,7 +246,7 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Returns The The index.
+     * Returns The index.
      *
      * @return The index
      */
@@ -255,7 +255,7 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The account_sid.
      *
      * @return The account_sid
      */
@@ -264,7 +264,7 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Returns The The service_sid.
+     * Returns The service_sid.
      *
      * @return The service_sid
      */
@@ -273,7 +273,7 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Returns The The list_sid.
+     * Returns The list_sid.
      *
      * @return The list_sid
      */
@@ -282,7 +282,7 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The url.
      *
      * @return The url
      */
@@ -291,7 +291,7 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Returns The The revision.
+     * Returns The revision.
      *
      * @return The revision
      */
@@ -300,7 +300,7 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Returns The The data.
+     * Returns The data.
      *
      * @return The data
      */
@@ -309,7 +309,7 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The date_created.
      *
      * @return The date_created
      */
@@ -318,7 +318,7 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The date_updated.
      *
      * @return The date_updated
      */
@@ -327,7 +327,7 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Returns The The created_by.
+     * Returns The created_by.
      *
      * @return The created_by
      */

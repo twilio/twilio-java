@@ -65,8 +65,7 @@ public class WebChannelUpdater extends Updater<WebChannel> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.FLEXAPI.toString(),
-            "/v1/WebChannels/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/WebChannels/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -79,14 +78,7 @@ public class WebChannelUpdater extends Updater<WebChannel> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return WebChannel.fromJson(response.getStream(), client.getObjectMapper());

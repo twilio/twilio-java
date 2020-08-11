@@ -95,7 +95,7 @@ public class HighriskSpecialPrefix extends Resource {
     }
 
     /**
-     * Returns The A prefix that includes the E.164 assigned country code.
+     * Returns A prefix that includes the E.164 assigned country code.
      *
      * @return A prefix that includes the E.164 assigned country code
      */

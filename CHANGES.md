@@ -1,6 +1,481 @@
 twilio-java changelog
 =====================
 
+[2020-08-05] Version 7.54.2
+---------------------------
+**Messaging**
+- Add rejection reason support to WhatsApp API
+- Removed status parameter for create and update in WhatsApp Templates API
+
+**Proxy**
+- Add FailOnParticipantConflict param to Proxy Session update
+
+**Verify**
+- Add `CustomFriendlyName` optional parameter on Verification creation.
+- Changes in `Challenge` resource to update documentation of both `details` and `hidden_details` properties.
+
+
+[2020-07-22] Version 7.54.1
+---------------------------
+**Library - Fix**
+- [PR #558](https://github.com/twilio/twilio-java/pull/558): encode path parameters. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Api**
+- Add optional Click Tracking and Scheduling parameters to Create action of Message resource
+
+**Supersim**
+- Add callback_url and callback_method parameters to Sim resource update request
+
+
+[2020-07-08] Version 7.54.0
+---------------------------
+**Library - Feature**
+- [PR #555](https://github.com/twilio/twilio-java/pull/555): add fax capability to deserialized phone number capabilities. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #553](https://github.com/twilio/twilio-java/pull/553): include API response headers in 'Last Response'. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Chore**
+- [PR #554](https://github.com/twilio/twilio-java/pull/554): bump archunit from 0.13.0 to 0.14.1. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #550](https://github.com/twilio/twilio-java/pull/550): bump cobertura-maven-plugin from 2.2 to 2.7. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #551](https://github.com/twilio/twilio-java/pull/551): bump maven-assembly-plugin from 2.3 to 3.3.0. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #543](https://github.com/twilio/twilio-java/pull/543): bump joda-time from 2.5 to 2.10.6. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #545](https://github.com/twilio/twilio-java/pull/545): bump maven-surefire-plugin from 2.20 to 2.22.2. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #546](https://github.com/twilio/twilio-java/pull/546): bump spotbugs-maven-plugin from 3.1.12 to 4.0.4. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #547](https://github.com/twilio/twilio-java/pull/547): bump maven-checkstyle-plugin from 2.17 to 3.1.1. Thanks to [@dependabot](https://github.com/dependabot)!
+
+**Conversations**
+- Allow Address updates for Participants
+- Message delivery receipts
+
+**Events**
+- Add account_sid to subscription and subscribed_events resources
+
+**Flex**
+- Changed `wfm_integrations` Flex Configuration key to private **(breaking change)**
+
+**Messaging**
+- Add error states to WhatsApp Sender status with failed reason **(breaking change)**
+- Delete WhatsApp Template API
+- Update WhatsApp Template API
+- Add WhatsApp Template Get Api (fetch and read)
+
+**Numbers**
+- Add `valid_until` in the Bundles resource
+- Add API for Bundle deletion
+
+**Verify**
+- Removed support for `sms`, `totp` and `app-push` factor types in Verify push **(breaking change)**
+
+
+[2020-06-24] Version 7.53.0
+---------------------------
+**Library - Chore**
+- [PR #535](https://github.com/twilio/twilio-java/pull/535): bump maven-javadoc-plugin from 2.10.4 to 3.2.0. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #542](https://github.com/twilio/twilio-java/pull/542): bump guava from 28.0-android to 29.0-android. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #540](https://github.com/twilio/twilio-java/pull/540): bump equalsverifier from 3.1.12 to 3.4.1. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #541](https://github.com/twilio/twilio-java/pull/541): bump junit from 4.11 to 4.13. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #539](https://github.com/twilio/twilio-java/pull/539): bump jjwt.version from 0.10.7 to 0.11.2. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #536](https://github.com/twilio/twilio-java/pull/536): bump jaxb-api from 2.2 to 2.3.1. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #538](https://github.com/twilio/twilio-java/pull/538): bump maven-source-plugin from 3.0.1 to 3.2.1. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #534](https://github.com/twilio/twilio-java/pull/534): add Dependabot. Thanks to [@sullis](https://github.com/sullis)!
+
+**Api**
+- Added optional `JitterBufferSize` parameter for creating conference participant
+- Added optional `label` property for conference participants
+- Added optional parameter `caller_id` for creating conference participant endpoint.
+
+**Autopilot**
+- Remove Export resource from Autopilot Assistant
+
+**Conversations**
+- Expose Conversation timers
+
+**Monitor**
+- Update start/end date filter params to support date-or-time format **(breaking change)**
+
+**Numbers**
+- Add `provisionally-approved` as a Supporting Document status
+
+**Preview**
+- Removed `Authy` resources. **(breaking change)**
+
+**Supersim**
+- Add ready state to the allowed transitions in the sim update call behind the feature flag supersim.ready-state.v1
+
+**Verify**
+- Webhook resources added to Verify services and put behind the `api.verify.push` beta feature
+
+**Twiml**
+- Add more supported locales for the `Gather` verb.
+
+
+[2020-06-10] Version 7.52.0
+---------------------------
+**Library - Docs**
+- [PR #533](https://github.com/twilio/twilio-java/pull/533): link to custom HTTP client instructions. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+- [PR #532](https://github.com/twilio/twilio-java/pull/532): link to descriptive exception types. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Library - Chore**
+- [PR #531](https://github.com/twilio/twilio-java/pull/531): drop the region being passed to each request in the REST object. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Feature**
+- [PR #530](https://github.com/twilio/twilio-java/pull/530): add regional and edge support. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Api**
+- Added `pstnconnectivity` to `usage_record` API
+
+**Autopilot**
+- Add dialogue_sid param to Query list resource
+
+**Notify**
+- delivery_callback_url and delivery_callback_enabled added
+
+**Numbers**
+- Add `provisionally-approved` as a Bundle status
+
+**Preview**
+- `BrandsInformation` endpoint now returns a single `BrandsInformation`
+- Deleted phone number required field in the brand phone number endpoint from `kyc-api`
+- Removed insights `preview API` from API Definitions **(breaking change)**
+- Added `BrandsInformation` endpoint to query brands information stored in KYC
+
+**Supersim**
+- Require a Network Access Profile when creating a Fleet **(breaking change)**
+
+
+[2020-05-27] Version 7.51.0
+---------------------------
+**Library - Fix**
+- [PR #529](https://github.com/twilio/twilio-java/pull/529): Fix datetime filter when the DateTime instances have timezone other than UTC. Thanks to [@adrianboimvaser](https://github.com/adrianboimvaser)!
+
+**Api**
+- Added `reason_conference_ended` and `call_sid_ending_conference` to Conference read/fetch/update
+- Fixed some examples to use the correct "TK" SID prefix for Trunk resources.
+
+**Authy**
+- Renamed `twilio_authy_sandbox_mode` headers to `twilio_sandbox_mode` **(breaking change)**
+- Renamed `Twilio-Authy-*` headers to `Twilio-Veriry-*` **(breaking change)**
+
+**Flex**
+- Adding `flex_service_instance_sid` to Flex Configuration
+
+**Preview**
+- Removed insights preview API from API Definitions **(breaking change)**
+- Added `Channels` endpoint to brand a phone number for BrandedCalls
+
+**Serverless**
+- Add Build Sid to Log results
+
+**Supersim**
+- Add Network Access Profile resource Networks subresource
+- Allow specifying a Data Limit on Fleets
+
+**Trunking**
+- Fixed some examples to use the correct "TK" SID prefix for Trunk resources.
+
+
+[2020-05-13] Version 7.50.1
+---------------------------
+**Library - Chore**
+- [PR #526](https://github.com/twilio/twilio-java/pull/526): bump jackson 2.10.4. Thanks to [@sullis](https://github.com/sullis)!
+
+**Api**
+- Add optional `emergency_caller_sid` parameter to SIP Domain
+- Updated `call_reason` optional property to be treated as PII
+- Added optional BYOC Trunk Sid property to Sip Domain API resource
+
+**Autopilot**
+- Add Restore resource to Autopilot Assistant
+
+**Contacts**
+- Added contacts Create API definition
+
+**Events**
+- Subscriptions API initial release
+
+**Numbers**
+- Add Evaluations API
+
+**Supersim**
+- Allow filtering the Fleets resource by Network Access Profile
+- Allow assigning a Network Access Profile when creating and updating a Fleet
+- Add Network Access Profiles resource
+
+**Verify**
+- Add `CustomCode` optional parameter on Verification creation.
+- Add delete action on Service resource.
+
+**Voice**
+- Added endpoints for BYOC trunks, SIP connection policies and source IP mappings
+
+
+[2020-04-29] Version 7.50.0
+---------------------------
+**Library - Feature**
+- [PR #524](https://github.com/twilio/twilio-java/pull/524): add error details to rest and api exceptions. Thanks to [@ashish-s](https://github.com/ashish-s)!
+
+**Preview**
+- Added `Dispatch` version to `preview`
+
+**Studio**
+- Reroute Create Execution for V2 to the V2 downstream
+
+**Supersim**
+- Add Networks resource
+
+
+[2020-04-15] Version 7.49.1
+---------------------------
+**Library - Fix**
+- [PR #523](https://github.com/twilio/twilio-java/pull/523): adding new constructor. Thanks to [@Salil999](https://github.com/Salil999)!
+
+**Library - Docs**
+- [PR #522](https://github.com/twilio/twilio-java/pull/522): instructions on building your own local .jar. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Library - Chore**
+- [PR #521](https://github.com/twilio/twilio-java/pull/521): remove S3 URLs from test data. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Api**
+- Updated description for property `call_reason` in the call create request
+
+**Contacts**
+- Added Read, Delete All, and Delete by SID docs
+- Initial Release
+
+**Studio**
+- Rename `flow_valid` to `flow_validate`
+- Removed `errors` and `warnings` from flows error response and added new property named `details`
+- Add Update Execution endpoints to v1 and v2 to end execution via API
+- Add new `warnings` attribute v2 flow POST api
+
+**Twiml**
+- Add enhanced attribute to use with `speech_model` for the `Gather` verb
+
+
+[2020-04-01] Version 7.49.0
+---------------------------
+**Library - Fix**
+- [PR #520](https://github.com/twilio/twilio-java/pull/520): add exclusions for dependency convergence checks. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Api**
+- Add optional 'secure' parameter to SIP Domain
+
+**Authy**
+- Added an endpoint to list the challenges of a factor
+- Added optional parameter `Push` when updating a service to send the service level push factor configuration
+
+**Bulkexports**
+- exposing bulk exports (vault/slapchop) API as public beta API
+
+**Flex**
+- Adding `queue_stats_configuration` and `wfm_integrations` to Flex Configuration
+
+**Serverless**
+- Add Function Version Content endpoint
+- Allow build_sid to be optional for deployment requests
+
+**Supersim**
+- Remove `deactivated` status for Super SIM which is replaced by `inactive` **(breaking change)**
+
+
+[2020-03-18] Version 7.48.0
+---------------------------
+**Library - Chore**
+- [PR #519](https://github.com/twilio/twilio-java/pull/519): upgrade jackson to 2.10.3. Thanks to [@sullis](https://github.com/sullis)!
+
+**Library - Fix**
+- [PR #502](https://github.com/twilio/twilio-java/pull/502): shut down executorService thread automatically to allow the JVM to shut down gracefully. Thanks to [@Salil999](https://github.com/Salil999)!
+
+**Api**
+- Add optional `emergency_calling_enabled` parameter to SIP Domain
+- Add optional property `call_reason` in the call create request
+
+**Authy**
+- Added `friendly_name` and `config` as optional params to Factor update
+- Added `config` param to Factor creation **(breaking change)**
+
+**Preview**
+- Renamed `SuccessRate` endpoint to `ImpressionsRate` for Branded Calls (fka. Verified by Twilio) **(breaking change)**
+
+
+[2020-03-04] Version 7.47.6
+---------------------------
+**Library - Chore**
+- [PR #518](https://github.com/twilio/twilio-java/pull/518): fix JDK Travis failures. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Authy**
+- Added the `configuration` property to services to return the service level configurations
+- Added optional parameter `Push` when creating a service to send the service level push factor configuration
+- Remove FactorStrength support for Factors and Challenges **(breaking change)**
+
+**Messaging**
+- Correct the alpha sender capabilities property type **(breaking change)**
+
+**Preview**
+- Removed `/Devices` register Branded Calls endpoint, as per iOS sample app deprecation **(breaking change)**
+- Removed `Twilio-Sandbox-Mode` request header from the Branded Calls endpoints, as not officially supported **(breaking change)**
+- Removed `Verify` version from `preview` subdomain in favor to `verify` subdomain. **(breaking change)**
+
+**Serverless**
+- Add UI-Editable field to Services
+
+**Supersim**
+- Add `inactive` status for Super SIM which is an alias for `deactivated`
+
+**Taskrouter**
+- Adding value range to `priority` in task endpoint
+
+**Verify**
+- Fix `SendCodeAttempts` type. It's an array of objects instead of a unique object. **(breaking change)**
+
+
+[2020-02-19] Version 7.47.5
+---------------------------
+**Library - Fix**
+- [PR #516](https://github.com/twilio/twilio-java/pull/516): Do not include null values in JWT payloads. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Api**
+- Make call create parameters `async_amd`, `async_amd_status_callback`, and `async_amd_status_callback_method` public
+- Add `trunk_sid` as an optional field to Call resource fetch/read responses
+- Add property `queue_time` to successful response of create, fetch, and update requests for Call
+- Add optional parameter `byoc` to conference participant create.
+
+**Authy**
+- Added support for challenges associated to push factors
+
+**Flex**
+- Adding `ui_dependencies` to Flex Configuration
+
+**Messaging**
+- Deprecate Session API **(breaking change)**
+
+**Numbers**
+- Add Regulations API
+
+**Studio**
+- Add Execution and Step endpoints to v2 API
+- Add webhook_url to Flow response and add new /TestUsers endpoint to v2 API
+
+**Taskrouter**
+- Adding `longest_relative_task_age_in_queue` and `longest_relative_task_sid_in_queue` to TaskQueue Real Time Statistics API.
+- Add `wait_duration_in_queue_until_accepted` aggregations to TaskQueues Cumulative Statistics endpoint
+- Add TaskQueueEnteredDate property to Tasks.
+
+**Video**
+- [Composer] Clarification for the composition hooks creation documentation: one source is mandatory, either the `audio_sources` or the `video_layout`, but one of them has to be provided
+- [Composer] `audio_sources` type on the composer HTTP POST command, changed from `sid[]` to `string[]` **(breaking change)**
+- [Composer] Clarification for the composition creation documentation: one source is mandatory, either the `audio_sources` or the `video_layout`, but one of them has to be provided
+
+
+[2020-02-05] Version 7.47.4
+---------------------------
+**Library - Chore**
+- [PR #514](https://github.com/twilio/twilio-java/pull/514): Update jjwt dependency version 0.10.7. Thanks to [@eager](https://github.com/eager)!
+
+**Library - Test**
+- [PR #506](https://github.com/twilio/twilio-java/pull/506): use [equalsverifier] library to verify 'equals' methods. Thanks to [@sullis](https://github.com/sullis)!
+
+**Api**
+- Making content retention and address retention public
+- Update `status` enum for Messages to include 'partially_delivered'
+
+**Authy**
+- Added support for push factors
+
+**Autopilot**
+- Add one new property in Query i.e dialogue_sid
+
+**Verify**
+- Add `SendCodeAttempts` to create verification response.
+
+**Video**
+- Clarification in composition creation documentation: one source is mandatory, either `audio_sources` or `video_layout`, but on of them has to be provided
+
+**Twiml**
+- Add Polly Neural voices.
+
+
+[2020-01-23] Version 7.47.3
+---------------------------
+**Library - Docs**
+- [PR #510](https://github.com/twilio/twilio-java/pull/510): baseline all the templated markdown docs. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Chore**
+- [PR #509](https://github.com/twilio/twilio-java/pull/509): Upgrade archunit to version 0.13.0. Thanks to [@sullis](https://github.com/sullis)!
+
+**Api**
+- Add payments public APIs
+- Add optional parameter `byoc` to call create request.
+
+**Flex**
+- Updating a Flex Flow `creation_on_message` parameter documentation
+
+**Preview**
+-
+- Removed Verify v2 from preview in favor of its own namespace as GA **(breaking change)**
+
+**Studio**
+- Flow definition type update from string to object
+
+**Verify**
+- Add `AppHash` parameter when creating a Verification.
+- Add `DoNotShareWarningEnabled` parameter to the Service resource.
+
+**Twiml**
+- Add `track` attribute to siprec noun.
+- Add attribute `byoc` to `<Number>`
+
+
+[2020-01-08] Version 7.47.2
+---------------------------
+**Library - Chore**
+- [PR #508](https://github.com/twilio/twilio-java/pull/508): update jjwt to v0.9.1. Thanks to [@saksham93](https://github.com/saksham93)!
+- [PR #507](https://github.com/twilio/twilio-java/pull/507): upgrade jackson to 2.10.2. Thanks to [@sullis](https://github.com/sullis)!
+
+**Numbers**
+- Add Regulatory Compliance CRUD APIs
+
+**Studio**
+- Add parameter validation for Studio v2 Flows API
+
+**Twiml**
+- Add support for `speech_model` to `Gather` verb
+
+
+[2019-12-18] Version 7.47.1
+---------------------------
+**Preview**
+- Add `/Insights/SuccessRate` endpoint for Businesses Branded Calls (Verified by Twilio)
+
+**Studio**
+- StudioV2 API in beta
+
+**Verify**
+- Add `MailerSid` property to Verify Service resource.
+
+**Wireless**
+- Added `data_limit_strategy` to Rate Plan resource.
+
+
+[2019-12-12] Version 7.47.0
+---------------------------
+**Library**
+- [PR #504](https://github.com/twilio/twilio-java/pull/504): feat: add 'order_by' and 'skip_if' parameters in WorkflowRuleTarget. Thanks to [@nikhil-vk](https://github.com/nikhil-vk)!
+
+**Api**
+- Make `twiml` conditional for create. One of `url`, `twiml`, or `application_sid` is now required.
+- Add `bundle_sid` parameter to /IncomingPhoneNumbers API
+- Removed discard / obfuscate parameters from ContentRetention, AddressRetention **(breaking change)**
+
+**Chat**
+- Added `last_consumed_message_index` and `last_consumption_timestamp` parameters in update method for UserChannel resource **(breaking change)**
+
+**Conversations**
+- Add Participant SID to Message properties
+
+**Messaging**
+- Fix incorrectly typed capabilities property for ShortCodes. **(breaking change)**
+
+
 [2019-12-04] Version 7.46.0
 ---------------------------
 **Library**
@@ -37,7 +512,7 @@ twilio-java changelog
 - [PR #487](https://github.com/twilio/twilio-java/pull/487): Bump jackson-databind from 2.9.9.1 to 2.9.10.1. Thanks to [@dependabot](https://github.com/dependabot)!
 - [PR #486](https://github.com/twilio/twilio-java/pull/486): add TLS 1.2 warning. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
 - [PR #485](https://github.com/twilio/twilio-java/pull/485): Move generated docs to common location. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
-- [PR #484](https://github.com/twilio/twilio-java/pull/484): Auto-deploy via Travis CI upon tagged commit to master. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+- [PR #484](https://github.com/twilio/twilio-java/pull/484): Auto-deploy via Travis CI upon tagged commit to main. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
 
 **Api**
 - Make `persistent_action` parameter public

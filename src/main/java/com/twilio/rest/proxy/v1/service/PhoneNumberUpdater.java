@@ -65,8 +65,7 @@ public class PhoneNumberUpdater extends Updater<PhoneNumber> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PROXY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/PhoneNumbers/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/PhoneNumbers/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -79,14 +78,7 @@ public class PhoneNumberUpdater extends Updater<PhoneNumber> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return PhoneNumber.fromJson(response.getStream(), client.getObjectMapper());

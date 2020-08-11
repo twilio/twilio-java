@@ -47,8 +47,7 @@ public class DefaultsFetcher extends Fetcher<Defaults> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/Defaults",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/Defaults"
         );
 
         Response response = client.request(request);
@@ -60,14 +59,7 @@ public class DefaultsFetcher extends Fetcher<Defaults> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Defaults.fromJson(response.getStream(), client.getObjectMapper());

@@ -178,7 +178,7 @@ public class Asset extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the Asset resource.
+     * Returns The unique string that identifies the Asset resource.
      *
      * @return The unique string that identifies the Asset resource
      */
@@ -187,7 +187,7 @@ public class Asset extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the Asset resource.
+     * Returns The SID of the Account that created the Asset resource.
      *
      * @return The SID of the Account that created the Asset resource
      */
@@ -196,8 +196,7 @@ public class Asset extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the Asset resource is associated
-     * with.
+     * Returns The SID of the Service that the Asset resource is associated with.
      *
      * @return The SID of the Service that the Asset resource is associated with
      */
@@ -206,7 +205,7 @@ public class Asset extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the Asset resource.
+     * Returns The string that you assigned to describe the Asset resource.
      *
      * @return The string that you assigned to describe the Asset resource
      */
@@ -215,7 +214,7 @@ public class Asset extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Asset resource was
+     * Returns The ISO 8601 date and time in GMT when the Asset resource was
      * created.
      *
      * @return The ISO 8601 date and time in GMT when the Asset resource was created
@@ -225,8 +224,8 @@ public class Asset extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Asset resource was
-     * last updated.
+     * Returns The ISO 8601 date and time in GMT when the Asset resource was last
+     * updated.
      *
      * @return The ISO 8601 date and time in GMT when the Asset resource was last
      *         updated
@@ -236,7 +235,7 @@ public class Asset extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Asset resource.
+     * Returns The absolute URL of the Asset resource.
      *
      * @return The absolute URL of the Asset resource
      */
@@ -245,7 +244,7 @@ public class Asset extends Resource {
     }
 
     /**
-     * Returns The The links to the nested resources of the asset.
+     * Returns The links to the nested resources of the asset.
      *
      * @return The links to the nested resources of the asset
      */

@@ -79,8 +79,7 @@ public class WorkerChannelUpdater extends Updater<WorkerChannel> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/" + this.pathWorkerSid + "/Channels/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/" + this.pathWorkerSid + "/Channels/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -93,14 +92,7 @@ public class WorkerChannelUpdater extends Updater<WorkerChannel> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return WorkerChannel.fromJson(response.getStream(), client.getObjectMapper());

@@ -129,7 +129,7 @@ public class UsageRecord extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -138,7 +138,7 @@ public class UsageRecord extends Resource {
     }
 
     /**
-     * Returns The The time period for which usage is reported.
+     * Returns The time period for which usage is reported.
      *
      * @return The time period for which usage is reported
      */
@@ -147,8 +147,8 @@ public class UsageRecord extends Resource {
     }
 
     /**
-     * Returns The An object that describes the aggregated Commands usage for all
-     * SIMs during the specified period.
+     * Returns An object that describes the aggregated Commands usage for all SIMs
+     * during the specified period.
      *
      * @return An object that describes the aggregated Commands usage for all SIMs
      *         during the specified period
@@ -158,8 +158,8 @@ public class UsageRecord extends Resource {
     }
 
     /**
-     * Returns The An object that describes the aggregated Data usage for all SIMs
-     * over the period.
+     * Returns An object that describes the aggregated Data usage for all SIMs over
+     * the period.
      *
      * @return An object that describes the aggregated Data usage for all SIMs over
      *         the period

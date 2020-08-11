@@ -110,7 +110,7 @@ public class EngagementContext extends Resource {
     }
 
     /**
-     * Returns The Account SID.
+     * Returns Account SID.
      *
      * @return Account SID
      */
@@ -119,7 +119,7 @@ public class EngagementContext extends Resource {
     }
 
     /**
-     * Returns The Flow state.
+     * Returns Flow state.
      *
      * @return Flow state
      */
@@ -128,7 +128,7 @@ public class EngagementContext extends Resource {
     }
 
     /**
-     * Returns The Engagement SID.
+     * Returns Engagement SID.
      *
      * @return Engagement SID
      */
@@ -137,7 +137,7 @@ public class EngagementContext extends Resource {
     }
 
     /**
-     * Returns The Flow SID.
+     * Returns Flow SID.
      *
      * @return Flow SID
      */
@@ -146,7 +146,7 @@ public class EngagementContext extends Resource {
     }
 
     /**
-     * Returns The The URL of the resource.
+     * Returns The URL of the resource.
      *
      * @return The URL of the resource
      */

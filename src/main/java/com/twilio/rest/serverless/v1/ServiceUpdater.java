@@ -26,6 +26,7 @@ public class ServiceUpdater extends Updater<Service> {
     private final String pathSid;
     private Boolean includeCredentials;
     private String friendlyName;
+    private Boolean uiEditable;
 
     /**
      * Construct a new ServiceUpdater.
@@ -61,6 +62,19 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
+     * Whether the Service's properties and subresources can be edited via the UI.
+     * The default value is `false`..
+     *
+     * @param uiEditable Whether the Service's properties and subresources can be
+     *                   edited via the UI
+     * @return this
+     */
+    public ServiceUpdater setUiEditable(final Boolean uiEditable) {
+        this.uiEditable = uiEditable;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -72,8 +86,7 @@ public class ServiceUpdater extends Updater<Service> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -86,14 +99,7 @@ public class ServiceUpdater extends Updater<Service> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Service.fromJson(response.getStream(), client.getObjectMapper());
@@ -111,6 +117,10 @@ public class ServiceUpdater extends Updater<Service> {
 
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+        }
+
+        if (uiEditable != null) {
+            request.addPostParam("UiEditable", uiEditable.toString());
         }
     }
 }

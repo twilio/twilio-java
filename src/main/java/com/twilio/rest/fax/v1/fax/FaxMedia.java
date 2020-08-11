@@ -145,7 +145,7 @@ public class FaxMedia extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -154,7 +154,7 @@ public class FaxMedia extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -163,7 +163,7 @@ public class FaxMedia extends Resource {
     }
 
     /**
-     * Returns The The SID of the fax the FaxMedia resource is associated with.
+     * Returns The SID of the fax the FaxMedia resource is associated with.
      *
      * @return The SID of the fax the FaxMedia resource is associated with
      */
@@ -172,7 +172,7 @@ public class FaxMedia extends Resource {
     }
 
     /**
-     * Returns The The content type of the stored fax media.
+     * Returns The content type of the stored fax media.
      *
      * @return The content type of the stored fax media
      */
@@ -181,7 +181,7 @@ public class FaxMedia extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -190,8 +190,7 @@ public class FaxMedia extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -200,7 +199,7 @@ public class FaxMedia extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the FaxMedia resource.
+     * Returns The absolute URL of the FaxMedia resource.
      *
      * @return The absolute URL of the FaxMedia resource
      */

@@ -28,7 +28,7 @@ public class ExportFetcher extends Fetcher<Export> {
     /**
      * Construct a new ExportFetcher.
      *
-     * @param pathResourceType The resource_type
+     * @param pathResourceType The type of communication – Messages, Calls
      */
     public ExportFetcher(final String pathResourceType) {
         this.pathResourceType = pathResourceType;
@@ -46,8 +46,7 @@ public class ExportFetcher extends Fetcher<Export> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/BulkExports/Exports/" + this.pathResourceType + "",
-            client.getRegion()
+            "/BulkExports/Exports/" + this.pathResourceType + ""
         );
 
         Response response = client.request(request);
@@ -59,14 +58,7 @@ public class ExportFetcher extends Fetcher<Export> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Export.fromJson(response.getStream(), client.getObjectMapper());

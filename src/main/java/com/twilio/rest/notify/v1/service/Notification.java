@@ -200,7 +200,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -209,7 +209,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -218,7 +218,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the resource is associated with.
+     * Returns The SID of the Service that the resource is associated with.
      *
      * @return The SID of the Service that the resource is associated with
      */
@@ -227,7 +227,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -236,7 +236,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The list of identity values of the Users to notify.
+     * Returns The list of identity values of the Users to notify.
      *
      * @return The list of identity values of the Users to notify
      */
@@ -245,7 +245,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The tags that select the Bindings to notify.
+     * Returns The tags that select the Bindings to notify.
      *
      * @return The tags that select the Bindings to notify
      */
@@ -254,7 +254,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The list of Segments to notify.
+     * Returns The list of Segments to notify.
      *
      * @return The list of Segments to notify
      */
@@ -263,7 +263,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The priority of the notification.
+     * Returns The priority of the notification.
      *
      * @return The priority of the notification
      */
@@ -272,7 +272,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The How long, in seconds, the notification is valid.
+     * Returns How long, in seconds, the notification is valid.
      *
      * @return How long, in seconds, the notification is valid
      */
@@ -281,7 +281,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The notification title.
+     * Returns The notification title.
      *
      * @return The notification title
      */
@@ -290,7 +290,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The notification body text.
+     * Returns The notification body text.
      *
      * @return The notification body text
      */
@@ -299,7 +299,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The name of the sound to be played for the notification.
+     * Returns The name of the sound to be played for the notification.
      *
      * @return The name of the sound to be played for the notification
      */
@@ -308,7 +308,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The actions to display for the notification.
+     * Returns The actions to display for the notification.
      *
      * @return The actions to display for the notification
      */
@@ -317,7 +317,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The custom key-value pairs of the notification's payload.
+     * Returns The custom key-value pairs of the notification's payload.
      *
      * @return The custom key-value pairs of the notification's payload
      */
@@ -326,8 +326,8 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The APNS-specific payload that overrides corresponding attributes
-     * in a generic payload for APNS Bindings.
+     * Returns The APNS-specific payload that overrides corresponding attributes in
+     * a generic payload for APNS Bindings.
      *
      * @return The APNS-specific payload that overrides corresponding attributes in
      *         a generic payload for APNS Bindings
@@ -337,8 +337,8 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The GCM-specific payload that overrides corresponding attributes
-     * in generic payload for GCM Bindings.
+     * Returns The GCM-specific payload that overrides corresponding attributes in
+     * generic payload for GCM Bindings.
      *
      * @return The GCM-specific payload that overrides corresponding attributes in
      *         generic payload for GCM Bindings
@@ -348,8 +348,8 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The FCM-specific payload that overrides corresponding attributes
-     * in generic payload for FCM Bindings.
+     * Returns The FCM-specific payload that overrides corresponding attributes in
+     * generic payload for FCM Bindings.
      *
      * @return The FCM-specific payload that overrides corresponding attributes in
      *         generic payload for FCM Bindings
@@ -359,8 +359,8 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The SMS-specific payload that overrides corresponding attributes
-     * in generic payload for SMS Bindings.
+     * Returns The SMS-specific payload that overrides corresponding attributes in
+     * generic payload for SMS Bindings.
      *
      * @return The SMS-specific payload that overrides corresponding attributes in
      *         generic payload for SMS Bindings
@@ -370,7 +370,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The Deprecated.
+     * Returns Deprecated.
      *
      * @return Deprecated
      */
@@ -379,7 +379,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The Deprecated.
+     * Returns Deprecated.
      *
      * @return Deprecated
      */

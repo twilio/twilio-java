@@ -237,7 +237,7 @@ public class ConnectApp extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -246,7 +246,7 @@ public class ConnectApp extends Resource {
     }
 
     /**
-     * Returns The The URL to redirect the user to after authorization.
+     * Returns The URL to redirect the user to after authorization.
      *
      * @return The URL to redirect the user to after authorization
      */
@@ -255,7 +255,7 @@ public class ConnectApp extends Resource {
     }
 
     /**
-     * Returns The The company name set for the Connect App.
+     * Returns The company name set for the Connect App.
      *
      * @return The company name set for the Connect App
      */
@@ -264,7 +264,7 @@ public class ConnectApp extends Resource {
     }
 
     /**
-     * Returns The The HTTP method we use to call deauthorize_callback_url.
+     * Returns The HTTP method we use to call deauthorize_callback_url.
      *
      * @return The HTTP method we use to call deauthorize_callback_url
      */
@@ -273,7 +273,7 @@ public class ConnectApp extends Resource {
     }
 
     /**
-     * Returns The The URL we call to de-authorize the Connect App.
+     * Returns The URL we call to de-authorize the Connect App.
      *
      * @return The URL we call to de-authorize the Connect App
      */
@@ -282,7 +282,7 @@ public class ConnectApp extends Resource {
     }
 
     /**
-     * Returns The The description of the Connect App.
+     * Returns The description of the Connect App.
      *
      * @return The description of the Connect App
      */
@@ -291,7 +291,7 @@ public class ConnectApp extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -300,7 +300,7 @@ public class ConnectApp extends Resource {
     }
 
     /**
-     * Returns The The URL users can obtain more information.
+     * Returns The URL users can obtain more information.
      *
      * @return The URL users can obtain more information
      */
@@ -309,7 +309,7 @@ public class ConnectApp extends Resource {
     }
 
     /**
-     * Returns The The set of permissions that your ConnectApp requests.
+     * Returns The set of permissions that your ConnectApp requests.
      *
      * @return The set of permissions that your ConnectApp requests
      */
@@ -318,7 +318,7 @@ public class ConnectApp extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -327,7 +327,7 @@ public class ConnectApp extends Resource {
     }
 
     /**
-     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
      *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */

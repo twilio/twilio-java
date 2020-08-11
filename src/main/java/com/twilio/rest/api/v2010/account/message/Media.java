@@ -188,7 +188,7 @@ public class Media extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created this resource.
+     * Returns The SID of the Account that created this resource.
      *
      * @return The SID of the Account that created this resource
      */
@@ -197,7 +197,7 @@ public class Media extends Resource {
     }
 
     /**
-     * Returns The The default mime-type of the media.
+     * Returns The default mime-type of the media.
      *
      * @return The default mime-type of the media
      */
@@ -206,7 +206,7 @@ public class Media extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that this resource was created.
+     * Returns The RFC 2822 date and time in GMT that this resource was created.
      *
      * @return The RFC 2822 date and time in GMT that this resource was created
      */
@@ -215,7 +215,7 @@ public class Media extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that this resource was last
+     * Returns The RFC 2822 date and time in GMT that this resource was last
      * updated.
      *
      * @return The RFC 2822 date and time in GMT that this resource was last updated
@@ -225,7 +225,7 @@ public class Media extends Resource {
     }
 
     /**
-     * Returns The The SID of the resource that created the media.
+     * Returns The SID of the resource that created the media.
      *
      * @return The SID of the resource that created the media
      */
@@ -234,7 +234,7 @@ public class Media extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies this resource.
+     * Returns The unique string that identifies this resource.
      *
      * @return The unique string that identifies this resource
      */
@@ -243,7 +243,7 @@ public class Media extends Resource {
     }
 
     /**
-     * Returns The The URI of this resource, relative to `https://api.twilio.com`.
+     * Returns The URI of this resource, relative to `https://api.twilio.com`.
      *
      * @return The URI of this resource, relative to `https://api.twilio.com`
      */

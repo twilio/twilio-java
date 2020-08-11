@@ -52,7 +52,7 @@ public class TaskCreator extends Creator<Task> {
      * The priority to assign the new task and override the default. When supplied,
      * the new Task will have this priority unless it matches a Workflow Target with
      * a Priority set. When not supplied, the new Task will have the priority of the
-     * matching Workflow Target..
+     * matching Workflow Target. Value can be 0 to 2^31^ (2,147,483,647)..
      *
      * @param priority The priority to assign the new task and override the default
      * @return this
@@ -116,8 +116,7 @@ public class TaskCreator extends Creator<Task> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Tasks",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Tasks"
         );
 
         addPostParams(request);
@@ -130,14 +129,7 @@ public class TaskCreator extends Creator<Task> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Task.fromJson(response.getStream(), client.getObjectMapper());

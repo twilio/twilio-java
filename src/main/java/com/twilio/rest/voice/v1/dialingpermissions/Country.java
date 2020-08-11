@@ -137,7 +137,7 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The The ISO country code.
+     * Returns The ISO country code.
      *
      * @return The ISO country code
      */
@@ -146,7 +146,7 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The The name of the country.
+     * Returns The name of the country.
      *
      * @return The name of the country
      */
@@ -155,7 +155,7 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The The name of the continent in which the country is located.
+     * Returns The name of the continent in which the country is located.
      *
      * @return The name of the continent in which the country is located
      */
@@ -164,7 +164,7 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The The E.164 assigned country codes(s).
+     * Returns The E.164 assigned country codes(s).
      *
      * @return The E.164 assigned country codes(s)
      */
@@ -173,7 +173,7 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The Whether dialing to low-risk numbers is enabled.
+     * Returns Whether dialing to low-risk numbers is enabled.
      *
      * @return Whether dialing to low-risk numbers is enabled
      */
@@ -182,7 +182,7 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The Whether dialing to high-risk special services numbers is enabled.
+     * Returns Whether dialing to high-risk special services numbers is enabled.
      *
      * @return Whether dialing to high-risk special services numbers is enabled
      */
@@ -191,7 +191,7 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The Whether dialing to high-risk toll fraud numbers is enabled, else
+     * Returns Whether dialing to high-risk toll fraud numbers is enabled, else
      * `false`.
      *
      * @return Whether dialing to high-risk toll fraud numbers is enabled, else
@@ -202,7 +202,7 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of this resource.
+     * Returns The absolute URL of this resource.
      *
      * @return The absolute URL of this resource
      */
@@ -211,7 +211,7 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The A list of URLs related to this resource.
+     * Returns A list of URLs related to this resource.
      *
      * @return A list of URLs related to this resource
      */

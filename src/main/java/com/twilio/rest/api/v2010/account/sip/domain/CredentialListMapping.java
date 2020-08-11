@@ -216,8 +216,7 @@ public class CredentialListMapping extends Resource {
     }
 
     /**
-     * Returns The The unique id of the Account that is responsible for this
-     * resource..
+     * Returns The unique id of the Account that is responsible for this resource..
      *
      * @return The unique id of the Account that is responsible for this resource.
      */
@@ -226,7 +225,7 @@ public class CredentialListMapping extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was created, given as GMT in RFC 2822
+     * Returns The date that this resource was created, given as GMT in RFC 2822
      * format..
      *
      * @return The date that this resource was created, given as GMT in RFC 2822
@@ -237,7 +236,7 @@ public class CredentialListMapping extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was last updated, given as GMT in RFC
+     * Returns The date that this resource was last updated, given as GMT in RFC
      * 2822 format..
      *
      * @return The date that this resource was last updated, given as GMT in RFC
@@ -248,7 +247,7 @@ public class CredentialListMapping extends Resource {
     }
 
     /**
-     * Returns The A human readable descriptive text for this resource, up to 64
+     * Returns A human readable descriptive text for this resource, up to 64
      * characters long..
      *
      * @return A human readable descriptive text for this resource, up to 64
@@ -259,7 +258,7 @@ public class CredentialListMapping extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns A 34 character string that uniquely identifies this resource..
      *
      * @return A 34 character string that uniquely identifies this resource.
      */
@@ -268,7 +267,7 @@ public class CredentialListMapping extends Resource {
     }
 
     /**
-     * Returns The The URI for this resource, relative to https://api.twilio.com.
+     * Returns The URI for this resource, relative to https://api.twilio.com.
      *
      * @return The URI for this resource, relative to https://api.twilio.com
      */
@@ -277,7 +276,7 @@ public class CredentialListMapping extends Resource {
     }
 
     /**
-     * Returns The The credentials associated with this resource..
+     * Returns The credentials associated with this resource..
      *
      * @return The credentials associated with this resource.
      */

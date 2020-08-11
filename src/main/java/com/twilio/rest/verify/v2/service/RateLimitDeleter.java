@@ -17,10 +17,6 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class RateLimitDeleter extends Deleter<RateLimit> {
     private final String pathServiceSid;
     private final String pathSid;
@@ -49,8 +45,7 @@ public class RateLimitDeleter extends Deleter<RateLimit> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/RateLimits/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/RateLimits/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +57,7 @@ public class RateLimitDeleter extends Deleter<RateLimit> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

@@ -26,6 +26,7 @@ public class ServiceCreator extends Creator<Service> {
     private final String uniqueName;
     private final String friendlyName;
     private Boolean includeCredentials;
+    private Boolean uiEditable;
 
     /**
      * Construct a new ServiceCreator.
@@ -54,6 +55,19 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
+     * Whether the Service's properties and subresources can be edited via the UI.
+     * The default value is `false`..
+     *
+     * @param uiEditable Whether the Service's properties and subresources can be
+     *                   edited via the UI
+     * @return this
+     */
+    public ServiceCreator setUiEditable(final Boolean uiEditable) {
+        this.uiEditable = uiEditable;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -65,8 +79,7 @@ public class ServiceCreator extends Creator<Service> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SERVERLESS.toString(),
-            "/v1/Services",
-            client.getRegion()
+            "/v1/Services"
         );
 
         addPostParams(request);
@@ -79,14 +92,7 @@ public class ServiceCreator extends Creator<Service> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Service.fromJson(response.getStream(), client.getObjectMapper());
@@ -108,6 +114,10 @@ public class ServiceCreator extends Creator<Service> {
 
         if (includeCredentials != null) {
             request.addPostParam("IncludeCredentials", includeCredentials.toString());
+        }
+
+        if (uiEditable != null) {
+            request.addPostParam("UiEditable", uiEditable.toString());
         }
     }
 }

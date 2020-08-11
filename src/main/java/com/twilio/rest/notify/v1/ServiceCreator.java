@@ -34,6 +34,8 @@ public class ServiceCreator extends Creator<Service> {
     private Boolean logEnabled;
     private String alexaSkillId;
     private String defaultAlexaNotificationProtocolVersion;
+    private String deliveryCallbackUrl;
+    private Boolean deliveryCallbackEnabled;
 
     /**
      * A descriptive string that you create to describe the resource. It can be up
@@ -189,6 +191,28 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
+     * URL to send delivery status callback..
+     *
+     * @param deliveryCallbackUrl Webhook URL
+     * @return this
+     */
+    public ServiceCreator setDeliveryCallbackUrl(final String deliveryCallbackUrl) {
+        this.deliveryCallbackUrl = deliveryCallbackUrl;
+        return this;
+    }
+
+    /**
+     * Callback configuration that enables delivery callbacks, default false.
+     *
+     * @param deliveryCallbackEnabled Enable delivery callbacks
+     * @return this
+     */
+    public ServiceCreator setDeliveryCallbackEnabled(final Boolean deliveryCallbackEnabled) {
+        this.deliveryCallbackEnabled = deliveryCallbackEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -200,8 +224,7 @@ public class ServiceCreator extends Creator<Service> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.NOTIFY.toString(),
-            "/v1/Services",
-            client.getRegion()
+            "/v1/Services"
         );
 
         addPostParams(request);
@@ -214,14 +237,7 @@ public class ServiceCreator extends Creator<Service> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Service.fromJson(response.getStream(), client.getObjectMapper());
@@ -279,6 +295,14 @@ public class ServiceCreator extends Creator<Service> {
 
         if (defaultAlexaNotificationProtocolVersion != null) {
             request.addPostParam("DefaultAlexaNotificationProtocolVersion", defaultAlexaNotificationProtocolVersion);
+        }
+
+        if (deliveryCallbackUrl != null) {
+            request.addPostParam("DeliveryCallbackUrl", deliveryCallbackUrl);
+        }
+
+        if (deliveryCallbackEnabled != null) {
+            request.addPostParam("DeliveryCallbackEnabled", deliveryCallbackEnabled.toString());
         }
     }
 }

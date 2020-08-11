@@ -192,7 +192,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -201,7 +201,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -210,7 +210,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The SID of the PhoneNumber resource's parent Service resource.
+     * Returns The SID of the PhoneNumber resource's parent Service resource.
      *
      * @return The SID of the PhoneNumber resource's parent Service resource
      */
@@ -219,7 +219,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -228,8 +228,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -238,7 +237,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The phone number in E.164 format.
+     * Returns The phone number in E.164 format.
      *
      * @return The phone number in E.164 format
      */
@@ -247,7 +246,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -256,7 +255,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The ISO Country Code.
+     * Returns The ISO Country Code.
      *
      * @return The ISO Country Code
      */
@@ -265,7 +264,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The capabilities of the phone number.
+     * Returns The capabilities of the phone number.
      *
      * @return The capabilities of the phone number
      */
@@ -274,7 +273,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the PhoneNumber resource.
+     * Returns The absolute URL of the PhoneNumber resource.
      *
      * @return The absolute URL of the PhoneNumber resource
      */
@@ -283,8 +282,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The Reserve the phone number for manual assignment to participants
-     * only.
+     * Returns Reserve the phone number for manual assignment to participants only.
      *
      * @return Reserve the phone number for manual assignment to participants only
      */
@@ -293,7 +291,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The number of open session assigned to the number..
+     * Returns The number of open session assigned to the number..
      *
      * @return The number of open session assigned to the number.
      */

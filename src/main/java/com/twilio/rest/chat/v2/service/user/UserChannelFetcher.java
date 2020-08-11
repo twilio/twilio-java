@@ -52,8 +52,7 @@ public class UserChannelFetcher extends Fetcher<UserChannel> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.CHAT.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Users/" + this.pathUserSid + "/Channels/" + this.pathChannelSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Users/" + this.pathUserSid + "/Channels/" + this.pathChannelSid + ""
         );
 
         Response response = client.request(request);
@@ -65,14 +64,7 @@ public class UserChannelFetcher extends Fetcher<UserChannel> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return UserChannel.fromJson(response.getStream(), client.getObjectMapper());

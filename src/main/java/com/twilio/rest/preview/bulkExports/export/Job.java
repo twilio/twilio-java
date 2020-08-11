@@ -38,7 +38,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Job extends Resource {
-    private static final long serialVersionUID = 26785136061728L;
+    private static final long serialVersionUID = 26365801574783L;
 
     /**
      * Create a JobFetcher to execute fetch.
@@ -53,7 +53,8 @@ public class Job extends Resource {
     /**
      * Create a JobDeleter to execute delete.
      *
-     * @param pathJobSid The job_sid
+     * @param pathJobSid The unique string that that we created to identify the
+     *                   Bulk Export job
      * @return JobDeleter capable of executing the delete
      */
     public static JobDeleter deleter(final String pathJobSid) {
@@ -103,6 +104,9 @@ public class Job extends Resource {
     private final String startDay;
     private final String endDay;
     private final String jobSid;
+    private final String webhookUrl;
+    private final String webhookMethod;
+    private final String email;
     private final URI url;
 
     @JsonCreator
@@ -118,6 +122,12 @@ public class Job extends Resource {
                 final String endDay,
                 @JsonProperty("job_sid")
                 final String jobSid,
+                @JsonProperty("webhook_url")
+                final String webhookUrl,
+                @JsonProperty("webhook_method")
+                final String webhookMethod,
+                @JsonProperty("email")
+                final String email,
                 @JsonProperty("url")
                 final URI url) {
         this.resourceType = resourceType;
@@ -126,11 +136,14 @@ public class Job extends Resource {
         this.startDay = startDay;
         this.endDay = endDay;
         this.jobSid = jobSid;
+        this.webhookUrl = webhookUrl;
+        this.webhookMethod = webhookMethod;
+        this.email = email;
         this.url = url;
     }
 
     /**
-     * Returns The The type of communication – Messages, Calls.
+     * Returns The type of communication – Messages, Calls.
      *
      * @return The type of communication – Messages, Calls
      */
@@ -139,7 +152,7 @@ public class Job extends Resource {
     }
 
     /**
-     * Returns The The friendly name specified when creating the job.
+     * Returns The friendly name specified when creating the job.
      *
      * @return The friendly name specified when creating the job
      */
@@ -148,9 +161,9 @@ public class Job extends Resource {
     }
 
     /**
-     * Returns The This is a list of the completed, pending, or errored dates within
-     * the export time range, with one entry for each status with more than one day
-     * in that status.
+     * Returns This is a list of the completed, pending, or errored dates within the
+     * export time range, with one entry for each status with more than one day in
+     * that status.
      *
      * @return This is a list of the completed, pending, or errored dates within
      *         the export time range, with one entry for each status with more than
@@ -161,7 +174,7 @@ public class Job extends Resource {
     }
 
     /**
-     * Returns The The start time for the export specified when creating the job.
+     * Returns The start time for the export specified when creating the job.
      *
      * @return The start time for the export specified when creating the job
      */
@@ -170,7 +183,7 @@ public class Job extends Resource {
     }
 
     /**
-     * Returns The The end time for the export specified when creating the job.
+     * Returns The end time for the export specified when creating the job.
      *
      * @return The end time for the export specified when creating the job
      */
@@ -179,7 +192,7 @@ public class Job extends Resource {
     }
 
     /**
-     * Returns The The job_sid returned when the export was created.
+     * Returns The job_sid returned when the export was created.
      *
      * @return The job_sid returned when the export was created
      */
@@ -188,7 +201,34 @@ public class Job extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The optional webhook url called on completion.
+     *
+     * @return The optional webhook url called on completion
+     */
+    public final String getWebhookUrl() {
+        return this.webhookUrl;
+    }
+
+    /**
+     * Returns This is the method used to call the webhook.
+     *
+     * @return This is the method used to call the webhook
+     */
+    public final String getWebhookMethod() {
+        return this.webhookMethod;
+    }
+
+    /**
+     * Returns The optional email to send the completion notification to.
+     *
+     * @return The optional email to send the completion notification to
+     */
+    public final String getEmail() {
+        return this.email;
+    }
+
+    /**
+     * Returns The url.
      *
      * @return The url
      */
@@ -214,6 +254,9 @@ public class Job extends Resource {
                Objects.equals(startDay, other.startDay) &&
                Objects.equals(endDay, other.endDay) &&
                Objects.equals(jobSid, other.jobSid) &&
+               Objects.equals(webhookUrl, other.webhookUrl) &&
+               Objects.equals(webhookMethod, other.webhookMethod) &&
+               Objects.equals(email, other.email) &&
                Objects.equals(url, other.url);
     }
 
@@ -225,6 +268,9 @@ public class Job extends Resource {
                             startDay,
                             endDay,
                             jobSid,
+                            webhookUrl,
+                            webhookMethod,
+                            email,
                             url);
     }
 
@@ -237,6 +283,9 @@ public class Job extends Resource {
                           .add("startDay", startDay)
                           .add("endDay", endDay)
                           .add("jobSid", jobSid)
+                          .add("webhookUrl", webhookUrl)
+                          .add("webhookMethod", webhookMethod)
+                          .add("email", email)
                           .add("url", url)
                           .toString();
     }

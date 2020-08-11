@@ -189,7 +189,7 @@ public class AuthorizedConnectApp extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -198,7 +198,7 @@ public class AuthorizedConnectApp extends Resource {
     }
 
     /**
-     * Returns The The company name set for the Connect App.
+     * Returns The company name set for the Connect App.
      *
      * @return The company name set for the Connect App
      */
@@ -207,7 +207,7 @@ public class AuthorizedConnectApp extends Resource {
     }
 
     /**
-     * Returns The A detailed description of the app.
+     * Returns A detailed description of the app.
      *
      * @return A detailed description of the app
      */
@@ -216,7 +216,7 @@ public class AuthorizedConnectApp extends Resource {
     }
 
     /**
-     * Returns The The name of the Connect App.
+     * Returns The name of the Connect App.
      *
      * @return The name of the Connect App
      */
@@ -225,7 +225,7 @@ public class AuthorizedConnectApp extends Resource {
     }
 
     /**
-     * Returns The The public URL for the Connect App.
+     * Returns The public URL for the Connect App.
      *
      * @return The public URL for the Connect App
      */
@@ -234,7 +234,7 @@ public class AuthorizedConnectApp extends Resource {
     }
 
     /**
-     * Returns The The SID that we assigned to the Connect App.
+     * Returns The SID that we assigned to the Connect App.
      *
      * @return The SID that we assigned to the Connect App
      */
@@ -243,7 +243,7 @@ public class AuthorizedConnectApp extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was created.
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
@@ -252,8 +252,7 @@ public class AuthorizedConnectApp extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
@@ -262,7 +261,7 @@ public class AuthorizedConnectApp extends Resource {
     }
 
     /**
-     * Returns The Permissions authorized to the app.
+     * Returns Permissions authorized to the app.
      *
      * @return Permissions authorized to the app
      */
@@ -271,7 +270,7 @@ public class AuthorizedConnectApp extends Resource {
     }
 
     /**
-     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
      *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */

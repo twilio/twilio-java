@@ -68,8 +68,7 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Documents/" + this.pathDocumentSid + "/Permissions/" + this.pathIdentity + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Documents/" + this.pathDocumentSid + "/Permissions/" + this.pathIdentity + ""
         );
 
         addPostParams(request);
@@ -82,14 +81,7 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return DocumentPermission.fromJson(response.getStream(), client.getObjectMapper());

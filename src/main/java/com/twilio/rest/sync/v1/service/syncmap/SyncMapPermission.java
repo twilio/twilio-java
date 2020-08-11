@@ -184,7 +184,7 @@ public class SyncMapPermission extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -193,7 +193,7 @@ public class SyncMapPermission extends Resource {
     }
 
     /**
-     * Returns The The SID of the Sync Service that the resource is associated with.
+     * Returns The SID of the Sync Service that the resource is associated with.
      *
      * @return The SID of the Sync Service that the resource is associated with
      */
@@ -202,7 +202,7 @@ public class SyncMapPermission extends Resource {
     }
 
     /**
-     * Returns The Sync Map SID.
+     * Returns Sync Map SID.
      *
      * @return Sync Map SID
      */
@@ -211,7 +211,7 @@ public class SyncMapPermission extends Resource {
     }
 
     /**
-     * Returns The The identity of the user to whom the Sync Document Permission
+     * Returns The identity of the user to whom the Sync Document Permission
      * applies.
      *
      * @return The identity of the user to whom the Sync Document Permission applies
@@ -221,7 +221,7 @@ public class SyncMapPermission extends Resource {
     }
 
     /**
-     * Returns The Read access.
+     * Returns Read access.
      *
      * @return Read access
      */
@@ -230,7 +230,7 @@ public class SyncMapPermission extends Resource {
     }
 
     /**
-     * Returns The Write access.
+     * Returns Write access.
      *
      * @return Write access
      */
@@ -239,7 +239,7 @@ public class SyncMapPermission extends Resource {
     }
 
     /**
-     * Returns The Manage access.
+     * Returns Manage access.
      *
      * @return Manage access
      */
@@ -248,7 +248,7 @@ public class SyncMapPermission extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Sync Map Permission resource.
+     * Returns The absolute URL of the Sync Map Permission resource.
      *
      * @return The absolute URL of the Sync Map Permission resource
      */

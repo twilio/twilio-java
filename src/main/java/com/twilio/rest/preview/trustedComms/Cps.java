@@ -102,7 +102,7 @@ public class Cps extends Resource {
     }
 
     /**
-     * Returns The CPS URL of the phone number..
+     * Returns CPS URL of the phone number..
      *
      * @return CPS URL of the phone number.
      */
@@ -111,7 +111,7 @@ public class Cps extends Resource {
     }
 
     /**
-     * Returns The Phone number passed..
+     * Returns Phone number passed..
      *
      * @return Phone number passed.
      */
@@ -120,7 +120,7 @@ public class Cps extends Resource {
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The URL of this resource..
      *
      * @return The URL of this resource.
      */

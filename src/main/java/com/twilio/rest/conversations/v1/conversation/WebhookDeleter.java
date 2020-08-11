@@ -49,8 +49,7 @@ public class WebhookDeleter extends Deleter<Webhook> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.CONVERSATIONS.toString(),
-            "/v1/Conversations/" + this.pathConversationSid + "/Webhooks/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Conversations/" + this.pathConversationSid + "/Webhooks/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +61,7 @@ public class WebhookDeleter extends Deleter<Webhook> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

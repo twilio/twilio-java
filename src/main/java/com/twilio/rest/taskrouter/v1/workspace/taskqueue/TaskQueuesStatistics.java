@@ -107,7 +107,7 @@ public class TaskQueuesStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -116,8 +116,7 @@ public class TaskQueuesStatistics extends Resource {
     }
 
     /**
-     * Returns The An object that contains the cumulative statistics for the
-     * TaskQueues.
+     * Returns An object that contains the cumulative statistics for the TaskQueues.
      *
      * @return An object that contains the cumulative statistics for the TaskQueues
      */
@@ -126,8 +125,7 @@ public class TaskQueuesStatistics extends Resource {
     }
 
     /**
-     * Returns The An object that contains the real-time statistics for the
-     * TaskQueues.
+     * Returns An object that contains the real-time statistics for the TaskQueues.
      *
      * @return An object that contains the real-time statistics for the TaskQueues
      */
@@ -136,8 +134,7 @@ public class TaskQueuesStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the TaskQueue from which these statistics were
-     * calculated.
+     * Returns The SID of the TaskQueue from which these statistics were calculated.
      *
      * @return The SID of the TaskQueue from which these statistics were calculated
      */
@@ -146,7 +143,7 @@ public class TaskQueuesStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Workspace that contains the TaskQueues.
+     * Returns The SID of the Workspace that contains the TaskQueues.
      *
      * @return The SID of the Workspace that contains the TaskQueues
      */

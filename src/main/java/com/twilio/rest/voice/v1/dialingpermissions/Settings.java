@@ -108,8 +108,8 @@ public class Settings extends Resource {
     }
 
     /**
-     * Returns The `true` if the sub-account will inherit voice dialing permissions
-     * from the Master Project; otherwise `false`.
+     * Returns `true` if the sub-account will inherit voice dialing permissions from
+     * the Master Project; otherwise `false`.
      *
      * @return `true` if the sub-account will inherit voice dialing permissions
      *         from the Master Project; otherwise `false`
@@ -119,7 +119,7 @@ public class Settings extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of this resource.
+     * Returns The absolute URL of this resource.
      *
      * @return The absolute URL of this resource
      */

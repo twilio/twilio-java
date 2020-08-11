@@ -58,8 +58,7 @@ public class CallSummaryFetcher extends Fetcher<CallSummary> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.INSIGHTS.toString(),
-            "/v1/Voice/" + this.pathCallSid + "/Summary",
-            client.getRegion()
+            "/v1/Voice/" + this.pathCallSid + "/Summary"
         );
 
         addQueryParams(request);
@@ -72,14 +71,7 @@ public class CallSummaryFetcher extends Fetcher<CallSummary> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return CallSummary.fromJson(response.getStream(), client.getObjectMapper());

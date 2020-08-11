@@ -64,8 +64,7 @@ public class IpAccessControlListMappingDeleter extends Deleter<IpAccessControlLi
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/IpAccessControlListMappings/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/IpAccessControlListMappings/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);
@@ -77,14 +76,7 @@ public class IpAccessControlListMappingDeleter extends Deleter<IpAccessControlLi
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

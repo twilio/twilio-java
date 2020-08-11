@@ -318,7 +318,7 @@ public class Fax extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -327,7 +327,7 @@ public class Fax extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -336,7 +336,7 @@ public class Fax extends Resource {
     }
 
     /**
-     * Returns The The number the fax was sent from.
+     * Returns The number the fax was sent from.
      *
      * @return The number the fax was sent from
      */
@@ -345,7 +345,7 @@ public class Fax extends Resource {
     }
 
     /**
-     * Returns The The phone number that received the fax.
+     * Returns The phone number that received the fax.
      *
      * @return The phone number that received the fax
      */
@@ -354,7 +354,7 @@ public class Fax extends Resource {
     }
 
     /**
-     * Returns The The quality of the fax.
+     * Returns The quality of the fax.
      *
      * @return The quality of the fax
      */
@@ -363,7 +363,7 @@ public class Fax extends Resource {
     }
 
     /**
-     * Returns The The SID of the FaxMedia resource that is associated with the Fax.
+     * Returns The SID of the FaxMedia resource that is associated with the Fax.
      *
      * @return The SID of the FaxMedia resource that is associated with the Fax
      */
@@ -372,7 +372,7 @@ public class Fax extends Resource {
     }
 
     /**
-     * Returns The The Twilio-hosted URL that can be used to download fax media.
+     * Returns The Twilio-hosted URL that can be used to download fax media.
      *
      * @return The Twilio-hosted URL that can be used to download fax media
      */
@@ -381,7 +381,7 @@ public class Fax extends Resource {
     }
 
     /**
-     * Returns The The number of pages contained in the fax document.
+     * Returns The number of pages contained in the fax document.
      *
      * @return The number of pages contained in the fax document
      */
@@ -390,7 +390,7 @@ public class Fax extends Resource {
     }
 
     /**
-     * Returns The The time it took to transmit the fax.
+     * Returns The time it took to transmit the fax.
      *
      * @return The time it took to transmit the fax
      */
@@ -399,7 +399,7 @@ public class Fax extends Resource {
     }
 
     /**
-     * Returns The The status of the fax.
+     * Returns The status of the fax.
      *
      * @return The status of the fax
      */
@@ -408,7 +408,7 @@ public class Fax extends Resource {
     }
 
     /**
-     * Returns The The direction of the fax.
+     * Returns The direction of the fax.
      *
      * @return The direction of the fax
      */
@@ -417,7 +417,7 @@ public class Fax extends Resource {
     }
 
     /**
-     * Returns The The API version used to transmit the fax.
+     * Returns The API version used to transmit the fax.
      *
      * @return The API version used to transmit the fax
      */
@@ -426,7 +426,7 @@ public class Fax extends Resource {
     }
 
     /**
-     * Returns The The fax transmission price.
+     * Returns The fax transmission price.
      *
      * @return The fax transmission price
      */
@@ -435,7 +435,7 @@ public class Fax extends Resource {
     }
 
     /**
-     * Returns The The ISO 4217 currency used for billing.
+     * Returns The ISO 4217 currency used for billing.
      *
      * @return The ISO 4217 currency used for billing
      */
@@ -444,7 +444,7 @@ public class Fax extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 formatted date and time in GMT when the resource was
+     * Returns The ISO 8601 formatted date and time in GMT when the resource was
      * created.
      *
      * @return The ISO 8601 formatted date and time in GMT when the resource was
@@ -455,7 +455,7 @@ public class Fax extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 formatted date and time in GMT when the resource was
+     * Returns The ISO 8601 formatted date and time in GMT when the resource was
      * last updated.
      *
      * @return The ISO 8601 formatted date and time in GMT when the resource was
@@ -466,7 +466,7 @@ public class Fax extends Resource {
     }
 
     /**
-     * Returns The The URLs of the fax's related resources.
+     * Returns The URLs of the fax's related resources.
      *
      * @return The URLs of the fax's related resources
      */
@@ -475,7 +475,7 @@ public class Fax extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the fax resource.
+     * Returns The absolute URL of the fax resource.
      *
      * @return The absolute URL of the fax resource
      */

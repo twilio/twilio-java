@@ -1,5 +1,7 @@
 package com.twilio.exception;
 
+import java.util.Map;
+
 public class ApiException extends TwilioException {
 
     private static final long serialVersionUID = -3228320166955630014L;
@@ -7,6 +9,7 @@ public class ApiException extends TwilioException {
     private final Integer code;
     private final String moreInfo;
     private final Integer status;
+    private final Map<String, Object> details;
 
     /**
      * Create a new API Exception.
@@ -42,6 +45,20 @@ public class ApiException extends TwilioException {
         this.code = code;
         this.moreInfo = moreInfo;
         this.status = status;
+        this.details = null;
+    }
+
+    /**
+     * Create a new API Exception.
+     *
+     * @param restException  the rest exception
+     */
+    public ApiException(final RestException restException) {
+        super(restException.getMessage(), null);
+        this.code = restException.getCode();
+        this.moreInfo = restException.getMoreInfo();
+        this.status = restException.getStatus();
+        this.details = restException.getDetails();
     }
 
     public Integer getCode() {
@@ -54,5 +71,9 @@ public class ApiException extends TwilioException {
 
     public Integer getStatusCode() {
         return status;
+    }
+
+    public Map<String, Object> getDetails() {
+        return details;
     }
 }

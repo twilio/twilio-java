@@ -225,7 +225,7 @@ public class Account extends Resource {
     }
 
     /**
-     * Returns The The authorization token for this account.
+     * Returns The authorization token for this account.
      *
      * @return The authorization token for this account
      */
@@ -234,7 +234,7 @@ public class Account extends Resource {
     }
 
     /**
-     * Returns The The date this account was created.
+     * Returns The date this account was created.
      *
      * @return The date this account was created
      */
@@ -243,7 +243,7 @@ public class Account extends Resource {
     }
 
     /**
-     * Returns The The date this account was last updated.
+     * Returns The date this account was last updated.
      *
      * @return The date this account was last updated
      */
@@ -252,7 +252,7 @@ public class Account extends Resource {
     }
 
     /**
-     * Returns The A human readable description of this account.
+     * Returns A human readable description of this account.
      *
      * @return A human readable description of this account
      */
@@ -261,8 +261,7 @@ public class Account extends Resource {
     }
 
     /**
-     * Returns The The unique 34 character id representing the parent of this
-     * account.
+     * Returns The unique 34 character id representing the parent of this account.
      *
      * @return The unique 34 character id representing the parent of this account
      */
@@ -271,7 +270,7 @@ public class Account extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns A 34 character string that uniquely identifies this resource..
      *
      * @return A 34 character string that uniquely identifies this resource.
      */
@@ -280,7 +279,7 @@ public class Account extends Resource {
     }
 
     /**
-     * Returns The The status of this account.
+     * Returns The status of this account.
      *
      * @return The status of this account
      */
@@ -289,7 +288,7 @@ public class Account extends Resource {
     }
 
     /**
-     * Returns The Account Instance Subresources.
+     * Returns Account Instance Subresources.
      *
      * @return Account Instance Subresources
      */
@@ -298,7 +297,7 @@ public class Account extends Resource {
     }
 
     /**
-     * Returns The The type of this account.
+     * Returns The type of this account.
      *
      * @return The type of this account
      */
@@ -307,7 +306,7 @@ public class Account extends Resource {
     }
 
     /**
-     * Returns The The URI for this resource, relative to `https://api.twilio.com`.
+     * Returns The URI for this resource, relative to `https://api.twilio.com`.
      *
      * @return The URI for this resource, relative to `https://api.twilio.com`
      */

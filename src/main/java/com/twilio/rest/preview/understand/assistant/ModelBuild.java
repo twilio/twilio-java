@@ -209,7 +209,7 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this Model Build..
+     * Returns The unique ID of the Account that created this Model Build..
      *
      * @return The unique ID of the Account that created this Model Build.
      */
@@ -218,7 +218,7 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was created.
+     * Returns The date that this resource was created.
      *
      * @return The date that this resource was created
      */
@@ -227,7 +227,7 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was last updated.
+     * Returns The date that this resource was last updated.
      *
      * @return The date that this resource was last updated
      */
@@ -236,7 +236,7 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the parent Assistant..
+     * Returns The unique ID of the parent Assistant..
      *
      * @return The unique ID of the parent Assistant.
      */
@@ -245,7 +245,7 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns A 34 character string that uniquely identifies this resource..
      *
      * @return A 34 character string that uniquely identifies this resource.
      */
@@ -254,8 +254,8 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The A string that described the model build status. The values can
-     * be: enqueued, building, completed, failed.
+     * Returns A string that described the model build status. The values can be:
+     * enqueued, building, completed, failed.
      *
      * @return A string that described the model build status. The values can be:
      *         enqueued, building, completed, failed
@@ -265,8 +265,8 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The A user-provided string that uniquely identifies this resource as
-     * an alternative to the sid. Unique up to 64 characters long..
+     * Returns A user-provided string that uniquely identifies this resource as an
+     * alternative to the sid. Unique up to 64 characters long..
      *
      * @return A user-provided string that uniquely identifies this resource as an
      *         alternative to the sid. Unique up to 64 characters long.
@@ -276,7 +276,7 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The url.
      *
      * @return The url
      */
@@ -285,7 +285,7 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The The time in seconds it took to build the model..
+     * Returns The time in seconds it took to build the model..
      *
      * @return The time in seconds it took to build the model.
      */
@@ -294,7 +294,7 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The The error_code.
+     * Returns The error_code.
      *
      * @return The error_code
      */

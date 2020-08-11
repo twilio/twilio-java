@@ -270,7 +270,7 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -279,7 +279,7 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -288,7 +288,7 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The The SID of the Sim resource that the Command was sent to or from.
+     * Returns The SID of the Sim resource that the Command was sent to or from.
      *
      * @return The SID of the Sim resource that the Command was sent to or from
      */
@@ -297,7 +297,7 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The The message being sent to or from the SIM.
+     * Returns The message being sent to or from the SIM.
      *
      * @return The message being sent to or from the SIM
      */
@@ -306,7 +306,7 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The The mode used to send the SMS message.
+     * Returns The mode used to send the SMS message.
      *
      * @return The mode used to send the SMS message
      */
@@ -315,7 +315,7 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The The type of transport used.
+     * Returns The type of transport used.
      *
      * @return The type of transport used
      */
@@ -324,7 +324,7 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The Whether to request a delivery receipt.
+     * Returns Whether to request a delivery receipt.
      *
      * @return Whether to request a delivery receipt
      */
@@ -333,7 +333,7 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The The status of the Command.
+     * Returns The status of the Command.
      *
      * @return The status of the Command
      */
@@ -342,7 +342,7 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The The direction of the Command.
+     * Returns The direction of the Command.
      *
      * @return The direction of the Command
      */
@@ -351,7 +351,7 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -360,8 +360,8 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated format.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated
+     * format.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      *         format
@@ -371,7 +371,7 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
      */

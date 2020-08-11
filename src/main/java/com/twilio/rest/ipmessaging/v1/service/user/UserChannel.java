@@ -148,7 +148,7 @@ public class UserChannel extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -157,7 +157,7 @@ public class UserChannel extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the resource is associated with.
+     * Returns The SID of the Service that the resource is associated with.
      *
      * @return The SID of the Service that the resource is associated with
      */
@@ -166,7 +166,7 @@ public class UserChannel extends Resource {
     }
 
     /**
-     * Returns The The SID of the Channel the resource belongs to.
+     * Returns The SID of the Channel the resource belongs to.
      *
      * @return The SID of the Channel the resource belongs to
      */
@@ -175,7 +175,7 @@ public class UserChannel extends Resource {
     }
 
     /**
-     * Returns The The SID of the User as a Member in the Channel.
+     * Returns The SID of the User as a Member in the Channel.
      *
      * @return The SID of the User as a Member in the Channel
      */
@@ -184,7 +184,7 @@ public class UserChannel extends Resource {
     }
 
     /**
-     * Returns The The status of the User on the Channel.
+     * Returns The status of the User on the Channel.
      *
      * @return The status of the User on the Channel
      */
@@ -193,7 +193,7 @@ public class UserChannel extends Resource {
     }
 
     /**
-     * Returns The The index of the last Message in the Channel the Member has read.
+     * Returns The index of the last Message in the Channel the Member has read.
      *
      * @return The index of the last Message in the Channel the Member has read
      */
@@ -202,7 +202,7 @@ public class UserChannel extends Resource {
     }
 
     /**
-     * Returns The The number of unread Messages in the Channel for the User.
+     * Returns The number of unread Messages in the Channel for the User.
      *
      * @return The number of unread Messages in the Channel for the User
      */
@@ -211,8 +211,8 @@ public class UserChannel extends Resource {
     }
 
     /**
-     * Returns The Absolute URLs to access the Members, Messages , Invites and, if
-     * it exists, the last Message for the Channel.
+     * Returns Absolute URLs to access the Members, Messages , Invites and, if it
+     * exists, the last Message for the Channel.
      *
      * @return Absolute URLs to access the Members, Messages , Invites and, if it
      *         exists, the last Message for the Channel

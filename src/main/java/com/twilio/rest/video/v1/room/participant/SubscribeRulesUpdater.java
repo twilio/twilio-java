@@ -67,8 +67,7 @@ public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathParticipantSid + "/SubscribeRules",
-            client.getRegion()
+            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathParticipantSid + "/SubscribeRules"
         );
 
         addPostParams(request);
@@ -81,14 +80,7 @@ public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SubscribeRules.fromJson(response.getStream(), client.getObjectMapper());

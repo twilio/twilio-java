@@ -72,8 +72,7 @@ public class EngagementCreator extends Creator<Engagement> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Engagements",
-            client.getRegion()
+            "/v1/Flows/" + this.pathFlowSid + "/Engagements"
         );
 
         addPostParams(request);
@@ -86,14 +85,7 @@ public class EngagementCreator extends Creator<Engagement> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Engagement.fromJson(response.getStream(), client.getObjectMapper());

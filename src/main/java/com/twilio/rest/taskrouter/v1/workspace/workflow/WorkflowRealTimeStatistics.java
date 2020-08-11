@@ -127,7 +127,7 @@ public class WorkflowRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -136,7 +136,7 @@ public class WorkflowRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The age of the longest waiting Task.
+     * Returns The age of the longest waiting Task.
      *
      * @return The age of the longest waiting Task
      */
@@ -145,7 +145,7 @@ public class WorkflowRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the longest waiting Task.
+     * Returns The SID of the longest waiting Task.
      *
      * @return The SID of the longest waiting Task
      */
@@ -154,7 +154,7 @@ public class WorkflowRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The number of Tasks by priority.
+     * Returns The number of Tasks by priority.
      *
      * @return The number of Tasks by priority
      */
@@ -163,7 +163,7 @@ public class WorkflowRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The number of Tasks by their current status.
+     * Returns The number of Tasks by their current status.
      *
      * @return The number of Tasks by their current status
      */
@@ -172,7 +172,7 @@ public class WorkflowRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Tasks.
+     * Returns The total number of Tasks.
      *
      * @return The total number of Tasks
      */
@@ -181,8 +181,8 @@ public class WorkflowRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The Returns the list of Tasks that are being controlled by the
-     * Workflow with the specified SID value.
+     * Returns Returns the list of Tasks that are being controlled by the Workflow
+     * with the specified SID value.
      *
      * @return Returns the list of Tasks that are being controlled by the Workflow
      *         with the specified SID value
@@ -192,7 +192,7 @@ public class WorkflowRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Workspace that contains the Workflow..
+     * Returns The SID of the Workspace that contains the Workflow..
      *
      * @return The SID of the Workspace that contains the Workflow.
      */
@@ -201,7 +201,7 @@ public class WorkflowRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Workflow statistics resource.
+     * Returns The absolute URL of the Workflow statistics resource.
      *
      * @return The absolute URL of the Workflow statistics resource
      */

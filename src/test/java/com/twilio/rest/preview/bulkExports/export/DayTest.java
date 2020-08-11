@@ -37,6 +37,38 @@ public class DayTest {
     }
 
     @Test
+    public void testFetchRequest() {
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.GET,
+                                          Domains.PREVIEW.toString(),
+                                          "/BulkExports/Exports/resource_type/Days/day");
+
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
+
+        try {
+            Day.fetcher("resource_type", "day").fetch();
+            fail("Expected TwilioException to be thrown for 500");
+        } catch (TwilioException e) {}
+    }
+
+    @Test
+    public void testFetchResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"redirect_to\": \"https://www.twilio.com\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        assertNotNull(Day.fetcher("resource_type", "day").fetch());
+    }
+
+    @Test
     public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
@@ -57,10 +89,22 @@ public class DayTest {
     }
 
     @Test
-    public void testReadResponse() {
+    public void testReadEmptyResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"days\": [{\"day\": \"2017-05-01\",\"size\": 1234,\"resource_type\": \"Calls\"}],\"meta\": {\"key\": \"days\",\"page_size\": 50,\"url\": \"https://preview.twilio.com/BulkExports/Exports/Calls/Days?PageSize=50&Page=0\",\"page\": 0,\"first_page_url\": \"https://preview.twilio.com/BulkExports/Exports/Calls/Days?PageSize=50&Page=0\",\"previous_page_url\": null,\"next_page_url\": null}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"days\": [],\"meta\": {\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://preview.twilio.com/BulkExports/Exports/Calls/Days?PageSize=50&Page=0\",\"previous_page_url\": null,\"url\": \"https://preview.twilio.com/BulkExports/Exports/Calls/Days?PageSize=50&Page=0\",\"next_page_url\": null,\"key\": \"days\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        assertNotNull(Day.reader("resource_type").read());
+    }
+
+    @Test
+    public void testReadFullResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"days\": [{\"day\": \"2017-04-01\",\"size\": 100,\"resource_type\": \"Calls\",\"create_date\": \"2017-04-02\",\"friendly_name\": \"friendly_name\"}],\"meta\": {\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://preview.twilio.com/BulkExports/Exports/Calls/Days?PageSize=50&Page=0\",\"previous_page_url\": null,\"url\": \"https://preview.twilio.com/BulkExports/Exports/Calls/Days?PageSize=50&Page=0\",\"next_page_url\": null,\"key\": \"days\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

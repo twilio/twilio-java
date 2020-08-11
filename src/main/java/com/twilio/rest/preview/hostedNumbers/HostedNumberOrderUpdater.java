@@ -193,8 +193,7 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/HostedNumbers/HostedNumberOrders/" + this.pathSid + "",
-            client.getRegion()
+            "/HostedNumbers/HostedNumberOrders/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -207,14 +206,7 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return HostedNumberOrder.fromJson(response.getStream(), client.getObjectMapper());

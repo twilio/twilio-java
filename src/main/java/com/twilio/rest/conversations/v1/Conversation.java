@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
@@ -39,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Conversation extends Resource {
-    private static final long serialVersionUID = 39396284340348L;
+    private static final long serialVersionUID = 104618704631663L;
 
     public enum WebhookEnabledType {
         TRUE("true"),
@@ -63,6 +64,32 @@ public class Conversation extends Resource {
         @JsonCreator
         public static WebhookEnabledType forValue(final String value) {
             return Promoter.enumFromString(value, WebhookEnabledType.values());
+        }
+    }
+
+    public enum State {
+        INACTIVE("inactive"),
+        ACTIVE("active"),
+        CLOSED("closed");
+
+        private final String value;
+
+        private State(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a State from a string.
+         * @param value string value
+         * @return generated State
+         */
+        @JsonCreator
+        public static State forValue(final String value) {
+            return Promoter.enumFromString(value, State.values());
         }
     }
 
@@ -158,8 +185,10 @@ public class Conversation extends Resource {
     private final String sid;
     private final String friendlyName;
     private final String attributes;
+    private final Conversation.State state;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
+    private final Map<String, Object> timers;
     private final URI url;
     private final Map<String, String> links;
 
@@ -176,10 +205,14 @@ public class Conversation extends Resource {
                          final String friendlyName,
                          @JsonProperty("attributes")
                          final String attributes,
+                         @JsonProperty("state")
+                         final Conversation.State state,
                          @JsonProperty("date_created")
                          final String dateCreated,
                          @JsonProperty("date_updated")
                          final String dateUpdated,
+                         @JsonProperty("timers")
+                         final Map<String, Object> timers,
                          @JsonProperty("url")
                          final URI url,
                          @JsonProperty("links")
@@ -190,14 +223,16 @@ public class Conversation extends Resource {
         this.sid = sid;
         this.friendlyName = friendlyName;
         this.attributes = attributes;
+        this.state = state;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.timers = timers;
         this.url = url;
         this.links = links;
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this conversation..
+     * Returns The unique id of the Account responsible for this conversation..
      *
      * @return The unique id of the Account responsible for this conversation.
      */
@@ -206,7 +241,7 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Returns The The unique id of the Chat Service this conversation belongs to..
+     * Returns The unique id of the Chat Service this conversation belongs to..
      *
      * @return The unique id of the Chat Service this conversation belongs to.
      */
@@ -215,7 +250,7 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Returns The The unique id of the SMS Service this conversation belongs to..
+     * Returns The unique id of the SMS Service this conversation belongs to..
      *
      * @return The unique id of the SMS Service this conversation belongs to.
      */
@@ -224,7 +259,7 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns A 34 character string that uniquely identifies this resource..
      *
      * @return A 34 character string that uniquely identifies this resource.
      */
@@ -233,7 +268,7 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Returns The The human-readable name of this conversation..
+     * Returns The human-readable name of this conversation..
      *
      * @return The human-readable name of this conversation.
      */
@@ -242,8 +277,8 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Returns The An optional string metadata field you can use to store any data
-     * you wish..
+     * Returns An optional string metadata field you can use to store any data you
+     * wish..
      *
      * @return An optional string metadata field you can use to store any data you
      *         wish.
@@ -253,7 +288,16 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was created..
+     * Returns Current state of this conversation..
+     *
+     * @return Current state of this conversation.
+     */
+    public final Conversation.State getState() {
+        return this.state;
+    }
+
+    /**
+     * Returns The date that this resource was created..
      *
      * @return The date that this resource was created.
      */
@@ -262,7 +306,7 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was last updated..
+     * Returns The date that this resource was last updated..
      *
      * @return The date that this resource was last updated.
      */
@@ -271,7 +315,16 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Returns The An absolute URL for this conversation..
+     * Returns Timer date values for this conversation..
+     *
+     * @return Timer date values for this conversation.
+     */
+    public final Map<String, Object> getTimers() {
+        return this.timers;
+    }
+
+    /**
+     * Returns An absolute URL for this conversation..
      *
      * @return An absolute URL for this conversation.
      */
@@ -280,7 +333,7 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Returns The Absolute URLs to access the Participants of this Conversation..
+     * Returns Absolute URLs to access the Participants of this Conversation..
      *
      * @return Absolute URLs to access the Participants of this Conversation.
      */
@@ -306,8 +359,10 @@ public class Conversation extends Resource {
                Objects.equals(sid, other.sid) &&
                Objects.equals(friendlyName, other.friendlyName) &&
                Objects.equals(attributes, other.attributes) &&
+               Objects.equals(state, other.state) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(timers, other.timers) &&
                Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
@@ -320,8 +375,10 @@ public class Conversation extends Resource {
                             sid,
                             friendlyName,
                             attributes,
+                            state,
                             dateCreated,
                             dateUpdated,
+                            timers,
                             url,
                             links);
     }
@@ -335,8 +392,10 @@ public class Conversation extends Resource {
                           .add("sid", sid)
                           .add("friendlyName", friendlyName)
                           .add("attributes", attributes)
+                          .add("state", state)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
+                          .add("timers", timers)
                           .add("url", url)
                           .add("links", links)
                           .toString();

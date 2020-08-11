@@ -118,7 +118,7 @@ public class TaskStatistics extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this Field..
+     * Returns The unique ID of the Account that created this Field..
      *
      * @return The unique ID of the Account that created this Field.
      */
@@ -127,7 +127,7 @@ public class TaskStatistics extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the parent Assistant..
+     * Returns The unique ID of the parent Assistant..
      *
      * @return The unique ID of the parent Assistant.
      */
@@ -136,7 +136,7 @@ public class TaskStatistics extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Task associated with this Field..
+     * Returns The unique ID of the Task associated with this Field..
      *
      * @return The unique ID of the Task associated with this Field.
      */
@@ -145,7 +145,7 @@ public class TaskStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Samples associated with this Task..
+     * Returns The total number of Samples associated with this Task..
      *
      * @return The total number of Samples associated with this Task.
      */
@@ -154,7 +154,7 @@ public class TaskStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Fields associated with this Task..
+     * Returns The total number of Fields associated with this Task..
      *
      * @return The total number of Fields associated with this Task.
      */
@@ -163,7 +163,7 @@ public class TaskStatistics extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The url.
      *
      * @return The url
      */

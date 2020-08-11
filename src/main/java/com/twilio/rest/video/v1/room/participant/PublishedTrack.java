@@ -172,7 +172,7 @@ public class PublishedTrack extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -181,7 +181,7 @@ public class PublishedTrack extends Resource {
     }
 
     /**
-     * Returns The The SID of the Participant resource with the published track.
+     * Returns The SID of the Participant resource with the published track.
      *
      * @return The SID of the Participant resource with the published track
      */
@@ -190,7 +190,7 @@ public class PublishedTrack extends Resource {
     }
 
     /**
-     * Returns The The SID of the Room resource where the track is published.
+     * Returns The SID of the Room resource where the track is published.
      *
      * @return The SID of the Room resource where the track is published
      */
@@ -199,7 +199,7 @@ public class PublishedTrack extends Resource {
     }
 
     /**
-     * Returns The The track name.
+     * Returns The track name.
      *
      * @return The track name
      */
@@ -208,7 +208,7 @@ public class PublishedTrack extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -217,8 +217,7 @@ public class PublishedTrack extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -227,7 +226,7 @@ public class PublishedTrack extends Resource {
     }
 
     /**
-     * Returns The Whether the track is enabled.
+     * Returns Whether the track is enabled.
      *
      * @return Whether the track is enabled
      */
@@ -236,7 +235,7 @@ public class PublishedTrack extends Resource {
     }
 
     /**
-     * Returns The The track type.
+     * Returns The track type.
      *
      * @return The track type
      */
@@ -245,7 +244,7 @@ public class PublishedTrack extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
      */

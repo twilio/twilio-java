@@ -60,8 +60,7 @@ public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtensio
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/marketplace/AvailableAddOns/" + this.pathAvailableAddOnSid + "/Extensions",
-            client.getRegion()
+            "/marketplace/AvailableAddOns/" + this.pathAvailableAddOnSid + "/Extensions"
         );
 
         addQueryParams(request);
@@ -98,10 +97,7 @@ public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtensio
                                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
@@ -118,10 +114,7 @@ public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtensio
                                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
@@ -143,14 +136,7 @@ public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtensio
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

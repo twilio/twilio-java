@@ -49,8 +49,7 @@ public class AlphaSenderCreator extends Creator<AlphaSender> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.MESSAGING.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/AlphaSenders",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/AlphaSenders"
         );
 
         addPostParams(request);
@@ -63,14 +62,7 @@ public class AlphaSenderCreator extends Creator<AlphaSender> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return AlphaSender.fromJson(response.getStream(), client.getObjectMapper());

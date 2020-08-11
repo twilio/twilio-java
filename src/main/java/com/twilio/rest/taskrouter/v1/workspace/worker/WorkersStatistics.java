@@ -108,7 +108,7 @@ public class WorkersStatistics extends Resource {
     }
 
     /**
-     * Returns The An object that contains the real-time statistics for the Worker.
+     * Returns An object that contains the real-time statistics for the Worker.
      *
      * @return An object that contains the real-time statistics for the Worker
      */
@@ -117,7 +117,7 @@ public class WorkersStatistics extends Resource {
     }
 
     /**
-     * Returns The An object that contains the cumulative statistics for the Worker.
+     * Returns An object that contains the cumulative statistics for the Worker.
      *
      * @return An object that contains the cumulative statistics for the Worker
      */
@@ -126,7 +126,7 @@ public class WorkersStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -135,7 +135,7 @@ public class WorkersStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Workspace that contains the Worker.
+     * Returns The SID of the Workspace that contains the Worker.
      *
      * @return The SID of the Workspace that contains the Worker
      */
@@ -144,7 +144,7 @@ public class WorkersStatistics extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Worker statistics resource.
+     * Returns The absolute URL of the Worker statistics resource.
      *
      * @return The absolute URL of the Worker statistics resource
      */

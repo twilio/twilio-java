@@ -77,8 +77,7 @@ public class WebChannelCreator extends Creator<WebChannel> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.FLEXAPI.toString(),
-            "/v1/WebChannels",
-            client.getRegion()
+            "/v1/WebChannels"
         );
 
         addPostParams(request);
@@ -91,14 +90,7 @@ public class WebChannelCreator extends Creator<WebChannel> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return WebChannel.fromJson(response.getStream(), client.getObjectMapper());

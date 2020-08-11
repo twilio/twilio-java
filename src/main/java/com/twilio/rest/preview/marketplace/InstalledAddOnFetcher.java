@@ -46,8 +46,7 @@ public class InstalledAddOnFetcher extends Fetcher<InstalledAddOn> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/marketplace/InstalledAddOns/" + this.pathSid + "",
-            client.getRegion()
+            "/marketplace/InstalledAddOns/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -59,14 +58,7 @@ public class InstalledAddOnFetcher extends Fetcher<InstalledAddOn> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return InstalledAddOn.fromJson(response.getStream(), client.getObjectMapper());

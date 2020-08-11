@@ -182,7 +182,7 @@ public class AssignedAddOnExtension extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -191,7 +191,7 @@ public class AssignedAddOnExtension extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -200,7 +200,7 @@ public class AssignedAddOnExtension extends Resource {
     }
 
     /**
-     * Returns The The SID of the Phone Number to which the Add-on is assigned.
+     * Returns The SID of the Phone Number to which the Add-on is assigned.
      *
      * @return The SID of the Phone Number to which the Add-on is assigned
      */
@@ -209,8 +209,7 @@ public class AssignedAddOnExtension extends Resource {
     }
 
     /**
-     * Returns The The SID that uniquely identifies the assigned Add-on
-     * installation.
+     * Returns The SID that uniquely identifies the assigned Add-on installation.
      *
      * @return The SID that uniquely identifies the assigned Add-on installation
      */
@@ -219,7 +218,7 @@ public class AssignedAddOnExtension extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -228,8 +227,8 @@ public class AssignedAddOnExtension extends Resource {
     }
 
     /**
-     * Returns The A string that you assigned to describe the Product this Extension
-     * is used within.
+     * Returns A string that you assigned to describe the Product this Extension is
+     * used within.
      *
      * @return A string that you assigned to describe the Product this Extension is
      *         used within
@@ -239,8 +238,7 @@ public class AssignedAddOnExtension extends Resource {
     }
 
     /**
-     * Returns The An application-defined string that uniquely identifies the
-     * resource.
+     * Returns An application-defined string that uniquely identifies the resource.
      *
      * @return An application-defined string that uniquely identifies the resource
      */
@@ -249,7 +247,7 @@ public class AssignedAddOnExtension extends Resource {
     }
 
     /**
-     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
      *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */
@@ -258,7 +256,7 @@ public class AssignedAddOnExtension extends Resource {
     }
 
     /**
-     * Returns The Whether the Extension will be invoked.
+     * Returns Whether the Extension will be invoked.
      *
      * @return Whether the Extension will be invoked
      */

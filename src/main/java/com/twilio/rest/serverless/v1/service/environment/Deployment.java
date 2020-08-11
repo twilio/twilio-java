@@ -77,13 +77,11 @@ public class Deployment extends Resource {
      * @param pathServiceSid The SID of the Service to create the Deployment
      *                       resource under
      * @param pathEnvironmentSid The SID of the environment for the deployment
-     * @param buildSid The SID of the build for the deployment
      * @return DeploymentCreator capable of executing the create
      */
     public static DeploymentCreator creator(final String pathServiceSid,
-                                            final String pathEnvironmentSid,
-                                            final String buildSid) {
-        return new DeploymentCreator(pathServiceSid, pathEnvironmentSid, buildSid);
+                                            final String pathEnvironmentSid) {
+        return new DeploymentCreator(pathServiceSid, pathEnvironmentSid);
     }
 
     /**
@@ -161,7 +159,7 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the Deployment resource.
+     * Returns The unique string that identifies the Deployment resource.
      *
      * @return The unique string that identifies the Deployment resource
      */
@@ -170,7 +168,7 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the Deployment resource.
+     * Returns The SID of the Account that created the Deployment resource.
      *
      * @return The SID of the Account that created the Deployment resource
      */
@@ -179,7 +177,7 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the Deployment resource is associated
+     * Returns The SID of the Service that the Deployment resource is associated
      * with.
      *
      * @return The SID of the Service that the Deployment resource is associated
@@ -190,7 +188,7 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The The SID of the environment for the deployment.
+     * Returns The SID of the environment for the deployment.
      *
      * @return The SID of the environment for the deployment
      */
@@ -199,7 +197,7 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The The SID of the build for the deployment.
+     * Returns The SID of the build for the deployment.
      *
      * @return The SID of the build for the deployment
      */
@@ -208,8 +206,8 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Deployment resource
-     * was created.
+     * Returns The ISO 8601 date and time in GMT when the Deployment resource was
+     * created.
      *
      * @return The ISO 8601 date and time in GMT when the Deployment resource was
      *         created
@@ -219,8 +217,8 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Deployment resource
-     * was last updated.
+     * Returns The ISO 8601 date and time in GMT when the Deployment resource was
+     * last updated.
      *
      * @return The ISO 8601 date and time in GMT when the Deployment resource was
      *         last updated
@@ -230,7 +228,7 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Deployment resource.
+     * Returns The absolute URL of the Deployment resource.
      *
      * @return The absolute URL of the Deployment resource
      */

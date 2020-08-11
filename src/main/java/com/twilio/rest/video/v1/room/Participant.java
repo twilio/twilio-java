@@ -187,7 +187,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -196,7 +196,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The SID of the participant's room.
+     * Returns The SID of the participant's room.
      *
      * @return The SID of the participant's room
      */
@@ -205,7 +205,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -214,7 +214,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The status of the Participant.
+     * Returns The status of the Participant.
      *
      * @return The status of the Participant
      */
@@ -223,7 +223,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The string that identifies the resource's User.
+     * Returns The string that identifies the resource's User.
      *
      * @return The string that identifies the resource's User
      */
@@ -232,7 +232,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -241,8 +241,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -251,7 +250,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The time of participant connected to the room in ISO 8601 format.
+     * Returns The time of participant connected to the room in ISO 8601 format.
      *
      * @return The time of participant connected to the room in ISO 8601 format
      */
@@ -260,8 +259,8 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The time when the participant disconnected from the room in ISO
-     * 8601 format.
+     * Returns The time when the participant disconnected from the room in ISO 8601
+     * format.
      *
      * @return The time when the participant disconnected from the room in ISO 8601
      *         format
@@ -271,7 +270,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The Duration of time in seconds the participant was connected.
+     * Returns Duration of time in seconds the participant was connected.
      *
      * @return Duration of time in seconds the participant was connected
      */
@@ -280,7 +279,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
      */
@@ -289,7 +288,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The URLs of related resources.
+     * Returns The URLs of related resources.
      *
      * @return The URLs of related resources
      */

@@ -222,7 +222,7 @@ public class CredentialList extends Resource {
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
+     * Returns The unique sid that identifies this account.
      *
      * @return The unique sid that identifies this account
      */
@@ -231,7 +231,7 @@ public class CredentialList extends Resource {
     }
 
     /**
-     * Returns The The date this resource was created.
+     * Returns The date this resource was created.
      *
      * @return The date this resource was created
      */
@@ -240,7 +240,7 @@ public class CredentialList extends Resource {
     }
 
     /**
-     * Returns The The date this resource was last updated.
+     * Returns The date this resource was last updated.
      *
      * @return The date this resource was last updated
      */
@@ -249,7 +249,7 @@ public class CredentialList extends Resource {
     }
 
     /**
-     * Returns The Human readable descriptive text.
+     * Returns Human readable descriptive text.
      *
      * @return Human readable descriptive text
      */
@@ -258,7 +258,7 @@ public class CredentialList extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this credential.
+     * Returns A string that uniquely identifies this credential.
      *
      * @return A string that uniquely identifies this credential
      */
@@ -267,7 +267,7 @@ public class CredentialList extends Resource {
     }
 
     /**
-     * Returns The The list of credentials associated with this credential list..
+     * Returns The list of credentials associated with this credential list..
      *
      * @return The list of credentials associated with this credential list.
      */
@@ -276,7 +276,7 @@ public class CredentialList extends Resource {
     }
 
     /**
-     * Returns The The URI for this resource.
+     * Returns The URI for this resource.
      *
      * @return The URI for this resource
      */

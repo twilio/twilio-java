@@ -67,8 +67,7 @@ public class PublicKeyCreator extends Creator<PublicKey> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.ACCOUNTS.toString(),
-            "/v1/Credentials/PublicKeys",
-            client.getRegion()
+            "/v1/Credentials/PublicKeys"
         );
 
         addPostParams(request);
@@ -81,14 +80,7 @@ public class PublicKeyCreator extends Creator<PublicKey> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return PublicKey.fromJson(response.getStream(), client.getObjectMapper());

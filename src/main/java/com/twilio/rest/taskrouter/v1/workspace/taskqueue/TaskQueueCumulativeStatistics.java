@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskQueueCumulativeStatistics extends Resource {
-    private static final long serialVersionUID = 150757949753643L;
+    private static final long serialVersionUID = 205432946594841L;
 
     /**
      * Create a TaskQueueCumulativeStatisticsFetcher to execute fetch.
@@ -102,6 +102,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     private final String taskQueueSid;
     private final Map<String, Object> waitDurationUntilAccepted;
     private final Map<String, Object> waitDurationUntilCanceled;
+    private final Map<String, Object> waitDurationInQueueUntilAccepted;
     private final Integer tasksCanceled;
     private final Integer tasksCompleted;
     private final Integer tasksDeleted;
@@ -139,6 +140,8 @@ public class TaskQueueCumulativeStatistics extends Resource {
                                           final Map<String, Object> waitDurationUntilAccepted,
                                           @JsonProperty("wait_duration_until_canceled")
                                           final Map<String, Object> waitDurationUntilCanceled,
+                                          @JsonProperty("wait_duration_in_queue_until_accepted")
+                                          final Map<String, Object> waitDurationInQueueUntilAccepted,
                                           @JsonProperty("tasks_canceled")
                                           final Integer tasksCanceled,
                                           @JsonProperty("tasks_completed")
@@ -167,6 +170,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
         this.taskQueueSid = taskQueueSid;
         this.waitDurationUntilAccepted = waitDurationUntilAccepted;
         this.waitDurationUntilCanceled = waitDurationUntilCanceled;
+        this.waitDurationInQueueUntilAccepted = waitDurationInQueueUntilAccepted;
         this.tasksCanceled = tasksCanceled;
         this.tasksCompleted = tasksCompleted;
         this.tasksDeleted = tasksDeleted;
@@ -177,7 +181,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -186,7 +190,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The average time in seconds between Task creation and acceptance.
+     * Returns The average time in seconds between Task creation and acceptance.
      *
      * @return The average time in seconds between Task creation and acceptance
      */
@@ -195,7 +199,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The beginning of the interval during which these statistics were
+     * Returns The beginning of the interval during which these statistics were
      * calculated.
      *
      * @return The beginning of the interval during which these statistics were
@@ -206,7 +210,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The end of the interval during which these statistics were
+     * Returns The end of the interval during which these statistics were
      * calculated.
      *
      * @return The end of the interval during which these statistics were calculated
@@ -216,8 +220,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations created for Tasks in the
-     * TaskQueue.
+     * Returns The total number of Reservations created for Tasks in the TaskQueue.
      *
      * @return The total number of Reservations created for Tasks in the TaskQueue
      */
@@ -226,8 +229,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations accepted for Tasks in the
-     * TaskQueue.
+     * Returns The total number of Reservations accepted for Tasks in the TaskQueue.
      *
      * @return The total number of Reservations accepted for Tasks in the TaskQueue
      */
@@ -236,8 +238,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations rejected for Tasks in the
-     * TaskQueue.
+     * Returns The total number of Reservations rejected for Tasks in the TaskQueue.
      *
      * @return The total number of Reservations rejected for Tasks in the TaskQueue
      */
@@ -246,7 +247,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations that timed out for Tasks in the
+     * Returns The total number of Reservations that timed out for Tasks in the
      * TaskQueue.
      *
      * @return The total number of Reservations that timed out for Tasks in the
@@ -257,8 +258,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations canceled for Tasks in the
-     * TaskQueue.
+     * Returns The total number of Reservations canceled for Tasks in the TaskQueue.
      *
      * @return The total number of Reservations canceled for Tasks in the TaskQueue
      */
@@ -267,7 +267,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations rescinded.
+     * Returns The total number of Reservations rescinded.
      *
      * @return The total number of Reservations rescinded
      */
@@ -276,8 +276,8 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The A list of objects that describe the Tasks canceled and
-     * reservations accepted above and below the specified thresholds.
+     * Returns A list of objects that describe the Tasks canceled and reservations
+     * accepted above and below the specified thresholds.
      *
      * @return A list of objects that describe the Tasks canceled and reservations
      *         accepted above and below the specified thresholds
@@ -287,8 +287,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the TaskQueue from which these statistics were
-     * calculated.
+     * Returns The SID of the TaskQueue from which these statistics were calculated.
      *
      * @return The SID of the TaskQueue from which these statistics were calculated
      */
@@ -297,7 +296,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The wait duration statistics for Tasks accepted while in the
+     * Returns The wait duration statistics for Tasks accepted while in the
      * TaskQueue.
      *
      * @return The wait duration statistics for Tasks accepted while in the
@@ -308,7 +307,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The wait duration statistics for Tasks canceled while in the
+     * Returns The wait duration statistics for Tasks canceled while in the
      * TaskQueue.
      *
      * @return The wait duration statistics for Tasks canceled while in the
@@ -319,7 +318,18 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Tasks canceled in the TaskQueue.
+     * Returns The relative wait duration statistics for Tasks accepted while in the
+     * TaskQueue.
+     *
+     * @return The relative wait duration statistics for Tasks accepted while in
+     *         the TaskQueue
+     */
+    public final Map<String, Object> getWaitDurationInQueueUntilAccepted() {
+        return this.waitDurationInQueueUntilAccepted;
+    }
+
+    /**
+     * Returns The total number of Tasks canceled in the TaskQueue.
      *
      * @return The total number of Tasks canceled in the TaskQueue
      */
@@ -328,7 +338,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Tasks completed in the TaskQueue.
+     * Returns The total number of Tasks completed in the TaskQueue.
      *
      * @return The total number of Tasks completed in the TaskQueue
      */
@@ -337,7 +347,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Tasks deleted in the TaskQueue.
+     * Returns The total number of Tasks deleted in the TaskQueue.
      *
      * @return The total number of Tasks deleted in the TaskQueue
      */
@@ -346,7 +356,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Tasks entered into the TaskQueue.
+     * Returns The total number of Tasks entered into the TaskQueue.
      *
      * @return The total number of Tasks entered into the TaskQueue
      */
@@ -355,8 +365,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Tasks that were moved from one queue to
-     * another.
+     * Returns The total number of Tasks that were moved from one queue to another.
      *
      * @return The total number of Tasks that were moved from one queue to another
      */
@@ -365,7 +374,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Workspace that contains the TaskQueue.
+     * Returns The SID of the Workspace that contains the TaskQueue.
      *
      * @return The SID of the Workspace that contains the TaskQueue
      */
@@ -374,7 +383,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the TaskQueue statistics resource.
+     * Returns The absolute URL of the TaskQueue statistics resource.
      *
      * @return The absolute URL of the TaskQueue statistics resource
      */
@@ -408,6 +417,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
                Objects.equals(taskQueueSid, other.taskQueueSid) &&
                Objects.equals(waitDurationUntilAccepted, other.waitDurationUntilAccepted) &&
                Objects.equals(waitDurationUntilCanceled, other.waitDurationUntilCanceled) &&
+               Objects.equals(waitDurationInQueueUntilAccepted, other.waitDurationInQueueUntilAccepted) &&
                Objects.equals(tasksCanceled, other.tasksCanceled) &&
                Objects.equals(tasksCompleted, other.tasksCompleted) &&
                Objects.equals(tasksDeleted, other.tasksDeleted) &&
@@ -433,6 +443,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
                             taskQueueSid,
                             waitDurationUntilAccepted,
                             waitDurationUntilCanceled,
+                            waitDurationInQueueUntilAccepted,
                             tasksCanceled,
                             tasksCompleted,
                             tasksDeleted,
@@ -459,6 +470,7 @@ public class TaskQueueCumulativeStatistics extends Resource {
                           .add("taskQueueSid", taskQueueSid)
                           .add("waitDurationUntilAccepted", waitDurationUntilAccepted)
                           .add("waitDurationUntilCanceled", waitDurationUntilCanceled)
+                          .add("waitDurationInQueueUntilAccepted", waitDurationInQueueUntilAccepted)
                           .add("tasksCanceled", tasksCanceled)
                           .add("tasksCompleted", tasksCompleted)
                           .add("tasksDeleted", tasksDeleted)

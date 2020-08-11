@@ -184,7 +184,7 @@ public class TaskChannel extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -193,7 +193,7 @@ public class TaskChannel extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -202,8 +202,7 @@ public class TaskChannel extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -212,7 +211,7 @@ public class TaskChannel extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -221,7 +220,7 @@ public class TaskChannel extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -230,7 +229,7 @@ public class TaskChannel extends Resource {
     }
 
     /**
-     * Returns The An application-defined string that uniquely identifies the
+     * Returns An application-defined string that uniquely identifies the
      * TaskChannel.
      *
      * @return An application-defined string that uniquely identifies the
@@ -241,7 +240,7 @@ public class TaskChannel extends Resource {
     }
 
     /**
-     * Returns The The SID of the Workspace that contains the TaskChannel.
+     * Returns The SID of the Workspace that contains the TaskChannel.
      *
      * @return The SID of the Workspace that contains the TaskChannel
      */
@@ -250,8 +249,7 @@ public class TaskChannel extends Resource {
     }
 
     /**
-     * Returns The Whether the TaskChannel will prioritize Workers that have been
-     * idle.
+     * Returns Whether the TaskChannel will prioritize Workers that have been idle.
      *
      * @return Whether the TaskChannel will prioritize Workers that have been idle
      */
@@ -260,7 +258,7 @@ public class TaskChannel extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the TaskChannel resource.
+     * Returns The absolute URL of the TaskChannel resource.
      *
      * @return The absolute URL of the TaskChannel resource
      */
@@ -269,7 +267,7 @@ public class TaskChannel extends Resource {
     }
 
     /**
-     * Returns The The URLs of related resources.
+     * Returns The URLs of related resources.
      *
      * @return The URLs of related resources
      */

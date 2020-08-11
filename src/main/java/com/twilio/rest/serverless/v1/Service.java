@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 259476893733626L;
+    private static final long serialVersionUID = 231742675028057L;
 
     /**
      * Create a ServiceReader to execute read.
@@ -135,6 +135,7 @@ public class Service extends Resource {
     private final String friendlyName;
     private final String uniqueName;
     private final Boolean includeCredentials;
+    private final Boolean uiEditable;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -151,6 +152,8 @@ public class Service extends Resource {
                     final String uniqueName,
                     @JsonProperty("include_credentials")
                     final Boolean includeCredentials,
+                    @JsonProperty("ui_editable")
+                    final Boolean uiEditable,
                     @JsonProperty("date_created")
                     final String dateCreated,
                     @JsonProperty("date_updated")
@@ -164,6 +167,7 @@ public class Service extends Resource {
         this.friendlyName = friendlyName;
         this.uniqueName = uniqueName;
         this.includeCredentials = includeCredentials;
+        this.uiEditable = uiEditable;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -171,7 +175,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the Service resource.
+     * Returns The unique string that identifies the Service resource.
      *
      * @return The unique string that identifies the Service resource
      */
@@ -180,7 +184,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the Service resource.
+     * Returns The SID of the Account that created the Service resource.
      *
      * @return The SID of the Account that created the Service resource
      */
@@ -189,7 +193,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the Service resource.
+     * Returns The string that you assigned to describe the Service resource.
      *
      * @return The string that you assigned to describe the Service resource
      */
@@ -198,8 +202,8 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The An application-defined string that uniquely identifies the
-     * Service resource.
+     * Returns An application-defined string that uniquely identifies the Service
+     * resource.
      *
      * @return An application-defined string that uniquely identifies the Service
      *         resource
@@ -209,7 +213,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Whether to inject Account credentials into a function invocation
+     * Returns Whether to inject Account credentials into a function invocation
      * context.
      *
      * @return Whether to inject Account credentials into a function invocation
@@ -220,7 +224,18 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Service resource was
+     * Returns Whether the Service's properties and subresources can be edited via
+     * the UI.
+     *
+     * @return Whether the Service's properties and subresources can be edited via
+     *         the UI
+     */
+    public final Boolean getUiEditable() {
+        return this.uiEditable;
+    }
+
+    /**
+     * Returns The ISO 8601 date and time in GMT when the Service resource was
      * created.
      *
      * @return The ISO 8601 date and time in GMT when the Service resource was
@@ -231,8 +246,8 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Service resource was
-     * last updated.
+     * Returns The ISO 8601 date and time in GMT when the Service resource was last
+     * updated.
      *
      * @return The ISO 8601 date and time in GMT when the Service resource was last
      *         updated
@@ -242,7 +257,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Service resource.
+     * Returns The absolute URL of the Service resource.
      *
      * @return The absolute URL of the Service resource
      */
@@ -251,7 +266,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The URLs of the Service's nested resources.
+     * Returns The URLs of the Service's nested resources.
      *
      * @return The URLs of the Service's nested resources
      */
@@ -276,6 +291,7 @@ public class Service extends Resource {
                Objects.equals(friendlyName, other.friendlyName) &&
                Objects.equals(uniqueName, other.uniqueName) &&
                Objects.equals(includeCredentials, other.includeCredentials) &&
+               Objects.equals(uiEditable, other.uiEditable) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url) &&
@@ -289,6 +305,7 @@ public class Service extends Resource {
                             friendlyName,
                             uniqueName,
                             includeCredentials,
+                            uiEditable,
                             dateCreated,
                             dateUpdated,
                             url,
@@ -303,6 +320,7 @@ public class Service extends Resource {
                           .add("friendlyName", friendlyName)
                           .add("uniqueName", uniqueName)
                           .add("includeCredentials", includeCredentials)
+                          .add("uiEditable", uiEditable)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)

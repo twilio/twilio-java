@@ -257,7 +257,7 @@ public class Session extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -266,7 +266,7 @@ public class Session extends Resource {
     }
 
     /**
-     * Returns The The SID of the resource's parent Service.
+     * Returns The SID of the resource's parent Service.
      *
      * @return The SID of the resource's parent Service
      */
@@ -275,7 +275,7 @@ public class Session extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -284,7 +284,7 @@ public class Session extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date when the Session started.
+     * Returns The ISO 8601 date when the Session started.
      *
      * @return The ISO 8601 date when the Session started
      */
@@ -293,7 +293,7 @@ public class Session extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date when the Session ended.
+     * Returns The ISO 8601 date when the Session ended.
      *
      * @return The ISO 8601 date when the Session ended
      */
@@ -302,7 +302,7 @@ public class Session extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date when the Session last had an interaction.
+     * Returns The ISO 8601 date when the Session last had an interaction.
      *
      * @return The ISO 8601 date when the Session last had an interaction
      */
@@ -311,7 +311,7 @@ public class Session extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date when the Session should expire.
+     * Returns The ISO 8601 date when the Session should expire.
      *
      * @return The ISO 8601 date when the Session should expire
      */
@@ -320,8 +320,7 @@ public class Session extends Resource {
     }
 
     /**
-     * Returns The An application-defined string that uniquely identifies the
-     * resource.
+     * Returns An application-defined string that uniquely identifies the resource.
      *
      * @return An application-defined string that uniquely identifies the resource
      */
@@ -330,7 +329,7 @@ public class Session extends Resource {
     }
 
     /**
-     * Returns The The status of the Session.
+     * Returns The status of the Session.
      *
      * @return The status of the Session
      */
@@ -339,7 +338,7 @@ public class Session extends Resource {
     }
 
     /**
-     * Returns The The reason the Session ended.
+     * Returns The reason the Session ended.
      *
      * @return The reason the Session ended
      */
@@ -348,7 +347,7 @@ public class Session extends Resource {
     }
 
     /**
-     * Returns The When the session will expire.
+     * Returns When the session will expire.
      *
      * @return When the session will expire
      */
@@ -357,7 +356,7 @@ public class Session extends Resource {
     }
 
     /**
-     * Returns The The Mode of the Session.
+     * Returns The Mode of the Session.
      *
      * @return The Mode of the Session
      */
@@ -366,7 +365,7 @@ public class Session extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -375,8 +374,7 @@ public class Session extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -385,7 +383,7 @@ public class Session extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Session resource.
+     * Returns The absolute URL of the Session resource.
      *
      * @return The absolute URL of the Session resource
      */
@@ -394,7 +392,7 @@ public class Session extends Resource {
     }
 
     /**
-     * Returns The The URLs of resources related to the Session.
+     * Returns The URLs of resources related to the Session.
      *
      * @return The URLs of resources related to the Session
      */

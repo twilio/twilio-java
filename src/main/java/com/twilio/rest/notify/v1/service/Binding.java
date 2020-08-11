@@ -219,7 +219,7 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -228,7 +228,7 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -237,7 +237,7 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the resource is associated with.
+     * Returns The SID of the Service that the resource is associated with.
      *
      * @return The SID of the Service that the resource is associated with
      */
@@ -246,8 +246,8 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The The SID of the Credential resource to be used to send
-     * notifications to this Binding.
+     * Returns The SID of the Credential resource to be used to send notifications
+     * to this Binding.
      *
      * @return The SID of the Credential resource to be used to send notifications
      *         to this Binding
@@ -257,7 +257,7 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -266,8 +266,7 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -276,7 +275,7 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The The protocol version to use to send the notification.
+     * Returns The protocol version to use to send the notification.
      *
      * @return The protocol version to use to send the notification
      */
@@ -285,7 +284,7 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The Deprecated.
+     * Returns Deprecated.
      *
      * @return Deprecated
      */
@@ -294,7 +293,7 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The The `identity` value that identifies the new resource's User.
+     * Returns The `identity` value that identifies the new resource's User.
      *
      * @return The `identity` value that identifies the new resource's User
      */
@@ -303,7 +302,7 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The The type of the Binding.
+     * Returns The type of the Binding.
      *
      * @return The type of the Binding
      */
@@ -312,7 +311,7 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The The channel-specific address.
+     * Returns The channel-specific address.
      *
      * @return The channel-specific address
      */
@@ -321,7 +320,7 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The The list of tags associated with this Binding.
+     * Returns The list of tags associated with this Binding.
      *
      * @return The list of tags associated with this Binding
      */
@@ -330,7 +329,7 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Binding resource.
+     * Returns The absolute URL of the Binding resource.
      *
      * @return The absolute URL of the Binding resource
      */
@@ -339,7 +338,7 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The The URLs of related resources.
+     * Returns The URLs of related resources.
      *
      * @return The URLs of related resources
      */

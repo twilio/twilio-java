@@ -51,8 +51,7 @@ public class SettingsUpdater extends Updater<Settings> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VOICE.toString(),
-            "/v1/Settings",
-            client.getRegion()
+            "/v1/Settings"
         );
 
         addPostParams(request);
@@ -65,14 +64,7 @@ public class SettingsUpdater extends Updater<Settings> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Settings.fromJson(response.getStream(), client.getObjectMapper());

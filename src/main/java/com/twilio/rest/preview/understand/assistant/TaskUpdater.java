@@ -122,8 +122,7 @@ public class TaskUpdater extends Updater<Task> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/Tasks/" + this.pathSid + "",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/Tasks/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -136,14 +135,7 @@ public class TaskUpdater extends Updater<Task> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Task.fromJson(response.getStream(), client.getObjectMapper());

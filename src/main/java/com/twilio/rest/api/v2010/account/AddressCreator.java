@@ -133,8 +133,7 @@ public class AddressCreator extends Creator<Address> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Addresses.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Addresses.json"
         );
 
         addPostParams(request);
@@ -147,14 +146,7 @@ public class AddressCreator extends Creator<Address> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Address.fromJson(response.getStream(), client.getObjectMapper());

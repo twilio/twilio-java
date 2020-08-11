@@ -205,7 +205,7 @@ public class Role extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -214,7 +214,7 @@ public class Role extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -223,7 +223,7 @@ public class Role extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the resource is associated with.
+     * Returns The SID of the Service that the resource is associated with.
      *
      * @return The SID of the Service that the resource is associated with
      */
@@ -232,7 +232,7 @@ public class Role extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -241,7 +241,7 @@ public class Role extends Resource {
     }
 
     /**
-     * Returns The The type of role.
+     * Returns The type of role.
      *
      * @return The type of role
      */
@@ -250,7 +250,7 @@ public class Role extends Resource {
     }
 
     /**
-     * Returns The An array of the permissions the role has been granted.
+     * Returns An array of the permissions the role has been granted.
      *
      * @return An array of the permissions the role has been granted
      */
@@ -259,7 +259,7 @@ public class Role extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -268,8 +268,7 @@ public class Role extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -278,7 +277,7 @@ public class Role extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Role resource.
+     * Returns The absolute URL of the Role resource.
      *
      * @return The absolute URL of the Role resource
      */

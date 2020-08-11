@@ -101,8 +101,7 @@ public class DeviceUpdater extends Updater<Device> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Devices/" + this.pathSid + "",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Devices/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -115,14 +114,7 @@ public class DeviceUpdater extends Updater<Device> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Device.fromJson(response.getStream(), client.getObjectMapper());

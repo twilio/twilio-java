@@ -166,7 +166,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -175,7 +175,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -184,7 +184,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the resource is associated with.
+     * Returns The SID of the Service that the resource is associated with.
      *
      * @return The SID of the Service that the resource is associated with
      */
@@ -193,7 +193,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -202,8 +202,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -212,7 +211,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The phone number in E.164 format.
+     * Returns The phone number in E.164 format.
      *
      * @return The phone number in E.164 format
      */
@@ -221,7 +220,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The 2-character ISO Country Code of the number.
+     * Returns The 2-character ISO Country Code of the number.
      *
      * @return The 2-character ISO Country Code of the number
      */
@@ -230,8 +229,8 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The An array of values that describe whether the number can receive
-     * calls or messages.
+     * Returns An array of values that describe whether the number can receive calls
+     * or messages.
      *
      * @return An array of values that describe whether the number can receive
      *         calls or messages
@@ -241,7 +240,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the PhoneNumber resource.
+     * Returns The absolute URL of the PhoneNumber resource.
      *
      * @return The absolute URL of the PhoneNumber resource
      */

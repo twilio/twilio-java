@@ -195,7 +195,7 @@ public class OriginationUrl extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -204,7 +204,7 @@ public class OriginationUrl extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -213,7 +213,7 @@ public class OriginationUrl extends Resource {
     }
 
     /**
-     * Returns The The SID of the Trunk that owns the Origination URL.
+     * Returns The SID of the Trunk that owns the Origination URL.
      *
      * @return The SID of the Trunk that owns the Origination URL
      */
@@ -222,8 +222,8 @@ public class OriginationUrl extends Resource {
     }
 
     /**
-     * Returns The The value that determines the relative load the URI should
-     * receive compared to others with the same priority.
+     * Returns The value that determines the relative load the URI should receive
+     * compared to others with the same priority.
      *
      * @return The value that determines the relative load the URI should receive
      *         compared to others with the same priority
@@ -233,7 +233,7 @@ public class OriginationUrl extends Resource {
     }
 
     /**
-     * Returns The Whether the URL is enabled.
+     * Returns Whether the URL is enabled.
      *
      * @return Whether the URL is enabled
      */
@@ -242,8 +242,7 @@ public class OriginationUrl extends Resource {
     }
 
     /**
-     * Returns The The SIP address you want Twilio to route your Origination calls
-     * to.
+     * Returns The SIP address you want Twilio to route your Origination calls to.
      *
      * @return The SIP address you want Twilio to route your Origination calls to
      */
@@ -252,7 +251,7 @@ public class OriginationUrl extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -261,7 +260,7 @@ public class OriginationUrl extends Resource {
     }
 
     /**
-     * Returns The The relative importance of the URI.
+     * Returns The relative importance of the URI.
      *
      * @return The relative importance of the URI
      */
@@ -270,7 +269,7 @@ public class OriginationUrl extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -279,8 +278,7 @@ public class OriginationUrl extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -289,7 +287,7 @@ public class OriginationUrl extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
      */

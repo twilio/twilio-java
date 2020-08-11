@@ -96,8 +96,7 @@ public class SampleUpdater extends Updater<Sample> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/Tasks/" + this.pathTaskSid + "/Samples/" + this.pathSid + "",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/Tasks/" + this.pathTaskSid + "/Samples/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -110,14 +109,7 @@ public class SampleUpdater extends Updater<Sample> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Sample.fromJson(response.getStream(), client.getObjectMapper());

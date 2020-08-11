@@ -60,8 +60,7 @@ public class WorkflowRealTimeStatisticsFetcher extends Fetcher<WorkflowRealTimeS
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workflows/" + this.pathWorkflowSid + "/RealTimeStatistics",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workflows/" + this.pathWorkflowSid + "/RealTimeStatistics"
         );
 
         addQueryParams(request);
@@ -74,14 +73,7 @@ public class WorkflowRealTimeStatisticsFetcher extends Fetcher<WorkflowRealTimeS
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return WorkflowRealTimeStatistics.fromJson(response.getStream(), client.getObjectMapper());

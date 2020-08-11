@@ -177,7 +177,7 @@ public class DocumentPermission extends Resource {
     }
 
     /**
-     * Returns The Twilio Account SID..
+     * Returns Twilio Account SID..
      *
      * @return Twilio Account SID.
      */
@@ -186,7 +186,7 @@ public class DocumentPermission extends Resource {
     }
 
     /**
-     * Returns The Sync Service Instance SID..
+     * Returns Sync Service Instance SID..
      *
      * @return Sync Service Instance SID.
      */
@@ -195,7 +195,7 @@ public class DocumentPermission extends Resource {
     }
 
     /**
-     * Returns The Sync Document SID..
+     * Returns Sync Document SID..
      *
      * @return Sync Document SID.
      */
@@ -204,8 +204,7 @@ public class DocumentPermission extends Resource {
     }
 
     /**
-     * Returns The Identity of the user to whom the Sync Document Permission
-     * applies..
+     * Returns Identity of the user to whom the Sync Document Permission applies..
      *
      * @return Identity of the user to whom the Sync Document Permission applies.
      */
@@ -214,7 +213,7 @@ public class DocumentPermission extends Resource {
     }
 
     /**
-     * Returns The Read access..
+     * Returns Read access..
      *
      * @return Read access.
      */
@@ -223,7 +222,7 @@ public class DocumentPermission extends Resource {
     }
 
     /**
-     * Returns The Write access..
+     * Returns Write access..
      *
      * @return Write access.
      */
@@ -232,7 +231,7 @@ public class DocumentPermission extends Resource {
     }
 
     /**
-     * Returns The Manage access..
+     * Returns Manage access..
      *
      * @return Manage access.
      */
@@ -241,7 +240,7 @@ public class DocumentPermission extends Resource {
     }
 
     /**
-     * Returns The URL of this Sync Document Permission..
+     * Returns URL of this Sync Document Permission..
      *
      * @return URL of this Sync Document Permission.
      */

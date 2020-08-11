@@ -65,8 +65,7 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathTrunkSid + "/OriginationUrls",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathTrunkSid + "/OriginationUrls"
         );
 
         addPostParams(request);
@@ -79,14 +78,7 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return OriginationUrl.fromJson(response.getStream(), client.getObjectMapper());

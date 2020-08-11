@@ -42,7 +42,7 @@ public class Export extends Resource {
     /**
      * Create a ExportFetcher to execute fetch.
      *
-     * @param pathResourceType The resource_type
+     * @param pathResourceType The type of communication – Messages, Calls
      * @return ExportFetcher capable of executing the fetch
      */
     public static ExportFetcher fetcher(final String pathResourceType) {
@@ -103,27 +103,27 @@ public class Export extends Resource {
     }
 
     /**
-     * Returns The The resource_type.
+     * Returns The type of communication – Messages, Calls.
      *
-     * @return The resource_type
+     * @return The type of communication – Messages, Calls
      */
     public final String getResourceType() {
         return this.resourceType;
     }
 
     /**
-     * Returns The The url.
+     * Returns The URL of this resource..
      *
-     * @return The url
+     * @return The URL of this resource.
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns Nested resource URLs..
      *
-     * @return The links
+     * @return Nested resource URLs.
      */
     public final Map<String, String> getLinks() {
         return this.links;

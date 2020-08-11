@@ -55,8 +55,7 @@ public class AssetUpdater extends Updater<Asset> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Assets/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Assets/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -69,14 +68,7 @@ public class AssetUpdater extends Updater<Asset> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Asset.fromJson(response.getStream(), client.getObjectMapper());

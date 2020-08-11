@@ -194,7 +194,7 @@ public class Workflow extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -203,8 +203,8 @@ public class Workflow extends Resource {
     }
 
     /**
-     * Returns The The URL that we call when a task managed by the Workflow is
-     * assigned to a Worker.
+     * Returns The URL that we call when a task managed by the Workflow is assigned
+     * to a Worker.
      *
      * @return The URL that we call when a task managed by the Workflow is assigned
      *         to a Worker
@@ -214,7 +214,7 @@ public class Workflow extends Resource {
     }
 
     /**
-     * Returns The A JSON string that contains the Workflow's configuration.
+     * Returns A JSON string that contains the Workflow's configuration.
      *
      * @return A JSON string that contains the Workflow's configuration
      */
@@ -223,7 +223,7 @@ public class Workflow extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -232,8 +232,7 @@ public class Workflow extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -242,7 +241,7 @@ public class Workflow extends Resource {
     }
 
     /**
-     * Returns The The MIME type of the document.
+     * Returns The MIME type of the document.
      *
      * @return The MIME type of the document
      */
@@ -251,7 +250,7 @@ public class Workflow extends Resource {
     }
 
     /**
-     * Returns The The URL that we call when a call to the `assignment_callback_url`
+     * Returns The URL that we call when a call to the `assignment_callback_url`
      * fails.
      *
      * @return The URL that we call when a call to the `assignment_callback_url`
@@ -262,7 +261,7 @@ public class Workflow extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the Workflow resource.
+     * Returns The string that you assigned to describe the Workflow resource.
      *
      * @return The string that you assigned to describe the Workflow resource
      */
@@ -271,7 +270,7 @@ public class Workflow extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -280,8 +279,8 @@ public class Workflow extends Resource {
     }
 
     /**
-     * Returns The How long TaskRouter will wait for a confirmation response from
-     * your application after it assigns a Task to a Worker.
+     * Returns How long TaskRouter will wait for a confirmation response from your
+     * application after it assigns a Task to a Worker.
      *
      * @return How long TaskRouter will wait for a confirmation response from your
      *         application after it assigns a Task to a Worker
@@ -291,7 +290,7 @@ public class Workflow extends Resource {
     }
 
     /**
-     * Returns The The SID of the Workspace that contains the Workflow.
+     * Returns The SID of the Workspace that contains the Workflow.
      *
      * @return The SID of the Workspace that contains the Workflow
      */
@@ -300,7 +299,7 @@ public class Workflow extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Workflow resource.
+     * Returns The absolute URL of the Workflow resource.
      *
      * @return The absolute URL of the Workflow resource
      */
@@ -309,7 +308,7 @@ public class Workflow extends Resource {
     }
 
     /**
-     * Returns The The URLs of related resources.
+     * Returns The URLs of related resources.
      *
      * @return The URLs of related resources
      */

@@ -144,8 +144,7 @@ public class ChannelCreator extends Creator<Channel> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels"
         );
 
         addPostParams(request);
@@ -158,14 +157,7 @@ public class ChannelCreator extends Creator<Channel> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Channel.fromJson(response.getStream(), client.getObjectMapper());

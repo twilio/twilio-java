@@ -904,8 +904,7 @@ public class ReservationUpdater extends Updater<Reservation> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/" + this.pathWorkerSid + "/Reservations/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/" + this.pathWorkerSid + "/Reservations/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -918,14 +917,7 @@ public class ReservationUpdater extends Updater<Reservation> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Reservation.fromJson(response.getStream(), client.getObjectMapper());

@@ -186,7 +186,7 @@ public class SyncMap extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -195,8 +195,7 @@ public class SyncMap extends Resource {
     }
 
     /**
-     * Returns The An application-defined string that uniquely identifies the
-     * resource.
+     * Returns An application-defined string that uniquely identifies the resource.
      *
      * @return An application-defined string that uniquely identifies the resource
      */
@@ -205,7 +204,7 @@ public class SyncMap extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -214,7 +213,7 @@ public class SyncMap extends Resource {
     }
 
     /**
-     * Returns The The SID of the Sync Service that the resource is associated with.
+     * Returns The SID of the Sync Service that the resource is associated with.
      *
      * @return The SID of the Sync Service that the resource is associated with
      */
@@ -223,7 +222,7 @@ public class SyncMap extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Sync Map resource.
+     * Returns The absolute URL of the Sync Map resource.
      *
      * @return The absolute URL of the Sync Map resource
      */
@@ -232,7 +231,7 @@ public class SyncMap extends Resource {
     }
 
     /**
-     * Returns The The URLs of the Sync Map's nested resources.
+     * Returns The URLs of the Sync Map's nested resources.
      *
      * @return The URLs of the Sync Map's nested resources
      */
@@ -241,7 +240,7 @@ public class SyncMap extends Resource {
     }
 
     /**
-     * Returns The The current revision of the Sync Map, represented as a string.
+     * Returns The current revision of the Sync Map, represented as a string.
      *
      * @return The current revision of the Sync Map, represented as a string
      */
@@ -250,7 +249,7 @@ public class SyncMap extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Sync Map expires.
+     * Returns The ISO 8601 date and time in GMT when the Sync Map expires.
      *
      * @return The ISO 8601 date and time in GMT when the Sync Map expires
      */
@@ -259,7 +258,7 @@ public class SyncMap extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -268,8 +267,7 @@ public class SyncMap extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -278,7 +276,7 @@ public class SyncMap extends Resource {
     }
 
     /**
-     * Returns The The identity of the Sync Map's creator.
+     * Returns The identity of the Sync Map's creator.
      *
      * @return The identity of the Sync Map's creator
      */

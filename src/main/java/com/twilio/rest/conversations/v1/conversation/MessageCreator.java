@@ -125,8 +125,7 @@ public class MessageCreator extends Creator<Message> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CONVERSATIONS.toString(),
-            "/v1/Conversations/" + this.pathConversationSid + "/Messages",
-            client.getRegion()
+            "/v1/Conversations/" + this.pathConversationSid + "/Messages"
         );
 
         addPostParams(request);
@@ -139,14 +138,7 @@ public class MessageCreator extends Creator<Message> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Message.fromJson(response.getStream(), client.getObjectMapper());

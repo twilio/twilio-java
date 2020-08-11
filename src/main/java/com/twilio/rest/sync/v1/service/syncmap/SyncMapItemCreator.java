@@ -108,8 +108,7 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Items",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Items"
         );
 
         addPostParams(request);
@@ -122,14 +121,7 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SyncMapItem.fromJson(response.getStream(), client.getObjectMapper());

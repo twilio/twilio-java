@@ -177,7 +177,7 @@ public class SyncMapPermission extends Resource {
     }
 
     /**
-     * Returns The Twilio Account SID..
+     * Returns Twilio Account SID..
      *
      * @return Twilio Account SID.
      */
@@ -186,7 +186,7 @@ public class SyncMapPermission extends Resource {
     }
 
     /**
-     * Returns The Sync Service Instance SID..
+     * Returns Sync Service Instance SID..
      *
      * @return Sync Service Instance SID.
      */
@@ -195,7 +195,7 @@ public class SyncMapPermission extends Resource {
     }
 
     /**
-     * Returns The Sync Map SID..
+     * Returns Sync Map SID..
      *
      * @return Sync Map SID.
      */
@@ -204,7 +204,7 @@ public class SyncMapPermission extends Resource {
     }
 
     /**
-     * Returns The Identity of the user to whom the Sync Map Permission applies..
+     * Returns Identity of the user to whom the Sync Map Permission applies..
      *
      * @return Identity of the user to whom the Sync Map Permission applies.
      */
@@ -213,7 +213,7 @@ public class SyncMapPermission extends Resource {
     }
 
     /**
-     * Returns The Read access..
+     * Returns Read access..
      *
      * @return Read access.
      */
@@ -222,7 +222,7 @@ public class SyncMapPermission extends Resource {
     }
 
     /**
-     * Returns The Write access..
+     * Returns Write access..
      *
      * @return Write access.
      */
@@ -231,7 +231,7 @@ public class SyncMapPermission extends Resource {
     }
 
     /**
-     * Returns The Manage access..
+     * Returns Manage access..
      *
      * @return Manage access.
      */
@@ -240,7 +240,7 @@ public class SyncMapPermission extends Resource {
     }
 
     /**
-     * Returns The URL of this Sync Map Permission..
+     * Returns URL of this Sync Map Permission..
      *
      * @return URL of this Sync Map Permission.
      */

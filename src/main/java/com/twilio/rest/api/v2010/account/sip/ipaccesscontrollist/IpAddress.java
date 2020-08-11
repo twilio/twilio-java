@@ -266,7 +266,7 @@ public class IpAddress extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns A 34 character string that uniquely identifies this resource..
      *
      * @return A 34 character string that uniquely identifies this resource.
      */
@@ -275,8 +275,7 @@ public class IpAddress extends Resource {
     }
 
     /**
-     * Returns The The unique id of the Account that is responsible for this
-     * resource..
+     * Returns The unique id of the Account that is responsible for this resource..
      *
      * @return The unique id of the Account that is responsible for this resource.
      */
@@ -285,7 +284,7 @@ public class IpAddress extends Resource {
     }
 
     /**
-     * Returns The A human readable descriptive text for this resource, up to 64
+     * Returns A human readable descriptive text for this resource, up to 64
      * characters long..
      *
      * @return A human readable descriptive text for this resource, up to 64
@@ -296,7 +295,7 @@ public class IpAddress extends Resource {
     }
 
     /**
-     * Returns The An IP address in dotted decimal notation from which you want to
+     * Returns An IP address in dotted decimal notation from which you want to
      * accept traffic. Any SIP requests from this IP address will be allowed by
      * Twilio. IPv4 only supported today..
      *
@@ -309,7 +308,7 @@ public class IpAddress extends Resource {
     }
 
     /**
-     * Returns The An integer representing the length of the CIDR prefix to use with
+     * Returns An integer representing the length of the CIDR prefix to use with
      * this IP address when accepting traffic. By default the entire IP address is
      * used..
      *
@@ -322,8 +321,8 @@ public class IpAddress extends Resource {
     }
 
     /**
-     * Returns The The unique id of the IpAccessControlList resource that includes
-     * this resource..
+     * Returns The unique id of the IpAccessControlList resource that includes this
+     * resource..
      *
      * @return The unique id of the IpAccessControlList resource that includes this
      *         resource.
@@ -333,7 +332,7 @@ public class IpAddress extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was created, given as GMT in RFC 2822
+     * Returns The date that this resource was created, given as GMT in RFC 2822
      * format..
      *
      * @return The date that this resource was created, given as GMT in RFC 2822
@@ -344,7 +343,7 @@ public class IpAddress extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was last updated, given as GMT in RFC
+     * Returns The date that this resource was last updated, given as GMT in RFC
      * 2822 format..
      *
      * @return The date that this resource was last updated, given as GMT in RFC
@@ -355,7 +354,7 @@ public class IpAddress extends Resource {
     }
 
     /**
-     * Returns The The URI for this resource, relative to https://api.twilio.com.
+     * Returns The URI for this resource, relative to https://api.twilio.com.
      *
      * @return The URI for this resource, relative to https://api.twilio.com
      */

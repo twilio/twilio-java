@@ -76,8 +76,7 @@ public class SampleCreator extends Creator<Sample> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/Tasks/" + this.pathTaskSid + "/Samples",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/Tasks/" + this.pathTaskSid + "/Samples"
         );
 
         addPostParams(request);
@@ -90,14 +89,7 @@ public class SampleCreator extends Creator<Sample> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Sample.fromJson(response.getStream(), client.getObjectMapper());

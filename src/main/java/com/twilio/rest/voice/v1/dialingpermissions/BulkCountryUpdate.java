@@ -99,7 +99,7 @@ public class BulkCountryUpdate extends Resource {
     }
 
     /**
-     * Returns The The number of countries updated.
+     * Returns The number of countries updated.
      *
      * @return The number of countries updated
      */
@@ -108,7 +108,7 @@ public class BulkCountryUpdate extends Resource {
     }
 
     /**
-     * Returns The A URL encoded JSON array of update objects.
+     * Returns A URL encoded JSON array of update objects.
      *
      * @return A URL encoded JSON array of update objects
      */

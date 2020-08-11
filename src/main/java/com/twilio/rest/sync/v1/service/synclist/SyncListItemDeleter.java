@@ -54,8 +54,7 @@ public class SyncListItemDeleter extends Deleter<SyncListItem> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Items/" + this.pathIndex + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Items/" + this.pathIndex + ""
         );
 
         Response response = client.request(request);
@@ -67,14 +66,7 @@ public class SyncListItemDeleter extends Deleter<SyncListItem> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

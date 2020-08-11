@@ -56,8 +56,7 @@ public class AssetVersionFetcher extends Fetcher<AssetVersion> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Assets/" + this.pathAssetSid + "/Versions/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Assets/" + this.pathAssetSid + "/Versions/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -69,14 +68,7 @@ public class AssetVersionFetcher extends Fetcher<AssetVersion> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return AssetVersion.fromJson(response.getStream(), client.getObjectMapper());

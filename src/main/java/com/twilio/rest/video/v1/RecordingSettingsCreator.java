@@ -20,11 +20,6 @@ import com.twilio.rest.Domains;
 
 import java.net.URI;
 
-/**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- */
 public class RecordingSettingsCreator extends Creator<RecordingSettings> {
     private final String friendlyName;
     private String awsCredentialsSid;
@@ -68,9 +63,10 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
     /**
      * The URL of the AWS S3 bucket where the recordings should be stored. We only
      * support DNS-compliant URLs like
-     * `http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/recordings`,
-     * where `recordings` is the path in which you want the recordings to be
-     * stored..
+     * `https://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/recordings`,
+     * where `recordings` is the path in which you want the recordings to be stored.
+     * This URL accepts only URI-valid characters, as described in the &lt;a
+     * href='https://tools.ietf.org/html/rfc3986#section-2'&gt;RFC 3986&lt;/a&gt;..
      *
      * @param awsS3Url The URL of the AWS S3 bucket where the recordings should be
      *                 stored
@@ -84,9 +80,10 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
     /**
      * The URL of the AWS S3 bucket where the recordings should be stored. We only
      * support DNS-compliant URLs like
-     * `http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/recordings`,
-     * where `recordings` is the path in which you want the recordings to be
-     * stored..
+     * `https://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/recordings`,
+     * where `recordings` is the path in which you want the recordings to be stored.
+     * This URL accepts only URI-valid characters, as described in the &lt;a
+     * href='https://tools.ietf.org/html/rfc3986#section-2'&gt;RFC 3986&lt;/a&gt;..
      *
      * @param awsS3Url The URL of the AWS S3 bucket where the recordings should be
      *                 stored
@@ -134,8 +131,7 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
-            "/v1/RecordingSettings/Default",
-            client.getRegion()
+            "/v1/RecordingSettings/Default"
         );
 
         addPostParams(request);
@@ -148,14 +144,7 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return RecordingSettings.fromJson(response.getStream(), client.getObjectMapper());

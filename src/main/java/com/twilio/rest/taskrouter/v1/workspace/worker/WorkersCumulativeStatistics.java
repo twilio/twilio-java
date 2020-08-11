@@ -139,7 +139,7 @@ public class WorkersCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -148,7 +148,7 @@ public class WorkersCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The beginning of the interval during which these statistics were
+     * Returns The beginning of the interval during which these statistics were
      * calculated.
      *
      * @return The beginning of the interval during which these statistics were
@@ -159,7 +159,7 @@ public class WorkersCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The end of the interval during which these statistics were
+     * Returns The end of the interval during which these statistics were
      * calculated.
      *
      * @return The end of the interval during which these statistics were calculated
@@ -169,8 +169,8 @@ public class WorkersCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The minimum, average, maximum, and total time that Workers spent
-     * in each Activity.
+     * Returns The minimum, average, maximum, and total time that Workers spent in
+     * each Activity.
      *
      * @return The minimum, average, maximum, and total time that Workers spent in
      *         each Activity
@@ -180,7 +180,7 @@ public class WorkersCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations that were created.
+     * Returns The total number of Reservations that were created.
      *
      * @return The total number of Reservations that were created
      */
@@ -189,7 +189,7 @@ public class WorkersCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations that were accepted.
+     * Returns The total number of Reservations that were accepted.
      *
      * @return The total number of Reservations that were accepted
      */
@@ -198,7 +198,7 @@ public class WorkersCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations that were rejected.
+     * Returns The total number of Reservations that were rejected.
      *
      * @return The total number of Reservations that were rejected
      */
@@ -207,7 +207,7 @@ public class WorkersCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations that were timed out.
+     * Returns The total number of Reservations that were timed out.
      *
      * @return The total number of Reservations that were timed out
      */
@@ -216,7 +216,7 @@ public class WorkersCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations that were canceled.
+     * Returns The total number of Reservations that were canceled.
      *
      * @return The total number of Reservations that were canceled
      */
@@ -225,7 +225,7 @@ public class WorkersCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations that were rescinded.
+     * Returns The total number of Reservations that were rescinded.
      *
      * @return The total number of Reservations that were rescinded
      */
@@ -234,7 +234,7 @@ public class WorkersCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Workspace that contains the Workers.
+     * Returns The SID of the Workspace that contains the Workers.
      *
      * @return The SID of the Workspace that contains the Workers
      */
@@ -243,7 +243,7 @@ public class WorkersCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Workers statistics resource.
+     * Returns The absolute URL of the Workers statistics resource.
      *
      * @return The absolute URL of the Workers statistics resource
      */

@@ -83,8 +83,7 @@ public class UserCreator extends Creator<User> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Users",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Users"
         );
 
         addPostParams(request);
@@ -97,14 +96,7 @@ public class UserCreator extends Creator<User> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return User.fromJson(response.getStream(), client.getObjectMapper());

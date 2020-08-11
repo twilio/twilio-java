@@ -29,6 +29,9 @@ public class ParticipantUpdater extends Updater<Participant> {
     private ZonedDateTime dateCreated;
     private ZonedDateTime dateUpdated;
     private String attributes;
+    private String roleSid;
+    private String messagingBindingProxyAddress;
+    private String messagingBindingProjectedAddress;
 
     /**
      * Construct a new ParticipantUpdater.
@@ -80,6 +83,44 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
+     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to
+     * assign to the participant..
+     *
+     * @param roleSid The SID of the Role to assign to the participant
+     * @return this
+     */
+    public ParticipantUpdater setRoleSid(final String roleSid) {
+        this.roleSid = roleSid;
+        return this;
+    }
+
+    /**
+     * The address of the Twilio phone number that the participant is in contact
+     * with. 'null' value will remove it..
+     *
+     * @param messagingBindingProxyAddress The address of the Twilio phone number
+     *                                     that the participant is in contact with.
+     * @return this
+     */
+    public ParticipantUpdater setMessagingBindingProxyAddress(final String messagingBindingProxyAddress) {
+        this.messagingBindingProxyAddress = messagingBindingProxyAddress;
+        return this;
+    }
+
+    /**
+     * The address of the Twilio phone number that is used in Group MMS. 'null'
+     * value will remove it..
+     *
+     * @param messagingBindingProjectedAddress The address of the Twilio phone
+     *                                         number that is used in Group MMS.
+     * @return this
+     */
+    public ParticipantUpdater setMessagingBindingProjectedAddress(final String messagingBindingProjectedAddress) {
+        this.messagingBindingProjectedAddress = messagingBindingProjectedAddress;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -91,8 +132,7 @@ public class ParticipantUpdater extends Updater<Participant> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CONVERSATIONS.toString(),
-            "/v1/Conversations/" + this.pathConversationSid + "/Participants/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Conversations/" + this.pathConversationSid + "/Participants/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -105,14 +145,7 @@ public class ParticipantUpdater extends Updater<Participant> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Participant.fromJson(response.getStream(), client.getObjectMapper());
@@ -134,6 +167,18 @@ public class ParticipantUpdater extends Updater<Participant> {
 
         if (attributes != null) {
             request.addPostParam("Attributes", attributes);
+        }
+
+        if (roleSid != null) {
+            request.addPostParam("RoleSid", roleSid);
+        }
+
+        if (messagingBindingProxyAddress != null) {
+            request.addPostParam("MessagingBinding.ProxyAddress", messagingBindingProxyAddress);
+        }
+
+        if (messagingBindingProjectedAddress != null) {
+            request.addPostParam("MessagingBinding.ProjectedAddress", messagingBindingProjectedAddress);
         }
     }
 }

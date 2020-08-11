@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Participant extends Resource {
-    private static final long serialVersionUID = 167297652471309L;
+    private static final long serialVersionUID = 185754167608854L;
 
     public enum WebhookEnabledType {
         TRUE("true"),
@@ -172,6 +172,7 @@ public class Participant extends Resource {
     private final String identity;
     private final String attributes;
     private final Map<String, Object> messagingBinding;
+    private final String roleSid;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -189,6 +190,8 @@ public class Participant extends Resource {
                         final String attributes,
                         @JsonProperty("messaging_binding")
                         final Map<String, Object> messagingBinding,
+                        @JsonProperty("role_sid")
+                        final String roleSid,
                         @JsonProperty("date_created")
                         final String dateCreated,
                         @JsonProperty("date_updated")
@@ -201,13 +204,14 @@ public class Participant extends Resource {
         this.identity = identity;
         this.attributes = attributes;
         this.messagingBinding = messagingBinding;
+        this.roleSid = roleSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this participant..
+     * Returns The unique id of the Account responsible for this participant..
      *
      * @return The unique id of the Account responsible for this participant.
      */
@@ -216,7 +220,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The unique id of the Conversation for this participant..
+     * Returns The unique id of the Conversation for this participant..
      *
      * @return The unique id of the Conversation for this participant.
      */
@@ -225,7 +229,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns A 34 character string that uniquely identifies this resource..
      *
      * @return A 34 character string that uniquely identifies this resource.
      */
@@ -234,8 +238,8 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The A unique string identifier for the conversation participant as
-     * Chat User..
+     * Returns A unique string identifier for the conversation participant as Chat
+     * User..
      *
      * @return A unique string identifier for the conversation participant as Chat
      *         User.
@@ -245,8 +249,8 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The An optional string metadata field you can use to store any data
-     * you wish..
+     * Returns An optional string metadata field you can use to store any data you
+     * wish..
      *
      * @return An optional string metadata field you can use to store any data you
      *         wish.
@@ -256,8 +260,8 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The Information about how this participant exchanges messages with
-     * the conversation..
+     * Returns Information about how this participant exchanges messages with the
+     * conversation..
      *
      * @return Information about how this participant exchanges messages with the
      *         conversation.
@@ -267,7 +271,16 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was created..
+     * Returns The SID of the Role to assign to the participant.
+     *
+     * @return The SID of the Role to assign to the participant
+     */
+    public final String getRoleSid() {
+        return this.roleSid;
+    }
+
+    /**
+     * Returns The date that this resource was created..
      *
      * @return The date that this resource was created.
      */
@@ -276,7 +289,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was last updated..
+     * Returns The date that this resource was last updated..
      *
      * @return The date that this resource was last updated.
      */
@@ -285,7 +298,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The An absolute URL for this participant..
+     * Returns An absolute URL for this participant..
      *
      * @return An absolute URL for this participant.
      */
@@ -311,6 +324,7 @@ public class Participant extends Resource {
                Objects.equals(identity, other.identity) &&
                Objects.equals(attributes, other.attributes) &&
                Objects.equals(messagingBinding, other.messagingBinding) &&
+               Objects.equals(roleSid, other.roleSid) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
@@ -324,6 +338,7 @@ public class Participant extends Resource {
                             identity,
                             attributes,
                             messagingBinding,
+                            roleSid,
                             dateCreated,
                             dateUpdated,
                             url);
@@ -338,6 +353,7 @@ public class Participant extends Resource {
                           .add("identity", identity)
                           .add("attributes", attributes)
                           .add("messagingBinding", messagingBinding)
+                          .add("roleSid", roleSid)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)

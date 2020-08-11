@@ -264,8 +264,7 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
-            "/v1/CompositionHooks/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/CompositionHooks/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -278,14 +277,7 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return CompositionHook.fromJson(response.getStream(), client.getObjectMapper());

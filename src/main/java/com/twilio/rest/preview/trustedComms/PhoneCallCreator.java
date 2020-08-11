@@ -442,8 +442,7 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/TrustedComms/Business/PhoneCalls",
-            client.getRegion()
+            "/TrustedComms/Business/PhoneCalls"
         );
 
         addPostParams(request);
@@ -456,14 +455,7 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return PhoneCall.fromJson(response.getStream(), client.getObjectMapper());

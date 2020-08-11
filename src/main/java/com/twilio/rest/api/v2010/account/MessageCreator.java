@@ -33,8 +33,11 @@ public class MessageCreator extends Creator<Message> {
     private String applicationSid;
     private BigDecimal maxPrice;
     private Boolean provideFeedback;
+    private Integer attempt;
     private Integer validityPeriod;
     private Boolean forceDelivery;
+    private Message.ContentRetention contentRetention;
+    private Message.AddressRetention addressRetention;
     private Boolean smartEncoded;
     private List<String> persistentAction;
 
@@ -269,6 +272,19 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
+     * Total number of attempts made ( including this ) to send out the message
+     * regardless of the provider used.
+     *
+     * @param attempt Total numer of attempts made , this inclusive to send out the
+     *                message
+     * @return this
+     */
+    public MessageCreator setAttempt(final Integer attempt) {
+        this.attempt = attempt;
+        return this;
+    }
+
+    /**
      * How long in seconds the message can remain in our outgoing message queue.
      * After this period elapses, the message fails and we call your status
      * callback. Can be between 1 and the default value of 14,400 seconds. After a
@@ -293,6 +309,32 @@ public class MessageCreator extends Creator<Message> {
      */
     public MessageCreator setForceDelivery(final Boolean forceDelivery) {
         this.forceDelivery = forceDelivery;
+        return this;
+    }
+
+    /**
+     * Determines if the message content can be stored or redacted based on privacy
+     * settings.
+     *
+     * @param contentRetention Determines if the message content can be stored or
+     *                         redacted based on privacy settings
+     * @return this
+     */
+    public MessageCreator setContentRetention(final Message.ContentRetention contentRetention) {
+        this.contentRetention = contentRetention;
+        return this;
+    }
+
+    /**
+     * Determines if the address can be stored or obfuscated based on privacy
+     * settings.
+     *
+     * @param addressRetention Determines if the address can be stored or
+     *                         obfuscated based on privacy settings
+     * @return this
+     */
+    public MessageCreator setAddressRetention(final Message.AddressRetention addressRetention) {
+        this.addressRetention = addressRetention;
         return this;
     }
 
@@ -451,8 +493,7 @@ public class MessageCreator extends Creator<Message> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Messages.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Messages.json"
         );
 
         addPostParams(request);
@@ -465,14 +506,7 @@ public class MessageCreator extends Creator<Message> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Message.fromJson(response.getStream(), client.getObjectMapper());
@@ -522,12 +556,24 @@ public class MessageCreator extends Creator<Message> {
             request.addPostParam("ProvideFeedback", provideFeedback.toString());
         }
 
+        if (attempt != null) {
+            request.addPostParam("Attempt", attempt.toString());
+        }
+
         if (validityPeriod != null) {
             request.addPostParam("ValidityPeriod", validityPeriod.toString());
         }
 
         if (forceDelivery != null) {
             request.addPostParam("ForceDelivery", forceDelivery.toString());
+        }
+
+        if (contentRetention != null) {
+            request.addPostParam("ContentRetention", contentRetention.toString());
+        }
+
+        if (addressRetention != null) {
+            request.addPostParam("AddressRetention", addressRetention.toString());
         }
 
         if (smartEncoded != null) {

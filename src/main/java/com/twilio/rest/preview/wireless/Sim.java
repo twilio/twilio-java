@@ -200,7 +200,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The sid.
      *
      * @return The sid
      */
@@ -209,7 +209,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The unique_name.
+     * Returns The unique_name.
      *
      * @return The unique_name
      */
@@ -218,7 +218,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The account_sid.
      *
      * @return The account_sid
      */
@@ -227,7 +227,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The rate_plan_sid.
+     * Returns The rate_plan_sid.
      *
      * @return The rate_plan_sid
      */
@@ -236,7 +236,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The friendly_name.
      *
      * @return The friendly_name
      */
@@ -245,7 +245,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The iccid.
+     * Returns The iccid.
      *
      * @return The iccid
      */
@@ -254,7 +254,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The e_id.
+     * Returns The e_id.
      *
      * @return The e_id
      */
@@ -263,7 +263,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The status.
+     * Returns The status.
      *
      * @return The status
      */
@@ -272,7 +272,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The commands_callback_url.
+     * Returns The commands_callback_url.
      *
      * @return The commands_callback_url
      */
@@ -281,7 +281,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The commands_callback_method.
+     * Returns The commands_callback_method.
      *
      * @return The commands_callback_method
      */
@@ -290,7 +290,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The sms_fallback_method.
+     * Returns The sms_fallback_method.
      *
      * @return The sms_fallback_method
      */
@@ -299,7 +299,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The sms_fallback_url.
+     * Returns The sms_fallback_url.
      *
      * @return The sms_fallback_url
      */
@@ -308,7 +308,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The sms_method.
+     * Returns The sms_method.
      *
      * @return The sms_method
      */
@@ -317,7 +317,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The sms_url.
+     * Returns The sms_url.
      *
      * @return The sms_url
      */
@@ -326,7 +326,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The voice_fallback_method.
+     * Returns The voice_fallback_method.
      *
      * @return The voice_fallback_method
      */
@@ -335,7 +335,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The voice_fallback_url.
+     * Returns The voice_fallback_url.
      *
      * @return The voice_fallback_url
      */
@@ -344,7 +344,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The voice_method.
+     * Returns The voice_method.
      *
      * @return The voice_method
      */
@@ -353,7 +353,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The voice_url.
+     * Returns The voice_url.
      *
      * @return The voice_url
      */
@@ -362,7 +362,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The date_created.
      *
      * @return The date_created
      */
@@ -371,7 +371,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The date_updated.
      *
      * @return The date_updated
      */
@@ -380,7 +380,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The url.
      *
      * @return The url
      */
@@ -389,7 +389,7 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The The links.
+     * Returns The links.
      *
      * @return The links
      */

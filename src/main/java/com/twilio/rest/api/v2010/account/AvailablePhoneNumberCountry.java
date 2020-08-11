@@ -142,7 +142,7 @@ public class AvailablePhoneNumberCountry extends Resource {
     }
 
     /**
-     * Returns The The ISO-3166-1 country code of the country..
+     * Returns The ISO-3166-1 country code of the country..
      *
      * @return The ISO-3166-1 country code of the country.
      */
@@ -151,7 +151,7 @@ public class AvailablePhoneNumberCountry extends Resource {
     }
 
     /**
-     * Returns The The name of the country.
+     * Returns The name of the country.
      *
      * @return The name of the country
      */
@@ -160,7 +160,7 @@ public class AvailablePhoneNumberCountry extends Resource {
     }
 
     /**
-     * Returns The The URI of the Country resource, relative to
+     * Returns The URI of the Country resource, relative to
      * `https://api.twilio.com`.
      *
      * @return The URI of the Country resource, relative to `https://api.twilio.com`
@@ -170,7 +170,7 @@ public class AvailablePhoneNumberCountry extends Resource {
     }
 
     /**
-     * Returns The Whether all phone numbers available in the country are new to the
+     * Returns Whether all phone numbers available in the country are new to the
      * Twilio platform..
      *
      * @return Whether all phone numbers available in the country are new to the
@@ -181,7 +181,7 @@ public class AvailablePhoneNumberCountry extends Resource {
     }
 
     /**
-     * Returns The A list of related resources identified by their relative URIs.
+     * Returns A list of related resources identified by their relative URIs.
      *
      * @return A list of related resources identified by their relative URIs
      */

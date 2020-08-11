@@ -214,7 +214,7 @@ public class Workspace extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -223,7 +223,7 @@ public class Workspace extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -232,8 +232,7 @@ public class Workspace extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -242,7 +241,7 @@ public class Workspace extends Resource {
     }
 
     /**
-     * Returns The The name of the default activity.
+     * Returns The name of the default activity.
      *
      * @return The name of the default activity
      */
@@ -251,7 +250,7 @@ public class Workspace extends Resource {
     }
 
     /**
-     * Returns The The SID of the Activity that will be used when new Workers are
+     * Returns The SID of the Activity that will be used when new Workers are
      * created in the Workspace.
      *
      * @return The SID of the Activity that will be used when new Workers are
@@ -262,7 +261,7 @@ public class Workspace extends Resource {
     }
 
     /**
-     * Returns The The URL we call when an event occurs.
+     * Returns The URL we call when an event occurs.
      *
      * @return The URL we call when an event occurs
      */
@@ -271,8 +270,7 @@ public class Workspace extends Resource {
     }
 
     /**
-     * Returns The The list of Workspace events for which to call
-     * event_callback_url.
+     * Returns The list of Workspace events for which to call event_callback_url.
      *
      * @return The list of Workspace events for which to call event_callback_url
      */
@@ -281,7 +279,7 @@ public class Workspace extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the Workspace resource.
+     * Returns The string that you assigned to describe the Workspace resource.
      *
      * @return The string that you assigned to describe the Workspace resource
      */
@@ -290,7 +288,7 @@ public class Workspace extends Resource {
     }
 
     /**
-     * Returns The Whether multi-tasking is enabled.
+     * Returns Whether multi-tasking is enabled.
      *
      * @return Whether multi-tasking is enabled
      */
@@ -299,7 +297,7 @@ public class Workspace extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -308,7 +306,7 @@ public class Workspace extends Resource {
     }
 
     /**
-     * Returns The The name of the timeout activity.
+     * Returns The name of the timeout activity.
      *
      * @return The name of the timeout activity
      */
@@ -317,8 +315,8 @@ public class Workspace extends Resource {
     }
 
     /**
-     * Returns The The SID of the Activity that will be assigned to a Worker when a
-     * Task reservation times out without a response.
+     * Returns The SID of the Activity that will be assigned to a Worker when a Task
+     * reservation times out without a response.
      *
      * @return The SID of the Activity that will be assigned to a Worker when a
      *         Task reservation times out without a response
@@ -328,8 +326,8 @@ public class Workspace extends Resource {
     }
 
     /**
-     * Returns The The type of TaskQueue to prioritize when Workers are receiving
-     * Tasks from both types of TaskQueues.
+     * Returns The type of TaskQueue to prioritize when Workers are receiving Tasks
+     * from both types of TaskQueues.
      *
      * @return The type of TaskQueue to prioritize when Workers are receiving Tasks
      *         from both types of TaskQueues
@@ -339,7 +337,7 @@ public class Workspace extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Workspace resource.
+     * Returns The absolute URL of the Workspace resource.
      *
      * @return The absolute URL of the Workspace resource
      */
@@ -348,7 +346,7 @@ public class Workspace extends Resource {
     }
 
     /**
-     * Returns The The URLs of related resources.
+     * Returns The URLs of related resources.
      *
      * @return The URLs of related resources
      */

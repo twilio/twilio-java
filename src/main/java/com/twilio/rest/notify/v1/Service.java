@@ -143,6 +143,8 @@ public class Service extends Resource {
     private final Map<String, String> links;
     private final String alexaSkillId;
     private final String defaultAlexaNotificationProtocolVersion;
+    private final String deliveryCallbackUrl;
+    private final Boolean deliveryCallbackEnabled;
 
     @JsonCreator
     private Service(@JsonProperty("sid")
@@ -180,7 +182,11 @@ public class Service extends Resource {
                     @JsonProperty("alexa_skill_id")
                     final String alexaSkillId,
                     @JsonProperty("default_alexa_notification_protocol_version")
-                    final String defaultAlexaNotificationProtocolVersion) {
+                    final String defaultAlexaNotificationProtocolVersion,
+                    @JsonProperty("delivery_callback_url")
+                    final String deliveryCallbackUrl,
+                    @JsonProperty("delivery_callback_enabled")
+                    final Boolean deliveryCallbackEnabled) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.friendlyName = friendlyName;
@@ -199,10 +205,12 @@ public class Service extends Resource {
         this.links = links;
         this.alexaSkillId = alexaSkillId;
         this.defaultAlexaNotificationProtocolVersion = defaultAlexaNotificationProtocolVersion;
+        this.deliveryCallbackUrl = deliveryCallbackUrl;
+        this.deliveryCallbackEnabled = deliveryCallbackEnabled;
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -211,7 +219,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -220,7 +228,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -229,7 +237,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -238,8 +246,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -248,7 +255,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The SID of the Credential to use for APN Bindings.
+     * Returns The SID of the Credential to use for APN Bindings.
      *
      * @return The SID of the Credential to use for APN Bindings
      */
@@ -257,7 +264,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The SID of the Credential to use for GCM Bindings.
+     * Returns The SID of the Credential to use for GCM Bindings.
      *
      * @return The SID of the Credential to use for GCM Bindings
      */
@@ -266,7 +273,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The SID of the Credential to use for FCM Bindings.
+     * Returns The SID of the Credential to use for FCM Bindings.
      *
      * @return The SID of the Credential to use for FCM Bindings
      */
@@ -275,7 +282,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The SID of the Messaging Service to use for SMS Bindings.
+     * Returns The SID of the Messaging Service to use for SMS Bindings.
      *
      * @return The SID of the Messaging Service to use for SMS Bindings
      */
@@ -284,7 +291,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Deprecated.
+     * Returns Deprecated.
      *
      * @return Deprecated
      */
@@ -293,7 +300,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The protocol version to use for sending APNS notifications.
+     * Returns The protocol version to use for sending APNS notifications.
      *
      * @return The protocol version to use for sending APNS notifications
      */
@@ -302,7 +309,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The protocol version to use for sending GCM notifications.
+     * Returns The protocol version to use for sending GCM notifications.
      *
      * @return The protocol version to use for sending GCM notifications
      */
@@ -311,7 +318,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The protocol version to use for sending FCM notifications.
+     * Returns The protocol version to use for sending FCM notifications.
      *
      * @return The protocol version to use for sending FCM notifications
      */
@@ -320,7 +327,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Whether to log notifications.
+     * Returns Whether to log notifications.
      *
      * @return Whether to log notifications
      */
@@ -329,7 +336,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Service resource.
+     * Returns The absolute URL of the Service resource.
      *
      * @return The absolute URL of the Service resource
      */
@@ -338,7 +345,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The URLs of the resources related to the service.
+     * Returns The URLs of the resources related to the service.
      *
      * @return The URLs of the resources related to the service
      */
@@ -347,7 +354,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Deprecated.
+     * Returns Deprecated.
      *
      * @return Deprecated
      */
@@ -356,12 +363,30 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Deprecated.
+     * Returns Deprecated.
      *
      * @return Deprecated
      */
     public final String getDefaultAlexaNotificationProtocolVersion() {
         return this.defaultAlexaNotificationProtocolVersion;
+    }
+
+    /**
+     * Returns Webhook URL.
+     *
+     * @return Webhook URL
+     */
+    public final String getDeliveryCallbackUrl() {
+        return this.deliveryCallbackUrl;
+    }
+
+    /**
+     * Returns Enable delivery callbacks.
+     *
+     * @return Enable delivery callbacks
+     */
+    public final Boolean getDeliveryCallbackEnabled() {
+        return this.deliveryCallbackEnabled;
     }
 
     @Override
@@ -393,7 +418,9 @@ public class Service extends Resource {
                Objects.equals(url, other.url) &&
                Objects.equals(links, other.links) &&
                Objects.equals(alexaSkillId, other.alexaSkillId) &&
-               Objects.equals(defaultAlexaNotificationProtocolVersion, other.defaultAlexaNotificationProtocolVersion);
+               Objects.equals(defaultAlexaNotificationProtocolVersion, other.defaultAlexaNotificationProtocolVersion) &&
+               Objects.equals(deliveryCallbackUrl, other.deliveryCallbackUrl) &&
+               Objects.equals(deliveryCallbackEnabled, other.deliveryCallbackEnabled);
     }
 
     @Override
@@ -415,7 +442,9 @@ public class Service extends Resource {
                             url,
                             links,
                             alexaSkillId,
-                            defaultAlexaNotificationProtocolVersion);
+                            defaultAlexaNotificationProtocolVersion,
+                            deliveryCallbackUrl,
+                            deliveryCallbackEnabled);
     }
 
     @Override
@@ -439,6 +468,8 @@ public class Service extends Resource {
                           .add("links", links)
                           .add("alexaSkillId", alexaSkillId)
                           .add("defaultAlexaNotificationProtocolVersion", defaultAlexaNotificationProtocolVersion)
+                          .add("deliveryCallbackUrl", deliveryCallbackUrl)
+                          .add("deliveryCallbackEnabled", deliveryCallbackEnabled)
                           .toString();
     }
 }

@@ -120,8 +120,7 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Items/" + this.pathKey + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Items/" + this.pathKey + ""
         );
 
         addPostParams(request);
@@ -134,14 +133,7 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SyncMapItem.fromJson(response.getStream(), client.getObjectMapper());

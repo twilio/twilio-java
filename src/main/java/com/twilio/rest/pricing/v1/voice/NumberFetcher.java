@@ -41,8 +41,7 @@ public class NumberFetcher extends Fetcher<Number> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PRICING.toString(),
-            "/v1/Voice/Numbers/" + this.pathNumber.encode("utf-8") + "",
-            client.getRegion()
+            "/v1/Voice/Numbers/" + this.pathNumber.encode("utf-8") + ""
         );
 
         Response response = client.request(request);
@@ -54,14 +53,7 @@ public class NumberFetcher extends Fetcher<Number> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Number.fromJson(response.getStream(), client.getObjectMapper());

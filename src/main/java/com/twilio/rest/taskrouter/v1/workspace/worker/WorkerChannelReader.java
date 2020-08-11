@@ -59,8 +59,7 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/" + this.pathWorkerSid + "/Channels",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/" + this.pathWorkerSid + "/Channels"
         );
 
         addQueryParams(request);
@@ -97,10 +96,7 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.TASKROUTER.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.TASKROUTER.toString())
         );
         return pageForRequest(client, request);
     }
@@ -117,10 +113,7 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
                                             final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.TASKROUTER.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.TASKROUTER.toString())
         );
         return pageForRequest(client, request);
     }
@@ -142,14 +135,7 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

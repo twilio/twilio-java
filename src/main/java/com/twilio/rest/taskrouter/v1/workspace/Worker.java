@@ -189,7 +189,7 @@ public class Worker extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -198,7 +198,7 @@ public class Worker extends Resource {
     }
 
     /**
-     * Returns The The friendly_name of the Worker's current Activity.
+     * Returns The friendly_name of the Worker's current Activity.
      *
      * @return The friendly_name of the Worker's current Activity
      */
@@ -207,7 +207,7 @@ public class Worker extends Resource {
     }
 
     /**
-     * Returns The The SID of the Worker's current Activity.
+     * Returns The SID of the Worker's current Activity.
      *
      * @return The SID of the Worker's current Activity
      */
@@ -216,7 +216,7 @@ public class Worker extends Resource {
     }
 
     /**
-     * Returns The The JSON string that describes the Worker.
+     * Returns The JSON string that describes the Worker.
      *
      * @return The JSON string that describes the Worker
      */
@@ -225,7 +225,7 @@ public class Worker extends Resource {
     }
 
     /**
-     * Returns The Whether the Worker is available to perform tasks.
+     * Returns Whether the Worker is available to perform tasks.
      *
      * @return Whether the Worker is available to perform tasks
      */
@@ -234,7 +234,7 @@ public class Worker extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -243,8 +243,7 @@ public class Worker extends Resource {
     }
 
     /**
-     * Returns The The date and time in GMT of the last change to the Worker's
-     * activity.
+     * Returns The date and time in GMT of the last change to the Worker's activity.
      *
      * @return The date and time in GMT of the last change to the Worker's activity
      */
@@ -253,8 +252,7 @@ public class Worker extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -263,7 +261,7 @@ public class Worker extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -272,7 +270,7 @@ public class Worker extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -281,7 +279,7 @@ public class Worker extends Resource {
     }
 
     /**
-     * Returns The The SID of the Workspace that contains the Worker.
+     * Returns The SID of the Workspace that contains the Worker.
      *
      * @return The SID of the Workspace that contains the Worker
      */
@@ -290,7 +288,7 @@ public class Worker extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Worker resource.
+     * Returns The absolute URL of the Worker resource.
      *
      * @return The absolute URL of the Worker resource
      */
@@ -299,7 +297,7 @@ public class Worker extends Resource {
     }
 
     /**
-     * Returns The The URLs of related resources.
+     * Returns The URLs of related resources.
      *
      * @return The URLs of related resources
      */

@@ -46,8 +46,7 @@ public class CallFetcher extends Fetcher<Call> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.INSIGHTS.toString(),
-            "/v1/Voice/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Voice/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -59,14 +58,7 @@ public class CallFetcher extends Fetcher<Call> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Call.fromJson(response.getStream(), client.getObjectMapper());

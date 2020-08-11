@@ -32,10 +32,6 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VerificationCheck extends Resource {
     private static final long serialVersionUID = 185560198235176L;
@@ -166,7 +162,7 @@ public class VerificationCheck extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -175,7 +171,7 @@ public class VerificationCheck extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the resource is associated with.
+     * Returns The SID of the Service that the resource is associated with.
      *
      * @return The SID of the Service that the resource is associated with
      */
@@ -184,7 +180,7 @@ public class VerificationCheck extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -193,16 +189,16 @@ public class VerificationCheck extends Resource {
     }
 
     /**
-     * Returns The The phone number being verified.
+     * Returns The phone number or email being verified.
      *
-     * @return The phone number being verified
+     * @return The phone number or email being verified
      */
     public final String getTo() {
         return this.to;
     }
 
     /**
-     * Returns The The verification method to use.
+     * Returns The verification method to use.
      *
      * @return The verification method to use
      */
@@ -211,7 +207,7 @@ public class VerificationCheck extends Resource {
     }
 
     /**
-     * Returns The The status of the verification resource.
+     * Returns The status of the verification resource.
      *
      * @return The status of the verification resource
      */
@@ -220,7 +216,7 @@ public class VerificationCheck extends Resource {
     }
 
     /**
-     * Returns The Whether the verification was successful.
+     * Returns Whether the verification was successful.
      *
      * @return Whether the verification was successful
      */
@@ -229,7 +225,7 @@ public class VerificationCheck extends Resource {
     }
 
     /**
-     * Returns The The amount of the associated PSD2 compliant transaction..
+     * Returns The amount of the associated PSD2 compliant transaction..
      *
      * @return The amount of the associated PSD2 compliant transaction.
      */
@@ -238,7 +234,7 @@ public class VerificationCheck extends Resource {
     }
 
     /**
-     * Returns The The payee of the associated PSD2 compliant transaction.
+     * Returns The payee of the associated PSD2 compliant transaction.
      *
      * @return The payee of the associated PSD2 compliant transaction
      */
@@ -247,7 +243,7 @@ public class VerificationCheck extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Verification Check
+     * Returns The ISO 8601 date and time in GMT when the Verification Check
      * resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the Verification Check
@@ -258,7 +254,7 @@ public class VerificationCheck extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Verification Check
+     * Returns The ISO 8601 date and time in GMT when the Verification Check
      * resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the Verification Check

@@ -29,6 +29,9 @@ public class ConversationCreator extends Creator<Conversation> {
     private ZonedDateTime dateUpdated;
     private String messagingServiceSid;
     private String attributes;
+    private Conversation.State state;
+    private String timersInactive;
+    private String timersClosed;
 
     /**
      * The human-readable name of this conversation, limited to 256 characters.
@@ -93,6 +96,44 @@ public class ConversationCreator extends Creator<Conversation> {
     }
 
     /**
+     * Current state of this conversation. Can be either `active`, `inactive` or
+     * `closed` and defaults to `active`.
+     *
+     * @param state Current state of this conversation.
+     * @return this
+     */
+    public ConversationCreator setState(final Conversation.State state) {
+        this.state = state;
+        return this;
+    }
+
+    /**
+     * ISO8601 duration when conversation will be switched to `inactive` state.
+     * Minimum value for this timer is 1 minute..
+     *
+     * @param timersInactive ISO8601 duration when conversation will be switched to
+     *                       `inactive` state.
+     * @return this
+     */
+    public ConversationCreator setTimersInactive(final String timersInactive) {
+        this.timersInactive = timersInactive;
+        return this;
+    }
+
+    /**
+     * ISO8601 duration when conversation will be switched to `closed` state.
+     * Minimum value for this timer is 10 minutes..
+     *
+     * @param timersClosed ISO8601 duration when conversation will be switched to
+     *                     `closed` state.
+     * @return this
+     */
+    public ConversationCreator setTimersClosed(final String timersClosed) {
+        this.timersClosed = timersClosed;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -104,8 +145,7 @@ public class ConversationCreator extends Creator<Conversation> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CONVERSATIONS.toString(),
-            "/v1/Conversations",
-            client.getRegion()
+            "/v1/Conversations"
         );
 
         addPostParams(request);
@@ -118,14 +158,7 @@ public class ConversationCreator extends Creator<Conversation> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Conversation.fromJson(response.getStream(), client.getObjectMapper());
@@ -155,6 +188,18 @@ public class ConversationCreator extends Creator<Conversation> {
 
         if (attributes != null) {
             request.addPostParam("Attributes", attributes);
+        }
+
+        if (state != null) {
+            request.addPostParam("State", state.toString());
+        }
+
+        if (timersInactive != null) {
+            request.addPostParam("Timers.Inactive", timersInactive);
+        }
+
+        if (timersClosed != null) {
+            request.addPostParam("Timers.Closed", timersClosed);
         }
     }
 }

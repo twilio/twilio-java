@@ -56,8 +56,7 @@ public class SyncMapPermissionFetcher extends Fetcher<SyncMapPermission> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Permissions/" + this.pathIdentity + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Permissions/" + this.pathIdentity + ""
         );
 
         Response response = client.request(request);
@@ -69,14 +68,7 @@ public class SyncMapPermissionFetcher extends Fetcher<SyncMapPermission> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SyncMapPermission.fromJson(response.getStream(), client.getObjectMapper());

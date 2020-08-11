@@ -15,7 +15,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -40,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AlphaSender extends Resource {
-    private static final long serialVersionUID = 107541920381976L;
+    private static final long serialVersionUID = 153057609894951L;
 
     /**
      * Create a AlphaSenderCreator to execute create.
@@ -133,7 +132,7 @@ public class AlphaSender extends Resource {
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final String alphaSender;
-    private final List<Map<String, Object>> capabilities;
+    private final List<String> capabilities;
     private final URI url;
 
     @JsonCreator
@@ -150,7 +149,7 @@ public class AlphaSender extends Resource {
                         @JsonProperty("alpha_sender")
                         final String alphaSender,
                         @JsonProperty("capabilities")
-                        final List<Map<String, Object>> capabilities,
+                        final List<String> capabilities,
                         @JsonProperty("url")
                         final URI url) {
         this.sid = sid;
@@ -164,7 +163,7 @@ public class AlphaSender extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -173,7 +172,7 @@ public class AlphaSender extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -182,7 +181,7 @@ public class AlphaSender extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the resource is associated with.
+     * Returns The SID of the Service that the resource is associated with.
      *
      * @return The SID of the Service that the resource is associated with
      */
@@ -191,7 +190,7 @@ public class AlphaSender extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -200,8 +199,7 @@ public class AlphaSender extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -210,7 +208,7 @@ public class AlphaSender extends Resource {
     }
 
     /**
-     * Returns The The Alphanumeric Sender ID string.
+     * Returns The Alphanumeric Sender ID string.
      *
      * @return The Alphanumeric Sender ID string
      */
@@ -219,18 +217,18 @@ public class AlphaSender extends Resource {
     }
 
     /**
-     * Returns The An array of values that describe whether the number can receive
-     * calls or messages.
+     * Returns An array of values that describe whether the number can receive calls
+     * or messages.
      *
      * @return An array of values that describe whether the number can receive
      *         calls or messages
      */
-    public final List<Map<String, Object>> getCapabilities() {
+    public final List<String> getCapabilities() {
         return this.capabilities;
     }
 
     /**
-     * Returns The The absolute URL of the AlphaSender resource.
+     * Returns The absolute URL of the AlphaSender resource.
      *
      * @return The absolute URL of the AlphaSender resource
      */

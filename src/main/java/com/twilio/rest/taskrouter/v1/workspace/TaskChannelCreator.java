@@ -65,8 +65,7 @@ public class TaskChannelCreator extends Creator<TaskChannel> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskChannels",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskChannels"
         );
 
         addPostParams(request);
@@ -79,14 +78,7 @@ public class TaskChannelCreator extends Creator<TaskChannel> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return TaskChannel.fromJson(response.getStream(), client.getObjectMapper());

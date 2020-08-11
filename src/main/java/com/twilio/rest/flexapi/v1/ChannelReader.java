@@ -43,8 +43,7 @@ public class ChannelReader extends Reader<Channel> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.FLEXAPI.toString(),
-            "/v1/Channels",
-            client.getRegion()
+            "/v1/Channels"
         );
 
         addQueryParams(request);
@@ -81,10 +80,7 @@ public class ChannelReader extends Reader<Channel> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.FLEXAPI.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.FLEXAPI.toString())
         );
         return pageForRequest(client, request);
     }
@@ -101,10 +97,7 @@ public class ChannelReader extends Reader<Channel> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.FLEXAPI.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.FLEXAPI.toString())
         );
         return pageForRequest(client, request);
     }
@@ -126,14 +119,7 @@ public class ChannelReader extends Reader<Channel> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

@@ -173,8 +173,7 @@ public class TrunkUpdater extends Updater<Trunk> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -187,14 +186,7 @@ public class TrunkUpdater extends Updater<Trunk> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Trunk.fromJson(response.getStream(), client.getObjectMapper());

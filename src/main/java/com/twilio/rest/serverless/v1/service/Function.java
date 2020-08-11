@@ -181,7 +181,7 @@ public class Function extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the Function resource.
+     * Returns The unique string that identifies the Function resource.
      *
      * @return The unique string that identifies the Function resource
      */
@@ -190,7 +190,7 @@ public class Function extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the Function resource.
+     * Returns The SID of the Account that created the Function resource.
      *
      * @return The SID of the Account that created the Function resource
      */
@@ -199,8 +199,7 @@ public class Function extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the Function resource is associated
-     * with.
+     * Returns The SID of the Service that the Function resource is associated with.
      *
      * @return The SID of the Service that the Function resource is associated with
      */
@@ -209,7 +208,7 @@ public class Function extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the Function resource.
+     * Returns The string that you assigned to describe the Function resource.
      *
      * @return The string that you assigned to describe the Function resource
      */
@@ -218,7 +217,7 @@ public class Function extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Function resource was
+     * Returns The ISO 8601 date and time in GMT when the Function resource was
      * created.
      *
      * @return The ISO 8601 date and time in GMT when the Function resource was
@@ -229,8 +228,8 @@ public class Function extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Function resource was
-     * last updated.
+     * Returns The ISO 8601 date and time in GMT when the Function resource was last
+     * updated.
      *
      * @return The ISO 8601 date and time in GMT when the Function resource was
      *         last updated
@@ -240,7 +239,7 @@ public class Function extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Function resource.
+     * Returns The absolute URL of the Function resource.
      *
      * @return The absolute URL of the Function resource
      */
@@ -249,7 +248,7 @@ public class Function extends Resource {
     }
 
     /**
-     * Returns The The URLs of nested resources of the function.
+     * Returns The URLs of nested resources of the function.
      *
      * @return The URLs of nested resources of the function
      */

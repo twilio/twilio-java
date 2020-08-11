@@ -154,7 +154,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -163,7 +163,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The SID of the actor that caused the event, if available.
+     * Returns The SID of the actor that caused the event, if available.
      *
      * @return The SID of the actor that caused the event, if available
      */
@@ -172,7 +172,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The type of actor that caused the event.
+     * Returns The type of actor that caused the event.
      *
      * @return The type of actor that caused the event
      */
@@ -181,7 +181,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The A description of the event.
+     * Returns A description of the event.
      *
      * @return A description of the event
      */
@@ -190,8 +190,8 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The A JSON string that represents an object with additional data
-     * about the event.
+     * Returns A JSON string that represents an object with additional data about
+     * the event.
      *
      * @return A JSON string that represents an object with additional data about
      *         the event
@@ -201,7 +201,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the event was recorded.
+     * Returns The ISO 8601 date and time in GMT when the event was recorded.
      *
      * @return The ISO 8601 date and time in GMT when the event was recorded
      */
@@ -210,7 +210,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The event's type.
+     * Returns The event's type.
      *
      * @return The event's type
      */
@@ -219,7 +219,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The SID of the resource that was affected.
+     * Returns The SID of the resource that was affected.
      *
      * @return The SID of the resource that was affected
      */
@@ -228,7 +228,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The type of resource that was affected.
+     * Returns The type of resource that was affected.
      *
      * @return The type of resource that was affected
      */
@@ -237,7 +237,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -246,7 +246,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The originating system or interface that caused the event.
+     * Returns The originating system or interface that caused the event.
      *
      * @return The originating system or interface that caused the event
      */
@@ -255,7 +255,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The IP address of the source.
+     * Returns The IP address of the source.
      *
      * @return The IP address of the source
      */
@@ -264,7 +264,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource that was affected.
+     * Returns The absolute URL of the resource that was affected.
      *
      * @return The absolute URL of the resource that was affected
      */
@@ -273,7 +273,7 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The absolute URLs of related resources.
+     * Returns The absolute URLs of related resources.
      *
      * @return The absolute URLs of related resources
      */

@@ -40,8 +40,7 @@ public class SimDeleter extends Deleter<Sim> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.WIRELESS.toString(),
-            "/v1/Sims/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Sims/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -53,14 +52,7 @@ public class SimDeleter extends Deleter<Sim> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

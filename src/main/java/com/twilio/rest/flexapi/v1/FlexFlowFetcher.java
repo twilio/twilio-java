@@ -41,8 +41,7 @@ public class FlexFlowFetcher extends Fetcher<FlexFlow> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.FLEXAPI.toString(),
-            "/v1/FlexFlows/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/FlexFlows/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -54,14 +53,7 @@ public class FlexFlowFetcher extends Fetcher<FlexFlow> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return FlexFlow.fromJson(response.getStream(), client.getObjectMapper());

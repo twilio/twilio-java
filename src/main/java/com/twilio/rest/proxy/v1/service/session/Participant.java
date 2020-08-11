@@ -189,7 +189,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -198,7 +198,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The SID of the resource's parent Session.
+     * Returns The SID of the resource's parent Session.
      *
      * @return The SID of the resource's parent Session
      */
@@ -207,7 +207,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The SID of the resource's parent Service.
+     * Returns The SID of the resource's parent Service.
      *
      * @return The SID of the resource's parent Service
      */
@@ -216,7 +216,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -225,7 +225,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the participant.
+     * Returns The string that you assigned to describe the participant.
      *
      * @return The string that you assigned to describe the participant
      */
@@ -234,7 +234,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The phone number of the Participant.
+     * Returns The phone number of the Participant.
      *
      * @return The phone number of the Participant
      */
@@ -243,7 +243,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The phone number or short code of the participant's partner.
+     * Returns The phone number or short code of the participant's partner.
      *
      * @return The phone number or short code of the participant's partner
      */
@@ -252,7 +252,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The SID of the Proxy Identifier assigned to the Participant.
+     * Returns The SID of the Proxy Identifier assigned to the Participant.
      *
      * @return The SID of the Proxy Identifier assigned to the Participant
      */
@@ -261,7 +261,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date the Participant was removed.
+     * Returns The ISO 8601 date the Participant was removed.
      *
      * @return The ISO 8601 date the Participant was removed
      */
@@ -270,7 +270,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -279,8 +279,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -289,7 +288,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Participant resource.
+     * Returns The absolute URL of the Participant resource.
      *
      * @return The absolute URL of the Participant resource
      */
@@ -298,7 +297,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The URLs to resources related the participant.
+     * Returns The URLs to resources related the participant.
      *
      * @return The URLs to resources related the participant
      */

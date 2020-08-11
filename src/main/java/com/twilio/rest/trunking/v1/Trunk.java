@@ -37,7 +37,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Trunk extends Resource {
-    private static final long serialVersionUID = 232614357517076L;
+    private static final long serialVersionUID = 237038422793901L;
 
     public enum RecordingSetting {
         DO_NOT_RECORD("do-not-record"),
@@ -215,7 +215,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -224,8 +224,8 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The unique address you reserve on Twilio to which you route your
-     * SIP traffic.
+     * Returns The unique address you reserve on Twilio to which you route your SIP
+     * traffic.
      *
      * @return The unique address you reserve on Twilio to which you route your SIP
      *         traffic
@@ -235,7 +235,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The HTTP method we use to call the disaster_recovery_url.
+     * Returns The HTTP method we use to call the disaster_recovery_url.
      *
      * @return The HTTP method we use to call the disaster_recovery_url
      */
@@ -244,7 +244,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The HTTP URL that we call if an error occurs while sending SIP
+     * Returns The HTTP URL that we call if an error occurs while sending SIP
      * traffic towards your configured Origination URL.
      *
      * @return The HTTP URL that we call if an error occurs while sending SIP
@@ -255,7 +255,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -264,7 +264,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The Whether Secure Trunking is enabled for the trunk.
+     * Returns Whether Secure Trunking is enabled for the trunk.
      *
      * @return Whether Secure Trunking is enabled for the trunk
      */
@@ -273,7 +273,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The recording settings for the trunk.
+     * Returns The recording settings for the trunk.
      *
      * @return The recording settings for the trunk
      */
@@ -282,7 +282,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The Whether Caller ID Name (CNAM) lookup is enabled for the trunk.
+     * Returns Whether Caller ID Name (CNAM) lookup is enabled for the trunk.
      *
      * @return Whether Caller ID Name (CNAM) lookup is enabled for the trunk
      */
@@ -291,7 +291,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The types of authentication mapped to the domain.
+     * Returns The types of authentication mapped to the domain.
      *
      * @return The types of authentication mapped to the domain
      */
@@ -300,7 +300,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The Reserved.
+     * Returns Reserved.
      *
      * @return Reserved
      */
@@ -309,7 +309,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -318,8 +318,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -328,7 +327,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -337,7 +336,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
      */
@@ -346,7 +345,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The URLs of related resources.
+     * Returns The URLs of related resources.
      *
      * @return The URLs of related resources
      */

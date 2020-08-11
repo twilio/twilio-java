@@ -149,7 +149,7 @@ public class CurrentCall extends Resource {
     }
 
     /**
-     * Returns The Background color of the current phone call.
+     * Returns Background color of the current phone call.
      *
      * @return Background color of the current phone call
      */
@@ -158,7 +158,7 @@ public class CurrentCall extends Resource {
     }
 
     /**
-     * Returns The Caller name of the current phone call.
+     * Returns Caller name of the current phone call.
      *
      * @return Caller name of the current phone call
      */
@@ -167,7 +167,7 @@ public class CurrentCall extends Resource {
     }
 
     /**
-     * Returns The The date this current phone call was created.
+     * Returns The date this current phone call was created.
      *
      * @return The date this current phone call was created
      */
@@ -176,7 +176,7 @@ public class CurrentCall extends Resource {
     }
 
     /**
-     * Returns The Font color of the current phone call.
+     * Returns Font color of the current phone call.
      *
      * @return Font color of the current phone call
      */
@@ -185,7 +185,7 @@ public class CurrentCall extends Resource {
     }
 
     /**
-     * Returns The The originating phone number.
+     * Returns The originating phone number.
      *
      * @return The originating phone number
      */
@@ -194,7 +194,7 @@ public class CurrentCall extends Resource {
     }
 
     /**
-     * Returns The Logo URL of the caller.
+     * Returns Logo URL of the caller.
      *
      * @return Logo URL of the caller
      */
@@ -203,7 +203,7 @@ public class CurrentCall extends Resource {
     }
 
     /**
-     * Returns The The name of the CPS organization.
+     * Returns The name of the CPS organization.
      *
      * @return The name of the CPS organization
      */
@@ -212,7 +212,7 @@ public class CurrentCall extends Resource {
     }
 
     /**
-     * Returns The The business reason for this current phone call.
+     * Returns The business reason for this current phone call.
      *
      * @return The business reason for this current phone call
      */
@@ -221,7 +221,7 @@ public class CurrentCall extends Resource {
     }
 
     /**
-     * Returns The Shield image URL that serves as authenticity proof of the current
+     * Returns Shield image URL that serves as authenticity proof of the current
      * phone call.
      *
      * @return Shield image URL that serves as authenticity proof of the current
@@ -232,8 +232,7 @@ public class CurrentCall extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this current branded phone
-     * call..
+     * Returns A string that uniquely identifies this current branded phone call..
      *
      * @return A string that uniquely identifies this current branded phone call.
      */
@@ -242,7 +241,7 @@ public class CurrentCall extends Resource {
     }
 
     /**
-     * Returns The The status of the current phone call.
+     * Returns The status of the current phone call.
      *
      * @return The status of the current phone call
      */
@@ -251,7 +250,7 @@ public class CurrentCall extends Resource {
     }
 
     /**
-     * Returns The The terminating phone number.
+     * Returns The terminating phone number.
      *
      * @return The terminating phone number
      */
@@ -260,7 +259,7 @@ public class CurrentCall extends Resource {
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The URL of this resource..
      *
      * @return The URL of this resource.
      */
@@ -269,7 +268,7 @@ public class CurrentCall extends Resource {
     }
 
     /**
-     * Returns The The use case for the current phone call.
+     * Returns The use case for the current phone call.
      *
      * @return The use case for the current phone call
      */

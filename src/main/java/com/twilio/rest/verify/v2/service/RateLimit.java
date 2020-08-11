@@ -32,10 +32,6 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RateLimit extends Resource {
     private static final long serialVersionUID = 110366061579267L;
@@ -182,7 +178,7 @@ public class RateLimit extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Rate Limit..
+     * Returns A string that uniquely identifies this Rate Limit..
      *
      * @return A string that uniquely identifies this Rate Limit.
      */
@@ -191,7 +187,7 @@ public class RateLimit extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the resource is associated with.
+     * Returns The SID of the Service that the resource is associated with.
      *
      * @return The SID of the Service that the resource is associated with
      */
@@ -200,7 +196,7 @@ public class RateLimit extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -209,7 +205,7 @@ public class RateLimit extends Resource {
     }
 
     /**
-     * Returns The A unique, developer assigned name of this Rate Limit..
+     * Returns A unique, developer assigned name of this Rate Limit..
      *
      * @return A unique, developer assigned name of this Rate Limit.
      */
@@ -218,7 +214,7 @@ public class RateLimit extends Resource {
     }
 
     /**
-     * Returns The Description of this Rate Limit.
+     * Returns Description of this Rate Limit.
      *
      * @return Description of this Rate Limit
      */
@@ -227,7 +223,7 @@ public class RateLimit extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -236,8 +232,7 @@ public class RateLimit extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -246,7 +241,7 @@ public class RateLimit extends Resource {
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The URL of this resource..
      *
      * @return The URL of this resource.
      */
@@ -255,7 +250,7 @@ public class RateLimit extends Resource {
     }
 
     /**
-     * Returns The The URLs of related resources.
+     * Returns The URLs of related resources.
      *
      * @return The URLs of related resources
      */

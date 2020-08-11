@@ -179,7 +179,7 @@ public class Environment extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the Environment resource.
+     * Returns The unique string that identifies the Environment resource.
      *
      * @return The unique string that identifies the Environment resource
      */
@@ -188,7 +188,7 @@ public class Environment extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the Environment resource.
+     * Returns The SID of the Account that created the Environment resource.
      *
      * @return The SID of the Account that created the Environment resource
      */
@@ -197,8 +197,8 @@ public class Environment extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the Environment resource is
-     * associated with.
+     * Returns The SID of the Service that the Environment resource is associated
+     * with.
      *
      * @return The SID of the Service that the Environment resource is associated
      *         with
@@ -208,7 +208,7 @@ public class Environment extends Resource {
     }
 
     /**
-     * Returns The The SID of the build deployed in the environment.
+     * Returns The SID of the build deployed in the environment.
      *
      * @return The SID of the build deployed in the environment
      */
@@ -217,7 +217,7 @@ public class Environment extends Resource {
     }
 
     /**
-     * Returns The An application-defined string that uniquely identifies the
+     * Returns An application-defined string that uniquely identifies the
      * Environment resource.
      *
      * @return An application-defined string that uniquely identifies the
@@ -228,7 +228,7 @@ public class Environment extends Resource {
     }
 
     /**
-     * Returns The A URL-friendly name that represents the environment.
+     * Returns A URL-friendly name that represents the environment.
      *
      * @return A URL-friendly name that represents the environment
      */
@@ -237,7 +237,7 @@ public class Environment extends Resource {
     }
 
     /**
-     * Returns The The base domain name for all Functions and Assets deployed in the
+     * Returns The base domain name for all Functions and Assets deployed in the
      * environment.
      *
      * @return The base domain name for all Functions and Assets deployed in the
@@ -248,8 +248,8 @@ public class Environment extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Environment resource
-     * was created.
+     * Returns The ISO 8601 date and time in GMT when the Environment resource was
+     * created.
      *
      * @return The ISO 8601 date and time in GMT when the Environment resource was
      *         created
@@ -259,8 +259,8 @@ public class Environment extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Environment resource
-     * was last updated.
+     * Returns The ISO 8601 date and time in GMT when the Environment resource was
+     * last updated.
      *
      * @return The ISO 8601 date and time in GMT when the Environment resource was
      *         last updated
@@ -270,7 +270,7 @@ public class Environment extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Environment resource.
+     * Returns The absolute URL of the Environment resource.
      *
      * @return The absolute URL of the Environment resource
      */
@@ -279,7 +279,7 @@ public class Environment extends Resource {
     }
 
     /**
-     * Returns The The URLs of the environment's nested resources.
+     * Returns The URLs of the environment's nested resources.
      *
      * @return The URLs of the environment's nested resources
      */

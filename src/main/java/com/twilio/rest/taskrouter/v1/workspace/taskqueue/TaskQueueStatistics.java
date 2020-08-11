@@ -115,7 +115,7 @@ public class TaskQueueStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -124,8 +124,7 @@ public class TaskQueueStatistics extends Resource {
     }
 
     /**
-     * Returns The An object that contains the cumulative statistics for the
-     * TaskQueue.
+     * Returns An object that contains the cumulative statistics for the TaskQueue.
      *
      * @return An object that contains the cumulative statistics for the TaskQueue
      */
@@ -134,8 +133,7 @@ public class TaskQueueStatistics extends Resource {
     }
 
     /**
-     * Returns The An object that contains the real-time statistics for the
-     * TaskQueue.
+     * Returns An object that contains the real-time statistics for the TaskQueue.
      *
      * @return An object that contains the real-time statistics for the TaskQueue
      */
@@ -144,8 +142,7 @@ public class TaskQueueStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the TaskQueue from which these statistics were
-     * calculated.
+     * Returns The SID of the TaskQueue from which these statistics were calculated.
      *
      * @return The SID of the TaskQueue from which these statistics were calculated
      */
@@ -154,7 +151,7 @@ public class TaskQueueStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Workspace that contains the TaskQueue.
+     * Returns The SID of the Workspace that contains the TaskQueue.
      *
      * @return The SID of the Workspace that contains the TaskQueue
      */
@@ -163,7 +160,7 @@ public class TaskQueueStatistics extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the TaskQueue statistics resource.
+     * Returns The absolute URL of the TaskQueue statistics resource.
      *
      * @return The absolute URL of the TaskQueue statistics resource
      */

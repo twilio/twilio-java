@@ -67,4 +67,16 @@ public class VerificationCheckTest {
 
         VerificationCheck.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "code").create();
     }
+
+    @Test
+    public void testEmailVerificationChecksResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"sid\": \"VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"service_sid\": \"VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"to\": \"recipient@foo.com\",\"channel\": \"email\",\"status\": \"approved\",\"valid\": true,\"amount\": null,\"payee\": null,\"date_created\": \"2020-01-30T20:00:00Z\",\"date_updated\": \"2020-01-30T20:00:00Z\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        VerificationCheck.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "code").create();
+    }
 }

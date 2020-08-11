@@ -244,7 +244,7 @@ public class Transcription extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -253,7 +253,7 @@ public class Transcription extends Resource {
     }
 
     /**
-     * Returns The The API version used to create the transcription.
+     * Returns The API version used to create the transcription.
      *
      * @return The API version used to create the transcription
      */
@@ -262,7 +262,7 @@ public class Transcription extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was created.
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
@@ -271,8 +271,7 @@ public class Transcription extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
@@ -281,7 +280,7 @@ public class Transcription extends Resource {
     }
 
     /**
-     * Returns The The duration of the transcribed audio in seconds..
+     * Returns The duration of the transcribed audio in seconds..
      *
      * @return The duration of the transcribed audio in seconds.
      */
@@ -290,7 +289,7 @@ public class Transcription extends Resource {
     }
 
     /**
-     * Returns The The charge for the transcription.
+     * Returns The charge for the transcription.
      *
      * @return The charge for the transcription
      */
@@ -299,7 +298,7 @@ public class Transcription extends Resource {
     }
 
     /**
-     * Returns The The currency in which price is measured.
+     * Returns The currency in which price is measured.
      *
      * @return The currency in which price is measured
      */
@@ -308,7 +307,7 @@ public class Transcription extends Resource {
     }
 
     /**
-     * Returns The The SID that identifies the transcription's recording.
+     * Returns The SID that identifies the transcription's recording.
      *
      * @return The SID that identifies the transcription's recording
      */
@@ -317,7 +316,7 @@ public class Transcription extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -326,7 +325,7 @@ public class Transcription extends Resource {
     }
 
     /**
-     * Returns The The status of the transcription.
+     * Returns The status of the transcription.
      *
      * @return The status of the transcription
      */
@@ -335,7 +334,7 @@ public class Transcription extends Resource {
     }
 
     /**
-     * Returns The The text content of the transcription..
+     * Returns The text content of the transcription..
      *
      * @return The text content of the transcription.
      */
@@ -344,7 +343,7 @@ public class Transcription extends Resource {
     }
 
     /**
-     * Returns The The transcription type.
+     * Returns The transcription type.
      *
      * @return The transcription type
      */
@@ -353,7 +352,7 @@ public class Transcription extends Resource {
     }
 
     /**
-     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
      *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */

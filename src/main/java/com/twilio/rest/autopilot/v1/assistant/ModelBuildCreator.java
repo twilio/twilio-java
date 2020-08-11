@@ -91,8 +91,7 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/ModelBuilds",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/ModelBuilds"
         );
 
         addPostParams(request);
@@ -105,14 +104,7 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return ModelBuild.fromJson(response.getStream(), client.getObjectMapper());

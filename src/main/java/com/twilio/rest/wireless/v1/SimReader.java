@@ -109,8 +109,7 @@ public class SimReader extends Reader<Sim> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.WIRELESS.toString(),
-            "/v1/Sims",
-            client.getRegion()
+            "/v1/Sims"
         );
 
         addQueryParams(request);
@@ -147,10 +146,7 @@ public class SimReader extends Reader<Sim> {
                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.WIRELESS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.WIRELESS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -167,10 +163,7 @@ public class SimReader extends Reader<Sim> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.WIRELESS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.WIRELESS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -192,14 +185,7 @@ public class SimReader extends Reader<Sim> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

@@ -217,7 +217,7 @@ public class IpAccessControlList extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this resource.
+     * Returns A string that uniquely identifies this resource.
      *
      * @return A string that uniquely identifies this resource
      */
@@ -226,7 +226,7 @@ public class IpAccessControlList extends Resource {
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
+     * Returns The unique sid that identifies this account.
      *
      * @return The unique sid that identifies this account
      */
@@ -235,7 +235,7 @@ public class IpAccessControlList extends Resource {
     }
 
     /**
-     * Returns The A human readable description of this resource.
+     * Returns A human readable description of this resource.
      *
      * @return A human readable description of this resource
      */
@@ -244,7 +244,7 @@ public class IpAccessControlList extends Resource {
     }
 
     /**
-     * Returns The The date this resource was created.
+     * Returns The date this resource was created.
      *
      * @return The date this resource was created
      */
@@ -253,7 +253,7 @@ public class IpAccessControlList extends Resource {
     }
 
     /**
-     * Returns The The date this resource was last updated.
+     * Returns The date this resource was last updated.
      *
      * @return The date this resource was last updated
      */
@@ -262,7 +262,7 @@ public class IpAccessControlList extends Resource {
     }
 
     /**
-     * Returns The The IP addresses associated with this resource..
+     * Returns The IP addresses associated with this resource..
      *
      * @return The IP addresses associated with this resource.
      */
@@ -271,7 +271,7 @@ public class IpAccessControlList extends Resource {
     }
 
     /**
-     * Returns The The URI for this resource.
+     * Returns The URI for this resource.
      *
      * @return The URI for this resource
      */

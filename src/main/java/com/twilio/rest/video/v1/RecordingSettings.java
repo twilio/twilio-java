@@ -30,11 +30,6 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RecordingSettings extends Resource {
     private static final long serialVersionUID = 41622584466212L;
@@ -133,7 +128,7 @@ public class RecordingSettings extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -142,7 +137,7 @@ public class RecordingSettings extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -151,7 +146,7 @@ public class RecordingSettings extends Resource {
     }
 
     /**
-     * Returns The The SID of the stored Credential resource.
+     * Returns The SID of the stored Credential resource.
      *
      * @return The SID of the stored Credential resource
      */
@@ -160,7 +155,7 @@ public class RecordingSettings extends Resource {
     }
 
     /**
-     * Returns The The URL of the AWS S3 bucket where the recordings are stored.
+     * Returns The URL of the AWS S3 bucket where the recordings are stored.
      *
      * @return The URL of the AWS S3 bucket where the recordings are stored
      */
@@ -169,7 +164,7 @@ public class RecordingSettings extends Resource {
     }
 
     /**
-     * Returns The Whether all recordings are written to the aws_s3_url.
+     * Returns Whether all recordings are written to the aws_s3_url.
      *
      * @return Whether all recordings are written to the aws_s3_url
      */
@@ -178,7 +173,7 @@ public class RecordingSettings extends Resource {
     }
 
     /**
-     * Returns The The SID of the Public Key resource used for encryption.
+     * Returns The SID of the Public Key resource used for encryption.
      *
      * @return The SID of the Public Key resource used for encryption
      */
@@ -187,7 +182,7 @@ public class RecordingSettings extends Resource {
     }
 
     /**
-     * Returns The Whether all recordings are stored in an encrypted form.
+     * Returns Whether all recordings are stored in an encrypted form.
      *
      * @return Whether all recordings are stored in an encrypted form
      */
@@ -196,7 +191,7 @@ public class RecordingSettings extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
      */

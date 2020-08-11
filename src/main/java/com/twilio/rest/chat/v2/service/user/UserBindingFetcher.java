@@ -49,8 +49,7 @@ public class UserBindingFetcher extends Fetcher<UserBinding> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.CHAT.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Users/" + this.pathUserSid + "/Bindings/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Users/" + this.pathUserSid + "/Bindings/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +61,7 @@ public class UserBindingFetcher extends Fetcher<UserBinding> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return UserBinding.fromJson(response.getStream(), client.getObjectMapper());

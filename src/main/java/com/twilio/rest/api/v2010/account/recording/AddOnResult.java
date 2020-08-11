@@ -233,7 +233,7 @@ public class AddOnResult extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -242,7 +242,7 @@ public class AddOnResult extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -251,7 +251,7 @@ public class AddOnResult extends Resource {
     }
 
     /**
-     * Returns The The status of the result.
+     * Returns The status of the result.
      *
      * @return The status of the result
      */
@@ -260,7 +260,7 @@ public class AddOnResult extends Resource {
     }
 
     /**
-     * Returns The The SID of the Add-on to which the result belongs.
+     * Returns The SID of the Add-on to which the result belongs.
      *
      * @return The SID of the Add-on to which the result belongs
      */
@@ -269,7 +269,7 @@ public class AddOnResult extends Resource {
     }
 
     /**
-     * Returns The The SID of the Add-on configuration.
+     * Returns The SID of the Add-on configuration.
      *
      * @return The SID of the Add-on configuration
      */
@@ -278,7 +278,7 @@ public class AddOnResult extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was created.
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
@@ -287,8 +287,7 @@ public class AddOnResult extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
@@ -297,7 +296,7 @@ public class AddOnResult extends Resource {
     }
 
     /**
-     * Returns The The date and time in GMT that the result was completed.
+     * Returns The date and time in GMT that the result was completed.
      *
      * @return The date and time in GMT that the result was completed
      */
@@ -306,8 +305,7 @@ public class AddOnResult extends Resource {
     }
 
     /**
-     * Returns The The SID of the recording to which the AddOnResult resource
-     * belongs.
+     * Returns The SID of the recording to which the AddOnResult resource belongs.
      *
      * @return The SID of the recording to which the AddOnResult resource belongs
      */
@@ -316,7 +314,7 @@ public class AddOnResult extends Resource {
     }
 
     /**
-     * Returns The A list of related resources identified by their relative URIs.
+     * Returns A list of related resources identified by their relative URIs.
      *
      * @return A list of related resources identified by their relative URIs
      */

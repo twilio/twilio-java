@@ -66,8 +66,7 @@ public class AuthRegistrationsCredentialListMappingCreator extends Creator<AuthR
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/Auth/Registrations/CredentialListMappings.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/Auth/Registrations/CredentialListMappings.json"
         );
 
         addPostParams(request);
@@ -80,14 +79,7 @@ public class AuthRegistrationsCredentialListMappingCreator extends Creator<AuthR
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return AuthRegistrationsCredentialListMapping.fromJson(response.getStream(), client.getObjectMapper());

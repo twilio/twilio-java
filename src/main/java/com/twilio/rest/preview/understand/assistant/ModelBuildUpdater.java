@@ -65,8 +65,7 @@ public class ModelBuildUpdater extends Updater<ModelBuild> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/ModelBuilds/" + this.pathSid + "",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/ModelBuilds/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -79,14 +78,7 @@ public class ModelBuildUpdater extends Updater<ModelBuild> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return ModelBuild.fromJson(response.getStream(), client.getObjectMapper());

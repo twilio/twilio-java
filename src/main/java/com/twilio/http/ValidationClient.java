@@ -30,7 +30,7 @@ public class ValidationClient extends HttpClient {
 
     /**
      * Create a new ValidationClient.
-     * 
+     *
      * @param  accountSid Twilio Account SID
      * @param  credentialSid Twilio Credential SID
      * @param  signingKey Twilio Signing key
@@ -84,7 +84,8 @@ public class ValidationClient extends HttpClient {
             HttpResponse response = client.execute(builder.build());
             return new Response(
                 response.getEntity() == null ? null : response.getEntity().getContent(),
-                response.getStatusLine().getStatusCode()
+                response.getStatusLine().getStatusCode(),
+                response.getAllHeaders()
             );
         } catch (IOException e) {
             throw new ApiException(e.getMessage(), e);

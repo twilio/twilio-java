@@ -20,11 +20,6 @@ import com.twilio.rest.Domains;
 
 import java.net.URI;
 
-/**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- */
 public class CompositionSettingsCreator extends Creator<CompositionSettings> {
     private final String friendlyName;
     private String awsCredentialsSid;
@@ -69,9 +64,10 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
     /**
      * The URL of the AWS S3 bucket where the compositions should be stored. We only
      * support DNS-compliant URLs like
-     * `http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/compositions`,
+     * `https://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/compositions`,
      * where `compositions` is the path in which you want the compositions to be
-     * stored..
+     * stored. This URL accepts only URI-valid characters, as described in the &lt;a
+     * href='https://tools.ietf.org/html/rfc3986#section-2'&gt;RFC 3986&lt;/a&gt;..
      *
      * @param awsS3Url The URL of the AWS S3 bucket where the compositions should
      *                 be stored
@@ -85,9 +81,10 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
     /**
      * The URL of the AWS S3 bucket where the compositions should be stored. We only
      * support DNS-compliant URLs like
-     * `http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/compositions`,
+     * `https://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/compositions`,
      * where `compositions` is the path in which you want the compositions to be
-     * stored..
+     * stored. This URL accepts only URI-valid characters, as described in the &lt;a
+     * href='https://tools.ietf.org/html/rfc3986#section-2'&gt;RFC 3986&lt;/a&gt;..
      *
      * @param awsS3Url The URL of the AWS S3 bucket where the compositions should
      *                 be stored
@@ -135,8 +132,7 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
-            "/v1/CompositionSettings/Default",
-            client.getRegion()
+            "/v1/CompositionSettings/Default"
         );
 
         addPostParams(request);
@@ -149,14 +145,7 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return CompositionSettings.fromJson(response.getStream(), client.getObjectMapper());

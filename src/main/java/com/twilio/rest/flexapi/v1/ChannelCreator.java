@@ -82,7 +82,8 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The SID of the TaskRouter task..
+     * The SID of the TaskRouter task. Only valid when integration type is `task`.
+     * `null` for integration types `studio` &amp; `external`.
      *
      * @param taskSid The SID of the TaskRouter task
      * @return this
@@ -126,8 +127,7 @@ public class ChannelCreator extends Creator<Channel> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.FLEXAPI.toString(),
-            "/v1/Channels",
-            client.getRegion()
+            "/v1/Channels"
         );
 
         addPostParams(request);
@@ -140,14 +140,7 @@ public class ChannelCreator extends Creator<Channel> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Channel.fromJson(response.getStream(), client.getObjectMapper());

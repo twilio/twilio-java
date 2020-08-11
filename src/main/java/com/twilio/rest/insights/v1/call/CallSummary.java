@@ -256,7 +256,7 @@ public class CallSummary extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The account_sid.
      *
      * @return The account_sid
      */
@@ -265,7 +265,7 @@ public class CallSummary extends Resource {
     }
 
     /**
-     * Returns The The call_sid.
+     * Returns The call_sid.
      *
      * @return The call_sid
      */
@@ -274,7 +274,7 @@ public class CallSummary extends Resource {
     }
 
     /**
-     * Returns The The call_type.
+     * Returns The call_type.
      *
      * @return The call_type
      */
@@ -283,7 +283,7 @@ public class CallSummary extends Resource {
     }
 
     /**
-     * Returns The The call_state.
+     * Returns The call_state.
      *
      * @return The call_state
      */
@@ -292,7 +292,7 @@ public class CallSummary extends Resource {
     }
 
     /**
-     * Returns The The processing_state.
+     * Returns The processing_state.
      *
      * @return The processing_state
      */
@@ -301,7 +301,7 @@ public class CallSummary extends Resource {
     }
 
     /**
-     * Returns The The start_time.
+     * Returns The start_time.
      *
      * @return The start_time
      */
@@ -310,7 +310,7 @@ public class CallSummary extends Resource {
     }
 
     /**
-     * Returns The The end_time.
+     * Returns The end_time.
      *
      * @return The end_time
      */
@@ -319,7 +319,7 @@ public class CallSummary extends Resource {
     }
 
     /**
-     * Returns The The duration.
+     * Returns The duration.
      *
      * @return The duration
      */
@@ -328,7 +328,7 @@ public class CallSummary extends Resource {
     }
 
     /**
-     * Returns The The connect_duration.
+     * Returns The connect_duration.
      *
      * @return The connect_duration
      */
@@ -337,7 +337,7 @@ public class CallSummary extends Resource {
     }
 
     /**
-     * Returns The The from.
+     * Returns The from.
      *
      * @return The from
      */
@@ -346,7 +346,7 @@ public class CallSummary extends Resource {
     }
 
     /**
-     * Returns The The to.
+     * Returns The to.
      *
      * @return The to
      */
@@ -355,7 +355,7 @@ public class CallSummary extends Resource {
     }
 
     /**
-     * Returns The The carrier_edge.
+     * Returns The carrier_edge.
      *
      * @return The carrier_edge
      */
@@ -364,7 +364,7 @@ public class CallSummary extends Resource {
     }
 
     /**
-     * Returns The The client_edge.
+     * Returns The client_edge.
      *
      * @return The client_edge
      */
@@ -373,7 +373,7 @@ public class CallSummary extends Resource {
     }
 
     /**
-     * Returns The The sdk_edge.
+     * Returns The sdk_edge.
      *
      * @return The sdk_edge
      */
@@ -382,7 +382,7 @@ public class CallSummary extends Resource {
     }
 
     /**
-     * Returns The The sip_edge.
+     * Returns The sip_edge.
      *
      * @return The sip_edge
      */
@@ -391,7 +391,7 @@ public class CallSummary extends Resource {
     }
 
     /**
-     * Returns The The tags.
+     * Returns The tags.
      *
      * @return The tags
      */
@@ -400,7 +400,7 @@ public class CallSummary extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The url.
      *
      * @return The url
      */
@@ -409,7 +409,7 @@ public class CallSummary extends Resource {
     }
 
     /**
-     * Returns The The attributes.
+     * Returns The attributes.
      *
      * @return The attributes
      */
@@ -418,7 +418,7 @@ public class CallSummary extends Resource {
     }
 
     /**
-     * Returns The The properties.
+     * Returns The properties.
      *
      * @return The properties
      */

@@ -117,6 +117,8 @@ public class VoiceResponseTest {
                     .bargeIn(true)
                     .debug(true)
                     .actionOnEmptyResult(true)
+                    .speechModel(Gather.SpeechModel.DEFAULT)
+                    .enhanced(true)
                     .build());
 
         builder.hangup(new Hangup.Builder().build());
@@ -206,7 +208,7 @@ public class VoiceResponseTest {
                 "<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" ringTone=\"at\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>" +
                 "<Echo/>" +
                 "<Enqueue action=\"https://example.com\" method=\"GET\" waitUrl=\"https://example.com\" waitUrlMethod=\"GET\" workflowSid=\"workflow_sid\">name</Enqueue>" +
-                "<Gather action=\"https://example.com\" actionOnEmptyResult=\"true\" bargeIn=\"true\" debug=\"true\" finishOnKey=\"finish_on_key\" hints=\"hints\" input=\"dtmf\" language=\"af-ZA\" maxSpeechTime=\"1\" method=\"GET\" numDigits=\"1\" partialResultCallback=\"https://example.com\" partialResultCallbackMethod=\"GET\" profanityFilter=\"true\" speechTimeout=\"speech_timeout\" timeout=\"1\"/>" +
+                "<Gather action=\"https://example.com\" actionOnEmptyResult=\"true\" bargeIn=\"true\" debug=\"true\" enhanced=\"true\" finishOnKey=\"finish_on_key\" hints=\"hints\" input=\"dtmf\" language=\"af-ZA\" maxSpeechTime=\"1\" method=\"GET\" numDigits=\"1\" partialResultCallback=\"https://example.com\" partialResultCallbackMethod=\"GET\" profanityFilter=\"true\" speechModel=\"default\" speechTimeout=\"speech_timeout\" timeout=\"1\"/>" +
                 "<Hangup/>" +
                 "<Leave/>" +
                 "<Pause length=\"1\"/>" +

@@ -58,8 +58,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.MESSAGING.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/PhoneNumbers",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/PhoneNumbers"
         );
 
         addQueryParams(request);
@@ -96,10 +95,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.MESSAGING.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.MESSAGING.toString())
         );
         return pageForRequest(client, request);
     }
@@ -116,10 +112,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.MESSAGING.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.MESSAGING.toString())
         );
         return pageForRequest(client, request);
     }
@@ -141,14 +134,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

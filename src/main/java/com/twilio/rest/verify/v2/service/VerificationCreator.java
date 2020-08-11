@@ -20,14 +20,11 @@ import com.twilio.rest.Domains;
 
 import java.util.Map;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class VerificationCreator extends Creator<Verification> {
     private final String pathServiceSid;
     private final String to;
     private final String channel;
+    private String customFriendlyName;
     private String customMessage;
     private String sendDigits;
     private String locale;
@@ -36,6 +33,7 @@ public class VerificationCreator extends Creator<Verification> {
     private String payee;
     private Map<String, Object> rateLimits;
     private Map<String, Object> channelConfiguration;
+    private String appHash;
 
     /**
      * Construct a new VerificationCreator.
@@ -51,6 +49,18 @@ public class VerificationCreator extends Creator<Verification> {
         this.pathServiceSid = pathServiceSid;
         this.to = to;
         this.channel = channel;
+    }
+
+    /**
+     * A custom user defined friendly name that overwrites the existing one in the
+     * verification message.
+     *
+     * @param customFriendlyName A custom user defined friendly name
+     * @return this
+     */
+    public VerificationCreator setCustomFriendlyName(final String customFriendlyName) {
+        this.customFriendlyName = customFriendlyName;
+        return this;
     }
 
     /**
@@ -79,9 +89,9 @@ public class VerificationCreator extends Creator<Verification> {
 
     /**
      * The locale to use for the verification SMS or call. Can be: `af`, `ar`, `ca`,
-     * `cs`, `da`, `de`, `el`, `en`, `es`, `fi`, `fr`, `he`, `hi`, `hr`, `hu`, `id`,
-     * `it`, `ja`, `ko`, `ms`, `nb`, `nl`, `pl`, `pt`, `pr-BR`, `ro`, `ru`, `sv`,
-     * `th`, `tl`, `tr`, `vi`, `zh`, `zh-CN`, or `zh-HK.`.
+     * `cs`, `da`, `de`, `el`, `en`, `en-GB`, `es`, `fi`, `fr`, `he`, `hi`, `hr`,
+     * `hu`, `id`, `it`, `ja`, `ko`, `ms`, `nb`, `nl`, `pl`, `pt`, `pr-BR`, `ro`,
+     * `ru`, `sv`, `th`, `tl`, `tr`, `vi`, `zh`, `zh-CN`, or `zh-HK.`.
      *
      * @param locale The locale to use for the verification SMS or call
      * @return this
@@ -128,10 +138,11 @@ public class VerificationCreator extends Creator<Verification> {
     }
 
     /**
-     * The custom key-value pairs of Programmable Rate Limits. Keys should be the
-     * unique_name configured while creating you Rate Limit along with the
-     * associated values for each particular request. You may include multiple Rate
-     * Limit values in each request..
+     * The custom key-value pairs of Programmable Rate Limits. Keys correspond to
+     * `unique_name` fields defined when [creating your Rate
+     * Limit](https://www.twilio.com/docs/verify/api/service-rate-limits).
+     * Associated value pairs represent values in the request that you are rate
+     * limiting on. You may include multiple Rate Limit values in each request..
      *
      * @param rateLimits The custom key-value pairs of Programmable Rate Limits.
      * @return this
@@ -142,14 +153,26 @@ public class VerificationCreator extends Creator<Verification> {
     }
 
     /**
-     * Channel specific configuration in json format: For email must include 'from'
-     * and 'from_name'..
+     * [`email`](https://www.twilio.com/docs/verify/email) channel configuration in
+     * json format. Must include 'from' and 'from_name'..
      *
      * @param channelConfiguration Channel specific configuration in json format.
      * @return this
      */
     public VerificationCreator setChannelConfiguration(final Map<String, Object> channelConfiguration) {
         this.channelConfiguration = channelConfiguration;
+        return this;
+    }
+
+    /**
+     * Your [App
+     * Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: `&lt;#&gt; Your AppName verification code is: 1234 He42w354ol9`..
+     *
+     * @param appHash Your App Hash to be appended at the end of an SMS.
+     * @return this
+     */
+    public VerificationCreator setAppHash(final String appHash) {
+        this.appHash = appHash;
         return this;
     }
 
@@ -165,8 +188,7 @@ public class VerificationCreator extends Creator<Verification> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Verifications",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Verifications"
         );
 
         addPostParams(request);
@@ -179,14 +201,7 @@ public class VerificationCreator extends Creator<Verification> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Verification.fromJson(response.getStream(), client.getObjectMapper());
@@ -204,6 +219,10 @@ public class VerificationCreator extends Creator<Verification> {
 
         if (channel != null) {
             request.addPostParam("Channel", channel);
+        }
+
+        if (customFriendlyName != null) {
+            request.addPostParam("CustomFriendlyName", customFriendlyName);
         }
 
         if (customMessage != null) {
@@ -236,6 +255,10 @@ public class VerificationCreator extends Creator<Verification> {
 
         if (channelConfiguration != null) {
             request.addPostParam("ChannelConfiguration", Converter.mapToJson(channelConfiguration));
+        }
+
+        if (appHash != null) {
+            request.addPostParam("AppHash", appHash);
         }
     }
 }

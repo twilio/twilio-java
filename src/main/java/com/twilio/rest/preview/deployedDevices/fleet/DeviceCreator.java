@@ -110,8 +110,7 @@ public class DeviceCreator extends Creator<Device> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Devices",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Devices"
         );
 
         addPostParams(request);
@@ -124,14 +123,7 @@ public class DeviceCreator extends Creator<Device> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Device.fromJson(response.getStream(), client.getObjectMapper());

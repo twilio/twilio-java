@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 import static com.twilio.Assert.assertQueryStringsEqual;
 import static com.twilio.Assert.assertUrlsEqual;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -42,6 +43,14 @@ public class RequestTest {
         Request request = new Request(HttpMethod.DELETE, "http://{");
         request.constructURL();
         fail("ApiException was expected");
+    }
+
+    @Test
+    public void testConstructURLWithPipe() throws MalformedURLException {
+        Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foo|bar");
+        URL url = r.constructURL();
+        URL expected = new URL("https://api.twilio.com/2010-04-01/foo%7Cbar");
+        assertUrlsEqual(expected, url);
     }
 
     @Test
@@ -137,6 +146,74 @@ public class RequestTest {
     }
 
     @Test
+    public void testAddQueryDateTimeRangeClosedNotUTC() throws MalformedURLException {
+        Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar");
+        r.addQueryDateTimeRange("baz", Range.closed(new DateTime(2014, 1, 10, 14, 0, DateTimeZone.forID("America/Chicago")),
+            new DateTime(2014, 6, 1, 16, 0, DateTimeZone.forID("America/Chicago"))));
+        URL url = r.constructURL();
+        URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz>=2014-01-10T20:00:00&baz<=2014-06-01T21:00:00");
+        assertUrlsEqual(expected, url);
+    }
+
+    @Test
+    public void testNoEdgeOrRegionInUrl() throws MalformedURLException {
+        final Request request = new Request(HttpMethod.GET, "https://api.twilio.com");
+
+        assertUrlsEqual(new URL("https://api.twilio.com"), request.constructURL());
+
+        request.setRegion("region");
+        assertUrlsEqual(new URL("https://api.region.twilio.com"), request.constructURL());
+
+        request.setEdge("edge");
+        assertUrlsEqual(new URL("https://api.edge.region.twilio.com"), request.constructURL());
+
+        request.setRegion(null);
+        assertUrlsEqual(new URL("https://api.edge.us1.twilio.com"), request.constructURL());
+    }
+
+    @Test
+    public void testRegionInUrl() throws MalformedURLException {
+        final Request request = new Request(HttpMethod.GET, "https://api.urlRegion.twilio.com");
+
+        assertUrlsEqual(new URL("https://api.urlRegion.twilio.com"), request.constructURL());
+
+        request.setRegion("region");
+        assertUrlsEqual(new URL("https://api.region.twilio.com"), request.constructURL());
+
+        request.setEdge("edge");
+        assertUrlsEqual(new URL("https://api.edge.region.twilio.com"), request.constructURL());
+
+        request.setRegion(null);
+        assertUrlsEqual(new URL("https://api.edge.urlRegion.twilio.com"), request.constructURL());
+    }
+
+    @Test
+    public void testRegionAndEdgeInUrl() throws MalformedURLException {
+        final Request request = new Request(HttpMethod.GET, "https://api.urlEdge.urlRegion.twilio.com");
+
+        assertUrlsEqual(new URL("https://api.urlEdge.urlRegion.twilio.com"), request.constructURL());
+
+        request.setRegion("region");
+        assertUrlsEqual(new URL("https://api.urlEdge.region.twilio.com"), request.constructURL());
+
+        request.setEdge("edge");
+        assertUrlsEqual(new URL("https://api.edge.region.twilio.com"), request.constructURL());
+
+        request.setRegion(null);
+        assertUrlsEqual(new URL("https://api.edge.urlRegion.twilio.com"), request.constructURL());
+    }
+
+    @Test
+    public void testRegionInConstructor() {
+        final Request request = new Request(HttpMethod.GET, Domains.ACCOUNTS.toString(), "/path/to/something.json?foo=12.34#bar", "region");
+
+        assertUrlsEqual("https://accounts.region.twilio.com/path/to/something.json?foo=12.34#bar", request.constructURL());
+
+        request.setEdge("edge");
+        assertUrlsEqual("https://accounts.edge.region.twilio.com/path/to/something.json?foo=12.34#bar", request.constructURL());
+    }
+
+    @Test
     public void testEncodeFormBody() {
         Request r = new Request(HttpMethod.POST, "http://example.com/foobar");
         r.addPostParam("baz", "quux");
@@ -171,9 +248,7 @@ public class RequestTest {
     public void testEquals() {
         Request request = new Request(HttpMethod.DELETE, "/uri");
         request.setAuth("username", "password");
-        assertFalse(request.equals(new Object()));
-        assertFalse(request.equals(null));
+        assertNotEquals(request, new Object());
+        assertNotEquals(null, request);
     }
-
 }
-

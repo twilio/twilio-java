@@ -45,6 +45,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     private IncomingPhoneNumber.VoiceReceiveMode voiceReceiveMode;
     private String identitySid;
     private String addressSid;
+    private String bundleSid;
 
     /**
      * Construct a new IncomingPhoneNumberUpdater.
@@ -412,6 +413,18 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
+     * The SID of the Bundle resource that you associate with the phone number. Some
+     * regions require a Bundle to meet local Regulations..
+     *
+     * @param bundleSid The SID of the Bundle resource associated with number
+     * @return this
+     */
+    public IncomingPhoneNumberUpdater setBundleSid(final String bundleSid) {
+        this.bundleSid = bundleSid;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -424,8 +437,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/" + this.pathSid + ".json"
         );
 
         addPostParams(request);
@@ -438,14 +450,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return IncomingPhoneNumber.fromJson(response.getStream(), client.getObjectMapper());
@@ -543,6 +548,10 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
 
         if (addressSid != null) {
             request.addPostParam("AddressSid", addressSid);
+        }
+
+        if (bundleSid != null) {
+            request.addPostParam("BundleSid", bundleSid);
         }
     }
 }

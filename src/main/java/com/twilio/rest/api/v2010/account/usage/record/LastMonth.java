@@ -90,17 +90,20 @@ public class LastMonth extends Resource {
         LOOKUPS("lookups"),
         MARKETPLACE("marketplace"),
         MARKETPLACE_ALGORITHMIA_NAMED_ENTITY_RECOGNITION("marketplace-algorithmia-named-entity-recognition"),
+        MARKETPLACE_CADENCE_TRANSCRIPTION("marketplace-cadence-transcription"),
+        MARKETPLACE_CADENCE_TRANSLATION("marketplace-cadence-translation"),
+        MARKETPLACE_CAPIO_SPEECH_TO_TEXT("marketplace-capio-speech-to-text"),
+        MARKETPLACE_CONVRIZA_ABABA("marketplace-convriza-ababa"),
+        MARKETPLACE_DEEPGRAM_PHRASE_DETECTOR("marketplace-deepgram-phrase-detector"),
         MARKETPLACE_DIGITAL_SEGMENT_BUSINESS_INFO("marketplace-digital-segment-business-info"),
+        MARKETPLACE_FACEBOOK_OFFLINE_CONVERSIONS("marketplace-facebook-offline-conversions"),
         MARKETPLACE_GOOGLE_SPEECH_TO_TEXT("marketplace-google-speech-to-text"),
         MARKETPLACE_IBM_WATSON_MESSAGE_INSIGHTS("marketplace-ibm-watson-message-insights"),
         MARKETPLACE_IBM_WATSON_MESSAGE_SENTIMENT("marketplace-ibm-watson-message-sentiment"),
         MARKETPLACE_IBM_WATSON_RECORDING_ANALYSIS("marketplace-ibm-watson-recording-analysis"),
+        MARKETPLACE_IBM_WATSON_TONE_ANALYZER("marketplace-ibm-watson-tone-analyzer"),
         MARKETPLACE_ICEHOOK_SYSTEMS_SCOUT("marketplace-icehook-systems-scout"),
         MARKETPLACE_INFOGROUP_DATAAXLE_BIZINFO("marketplace-infogroup-dataaxle-bizinfo"),
-        MARKETPLACE_CADENCE_TRANSCRIPTION("marketplace-cadence-transcription"),
-        MARKETPLACE_CADENCE_TRANSLATION("marketplace-cadence-translation"),
-        MARKETPLACE_CAPIO_SPEECH_TO_TEXT("marketplace-capio-speech-to-text"),
-        MARKETPLACE_FACEBOOK_OFFLINE_CONVERSIONS("marketplace-facebook-offline-conversions"),
         MARKETPLACE_KEEN_IO_CONTACT_CENTER_ANALYTICS("marketplace-keen-io-contact-center-analytics"),
         MARKETPLACE_MARCHEX_CLEANCALL("marketplace-marchex-cleancall"),
         MARKETPLACE_MARCHEX_SENTIMENT_ANALYSIS_FOR_SMS("marketplace-marchex-sentiment-analysis-for-sms"),
@@ -110,23 +113,20 @@ public class LastMonth extends Resource {
         MARKETPLACE_NEXTCALLER_ADVANCED_CALLER_IDENTIFICATION("marketplace-nextcaller-advanced-caller-identification"),
         MARKETPLACE_NOMOROBO_SPAM_SCORE("marketplace-nomorobo-spam-score"),
         MARKETPLACE_PAYFONE_TCPA_COMPLIANCE("marketplace-payfone-tcpa-compliance"),
+        MARKETPLACE_REMEETING_AUTOMATIC_SPEECH_RECOGNITION("marketplace-remeeting-automatic-speech-recognition"),
+        MARKETPLACE_TCPA_DEFENSE_SOLUTIONS_BLACKLIST_FEED("marketplace-tcpa-defense-solutions-blacklist-feed"),
         MARKETPLACE_TELO_OPENCNAM("marketplace-telo-opencnam"),
         MARKETPLACE_TRUECNAM_TRUE_SPAM("marketplace-truecnam-true-spam"),
         MARKETPLACE_TWILIO_CALLER_NAME_LOOKUP_US("marketplace-twilio-caller-name-lookup-us"),
         MARKETPLACE_TWILIO_CARRIER_INFORMATION_LOOKUP("marketplace-twilio-carrier-information-lookup"),
         MARKETPLACE_VOICEBASE_PCI("marketplace-voicebase-pci"),
         MARKETPLACE_VOICEBASE_TRANSCRIPTION("marketplace-voicebase-transcription"),
+        MARKETPLACE_VOICEBASE_TRANSCRIPTION_CUSTOM_VOCABULARY("marketplace-voicebase-transcription-custom-vocabulary"),
         MARKETPLACE_WHITEPAGES_PRO_CALLER_IDENTIFICATION("marketplace-whitepages-pro-caller-identification"),
         MARKETPLACE_WHITEPAGES_PRO_PHONE_INTELLIGENCE("marketplace-whitepages-pro-phone-intelligence"),
         MARKETPLACE_WHITEPAGES_PRO_PHONE_REPUTATION("marketplace-whitepages-pro-phone-reputation"),
-        MARKETPLACE_WOLFRAM_SHORT_ANSWER("marketplace-wolfram-short-answer"),
         MARKETPLACE_WOLFARM_SPOKEN_RESULTS("marketplace-wolfarm-spoken-results"),
-        MARKETPLACE_DEEPGRAM_PHRASE_DETECTOR("marketplace-deepgram-phrase-detector"),
-        MARKETPLACE_CONVRIZA_ABABA("marketplace-convriza-ababa"),
-        MARKETPLACE_IBM_WATSON_TONE_ANALYZER("marketplace-ibm-watson-tone-analyzer"),
-        MARKETPLACE_REMEETING_AUTOMATIC_SPEECH_RECOGNITION("marketplace-remeeting-automatic-speech-recognition"),
-        MARKETPLACE_TCPA_DEFENSE_SOLUTIONS_BLACKLIST_FEED("marketplace-tcpa-defense-solutions-blacklist-feed"),
-        MARKETPLACE_VOICEBASE_TRANSCRIPTION_CUSTOM_VOCABULARY("marketplace-voicebase-transcription-custom-vocabulary"),
+        MARKETPLACE_WOLFRAM_SHORT_ANSWER("marketplace-wolfram-short-answer"),
         MARKETPLACE_YTICA_CONTACT_CENTER_REPORTING_ANALYTICS("marketplace-ytica-contact-center-reporting-analytics"),
         MEDIASTORAGE("mediastorage"),
         MMS("mms"),
@@ -147,10 +147,10 @@ public class LastMonth extends Resource {
         PCHAT("pchat"),
         PCHAT_ACTIONS("pchat-actions"),
         PCHAT_APS("pchat-aps"),
+        PCHAT_MESSAGES("pchat-messages"),
         PCHAT_NOTIFICATIONS("pchat-notifications"),
         PCHAT_READS("pchat-reads"),
         PCHAT_USERS("pchat-users"),
-        PCHAT_MESSAGES("pchat-messages"),
         PEER_TO_PEER_ROOMS_PARTICIPANT_MINUTES("peer-to-peer-rooms-participant-minutes"),
         PFAX("pfax"),
         PFAX_MINUTES("pfax-minutes"),
@@ -167,6 +167,7 @@ public class LastMonth extends Resource {
         PREMIUMSUPPORT("premiumsupport"),
         PROXY("proxy"),
         PROXY_ACTIVE_SESSIONS("proxy-active-sessions"),
+        PSTNCONNECTIVITY("pstnconnectivity"),
         PV("pv"),
         PV_COMPOSITION_MEDIA_DOWNLOADED("pv-composition-media-downloaded"),
         PV_COMPOSITION_MEDIA_ENCRYPTED("pv-composition-media-encrypted"),
@@ -185,8 +186,8 @@ public class LastMonth extends Resource {
         PV_SIP_ENDPOINT_REGISTRATIONS("pv-sip-endpoint-registrations"),
         RECORDINGS("recordings"),
         RECORDINGSTORAGE("recordingstorage"),
-        ROOMS_GROUP_MINUTES("rooms-group-minutes"),
         ROOMS_GROUP_BANDWIDTH("rooms-group-bandwidth"),
+        ROOMS_GROUP_MINUTES("rooms-group-minutes"),
         ROOMS_PEER_TO_PEER_MINUTES("rooms-peer-to-peer-minutes"),
         SHORTCODES("shortcodes"),
         SHORTCODES_CUSTOMEROWNED("shortcodes-customerowned"),
@@ -283,8 +284,8 @@ public class LastMonth extends Resource {
         WIRELESS_USAGE_MRC_INDIVIDUAL("wireless-usage-mrc-individual"),
         WIRELESS_USAGE_MRC_POOLED("wireless-usage-mrc-pooled"),
         WIRELESS_USAGE_MRC_SUSPENDED("wireless-usage-mrc-suspended"),
-        WIRELESS_USAGE_VOICE("wireless-usage-voice"),
-        WIRELESS_USAGE_SMS("wireless-usage-sms");
+        WIRELESS_USAGE_SMS("wireless-usage-sms"),
+        WIRELESS_USAGE_VOICE("wireless-usage-voice");
 
         private final String value;
 
@@ -431,7 +432,7 @@ public class LastMonth extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account accrued the usage.
+     * Returns The SID of the Account accrued the usage.
      *
      * @return The SID of the Account accrued the usage
      */
@@ -440,7 +441,7 @@ public class LastMonth extends Resource {
     }
 
     /**
-     * Returns The The API version used to create the resource.
+     * Returns The API version used to create the resource.
      *
      * @return The API version used to create the resource
      */
@@ -449,7 +450,7 @@ public class LastMonth extends Resource {
     }
 
     /**
-     * Returns The Usage records up to date as of this timestamp.
+     * Returns Usage records up to date as of this timestamp.
      *
      * @return Usage records up to date as of this timestamp
      */
@@ -458,7 +459,7 @@ public class LastMonth extends Resource {
     }
 
     /**
-     * Returns The The category of usage.
+     * Returns The category of usage.
      *
      * @return The category of usage
      */
@@ -467,7 +468,7 @@ public class LastMonth extends Resource {
     }
 
     /**
-     * Returns The The number of usage events.
+     * Returns The number of usage events.
      *
      * @return The number of usage events
      */
@@ -476,7 +477,7 @@ public class LastMonth extends Resource {
     }
 
     /**
-     * Returns The The units in which count is measured.
+     * Returns The units in which count is measured.
      *
      * @return The units in which count is measured
      */
@@ -485,7 +486,7 @@ public class LastMonth extends Resource {
     }
 
     /**
-     * Returns The A plain-language description of the usage category.
+     * Returns A plain-language description of the usage category.
      *
      * @return A plain-language description of the usage category
      */
@@ -494,7 +495,7 @@ public class LastMonth extends Resource {
     }
 
     /**
-     * Returns The The last date for which usage is included in the UsageRecord.
+     * Returns The last date for which usage is included in the UsageRecord.
      *
      * @return The last date for which usage is included in the UsageRecord
      */
@@ -503,7 +504,7 @@ public class LastMonth extends Resource {
     }
 
     /**
-     * Returns The The total price of the usage.
+     * Returns The total price of the usage.
      *
      * @return The total price of the usage
      */
@@ -512,7 +513,7 @@ public class LastMonth extends Resource {
     }
 
     /**
-     * Returns The The currency in which `price` is measured.
+     * Returns The currency in which `price` is measured.
      *
      * @return The currency in which `price` is measured
      */
@@ -521,7 +522,7 @@ public class LastMonth extends Resource {
     }
 
     /**
-     * Returns The The first date for which usage is included in this UsageRecord.
+     * Returns The first date for which usage is included in this UsageRecord.
      *
      * @return The first date for which usage is included in this UsageRecord
      */
@@ -530,7 +531,7 @@ public class LastMonth extends Resource {
     }
 
     /**
-     * Returns The A list of related resources identified by their relative URIs.
+     * Returns A list of related resources identified by their relative URIs.
      *
      * @return A list of related resources identified by their relative URIs
      */
@@ -539,7 +540,7 @@ public class LastMonth extends Resource {
     }
 
     /**
-     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
      *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */
@@ -548,7 +549,7 @@ public class LastMonth extends Resource {
     }
 
     /**
-     * Returns The The amount of usage.
+     * Returns The amount of usage.
      *
      * @return The amount of usage
      */
@@ -557,7 +558,7 @@ public class LastMonth extends Resource {
     }
 
     /**
-     * Returns The The units in which usage is measured.
+     * Returns The units in which usage is measured.
      *
      * @return The units in which usage is measured
      */

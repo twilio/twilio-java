@@ -89,8 +89,7 @@ public class InviteReader extends Reader<Invite> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.CHAT.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Invites",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Invites"
         );
 
         addQueryParams(request);
@@ -127,10 +126,7 @@ public class InviteReader extends Reader<Invite> {
                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.CHAT.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.CHAT.toString())
         );
         return pageForRequest(client, request);
     }
@@ -147,10 +143,7 @@ public class InviteReader extends Reader<Invite> {
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.CHAT.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.CHAT.toString())
         );
         return pageForRequest(client, request);
     }
@@ -172,14 +165,7 @@ public class InviteReader extends Reader<Invite> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

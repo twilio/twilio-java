@@ -183,84 +183,48 @@ public class Queue extends Resource {
         }
     }
 
+    private final ZonedDateTime dateUpdated;
+    private final Integer currentSize;
+    private final String friendlyName;
+    private final String uri;
     private final String accountSid;
     private final Integer averageWaitTime;
-    private final Integer currentSize;
-    private final ZonedDateTime dateCreated;
-    private final ZonedDateTime dateUpdated;
-    private final String friendlyName;
-    private final Integer maxSize;
     private final String sid;
-    private final String uri;
+    private final ZonedDateTime dateCreated;
+    private final Integer maxSize;
 
     @JsonCreator
-    private Queue(@JsonProperty("account_sid")
+    private Queue(@JsonProperty("date_updated")
+                  final String dateUpdated,
+                  @JsonProperty("current_size")
+                  final Integer currentSize,
+                  @JsonProperty("friendly_name")
+                  final String friendlyName,
+                  @JsonProperty("uri")
+                  final String uri,
+                  @JsonProperty("account_sid")
                   final String accountSid,
                   @JsonProperty("average_wait_time")
                   final Integer averageWaitTime,
-                  @JsonProperty("current_size")
-                  final Integer currentSize,
-                  @JsonProperty("date_created")
-                  final String dateCreated,
-                  @JsonProperty("date_updated")
-                  final String dateUpdated,
-                  @JsonProperty("friendly_name")
-                  final String friendlyName,
-                  @JsonProperty("max_size")
-                  final Integer maxSize,
                   @JsonProperty("sid")
                   final String sid,
-                  @JsonProperty("uri")
-                  final String uri) {
+                  @JsonProperty("date_created")
+                  final String dateCreated,
+                  @JsonProperty("max_size")
+                  final Integer maxSize) {
+        this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
+        this.currentSize = currentSize;
+        this.friendlyName = friendlyName;
+        this.uri = uri;
         this.accountSid = accountSid;
         this.averageWaitTime = averageWaitTime;
-        this.currentSize = currentSize;
-        this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
-        this.friendlyName = friendlyName;
-        this.maxSize = maxSize;
         this.sid = sid;
-        this.uri = uri;
+        this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
+        this.maxSize = maxSize;
     }
 
     /**
-     * Returns The The SID of the Account that created this resource.
-     *
-     * @return The SID of the Account that created this resource
-     */
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    /**
-     * Returns The Average wait time of members in the queue.
-     *
-     * @return Average wait time of members in the queue
-     */
-    public final Integer getAverageWaitTime() {
-        return this.averageWaitTime;
-    }
-
-    /**
-     * Returns The The number of calls currently in the queue..
-     *
-     * @return The number of calls currently in the queue.
-     */
-    public final Integer getCurrentSize() {
-        return this.currentSize;
-    }
-
-    /**
-     * Returns The The RFC 2822 date and time in GMT that this resource was created.
-     *
-     * @return The RFC 2822 date and time in GMT that this resource was created
-     */
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    /**
-     * Returns The The RFC 2822 date and time in GMT that this resource was last
+     * Returns The RFC 2822 date and time in GMT that this resource was last
      * updated.
      *
      * @return The RFC 2822 date and time in GMT that this resource was last updated
@@ -270,7 +234,16 @@ public class Queue extends Resource {
     }
 
     /**
-     * Returns The A string that you assigned to describe this resource.
+     * Returns The number of calls currently in the queue..
+     *
+     * @return The number of calls currently in the queue.
+     */
+    public final Integer getCurrentSize() {
+        return this.currentSize;
+    }
+
+    /**
+     * Returns A string that you assigned to describe this resource.
      *
      * @return A string that you assigned to describe this resource
      */
@@ -279,16 +252,34 @@ public class Queue extends Resource {
     }
 
     /**
-     * Returns The The max number of calls allowed in the queue.
+     * Returns The URI of this resource, relative to `https://api.twilio.com`.
      *
-     * @return The max number of calls allowed in the queue
+     * @return The URI of this resource, relative to `https://api.twilio.com`
      */
-    public final Integer getMaxSize() {
-        return this.maxSize;
+    public final String getUri() {
+        return this.uri;
     }
 
     /**
-     * Returns The The unique string that identifies this resource.
+     * Returns The SID of the Account that created this resource.
+     *
+     * @return The SID of the Account that created this resource
+     */
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    /**
+     * Returns Average wait time of members in the queue.
+     *
+     * @return Average wait time of members in the queue
+     */
+    public final Integer getAverageWaitTime() {
+        return this.averageWaitTime;
+    }
+
+    /**
+     * Returns The unique string that identifies this resource.
      *
      * @return The unique string that identifies this resource
      */
@@ -297,12 +288,21 @@ public class Queue extends Resource {
     }
 
     /**
-     * Returns The The URI of this resource, relative to `https://api.twilio.com`.
+     * Returns The RFC 2822 date and time in GMT that this resource was created.
      *
-     * @return The URI of this resource, relative to `https://api.twilio.com`
+     * @return The RFC 2822 date and time in GMT that this resource was created
      */
-    public final String getUri() {
-        return this.uri;
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    /**
+     * Returns The max number of calls allowed in the queue.
+     *
+     * @return The max number of calls allowed in the queue
+     */
+    public final Integer getMaxSize() {
+        return this.maxSize;
     }
 
     @Override
@@ -317,42 +317,42 @@ public class Queue extends Resource {
 
         Queue other = (Queue) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&
-               Objects.equals(averageWaitTime, other.averageWaitTime) &&
+        return Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(currentSize, other.currentSize) &&
-               Objects.equals(dateCreated, other.dateCreated) &&
-               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(friendlyName, other.friendlyName) &&
-               Objects.equals(maxSize, other.maxSize) &&
+               Objects.equals(uri, other.uri) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(averageWaitTime, other.averageWaitTime) &&
                Objects.equals(sid, other.sid) &&
-               Objects.equals(uri, other.uri);
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(maxSize, other.maxSize);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid,
-                            averageWaitTime,
+        return Objects.hash(dateUpdated,
                             currentSize,
-                            dateCreated,
-                            dateUpdated,
                             friendlyName,
-                            maxSize,
+                            uri,
+                            accountSid,
+                            averageWaitTime,
                             sid,
-                            uri);
+                            dateCreated,
+                            maxSize);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
+                          .add("dateUpdated", dateUpdated)
+                          .add("currentSize", currentSize)
+                          .add("friendlyName", friendlyName)
+                          .add("uri", uri)
                           .add("accountSid", accountSid)
                           .add("averageWaitTime", averageWaitTime)
-                          .add("currentSize", currentSize)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("friendlyName", friendlyName)
-                          .add("maxSize", maxSize)
                           .add("sid", sid)
-                          .add("uri", uri)
+                          .add("dateCreated", dateCreated)
+                          .add("maxSize", maxSize)
                           .toString();
     }
 }

@@ -71,8 +71,7 @@ public class EventReader extends Reader<Event> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.INSIGHTS.toString(),
-            "/v1/Voice/" + this.pathCallSid + "/Events",
-            client.getRegion()
+            "/v1/Voice/" + this.pathCallSid + "/Events"
         );
 
         addQueryParams(request);
@@ -109,10 +108,7 @@ public class EventReader extends Reader<Event> {
                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.INSIGHTS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.INSIGHTS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -129,10 +125,7 @@ public class EventReader extends Reader<Event> {
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.INSIGHTS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.INSIGHTS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -154,14 +147,7 @@ public class EventReader extends Reader<Event> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

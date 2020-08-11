@@ -8,6 +8,7 @@
 package com.twilio.rest.verify.v2;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Converter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -17,10 +18,8 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
+import java.util.Map;
+
 public class ServiceCreator extends Creator<Service> {
     private final String friendlyName;
     private Integer codeLength;
@@ -29,6 +28,9 @@ public class ServiceCreator extends Creator<Service> {
     private Boolean dtmfInputRequired;
     private String ttsName;
     private Boolean psd2Enabled;
+    private Boolean doNotShareWarningEnabled;
+    private Boolean customCodeEnabled;
+    private Map<String, Object> push;
 
     /**
      * Construct a new ServiceCreator.
@@ -115,6 +117,52 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
+     * Whether to add a security warning at the end of an SMS verification body.
+     * Disabled by default and applies only to SMS. Example SMS body: `Your AppName
+     * verification code is: 1234. Don’t share this code with anyone; our employees
+     * will never ask for the code`.
+     *
+     * @param doNotShareWarningEnabled Whether to add a security warning at the end
+     *                                 of an SMS.
+     * @return this
+     */
+    public ServiceCreator setDoNotShareWarningEnabled(final Boolean doNotShareWarningEnabled) {
+        this.doNotShareWarningEnabled = doNotShareWarningEnabled;
+        return this;
+    }
+
+    /**
+     * Whether to allow sending verifications with a custom code instead of a
+     * randomly generated one. Not available for all customers..
+     *
+     * @param customCodeEnabled Whether to allow sending verifications with a
+     *                          custom code.
+     * @return this
+     */
+    public ServiceCreator setCustomCodeEnabled(final Boolean customCodeEnabled) {
+        this.customCodeEnabled = customCodeEnabled;
+        return this;
+    }
+
+    /**
+     * Configurations for the Push factors (channel) created under this Service. If
+     * present, it must be a json string with the following format:
+     * {"notify_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "include_date":
+     * true}. If `include_date` is set to `true`, which is the default, that means
+     * that the push challenge’s response will include the date created value. If
+     * `include_date` is set to `false`, then the date created value will not be
+     * included. See [Challenge](https://www.twilio.com/docs/verify/api/challenge)
+     * resource’s details parameter for more info.
+     *
+     * @param push Optional service level push factors configuration
+     * @return this
+     */
+    public ServiceCreator setPush(final Map<String, Object> push) {
+        this.push = push;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -126,8 +174,7 @@ public class ServiceCreator extends Creator<Service> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
-            "/v2/Services",
-            client.getRegion()
+            "/v2/Services"
         );
 
         addPostParams(request);
@@ -140,14 +187,7 @@ public class ServiceCreator extends Creator<Service> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Service.fromJson(response.getStream(), client.getObjectMapper());
@@ -185,6 +225,18 @@ public class ServiceCreator extends Creator<Service> {
 
         if (psd2Enabled != null) {
             request.addPostParam("Psd2Enabled", psd2Enabled.toString());
+        }
+
+        if (doNotShareWarningEnabled != null) {
+            request.addPostParam("DoNotShareWarningEnabled", doNotShareWarningEnabled.toString());
+        }
+
+        if (customCodeEnabled != null) {
+            request.addPostParam("CustomCodeEnabled", customCodeEnabled.toString());
+        }
+
+        if (push != null) {
+            request.addPostParam("Push", Converter.mapToJson(push));
         }
     }
 }

@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Query extends Resource {
-    private static final long serialVersionUID = 54679602157752L;
+    private static final long serialVersionUID = 161972386699881L;
 
     /**
      * Create a QueryFetcher to execute fetch.
@@ -158,6 +158,7 @@ public class Query extends Resource {
     private final String status;
     private final URI url;
     private final String sourceChannel;
+    private final String dialogueSid;
 
     @JsonCreator
     private Query(@JsonProperty("account_sid")
@@ -185,7 +186,9 @@ public class Query extends Resource {
                   @JsonProperty("url")
                   final URI url,
                   @JsonProperty("source_channel")
-                  final String sourceChannel) {
+                  final String sourceChannel,
+                  @JsonProperty("dialogue_sid")
+                  final String dialogueSid) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
@@ -199,10 +202,11 @@ public class Query extends Resource {
         this.status = status;
         this.url = url;
         this.sourceChannel = sourceChannel;
+        this.dialogueSid = dialogueSid;
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -211,7 +215,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -220,8 +224,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -230,7 +233,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The natural language analysis results that include the Task
+     * Returns The natural language analysis results that include the Task
      * recognized and a list of identified Fields.
      *
      * @return The natural language analysis results that include the Task
@@ -241,8 +244,8 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The ISO language-country string that specifies the language used
-     * by the Query.
+     * Returns The ISO language-country string that specifies the language used by
+     * the Query.
      *
      * @return The ISO language-country string that specifies the language used by
      *         the Query
@@ -252,7 +255,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The SID of the [Model
+     * Returns The SID of the [Model
      * Build](https://www.twilio.com/docs/autopilot/api/model-build) queried.
      *
      * @return The SID of the [Model
@@ -263,7 +266,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The end-user's natural language input.
+     * Returns The end-user's natural language input.
      *
      * @return The end-user's natural language input
      */
@@ -272,7 +275,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The SID of an optional reference to the Sample created from the
+     * Returns The SID of an optional reference to the Sample created from the
      * query.
      *
      * @return The SID of an optional reference to the Sample created from the query
@@ -282,7 +285,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The SID of the Assistant that is the parent of the resource.
+     * Returns The SID of the Assistant that is the parent of the resource.
      *
      * @return The SID of the Assistant that is the parent of the resource
      */
@@ -291,7 +294,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -300,7 +303,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The status of the Query.
+     * Returns The status of the Query.
      *
      * @return The status of the Query
      */
@@ -309,7 +312,7 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Query resource.
+     * Returns The absolute URL of the Query resource.
      *
      * @return The absolute URL of the Query resource
      */
@@ -318,12 +321,23 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The communication channel from where the end-user input came.
+     * Returns The communication channel from where the end-user input came.
      *
      * @return The communication channel from where the end-user input came
      */
     public final String getSourceChannel() {
         return this.sourceChannel;
+    }
+
+    /**
+     * Returns The SID of the
+     * [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue)..
+     *
+     * @return The SID of the
+     *         [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
+     */
+    public final String getDialogueSid() {
+        return this.dialogueSid;
     }
 
     @Override
@@ -350,7 +364,8 @@ public class Query extends Resource {
                Objects.equals(sid, other.sid) &&
                Objects.equals(status, other.status) &&
                Objects.equals(url, other.url) &&
-               Objects.equals(sourceChannel, other.sourceChannel);
+               Objects.equals(sourceChannel, other.sourceChannel) &&
+               Objects.equals(dialogueSid, other.dialogueSid);
     }
 
     @Override
@@ -367,7 +382,8 @@ public class Query extends Resource {
                             sid,
                             status,
                             url,
-                            sourceChannel);
+                            sourceChannel,
+                            dialogueSid);
     }
 
     @Override
@@ -386,6 +402,7 @@ public class Query extends Resource {
                           .add("status", status)
                           .add("url", url)
                           .add("sourceChannel", sourceChannel)
+                          .add("dialogueSid", dialogueSid)
                           .toString();
     }
 }

@@ -241,7 +241,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -250,8 +250,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The An application-defined string that uniquely identifies the
-     * resource.
+     * Returns An application-defined string that uniquely identifies the resource.
      *
      * @return An application-defined string that uniquely identifies the resource
      */
@@ -260,7 +259,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -269,7 +268,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The SID of the Chat Service Instance.
+     * Returns The SID of the Chat Service Instance.
      *
      * @return The SID of the Chat Service Instance
      */
@@ -278,7 +277,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The URL we call when the interaction status changes.
+     * Returns The URL we call when the interaction status changes.
      *
      * @return The URL we call when the interaction status changes
      */
@@ -287,7 +286,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Default TTL for a Session, in seconds.
+     * Returns Default TTL for a Session, in seconds.
      *
      * @return Default TTL for a Session, in seconds
      */
@@ -296,8 +295,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The preference for Proxy Number selection for the Service
-     * instance.
+     * Returns The preference for Proxy Number selection for the Service instance.
      *
      * @return The preference for Proxy Number selection for the Service instance
      */
@@ -306,7 +304,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Where a proxy number must be located relative to the participant
+     * Returns Where a proxy number must be located relative to the participant
      * identifier.
      *
      * @return Where a proxy number must be located relative to the participant
@@ -317,7 +315,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The URL we call on each interaction.
+     * Returns The URL we call on each interaction.
      *
      * @return The URL we call on each interaction
      */
@@ -326,8 +324,8 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The URL we call when an inbound call or SMS action occurs on a
-     * closed or non-existent Session.
+     * Returns The URL we call when an inbound call or SMS action occurs on a closed
+     * or non-existent Session.
      *
      * @return The URL we call when an inbound call or SMS action occurs on a
      *         closed or non-existent Session
@@ -337,7 +335,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -346,8 +344,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -356,7 +353,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Service resource.
+     * Returns The absolute URL of the Service resource.
      *
      * @return The absolute URL of the Service resource
      */
@@ -365,7 +362,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The URLs of resources related to the Service.
+     * Returns The URLs of resources related to the Service.
      *
      * @return The URLs of resources related to the Service
      */

@@ -47,8 +47,7 @@ public class StyleSheetFetcher extends Fetcher<StyleSheet> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/StyleSheet",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/StyleSheet"
         );
 
         Response response = client.request(request);
@@ -60,14 +59,7 @@ public class StyleSheetFetcher extends Fetcher<StyleSheet> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return StyleSheet.fromJson(response.getStream(), client.getObjectMapper());

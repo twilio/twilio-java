@@ -163,8 +163,7 @@ public class FaxCreator extends Creator<Fax> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.FAX.toString(),
-            "/v1/Faxes",
-            client.getRegion()
+            "/v1/Faxes"
         );
 
         addPostParams(request);
@@ -177,14 +176,7 @@ public class FaxCreator extends Creator<Fax> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Fax.fromJson(response.getStream(), client.getObjectMapper());

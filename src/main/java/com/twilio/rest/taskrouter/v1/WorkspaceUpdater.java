@@ -162,8 +162,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -176,14 +175,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Workspace.fromJson(response.getStream(), client.getObjectMapper());

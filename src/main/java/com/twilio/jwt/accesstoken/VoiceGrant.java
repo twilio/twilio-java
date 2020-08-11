@@ -1,5 +1,6 @@
 package com.twilio.jwt.accesstoken;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.base.Strings;
 
 import java.util.HashMap;
@@ -70,6 +71,7 @@ public class VoiceGrant implements Grant {
     }
 
     @SuppressWarnings("checkstyle:membername")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public class Payload {
         public Map<String, Object> incoming;
         public Map<String, Object> outgoing;

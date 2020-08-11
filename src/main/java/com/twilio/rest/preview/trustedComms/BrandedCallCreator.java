@@ -66,8 +66,7 @@ public class BrandedCallCreator extends Creator<BrandedCall> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/TrustedComms/Business/BrandedCalls",
-            client.getRegion()
+            "/TrustedComms/Business/BrandedCalls"
         );
 
         addPostParams(request);
@@ -80,14 +79,7 @@ public class BrandedCallCreator extends Creator<BrandedCall> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return BrandedCall.fromJson(response.getStream(), client.getObjectMapper());

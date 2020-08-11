@@ -68,8 +68,7 @@ public class SyncListPermissionUpdater extends Updater<SyncListPermission> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Permissions/" + this.pathIdentity + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Permissions/" + this.pathIdentity + ""
         );
 
         addPostParams(request);
@@ -82,14 +81,7 @@ public class SyncListPermissionUpdater extends Updater<SyncListPermission> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SyncListPermission.fromJson(response.getStream(), client.getObjectMapper());

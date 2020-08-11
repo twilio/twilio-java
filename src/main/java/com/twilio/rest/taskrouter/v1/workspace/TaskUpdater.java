@@ -78,7 +78,8 @@ public class TaskUpdater extends Updater<Task> {
 
     /**
      * The Task's new priority value. When supplied, the Task takes on the specified
-     * priority unless it matches a Workflow Target with a Priority set..
+     * priority unless it matches a Workflow Target with a Priority set. Value can
+     * be 0 to 2^31^ (2,147,483,647)..
      *
      * @param priority The Task's new priority value
      * @return this
@@ -114,8 +115,7 @@ public class TaskUpdater extends Updater<Task> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Tasks/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Tasks/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -128,14 +128,7 @@ public class TaskUpdater extends Updater<Task> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Task.fromJson(response.getStream(), client.getObjectMapper());

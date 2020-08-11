@@ -109,8 +109,7 @@ public class BindingReader extends Reader<Binding> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.CHAT.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Bindings",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Bindings"
         );
 
         addQueryParams(request);
@@ -147,10 +146,7 @@ public class BindingReader extends Reader<Binding> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.CHAT.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.CHAT.toString())
         );
         return pageForRequest(client, request);
     }
@@ -167,10 +163,7 @@ public class BindingReader extends Reader<Binding> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.CHAT.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.CHAT.toString())
         );
         return pageForRequest(client, request);
     }
@@ -192,14 +185,7 @@ public class BindingReader extends Reader<Binding> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

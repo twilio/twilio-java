@@ -32,6 +32,10 @@ public class DomainUpdater extends Updater<Domain> {
     private URI voiceUrl;
     private Boolean sipRegistration;
     private String domainName;
+    private Boolean emergencyCallingEnabled;
+    private Boolean secure;
+    private String byocTrunkSid;
+    private String emergencyCallerSid;
 
     /**
      * Construct a new DomainUpdater.
@@ -200,6 +204,57 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
+     * Whether emergency calling is enabled for the domain. If enabled, allows
+     * emergency calls on the domain from phone numbers with validated addresses..
+     *
+     * @param emergencyCallingEnabled Whether emergency calling is enabled for the
+     *                                domain.
+     * @return this
+     */
+    public DomainUpdater setEmergencyCallingEnabled(final Boolean emergencyCallingEnabled) {
+        this.emergencyCallingEnabled = emergencyCallingEnabled;
+        return this;
+    }
+
+    /**
+     * Whether secure SIP is enabled for the domain. If enabled, TLS will be
+     * enforced and SRTP will be negotiated on all incoming calls to this sip
+     * domain..
+     *
+     * @param secure Whether secure SIP is enabled for the domain
+     * @return this
+     */
+    public DomainUpdater setSecure(final Boolean secure) {
+        this.secure = secure;
+        return this;
+    }
+
+    /**
+     * The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip
+     * Domain will be associated with..
+     *
+     * @param byocTrunkSid The SID of the BYOC Trunk resource.
+     * @return this
+     */
+    public DomainUpdater setByocTrunkSid(final String byocTrunkSid) {
+        this.byocTrunkSid = byocTrunkSid;
+        return this;
+    }
+
+    /**
+     * Whether an emergency caller sid is configured for the domain. If present,
+     * this phone number will be used as the callback for the emergency call..
+     *
+     * @param emergencyCallerSid Whether an emergency caller sid is configured for
+     *                           the domain.
+     * @return this
+     */
+    public DomainUpdater setEmergencyCallerSid(final String emergencyCallerSid) {
+        this.emergencyCallerSid = emergencyCallerSid;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -212,8 +267,7 @@ public class DomainUpdater extends Updater<Domain> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathSid + ".json"
         );
 
         addPostParams(request);
@@ -226,14 +280,7 @@ public class DomainUpdater extends Updater<Domain> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Domain.fromJson(response.getStream(), client.getObjectMapper());
@@ -279,6 +326,22 @@ public class DomainUpdater extends Updater<Domain> {
 
         if (domainName != null) {
             request.addPostParam("DomainName", domainName);
+        }
+
+        if (emergencyCallingEnabled != null) {
+            request.addPostParam("EmergencyCallingEnabled", emergencyCallingEnabled.toString());
+        }
+
+        if (secure != null) {
+            request.addPostParam("Secure", secure.toString());
+        }
+
+        if (byocTrunkSid != null) {
+            request.addPostParam("ByocTrunkSid", byocTrunkSid);
+        }
+
+        if (emergencyCallerSid != null) {
+            request.addPostParam("EmergencyCallerSid", emergencyCallerSid);
         }
     }
 }

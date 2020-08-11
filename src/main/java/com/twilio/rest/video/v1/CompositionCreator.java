@@ -52,7 +52,7 @@ public class CompositionCreator extends Creator<Composition> {
     /**
      * An object that describes the video layout of the composition in terms of
      * regions. See [Specifying Video
-     * Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info..
+     * Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request.
      *
      * @param videoLayout An object that describes the video layout of the
      *                    composition
@@ -70,7 +70,8 @@ public class CompositionCreator extends Creator<Composition> {
      * specified in `audio_sources_excluded`. The track names in this parameter can
      * include an asterisk as a wild card character, which will match zero or more
      * characters in a track name. For example, `student*` includes `student` as
-     * well as `studentTeam`..
+     * well as `studentTeam`. Please, be aware that either video_layout or
+     * audio_sources have to be provided to get a valid creation request.
      *
      * @param audioSources An array of track names from the same group room to merge
      * @return this
@@ -87,7 +88,8 @@ public class CompositionCreator extends Creator<Composition> {
      * specified in `audio_sources_excluded`. The track names in this parameter can
      * include an asterisk as a wild card character, which will match zero or more
      * characters in a track name. For example, `student*` includes `student` as
-     * well as `studentTeam`..
+     * well as `studentTeam`. Please, be aware that either video_layout or
+     * audio_sources have to be provided to get a valid creation request.
      *
      * @param audioSources An array of track names from the same group room to merge
      * @return this
@@ -240,8 +242,7 @@ public class CompositionCreator extends Creator<Composition> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
-            "/v1/Compositions",
-            client.getRegion()
+            "/v1/Compositions"
         );
 
         addPostParams(request);
@@ -254,14 +255,7 @@ public class CompositionCreator extends Creator<Composition> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Composition.fromJson(response.getStream(), client.getObjectMapper());

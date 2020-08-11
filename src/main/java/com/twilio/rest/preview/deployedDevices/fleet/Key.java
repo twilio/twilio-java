@@ -175,7 +175,7 @@ public class Key extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Key..
+     * Returns A string that uniquely identifies this Key..
      *
      * @return A string that uniquely identifies this Key.
      */
@@ -184,7 +184,7 @@ public class Key extends Resource {
     }
 
     /**
-     * Returns The URL of this Key..
+     * Returns URL of this Key..
      *
      * @return URL of this Key.
      */
@@ -193,7 +193,7 @@ public class Key extends Resource {
     }
 
     /**
-     * Returns The A human readable description for this Key..
+     * Returns A human readable description for this Key..
      *
      * @return A human readable description for this Key.
      */
@@ -202,7 +202,7 @@ public class Key extends Resource {
     }
 
     /**
-     * Returns The The unique identifier of the Fleet..
+     * Returns The unique identifier of the Fleet..
      *
      * @return The unique identifier of the Fleet.
      */
@@ -211,7 +211,7 @@ public class Key extends Resource {
     }
 
     /**
-     * Returns The The unique SID that identifies this Account..
+     * Returns The unique SID that identifies this Account..
      *
      * @return The unique SID that identifies this Account.
      */
@@ -220,7 +220,7 @@ public class Key extends Resource {
     }
 
     /**
-     * Returns The The unique identifier of a mapped Device..
+     * Returns The unique identifier of a mapped Device..
      *
      * @return The unique identifier of a mapped Device.
      */
@@ -229,7 +229,7 @@ public class Key extends Resource {
     }
 
     /**
-     * Returns The The key secret..
+     * Returns The key secret..
      *
      * @return The key secret.
      */
@@ -238,7 +238,7 @@ public class Key extends Resource {
     }
 
     /**
-     * Returns The The date this Key credential was created..
+     * Returns The date this Key credential was created..
      *
      * @return The date this Key credential was created.
      */
@@ -247,7 +247,7 @@ public class Key extends Resource {
     }
 
     /**
-     * Returns The The date this Key credential was updated..
+     * Returns The date this Key credential was updated..
      *
      * @return The date this Key credential was updated.
      */

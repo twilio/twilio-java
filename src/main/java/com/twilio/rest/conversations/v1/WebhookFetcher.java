@@ -34,8 +34,7 @@ public class WebhookFetcher extends Fetcher<Webhook> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.CONVERSATIONS.toString(),
-            "/v1/Conversations/Webhooks",
-            client.getRegion()
+            "/v1/Conversations/Webhooks"
         );
 
         Response response = client.request(request);
@@ -47,14 +46,7 @@ public class WebhookFetcher extends Fetcher<Webhook> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Webhook.fromJson(response.getStream(), client.getObjectMapper());

@@ -194,7 +194,7 @@ public class Sample extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this Sample..
+     * Returns The unique ID of the Account that created this Sample..
      *
      * @return The unique ID of the Account that created this Sample.
      */
@@ -203,7 +203,7 @@ public class Sample extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was created.
+     * Returns The date that this resource was created.
      *
      * @return The date that this resource was created
      */
@@ -212,7 +212,7 @@ public class Sample extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was last updated.
+     * Returns The date that this resource was last updated.
      *
      * @return The date that this resource was last updated
      */
@@ -221,7 +221,7 @@ public class Sample extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Task associated with this Sample..
+     * Returns The unique ID of the Task associated with this Sample..
      *
      * @return The unique ID of the Task associated with this Sample.
      */
@@ -230,7 +230,7 @@ public class Sample extends Resource {
     }
 
     /**
-     * Returns The An ISO language-country string of the sample..
+     * Returns An ISO language-country string of the sample..
      *
      * @return An ISO language-country string of the sample.
      */
@@ -239,7 +239,7 @@ public class Sample extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Assistant..
+     * Returns The unique ID of the Assistant..
      *
      * @return The unique ID of the Assistant.
      */
@@ -248,7 +248,7 @@ public class Sample extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns A 34 character string that uniquely identifies this resource..
      *
      * @return A 34 character string that uniquely identifies this resource.
      */
@@ -257,8 +257,8 @@ public class Sample extends Resource {
     }
 
     /**
-     * Returns The The text example of how end-users may express this task. The
-     * sample may contain Field tag blocks..
+     * Returns The text example of how end-users may express this task. The sample
+     * may contain Field tag blocks..
      *
      * @return The text example of how end-users may express this task. The sample
      *         may contain Field tag blocks.
@@ -268,7 +268,7 @@ public class Sample extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The url.
      *
      * @return The url
      */
@@ -277,9 +277,9 @@ public class Sample extends Resource {
     }
 
     /**
-     * Returns The The communication channel the sample was captured. It can be:
-     * voice, sms, chat, alexa, google-assistant, or slack. If not included the
-     * value will be null.
+     * Returns The communication channel the sample was captured. It can be: voice,
+     * sms, chat, alexa, google-assistant, or slack. If not included the value will
+     * be null.
      *
      * @return The communication channel the sample was captured. It can be: voice,
      *         sms, chat, alexa, google-assistant, or slack. If not included the

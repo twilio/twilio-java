@@ -83,8 +83,7 @@ public class UserUpdater extends Updater<User> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Users/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Users/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -97,14 +96,7 @@ public class UserUpdater extends Updater<User> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return User.fromJson(response.getStream(), client.getObjectMapper());

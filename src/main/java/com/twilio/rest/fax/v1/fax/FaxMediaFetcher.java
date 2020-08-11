@@ -49,8 +49,7 @@ public class FaxMediaFetcher extends Fetcher<FaxMedia> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.FAX.toString(),
-            "/v1/Faxes/" + this.pathFaxSid + "/Media/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Faxes/" + this.pathFaxSid + "/Media/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +61,7 @@ public class FaxMediaFetcher extends Fetcher<FaxMedia> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return FaxMedia.fromJson(response.getStream(), client.getObjectMapper());

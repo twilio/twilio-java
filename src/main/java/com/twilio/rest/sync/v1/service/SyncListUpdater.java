@@ -79,8 +79,7 @@ public class SyncListUpdater extends Updater<SyncList> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Lists/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Lists/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -93,14 +92,7 @@ public class SyncListUpdater extends Updater<SyncList> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SyncList.fromJson(response.getStream(), client.getObjectMapper());

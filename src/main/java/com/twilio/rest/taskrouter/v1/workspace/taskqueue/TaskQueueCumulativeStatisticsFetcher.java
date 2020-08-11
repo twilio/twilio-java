@@ -117,8 +117,7 @@ public class TaskQueueCumulativeStatisticsFetcher extends Fetcher<TaskQueueCumul
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskQueues/" + this.pathTaskQueueSid + "/CumulativeStatistics",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskQueues/" + this.pathTaskQueueSid + "/CumulativeStatistics"
         );
 
         addQueryParams(request);
@@ -131,14 +130,7 @@ public class TaskQueueCumulativeStatisticsFetcher extends Fetcher<TaskQueueCumul
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return TaskQueueCumulativeStatistics.fromJson(response.getStream(), client.getObjectMapper());

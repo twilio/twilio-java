@@ -121,8 +121,7 @@ public class WorkflowCumulativeStatisticsFetcher extends Fetcher<WorkflowCumulat
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workflows/" + this.pathWorkflowSid + "/CumulativeStatistics",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workflows/" + this.pathWorkflowSid + "/CumulativeStatistics"
         );
 
         addQueryParams(request);
@@ -135,14 +134,7 @@ public class WorkflowCumulativeStatisticsFetcher extends Fetcher<WorkflowCumulat
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return WorkflowCumulativeStatistics.fromJson(response.getStream(), client.getObjectMapper());

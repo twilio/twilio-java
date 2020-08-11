@@ -17,11 +17,6 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- */
 public class RecordingSettingsFetcher extends Fetcher<RecordingSettings> {
     /**
      * Make the request to the Twilio API to perform the fetch.
@@ -35,8 +30,7 @@ public class RecordingSettingsFetcher extends Fetcher<RecordingSettings> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/RecordingSettings/Default",
-            client.getRegion()
+            "/v1/RecordingSettings/Default"
         );
 
         Response response = client.request(request);
@@ -48,14 +42,7 @@ public class RecordingSettingsFetcher extends Fetcher<RecordingSettings> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return RecordingSettings.fromJson(response.getStream(), client.getObjectMapper());

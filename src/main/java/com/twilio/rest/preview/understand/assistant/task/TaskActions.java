@@ -127,7 +127,7 @@ public class TaskActions extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this Field..
+     * Returns The unique ID of the Account that created this Field..
      *
      * @return The unique ID of the Account that created this Field.
      */
@@ -136,7 +136,7 @@ public class TaskActions extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the parent Assistant..
+     * Returns The unique ID of the parent Assistant..
      *
      * @return The unique ID of the parent Assistant.
      */
@@ -145,7 +145,7 @@ public class TaskActions extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Task..
+     * Returns The unique ID of the Task..
      *
      * @return The unique ID of the Task.
      */
@@ -154,7 +154,7 @@ public class TaskActions extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The url.
      *
      * @return The url
      */
@@ -163,7 +163,7 @@ public class TaskActions extends Resource {
     }
 
     /**
-     * Returns The The data.
+     * Returns The data.
      *
      * @return The data
      */

@@ -184,7 +184,7 @@ public class SyncListPermission extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -193,7 +193,7 @@ public class SyncListPermission extends Resource {
     }
 
     /**
-     * Returns The The SID of the Sync Service that the resource is associated with.
+     * Returns The SID of the Sync Service that the resource is associated with.
      *
      * @return The SID of the Sync Service that the resource is associated with
      */
@@ -202,7 +202,7 @@ public class SyncListPermission extends Resource {
     }
 
     /**
-     * Returns The The SID of the Sync List to which the Permission applies.
+     * Returns The SID of the Sync List to which the Permission applies.
      *
      * @return The SID of the Sync List to which the Permission applies
      */
@@ -211,8 +211,7 @@ public class SyncListPermission extends Resource {
     }
 
     /**
-     * Returns The The identity of the user to whom the Sync List Permission
-     * applies.
+     * Returns The identity of the user to whom the Sync List Permission applies.
      *
      * @return The identity of the user to whom the Sync List Permission applies
      */
@@ -221,7 +220,7 @@ public class SyncListPermission extends Resource {
     }
 
     /**
-     * Returns The Read access.
+     * Returns Read access.
      *
      * @return Read access
      */
@@ -230,7 +229,7 @@ public class SyncListPermission extends Resource {
     }
 
     /**
-     * Returns The Write access.
+     * Returns Write access.
      *
      * @return Write access
      */
@@ -239,7 +238,7 @@ public class SyncListPermission extends Resource {
     }
 
     /**
-     * Returns The Manage access.
+     * Returns Manage access.
      *
      * @return Manage access
      */
@@ -248,7 +247,7 @@ public class SyncListPermission extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Sync List Permission resource.
+     * Returns The absolute URL of the Sync List Permission resource.
      *
      * @return The absolute URL of the Sync List Permission resource
      */

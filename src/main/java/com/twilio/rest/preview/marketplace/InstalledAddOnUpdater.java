@@ -77,8 +77,7 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/marketplace/InstalledAddOns/" + this.pathSid + "",
-            client.getRegion()
+            "/marketplace/InstalledAddOns/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -91,14 +90,7 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return InstalledAddOn.fromJson(response.getStream(), client.getObjectMapper());

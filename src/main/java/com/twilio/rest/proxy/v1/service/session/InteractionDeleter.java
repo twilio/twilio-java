@@ -52,8 +52,7 @@ public class InteractionDeleter extends Deleter<Interaction> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PROXY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Sessions/" + this.pathSessionSid + "/Interactions/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Sessions/" + this.pathSessionSid + "/Interactions/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -65,14 +64,7 @@ public class InteractionDeleter extends Deleter<Interaction> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

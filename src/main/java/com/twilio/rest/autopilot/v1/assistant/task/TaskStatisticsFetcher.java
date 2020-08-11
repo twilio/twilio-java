@@ -52,8 +52,7 @@ public class TaskStatisticsFetcher extends Fetcher<TaskStatistics> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/Tasks/" + this.pathTaskSid + "/Statistics",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/Tasks/" + this.pathTaskSid + "/Statistics"
         );
 
         Response response = client.request(request);
@@ -65,14 +64,7 @@ public class TaskStatisticsFetcher extends Fetcher<TaskStatistics> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return TaskStatistics.fromJson(response.getStream(), client.getObjectMapper());

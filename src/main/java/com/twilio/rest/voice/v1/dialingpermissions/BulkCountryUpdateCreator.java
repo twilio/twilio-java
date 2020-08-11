@@ -46,8 +46,7 @@ public class BulkCountryUpdateCreator extends Creator<BulkCountryUpdate> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VOICE.toString(),
-            "/v1/DialingPermissions/BulkCountryUpdates",
-            client.getRegion()
+            "/v1/DialingPermissions/BulkCountryUpdates"
         );
 
         addPostParams(request);
@@ -60,14 +59,7 @@ public class BulkCountryUpdateCreator extends Creator<BulkCountryUpdate> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return BulkCountryUpdate.fromJson(response.getStream(), client.getObjectMapper());

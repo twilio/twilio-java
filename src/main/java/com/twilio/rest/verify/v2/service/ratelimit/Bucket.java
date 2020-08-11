@@ -32,10 +32,6 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Bucket extends Resource {
     private static final long serialVersionUID = 11459173991897L;
@@ -193,7 +189,7 @@ public class Bucket extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Bucket..
+     * Returns A string that uniquely identifies this Bucket..
      *
      * @return A string that uniquely identifies this Bucket.
      */
@@ -202,7 +198,7 @@ public class Bucket extends Resource {
     }
 
     /**
-     * Returns The Rate Limit Sid..
+     * Returns Rate Limit Sid..
      *
      * @return Rate Limit Sid.
      */
@@ -211,7 +207,7 @@ public class Bucket extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the resource is associated with.
+     * Returns The SID of the Service that the resource is associated with.
      *
      * @return The SID of the Service that the resource is associated with
      */
@@ -220,7 +216,7 @@ public class Bucket extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -229,7 +225,7 @@ public class Bucket extends Resource {
     }
 
     /**
-     * Returns The Max number of requests..
+     * Returns Max number of requests..
      *
      * @return Max number of requests.
      */
@@ -238,7 +234,7 @@ public class Bucket extends Resource {
     }
 
     /**
-     * Returns The Number of seconds that the rate limit will be enforced over..
+     * Returns Number of seconds that the rate limit will be enforced over..
      *
      * @return Number of seconds that the rate limit will be enforced over.
      */
@@ -247,7 +243,7 @@ public class Bucket extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -256,8 +252,7 @@ public class Bucket extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -266,7 +261,7 @@ public class Bucket extends Resource {
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The URL of this resource..
      *
      * @return The URL of this resource.
      */

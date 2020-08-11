@@ -49,8 +49,7 @@ public class SyncStreamDeleter extends Deleter<SyncStream> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Streams/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Streams/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +61,7 @@ public class SyncStreamDeleter extends Deleter<SyncStream> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

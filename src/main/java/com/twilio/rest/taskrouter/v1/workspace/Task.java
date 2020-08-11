@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Task extends Resource {
-    private static final long serialVersionUID = 85038586124308L;
+    private static final long serialVersionUID = 238267579862423L;
 
     public enum Status {
         PENDING("pending"),
@@ -166,6 +166,7 @@ public class Task extends Resource {
     private final String addons;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
+    private final ZonedDateTime taskQueueEnteredDate;
     private final Integer priority;
     private final String reason;
     private final String sid;
@@ -195,6 +196,8 @@ public class Task extends Resource {
                  final String dateCreated,
                  @JsonProperty("date_updated")
                  final String dateUpdated,
+                 @JsonProperty("task_queue_entered_date")
+                 final String taskQueueEnteredDate,
                  @JsonProperty("priority")
                  final Integer priority,
                  @JsonProperty("reason")
@@ -228,6 +231,7 @@ public class Task extends Resource {
         this.addons = addons;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.taskQueueEnteredDate = DateConverter.iso8601DateTimeFromString(taskQueueEnteredDate);
         this.priority = priority;
         this.reason = reason;
         this.sid = sid;
@@ -244,7 +248,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -253,16 +257,16 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The number of seconds since the task was created.
+     * Returns The number of seconds since the Task was created.
      *
-     * @return The number of seconds since the task was created
+     * @return The number of seconds since the Task was created
      */
     public final Integer getAge() {
         return this.age;
     }
 
     /**
-     * Returns The The current status of the Task's assignment.
+     * Returns The current status of the Task's assignment.
      *
      * @return The current status of the Task's assignment
      */
@@ -271,7 +275,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The JSON string with custom attributes of the work.
+     * Returns The JSON string with custom attributes of the work.
      *
      * @return The JSON string with custom attributes of the work
      */
@@ -280,7 +284,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The An object that contains the addon data for all installed addons.
+     * Returns An object that contains the addon data for all installed addons.
      *
      * @return An object that contains the addon data for all installed addons
      */
@@ -289,7 +293,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -298,8 +302,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -308,8 +311,19 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The Retrieve the list of all Tasks in the Workspace with the
-     * specified priority.
+     * Returns The ISO 8601 date and time in GMT when the Task entered the
+     * TaskQueue..
+     *
+     * @return The ISO 8601 date and time in GMT when the Task entered the
+     *         TaskQueue.
+     */
+    public final ZonedDateTime getTaskQueueEnteredDate() {
+        return this.taskQueueEnteredDate;
+    }
+
+    /**
+     * Returns Retrieve the list of all Tasks in the Workspace with the specified
+     * priority.
      *
      * @return Retrieve the list of all Tasks in the Workspace with the specified
      *         priority
@@ -319,16 +333,16 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The reason the task was canceled or completed.
+     * Returns The reason the Task was canceled or completed.
      *
-     * @return The reason the task was canceled or completed
+     * @return The reason the Task was canceled or completed
      */
     public final String getReason() {
         return this.reason;
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -337,7 +351,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The SID of the TaskQueue.
+     * Returns The SID of the TaskQueue.
      *
      * @return The SID of the TaskQueue
      */
@@ -346,7 +360,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The friendly name of the TaskQueue.
+     * Returns The friendly name of the TaskQueue.
      *
      * @return The friendly name of the TaskQueue
      */
@@ -355,7 +369,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The SID of the TaskChannel.
+     * Returns The SID of the TaskChannel.
      *
      * @return The SID of the TaskChannel
      */
@@ -364,7 +378,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The unique name of the TaskChannel.
+     * Returns The unique name of the TaskChannel.
      *
      * @return The unique name of the TaskChannel
      */
@@ -373,16 +387,16 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The amount of time in seconds that the task is allowed to live.
+     * Returns The amount of time in seconds that the Task is allowed to live.
      *
-     * @return The amount of time in seconds that the task is allowed to live
+     * @return The amount of time in seconds that the Task is allowed to live
      */
     public final Integer getTimeout() {
         return this.timeout;
     }
 
     /**
-     * Returns The The SID of the Workflow that is controlling the Task.
+     * Returns The SID of the Workflow that is controlling the Task.
      *
      * @return The SID of the Workflow that is controlling the Task
      */
@@ -391,7 +405,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The friendly name of the Workflow that is controlling the Task.
+     * Returns The friendly name of the Workflow that is controlling the Task.
      *
      * @return The friendly name of the Workflow that is controlling the Task
      */
@@ -400,7 +414,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The SID of the Workspace that contains the Task.
+     * Returns The SID of the Workspace that contains the Task.
      *
      * @return The SID of the Workspace that contains the Task
      */
@@ -409,7 +423,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Task resource.
+     * Returns The absolute URL of the Task resource.
      *
      * @return The absolute URL of the Task resource
      */
@@ -418,7 +432,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The URLs of related resources.
+     * Returns The URLs of related resources.
      *
      * @return The URLs of related resources
      */
@@ -445,6 +459,7 @@ public class Task extends Resource {
                Objects.equals(addons, other.addons) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(taskQueueEnteredDate, other.taskQueueEnteredDate) &&
                Objects.equals(priority, other.priority) &&
                Objects.equals(reason, other.reason) &&
                Objects.equals(sid, other.sid) &&
@@ -469,6 +484,7 @@ public class Task extends Resource {
                             addons,
                             dateCreated,
                             dateUpdated,
+                            taskQueueEnteredDate,
                             priority,
                             reason,
                             sid,
@@ -494,6 +510,7 @@ public class Task extends Resource {
                           .add("addons", addons)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
+                          .add("taskQueueEnteredDate", taskQueueEnteredDate)
                           .add("priority", priority)
                           .add("reason", reason)
                           .add("sid", sid)

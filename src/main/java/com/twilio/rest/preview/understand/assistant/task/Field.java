@@ -179,7 +179,7 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this Field..
+     * Returns The unique ID of the Account that created this Field..
      *
      * @return The unique ID of the Account that created this Field.
      */
@@ -188,7 +188,7 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was created.
+     * Returns The date that this resource was created.
      *
      * @return The date that this resource was created
      */
@@ -197,7 +197,7 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was last updated.
+     * Returns The date that this resource was last updated.
      *
      * @return The date that this resource was last updated
      */
@@ -206,8 +206,8 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The The Field Type of this field. It can be any Built-in Field Type
-     * or unique_name or the Field Type sid of a custom Field Type..
+     * Returns The Field Type of this field. It can be any Built-in Field Type or
+     * unique_name or the Field Type sid of a custom Field Type..
      *
      * @return The Field Type of this field. It can be any Built-in Field Type or
      *         unique_name or the Field Type sid of a custom Field Type.
@@ -217,7 +217,7 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Task associated with this Field..
+     * Returns The unique ID of the Task associated with this Field..
      *
      * @return The unique ID of the Task associated with this Field.
      */
@@ -226,7 +226,7 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the parent Assistant..
+     * Returns The unique ID of the parent Assistant..
      *
      * @return The unique ID of the parent Assistant.
      */
@@ -235,7 +235,7 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns A 34 character string that uniquely identifies this resource..
      *
      * @return A 34 character string that uniquely identifies this resource.
      */
@@ -244,8 +244,8 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The A user-provided string that uniquely identifies this resource as
-     * an alternative to the sid. Unique up to 64 characters long..
+     * Returns A user-provided string that uniquely identifies this resource as an
+     * alternative to the sid. Unique up to 64 characters long..
      *
      * @return A user-provided string that uniquely identifies this resource as an
      *         alternative to the sid. Unique up to 64 characters long.
@@ -255,7 +255,7 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The url.
      *
      * @return The url
      */

@@ -108,8 +108,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Items",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Items"
         );
 
         addQueryParams(request);
@@ -146,10 +145,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.SYNC.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.SYNC.toString())
         );
         return pageForRequest(client, request);
     }
@@ -166,10 +162,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.SYNC.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.SYNC.toString())
         );
         return pageForRequest(client, request);
     }
@@ -191,14 +184,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

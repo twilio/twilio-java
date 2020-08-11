@@ -108,8 +108,7 @@ public class WorkspaceStatistics extends Resource {
     }
 
     /**
-     * Returns The n object that contains the real-time statistics for the
-     * Workspace.
+     * Returns n object that contains the real-time statistics for the Workspace.
      *
      * @return n object that contains the real-time statistics for the Workspace
      */
@@ -118,8 +117,7 @@ public class WorkspaceStatistics extends Resource {
     }
 
     /**
-     * Returns The An object that contains the cumulative statistics for the
-     * Workspace.
+     * Returns An object that contains the cumulative statistics for the Workspace.
      *
      * @return An object that contains the cumulative statistics for the Workspace
      */
@@ -128,7 +126,7 @@ public class WorkspaceStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -137,7 +135,7 @@ public class WorkspaceStatistics extends Resource {
     }
 
     /**
-     * Returns The The SID of the Workspace.
+     * Returns The SID of the Workspace.
      *
      * @return The SID of the Workspace
      */
@@ -146,7 +144,7 @@ public class WorkspaceStatistics extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Workspace statistics resource.
+     * Returns The absolute URL of the Workspace statistics resource.
      *
      * @return The absolute URL of the Workspace statistics resource
      */

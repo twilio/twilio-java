@@ -75,8 +75,7 @@ public class WebhookCreator extends Creator<Webhook> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/Webhooks",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/Webhooks"
         );
 
         addPostParams(request);
@@ -89,14 +88,7 @@ public class WebhookCreator extends Creator<Webhook> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Webhook.fromJson(response.getStream(), client.getObjectMapper());

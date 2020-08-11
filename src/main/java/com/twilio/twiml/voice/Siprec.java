@@ -16,8 +16,25 @@ import java.util.Map;
  * TwiML wrapper for {@code <Siprec>}
  */
 public class Siprec extends TwiML {
+    public enum Track {
+        INBOUND_TRACK("inbound_track"),
+        OUTBOUND_TRACK("outbound_track"),
+        BOTH_TRACKS("both_tracks");
+
+        private final String value;
+
+        private Track(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+    }
+
     private final String name;
     private final String connectorName;
+    private final Siprec.Track track;
 
     /**
      * For XML Serialization/Deserialization
@@ -33,6 +50,7 @@ public class Siprec extends TwiML {
         super("Siprec", b);
         this.name = b.name;
         this.connectorName = b.connectorName;
+        this.track = b.track;
     }
 
     /**
@@ -49,6 +67,9 @@ public class Siprec extends TwiML {
         }
         if (this.getConnectorName() != null) {
             attrs.put("connectorName", this.getConnectorName());
+        }
+        if (this.getTrack() != null) {
+            attrs.put("track", this.getTrack().toString());
         }
 
         return attrs;
@@ -73,11 +94,21 @@ public class Siprec extends TwiML {
     }
 
     /**
+     * Track to be streamed to remote service
+     *
+     * @return Track to be streamed to remote service
+     */
+    public Siprec.Track getTrack() {
+        return track;
+    }
+
+    /**
      * Create a new {@code <Siprec>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
         private String name;
         private String connectorName;
+        private Siprec.Track track;
 
         /**
          * Friendly name given to SIPREC
@@ -92,6 +123,14 @@ public class Siprec extends TwiML {
          */
         public Builder connectorName(String connectorName) {
             this.connectorName = connectorName;
+            return this;
+        }
+
+        /**
+         * Track to be streamed to remote service
+         */
+        public Builder track(Siprec.Track track) {
+            this.track = track;
             return this;
         }
 

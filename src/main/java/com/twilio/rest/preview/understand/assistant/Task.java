@@ -183,7 +183,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this Task..
+     * Returns The unique ID of the Account that created this Task..
      *
      * @return The unique ID of the Account that created this Task.
      */
@@ -192,7 +192,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was created.
+     * Returns The date that this resource was created.
      *
      * @return The date that this resource was created
      */
@@ -201,7 +201,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was last updated.
+     * Returns The date that this resource was last updated.
      *
      * @return The date that this resource was last updated
      */
@@ -210,7 +210,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The A user-provided string that identifies this resource. It is
+     * Returns A user-provided string that identifies this resource. It is
      * non-unique and can up to 255 characters long..
      *
      * @return A user-provided string that identifies this resource. It is
@@ -221,7 +221,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The links.
+     * Returns The links.
      *
      * @return The links
      */
@@ -230,7 +230,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Assistant..
+     * Returns The unique ID of the Assistant..
      *
      * @return The unique ID of the Assistant.
      */
@@ -239,7 +239,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns A 34 character string that uniquely identifies this resource..
      *
      * @return A 34 character string that uniquely identifies this resource.
      */
@@ -248,8 +248,8 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The A user-provided string that uniquely identifies this resource as
-     * an alternative to the sid. Unique up to 64 characters long..
+     * Returns A user-provided string that uniquely identifies this resource as an
+     * alternative to the sid. Unique up to 64 characters long..
      *
      * @return A user-provided string that uniquely identifies this resource as an
      *         alternative to the sid. Unique up to 64 characters long.
@@ -259,8 +259,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The User-provided HTTP endpoint where from the assistant fetches
-     * actions.
+     * Returns User-provided HTTP endpoint where from the assistant fetches actions.
      *
      * @return User-provided HTTP endpoint where from the assistant fetches actions
      */
@@ -269,7 +268,7 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The url.
      *
      * @return The url
      */

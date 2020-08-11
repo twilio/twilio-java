@@ -134,7 +134,7 @@ public class UsageRecord extends Resource {
     }
 
     /**
-     * Returns The The SID of the Sim resource that this Usage Record is for.
+     * Returns The SID of the Sim resource that this Usage Record is for.
      *
      * @return The SID of the Sim resource that this Usage Record is for
      */
@@ -143,7 +143,7 @@ public class UsageRecord extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -152,7 +152,7 @@ public class UsageRecord extends Resource {
     }
 
     /**
-     * Returns The The time period for which the usage is reported.
+     * Returns The time period for which the usage is reported.
      *
      * @return The time period for which the usage is reported
      */
@@ -161,7 +161,7 @@ public class UsageRecord extends Resource {
     }
 
     /**
-     * Returns The An object that describes the SIM's usage of Commands during the
+     * Returns An object that describes the SIM's usage of Commands during the
      * specified period.
      *
      * @return An object that describes the SIM's usage of Commands during the
@@ -172,8 +172,8 @@ public class UsageRecord extends Resource {
     }
 
     /**
-     * Returns The An object that describes the SIM's data usage during the
-     * specified period.
+     * Returns An object that describes the SIM's data usage during the specified
+     * period.
      *
      * @return An object that describes the SIM's data usage during the specified
      *         period

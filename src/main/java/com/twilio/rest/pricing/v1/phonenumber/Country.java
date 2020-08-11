@@ -120,7 +120,7 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The The name of the country.
+     * Returns The name of the country.
      *
      * @return The name of the country
      */
@@ -129,7 +129,7 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The The ISO country code .
+     * Returns The ISO country code .
      *
      * @return The ISO country code
      */
@@ -138,7 +138,7 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The The list of PhoneNumberPrices records.
+     * Returns The list of PhoneNumberPrices records.
      *
      * @return The list of PhoneNumberPrices records
      */
@@ -147,8 +147,8 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The The currency in which prices are measured, in ISO 4127 format
-     * (e.g. usd, eur, jpy).
+     * Returns The currency in which prices are measured, in ISO 4127 format (e.g.
+     * usd, eur, jpy).
      *
      * @return The currency in which prices are measured, in ISO 4127 format (e.g.
      *         usd, eur, jpy)
@@ -158,7 +158,7 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
      */

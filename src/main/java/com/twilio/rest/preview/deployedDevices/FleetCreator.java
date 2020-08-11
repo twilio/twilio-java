@@ -49,8 +49,7 @@ public class FleetCreator extends Creator<Fleet> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets",
-            client.getRegion()
+            "/DeployedDevices/Fleets"
         );
 
         addPostParams(request);
@@ -63,14 +62,7 @@ public class FleetCreator extends Creator<Fleet> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Fleet.fromJson(response.getStream(), client.getObjectMapper());

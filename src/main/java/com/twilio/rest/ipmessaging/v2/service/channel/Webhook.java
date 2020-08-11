@@ -241,7 +241,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -250,7 +250,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -259,7 +259,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the Channel Webhook resource is
+     * Returns The SID of the Service that the Channel Webhook resource is
      * associated with.
      *
      * @return The SID of the Service that the Channel Webhook resource is
@@ -270,7 +270,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The SID of the Channel the Channel Webhook resource belongs to.
+     * Returns The SID of the Channel the Channel Webhook resource belongs to.
      *
      * @return The SID of the Channel the Channel Webhook resource belongs to
      */
@@ -279,7 +279,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The type of webhook.
+     * Returns The type of webhook.
      *
      * @return The type of webhook
      */
@@ -288,7 +288,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Channel Webhook resource.
+     * Returns The absolute URL of the Channel Webhook resource.
      *
      * @return The absolute URL of the Channel Webhook resource
      */
@@ -297,7 +297,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The JSON string that describes the configuration object for the
+     * Returns The JSON string that describes the configuration object for the
      * channel webhook.
      *
      * @return The JSON string that describes the configuration object for the
@@ -308,7 +308,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -317,8 +317,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */

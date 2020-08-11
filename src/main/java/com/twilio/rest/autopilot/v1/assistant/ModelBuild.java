@@ -214,7 +214,7 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -223,7 +223,7 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -232,8 +232,7 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -242,7 +241,7 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The The SID of the Assistant that is the parent of the resource.
+     * Returns The SID of the Assistant that is the parent of the resource.
      *
      * @return The SID of the Assistant that is the parent of the resource
      */
@@ -251,7 +250,7 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -260,7 +259,7 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The The status of the model build process.
+     * Returns The status of the model build process.
      *
      * @return The status of the model build process
      */
@@ -269,8 +268,7 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The An application-defined string that uniquely identifies the
-     * resource.
+     * Returns An application-defined string that uniquely identifies the resource.
      *
      * @return An application-defined string that uniquely identifies the resource
      */
@@ -279,7 +277,7 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the ModelBuild resource.
+     * Returns The absolute URL of the ModelBuild resource.
      *
      * @return The absolute URL of the ModelBuild resource
      */
@@ -288,7 +286,7 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The The time in seconds it took to build the model.
+     * Returns The time in seconds it took to build the model.
      *
      * @return The time in seconds it took to build the model
      */
@@ -297,7 +295,7 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The More information about why the model build failed, if `status` is
+     * Returns More information about why the model build failed, if `status` is
      * `failed`.
      *
      * @return More information about why the model build failed, if `status` is

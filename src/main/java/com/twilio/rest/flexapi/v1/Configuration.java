@@ -37,7 +37,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Configuration extends Resource {
-    private static final long serialVersionUID = 107853613982384L;
+    private static final long serialVersionUID = 129252167253244L;
 
     public enum Status {
         OK("ok"),
@@ -146,8 +146,10 @@ public class Configuration extends Resource {
     private final URI runtimeDomain;
     private final String messagingServiceInstanceSid;
     private final String chatServiceInstanceSid;
+    private final String flexServiceInstanceSid;
     private final String uiLanguage;
     private final Map<String, Object> uiAttributes;
+    private final Map<String, Object> uiDependencies;
     private final String uiVersion;
     private final String serviceVersion;
     private final Boolean callRecordingEnabled;
@@ -163,6 +165,7 @@ public class Configuration extends Resource {
     private final List<Map<String, Object>> integrations;
     private final Map<String, Object> outboundCallFlows;
     private final List<String> serverlessServiceSids;
+    private final Map<String, Object> queueStatsConfiguration;
     private final URI url;
 
     @JsonCreator
@@ -198,10 +201,14 @@ public class Configuration extends Resource {
                           final String messagingServiceInstanceSid,
                           @JsonProperty("chat_service_instance_sid")
                           final String chatServiceInstanceSid,
+                          @JsonProperty("flex_service_instance_sid")
+                          final String flexServiceInstanceSid,
                           @JsonProperty("ui_language")
                           final String uiLanguage,
                           @JsonProperty("ui_attributes")
                           final Map<String, Object> uiAttributes,
+                          @JsonProperty("ui_dependencies")
+                          final Map<String, Object> uiDependencies,
                           @JsonProperty("ui_version")
                           final String uiVersion,
                           @JsonProperty("service_version")
@@ -232,6 +239,8 @@ public class Configuration extends Resource {
                           final Map<String, Object> outboundCallFlows,
                           @JsonProperty("serverless_service_sids")
                           final List<String> serverlessServiceSids,
+                          @JsonProperty("queue_stats_configuration")
+                          final Map<String, Object> queueStatsConfiguration,
                           @JsonProperty("url")
                           final URI url) {
         this.accountSid = accountSid;
@@ -250,8 +259,10 @@ public class Configuration extends Resource {
         this.runtimeDomain = runtimeDomain;
         this.messagingServiceInstanceSid = messagingServiceInstanceSid;
         this.chatServiceInstanceSid = chatServiceInstanceSid;
+        this.flexServiceInstanceSid = flexServiceInstanceSid;
         this.uiLanguage = uiLanguage;
         this.uiAttributes = uiAttributes;
+        this.uiDependencies = uiDependencies;
         this.uiVersion = uiVersion;
         this.serviceVersion = serviceVersion;
         this.callRecordingEnabled = callRecordingEnabled;
@@ -267,11 +278,12 @@ public class Configuration extends Resource {
         this.integrations = integrations;
         this.outboundCallFlows = outboundCallFlows;
         this.serverlessServiceSids = serverlessServiceSids;
+        this.queueStatsConfiguration = queueStatsConfiguration;
         this.url = url;
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -280,8 +292,8 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Configuration resource
-     * was created.
+     * Returns The ISO 8601 date and time in GMT when the Configuration resource was
+     * created.
      *
      * @return The ISO 8601 date and time in GMT when the Configuration resource
      *         was created
@@ -291,8 +303,8 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Configuration resource
-     * was last updated.
+     * Returns The ISO 8601 date and time in GMT when the Configuration resource was
+     * last updated.
      *
      * @return The ISO 8601 date and time in GMT when the Configuration resource
      *         was last updated
@@ -302,7 +314,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The An object that contains application-specific data.
+     * Returns An object that contains application-specific data.
      *
      * @return An object that contains application-specific data
      */
@@ -311,7 +323,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The status of the Flex onboarding.
+     * Returns The status of the Flex onboarding.
      *
      * @return The status of the Flex onboarding
      */
@@ -320,7 +332,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The SID of the TaskRouter Workspace.
+     * Returns The SID of the TaskRouter Workspace.
      *
      * @return The SID of the TaskRouter Workspace
      */
@@ -329,7 +341,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The SID of the TaskRouter target Workflow.
+     * Returns The SID of the TaskRouter target Workflow.
      *
      * @return The SID of the TaskRouter target Workflow
      */
@@ -338,7 +350,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The SID of the TaskRouter Target TaskQueue.
+     * Returns The SID of the TaskRouter Target TaskQueue.
      *
      * @return The SID of the TaskRouter Target TaskQueue
      */
@@ -347,7 +359,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The list of TaskRouter TaskQueues.
+     * Returns The list of TaskRouter TaskQueues.
      *
      * @return The list of TaskRouter TaskQueues
      */
@@ -356,7 +368,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The Skill description for TaskRouter workers.
+     * Returns The Skill description for TaskRouter workers.
      *
      * @return The Skill description for TaskRouter workers
      */
@@ -365,7 +377,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The TaskRouter default channel capacities and availability for
+     * Returns The TaskRouter default channel capacities and availability for
      * workers.
      *
      * @return The TaskRouter default channel capacities and availability for
@@ -376,7 +388,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The TaskRouter Worker attributes.
+     * Returns The TaskRouter Worker attributes.
      *
      * @return The TaskRouter Worker attributes
      */
@@ -385,7 +397,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The TaskRouter SID of the offline activity.
+     * Returns The TaskRouter SID of the offline activity.
      *
      * @return The TaskRouter SID of the offline activity
      */
@@ -394,7 +406,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The URL where the Flex instance is hosted.
+     * Returns The URL where the Flex instance is hosted.
      *
      * @return The URL where the Flex instance is hosted
      */
@@ -403,7 +415,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The SID of the Messaging service instance.
+     * Returns The SID of the Messaging service instance.
      *
      * @return The SID of the Messaging service instance
      */
@@ -412,7 +424,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The SID of the chat service this user belongs to.
+     * Returns The SID of the chat service this user belongs to.
      *
      * @return The SID of the chat service this user belongs to
      */
@@ -421,7 +433,16 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The primary language of the Flex UI.
+     * Returns The SID of the Flex service instance.
+     *
+     * @return The SID of the Flex service instance
+     */
+    public final String getFlexServiceInstanceSid() {
+        return this.flexServiceInstanceSid;
+    }
+
+    /**
+     * Returns The primary language of the Flex UI.
      *
      * @return The primary language of the Flex UI
      */
@@ -430,7 +451,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The object that describes Flex UI characteristics and settings.
+     * Returns The object that describes Flex UI characteristics and settings.
      *
      * @return The object that describes Flex UI characteristics and settings
      */
@@ -439,7 +460,18 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The Pinned UI version.
+     * Returns The object that defines the NPM packages and versions to be used in
+     * Hosted Flex.
+     *
+     * @return The object that defines the NPM packages and versions to be used in
+     *         Hosted Flex
+     */
+    public final Map<String, Object> getUiDependencies() {
+        return this.uiDependencies;
+    }
+
+    /**
+     * Returns The Pinned UI version.
      *
      * @return The Pinned UI version
      */
@@ -448,7 +480,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The Flex Service version.
+     * Returns The Flex Service version.
      *
      * @return The Flex Service version
      */
@@ -457,7 +489,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The Whether call recording is enabled.
+     * Returns Whether call recording is enabled.
      *
      * @return Whether call recording is enabled
      */
@@ -466,7 +498,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The call recording webhook URL.
+     * Returns The call recording webhook URL.
      *
      * @return The call recording webhook URL
      */
@@ -475,7 +507,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The Whether CRM is present for Flex.
+     * Returns Whether CRM is present for Flex.
      *
      * @return Whether CRM is present for Flex
      */
@@ -484,7 +516,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The CRM Type.
+     * Returns The CRM Type.
      *
      * @return The CRM Type
      */
@@ -493,7 +525,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The CRM Callback URL.
+     * Returns The CRM Callback URL.
      *
      * @return The CRM Callback URL
      */
@@ -502,7 +534,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The CRM Fallback URL.
+     * Returns The CRM Fallback URL.
      *
      * @return The CRM Fallback URL
      */
@@ -511,7 +543,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The An object that contains the CRM attributes.
+     * Returns An object that contains the CRM attributes.
      *
      * @return An object that contains the CRM attributes
      */
@@ -520,7 +552,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The list of public attributes.
+     * Returns The list of public attributes.
      *
      * @return The list of public attributes
      */
@@ -529,7 +561,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The Whether the plugin service enabled.
+     * Returns Whether the plugin service enabled.
      *
      * @return Whether the plugin service enabled
      */
@@ -538,7 +570,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The plugin service attributes.
+     * Returns The plugin service attributes.
      *
      * @return The plugin service attributes
      */
@@ -547,7 +579,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The A list of objects that contain the configurations for the
+     * Returns A list of objects that contain the configurations for the
      * Integrations supported in this configuration.
      *
      * @return A list of objects that contain the configurations for the
@@ -558,7 +590,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The list of outbound call flows.
+     * Returns The list of outbound call flows.
      *
      * @return The list of outbound call flows
      */
@@ -567,7 +599,7 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The list of serverless service SIDs.
+     * Returns The list of serverless service SIDs.
      *
      * @return The list of serverless service SIDs
      */
@@ -576,7 +608,16 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Configuration resource.
+     * Returns Configurable parameters for Queues Statistics.
+     *
+     * @return Configurable parameters for Queues Statistics
+     */
+    public final Map<String, Object> getQueueStatsConfiguration() {
+        return this.queueStatsConfiguration;
+    }
+
+    /**
+     * Returns The absolute URL of the Configuration resource.
      *
      * @return The absolute URL of the Configuration resource
      */
@@ -612,8 +653,10 @@ public class Configuration extends Resource {
                Objects.equals(runtimeDomain, other.runtimeDomain) &&
                Objects.equals(messagingServiceInstanceSid, other.messagingServiceInstanceSid) &&
                Objects.equals(chatServiceInstanceSid, other.chatServiceInstanceSid) &&
+               Objects.equals(flexServiceInstanceSid, other.flexServiceInstanceSid) &&
                Objects.equals(uiLanguage, other.uiLanguage) &&
                Objects.equals(uiAttributes, other.uiAttributes) &&
+               Objects.equals(uiDependencies, other.uiDependencies) &&
                Objects.equals(uiVersion, other.uiVersion) &&
                Objects.equals(serviceVersion, other.serviceVersion) &&
                Objects.equals(callRecordingEnabled, other.callRecordingEnabled) &&
@@ -629,6 +672,7 @@ public class Configuration extends Resource {
                Objects.equals(integrations, other.integrations) &&
                Objects.equals(outboundCallFlows, other.outboundCallFlows) &&
                Objects.equals(serverlessServiceSids, other.serverlessServiceSids) &&
+               Objects.equals(queueStatsConfiguration, other.queueStatsConfiguration) &&
                Objects.equals(url, other.url);
     }
 
@@ -650,8 +694,10 @@ public class Configuration extends Resource {
                             runtimeDomain,
                             messagingServiceInstanceSid,
                             chatServiceInstanceSid,
+                            flexServiceInstanceSid,
                             uiLanguage,
                             uiAttributes,
+                            uiDependencies,
                             uiVersion,
                             serviceVersion,
                             callRecordingEnabled,
@@ -667,6 +713,7 @@ public class Configuration extends Resource {
                             integrations,
                             outboundCallFlows,
                             serverlessServiceSids,
+                            queueStatsConfiguration,
                             url);
     }
 
@@ -689,8 +736,10 @@ public class Configuration extends Resource {
                           .add("runtimeDomain", runtimeDomain)
                           .add("messagingServiceInstanceSid", messagingServiceInstanceSid)
                           .add("chatServiceInstanceSid", chatServiceInstanceSid)
+                          .add("flexServiceInstanceSid", flexServiceInstanceSid)
                           .add("uiLanguage", uiLanguage)
                           .add("uiAttributes", uiAttributes)
+                          .add("uiDependencies", uiDependencies)
                           .add("uiVersion", uiVersion)
                           .add("serviceVersion", serviceVersion)
                           .add("callRecordingEnabled", callRecordingEnabled)
@@ -706,6 +755,7 @@ public class Configuration extends Resource {
                           .add("integrations", integrations)
                           .add("outboundCallFlows", outboundCallFlows)
                           .add("serverlessServiceSids", serverlessServiceSids)
+                          .add("queueStatsConfiguration", queueStatsConfiguration)
                           .add("url", url)
                           .toString();
     }

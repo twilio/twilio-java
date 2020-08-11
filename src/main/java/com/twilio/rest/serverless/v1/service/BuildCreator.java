@@ -112,8 +112,7 @@ public class BuildCreator extends Creator<Build> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Builds",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Builds"
         );
 
         addPostParams(request);
@@ -126,14 +125,7 @@ public class BuildCreator extends Creator<Build> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Build.fromJson(response.getStream(), client.getObjectMapper());

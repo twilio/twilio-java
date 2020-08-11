@@ -180,7 +180,9 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     /**
      * Whether to create a task when the first message arrives when
      * `integration_type` is `task`. If `false`, the task is created with the
-     * channel..
+     * channel. **Note** that does not apply when channel type is `web`. Setting the
+     * value to `true` for channel type `web` will result in misconfigured Flex Flow
+     * and no tasks will be created..
      *
      * @param integrationCreationOnMessage Whether to create a task when the first
      *                                     message arrives
@@ -192,9 +194,11 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
-     * Whether new channels are long-lived..
+     * When enabled, Flex will keep the chat channel active so that it may be used
+     * for subsequent interactions with a contact identity. Defaults to `false`..
      *
-     * @param longLived Whether new channels are long-lived
+     * @param longLived Reuse this chat channel for future interactions with a
+     *                  contact
      * @return this
      */
     public FlexFlowCreator setLongLived(final Boolean longLived) {
@@ -203,9 +207,12 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
-     * Boolean flag for enabling or disabling the Janitor.
+     * When enabled, the Messaging Channel Janitor will remove active Proxy sessions
+     * if the associated Task is deleted outside of the Flex UI. Defaults to
+     * `false`..
      *
-     * @param janitorEnabled Boolean flag for enabling or disabling the Janitor
+     * @param janitorEnabled Remove active Proxy sessions if the corresponding Task
+     *                       is deleted
      * @return this
      */
     public FlexFlowCreator setJanitorEnabled(final Boolean janitorEnabled) {
@@ -238,8 +245,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.FLEXAPI.toString(),
-            "/v1/FlexFlows",
-            client.getRegion()
+            "/v1/FlexFlows"
         );
 
         addPostParams(request);
@@ -252,14 +258,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return FlexFlow.fromJson(response.getStream(), client.getObjectMapper());

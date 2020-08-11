@@ -186,7 +186,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -195,8 +195,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The An application-defined string that uniquely identifies the
-     * resource.
+     * Returns An application-defined string that uniquely identifies the resource.
      *
      * @return An application-defined string that uniquely identifies the resource
      */
@@ -205,7 +204,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -214,7 +213,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -223,7 +222,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -232,8 +231,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -242,7 +240,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Service resource.
+     * Returns The absolute URL of the Service resource.
      *
      * @return The absolute URL of the Service resource
      */
@@ -251,7 +249,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The URL we call when Sync objects are manipulated.
+     * Returns The URL we call when Sync objects are manipulated.
      *
      * @return The URL we call when Sync objects are manipulated
      */
@@ -260,8 +258,8 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Whether the Service instance should call webhook_url when the
-     * REST API is used to update Sync objects.
+     * Returns Whether the Service instance should call webhook_url when the REST
+     * API is used to update Sync objects.
      *
      * @return Whether the Service instance should call webhook_url when the REST
      *         API is used to update Sync objects
@@ -271,8 +269,8 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Whether the service instance calls webhook_url when client
-     * endpoints connect to Sync.
+     * Returns Whether the service instance calls webhook_url when client endpoints
+     * connect to Sync.
      *
      * @return Whether the service instance calls webhook_url when client endpoints
      *         connect to Sync
@@ -282,7 +280,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Whether token identities in the Service must be granted access to
+     * Returns Whether token identities in the Service must be granted access to
      * Sync objects by using the Permissions resource.
      *
      * @return Whether token identities in the Service must be granted access to
@@ -293,8 +291,8 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Whether every endpoint_disconnected event occurs after a
-     * configurable delay.
+     * Returns Whether every endpoint_disconnected event occurs after a configurable
+     * delay.
      *
      * @return Whether every endpoint_disconnected event occurs after a
      *         configurable delay
@@ -304,7 +302,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The reachability event delay in milliseconds.
+     * Returns The reachability event delay in milliseconds.
      *
      * @return The reachability event delay in milliseconds
      */
@@ -313,7 +311,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The URLs of related resources.
+     * Returns The URLs of related resources.
      *
      * @return The URLs of related resources
      */

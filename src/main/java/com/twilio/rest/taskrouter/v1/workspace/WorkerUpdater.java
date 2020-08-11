@@ -100,8 +100,7 @@ public class WorkerUpdater extends Updater<Worker> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -114,14 +113,7 @@ public class WorkerUpdater extends Updater<Worker> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Worker.fromJson(response.getStream(), client.getObjectMapper());

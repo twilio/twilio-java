@@ -200,7 +200,7 @@ public class Variable extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the Variable resource.
+     * Returns The unique string that identifies the Variable resource.
      *
      * @return The unique string that identifies the Variable resource
      */
@@ -209,7 +209,7 @@ public class Variable extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the Variable resource.
+     * Returns The SID of the Account that created the Variable resource.
      *
      * @return The SID of the Account that created the Variable resource
      */
@@ -218,8 +218,7 @@ public class Variable extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the Variable resource is associated
-     * with.
+     * Returns The SID of the Service that the Variable resource is associated with.
      *
      * @return The SID of the Service that the Variable resource is associated with
      */
@@ -228,7 +227,7 @@ public class Variable extends Resource {
     }
 
     /**
-     * Returns The The SID of the environment in which the variable exists.
+     * Returns The SID of the environment in which the variable exists.
      *
      * @return The SID of the environment in which the variable exists
      */
@@ -237,7 +236,7 @@ public class Variable extends Resource {
     }
 
     /**
-     * Returns The A string by which the Variable resource can be referenced.
+     * Returns A string by which the Variable resource can be referenced.
      *
      * @return A string by which the Variable resource can be referenced
      */
@@ -246,7 +245,7 @@ public class Variable extends Resource {
     }
 
     /**
-     * Returns The A string that contains the actual value of the variable.
+     * Returns A string that contains the actual value of the variable.
      *
      * @return A string that contains the actual value of the variable
      */
@@ -255,7 +254,7 @@ public class Variable extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Variable resource was
+     * Returns The ISO 8601 date and time in GMT when the Variable resource was
      * created.
      *
      * @return The ISO 8601 date and time in GMT when the Variable resource was
@@ -266,8 +265,8 @@ public class Variable extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the Variable resource was
-     * last updated.
+     * Returns The ISO 8601 date and time in GMT when the Variable resource was last
+     * updated.
      *
      * @return The ISO 8601 date and time in GMT when the Variable resource was
      *         last updated
@@ -277,7 +276,7 @@ public class Variable extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Variable resource.
+     * Returns The absolute URL of the Variable resource.
      *
      * @return The absolute URL of the Variable resource
      */

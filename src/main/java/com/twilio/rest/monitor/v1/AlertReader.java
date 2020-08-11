@@ -24,8 +24,8 @@ import com.twilio.rest.Domains;
 
 public class AlertReader extends Reader<Alert> {
     private String logLevel;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private DateTime startDate;
+    private DateTime endDate;
 
     /**
      * Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`,
@@ -40,27 +40,30 @@ public class AlertReader extends Reader<Alert> {
     }
 
     /**
-     * Only include alerts that occurred on or after this date. Specify the date in
-     * GMT and format as `YYYY-MM-DD`. Queries for alerts older than 30 days are not
-     * supported..
+     * Only include alerts that occurred on or after this date and time. Specify the
+     * date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`.
+     * Queries for alerts older than 30 days are not supported..
      *
-     * @param startDate Only include alerts that occurred on or after this date
+     * @param startDate Only include alerts that occurred on or after this date and
+     *                  time
      * @return this
      */
-    public AlertReader setStartDate(final LocalDate startDate) {
+    public AlertReader setStartDate(final DateTime startDate) {
         this.startDate = startDate;
         return this;
     }
 
     /**
-     * Only include alerts that occurred on or before this date. Specify the date in
-     * GMT and format as `YYYY-MM-DD`. Queries for alerts older than 30 days are not
+     * Only include alerts that occurred on or before this date and time. Specify
+     * the date and time in GMT and format as `YYYY-MM-DD` or
+     * `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not
      * supported..
      *
-     * @param endDate Only include alerts that occurred on or before this date
+     * @param endDate Only include alerts that occurred on or before this date and
+     *                time
      * @return this
      */
-    public AlertReader setEndDate(final LocalDate endDate) {
+    public AlertReader setEndDate(final DateTime endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -88,8 +91,7 @@ public class AlertReader extends Reader<Alert> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.MONITOR.toString(),
-            "/v1/Alerts",
-            client.getRegion()
+            "/v1/Alerts"
         );
 
         addQueryParams(request);
@@ -126,10 +128,7 @@ public class AlertReader extends Reader<Alert> {
                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.MONITOR.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.MONITOR.toString())
         );
         return pageForRequest(client, request);
     }
@@ -146,10 +145,7 @@ public class AlertReader extends Reader<Alert> {
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.MONITOR.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.MONITOR.toString())
         );
         return pageForRequest(client, request);
     }
@@ -171,14 +167,7 @@ public class AlertReader extends Reader<Alert> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -200,11 +189,11 @@ public class AlertReader extends Reader<Alert> {
         }
 
         if (startDate != null) {
-            request.addQueryParam("StartDate", DateConverter.dateStringFromLocalDate(startDate));
+            request.addQueryParam("StartDate", startDate.toString());
         }
 
         if (endDate != null) {
-            request.addQueryParam("EndDate", DateConverter.dateStringFromLocalDate(endDate));
+            request.addQueryParam("EndDate", endDate.toString());
         }
 
         if (getPageSize() != null) {

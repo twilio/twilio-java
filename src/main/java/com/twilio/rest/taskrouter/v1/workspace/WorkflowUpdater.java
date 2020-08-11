@@ -164,8 +164,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workflows/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workflows/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -178,14 +177,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Workflow.fromJson(response.getStream(), client.getObjectMapper());

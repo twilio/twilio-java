@@ -135,8 +135,7 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/Statistics",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/Statistics"
         );
 
         addQueryParams(request);
@@ -149,14 +148,7 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return WorkersStatistics.fromJson(response.getStream(), client.getObjectMapper());

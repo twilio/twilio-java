@@ -228,7 +228,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -237,7 +237,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -246,7 +246,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The JSON string that stores application-specific data.
+     * Returns The JSON string that stores application-specific data.
      *
      * @return The JSON string that stores application-specific data
      */
@@ -255,7 +255,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the resource is associated with.
+     * Returns The SID of the Service that the resource is associated with.
      *
      * @return The SID of the Service that the resource is associated with
      */
@@ -264,7 +264,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The SID of the Channel that the message was sent to.
+     * Returns The SID of the Channel that the message was sent to.
      *
      * @return The SID of the Channel that the message was sent to
      */
@@ -273,7 +273,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Channel the Message resource belongs to.
+     * Returns The unique ID of the Channel the Message resource belongs to.
      *
      * @return The unique ID of the Channel the Message resource belongs to
      */
@@ -282,7 +282,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -291,8 +291,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -301,7 +300,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The Whether the message has been edited since  it was created.
+     * Returns Whether the message has been edited since  it was created.
      *
      * @return Whether the message has been edited since  it was created
      */
@@ -310,7 +309,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The identity of the message's author.
+     * Returns The identity of the message's author.
      *
      * @return The identity of the message's author
      */
@@ -319,7 +318,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The content of the message.
+     * Returns The content of the message.
      *
      * @return The content of the message
      */
@@ -328,7 +327,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The index of the message within the Channel.
+     * Returns The index of the message within the Channel.
      *
      * @return The index of the message within the Channel
      */
@@ -337,7 +336,7 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Message resource.
+     * Returns The absolute URL of the Message resource.
      *
      * @return The absolute URL of the Message resource
      */

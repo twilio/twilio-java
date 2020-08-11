@@ -45,8 +45,7 @@ public class CredentialListDeleter extends Deleter<CredentialList> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathTrunkSid + "/CredentialLists/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathTrunkSid + "/CredentialLists/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -58,14 +57,7 @@ public class CredentialListDeleter extends Deleter<CredentialList> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

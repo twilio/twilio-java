@@ -192,7 +192,7 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -201,7 +201,7 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -210,7 +210,7 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the resource is associated with.
+     * Returns The SID of the Service that the resource is associated with.
      *
      * @return The SID of the Service that the resource is associated with
      */
@@ -219,7 +219,7 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The The JSON string that stores application-specific data.
+     * Returns The JSON string that stores application-specific data.
      *
      * @return The JSON string that stores application-specific data
      */
@@ -228,7 +228,7 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -237,7 +237,7 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The The SID of the assigned to the user.
+     * Returns The SID of the assigned to the user.
      *
      * @return The SID of the assigned to the user
      */
@@ -246,7 +246,7 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The The string that identifies the resource's User.
+     * Returns The string that identifies the resource's User.
      *
      * @return The string that identifies the resource's User
      */
@@ -255,8 +255,8 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The Whether the User is actively connected to the Service instance
-     * and online.
+     * Returns Whether the User is actively connected to the Service instance and
+     * online.
      *
      * @return Whether the User is actively connected to the Service instance and
      *         online
@@ -266,7 +266,7 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The Whether the User has a potentially valid Push Notification
+     * Returns Whether the User has a potentially valid Push Notification
      * registration for the Service instance.
      *
      * @return Whether the User has a potentially valid Push Notification
@@ -277,7 +277,7 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -286,8 +286,7 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -296,7 +295,7 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The The number of Channels this User is a Member of.
+     * Returns The number of Channels this User is a Member of.
      *
      * @return The number of Channels this User is a Member of
      */
@@ -305,8 +304,8 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The The absolute URLs of the Channel and Binding resources related to
-     * the user.
+     * Returns The absolute URLs of the Channel and Binding resources related to the
+     * user.
      *
      * @return The absolute URLs of the Channel and Binding resources related to
      *         the user
@@ -316,7 +315,7 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the User resource.
+     * Returns The absolute URL of the User resource.
      *
      * @return The absolute URL of the User resource
      */

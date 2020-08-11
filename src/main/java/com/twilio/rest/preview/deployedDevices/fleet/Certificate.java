@@ -178,7 +178,7 @@ public class Certificate extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Certificate..
+     * Returns A string that uniquely identifies this Certificate..
      *
      * @return A string that uniquely identifies this Certificate.
      */
@@ -187,7 +187,7 @@ public class Certificate extends Resource {
     }
 
     /**
-     * Returns The URL of this Certificate..
+     * Returns URL of this Certificate..
      *
      * @return URL of this Certificate.
      */
@@ -196,7 +196,7 @@ public class Certificate extends Resource {
     }
 
     /**
-     * Returns The A human readable description for this Certificate..
+     * Returns A human readable description for this Certificate..
      *
      * @return A human readable description for this Certificate.
      */
@@ -205,7 +205,7 @@ public class Certificate extends Resource {
     }
 
     /**
-     * Returns The The unique identifier of the Fleet..
+     * Returns The unique identifier of the Fleet..
      *
      * @return The unique identifier of the Fleet.
      */
@@ -214,7 +214,7 @@ public class Certificate extends Resource {
     }
 
     /**
-     * Returns The The unique SID that identifies this Account..
+     * Returns The unique SID that identifies this Account..
      *
      * @return The unique SID that identifies this Account.
      */
@@ -223,7 +223,7 @@ public class Certificate extends Resource {
     }
 
     /**
-     * Returns The The unique identifier of a mapped Device..
+     * Returns The unique identifier of a mapped Device..
      *
      * @return The unique identifier of a mapped Device.
      */
@@ -232,7 +232,7 @@ public class Certificate extends Resource {
     }
 
     /**
-     * Returns The A Certificate unique payload hash..
+     * Returns A Certificate unique payload hash..
      *
      * @return A Certificate unique payload hash.
      */
@@ -241,7 +241,7 @@ public class Certificate extends Resource {
     }
 
     /**
-     * Returns The The date this Certificate was created..
+     * Returns The date this Certificate was created..
      *
      * @return The date this Certificate was created.
      */
@@ -250,7 +250,7 @@ public class Certificate extends Resource {
     }
 
     /**
-     * Returns The The date this Certificate was updated..
+     * Returns The date this Certificate was updated..
      *
      * @return The date this Certificate was updated.
      */

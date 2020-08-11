@@ -139,8 +139,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces",
-            client.getRegion()
+            "/v1/Workspaces"
         );
 
         addPostParams(request);
@@ -153,14 +152,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Workspace.fromJson(response.getStream(), client.getObjectMapper());

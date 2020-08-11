@@ -194,8 +194,7 @@ public class RoomCreator extends Creator<Room> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
-            "/v1/Rooms",
-            client.getRegion()
+            "/v1/Rooms"
         );
 
         addPostParams(request);
@@ -208,14 +207,7 @@ public class RoomCreator extends Creator<Room> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Room.fromJson(response.getStream(), client.getObjectMapper());

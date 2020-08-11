@@ -40,8 +40,7 @@ public class ServiceDeleter extends Deleter<Service> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.CHAT.toString(),
-            "/v2/Services/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -53,14 +52,7 @@ public class ServiceDeleter extends Deleter<Service> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

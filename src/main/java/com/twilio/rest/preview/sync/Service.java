@@ -171,7 +171,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The sid.
      *
      * @return The sid
      */
@@ -180,7 +180,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The account_sid.
      *
      * @return The account_sid
      */
@@ -189,7 +189,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The friendly_name.
+     * Returns The friendly_name.
      *
      * @return The friendly_name
      */
@@ -198,7 +198,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The date_created.
      *
      * @return The date_created
      */
@@ -207,7 +207,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The date_updated.
      *
      * @return The date_updated
      */
@@ -216,7 +216,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The url.
      *
      * @return The url
      */
@@ -225,7 +225,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The webhook_url.
+     * Returns The webhook_url.
      *
      * @return The webhook_url
      */
@@ -234,7 +234,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The reachability_webhooks_enabled.
+     * Returns The reachability_webhooks_enabled.
      *
      * @return The reachability_webhooks_enabled
      */
@@ -243,7 +243,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The acl_enabled.
+     * Returns The acl_enabled.
      *
      * @return The acl_enabled
      */
@@ -252,7 +252,7 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The The links.
+     * Returns The links.
      *
      * @return The links
      */

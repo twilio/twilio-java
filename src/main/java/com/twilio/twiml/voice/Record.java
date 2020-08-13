@@ -13,6 +13,8 @@ import com.twilio.twiml.TwiML;
 
 import java.net.URI;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,6 +36,22 @@ public class Record extends TwiML {
         }
     }
 
+    public enum RecordingEvent {
+        IN_PROGRESS("in-progress"),
+        COMPLETED("completed"),
+        ABSENT("absent");
+
+        private final String value;
+
+        private RecordingEvent(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+    }
+
     private final URI action;
     private final HttpMethod method;
     private final Integer timeout;
@@ -43,6 +61,7 @@ public class Record extends TwiML {
     private final Record.Trim trim;
     private final URI recordingStatusCallback;
     private final HttpMethod recordingStatusCallbackMethod;
+    private final List<Record.RecordingEvent> recordingStatusCallbackEvent;
     private final Boolean transcribe;
     private final URI transcribeCallback;
 
@@ -67,13 +86,14 @@ public class Record extends TwiML {
         this.trim = b.trim;
         this.recordingStatusCallback = b.recordingStatusCallback;
         this.recordingStatusCallbackMethod = b.recordingStatusCallbackMethod;
+        this.recordingStatusCallbackEvent = b.recordingStatusCallbackEvent;
         this.transcribe = b.transcribe;
         this.transcribeCallback = b.transcribeCallback;
     }
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -107,6 +127,9 @@ public class Record extends TwiML {
         if (this.getRecordingStatusCallbackMethod() != null) {
             attrs.put("recordingStatusCallbackMethod", this.getRecordingStatusCallbackMethod().toString());
         }
+        if (this.getRecordingStatusCallbackEvents() != null) {
+            attrs.put("recordingStatusCallbackEvent", this.getRecordingStatusCallbackEventsAsString());
+        }
         if (this.isTranscribe() != null) {
             attrs.put("transcribe", this.isTranscribe().toString());
         }
@@ -119,7 +142,7 @@ public class Record extends TwiML {
 
     /**
      * Action URL
-     * 
+     *
      * @return Action URL
      */
     public URI getAction() {
@@ -128,7 +151,7 @@ public class Record extends TwiML {
 
     /**
      * Action URL method
-     * 
+     *
      * @return Action URL method
      */
     public HttpMethod getMethod() {
@@ -137,7 +160,7 @@ public class Record extends TwiML {
 
     /**
      * Timeout to begin recording
-     * 
+     *
      * @return Timeout to begin recording
      */
     public Integer getTimeout() {
@@ -146,7 +169,7 @@ public class Record extends TwiML {
 
     /**
      * Finish recording on key
-     * 
+     *
      * @return Finish recording on key
      */
     public String getFinishOnKey() {
@@ -155,7 +178,7 @@ public class Record extends TwiML {
 
     /**
      * Max time to record in seconds
-     * 
+     *
      * @return Max time to record in seconds
      */
     public Integer getMaxLength() {
@@ -164,7 +187,7 @@ public class Record extends TwiML {
 
     /**
      * Play beep
-     * 
+     *
      * @return Play beep
      */
     public Boolean isPlayBeep() {
@@ -173,7 +196,7 @@ public class Record extends TwiML {
 
     /**
      * Trim the recording
-     * 
+     *
      * @return Trim the recording
      */
     public Record.Trim getTrim() {
@@ -182,7 +205,7 @@ public class Record extends TwiML {
 
     /**
      * Status callback URL
-     * 
+     *
      * @return Status callback URL
      */
     public URI getRecordingStatusCallback() {
@@ -191,7 +214,7 @@ public class Record extends TwiML {
 
     /**
      * Status callback URL method
-     * 
+     *
      * @return Status callback URL method
      */
     public HttpMethod getRecordingStatusCallbackMethod() {
@@ -199,8 +222,29 @@ public class Record extends TwiML {
     }
 
     /**
+     * Recording status callback events
+     *
+     * @return Recording status callback events
+     */
+    public List<Record.RecordingEvent> getRecordingStatusCallbackEvents() {
+        return recordingStatusCallbackEvent;
+    }
+
+    protected String getRecordingStatusCallbackEventsAsString() {
+        StringBuilder sb = new StringBuilder();
+        Iterator<Record.RecordingEvent> iter = this.getRecordingStatusCallbackEvents().iterator();
+        while (iter.hasNext()) {
+            sb.append(iter.next().toString());
+            if (iter.hasNext()) {
+                sb.append(" ");
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
      * Transcribe the recording
-     * 
+     *
      * @return Transcribe the recording
      */
     public Boolean isTranscribe() {
@@ -209,7 +253,7 @@ public class Record extends TwiML {
 
     /**
      * Transcribe callback URL
-     * 
+     *
      * @return Transcribe callback URL
      */
     public URI getTranscribeCallback() {
@@ -229,6 +273,7 @@ public class Record extends TwiML {
         private Record.Trim trim;
         private URI recordingStatusCallback;
         private HttpMethod recordingStatusCallbackMethod;
+        private List<Record.RecordingEvent> recordingStatusCallbackEvent;
         private Boolean transcribe;
         private URI transcribeCallback;
 
@@ -317,6 +362,22 @@ public class Record extends TwiML {
          */
         public Builder recordingStatusCallbackMethod(HttpMethod recordingStatusCallbackMethod) {
             this.recordingStatusCallbackMethod = recordingStatusCallbackMethod;
+            return this;
+        }
+
+        /**
+         * Recording status callback events
+         */
+        public Builder recordingStatusCallbackEvents(List<Record.RecordingEvent> recordingStatusCallbackEvent) {
+            this.recordingStatusCallbackEvent = recordingStatusCallbackEvent;
+            return this;
+        }
+
+        /**
+         * Recording status callback events
+         */
+        public Builder recordingStatusCallbackEvents(Record.RecordingEvent recordingStatusCallbackEvent) {
+            this.recordingStatusCallbackEvent = Promoter.listOfOne(recordingStatusCallbackEvent);
             return this;
         }
 

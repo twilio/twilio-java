@@ -31,20 +31,19 @@ public class AddressCreator extends Creator<Address> {
 
     /**
      * Construct a new AddressCreator.
-     * 
-     * @param customerName Your name or business name, or that of your customer.
-     * @param street The number and street address where you or your customer is
-     *               located.
-     * @param city The city in which you or your customer is located.
-     * @param region The state or region in which you or your customer is located.
-     * @param postalCode The postal code in which you or your customer is located.
-     * @param isoCountry The ISO country code of your or your customer's address.
+     *
+     * @param customerName The name to associate with the new address
+     * @param street The number and street address of the new address
+     * @param city The city of the new address
+     * @param region The state or region of the new address
+     * @param postalCode The postal code of the new address
+     * @param isoCountry The ISO country code of the new address
      */
-    public AddressCreator(final String customerName, 
-                          final String street, 
-                          final String city, 
-                          final String region, 
-                          final String postalCode, 
+    public AddressCreator(final String customerName,
+                          final String street,
+                          final String city,
+                          final String region,
+                          final String postalCode,
                           final String isoCountry) {
         this.customerName = customerName;
         this.street = street;
@@ -56,22 +55,22 @@ public class AddressCreator extends Creator<Address> {
 
     /**
      * Construct a new AddressCreator.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param customerName Your name or business name, or that of your customer.
-     * @param street The number and street address where you or your customer is
-     *               located.
-     * @param city The city in which you or your customer is located.
-     * @param region The state or region in which you or your customer is located.
-     * @param postalCode The postal code in which you or your customer is located.
-     * @param isoCountry The ISO country code of your or your customer's address.
+     *
+     * @param pathAccountSid The SID of the Account that will be responsible for
+     *                       the new Address resource
+     * @param customerName The name to associate with the new address
+     * @param street The number and street address of the new address
+     * @param city The city of the new address
+     * @param region The state or region of the new address
+     * @param postalCode The postal code of the new address
+     * @param isoCountry The ISO country code of the new address
      */
-    public AddressCreator(final String pathAccountSid, 
-                          final String customerName, 
-                          final String street, 
-                          final String city, 
-                          final String region, 
-                          final String postalCode, 
+    public AddressCreator(final String pathAccountSid,
+                          final String customerName,
+                          final String street,
+                          final String city,
+                          final String region,
+                          final String postalCode,
                           final String isoCountry) {
         this.pathAccountSid = pathAccountSid;
         this.customerName = customerName;
@@ -83,9 +82,10 @@ public class AddressCreator extends Creator<Address> {
     }
 
     /**
-     * A human-readable description of the new address. Maximum 64 characters..
-     * 
-     * @param friendlyName A human-readable description of the new address.
+     * A descriptive string that you create to describe the new address. It can be
+     * up to 64 characters long..
+     *
+     * @param friendlyName A string to describe the new resource
      * @return this
      */
     public AddressCreator setFriendlyName(final String friendlyName) {
@@ -94,9 +94,11 @@ public class AddressCreator extends Creator<Address> {
     }
 
     /**
-     * The emergency_enabled.
-     * 
-     * @param emergencyEnabled The emergency_enabled
+     * Whether to enable emergency calling on the new address. Can be: `true` or
+     * `false`..
+     *
+     * @param emergencyEnabled Whether to enable emergency calling on the new
+     *                         address
      * @return this
      */
     public AddressCreator setEmergencyEnabled(final Boolean emergencyEnabled) {
@@ -105,14 +107,12 @@ public class AddressCreator extends Creator<Address> {
     }
 
     /**
-     * If you don't set a value for this parameter, or if you set it to `true`, then
-     * the system will, if necessary, auto-correct the address you provide. If you
-     * don't want the system to auto-correct the address, you will explicitly need
-     * to set this value to `false`..
-     * 
-     * @param autoCorrectAddress If you don't set a value for this parameter, or if
-     *                           you set it to true, then the system will, if
-     *                           necessary, auto-correct the address you provide.
+     * Whether we should automatically correct the address. Can be: `true` or
+     * `false` and the default is `true`. If empty or `true`, we will correct the
+     * address you provide if necessary. If `false`, we won't alter the address you
+     * provide..
+     *
+     * @param autoCorrectAddress Whether we should automatically correct the address
      * @return this
      */
     public AddressCreator setAutoCorrectAddress(final Boolean autoCorrectAddress) {
@@ -122,7 +122,7 @@ public class AddressCreator extends Creator<Address> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Address
      */
@@ -133,8 +133,7 @@ public class AddressCreator extends Creator<Address> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Addresses.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Addresses.json"
         );
 
         addPostParams(request);
@@ -147,14 +146,7 @@ public class AddressCreator extends Creator<Address> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Address.fromJson(response.getStream(), client.getObjectMapper());
@@ -162,7 +154,7 @@ public class AddressCreator extends Creator<Address> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

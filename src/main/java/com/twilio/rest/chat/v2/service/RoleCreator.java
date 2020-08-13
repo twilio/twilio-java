@@ -27,15 +27,15 @@ public class RoleCreator extends Creator<Role> {
 
     /**
      * Construct a new RoleCreator.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param friendlyName The human-readable name of this role.
-     * @param type What kind of role this is.
-     * @param permission A permission this role should have.
+     *
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param friendlyName A string to describe the new resource
+     * @param type The type of role
+     * @param permission A permission the role should have
      */
-    public RoleCreator(final String pathServiceSid, 
-                       final String friendlyName, 
-                       final Role.RoleType type, 
+    public RoleCreator(final String pathServiceSid,
+                       final String friendlyName,
+                       final Role.RoleType type,
                        final List<String> permission) {
         this.pathServiceSid = pathServiceSid;
         this.friendlyName = friendlyName;
@@ -45,7 +45,7 @@ public class RoleCreator extends Creator<Role> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Role
      */
@@ -55,8 +55,7 @@ public class RoleCreator extends Creator<Role> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Roles",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Roles"
         );
 
         addPostParams(request);
@@ -69,14 +68,7 @@ public class RoleCreator extends Creator<Role> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Role.fromJson(response.getStream(), client.getObjectMapper());
@@ -84,7 +76,7 @@ public class RoleCreator extends Creator<Role> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

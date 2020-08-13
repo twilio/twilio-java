@@ -37,12 +37,13 @@ public class WorkflowStatistics extends Resource {
 
     /**
      * Create a WorkflowStatisticsFetcher to execute fetch.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathWorkflowSid The workflow_sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the Workflow to fetch
+     * @param pathWorkflowSid Returns the list of Tasks that are being controlled
+     *                        by the Workflow with the specified SID value
      * @return WorkflowStatisticsFetcher capable of executing the fetch
      */
-    public static WorkflowStatisticsFetcher fetcher(final String pathWorkspaceSid, 
+    public static WorkflowStatisticsFetcher fetcher(final String pathWorkspaceSid,
                                                     final String pathWorkflowSid) {
         return new WorkflowStatisticsFetcher(pathWorkspaceSid, pathWorkflowSid);
     }
@@ -50,7 +51,7 @@ public class WorkflowStatistics extends Resource {
     /**
      * Converts a JSON String into a WorkflowStatistics object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return WorkflowStatistics object represented by the provided JSON
@@ -69,7 +70,7 @@ public class WorkflowStatistics extends Resource {
     /**
      * Converts a JSON InputStream into a WorkflowStatistics object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return WorkflowStatistics object represented by the provided JSON
@@ -94,15 +95,15 @@ public class WorkflowStatistics extends Resource {
 
     @JsonCreator
     private WorkflowStatistics(@JsonProperty("account_sid")
-                               final String accountSid, 
+                               final String accountSid,
                                @JsonProperty("cumulative")
-                               final Map<String, Object> cumulative, 
+                               final Map<String, Object> cumulative,
                                @JsonProperty("realtime")
-                               final Map<String, Object> realtime, 
+                               final Map<String, Object> realtime,
                                @JsonProperty("workflow_sid")
-                               final String workflowSid, 
+                               final String workflowSid,
                                @JsonProperty("workspace_sid")
-                               final String workspaceSid, 
+                               final String workspaceSid,
                                @JsonProperty("url")
                                final URI url) {
         this.accountSid = accountSid;
@@ -114,54 +115,56 @@ public class WorkflowStatistics extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
-     * 
-     * @return The account_sid
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The cumulative.
-     * 
-     * @return The cumulative
+     * Returns An object that contains the cumulative statistics for the Workflow.
+     *
+     * @return An object that contains the cumulative statistics for the Workflow
      */
     public final Map<String, Object> getCumulative() {
         return this.cumulative;
     }
 
     /**
-     * Returns The The realtime.
-     * 
-     * @return The realtime
+     * Returns An object that contains the real-time statistics for the Workflow.
+     *
+     * @return An object that contains the real-time statistics for the Workflow
      */
     public final Map<String, Object> getRealtime() {
         return this.realtime;
     }
 
     /**
-     * Returns The The workflow_sid.
-     * 
-     * @return The workflow_sid
+     * Returns Returns the list of Tasks that are being controlled by the Workflow
+     * with the specified SID value.
+     *
+     * @return Returns the list of Tasks that are being controlled by the Workflow
+     *         with the specified SID value
      */
     public final String getWorkflowSid() {
         return this.workflowSid;
     }
 
     /**
-     * Returns The The workspace_sid.
-     * 
-     * @return The workspace_sid
+     * Returns The SID of the Workspace that contains the Workflow.
+     *
+     * @return The SID of the Workspace that contains the Workflow
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
-     * 
-     * @return The url
+     * Returns The absolute URL of the Workflow statistics resource.
+     *
+     * @return The absolute URL of the Workflow statistics resource
      */
     public final URI getUrl() {
         return this.url;
@@ -179,11 +182,11 @@ public class WorkflowStatistics extends Resource {
 
         WorkflowStatistics other = (WorkflowStatistics) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(cumulative, other.cumulative) && 
-               Objects.equals(realtime, other.realtime) && 
-               Objects.equals(workflowSid, other.workflowSid) && 
-               Objects.equals(workspaceSid, other.workspaceSid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(cumulative, other.cumulative) &&
+               Objects.equals(realtime, other.realtime) &&
+               Objects.equals(workflowSid, other.workflowSid) &&
+               Objects.equals(workspaceSid, other.workspaceSid) &&
                Objects.equals(url, other.url);
     }
 

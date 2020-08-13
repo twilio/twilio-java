@@ -20,10 +20,6 @@ import com.twilio.rest.Domains;
 
 import java.util.Map;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class EngagementCreator extends Creator<Engagement> {
     private final String pathFlowSid;
     private final com.twilio.type.PhoneNumber to;
@@ -32,14 +28,14 @@ public class EngagementCreator extends Creator<Engagement> {
 
     /**
      * Construct a new EngagementCreator.
-     * 
-     * @param pathFlowSid Flow Sid.
-     * @param to The Contact phone number to start a Studio Flow Engagement.
+     *
+     * @param pathFlowSid The SID of the Flow
+     * @param to The Contact phone number to start a Studio Flow Engagement
      * @param from The Twilio phone number to send messages or initiate calls from
-     *             during the Flow Engagement.
+     *             during the Flow Engagement
      */
-    public EngagementCreator(final String pathFlowSid, 
-                             final com.twilio.type.PhoneNumber to, 
+    public EngagementCreator(final String pathFlowSid,
+                             final com.twilio.type.PhoneNumber to,
                              final com.twilio.type.PhoneNumber from) {
         this.pathFlowSid = pathFlowSid;
         this.to = to;
@@ -47,16 +43,16 @@ public class EngagementCreator extends Creator<Engagement> {
     }
 
     /**
-     * JSON data that will be added to your flow's context and can accessed as
+     * A JSON string we will add to your flow's context and that you can access as
      * variables inside your flow. For example, if you pass in
-     * Parameters={'name':'Zeke'} then inside a widget you can reference the
-     * variable {{flow.data.name}} which will return the string 'Zeke'. Note: the
+     * `Parameters={'name':'Zeke'}` then inside a widget you can reference the
+     * variable `{{flow.data.name}}` which will return the string 'Zeke'. Note: the
      * JSON value must explicitly be passed as a string, not as a hash object.
      * Depending on your particular HTTP library, you may need to add quotes or URL
      * encode your JSON string..
-     * 
-     * @param parameters JSON data that will be added to your flow's context and
-     *                   can accessed as variables inside your flow.
+     *
+     * @param parameters A JSON string we will add to your flow's context and that
+     *                   you can access as variables inside your flow
      * @return this
      */
     public EngagementCreator setParameters(final Map<String, Object> parameters) {
@@ -66,7 +62,7 @@ public class EngagementCreator extends Creator<Engagement> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Engagement
      */
@@ -76,8 +72,7 @@ public class EngagementCreator extends Creator<Engagement> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Engagements",
-            client.getRegion()
+            "/v1/Flows/" + this.pathFlowSid + "/Engagements"
         );
 
         addPostParams(request);
@@ -90,14 +85,7 @@ public class EngagementCreator extends Creator<Engagement> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Engagement.fromJson(response.getStream(), client.getObjectMapper());
@@ -105,7 +93,7 @@ public class EngagementCreator extends Creator<Engagement> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -28,7 +28,7 @@ public class SyncListCreator extends Creator<SyncList> {
 
     /**
      * Construct a new SyncListCreator.
-     * 
+     *
      * @param pathServiceSid The service_sid
      */
     public SyncListCreator(final String pathServiceSid) {
@@ -37,7 +37,7 @@ public class SyncListCreator extends Creator<SyncList> {
 
     /**
      * The unique_name.
-     * 
+     *
      * @param uniqueName The unique_name
      * @return this
      */
@@ -48,7 +48,7 @@ public class SyncListCreator extends Creator<SyncList> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created SyncList
      */
@@ -58,8 +58,7 @@ public class SyncListCreator extends Creator<SyncList> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Lists",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Lists"
         );
 
         addPostParams(request);
@@ -72,14 +71,7 @@ public class SyncListCreator extends Creator<SyncList> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SyncList.fromJson(response.getStream(), client.getObjectMapper());
@@ -87,7 +79,7 @@ public class SyncListCreator extends Creator<SyncList> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

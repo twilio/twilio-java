@@ -36,18 +36,19 @@ public class AllTimeReader extends Reader<AllTime> {
 
     /**
      * Construct a new AllTimeReader.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      */
     public AllTimeReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
     /**
-     * Only include usage of this [usage
-     * category](https://www.twilio.com/docs/api/rest/usage-records#usage-categories)..
-     * 
-     * @param category Only include usage of this usage category.
+     * The [usage
+     * category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved..
+     *
+     * @param category The usage category of the UsageRecord resources to read
      * @return this
      */
     public AllTimeReader setCategory(final AllTime.Category category) {
@@ -56,12 +57,12 @@ public class AllTimeReader extends Reader<AllTime> {
     }
 
     /**
-     * Only include usage that has occurred on or after this date.  Format is
-     * YYYY-MM-DD.  All dates are in GMT.  As a convenience, you can also specify
-     * offsets to today.  For example, `StartDate=-30days` will make `StartDate` be
-     * 30 days before today..
-     * 
-     * @param startDate Only include usage that has occurred on or after this date.
+     * Only include usage that has occurred on or after this date. Specify the date
+     * in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the
+     * current date, such as: `-30days`, which will set the start date to be 30 days
+     * before the current date..
+     *
+     * @param startDate Only include usage that has occurred on or after this date
      * @return this
      */
     public AllTimeReader setStartDate(final LocalDate startDate) {
@@ -70,12 +71,12 @@ public class AllTimeReader extends Reader<AllTime> {
     }
 
     /**
-     * Only include usage that has occurred on or before this date.  Format is
-     * YYYY-MM-DD.  All dates are in GMT.  As a convenience, you can also specify
-     * offsets to today.  For example, `EndDate=+30days` will make `EndDate` be 30
-     * days from today..
-     * 
-     * @param endDate Only include usage that has occurred on or before this date.
+     * Only include usage that occurred on or before this date. Specify the date in
+     * GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the
+     * current date, such as: `+30days`, which will set the end date to 30 days from
+     * the current date..
+     *
+     * @param endDate Only include usage that occurred on or before this date
      * @return this
      */
     public AllTimeReader setEndDate(final LocalDate endDate) {
@@ -84,9 +85,12 @@ public class AllTimeReader extends Reader<AllTime> {
     }
 
     /**
-     * The include_subaccounts.
-     * 
-     * @param includeSubaccounts The include_subaccounts
+     * Whether to include usage from the master account and all its subaccounts. Can
+     * be: `true` (the default) to include usage from the master account and all
+     * subaccounts or `false` to retrieve usage from only the specified account..
+     *
+     * @param includeSubaccounts Whether to include usage from the master account
+     *                           and all its subaccounts
      * @return this
      */
     public AllTimeReader setIncludeSubaccounts(final Boolean includeSubaccounts) {
@@ -96,7 +100,7 @@ public class AllTimeReader extends Reader<AllTime> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return AllTime ResourceSet
      */
@@ -107,7 +111,7 @@ public class AllTimeReader extends Reader<AllTime> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return AllTime ResourceSet
      */
@@ -118,8 +122,7 @@ public class AllTimeReader extends Reader<AllTime> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Usage/Records/AllTime.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Usage/Records/AllTime.json"
         );
 
         addQueryParams(request);
@@ -128,7 +131,7 @@ public class AllTimeReader extends Reader<AllTime> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return AllTime ResourceSet
@@ -147,47 +150,41 @@ public class AllTimeReader extends Reader<AllTime> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<AllTime> nextPage(final Page<AllTime> page, 
+    public Page<AllTime> nextPage(final Page<AllTime> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<AllTime> previousPage(final Page<AllTime> page, 
+    public Page<AllTime> previousPage(final Page<AllTime> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of AllTime Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -202,14 +199,7 @@ public class AllTimeReader extends Reader<AllTime> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -222,7 +212,7 @@ public class AllTimeReader extends Reader<AllTime> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

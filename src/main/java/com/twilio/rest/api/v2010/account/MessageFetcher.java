@@ -23,8 +23,8 @@ public class MessageFetcher extends Fetcher<Message> {
 
     /**
      * Construct a new MessageFetcher.
-     * 
-     * @param pathSid Fetch by unique message Sid
+     *
+     * @param pathSid The unique string that identifies the resource
      */
     public MessageFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -32,11 +32,12 @@ public class MessageFetcher extends Fetcher<Message> {
 
     /**
      * Construct a new MessageFetcher.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique message Sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      */
-    public MessageFetcher(final String pathAccountSid, 
+    public MessageFetcher(final String pathAccountSid,
                           final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -44,7 +45,7 @@ public class MessageFetcher extends Fetcher<Message> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Message
      */
@@ -55,8 +56,7 @@ public class MessageFetcher extends Fetcher<Message> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Messages/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Messages/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);
@@ -68,14 +68,7 @@ public class MessageFetcher extends Fetcher<Message> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Message.fromJson(response.getStream(), client.getObjectMapper());

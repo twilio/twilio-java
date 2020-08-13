@@ -24,12 +24,11 @@ public class MessageUpdater extends Updater<Message> {
 
     /**
      * Construct a new MessageUpdater.
-     * 
-     * @param pathSid The message to redact
-     * @param body The text of the message you want to send, limited to 1600
-     *             characters.
+     *
+     * @param pathSid The unique string that identifies the resource
+     * @param body The text of the message you want to send
      */
-    public MessageUpdater(final String pathSid, 
+    public MessageUpdater(final String pathSid,
                           final String body) {
         this.pathSid = pathSid;
         this.body = body;
@@ -37,14 +36,14 @@ public class MessageUpdater extends Updater<Message> {
 
     /**
      * Construct a new MessageUpdater.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The message to redact
-     * @param body The text of the message you want to send, limited to 1600
-     *             characters.
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       update
+     * @param pathSid The unique string that identifies the resource
+     * @param body The text of the message you want to send
      */
-    public MessageUpdater(final String pathAccountSid, 
-                          final String pathSid, 
+    public MessageUpdater(final String pathAccountSid,
+                          final String pathSid,
                           final String body) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -53,7 +52,7 @@ public class MessageUpdater extends Updater<Message> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Message
      */
@@ -64,8 +63,7 @@ public class MessageUpdater extends Updater<Message> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Messages/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Messages/" + this.pathSid + ".json"
         );
 
         addPostParams(request);
@@ -78,14 +76,7 @@ public class MessageUpdater extends Updater<Message> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Message.fromJson(response.getStream(), client.getObjectMapper());
@@ -93,7 +84,7 @@ public class MessageUpdater extends Updater<Message> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

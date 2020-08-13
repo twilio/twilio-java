@@ -28,11 +28,11 @@ public class DeviceFetcher extends Fetcher<Device> {
 
     /**
      * Construct a new DeviceFetcher.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @param pathSid A string that uniquely identifies the Device.
      */
-    public DeviceFetcher(final String pathFleetSid, 
+    public DeviceFetcher(final String pathFleetSid,
                          final String pathSid) {
         this.pathFleetSid = pathFleetSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class DeviceFetcher extends Fetcher<Device> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Device
      */
@@ -50,8 +50,7 @@ public class DeviceFetcher extends Fetcher<Device> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Devices/" + this.pathSid + "",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Devices/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -63,14 +62,7 @@ public class DeviceFetcher extends Fetcher<Device> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Device.fromJson(response.getStream(), client.getObjectMapper());

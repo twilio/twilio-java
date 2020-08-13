@@ -24,11 +24,12 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
 
     /**
      * Construct a new TranscriptionFetcher.
-     * 
-     * @param pathRecordingSid The recording_sid
-     * @param pathSid The sid
+     *
+     * @param pathRecordingSid The SID of the recording that created the
+     *                         transcriptions to fetch
+     * @param pathSid The unique string that identifies the resource
      */
-    public TranscriptionFetcher(final String pathRecordingSid, 
+    public TranscriptionFetcher(final String pathRecordingSid,
                                 final String pathSid) {
         this.pathRecordingSid = pathRecordingSid;
         this.pathSid = pathSid;
@@ -36,13 +37,15 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
 
     /**
      * Construct a new TranscriptionFetcher.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathRecordingSid The recording_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathRecordingSid The SID of the recording that created the
+     *                         transcriptions to fetch
+     * @param pathSid The unique string that identifies the resource
      */
-    public TranscriptionFetcher(final String pathAccountSid, 
-                                final String pathRecordingSid, 
+    public TranscriptionFetcher(final String pathAccountSid,
+                                final String pathRecordingSid,
                                 final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathRecordingSid = pathRecordingSid;
@@ -51,7 +54,7 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Transcription
      */
@@ -62,8 +65,7 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings/" + this.pathRecordingSid + "/Transcriptions/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings/" + this.pathRecordingSid + "/Transcriptions/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);
@@ -75,14 +77,7 @@ public class TranscriptionFetcher extends Fetcher<Transcription> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Transcription.fromJson(response.getStream(), client.getObjectMapper());

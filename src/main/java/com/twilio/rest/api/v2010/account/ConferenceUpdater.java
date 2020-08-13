@@ -29,8 +29,8 @@ public class ConferenceUpdater extends Updater<Conference> {
 
     /**
      * Construct a new ConferenceUpdater.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies this resource
      */
     public ConferenceUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -38,21 +38,23 @@ public class ConferenceUpdater extends Updater<Conference> {
 
     /**
      * Construct a new ConferenceUpdater.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       update
+     * @param pathSid The unique string that identifies this resource
      */
-    public ConferenceUpdater(final String pathAccountSid, 
+    public ConferenceUpdater(final String pathAccountSid,
                              final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * Specifying `completed` will end the conference and kick all participants.
-     * 
-     * @param status Specifying completed will end the conference and kick all
-     *               participants
+     * The new status of the resource. Can be:  Can be: `init`, `in-progress`, or
+     * `completed`. Specifying `completed` will end the conference and hang up all
+     * participants.
+     *
+     * @param status The new status of the resource
      * @return this
      */
     public ConferenceUpdater setStatus(final Conference.UpdateStatus status) {
@@ -61,12 +63,12 @@ public class ConferenceUpdater extends Updater<Conference> {
     }
 
     /**
-     * The 'AnnounceUrl' attribute lets you specify a URL for announcing something
-     * into a conference. The URL may return an MP3, a WAV or a TwiML document with
-     * `&lt;Play&gt;` or `&lt;Say&gt;`..
-     * 
-     * @param announceUrl The 'AnnounceUrl' attribute lets you specify a URL for
-     *                    announcing something into a conference.
+     * The URL we should call to announce something into the conference. The URL can
+     * return an MP3, a WAV, or a TwiML document with `&lt;Play&gt;` or
+     * `&lt;Say&gt;`..
+     *
+     * @param announceUrl The URL we should call to announce something into the
+     *                    conference
      * @return this
      */
     public ConferenceUpdater setAnnounceUrl(final URI announceUrl) {
@@ -75,12 +77,12 @@ public class ConferenceUpdater extends Updater<Conference> {
     }
 
     /**
-     * The 'AnnounceUrl' attribute lets you specify a URL for announcing something
-     * into a conference. The URL may return an MP3, a WAV or a TwiML document with
-     * `&lt;Play&gt;` or `&lt;Say&gt;`..
-     * 
-     * @param announceUrl The 'AnnounceUrl' attribute lets you specify a URL for
-     *                    announcing something into a conference.
+     * The URL we should call to announce something into the conference. The URL can
+     * return an MP3, a WAV, or a TwiML document with `&lt;Play&gt;` or
+     * `&lt;Say&gt;`..
+     *
+     * @param announceUrl The URL we should call to announce something into the
+     *                    conference
      * @return this
      */
     public ConferenceUpdater setAnnounceUrl(final String announceUrl) {
@@ -88,9 +90,10 @@ public class ConferenceUpdater extends Updater<Conference> {
     }
 
     /**
-     * Specify GET or POST, defaults to POST.
-     * 
-     * @param announceMethod Specify GET or POST, defaults to POST
+     * The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the
+     * default is `POST`.
+     *
+     * @param announceMethod he HTTP method used to call announce_url
      * @return this
      */
     public ConferenceUpdater setAnnounceMethod(final HttpMethod announceMethod) {
@@ -100,7 +103,7 @@ public class ConferenceUpdater extends Updater<Conference> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Conference
      */
@@ -111,8 +114,7 @@ public class ConferenceUpdater extends Updater<Conference> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathSid + ".json"
         );
 
         addPostParams(request);
@@ -125,14 +127,7 @@ public class ConferenceUpdater extends Updater<Conference> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Conference.fromJson(response.getStream(), client.getObjectMapper());
@@ -140,7 +135,7 @@ public class ConferenceUpdater extends Updater<Conference> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

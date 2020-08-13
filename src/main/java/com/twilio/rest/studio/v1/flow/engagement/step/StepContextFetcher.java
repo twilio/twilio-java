@@ -17,10 +17,6 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class StepContextFetcher extends Fetcher<StepContext> {
     private final String pathFlowSid;
     private final String pathEngagementSid;
@@ -28,13 +24,13 @@ public class StepContextFetcher extends Fetcher<StepContext> {
 
     /**
      * Construct a new StepContextFetcher.
-     * 
-     * @param pathFlowSid Flow Sid.
-     * @param pathEngagementSid Engagement Sid.
-     * @param pathStepSid Step Sid.
+     *
+     * @param pathFlowSid The SID of the Flow
+     * @param pathEngagementSid The SID of the Engagement
+     * @param pathStepSid Step SID
      */
-    public StepContextFetcher(final String pathFlowSid, 
-                              final String pathEngagementSid, 
+    public StepContextFetcher(final String pathFlowSid,
+                              final String pathEngagementSid,
                               final String pathStepSid) {
         this.pathFlowSid = pathFlowSid;
         this.pathEngagementSid = pathEngagementSid;
@@ -43,7 +39,7 @@ public class StepContextFetcher extends Fetcher<StepContext> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched StepContext
      */
@@ -53,8 +49,7 @@ public class StepContextFetcher extends Fetcher<StepContext> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Engagements/" + this.pathEngagementSid + "/Steps/" + this.pathStepSid + "/Context",
-            client.getRegion()
+            "/v1/Flows/" + this.pathFlowSid + "/Engagements/" + this.pathEngagementSid + "/Steps/" + this.pathStepSid + "/Context"
         );
 
         Response response = client.request(request);
@@ -66,14 +61,7 @@ public class StepContextFetcher extends Fetcher<StepContext> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return StepContext.fromJson(response.getStream(), client.getObjectMapper());

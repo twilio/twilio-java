@@ -35,11 +35,11 @@ public class SayTest {
 
     @Test
     public void testElementWithParams() {
-        Say elem = new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.DA_DK).build();
+        Say elem = new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.ARB).build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Say language=\"da-DK\" loop=\"1\" voice=\"man\">message</Say>",
+            "<Say language=\"arb\" loop=\"1\" voice=\"man\">message</Say>",
             elem.toXml()
         );
     }
@@ -59,28 +59,28 @@ public class SayTest {
     public void testElementWithChildren() {
         Say.Builder builder = new Say.Builder();
 
-        builder.ssmlBreak(new SsmlBreak.Builder().strength(SsmlBreak.Strength.NONE).time("time").build());
+        builder.break_(new SsmlBreak.Builder().strength(SsmlBreak.Strength.NONE).time("time").build());
 
-        builder.ssmlEmphasis(new SsmlEmphasis.Builder("words").level(SsmlEmphasis.Level.STRONG).build());
+        builder.emphasis(new SsmlEmphasis.Builder("words").level(SsmlEmphasis.Level.STRONG).build());
 
-        builder.ssmlLang(new SsmlLang.Builder("words").xmlLang(SsmlLang.XmlLang.DA_DK).build());
+        builder.lang(new SsmlLang.Builder("words").xmlLang(SsmlLang.XmlLang.DA_DK).build());
 
-        builder.ssmlP(new SsmlP.Builder("words").build());
+        builder.p(new SsmlP.Builder("words").build());
 
-        builder.ssmlPhoneme(new SsmlPhoneme.Builder("words").alphabet(SsmlPhoneme.Alphabet.IPA).ph("ph").build());
+        builder.phoneme(new SsmlPhoneme.Builder("words").alphabet(SsmlPhoneme.Alphabet.IPA).ph("ph").build());
 
-        builder.ssmlProsody(new SsmlProsody.Builder("words").volume("volume").rate("rate").pitch("pitch").build());
+        builder.prosody(new SsmlProsody.Builder("words").volume("volume").rate("rate").pitch("pitch").build());
 
-        builder.ssmlS(new SsmlS.Builder("words").build());
+        builder.s(new SsmlS.Builder("words").build());
 
-        builder.ssmlSayAs(new SsmlSayAs.Builder("words")
+        builder.sayAs(new SsmlSayAs.Builder("words")
                     .interpretAs(SsmlSayAs.InterpretAs.CHARACTER)
                     .role(SsmlSayAs.Role.MDY)
                     .build());
 
-        builder.ssmlSub(new SsmlSub.Builder("words").alias("alias").build());
+        builder.sub(new SsmlSub.Builder("words").alias("alias").build());
 
-        builder.ssmlW(new SsmlW.Builder("words").role("role").build());
+        builder.w(new SsmlW.Builder("words").role("role").build());
 
         Say elem = builder.build();
 

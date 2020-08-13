@@ -33,9 +33,10 @@ public class CompositionReader extends Reader<Composition> {
     private String roomSid;
 
     /**
-     * Only show Compositions with the given status..
-     * 
-     * @param status Only show Compositions with the given status.
+     * Read only Composition resources with this status. Can be: `enqueued`,
+     * `processing`, `completed`, `deleted`, or `failed`..
+     *
+     * @param status Read only Composition resources with this status
      * @return this
      */
     public CompositionReader setStatus(final Composition.Status status) {
@@ -44,11 +45,13 @@ public class CompositionReader extends Reader<Composition> {
     }
 
     /**
-     * Only show Compositions that started on or after this ISO8601 date-time, given
-     * as `YYYY-MM-DDThh:mm:ss-hh:mm`..
-     * 
-     * @param dateCreatedAfter Only show Compositions that started on or after this
-     *                         ISO8601 date-time.
+     * Read only Composition resources created on or after this [ISO
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone..
+     *
+     * @param dateCreatedAfter Read only Composition resources created on or after
+     *                         this [ISO
+     *                         8601](https://en.wikipedia.org/wiki/ISO_8601)
+     *                         date-time with time zone
      * @return this
      */
     public CompositionReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
@@ -57,11 +60,11 @@ public class CompositionReader extends Reader<Composition> {
     }
 
     /**
-     * Only show Compositions that started before this this ISO8601 date-time, given
-     * as `YYYY-MM-DDThh:mm:ss-hh:mm`..
-     * 
-     * @param dateCreatedBefore Only show Compositions that started before this
-     *                          this ISO8601 date-time.
+     * Read only Composition resources created before this ISO 8601 date-time with
+     * time zone..
+     *
+     * @param dateCreatedBefore Read only Composition resources created before this
+     *                          ISO 8601 date-time with time zone
      * @return this
      */
     public CompositionReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
@@ -70,9 +73,9 @@ public class CompositionReader extends Reader<Composition> {
     }
 
     /**
-     * Only show Compositions with the given Room SID..
-     * 
-     * @param roomSid Only show Compositions with the given Room SID.
+     * Read only Composition resources with this Room SID..
+     *
+     * @param roomSid Read only Composition resources with this Room SID
      * @return this
      */
     public CompositionReader setRoomSid(final String roomSid) {
@@ -82,7 +85,7 @@ public class CompositionReader extends Reader<Composition> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Composition ResourceSet
      */
@@ -93,7 +96,7 @@ public class CompositionReader extends Reader<Composition> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Composition ResourceSet
      */
@@ -103,8 +106,7 @@ public class CompositionReader extends Reader<Composition> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/Compositions",
-            client.getRegion()
+            "/v1/Compositions"
         );
 
         addQueryParams(request);
@@ -113,7 +115,7 @@ public class CompositionReader extends Reader<Composition> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Composition ResourceSet
@@ -131,47 +133,41 @@ public class CompositionReader extends Reader<Composition> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Composition> nextPage(final Page<Composition> page, 
+    public Page<Composition> nextPage(final Page<Composition> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.VIDEO.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.VIDEO.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Composition> previousPage(final Page<Composition> page, 
+    public Page<Composition> previousPage(final Page<Composition> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.VIDEO.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.VIDEO.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Composition Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -186,14 +182,7 @@ public class CompositionReader extends Reader<Composition> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -206,7 +195,7 @@ public class CompositionReader extends Reader<Composition> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

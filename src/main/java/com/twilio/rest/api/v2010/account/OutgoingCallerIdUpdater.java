@@ -24,8 +24,8 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
 
     /**
      * Construct a new OutgoingCallerIdUpdater.
-     * 
-     * @param pathSid Update by unique outgoing-caller-id Sid
+     *
+     * @param pathSid The unique string that identifies the resource
      */
     public OutgoingCallerIdUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,21 +33,22 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
 
     /**
      * Construct a new OutgoingCallerIdUpdater.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Update by unique outgoing-caller-id Sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       update
+     * @param pathSid The unique string that identifies the resource
      */
-    public OutgoingCallerIdUpdater(final String pathAccountSid, 
+    public OutgoingCallerIdUpdater(final String pathAccountSid,
                                    final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * A human readable description of a Caller ID, with maximum length of 64
-     * characters. Defaults to a nicely formatted version of the phone number..
-     * 
-     * @param friendlyName A human readable description of the caller ID
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
+     *
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public OutgoingCallerIdUpdater setFriendlyName(final String friendlyName) {
@@ -57,7 +58,7 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated OutgoingCallerId
      */
@@ -68,8 +69,7 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/OutgoingCallerIds/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/OutgoingCallerIds/" + this.pathSid + ".json"
         );
 
         addPostParams(request);
@@ -82,14 +82,7 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return OutgoingCallerId.fromJson(response.getStream(), client.getObjectMapper());
@@ -97,7 +90,7 @@ public class OutgoingCallerIdUpdater extends Updater<OutgoingCallerId> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

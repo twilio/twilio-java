@@ -24,8 +24,9 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
 
     /**
      * Construct a new OriginationUrlReader.
-     * 
-     * @param pathTrunkSid The trunk_sid
+     *
+     * @param pathTrunkSid The SID of the Trunk from which to read the
+     *                     OriginationUrl
      */
     public OriginationUrlReader(final String pathTrunkSid) {
         this.pathTrunkSid = pathTrunkSid;
@@ -33,7 +34,7 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return OriginationUrl ResourceSet
      */
@@ -44,7 +45,7 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return OriginationUrl ResourceSet
      */
@@ -54,8 +55,7 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathTrunkSid + "/OriginationUrls",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathTrunkSid + "/OriginationUrls"
         );
 
         addQueryParams(request);
@@ -64,7 +64,7 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return OriginationUrl ResourceSet
@@ -82,47 +82,41 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<OriginationUrl> nextPage(final Page<OriginationUrl> page, 
+    public Page<OriginationUrl> nextPage(final Page<OriginationUrl> page,
                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.TRUNKING.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.TRUNKING.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<OriginationUrl> previousPage(final Page<OriginationUrl> page, 
+    public Page<OriginationUrl> previousPage(final Page<OriginationUrl> page,
                                              final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.TRUNKING.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.TRUNKING.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of OriginationUrl Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -137,14 +131,7 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -157,7 +144,7 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

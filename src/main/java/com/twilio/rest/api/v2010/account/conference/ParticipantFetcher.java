@@ -24,11 +24,13 @@ public class ParticipantFetcher extends Fetcher<Participant> {
 
     /**
      * Construct a new ParticipantFetcher.
-     * 
-     * @param pathConferenceSid The string that uniquely identifies this conference
-     * @param pathCallSid Fetch by unique participant Call SID
+     *
+     * @param pathConferenceSid The SID of the conference with the participant to
+     *                          fetch
+     * @param pathCallSid The Call SID or URL encoded label of the participant to
+     *                    fetch
      */
-    public ParticipantFetcher(final String pathConferenceSid, 
+    public ParticipantFetcher(final String pathConferenceSid,
                               final String pathCallSid) {
         this.pathConferenceSid = pathConferenceSid;
         this.pathCallSid = pathCallSid;
@@ -36,13 +38,16 @@ public class ParticipantFetcher extends Fetcher<Participant> {
 
     /**
      * Construct a new ParticipantFetcher.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathConferenceSid The string that uniquely identifies this conference
-     * @param pathCallSid Fetch by unique participant Call SID
+     *
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathConferenceSid The SID of the conference with the participant to
+     *                          fetch
+     * @param pathCallSid The Call SID or URL encoded label of the participant to
+     *                    fetch
      */
-    public ParticipantFetcher(final String pathAccountSid, 
-                              final String pathConferenceSid, 
+    public ParticipantFetcher(final String pathAccountSid,
+                              final String pathConferenceSid,
                               final String pathCallSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathConferenceSid = pathConferenceSid;
@@ -51,7 +56,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Participant
      */
@@ -62,8 +67,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathConferenceSid + "/Participants/" + this.pathCallSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathConferenceSid + "/Participants/" + this.pathCallSid + ".json"
         );
 
         Response response = client.request(request);
@@ -75,14 +79,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Participant.fromJson(response.getStream(), client.getObjectMapper());

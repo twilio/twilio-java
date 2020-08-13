@@ -31,20 +31,21 @@ public class ChannelUpdater extends Updater<Channel> {
 
     /**
      * Construct a new ChannelUpdater.
-     * 
-     * @param pathServiceSid Sid of the Service this channel belongs to.
-     * @param pathSid Key that uniquely defines the channel to fetch.
+     *
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathSid The SID of the Channel resource to update
      */
-    public ChannelUpdater(final String pathServiceSid, 
+    public ChannelUpdater(final String pathServiceSid,
                           final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * A human-readable name for the Channel. Optional..
-     * 
-     * @param friendlyName A human-readable name for the Channel.
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 256 characters long..
+     *
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public ChannelUpdater setFriendlyName(final String friendlyName) {
@@ -53,9 +54,13 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * A unique, addressable name for the Channel.  Optional..
-     * 
-     * @param uniqueName A unique, addressable name for the Channel.
+     * An application-defined string that uniquely identifies the resource. It can
+     * be used to address the resource in place of the resource's `sid` in the URL.
+     * This value must be 256 characters or less in length and unique within the
+     * Service..
+     *
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      * @return this
      */
     public ChannelUpdater setUniqueName(final String uniqueName) {
@@ -64,11 +69,9 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * An optional metadata field you can use to store any data you wish. No
-     * processing or validation is done on this field..
-     * 
-     * @param attributes An optional metadata field you can use to store any data
-     *                   you wish.
+     * A valid JSON string that contains application-specific data..
+     *
+     * @param attributes A valid JSON string that contains application-specific data
      * @return this
      */
     public ChannelUpdater setAttributes(final String attributes) {
@@ -77,11 +80,14 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * The optional ISO8601 time specifying the datetime the Channel should be set
-     * as being created..
-     * 
-     * @param dateCreated The optional ISO8601 time specifying the datetime the
-     *                    Channel should be set as being created.
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was created. The default
+     * value is the current time set by the Chat service.  Note that this should
+     * only be used in cases where a Channel is being recreated from a
+     * backup/separate source..
+     *
+     * @param dateCreated The ISO 8601 date and time in GMT when the resource was
+     *                    created
      * @return this
      */
     public ChannelUpdater setDateCreated(final DateTime dateCreated) {
@@ -90,11 +96,11 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * The optional ISO8601 time specifying the datetime the Channel should be set
-     * as having been last updated..
-     * 
-     * @param dateUpdated The optional ISO8601 time specifying the datetime the
-     *                    Channel should be set as having been last updated.
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was last updated..
+     *
+     * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
+     *                    updated
      * @return this
      */
     public ChannelUpdater setDateUpdated(final DateTime dateUpdated) {
@@ -103,10 +109,9 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * Optional field to specify the Identity of the User that created the Channel..
-     * 
-     * @param createdBy Optional field to specify the Identity of the User that
-     *                  created the Channel.
+     * The `identity` of the User that created the channel. Default is: `system`..
+     *
+     * @param createdBy The identity of the User that created the Channel
      * @return this
      */
     public ChannelUpdater setCreatedBy(final String createdBy) {
@@ -116,7 +121,7 @@ public class ChannelUpdater extends Updater<Channel> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Channel
      */
@@ -126,8 +131,7 @@ public class ChannelUpdater extends Updater<Channel> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -140,14 +144,7 @@ public class ChannelUpdater extends Updater<Channel> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Channel.fromJson(response.getStream(), client.getObjectMapper());
@@ -155,7 +152,7 @@ public class ChannelUpdater extends Updater<Channel> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

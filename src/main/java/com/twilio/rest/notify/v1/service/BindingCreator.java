@@ -36,15 +36,15 @@ public class BindingCreator extends Creator<Binding> {
 
     /**
      * Construct a new BindingCreator.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param identity The Identity to which this Binding belongs to.
-     * @param bindingType The type of the Binding.
-     * @param address The address specific to the channel.
+     *
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param identity The `identity` value that identifies the new resource's User
+     * @param bindingType The type of the Binding
+     * @param address The channel-specific address
      */
-    public BindingCreator(final String pathServiceSid, 
-                          final String identity, 
-                          final Binding.BindingType bindingType, 
+    public BindingCreator(final String pathServiceSid,
+                          final String identity,
+                          final Binding.BindingType bindingType,
                           final String address) {
         this.pathServiceSid = pathServiceSid;
         this.identity = identity;
@@ -53,10 +53,10 @@ public class BindingCreator extends Creator<Binding> {
     }
 
     /**
-     * The list of tags associated with this Binding. Tags can be used to select the
-     * Bindings to use when sending a notification. Maximum 20 tags are allowed..
-     * 
-     * @param tag The list of tags associated with this Binding.
+     * A tag that can be used to select the Bindings to notify. Repeat this
+     * parameter to specify more than one tag, up to a total of 20 tags..
+     *
+     * @param tag A tag that can be used to select the Bindings to notify
      * @return this
      */
     public BindingCreator setTag(final List<String> tag) {
@@ -65,10 +65,10 @@ public class BindingCreator extends Creator<Binding> {
     }
 
     /**
-     * The list of tags associated with this Binding. Tags can be used to select the
-     * Bindings to use when sending a notification. Maximum 20 tags are allowed..
-     * 
-     * @param tag The list of tags associated with this Binding.
+     * A tag that can be used to select the Bindings to notify. Repeat this
+     * parameter to specify more than one tag, up to a total of 20 tags..
+     *
+     * @param tag A tag that can be used to select the Bindings to notify
      * @return this
      */
     public BindingCreator setTag(final String tag) {
@@ -76,15 +76,15 @@ public class BindingCreator extends Creator<Binding> {
     }
 
     /**
-     * The version of the protocol (data format) used to send the notification. This
-     * defaults to the value of DefaultXXXNotificationProtocolVersion in the
-     * [Service](https://www.twilio.com/docs/api/notify/rest/services). The current
-     * version is `"3"` for `apn`, `fcm`, and `gcm` type Bindings. The parameter is
-     * not applicable to `sms` and `facebook-messenger` type Bindings as the data
-     * format is fixed..
-     * 
-     * @param notificationProtocolVersion The version of the protocol used to send
-     *                                    the notification.
+     * The protocol version to use to send the notification. This defaults to the
+     * value of `default_xxxx_notification_protocol_version` for the protocol in the
+     * [Service](https://www.twilio.com/docs/notify/api/service-resource). The
+     * current version is `"3"` for `apn`, `fcm`, and `gcm` type Bindings. The
+     * parameter is not applicable to `sms` and `facebook-messenger` type Bindings
+     * as the data format is fixed..
+     *
+     * @param notificationProtocolVersion The protocol version to use to send the
+     *                                    notification
      * @return this
      */
     public BindingCreator setNotificationProtocolVersion(final String notificationProtocolVersion) {
@@ -93,13 +93,14 @@ public class BindingCreator extends Creator<Binding> {
     }
 
     /**
-     * The unique identifier (SID) of the Credential resource to be used to send
-     * notifications to this Binding. If present, this overrides the Credential
-     * specified in the Service resource. Applicable only to `apn`, `fcm`, and `gcm`
-     * type Bindings..
-     * 
-     * @param credentialSid The unique identifier of the Credential resource to be
-     *                      used to send notifications to this Binding.
+     * The SID of the
+     * [Credential](https://www.twilio.com/docs/notify/api/credential-resource)
+     * resource to be used to send notifications to this Binding. If present, this
+     * overrides the Credential specified in the Service resource. Applies to only
+     * `apn`, `fcm`, and `gcm` type Bindings..
+     *
+     * @param credentialSid The SID of the Credential resource to be used to send
+     *                      notifications to this Binding
      * @return this
      */
     public BindingCreator setCredentialSid(final String credentialSid) {
@@ -108,9 +109,9 @@ public class BindingCreator extends Creator<Binding> {
     }
 
     /**
-     * DEPRECATED*.
-     * 
-     * @param endpoint DEPRECATED*
+     * Deprecated..
+     *
+     * @param endpoint Deprecated
      * @return this
      */
     public BindingCreator setEndpoint(final String endpoint) {
@@ -120,7 +121,7 @@ public class BindingCreator extends Creator<Binding> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Binding
      */
@@ -130,8 +131,7 @@ public class BindingCreator extends Creator<Binding> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.NOTIFY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Bindings",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Bindings"
         );
 
         addPostParams(request);
@@ -144,14 +144,7 @@ public class BindingCreator extends Creator<Binding> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Binding.fromJson(response.getStream(), client.getObjectMapper());
@@ -159,7 +152,7 @@ public class BindingCreator extends Creator<Binding> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

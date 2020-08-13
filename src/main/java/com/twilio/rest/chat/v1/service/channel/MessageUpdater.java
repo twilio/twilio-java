@@ -26,13 +26,13 @@ public class MessageUpdater extends Updater<Message> {
 
     /**
      * Construct a new MessageUpdater.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathChannelSid he unique ID of the Channel the message belongs to
+     * @param pathSid The unique string that identifies the resource
      */
-    public MessageUpdater(final String pathServiceSid, 
-                          final String pathChannelSid, 
+    public MessageUpdater(final String pathServiceSid,
+                          final String pathChannelSid,
                           final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -40,10 +40,11 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The new message body string. You can also send structured data by serializing
-     * it into a string..
-     * 
-     * @param body The new message body string.
+     * The message to send to the channel. Can also be an empty string or `null`,
+     * which sets the value as an empty string. You can send structured data in the
+     * body by serializing it as a string..
+     *
+     * @param body The message to send to the channel
      * @return this
      */
     public MessageUpdater setBody(final String body) {
@@ -52,11 +53,9 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The new attributes metadata field you can use to store any data you wish. 
-     * The string value must contain structurally valid JSON if specified..
-     * 
-     * @param attributes The new attributes metadata field you can use to store any
-     *                   data you wish.
+     * A valid JSON string that contains application-specific data..
+     *
+     * @param attributes A valid JSON string that contains application-specific data
      * @return this
      */
     public MessageUpdater setAttributes(final String attributes) {
@@ -66,7 +65,7 @@ public class MessageUpdater extends Updater<Message> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Message
      */
@@ -76,8 +75,7 @@ public class MessageUpdater extends Updater<Message> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Messages/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Messages/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -90,14 +88,7 @@ public class MessageUpdater extends Updater<Message> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Message.fromJson(response.getStream(), client.getObjectMapper());
@@ -105,7 +96,7 @@ public class MessageUpdater extends Updater<Message> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

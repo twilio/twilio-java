@@ -25,8 +25,9 @@ public class AuthRegistrationsCredentialListMappingReader extends Reader<AuthReg
 
     /**
      * Construct a new AuthRegistrationsCredentialListMappingReader.
-     * 
-     * @param pathDomainSid The domain_sid
+     *
+     * @param pathDomainSid The SID of the SIP domain that contains the resources
+     *                      to read
      */
     public AuthRegistrationsCredentialListMappingReader(final String pathDomainSid) {
         this.pathDomainSid = pathDomainSid;
@@ -34,11 +35,13 @@ public class AuthRegistrationsCredentialListMappingReader extends Reader<AuthReg
 
     /**
      * Construct a new AuthRegistrationsCredentialListMappingReader.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathDomainSid The SID of the SIP domain that contains the resources
+     *                      to read
      */
-    public AuthRegistrationsCredentialListMappingReader(final String pathAccountSid, 
+    public AuthRegistrationsCredentialListMappingReader(final String pathAccountSid,
                                                         final String pathDomainSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
@@ -46,7 +49,7 @@ public class AuthRegistrationsCredentialListMappingReader extends Reader<AuthReg
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return AuthRegistrationsCredentialListMapping ResourceSet
      */
@@ -57,7 +60,7 @@ public class AuthRegistrationsCredentialListMappingReader extends Reader<AuthReg
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return AuthRegistrationsCredentialListMapping ResourceSet
      */
@@ -68,8 +71,7 @@ public class AuthRegistrationsCredentialListMappingReader extends Reader<AuthReg
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/Auth/Registrations/CredentialListMappings.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/Auth/Registrations/CredentialListMappings.json"
         );
 
         addQueryParams(request);
@@ -78,7 +80,7 @@ public class AuthRegistrationsCredentialListMappingReader extends Reader<AuthReg
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return AuthRegistrationsCredentialListMapping ResourceSet
@@ -97,40 +99,34 @@ public class AuthRegistrationsCredentialListMappingReader extends Reader<AuthReg
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<AuthRegistrationsCredentialListMapping> nextPage(final Page<AuthRegistrationsCredentialListMapping> page, 
+    public Page<AuthRegistrationsCredentialListMapping> nextPage(final Page<AuthRegistrationsCredentialListMapping> page,
                                                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<AuthRegistrationsCredentialListMapping> previousPage(final Page<AuthRegistrationsCredentialListMapping> page, 
+    public Page<AuthRegistrationsCredentialListMapping> previousPage(final Page<AuthRegistrationsCredentialListMapping> page,
                                                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -138,7 +134,7 @@ public class AuthRegistrationsCredentialListMappingReader extends Reader<AuthReg
     /**
      * Generate a Page of AuthRegistrationsCredentialListMapping Resources for a
      * given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -153,14 +149,7 @@ public class AuthRegistrationsCredentialListMappingReader extends Reader<AuthReg
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -173,7 +162,7 @@ public class AuthRegistrationsCredentialListMappingReader extends Reader<AuthReg
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

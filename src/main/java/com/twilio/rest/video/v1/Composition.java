@@ -45,6 +45,7 @@ public class Composition extends Resource {
     private static final long serialVersionUID = 61658716109908L;
 
     public enum Status {
+        ENQUEUED("enqueued"),
         PROCESSING("processing"),
         COMPLETED("completed"),
         DELETED("deleted"),
@@ -98,9 +99,8 @@ public class Composition extends Resource {
 
     /**
      * Create a CompositionFetcher to execute fetch.
-     * 
-     * @param pathSid The Composition Sid that uniquely identifies the Composition
-     *                to fetch.
+     *
+     * @param pathSid The SID that identifies the resource to fetch
      * @return CompositionFetcher capable of executing the fetch
      */
     public static CompositionFetcher fetcher(final String pathSid) {
@@ -109,7 +109,7 @@ public class Composition extends Resource {
 
     /**
      * Create a CompositionReader to execute read.
-     * 
+     *
      * @return CompositionReader capable of executing the read
      */
     public static CompositionReader reader() {
@@ -118,9 +118,8 @@ public class Composition extends Resource {
 
     /**
      * Create a CompositionDeleter to execute delete.
-     * 
-     * @param pathSid The Recording Composition Sid that uniquely identifies the
-     *                Recording Composition to delete.
+     *
+     * @param pathSid The SID that identifies the resource to delete
      * @return CompositionDeleter capable of executing the delete
      */
     public static CompositionDeleter deleter(final String pathSid) {
@@ -129,17 +128,19 @@ public class Composition extends Resource {
 
     /**
      * Create a CompositionCreator to execute create.
-     * 
+     *
+     * @param roomSid The SID of the Group Room with the media tracks to be used as
+     *                composition sources
      * @return CompositionCreator capable of executing the create
      */
-    public static CompositionCreator creator() {
-        return new CompositionCreator();
+    public static CompositionCreator creator(final String roomSid) {
+        return new CompositionCreator(roomSid);
     }
 
     /**
      * Converts a JSON String into a Composition object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Composition object represented by the provided JSON
@@ -158,7 +159,7 @@ public class Composition extends Resource {
     /**
      * Converts a JSON InputStream into a Composition object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Composition object represented by the provided JSON
@@ -177,8 +178,8 @@ public class Composition extends Resource {
     private final String accountSid;
     private final Composition.Status status;
     private final DateTime dateCreated;
-    private final String dateCompleted;
-    private final String dateDeleted;
+    private final DateTime dateCompleted;
+    private final DateTime dateDeleted;
     private final String sid;
     private final String roomSid;
     private final List<String> audioSources;
@@ -195,46 +196,46 @@ public class Composition extends Resource {
 
     @JsonCreator
     private Composition(@JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("status")
-                        final Composition.Status status, 
+                        final Composition.Status status,
                         @JsonProperty("date_created")
-                        final String dateCreated, 
+                        final String dateCreated,
                         @JsonProperty("date_completed")
-                        final String dateCompleted, 
+                        final String dateCompleted,
                         @JsonProperty("date_deleted")
-                        final String dateDeleted, 
+                        final String dateDeleted,
                         @JsonProperty("sid")
-                        final String sid, 
+                        final String sid,
                         @JsonProperty("room_sid")
-                        final String roomSid, 
+                        final String roomSid,
                         @JsonProperty("audio_sources")
-                        final List<String> audioSources, 
+                        final List<String> audioSources,
                         @JsonProperty("audio_sources_excluded")
-                        final List<String> audioSourcesExcluded, 
+                        final List<String> audioSourcesExcluded,
                         @JsonProperty("video_layout")
-                        final Map<String, Object> videoLayout, 
+                        final Map<String, Object> videoLayout,
                         @JsonProperty("resolution")
-                        final String resolution, 
+                        final String resolution,
                         @JsonProperty("trim")
-                        final Boolean trim, 
+                        final Boolean trim,
                         @JsonProperty("format")
-                        final Composition.Format format, 
+                        final Composition.Format format,
                         @JsonProperty("bitrate")
-                        final Integer bitrate, 
+                        final Integer bitrate,
                         @JsonProperty("size")
-                        final Long size, 
+                        final Long size,
                         @JsonProperty("duration")
-                        final Integer duration, 
+                        final Integer duration,
                         @JsonProperty("url")
-                        final URI url, 
+                        final URI url,
                         @JsonProperty("links")
                         final Map<String, String> links) {
         this.accountSid = accountSid;
         this.status = status;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateCompleted = dateCompleted;
-        this.dateDeleted = dateDeleted;
+        this.dateCompleted = DateConverter.iso8601DateTimeFromString(dateCompleted);
+        this.dateDeleted = DateConverter.iso8601DateTimeFromString(dateDeleted);
         this.sid = sid;
         this.roomSid = roomSid;
         this.audioSources = audioSources;
@@ -251,164 +252,170 @@ public class Composition extends Resource {
     }
 
     /**
-     * Returns The Twilio Account SID..
-     * 
-     * @return Twilio Account SID.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The status of the Composition..
-     * 
-     * @return The status of the Composition.
+     * Returns The status of the composition.
+     *
+     * @return The status of the composition
      */
     public final Composition.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The Date when the Composition Resource was created..
-     * 
-     * @return Date when the Composition Resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The Date when the media processing task finished..
-     * 
-     * @return Date when the media processing task finished.
+     * Returns Date when the media processing task finished.
+     *
+     * @return Date when the media processing task finished
      */
-    public final String getDateCompleted() {
+    public final DateTime getDateCompleted() {
         return this.dateCompleted;
     }
 
     /**
-     * Returns The Date when the Composition Resource generated media was deleted..
-     * 
-     * @return Date when the Composition Resource generated media was deleted.
+     * Returns The ISO 8601 date and time in GMT when the composition generated
+     * media was deleted.
+     *
+     * @return The ISO 8601 date and time in GMT when the composition generated
+     *         media was deleted
      */
-    public final String getDateDeleted() {
+    public final DateTime getDateDeleted() {
         return this.dateDeleted;
     }
 
     /**
-     * Returns The A 34-character string that uniquely identifies this Composition..
-     * 
-     * @return A 34-character string that uniquely identifies this Composition.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A 34-character string that uniquely identifies the source of this
-     * Composition..
-     * 
-     * @return A 34-character string that uniquely identifies the source of this
-     *         Composition.
+     * Returns The SID of the Group Room that generated the audio and video tracks
+     * used in the composition.
+     *
+     * @return The SID of the Group Room that generated the audio and video tracks
+     *         used in the composition
      */
     public final String getRoomSid() {
         return this.roomSid;
     }
 
     /**
-     * Returns The A list of audio sources related to this Composition..
-     * 
-     * @return A list of audio sources related to this Composition.
+     * Returns The array of track names to include in the composition.
+     *
+     * @return The array of track names to include in the composition
      */
     public final List<String> getAudioSources() {
         return this.audioSources;
     }
 
     /**
-     * Returns The A list of audio sources excluded related to this Composition..
-     * 
-     * @return A list of audio sources excluded related to this Composition.
+     * Returns The array of track names to exclude from the composition.
+     *
+     * @return The array of track names to exclude from the composition
      */
     public final List<String> getAudioSourcesExcluded() {
         return this.audioSourcesExcluded;
     }
 
     /**
-     * Returns The The JSON video layout description..
-     * 
-     * @return The JSON video layout description.
+     * Returns An object that describes the video layout of the composition.
+     *
+     * @return An object that describes the video layout of the composition
      */
     public final Map<String, Object> getVideoLayout() {
         return this.videoLayout;
     }
 
     /**
-     * Returns The Pixel resolution of the composed video..
-     * 
-     * @return Pixel resolution of the composed video.
+     * Returns The dimensions of the video image in pixels expressed as columns
+     * (width) and rows (height).
+     *
+     * @return The dimensions of the video image in pixels expressed as columns
+     *         (width) and rows (height)
      */
     public final String getResolution() {
         return this.resolution;
     }
 
     /**
-     * Returns The Boolean flag for clipping intervals that have no media..
-     * 
-     * @return Boolean flag for clipping intervals that have no media.
+     * Returns Whether to remove intervals with no media.
+     *
+     * @return Whether to remove intervals with no media
      */
     public final Boolean getTrim() {
         return this.trim;
     }
 
     /**
-     * Returns The The file format for this Composition..
-     * 
-     * @return The file format for this Composition.
+     * Returns The container format of the composition's media files as specified in
+     * the POST request that created the Composition resource.
+     *
+     * @return The container format of the composition's media files as specified
+     *         in the POST request that created the Composition resource
      */
     public final Composition.Format getFormat() {
         return this.format;
     }
 
     /**
-     * Returns The The bitrate.
-     * 
-     * @return The bitrate
+     * Returns The average bit rate of the composition's media.
+     *
+     * @return The average bit rate of the composition's media
      */
     public final Integer getBitrate() {
         return this.bitrate;
     }
 
     /**
-     * Returns The Size of the Composed media file expressed in bytes..
-     * 
-     * @return Size of the Composed media file expressed in bytes.
+     * Returns The size of the composed media file in bytes.
+     *
+     * @return The size of the composed media file in bytes
      */
     public final Long getSize() {
         return this.size;
     }
 
     /**
-     * Returns The Duration of the Composed media in seconds..
-     * 
-     * @return Duration of the Composed media in seconds.
+     * Returns The duration of the composition's media file in seconds.
+     *
+     * @return The duration of the composition's media file in seconds
      */
     public final Integer getDuration() {
         return this.duration;
     }
 
     /**
-     * Returns The The absolute URL for this resource..
-     * 
-     * @return The absolute URL for this resource.
+     * Returns The absolute URL of the resource.
+     *
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The JSON object with the URL where the media file can be fetched..
-     * 
-     * @return JSON object with the URL where the media file can be fetched.
+     * Returns The URL of the media file associated with the composition.
+     *
+     * @return The URL of the media file associated with the composition
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -426,23 +433,23 @@ public class Composition extends Resource {
 
         Composition other = (Composition) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateCompleted, other.dateCompleted) && 
-               Objects.equals(dateDeleted, other.dateDeleted) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(roomSid, other.roomSid) && 
-               Objects.equals(audioSources, other.audioSources) && 
-               Objects.equals(audioSourcesExcluded, other.audioSourcesExcluded) && 
-               Objects.equals(videoLayout, other.videoLayout) && 
-               Objects.equals(resolution, other.resolution) && 
-               Objects.equals(trim, other.trim) && 
-               Objects.equals(format, other.format) && 
-               Objects.equals(bitrate, other.bitrate) && 
-               Objects.equals(size, other.size) && 
-               Objects.equals(duration, other.duration) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateCompleted, other.dateCompleted) &&
+               Objects.equals(dateDeleted, other.dateDeleted) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(roomSid, other.roomSid) &&
+               Objects.equals(audioSources, other.audioSources) &&
+               Objects.equals(audioSourcesExcluded, other.audioSourcesExcluded) &&
+               Objects.equals(videoLayout, other.videoLayout) &&
+               Objects.equals(resolution, other.resolution) &&
+               Objects.equals(trim, other.trim) &&
+               Objects.equals(format, other.format) &&
+               Objects.equals(bitrate, other.bitrate) &&
+               Objects.equals(size, other.size) &&
+               Objects.equals(duration, other.duration) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

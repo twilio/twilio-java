@@ -32,23 +32,26 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     /**
      * Construct a new SyncMapItemReader.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathMapSid The map_sid
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Map Item
+     *                       resources to read
+     * @param pathMapSid The SID of the Sync Map with the Sync Map Item resource to
+     *                   fetch
      */
-    public SyncMapItemReader(final String pathServiceSid, 
+    public SyncMapItemReader(final String pathServiceSid,
                              final String pathMapSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathMapSid = pathMapSid;
     }
 
     /**
-     * A string; asc or desc. Map Items are [ordered
+     * How to order the Map Items returned by their `key` value. Can be: `asc`
+     * (ascending) or `desc` (descending) and the default is ascending. Map Items
+     * are [ordered
      * lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by
      * Item key..
-     * 
-     * @param order A string; asc or desc. Map Items are ordered lexicographically
-     *              by Item key.
+     *
+     * @param order How to order the Map Items returned by their key value
      * @return this
      */
     public SyncMapItemReader setOrder(final SyncMapItem.QueryResultOrder order) {
@@ -57,10 +60,9 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
     }
 
     /**
-     * The Item key offset (including the specified key). If not present, query is
-     * performed from the start or end, depending on the Order query parameter..
-     * 
-     * @param from The Item key offset (including the specified key).
+     * The `key` of the first Sync Map Item resource to read. See also `bounds`..
+     *
+     * @param from The index of the first Sync Map Item resource to read
      * @return this
      */
     public SyncMapItemReader setFrom(final String from) {
@@ -69,9 +71,13 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
     }
 
     /**
-     * The bounds.
-     * 
-     * @param bounds The bounds
+     * Whether to include the Map Item referenced by the `from` parameter. Can be:
+     * `inclusive` to include the Map Item referenced by the `from` parameter or
+     * `exclusive` to start with the next Map Item. The default value is
+     * `inclusive`..
+     *
+     * @param bounds Whether to include the Map Item referenced by the from
+     *               parameter
      * @return this
      */
     public SyncMapItemReader setBounds(final SyncMapItem.QueryFromBoundType bounds) {
@@ -81,7 +87,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return SyncMapItem ResourceSet
      */
@@ -92,7 +98,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return SyncMapItem ResourceSet
      */
@@ -102,8 +108,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Items",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Items"
         );
 
         addQueryParams(request);
@@ -112,7 +117,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return SyncMapItem ResourceSet
@@ -130,47 +135,41 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<SyncMapItem> nextPage(final Page<SyncMapItem> page, 
+    public Page<SyncMapItem> nextPage(final Page<SyncMapItem> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.SYNC.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.SYNC.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<SyncMapItem> previousPage(final Page<SyncMapItem> page, 
+    public Page<SyncMapItem> previousPage(final Page<SyncMapItem> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.SYNC.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.SYNC.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of SyncMapItem Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -185,14 +184,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -205,7 +197,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

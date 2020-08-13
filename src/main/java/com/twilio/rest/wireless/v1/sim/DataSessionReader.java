@@ -28,17 +28,18 @@ public class DataSessionReader extends Reader<DataSession> {
 
     /**
      * Construct a new DataSessionReader.
-     * 
-     * @param pathSimSid The sim_sid
+     *
+     * @param pathSimSid The SID of the Sim resource with the Data Sessions to read
      */
     public DataSessionReader(final String pathSimSid) {
         this.pathSimSid = pathSimSid;
     }
 
     /**
-     * The end.
-     * 
-     * @param end The end
+     * The date that the record ended, given as GMT in [ISO
+     * 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format..
+     *
+     * @param end The date that the record ended, given as GMT in ISO 8601 format
      * @return this
      */
     public DataSessionReader setEnd(final DateTime end) {
@@ -47,9 +48,11 @@ public class DataSessionReader extends Reader<DataSession> {
     }
 
     /**
-     * The start.
-     * 
-     * @param start The start
+     * The date that the Data Session started, given as GMT in [ISO
+     * 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format..
+     *
+     * @param start The date that the Data Session started, given as GMT in ISO
+     *              8601 format
      * @return this
      */
     public DataSessionReader setStart(final DateTime start) {
@@ -59,7 +62,7 @@ public class DataSessionReader extends Reader<DataSession> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return DataSession ResourceSet
      */
@@ -70,7 +73,7 @@ public class DataSessionReader extends Reader<DataSession> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return DataSession ResourceSet
      */
@@ -80,8 +83,7 @@ public class DataSessionReader extends Reader<DataSession> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.WIRELESS.toString(),
-            "/v1/Sims/" + this.pathSimSid + "/DataSessions",
-            client.getRegion()
+            "/v1/Sims/" + this.pathSimSid + "/DataSessions"
         );
 
         addQueryParams(request);
@@ -90,7 +92,7 @@ public class DataSessionReader extends Reader<DataSession> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return DataSession ResourceSet
@@ -108,47 +110,41 @@ public class DataSessionReader extends Reader<DataSession> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<DataSession> nextPage(final Page<DataSession> page, 
+    public Page<DataSession> nextPage(final Page<DataSession> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.WIRELESS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.WIRELESS.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<DataSession> previousPage(final Page<DataSession> page, 
+    public Page<DataSession> previousPage(final Page<DataSession> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.WIRELESS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.WIRELESS.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of DataSession Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -163,14 +159,7 @@ public class DataSessionReader extends Reader<DataSession> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -183,7 +172,7 @@ public class DataSessionReader extends Reader<DataSession> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

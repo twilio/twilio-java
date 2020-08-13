@@ -29,8 +29,9 @@ public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtensio
 
     /**
      * Construct a new AvailableAddOnExtensionReader.
-     * 
-     * @param pathAvailableAddOnSid The available_add_on_sid
+     *
+     * @param pathAvailableAddOnSid The SID of the AvailableAddOn resource with the
+     *                              extensions to read
      */
     public AvailableAddOnExtensionReader(final String pathAvailableAddOnSid) {
         this.pathAvailableAddOnSid = pathAvailableAddOnSid;
@@ -38,7 +39,7 @@ public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtensio
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return AvailableAddOnExtension ResourceSet
      */
@@ -49,7 +50,7 @@ public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtensio
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return AvailableAddOnExtension ResourceSet
      */
@@ -59,8 +60,7 @@ public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtensio
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/marketplace/AvailableAddOns/" + this.pathAvailableAddOnSid + "/Extensions",
-            client.getRegion()
+            "/marketplace/AvailableAddOns/" + this.pathAvailableAddOnSid + "/Extensions"
         );
 
         addQueryParams(request);
@@ -69,7 +69,7 @@ public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtensio
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return AvailableAddOnExtension ResourceSet
@@ -87,47 +87,41 @@ public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtensio
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<AvailableAddOnExtension> nextPage(final Page<AvailableAddOnExtension> page, 
+    public Page<AvailableAddOnExtension> nextPage(final Page<AvailableAddOnExtension> page,
                                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<AvailableAddOnExtension> previousPage(final Page<AvailableAddOnExtension> page, 
+    public Page<AvailableAddOnExtension> previousPage(final Page<AvailableAddOnExtension> page,
                                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of AvailableAddOnExtension Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -142,14 +136,7 @@ public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtensio
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -162,7 +149,7 @@ public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtensio
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

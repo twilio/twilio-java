@@ -30,8 +30,8 @@ public class AccountUpdater extends Updater<Account> {
 
     /**
      * Construct a new AccountUpdater.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid Update by unique Account Sid
      */
     public AccountUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -39,7 +39,7 @@ public class AccountUpdater extends Updater<Account> {
 
     /**
      * Update the human-readable description of this Account.
-     * 
+     *
      * @param friendlyName FriendlyName to update
      * @return this
      */
@@ -52,7 +52,7 @@ public class AccountUpdater extends Updater<Account> {
      * Alter the status of this account: use `closed` to irreversibly close this
      * account, `suspended` to temporarily suspend it, or `active` to reactivate
      * it..
-     * 
+     *
      * @param status Status to update the Account with
      * @return this
      */
@@ -63,7 +63,7 @@ public class AccountUpdater extends Updater<Account> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Account
      */
@@ -74,8 +74,7 @@ public class AccountUpdater extends Updater<Account> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathSid + ".json"
         );
 
         addPostParams(request);
@@ -88,14 +87,7 @@ public class AccountUpdater extends Updater<Account> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Account.fromJson(response.getStream(), client.getObjectMapper());
@@ -103,7 +95,7 @@ public class AccountUpdater extends Updater<Account> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

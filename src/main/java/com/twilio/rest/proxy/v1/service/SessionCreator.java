@@ -39,18 +39,20 @@ public class SessionCreator extends Creator<Session> {
 
     /**
      * Construct a new SessionCreator.
-     * 
-     * @param pathServiceSid Service Sid.
+     *
+     * @param pathServiceSid The SID of the parent Service resource
      */
     public SessionCreator(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
     /**
-     * Your unique identifier for this Session such as a Job ID or conversation ID.
-     * *Should not contain PII.*.
-     * 
-     * @param uniqueName A unique, developer assigned name of this Session.
+     * An application-defined string that uniquely identifies the resource. This
+     * value must be 191 characters or fewer in length and be unique. **This value
+     * should not have PII.**.
+     *
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      * @return this
      */
     public SessionCreator setUniqueName(final String uniqueName) {
@@ -59,10 +61,10 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
-     * An absolute time (ISO 8601) at which this Session should close. If this is
-     * populated, it takes precedence over TTL values..
-     * 
-     * @param dateExpiry The date this Session should expire
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session
+     * should expire. If this is value is present, it overrides the `ttl` value..
+     *
+     * @param dateExpiry The ISO 8601 date when the Session should expire
      * @return this
      */
     public SessionCreator setDateExpiry(final DateTime dateExpiry) {
@@ -71,10 +73,10 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
-     * The time, in seconds, after the latest of Session create time or the
-     * Session's last Interaction time at which the session will expire..
-     * 
-     * @param ttl TTL for a Session, in seconds.
+     * The time, in seconds, when the session will expire. The time is measured from
+     * the last Session create or the Session's last Interaction..
+     *
+     * @param ttl When the session will expire
      * @return this
      */
     public SessionCreator setTtl(final Integer ttl) {
@@ -83,10 +85,10 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
-     * The type of communications mediums allowed on a Session. Defaults to
-     * `voice-and-message`. Other options are `voice-only` or `message-only`..
-     * 
-     * @param mode The Mode of this Session
+     * The Mode of the Session. Can be: `message-only`, `voice-only`, or
+     * `voice-and-message` and the default value is `voice-and-message`..
+     *
+     * @param mode The Mode of the Session
      * @return this
      */
     public SessionCreator setMode(final Session.Mode mode) {
@@ -95,10 +97,9 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
-     * Set this value to `closed` to close the session. A Session can be re-opened
-     * by posting to a closed session with the value `in-progress`.  This will be
-     * `open` by default on create..
-     * 
+     * The initial status of the Session. Can be: `open`, `in-progress`, `closed`,
+     * `failed`, or `unknown`. The default is `open` on create..
+     *
      * @param status Session status
      * @return this
      */
@@ -108,9 +109,9 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
-     * The participants.
-     * 
-     * @param participants The participants
+     * The Participant objects to include in the new session..
+     *
+     * @param participants The Participant objects to include in the new session
      * @return this
      */
     public SessionCreator setParticipants(final List<Map<String, Object>> participants) {
@@ -119,9 +120,9 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
-     * The participants.
-     * 
-     * @param participants The participants
+     * The Participant objects to include in the new session..
+     *
+     * @param participants The Participant objects to include in the new session
      * @return this
      */
     public SessionCreator setParticipants(final Map<String, Object> participants) {
@@ -130,7 +131,7 @@ public class SessionCreator extends Creator<Session> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Session
      */
@@ -140,8 +141,7 @@ public class SessionCreator extends Creator<Session> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PROXY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Sessions",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Sessions"
         );
 
         addPostParams(request);
@@ -154,14 +154,7 @@ public class SessionCreator extends Creator<Session> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Session.fromJson(response.getStream(), client.getObjectMapper());
@@ -169,7 +162,7 @@ public class SessionCreator extends Creator<Session> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

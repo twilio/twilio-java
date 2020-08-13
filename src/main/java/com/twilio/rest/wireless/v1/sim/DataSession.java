@@ -34,12 +34,12 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DataSession extends Resource {
-    private static final long serialVersionUID = 147675841254752L;
+    private static final long serialVersionUID = 281325626490598L;
 
     /**
      * Create a DataSessionReader to execute read.
-     * 
-     * @param pathSimSid The sim_sid
+     *
+     * @param pathSimSid The SID of the Sim resource with the Data Sessions to read
      * @return DataSessionReader capable of executing the read
      */
     public static DataSessionReader reader(final String pathSimSid) {
@@ -49,7 +49,7 @@ public class DataSession extends Resource {
     /**
      * Converts a JSON String into a DataSession object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return DataSession object represented by the provided JSON
@@ -68,7 +68,7 @@ public class DataSession extends Resource {
     /**
      * Converts a JSON InputStream into a DataSession object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return DataSession object represented by the provided JSON
@@ -99,38 +99,41 @@ public class DataSession extends Resource {
     private final DateTime lastUpdated;
     private final DateTime start;
     private final DateTime end;
+    private final String imei;
 
     @JsonCreator
     private DataSession(@JsonProperty("sid")
-                        final String sid, 
+                        final String sid,
                         @JsonProperty("sim_sid")
-                        final String simSid, 
+                        final String simSid,
                         @JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("radio_link")
-                        final String radioLink, 
+                        final String radioLink,
                         @JsonProperty("operator_mcc")
-                        final String operatorMcc, 
+                        final String operatorMcc,
                         @JsonProperty("operator_mnc")
-                        final String operatorMnc, 
+                        final String operatorMnc,
                         @JsonProperty("operator_country")
-                        final String operatorCountry, 
+                        final String operatorCountry,
                         @JsonProperty("operator_name")
-                        final String operatorName, 
+                        final String operatorName,
                         @JsonProperty("cell_id")
-                        final String cellId, 
+                        final String cellId,
                         @JsonProperty("cell_location_estimate")
-                        final Map<String, Object> cellLocationEstimate, 
+                        final Map<String, Object> cellLocationEstimate,
                         @JsonProperty("packets_uploaded")
-                        final Integer packetsUploaded, 
+                        final Integer packetsUploaded,
                         @JsonProperty("packets_downloaded")
-                        final Integer packetsDownloaded, 
+                        final Integer packetsDownloaded,
                         @JsonProperty("last_updated")
-                        final String lastUpdated, 
+                        final String lastUpdated,
                         @JsonProperty("start")
-                        final String start, 
+                        final String start,
                         @JsonProperty("end")
-                        final String end) {
+                        final String end,
+                        @JsonProperty("imei")
+                        final String imei) {
         this.sid = sid;
         this.simSid = simSid;
         this.accountSid = accountSid;
@@ -146,166 +149,171 @@ public class DataSession extends Resource {
         this.lastUpdated = DateConverter.iso8601DateTimeFromString(lastUpdated);
         this.start = DateConverter.iso8601DateTimeFromString(start);
         this.end = DateConverter.iso8601DateTimeFromString(end);
+        this.imei = imei;
     }
 
     /**
-     * Returns The The unique id of the Data Session resource that this Data Record
-     * is for..
-     * 
-     * @return The unique id of the Data Session resource that this Data Record is
-     *         for.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique id of the SIM resource that this Data Session is for..
-     * 
-     * @return The unique id of the SIM resource that this Data Session is for.
+     * Returns The SID of the Sim resource that the Data Session is for.
+     *
+     * @return The SID of the Sim resource that the Data Session is for
      */
     public final String getSimSid() {
         return this.simSid;
     }
 
     /**
-     * Returns The The unique id of the Account that the SIM belongs to..
-     * 
-     * @return The unique id of the Account that the SIM belongs to.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The generation of wireless technology that the device was
-     * attached to the cellular tower using..
-     * 
-     * @return The generation of wireless technology that the device was attached
-     *         to the cellular tower using.
+     * Returns The generation of wireless technology that the device was using.
+     *
+     * @return The generation of wireless technology that the device was using
      */
     public final String getRadioLink() {
         return this.radioLink;
     }
 
     /**
-     * Returns The The 'mobile country code' is the unique id of the home country
-     * where the Data Session took place..
-     * 
-     * @return The 'mobile country code' is the unique id of the home country where
-     *         the Data Session took place.
+     * Returns The 'mobile country code' is the unique ID of the home country where
+     * the Data Session took place.
+     *
+     * @return The 'mobile country code' is the unique ID of the home country where
+     *         the Data Session took place
      */
     public final String getOperatorMcc() {
         return this.operatorMcc;
     }
 
     /**
-     * Returns The The 'mobile network code' is the unique id specific to the mobile
-     * operator network where the Data Session took place..
-     * 
-     * @return The 'mobile network code' is the unique id specific to the mobile
-     *         operator network where the Data Session took place.
+     * Returns The 'mobile network code' is the unique ID specific to the mobile
+     * operator network where the Data Session took place.
+     *
+     * @return The 'mobile network code' is the unique ID specific to the mobile
+     *         operator network where the Data Session took place
      */
     public final String getOperatorMnc() {
         return this.operatorMnc;
     }
 
     /**
-     * Returns The The three letter country code representing where the device's
-     * Data Session took place..
-     * 
+     * Returns The three letter country code representing where the device's Data
+     * Session took place.
+     *
      * @return The three letter country code representing where the device's Data
-     *         Session took place.
+     *         Session took place
      */
     public final String getOperatorCountry() {
         return this.operatorCountry;
     }
 
     /**
-     * Returns The The friendly name of the mobile operator network that the
-     * SIM-connected device is attached to..
-     * 
+     * Returns The friendly name of the mobile operator network that the
+     * SIM-connected device is attached to.
+     *
      * @return The friendly name of the mobile operator network that the
-     *         SIM-connected device is attached to.
+     *         SIM-connected device is attached to
      */
     public final String getOperatorName() {
         return this.operatorName;
     }
 
     /**
-     * Returns The The unique id of the cellular tower that the device was attached
-     * to at the moment when the Data Session was last updated..
-     * 
-     * @return The unique id of the cellular tower that the device was attached to
-     *         at the moment when the Data Session was last updated.
+     * Returns The unique ID of the cellular tower that the device was attached to
+     * at the moment when the Data Session was last updated.
+     *
+     * @return The unique ID of the cellular tower that the device was attached to
+     *         at the moment when the Data Session was last updated
      */
     public final String getCellId() {
         return this.cellId;
     }
 
     /**
-     * Returns The An object representing the estimated location where the device's
-     * Data Session took place..
-     * 
-     * @return An object representing the estimated location where the device's
-     *         Data Session took place.
+     * Returns An object with the estimated location where the device's Data Session
+     * took place.
+     *
+     * @return An object with the estimated location where the device's Data
+     *         Session took place
      */
     public final Map<String, Object> getCellLocationEstimate() {
         return this.cellLocationEstimate;
     }
 
     /**
-     * Returns The The number of packets uploaded by the device between the start
-     * time and when the Data Session was last updated..
-     * 
+     * Returns The number of packets uploaded by the device between the start time
+     * and when the Data Session was last updated.
+     *
      * @return The number of packets uploaded by the device between the start time
-     *         and when the Data Session was last updated.
+     *         and when the Data Session was last updated
      */
     public final Integer getPacketsUploaded() {
         return this.packetsUploaded;
     }
 
     /**
-     * Returns The The number of packets downloaded by the device between the start
-     * time and when the Data Session was last updated..
-     * 
+     * Returns The number of packets downloaded by the device between the start time
+     * and when the Data Session was last updated.
+     *
      * @return The number of packets downloaded by the device between the start
-     *         time and when the Data Session was last updated.
+     *         time and when the Data Session was last updated
      */
     public final Integer getPacketsDownloaded() {
         return this.packetsDownloaded;
     }
 
     /**
-     * Returns The The date that this resource was last updated, given as GMT in ISO
-     * 8601 format..
-     * 
-     * @return The date that this resource was last updated, given as GMT in ISO
-     *         8601 format.
+     * Returns The date that the resource was last updated, given as GMT in ISO 8601
+     * format.
+     *
+     * @return The date that the resource was last updated, given as GMT in ISO
+     *         8601 format
      */
     public final DateTime getLastUpdated() {
         return this.lastUpdated;
     }
 
     /**
-     * Returns The The date that this Data Session started, given as GMT in ISO 8601
-     * format..
-     * 
-     * @return The date that this Data Session started, given as GMT in ISO 8601
-     *         format.
+     * Returns The date that the Data Session started, given as GMT in ISO 8601
+     * format.
+     *
+     * @return The date that the Data Session started, given as GMT in ISO 8601
+     *         format
      */
     public final DateTime getStart() {
         return this.start;
     }
 
     /**
-     * Returns The The date that this record ended, given as GMT in ISO 8601
-     * format..
-     * 
-     * @return The date that this record ended, given as GMT in ISO 8601 format.
+     * Returns The date that the record ended, given as GMT in ISO 8601 format.
+     *
+     * @return The date that the record ended, given as GMT in ISO 8601 format
      */
     public final DateTime getEnd() {
         return this.end;
+    }
+
+    /**
+     * Returns The unique ID of the device using the SIM to connect.
+     *
+     * @return The unique ID of the device using the SIM to connect
+     */
+    public final String getImei() {
+        return this.imei;
     }
 
     @Override
@@ -320,21 +328,22 @@ public class DataSession extends Resource {
 
         DataSession other = (DataSession) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(simSid, other.simSid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(radioLink, other.radioLink) && 
-               Objects.equals(operatorMcc, other.operatorMcc) && 
-               Objects.equals(operatorMnc, other.operatorMnc) && 
-               Objects.equals(operatorCountry, other.operatorCountry) && 
-               Objects.equals(operatorName, other.operatorName) && 
-               Objects.equals(cellId, other.cellId) && 
-               Objects.equals(cellLocationEstimate, other.cellLocationEstimate) && 
-               Objects.equals(packetsUploaded, other.packetsUploaded) && 
-               Objects.equals(packetsDownloaded, other.packetsDownloaded) && 
-               Objects.equals(lastUpdated, other.lastUpdated) && 
-               Objects.equals(start, other.start) && 
-               Objects.equals(end, other.end);
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(simSid, other.simSid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(radioLink, other.radioLink) &&
+               Objects.equals(operatorMcc, other.operatorMcc) &&
+               Objects.equals(operatorMnc, other.operatorMnc) &&
+               Objects.equals(operatorCountry, other.operatorCountry) &&
+               Objects.equals(operatorName, other.operatorName) &&
+               Objects.equals(cellId, other.cellId) &&
+               Objects.equals(cellLocationEstimate, other.cellLocationEstimate) &&
+               Objects.equals(packetsUploaded, other.packetsUploaded) &&
+               Objects.equals(packetsDownloaded, other.packetsDownloaded) &&
+               Objects.equals(lastUpdated, other.lastUpdated) &&
+               Objects.equals(start, other.start) &&
+               Objects.equals(end, other.end) &&
+               Objects.equals(imei, other.imei);
     }
 
     @Override
@@ -353,7 +362,8 @@ public class DataSession extends Resource {
                             packetsDownloaded,
                             lastUpdated,
                             start,
-                            end);
+                            end,
+                            imei);
     }
 
     @Override
@@ -374,6 +384,7 @@ public class DataSession extends Resource {
                           .add("lastUpdated", lastUpdated)
                           .add("start", start)
                           .add("end", end)
+                          .add("imei", imei)
                           .toString();
     }
 }

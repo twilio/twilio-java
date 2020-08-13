@@ -23,11 +23,11 @@ public class TaskQueueFetcher extends Fetcher<TaskQueue> {
 
     /**
      * Construct a new TaskQueueFetcher.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskQueue to fetch
+     * @param pathSid The SID of the resource to
      */
-    public TaskQueueFetcher(final String pathWorkspaceSid, 
+    public TaskQueueFetcher(final String pathWorkspaceSid,
                             final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class TaskQueueFetcher extends Fetcher<TaskQueue> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched TaskQueue
      */
@@ -45,8 +45,7 @@ public class TaskQueueFetcher extends Fetcher<TaskQueue> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskQueues/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskQueues/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -58,14 +57,7 @@ public class TaskQueueFetcher extends Fetcher<TaskQueue> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return TaskQueue.fromJson(response.getStream(), client.getObjectMapper());

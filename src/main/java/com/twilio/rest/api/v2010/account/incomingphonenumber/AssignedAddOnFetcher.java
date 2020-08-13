@@ -28,11 +28,11 @@ public class AssignedAddOnFetcher extends Fetcher<AssignedAddOn> {
 
     /**
      * Construct a new AssignedAddOnFetcher.
-     * 
-     * @param pathResourceSid The resource_sid
-     * @param pathSid The unique Installed Add-on Sid
+     *
+     * @param pathResourceSid The SID of the Phone Number that installed this Add-on
+     * @param pathSid The unique string that identifies the resource
      */
-    public AssignedAddOnFetcher(final String pathResourceSid, 
+    public AssignedAddOnFetcher(final String pathResourceSid,
                                 final String pathSid) {
         this.pathResourceSid = pathResourceSid;
         this.pathSid = pathSid;
@@ -40,13 +40,14 @@ public class AssignedAddOnFetcher extends Fetcher<AssignedAddOn> {
 
     /**
      * Construct a new AssignedAddOnFetcher.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathResourceSid The resource_sid
-     * @param pathSid The unique Installed Add-on Sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathResourceSid The SID of the Phone Number that installed this Add-on
+     * @param pathSid The unique string that identifies the resource
      */
-    public AssignedAddOnFetcher(final String pathAccountSid, 
-                                final String pathResourceSid, 
+    public AssignedAddOnFetcher(final String pathAccountSid,
+                                final String pathResourceSid,
                                 final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathResourceSid = pathResourceSid;
@@ -55,7 +56,7 @@ public class AssignedAddOnFetcher extends Fetcher<AssignedAddOn> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched AssignedAddOn
      */
@@ -66,8 +67,7 @@ public class AssignedAddOnFetcher extends Fetcher<AssignedAddOn> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/" + this.pathResourceSid + "/AssignedAddOns/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/" + this.pathResourceSid + "/AssignedAddOns/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);
@@ -79,14 +79,7 @@ public class AssignedAddOnFetcher extends Fetcher<AssignedAddOn> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return AssignedAddOn.fromJson(response.getStream(), client.getObjectMapper());

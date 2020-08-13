@@ -43,31 +43,31 @@ public class Device extends Resource {
 
     /**
      * Create a DeviceFetcher to execute fetch.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @param pathSid A string that uniquely identifies the Device.
      * @return DeviceFetcher capable of executing the fetch
      */
-    public static DeviceFetcher fetcher(final String pathFleetSid, 
+    public static DeviceFetcher fetcher(final String pathFleetSid,
                                         final String pathSid) {
         return new DeviceFetcher(pathFleetSid, pathSid);
     }
 
     /**
      * Create a DeviceDeleter to execute delete.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @param pathSid A string that uniquely identifies the Device.
      * @return DeviceDeleter capable of executing the delete
      */
-    public static DeviceDeleter deleter(final String pathFleetSid, 
+    public static DeviceDeleter deleter(final String pathFleetSid,
                                         final String pathSid) {
         return new DeviceDeleter(pathFleetSid, pathSid);
     }
 
     /**
      * Create a DeviceCreator to execute create.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @return DeviceCreator capable of executing the create
      */
@@ -77,7 +77,7 @@ public class Device extends Resource {
 
     /**
      * Create a DeviceReader to execute read.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @return DeviceReader capable of executing the read
      */
@@ -87,19 +87,19 @@ public class Device extends Resource {
 
     /**
      * Create a DeviceUpdater to execute update.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @param pathSid A string that uniquely identifies the Device.
      * @return DeviceUpdater capable of executing the update
      */
-    public static DeviceUpdater updater(final String pathFleetSid, 
+    public static DeviceUpdater updater(final String pathFleetSid,
                                         final String pathSid) {
         return new DeviceUpdater(pathFleetSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a Device object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Device object represented by the provided JSON
@@ -118,7 +118,7 @@ public class Device extends Resource {
     /**
      * Converts a JSON InputStream into a Device object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Device object represented by the provided JSON
@@ -149,27 +149,27 @@ public class Device extends Resource {
 
     @JsonCreator
     private Device(@JsonProperty("sid")
-                   final String sid, 
+                   final String sid,
                    @JsonProperty("url")
-                   final URI url, 
+                   final URI url,
                    @JsonProperty("unique_name")
-                   final String uniqueName, 
+                   final String uniqueName,
                    @JsonProperty("friendly_name")
-                   final String friendlyName, 
+                   final String friendlyName,
                    @JsonProperty("fleet_sid")
-                   final String fleetSid, 
+                   final String fleetSid,
                    @JsonProperty("enabled")
-                   final Boolean enabled, 
+                   final Boolean enabled,
                    @JsonProperty("account_sid")
-                   final String accountSid, 
+                   final String accountSid,
                    @JsonProperty("identity")
-                   final String identity, 
+                   final String identity,
                    @JsonProperty("deployment_sid")
-                   final String deploymentSid, 
+                   final String deploymentSid,
                    @JsonProperty("date_created")
-                   final String dateCreated, 
+                   final String dateCreated,
                    @JsonProperty("date_updated")
-                   final String dateUpdated, 
+                   final String dateUpdated,
                    @JsonProperty("date_authenticated")
                    final String dateAuthenticated) {
         this.sid = sid;
@@ -187,8 +187,8 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Device..
-     * 
+     * Returns A string that uniquely identifies this Device..
+     *
      * @return A string that uniquely identifies this Device.
      */
     public final String getSid() {
@@ -196,8 +196,8 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The URL of this Device..
-     * 
+     * Returns URL of this Device..
+     *
      * @return URL of this Device.
      */
     public final URI getUrl() {
@@ -205,8 +205,8 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The A unique, addressable name of this Device..
-     * 
+     * Returns A unique, addressable name of this Device..
+     *
      * @return A unique, addressable name of this Device.
      */
     public final String getUniqueName() {
@@ -214,8 +214,8 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The A human readable description for this Device.
-     * 
+     * Returns A human readable description for this Device.
+     *
      * @return A human readable description for this Device
      */
     public final String getFriendlyName() {
@@ -223,8 +223,8 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The The unique identifier of the Fleet..
-     * 
+     * Returns The unique identifier of the Fleet..
+     *
      * @return The unique identifier of the Fleet.
      */
     public final String getFleetSid() {
@@ -232,8 +232,8 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The Device enabled flag..
-     * 
+     * Returns Device enabled flag..
+     *
      * @return Device enabled flag.
      */
     public final Boolean getEnabled() {
@@ -241,8 +241,8 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The The unique SID that identifies this Account..
-     * 
+     * Returns The unique SID that identifies this Account..
+     *
      * @return The unique SID that identifies this Account.
      */
     public final String getAccountSid() {
@@ -250,8 +250,8 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The An identifier of the Device user..
-     * 
+     * Returns An identifier of the Device user..
+     *
      * @return An identifier of the Device user.
      */
     public final String getIdentity() {
@@ -259,8 +259,8 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The The unique SID of the Deployment group..
-     * 
+     * Returns The unique SID of the Deployment group..
+     *
      * @return The unique SID of the Deployment group.
      */
     public final String getDeploymentSid() {
@@ -268,8 +268,8 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The The date this Device was created..
-     * 
+     * Returns The date this Device was created..
+     *
      * @return The date this Device was created.
      */
     public final DateTime getDateCreated() {
@@ -277,8 +277,8 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The The date this Device was updated..
-     * 
+     * Returns The date this Device was updated..
+     *
      * @return The date this Device was updated.
      */
     public final DateTime getDateUpdated() {
@@ -286,8 +286,8 @@ public class Device extends Resource {
     }
 
     /**
-     * Returns The The date this Device was authenticated..
-     * 
+     * Returns The date this Device was authenticated..
+     *
      * @return The date this Device was authenticated.
      */
     public final DateTime getDateAuthenticated() {
@@ -306,17 +306,17 @@ public class Device extends Resource {
 
         Device other = (Device) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(fleetSid, other.fleetSid) && 
-               Objects.equals(enabled, other.enabled) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(identity, other.identity) && 
-               Objects.equals(deploymentSid, other.deploymentSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(fleetSid, other.fleetSid) &&
+               Objects.equals(enabled, other.enabled) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(identity, other.identity) &&
+               Objects.equals(deploymentSid, other.deploymentSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(dateAuthenticated, other.dateAuthenticated);
     }
 

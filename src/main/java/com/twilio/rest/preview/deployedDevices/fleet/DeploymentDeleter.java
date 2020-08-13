@@ -28,11 +28,11 @@ public class DeploymentDeleter extends Deleter<Deployment> {
 
     /**
      * Construct a new DeploymentDeleter.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @param pathSid A string that uniquely identifies the Deployment.
      */
-    public DeploymentDeleter(final String pathFleetSid, 
+    public DeploymentDeleter(final String pathFleetSid,
                              final String pathSid) {
         this.pathFleetSid = pathFleetSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class DeploymentDeleter extends Deleter<Deployment> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -49,8 +49,7 @@ public class DeploymentDeleter extends Deleter<Deployment> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Deployments/" + this.pathSid + "",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Deployments/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +61,7 @@ public class DeploymentDeleter extends Deleter<Deployment> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

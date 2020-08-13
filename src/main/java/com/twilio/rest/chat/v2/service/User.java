@@ -64,45 +64,44 @@ public class User extends Resource {
 
     /**
      * Create a UserFetcher to execute fetch.
-     * 
-     * @param pathServiceSid Sid of the Service this user belongs to.
-     * @param pathSid Key that uniquely defines the user to fetch.
+     *
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathSid The SID of the User resource to fetch
      * @return UserFetcher capable of executing the fetch
      */
-    public static UserFetcher fetcher(final String pathServiceSid, 
+    public static UserFetcher fetcher(final String pathServiceSid,
                                       final String pathSid) {
         return new UserFetcher(pathServiceSid, pathSid);
     }
 
     /**
      * Create a UserDeleter to execute delete.
-     * 
-     * @param pathServiceSid Sid of the Service this user belongs to.
-     * @param pathSid Key that uniquely defines the user to delete.
+     *
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathSid The SID of  the User resource to delete
      * @return UserDeleter capable of executing the delete
      */
-    public static UserDeleter deleter(final String pathServiceSid, 
+    public static UserDeleter deleter(final String pathServiceSid,
                                       final String pathSid) {
         return new UserDeleter(pathServiceSid, pathSid);
     }
 
     /**
      * Create a UserCreator to execute create.
-     * 
-     * @param pathServiceSid Sid of the Service this user belongs to.
-     * @param identity A unique string that identifies the user within this service
-     *                 - often a username or email address.
+     *
+     * @param pathServiceSid The SID of the Service to create the new resource under
+     * @param identity The `identity` value that identifies the new resource's User
      * @return UserCreator capable of executing the create
      */
-    public static UserCreator creator(final String pathServiceSid, 
+    public static UserCreator creator(final String pathServiceSid,
                                       final String identity) {
         return new UserCreator(pathServiceSid, identity);
     }
 
     /**
      * Create a UserReader to execute read.
-     * 
-     * @param pathServiceSid Sid of the Service this user belongs to.
+     *
+     * @param pathServiceSid The SID of the Service to read the User resources from
      * @return UserReader capable of executing the read
      */
     public static UserReader reader(final String pathServiceSid) {
@@ -111,19 +110,19 @@ public class User extends Resource {
 
     /**
      * Create a UserUpdater to execute update.
-     * 
-     * @param pathServiceSid Sid of the Service this user belongs to.
-     * @param pathSid Key that uniquely defines the user to update.
+     *
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathSid The SID of the User resource to update
      * @return UserUpdater capable of executing the update
      */
-    public static UserUpdater updater(final String pathServiceSid, 
+    public static UserUpdater updater(final String pathServiceSid,
                                       final String pathSid) {
         return new UserUpdater(pathServiceSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a User object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return User object represented by the provided JSON
@@ -142,7 +141,7 @@ public class User extends Resource {
     /**
      * Converts a JSON InputStream into a User object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return User object represented by the provided JSON
@@ -175,31 +174,31 @@ public class User extends Resource {
 
     @JsonCreator
     private User(@JsonProperty("sid")
-                 final String sid, 
+                 final String sid,
                  @JsonProperty("account_sid")
-                 final String accountSid, 
+                 final String accountSid,
                  @JsonProperty("service_sid")
-                 final String serviceSid, 
+                 final String serviceSid,
                  @JsonProperty("attributes")
-                 final String attributes, 
+                 final String attributes,
                  @JsonProperty("friendly_name")
-                 final String friendlyName, 
+                 final String friendlyName,
                  @JsonProperty("role_sid")
-                 final String roleSid, 
+                 final String roleSid,
                  @JsonProperty("identity")
-                 final String identity, 
+                 final String identity,
                  @JsonProperty("is_online")
-                 final Boolean isOnline, 
+                 final Boolean isOnline,
                  @JsonProperty("is_notifiable")
-                 final Boolean isNotifiable, 
+                 final Boolean isNotifiable,
                  @JsonProperty("date_created")
-                 final String dateCreated, 
+                 final String dateCreated,
                  @JsonProperty("date_updated")
-                 final String dateUpdated, 
+                 final String dateUpdated,
                  @JsonProperty("joined_channels_count")
-                 final Integer joinedChannelsCount, 
+                 final Integer joinedChannelsCount,
                  @JsonProperty("links")
-                 final Map<String, String> links, 
+                 final Map<String, String> links,
                  @JsonProperty("url")
                  final URI url) {
         this.sid = sid;
@@ -219,134 +218,132 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
-     * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this user..
-     * 
-     * @return The unique id of the Account responsible for this user.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique id of the Service this user belongs to..
-     * 
-     * @return The unique id of the Service this user belongs to.
+     * Returns The SID of the Service that the resource is associated with.
+     *
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The An optional string metadata field you can use to store any data
-     * you wish..
-     * 
-     * @return An optional string metadata field you can use to store any data you
-     *         wish.
+     * Returns The JSON string that stores application-specific data.
+     *
+     * @return The JSON string that stores application-specific data
      */
     public final String getAttributes() {
         return this.attributes;
     }
 
     /**
-     * Returns The The human-readable name of this user..
-     * 
-     * @return The human-readable name of this user.
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The unique id of the [Role][role] assigned to this user..
-     * 
-     * @return The unique id of the [Role][role] assigned to this user.
+     * Returns The SID of the Role assigned to the user.
+     *
+     * @return The SID of the Role assigned to the user
      */
     public final String getRoleSid() {
         return this.roleSid;
     }
 
     /**
-     * Returns The A unique string that identifies the user within this service -
-     * often a username or email address..
-     * 
-     * @return A unique string that identifies the user within this service - often
-     *         a username or email address.
+     * Returns The string that identifies the resource's User.
+     *
+     * @return The string that identifies the resource's User
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns The Indicates whether the User is actively connected to the Service
-     * instance and online..
-     * 
-     * @return Indicates whether the User is actively connected to the Service
-     *         instance and online.
+     * Returns Whether the User is actively connected to the Service instance and
+     * online.
+     *
+     * @return Whether the User is actively connected to the Service instance and
+     *         online
      */
     public final Boolean getIsOnline() {
         return this.isOnline;
     }
 
     /**
-     * Returns The Indicates whether the User has a potentially valid Push
-     * Notification registration  for the Service instance..
-     * 
-     * @return Indicates whether the User has a potentially valid Push Notification
-     *         registration  for the Service instance.
+     * Returns Whether the User has a potentially valid Push Notification
+     * registration for the Service instance.
+     *
+     * @return Whether the User has a potentially valid Push Notification
+     *         registration for the Service instance
      */
     public final Boolean getIsNotifiable() {
         return this.isNotifiable;
     }
 
     /**
-     * Returns The The date that this resource was created in ISO 8601 format..
-     * 
-     * @return The date that this resource was created in ISO 8601 format.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated in ISO 8601 format..
-     * 
-     * @return The date that this resource was last updated in ISO 8601 format.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The number of Channels this User is a Member of..
-     * 
-     * @return The number of Channels this User is a Member of.
+     * Returns The number of Channels the User is a Member of.
+     *
+     * @return The number of Channels the User is a Member of
      */
     public final Integer getJoinedChannelsCount() {
         return this.joinedChannelsCount;
     }
 
     /**
-     * Returns The The links.
-     * 
-     * @return The links
+     * Returns The absolute URLs of the Channel and Binding resources related to the
+     * user.
+     *
+     * @return The absolute URLs of the Channel and Binding resources related to
+     *         the user
      */
     public final Map<String, String> getLinks() {
         return this.links;
     }
 
     /**
-     * Returns The An absolute URL for this user..
-     * 
-     * @return An absolute URL for this user.
+     * Returns The absolute URL of the User resource.
+     *
+     * @return The absolute URL of the User resource
      */
     public final URI getUrl() {
         return this.url;
@@ -364,19 +361,19 @@ public class User extends Resource {
 
         User other = (User) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(attributes, other.attributes) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(roleSid, other.roleSid) && 
-               Objects.equals(identity, other.identity) && 
-               Objects.equals(isOnline, other.isOnline) && 
-               Objects.equals(isNotifiable, other.isNotifiable) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(joinedChannelsCount, other.joinedChannelsCount) && 
-               Objects.equals(links, other.links) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(attributes, other.attributes) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(roleSid, other.roleSid) &&
+               Objects.equals(identity, other.identity) &&
+               Objects.equals(isOnline, other.isOnline) &&
+               Objects.equals(isNotifiable, other.isNotifiable) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(joinedChannelsCount, other.joinedChannelsCount) &&
+               Objects.equals(links, other.links) &&
                Objects.equals(url, other.url);
     }
 

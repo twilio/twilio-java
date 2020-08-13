@@ -22,8 +22,8 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * Construct a new ServiceCreator.
-     * 
-     * @param friendlyName Human-readable name for this service instance
+     *
+     * @param friendlyName A string to describe the resource
      */
     public ServiceCreator(final String friendlyName) {
         this.friendlyName = friendlyName;
@@ -31,7 +31,7 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Service
      */
@@ -41,8 +41,7 @@ public class ServiceCreator extends Creator<Service> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
-            "/v1/Services",
-            client.getRegion()
+            "/v1/Services"
         );
 
         addPostParams(request);
@@ -55,14 +54,7 @@ public class ServiceCreator extends Creator<Service> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Service.fromJson(response.getStream(), client.getObjectMapper());
@@ -70,7 +62,7 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

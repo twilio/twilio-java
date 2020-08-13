@@ -1,5 +1,7 @@
 package com.twilio.jwt.accesstoken;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * Grant used to access Twilio TaskRouter.
  *
@@ -54,6 +56,7 @@ public class TaskRouterGrant implements Grant {
     }
 
     @SuppressWarnings("checkstyle:membername")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public class Payload {
         public final String workspace_sid;
         public final String worker_sid;

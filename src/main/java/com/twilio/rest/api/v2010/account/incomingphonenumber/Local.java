@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Local extends Resource {
-    private static final long serialVersionUID = 75964804463033L;
+    private static final long serialVersionUID = 272193771301446L;
 
     public enum AddressRequirement {
         NONE("none"),
@@ -65,10 +65,61 @@ public class Local extends Resource {
         }
     }
 
+    public enum EmergencyStatus {
+        ACTIVE("Active"),
+        INACTIVE("Inactive");
+
+        private final String value;
+
+        private EmergencyStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a EmergencyStatus from a string.
+         * @param value string value
+         * @return generated EmergencyStatus
+         */
+        @JsonCreator
+        public static EmergencyStatus forValue(final String value) {
+            return Promoter.enumFromString(value, EmergencyStatus.values());
+        }
+    }
+
+    public enum VoiceReceiveMode {
+        VOICE("voice"),
+        FAX("fax");
+
+        private final String value;
+
+        private VoiceReceiveMode(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a VoiceReceiveMode from a string.
+         * @param value string value
+         * @return generated VoiceReceiveMode
+         */
+        @JsonCreator
+        public static VoiceReceiveMode forValue(final String value) {
+            return Promoter.enumFromString(value, VoiceReceiveMode.values());
+        }
+    }
+
     /**
      * Create a LocalReader to execute read.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      * @return LocalReader capable of executing the read
      */
     public static LocalReader reader(final String pathAccountSid) {
@@ -77,7 +128,7 @@ public class Local extends Resource {
 
     /**
      * Create a LocalReader to execute read.
-     * 
+     *
      * @return LocalReader capable of executing the read
      */
     public static LocalReader reader() {
@@ -86,20 +137,20 @@ public class Local extends Resource {
 
     /**
      * Create a LocalCreator to execute create.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param phoneNumber The phone number you want to purchase.
+     *
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param phoneNumber The phone number to purchase in E.164 format
      * @return LocalCreator capable of executing the create
      */
-    public static LocalCreator creator(final String pathAccountSid, 
+    public static LocalCreator creator(final String pathAccountSid,
                                        final com.twilio.type.PhoneNumber phoneNumber) {
         return new LocalCreator(pathAccountSid, phoneNumber);
     }
 
     /**
      * Create a LocalCreator to execute create.
-     * 
-     * @param phoneNumber The phone number you want to purchase.
+     *
+     * @param phoneNumber The phone number to purchase in E.164 format
      * @return LocalCreator capable of executing the create
      */
     public static LocalCreator creator(final com.twilio.type.PhoneNumber phoneNumber) {
@@ -108,7 +159,7 @@ public class Local extends Resource {
 
     /**
      * Converts a JSON String into a Local object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Local object represented by the provided JSON
@@ -127,7 +178,7 @@ public class Local extends Resource {
     /**
      * Converts a JSON InputStream into a Local object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Local object represented by the provided JSON
@@ -165,70 +216,85 @@ public class Local extends Resource {
     private final HttpMethod statusCallbackMethod;
     private final String trunkSid;
     private final String uri;
+    private final Local.VoiceReceiveMode voiceReceiveMode;
     private final String voiceApplicationSid;
     private final Boolean voiceCallerIdLookup;
     private final HttpMethod voiceFallbackMethod;
     private final URI voiceFallbackUrl;
     private final HttpMethod voiceMethod;
     private final URI voiceUrl;
+    private final Local.EmergencyStatus emergencyStatus;
+    private final String emergencyAddressSid;
+    private final String bundleSid;
+    private final String status;
 
     @JsonCreator
     private Local(@JsonProperty("account_sid")
-                  final String accountSid, 
+                  final String accountSid,
                   @JsonProperty("address_sid")
-                  final String addressSid, 
+                  final String addressSid,
                   @JsonProperty("address_requirements")
-                  final Local.AddressRequirement addressRequirements, 
+                  final Local.AddressRequirement addressRequirements,
                   @JsonProperty("api_version")
-                  final String apiVersion, 
+                  final String apiVersion,
                   @JsonProperty("beta")
-                  final Boolean beta, 
+                  final Boolean beta,
                   @JsonProperty("capabilities")
-                  final PhoneNumberCapabilities capabilities, 
+                  final PhoneNumberCapabilities capabilities,
                   @JsonProperty("date_created")
-                  final String dateCreated, 
+                  final String dateCreated,
                   @JsonProperty("date_updated")
-                  final String dateUpdated, 
+                  final String dateUpdated,
                   @JsonProperty("friendly_name")
-                  final String friendlyName, 
+                  final String friendlyName,
                   @JsonProperty("identity_sid")
-                  final String identitySid, 
+                  final String identitySid,
                   @JsonProperty("phone_number")
-                  final com.twilio.type.PhoneNumber phoneNumber, 
+                  final com.twilio.type.PhoneNumber phoneNumber,
                   @JsonProperty("origin")
-                  final String origin, 
+                  final String origin,
                   @JsonProperty("sid")
-                  final String sid, 
+                  final String sid,
                   @JsonProperty("sms_application_sid")
-                  final String smsApplicationSid, 
+                  final String smsApplicationSid,
                   @JsonProperty("sms_fallback_method")
-                  final HttpMethod smsFallbackMethod, 
+                  final HttpMethod smsFallbackMethod,
                   @JsonProperty("sms_fallback_url")
-                  final URI smsFallbackUrl, 
+                  final URI smsFallbackUrl,
                   @JsonProperty("sms_method")
-                  final HttpMethod smsMethod, 
+                  final HttpMethod smsMethod,
                   @JsonProperty("sms_url")
-                  final URI smsUrl, 
+                  final URI smsUrl,
                   @JsonProperty("status_callback")
-                  final URI statusCallback, 
+                  final URI statusCallback,
                   @JsonProperty("status_callback_method")
-                  final HttpMethod statusCallbackMethod, 
+                  final HttpMethod statusCallbackMethod,
                   @JsonProperty("trunk_sid")
-                  final String trunkSid, 
+                  final String trunkSid,
                   @JsonProperty("uri")
-                  final String uri, 
+                  final String uri,
+                  @JsonProperty("voice_receive_mode")
+                  final Local.VoiceReceiveMode voiceReceiveMode,
                   @JsonProperty("voice_application_sid")
-                  final String voiceApplicationSid, 
+                  final String voiceApplicationSid,
                   @JsonProperty("voice_caller_id_lookup")
-                  final Boolean voiceCallerIdLookup, 
+                  final Boolean voiceCallerIdLookup,
                   @JsonProperty("voice_fallback_method")
-                  final HttpMethod voiceFallbackMethod, 
+                  final HttpMethod voiceFallbackMethod,
                   @JsonProperty("voice_fallback_url")
-                  final URI voiceFallbackUrl, 
+                  final URI voiceFallbackUrl,
                   @JsonProperty("voice_method")
-                  final HttpMethod voiceMethod, 
+                  final HttpMethod voiceMethod,
                   @JsonProperty("voice_url")
-                  final URI voiceUrl) {
+                  final URI voiceUrl,
+                  @JsonProperty("emergency_status")
+                  final Local.EmergencyStatus emergencyStatus,
+                  @JsonProperty("emergency_address_sid")
+                  final String emergencyAddressSid,
+                  @JsonProperty("bundle_sid")
+                  final String bundleSid,
+                  @JsonProperty("status")
+                  final String status) {
         this.accountSid = accountSid;
         this.addressSid = addressSid;
         this.addressRequirements = addressRequirements;
@@ -251,297 +317,318 @@ public class Local extends Resource {
         this.statusCallbackMethod = statusCallbackMethod;
         this.trunkSid = trunkSid;
         this.uri = uri;
+        this.voiceReceiveMode = voiceReceiveMode;
         this.voiceApplicationSid = voiceApplicationSid;
         this.voiceCallerIdLookup = voiceCallerIdLookup;
         this.voiceFallbackMethod = voiceFallbackMethod;
         this.voiceFallbackUrl = voiceFallbackUrl;
         this.voiceMethod = voiceMethod;
         this.voiceUrl = voiceUrl;
+        this.emergencyStatus = emergencyStatus;
+        this.emergencyAddressSid = emergencyAddressSid;
+        this.bundleSid = bundleSid;
+        this.status = status;
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this phone number..
-     * 
-     * @return The unique id of the Account responsible for this phone number.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The 34 character sid of the address associated with this number..
-     * 
-     * @return The 34 character sid of the address associated with this number.
+     * Returns The SID of the Address resource associated with the phone number.
+     *
+     * @return The SID of the Address resource associated with the phone number
      */
     public final String getAddressSid() {
         return this.addressSid;
     }
 
     /**
-     * Returns The This indicates whether the phone number requires you or your
-     * customer to have an Address registered with Twilio..
-     * 
-     * @return This indicates whether the phone number requires you or your
-     *         customer to have an Address registered with Twilio.
+     * Returns Whether the phone number requires an Address registered with Twilio..
+     *
+     * @return Whether the phone number requires an Address registered with Twilio.
      */
     public final Local.AddressRequirement getAddressRequirements() {
         return this.addressRequirements;
     }
 
     /**
-     * Returns The Calls to this phone number will start a new TwiML session with
-     * this API version..
-     * 
-     * @return Calls to this phone number will start a new TwiML session with this
-     *         API version.
+     * Returns The API version used to start a new TwiML session.
+     *
+     * @return The API version used to start a new TwiML session
      */
     public final String getApiVersion() {
         return this.apiVersion;
     }
 
     /**
-     * Returns The Phone numbers new to the Twilio platform are marked as beta..
-     * 
-     * @return Phone numbers new to the Twilio platform are marked as beta.
+     * Returns Whether the phone number is new to the Twilio platform.
+     *
+     * @return Whether the phone number is new to the Twilio platform
      */
     public final Boolean getBeta() {
         return this.beta;
     }
 
     /**
-     * Returns The This is a set of boolean properties that indicate whether a phone
-     * number can receive calls or messages..
-     * 
-     * @return This is a set of boolean properties that indicate whether a phone
-     *         number can receive calls or messages.
+     * Returns Indicate if a phone can receive calls or messages.
+     *
+     * @return Indicate if a phone can receive calls or messages
      */
     public final PhoneNumberCapabilities getCapabilities() {
         return this.capabilities;
     }
 
     /**
-     * Returns The The date that this resource was created, given as GMT RFC 2822
-     * format..
-     * 
-     * @return The date that this resource was created, given as GMT RFC 2822
-     *         format.
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
+     *
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated, given as GMT RFC
-     * 2822 format..
-     * 
-     * @return The date that this resource was last updated, given as GMT RFC 2822
-     *         format.
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
+     *
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The A human readable descriptive text for this resource, up to 64
-     * characters long..
-     * 
-     * @return A human readable descriptive text for this resource, up to 64
-     *         characters long.
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The identity_sid.
-     * 
-     * @return The identity_sid
+     * Returns The SID of the Identity resource associated with number.
+     *
+     * @return The SID of the Identity resource associated with number
      */
     public final String getIdentitySid() {
         return this.identitySid;
     }
 
     /**
-     * Returns The The incoming phone number..
-     * 
-     * @return The incoming phone number.
+     * Returns The phone number in E.164 format.
+     *
+     * @return The phone number in E.164 format
      */
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 
     /**
-     * Returns The Twilio owned phone numbers are marked as twilio while hosted
-     * phone numbers are marked as hosted..
-     * 
-     * @return Twilio owned phone numbers are marked as twilio while hosted phone
-     *         numbers are marked as hosted.
+     * Returns The phone number's origin. Can be twilio or hosted..
+     *
+     * @return The phone number's origin. Can be twilio or hosted.
      */
     public final String getOrigin() {
         return this.origin;
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
-     * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The 34 character sid of the application Twilio should use to
-     * handle SMSs sent to this number..
-     * 
-     * @return The 34 character sid of the application Twilio should use to handle
-     *         SMSs sent to this number.
+     * Returns The SID of the Application resource to handle SMS messages.
+     *
+     * @return The SID of the Application resource to handle SMS messages
      */
     public final String getSmsApplicationSid() {
         return this.smsApplicationSid;
     }
 
     /**
-     * Returns The The HTTP method Twilio will use when requesting the above URL..
-     * 
-     * @return The HTTP method Twilio will use when requesting the above URL.
+     * Returns The HTTP method used with sms_fallback_url.
+     *
+     * @return The HTTP method used with sms_fallback_url
      */
     public final HttpMethod getSmsFallbackMethod() {
         return this.smsFallbackMethod;
     }
 
     /**
-     * Returns The The URL that Twilio will request if an error occurs retrieving or
-     * executing the TwiML from SmsUrl..
-     * 
-     * @return The URL that Twilio will request if an error occurs retrieving or
-     *         executing the TwiML from SmsUrl.
+     * Returns The URL that we call when an error occurs while retrieving or
+     * executing the TwiML.
+     *
+     * @return The URL that we call when an error occurs while retrieving or
+     *         executing the TwiML
      */
     public final URI getSmsFallbackUrl() {
         return this.smsFallbackUrl;
     }
 
     /**
-     * Returns The The HTTP method Twilio will use when making requests to the
-     * SmsUrl..
-     * 
-     * @return The HTTP method Twilio will use when making requests to the SmsUrl.
+     * Returns The HTTP method to use with sms_url.
+     *
+     * @return The HTTP method to use with sms_url
      */
     public final HttpMethod getSmsMethod() {
         return this.smsMethod;
     }
 
     /**
-     * Returns The The URL Twilio will request when receiving an incoming SMS
-     * message to this number..
-     * 
-     * @return The URL Twilio will request when receiving an incoming SMS message
-     *         to this number.
+     * Returns The URL we call when the phone number receives an incoming SMS
+     * message.
+     *
+     * @return The URL we call when the phone number receives an incoming SMS
+     *         message
      */
     public final URI getSmsUrl() {
         return this.smsUrl;
     }
 
     /**
-     * Returns The The URL that Twilio will request to pass status parameters to
-     * your application..
-     * 
-     * @return The URL that Twilio will request to pass status parameters to your
-     *         application.
+     * Returns The URL to send status information to your application.
+     *
+     * @return The URL to send status information to your application
      */
     public final URI getStatusCallback() {
         return this.statusCallback;
     }
 
     /**
-     * Returns The The HTTP method Twilio will use to make requests to the
-     * StatusCallback URL..
-     * 
-     * @return The HTTP method Twilio will use to make requests to the
-     *         StatusCallback URL.
+     * Returns The HTTP method we use to call status_callback.
+     *
+     * @return The HTTP method we use to call status_callback
      */
     public final HttpMethod getStatusCallbackMethod() {
         return this.statusCallbackMethod;
     }
 
     /**
-     * Returns The The 34 character sid of the Trunk Twilio should use to handle
-     * phone calls to this number..
-     * 
-     * @return The 34 character sid of the Trunk Twilio should use to handle phone
-     *         calls to this number.
+     * Returns The SID of the Trunk that handles calls to the phone number.
+     *
+     * @return The SID of the Trunk that handles calls to the phone number
      */
     public final String getTrunkSid() {
         return this.trunkSid;
     }
 
     /**
-     * Returns The The URI for this resource, relative to https://api..
-     * 
-     * @return The URI for this resource, relative to https://api.
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
+     *
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;
     }
 
     /**
-     * Returns The The 34 character sid of the application Twilio should use to
-     * handle phone calls to this number..
-     * 
-     * @return The 34 character sid of the application Twilio should use to handle
-     *         phone calls to this number.
+     * Returns The voice_receive_mode.
+     *
+     * @return The voice_receive_mode
+     */
+    public final Local.VoiceReceiveMode getVoiceReceiveMode() {
+        return this.voiceReceiveMode;
+    }
+
+    /**
+     * Returns The SID of the application that handles calls to the phone number.
+     *
+     * @return The SID of the application that handles calls to the phone number
      */
     public final String getVoiceApplicationSid() {
         return this.voiceApplicationSid;
     }
 
     /**
-     * Returns The Look up the caller's caller-ID name from the CNAM database..
-     * 
-     * @return Look up the caller's caller-ID name from the CNAM database.
+     * Returns Whether to lookup the caller's name.
+     *
+     * @return Whether to lookup the caller's name
      */
     public final Boolean getVoiceCallerIdLookup() {
         return this.voiceCallerIdLookup;
     }
 
     /**
-     * Returns The The HTTP method Twilio will use when requesting the
-     * VoiceFallbackUrl..
-     * 
-     * @return The HTTP method Twilio will use when requesting the VoiceFallbackUrl.
+     * Returns The HTTP method used with voice_fallback_url.
+     *
+     * @return The HTTP method used with voice_fallback_url
      */
     public final HttpMethod getVoiceFallbackMethod() {
         return this.voiceFallbackMethod;
     }
 
     /**
-     * Returns The The URL that Twilio will request if an error occurs retrieving or
-     * executing the TwiML requested by Url..
-     * 
-     * @return The URL that Twilio will request if an error occurs retrieving or
-     *         executing the TwiML requested by Url.
+     * Returns The URL we call when an error occurs in TwiML.
+     *
+     * @return The URL we call when an error occurs in TwiML
      */
     public final URI getVoiceFallbackUrl() {
         return this.voiceFallbackUrl;
     }
 
     /**
-     * Returns The The HTTP method Twilio will use when requesting the above Url..
-     * 
-     * @return The HTTP method Twilio will use when requesting the above Url.
+     * Returns The HTTP method used with the voice_url.
+     *
+     * @return The HTTP method used with the voice_url
      */
     public final HttpMethod getVoiceMethod() {
         return this.voiceMethod;
     }
 
     /**
-     * Returns The The URL Twilio will request when this phone number receives a
-     * call..
-     * 
-     * @return The URL Twilio will request when this phone number receives a call.
+     * Returns The URL we call when this phone number receives a call.
+     *
+     * @return The URL we call when this phone number receives a call
      */
     public final URI getVoiceUrl() {
         return this.voiceUrl;
+    }
+
+    /**
+     * Returns Whether the phone number is enabled for emergency calling.
+     *
+     * @return Whether the phone number is enabled for emergency calling
+     */
+    public final Local.EmergencyStatus getEmergencyStatus() {
+        return this.emergencyStatus;
+    }
+
+    /**
+     * Returns The emergency address configuration to use for emergency calling.
+     *
+     * @return The emergency address configuration to use for emergency calling
+     */
+    public final String getEmergencyAddressSid() {
+        return this.emergencyAddressSid;
+    }
+
+    /**
+     * Returns The SID of the Bundle resource associated with number.
+     *
+     * @return The SID of the Bundle resource associated with number
+     */
+    public final String getBundleSid() {
+        return this.bundleSid;
+    }
+
+    /**
+     * Returns The status.
+     *
+     * @return The status
+     */
+    public final String getStatus() {
+        return this.status;
     }
 
     @Override
@@ -556,34 +643,39 @@ public class Local extends Resource {
 
         Local other = (Local) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(addressSid, other.addressSid) && 
-               Objects.equals(addressRequirements, other.addressRequirements) && 
-               Objects.equals(apiVersion, other.apiVersion) && 
-               Objects.equals(beta, other.beta) && 
-               Objects.equals(capabilities, other.capabilities) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(identitySid, other.identitySid) && 
-               Objects.equals(phoneNumber, other.phoneNumber) && 
-               Objects.equals(origin, other.origin) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(smsApplicationSid, other.smsApplicationSid) && 
-               Objects.equals(smsFallbackMethod, other.smsFallbackMethod) && 
-               Objects.equals(smsFallbackUrl, other.smsFallbackUrl) && 
-               Objects.equals(smsMethod, other.smsMethod) && 
-               Objects.equals(smsUrl, other.smsUrl) && 
-               Objects.equals(statusCallback, other.statusCallback) && 
-               Objects.equals(statusCallbackMethod, other.statusCallbackMethod) && 
-               Objects.equals(trunkSid, other.trunkSid) && 
-               Objects.equals(uri, other.uri) && 
-               Objects.equals(voiceApplicationSid, other.voiceApplicationSid) && 
-               Objects.equals(voiceCallerIdLookup, other.voiceCallerIdLookup) && 
-               Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) && 
-               Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) && 
-               Objects.equals(voiceMethod, other.voiceMethod) && 
-               Objects.equals(voiceUrl, other.voiceUrl);
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(addressSid, other.addressSid) &&
+               Objects.equals(addressRequirements, other.addressRequirements) &&
+               Objects.equals(apiVersion, other.apiVersion) &&
+               Objects.equals(beta, other.beta) &&
+               Objects.equals(capabilities, other.capabilities) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(identitySid, other.identitySid) &&
+               Objects.equals(phoneNumber, other.phoneNumber) &&
+               Objects.equals(origin, other.origin) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(smsApplicationSid, other.smsApplicationSid) &&
+               Objects.equals(smsFallbackMethod, other.smsFallbackMethod) &&
+               Objects.equals(smsFallbackUrl, other.smsFallbackUrl) &&
+               Objects.equals(smsMethod, other.smsMethod) &&
+               Objects.equals(smsUrl, other.smsUrl) &&
+               Objects.equals(statusCallback, other.statusCallback) &&
+               Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
+               Objects.equals(trunkSid, other.trunkSid) &&
+               Objects.equals(uri, other.uri) &&
+               Objects.equals(voiceReceiveMode, other.voiceReceiveMode) &&
+               Objects.equals(voiceApplicationSid, other.voiceApplicationSid) &&
+               Objects.equals(voiceCallerIdLookup, other.voiceCallerIdLookup) &&
+               Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) &&
+               Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) &&
+               Objects.equals(voiceMethod, other.voiceMethod) &&
+               Objects.equals(voiceUrl, other.voiceUrl) &&
+               Objects.equals(emergencyStatus, other.emergencyStatus) &&
+               Objects.equals(emergencyAddressSid, other.emergencyAddressSid) &&
+               Objects.equals(bundleSid, other.bundleSid) &&
+               Objects.equals(status, other.status);
     }
 
     @Override
@@ -610,12 +702,17 @@ public class Local extends Resource {
                             statusCallbackMethod,
                             trunkSid,
                             uri,
+                            voiceReceiveMode,
                             voiceApplicationSid,
                             voiceCallerIdLookup,
                             voiceFallbackMethod,
                             voiceFallbackUrl,
                             voiceMethod,
-                            voiceUrl);
+                            voiceUrl,
+                            emergencyStatus,
+                            emergencyAddressSid,
+                            bundleSid,
+                            status);
     }
 
     @Override
@@ -643,12 +740,17 @@ public class Local extends Resource {
                           .add("statusCallbackMethod", statusCallbackMethod)
                           .add("trunkSid", trunkSid)
                           .add("uri", uri)
+                          .add("voiceReceiveMode", voiceReceiveMode)
                           .add("voiceApplicationSid", voiceApplicationSid)
                           .add("voiceCallerIdLookup", voiceCallerIdLookup)
                           .add("voiceFallbackMethod", voiceFallbackMethod)
                           .add("voiceFallbackUrl", voiceFallbackUrl)
                           .add("voiceMethod", voiceMethod)
                           .add("voiceUrl", voiceUrl)
+                          .add("emergencyStatus", emergencyStatus)
+                          .add("emergencyAddressSid", emergencyAddressSid)
+                          .add("bundleSid", bundleSid)
+                          .add("status", status)
                           .toString();
     }
 }

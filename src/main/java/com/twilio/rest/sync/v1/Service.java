@@ -38,12 +38,12 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 123093367857654L;
+    private static final long serialVersionUID = 2344628544363L;
 
     /**
      * Create a ServiceFetcher to execute fetch.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The SID of the Service resource to fetch
      * @return ServiceFetcher capable of executing the fetch
      */
     public static ServiceFetcher fetcher(final String pathSid) {
@@ -52,8 +52,8 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceDeleter to execute delete.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The SID of the Service resource to delete
      * @return ServiceDeleter capable of executing the delete
      */
     public static ServiceDeleter deleter(final String pathSid) {
@@ -62,7 +62,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceCreator to execute create.
-     * 
+     *
      * @return ServiceCreator capable of executing the create
      */
     public static ServiceCreator creator() {
@@ -71,7 +71,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceReader to execute read.
-     * 
+     *
      * @return ServiceReader capable of executing the read
      */
     public static ServiceReader reader() {
@@ -80,8 +80,8 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceUpdater to execute update.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The SID of the Service resource to update
      * @return ServiceUpdater capable of executing the update
      */
     public static ServiceUpdater updater(final String pathSid) {
@@ -90,7 +90,7 @@ public class Service extends Resource {
 
     /**
      * Converts a JSON String into a Service object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
@@ -109,7 +109,7 @@ public class Service extends Resource {
     /**
      * Converts a JSON InputStream into a Service object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
@@ -133,31 +133,40 @@ public class Service extends Resource {
     private final DateTime dateUpdated;
     private final URI url;
     private final URI webhookUrl;
+    private final Boolean webhooksFromRestEnabled;
     private final Boolean reachabilityWebhooksEnabled;
     private final Boolean aclEnabled;
+    private final Boolean reachabilityDebouncingEnabled;
+    private final Integer reachabilityDebouncingWindow;
     private final Map<String, String> links;
 
     @JsonCreator
     private Service(@JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("unique_name")
-                    final String uniqueName, 
+                    final String uniqueName,
                     @JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("friendly_name")
-                    final String friendlyName, 
+                    final String friendlyName,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("url")
-                    final URI url, 
+                    final URI url,
                     @JsonProperty("webhook_url")
-                    final URI webhookUrl, 
+                    final URI webhookUrl,
+                    @JsonProperty("webhooks_from_rest_enabled")
+                    final Boolean webhooksFromRestEnabled,
                     @JsonProperty("reachability_webhooks_enabled")
-                    final Boolean reachabilityWebhooksEnabled, 
+                    final Boolean reachabilityWebhooksEnabled,
                     @JsonProperty("acl_enabled")
-                    final Boolean aclEnabled, 
+                    final Boolean aclEnabled,
+                    @JsonProperty("reachability_debouncing_enabled")
+                    final Boolean reachabilityDebouncingEnabled,
+                    @JsonProperty("reachability_debouncing_window")
+                    final Integer reachabilityDebouncingWindow,
                     @JsonProperty("links")
                     final Map<String, String> links) {
         this.sid = sid;
@@ -168,110 +177,143 @@ public class Service extends Resource {
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
         this.webhookUrl = webhookUrl;
+        this.webhooksFromRestEnabled = webhooksFromRestEnabled;
         this.reachabilityWebhooksEnabled = reachabilityWebhooksEnabled;
         this.aclEnabled = aclEnabled;
+        this.reachabilityDebouncingEnabled = reachabilityDebouncingEnabled;
+        this.reachabilityDebouncingWindow = reachabilityDebouncingWindow;
         this.links = links;
     }
 
     /**
-     * Returns The The sid.
-     * 
-     * @return The sid
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique_name.
-     * 
-     * @return The unique_name
+     * Returns An application-defined string that uniquely identifies the resource.
+     *
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The account_sid.
-     * 
-     * @return The account_sid
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Human-readable name for this service instance.
-     * 
-     * @return Human-readable name for this service instance
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date_created.
-     * 
-     * @return The date_created
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
-     * 
-     * @return The date_updated
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
-     * 
-     * @return The url
+     * Returns The absolute URL of the Service resource.
+     *
+     * @return The absolute URL of the Service resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The A URL that will receive event updates when objects are
-     * manipulated..
-     * 
-     * @return A URL that will receive event updates when objects are manipulated.
+     * Returns The URL we call when Sync objects are manipulated.
+     *
+     * @return The URL we call when Sync objects are manipulated
      */
     public final URI getWebhookUrl() {
         return this.webhookUrl;
     }
 
     /**
-     * Returns The true or false - controls whether this instance fires webhooks
-     * when client endpoints connect to Sync.
-     * 
-     * @return true or false - controls whether this instance fires webhooks when
-     *         client endpoints connect to Sync
+     * Returns Whether the Service instance should call webhook_url when the REST
+     * API is used to update Sync objects.
+     *
+     * @return Whether the Service instance should call webhook_url when the REST
+     *         API is used to update Sync objects
+     */
+    public final Boolean getWebhooksFromRestEnabled() {
+        return this.webhooksFromRestEnabled;
+    }
+
+    /**
+     * Returns Whether the service instance calls webhook_url when client endpoints
+     * connect to Sync.
+     *
+     * @return Whether the service instance calls webhook_url when client endpoints
+     *         connect to Sync
      */
     public final Boolean getReachabilityWebhooksEnabled() {
         return this.reachabilityWebhooksEnabled;
     }
 
     /**
-     * Returns The true or false - determines whether token identities must be
-     * granted access to Sync objects via the Permissions API in this Service..
-     * 
-     * @return true or false - determines whether token identities must be granted
-     *         access to Sync objects via the Permissions API in this Service.
+     * Returns Whether token identities in the Service must be granted access to
+     * Sync objects by using the Permissions resource.
+     *
+     * @return Whether token identities in the Service must be granted access to
+     *         Sync objects by using the Permissions resource
      */
     public final Boolean getAclEnabled() {
         return this.aclEnabled;
     }
 
     /**
-     * Returns The The links.
-     * 
-     * @return The links
+     * Returns Whether every endpoint_disconnected event occurs after a configurable
+     * delay.
+     *
+     * @return Whether every endpoint_disconnected event occurs after a
+     *         configurable delay
+     */
+    public final Boolean getReachabilityDebouncingEnabled() {
+        return this.reachabilityDebouncingEnabled;
+    }
+
+    /**
+     * Returns The reachability event delay in milliseconds.
+     *
+     * @return The reachability event delay in milliseconds
+     */
+    public final Integer getReachabilityDebouncingWindow() {
+        return this.reachabilityDebouncingWindow;
+    }
+
+    /**
+     * Returns The URLs of related resources.
+     *
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -289,16 +331,19 @@ public class Service extends Resource {
 
         Service other = (Service) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(webhookUrl, other.webhookUrl) && 
-               Objects.equals(reachabilityWebhooksEnabled, other.reachabilityWebhooksEnabled) && 
-               Objects.equals(aclEnabled, other.aclEnabled) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(webhookUrl, other.webhookUrl) &&
+               Objects.equals(webhooksFromRestEnabled, other.webhooksFromRestEnabled) &&
+               Objects.equals(reachabilityWebhooksEnabled, other.reachabilityWebhooksEnabled) &&
+               Objects.equals(aclEnabled, other.aclEnabled) &&
+               Objects.equals(reachabilityDebouncingEnabled, other.reachabilityDebouncingEnabled) &&
+               Objects.equals(reachabilityDebouncingWindow, other.reachabilityDebouncingWindow) &&
                Objects.equals(links, other.links);
     }
 
@@ -312,8 +357,11 @@ public class Service extends Resource {
                             dateUpdated,
                             url,
                             webhookUrl,
+                            webhooksFromRestEnabled,
                             reachabilityWebhooksEnabled,
                             aclEnabled,
+                            reachabilityDebouncingEnabled,
+                            reachabilityDebouncingWindow,
                             links);
     }
 
@@ -328,8 +376,11 @@ public class Service extends Resource {
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)
                           .add("webhookUrl", webhookUrl)
+                          .add("webhooksFromRestEnabled", webhooksFromRestEnabled)
                           .add("reachabilityWebhooksEnabled", reachabilityWebhooksEnabled)
                           .add("aclEnabled", aclEnabled)
+                          .add("reachabilityDebouncingEnabled", reachabilityDebouncingEnabled)
+                          .add("reachabilityDebouncingWindow", reachabilityDebouncingWindow)
                           .add("links", links)
                           .toString();
     }

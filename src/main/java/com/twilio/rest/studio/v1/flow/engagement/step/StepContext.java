@@ -31,24 +31,20 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class StepContext extends Resource {
     private static final long serialVersionUID = 27085286936981L;
 
     /**
      * Create a StepContextFetcher to execute fetch.
-     * 
-     * @param pathFlowSid Flow Sid.
-     * @param pathEngagementSid Engagement Sid.
-     * @param pathStepSid Step Sid.
+     *
+     * @param pathFlowSid The SID of the Flow
+     * @param pathEngagementSid The SID of the Engagement
+     * @param pathStepSid Step SID
      * @return StepContextFetcher capable of executing the fetch
      */
-    public static StepContextFetcher fetcher(final String pathFlowSid, 
-                                             final String pathEngagementSid, 
+    public static StepContextFetcher fetcher(final String pathFlowSid,
+                                             final String pathEngagementSid,
                                              final String pathStepSid) {
         return new StepContextFetcher(pathFlowSid, pathEngagementSid, pathStepSid);
     }
@@ -56,7 +52,7 @@ public class StepContext extends Resource {
     /**
      * Converts a JSON String into a StepContext object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return StepContext object represented by the provided JSON
@@ -75,7 +71,7 @@ public class StepContext extends Resource {
     /**
      * Converts a JSON InputStream into a StepContext object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return StepContext object represented by the provided JSON
@@ -100,15 +96,15 @@ public class StepContext extends Resource {
 
     @JsonCreator
     private StepContext(@JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("context")
-                        final Map<String, Object> context, 
+                        final Map<String, Object> context,
                         @JsonProperty("engagement_sid")
-                        final String engagementSid, 
+                        final String engagementSid,
                         @JsonProperty("flow_sid")
-                        final String flowSid, 
+                        final String flowSid,
                         @JsonProperty("step_sid")
-                        final String stepSid, 
+                        final String stepSid,
                         @JsonProperty("url")
                         final URI url) {
         this.accountSid = accountSid;
@@ -120,54 +116,54 @@ public class StepContext extends Resource {
     }
 
     /**
-     * Returns The Account Sid..
-     * 
-     * @return Account Sid.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Flow state..
-     * 
-     * @return Flow state.
+     * Returns The current state of the flow.
+     *
+     * @return The current state of the flow
      */
     public final Map<String, Object> getContext() {
         return this.context;
     }
 
     /**
-     * Returns The Engagement Sid..
-     * 
-     * @return Engagement Sid.
+     * Returns The SID of the Engagement.
+     *
+     * @return The SID of the Engagement
      */
     public final String getEngagementSid() {
         return this.engagementSid;
     }
 
     /**
-     * Returns The Flow Sid..
-     * 
-     * @return Flow Sid.
+     * Returns The SID of the Flow.
+     *
+     * @return The SID of the Flow
      */
     public final String getFlowSid() {
         return this.flowSid;
     }
 
     /**
-     * Returns The Step Sid..
-     * 
-     * @return Step Sid.
+     * Returns Step SID.
+     *
+     * @return Step SID
      */
     public final String getStepSid() {
         return this.stepSid;
     }
 
     /**
-     * Returns The The URL of this resource..
-     * 
-     * @return The URL of this resource.
+     * Returns The absolute URL of the resource.
+     *
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
@@ -185,11 +181,11 @@ public class StepContext extends Resource {
 
         StepContext other = (StepContext) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(context, other.context) && 
-               Objects.equals(engagementSid, other.engagementSid) && 
-               Objects.equals(flowSid, other.flowSid) && 
-               Objects.equals(stepSid, other.stepSid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(context, other.context) &&
+               Objects.equals(engagementSid, other.engagementSid) &&
+               Objects.equals(flowSid, other.flowSid) &&
+               Objects.equals(stepSid, other.stepSid) &&
                Objects.equals(url, other.url);
     }
 

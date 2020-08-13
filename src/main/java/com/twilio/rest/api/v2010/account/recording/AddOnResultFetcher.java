@@ -24,11 +24,12 @@ public class AddOnResultFetcher extends Fetcher<AddOnResult> {
 
     /**
      * Construct a new AddOnResultFetcher.
-     * 
-     * @param pathReferenceSid The reference_sid
-     * @param pathSid Fetch by unique result Sid
+     *
+     * @param pathReferenceSid The SID of the recording to which the result to
+     *                         fetch belongs
+     * @param pathSid The unique string that identifies the resource to fetch
      */
-    public AddOnResultFetcher(final String pathReferenceSid, 
+    public AddOnResultFetcher(final String pathReferenceSid,
                               final String pathSid) {
         this.pathReferenceSid = pathReferenceSid;
         this.pathSid = pathSid;
@@ -36,13 +37,15 @@ public class AddOnResultFetcher extends Fetcher<AddOnResult> {
 
     /**
      * Construct a new AddOnResultFetcher.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathReferenceSid The reference_sid
-     * @param pathSid Fetch by unique result Sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathReferenceSid The SID of the recording to which the result to
+     *                         fetch belongs
+     * @param pathSid The unique string that identifies the resource to fetch
      */
-    public AddOnResultFetcher(final String pathAccountSid, 
-                              final String pathReferenceSid, 
+    public AddOnResultFetcher(final String pathAccountSid,
+                              final String pathReferenceSid,
                               final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathReferenceSid = pathReferenceSid;
@@ -51,7 +54,7 @@ public class AddOnResultFetcher extends Fetcher<AddOnResult> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched AddOnResult
      */
@@ -62,8 +65,7 @@ public class AddOnResultFetcher extends Fetcher<AddOnResult> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings/" + this.pathReferenceSid + "/AddOnResults/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings/" + this.pathReferenceSid + "/AddOnResults/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);
@@ -75,14 +77,7 @@ public class AddOnResultFetcher extends Fetcher<AddOnResult> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return AddOnResult.fromJson(response.getStream(), client.getObjectMapper());

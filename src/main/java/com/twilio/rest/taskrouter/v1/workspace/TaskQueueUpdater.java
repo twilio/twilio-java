@@ -29,21 +29,21 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
 
     /**
      * Construct a new TaskQueueUpdater.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskQueue to update
+     * @param pathSid The SID of the resource to update
      */
-    public TaskQueueUpdater(final String pathWorkspaceSid, 
+    public TaskQueueUpdater(final String pathWorkspaceSid,
                             final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * Human readable description of this TaskQueue (for example "Support – Tier 1",
-     * "Sales" or "Escalation").
-     * 
-     * @param friendlyName Human readable description of this TaskQueue
+     * A descriptive string that you create to describe the TaskQueue. For example
+     * `Support-Tier 1`, `Sales`, or `Escalation`..
+     *
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public TaskQueueUpdater setFriendlyName(final String friendlyName) {
@@ -53,13 +53,13 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
 
     /**
      * A string describing the Worker selection criteria for any Tasks that enter
-     * this TaskQueue. For example '"language" == "spanish"' If no TargetWorkers
-     * parameter is provided, Tasks will wait in this queue until they are either
+     * the TaskQueue. For example '"language" == "spanish"' If no TargetWorkers
+     * parameter is provided, Tasks will wait in the queue until they are either
      * deleted or moved to another queue. Additional examples on how to describing
      * Worker selection criteria below..
-     * 
+     *
      * @param targetWorkers A string describing the Worker selection criteria for
-     *                      any Tasks that enter this TaskQueue.
+     *                      any Tasks that enter the TaskQueue
      * @return this
      */
     public TaskQueueUpdater setTargetWorkers(final String targetWorkers) {
@@ -68,12 +68,10 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     }
 
     /**
-     * ActivitySID that will be assigned to Workers when they are reserved for a
-     * task from this TaskQueue..
-     * 
-     * @param reservationActivitySid ActivitySID that will be assigned to Workers
-     *                               when they are reserved for a task from this
-     *                               TaskQueue.
+     * The SID of the Activity to assign Workers when a task is reserved for them..
+     *
+     * @param reservationActivitySid The SID of the Activity to assign Workers when
+     *                               a task is reserved for them
      * @return this
      */
     public TaskQueueUpdater setReservationActivitySid(final String reservationActivitySid) {
@@ -82,12 +80,10 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     }
 
     /**
-     * ActivitySID that will be assigned to Workers when they are assigned a task
-     * from this TaskQueue..
-     * 
-     * @param assignmentActivitySid ActivitySID that will be assigned to Workers
-     *                              when they are assigned a task from this
-     *                              TaskQueue.
+     * The SID of the Activity to assign Workers when a task is assigned for them..
+     *
+     * @param assignmentActivitySid The SID of the Activity to assign Workers when
+     *                              a task is assigned for them
      * @return this
      */
     public TaskQueueUpdater setAssignmentActivitySid(final String assignmentActivitySid) {
@@ -96,12 +92,12 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     }
 
     /**
-     * The maximum amount of workers to create reservations for the assignment of a
-     * task while in this queue. Maximum of 50..
-     * 
-     * @param maxReservedWorkers The maximum amount of workers to create
+     * The maximum number of Workers to create reservations for the assignment of a
+     * task while in the queue. Maximum of 50..
+     *
+     * @param maxReservedWorkers The maximum number of Workers to create
      *                           reservations for the assignment of a task while in
-     *                           this queue.
+     *                           the queue
      * @return this
      */
     public TaskQueueUpdater setMaxReservedWorkers(final Integer maxReservedWorkers) {
@@ -110,14 +106,12 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     }
 
     /**
-     * TaskOrder will determine which order the Tasks will be assigned to Workers.
-     * Set this parameter to LIFO to assign most recently created Task first or FIFO
-     * to assign the oldest Task. Default is FIFO. [Click
-     * here](https://www.twilio.com/docs/api/taskrouter/last-first-out-lifo) to
-     * learn more..
-     * 
-     * @param taskOrder TaskOrder will determine which order the Tasks will be
-     *                  assigned to Workers.
+     * How Tasks will be assigned to Workers. Can be: `FIFO` or `LIFO` and the
+     * default is `FIFO`. Use `FIFO` to assign the oldest task first and `LIFO` to
+     * assign the most recent task first. For more information, see [Queue
+     * Ordering](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo)..
+     *
+     * @param taskOrder How Tasks will be assigned to Workers
      * @return this
      */
     public TaskQueueUpdater setTaskOrder(final TaskQueue.TaskOrder taskOrder) {
@@ -127,7 +121,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated TaskQueue
      */
@@ -137,8 +131,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskQueues/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskQueues/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -151,14 +144,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return TaskQueue.fromJson(response.getStream(), client.getObjectMapper());
@@ -166,7 +152,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

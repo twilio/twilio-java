@@ -30,11 +30,11 @@ public class KeyUpdater extends Updater<Key> {
 
     /**
      * Construct a new KeyUpdater.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @param pathSid A string that uniquely identifies the Key.
      */
-    public KeyUpdater(final String pathFleetSid, 
+    public KeyUpdater(final String pathFleetSid,
                       final String pathSid) {
         this.pathFleetSid = pathFleetSid;
         this.pathSid = pathSid;
@@ -43,7 +43,7 @@ public class KeyUpdater extends Updater<Key> {
     /**
      * Provides a human readable descriptive text for this Key credential, up to 256
      * characters long..
-     * 
+     *
      * @param friendlyName The human readable description for this Key.
      * @return this
      */
@@ -55,7 +55,7 @@ public class KeyUpdater extends Updater<Key> {
     /**
      * Provides the unique string identifier of an existing Device to become
      * authenticated with this Key credential..
-     * 
+     *
      * @param deviceSid The unique identifier of a Key to be authenticated.
      * @return this
      */
@@ -66,7 +66,7 @@ public class KeyUpdater extends Updater<Key> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Key
      */
@@ -76,8 +76,7 @@ public class KeyUpdater extends Updater<Key> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Keys/" + this.pathSid + "",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Keys/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -90,14 +89,7 @@ public class KeyUpdater extends Updater<Key> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Key.fromJson(response.getStream(), client.getObjectMapper());
@@ -105,7 +97,7 @@ public class KeyUpdater extends Updater<Key> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

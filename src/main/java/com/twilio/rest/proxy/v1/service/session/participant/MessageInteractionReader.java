@@ -30,13 +30,13 @@ public class MessageInteractionReader extends Reader<MessageInteraction> {
 
     /**
      * Construct a new MessageInteractionReader.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathSessionSid The session_sid
-     * @param pathParticipantSid The participant_sid
+     *
+     * @param pathServiceSid The SID of the Service to read the resource from
+     * @param pathSessionSid The SID of the parent Session
+     * @param pathParticipantSid The SID of the Participant resource
      */
-    public MessageInteractionReader(final String pathServiceSid, 
-                                    final String pathSessionSid, 
+    public MessageInteractionReader(final String pathServiceSid,
+                                    final String pathSessionSid,
                                     final String pathParticipantSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSessionSid = pathSessionSid;
@@ -45,7 +45,7 @@ public class MessageInteractionReader extends Reader<MessageInteraction> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return MessageInteraction ResourceSet
      */
@@ -56,7 +56,7 @@ public class MessageInteractionReader extends Reader<MessageInteraction> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return MessageInteraction ResourceSet
      */
@@ -66,8 +66,7 @@ public class MessageInteractionReader extends Reader<MessageInteraction> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PROXY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Sessions/" + this.pathSessionSid + "/Participants/" + this.pathParticipantSid + "/MessageInteractions",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Sessions/" + this.pathSessionSid + "/Participants/" + this.pathParticipantSid + "/MessageInteractions"
         );
 
         addQueryParams(request);
@@ -76,7 +75,7 @@ public class MessageInteractionReader extends Reader<MessageInteraction> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return MessageInteraction ResourceSet
@@ -94,47 +93,41 @@ public class MessageInteractionReader extends Reader<MessageInteraction> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<MessageInteraction> nextPage(final Page<MessageInteraction> page, 
+    public Page<MessageInteraction> nextPage(final Page<MessageInteraction> page,
                                              final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.PROXY.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.PROXY.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<MessageInteraction> previousPage(final Page<MessageInteraction> page, 
+    public Page<MessageInteraction> previousPage(final Page<MessageInteraction> page,
                                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.PROXY.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.PROXY.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of MessageInteraction Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -149,14 +142,7 @@ public class MessageInteractionReader extends Reader<MessageInteraction> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -169,7 +155,7 @@ public class MessageInteractionReader extends Reader<MessageInteraction> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

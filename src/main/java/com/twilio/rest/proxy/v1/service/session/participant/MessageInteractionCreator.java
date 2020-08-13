@@ -34,15 +34,15 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
 
     /**
      * Construct a new MessageInteractionCreator.
-     * 
-     * @param pathServiceSid Service Sid
-     * @param pathSessionSid Session Sid
-     * @param pathParticipantSid Participant Sid
+     *
+     * @param pathServiceSid The SID of the parent Service resource
+     * @param pathSessionSid The SID of the parent Session resource
+     * @param pathParticipantSid The SID of the Participant resource
      * @param body Message body
      */
-    public MessageInteractionCreator(final String pathServiceSid, 
-                                     final String pathSessionSid, 
-                                     final String pathParticipantSid, 
+    public MessageInteractionCreator(final String pathServiceSid,
+                                     final String pathSessionSid,
+                                     final String pathParticipantSid,
                                      final String body) {
         this.pathServiceSid = pathServiceSid;
         this.pathSessionSid = pathSessionSid;
@@ -52,15 +52,15 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
 
     /**
      * Construct a new MessageInteractionCreator.
-     * 
-     * @param pathServiceSid Service Sid
-     * @param pathSessionSid Session Sid
-     * @param pathParticipantSid Participant Sid
-     * @param mediaUrl Not supported in beta
+     *
+     * @param pathServiceSid The SID of the parent Service resource
+     * @param pathSessionSid The SID of the parent Session resource
+     * @param pathParticipantSid The SID of the Participant resource
+     * @param mediaUrl Reserved
      */
-    public MessageInteractionCreator(final String pathServiceSid, 
-                                     final String pathSessionSid, 
-                                     final String pathParticipantSid, 
+    public MessageInteractionCreator(final String pathServiceSid,
+                                     final String pathSessionSid,
+                                     final String pathParticipantSid,
                                      final List<URI> mediaUrl) {
         this.pathServiceSid = pathServiceSid;
         this.pathSessionSid = pathSessionSid;
@@ -70,7 +70,7 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
 
     /**
      * The message to send to the participant.
-     * 
+     *
      * @param body Message body
      * @return this
      */
@@ -80,9 +80,9 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
     }
 
     /**
-     * Not currently supported during beta..
-     * 
-     * @param mediaUrl Not supported in beta
+     * Reserved. Not currently supported..
+     *
+     * @param mediaUrl Reserved
      * @return this
      */
     public MessageInteractionCreator setMediaUrl(final List<URI> mediaUrl) {
@@ -91,9 +91,9 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
     }
 
     /**
-     * Not currently supported during beta..
-     * 
-     * @param mediaUrl Not supported in beta
+     * Reserved. Not currently supported..
+     *
+     * @param mediaUrl Reserved
      * @return this
      */
     public MessageInteractionCreator setMediaUrl(final URI mediaUrl) {
@@ -101,9 +101,9 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
     }
 
     /**
-     * Not currently supported during beta..
-     * 
-     * @param mediaUrl Not supported in beta
+     * Reserved. Not currently supported..
+     *
+     * @param mediaUrl Reserved
      * @return this
      */
     public MessageInteractionCreator setMediaUrl(final String mediaUrl) {
@@ -112,7 +112,7 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created MessageInteraction
      */
@@ -122,8 +122,7 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PROXY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Sessions/" + this.pathSessionSid + "/Participants/" + this.pathParticipantSid + "/MessageInteractions",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Sessions/" + this.pathSessionSid + "/Participants/" + this.pathParticipantSid + "/MessageInteractions"
         );
 
         addPostParams(request);
@@ -136,14 +135,7 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return MessageInteraction.fromJson(response.getStream(), client.getObjectMapper());
@@ -151,7 +143,7 @@ public class MessageInteractionCreator extends Creator<MessageInteraction> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -24,13 +24,15 @@ public class WebhookDeleter extends Deleter<Webhook> {
 
     /**
      * Construct a new WebhookDeleter.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Service with the Channel to delete the
+     *                       Webhook resource from
+     * @param pathChannelSid The SID of the channel the resource to delete belongs
+     *                       to
+     * @param pathSid The SID of the Channel Webhook resource to delete
      */
-    public WebhookDeleter(final String pathServiceSid, 
-                          final String pathChannelSid, 
+    public WebhookDeleter(final String pathServiceSid,
+                          final String pathChannelSid,
                           final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -39,7 +41,7 @@ public class WebhookDeleter extends Deleter<Webhook> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -48,8 +50,7 @@ public class WebhookDeleter extends Deleter<Webhook> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.CHAT.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Webhooks/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Webhooks/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -61,14 +62,7 @@ public class WebhookDeleter extends Deleter<Webhook> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

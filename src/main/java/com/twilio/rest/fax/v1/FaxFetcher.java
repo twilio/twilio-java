@@ -26,8 +26,8 @@ public class FaxFetcher extends Fetcher<Fax> {
 
     /**
      * Construct a new FaxFetcher.
-     * 
-     * @param pathSid A string that uniquely identifies this fax.
+     *
+     * @param pathSid The unique string that identifies the resource
      */
     public FaxFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class FaxFetcher extends Fetcher<Fax> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Fax
      */
@@ -45,8 +45,7 @@ public class FaxFetcher extends Fetcher<Fax> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.FAX.toString(),
-            "/v1/Faxes/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Faxes/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -58,14 +57,7 @@ public class FaxFetcher extends Fetcher<Fax> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Fax.fromJson(response.getStream(), client.getObjectMapper());

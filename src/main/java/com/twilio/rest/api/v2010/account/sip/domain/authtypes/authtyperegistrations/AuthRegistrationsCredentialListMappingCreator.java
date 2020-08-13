@@ -24,12 +24,13 @@ public class AuthRegistrationsCredentialListMappingCreator extends Creator<AuthR
 
     /**
      * Construct a new AuthRegistrationsCredentialListMappingCreator.
-     * 
-     * @param pathDomainSid The domain_sid
-     * @param credentialListSid A string that uniquely identifies credential list
-     *                          resource
+     *
+     * @param pathDomainSid The SID of the SIP domain that will contain the new
+     *                      resource
+     * @param credentialListSid The SID of the CredentialList resource to map to
+     *                          the SIP domain
      */
-    public AuthRegistrationsCredentialListMappingCreator(final String pathDomainSid, 
+    public AuthRegistrationsCredentialListMappingCreator(final String pathDomainSid,
                                                          final String credentialListSid) {
         this.pathDomainSid = pathDomainSid;
         this.credentialListSid = credentialListSid;
@@ -37,14 +38,15 @@ public class AuthRegistrationsCredentialListMappingCreator extends Creator<AuthR
 
     /**
      * Construct a new AuthRegistrationsCredentialListMappingCreator.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param credentialListSid A string that uniquely identifies credential list
-     *                          resource
+     *
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param pathDomainSid The SID of the SIP domain that will contain the new
+     *                      resource
+     * @param credentialListSid The SID of the CredentialList resource to map to
+     *                          the SIP domain
      */
-    public AuthRegistrationsCredentialListMappingCreator(final String pathAccountSid, 
-                                                         final String pathDomainSid, 
+    public AuthRegistrationsCredentialListMappingCreator(final String pathAccountSid,
+                                                         final String pathDomainSid,
                                                          final String credentialListSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
@@ -53,7 +55,7 @@ public class AuthRegistrationsCredentialListMappingCreator extends Creator<AuthR
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created AuthRegistrationsCredentialListMapping
      */
@@ -64,8 +66,7 @@ public class AuthRegistrationsCredentialListMappingCreator extends Creator<AuthR
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/Auth/Registrations/CredentialListMappings.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/Auth/Registrations/CredentialListMappings.json"
         );
 
         addPostParams(request);
@@ -78,14 +79,7 @@ public class AuthRegistrationsCredentialListMappingCreator extends Creator<AuthR
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return AuthRegistrationsCredentialListMapping.fromJson(response.getStream(), client.getObjectMapper());
@@ -93,7 +87,7 @@ public class AuthRegistrationsCredentialListMappingCreator extends Creator<AuthR
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

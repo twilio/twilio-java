@@ -27,11 +27,11 @@ public class SessionFetcher extends Fetcher<Session> {
 
     /**
      * Construct a new SessionFetcher.
-     * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Session.
+     *
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathSid The unique string that identifies the resource
      */
-    public SessionFetcher(final String pathServiceSid, 
+    public SessionFetcher(final String pathServiceSid,
                           final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -39,7 +39,7 @@ public class SessionFetcher extends Fetcher<Session> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Session
      */
@@ -49,8 +49,7 @@ public class SessionFetcher extends Fetcher<Session> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PROXY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Sessions/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Sessions/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +61,7 @@ public class SessionFetcher extends Fetcher<Session> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Session.fromJson(response.getStream(), client.getObjectMapper());

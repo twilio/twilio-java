@@ -23,7 +23,7 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
 
     /**
      * Construct a new CredentialListFetcher.
-     * 
+     *
      * @param pathSid Fetch by unique credential list Sid
      */
     public CredentialListFetcher(final String pathSid) {
@@ -32,11 +32,12 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
 
     /**
      * Construct a new CredentialListFetcher.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
      * @param pathSid Fetch by unique credential list Sid
      */
-    public CredentialListFetcher(final String pathAccountSid, 
+    public CredentialListFetcher(final String pathAccountSid,
                                  final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -44,7 +45,7 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched CredentialList
      */
@@ -55,8 +56,7 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/CredentialLists/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/CredentialLists/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);
@@ -68,14 +68,7 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return CredentialList.fromJson(response.getStream(), client.getObjectMapper());

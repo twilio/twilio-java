@@ -24,20 +24,22 @@ public class ParticipantUpdater extends Updater<Participant> {
 
     /**
      * Construct a new ParticipantUpdater.
-     * 
-     * @param pathRoomSid The room_sid
-     * @param pathSid The sid
+     *
+     * @param pathRoomSid The SID of the room with the participant to update
+     * @param pathSid The SID that identifies the resource to update
      */
-    public ParticipantUpdater(final String pathRoomSid, 
+    public ParticipantUpdater(final String pathRoomSid,
                               final String pathSid) {
         this.pathRoomSid = pathRoomSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * Set to `disconnected` to remove participant..
-     * 
-     * @param status Set to disconnected to remove participant.
+     * The new status of the resource. Can be: `connected` or `disconnected`. For
+     * `in-progress` Rooms the default Status is `connected`, for `completed` Rooms
+     * only `disconnected` Participants are returned..
+     *
+     * @param status The new status of the resource
      * @return this
      */
     public ParticipantUpdater setStatus(final Participant.Status status) {
@@ -47,7 +49,7 @@ public class ParticipantUpdater extends Updater<Participant> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Participant
      */
@@ -57,8 +59,7 @@ public class ParticipantUpdater extends Updater<Participant> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -71,14 +72,7 @@ public class ParticipantUpdater extends Updater<Participant> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Participant.fromJson(response.getStream(), client.getObjectMapper());
@@ -86,7 +80,7 @@ public class ParticipantUpdater extends Updater<Participant> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -30,18 +30,13 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RecordingSettings extends Resource {
     private static final long serialVersionUID = 41622584466212L;
 
     /**
      * Create a RecordingSettingsFetcher to execute fetch.
-     * 
+     *
      * @return RecordingSettingsFetcher capable of executing the fetch
      */
     public static RecordingSettingsFetcher fetcher() {
@@ -50,9 +45,8 @@ public class RecordingSettings extends Resource {
 
     /**
      * Create a RecordingSettingsCreator to execute create.
-     * 
-     * @param friendlyName Friendly name of the configuration to be shown in the
-     *                     console
+     *
+     * @param friendlyName A string to describe the resource
      * @return RecordingSettingsCreator capable of executing the create
      */
     public static RecordingSettingsCreator creator(final String friendlyName) {
@@ -62,7 +56,7 @@ public class RecordingSettings extends Resource {
     /**
      * Converts a JSON String into a RecordingSettings object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return RecordingSettings object represented by the provided JSON
@@ -81,7 +75,7 @@ public class RecordingSettings extends Resource {
     /**
      * Converts a JSON InputStream into a RecordingSettings object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return RecordingSettings object represented by the provided JSON
@@ -108,19 +102,19 @@ public class RecordingSettings extends Resource {
 
     @JsonCreator
     private RecordingSettings(@JsonProperty("account_sid")
-                              final String accountSid, 
+                              final String accountSid,
                               @JsonProperty("friendly_name")
-                              final String friendlyName, 
+                              final String friendlyName,
                               @JsonProperty("aws_credentials_sid")
-                              final String awsCredentialsSid, 
+                              final String awsCredentialsSid,
                               @JsonProperty("aws_s3_url")
-                              final URI awsS3Url, 
+                              final URI awsS3Url,
                               @JsonProperty("aws_storage_enabled")
-                              final Boolean awsStorageEnabled, 
+                              final Boolean awsStorageEnabled,
                               @JsonProperty("encryption_key_sid")
-                              final String encryptionKeySid, 
+                              final String encryptionKeySid,
                               @JsonProperty("encryption_enabled")
-                              final Boolean encryptionEnabled, 
+                              final Boolean encryptionEnabled,
                               @JsonProperty("url")
                               final URI url) {
         this.accountSid = accountSid;
@@ -134,82 +128,72 @@ public class RecordingSettings extends Resource {
     }
 
     /**
-     * Returns The The Twilio Account SID associated with this item.
-     * 
-     * @return The Twilio Account SID associated with this item
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Friendly name of the configuration to be shown in the console.
-     * 
-     * @return Friendly name of the configuration to be shown in the console
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The SID of the Stored Credential resource CRxx.
-     * 
-     * @return SID of the Stored Credential resource CRxx
+     * Returns The SID of the stored Credential resource.
+     *
+     * @return The SID of the stored Credential resource
      */
     public final String getAwsCredentialsSid() {
         return this.awsCredentialsSid;
     }
 
     /**
-     * Returns The URL of the S3 bucket where the recordings should be stored. We
-     * only support DNS-compliant URLs like
-     * http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/recordings,
-     * where recordings is the path where you want recordings to be stored..
-     * 
-     * @return URL of the S3 bucket where the recordings should be stored. We only
-     *         support DNS-compliant URLs like
-     *         http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/recordings, where recordings is the path where you want recordings to be stored.
+     * Returns The URL of the AWS S3 bucket where the recordings are stored.
+     *
+     * @return The URL of the AWS S3 bucket where the recordings are stored
      */
     public final URI getAwsS3Url() {
         return this.awsS3Url;
     }
 
     /**
-     * Returns The true|false When set to true, all Recordings will be written to
-     * the AwsS3Url specified above. When set to false, all Recordings will be
-     * stored in Twilio's cloud..
-     * 
-     * @return true|false When set to true, all Recordings will be written to the
-     *         AwsS3Url specified above. When set to false, all Recordings will be
-     *         stored in Twilio's cloud.
+     * Returns Whether all recordings are written to the aws_s3_url.
+     *
+     * @return Whether all recordings are written to the aws_s3_url
      */
     public final Boolean getAwsStorageEnabled() {
         return this.awsStorageEnabled;
     }
 
     /**
-     * Returns The SID of the Public Key resource CRxx.
-     * 
-     * @return SID of the Public Key resource CRxx
+     * Returns The SID of the Public Key resource used for encryption.
+     *
+     * @return The SID of the Public Key resource used for encryption
      */
     public final String getEncryptionKeySid() {
         return this.encryptionKeySid;
     }
 
     /**
-     * Returns The true|false When set to true, all Recordings will be stored
-     * encrypted..
-     * 
-     * @return true|false When set to true, all Recordings will be stored encrypted.
+     * Returns Whether all recordings are stored in an encrypted form.
+     *
+     * @return Whether all recordings are stored in an encrypted form
      */
     public final Boolean getEncryptionEnabled() {
         return this.encryptionEnabled;
     }
 
     /**
-     * Returns The The url.
-     * 
-     * @return The url
+     * Returns The absolute URL of the resource.
+     *
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
@@ -227,13 +211,13 @@ public class RecordingSettings extends Resource {
 
         RecordingSettings other = (RecordingSettings) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(awsCredentialsSid, other.awsCredentialsSid) && 
-               Objects.equals(awsS3Url, other.awsS3Url) && 
-               Objects.equals(awsStorageEnabled, other.awsStorageEnabled) && 
-               Objects.equals(encryptionKeySid, other.encryptionKeySid) && 
-               Objects.equals(encryptionEnabled, other.encryptionEnabled) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(awsCredentialsSid, other.awsCredentialsSid) &&
+               Objects.equals(awsS3Url, other.awsS3Url) &&
+               Objects.equals(awsStorageEnabled, other.awsStorageEnabled) &&
+               Objects.equals(encryptionKeySid, other.encryptionKeySid) &&
+               Objects.equals(encryptionEnabled, other.encryptionEnabled) &&
                Objects.equals(url, other.url);
     }
 

@@ -64,32 +64,32 @@ public class TaskQueue extends Resource {
 
     /**
      * Create a TaskQueueFetcher to execute fetch.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskQueue to fetch
+     * @param pathSid The SID of the resource to
      * @return TaskQueueFetcher capable of executing the fetch
      */
-    public static TaskQueueFetcher fetcher(final String pathWorkspaceSid, 
+    public static TaskQueueFetcher fetcher(final String pathWorkspaceSid,
                                            final String pathSid) {
         return new TaskQueueFetcher(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a TaskQueueUpdater to execute update.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskQueue to update
+     * @param pathSid The SID of the resource to update
      * @return TaskQueueUpdater capable of executing the update
      */
-    public static TaskQueueUpdater updater(final String pathWorkspaceSid, 
+    public static TaskQueueUpdater updater(final String pathWorkspaceSid,
                                            final String pathSid) {
         return new TaskQueueUpdater(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a TaskQueueReader to execute read.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskQueue to read
      * @return TaskQueueReader capable of executing the read
      */
     public static TaskQueueReader reader(final String pathWorkspaceSid) {
@@ -98,30 +98,25 @@ public class TaskQueue extends Resource {
 
     /**
      * Create a TaskQueueCreator to execute create.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param friendlyName Human readable description of this TaskQueue
-     * @param reservationActivitySid ActivitySID to assign workers once a task is
-     *                               reserved for them
-     * @param assignmentActivitySid ActivitySID to assign workers once a task is
-     *                              assigned for them
+     *
+     * @param pathWorkspaceSid The SID of the Workspace that the new TaskQueue
+     *                         belongs to
+     * @param friendlyName A string to describe the resource
      * @return TaskQueueCreator capable of executing the create
      */
-    public static TaskQueueCreator creator(final String pathWorkspaceSid, 
-                                           final String friendlyName, 
-                                           final String reservationActivitySid, 
-                                           final String assignmentActivitySid) {
-        return new TaskQueueCreator(pathWorkspaceSid, friendlyName, reservationActivitySid, assignmentActivitySid);
+    public static TaskQueueCreator creator(final String pathWorkspaceSid,
+                                           final String friendlyName) {
+        return new TaskQueueCreator(pathWorkspaceSid, friendlyName);
     }
 
     /**
      * Create a TaskQueueDeleter to execute delete.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskQueue to delete
+     * @param pathSid The SID of the resource to delete
      * @return TaskQueueDeleter capable of executing the delete
      */
-    public static TaskQueueDeleter deleter(final String pathWorkspaceSid, 
+    public static TaskQueueDeleter deleter(final String pathWorkspaceSid,
                                            final String pathSid) {
         return new TaskQueueDeleter(pathWorkspaceSid, pathSid);
     }
@@ -129,7 +124,7 @@ public class TaskQueue extends Resource {
     /**
      * Converts a JSON String into a TaskQueue object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return TaskQueue object represented by the provided JSON
@@ -148,7 +143,7 @@ public class TaskQueue extends Resource {
     /**
      * Converts a JSON InputStream into a TaskQueue object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return TaskQueue object represented by the provided JSON
@@ -182,33 +177,33 @@ public class TaskQueue extends Resource {
 
     @JsonCreator
     private TaskQueue(@JsonProperty("account_sid")
-                      final String accountSid, 
+                      final String accountSid,
                       @JsonProperty("assignment_activity_sid")
-                      final String assignmentActivitySid, 
+                      final String assignmentActivitySid,
                       @JsonProperty("assignment_activity_name")
-                      final String assignmentActivityName, 
+                      final String assignmentActivityName,
                       @JsonProperty("date_created")
-                      final String dateCreated, 
+                      final String dateCreated,
                       @JsonProperty("date_updated")
-                      final String dateUpdated, 
+                      final String dateUpdated,
                       @JsonProperty("friendly_name")
-                      final String friendlyName, 
+                      final String friendlyName,
                       @JsonProperty("max_reserved_workers")
-                      final Integer maxReservedWorkers, 
+                      final Integer maxReservedWorkers,
                       @JsonProperty("reservation_activity_sid")
-                      final String reservationActivitySid, 
+                      final String reservationActivitySid,
                       @JsonProperty("reservation_activity_name")
-                      final String reservationActivityName, 
+                      final String reservationActivityName,
                       @JsonProperty("sid")
-                      final String sid, 
+                      final String sid,
                       @JsonProperty("target_workers")
-                      final String targetWorkers, 
+                      final String targetWorkers,
                       @JsonProperty("task_order")
-                      final TaskQueue.TaskOrder taskOrder, 
+                      final TaskQueue.TaskOrder taskOrder,
                       @JsonProperty("url")
-                      final URI url, 
+                      final URI url,
                       @JsonProperty("workspace_sid")
-                      final String workspaceSid, 
+                      final String workspaceSid,
                       @JsonProperty("links")
                       final Map<String, String> links) {
         this.accountSid = accountSid;
@@ -229,141 +224,145 @@ public class TaskQueue extends Resource {
     }
 
     /**
-     * Returns The The ID of the Account that owns this TaskQueue.
-     * 
-     * @return The ID of the Account that owns this TaskQueue
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The ActivitySID to assign workers once a task is assigned for them.
-     * 
-     * @return ActivitySID to assign workers once a task is assigned for them
+     * Returns The SID of the Activity to assign Workers when a task is assigned for
+     * them.
+     *
+     * @return The SID of the Activity to assign Workers when a task is assigned
+     *         for them
      */
     public final String getAssignmentActivitySid() {
         return this.assignmentActivitySid;
     }
 
     /**
-     * Returns The The assignment_activity_name.
-     * 
-     * @return The assignment_activity_name
+     * Returns The name of the Activity to assign Workers when a task is assigned
+     * for them.
+     *
+     * @return The name of the Activity to assign Workers when a task is assigned
+     *         for them
      */
     public final String getAssignmentActivityName() {
         return this.assignmentActivityName;
     }
 
     /**
-     * Returns The The date_created.
-     * 
-     * @return The date_created
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
+     *
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
-     * 
-     * @return The date_updated
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
+     *
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The Filter by a human readable description of a TaskQueue.
-     * 
-     * @return Filter by a human readable description of a TaskQueue
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The maximum amount of workers to create reservations for the
-     * assignment of a task while in this queue..
-     * 
-     * @return The maximum amount of workers to create reservations for the
-     *         assignment of a task while in this queue.
+     * Returns The maximum number of Workers to reserve.
+     *
+     * @return The maximum number of Workers to reserve
      */
     public final Integer getMaxReservedWorkers() {
         return this.maxReservedWorkers;
     }
 
     /**
-     * Returns The ActivitySID to assign workers once a task is reserved for them.
-     * 
-     * @return ActivitySID to assign workers once a task is reserved for them
+     * Returns The SID of the Activity to assign Workers once a task is reserved for
+     * them.
+     *
+     * @return The SID of the Activity to assign Workers once a task is reserved
+     *         for them
      */
     public final String getReservationActivitySid() {
         return this.reservationActivitySid;
     }
 
     /**
-     * Returns The The reservation_activity_name.
-     * 
-     * @return The reservation_activity_name
+     * Returns The name of the Activity to assign Workers once a task is reserved
+     * for them.
+     *
+     * @return The name of the Activity to assign Workers once a task is reserved
+     *         for them
      */
     public final String getReservationActivityName() {
         return this.reservationActivityName;
     }
 
     /**
-     * Returns The The unique ID of the TaskQueue.
-     * 
-     * @return The unique ID of the TaskQueue
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A string describing the Worker selection criteria for any Tasks
-     * that enter this TaskQueue..
-     * 
+     * Returns A string describing the Worker selection criteria for any Tasks that
+     * enter the TaskQueue.
+     *
      * @return A string describing the Worker selection criteria for any Tasks that
-     *         enter this TaskQueue.
+     *         enter the TaskQueue
      */
     public final String getTargetWorkers() {
         return this.targetWorkers;
     }
 
     /**
-     * Returns The TaskOrder will determine which order the Tasks will be assigned
-     * to Workers..
-     * 
-     * @return TaskOrder will determine which order the Tasks will be assigned to
-     *         Workers.
+     * Returns How Tasks will be assigned to Workers.
+     *
+     * @return How Tasks will be assigned to Workers
      */
     public final TaskQueue.TaskOrder getTaskOrder() {
         return this.taskOrder;
     }
 
     /**
-     * Returns The The url.
-     * 
-     * @return The url
+     * Returns The absolute URL of the TaskQueue resource.
+     *
+     * @return The absolute URL of the TaskQueue resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The ID of the Workspace that owns this TaskQueue.
-     * 
-     * @return The ID of the Workspace that owns this TaskQueue
+     * Returns The SID of the Workspace that contains the TaskQueue.
+     *
+     * @return The SID of the Workspace that contains the TaskQueue
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The links.
-     * 
-     * @return The links
+     * Returns The URLs of related resources.
+     *
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -381,20 +380,20 @@ public class TaskQueue extends Resource {
 
         TaskQueue other = (TaskQueue) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(assignmentActivitySid, other.assignmentActivitySid) && 
-               Objects.equals(assignmentActivityName, other.assignmentActivityName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(maxReservedWorkers, other.maxReservedWorkers) && 
-               Objects.equals(reservationActivitySid, other.reservationActivitySid) && 
-               Objects.equals(reservationActivityName, other.reservationActivityName) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(targetWorkers, other.targetWorkers) && 
-               Objects.equals(taskOrder, other.taskOrder) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(workspaceSid, other.workspaceSid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(assignmentActivitySid, other.assignmentActivitySid) &&
+               Objects.equals(assignmentActivityName, other.assignmentActivityName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(maxReservedWorkers, other.maxReservedWorkers) &&
+               Objects.equals(reservationActivitySid, other.reservationActivitySid) &&
+               Objects.equals(reservationActivityName, other.reservationActivityName) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(targetWorkers, other.targetWorkers) &&
+               Objects.equals(taskOrder, other.taskOrder) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(workspaceSid, other.workspaceSid) &&
                Objects.equals(links, other.links);
     }
 

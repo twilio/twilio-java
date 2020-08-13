@@ -33,13 +33,14 @@ public class WebhookCreator extends Creator<Webhook> {
 
     /**
      * Construct a new WebhookCreator.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param type The type
+     *
+     * @param pathServiceSid The SID of the Service with the Channel to create the
+     *                       resource under
+     * @param pathChannelSid The SID of the Channel the new resource belongs to
+     * @param type The type of webhook
      */
-    public WebhookCreator(final String pathServiceSid, 
-                          final String pathChannelSid, 
+    public WebhookCreator(final String pathServiceSid,
+                          final String pathChannelSid,
                           final Webhook.Type type) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -47,9 +48,9 @@ public class WebhookCreator extends Creator<Webhook> {
     }
 
     /**
-     * The configuration.url.
-     * 
-     * @param configurationUrl The configuration.url
+     * The URL of the webhook to call using the `configuration.method`..
+     *
+     * @param configurationUrl The URL of the webhook to call
      * @return this
      */
     public WebhookCreator setConfigurationUrl(final String configurationUrl) {
@@ -58,9 +59,10 @@ public class WebhookCreator extends Creator<Webhook> {
     }
 
     /**
-     * The configuration.method.
-     * 
-     * @param configurationMethod The configuration.method
+     * The HTTP method used to call `configuration.url`. Can be: `GET` or `POST` and
+     * the default is `POST`..
+     *
+     * @param configurationMethod The HTTP method used to call `configuration.url`
      * @return this
      */
     public WebhookCreator setConfigurationMethod(final Webhook.Method configurationMethod) {
@@ -69,9 +71,14 @@ public class WebhookCreator extends Creator<Webhook> {
     }
 
     /**
-     * The configuration.filters.
-     * 
-     * @param configurationFilters The configuration.filters
+     * The events that cause us to call the Channel Webhook. Used when `type` is
+     * `webhook`. This parameter takes only one event. To specify more than one
+     * event, repeat this parameter for each event. For the list of possible events,
+     * see [Webhook Event
+     * Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger)..
+     *
+     * @param configurationFilters The events that cause us to call the Channel
+     *                             Webhook
      * @return this
      */
     public WebhookCreator setConfigurationFilters(final List<String> configurationFilters) {
@@ -80,9 +87,14 @@ public class WebhookCreator extends Creator<Webhook> {
     }
 
     /**
-     * The configuration.filters.
-     * 
-     * @param configurationFilters The configuration.filters
+     * The events that cause us to call the Channel Webhook. Used when `type` is
+     * `webhook`. This parameter takes only one event. To specify more than one
+     * event, repeat this parameter for each event. For the list of possible events,
+     * see [Webhook Event
+     * Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger)..
+     *
+     * @param configurationFilters The events that cause us to call the Channel
+     *                             Webhook
      * @return this
      */
     public WebhookCreator setConfigurationFilters(final String configurationFilters) {
@@ -90,9 +102,13 @@ public class WebhookCreator extends Creator<Webhook> {
     }
 
     /**
-     * The configuration.triggers.
-     * 
-     * @param configurationTriggers The configuration.triggers
+     * A string that will cause us to call the webhook when it is present in a
+     * message body. This parameter takes only one trigger string. To specify more
+     * than one, repeat this parameter for each trigger string up to a total of 5
+     * trigger strings. Used only when `type` = `trigger`..
+     *
+     * @param configurationTriggers A string that will cause us to call the webhook
+     *                              when it is found in a message body
      * @return this
      */
     public WebhookCreator setConfigurationTriggers(final List<String> configurationTriggers) {
@@ -101,9 +117,13 @@ public class WebhookCreator extends Creator<Webhook> {
     }
 
     /**
-     * The configuration.triggers.
-     * 
-     * @param configurationTriggers The configuration.triggers
+     * A string that will cause us to call the webhook when it is present in a
+     * message body. This parameter takes only one trigger string. To specify more
+     * than one, repeat this parameter for each trigger string up to a total of 5
+     * trigger strings. Used only when `type` = `trigger`..
+     *
+     * @param configurationTriggers A string that will cause us to call the webhook
+     *                              when it is found in a message body
      * @return this
      */
     public WebhookCreator setConfigurationTriggers(final String configurationTriggers) {
@@ -111,9 +131,12 @@ public class WebhookCreator extends Creator<Webhook> {
     }
 
     /**
-     * The configuration.flow_sid.
-     * 
-     * @param configurationFlowSid The configuration.flow_sid
+     * The SID of the Studio
+     * [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an
+     * event in `configuration.filters` occurs. Used only when `type` is `studio`..
+     *
+     * @param configurationFlowSid The SID of the Studio Flow to call when an event
+     *                             occurs
      * @return this
      */
     public WebhookCreator setConfigurationFlowSid(final String configurationFlowSid) {
@@ -122,9 +145,11 @@ public class WebhookCreator extends Creator<Webhook> {
     }
 
     /**
-     * The configuration.retry_count.
-     * 
-     * @param configurationRetryCount The configuration.retry_count
+     * The number of times to retry the webhook if the first attempt fails. Can be
+     * an integer between 0 and 3, inclusive, and the default is 0..
+     *
+     * @param configurationRetryCount The number of times to retry the webhook if
+     *                                the first attempt fails
      * @return this
      */
     public WebhookCreator setConfigurationRetryCount(final Integer configurationRetryCount) {
@@ -134,7 +159,7 @@ public class WebhookCreator extends Creator<Webhook> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Webhook
      */
@@ -144,8 +169,7 @@ public class WebhookCreator extends Creator<Webhook> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Webhooks",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Webhooks"
         );
 
         addPostParams(request);
@@ -158,14 +182,7 @@ public class WebhookCreator extends Creator<Webhook> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Webhook.fromJson(response.getStream(), client.getObjectMapper());
@@ -173,7 +190,7 @@ public class WebhookCreator extends Creator<Webhook> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

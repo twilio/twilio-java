@@ -64,20 +64,20 @@ public class Participant extends Resource {
 
     /**
      * Create a ParticipantFetcher to execute fetch.
-     * 
-     * @param pathRoomSid The room_sid
-     * @param pathSid The sid
+     *
+     * @param pathRoomSid The SID of the room with the Participant resource to fetch
+     * @param pathSid The SID that identifies the resource to fetch
      * @return ParticipantFetcher capable of executing the fetch
      */
-    public static ParticipantFetcher fetcher(final String pathRoomSid, 
+    public static ParticipantFetcher fetcher(final String pathRoomSid,
                                              final String pathSid) {
         return new ParticipantFetcher(pathRoomSid, pathSid);
     }
 
     /**
      * Create a ParticipantReader to execute read.
-     * 
-     * @param pathRoomSid The room_sid
+     *
+     * @param pathRoomSid The SID of the room with the Participant resources to read
      * @return ParticipantReader capable of executing the read
      */
     public static ParticipantReader reader(final String pathRoomSid) {
@@ -86,12 +86,12 @@ public class Participant extends Resource {
 
     /**
      * Create a ParticipantUpdater to execute update.
-     * 
-     * @param pathRoomSid The room_sid
-     * @param pathSid The sid
+     *
+     * @param pathRoomSid The SID of the room with the participant to update
+     * @param pathSid The SID that identifies the resource to update
      * @return ParticipantUpdater capable of executing the update
      */
-    public static ParticipantUpdater updater(final String pathRoomSid, 
+    public static ParticipantUpdater updater(final String pathRoomSid,
                                              final String pathSid) {
         return new ParticipantUpdater(pathRoomSid, pathSid);
     }
@@ -99,7 +99,7 @@ public class Participant extends Resource {
     /**
      * Converts a JSON String into a Participant object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Participant object represented by the provided JSON
@@ -118,7 +118,7 @@ public class Participant extends Resource {
     /**
      * Converts a JSON InputStream into a Participant object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Participant object represented by the provided JSON
@@ -149,27 +149,27 @@ public class Participant extends Resource {
 
     @JsonCreator
     private Participant(@JsonProperty("sid")
-                        final String sid, 
+                        final String sid,
                         @JsonProperty("room_sid")
-                        final String roomSid, 
+                        final String roomSid,
                         @JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("status")
-                        final Participant.Status status, 
+                        final Participant.Status status,
                         @JsonProperty("identity")
-                        final String identity, 
+                        final String identity,
                         @JsonProperty("date_created")
-                        final String dateCreated, 
+                        final String dateCreated,
                         @JsonProperty("date_updated")
-                        final String dateUpdated, 
+                        final String dateUpdated,
                         @JsonProperty("start_time")
-                        final String startTime, 
+                        final String startTime,
                         @JsonProperty("end_time")
-                        final String endTime, 
+                        final String endTime,
                         @JsonProperty("duration")
-                        final Integer duration, 
+                        final Integer duration,
                         @JsonProperty("url")
-                        final URI url, 
+                        final URI url,
                         @JsonProperty("links")
                         final Map<String, String> links) {
         this.sid = sid;
@@ -187,116 +187,110 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
-     * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A system-generated 34-character string that uniquely identifies..
-     * 
-     * @return A system-generated 34-character string that uniquely identifies.
+     * Returns The SID of the participant's room.
+     *
+     * @return The SID of the participant's room
      */
     public final String getRoomSid() {
         return this.roomSid;
     }
 
     /**
-     * Returns The The unique ID of the Account associated with this Room..
-     * 
-     * @return The unique ID of the Account associated with this Room.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The A string representing the status of the Participant..
-     * 
-     * @return A string representing the status of the Participant.
+     * Returns The status of the Participant.
+     *
+     * @return The status of the Participant
      */
     public final Participant.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The unique name identifier that is assigned to this Participant..
-     * 
-     * @return The unique name identifier that is assigned to this Participant.
+     * Returns The string that identifies the resource's User.
+     *
+     * @return The string that identifies the resource's User
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns The The date that this resource was created, given as a UTC ISO 8601
-     * Timestamp..
-     * 
-     * @return The date that this resource was created, given as a UTC ISO 8601
-     *         Timestamp.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated, given as a UTC ISO
-     * 8601 Timestamp..
-     * 
-     * @return The date that this resource was last updated, given as a UTC ISO
-     *         8601 Timestamp.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The time of Participant connected to the Room, given as a UTC ISO
-     * 8601 Timestamp..
-     * 
-     * @return The time of Participant connected to the Room, given as a UTC ISO
-     *         8601 Timestamp.
+     * Returns The time of participant connected to the room in ISO 8601 format.
+     *
+     * @return The time of participant connected to the room in ISO 8601 format
      */
     public final DateTime getStartTime() {
         return this.startTime;
     }
 
     /**
-     * Returns The The time of Participant disconnected from the Room, given as a
-     * UTC ISO 8601 Timestamp..
-     * 
-     * @return The time of Participant disconnected from the Room, given as a UTC
-     *         ISO 8601 Timestamp.
+     * Returns The time when the participant disconnected from the room in ISO 8601
+     * format.
+     *
+     * @return The time when the participant disconnected from the room in ISO 8601
+     *         format
      */
     public final DateTime getEndTime() {
         return this.endTime;
     }
 
     /**
-     * Returns The Duration of time in seconds this Participant was connected..
-     * 
-     * @return Duration of time in seconds this Participant was connected.
+     * Returns Duration of time in seconds the participant was connected.
+     *
+     * @return Duration of time in seconds the participant was connected
      */
     public final Integer getDuration() {
         return this.duration;
     }
 
     /**
-     * Returns The The absolute URL for this resource..
-     * 
-     * @return The absolute URL for this resource.
+     * Returns The absolute URL of the resource.
+     *
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
-     * 
-     * @return The links
+     * Returns The URLs of related resources.
+     *
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -314,17 +308,17 @@ public class Participant extends Resource {
 
         Participant other = (Participant) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(roomSid, other.roomSid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(identity, other.identity) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(startTime, other.startTime) && 
-               Objects.equals(endTime, other.endTime) && 
-               Objects.equals(duration, other.duration) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(roomSid, other.roomSid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(identity, other.identity) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(startTime, other.startTime) &&
+               Objects.equals(endTime, other.endTime) &&
+               Objects.equals(duration, other.duration) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

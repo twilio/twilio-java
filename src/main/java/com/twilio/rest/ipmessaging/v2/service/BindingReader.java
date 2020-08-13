@@ -29,19 +29,19 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * Construct a new BindingReader.
-     * 
-     * @param pathServiceSid The service_sid
+     *
+     * @param pathServiceSid The SID of the Service to read the resources from
      */
     public BindingReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
     /**
-     * The push technology used for the returned Bindings.  Supported values are
-     * apn, gcm and fcm.  See [push notification
-     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information..
-     * 
-     * @param bindingType The push technology used for the bindings returned.
+     * The push technology used by the Binding resources to read.  Can be: `apn`,
+     * `gcm`, or `fcm`.  See [push notification
+     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info..
+     *
+     * @param bindingType The push technology used by the Binding resources to read
      * @return this
      */
     public BindingReader setBindingType(final List<Binding.BindingType> bindingType) {
@@ -50,11 +50,11 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The push technology used for the returned Bindings.  Supported values are
-     * apn, gcm and fcm.  See [push notification
-     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information..
-     * 
-     * @param bindingType The push technology used for the bindings returned.
+     * The push technology used by the Binding resources to read.  Can be: `apn`,
+     * `gcm`, or `fcm`.  See [push notification
+     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info..
+     *
+     * @param bindingType The push technology used by the Binding resources to read
      * @return this
      */
     public BindingReader setBindingType(final Binding.BindingType bindingType) {
@@ -62,9 +62,11 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The identity.
-     * 
-     * @param identity The identity
+     * The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity`
+     * value of the resources to read. See [access
+     * tokens](https://www.twilio.com/docs/chat/create-tokens) for more details..
+     *
+     * @param identity The `identity` value of the resources to read
      * @return this
      */
     public BindingReader setIdentity(final List<String> identity) {
@@ -73,9 +75,11 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The identity.
-     * 
-     * @param identity The identity
+     * The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity`
+     * value of the resources to read. See [access
+     * tokens](https://www.twilio.com/docs/chat/create-tokens) for more details..
+     *
+     * @param identity The `identity` value of the resources to read
      * @return this
      */
     public BindingReader setIdentity(final String identity) {
@@ -84,7 +88,7 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Binding ResourceSet
      */
@@ -95,7 +99,7 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Binding ResourceSet
      */
@@ -105,8 +109,7 @@ public class BindingReader extends Reader<Binding> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Bindings",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Bindings"
         );
 
         addQueryParams(request);
@@ -115,7 +118,7 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Binding ResourceSet
@@ -133,47 +136,41 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Binding> nextPage(final Page<Binding> page, 
+    public Page<Binding> nextPage(final Page<Binding> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.IPMESSAGING.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.IPMESSAGING.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Binding> previousPage(final Page<Binding> page, 
+    public Page<Binding> previousPage(final Page<Binding> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.IPMESSAGING.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.IPMESSAGING.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Binding Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -188,14 +185,7 @@ public class BindingReader extends Reader<Binding> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -208,7 +198,7 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

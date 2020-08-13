@@ -24,13 +24,13 @@ public class UserBindingDeleter extends Deleter<UserBinding> {
 
     /**
      * Construct a new UserBindingDeleter.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathUserSid The user_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathUserSid The SID of the User of the User Bindings to delete
+     * @param pathSid The SID of the User Binding resource to delete
      */
-    public UserBindingDeleter(final String pathServiceSid, 
-                              final String pathUserSid, 
+    public UserBindingDeleter(final String pathServiceSid,
+                              final String pathUserSid,
                               final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathUserSid = pathUserSid;
@@ -39,7 +39,7 @@ public class UserBindingDeleter extends Deleter<UserBinding> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -48,8 +48,7 @@ public class UserBindingDeleter extends Deleter<UserBinding> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.CHAT.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Users/" + this.pathUserSid + "/Bindings/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Users/" + this.pathUserSid + "/Bindings/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -61,14 +60,7 @@ public class UserBindingDeleter extends Deleter<UserBinding> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

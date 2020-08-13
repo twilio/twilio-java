@@ -73,48 +73,48 @@ public class Binding extends Resource {
 
     /**
      * Create a BindingFetcher to execute fetch.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathSid The unique string that identifies the resource
      * @return BindingFetcher capable of executing the fetch
      */
-    public static BindingFetcher fetcher(final String pathServiceSid, 
+    public static BindingFetcher fetcher(final String pathServiceSid,
                                          final String pathSid) {
         return new BindingFetcher(pathServiceSid, pathSid);
     }
 
     /**
      * Create a BindingDeleter to execute delete.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathSid The unique string that identifies the resource
      * @return BindingDeleter capable of executing the delete
      */
-    public static BindingDeleter deleter(final String pathServiceSid, 
+    public static BindingDeleter deleter(final String pathServiceSid,
                                          final String pathSid) {
         return new BindingDeleter(pathServiceSid, pathSid);
     }
 
     /**
      * Create a BindingCreator to execute create.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param identity The Identity to which this Binding belongs to.
-     * @param bindingType The type of the Binding.
-     * @param address The address specific to the channel.
+     *
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param identity The `identity` value that identifies the new resource's User
+     * @param bindingType The type of the Binding
+     * @param address The channel-specific address
      * @return BindingCreator capable of executing the create
      */
-    public static BindingCreator creator(final String pathServiceSid, 
-                                         final String identity, 
-                                         final Binding.BindingType bindingType, 
+    public static BindingCreator creator(final String pathServiceSid,
+                                         final String identity,
+                                         final Binding.BindingType bindingType,
                                          final String address) {
         return new BindingCreator(pathServiceSid, identity, bindingType, address);
     }
 
     /**
      * Create a BindingReader to execute read.
-     * 
-     * @param pathServiceSid The service_sid
+     *
+     * @param pathServiceSid The SID of the Service to read the resource from
      * @return BindingReader capable of executing the read
      */
     public static BindingReader reader(final String pathServiceSid) {
@@ -123,7 +123,7 @@ public class Binding extends Resource {
 
     /**
      * Converts a JSON String into a Binding object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Binding object represented by the provided JSON
@@ -142,7 +142,7 @@ public class Binding extends Resource {
     /**
      * Converts a JSON InputStream into a Binding object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Binding object represented by the provided JSON
@@ -175,31 +175,31 @@ public class Binding extends Resource {
 
     @JsonCreator
     private Binding(@JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("service_sid")
-                    final String serviceSid, 
+                    final String serviceSid,
                     @JsonProperty("credential_sid")
-                    final String credentialSid, 
+                    final String credentialSid,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("notification_protocol_version")
-                    final String notificationProtocolVersion, 
+                    final String notificationProtocolVersion,
                     @JsonProperty("endpoint")
-                    final String endpoint, 
+                    final String endpoint,
                     @JsonProperty("identity")
-                    final String identity, 
+                    final String identity,
                     @JsonProperty("binding_type")
-                    final String bindingType, 
+                    final String bindingType,
                     @JsonProperty("address")
-                    final String address, 
+                    final String address,
                     @JsonProperty("tags")
-                    final List<String> tags, 
+                    final List<String> tags,
                     @JsonProperty("url")
-                    final URI url, 
+                    final URI url,
                     @JsonProperty("links")
                     final Map<String, String> links) {
         this.sid = sid;
@@ -219,128 +219,128 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The The sid.
-     * 
-     * @return The sid
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
-     * 
-     * @return The account_sid
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The service_sid.
-     * 
-     * @return The service_sid
+     * Returns The SID of the Service that the resource is associated with.
+     *
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The unique identifier of the Credential resource to be used to
-     * send notifications to this Binding..
-     * 
-     * @return The unique identifier of the Credential resource to be used to send
-     *         notifications to this Binding.
+     * Returns The SID of the Credential resource to be used to send notifications
+     * to this Binding.
+     *
+     * @return The SID of the Credential resource to be used to send notifications
+     *         to this Binding
      */
     public final String getCredentialSid() {
         return this.credentialSid;
     }
 
     /**
-     * Returns The The date_created.
-     * 
-     * @return The date_created
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
+     *
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
-     * 
-     * @return The date_updated
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
+     *
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The version of the protocol used to send the notification..
-     * 
-     * @return The version of the protocol used to send the notification.
+     * Returns The protocol version to use to send the notification.
+     *
+     * @return The protocol version to use to send the notification
      */
     public final String getNotificationProtocolVersion() {
         return this.notificationProtocolVersion;
     }
 
     /**
-     * Returns The DEPRECATED*.
-     * 
-     * @return DEPRECATED*
+     * Returns Deprecated.
+     *
+     * @return Deprecated
      */
     public final String getEndpoint() {
         return this.endpoint;
     }
 
     /**
-     * Returns The The Identity to which this Binding belongs to..
-     * 
-     * @return The Identity to which this Binding belongs to.
+     * Returns The `identity` value that identifies the new resource's User.
+     *
+     * @return The `identity` value that identifies the new resource's User
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns The The type of the Binding..
-     * 
-     * @return The type of the Binding.
+     * Returns The type of the Binding.
+     *
+     * @return The type of the Binding
      */
     public final String getBindingType() {
         return this.bindingType;
     }
 
     /**
-     * Returns The The address specific to the channel..
-     * 
-     * @return The address specific to the channel.
+     * Returns The channel-specific address.
+     *
+     * @return The channel-specific address
      */
     public final String getAddress() {
         return this.address;
     }
 
     /**
-     * Returns The The list of tags associated with this Binding..
-     * 
-     * @return The list of tags associated with this Binding.
+     * Returns The list of tags associated with this Binding.
+     *
+     * @return The list of tags associated with this Binding
      */
     public final List<String> getTags() {
         return this.tags;
     }
 
     /**
-     * Returns The The url.
-     * 
-     * @return The url
+     * Returns The absolute URL of the Binding resource.
+     *
+     * @return The absolute URL of the Binding resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
-     * 
-     * @return The links
+     * Returns The URLs of related resources.
+     *
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -358,19 +358,19 @@ public class Binding extends Resource {
 
         Binding other = (Binding) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(credentialSid, other.credentialSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(notificationProtocolVersion, other.notificationProtocolVersion) && 
-               Objects.equals(endpoint, other.endpoint) && 
-               Objects.equals(identity, other.identity) && 
-               Objects.equals(bindingType, other.bindingType) && 
-               Objects.equals(address, other.address) && 
-               Objects.equals(tags, other.tags) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(credentialSid, other.credentialSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(notificationProtocolVersion, other.notificationProtocolVersion) &&
+               Objects.equals(endpoint, other.endpoint) &&
+               Objects.equals(identity, other.identity) &&
+               Objects.equals(bindingType, other.bindingType) &&
+               Objects.equals(address, other.address) &&
+               Objects.equals(tags, other.tags) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

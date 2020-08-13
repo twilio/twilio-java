@@ -42,7 +42,7 @@ public class EventTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.MONITOR.toString(),
                                           "/v1/Events/AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class EventTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.MONITOR.toString(),
                                           "/v1/Events");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

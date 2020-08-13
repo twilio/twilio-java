@@ -8,6 +8,7 @@
 package com.twilio.rest.preview.understand;
 
 import com.twilio.base.Updater;
+import com.twilio.converter.Converter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -19,6 +20,7 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 import java.net.URI;
+import java.util.Map;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
@@ -30,14 +32,16 @@ public class AssistantUpdater extends Updater<Assistant> {
     private String friendlyName;
     private Boolean logQueries;
     private String uniqueName;
-    private URI responseUrl;
     private URI callbackUrl;
     private String callbackEvents;
+    private Map<String, Object> fallbackActions;
+    private Map<String, Object> initiationActions;
+    private Map<String, Object> styleSheet;
 
     /**
      * Construct a new AssistantUpdater.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public AssistantUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -46,7 +50,7 @@ public class AssistantUpdater extends Updater<Assistant> {
     /**
      * A text description for the Assistant. It is non-unique and can up to 255
      * characters long..
-     * 
+     *
      * @param friendlyName A text description for the Assistant. It is non-unique
      *                     and can up to 255 characters long.
      * @return this
@@ -61,7 +65,7 @@ public class AssistantUpdater extends Updater<Assistant> {
      * training. If false, no queries will be stored, if true, queries will be
      * stored for 30 days and deleted thereafter. Defaults to true if no value is
      * provided..
-     * 
+     *
      * @param logQueries A boolean that specifies whether queries should be logged
      *                   for 30 days further training. If false, no queries will be
      *                   stored, if true, queries will be stored for 30 days and
@@ -77,7 +81,7 @@ public class AssistantUpdater extends Updater<Assistant> {
     /**
      * A user-provided string that uniquely identifies this resource as an
      * alternative to the sid. Unique up to 64 characters long..
-     * 
+     *
      * @param uniqueName A user-provided string that uniquely identifies this
      *                   resource as an alternative to the sid. Unique up to 64
      *                   characters long.
@@ -89,34 +93,9 @@ public class AssistantUpdater extends Updater<Assistant> {
     }
 
     /**
-     * The webhook URL called to fetch the response to an incoming communication
-     * expressed in Assistant TwiML..
-     * 
-     * @param responseUrl The webhook URL called to fetch the response to an
-     *                    incoming communication expressed in Assistant TwiML.
-     * @return this
-     */
-    public AssistantUpdater setResponseUrl(final URI responseUrl) {
-        this.responseUrl = responseUrl;
-        return this;
-    }
-
-    /**
-     * The webhook URL called to fetch the response to an incoming communication
-     * expressed in Assistant TwiML..
-     * 
-     * @param responseUrl The webhook URL called to fetch the response to an
-     *                    incoming communication expressed in Assistant TwiML.
-     * @return this
-     */
-    public AssistantUpdater setResponseUrl(final String responseUrl) {
-        return setResponseUrl(Promoter.uriFromString(responseUrl));
-    }
-
-    /**
-     * The callback_url.
-     * 
-     * @param callbackUrl The callback_url
+     * A user-provided URL to send event callbacks to..
+     *
+     * @param callbackUrl A user-provided URL to send event callbacks to.
      * @return this
      */
     public AssistantUpdater setCallbackUrl(final URI callbackUrl) {
@@ -125,9 +104,9 @@ public class AssistantUpdater extends Updater<Assistant> {
     }
 
     /**
-     * The callback_url.
-     * 
-     * @param callbackUrl The callback_url
+     * A user-provided URL to send event callbacks to..
+     *
+     * @param callbackUrl A user-provided URL to send event callbacks to.
      * @return this
      */
     public AssistantUpdater setCallbackUrl(final String callbackUrl) {
@@ -135,9 +114,10 @@ public class AssistantUpdater extends Updater<Assistant> {
     }
 
     /**
-     * The callback_events.
-     * 
-     * @param callbackEvents The callback_events
+     * Space-separated list of callback events that will trigger callbacks..
+     *
+     * @param callbackEvents Space-separated list of callback events that will
+     *                       trigger callbacks.
      * @return this
      */
     public AssistantUpdater setCallbackEvents(final String callbackEvents) {
@@ -146,8 +126,46 @@ public class AssistantUpdater extends Updater<Assistant> {
     }
 
     /**
+     * The JSON actions to be executed when the user's input is not recognized as
+     * matching any Task..
+     *
+     * @param fallbackActions The JSON actions to be executed when the user's input
+     *                        is not recognized as matching any Task.
+     * @return this
+     */
+    public AssistantUpdater setFallbackActions(final Map<String, Object> fallbackActions) {
+        this.fallbackActions = fallbackActions;
+        return this;
+    }
+
+    /**
+     * The JSON actions to be executed on inbound phone calls when the Assistant has
+     * to say something first..
+     *
+     * @param initiationActions The JSON actions to be executed on inbound phone
+     *                          calls when the Assistant has to say something first.
+     * @return this
+     */
+    public AssistantUpdater setInitiationActions(final Map<String, Object> initiationActions) {
+        this.initiationActions = initiationActions;
+        return this;
+    }
+
+    /**
+     * The JSON object that holds the style sheet for the assistant.
+     *
+     * @param styleSheet The JSON object that holds the style sheet for the
+     *                   assistant
+     * @return this
+     */
+    public AssistantUpdater setStyleSheet(final Map<String, Object> styleSheet) {
+        this.styleSheet = styleSheet;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Assistant
      */
@@ -157,8 +175,7 @@ public class AssistantUpdater extends Updater<Assistant> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathSid + "",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -171,14 +188,7 @@ public class AssistantUpdater extends Updater<Assistant> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Assistant.fromJson(response.getStream(), client.getObjectMapper());
@@ -186,7 +196,7 @@ public class AssistantUpdater extends Updater<Assistant> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
@@ -202,16 +212,24 @@ public class AssistantUpdater extends Updater<Assistant> {
             request.addPostParam("UniqueName", uniqueName);
         }
 
-        if (responseUrl != null) {
-            request.addPostParam("ResponseUrl", responseUrl.toString());
-        }
-
         if (callbackUrl != null) {
             request.addPostParam("CallbackUrl", callbackUrl.toString());
         }
 
         if (callbackEvents != null) {
             request.addPostParam("CallbackEvents", callbackEvents);
+        }
+
+        if (fallbackActions != null) {
+            request.addPostParam("FallbackActions", Converter.mapToJson(fallbackActions));
+        }
+
+        if (initiationActions != null) {
+            request.addPostParam("InitiationActions", Converter.mapToJson(initiationActions));
+        }
+
+        if (styleSheet != null) {
+            request.addPostParam("StyleSheet", Converter.mapToJson(styleSheet));
         }
     }
 }

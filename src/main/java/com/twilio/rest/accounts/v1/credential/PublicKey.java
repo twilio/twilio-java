@@ -38,7 +38,7 @@ public class PublicKey extends Resource {
 
     /**
      * Create a PublicKeyReader to execute read.
-     * 
+     *
      * @return PublicKeyReader capable of executing the read
      */
     public static PublicKeyReader reader() {
@@ -47,8 +47,8 @@ public class PublicKey extends Resource {
 
     /**
      * Create a PublicKeyCreator to execute create.
-     * 
-     * @param publicKey URL encoded representation of the public key
+     *
+     * @param publicKey A URL encoded representation of the public key
      * @return PublicKeyCreator capable of executing the create
      */
     public static PublicKeyCreator creator(final String publicKey) {
@@ -57,8 +57,8 @@ public class PublicKey extends Resource {
 
     /**
      * Create a PublicKeyFetcher to execute fetch.
-     * 
-     * @param pathSid Fetch by unique Credential Sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return PublicKeyFetcher capable of executing the fetch
      */
     public static PublicKeyFetcher fetcher(final String pathSid) {
@@ -67,8 +67,8 @@ public class PublicKey extends Resource {
 
     /**
      * Create a PublicKeyUpdater to execute update.
-     * 
-     * @param pathSid Fetch by unique Credential Sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return PublicKeyUpdater capable of executing the update
      */
     public static PublicKeyUpdater updater(final String pathSid) {
@@ -77,8 +77,8 @@ public class PublicKey extends Resource {
 
     /**
      * Create a PublicKeyDeleter to execute delete.
-     * 
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return PublicKeyDeleter capable of executing the delete
      */
     public static PublicKeyDeleter deleter(final String pathSid) {
@@ -88,7 +88,7 @@ public class PublicKey extends Resource {
     /**
      * Converts a JSON String into a PublicKey object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return PublicKey object represented by the provided JSON
@@ -107,7 +107,7 @@ public class PublicKey extends Resource {
     /**
      * Converts a JSON InputStream into a PublicKey object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return PublicKey object represented by the provided JSON
@@ -132,15 +132,15 @@ public class PublicKey extends Resource {
 
     @JsonCreator
     private PublicKey(@JsonProperty("sid")
-                      final String sid, 
+                      final String sid,
                       @JsonProperty("account_sid")
-                      final String accountSid, 
+                      final String accountSid,
                       @JsonProperty("friendly_name")
-                      final String friendlyName, 
+                      final String friendlyName,
                       @JsonProperty("date_created")
-                      final String dateCreated, 
+                      final String dateCreated,
                       @JsonProperty("date_updated")
-                      final String dateUpdated, 
+                      final String dateUpdated,
                       @JsonProperty("url")
                       final URI url) {
         this.sid = sid;
@@ -152,54 +152,55 @@ public class PublicKey extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
-     * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The AccountSid the Credential resource belongs to.
-     * 
-     * @return AccountSid the Credential resource belongs to
+     * Returns The SID of the Account that created the Credential that the PublicKey
+     * resource belongs to.
+     *
+     * @return The SID of the Account that created the Credential that the
+     *         PublicKey resource belongs to
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The A human readable description of this resource.
-     * 
-     * @return A human readable description of this resource
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date this resource was created.
-     * 
-     * @return The date this resource was created
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
+     *
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this resource was last updated.
-     * 
-     * @return The date this resource was last updated
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
+     *
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URI for this resource, relative to
-     * `https://accounts.twilio.com`.
-     * 
+     * Returns The URI for this resource, relative to `https://accounts.twilio.com`.
+     *
      * @return The URI for this resource, relative to `https://accounts.twilio.com`
      */
     public final URI getUrl() {
@@ -218,11 +219,11 @@ public class PublicKey extends Resource {
 
         PublicKey other = (PublicKey) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
     }
 

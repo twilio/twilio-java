@@ -30,9 +30,10 @@ public class TrunkCreator extends Creator<Trunk> {
     private Boolean cnamLookupEnabled;
 
     /**
-     * A human-readable name for the Trunk..
-     * 
-     * @param friendlyName A human-readable name for the Trunk.
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
+     *
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public TrunkCreator setFriendlyName(final String friendlyName) {
@@ -42,12 +43,13 @@ public class TrunkCreator extends Creator<Trunk> {
 
     /**
      * The unique address you reserve on Twilio to which you route your SIP traffic.
-     * Domain names can contain letters, digits, and `-` and must always end with
+     * Domain names can contain letters, digits, and `-` and must end with
      * `pstn.twilio.com`. See [Termination
-     * Settings](https://www.twilio.com/docs/sip-trunking/getting-started#termination) for more information..
-     * 
+     * Settings](https://www.twilio.com/docs/sip-trunking#termination) for more
+     * information..
+     *
      * @param domainName The unique address you reserve on Twilio to which you
-     *                   route your SIP traffic.
+     *                   route your SIP traffic
      * @return this
      */
     public TrunkCreator setDomainName(final String domainName) {
@@ -56,15 +58,16 @@ public class TrunkCreator extends Creator<Trunk> {
     }
 
     /**
-     * The HTTP URL that Twilio will request if an error occurs while sending SIP
-     * traffic towards your configured Origination URL. Twilio will retrieve TwiML
-     * from this URL and execute those instructions like any other normal TwiML
-     * call. See [Disaster
-     * Recovery](https://www.twilio.com/docs/sip-trunking/getting-started#disaster-recovery) for more information..
-     * 
-     * @param disasterRecoveryUrl The HTTP URL that Twilio will request if an error
+     * The URL we should call using the `disaster_recovery_method` if an error
+     * occurs while sending SIP traffic towards the configured Origination URL. We
+     * retrieve TwiML from the URL and execute the instructions like any other
+     * normal TwiML call. See [Disaster
+     * Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for
+     * more information..
+     *
+     * @param disasterRecoveryUrl The HTTP URL that we should call if an error
      *                            occurs while sending SIP traffic towards your
-     *                            configured Origination URL.
+     *                            configured Origination URL
      * @return this
      */
     public TrunkCreator setDisasterRecoveryUrl(final URI disasterRecoveryUrl) {
@@ -73,15 +76,16 @@ public class TrunkCreator extends Creator<Trunk> {
     }
 
     /**
-     * The HTTP URL that Twilio will request if an error occurs while sending SIP
-     * traffic towards your configured Origination URL. Twilio will retrieve TwiML
-     * from this URL and execute those instructions like any other normal TwiML
-     * call. See [Disaster
-     * Recovery](https://www.twilio.com/docs/sip-trunking/getting-started#disaster-recovery) for more information..
-     * 
-     * @param disasterRecoveryUrl The HTTP URL that Twilio will request if an error
+     * The URL we should call using the `disaster_recovery_method` if an error
+     * occurs while sending SIP traffic towards the configured Origination URL. We
+     * retrieve TwiML from the URL and execute the instructions like any other
+     * normal TwiML call. See [Disaster
+     * Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for
+     * more information..
+     *
+     * @param disasterRecoveryUrl The HTTP URL that we should call if an error
      *                            occurs while sending SIP traffic towards your
-     *                            configured Origination URL.
+     *                            configured Origination URL
      * @return this
      */
     public TrunkCreator setDisasterRecoveryUrl(final String disasterRecoveryUrl) {
@@ -89,11 +93,11 @@ public class TrunkCreator extends Creator<Trunk> {
     }
 
     /**
-     * The HTTP method Twilio will use when requesting the `DisasterRecoveryUrl`.
-     * Either `GET` or `POST`..
-     * 
-     * @param disasterRecoveryMethod The HTTP method Twilio will use when
-     *                               requesting the DisasterRecoveryUrl.
+     * The HTTP method we should use to call the `disaster_recovery_url`. Can be:
+     * `GET` or `POST`..
+     *
+     * @param disasterRecoveryMethod The HTTP method we should use to call the
+     *                               disaster_recovery_url
      * @return this
      */
     public TrunkCreator setDisasterRecoveryMethod(final HttpMethod disasterRecoveryMethod) {
@@ -102,12 +106,16 @@ public class TrunkCreator extends Creator<Trunk> {
     }
 
     /**
-     * The recording settings for this trunk. If turned on, all calls going through
-     * this trunk will be recorded and the recording can either start when the call
-     * is ringing or when the call is answered. See
-     * [Recording](https://www.twilio.com/docs/sip-trunking/getting-started#recording) for more information..
-     * 
-     * @param recording The recording settings for this trunk.
+     * The recording settings for the trunk. Can be: `do-not-record`,
+     * `record-from-ringing`, `record-from-answer`. If set to `record-from-ringing`
+     * or `record-from-answer`, all calls going through the trunk will be recorded.
+     * The only way to change recording parameters is on a sub-resource of a Trunk
+     * after it has been created. e.g.`/Trunks/[Trunk_SID]/Recording -XPOST
+     * -d'Mode=record-from-answer'`. See
+     * [Recording](https://www.twilio.com/docs/sip-trunking#recording) for more
+     * information..
+     *
+     * @param recording The recording settings for the trunk
      * @return this
      */
     public TrunkCreator setRecording(final Trunk.RecordingSetting recording) {
@@ -116,12 +124,13 @@ public class TrunkCreator extends Creator<Trunk> {
     }
 
     /**
-     * The Secure Trunking  settings for this trunk. If turned on, all calls going
-     * through this trunk will be secure using SRTP for media and TLS for
-     * signalling. If turned off, then RTP will be used for media. See [Secure
-     * Trunking](https://www.twilio.com/docs/sip-trunking/getting-started#securetrunking) for more information..
-     * 
-     * @param secure The Secure Trunking  settings for this trunk.
+     * Whether Secure Trunking is enabled for the trunk. If enabled, all calls going
+     * through the trunk will be secure using SRTP for media and TLS for signaling.
+     * If disabled, then RTP will be used for media. See [Secure
+     * Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more
+     * information..
+     *
+     * @param secure Whether Secure Trunking is enabled for the trunk
      * @return this
      */
     public TrunkCreator setSecure(final Boolean secure) {
@@ -130,14 +139,14 @@ public class TrunkCreator extends Creator<Trunk> {
     }
 
     /**
-     * The Caller ID Name (CNAM) lookup setting for this trunk. If turned on, all
-     * inbound calls to this SIP Trunk from the United States and Canada will
+     * Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If
+     * enabled, all inbound calls to the SIP Trunk from the United States and Canada
      * automatically perform a CNAM Lookup and display Caller ID data on your phone.
-     * See [CNAM](https://www.twilio.com/docs/sip-trunking#CNAM) Lookups for more
+     * See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more
      * information..
-     * 
-     * @param cnamLookupEnabled The Caller ID Name (CNAM) lookup setting for this
-     *                          trunk.
+     *
+     * @param cnamLookupEnabled Whether Caller ID Name (CNAM) lookup should be
+     *                          enabled for the trunk
      * @return this
      */
     public TrunkCreator setCnamLookupEnabled(final Boolean cnamLookupEnabled) {
@@ -147,7 +156,7 @@ public class TrunkCreator extends Creator<Trunk> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Trunk
      */
@@ -157,8 +166,7 @@ public class TrunkCreator extends Creator<Trunk> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks",
-            client.getRegion()
+            "/v1/Trunks"
         );
 
         addPostParams(request);
@@ -171,14 +179,7 @@ public class TrunkCreator extends Creator<Trunk> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Trunk.fromJson(response.getStream(), client.getObjectMapper());
@@ -186,7 +187,7 @@ public class TrunkCreator extends Creator<Trunk> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

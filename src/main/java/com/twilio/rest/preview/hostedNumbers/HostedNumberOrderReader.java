@@ -36,7 +36,7 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
      * The Status of this HostedNumberOrder. One of `received`,
      * `pending-verification`, `verified`, `pending-loa`, `carrier-processing`,
      * `testing`, `completed`, `failed`, or `action-required`..
-     * 
+     *
      * @param status The Status of this HostedNumberOrder.
      * @return this
      */
@@ -47,7 +47,7 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
 
     /**
      * An E164 formatted phone number hosted by this HostedNumberOrder..
-     * 
+     *
      * @param phoneNumber An E164 formatted phone number.
      * @return this
      */
@@ -58,7 +58,7 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
 
     /**
      * An E164 formatted phone number hosted by this HostedNumberOrder..
-     * 
+     *
      * @param phoneNumber An E164 formatted phone number.
      * @return this
      */
@@ -69,7 +69,7 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
     /**
      * A 34 character string that uniquely identifies the IncomingPhoneNumber
      * resource created by this HostedNumberOrder..
-     * 
+     *
      * @param incomingPhoneNumberSid IncomingPhoneNumber sid.
      * @return this
      */
@@ -80,7 +80,7 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
 
     /**
      * A human readable description of this resource, up to 64 characters..
-     * 
+     *
      * @param friendlyName A human readable description of this resource.
      * @return this
      */
@@ -93,7 +93,7 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
      * Provides a unique and addressable name to be assigned to this
      * HostedNumberOrder, assigned by the developer, to be optionally used in
      * addition to SID..
-     * 
+     *
      * @param uniqueName A unique, developer assigned name of this
      *                   HostedNumberOrder.
      * @return this
@@ -105,7 +105,7 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return HostedNumberOrder ResourceSet
      */
@@ -116,7 +116,7 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return HostedNumberOrder ResourceSet
      */
@@ -126,8 +126,7 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/HostedNumbers/HostedNumberOrders",
-            client.getRegion()
+            "/HostedNumbers/HostedNumberOrders"
         );
 
         addQueryParams(request);
@@ -136,7 +135,7 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return HostedNumberOrder ResourceSet
@@ -154,47 +153,41 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<HostedNumberOrder> nextPage(final Page<HostedNumberOrder> page, 
+    public Page<HostedNumberOrder> nextPage(final Page<HostedNumberOrder> page,
                                             final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<HostedNumberOrder> previousPage(final Page<HostedNumberOrder> page, 
+    public Page<HostedNumberOrder> previousPage(final Page<HostedNumberOrder> page,
                                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of HostedNumberOrder Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -209,14 +202,7 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -229,7 +215,7 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

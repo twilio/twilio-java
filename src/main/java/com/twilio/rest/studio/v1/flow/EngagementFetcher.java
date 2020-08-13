@@ -17,21 +17,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class EngagementFetcher extends Fetcher<Engagement> {
     private final String pathFlowSid;
     private final String pathSid;
 
     /**
      * Construct a new EngagementFetcher.
-     * 
-     * @param pathFlowSid Flow Sid.
-     * @param pathSid Engagement Sid.
+     *
+     * @param pathFlowSid Flow SID
+     * @param pathSid The SID of the Engagement resource to fetch
      */
-    public EngagementFetcher(final String pathFlowSid, 
+    public EngagementFetcher(final String pathFlowSid,
                              final String pathSid) {
         this.pathFlowSid = pathFlowSid;
         this.pathSid = pathSid;
@@ -39,7 +35,7 @@ public class EngagementFetcher extends Fetcher<Engagement> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Engagement
      */
@@ -49,8 +45,7 @@ public class EngagementFetcher extends Fetcher<Engagement> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Engagements/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Flows/" + this.pathFlowSid + "/Engagements/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +57,7 @@ public class EngagementFetcher extends Fetcher<Engagement> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Engagement.fromJson(response.getStream(), client.getObjectMapper());

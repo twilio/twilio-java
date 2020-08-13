@@ -32,20 +32,22 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * Construct a new SyncListItemReader.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathListSid The list_sid
+     *
+     * @param pathServiceSid The SID of the Sync Service with the List Item
+     *                       resources to read
+     * @param pathListSid The SID of the Sync List with the List Items to read
      */
-    public SyncListItemReader(final String pathServiceSid, 
+    public SyncListItemReader(final String pathServiceSid,
                               final String pathListSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathListSid = pathListSid;
     }
 
     /**
-     * A string; `asc` or `desc`.
-     * 
-     * @param order A string; asc or desc
+     * How to order the List Items returned by their `index` value. Can be: `asc`
+     * (ascending) or `desc` (descending) and the default is ascending..
+     *
+     * @param order The order to return the List Items
      * @return this
      */
     public SyncListItemReader setOrder(final SyncListItem.QueryResultOrder order) {
@@ -54,10 +56,9 @@ public class SyncListItemReader extends Reader<SyncListItem> {
     }
 
     /**
-     * An integer representing Item index offset (inclusive). If not present, query
-     * is performed from the start or end, depending on the Order query parameter..
-     * 
-     * @param from An integer representing Item index offset.
+     * The `index` of the first Sync List Item resource to read. See also `bounds`..
+     *
+     * @param from The index of the first Sync List Item resource to read
      * @return this
      */
     public SyncListItemReader setFrom(final String from) {
@@ -66,9 +67,13 @@ public class SyncListItemReader extends Reader<SyncListItem> {
     }
 
     /**
-     * The bounds.
-     * 
-     * @param bounds The bounds
+     * Whether to include the List Item referenced by the `from` parameter. Can be:
+     * `inclusive` to include the List Item referenced by the `from` parameter or
+     * `exclusive` to start with the next List Item. The default value is
+     * `inclusive`..
+     *
+     * @param bounds Whether to include the List Item referenced by the from
+     *               parameter
      * @return this
      */
     public SyncListItemReader setBounds(final SyncListItem.QueryFromBoundType bounds) {
@@ -78,7 +83,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return SyncListItem ResourceSet
      */
@@ -89,7 +94,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return SyncListItem ResourceSet
      */
@@ -99,8 +104,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Items",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Items"
         );
 
         addQueryParams(request);
@@ -109,7 +113,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return SyncListItem ResourceSet
@@ -127,47 +131,41 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<SyncListItem> nextPage(final Page<SyncListItem> page, 
+    public Page<SyncListItem> nextPage(final Page<SyncListItem> page,
                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.SYNC.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.SYNC.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<SyncListItem> previousPage(final Page<SyncListItem> page, 
+    public Page<SyncListItem> previousPage(final Page<SyncListItem> page,
                                            final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.SYNC.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.SYNC.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of SyncListItem Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -182,14 +180,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -202,7 +193,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

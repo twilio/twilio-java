@@ -30,19 +30,19 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Construct a new ParticipantReader.
-     * 
-     * @param pathRoomSid The room_sid
+     *
+     * @param pathRoomSid The SID of the room with the Participant resources to read
      */
     public ParticipantReader(final String pathRoomSid) {
         this.pathRoomSid = pathRoomSid;
     }
 
     /**
-     * Only show Participants with the given Status.  For `in-progress` Rooms the
-     * default Status is `connected`, for `completed` Rooms only `disconnected`
-     * Participants are returned..
-     * 
-     * @param status Only show Participants with the given Status.
+     * Read only the participants with this status. Can be: `connected` or
+     * `disconnected`. For `in-progress` Rooms the default Status is `connected`,
+     * for `completed` Rooms only `disconnected` Participants are returned..
+     *
+     * @param status Read only the participants with this status
      * @return this
      */
     public ParticipantReader setStatus(final Participant.Status status) {
@@ -51,11 +51,11 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * Only show Participants that connected to the Room using the provided
-     * Identity..
-     * 
-     * @param identity Only show Participants that connected to the Room using the
-     *                 provided Identity.
+     * Read only the Participants with this
+     * [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity`
+     * value..
+     *
+     * @param identity Read only the Participants with this user identity value
      * @return this
      */
     public ParticipantReader setIdentity(final String identity) {
@@ -64,11 +64,11 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * Only show Participants that started after this date, given as an [UTC ISO
-     * 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC)..
-     * 
-     * @param dateCreatedAfter Only show Participants that started after this date,
-     *                         given as an UTC ISO 8601 Timestamp.
+     * Read only Participants that started after this date in [ISO
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format..
+     *
+     * @param dateCreatedAfter Read only Participants that started after this date
+     *                         in UTC ISO 8601 format
      * @return this
      */
     public ParticipantReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
@@ -77,11 +77,11 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * Only show Participants that started before this date, given as an [UTC ISO
-     * 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC)..
-     * 
-     * @param dateCreatedBefore Only show Participants that started before this
-     *                          date, given as an UTC ISO 8601 Timestamp.
+     * Read only Participants that started before this date in [ISO
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format..
+     *
+     * @param dateCreatedBefore Read only Participants that started before this
+     *                          date in ISO 8601 format
      * @return this
      */
     public ParticipantReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
@@ -91,7 +91,7 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Participant ResourceSet
      */
@@ -102,7 +102,7 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Participant ResourceSet
      */
@@ -112,8 +112,7 @@ public class ParticipantReader extends Reader<Participant> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/Participants",
-            client.getRegion()
+            "/v1/Rooms/" + this.pathRoomSid + "/Participants"
         );
 
         addQueryParams(request);
@@ -122,7 +121,7 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Participant ResourceSet
@@ -140,47 +139,41 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Participant> nextPage(final Page<Participant> page, 
+    public Page<Participant> nextPage(final Page<Participant> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.VIDEO.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.VIDEO.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Participant> previousPage(final Page<Participant> page, 
+    public Page<Participant> previousPage(final Page<Participant> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.VIDEO.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.VIDEO.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Participant Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -195,14 +188,7 @@ public class ParticipantReader extends Reader<Participant> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -215,7 +201,7 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

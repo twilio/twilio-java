@@ -37,21 +37,24 @@ public class RecordingReader extends Reader<Recording> {
 
     /**
      * Construct a new RecordingReader.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      */
     public RecordingReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
     /**
-     * Only show recordings created on the given date. Should be formatted
-     * `YYYY-MM-DD`. You can also specify inequality: `DateCreated&lt;=YYYY-MM-DD`
-     * will return recordings generated at or before midnight on a given date, and
-     * `DateCreated&gt;=YYYY-MM-DD` returns recordings generated at or after
-     * midnight on a date..
-     * 
-     * @param absoluteDateCreated Filter by date created
+     * Only include recordings that were created on this date. Specify a date as
+     * `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were
+     * created on this date. You can also specify an inequality, such as
+     * `DateCreated&lt;=YYYY-MM-DD`, to read recordings that were created on or
+     * before midnight of this date, and `DateCreated&gt;=YYYY-MM-DD` to read
+     * recordings that were created on or after midnight of this date..
+     *
+     * @param absoluteDateCreated Only include recordings that were created on this
+     *                            date
      * @return this
      */
     public RecordingReader setDateCreated(final DateTime absoluteDateCreated) {
@@ -61,13 +64,15 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * Only show recordings created on the given date. Should be formatted
-     * `YYYY-MM-DD`. You can also specify inequality: `DateCreated&lt;=YYYY-MM-DD`
-     * will return recordings generated at or before midnight on a given date, and
-     * `DateCreated&gt;=YYYY-MM-DD` returns recordings generated at or after
-     * midnight on a date..
-     * 
-     * @param rangeDateCreated Filter by date created
+     * Only include recordings that were created on this date. Specify a date as
+     * `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were
+     * created on this date. You can also specify an inequality, such as
+     * `DateCreated&lt;=YYYY-MM-DD`, to read recordings that were created on or
+     * before midnight of this date, and `DateCreated&gt;=YYYY-MM-DD` to read
+     * recordings that were created on or after midnight of this date..
+     *
+     * @param rangeDateCreated Only include recordings that were created on this
+     *                         date
      * @return this
      */
     public RecordingReader setDateCreated(final Range<DateTime> rangeDateCreated) {
@@ -77,9 +82,10 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * Only show recordings made during the call indicated by this call SID.
-     * 
-     * @param callSid Filter by call_sid
+     * The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the
+     * resources to read..
+     *
+     * @param callSid The Call SID of the resources to read
      * @return this
      */
     public RecordingReader setCallSid(final String callSid) {
@@ -88,9 +94,10 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * The conference_sid.
-     * 
-     * @param conferenceSid The conference_sid
+     * The Conference SID that identifies the conference associated with the
+     * recording to read..
+     *
+     * @param conferenceSid Read by unique Conference SID for the recording
      * @return this
      */
     public RecordingReader setConferenceSid(final String conferenceSid) {
@@ -100,7 +107,7 @@ public class RecordingReader extends Reader<Recording> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Recording ResourceSet
      */
@@ -111,7 +118,7 @@ public class RecordingReader extends Reader<Recording> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Recording ResourceSet
      */
@@ -122,8 +129,7 @@ public class RecordingReader extends Reader<Recording> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings.json"
         );
 
         addQueryParams(request);
@@ -132,7 +138,7 @@ public class RecordingReader extends Reader<Recording> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Recording ResourceSet
@@ -151,47 +157,41 @@ public class RecordingReader extends Reader<Recording> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Recording> nextPage(final Page<Recording> page, 
+    public Page<Recording> nextPage(final Page<Recording> page,
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Recording> previousPage(final Page<Recording> page, 
+    public Page<Recording> previousPage(final Page<Recording> page,
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Recording Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -206,14 +206,7 @@ public class RecordingReader extends Reader<Recording> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -226,7 +219,7 @@ public class RecordingReader extends Reader<Recording> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

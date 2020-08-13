@@ -24,11 +24,13 @@ public class ParticipantReader extends Reader<Participant> {
     private final String pathConferenceSid;
     private Boolean muted;
     private Boolean hold;
+    private Boolean coaching;
 
     /**
      * Construct a new ParticipantReader.
-     * 
-     * @param pathConferenceSid The string that uniquely identifies this conference
+     *
+     * @param pathConferenceSid The SID of the conference with the participants to
+     *                          read
      */
     public ParticipantReader(final String pathConferenceSid) {
         this.pathConferenceSid = pathConferenceSid;
@@ -36,21 +38,23 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Construct a new ParticipantReader.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathConferenceSid The string that uniquely identifies this conference
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathConferenceSid The SID of the conference with the participants to
+     *                          read
      */
-    public ParticipantReader(final String pathAccountSid, 
+    public ParticipantReader(final String pathAccountSid,
                              final String pathConferenceSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathConferenceSid = pathConferenceSid;
     }
 
     /**
-     * Only return participants that are muted or unmuted. Either `true` or
+     * Whether to return only participants that are muted. Can be: `true` or
      * `false`..
-     * 
-     * @param muted Filter by muted participants
+     *
+     * @param muted Whether to return only participants that are muted
      * @return this
      */
     public ParticipantReader setMuted(final Boolean muted) {
@@ -59,10 +63,10 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * Only return participants that are on hold or not on hold. Either `true` or
+     * Whether to return only participants that are on hold. Can be: `true` or
      * `false`..
-     * 
-     * @param hold Only show participants that are held or unheld.
+     *
+     * @param hold Whether to return only participants that are on hold
      * @return this
      */
     public ParticipantReader setHold(final Boolean hold) {
@@ -71,8 +75,21 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
+     * Whether to return only participants who are coaching another call. Can be:
+     * `true` or `false`..
+     *
+     * @param coaching Whether to return only participants who are coaching another
+     *                 call
+     * @return this
+     */
+    public ParticipantReader setCoaching(final Boolean coaching) {
+        this.coaching = coaching;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Participant ResourceSet
      */
@@ -83,7 +100,7 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Participant ResourceSet
      */
@@ -94,8 +111,7 @@ public class ParticipantReader extends Reader<Participant> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathConferenceSid + "/Participants.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathConferenceSid + "/Participants.json"
         );
 
         addQueryParams(request);
@@ -104,7 +120,7 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Participant ResourceSet
@@ -123,47 +139,41 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Participant> nextPage(final Page<Participant> page, 
+    public Page<Participant> nextPage(final Page<Participant> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Participant> previousPage(final Page<Participant> page, 
+    public Page<Participant> previousPage(final Page<Participant> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Participant Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -178,14 +188,7 @@ public class ParticipantReader extends Reader<Participant> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -198,7 +201,7 @@ public class ParticipantReader extends Reader<Participant> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
@@ -208,6 +211,10 @@ public class ParticipantReader extends Reader<Participant> {
 
         if (hold != null) {
             request.addQueryParam("Hold", hold.toString());
+        }
+
+        if (coaching != null) {
+            request.addQueryParam("Coaching", coaching.toString());
         }
 
         if (getPageSize() != null) {

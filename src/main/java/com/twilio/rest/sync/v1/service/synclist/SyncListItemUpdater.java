@@ -30,16 +30,20 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
     private final Integer pathIndex;
     private Map<String, Object> data;
     private Integer ttl;
+    private Integer itemTtl;
+    private Integer collectionTtl;
 
     /**
      * Construct a new SyncListItemUpdater.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathListSid The list_sid
-     * @param pathIndex The index
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Sync List Item
+     *                       resource to update
+     * @param pathListSid The SID of the Sync List with the Sync List Item resource
+     *                    to update
+     * @param pathIndex The index of the Sync List Item resource to update
      */
-    public SyncListItemUpdater(final String pathServiceSid, 
-                               final String pathListSid, 
+    public SyncListItemUpdater(final String pathServiceSid,
+                               final String pathListSid,
                                final Integer pathIndex) {
         this.pathServiceSid = pathServiceSid;
         this.pathListSid = pathListSid;
@@ -47,11 +51,11 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
     }
 
     /**
-     * Contains arbitrary user-defined, schema-less data that this List Item stores,
-     * represented by a JSON object, up to 16KB..
-     * 
-     * @param data Contains arbitrary user-defined, schema-less data that this List
-     *             Item stores, represented by a JSON object, up to 16KB.
+     * A JSON string that represents an arbitrary, schema-less object that the List
+     * Item stores. Can be up to 16KB in length..
+     *
+     * @param data A JSON string that represents an arbitrary, schema-less object
+     *             that the List Item stores
      * @return this
      */
     public SyncListItemUpdater setData(final Map<String, Object> data) {
@@ -60,12 +64,10 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
     }
 
     /**
-     * Time-to-live of this item in seconds, defaults to no expiration. In the range
-     * [1, 31 536 000 (1 year)], or 0 for infinity. Upon expiry, the list item will
-     * be cleaned up at least in a matter of hours, and often within seconds, making
-     * this a good tool for garbage management..
-     * 
-     * @param ttl Time-to-live of this item in seconds, defaults to no expiration.
+     * An alias for `item_ttl`. If both parameters are provided, this value is
+     * ignored..
+     *
+     * @param ttl An alias for item_ttl
      * @return this
      */
     public SyncListItemUpdater setTtl(final Integer ttl) {
@@ -74,8 +76,40 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
     }
 
     /**
+     * How long, in seconds, before the List Item expires (time-to-live) and is
+     * deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value
+     * is `0`, which means the List Item does not expire. The List Item will be
+     * deleted automatically after it expires, but there can be a delay between the
+     * expiration time and the resources's deletion..
+     *
+     * @param itemTtl How long, in seconds, before the List Item expires
+     * @return this
+     */
+    public SyncListItemUpdater setItemTtl(final Integer itemTtl) {
+        this.itemTtl = itemTtl;
+        return this;
+    }
+
+    /**
+     * How long, in seconds, before the List Item's parent Sync List expires
+     * (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1
+     * year). The default value is `0`, which means the parent Sync List does not
+     * expire. The Sync List will be deleted automatically after it expires, but
+     * there can be a delay between the expiration time and the resources's
+     * deletion..
+     *
+     * @param collectionTtl How long, in seconds, before the List Item's parent
+     *                      Sync List expires
+     * @return this
+     */
+    public SyncListItemUpdater setCollectionTtl(final Integer collectionTtl) {
+        this.collectionTtl = collectionTtl;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated SyncListItem
      */
@@ -85,8 +119,7 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Items/" + this.pathIndex + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Items/" + this.pathIndex + ""
         );
 
         addPostParams(request);
@@ -99,14 +132,7 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SyncListItem.fromJson(response.getStream(), client.getObjectMapper());
@@ -114,7 +140,7 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
@@ -124,6 +150,14 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
 
         if (ttl != null) {
             request.addPostParam("Ttl", ttl.toString());
+        }
+
+        if (itemTtl != null) {
+            request.addPostParam("ItemTtl", itemTtl.toString());
+        }
+
+        if (collectionTtl != null) {
+            request.addPostParam("CollectionTtl", collectionTtl.toString());
         }
     }
 }

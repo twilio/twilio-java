@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class IncomingPhoneNumber extends Resource {
-    private static final long serialVersionUID = 145062524051297L;
+    private static final long serialVersionUID = 15921177976546L;
 
     public enum AddressRequirement {
         NONE("none"),
@@ -117,20 +117,21 @@ public class IncomingPhoneNumber extends Resource {
 
     /**
      * Create a IncomingPhoneNumberUpdater to execute update.
-     * 
-     * @param pathAccountSid The new owner of the phone number
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       update
+     * @param pathSid The unique string that identifies the resource
      * @return IncomingPhoneNumberUpdater capable of executing the update
      */
-    public static IncomingPhoneNumberUpdater updater(final String pathAccountSid, 
+    public static IncomingPhoneNumberUpdater updater(final String pathAccountSid,
                                                      final String pathSid) {
         return new IncomingPhoneNumberUpdater(pathAccountSid, pathSid);
     }
 
     /**
      * Create a IncomingPhoneNumberUpdater to execute update.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return IncomingPhoneNumberUpdater capable of executing the update
      */
     public static IncomingPhoneNumberUpdater updater(final String pathSid) {
@@ -139,20 +140,21 @@ public class IncomingPhoneNumber extends Resource {
 
     /**
      * Create a IncomingPhoneNumberFetcher to execute fetch.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique incoming-phone-number Sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      * @return IncomingPhoneNumberFetcher capable of executing the fetch
      */
-    public static IncomingPhoneNumberFetcher fetcher(final String pathAccountSid, 
+    public static IncomingPhoneNumberFetcher fetcher(final String pathAccountSid,
                                                      final String pathSid) {
         return new IncomingPhoneNumberFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a IncomingPhoneNumberFetcher to execute fetch.
-     * 
-     * @param pathSid Fetch by unique incoming-phone-number Sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return IncomingPhoneNumberFetcher capable of executing the fetch
      */
     public static IncomingPhoneNumberFetcher fetcher(final String pathSid) {
@@ -161,20 +163,21 @@ public class IncomingPhoneNumber extends Resource {
 
     /**
      * Create a IncomingPhoneNumberDeleter to execute delete.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Delete by unique phone-number Sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathSid The unique string that identifies the resource
      * @return IncomingPhoneNumberDeleter capable of executing the delete
      */
-    public static IncomingPhoneNumberDeleter deleter(final String pathAccountSid, 
+    public static IncomingPhoneNumberDeleter deleter(final String pathAccountSid,
                                                      final String pathSid) {
         return new IncomingPhoneNumberDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a IncomingPhoneNumberDeleter to execute delete.
-     * 
-     * @param pathSid Delete by unique phone-number Sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return IncomingPhoneNumberDeleter capable of executing the delete
      */
     public static IncomingPhoneNumberDeleter deleter(final String pathSid) {
@@ -183,8 +186,9 @@ public class IncomingPhoneNumber extends Resource {
 
     /**
      * Create a IncomingPhoneNumberReader to execute read.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      * @return IncomingPhoneNumberReader capable of executing the read
      */
     public static IncomingPhoneNumberReader reader(final String pathAccountSid) {
@@ -193,7 +197,7 @@ public class IncomingPhoneNumber extends Resource {
 
     /**
      * Create a IncomingPhoneNumberReader to execute read.
-     * 
+     *
      * @return IncomingPhoneNumberReader capable of executing the read
      */
     public static IncomingPhoneNumberReader reader() {
@@ -202,20 +206,20 @@ public class IncomingPhoneNumber extends Resource {
 
     /**
      * Create a IncomingPhoneNumberCreator to execute create.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param phoneNumber The phone number
+     *
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param phoneNumber The phone number to purchase in E.164 format
      * @return IncomingPhoneNumberCreator capable of executing the create
      */
-    public static IncomingPhoneNumberCreator creator(final String pathAccountSid, 
+    public static IncomingPhoneNumberCreator creator(final String pathAccountSid,
                                                      final com.twilio.type.PhoneNumber phoneNumber) {
         return new IncomingPhoneNumberCreator(pathAccountSid, phoneNumber);
     }
 
     /**
      * Create a IncomingPhoneNumberCreator to execute create.
-     * 
-     * @param phoneNumber The phone number
+     *
+     * @param phoneNumber The phone number to purchase in E.164 format
      * @return IncomingPhoneNumberCreator capable of executing the create
      */
     public static IncomingPhoneNumberCreator creator(final com.twilio.type.PhoneNumber phoneNumber) {
@@ -224,20 +228,20 @@ public class IncomingPhoneNumber extends Resource {
 
     /**
      * Create a IncomingPhoneNumberCreator to execute create.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param areaCode The desired area code for the new number
+     *
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param areaCode The desired area code for the new phone number
      * @return IncomingPhoneNumberCreator capable of executing the create
      */
-    public static IncomingPhoneNumberCreator creator(final String pathAccountSid, 
+    public static IncomingPhoneNumberCreator creator(final String pathAccountSid,
                                                      final String areaCode) {
         return new IncomingPhoneNumberCreator(pathAccountSid, areaCode);
     }
 
     /**
      * Create a IncomingPhoneNumberCreator to execute create.
-     * 
-     * @param areaCode The desired area code for the new number
+     *
+     * @param areaCode The desired area code for the new phone number
      * @return IncomingPhoneNumberCreator capable of executing the create
      */
     public static IncomingPhoneNumberCreator creator(final String areaCode) {
@@ -247,7 +251,7 @@ public class IncomingPhoneNumber extends Resource {
     /**
      * Converts a JSON String into a IncomingPhoneNumber object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return IncomingPhoneNumber object represented by the provided JSON
@@ -266,7 +270,7 @@ public class IncomingPhoneNumber extends Resource {
     /**
      * Converts a JSON InputStream into a IncomingPhoneNumber object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return IncomingPhoneNumber object represented by the provided JSON
@@ -304,6 +308,7 @@ public class IncomingPhoneNumber extends Resource {
     private final HttpMethod statusCallbackMethod;
     private final String trunkSid;
     private final String uri;
+    private final IncomingPhoneNumber.VoiceReceiveMode voiceReceiveMode;
     private final String voiceApplicationSid;
     private final Boolean voiceCallerIdLookup;
     private final HttpMethod voiceFallbackMethod;
@@ -312,68 +317,76 @@ public class IncomingPhoneNumber extends Resource {
     private final URI voiceUrl;
     private final IncomingPhoneNumber.EmergencyStatus emergencyStatus;
     private final String emergencyAddressSid;
+    private final String bundleSid;
+    private final String status;
 
     @JsonCreator
     private IncomingPhoneNumber(@JsonProperty("account_sid")
-                                final String accountSid, 
+                                final String accountSid,
                                 @JsonProperty("address_sid")
-                                final String addressSid, 
+                                final String addressSid,
                                 @JsonProperty("address_requirements")
-                                final IncomingPhoneNumber.AddressRequirement addressRequirements, 
+                                final IncomingPhoneNumber.AddressRequirement addressRequirements,
                                 @JsonProperty("api_version")
-                                final String apiVersion, 
+                                final String apiVersion,
                                 @JsonProperty("beta")
-                                final Boolean beta, 
+                                final Boolean beta,
                                 @JsonProperty("capabilities")
-                                final PhoneNumberCapabilities capabilities, 
+                                final PhoneNumberCapabilities capabilities,
                                 @JsonProperty("date_created")
-                                final String dateCreated, 
+                                final String dateCreated,
                                 @JsonProperty("date_updated")
-                                final String dateUpdated, 
+                                final String dateUpdated,
                                 @JsonProperty("friendly_name")
-                                final String friendlyName, 
+                                final String friendlyName,
                                 @JsonProperty("identity_sid")
-                                final String identitySid, 
+                                final String identitySid,
                                 @JsonProperty("phone_number")
-                                final com.twilio.type.PhoneNumber phoneNumber, 
+                                final com.twilio.type.PhoneNumber phoneNumber,
                                 @JsonProperty("origin")
-                                final String origin, 
+                                final String origin,
                                 @JsonProperty("sid")
-                                final String sid, 
+                                final String sid,
                                 @JsonProperty("sms_application_sid")
-                                final String smsApplicationSid, 
+                                final String smsApplicationSid,
                                 @JsonProperty("sms_fallback_method")
-                                final HttpMethod smsFallbackMethod, 
+                                final HttpMethod smsFallbackMethod,
                                 @JsonProperty("sms_fallback_url")
-                                final URI smsFallbackUrl, 
+                                final URI smsFallbackUrl,
                                 @JsonProperty("sms_method")
-                                final HttpMethod smsMethod, 
+                                final HttpMethod smsMethod,
                                 @JsonProperty("sms_url")
-                                final URI smsUrl, 
+                                final URI smsUrl,
                                 @JsonProperty("status_callback")
-                                final URI statusCallback, 
+                                final URI statusCallback,
                                 @JsonProperty("status_callback_method")
-                                final HttpMethod statusCallbackMethod, 
+                                final HttpMethod statusCallbackMethod,
                                 @JsonProperty("trunk_sid")
-                                final String trunkSid, 
+                                final String trunkSid,
                                 @JsonProperty("uri")
-                                final String uri, 
+                                final String uri,
+                                @JsonProperty("voice_receive_mode")
+                                final IncomingPhoneNumber.VoiceReceiveMode voiceReceiveMode,
                                 @JsonProperty("voice_application_sid")
-                                final String voiceApplicationSid, 
+                                final String voiceApplicationSid,
                                 @JsonProperty("voice_caller_id_lookup")
-                                final Boolean voiceCallerIdLookup, 
+                                final Boolean voiceCallerIdLookup,
                                 @JsonProperty("voice_fallback_method")
-                                final HttpMethod voiceFallbackMethod, 
+                                final HttpMethod voiceFallbackMethod,
                                 @JsonProperty("voice_fallback_url")
-                                final URI voiceFallbackUrl, 
+                                final URI voiceFallbackUrl,
                                 @JsonProperty("voice_method")
-                                final HttpMethod voiceMethod, 
+                                final HttpMethod voiceMethod,
                                 @JsonProperty("voice_url")
-                                final URI voiceUrl, 
+                                final URI voiceUrl,
                                 @JsonProperty("emergency_status")
-                                final IncomingPhoneNumber.EmergencyStatus emergencyStatus, 
+                                final IncomingPhoneNumber.EmergencyStatus emergencyStatus,
                                 @JsonProperty("emergency_address_sid")
-                                final String emergencyAddressSid) {
+                                final String emergencyAddressSid,
+                                @JsonProperty("bundle_sid")
+                                final String bundleSid,
+                                @JsonProperty("status")
+                                final String status) {
         this.accountSid = accountSid;
         this.addressSid = addressSid;
         this.addressRequirements = addressRequirements;
@@ -396,6 +409,7 @@ public class IncomingPhoneNumber extends Resource {
         this.statusCallbackMethod = statusCallbackMethod;
         this.trunkSid = trunkSid;
         this.uri = uri;
+        this.voiceReceiveMode = voiceReceiveMode;
         this.voiceApplicationSid = voiceApplicationSid;
         this.voiceCallerIdLookup = voiceCallerIdLookup;
         this.voiceFallbackMethod = voiceFallbackMethod;
@@ -404,56 +418,58 @@ public class IncomingPhoneNumber extends Resource {
         this.voiceUrl = voiceUrl;
         this.emergencyStatus = emergencyStatus;
         this.emergencyAddressSid = emergencyAddressSid;
+        this.bundleSid = bundleSid;
+        this.status = status;
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
-     * 
-     * @return The unique sid that identifies this account
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Unique string that identifies the address associated with number.
-     * 
-     * @return Unique string that identifies the address associated with number
+     * Returns The SID of the Address resource associated with the phone number.
+     *
+     * @return The SID of the Address resource associated with the phone number
      */
     public final String getAddressSid() {
         return this.addressSid;
     }
 
     /**
-     * Returns The Indicates if the customer requires an address.
-     * 
-     * @return Indicates if the customer requires an address
+     * Returns Whether the phone number requires an Address registered with Twilio..
+     *
+     * @return Whether the phone number requires an Address registered with Twilio.
      */
     public final IncomingPhoneNumber.AddressRequirement getAddressRequirements() {
         return this.addressRequirements;
     }
 
     /**
-     * Returns The The Twilio REST API version to use.
-     * 
-     * @return The Twilio REST API version to use
+     * Returns The API version used to start a new TwiML session.
+     *
+     * @return The API version used to start a new TwiML session
      */
     public final String getApiVersion() {
         return this.apiVersion;
     }
 
     /**
-     * Returns The Indicates if the phone number is a beta number.
-     * 
-     * @return Indicates if the phone number is a beta number
+     * Returns Whether the phone number is new to the Twilio platform.
+     *
+     * @return Whether the phone number is new to the Twilio platform
      */
     public final Boolean getBeta() {
         return this.beta;
     }
 
     /**
-     * Returns The Indicate if a phone can receive calls or messages.
-     * 
+     * Returns Indicate if a phone can receive calls or messages.
+     *
      * @return Indicate if a phone can receive calls or messages
      */
     public final PhoneNumberCapabilities getCapabilities() {
@@ -461,222 +477,252 @@ public class IncomingPhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The date this resource was created.
-     * 
-     * @return The date this resource was created
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
+     *
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this resource was last updated.
-     * 
-     * @return The date this resource was last updated
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
+     *
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The A human readable description of this resouce.
-     * 
-     * @return A human readable description of this resouce
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The Unique string that identifies the identity associated with
-     * number.
-     * 
-     * @return Unique string that identifies the identity associated with number
+     * Returns The SID of the Identity resource associated with number.
+     *
+     * @return The SID of the Identity resource associated with number
      */
     public final String getIdentitySid() {
         return this.identitySid;
     }
 
     /**
-     * Returns The The incoming phone number.
-     * 
-     * @return The incoming phone number
+     * Returns The phone number in E.164 format.
+     *
+     * @return The phone number in E.164 format
      */
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 
     /**
-     * Returns The Twilio owned phone numbers are marked as twilio while hosted
-     * phone numbers are marked as hosted..
-     * 
-     * @return Twilio owned phone numbers are marked as twilio while hosted phone
-     *         numbers are marked as hosted.
+     * Returns The phone number's origin. Can be twilio or hosted..
+     *
+     * @return The phone number's origin. Can be twilio or hosted.
      */
     public final String getOrigin() {
         return this.origin;
     }
 
     /**
-     * Returns The A string that uniquely identifies this resource.
-     * 
-     * @return A string that uniquely identifies this resource
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Unique string that identifies the application.
-     * 
-     * @return Unique string that identifies the application
+     * Returns The SID of the application that handles SMS messages sent to the
+     * phone number.
+     *
+     * @return The SID of the application that handles SMS messages sent to the
+     *         phone number
      */
     public final String getSmsApplicationSid() {
         return this.smsApplicationSid;
     }
 
     /**
-     * Returns The HTTP method used with sms fallback url.
-     * 
-     * @return HTTP method used with sms fallback url
+     * Returns The HTTP method used with sms_fallback_url.
+     *
+     * @return The HTTP method used with sms_fallback_url
      */
     public final HttpMethod getSmsFallbackMethod() {
         return this.smsFallbackMethod;
     }
 
     /**
-     * Returns The URL Twilio will request if an error occurs in executing TwiML.
-     * 
-     * @return URL Twilio will request if an error occurs in executing TwiML
+     * Returns The URL that we call when an error occurs while retrieving or
+     * executing the TwiML.
+     *
+     * @return The URL that we call when an error occurs while retrieving or
+     *         executing the TwiML
      */
     public final URI getSmsFallbackUrl() {
         return this.smsFallbackUrl;
     }
 
     /**
-     * Returns The HTTP method to use with sms url.
-     * 
-     * @return HTTP method to use with sms url
+     * Returns The HTTP method to use with sms_url.
+     *
+     * @return The HTTP method to use with sms_url
      */
     public final HttpMethod getSmsMethod() {
         return this.smsMethod;
     }
 
     /**
-     * Returns The URL Twilio will request when receiving an SMS.
-     * 
-     * @return URL Twilio will request when receiving an SMS
+     * Returns The URL we call when the phone number receives an incoming SMS
+     * message.
+     *
+     * @return The URL we call when the phone number receives an incoming SMS
+     *         message
      */
     public final URI getSmsUrl() {
         return this.smsUrl;
     }
 
     /**
-     * Returns The URL Twilio will use to pass status parameters.
-     * 
-     * @return URL Twilio will use to pass status parameters
+     * Returns The URL to send status information to your application.
+     *
+     * @return The URL to send status information to your application
      */
     public final URI getStatusCallback() {
         return this.statusCallback;
     }
 
     /**
-     * Returns The HTTP method twilio will use with status callback.
-     * 
-     * @return HTTP method twilio will use with status callback
+     * Returns The HTTP method we use to call status_callback.
+     *
+     * @return The HTTP method we use to call status_callback
      */
     public final HttpMethod getStatusCallbackMethod() {
         return this.statusCallbackMethod;
     }
 
     /**
-     * Returns The Unique string to identify the trunk.
-     * 
-     * @return Unique string to identify the trunk
+     * Returns The SID of the Trunk that handles calls to the phone number.
+     *
+     * @return The SID of the Trunk that handles calls to the phone number
      */
     public final String getTrunkSid() {
         return this.trunkSid;
     }
 
     /**
-     * Returns The The URI for this resource.
-     * 
-     * @return The URI for this resource
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
+     *
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;
     }
 
     /**
-     * Returns The The unique sid of the application to handle this number.
-     * 
-     * @return The unique sid of the application to handle this number
+     * Returns The voice_receive_mode.
+     *
+     * @return The voice_receive_mode
+     */
+    public final IncomingPhoneNumber.VoiceReceiveMode getVoiceReceiveMode() {
+        return this.voiceReceiveMode;
+    }
+
+    /**
+     * Returns The SID of the application that handles calls to the phone number.
+     *
+     * @return The SID of the application that handles calls to the phone number
      */
     public final String getVoiceApplicationSid() {
         return this.voiceApplicationSid;
     }
 
     /**
-     * Returns The Look up the caller's caller-ID.
-     * 
-     * @return Look up the caller's caller-ID
+     * Returns Whether to lookup the caller's name.
+     *
+     * @return Whether to lookup the caller's name
      */
     public final Boolean getVoiceCallerIdLookup() {
         return this.voiceCallerIdLookup;
     }
 
     /**
-     * Returns The HTTP method used with fallback_url.
-     * 
-     * @return HTTP method used with fallback_url
+     * Returns The HTTP method used with voice_fallback_url.
+     *
+     * @return The HTTP method used with voice_fallback_url
      */
     public final HttpMethod getVoiceFallbackMethod() {
         return this.voiceFallbackMethod;
     }
 
     /**
-     * Returns The URL Twilio will request when an error occurs in TwiML.
-     * 
-     * @return URL Twilio will request when an error occurs in TwiML
+     * Returns The URL we call when an error occurs in TwiML.
+     *
+     * @return The URL we call when an error occurs in TwiML
      */
     public final URI getVoiceFallbackUrl() {
         return this.voiceFallbackUrl;
     }
 
     /**
-     * Returns The HTTP method used with the voice url.
-     * 
-     * @return HTTP method used with the voice url
+     * Returns The HTTP method used with the voice_url.
+     *
+     * @return The HTTP method used with the voice_url
      */
     public final HttpMethod getVoiceMethod() {
         return this.voiceMethod;
     }
 
     /**
-     * Returns The URL Twilio will request when receiving a call.
-     * 
-     * @return URL Twilio will request when receiving a call
+     * Returns The URL we call when the phone number receives a call.
+     *
+     * @return The URL we call when the phone number receives a call
      */
     public final URI getVoiceUrl() {
         return this.voiceUrl;
     }
 
     /**
-     * Returns The The emergency_status.
-     * 
-     * @return The emergency_status
+     * Returns Whether the phone number is enabled for emergency calling.
+     *
+     * @return Whether the phone number is enabled for emergency calling
      */
     public final IncomingPhoneNumber.EmergencyStatus getEmergencyStatus() {
         return this.emergencyStatus;
     }
 
     /**
-     * Returns The The emergency_address_sid.
-     * 
-     * @return The emergency_address_sid
+     * Returns The emergency address configuration to use for emergency calling.
+     *
+     * @return The emergency address configuration to use for emergency calling
      */
     public final String getEmergencyAddressSid() {
         return this.emergencyAddressSid;
+    }
+
+    /**
+     * Returns The SID of the Bundle resource associated with number.
+     *
+     * @return The SID of the Bundle resource associated with number
+     */
+    public final String getBundleSid() {
+        return this.bundleSid;
+    }
+
+    /**
+     * Returns The status.
+     *
+     * @return The status
+     */
+    public final String getStatus() {
+        return this.status;
     }
 
     @Override
@@ -691,36 +737,39 @@ public class IncomingPhoneNumber extends Resource {
 
         IncomingPhoneNumber other = (IncomingPhoneNumber) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(addressSid, other.addressSid) && 
-               Objects.equals(addressRequirements, other.addressRequirements) && 
-               Objects.equals(apiVersion, other.apiVersion) && 
-               Objects.equals(beta, other.beta) && 
-               Objects.equals(capabilities, other.capabilities) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(identitySid, other.identitySid) && 
-               Objects.equals(phoneNumber, other.phoneNumber) && 
-               Objects.equals(origin, other.origin) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(smsApplicationSid, other.smsApplicationSid) && 
-               Objects.equals(smsFallbackMethod, other.smsFallbackMethod) && 
-               Objects.equals(smsFallbackUrl, other.smsFallbackUrl) && 
-               Objects.equals(smsMethod, other.smsMethod) && 
-               Objects.equals(smsUrl, other.smsUrl) && 
-               Objects.equals(statusCallback, other.statusCallback) && 
-               Objects.equals(statusCallbackMethod, other.statusCallbackMethod) && 
-               Objects.equals(trunkSid, other.trunkSid) && 
-               Objects.equals(uri, other.uri) && 
-               Objects.equals(voiceApplicationSid, other.voiceApplicationSid) && 
-               Objects.equals(voiceCallerIdLookup, other.voiceCallerIdLookup) && 
-               Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) && 
-               Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) && 
-               Objects.equals(voiceMethod, other.voiceMethod) && 
-               Objects.equals(voiceUrl, other.voiceUrl) && 
-               Objects.equals(emergencyStatus, other.emergencyStatus) && 
-               Objects.equals(emergencyAddressSid, other.emergencyAddressSid);
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(addressSid, other.addressSid) &&
+               Objects.equals(addressRequirements, other.addressRequirements) &&
+               Objects.equals(apiVersion, other.apiVersion) &&
+               Objects.equals(beta, other.beta) &&
+               Objects.equals(capabilities, other.capabilities) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(identitySid, other.identitySid) &&
+               Objects.equals(phoneNumber, other.phoneNumber) &&
+               Objects.equals(origin, other.origin) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(smsApplicationSid, other.smsApplicationSid) &&
+               Objects.equals(smsFallbackMethod, other.smsFallbackMethod) &&
+               Objects.equals(smsFallbackUrl, other.smsFallbackUrl) &&
+               Objects.equals(smsMethod, other.smsMethod) &&
+               Objects.equals(smsUrl, other.smsUrl) &&
+               Objects.equals(statusCallback, other.statusCallback) &&
+               Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
+               Objects.equals(trunkSid, other.trunkSid) &&
+               Objects.equals(uri, other.uri) &&
+               Objects.equals(voiceReceiveMode, other.voiceReceiveMode) &&
+               Objects.equals(voiceApplicationSid, other.voiceApplicationSid) &&
+               Objects.equals(voiceCallerIdLookup, other.voiceCallerIdLookup) &&
+               Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) &&
+               Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) &&
+               Objects.equals(voiceMethod, other.voiceMethod) &&
+               Objects.equals(voiceUrl, other.voiceUrl) &&
+               Objects.equals(emergencyStatus, other.emergencyStatus) &&
+               Objects.equals(emergencyAddressSid, other.emergencyAddressSid) &&
+               Objects.equals(bundleSid, other.bundleSid) &&
+               Objects.equals(status, other.status);
     }
 
     @Override
@@ -747,6 +796,7 @@ public class IncomingPhoneNumber extends Resource {
                             statusCallbackMethod,
                             trunkSid,
                             uri,
+                            voiceReceiveMode,
                             voiceApplicationSid,
                             voiceCallerIdLookup,
                             voiceFallbackMethod,
@@ -754,7 +804,9 @@ public class IncomingPhoneNumber extends Resource {
                             voiceMethod,
                             voiceUrl,
                             emergencyStatus,
-                            emergencyAddressSid);
+                            emergencyAddressSid,
+                            bundleSid,
+                            status);
     }
 
     @Override
@@ -782,6 +834,7 @@ public class IncomingPhoneNumber extends Resource {
                           .add("statusCallbackMethod", statusCallbackMethod)
                           .add("trunkSid", trunkSid)
                           .add("uri", uri)
+                          .add("voiceReceiveMode", voiceReceiveMode)
                           .add("voiceApplicationSid", voiceApplicationSid)
                           .add("voiceCallerIdLookup", voiceCallerIdLookup)
                           .add("voiceFallbackMethod", voiceFallbackMethod)
@@ -790,6 +843,8 @@ public class IncomingPhoneNumber extends Resource {
                           .add("voiceUrl", voiceUrl)
                           .add("emergencyStatus", emergencyStatus)
                           .add("emergencyAddressSid", emergencyAddressSid)
+                          .add("bundleSid", bundleSid)
+                          .add("status", status)
                           .toString();
     }
 }

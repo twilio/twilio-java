@@ -59,7 +59,8 @@ public class Conference extends TwiML {
         SG1("sg1"),
         BR1("br1"),
         AU1("au1"),
-        JP1("jp1");
+        JP1("jp1"),
+        DE1("de1");
 
         private final String value;
 
@@ -108,12 +109,9 @@ public class Conference extends TwiML {
     }
 
     public enum RecordingEvent {
-        STARTED("started"),
-        STOPPED("stopped"),
-        PAUSED("paused"),
-        RESUMED("resumed"),
+        IN_PROGRESS("in-progress"),
         COMPLETED("completed"),
-        FAILED("failed");
+        ABSENT("absent");
 
         private final String value;
 
@@ -135,7 +133,7 @@ public class Conference extends TwiML {
     private final Integer maxParticipants;
     private final Conference.Record record;
     private final Conference.Region region;
-    private final String whisper;
+    private final String coach;
     private final Conference.Trim trim;
     private final List<Conference.Event> statusCallbackEvent;
     private final URI statusCallback;
@@ -167,7 +165,7 @@ public class Conference extends TwiML {
         this.maxParticipants = b.maxParticipants;
         this.record = b.record;
         this.region = b.region;
-        this.whisper = b.whisper;
+        this.coach = b.coach;
         this.trim = b.trim;
         this.statusCallbackEvent = b.statusCallbackEvent;
         this.statusCallback = b.statusCallback;
@@ -181,7 +179,7 @@ public class Conference extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -190,7 +188,7 @@ public class Conference extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -224,8 +222,8 @@ public class Conference extends TwiML {
         if (this.getRegion() != null) {
             attrs.put("region", this.getRegion().toString());
         }
-        if (this.getWhisper() != null) {
-            attrs.put("whisper", this.getWhisper());
+        if (this.getCoach() != null) {
+            attrs.put("coach", this.getCoach());
         }
         if (this.getTrim() != null) {
             attrs.put("trim", this.getTrim().toString());
@@ -257,7 +255,7 @@ public class Conference extends TwiML {
 
     /**
      * Join the conference muted
-     * 
+     *
      * @return Join the conference muted
      */
     public Boolean isMuted() {
@@ -266,7 +264,7 @@ public class Conference extends TwiML {
 
     /**
      * Play beep when joining
-     * 
+     *
      * @return Play beep when joining
      */
     public Conference.Beep getBeep() {
@@ -275,7 +273,7 @@ public class Conference extends TwiML {
 
     /**
      * Start the conference on enter
-     * 
+     *
      * @return Start the conference on enter
      */
     public Boolean isStartConferenceOnEnter() {
@@ -284,7 +282,7 @@ public class Conference extends TwiML {
 
     /**
      * End the conferenceon exit
-     * 
+     *
      * @return End the conferenceon exit
      */
     public Boolean isEndConferenceOnExit() {
@@ -293,7 +291,7 @@ public class Conference extends TwiML {
 
     /**
      * Wait URL
-     * 
+     *
      * @return Wait URL
      */
     public URI getWaitUrl() {
@@ -302,7 +300,7 @@ public class Conference extends TwiML {
 
     /**
      * Wait URL method
-     * 
+     *
      * @return Wait URL method
      */
     public HttpMethod getWaitMethod() {
@@ -311,7 +309,7 @@ public class Conference extends TwiML {
 
     /**
      * Maximum number of participants
-     * 
+     *
      * @return Maximum number of participants
      */
     public Integer getMaxParticipants() {
@@ -320,7 +318,7 @@ public class Conference extends TwiML {
 
     /**
      * Record the conference
-     * 
+     *
      * @return Record the conference
      */
     public Conference.Record getRecord() {
@@ -329,7 +327,7 @@ public class Conference extends TwiML {
 
     /**
      * Conference region
-     * 
+     *
      * @return Conference region
      */
     public Conference.Region getRegion() {
@@ -337,17 +335,17 @@ public class Conference extends TwiML {
     }
 
     /**
-     * Call whisper
-     * 
-     * @return Call whisper
+     * Call coach
+     *
+     * @return Call coach
      */
-    public String getWhisper() {
-        return whisper;
+    public String getCoach() {
+        return coach;
     }
 
     /**
      * Trim the conference recording
-     * 
+     *
      * @return Trim the conference recording
      */
     public Conference.Trim getTrim() {
@@ -356,7 +354,7 @@ public class Conference extends TwiML {
 
     /**
      * Events to call status callback URL
-     * 
+     *
      * @return Events to call status callback URL
      */
     public List<Conference.Event> getStatusCallbackEvents() {
@@ -377,7 +375,7 @@ public class Conference extends TwiML {
 
     /**
      * Status callback URL
-     * 
+     *
      * @return Status callback URL
      */
     public URI getStatusCallback() {
@@ -386,7 +384,7 @@ public class Conference extends TwiML {
 
     /**
      * Status callback URL method
-     * 
+     *
      * @return Status callback URL method
      */
     public HttpMethod getStatusCallbackMethod() {
@@ -395,7 +393,7 @@ public class Conference extends TwiML {
 
     /**
      * Recording status callback URL
-     * 
+     *
      * @return Recording status callback URL
      */
     public URI getRecordingStatusCallback() {
@@ -404,7 +402,7 @@ public class Conference extends TwiML {
 
     /**
      * Recording status callback URL method
-     * 
+     *
      * @return Recording status callback URL method
      */
     public HttpMethod getRecordingStatusCallbackMethod() {
@@ -413,7 +411,7 @@ public class Conference extends TwiML {
 
     /**
      * Recording status callback events
-     * 
+     *
      * @return Recording status callback events
      */
     public List<Conference.RecordingEvent> getRecordingStatusCallbackEvents() {
@@ -434,7 +432,7 @@ public class Conference extends TwiML {
 
     /**
      * Event callback URL
-     * 
+     *
      * @return Event callback URL
      */
     public URI getEventCallbackUrl() {
@@ -443,7 +441,7 @@ public class Conference extends TwiML {
 
     /**
      * Conference name
-     * 
+     *
      * @return Conference name
      */
     public String getName() {
@@ -463,7 +461,7 @@ public class Conference extends TwiML {
         private Integer maxParticipants;
         private Conference.Record record;
         private Conference.Region region;
-        private String whisper;
+        private String coach;
         private Conference.Trim trim;
         private List<Conference.Event> statusCallbackEvent;
         private URI statusCallback;
@@ -562,10 +560,10 @@ public class Conference extends TwiML {
         }
 
         /**
-         * Call whisper
+         * Call coach
          */
-        public Builder whisper(String whisper) {
-            this.whisper = whisper;
+        public Builder coach(String coach) {
+            this.coach = coach;
             return this;
         }
 

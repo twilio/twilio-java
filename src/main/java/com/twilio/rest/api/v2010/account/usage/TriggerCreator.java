@@ -31,13 +31,13 @@ public class TriggerCreator extends Creator<Trigger> {
 
     /**
      * Construct a new TriggerCreator.
-     * 
-     * @param callbackUrl URL Twilio will request when the trigger fires
-     * @param triggerValue the value at which the trigger will fire
+     *
+     * @param callbackUrl The URL we call when the trigger fires
+     * @param triggerValue The usage value at which the trigger should fire
      * @param usageCategory The usage category the trigger watches
      */
-    public TriggerCreator(final URI callbackUrl, 
-                          final String triggerValue, 
+    public TriggerCreator(final URI callbackUrl,
+                          final String triggerValue,
                           final Trigger.UsageCategory usageCategory) {
         this.callbackUrl = callbackUrl;
         this.triggerValue = triggerValue;
@@ -46,15 +46,15 @@ public class TriggerCreator extends Creator<Trigger> {
 
     /**
      * Construct a new TriggerCreator.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param callbackUrl URL Twilio will request when the trigger fires
-     * @param triggerValue the value at which the trigger will fire
+     *
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param callbackUrl The URL we call when the trigger fires
+     * @param triggerValue The usage value at which the trigger should fire
      * @param usageCategory The usage category the trigger watches
      */
-    public TriggerCreator(final String pathAccountSid, 
-                          final URI callbackUrl, 
-                          final String triggerValue, 
+    public TriggerCreator(final String pathAccountSid,
+                          final URI callbackUrl,
+                          final String triggerValue,
                           final Trigger.UsageCategory usageCategory) {
         this.pathAccountSid = pathAccountSid;
         this.callbackUrl = callbackUrl;
@@ -63,10 +63,10 @@ public class TriggerCreator extends Creator<Trigger> {
     }
 
     /**
-     * Twilio will use this HTTP method when making a request to the CallbackUrl. 
-     * `GET` or `POST`.  The default is `POST`..
-     * 
-     * @param callbackMethod HTTP method to use with callback_url
+     * The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST`
+     * and the default is `POST`..
+     *
+     * @param callbackMethod The HTTP method to use to call callback_url
      * @return this
      */
     public TriggerCreator setCallbackMethod(final HttpMethod callbackMethod) {
@@ -75,9 +75,10 @@ public class TriggerCreator extends Creator<Trigger> {
     }
 
     /**
-     * A human readable description of the new trigger.  Maximum 64 characters..
-     * 
-     * @param friendlyName A user-specified, human-readable name for the trigger.
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
+     *
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public TriggerCreator setFriendlyName(final String friendlyName) {
@@ -86,11 +87,11 @@ public class TriggerCreator extends Creator<Trigger> {
     }
 
     /**
-     * How this trigger recurs. Empty for non-recurring triggers. One of `daily`,
-     * `monthly`, or `yearly` for recurring triggers.  A trigger will only fire once
-     * during each recurring period.  Recurring periods are in GMT..
-     * 
-     * @param recurring How this trigger recurs
+     * The frequency of a recurring UsageTrigger.  Can be: `daily`, `monthly`, or
+     * `yearly` for recurring triggers or empty for non-recurring triggers. A
+     * trigger will only fire once during each period. Recurring times are in GMT..
+     *
+     * @param recurring The frequency of a recurring UsageTrigger
      * @return this
      */
     public TriggerCreator setRecurring(final Trigger.Recurring recurring) {
@@ -100,12 +101,12 @@ public class TriggerCreator extends Creator<Trigger> {
 
     /**
      * The field in the
-     * [UsageRecord](https://www.twilio.com/docs/api/rest/usage-records) that will
-     * fire the trigger.  One of `count`, `usage`, or `price` as described in the
-     * [UsageRecords
-     * documentation](https://www.twilio.com/docs/api/rest/usage-records#usage-count-price).  The default is `usage`..
-     * 
-     * @param triggerBy The field in the UsageRecord that fires the trigger
+     * [UsageRecord](https://www.twilio.com/docs/usage/api/usage-record) resource
+     * that should fire the trigger.  Can be: `count`, `usage`, or `price` as
+     * described in the [UsageRecords
+     * documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).  The default is `usage`..
+     *
+     * @param triggerBy The field in the UsageRecord resource that fires the trigger
      * @return this
      */
     public TriggerCreator setTriggerBy(final Trigger.TriggerField triggerBy) {
@@ -115,7 +116,7 @@ public class TriggerCreator extends Creator<Trigger> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Trigger
      */
@@ -126,8 +127,7 @@ public class TriggerCreator extends Creator<Trigger> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Usage/Triggers.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Usage/Triggers.json"
         );
 
         addPostParams(request);
@@ -140,14 +140,7 @@ public class TriggerCreator extends Creator<Trigger> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Trigger.fromJson(response.getStream(), client.getObjectMapper());
@@ -155,7 +148,7 @@ public class TriggerCreator extends Creator<Trigger> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

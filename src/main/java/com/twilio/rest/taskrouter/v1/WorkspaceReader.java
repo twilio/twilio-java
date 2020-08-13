@@ -23,11 +23,10 @@ public class WorkspaceReader extends Reader<Workspace> {
     private String friendlyName;
 
     /**
-     * Filter by a workspace's friendly name. This is a human readable description
-     * of this Workspace (for example "Customer Support" or "2014 Election
-     * Campaign").
-     * 
-     * @param friendlyName Filter by a workspace's friendly name.
+     * The `friendly_name` of the Workspace resources to read. For example `Customer
+     * Support` or `2014 Election Campaign`..
+     *
+     * @param friendlyName The friendly_name of the Workspace resources to read
      * @return this
      */
     public WorkspaceReader setFriendlyName(final String friendlyName) {
@@ -37,7 +36,7 @@ public class WorkspaceReader extends Reader<Workspace> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Workspace ResourceSet
      */
@@ -48,7 +47,7 @@ public class WorkspaceReader extends Reader<Workspace> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Workspace ResourceSet
      */
@@ -58,8 +57,7 @@ public class WorkspaceReader extends Reader<Workspace> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces",
-            client.getRegion()
+            "/v1/Workspaces"
         );
 
         addQueryParams(request);
@@ -68,7 +66,7 @@ public class WorkspaceReader extends Reader<Workspace> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Workspace ResourceSet
@@ -86,47 +84,41 @@ public class WorkspaceReader extends Reader<Workspace> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Workspace> nextPage(final Page<Workspace> page, 
+    public Page<Workspace> nextPage(final Page<Workspace> page,
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.TASKROUTER.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.TASKROUTER.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Workspace> previousPage(final Page<Workspace> page, 
+    public Page<Workspace> previousPage(final Page<Workspace> page,
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.TASKROUTER.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.TASKROUTER.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Workspace Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -141,14 +133,7 @@ public class WorkspaceReader extends Reader<Workspace> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -161,7 +146,7 @@ public class WorkspaceReader extends Reader<Workspace> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

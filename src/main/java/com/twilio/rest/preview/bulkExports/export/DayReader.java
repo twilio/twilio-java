@@ -26,19 +26,43 @@ import com.twilio.rest.Domains;
  */
 public class DayReader extends Reader<Day> {
     private final String pathResourceType;
+    private String nextToken;
+    private String previousToken;
 
     /**
      * Construct a new DayReader.
-     * 
-     * @param pathResourceType The resource_type
+     *
+     * @param pathResourceType The type of communication – Messages, Calls
      */
     public DayReader(final String pathResourceType) {
         this.pathResourceType = pathResourceType;
     }
 
     /**
+     * The next_token.
+     *
+     * @param nextToken The next_token
+     * @return this
+     */
+    public DayReader setNextToken(final String nextToken) {
+        this.nextToken = nextToken;
+        return this;
+    }
+
+    /**
+     * The previous_token.
+     *
+     * @param previousToken The previous_token
+     * @return this
+     */
+    public DayReader setPreviousToken(final String previousToken) {
+        this.previousToken = previousToken;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Day ResourceSet
      */
@@ -49,7 +73,7 @@ public class DayReader extends Reader<Day> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Day ResourceSet
      */
@@ -59,8 +83,7 @@ public class DayReader extends Reader<Day> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/BulkExports/Exports/" + this.pathResourceType + "/Days",
-            client.getRegion()
+            "/BulkExports/Exports/" + this.pathResourceType + "/Days"
         );
 
         addQueryParams(request);
@@ -69,7 +92,7 @@ public class DayReader extends Reader<Day> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Day ResourceSet
@@ -87,47 +110,41 @@ public class DayReader extends Reader<Day> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Day> nextPage(final Page<Day> page, 
+    public Page<Day> nextPage(final Page<Day> page,
                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Day> previousPage(final Page<Day> page, 
+    public Page<Day> previousPage(final Page<Day> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Day Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -142,14 +159,7 @@ public class DayReader extends Reader<Day> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -162,10 +172,18 @@ public class DayReader extends Reader<Day> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
+        if (nextToken != null) {
+            request.addQueryParam("NextToken", nextToken);
+        }
+
+        if (previousToken != null) {
+            request.addQueryParam("PreviousToken", previousToken);
+        }
+
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

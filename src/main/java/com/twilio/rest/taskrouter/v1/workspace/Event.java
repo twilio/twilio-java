@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -34,24 +35,24 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Event extends Resource {
-    private static final long serialVersionUID = 208699778685630L;
+    private static final long serialVersionUID = 88063843569402L;
 
     /**
      * Create a EventFetcher to execute fetch.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the Event to fetch
+     * @param pathSid The SID of the resource to fetch
      * @return EventFetcher capable of executing the fetch
      */
-    public static EventFetcher fetcher(final String pathWorkspaceSid, 
+    public static EventFetcher fetcher(final String pathWorkspaceSid,
                                        final String pathSid) {
         return new EventFetcher(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a EventReader to execute read.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the Events to read
      * @return EventReader capable of executing the read
      */
     public static EventReader reader(final String pathWorkspaceSid) {
@@ -60,7 +61,7 @@ public class Event extends Resource {
 
     /**
      * Converts a JSON String into a Event object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Event object represented by the provided JSON
@@ -79,7 +80,7 @@ public class Event extends Resource {
     /**
      * Converts a JSON InputStream into a Event object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Event object represented by the provided JSON
@@ -100,8 +101,9 @@ public class Event extends Resource {
     private final String actorType;
     private final URI actorUrl;
     private final String description;
-    private final Map<String, String> eventData;
+    private final Map<String, Object> eventData;
     private final DateTime eventDate;
+    private final Long eventDateMs;
     private final String eventType;
     private final String resourceSid;
     private final String resourceType;
@@ -110,38 +112,43 @@ public class Event extends Resource {
     private final String source;
     private final String sourceIpAddress;
     private final URI url;
+    private final String workspaceSid;
 
     @JsonCreator
     private Event(@JsonProperty("account_sid")
-                  final String accountSid, 
+                  final String accountSid,
                   @JsonProperty("actor_sid")
-                  final String actorSid, 
+                  final String actorSid,
                   @JsonProperty("actor_type")
-                  final String actorType, 
+                  final String actorType,
                   @JsonProperty("actor_url")
-                  final URI actorUrl, 
+                  final URI actorUrl,
                   @JsonProperty("description")
-                  final String description, 
+                  final String description,
                   @JsonProperty("event_data")
-                  final Map<String, String> eventData, 
+                  final Map<String, Object> eventData,
                   @JsonProperty("event_date")
-                  final String eventDate, 
+                  final String eventDate,
+                  @JsonProperty("event_date_ms")
+                  final Long eventDateMs,
                   @JsonProperty("event_type")
-                  final String eventType, 
+                  final String eventType,
                   @JsonProperty("resource_sid")
-                  final String resourceSid, 
+                  final String resourceSid,
                   @JsonProperty("resource_type")
-                  final String resourceType, 
+                  final String resourceType,
                   @JsonProperty("resource_url")
-                  final URI resourceUrl, 
+                  final URI resourceUrl,
                   @JsonProperty("sid")
-                  final String sid, 
+                  final String sid,
                   @JsonProperty("source")
-                  final String source, 
+                  final String source,
                   @JsonProperty("source_ip_address")
-                  final String sourceIpAddress, 
+                  final String sourceIpAddress,
                   @JsonProperty("url")
-                  final URI url) {
+                  final URI url,
+                  @JsonProperty("workspace_sid")
+                  final String workspaceSid) {
         this.accountSid = accountSid;
         this.actorSid = actorSid;
         this.actorType = actorType;
@@ -149,6 +156,7 @@ public class Event extends Resource {
         this.description = description;
         this.eventData = eventData;
         this.eventDate = DateConverter.iso8601DateTimeFromString(eventDate);
+        this.eventDateMs = eventDateMs;
         this.eventType = eventType;
         this.resourceSid = resourceSid;
         this.resourceType = resourceType;
@@ -157,47 +165,48 @@ public class Event extends Resource {
         this.source = source;
         this.sourceIpAddress = sourceIpAddress;
         this.url = url;
+        this.workspaceSid = workspaceSid;
     }
 
     /**
-     * Returns The The account owning this event.
-     * 
-     * @return The account owning this event
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The actor_sid.
-     * 
-     * @return The actor_sid
+     * Returns The SID of the resource that triggered the event.
+     *
+     * @return The SID of the resource that triggered the event
      */
     public final String getActorSid() {
         return this.actorSid;
     }
 
     /**
-     * Returns The The actor_type.
-     * 
-     * @return The actor_type
+     * Returns The type of resource that triggered the event.
+     *
+     * @return The type of resource that triggered the event
      */
     public final String getActorType() {
         return this.actorType;
     }
 
     /**
-     * Returns The The actor_url.
-     * 
-     * @return The actor_url
+     * Returns The absolute URL of the resource that triggered the event.
+     *
+     * @return The absolute URL of the resource that triggered the event
      */
     public final URI getActorUrl() {
         return this.actorUrl;
     }
 
     /**
-     * Returns The A description of the event.
-     * 
+     * Returns A description of the event.
+     *
      * @return A description of the event
      */
     public final String getDescription() {
@@ -205,93 +214,111 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The Data about this specific event..
-     * 
-     * @return Data about this specific event.
+     * Returns Data about the event.
+     *
+     * @return Data about the event
      */
-    public final Map<String, String> getEventData() {
+    public final Map<String, Object> getEventData() {
         return this.eventData;
     }
 
     /**
-     * Returns The The time this event was sent.
-     * 
-     * @return The time this event was sent
+     * Returns The time the event was sent.
+     *
+     * @return The time the event was sent
      */
     public final DateTime getEventDate() {
         return this.eventDate;
     }
 
     /**
-     * Returns The An identifier for this event.
-     * 
-     * @return An identifier for this event
+     * Returns The time the event was sent in milliseconds.
+     *
+     * @return The time the event was sent in milliseconds
+     */
+    public final Long getEventDateMs() {
+        return this.eventDateMs;
+    }
+
+    /**
+     * Returns The identifier for the event.
+     *
+     * @return The identifier for the event
      */
     public final String getEventType() {
         return this.eventType;
     }
 
     /**
-     * Returns The The sid of the object this event is most relevant to.
-     * 
-     * @return The sid of the object this event is most relevant to
+     * Returns The SID of the object the event is most relevant to.
+     *
+     * @return The SID of the object the event is most relevant to
      */
     public final String getResourceSid() {
         return this.resourceSid;
     }
 
     /**
-     * Returns The The type of object this event is most relevant to.
-     * 
-     * @return The type of object this event is most relevant to
+     * Returns The type of object the event is most relevant to.
+     *
+     * @return The type of object the event is most relevant to
      */
     public final String getResourceType() {
         return this.resourceType;
     }
 
     /**
-     * Returns The The resource_url.
-     * 
-     * @return The resource_url
+     * Returns The URL of the resource the event is most relevant to.
+     *
+     * @return The URL of the resource the event is most relevant to
      */
     public final URI getResourceUrl() {
         return this.resourceUrl;
     }
 
     /**
-     * Returns The The sid.
-     * 
-     * @return The sid
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The source.
-     * 
-     * @return The source
+     * Returns Where the Event originated.
+     *
+     * @return Where the Event originated
      */
     public final String getSource() {
         return this.source;
     }
 
     /**
-     * Returns The The source_ip_address.
-     * 
-     * @return The source_ip_address
+     * Returns The IP from which the Event originated.
+     *
+     * @return The IP from which the Event originated
      */
     public final String getSourceIpAddress() {
         return this.sourceIpAddress;
     }
 
     /**
-     * Returns The The url.
-     * 
-     * @return The url
+     * Returns The absolute URL of the Event resource.
+     *
+     * @return The absolute URL of the Event resource
      */
     public final URI getUrl() {
         return this.url;
+    }
+
+    /**
+     * Returns The SID of the Workspace that contains the Event.
+     *
+     * @return The SID of the Workspace that contains the Event
+     */
+    public final String getWorkspaceSid() {
+        return this.workspaceSid;
     }
 
     @Override
@@ -306,21 +333,23 @@ public class Event extends Resource {
 
         Event other = (Event) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(actorSid, other.actorSid) && 
-               Objects.equals(actorType, other.actorType) && 
-               Objects.equals(actorUrl, other.actorUrl) && 
-               Objects.equals(description, other.description) && 
-               Objects.equals(eventData, other.eventData) && 
-               Objects.equals(eventDate, other.eventDate) && 
-               Objects.equals(eventType, other.eventType) && 
-               Objects.equals(resourceSid, other.resourceSid) && 
-               Objects.equals(resourceType, other.resourceType) && 
-               Objects.equals(resourceUrl, other.resourceUrl) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(source, other.source) && 
-               Objects.equals(sourceIpAddress, other.sourceIpAddress) && 
-               Objects.equals(url, other.url);
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(actorSid, other.actorSid) &&
+               Objects.equals(actorType, other.actorType) &&
+               Objects.equals(actorUrl, other.actorUrl) &&
+               Objects.equals(description, other.description) &&
+               Objects.equals(eventData, other.eventData) &&
+               Objects.equals(eventDate, other.eventDate) &&
+               Objects.equals(eventDateMs, other.eventDateMs) &&
+               Objects.equals(eventType, other.eventType) &&
+               Objects.equals(resourceSid, other.resourceSid) &&
+               Objects.equals(resourceType, other.resourceType) &&
+               Objects.equals(resourceUrl, other.resourceUrl) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(source, other.source) &&
+               Objects.equals(sourceIpAddress, other.sourceIpAddress) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(workspaceSid, other.workspaceSid);
     }
 
     @Override
@@ -332,6 +361,7 @@ public class Event extends Resource {
                             description,
                             eventData,
                             eventDate,
+                            eventDateMs,
                             eventType,
                             resourceSid,
                             resourceType,
@@ -339,7 +369,8 @@ public class Event extends Resource {
                             sid,
                             source,
                             sourceIpAddress,
-                            url);
+                            url,
+                            workspaceSid);
     }
 
     @Override
@@ -352,6 +383,7 @@ public class Event extends Resource {
                           .add("description", description)
                           .add("eventData", eventData)
                           .add("eventDate", eventDate)
+                          .add("eventDateMs", eventDateMs)
                           .add("eventType", eventType)
                           .add("resourceSid", resourceSid)
                           .add("resourceType", resourceType)
@@ -360,6 +392,7 @@ public class Event extends Resource {
                           .add("source", source)
                           .add("sourceIpAddress", sourceIpAddress)
                           .add("url", url)
+                          .add("workspaceSid", workspaceSid)
                           .toString();
     }
 }

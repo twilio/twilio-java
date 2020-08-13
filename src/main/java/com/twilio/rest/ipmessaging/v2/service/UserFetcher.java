@@ -23,11 +23,11 @@ public class UserFetcher extends Fetcher<User> {
 
     /**
      * Construct a new UserFetcher.
-     * 
-     * @param pathServiceSid Sid of the Service this user belongs to.
-     * @param pathSid Key that uniquely defines the user to fetch.
+     *
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathSid The SID of the User resource to fetch
      */
-    public UserFetcher(final String pathServiceSid, 
+    public UserFetcher(final String pathServiceSid,
                        final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class UserFetcher extends Fetcher<User> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched User
      */
@@ -45,8 +45,7 @@ public class UserFetcher extends Fetcher<User> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Users/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Users/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -58,14 +57,7 @@ public class UserFetcher extends Fetcher<User> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return User.fromJson(response.getStream(), client.getObjectMapper());

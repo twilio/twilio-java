@@ -31,22 +31,18 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ExecutionContext extends Resource {
     private static final long serialVersionUID = 274461811661129L;
 
     /**
      * Create a ExecutionContextFetcher to execute fetch.
-     * 
-     * @param pathFlowSid Flow Sid.
-     * @param pathExecutionSid Execution Sid.
+     *
+     * @param pathFlowSid The SID of the Flow
+     * @param pathExecutionSid The SID of the Execution
      * @return ExecutionContextFetcher capable of executing the fetch
      */
-    public static ExecutionContextFetcher fetcher(final String pathFlowSid, 
+    public static ExecutionContextFetcher fetcher(final String pathFlowSid,
                                                   final String pathExecutionSid) {
         return new ExecutionContextFetcher(pathFlowSid, pathExecutionSid);
     }
@@ -54,7 +50,7 @@ public class ExecutionContext extends Resource {
     /**
      * Converts a JSON String into a ExecutionContext object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ExecutionContext object represented by the provided JSON
@@ -73,7 +69,7 @@ public class ExecutionContext extends Resource {
     /**
      * Converts a JSON InputStream into a ExecutionContext object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ExecutionContext object represented by the provided JSON
@@ -97,13 +93,13 @@ public class ExecutionContext extends Resource {
 
     @JsonCreator
     private ExecutionContext(@JsonProperty("account_sid")
-                             final String accountSid, 
+                             final String accountSid,
                              @JsonProperty("context")
-                             final Map<String, Object> context, 
+                             final Map<String, Object> context,
                              @JsonProperty("flow_sid")
-                             final String flowSid, 
+                             final String flowSid,
                              @JsonProperty("execution_sid")
-                             final String executionSid, 
+                             final String executionSid,
                              @JsonProperty("url")
                              final URI url) {
         this.accountSid = accountSid;
@@ -114,45 +110,45 @@ public class ExecutionContext extends Resource {
     }
 
     /**
-     * Returns The Account Sid..
-     * 
-     * @return Account Sid.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Flow state..
-     * 
-     * @return Flow state.
+     * Returns The current state of the flow.
+     *
+     * @return The current state of the flow
      */
     public final Map<String, Object> getContext() {
         return this.context;
     }
 
     /**
-     * Returns The Flow Sid..
-     * 
-     * @return Flow Sid.
+     * Returns The SID of the Flow.
+     *
+     * @return The SID of the Flow
      */
     public final String getFlowSid() {
         return this.flowSid;
     }
 
     /**
-     * Returns The Execution Sid..
-     * 
-     * @return Execution Sid.
+     * Returns The SID of the Execution.
+     *
+     * @return The SID of the Execution
      */
     public final String getExecutionSid() {
         return this.executionSid;
     }
 
     /**
-     * Returns The The URL of this resource..
-     * 
-     * @return The URL of this resource.
+     * Returns The absolute URL of the resource.
+     *
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
@@ -170,10 +166,10 @@ public class ExecutionContext extends Resource {
 
         ExecutionContext other = (ExecutionContext) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(context, other.context) && 
-               Objects.equals(flowSid, other.flowSid) && 
-               Objects.equals(executionSid, other.executionSid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(context, other.context) &&
+               Objects.equals(flowSid, other.flowSid) &&
+               Objects.equals(executionSid, other.executionSid) &&
                Objects.equals(url, other.url);
     }
 

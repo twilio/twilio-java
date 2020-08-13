@@ -25,8 +25,8 @@ public class IpAccessControlListMappingReader extends Reader<IpAccessControlList
 
     /**
      * Construct a new IpAccessControlListMappingReader.
-     * 
-     * @param pathDomainSid The domain_sid
+     *
+     * @param pathDomainSid A string that uniquely identifies the SIP Domain
      */
     public IpAccessControlListMappingReader(final String pathDomainSid) {
         this.pathDomainSid = pathDomainSid;
@@ -34,11 +34,12 @@ public class IpAccessControlListMappingReader extends Reader<IpAccessControlList
 
     /**
      * Construct a new IpAccessControlListMappingReader.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
+     *
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
+     * @param pathDomainSid A string that uniquely identifies the SIP Domain
      */
-    public IpAccessControlListMappingReader(final String pathAccountSid, 
+    public IpAccessControlListMappingReader(final String pathAccountSid,
                                             final String pathDomainSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
@@ -46,7 +47,7 @@ public class IpAccessControlListMappingReader extends Reader<IpAccessControlList
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return IpAccessControlListMapping ResourceSet
      */
@@ -57,7 +58,7 @@ public class IpAccessControlListMappingReader extends Reader<IpAccessControlList
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return IpAccessControlListMapping ResourceSet
      */
@@ -68,8 +69,7 @@ public class IpAccessControlListMappingReader extends Reader<IpAccessControlList
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/IpAccessControlListMappings.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/IpAccessControlListMappings.json"
         );
 
         addQueryParams(request);
@@ -78,7 +78,7 @@ public class IpAccessControlListMappingReader extends Reader<IpAccessControlList
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return IpAccessControlListMapping ResourceSet
@@ -97,47 +97,41 @@ public class IpAccessControlListMappingReader extends Reader<IpAccessControlList
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<IpAccessControlListMapping> nextPage(final Page<IpAccessControlListMapping> page, 
+    public Page<IpAccessControlListMapping> nextPage(final Page<IpAccessControlListMapping> page,
                                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<IpAccessControlListMapping> previousPage(final Page<IpAccessControlListMapping> page, 
+    public Page<IpAccessControlListMapping> previousPage(final Page<IpAccessControlListMapping> page,
                                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of IpAccessControlListMapping Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -152,14 +146,7 @@ public class IpAccessControlListMappingReader extends Reader<IpAccessControlList
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -172,7 +159,7 @@ public class IpAccessControlListMappingReader extends Reader<IpAccessControlList
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

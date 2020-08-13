@@ -20,11 +20,6 @@ import com.twilio.rest.Domains;
 
 import java.net.URI;
 
-/**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- */
 public class CompositionSettingsCreator extends Creator<CompositionSettings> {
     private final String friendlyName;
     private String awsCredentialsSid;
@@ -35,18 +30,18 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
 
     /**
      * Construct a new CompositionSettingsCreator.
-     * 
-     * @param friendlyName Friendly name of the configuration to be shown in the
-     *                     console
+     *
+     * @param friendlyName A descriptive string that you create to describe the
+     *                     resource
      */
     public CompositionSettingsCreator(final String friendlyName) {
         this.friendlyName = friendlyName;
     }
 
     /**
-     * SID of the Stored Credential resource `CRxx`.
-     * 
-     * @param awsCredentialsSid SID of the Stored Credential resource CRxx
+     * The SID of the stored Credential resource..
+     *
+     * @param awsCredentialsSid The SID of the stored Credential resource
      * @return this
      */
     public CompositionSettingsCreator setAwsCredentialsSid(final String awsCredentialsSid) {
@@ -55,9 +50,10 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
     }
 
     /**
-     * SID of the Public Key resource `CRxx`.
-     * 
-     * @param encryptionKeySid SID of the Public Key resource CRxx
+     * The SID of the Public Key resource to use for encryption..
+     *
+     * @param encryptionKeySid The SID of the Public Key resource to use for
+     *                         encryption
      * @return this
      */
     public CompositionSettingsCreator setEncryptionKeySid(final String encryptionKeySid) {
@@ -66,14 +62,15 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
     }
 
     /**
-     * Identity of the external location where the compositions should be stored. We
-     * only support DNS-compliant URLs like
-     * `http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/compositions`, 
-     * where `compositions` is the path where you want compositions to be stored..
-     * 
-     * @param awsS3Url Identity of the external location where the compositions
-     *                 should be stored. We only support DNS-compliant URLs like
-     *                 http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/compositions, where compositions is the path where you want compositions to be stored.
+     * The URL of the AWS S3 bucket where the compositions should be stored. We only
+     * support DNS-compliant URLs like
+     * `https://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/compositions`,
+     * where `compositions` is the path in which you want the compositions to be
+     * stored. This URL accepts only URI-valid characters, as described in the &lt;a
+     * href='https://tools.ietf.org/html/rfc3986#section-2'&gt;RFC 3986&lt;/a&gt;..
+     *
+     * @param awsS3Url The URL of the AWS S3 bucket where the compositions should
+     *                 be stored
      * @return this
      */
     public CompositionSettingsCreator setAwsS3Url(final URI awsS3Url) {
@@ -82,14 +79,15 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
     }
 
     /**
-     * Identity of the external location where the compositions should be stored. We
-     * only support DNS-compliant URLs like
-     * `http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/compositions`, 
-     * where `compositions` is the path where you want compositions to be stored..
-     * 
-     * @param awsS3Url Identity of the external location where the compositions
-     *                 should be stored. We only support DNS-compliant URLs like
-     *                 http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/compositions, where compositions is the path where you want compositions to be stored.
+     * The URL of the AWS S3 bucket where the compositions should be stored. We only
+     * support DNS-compliant URLs like
+     * `https://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/compositions`,
+     * where `compositions` is the path in which you want the compositions to be
+     * stored. This URL accepts only URI-valid characters, as described in the &lt;a
+     * href='https://tools.ietf.org/html/rfc3986#section-2'&gt;RFC 3986&lt;/a&gt;..
+     *
+     * @param awsS3Url The URL of the AWS S3 bucket where the compositions should
+     *                 be stored
      * @return this
      */
     public CompositionSettingsCreator setAwsS3Url(final String awsS3Url) {
@@ -97,14 +95,11 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
     }
 
     /**
-     * `true|false` When set to `true`, all Compositions will be written to the
-     * `AwsS3Url` specified above. When set to `false`, all Compositions will be
-     * stored in Twilio's cloud..
-     * 
-     * @param awsStorageEnabled true|false When set to true, all Compositions will
-     *                          be written to the AwsS3Url specified above. When set
-     *                          to false, all Compositions will be stored in
-     *                          Twilio's cloud.
+     * Whether all compositions should be written to the `aws_s3_url`. When `false`,
+     * all compositions are stored in our cloud..
+     *
+     * @param awsStorageEnabled Whether all compositions should be written to the
+     *                          aws_s3_url
      * @return this
      */
     public CompositionSettingsCreator setAwsStorageEnabled(final Boolean awsStorageEnabled) {
@@ -113,11 +108,11 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
     }
 
     /**
-     * `true|false` When set to `true`, all Compositions will be stored encrypted.
-     * Dafault value is `false`.
-     * 
-     * @param encryptionEnabled true|false When set to true, all Compositions will
-     *                          be stored encrypted.
+     * Whether all compositions should be stored in an encrypted form. The default
+     * is `false`..
+     *
+     * @param encryptionEnabled Whether all compositions should be stored in an
+     *                          encrypted form
      * @return this
      */
     public CompositionSettingsCreator setEncryptionEnabled(final Boolean encryptionEnabled) {
@@ -127,7 +122,7 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created CompositionSettings
      */
@@ -137,8 +132,7 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
-            "/v1/CompositionSettings/Default",
-            client.getRegion()
+            "/v1/CompositionSettings/Default"
         );
 
         addPostParams(request);
@@ -151,14 +145,7 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return CompositionSettings.fromJson(response.getStream(), client.getObjectMapper());
@@ -166,7 +153,7 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -38,11 +38,11 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 76800844046701L;
+    private static final long serialVersionUID = 267258306183645L;
 
     /**
      * Create a ServiceCreator to execute create.
-     * 
+     *
      * @return ServiceCreator capable of executing the create
      */
     public static ServiceCreator creator() {
@@ -51,8 +51,8 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceDeleter to execute delete.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return ServiceDeleter capable of executing the delete
      */
     public static ServiceDeleter deleter(final String pathSid) {
@@ -61,8 +61,8 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceFetcher to execute fetch.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return ServiceFetcher capable of executing the fetch
      */
     public static ServiceFetcher fetcher(final String pathSid) {
@@ -71,7 +71,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceReader to execute read.
-     * 
+     *
      * @return ServiceReader capable of executing the read
      */
     public static ServiceReader reader() {
@@ -80,8 +80,8 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceUpdater to execute update.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return ServiceUpdater capable of executing the update
      */
     public static ServiceUpdater updater(final String pathSid) {
@@ -90,7 +90,7 @@ public class Service extends Resource {
 
     /**
      * Converts a JSON String into a Service object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
@@ -109,7 +109,7 @@ public class Service extends Resource {
     /**
      * Converts a JSON InputStream into a Service object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
@@ -143,44 +143,50 @@ public class Service extends Resource {
     private final Map<String, String> links;
     private final String alexaSkillId;
     private final String defaultAlexaNotificationProtocolVersion;
+    private final String deliveryCallbackUrl;
+    private final Boolean deliveryCallbackEnabled;
 
     @JsonCreator
     private Service(@JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("friendly_name")
-                    final String friendlyName, 
+                    final String friendlyName,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("apn_credential_sid")
-                    final String apnCredentialSid, 
+                    final String apnCredentialSid,
                     @JsonProperty("gcm_credential_sid")
-                    final String gcmCredentialSid, 
+                    final String gcmCredentialSid,
                     @JsonProperty("fcm_credential_sid")
-                    final String fcmCredentialSid, 
+                    final String fcmCredentialSid,
                     @JsonProperty("messaging_service_sid")
-                    final String messagingServiceSid, 
+                    final String messagingServiceSid,
                     @JsonProperty("facebook_messenger_page_id")
-                    final String facebookMessengerPageId, 
+                    final String facebookMessengerPageId,
                     @JsonProperty("default_apn_notification_protocol_version")
-                    final String defaultApnNotificationProtocolVersion, 
+                    final String defaultApnNotificationProtocolVersion,
                     @JsonProperty("default_gcm_notification_protocol_version")
-                    final String defaultGcmNotificationProtocolVersion, 
+                    final String defaultGcmNotificationProtocolVersion,
                     @JsonProperty("default_fcm_notification_protocol_version")
-                    final String defaultFcmNotificationProtocolVersion, 
+                    final String defaultFcmNotificationProtocolVersion,
                     @JsonProperty("log_enabled")
-                    final Boolean logEnabled, 
+                    final Boolean logEnabled,
                     @JsonProperty("url")
-                    final URI url, 
+                    final URI url,
                     @JsonProperty("links")
-                    final Map<String, String> links, 
+                    final Map<String, String> links,
                     @JsonProperty("alexa_skill_id")
-                    final String alexaSkillId, 
+                    final String alexaSkillId,
                     @JsonProperty("default_alexa_notification_protocol_version")
-                    final String defaultAlexaNotificationProtocolVersion) {
+                    final String defaultAlexaNotificationProtocolVersion,
+                    @JsonProperty("delivery_callback_url")
+                    final String deliveryCallbackUrl,
+                    @JsonProperty("delivery_callback_enabled")
+                    final Boolean deliveryCallbackEnabled) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.friendlyName = friendlyName;
@@ -199,172 +205,188 @@ public class Service extends Resource {
         this.links = links;
         this.alexaSkillId = alexaSkillId;
         this.defaultAlexaNotificationProtocolVersion = defaultAlexaNotificationProtocolVersion;
+        this.deliveryCallbackUrl = deliveryCallbackUrl;
+        this.deliveryCallbackEnabled = deliveryCallbackEnabled;
     }
 
     /**
-     * Returns The The sid.
-     * 
-     * @return The sid
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
-     * 
-     * @return The account_sid
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Human-readable name for this service instance.
-     * 
-     * @return Human-readable name for this service instance
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date_created.
-     * 
-     * @return The date_created
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
+     *
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
-     * 
-     * @return The date_updated
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
+     *
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The SID of the Credential to be used for APN Bindings..
-     * 
-     * @return The SID of the Credential to be used for APN Bindings.
+     * Returns The SID of the Credential to use for APN Bindings.
+     *
+     * @return The SID of the Credential to use for APN Bindings
      */
     public final String getApnCredentialSid() {
         return this.apnCredentialSid;
     }
 
     /**
-     * Returns The The SID of the Credential to be used for GCM Bindings..
-     * 
-     * @return The SID of the Credential to be used for GCM Bindings.
+     * Returns The SID of the Credential to use for GCM Bindings.
+     *
+     * @return The SID of the Credential to use for GCM Bindings
      */
     public final String getGcmCredentialSid() {
         return this.gcmCredentialSid;
     }
 
     /**
-     * Returns The The SID of the Credential to be used for FCM Bindings..
-     * 
-     * @return The SID of the Credential to be used for FCM Bindings.
+     * Returns The SID of the Credential to use for FCM Bindings.
+     *
+     * @return The SID of the Credential to use for FCM Bindings
      */
     public final String getFcmCredentialSid() {
         return this.fcmCredentialSid;
     }
 
     /**
-     * Returns The The SID of the Messaging Service to be used for SMS Bindings..
-     * 
-     * @return The SID of the Messaging Service to be used for SMS Bindings.
+     * Returns The SID of the Messaging Service to use for SMS Bindings.
+     *
+     * @return The SID of the Messaging Service to use for SMS Bindings
      */
     public final String getMessagingServiceSid() {
         return this.messagingServiceSid;
     }
 
     /**
-     * Returns The The Page ID to be used to send for Facebook Messenger Bindings..
-     * 
-     * @return The Page ID to be used to send for Facebook Messenger Bindings.
+     * Returns Deprecated.
+     *
+     * @return Deprecated
      */
     public final String getFacebookMessengerPageId() {
         return this.facebookMessengerPageId;
     }
 
     /**
-     * Returns The The version of the protocol to be used for sending APNS
-     * notifications..
-     * 
-     * @return The version of the protocol to be used for sending APNS
-     *         notifications.
+     * Returns The protocol version to use for sending APNS notifications.
+     *
+     * @return The protocol version to use for sending APNS notifications
      */
     public final String getDefaultApnNotificationProtocolVersion() {
         return this.defaultApnNotificationProtocolVersion;
     }
 
     /**
-     * Returns The The version of the protocol to be used for sending GCM
-     * notifications..
-     * 
-     * @return The version of the protocol to be used for sending GCM notifications.
+     * Returns The protocol version to use for sending GCM notifications.
+     *
+     * @return The protocol version to use for sending GCM notifications
      */
     public final String getDefaultGcmNotificationProtocolVersion() {
         return this.defaultGcmNotificationProtocolVersion;
     }
 
     /**
-     * Returns The The version of the protocol to be used for sending FCM
-     * notifications..
-     * 
-     * @return The version of the protocol to be used for sending FCM notifications.
+     * Returns The protocol version to use for sending FCM notifications.
+     *
+     * @return The protocol version to use for sending FCM notifications
      */
     public final String getDefaultFcmNotificationProtocolVersion() {
         return this.defaultFcmNotificationProtocolVersion;
     }
 
     /**
-     * Returns The The log_enabled.
-     * 
-     * @return The log_enabled
+     * Returns Whether to log notifications.
+     *
+     * @return Whether to log notifications
      */
     public final Boolean getLogEnabled() {
         return this.logEnabled;
     }
 
     /**
-     * Returns The The url.
-     * 
-     * @return The url
+     * Returns The absolute URL of the Service resource.
+     *
+     * @return The absolute URL of the Service resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
-     * 
-     * @return The links
+     * Returns The URLs of the resources related to the service.
+     *
+     * @return The URLs of the resources related to the service
      */
     public final Map<String, String> getLinks() {
         return this.links;
     }
 
     /**
-     * Returns The The alexa_skill_id.
-     * 
-     * @return The alexa_skill_id
+     * Returns Deprecated.
+     *
+     * @return Deprecated
      */
     public final String getAlexaSkillId() {
         return this.alexaSkillId;
     }
 
     /**
-     * Returns The The default_alexa_notification_protocol_version.
-     * 
-     * @return The default_alexa_notification_protocol_version
+     * Returns Deprecated.
+     *
+     * @return Deprecated
      */
     public final String getDefaultAlexaNotificationProtocolVersion() {
         return this.defaultAlexaNotificationProtocolVersion;
+    }
+
+    /**
+     * Returns Webhook URL.
+     *
+     * @return Webhook URL
+     */
+    public final String getDeliveryCallbackUrl() {
+        return this.deliveryCallbackUrl;
+    }
+
+    /**
+     * Returns Enable delivery callbacks.
+     *
+     * @return Enable delivery callbacks
+     */
+    public final Boolean getDeliveryCallbackEnabled() {
+        return this.deliveryCallbackEnabled;
     }
 
     @Override
@@ -379,24 +401,26 @@ public class Service extends Resource {
 
         Service other = (Service) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(apnCredentialSid, other.apnCredentialSid) && 
-               Objects.equals(gcmCredentialSid, other.gcmCredentialSid) && 
-               Objects.equals(fcmCredentialSid, other.fcmCredentialSid) && 
-               Objects.equals(messagingServiceSid, other.messagingServiceSid) && 
-               Objects.equals(facebookMessengerPageId, other.facebookMessengerPageId) && 
-               Objects.equals(defaultApnNotificationProtocolVersion, other.defaultApnNotificationProtocolVersion) && 
-               Objects.equals(defaultGcmNotificationProtocolVersion, other.defaultGcmNotificationProtocolVersion) && 
-               Objects.equals(defaultFcmNotificationProtocolVersion, other.defaultFcmNotificationProtocolVersion) && 
-               Objects.equals(logEnabled, other.logEnabled) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(links, other.links) && 
-               Objects.equals(alexaSkillId, other.alexaSkillId) && 
-               Objects.equals(defaultAlexaNotificationProtocolVersion, other.defaultAlexaNotificationProtocolVersion);
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(apnCredentialSid, other.apnCredentialSid) &&
+               Objects.equals(gcmCredentialSid, other.gcmCredentialSid) &&
+               Objects.equals(fcmCredentialSid, other.fcmCredentialSid) &&
+               Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
+               Objects.equals(facebookMessengerPageId, other.facebookMessengerPageId) &&
+               Objects.equals(defaultApnNotificationProtocolVersion, other.defaultApnNotificationProtocolVersion) &&
+               Objects.equals(defaultGcmNotificationProtocolVersion, other.defaultGcmNotificationProtocolVersion) &&
+               Objects.equals(defaultFcmNotificationProtocolVersion, other.defaultFcmNotificationProtocolVersion) &&
+               Objects.equals(logEnabled, other.logEnabled) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(links, other.links) &&
+               Objects.equals(alexaSkillId, other.alexaSkillId) &&
+               Objects.equals(defaultAlexaNotificationProtocolVersion, other.defaultAlexaNotificationProtocolVersion) &&
+               Objects.equals(deliveryCallbackUrl, other.deliveryCallbackUrl) &&
+               Objects.equals(deliveryCallbackEnabled, other.deliveryCallbackEnabled);
     }
 
     @Override
@@ -418,7 +442,9 @@ public class Service extends Resource {
                             url,
                             links,
                             alexaSkillId,
-                            defaultAlexaNotificationProtocolVersion);
+                            defaultAlexaNotificationProtocolVersion,
+                            deliveryCallbackUrl,
+                            deliveryCallbackEnabled);
     }
 
     @Override
@@ -442,6 +468,8 @@ public class Service extends Resource {
                           .add("links", links)
                           .add("alexaSkillId", alexaSkillId)
                           .add("defaultAlexaNotificationProtocolVersion", defaultAlexaNotificationProtocolVersion)
+                          .add("deliveryCallbackUrl", deliveryCallbackUrl)
+                          .add("deliveryCallbackEnabled", deliveryCallbackEnabled)
                           .toString();
     }
 }

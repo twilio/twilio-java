@@ -27,8 +27,8 @@ public class InstalledAddOnDeleter extends Deleter<InstalledAddOn> {
 
     /**
      * Construct a new InstalledAddOnDeleter.
-     * 
-     * @param pathSid The Installed Add-on Sid to delete
+     *
+     * @param pathSid The SID of the InstalledAddOn resource to delete
      */
     public InstalledAddOnDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -36,7 +36,7 @@ public class InstalledAddOnDeleter extends Deleter<InstalledAddOn> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -45,8 +45,7 @@ public class InstalledAddOnDeleter extends Deleter<InstalledAddOn> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/marketplace/InstalledAddOns/" + this.pathSid + "",
-            client.getRegion()
+            "/marketplace/InstalledAddOns/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -58,14 +57,7 @@ public class InstalledAddOnDeleter extends Deleter<InstalledAddOn> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

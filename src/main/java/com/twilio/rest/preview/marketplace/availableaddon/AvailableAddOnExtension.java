@@ -41,20 +41,22 @@ public class AvailableAddOnExtension extends Resource {
 
     /**
      * Create a AvailableAddOnExtensionFetcher to execute fetch.
-     * 
-     * @param pathAvailableAddOnSid The available_add_on_sid
-     * @param pathSid The unique Extension Sid
+     *
+     * @param pathAvailableAddOnSid The SID of the AvailableAddOn resource with the
+     *                              extension to fetch
+     * @param pathSid The SID of the AvailableAddOn Extension resource to fetch
      * @return AvailableAddOnExtensionFetcher capable of executing the fetch
      */
-    public static AvailableAddOnExtensionFetcher fetcher(final String pathAvailableAddOnSid, 
+    public static AvailableAddOnExtensionFetcher fetcher(final String pathAvailableAddOnSid,
                                                          final String pathSid) {
         return new AvailableAddOnExtensionFetcher(pathAvailableAddOnSid, pathSid);
     }
 
     /**
      * Create a AvailableAddOnExtensionReader to execute read.
-     * 
-     * @param pathAvailableAddOnSid The available_add_on_sid
+     *
+     * @param pathAvailableAddOnSid The SID of the AvailableAddOn resource with the
+     *                              extensions to read
      * @return AvailableAddOnExtensionReader capable of executing the read
      */
     public static AvailableAddOnExtensionReader reader(final String pathAvailableAddOnSid) {
@@ -64,7 +66,7 @@ public class AvailableAddOnExtension extends Resource {
     /**
      * Converts a JSON String into a AvailableAddOnExtension object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AvailableAddOnExtension object represented by the provided JSON
@@ -83,7 +85,7 @@ public class AvailableAddOnExtension extends Resource {
     /**
      * Converts a JSON InputStream into a AvailableAddOnExtension object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AvailableAddOnExtension object represented by the provided JSON
@@ -108,15 +110,15 @@ public class AvailableAddOnExtension extends Resource {
 
     @JsonCreator
     private AvailableAddOnExtension(@JsonProperty("sid")
-                                    final String sid, 
+                                    final String sid,
                                     @JsonProperty("available_add_on_sid")
-                                    final String availableAddOnSid, 
+                                    final String availableAddOnSid,
                                     @JsonProperty("friendly_name")
-                                    final String friendlyName, 
+                                    final String friendlyName,
                                     @JsonProperty("product_name")
-                                    final String productName, 
+                                    final String productName,
                                     @JsonProperty("unique_name")
-                                    final String uniqueName, 
+                                    final String uniqueName,
                                     @JsonProperty("url")
                                     final URI url) {
         this.sid = sid;
@@ -128,54 +130,56 @@ public class AvailableAddOnExtension extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Extension.
-     * 
-     * @return A string that uniquely identifies this Extension
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The available_add_on_sid.
-     * 
-     * @return The available_add_on_sid
+     * Returns The SID of the AvailableAddOn resource to which this extension
+     * applies.
+     *
+     * @return The SID of the AvailableAddOn resource to which this extension
+     *         applies
      */
     public final String getAvailableAddOnSid() {
         return this.availableAddOnSid;
     }
 
     /**
-     * Returns The A human-readable description of this Extension.
-     * 
-     * @return A human-readable description of this Extension
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The A human-readable description of the Extension's Product.
-     * 
-     * @return A human-readable description of the Extension's Product
+     * Returns The name of the Extension's Product.
+     *
+     * @return The name of the Extension's Product
      */
     public final String getProductName() {
         return this.productName;
     }
 
     /**
-     * Returns The The string that uniquely identifies this Extension.
-     * 
-     * @return The string that uniquely identifies this Extension
+     * Returns An application-defined string that uniquely identifies the resource.
+     *
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The url.
-     * 
-     * @return The url
+     * Returns The absolute URL of the resource.
+     *
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
@@ -193,11 +197,11 @@ public class AvailableAddOnExtension extends Resource {
 
         AvailableAddOnExtension other = (AvailableAddOnExtension) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(availableAddOnSid, other.availableAddOnSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(productName, other.productName) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(availableAddOnSid, other.availableAddOnSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(productName, other.productName) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
                Objects.equals(url, other.url);
     }
 

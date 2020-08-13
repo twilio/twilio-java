@@ -42,32 +42,34 @@ public class SyncMap extends Resource {
 
     /**
      * Create a SyncMapFetcher to execute fetch.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map resource
+     *                       to fetch
+     * @param pathSid The SID of the Sync Map resource to fetch
      * @return SyncMapFetcher capable of executing the fetch
      */
-    public static SyncMapFetcher fetcher(final String pathServiceSid, 
+    public static SyncMapFetcher fetcher(final String pathServiceSid,
                                          final String pathSid) {
         return new SyncMapFetcher(pathServiceSid, pathSid);
     }
 
     /**
      * Create a SyncMapDeleter to execute delete.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map resource
+     *                       to delete
+     * @param pathSid The SID of the Sync Map resource to delete
      * @return SyncMapDeleter capable of executing the delete
      */
-    public static SyncMapDeleter deleter(final String pathServiceSid, 
+    public static SyncMapDeleter deleter(final String pathServiceSid,
                                          final String pathSid) {
         return new SyncMapDeleter(pathServiceSid, pathSid);
     }
 
     /**
      * Create a SyncMapCreator to execute create.
-     * 
-     * @param pathServiceSid The service_sid
+     *
+     * @param pathServiceSid The SID of the Sync Service to create the Sync Map in
      * @return SyncMapCreator capable of executing the create
      */
     public static SyncMapCreator creator(final String pathServiceSid) {
@@ -76,20 +78,22 @@ public class SyncMap extends Resource {
 
     /**
      * Create a SyncMapUpdater to execute update.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map resource
+     *                       to update
+     * @param pathSid The SID of the Sync Map resource to update
      * @return SyncMapUpdater capable of executing the update
      */
-    public static SyncMapUpdater updater(final String pathServiceSid, 
+    public static SyncMapUpdater updater(final String pathServiceSid,
                                          final String pathSid) {
         return new SyncMapUpdater(pathServiceSid, pathSid);
     }
 
     /**
      * Create a SyncMapReader to execute read.
-     * 
-     * @param pathServiceSid The service_sid
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map
+     *                       resources to read
      * @return SyncMapReader capable of executing the read
      */
     public static SyncMapReader reader(final String pathServiceSid) {
@@ -98,7 +102,7 @@ public class SyncMap extends Resource {
 
     /**
      * Converts a JSON String into a SyncMap object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SyncMap object represented by the provided JSON
@@ -117,7 +121,7 @@ public class SyncMap extends Resource {
     /**
      * Converts a JSON InputStream into a SyncMap object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SyncMap object represented by the provided JSON
@@ -147,25 +151,25 @@ public class SyncMap extends Resource {
 
     @JsonCreator
     private SyncMap(@JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("unique_name")
-                    final String uniqueName, 
+                    final String uniqueName,
                     @JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("service_sid")
-                    final String serviceSid, 
+                    final String serviceSid,
                     @JsonProperty("url")
-                    final URI url, 
+                    final URI url,
                     @JsonProperty("links")
-                    final Map<String, String> links, 
+                    final Map<String, String> links,
                     @JsonProperty("revision")
-                    final String revision, 
+                    final String revision,
                     @JsonProperty("date_expires")
-                    final String dateExpires, 
+                    final String dateExpires,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("created_by")
                     final String createdBy) {
         this.sid = sid;
@@ -182,106 +186,99 @@ public class SyncMap extends Resource {
     }
 
     /**
-     * Returns The The unique 34-character SID identifier of the Map..
-     * 
-     * @return The unique 34-character SID identifier of the Map.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique and addressable name of this Map..
-     * 
-     * @return The unique and addressable name of this Map.
+     * Returns An application-defined string that uniquely identifies the resource.
+     *
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The unique SID identifier of the Twilio Account..
-     * 
-     * @return The unique SID identifier of the Twilio Account.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique SID identifier of the Service Instance that hosts this
-     * Map object..
-     * 
-     * @return The unique SID identifier of the Service Instance that hosts this
-     *         Map object.
+     * Returns The SID of the Sync Service that the resource is associated with.
+     *
+     * @return The SID of the Sync Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The absolute URL for this Map..
-     * 
-     * @return The absolute URL for this Map.
+     * Returns The absolute URL of the Sync Map resource.
+     *
+     * @return The absolute URL of the Sync Map resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The A dictionary of URL links to nested resources of this Map..
-     * 
-     * @return A dictionary of URL links to nested resources of this Map.
+     * Returns The URLs of the Sync Map's nested resources.
+     *
+     * @return The URLs of the Sync Map's nested resources
      */
     public final Map<String, String> getLinks() {
         return this.links;
     }
 
     /**
-     * Returns The Contains the current revision of this Map, represented by a
-     * string identifier..
-     * 
-     * @return Contains the current revision of this Map, represented by a string
-     *         identifier.
+     * Returns The current revision of the Sync Map, represented as a string.
+     *
+     * @return The current revision of the Sync Map, represented as a string
      */
     public final String getRevision() {
         return this.revision;
     }
 
     /**
-     * Returns The Contains the date this Map expires and gets deleted
-     * automatically..
-     * 
-     * @return Contains the date this Map expires and gets deleted automatically.
+     * Returns The ISO 8601 date and time in GMT when the Sync Map expires.
+     *
+     * @return The ISO 8601 date and time in GMT when the Sync Map expires
      */
     public final DateTime getDateExpires() {
         return this.dateExpires;
     }
 
     /**
-     * Returns The The date this Map was created, given in UTC ISO 8601 format..
-     * 
-     * @return The date this Map was created, given in UTC ISO 8601 format.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The Specifies the date this Map was last updated, given in UTC ISO
-     * 8601 format..
-     * 
-     * @return Specifies the date this Map was last updated, given in UTC ISO 8601
-     *         format.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The identity of the Map creator..
-     * 
-     * @return The identity of the Map creator.
+     * Returns The identity of the Sync Map's creator.
+     *
+     * @return The identity of the Sync Map's creator
      */
     public final String getCreatedBy() {
         return this.createdBy;
@@ -299,16 +296,16 @@ public class SyncMap extends Resource {
 
         SyncMap other = (SyncMap) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(links, other.links) && 
-               Objects.equals(revision, other.revision) && 
-               Objects.equals(dateExpires, other.dateExpires) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(links, other.links) &&
+               Objects.equals(revision, other.revision) &&
+               Objects.equals(dateExpires, other.dateExpires) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(createdBy, other.createdBy);
     }
 

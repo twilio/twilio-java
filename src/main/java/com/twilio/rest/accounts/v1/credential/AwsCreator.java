@@ -24,17 +24,20 @@ public class AwsCreator extends Creator<Aws> {
 
     /**
      * Construct a new AwsCreator.
-     * 
-     * @param credentials The credentials
+     *
+     * @param credentials A string that contains the AWS access credentials in the
+     *                    format
+     *                    &lt;AWS_ACCESS_KEY_ID&gt;:&lt;AWS_SECRET_ACCESS_KEY&gt;
      */
     public AwsCreator(final String credentials) {
         this.credentials = credentials;
     }
 
     /**
-     * The friendly_name.
-     * 
-     * @param friendlyName The friendly_name
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
+     *
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public AwsCreator setFriendlyName(final String friendlyName) {
@@ -43,9 +46,10 @@ public class AwsCreator extends Creator<Aws> {
     }
 
     /**
-     * The account_sid.
-     * 
-     * @param accountSid The account_sid
+     * The SID of the Subaccount that this Credential should be associated with.
+     * Must be a valid Subaccount of the account issuing the request..
+     *
+     * @param accountSid The Subaccount this Credential should be associated with.
      * @return this
      */
     public AwsCreator setAccountSid(final String accountSid) {
@@ -55,7 +59,7 @@ public class AwsCreator extends Creator<Aws> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Aws
      */
@@ -65,8 +69,7 @@ public class AwsCreator extends Creator<Aws> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.ACCOUNTS.toString(),
-            "/v1/Credentials/AWS",
-            client.getRegion()
+            "/v1/Credentials/AWS"
         );
 
         addPostParams(request);
@@ -79,14 +82,7 @@ public class AwsCreator extends Creator<Aws> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Aws.fromJson(response.getStream(), client.getObjectMapper());
@@ -94,7 +90,7 @@ public class AwsCreator extends Creator<Aws> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

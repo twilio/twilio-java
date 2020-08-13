@@ -27,11 +27,13 @@ public class IpAddressUpdater extends Updater<IpAddress> {
 
     /**
      * Construct a new IpAddressUpdater.
-     * 
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
-     * @param pathSid The sid
+     *
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid that
+     *                                   identifies the IpAddress resources to
+     *                                   update
+     * @param pathSid A string that identifies the IpAddress resource to update
      */
-    public IpAddressUpdater(final String pathIpAccessControlListSid, 
+    public IpAddressUpdater(final String pathIpAccessControlListSid,
                             final String pathSid) {
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
         this.pathSid = pathSid;
@@ -39,13 +41,15 @@ public class IpAddressUpdater extends Updater<IpAddress> {
 
     /**
      * Construct a new IpAddressUpdater.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid that
+     *                                   identifies the IpAddress resources to
+     *                                   update
+     * @param pathSid A string that identifies the IpAddress resource to update
      */
-    public IpAddressUpdater(final String pathAccountSid, 
-                            final String pathIpAccessControlListSid, 
+    public IpAddressUpdater(final String pathAccountSid,
+                            final String pathIpAccessControlListSid,
                             final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
@@ -53,9 +57,14 @@ public class IpAddressUpdater extends Updater<IpAddress> {
     }
 
     /**
-     * The ip_address.
-     * 
-     * @param ipAddress The ip_address
+     * An IP address in dotted decimal notation from which you want to accept
+     * traffic. Any SIP requests from this IP address will be allowed by Twilio.
+     * IPv4 only supported today..
+     *
+     * @param ipAddress An IP address in dotted decimal notation from which you
+     *                  want to accept traffic. Any SIP requests from this IP
+     *                  address will be allowed by Twilio. IPv4 only supported
+     *                  today.
      * @return this
      */
     public IpAddressUpdater setIpAddress(final String ipAddress) {
@@ -64,9 +73,11 @@ public class IpAddressUpdater extends Updater<IpAddress> {
     }
 
     /**
-     * The friendly_name.
-     * 
-     * @param friendlyName The friendly_name
+     * A human readable descriptive text for this resource, up to 64 characters
+     * long..
+     *
+     * @param friendlyName A human readable descriptive text for this resource, up
+     *                     to 64 characters long.
      * @return this
      */
     public IpAddressUpdater setFriendlyName(final String friendlyName) {
@@ -75,9 +86,12 @@ public class IpAddressUpdater extends Updater<IpAddress> {
     }
 
     /**
-     * The cidr_prefix_length.
-     * 
-     * @param cidrPrefixLength The cidr_prefix_length
+     * An integer representing the length of the CIDR prefix to use with this IP
+     * address when accepting traffic. By default the entire IP address is used..
+     *
+     * @param cidrPrefixLength An integer representing the length of the CIDR
+     *                         prefix to use with this IP address when accepting
+     *                         traffic. By default the entire IP address is used.
      * @return this
      */
     public IpAddressUpdater setCidrPrefixLength(final Integer cidrPrefixLength) {
@@ -87,7 +101,7 @@ public class IpAddressUpdater extends Updater<IpAddress> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated IpAddress
      */
@@ -98,8 +112,7 @@ public class IpAddressUpdater extends Updater<IpAddress> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/IpAccessControlLists/" + this.pathIpAccessControlListSid + "/IpAddresses/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/IpAccessControlLists/" + this.pathIpAccessControlListSid + "/IpAddresses/" + this.pathSid + ".json"
         );
 
         addPostParams(request);
@@ -112,14 +125,7 @@ public class IpAddressUpdater extends Updater<IpAddress> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return IpAddress.fromJson(response.getStream(), client.getObjectMapper());
@@ -127,7 +133,7 @@ public class IpAddressUpdater extends Updater<IpAddress> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

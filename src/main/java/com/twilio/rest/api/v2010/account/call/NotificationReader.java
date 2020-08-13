@@ -31,8 +31,8 @@ public class NotificationReader extends Reader<Notification> {
 
     /**
      * Construct a new NotificationReader.
-     * 
-     * @param pathCallSid The call_sid
+     *
+     * @param pathCallSid The Call SID of the resources to read
      */
     public NotificationReader(final String pathCallSid) {
         this.pathCallSid = pathCallSid;
@@ -40,20 +40,23 @@ public class NotificationReader extends Reader<Notification> {
 
     /**
      * Construct a new NotificationReader.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathCallSid The call_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathCallSid The Call SID of the resources to read
      */
-    public NotificationReader(final String pathAccountSid, 
+    public NotificationReader(final String pathAccountSid,
                               final String pathCallSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathCallSid = pathCallSid;
     }
 
     /**
-     * The log.
-     * 
-     * @param log The log
+     * Only read notifications of the specified log level. Can be:  `0` to read only
+     * ERROR notifications or `1` to read only WARNING notifications. By default,
+     * all notifications are read..
+     *
+     * @param log Filter by log level
      * @return this
      */
     public NotificationReader setLog(final Integer log) {
@@ -62,9 +65,12 @@ public class NotificationReader extends Reader<Notification> {
     }
 
     /**
-     * The absolute_message_date.
-     * 
-     * @param absoluteMessageDate The absolute_message_date
+     * Only show notifications for the specified date, formatted as `YYYY-MM-DD`.
+     * You can also specify an inequality, such as `&lt;=YYYY-MM-DD` for messages
+     * logged at or before midnight on a date, or `&gt;=YYYY-MM-DD` for messages
+     * logged at or after midnight on a date..
+     *
+     * @param absoluteMessageDate Filter by date
      * @return this
      */
     public NotificationReader setMessageDate(final LocalDate absoluteMessageDate) {
@@ -74,9 +80,12 @@ public class NotificationReader extends Reader<Notification> {
     }
 
     /**
-     * The range_message_date.
-     * 
-     * @param rangeMessageDate The range_message_date
+     * Only show notifications for the specified date, formatted as `YYYY-MM-DD`.
+     * You can also specify an inequality, such as `&lt;=YYYY-MM-DD` for messages
+     * logged at or before midnight on a date, or `&gt;=YYYY-MM-DD` for messages
+     * logged at or after midnight on a date..
+     *
+     * @param rangeMessageDate Filter by date
      * @return this
      */
     public NotificationReader setMessageDate(final Range<LocalDate> rangeMessageDate) {
@@ -87,7 +96,7 @@ public class NotificationReader extends Reader<Notification> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Notification ResourceSet
      */
@@ -98,7 +107,7 @@ public class NotificationReader extends Reader<Notification> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Notification ResourceSet
      */
@@ -109,8 +118,7 @@ public class NotificationReader extends Reader<Notification> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathCallSid + "/Notifications.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathCallSid + "/Notifications.json"
         );
 
         addQueryParams(request);
@@ -119,7 +127,7 @@ public class NotificationReader extends Reader<Notification> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Notification ResourceSet
@@ -138,47 +146,41 @@ public class NotificationReader extends Reader<Notification> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Notification> nextPage(final Page<Notification> page, 
+    public Page<Notification> nextPage(final Page<Notification> page,
                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Notification> previousPage(final Page<Notification> page, 
+    public Page<Notification> previousPage(final Page<Notification> page,
                                            final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Notification Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -193,14 +195,7 @@ public class NotificationReader extends Reader<Notification> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -213,7 +208,7 @@ public class NotificationReader extends Reader<Notification> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

@@ -38,45 +38,49 @@ public class IpAccessControlList extends Resource {
 
     /**
      * Create a IpAccessControlListFetcher to execute fetch.
-     * 
-     * @param pathTrunkSid The trunk_sid
-     * @param pathSid The sid
+     *
+     * @param pathTrunkSid The SID of the Trunk from which to fetch the IP Access
+     *                     Control List
+     * @param pathSid The unique string that identifies the resource
      * @return IpAccessControlListFetcher capable of executing the fetch
      */
-    public static IpAccessControlListFetcher fetcher(final String pathTrunkSid, 
+    public static IpAccessControlListFetcher fetcher(final String pathTrunkSid,
                                                      final String pathSid) {
         return new IpAccessControlListFetcher(pathTrunkSid, pathSid);
     }
 
     /**
      * Create a IpAccessControlListDeleter to execute delete.
-     * 
-     * @param pathTrunkSid The trunk_sid
-     * @param pathSid The sid
+     *
+     * @param pathTrunkSid The SID of the Trunk from which to delete the IP Access
+     *                     Control List
+     * @param pathSid The unique string that identifies the resource
      * @return IpAccessControlListDeleter capable of executing the delete
      */
-    public static IpAccessControlListDeleter deleter(final String pathTrunkSid, 
+    public static IpAccessControlListDeleter deleter(final String pathTrunkSid,
                                                      final String pathSid) {
         return new IpAccessControlListDeleter(pathTrunkSid, pathSid);
     }
 
     /**
      * Create a IpAccessControlListCreator to execute create.
-     * 
-     * @param pathTrunkSid The trunk_sid
+     *
+     * @param pathTrunkSid The SID of the Trunk to associate the IP Access Control
+     *                     List with
      * @param ipAccessControlListSid The SID of the IP Access Control List that you
-     *                               want to associate with this trunk.
+     *                               want to associate with the trunk
      * @return IpAccessControlListCreator capable of executing the create
      */
-    public static IpAccessControlListCreator creator(final String pathTrunkSid, 
+    public static IpAccessControlListCreator creator(final String pathTrunkSid,
                                                      final String ipAccessControlListSid) {
         return new IpAccessControlListCreator(pathTrunkSid, ipAccessControlListSid);
     }
 
     /**
      * Create a IpAccessControlListReader to execute read.
-     * 
-     * @param pathTrunkSid The trunk_sid
+     *
+     * @param pathTrunkSid The SID of the Trunk from which to read the IP Access
+     *                     Control Lists
      * @return IpAccessControlListReader capable of executing the read
      */
     public static IpAccessControlListReader reader(final String pathTrunkSid) {
@@ -86,7 +90,7 @@ public class IpAccessControlList extends Resource {
     /**
      * Converts a JSON String into a IpAccessControlList object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return IpAccessControlList object represented by the provided JSON
@@ -105,7 +109,7 @@ public class IpAccessControlList extends Resource {
     /**
      * Converts a JSON InputStream into a IpAccessControlList object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return IpAccessControlList object represented by the provided JSON
@@ -131,17 +135,17 @@ public class IpAccessControlList extends Resource {
 
     @JsonCreator
     private IpAccessControlList(@JsonProperty("account_sid")
-                                final String accountSid, 
+                                final String accountSid,
                                 @JsonProperty("sid")
-                                final String sid, 
+                                final String sid,
                                 @JsonProperty("trunk_sid")
-                                final String trunkSid, 
+                                final String trunkSid,
                                 @JsonProperty("friendly_name")
-                                final String friendlyName, 
+                                final String friendlyName,
                                 @JsonProperty("date_created")
-                                final String dateCreated, 
+                                final String dateCreated,
                                 @JsonProperty("date_updated")
-                                final String dateUpdated, 
+                                final String dateUpdated,
                                 @JsonProperty("url")
                                 final URI url) {
         this.accountSid = accountSid;
@@ -154,63 +158,63 @@ public class IpAccessControlList extends Resource {
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
-     * 
-     * @return The unique sid that identifies this account
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The A string that uniquely identifies this resource.
-     * 
-     * @return A string that uniquely identifies this resource
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique sid that identifies the associated Trunk.
-     * 
-     * @return The unique sid that identifies the associated Trunk
+     * Returns The SID of the Trunk the resource is associated with.
+     *
+     * @return The SID of the Trunk the resource is associated with
      */
     public final String getTrunkSid() {
         return this.trunkSid;
     }
 
     /**
-     * Returns The A human readable description of this resource.
-     * 
-     * @return A human readable description of this resource
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date this resource was created.
-     * 
-     * @return The date this resource was created
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
+     *
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this resource was last updated.
-     * 
-     * @return The date this resource was last updated
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
+     *
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
-     * 
-     * @return The url
+     * Returns The absolute URL of the resource.
+     *
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
@@ -228,12 +232,12 @@ public class IpAccessControlList extends Resource {
 
         IpAccessControlList other = (IpAccessControlList) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(trunkSid, other.trunkSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(trunkSid, other.trunkSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
     }
 

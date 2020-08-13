@@ -33,15 +33,15 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
 
     /**
      * Construct a new SyncListItemUpdater.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathListSid The list_sid
      * @param pathIndex The index
      * @param data The data
      */
-    public SyncListItemUpdater(final String pathServiceSid, 
-                               final String pathListSid, 
-                               final Integer pathIndex, 
+    public SyncListItemUpdater(final String pathServiceSid,
+                               final String pathListSid,
+                               final Integer pathIndex,
                                final Map<String, Object> data) {
         this.pathServiceSid = pathServiceSid;
         this.pathListSid = pathListSid;
@@ -51,7 +51,7 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated SyncListItem
      */
@@ -61,8 +61,7 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Items/" + this.pathIndex + "",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Items/" + this.pathIndex + ""
         );
 
         addPostParams(request);
@@ -75,14 +74,7 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SyncListItem.fromJson(response.getStream(), client.getObjectMapper());
@@ -90,7 +82,7 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

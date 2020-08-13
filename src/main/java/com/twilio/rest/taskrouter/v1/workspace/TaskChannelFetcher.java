@@ -23,11 +23,12 @@ public class TaskChannelFetcher extends Fetcher<TaskChannel> {
 
     /**
      * Construct a new TaskChannelFetcher.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskChannel to
+     *                         fetch
+     * @param pathSid The SID of the TaskChannel resource to fetch
      */
-    public TaskChannelFetcher(final String pathWorkspaceSid, 
+    public TaskChannelFetcher(final String pathWorkspaceSid,
                               final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
@@ -35,7 +36,7 @@ public class TaskChannelFetcher extends Fetcher<TaskChannel> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched TaskChannel
      */
@@ -45,8 +46,7 @@ public class TaskChannelFetcher extends Fetcher<TaskChannel> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskChannels/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskChannels/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -58,14 +58,7 @@ public class TaskChannelFetcher extends Fetcher<TaskChannel> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return TaskChannel.fromJson(response.getStream(), client.getObjectMapper());

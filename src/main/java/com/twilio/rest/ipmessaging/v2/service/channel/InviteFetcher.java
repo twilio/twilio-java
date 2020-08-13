@@ -24,13 +24,13 @@ public class InviteFetcher extends Fetcher<Invite> {
 
     /**
      * Construct a new InviteFetcher.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathChannelSid The SID of the Channel the resource to fetch belongs to
+     * @param pathSid The SID of the Invite resource to fetch
      */
-    public InviteFetcher(final String pathServiceSid, 
-                         final String pathChannelSid, 
+    public InviteFetcher(final String pathServiceSid,
+                         final String pathChannelSid,
                          final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -39,7 +39,7 @@ public class InviteFetcher extends Fetcher<Invite> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Invite
      */
@@ -49,8 +49,7 @@ public class InviteFetcher extends Fetcher<Invite> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Invites/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Invites/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +61,7 @@ public class InviteFetcher extends Fetcher<Invite> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Invite.fromJson(response.getStream(), client.getObjectMapper());

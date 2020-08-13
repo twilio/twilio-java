@@ -94,71 +94,79 @@ public class SyncMapItem extends Resource {
 
     /**
      * Create a SyncMapItemFetcher to execute fetch.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathMapSid The map_sid
-     * @param pathKey The key
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map Item
+     *                       resource to fetch
+     * @param pathMapSid The SID of the Sync Map with the Sync Map Item resource to
+     *                   fetch
+     * @param pathKey The key value of the Sync Map Item resource to fetch
      * @return SyncMapItemFetcher capable of executing the fetch
      */
-    public static SyncMapItemFetcher fetcher(final String pathServiceSid, 
-                                             final String pathMapSid, 
+    public static SyncMapItemFetcher fetcher(final String pathServiceSid,
+                                             final String pathMapSid,
                                              final String pathKey) {
         return new SyncMapItemFetcher(pathServiceSid, pathMapSid, pathKey);
     }
 
     /**
      * Create a SyncMapItemDeleter to execute delete.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathMapSid The map_sid
-     * @param pathKey The key
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map Item
+     *                       resource to delete
+     * @param pathMapSid The SID of the Sync Map with the Sync Map Item resource to
+     *                   delete
+     * @param pathKey The key value of the Sync Map Item resource to delete
      * @return SyncMapItemDeleter capable of executing the delete
      */
-    public static SyncMapItemDeleter deleter(final String pathServiceSid, 
-                                             final String pathMapSid, 
+    public static SyncMapItemDeleter deleter(final String pathServiceSid,
+                                             final String pathMapSid,
                                              final String pathKey) {
         return new SyncMapItemDeleter(pathServiceSid, pathMapSid, pathKey);
     }
 
     /**
      * Create a SyncMapItemCreator to execute create.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathMapSid The map_sid
-     * @param key The unique user-defined key of this Map Item.
-     * @param data Contains arbitrary user-defined, schema-less data that this Map
-     *             Item stores, represented by a JSON object, up to 16KB.
+     *
+     * @param pathServiceSid The SID of the Sync Service to create the Map Item in
+     * @param pathMapSid The SID of the Sync Map to add the new Map Item to
+     * @param key The unique, user-defined key for the Map Item
+     * @param data A JSON string that represents an arbitrary, schema-less object
+     *             that the Map Item stores
      * @return SyncMapItemCreator capable of executing the create
      */
-    public static SyncMapItemCreator creator(final String pathServiceSid, 
-                                             final String pathMapSid, 
-                                             final String key, 
+    public static SyncMapItemCreator creator(final String pathServiceSid,
+                                             final String pathMapSid,
+                                             final String key,
                                              final Map<String, Object> data) {
         return new SyncMapItemCreator(pathServiceSid, pathMapSid, key, data);
     }
 
     /**
      * Create a SyncMapItemReader to execute read.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathMapSid The map_sid
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Map Item
+     *                       resources to read
+     * @param pathMapSid The SID of the Sync Map with the Sync Map Item resource to
+     *                   fetch
      * @return SyncMapItemReader capable of executing the read
      */
-    public static SyncMapItemReader reader(final String pathServiceSid, 
+    public static SyncMapItemReader reader(final String pathServiceSid,
                                            final String pathMapSid) {
         return new SyncMapItemReader(pathServiceSid, pathMapSid);
     }
 
     /**
      * Create a SyncMapItemUpdater to execute update.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathMapSid The map_sid
-     * @param pathKey The key
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map Item
+     *                       resource to update
+     * @param pathMapSid The SID of the Sync Map with the Sync Map Item resource to
+     *                   update
+     * @param pathKey The key value of the Sync Map Item resource to update
      * @return SyncMapItemUpdater capable of executing the update
      */
-    public static SyncMapItemUpdater updater(final String pathServiceSid, 
-                                             final String pathMapSid, 
+    public static SyncMapItemUpdater updater(final String pathServiceSid,
+                                             final String pathMapSid,
                                              final String pathKey) {
         return new SyncMapItemUpdater(pathServiceSid, pathMapSid, pathKey);
     }
@@ -166,7 +174,7 @@ public class SyncMapItem extends Resource {
     /**
      * Converts a JSON String into a SyncMapItem object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SyncMapItem object represented by the provided JSON
@@ -185,7 +193,7 @@ public class SyncMapItem extends Resource {
     /**
      * Converts a JSON InputStream into a SyncMapItem object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SyncMapItem object represented by the provided JSON
@@ -215,25 +223,25 @@ public class SyncMapItem extends Resource {
 
     @JsonCreator
     private SyncMapItem(@JsonProperty("key")
-                        final String key, 
+                        final String key,
                         @JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("service_sid")
-                        final String serviceSid, 
+                        final String serviceSid,
                         @JsonProperty("map_sid")
-                        final String mapSid, 
+                        final String mapSid,
                         @JsonProperty("url")
-                        final URI url, 
+                        final URI url,
                         @JsonProperty("revision")
-                        final String revision, 
+                        final String revision,
                         @JsonProperty("data")
-                        final Map<String, Object> data, 
+                        final Map<String, Object> data,
                         @JsonProperty("date_expires")
-                        final String dateExpires, 
+                        final String dateExpires,
                         @JsonProperty("date_created")
-                        final String dateCreated, 
+                        final String dateCreated,
                         @JsonProperty("date_updated")
-                        final String dateUpdated, 
+                        final String dateUpdated,
                         @JsonProperty("created_by")
                         final String createdBy) {
         this.key = key;
@@ -250,110 +258,99 @@ public class SyncMapItem extends Resource {
     }
 
     /**
-     * Returns The The unique user-defined key of this Map Item..
-     * 
-     * @return The unique user-defined key of this Map Item.
+     * Returns The unique, user-defined key for the Map Item.
+     *
+     * @return The unique, user-defined key for the Map Item
      */
     public final String getKey() {
         return this.key;
     }
 
     /**
-     * Returns The The unique SID identifier of the Twilio Account..
-     * 
-     * @return The unique SID identifier of the Twilio Account.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique SID identifier of the Service Instance that hosts this
-     * Map object..
-     * 
-     * @return The unique SID identifier of the Service Instance that hosts this
-     *         Map object.
+     * Returns The SID of the Sync Service that the resource is associated with.
+     *
+     * @return The SID of the Sync Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The unique 34-character SID identifier of the Map containing this
-     * Item..
-     * 
-     * @return The unique 34-character SID identifier of the Map containing this
-     *         Item.
+     * Returns The SID of the Sync Map that contains the Map Item.
+     *
+     * @return The SID of the Sync Map that contains the Map Item
      */
     public final String getMapSid() {
         return this.mapSid;
     }
 
     /**
-     * Returns The The absolute URL for this Map..
-     * 
-     * @return The absolute URL for this Map.
+     * Returns The absolute URL of the Map Item resource.
+     *
+     * @return The absolute URL of the Map Item resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Contains the current revision of this Map, represented by a
-     * string identifier..
-     * 
-     * @return Contains the current revision of this Map, represented by a string
-     *         identifier.
+     * Returns The current revision of the Map Item, represented as a string.
+     *
+     * @return The current revision of the Map Item, represented as a string
      */
     public final String getRevision() {
         return this.revision;
     }
 
     /**
-     * Returns The Contains arbitrary user-defined, schema-less data that this Map
-     * Item stores, represented by a JSON object, up to 16KB..
-     * 
-     * @return Contains arbitrary user-defined, schema-less data that this Map Item
-     *         stores, represented by a JSON object, up to 16KB.
+     * Returns An arbitrary, schema-less object that the Map Item stores.
+     *
+     * @return An arbitrary, schema-less object that the Map Item stores
      */
     public final Map<String, Object> getData() {
         return this.data;
     }
 
     /**
-     * Returns The Contains the date this Map expires and gets deleted
-     * automatically..
-     * 
-     * @return Contains the date this Map expires and gets deleted automatically.
+     * Returns The ISO 8601 date and time in GMT when the Map Item expires.
+     *
+     * @return The ISO 8601 date and time in GMT when the Map Item expires
      */
     public final DateTime getDateExpires() {
         return this.dateExpires;
     }
 
     /**
-     * Returns The The date this Map was created, given in UTC ISO 8601 format..
-     * 
-     * @return The date this Map was created, given in UTC ISO 8601 format.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The Specifies the date this Map was last updated, given in UTC ISO
-     * 8601 format..
-     * 
-     * @return Specifies the date this Map was last updated, given in UTC ISO 8601
-     *         format.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The identity of the Map creator..
-     * 
-     * @return The identity of the Map creator.
+     * Returns The identity of the Map Item's creator.
+     *
+     * @return The identity of the Map Item's creator
      */
     public final String getCreatedBy() {
         return this.createdBy;
@@ -371,16 +368,16 @@ public class SyncMapItem extends Resource {
 
         SyncMapItem other = (SyncMapItem) o;
 
-        return Objects.equals(key, other.key) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(mapSid, other.mapSid) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(revision, other.revision) && 
-               Objects.equals(data, other.data) && 
-               Objects.equals(dateExpires, other.dateExpires) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(key, other.key) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(mapSid, other.mapSid) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(revision, other.revision) &&
+               Objects.equals(data, other.data) &&
+               Objects.equals(dateExpires, other.dateExpires) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(createdBy, other.createdBy);
     }
 

@@ -24,8 +24,8 @@ public class KeyUpdater extends Updater<Key> {
 
     /**
      * Construct a new KeyUpdater.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      */
     public KeyUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -33,22 +33,22 @@ public class KeyUpdater extends Updater<Key> {
 
     /**
      * Construct a new KeyUpdater.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       update
+     * @param pathSid The unique string that identifies the resource
      */
-    public KeyUpdater(final String pathAccountSid, 
+    public KeyUpdater(final String pathAccountSid,
                       final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * A descriptive string for this resource, chosen by your application, up to 64
-     * characters long..
-     * 
-     * @param friendlyName A descriptive string for this resource, chosen by your
-     *                     application, up to 64 characters long.
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
+     *
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public KeyUpdater setFriendlyName(final String friendlyName) {
@@ -58,7 +58,7 @@ public class KeyUpdater extends Updater<Key> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Key
      */
@@ -69,8 +69,7 @@ public class KeyUpdater extends Updater<Key> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Keys/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Keys/" + this.pathSid + ".json"
         );
 
         addPostParams(request);
@@ -83,14 +82,7 @@ public class KeyUpdater extends Updater<Key> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Key.fromJson(response.getStream(), client.getObjectMapper());
@@ -98,7 +90,7 @@ public class KeyUpdater extends Updater<Key> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

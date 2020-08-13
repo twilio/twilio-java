@@ -30,8 +30,9 @@ public class MediaReader extends Reader<Media> {
 
     /**
      * Construct a new MediaReader.
-     * 
-     * @param pathMessageSid The message_sid
+     *
+     * @param pathMessageSid The SID of the Message resource that this Media
+     *                       resource belongs to
      */
     public MediaReader(final String pathMessageSid) {
         this.pathMessageSid = pathMessageSid;
@@ -39,24 +40,27 @@ public class MediaReader extends Reader<Media> {
 
     /**
      * Construct a new MediaReader.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathMessageSid The message_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       read
+     * @param pathMessageSid The SID of the Message resource that this Media
+     *                       resource belongs to
      */
-    public MediaReader(final String pathAccountSid, 
+    public MediaReader(final String pathAccountSid,
                        final String pathMessageSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathMessageSid = pathMessageSid;
     }
 
     /**
-     * Only show media created on the given date. Should be formatted as
-     * `YYYY-MM-DD`. You can also specify inequality, such as
-     * `DateCreated&lt;=YYYY-MM-DD` for media generated at or before midnight on a
-     * date, and `DateCreated&gt;=YYYY-MM-DD` for media generated at or after
-     * midnight on a date..
-     * 
-     * @param absoluteDateCreated Filter by date created
+     * Only include media that was created on this date. Specify a date as
+     * `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was
+     * created on this date. You can also specify an inequality, such as
+     * `StartTime&lt;=YYYY-MM-DD`, to read media that was created on or before
+     * midnight of this date, and `StartTime&gt;=YYYY-MM-DD` to read media that was
+     * created on or after midnight of this date..
+     *
+     * @param absoluteDateCreated Only include media that was created on this date
      * @return this
      */
     public MediaReader setDateCreated(final DateTime absoluteDateCreated) {
@@ -66,13 +70,14 @@ public class MediaReader extends Reader<Media> {
     }
 
     /**
-     * Only show media created on the given date. Should be formatted as
-     * `YYYY-MM-DD`. You can also specify inequality, such as
-     * `DateCreated&lt;=YYYY-MM-DD` for media generated at or before midnight on a
-     * date, and `DateCreated&gt;=YYYY-MM-DD` for media generated at or after
-     * midnight on a date..
-     * 
-     * @param rangeDateCreated Filter by date created
+     * Only include media that was created on this date. Specify a date as
+     * `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was
+     * created on this date. You can also specify an inequality, such as
+     * `StartTime&lt;=YYYY-MM-DD`, to read media that was created on or before
+     * midnight of this date, and `StartTime&gt;=YYYY-MM-DD` to read media that was
+     * created on or after midnight of this date..
+     *
+     * @param rangeDateCreated Only include media that was created on this date
      * @return this
      */
     public MediaReader setDateCreated(final Range<DateTime> rangeDateCreated) {
@@ -83,7 +88,7 @@ public class MediaReader extends Reader<Media> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Media ResourceSet
      */
@@ -94,7 +99,7 @@ public class MediaReader extends Reader<Media> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Media ResourceSet
      */
@@ -105,8 +110,7 @@ public class MediaReader extends Reader<Media> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Messages/" + this.pathMessageSid + "/Media.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Messages/" + this.pathMessageSid + "/Media.json"
         );
 
         addQueryParams(request);
@@ -115,7 +119,7 @@ public class MediaReader extends Reader<Media> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Media ResourceSet
@@ -134,47 +138,41 @@ public class MediaReader extends Reader<Media> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Media> nextPage(final Page<Media> page, 
+    public Page<Media> nextPage(final Page<Media> page,
                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Media> previousPage(final Page<Media> page, 
+    public Page<Media> previousPage(final Page<Media> page,
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Media Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -189,14 +187,7 @@ public class MediaReader extends Reader<Media> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -209,7 +200,7 @@ public class MediaReader extends Reader<Media> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

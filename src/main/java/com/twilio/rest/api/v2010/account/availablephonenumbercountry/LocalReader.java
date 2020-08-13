@@ -44,8 +44,9 @@ public class LocalReader extends Reader<Local> {
 
     /**
      * Construct a new LocalReader.
-     * 
-     * @param pathCountryCode The country_code
+     *
+     * @param pathCountryCode The ISO Country code of the country from which to
+     *                        read phone numbers
      */
     public LocalReader(final String pathCountryCode) {
         this.pathCountryCode = pathCountryCode;
@@ -53,21 +54,23 @@ public class LocalReader extends Reader<Local> {
 
     /**
      * Construct a new LocalReader.
-     * 
-     * @param pathAccountSid The 34 character string that uniquely identifies your
-     *                       account.
-     * @param pathCountryCode The country_code
+     *
+     * @param pathAccountSid The SID of the Account requesting the
+     *                       AvailablePhoneNumber resources
+     * @param pathCountryCode The ISO Country code of the country from which to
+     *                        read phone numbers
      */
-    public LocalReader(final String pathAccountSid, 
+    public LocalReader(final String pathAccountSid,
                        final String pathCountryCode) {
         this.pathAccountSid = pathAccountSid;
         this.pathCountryCode = pathCountryCode;
     }
 
     /**
-     * Find phone numbers in the specified area code. (US and Canada only).
-     * 
-     * @param areaCode Find phone numbers in the specified area code.
+     * The area code of the phone numbers to read. Applies to only phone numbers in
+     * the US and Canada..
+     *
+     * @param areaCode The area code of the phone numbers to read
      * @return this
      */
     public LocalReader setAreaCode(final Integer areaCode) {
@@ -76,11 +79,12 @@ public class LocalReader extends Reader<Local> {
     }
 
     /**
-     * A pattern on which to match phone numbers. Valid characters are `'*'` and
-     * `[0-9a-zA-Z]`. The `'*'` character will match any single digit. See [Example
-     * 2](https://www.twilio.com/docs/api/rest/available-phone-numbers#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/api/rest/available-phone-numbers#local-get-basic-example-3) below. *NOTE:* Patterns must be at least two characters long..
-     * 
-     * @param contains A pattern on which to match phone numbers.
+     * The pattern on which to match phone numbers. Valid characters are `*`, `0-9`,
+     * `a-z`, and `A-Z`. The `*` character matches any single digit. For examples,
+     * see [Example
+     * 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters..
+     *
+     * @param contains The pattern on which to match phone numbers
      * @return this
      */
     public LocalReader setContains(final String contains) {
@@ -89,11 +93,10 @@ public class LocalReader extends Reader<Local> {
     }
 
     /**
-     * This indicates whether the phone numbers can receive text messages. Possible
-     * values are `true` or `false`..
-     * 
-     * @param smsEnabled This indicates whether the phone numbers can receive text
-     *                   messages.
+     * Whether the phone numbers can receive text messages. Can be: `true` or
+     * `false`..
+     *
+     * @param smsEnabled Whether the phone numbers can receive text messages
      * @return this
      */
     public LocalReader setSmsEnabled(final Boolean smsEnabled) {
@@ -102,11 +105,10 @@ public class LocalReader extends Reader<Local> {
     }
 
     /**
-     * This indicates whether the phone numbers can receive MMS messages. Possible
-     * values are `true` or `false`..
-     * 
-     * @param mmsEnabled This indicates whether the phone numbers can receive MMS
-     *                   messages.
+     * Whether the phone numbers can receive MMS messages. Can be: `true` or
+     * `false`..
+     *
+     * @param mmsEnabled Whether the phone numbers can receive MMS messages
      * @return this
      */
     public LocalReader setMmsEnabled(final Boolean mmsEnabled) {
@@ -115,11 +117,9 @@ public class LocalReader extends Reader<Local> {
     }
 
     /**
-     * This indicates whether the phone numbers can receive calls. Possible values
-     * are `true` or `false`..
-     * 
-     * @param voiceEnabled This indicates whether the phone numbers can receive
-     *                     calls.
+     * Whether the phone numbers can receive calls. Can be: `true` or `false`..
+     *
+     * @param voiceEnabled Whether the phone numbers can receive calls.
      * @return this
      */
     public LocalReader setVoiceEnabled(final Boolean voiceEnabled) {
@@ -128,13 +128,12 @@ public class LocalReader extends Reader<Local> {
     }
 
     /**
-     * Indicates whether the response includes phone numbers which require any
-     * [Address](https://www.twilio.com/docs/usage/api/addresses). Possible values
-     * are `true` or `false`. If not specified, the default is `false`, and results
-     * could include phone numbers with an Address required..
-     * 
-     * @param excludeAllAddressRequired Indicates whether the response includes
-     *                                  phone numbers which require any Address.
+     * Whether to exclude phone numbers that require an
+     * [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or
+     * `false` and the default is `false`..
+     *
+     * @param excludeAllAddressRequired Whether to exclude phone numbers that
+     *                                  require an Address
      * @return this
      */
     public LocalReader setExcludeAllAddressRequired(final Boolean excludeAllAddressRequired) {
@@ -143,14 +142,12 @@ public class LocalReader extends Reader<Local> {
     }
 
     /**
-     * Indicates whether the response includes phone numbers which require a local
-     * [Address](https://www.twilio.com/docs/usage/api/addresses). Possible values
-     * are `true` or `false`. If not specified, the default is `false`, and results
-     * could include phone numbers with a local Address required..
-     * 
-     * @param excludeLocalAddressRequired Indicates whether the response includes
-     *                                    phone numbers which require a local
-     *                                    Address.
+     * Whether to exclude phone numbers that require a local
+     * [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or
+     * `false` and the default is `false`..
+     *
+     * @param excludeLocalAddressRequired Whether to exclude phone numbers that
+     *                                    require a local address
      * @return this
      */
     public LocalReader setExcludeLocalAddressRequired(final Boolean excludeLocalAddressRequired) {
@@ -159,14 +156,12 @@ public class LocalReader extends Reader<Local> {
     }
 
     /**
-     * Indicates whether the response includes phone numbers which require a foreign
-     * [Address](https://www.twilio.com/docs/usage/api/addresses). Possible values
-     * are `true` or `false`. If not specified, the default is `false`, and results
-     * could include phone numbers with a foreign Address required..
-     * 
-     * @param excludeForeignAddressRequired Indicates whether the response includes
-     *                                      phone numbers which require a foreign
-     *                                      Address.
+     * Whether to exclude phone numbers that require a foreign
+     * [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or
+     * `false` and the default is `false`..
+     *
+     * @param excludeForeignAddressRequired Whether to exclude phone numbers that
+     *                                      require a foreign address
      * @return this
      */
     public LocalReader setExcludeForeignAddressRequired(final Boolean excludeForeignAddressRequired) {
@@ -175,10 +170,10 @@ public class LocalReader extends Reader<Local> {
     }
 
     /**
-     * Include phone numbers new to the Twilio platform. Possible values are either
-     * `true` or `false`. Default is `true`..
-     * 
-     * @param beta Include phone numbers new to the Twilio platform.
+     * Whether to read phone numbers that are new to the Twilio platform. Can be:
+     * `true` or `false` and the default is `true`..
+     *
+     * @param beta Whether to read phone numbers new to the Twilio platform
      * @return this
      */
     public LocalReader setBeta(final Boolean beta) {
@@ -187,12 +182,12 @@ public class LocalReader extends Reader<Local> {
     }
 
     /**
-     * Given a phone number, find a geographically close number within `Distance`
-     * miles. Distance defaults to 25 miles. *Limited to US and Canadian phone
-     * numbers.*.
-     * 
+     * Given a phone number, find a geographically close number within `distance`
+     * miles. Distance defaults to 25 miles. Applies to only phone numbers in the US
+     * and Canada..
+     *
      * @param nearNumber Given a phone number, find a geographically close number
-     *                   within Distance miles. (US/Canada only)
+     *                   within distance miles. (US/Canada only)
      * @return this
      */
     public LocalReader setNearNumber(final com.twilio.type.PhoneNumber nearNumber) {
@@ -201,12 +196,12 @@ public class LocalReader extends Reader<Local> {
     }
 
     /**
-     * Given a phone number, find a geographically close number within `Distance`
-     * miles. Distance defaults to 25 miles. *Limited to US and Canadian phone
-     * numbers.*.
-     * 
+     * Given a phone number, find a geographically close number within `distance`
+     * miles. Distance defaults to 25 miles. Applies to only phone numbers in the US
+     * and Canada..
+     *
      * @param nearNumber Given a phone number, find a geographically close number
-     *                   within Distance miles. (US/Canada only)
+     *                   within distance miles. (US/Canada only)
      * @return this
      */
     public LocalReader setNearNumber(final String nearNumber) {
@@ -215,10 +210,10 @@ public class LocalReader extends Reader<Local> {
 
     /**
      * Given a latitude/longitude pair `lat,long` find geographically close numbers
-     * within `Distance` miles. *Limited to US and Canadian phone numbers.*.
-     * 
+     * within `distance` miles. Applies to only phone numbers in the US and Canada..
+     *
      * @param nearLatLong Given a latitude/longitude pair lat,long find
-     *                    geographically close numbers within Distance miles.
+     *                    geographically close numbers within distance miles.
      *                    (US/Canada only)
      * @return this
      */
@@ -228,12 +223,11 @@ public class LocalReader extends Reader<Local> {
     }
 
     /**
-     * Specifies the search radius for a `Near-` query in miles. If not specified
-     * this defaults to 25 miles. Maximum searchable distance is 500 miles. *Limited
-     * to US and Canadian phone numbers.*.
-     * 
-     * @param distance Specifies the search radius for a Near- query in miles.
-     *                 (US/Canada only)
+     * The search radius, in miles, for a `near_` query.  Can be up to `500` and the
+     * default is `25`. Applies to only phone numbers in the US and Canada..
+     *
+     * @param distance The search radius, in miles, for a near_ query. (US/Canada
+     *                 only)
      * @return this
      */
     public LocalReader setDistance(final Integer distance) {
@@ -243,9 +237,9 @@ public class LocalReader extends Reader<Local> {
 
     /**
      * Limit results to a particular postal code. Given a phone number, search
-     * within the same postal code as that number. *Limited to US and Canadian phone
-     * numbers.*.
-     * 
+     * within the same postal code as that number. Applies to only phone numbers in
+     * the US and Canada..
+     *
      * @param inPostalCode Limit results to a particular postal code. (US/Canada
      *                     only)
      * @return this
@@ -256,10 +250,10 @@ public class LocalReader extends Reader<Local> {
     }
 
     /**
-     * Limit results to a particular region (i.e.  State/Province). Given a phone
-     * number, search within the same Region as that number. *Limited to US and
-     * Canadian phone numbers.*.
-     * 
+     * Limit results to a particular region, state, or province. Given a phone
+     * number, search within the same region as that number. Applies to only phone
+     * numbers in the US and Canada..
+     *
      * @param inRegion Limit results to a particular region. (US/Canada only)
      * @return this
      */
@@ -270,9 +264,9 @@ public class LocalReader extends Reader<Local> {
 
     /**
      * Limit results to a specific rate center, or given a phone number search
-     * within the same rate center as that number. Requires InLata to be set as
-     * well. *Limited to US and Canadian phone numbers.*.
-     * 
+     * within the same rate center as that number. Requires `in_lata` to be set as
+     * well. Applies to only phone numbers in the US and Canada..
+     *
      * @param inRateCenter Limit results to a specific rate center, or given a
      *                     phone number search within the same rate center as that
      *                     number. (US/Canada only)
@@ -284,13 +278,13 @@ public class LocalReader extends Reader<Local> {
     }
 
     /**
-     * Limit results to a specific Local access and transport area
-     * ([LATA](http://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given
-     * a phone number, search within the same
-     * [LATA](http://en.wikipedia.org/wiki/Local_access_and_transport_area) as that
-     * number. *Limited to US and Canadian phone numbers.*.
-     * 
-     * @param inLata Limit results to a specific Local access and transport area.
+     * Limit results to a specific local access and transport area
+     * ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)).
+     * Given a phone number, search within the same
+     * [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that
+     * number. Applies to only phone numbers in the US and Canada..
+     *
+     * @param inLata Limit results to a specific local access and transport area.
      *               (US/Canada only)
      * @return this
      */
@@ -300,11 +294,10 @@ public class LocalReader extends Reader<Local> {
     }
 
     /**
-     * Limit results to a particular locality (i.e.  City). Given a phone number,
-     * search within the same Locality as that number. *Limited to US and Canadian
-     * phone numbers.*.
-     * 
-     * @param inLocality Limit results to a particular locality. (US/Canada only)
+     * Limit results to a particular locality or city. Given a phone number, search
+     * within the same Locality as that number..
+     *
+     * @param inLocality Limit results to a particular locality
      * @return this
      */
     public LocalReader setInLocality(final String inLocality) {
@@ -313,10 +306,9 @@ public class LocalReader extends Reader<Local> {
     }
 
     /**
-     * This indicates whether the phone numbers can receive faxes. Possible values
-     * are `true` or `false`..
-     * 
-     * @param faxEnabled This indicates whether the phone numbers can receive faxes.
+     * Whether the phone numbers can receive faxes. Can be: `true` or `false`..
+     *
+     * @param faxEnabled Whether the phone numbers can receive faxes
      * @return this
      */
     public LocalReader setFaxEnabled(final Boolean faxEnabled) {
@@ -326,7 +318,7 @@ public class LocalReader extends Reader<Local> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Local ResourceSet
      */
@@ -337,7 +329,7 @@ public class LocalReader extends Reader<Local> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Local ResourceSet
      */
@@ -348,8 +340,7 @@ public class LocalReader extends Reader<Local> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/AvailablePhoneNumbers/" + this.pathCountryCode + "/Local.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/AvailablePhoneNumbers/" + this.pathCountryCode + "/Local.json"
         );
 
         addQueryParams(request);
@@ -358,7 +349,7 @@ public class LocalReader extends Reader<Local> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Local ResourceSet
@@ -377,47 +368,41 @@ public class LocalReader extends Reader<Local> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Local> nextPage(final Page<Local> page, 
+    public Page<Local> nextPage(final Page<Local> page,
                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Local> previousPage(final Page<Local> page, 
+    public Page<Local> previousPage(final Page<Local> page,
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Local Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -432,14 +417,7 @@ public class LocalReader extends Reader<Local> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -452,7 +430,7 @@ public class LocalReader extends Reader<Local> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

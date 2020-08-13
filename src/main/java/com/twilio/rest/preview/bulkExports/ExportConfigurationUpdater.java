@@ -33,17 +33,18 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
 
     /**
      * Construct a new ExportConfigurationUpdater.
-     * 
-     * @param pathResourceType The resource_type
+     *
+     * @param pathResourceType The type of communication – Messages, Calls
      */
     public ExportConfigurationUpdater(final String pathResourceType) {
         this.pathResourceType = pathResourceType;
     }
 
     /**
-     * The enabled.
-     * 
-     * @param enabled The enabled
+     * If true, Twilio will automatically generate every day's file when the day is
+     * over..
+     *
+     * @param enabled Whether files are automatically generated
      * @return this
      */
     public ExportConfigurationUpdater setEnabled(final Boolean enabled) {
@@ -52,9 +53,9 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
     }
 
     /**
-     * The webhook_url.
-     * 
-     * @param webhookUrl The webhook_url
+     * Stores the URL destination for the method specified in webhook_method..
+     *
+     * @param webhookUrl URL targeted at export
      * @return this
      */
     public ExportConfigurationUpdater setWebhookUrl(final URI webhookUrl) {
@@ -63,9 +64,9 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
     }
 
     /**
-     * The webhook_url.
-     * 
-     * @param webhookUrl The webhook_url
+     * Stores the URL destination for the method specified in webhook_method..
+     *
+     * @param webhookUrl URL targeted at export
      * @return this
      */
     public ExportConfigurationUpdater setWebhookUrl(final String webhookUrl) {
@@ -73,9 +74,11 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
     }
 
     /**
-     * The webhook_method.
-     * 
-     * @param webhookMethod The webhook_method
+     * Sets whether Twilio should call a webhook URL when the automatic generation
+     * is complete, using GET or POST. The actual destination is set in the
+     * webhook_url.
+     *
+     * @param webhookMethod Whether to GET or POST to the webhook url
      * @return this
      */
     public ExportConfigurationUpdater setWebhookMethod(final String webhookMethod) {
@@ -85,7 +88,7 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated ExportConfiguration
      */
@@ -95,8 +98,7 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/BulkExports/Exports/" + this.pathResourceType + "/Configuration",
-            client.getRegion()
+            "/BulkExports/Exports/" + this.pathResourceType + "/Configuration"
         );
 
         addPostParams(request);
@@ -109,14 +111,7 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return ExportConfiguration.fromJson(response.getStream(), client.getObjectMapper());
@@ -124,7 +119,7 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

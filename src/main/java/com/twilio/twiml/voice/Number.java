@@ -44,6 +44,7 @@ public class Number extends TwiML {
     private final List<Number.Event> statusCallbackEvent;
     private final URI statusCallback;
     private final HttpMethod statusCallbackMethod;
+    private final String byoc;
     private final com.twilio.type.PhoneNumber phoneNumber;
 
     /**
@@ -64,12 +65,13 @@ public class Number extends TwiML {
         this.statusCallbackEvent = b.statusCallbackEvent;
         this.statusCallback = b.statusCallback;
         this.statusCallbackMethod = b.statusCallbackMethod;
+        this.byoc = b.byoc;
         this.phoneNumber = b.phoneNumber;
     }
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -78,7 +80,7 @@ public class Number extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -103,13 +105,16 @@ public class Number extends TwiML {
         if (this.getStatusCallbackMethod() != null) {
             attrs.put("statusCallbackMethod", this.getStatusCallbackMethod().toString());
         }
+        if (this.getByoc() != null) {
+            attrs.put("byoc", this.getByoc());
+        }
 
         return attrs;
     }
 
     /**
      * DTMF tones to play when the call is answered
-     * 
+     *
      * @return DTMF tones to play when the call is answered
      */
     public String getSendDigits() {
@@ -118,7 +123,7 @@ public class Number extends TwiML {
 
     /**
      * TwiML URL
-     * 
+     *
      * @return TwiML URL
      */
     public URI getUrl() {
@@ -127,7 +132,7 @@ public class Number extends TwiML {
 
     /**
      * TwiML URL method
-     * 
+     *
      * @return TwiML URL method
      */
     public HttpMethod getMethod() {
@@ -136,7 +141,7 @@ public class Number extends TwiML {
 
     /**
      * Events to call status callback
-     * 
+     *
      * @return Events to call status callback
      */
     public List<Number.Event> getStatusCallbackEvents() {
@@ -157,7 +162,7 @@ public class Number extends TwiML {
 
     /**
      * Status callback URL
-     * 
+     *
      * @return Status callback URL
      */
     public URI getStatusCallback() {
@@ -166,7 +171,7 @@ public class Number extends TwiML {
 
     /**
      * Status callback URL method
-     * 
+     *
      * @return Status callback URL method
      */
     public HttpMethod getStatusCallbackMethod() {
@@ -174,8 +179,17 @@ public class Number extends TwiML {
     }
 
     /**
+     * BYOC trunk SID (Beta)
+     *
+     * @return BYOC trunk SID (Beta)
+     */
+    public String getByoc() {
+        return byoc;
+    }
+
+    /**
      * Phone Number to dial
-     * 
+     *
      * @return Phone Number to dial
      */
     public com.twilio.type.PhoneNumber getPhoneNumber() {
@@ -192,6 +206,7 @@ public class Number extends TwiML {
         private List<Number.Event> statusCallbackEvent;
         private URI statusCallback;
         private HttpMethod statusCallbackMethod;
+        private String byoc;
         private com.twilio.type.PhoneNumber phoneNumber;
 
         /**
@@ -277,6 +292,14 @@ public class Number extends TwiML {
          */
         public Builder statusCallbackMethod(HttpMethod statusCallbackMethod) {
             this.statusCallbackMethod = statusCallbackMethod;
+            return this;
+        }
+
+        /**
+         * BYOC trunk SID (Beta)
+         */
+        public Builder byoc(String byoc) {
+            this.byoc = byoc;
             return this;
         }
 

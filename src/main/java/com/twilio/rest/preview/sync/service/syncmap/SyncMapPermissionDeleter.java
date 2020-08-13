@@ -29,14 +29,14 @@ public class SyncMapPermissionDeleter extends Deleter<SyncMapPermission> {
 
     /**
      * Construct a new SyncMapPermissionDeleter.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathMapSid Sync Map SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync Map Permission
      *                     applies.
      */
-    public SyncMapPermissionDeleter(final String pathServiceSid, 
-                                    final String pathMapSid, 
+    public SyncMapPermissionDeleter(final String pathServiceSid,
+                                    final String pathMapSid,
                                     final String pathIdentity) {
         this.pathServiceSid = pathServiceSid;
         this.pathMapSid = pathMapSid;
@@ -45,7 +45,7 @@ public class SyncMapPermissionDeleter extends Deleter<SyncMapPermission> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -54,8 +54,7 @@ public class SyncMapPermissionDeleter extends Deleter<SyncMapPermission> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Permissions/" + this.pathIdentity + "",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Permissions/" + this.pathIdentity + ""
         );
 
         Response response = client.request(request);
@@ -67,14 +66,7 @@ public class SyncMapPermissionDeleter extends Deleter<SyncMapPermission> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

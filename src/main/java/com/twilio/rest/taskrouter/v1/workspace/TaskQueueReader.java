@@ -27,18 +27,17 @@ public class TaskQueueReader extends Reader<TaskQueue> {
 
     /**
      * Construct a new TaskQueueReader.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskQueue to read
      */
     public TaskQueueReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     /**
-     * Filter by a human readable description of a TaskQueue (for example "Customer
-     * Support" or "2014 Election Campaign").
-     * 
-     * @param friendlyName Filter by a human readable description of a TaskQueue
+     * The `friendly_name` of the TaskQueue resources to read..
+     *
+     * @param friendlyName The friendly_name of the TaskQueue resources to read
      * @return this
      */
     public TaskQueueReader setFriendlyName(final String friendlyName) {
@@ -47,13 +46,10 @@ public class TaskQueueReader extends Reader<TaskQueue> {
     }
 
     /**
-     * Provide a Worker attributes expression, and this will return the list of
-     * TaskQueues that would distribute tasks to a worker with these attributes..
-     * 
-     * @param evaluateWorkerAttributes Provide a Worker attributes expression, and
-     *                                 this will return the list of TaskQueues that
-     *                                 would distribute tasks to a worker with these
-     *                                 attributes.
+     * The attributes of the Workers to read. Returns the TaskQueues with Workers
+     * that match the attributes specified in this parameter..
+     *
+     * @param evaluateWorkerAttributes The attributes of the Workers to read
      * @return this
      */
     public TaskQueueReader setEvaluateWorkerAttributes(final String evaluateWorkerAttributes) {
@@ -62,9 +58,9 @@ public class TaskQueueReader extends Reader<TaskQueue> {
     }
 
     /**
-     * The worker_sid.
-     * 
-     * @param workerSid The worker_sid
+     * The SID of the Worker with the TaskQueue resources to read..
+     *
+     * @param workerSid The SID of the Worker with the TaskQueue resources to read
      * @return this
      */
     public TaskQueueReader setWorkerSid(final String workerSid) {
@@ -74,7 +70,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return TaskQueue ResourceSet
      */
@@ -85,7 +81,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return TaskQueue ResourceSet
      */
@@ -95,8 +91,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskQueues",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskQueues"
         );
 
         addQueryParams(request);
@@ -105,7 +100,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return TaskQueue ResourceSet
@@ -123,47 +118,41 @@ public class TaskQueueReader extends Reader<TaskQueue> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<TaskQueue> nextPage(final Page<TaskQueue> page, 
+    public Page<TaskQueue> nextPage(final Page<TaskQueue> page,
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.TASKROUTER.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.TASKROUTER.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<TaskQueue> previousPage(final Page<TaskQueue> page, 
+    public Page<TaskQueue> previousPage(final Page<TaskQueue> page,
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.TASKROUTER.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.TASKROUTER.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of TaskQueue Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -178,14 +167,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -198,7 +180,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

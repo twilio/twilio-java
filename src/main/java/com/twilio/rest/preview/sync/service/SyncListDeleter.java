@@ -28,11 +28,11 @@ public class SyncListDeleter extends Deleter<SyncList> {
 
     /**
      * Construct a new SyncListDeleter.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathSid The sid
      */
-    public SyncListDeleter(final String pathServiceSid, 
+    public SyncListDeleter(final String pathServiceSid,
                            final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class SyncListDeleter extends Deleter<SyncList> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -49,8 +49,7 @@ public class SyncListDeleter extends Deleter<SyncList> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathSid + "",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +61,7 @@ public class SyncListDeleter extends Deleter<SyncList> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

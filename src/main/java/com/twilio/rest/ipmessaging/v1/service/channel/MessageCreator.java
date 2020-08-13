@@ -26,13 +26,14 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Construct a new MessageCreator.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param body The body
+     *
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param pathChannelSid The unique ID of the channel the new resource belongs
+     *                       to
+     * @param body The message to send to the channel
      */
-    public MessageCreator(final String pathServiceSid, 
-                          final String pathChannelSid, 
+    public MessageCreator(final String pathServiceSid,
+                          final String pathChannelSid,
                           final String body) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -40,9 +41,10 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The from.
-     * 
-     * @param from The from
+     * The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the
+     * new message's author. The default value is `system`..
+     *
+     * @param from The identity of the new message's author
      * @return this
      */
     public MessageCreator setFrom(final String from) {
@@ -51,9 +53,9 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The attributes.
-     * 
-     * @param attributes The attributes
+     * A valid JSON string that contains application-specific data..
+     *
+     * @param attributes A valid JSON string that contains application-specific data
      * @return this
      */
     public MessageCreator setAttributes(final String attributes) {
@@ -63,7 +65,7 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Message
      */
@@ -73,8 +75,7 @@ public class MessageCreator extends Creator<Message> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Messages",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Messages"
         );
 
         addPostParams(request);
@@ -87,14 +88,7 @@ public class MessageCreator extends Creator<Message> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Message.fromJson(response.getStream(), client.getObjectMapper());
@@ -102,7 +96,7 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

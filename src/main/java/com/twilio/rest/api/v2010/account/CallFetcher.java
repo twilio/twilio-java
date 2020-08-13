@@ -23,8 +23,8 @@ public class CallFetcher extends Fetcher<Call> {
 
     /**
      * Construct a new CallFetcher.
-     * 
-     * @param pathSid Call Sid that uniquely identifies the Call to fetch
+     *
+     * @param pathSid The SID of the Call resource to fetch
      */
     public CallFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -32,11 +32,12 @@ public class CallFetcher extends Fetcher<Call> {
 
     /**
      * Construct a new CallFetcher.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Call Sid that uniquely identifies the Call to fetch
+     *
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       fetch
+     * @param pathSid The SID of the Call resource to fetch
      */
-    public CallFetcher(final String pathAccountSid, 
+    public CallFetcher(final String pathAccountSid,
                        final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -44,7 +45,7 @@ public class CallFetcher extends Fetcher<Call> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Call
      */
@@ -55,8 +56,7 @@ public class CallFetcher extends Fetcher<Call> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);
@@ -68,14 +68,7 @@ public class CallFetcher extends Fetcher<Call> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Call.fromJson(response.getStream(), client.getObjectMapper());

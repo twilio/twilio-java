@@ -23,11 +23,11 @@ public class TaskQueueDeleter extends Deleter<TaskQueue> {
 
     /**
      * Construct a new TaskQueueDeleter.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskQueue to delete
+     * @param pathSid The SID of the resource to delete
      */
-    public TaskQueueDeleter(final String pathWorkspaceSid, 
+    public TaskQueueDeleter(final String pathWorkspaceSid,
                             final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class TaskQueueDeleter extends Deleter<TaskQueue> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -44,8 +44,7 @@ public class TaskQueueDeleter extends Deleter<TaskQueue> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskQueues/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskQueues/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -57,14 +56,7 @@ public class TaskQueueDeleter extends Deleter<TaskQueue> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

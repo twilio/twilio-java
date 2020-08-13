@@ -42,7 +42,7 @@ public class CredentialTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.NOTIFY.toString(),
                                           "/v1/Credentials");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -118,7 +118,7 @@ public class CredentialTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.NOTIFY.toString(),
                                           "/v1/Credentials/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -150,7 +150,7 @@ public class CredentialTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.NOTIFY.toString(),
                                           "/v1/Credentials/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -182,7 +182,7 @@ public class CredentialTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.NOTIFY.toString(),
                                           "/v1/Credentials/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

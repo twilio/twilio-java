@@ -19,21 +19,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class StepReader extends Reader<Step> {
     private final String pathFlowSid;
     private final String pathEngagementSid;
 
     /**
      * Construct a new StepReader.
-     * 
-     * @param pathFlowSid Flow Sid.
-     * @param pathEngagementSid Engagement Sid.
+     *
+     * @param pathFlowSid The SID of the Flow
+     * @param pathEngagementSid The SID of the Engagement
      */
-    public StepReader(final String pathFlowSid, 
+    public StepReader(final String pathFlowSid,
                       final String pathEngagementSid) {
         this.pathFlowSid = pathFlowSid;
         this.pathEngagementSid = pathEngagementSid;
@@ -41,7 +37,7 @@ public class StepReader extends Reader<Step> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Step ResourceSet
      */
@@ -52,7 +48,7 @@ public class StepReader extends Reader<Step> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Step ResourceSet
      */
@@ -62,8 +58,7 @@ public class StepReader extends Reader<Step> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Engagements/" + this.pathEngagementSid + "/Steps",
-            client.getRegion()
+            "/v1/Flows/" + this.pathFlowSid + "/Engagements/" + this.pathEngagementSid + "/Steps"
         );
 
         addQueryParams(request);
@@ -72,7 +67,7 @@ public class StepReader extends Reader<Step> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Step ResourceSet
@@ -90,47 +85,41 @@ public class StepReader extends Reader<Step> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Step> nextPage(final Page<Step> page, 
+    public Page<Step> nextPage(final Page<Step> page,
                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.STUDIO.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.STUDIO.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Step> previousPage(final Page<Step> page, 
+    public Page<Step> previousPage(final Page<Step> page,
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.STUDIO.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.STUDIO.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Step Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -145,14 +134,7 @@ public class StepReader extends Reader<Step> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -165,7 +147,7 @@ public class StepReader extends Reader<Step> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

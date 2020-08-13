@@ -28,7 +28,7 @@ public class FleetCreator extends Creator<Fleet> {
     /**
      * Provides a human readable descriptive text for this Fleet, up to 256
      * characters long..
-     * 
+     *
      * @param friendlyName A human readable description for this Fleet.
      * @return this
      */
@@ -39,7 +39,7 @@ public class FleetCreator extends Creator<Fleet> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Fleet
      */
@@ -49,8 +49,7 @@ public class FleetCreator extends Creator<Fleet> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets",
-            client.getRegion()
+            "/DeployedDevices/Fleets"
         );
 
         addPostParams(request);
@@ -63,14 +62,7 @@ public class FleetCreator extends Creator<Fleet> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Fleet.fromJson(response.getStream(), client.getObjectMapper());
@@ -78,7 +70,7 @@ public class FleetCreator extends Creator<Fleet> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

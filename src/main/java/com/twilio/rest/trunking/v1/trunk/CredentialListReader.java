@@ -24,8 +24,9 @@ public class CredentialListReader extends Reader<CredentialList> {
 
     /**
      * Construct a new CredentialListReader.
-     * 
-     * @param pathTrunkSid The trunk_sid
+     *
+     * @param pathTrunkSid The SID of the Trunk from which to read the credential
+     *                     lists
      */
     public CredentialListReader(final String pathTrunkSid) {
         this.pathTrunkSid = pathTrunkSid;
@@ -33,7 +34,7 @@ public class CredentialListReader extends Reader<CredentialList> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return CredentialList ResourceSet
      */
@@ -44,7 +45,7 @@ public class CredentialListReader extends Reader<CredentialList> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return CredentialList ResourceSet
      */
@@ -54,8 +55,7 @@ public class CredentialListReader extends Reader<CredentialList> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathTrunkSid + "/CredentialLists",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathTrunkSid + "/CredentialLists"
         );
 
         addQueryParams(request);
@@ -64,7 +64,7 @@ public class CredentialListReader extends Reader<CredentialList> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return CredentialList ResourceSet
@@ -82,47 +82,41 @@ public class CredentialListReader extends Reader<CredentialList> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<CredentialList> nextPage(final Page<CredentialList> page, 
+    public Page<CredentialList> nextPage(final Page<CredentialList> page,
                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.TRUNKING.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.TRUNKING.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<CredentialList> previousPage(final Page<CredentialList> page, 
+    public Page<CredentialList> previousPage(final Page<CredentialList> page,
                                              final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.TRUNKING.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.TRUNKING.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of CredentialList Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -137,14 +131,7 @@ public class CredentialListReader extends Reader<CredentialList> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -157,7 +144,7 @@ public class CredentialListReader extends Reader<CredentialList> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

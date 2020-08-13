@@ -66,40 +66,40 @@ public class UserBinding extends Resource {
 
     /**
      * Create a UserBindingReader to execute read.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathUserSid The user_sid
+     *
+     * @param pathServiceSid The SID of the Service to read the resource from
+     * @param pathUserSid The SID of the User with the User Bindings to read
      * @return UserBindingReader capable of executing the read
      */
-    public static UserBindingReader reader(final String pathServiceSid, 
+    public static UserBindingReader reader(final String pathServiceSid,
                                            final String pathUserSid) {
         return new UserBindingReader(pathServiceSid, pathUserSid);
     }
 
     /**
      * Create a UserBindingFetcher to execute fetch.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathUserSid The user_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathUserSid The SID of the User with the binding
+     * @param pathSid The SID of the User Binding resource to fetch
      * @return UserBindingFetcher capable of executing the fetch
      */
-    public static UserBindingFetcher fetcher(final String pathServiceSid, 
-                                             final String pathUserSid, 
+    public static UserBindingFetcher fetcher(final String pathServiceSid,
+                                             final String pathUserSid,
                                              final String pathSid) {
         return new UserBindingFetcher(pathServiceSid, pathUserSid, pathSid);
     }
 
     /**
      * Create a UserBindingDeleter to execute delete.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathUserSid The user_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathUserSid The SID of the User of the User Bindings to delete
+     * @param pathSid The SID of the User Binding resource to delete
      * @return UserBindingDeleter capable of executing the delete
      */
-    public static UserBindingDeleter deleter(final String pathServiceSid, 
-                                             final String pathUserSid, 
+    public static UserBindingDeleter deleter(final String pathServiceSid,
+                                             final String pathUserSid,
                                              final String pathSid) {
         return new UserBindingDeleter(pathServiceSid, pathUserSid, pathSid);
     }
@@ -107,7 +107,7 @@ public class UserBinding extends Resource {
     /**
      * Converts a JSON String into a UserBinding object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return UserBinding object represented by the provided JSON
@@ -126,7 +126,7 @@ public class UserBinding extends Resource {
     /**
      * Converts a JSON InputStream into a UserBinding object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return UserBinding object represented by the provided JSON
@@ -157,27 +157,27 @@ public class UserBinding extends Resource {
 
     @JsonCreator
     private UserBinding(@JsonProperty("sid")
-                        final String sid, 
+                        final String sid,
                         @JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("service_sid")
-                        final String serviceSid, 
+                        final String serviceSid,
                         @JsonProperty("date_created")
-                        final String dateCreated, 
+                        final String dateCreated,
                         @JsonProperty("date_updated")
-                        final String dateUpdated, 
+                        final String dateUpdated,
                         @JsonProperty("endpoint")
-                        final String endpoint, 
+                        final String endpoint,
                         @JsonProperty("identity")
-                        final String identity, 
+                        final String identity,
                         @JsonProperty("user_sid")
-                        final String userSid, 
+                        final String userSid,
                         @JsonProperty("credential_sid")
-                        final String credentialSid, 
+                        final String credentialSid,
                         @JsonProperty("binding_type")
-                        final UserBinding.BindingType bindingType, 
+                        final UserBinding.BindingType bindingType,
                         @JsonProperty("message_types")
-                        final List<String> messageTypes, 
+                        final List<String> messageTypes,
                         @JsonProperty("url")
                         final URI url) {
         this.sid = sid;
@@ -195,110 +195,108 @@ public class UserBinding extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
-     * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this binding..
-     * 
-     * @return The unique id of the Account responsible for this binding.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique id of the Service this binding belongs to..
-     * 
-     * @return The unique id of the Service this binding belongs to.
+     * Returns The SID of the Service that the resource is associated with.
+     *
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The date that this resource was created..
-     * 
-     * @return The date that this resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated..
-     * 
-     * @return The date that this resource was last updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The unique endpoint identifier for this Binding..
-     * 
-     * @return The unique endpoint identifier for this Binding.
+     * Returns The unique endpoint identifier for the User Binding.
+     *
+     * @return The unique endpoint identifier for the User Binding
      */
     public final String getEndpoint() {
         return this.endpoint;
     }
 
     /**
-     * Returns The A unique string identifier for the Binding for this User in this
-     * Service..
-     * 
-     * @return A unique string identifier for the Binding for this User in this
-     *         Service.
+     * Returns The string that identifies the resource's User.
+     *
+     * @return The string that identifies the resource's User
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns The The unique id of the User for this binding..
-     * 
-     * @return The unique id of the User for this binding.
+     * Returns The SID of the User with the binding.
+     *
+     * @return The SID of the User with the binding
      */
     public final String getUserSid() {
         return this.userSid;
     }
 
     /**
-     * Returns The The unique id of the Credential for this binding..
-     * 
-     * @return The unique id of the Credential for this binding.
+     * Returns The SID of the Credential for the binding.
+     *
+     * @return The SID of the Credential for the binding
      */
     public final String getCredentialSid() {
         return this.credentialSid;
     }
 
     /**
-     * Returns The The push technology to use for this binding..
-     * 
-     * @return The push technology to use for this binding.
+     * Returns The push technology to use for the binding.
+     *
+     * @return The push technology to use for the binding
      */
     public final UserBinding.BindingType getBindingType() {
         return this.bindingType;
     }
 
     /**
-     * Returns The List of message types for this binding..
-     * 
-     * @return List of message types for this binding.
+     * Returns The Programmable Chat message types the binding is subscribed to.
+     *
+     * @return The Programmable Chat message types the binding is subscribed to
      */
     public final List<String> getMessageTypes() {
         return this.messageTypes;
     }
 
     /**
-     * Returns The An absolute URL for this binding..
-     * 
-     * @return An absolute URL for this binding.
+     * Returns The absolute URL of the User Binding resource.
+     *
+     * @return The absolute URL of the User Binding resource
      */
     public final URI getUrl() {
         return this.url;
@@ -316,17 +314,17 @@ public class UserBinding extends Resource {
 
         UserBinding other = (UserBinding) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(endpoint, other.endpoint) && 
-               Objects.equals(identity, other.identity) && 
-               Objects.equals(userSid, other.userSid) && 
-               Objects.equals(credentialSid, other.credentialSid) && 
-               Objects.equals(bindingType, other.bindingType) && 
-               Objects.equals(messageTypes, other.messageTypes) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(endpoint, other.endpoint) &&
+               Objects.equals(identity, other.identity) &&
+               Objects.equals(userSid, other.userSid) &&
+               Objects.equals(credentialSid, other.credentialSid) &&
+               Objects.equals(bindingType, other.bindingType) &&
+               Objects.equals(messageTypes, other.messageTypes) &&
                Objects.equals(url, other.url);
     }
 

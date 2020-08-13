@@ -24,11 +24,12 @@ public class AuthCallsCredentialListMappingFetcher extends Fetcher<AuthCallsCred
 
     /**
      * Construct a new AuthCallsCredentialListMappingFetcher.
-     * 
-     * @param pathDomainSid The domain_sid
-     * @param pathSid Fetch by unique credential list Sid
+     *
+     * @param pathDomainSid The SID of the SIP domain that contains the resource to
+     *                      fetch
+     * @param pathSid The unique string that identifies the resource
      */
-    public AuthCallsCredentialListMappingFetcher(final String pathDomainSid, 
+    public AuthCallsCredentialListMappingFetcher(final String pathDomainSid,
                                                  final String pathSid) {
         this.pathDomainSid = pathDomainSid;
         this.pathSid = pathSid;
@@ -36,13 +37,15 @@ public class AuthCallsCredentialListMappingFetcher extends Fetcher<AuthCallsCred
 
     /**
      * Construct a new AuthCallsCredentialListMappingFetcher.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param pathSid Fetch by unique credential list Sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathDomainSid The SID of the SIP domain that contains the resource to
+     *                      fetch
+     * @param pathSid The unique string that identifies the resource
      */
-    public AuthCallsCredentialListMappingFetcher(final String pathAccountSid, 
-                                                 final String pathDomainSid, 
+    public AuthCallsCredentialListMappingFetcher(final String pathAccountSid,
+                                                 final String pathDomainSid,
                                                  final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
@@ -51,7 +54,7 @@ public class AuthCallsCredentialListMappingFetcher extends Fetcher<AuthCallsCred
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched AuthCallsCredentialListMapping
      */
@@ -62,8 +65,7 @@ public class AuthCallsCredentialListMappingFetcher extends Fetcher<AuthCallsCred
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/Auth/Calls/CredentialListMappings/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/Auth/Calls/CredentialListMappings/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);
@@ -75,14 +77,7 @@ public class AuthCallsCredentialListMappingFetcher extends Fetcher<AuthCallsCred
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return AuthCallsCredentialListMapping.fromJson(response.getStream(), client.getObjectMapper());

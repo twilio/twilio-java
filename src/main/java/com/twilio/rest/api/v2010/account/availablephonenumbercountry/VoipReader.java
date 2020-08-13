@@ -44,8 +44,9 @@ public class VoipReader extends Reader<Voip> {
 
     /**
      * Construct a new VoipReader.
-     * 
-     * @param pathCountryCode The country_code
+     *
+     * @param pathCountryCode The ISO Country code of the country from which to
+     *                        read phone numbers
      */
     public VoipReader(final String pathCountryCode) {
         this.pathCountryCode = pathCountryCode;
@@ -53,21 +54,23 @@ public class VoipReader extends Reader<Voip> {
 
     /**
      * Construct a new VoipReader.
-     * 
-     * @param pathAccountSid The 34 character string that uniquely identifies your
-     *                       account.
-     * @param pathCountryCode The country_code
+     *
+     * @param pathAccountSid The SID of the Account requesting the
+     *                       AvailablePhoneNumber resources
+     * @param pathCountryCode The ISO Country code of the country from which to
+     *                        read phone numbers
      */
-    public VoipReader(final String pathAccountSid, 
+    public VoipReader(final String pathAccountSid,
                       final String pathCountryCode) {
         this.pathAccountSid = pathAccountSid;
         this.pathCountryCode = pathCountryCode;
     }
 
     /**
-     * The area_code.
-     * 
-     * @param areaCode The area_code
+     * The area code of the phone numbers to read. Applies to only phone numbers in
+     * the US and Canada..
+     *
+     * @param areaCode The area code of the phone numbers to read
      * @return this
      */
     public VoipReader setAreaCode(final Integer areaCode) {
@@ -76,9 +79,12 @@ public class VoipReader extends Reader<Voip> {
     }
 
     /**
-     * The contains.
-     * 
-     * @param contains The contains
+     * The pattern on which to match phone numbers. Valid characters are `*`, `0-9`,
+     * `a-z`, and `A-Z`. The `*` character matches any single digit. For examples,
+     * see [Example
+     * 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters..
+     *
+     * @param contains The pattern on which to match phone numbers
      * @return this
      */
     public VoipReader setContains(final String contains) {
@@ -87,9 +93,10 @@ public class VoipReader extends Reader<Voip> {
     }
 
     /**
-     * The sms_enabled.
-     * 
-     * @param smsEnabled The sms_enabled
+     * Whether the phone numbers can receive text messages. Can be: `true` or
+     * `false`..
+     *
+     * @param smsEnabled Whether the phone numbers can receive text messages
      * @return this
      */
     public VoipReader setSmsEnabled(final Boolean smsEnabled) {
@@ -98,9 +105,10 @@ public class VoipReader extends Reader<Voip> {
     }
 
     /**
-     * The mms_enabled.
-     * 
-     * @param mmsEnabled The mms_enabled
+     * Whether the phone numbers can receive MMS messages. Can be: `true` or
+     * `false`..
+     *
+     * @param mmsEnabled Whether the phone numbers can receive MMS messages
      * @return this
      */
     public VoipReader setMmsEnabled(final Boolean mmsEnabled) {
@@ -109,9 +117,9 @@ public class VoipReader extends Reader<Voip> {
     }
 
     /**
-     * The voice_enabled.
-     * 
-     * @param voiceEnabled The voice_enabled
+     * Whether the phone numbers can receive calls. Can be: `true` or `false`..
+     *
+     * @param voiceEnabled Whether the phone numbers can receive calls.
      * @return this
      */
     public VoipReader setVoiceEnabled(final Boolean voiceEnabled) {
@@ -120,9 +128,12 @@ public class VoipReader extends Reader<Voip> {
     }
 
     /**
-     * The exclude_all_address_required.
-     * 
-     * @param excludeAllAddressRequired The exclude_all_address_required
+     * Whether to exclude phone numbers that require an
+     * [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or
+     * `false` and the default is `false`..
+     *
+     * @param excludeAllAddressRequired Whether to exclude phone numbers that
+     *                                  require an Address
      * @return this
      */
     public VoipReader setExcludeAllAddressRequired(final Boolean excludeAllAddressRequired) {
@@ -131,9 +142,12 @@ public class VoipReader extends Reader<Voip> {
     }
 
     /**
-     * The exclude_local_address_required.
-     * 
-     * @param excludeLocalAddressRequired The exclude_local_address_required
+     * Whether to exclude phone numbers that require a local
+     * [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or
+     * `false` and the default is `false`..
+     *
+     * @param excludeLocalAddressRequired Whether to exclude phone numbers that
+     *                                    require a local address
      * @return this
      */
     public VoipReader setExcludeLocalAddressRequired(final Boolean excludeLocalAddressRequired) {
@@ -142,9 +156,12 @@ public class VoipReader extends Reader<Voip> {
     }
 
     /**
-     * The exclude_foreign_address_required.
-     * 
-     * @param excludeForeignAddressRequired The exclude_foreign_address_required
+     * Whether to exclude phone numbers that require a foreign
+     * [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or
+     * `false` and the default is `false`..
+     *
+     * @param excludeForeignAddressRequired Whether to exclude phone numbers that
+     *                                      require a foreign address
      * @return this
      */
     public VoipReader setExcludeForeignAddressRequired(final Boolean excludeForeignAddressRequired) {
@@ -153,9 +170,10 @@ public class VoipReader extends Reader<Voip> {
     }
 
     /**
-     * The beta.
-     * 
-     * @param beta The beta
+     * Whether to read phone numbers that are new to the Twilio platform. Can be:
+     * `true` or `false` and the default is `true`..
+     *
+     * @param beta Whether to read phone numbers new to the Twilio platform
      * @return this
      */
     public VoipReader setBeta(final Boolean beta) {
@@ -164,9 +182,12 @@ public class VoipReader extends Reader<Voip> {
     }
 
     /**
-     * The near_number.
-     * 
-     * @param nearNumber The near_number
+     * Given a phone number, find a geographically close number within `distance`
+     * miles. Distance defaults to 25 miles. Applies to only phone numbers in the US
+     * and Canada..
+     *
+     * @param nearNumber Given a phone number, find a geographically close number
+     *                   within distance miles. (US/Canada only)
      * @return this
      */
     public VoipReader setNearNumber(final com.twilio.type.PhoneNumber nearNumber) {
@@ -175,9 +196,12 @@ public class VoipReader extends Reader<Voip> {
     }
 
     /**
-     * The near_number.
-     * 
-     * @param nearNumber The near_number
+     * Given a phone number, find a geographically close number within `distance`
+     * miles. Distance defaults to 25 miles. Applies to only phone numbers in the US
+     * and Canada..
+     *
+     * @param nearNumber Given a phone number, find a geographically close number
+     *                   within distance miles. (US/Canada only)
      * @return this
      */
     public VoipReader setNearNumber(final String nearNumber) {
@@ -185,9 +209,12 @@ public class VoipReader extends Reader<Voip> {
     }
 
     /**
-     * The near_lat_long.
-     * 
-     * @param nearLatLong The near_lat_long
+     * Given a latitude/longitude pair `lat,long` find geographically close numbers
+     * within `distance` miles. Applies to only phone numbers in the US and Canada..
+     *
+     * @param nearLatLong Given a latitude/longitude pair lat,long find
+     *                    geographically close numbers within distance miles.
+     *                    (US/Canada only)
      * @return this
      */
     public VoipReader setNearLatLong(final String nearLatLong) {
@@ -196,9 +223,11 @@ public class VoipReader extends Reader<Voip> {
     }
 
     /**
-     * The distance.
-     * 
-     * @param distance The distance
+     * The search radius, in miles, for a `near_` query.  Can be up to `500` and the
+     * default is `25`. Applies to only phone numbers in the US and Canada..
+     *
+     * @param distance The search radius, in miles, for a near_ query. (US/Canada
+     *                 only)
      * @return this
      */
     public VoipReader setDistance(final Integer distance) {
@@ -207,9 +236,12 @@ public class VoipReader extends Reader<Voip> {
     }
 
     /**
-     * The in_postal_code.
-     * 
-     * @param inPostalCode The in_postal_code
+     * Limit results to a particular postal code. Given a phone number, search
+     * within the same postal code as that number. Applies to only phone numbers in
+     * the US and Canada..
+     *
+     * @param inPostalCode Limit results to a particular postal code. (US/Canada
+     *                     only)
      * @return this
      */
     public VoipReader setInPostalCode(final String inPostalCode) {
@@ -218,9 +250,11 @@ public class VoipReader extends Reader<Voip> {
     }
 
     /**
-     * The in_region.
-     * 
-     * @param inRegion The in_region
+     * Limit results to a particular region, state, or province. Given a phone
+     * number, search within the same region as that number. Applies to only phone
+     * numbers in the US and Canada..
+     *
+     * @param inRegion Limit results to a particular region. (US/Canada only)
      * @return this
      */
     public VoipReader setInRegion(final String inRegion) {
@@ -229,9 +263,13 @@ public class VoipReader extends Reader<Voip> {
     }
 
     /**
-     * The in_rate_center.
-     * 
-     * @param inRateCenter The in_rate_center
+     * Limit results to a specific rate center, or given a phone number search
+     * within the same rate center as that number. Requires `in_lata` to be set as
+     * well. Applies to only phone numbers in the US and Canada..
+     *
+     * @param inRateCenter Limit results to a specific rate center, or given a
+     *                     phone number search within the same rate center as that
+     *                     number. (US/Canada only)
      * @return this
      */
     public VoipReader setInRateCenter(final String inRateCenter) {
@@ -240,9 +278,14 @@ public class VoipReader extends Reader<Voip> {
     }
 
     /**
-     * The in_lata.
-     * 
-     * @param inLata The in_lata
+     * Limit results to a specific local access and transport area
+     * ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)).
+     * Given a phone number, search within the same
+     * [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that
+     * number. Applies to only phone numbers in the US and Canada..
+     *
+     * @param inLata Limit results to a specific local access and transport area.
+     *               (US/Canada only)
      * @return this
      */
     public VoipReader setInLata(final String inLata) {
@@ -251,9 +294,10 @@ public class VoipReader extends Reader<Voip> {
     }
 
     /**
-     * The in_locality.
-     * 
-     * @param inLocality The in_locality
+     * Limit results to a particular locality or city. Given a phone number, search
+     * within the same Locality as that number..
+     *
+     * @param inLocality Limit results to a particular locality
      * @return this
      */
     public VoipReader setInLocality(final String inLocality) {
@@ -262,9 +306,9 @@ public class VoipReader extends Reader<Voip> {
     }
 
     /**
-     * The fax_enabled.
-     * 
-     * @param faxEnabled The fax_enabled
+     * Whether the phone numbers can receive faxes. Can be: `true` or `false`..
+     *
+     * @param faxEnabled Whether the phone numbers can receive faxes
      * @return this
      */
     public VoipReader setFaxEnabled(final Boolean faxEnabled) {
@@ -274,7 +318,7 @@ public class VoipReader extends Reader<Voip> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Voip ResourceSet
      */
@@ -285,7 +329,7 @@ public class VoipReader extends Reader<Voip> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Voip ResourceSet
      */
@@ -296,8 +340,7 @@ public class VoipReader extends Reader<Voip> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/AvailablePhoneNumbers/" + this.pathCountryCode + "/Voip.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/AvailablePhoneNumbers/" + this.pathCountryCode + "/Voip.json"
         );
 
         addQueryParams(request);
@@ -306,7 +349,7 @@ public class VoipReader extends Reader<Voip> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Voip ResourceSet
@@ -325,47 +368,41 @@ public class VoipReader extends Reader<Voip> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Voip> nextPage(final Page<Voip> page, 
+    public Page<Voip> nextPage(final Page<Voip> page,
                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Voip> previousPage(final Page<Voip> page, 
+    public Page<Voip> previousPage(final Page<Voip> page,
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Voip Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -380,14 +417,7 @@ public class VoipReader extends Reader<Voip> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -400,7 +430,7 @@ public class VoipReader extends Reader<Voip> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

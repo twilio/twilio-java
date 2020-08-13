@@ -27,11 +27,11 @@ public class ShortCodeFetcher extends Fetcher<ShortCode> {
 
     /**
      * Construct a new ShortCodeFetcher.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathSid The SID that identifies the resource to fetch
      */
-    public ShortCodeFetcher(final String pathServiceSid, 
+    public ShortCodeFetcher(final String pathServiceSid,
                             final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -39,7 +39,7 @@ public class ShortCodeFetcher extends Fetcher<ShortCode> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched ShortCode
      */
@@ -49,8 +49,7 @@ public class ShortCodeFetcher extends Fetcher<ShortCode> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.MESSAGING.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/ShortCodes/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/ShortCodes/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +61,7 @@ public class ShortCodeFetcher extends Fetcher<ShortCode> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return ShortCode.fromJson(response.getStream(), client.getObjectMapper());

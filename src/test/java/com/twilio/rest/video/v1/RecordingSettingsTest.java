@@ -42,7 +42,7 @@ public class RecordingSettingsTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.VIDEO.toString(),
                                           "/v1/RecordingSettings/Default");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -60,7 +60,7 @@ public class RecordingSettingsTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"string\",\"aws_credentials_sid\": \"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"encryption_key_sid\": \"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"aws_s3_url\": \"https://my-super-duper-bucket.s3.amazonaws.com/my/path/\",\"aws_storage_enabled\": true,\"encryption_enabled\": true,\"url\": \"https://video.twilio.com/v1/RecordingSettings/Default\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"string\",\"aws_credentials_sid\": \"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"encryption_key_sid\": \"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"aws_s3_url\": \"https://www.twilio.com\",\"aws_storage_enabled\": true,\"encryption_enabled\": true,\"url\": \"https://video.twilio.com/v1/RecordingSettings/Default\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -74,7 +74,7 @@ public class RecordingSettingsTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.VIDEO.toString(),
                                           "/v1/RecordingSettings/Default");
-            request.addPostParam("FriendlyName", serialize("friendlyName"));
+            request.addPostParam("FriendlyName", serialize("friendly_name"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -83,7 +83,7 @@ public class RecordingSettingsTest {
         }};
 
         try {
-            RecordingSettings.creator("friendlyName").create();
+            RecordingSettings.creator("friendly_name").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -92,11 +92,11 @@ public class RecordingSettingsTest {
     public void testCreateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"friendly_name\",\"aws_credentials_sid\": \"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"encryption_key_sid\": \"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"aws_s3_url\": \"https://my-super-duper-bucket.s3.amazonaws.com/my/path/\",\"aws_storage_enabled\": true,\"encryption_enabled\": true,\"url\": \"https://video.twilio.com/v1/RecordingSettings/Default\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"friendly_name\",\"aws_credentials_sid\": \"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"encryption_key_sid\": \"CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"aws_s3_url\": \"https://www.twilio.com\",\"aws_storage_enabled\": true,\"encryption_enabled\": true,\"url\": \"https://video.twilio.com/v1/RecordingSettings/Default\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
 
-        RecordingSettings.creator("friendlyName").create();
+        RecordingSettings.creator("friendly_name").create();
     }
 }

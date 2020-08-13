@@ -40,7 +40,7 @@ public class Country extends Resource {
 
     /**
      * Create a CountryReader to execute read.
-     * 
+     *
      * @return CountryReader capable of executing the read
      */
     public static CountryReader reader() {
@@ -49,8 +49,8 @@ public class Country extends Resource {
 
     /**
      * Create a CountryFetcher to execute fetch.
-     * 
-     * @param pathIsoCountry The iso_country
+     *
+     * @param pathIsoCountry The ISO country code
      * @return CountryFetcher capable of executing the fetch
      */
     public static CountryFetcher fetcher(final String pathIsoCountry) {
@@ -59,7 +59,7 @@ public class Country extends Resource {
 
     /**
      * Converts a JSON String into a Country object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Country object represented by the provided JSON
@@ -78,7 +78,7 @@ public class Country extends Resource {
     /**
      * Converts a JSON InputStream into a Country object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Country object represented by the provided JSON
@@ -102,14 +102,14 @@ public class Country extends Resource {
 
     @JsonCreator
     private Country(@JsonProperty("country")
-                    final String country, 
+                    final String country,
                     @JsonProperty("iso_country")
-                    final String isoCountry, 
+                    final String isoCountry,
                     @JsonProperty("phone_number_prices")
-                    final List<PhoneNumberPrice> phoneNumberPrices, 
+                    final List<PhoneNumberPrice> phoneNumberPrices,
                     @JsonProperty("price_unit")
                     @JsonDeserialize(using = com.twilio.converter.CurrencyDeserializer.class)
-                    final Currency priceUnit, 
+                    final Currency priceUnit,
                     @JsonProperty("url")
                     final URI url) {
         this.country = country;
@@ -120,47 +120,47 @@ public class Country extends Resource {
     }
 
     /**
-     * Returns The Name of the country.
-     * 
-     * @return Name of the country
+     * Returns The name of the country.
+     *
+     * @return The name of the country
      */
     public final String getCountry() {
         return this.country;
     }
 
     /**
-     * Returns The The ISO country code of this number.
-     * 
-     * @return The ISO country code of this number
+     * Returns The ISO country code .
+     *
+     * @return The ISO country code
      */
     public final String getIsoCountry() {
         return this.isoCountry;
     }
 
     /**
-     * Returns The List of PhoneNumberPrices records.
-     * 
-     * @return List of PhoneNumberPrices records
+     * Returns The list of PhoneNumberPrices records.
+     *
+     * @return The list of PhoneNumberPrices records
      */
     public final List<PhoneNumberPrice> getPhoneNumberPrices() {
         return this.phoneNumberPrices;
     }
 
     /**
-     * Returns The The currency in which prices are measured, in ISO 4127 format
-     * (e.g. usd, eur, jpy)..
-     * 
+     * Returns The currency in which prices are measured, in ISO 4127 format (e.g.
+     * usd, eur, jpy).
+     *
      * @return The currency in which prices are measured, in ISO 4127 format (e.g.
-     *         usd, eur, jpy).
+     *         usd, eur, jpy)
      */
     public final Currency getPriceUnit() {
         return this.priceUnit;
     }
 
     /**
-     * Returns The The url.
-     * 
-     * @return The url
+     * Returns The absolute URL of the resource.
+     *
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
@@ -178,10 +178,10 @@ public class Country extends Resource {
 
         Country other = (Country) o;
 
-        return Objects.equals(country, other.country) && 
-               Objects.equals(isoCountry, other.isoCountry) && 
-               Objects.equals(phoneNumberPrices, other.phoneNumberPrices) && 
-               Objects.equals(priceUnit, other.priceUnit) && 
+        return Objects.equals(country, other.country) &&
+               Objects.equals(isoCountry, other.isoCountry) &&
+               Objects.equals(phoneNumberPrices, other.phoneNumberPrices) &&
+               Objects.equals(priceUnit, other.priceUnit) &&
                Objects.equals(url, other.url);
     }
 

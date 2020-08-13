@@ -24,12 +24,13 @@ public class AuthCallsIpAccessControlListMappingCreator extends Creator<AuthCall
 
     /**
      * Construct a new AuthCallsIpAccessControlListMappingCreator.
-     * 
-     * @param pathDomainSid The domain_sid
-     * @param ipAccessControlListSid A string that uniquely identifies IP Access
-     *                               Control List
+     *
+     * @param pathDomainSid The SID of the SIP domain that will contain the new
+     *                      resource
+     * @param ipAccessControlListSid The SID of the IpAccessControlList resource to
+     *                               map to the SIP domain
      */
-    public AuthCallsIpAccessControlListMappingCreator(final String pathDomainSid, 
+    public AuthCallsIpAccessControlListMappingCreator(final String pathDomainSid,
                                                       final String ipAccessControlListSid) {
         this.pathDomainSid = pathDomainSid;
         this.ipAccessControlListSid = ipAccessControlListSid;
@@ -37,14 +38,15 @@ public class AuthCallsIpAccessControlListMappingCreator extends Creator<AuthCall
 
     /**
      * Construct a new AuthCallsIpAccessControlListMappingCreator.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param ipAccessControlListSid A string that uniquely identifies IP Access
-     *                               Control List
+     *
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param pathDomainSid The SID of the SIP domain that will contain the new
+     *                      resource
+     * @param ipAccessControlListSid The SID of the IpAccessControlList resource to
+     *                               map to the SIP domain
      */
-    public AuthCallsIpAccessControlListMappingCreator(final String pathAccountSid, 
-                                                      final String pathDomainSid, 
+    public AuthCallsIpAccessControlListMappingCreator(final String pathAccountSid,
+                                                      final String pathDomainSid,
                                                       final String ipAccessControlListSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
@@ -53,7 +55,7 @@ public class AuthCallsIpAccessControlListMappingCreator extends Creator<AuthCall
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created AuthCallsIpAccessControlListMapping
      */
@@ -64,8 +66,7 @@ public class AuthCallsIpAccessControlListMappingCreator extends Creator<AuthCall
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/Auth/Calls/IpAccessControlListMappings.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/Auth/Calls/IpAccessControlListMappings.json"
         );
 
         addPostParams(request);
@@ -78,14 +79,7 @@ public class AuthCallsIpAccessControlListMappingCreator extends Creator<AuthCall
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return AuthCallsIpAccessControlListMapping.fromJson(response.getStream(), client.getObjectMapper());
@@ -93,7 +87,7 @@ public class AuthCallsIpAccessControlListMappingCreator extends Creator<AuthCall
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

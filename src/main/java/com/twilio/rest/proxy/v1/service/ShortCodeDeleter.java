@@ -27,11 +27,12 @@ public class ShortCodeDeleter extends Deleter<ShortCode> {
 
     /**
      * Construct a new ShortCodeDeleter.
-     * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Short Code.
+     *
+     * @param pathServiceSid The SID of the parent Service to delete the ShortCode
+     *                       resource from
+     * @param pathSid The unique string that identifies the resource
      */
-    public ShortCodeDeleter(final String pathServiceSid, 
+    public ShortCodeDeleter(final String pathServiceSid,
                             final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -39,7 +40,7 @@ public class ShortCodeDeleter extends Deleter<ShortCode> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -48,8 +49,7 @@ public class ShortCodeDeleter extends Deleter<ShortCode> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PROXY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/ShortCodes/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/ShortCodes/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -61,14 +61,7 @@ public class ShortCodeDeleter extends Deleter<ShortCode> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

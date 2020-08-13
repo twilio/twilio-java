@@ -32,14 +32,13 @@ public class MessageUpdater extends Updater<Message> {
 
     /**
      * Construct a new MessageUpdater.
-     * 
-     * @param pathServiceSid Sid of the Service this message belongs to.
-     * @param pathChannelSid Key that uniquely defines the channel this message
-     *                       belongs to.
-     * @param pathSid Key that uniquely defines the message to update.
+     *
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathChannelSid The SID of the Channel the message belongs to
+     * @param pathSid The SID of the Message resource to update
      */
-    public MessageUpdater(final String pathServiceSid, 
-                          final String pathChannelSid, 
+    public MessageUpdater(final String pathServiceSid,
+                          final String pathChannelSid,
                           final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -47,11 +46,11 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The message body string. You can also send structured data by serializing it
-     * into a string. May be updated to empty string or `null`, will be set as empty
-     * string as a result in this cases..
-     * 
-     * @param body The message body string.
+     * The message to send to the channel. Can be an empty string or `null`, which
+     * sets the value as an empty string. You can send structured data in the body
+     * by serializing it as a string..
+     *
+     * @param body The message to send to the channel
      * @return this
      */
     public MessageUpdater setBody(final String body) {
@@ -60,13 +59,9 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * A string metadata field you can use to store any data you wish. The string
-     * value must contain structurally valid JSON if specified. **Note** that this
-     * will always be null for resources returned via LIST GET operations, but will
-     * be present for single GET operations..
-     * 
-     * @param attributes The attributes metadata field you can use to store any
-     *                   data you wish.
+     * A valid JSON string that contains application-specific data..
+     *
+     * @param attributes A valid JSON string that contains application-specific data
      * @return this
      */
     public MessageUpdater setAttributes(final String attributes) {
@@ -75,11 +70,14 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The ISO8601 time specifying the datetime the Message should be set as being
-     * created..
-     * 
-     * @param dateCreated The ISO8601 time specifying the datetime the Message
-     *                    should be set as being created.
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was created. The default
+     * value is the current time set by the Chat service. This parameter should only
+     * be used when a Chat's history is being recreated from a backup/separate
+     * source..
+     *
+     * @param dateCreated The ISO 8601 date and time in GMT when the resource was
+     *                    created
      * @return this
      */
     public MessageUpdater setDateCreated(final DateTime dateCreated) {
@@ -88,11 +86,11 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The ISO8601 time specifying the datetime the Message should be set as having
-     * been last updated..
-     * 
-     * @param dateUpdated The ISO8601 time specifying the datetime the Message
-     *                    should be set as having been last updated.
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was last updated..
+     *
+     * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
+     *                    updated
      * @return this
      */
     public MessageUpdater setDateUpdated(final DateTime dateUpdated) {
@@ -101,10 +99,11 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * Specify the Identity of the User that last updated the Message (if relevant).
-     * 
-     * @param lastUpdatedBy Specify the Identity of the User that last updated the
-     *                      Message
+     * The [Identity](https://www.twilio.com/docs/chat/identity) of the User who
+     * last updated the Message, if applicable..
+     *
+     * @param lastUpdatedBy The Identity of the User who last updated the Message,
+     *                      if applicable
      * @return this
      */
     public MessageUpdater setLastUpdatedBy(final String lastUpdatedBy) {
@@ -113,10 +112,10 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the
-     * message's author..
-     * 
-     * @param from The identity of the message's author.
+     * The [Identity](https://www.twilio.com/docs/chat/identity) of the message's
+     * author..
+     *
+     * @param from The Identity of the message's author
      * @return this
      */
     public MessageUpdater setFrom(final String from) {
@@ -126,7 +125,7 @@ public class MessageUpdater extends Updater<Message> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Message
      */
@@ -136,8 +135,7 @@ public class MessageUpdater extends Updater<Message> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Messages/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Messages/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -150,14 +148,7 @@ public class MessageUpdater extends Updater<Message> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Message.fromJson(response.getStream(), client.getObjectMapper());
@@ -165,7 +156,7 @@ public class MessageUpdater extends Updater<Message> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

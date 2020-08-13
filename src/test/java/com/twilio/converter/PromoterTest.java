@@ -2,6 +2,7 @@ package com.twilio.converter;
 
 import com.google.common.collect.Lists;
 import com.twilio.type.PhoneNumber;
+import com.twilio.type.Twiml;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -25,6 +26,12 @@ public class PromoterTest {
     public void testPhoneNumberFromString() {
         PhoneNumber pn = Promoter.phoneNumberFromString("+12345678910");
         Assert.assertEquals(new PhoneNumber("+12345678910"), pn);
+    }
+
+    @Test
+    public void testTwimlFromString() {
+        Twiml twiml = Promoter.twimlFromString("<Response><Say>Ahoy!</Say></Response>");
+        Assert.assertEquals(new Twiml("<Response><Say>Ahoy!</Say></Response>"), twiml);
     }
 
     @Test

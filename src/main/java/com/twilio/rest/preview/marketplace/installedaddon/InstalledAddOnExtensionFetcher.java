@@ -28,11 +28,12 @@ public class InstalledAddOnExtensionFetcher extends Fetcher<InstalledAddOnExtens
 
     /**
      * Construct a new InstalledAddOnExtensionFetcher.
-     * 
-     * @param pathInstalledAddOnSid The installed_add_on_sid
-     * @param pathSid The unique Extension Sid
+     *
+     * @param pathInstalledAddOnSid The SID of the InstalledAddOn resource with the
+     *                              extension to fetch
+     * @param pathSid The SID of the InstalledAddOn Extension resource to fetch
      */
-    public InstalledAddOnExtensionFetcher(final String pathInstalledAddOnSid, 
+    public InstalledAddOnExtensionFetcher(final String pathInstalledAddOnSid,
                                           final String pathSid) {
         this.pathInstalledAddOnSid = pathInstalledAddOnSid;
         this.pathSid = pathSid;
@@ -40,7 +41,7 @@ public class InstalledAddOnExtensionFetcher extends Fetcher<InstalledAddOnExtens
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched InstalledAddOnExtension
      */
@@ -50,8 +51,7 @@ public class InstalledAddOnExtensionFetcher extends Fetcher<InstalledAddOnExtens
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/marketplace/InstalledAddOns/" + this.pathInstalledAddOnSid + "/Extensions/" + this.pathSid + "",
-            client.getRegion()
+            "/marketplace/InstalledAddOns/" + this.pathInstalledAddOnSid + "/Extensions/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -63,14 +63,7 @@ public class InstalledAddOnExtensionFetcher extends Fetcher<InstalledAddOnExtens
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return InstalledAddOnExtension.fromJson(response.getStream(), client.getObjectMapper());

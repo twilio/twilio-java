@@ -19,17 +19,13 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class EngagementReader extends Reader<Engagement> {
     private final String pathFlowSid;
 
     /**
      * Construct a new EngagementReader.
-     * 
-     * @param pathFlowSid Flow Sid.
+     *
+     * @param pathFlowSid The SID of the Flow to read Engagements from
      */
     public EngagementReader(final String pathFlowSid) {
         this.pathFlowSid = pathFlowSid;
@@ -37,7 +33,7 @@ public class EngagementReader extends Reader<Engagement> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Engagement ResourceSet
      */
@@ -48,7 +44,7 @@ public class EngagementReader extends Reader<Engagement> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Engagement ResourceSet
      */
@@ -58,8 +54,7 @@ public class EngagementReader extends Reader<Engagement> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Engagements",
-            client.getRegion()
+            "/v1/Flows/" + this.pathFlowSid + "/Engagements"
         );
 
         addQueryParams(request);
@@ -68,7 +63,7 @@ public class EngagementReader extends Reader<Engagement> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Engagement ResourceSet
@@ -86,47 +81,41 @@ public class EngagementReader extends Reader<Engagement> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Engagement> nextPage(final Page<Engagement> page, 
+    public Page<Engagement> nextPage(final Page<Engagement> page,
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.STUDIO.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.STUDIO.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Engagement> previousPage(final Page<Engagement> page, 
+    public Page<Engagement> previousPage(final Page<Engagement> page,
                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.STUDIO.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.STUDIO.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Engagement Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -141,14 +130,7 @@ public class EngagementReader extends Reader<Engagement> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -161,7 +143,7 @@ public class EngagementReader extends Reader<Engagement> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

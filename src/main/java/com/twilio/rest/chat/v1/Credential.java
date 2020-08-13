@@ -65,7 +65,7 @@ public class Credential extends Resource {
 
     /**
      * Create a CredentialReader to execute read.
-     * 
+     *
      * @return CredentialReader capable of executing the read
      */
     public static CredentialReader reader() {
@@ -74,8 +74,8 @@ public class Credential extends Resource {
 
     /**
      * Create a CredentialCreator to execute create.
-     * 
-     * @param type Credential type, one of "gcm" or "apn"
+     *
+     * @param type The type of push-notification service the credential is for
      * @return CredentialCreator capable of executing the create
      */
     public static CredentialCreator creator(final Credential.PushService type) {
@@ -84,8 +84,8 @@ public class Credential extends Resource {
 
     /**
      * Create a CredentialFetcher to execute fetch.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return CredentialFetcher capable of executing the fetch
      */
     public static CredentialFetcher fetcher(final String pathSid) {
@@ -94,8 +94,8 @@ public class Credential extends Resource {
 
     /**
      * Create a CredentialUpdater to execute update.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return CredentialUpdater capable of executing the update
      */
     public static CredentialUpdater updater(final String pathSid) {
@@ -104,8 +104,8 @@ public class Credential extends Resource {
 
     /**
      * Create a CredentialDeleter to execute delete.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return CredentialDeleter capable of executing the delete
      */
     public static CredentialDeleter deleter(final String pathSid) {
@@ -115,7 +115,7 @@ public class Credential extends Resource {
     /**
      * Converts a JSON String into a Credential object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Credential object represented by the provided JSON
@@ -134,7 +134,7 @@ public class Credential extends Resource {
     /**
      * Converts a JSON InputStream into a Credential object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Credential object represented by the provided JSON
@@ -161,19 +161,19 @@ public class Credential extends Resource {
 
     @JsonCreator
     private Credential(@JsonProperty("sid")
-                       final String sid, 
+                       final String sid,
                        @JsonProperty("account_sid")
-                       final String accountSid, 
+                       final String accountSid,
                        @JsonProperty("friendly_name")
-                       final String friendlyName, 
+                       final String friendlyName,
                        @JsonProperty("type")
-                       final Credential.PushService type, 
+                       final Credential.PushService type,
                        @JsonProperty("sandbox")
-                       final String sandbox, 
+                       final String sandbox,
                        @JsonProperty("date_created")
-                       final String dateCreated, 
+                       final String dateCreated,
                        @JsonProperty("date_updated")
-                       final String dateUpdated, 
+                       final String dateUpdated,
                        @JsonProperty("url")
                        final URI url) {
         this.sid = sid;
@@ -187,77 +187,72 @@ public class Credential extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
-     * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique id of the Account[/console] responsible for this
-     * resource..
-     * 
-     * @return The unique id of the Account[/console] responsible for this resource.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The human-readable name of this resource..
-     * 
-     * @return The human-readable name of this resource.
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The Indicates which push notifications service this credential is for
-     * - either gcm or apn.
-     * 
-     * @return Indicates which push notifications service this credential is for -
-     *         either gcm or apn
+     * Returns The type of push-notification service the credential is for.
+     *
+     * @return The type of push-notification service the credential is for
      */
     public final Credential.PushService getType() {
         return this.type;
     }
 
     /**
-     * Returns The [APN only] true when this resource should use the sandbox APN
-     * service..
-     * 
-     * @return [APN only] true when this resource should use the sandbox APN
-     *         service.
+     * Returns [APN only] Whether to send the credential to sandbox APNs.
+     *
+     * @return [APN only] Whether to send the credential to sandbox APNs
      */
     public final String getSandbox() {
         return this.sandbox;
     }
 
     /**
-     * Returns The The date that this resource was created..
-     * 
-     * @return The date that this resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
+     *
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated..
-     * 
-     * @return The date that this resource was last updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
+     *
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The An absolute URL for this credential resource..
-     * 
-     * @return An absolute URL for this credential resource.
+     * Returns The absolute URL of the Credential resource.
+     *
+     * @return The absolute URL of the Credential resource
      */
     public final URI getUrl() {
         return this.url;
@@ -275,13 +270,13 @@ public class Credential extends Resource {
 
         Credential other = (Credential) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(type, other.type) && 
-               Objects.equals(sandbox, other.sandbox) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(type, other.type) &&
+               Objects.equals(sandbox, other.sandbox) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
     }
 

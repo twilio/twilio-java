@@ -44,20 +44,20 @@ public class Query extends Resource {
 
     /**
      * Create a QueryFetcher to execute fetch.
-     * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     *
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return QueryFetcher capable of executing the fetch
      */
-    public static QueryFetcher fetcher(final String pathAssistantSid, 
+    public static QueryFetcher fetcher(final String pathAssistantSid,
                                        final String pathSid) {
         return new QueryFetcher(pathAssistantSid, pathSid);
     }
 
     /**
      * Create a QueryReader to execute read.
-     * 
-     * @param pathAssistantSid The assistant_sid
+     *
+     * @param pathAssistantSid The unique ID of the parent Assistant.
      * @return QueryReader capable of executing the read
      */
     public static QueryReader reader(final String pathAssistantSid) {
@@ -66,47 +66,47 @@ public class Query extends Resource {
 
     /**
      * Create a QueryCreator to execute create.
-     * 
-     * @param pathAssistantSid The assistant_sid
+     *
+     * @param pathAssistantSid The unique ID of the parent Assistant.
      * @param language An ISO language-country string of the sample.
      * @param query A user-provided string that uniquely identifies this resource
      *              as an alternative to the sid. It can be up to 2048 characters
      *              long.
      * @return QueryCreator capable of executing the create
      */
-    public static QueryCreator creator(final String pathAssistantSid, 
-                                       final String language, 
+    public static QueryCreator creator(final String pathAssistantSid,
+                                       final String language,
                                        final String query) {
         return new QueryCreator(pathAssistantSid, language, query);
     }
 
     /**
      * Create a QueryUpdater to execute update.
-     * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     *
+     * @param pathAssistantSid The unique ID of the parent Assistant.
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return QueryUpdater capable of executing the update
      */
-    public static QueryUpdater updater(final String pathAssistantSid, 
+    public static QueryUpdater updater(final String pathAssistantSid,
                                        final String pathSid) {
         return new QueryUpdater(pathAssistantSid, pathSid);
     }
 
     /**
      * Create a QueryDeleter to execute delete.
-     * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     *
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return QueryDeleter capable of executing the delete
      */
-    public static QueryDeleter deleter(final String pathAssistantSid, 
+    public static QueryDeleter deleter(final String pathAssistantSid,
                                        final String pathSid) {
         return new QueryDeleter(pathAssistantSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a Query object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Query object represented by the provided JSON
@@ -125,7 +125,7 @@ public class Query extends Resource {
     /**
      * Converts a JSON InputStream into a Query object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Query object represented by the provided JSON
@@ -157,29 +157,29 @@ public class Query extends Resource {
 
     @JsonCreator
     private Query(@JsonProperty("account_sid")
-                  final String accountSid, 
+                  final String accountSid,
                   @JsonProperty("date_created")
-                  final String dateCreated, 
+                  final String dateCreated,
                   @JsonProperty("date_updated")
-                  final String dateUpdated, 
+                  final String dateUpdated,
                   @JsonProperty("results")
-                  final Map<String, Object> results, 
+                  final Map<String, Object> results,
                   @JsonProperty("language")
-                  final String language, 
+                  final String language,
                   @JsonProperty("model_build_sid")
-                  final String modelBuildSid, 
+                  final String modelBuildSid,
                   @JsonProperty("query")
-                  final String query, 
+                  final String query,
                   @JsonProperty("sample_sid")
-                  final String sampleSid, 
+                  final String sampleSid,
                   @JsonProperty("assistant_sid")
-                  final String assistantSid, 
+                  final String assistantSid,
                   @JsonProperty("sid")
-                  final String sid, 
+                  final String sid,
                   @JsonProperty("status")
-                  final String status, 
+                  final String status,
                   @JsonProperty("url")
-                  final URI url, 
+                  final URI url,
                   @JsonProperty("source_channel")
                   final String sourceChannel) {
         this.accountSid = accountSid;
@@ -198,8 +198,8 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this Query..
-     * 
+     * Returns The unique ID of the Account that created this Query..
+     *
      * @return The unique ID of the Account that created this Query.
      */
     public final String getAccountSid() {
@@ -207,8 +207,8 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was created.
-     * 
+     * Returns The date that this resource was created.
+     *
      * @return The date that this resource was created
      */
     public final DateTime getDateCreated() {
@@ -216,8 +216,8 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was last updated.
-     * 
+     * Returns The date that this resource was last updated.
+     *
      * @return The date that this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -225,10 +225,10 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The natural language analysis results which include the Intent
+     * Returns The natural language analysis results which include the Task
      * recognized, the confidence score and a list of identified Fields..
-     * 
-     * @return The natural language analysis results which include the Intent
+     *
+     * @return The natural language analysis results which include the Task
      *         recognized, the confidence score and a list of identified Fields.
      */
     public final Map<String, Object> getResults() {
@@ -236,8 +236,8 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The An ISO language-country string of the sample..
-     * 
+     * Returns An ISO language-country string of the sample..
+     *
      * @return An ISO language-country string of the sample.
      */
     public final String getLanguage() {
@@ -245,8 +245,8 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Model Build queried..
-     * 
+     * Returns The unique ID of the Model Build queried..
+     *
      * @return The unique ID of the Model Build queried.
      */
     public final String getModelBuildSid() {
@@ -254,8 +254,8 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The end-user's natural language input..
-     * 
+     * Returns The end-user's natural language input..
+     *
      * @return The end-user's natural language input.
      */
     public final String getQuery() {
@@ -263,8 +263,8 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The An optional reference to the Sample created from this query..
-     * 
+     * Returns An optional reference to the Sample created from this query..
+     *
      * @return An optional reference to the Sample created from this query.
      */
     public final String getSampleSid() {
@@ -272,8 +272,8 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the parent Assistant..
-     * 
+     * Returns The unique ID of the parent Assistant..
+     *
      * @return The unique ID of the parent Assistant.
      */
     public final String getAssistantSid() {
@@ -281,8 +281,8 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
-     * 
+     * Returns A 34 character string that uniquely identifies this resource..
+     *
      * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
@@ -290,9 +290,9 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The A string that described the query status. The values can be:
+     * Returns A string that described the query status. The values can be:
      * pending_review, reviewed, discarded.
-     * 
+     *
      * @return A string that described the query status. The values can be:
      *         pending_review, reviewed, discarded
      */
@@ -301,8 +301,8 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The url.
-     * 
+     * Returns The url.
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -310,8 +310,8 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The The communication channel where this end-user input came from.
-     * 
+     * Returns The communication channel where this end-user input came from.
+     *
      * @return The communication channel where this end-user input came from
      */
     public final String getSourceChannel() {
@@ -330,18 +330,18 @@ public class Query extends Resource {
 
         Query other = (Query) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(results, other.results) && 
-               Objects.equals(language, other.language) && 
-               Objects.equals(modelBuildSid, other.modelBuildSid) && 
-               Objects.equals(query, other.query) && 
-               Objects.equals(sampleSid, other.sampleSid) && 
-               Objects.equals(assistantSid, other.assistantSid) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(results, other.results) &&
+               Objects.equals(language, other.language) &&
+               Objects.equals(modelBuildSid, other.modelBuildSid) &&
+               Objects.equals(query, other.query) &&
+               Objects.equals(sampleSid, other.sampleSid) &&
+               Objects.equals(assistantSid, other.assistantSid) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(sourceChannel, other.sourceChannel);
     }
 

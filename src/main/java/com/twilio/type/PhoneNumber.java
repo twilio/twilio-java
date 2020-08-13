@@ -1,6 +1,7 @@
 package com.twilio.type;
 
 import java.util.Objects;
+import java.net.URLEncoder;
 
 public class PhoneNumber implements Endpoint {
     private final String rawNumber;
@@ -35,5 +36,14 @@ public class PhoneNumber implements Endpoint {
     @Override
     public String toString() {
         return this.rawNumber;
+    }
+
+    public String encode(String enc) {
+        try {
+            return URLEncoder.encode(this.rawNumber, enc);
+        }
+        catch (Exception e) {
+            return this.rawNumber;
+        }
     }
 }

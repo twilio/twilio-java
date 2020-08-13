@@ -42,7 +42,7 @@ public class ApplicationTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Applications.json");
-            request.addPostParam("FriendlyName", serialize("friendlyName"));
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -51,7 +51,7 @@ public class ApplicationTest {
         }};
 
         try {
-            Application.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName").create();
+            Application.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class ApplicationTest {
             result = new ObjectMapper();
         }};
 
-        Application.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendlyName").create();
+        Application.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
     }
 
     @Test
@@ -74,7 +74,7 @@ public class ApplicationTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Applications/APXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -106,7 +106,7 @@ public class ApplicationTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Applications/APXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -138,7 +138,7 @@ public class ApplicationTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Applications.json");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -182,7 +182,7 @@ public class ApplicationTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.API.toString(),
                                           "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Applications/APXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

@@ -41,34 +41,37 @@ public class InstalledAddOnExtension extends Resource {
 
     /**
      * Create a InstalledAddOnExtensionFetcher to execute fetch.
-     * 
-     * @param pathInstalledAddOnSid The installed_add_on_sid
-     * @param pathSid The unique Extension Sid
+     *
+     * @param pathInstalledAddOnSid The SID of the InstalledAddOn resource with the
+     *                              extension to fetch
+     * @param pathSid The SID of the InstalledAddOn Extension resource to fetch
      * @return InstalledAddOnExtensionFetcher capable of executing the fetch
      */
-    public static InstalledAddOnExtensionFetcher fetcher(final String pathInstalledAddOnSid, 
+    public static InstalledAddOnExtensionFetcher fetcher(final String pathInstalledAddOnSid,
                                                          final String pathSid) {
         return new InstalledAddOnExtensionFetcher(pathInstalledAddOnSid, pathSid);
     }
 
     /**
      * Create a InstalledAddOnExtensionUpdater to execute update.
-     * 
-     * @param pathInstalledAddOnSid The installed_add_on_sid
-     * @param pathSid The sid
-     * @param enabled A Boolean indicating if the Extension will be invoked
+     *
+     * @param pathInstalledAddOnSid The SID of the InstalledAddOn resource with the
+     *                              extension to update
+     * @param pathSid The SID of the InstalledAddOn Extension resource to update
+     * @param enabled Whether the Extension should be invoked
      * @return InstalledAddOnExtensionUpdater capable of executing the update
      */
-    public static InstalledAddOnExtensionUpdater updater(final String pathInstalledAddOnSid, 
-                                                         final String pathSid, 
+    public static InstalledAddOnExtensionUpdater updater(final String pathInstalledAddOnSid,
+                                                         final String pathSid,
                                                          final Boolean enabled) {
         return new InstalledAddOnExtensionUpdater(pathInstalledAddOnSid, pathSid, enabled);
     }
 
     /**
      * Create a InstalledAddOnExtensionReader to execute read.
-     * 
-     * @param pathInstalledAddOnSid The installed_add_on_sid
+     *
+     * @param pathInstalledAddOnSid The SID of the InstalledAddOn resource with the
+     *                              extensions to read
      * @return InstalledAddOnExtensionReader capable of executing the read
      */
     public static InstalledAddOnExtensionReader reader(final String pathInstalledAddOnSid) {
@@ -78,7 +81,7 @@ public class InstalledAddOnExtension extends Resource {
     /**
      * Converts a JSON String into a InstalledAddOnExtension object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return InstalledAddOnExtension object represented by the provided JSON
@@ -97,7 +100,7 @@ public class InstalledAddOnExtension extends Resource {
     /**
      * Converts a JSON InputStream into a InstalledAddOnExtension object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return InstalledAddOnExtension object represented by the provided JSON
@@ -123,17 +126,17 @@ public class InstalledAddOnExtension extends Resource {
 
     @JsonCreator
     private InstalledAddOnExtension(@JsonProperty("sid")
-                                    final String sid, 
+                                    final String sid,
                                     @JsonProperty("installed_add_on_sid")
-                                    final String installedAddOnSid, 
+                                    final String installedAddOnSid,
                                     @JsonProperty("friendly_name")
-                                    final String friendlyName, 
+                                    final String friendlyName,
                                     @JsonProperty("product_name")
-                                    final String productName, 
+                                    final String productName,
                                     @JsonProperty("unique_name")
-                                    final String uniqueName, 
+                                    final String uniqueName,
                                     @JsonProperty("enabled")
-                                    final Boolean enabled, 
+                                    final Boolean enabled,
                                     @JsonProperty("url")
                                     final URI url) {
         this.sid = sid;
@@ -146,63 +149,65 @@ public class InstalledAddOnExtension extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Extension.
-     * 
-     * @return A string that uniquely identifies this Extension
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The installed_add_on_sid.
-     * 
-     * @return The installed_add_on_sid
+     * Returns The SID of the InstalledAddOn resource to which this extension
+     * applies.
+     *
+     * @return The SID of the InstalledAddOn resource to which this extension
+     *         applies
      */
     public final String getInstalledAddOnSid() {
         return this.installedAddOnSid;
     }
 
     /**
-     * Returns The A human-readable description of this Extension.
-     * 
-     * @return A human-readable description of this Extension
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The A human-readable description of the Extension's Product.
-     * 
-     * @return A human-readable description of the Extension's Product
+     * Returns The name of the Extension's Product.
+     *
+     * @return The name of the Extension's Product
      */
     public final String getProductName() {
         return this.productName;
     }
 
     /**
-     * Returns The The string that uniquely identifies this Extension.
-     * 
-     * @return The string that uniquely identifies this Extension
+     * Returns An application-defined string that uniquely identifies the resource.
+     *
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The A Boolean indicating if the Extension will be invoked.
-     * 
-     * @return A Boolean indicating if the Extension will be invoked
+     * Returns Whether the Extension will be invoked.
+     *
+     * @return Whether the Extension will be invoked
      */
     public final Boolean getEnabled() {
         return this.enabled;
     }
 
     /**
-     * Returns The The url.
-     * 
-     * @return The url
+     * Returns The absolute URL of the resource.
+     *
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
@@ -220,12 +225,12 @@ public class InstalledAddOnExtension extends Resource {
 
         InstalledAddOnExtension other = (InstalledAddOnExtension) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(installedAddOnSid, other.installedAddOnSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(productName, other.productName) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(enabled, other.enabled) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(installedAddOnSid, other.installedAddOnSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(productName, other.productName) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(enabled, other.enabled) &&
                Objects.equals(url, other.url);
     }
 

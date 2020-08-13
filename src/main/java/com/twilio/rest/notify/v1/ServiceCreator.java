@@ -34,11 +34,14 @@ public class ServiceCreator extends Creator<Service> {
     private Boolean logEnabled;
     private String alexaSkillId;
     private String defaultAlexaNotificationProtocolVersion;
+    private String deliveryCallbackUrl;
+    private Boolean deliveryCallbackEnabled;
 
     /**
-     * Human-readable name for this service instance.
-     * 
-     * @param friendlyName Human-readable name for this service instance
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
+     *
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public ServiceCreator setFriendlyName(final String friendlyName) {
@@ -48,11 +51,10 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * The SID of the
-     * [Credential](https://www.twilio.com/docs/notify/api/credentials) to be used
-     * for APN Bindings..
-     * 
-     * @param apnCredentialSid The SID of the Credential to be used for APN
-     *                         Bindings.
+     * [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to
+     * use for APN Bindings..
+     *
+     * @param apnCredentialSid The SID of the Credential to use for APN Bindings
      * @return this
      */
     public ServiceCreator setApnCredentialSid(final String apnCredentialSid) {
@@ -62,11 +64,10 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * The SID of the
-     * [Credential](https://www.twilio.com/docs/notify/api/credentials) to be used
-     * for GCM Bindings..
-     * 
-     * @param gcmCredentialSid The SID of the Credential to be used for GCM
-     *                         Bindings.
+     * [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to
+     * use for GCM Bindings..
+     *
+     * @param gcmCredentialSid The SID of the Credential to use for GCM Bindings
      * @return this
      */
     public ServiceCreator setGcmCredentialSid(final String gcmCredentialSid) {
@@ -76,10 +77,12 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * The SID of the [Messaging
-     * Service](https://www.twilio.com/docs/api/rest/sending-messages#messaging-services) to be used for SMS Bindings. In order to send SMS notifications this parameter has to be set..
-     * 
-     * @param messagingServiceSid The SID of the Messaging Service to be used for
-     *                            SMS Bindings.
+     * Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to
+     * use for SMS Bindings. This parameter must be set in order to send SMS
+     * notifications..
+     *
+     * @param messagingServiceSid The SID of the Messaging Service to use for SMS
+     *                            Bindings
      * @return this
      */
     public ServiceCreator setMessagingServiceSid(final String messagingServiceSid) {
@@ -88,12 +91,9 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The Page ID to be used to send for Facebook Messenger Bindings. It has to
-     * match the Page ID you configured when you [enabled Facebook
-     * Messaging](https://www.twilio.com/console/sms/settings) on your account..
-     * 
-     * @param facebookMessengerPageId The Page ID to be used to send for Facebook
-     *                                Messenger Bindings.
+     * Deprecated..
+     *
+     * @param facebookMessengerPageId Deprecated
      * @return this
      */
     public ServiceCreator setFacebookMessengerPageId(final String facebookMessengerPageId) {
@@ -102,13 +102,12 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The version of the protocol to be used for sending APNS notifications. Can be
-     * overriden on a Binding by Binding basis when creating a
-     * [Binding](https://www.twilio.com/docs/notify/api/bindings) resource..
-     * 
-     * @param defaultApnNotificationProtocolVersion The version of the protocol to
-     *                                              be used for sending APNS
-     *                                              notifications.
+     * The protocol version to use for sending APNS notifications. Can be overridden
+     * on a Binding by Binding basis when creating a
+     * [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource..
+     *
+     * @param defaultApnNotificationProtocolVersion The protocol version to use for
+     *                                              sending APNS notifications
      * @return this
      */
     public ServiceCreator setDefaultApnNotificationProtocolVersion(final String defaultApnNotificationProtocolVersion) {
@@ -117,13 +116,12 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The version of the protocol to be used for sending GCM notifications. Can be
-     * overriden on a Binding by Binding basis when creating a
-     * [Binding](https://www.twilio.com/docs/notify/api/bindings) resource..
-     * 
-     * @param defaultGcmNotificationProtocolVersion The version of the protocol to
-     *                                              be used for sending GCM
-     *                                              notifications.
+     * The protocol version to use for sending GCM notifications. Can be overridden
+     * on a Binding by Binding basis when creating a
+     * [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource..
+     *
+     * @param defaultGcmNotificationProtocolVersion The protocol version to use for
+     *                                              sending GCM notifications
      * @return this
      */
     public ServiceCreator setDefaultGcmNotificationProtocolVersion(final String defaultGcmNotificationProtocolVersion) {
@@ -133,11 +131,10 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * The SID of the
-     * [Credential](https://www.twilio.com/docs/notify/api/credentials) to be used
-     * for FCM Bindings..
-     * 
-     * @param fcmCredentialSid The SID of the Credential to be used for FCM
-     *                         Bindings.
+     * [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to
+     * use for FCM Bindings..
+     *
+     * @param fcmCredentialSid The SID of the Credential to use for FCM Bindings
      * @return this
      */
     public ServiceCreator setFcmCredentialSid(final String fcmCredentialSid) {
@@ -146,13 +143,12 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The version of the protocol to be used for sending FCM notifications. Can be
-     * overriden on a Binding by Binding basis when creating a
-     * [Binding](https://www.twilio.com/docs/notify/api/bindings) resource..
-     * 
-     * @param defaultFcmNotificationProtocolVersion The version of the protocol to
-     *                                              be used for sending FCM
-     *                                              notifications.
+     * The protocol version to use for sending FCM notifications. Can be overridden
+     * on a Binding by Binding basis when creating a
+     * [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource..
+     *
+     * @param defaultFcmNotificationProtocolVersion The protocol version to use for
+     *                                              sending FCM notifications
      * @return this
      */
     public ServiceCreator setDefaultFcmNotificationProtocolVersion(final String defaultFcmNotificationProtocolVersion) {
@@ -161,9 +157,10 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The log_enabled.
-     * 
-     * @param logEnabled The log_enabled
+     * Whether to log notifications. Can be: `true` or `false` and the default is
+     * `true`..
+     *
+     * @param logEnabled Whether to log notifications
      * @return this
      */
     public ServiceCreator setLogEnabled(final Boolean logEnabled) {
@@ -172,9 +169,9 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The alexa_skill_id.
-     * 
-     * @param alexaSkillId The alexa_skill_id
+     * Deprecated..
+     *
+     * @param alexaSkillId Deprecated
      * @return this
      */
     public ServiceCreator setAlexaSkillId(final String alexaSkillId) {
@@ -183,10 +180,9 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The default_alexa_notification_protocol_version.
-     * 
-     * @param defaultAlexaNotificationProtocolVersion The
-     *                                                default_alexa_notification_protocol_version
+     * Deprecated..
+     *
+     * @param defaultAlexaNotificationProtocolVersion Deprecated
      * @return this
      */
     public ServiceCreator setDefaultAlexaNotificationProtocolVersion(final String defaultAlexaNotificationProtocolVersion) {
@@ -195,8 +191,30 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
+     * URL to send delivery status callback..
+     *
+     * @param deliveryCallbackUrl Webhook URL
+     * @return this
+     */
+    public ServiceCreator setDeliveryCallbackUrl(final String deliveryCallbackUrl) {
+        this.deliveryCallbackUrl = deliveryCallbackUrl;
+        return this;
+    }
+
+    /**
+     * Callback configuration that enables delivery callbacks, default false.
+     *
+     * @param deliveryCallbackEnabled Enable delivery callbacks
+     * @return this
+     */
+    public ServiceCreator setDeliveryCallbackEnabled(final Boolean deliveryCallbackEnabled) {
+        this.deliveryCallbackEnabled = deliveryCallbackEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Service
      */
@@ -206,8 +224,7 @@ public class ServiceCreator extends Creator<Service> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.NOTIFY.toString(),
-            "/v1/Services",
-            client.getRegion()
+            "/v1/Services"
         );
 
         addPostParams(request);
@@ -220,14 +237,7 @@ public class ServiceCreator extends Creator<Service> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Service.fromJson(response.getStream(), client.getObjectMapper());
@@ -235,7 +245,7 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
@@ -285,6 +295,14 @@ public class ServiceCreator extends Creator<Service> {
 
         if (defaultAlexaNotificationProtocolVersion != null) {
             request.addPostParam("DefaultAlexaNotificationProtocolVersion", defaultAlexaNotificationProtocolVersion);
+        }
+
+        if (deliveryCallbackUrl != null) {
+            request.addPostParam("DeliveryCallbackUrl", deliveryCallbackUrl);
+        }
+
+        if (deliveryCallbackEnabled != null) {
+            request.addPostParam("DeliveryCallbackEnabled", deliveryCallbackEnabled.toString());
         }
     }
 }

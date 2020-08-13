@@ -1,23 +1,20 @@
 package com.twilio.security;
 
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.digest.MessageDigestAlgorithms;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class RequestValidator {
 
@@ -30,13 +27,18 @@ public class RequestValidator {
     }
 
     public boolean validate(String url, Map<String, String> params, String expectedSignature) {
-        String signature = getValidationSignature(url, params);
-        return secureCompare(signature, expectedSignature);
+        // check signature of url with and without port, since sig generation on back
+        // end is inconsistent
+        String signatureWithPort = getValidationSignature(addPort(url), params);
+        String signatureWithoutPort = getValidationSignature(removePort(url), params);
+        // If either url produces a valid signature, we accept the request as valid
+        return secureCompare(signatureWithPort, expectedSignature) || 
+            secureCompare(signatureWithoutPort, expectedSignature);
     }
 
     public boolean validate(String url, String body, String expectedSignature) throws URISyntaxException {
-        Map<String, String> empty = new HashMap<String, String>();
-        List<NameValuePair> params = URLEncodedUtils.parse(new URI(url), StandardCharsets.UTF_8.toString());
+        Map<String, String> empty = new HashMap<>();
+        List<NameValuePair> params = URLEncodedUtils.parse(new URI(url), Charset.forName("UTF-8"));
 
         NameValuePair bodySHA256 = null;
         for (NameValuePair param : params) {
@@ -56,15 +58,15 @@ public class RequestValidator {
     public boolean validateBody(String body, String expectedSHA) {
         MessageDigest digest;
         try {
-            digest = MessageDigest.getInstance(MessageDigestAlgorithms.SHA_256);
+            digest = MessageDigest.getInstance("SHA-256");
         } catch (NoSuchAlgorithmException e) {
             return false;
         }
 
         byte[] hash = digest.digest(body.getBytes(StandardCharsets.UTF_8));
-        String base64String = new String(Base64.encodeBase64(hash));
+        String hexString = DatatypeConverter.printHexBinary(hash).toLowerCase();
 
-        return secureCompare(expectedSHA, base64String);
+        return secureCompare(expectedSHA, hexString);
     }
 
     private String getValidationSignature(String url, Map<String, String> params) {
@@ -87,7 +89,7 @@ public class RequestValidator {
             mac.init(signingKey);
 
             byte[] rawHmac = mac.doFinal(builder.toString().getBytes(StandardCharsets.UTF_8));
-            return new String(Base64.encodeBase64(rawHmac));
+            return DatatypeConverter.printBase64Binary(rawHmac);
 
         } catch (Exception e) {
             return null;
@@ -109,6 +111,43 @@ public class RequestValidator {
             mismatch |= a.charAt(i) ^ b.charAt(i);
         }
         return mismatch == 0;
+    }
+
+    private String removePort(String url) {
+        try {
+            URI parsedUrl = new URI(url);
+            return (parsedUrl.getPort() == -1) ? url : updatePort(parsedUrl, -1);
+        } catch (Exception e) {
+            return url;
+        }
+    }
+    
+    private String addPort(String url) {
+        try {
+            URI parsedUrl = new URI(url);
+            if (parsedUrl.getPort() != -1) {
+                return url;
+            }
+            int port = Objects.equals(parsedUrl.getScheme(), "https") ? 443 : 80;
+            return updatePort(parsedUrl, port);
+        } catch (Exception e) {
+            return url;
+        }
+    }
+
+    private String updatePort(URI url, int newPort) {
+        try {
+            return new URI(
+                url.getScheme(),
+                url.getUserInfo(),
+                url.getHost(), 
+                newPort,
+                url.getPath(),
+                url.getQuery(),
+                url.getFragment()).toString();
+        } catch (Exception e) {
+            return url.toString();
+        }
     }
 
 }

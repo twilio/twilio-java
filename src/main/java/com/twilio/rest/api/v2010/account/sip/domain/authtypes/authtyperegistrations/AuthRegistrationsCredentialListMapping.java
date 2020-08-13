@@ -37,51 +37,56 @@ public class AuthRegistrationsCredentialListMapping extends Resource {
 
     /**
      * Create a AuthRegistrationsCredentialListMappingCreator to execute create.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param credentialListSid A string that uniquely identifies credential list
-     *                          resource
+     *
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param pathDomainSid The SID of the SIP domain that will contain the new
+     *                      resource
+     * @param credentialListSid The SID of the CredentialList resource to map to
+     *                          the SIP domain
      * @return AuthRegistrationsCredentialListMappingCreator capable of executing
      *         the create
      */
-    public static AuthRegistrationsCredentialListMappingCreator creator(final String pathAccountSid, 
-                                                                        final String pathDomainSid, 
+    public static AuthRegistrationsCredentialListMappingCreator creator(final String pathAccountSid,
+                                                                        final String pathDomainSid,
                                                                         final String credentialListSid) {
         return new AuthRegistrationsCredentialListMappingCreator(pathAccountSid, pathDomainSid, credentialListSid);
     }
 
     /**
      * Create a AuthRegistrationsCredentialListMappingCreator to execute create.
-     * 
-     * @param pathDomainSid The domain_sid
-     * @param credentialListSid A string that uniquely identifies credential list
-     *                          resource
+     *
+     * @param pathDomainSid The SID of the SIP domain that will contain the new
+     *                      resource
+     * @param credentialListSid The SID of the CredentialList resource to map to
+     *                          the SIP domain
      * @return AuthRegistrationsCredentialListMappingCreator capable of executing
      *         the create
      */
-    public static AuthRegistrationsCredentialListMappingCreator creator(final String pathDomainSid, 
+    public static AuthRegistrationsCredentialListMappingCreator creator(final String pathDomainSid,
                                                                         final String credentialListSid) {
         return new AuthRegistrationsCredentialListMappingCreator(pathDomainSid, credentialListSid);
     }
 
     /**
      * Create a AuthRegistrationsCredentialListMappingReader to execute read.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathDomainSid The SID of the SIP domain that contains the resources
+     *                      to read
      * @return AuthRegistrationsCredentialListMappingReader capable of executing
      *         the read
      */
-    public static AuthRegistrationsCredentialListMappingReader reader(final String pathAccountSid, 
+    public static AuthRegistrationsCredentialListMappingReader reader(final String pathAccountSid,
                                                                       final String pathDomainSid) {
         return new AuthRegistrationsCredentialListMappingReader(pathAccountSid, pathDomainSid);
     }
 
     /**
      * Create a AuthRegistrationsCredentialListMappingReader to execute read.
-     * 
-     * @param pathDomainSid The domain_sid
+     *
+     * @param pathDomainSid The SID of the SIP domain that contains the resources
+     *                      to read
      * @return AuthRegistrationsCredentialListMappingReader capable of executing
      *         the read
      */
@@ -91,56 +96,62 @@ public class AuthRegistrationsCredentialListMapping extends Resource {
 
     /**
      * Create a AuthRegistrationsCredentialListMappingFetcher to execute fetch.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param pathSid Fetch by unique credential list Sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathDomainSid The SID of the SIP domain that contains the resource to
+     *                      fetch
+     * @param pathSid The unique string that identifies the resource
      * @return AuthRegistrationsCredentialListMappingFetcher capable of executing
      *         the fetch
      */
-    public static AuthRegistrationsCredentialListMappingFetcher fetcher(final String pathAccountSid, 
-                                                                        final String pathDomainSid, 
+    public static AuthRegistrationsCredentialListMappingFetcher fetcher(final String pathAccountSid,
+                                                                        final String pathDomainSid,
                                                                         final String pathSid) {
         return new AuthRegistrationsCredentialListMappingFetcher(pathAccountSid, pathDomainSid, pathSid);
     }
 
     /**
      * Create a AuthRegistrationsCredentialListMappingFetcher to execute fetch.
-     * 
-     * @param pathDomainSid The domain_sid
-     * @param pathSid Fetch by unique credential list Sid
+     *
+     * @param pathDomainSid The SID of the SIP domain that contains the resource to
+     *                      fetch
+     * @param pathSid The unique string that identifies the resource
      * @return AuthRegistrationsCredentialListMappingFetcher capable of executing
      *         the fetch
      */
-    public static AuthRegistrationsCredentialListMappingFetcher fetcher(final String pathDomainSid, 
+    public static AuthRegistrationsCredentialListMappingFetcher fetcher(final String pathDomainSid,
                                                                         final String pathSid) {
         return new AuthRegistrationsCredentialListMappingFetcher(pathDomainSid, pathSid);
     }
 
     /**
      * Create a AuthRegistrationsCredentialListMappingDeleter to execute delete.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param pathSid Delete by unique credential list Sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathDomainSid The SID of the SIP domain that contains the resources
+     *                      to delete
+     * @param pathSid The unique string that identifies the resource
      * @return AuthRegistrationsCredentialListMappingDeleter capable of executing
      *         the delete
      */
-    public static AuthRegistrationsCredentialListMappingDeleter deleter(final String pathAccountSid, 
-                                                                        final String pathDomainSid, 
+    public static AuthRegistrationsCredentialListMappingDeleter deleter(final String pathAccountSid,
+                                                                        final String pathDomainSid,
                                                                         final String pathSid) {
         return new AuthRegistrationsCredentialListMappingDeleter(pathAccountSid, pathDomainSid, pathSid);
     }
 
     /**
      * Create a AuthRegistrationsCredentialListMappingDeleter to execute delete.
-     * 
-     * @param pathDomainSid The domain_sid
-     * @param pathSid Delete by unique credential list Sid
+     *
+     * @param pathDomainSid The SID of the SIP domain that contains the resources
+     *                      to delete
+     * @param pathSid The unique string that identifies the resource
      * @return AuthRegistrationsCredentialListMappingDeleter capable of executing
      *         the delete
      */
-    public static AuthRegistrationsCredentialListMappingDeleter deleter(final String pathDomainSid, 
+    public static AuthRegistrationsCredentialListMappingDeleter deleter(final String pathDomainSid,
                                                                         final String pathSid) {
         return new AuthRegistrationsCredentialListMappingDeleter(pathDomainSid, pathSid);
     }
@@ -148,7 +159,7 @@ public class AuthRegistrationsCredentialListMapping extends Resource {
     /**
      * Converts a JSON String into a AuthRegistrationsCredentialListMapping object
      * using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AuthRegistrationsCredentialListMapping object represented by the
@@ -168,7 +179,7 @@ public class AuthRegistrationsCredentialListMapping extends Resource {
     /**
      * Converts a JSON InputStream into a AuthRegistrationsCredentialListMapping
      * object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AuthRegistrationsCredentialListMapping object represented by the
@@ -193,13 +204,13 @@ public class AuthRegistrationsCredentialListMapping extends Resource {
 
     @JsonCreator
     private AuthRegistrationsCredentialListMapping(@JsonProperty("account_sid")
-                                                   final String accountSid, 
+                                                   final String accountSid,
                                                    @JsonProperty("date_created")
-                                                   final String dateCreated, 
+                                                   final String dateCreated,
                                                    @JsonProperty("date_updated")
-                                                   final String dateUpdated, 
+                                                   final String dateUpdated,
                                                    @JsonProperty("friendly_name")
-                                                   final String friendlyName, 
+                                                   final String friendlyName,
                                                    @JsonProperty("sid")
                                                    final String sid) {
         this.accountSid = accountSid;
@@ -210,45 +221,45 @@ public class AuthRegistrationsCredentialListMapping extends Resource {
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
-     * 
-     * @return The unique sid that identifies this account
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The date this resource was created.
-     * 
-     * @return The date this resource was created
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
+     *
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this resource was last updated.
-     * 
-     * @return The date this resource was last updated
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
+     *
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The A human readable description of this resource.
-     * 
-     * @return A human readable description of this resource
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The A string that uniquely identifies this resource.
-     * 
-     * @return A string that uniquely identifies this resource
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
@@ -266,10 +277,10 @@ public class AuthRegistrationsCredentialListMapping extends Resource {
 
         AuthRegistrationsCredentialListMapping other = (AuthRegistrationsCredentialListMapping) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
                Objects.equals(sid, other.sid);
     }
 

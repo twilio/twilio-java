@@ -33,68 +33,68 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Address extends Resource {
-    private static final long serialVersionUID = 205717359907857L;
+    private static final long serialVersionUID = 59858064655653L;
 
     /**
      * Create a AddressCreator to execute create.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param customerName Your name or business name, or that of your customer.
-     * @param street The number and street address where you or your customer is
-     *               located.
-     * @param city The city in which you or your customer is located.
-     * @param region The state or region in which you or your customer is located.
-     * @param postalCode The postal code in which you or your customer is located.
-     * @param isoCountry The ISO country code of your or your customer's address.
+     *
+     * @param pathAccountSid The SID of the Account that will be responsible for
+     *                       the new Address resource
+     * @param customerName The name to associate with the new address
+     * @param street The number and street address of the new address
+     * @param city The city of the new address
+     * @param region The state or region of the new address
+     * @param postalCode The postal code of the new address
+     * @param isoCountry The ISO country code of the new address
      * @return AddressCreator capable of executing the create
      */
-    public static AddressCreator creator(final String pathAccountSid, 
-                                         final String customerName, 
-                                         final String street, 
-                                         final String city, 
-                                         final String region, 
-                                         final String postalCode, 
+    public static AddressCreator creator(final String pathAccountSid,
+                                         final String customerName,
+                                         final String street,
+                                         final String city,
+                                         final String region,
+                                         final String postalCode,
                                          final String isoCountry) {
         return new AddressCreator(pathAccountSid, customerName, street, city, region, postalCode, isoCountry);
     }
 
     /**
      * Create a AddressCreator to execute create.
-     * 
-     * @param customerName Your name or business name, or that of your customer.
-     * @param street The number and street address where you or your customer is
-     *               located.
-     * @param city The city in which you or your customer is located.
-     * @param region The state or region in which you or your customer is located.
-     * @param postalCode The postal code in which you or your customer is located.
-     * @param isoCountry The ISO country code of your or your customer's address.
+     *
+     * @param customerName The name to associate with the new address
+     * @param street The number and street address of the new address
+     * @param city The city of the new address
+     * @param region The state or region of the new address
+     * @param postalCode The postal code of the new address
+     * @param isoCountry The ISO country code of the new address
      * @return AddressCreator capable of executing the create
      */
-    public static AddressCreator creator(final String customerName, 
-                                         final String street, 
-                                         final String city, 
-                                         final String region, 
-                                         final String postalCode, 
+    public static AddressCreator creator(final String customerName,
+                                         final String street,
+                                         final String city,
+                                         final String region,
+                                         final String postalCode,
                                          final String isoCountry) {
         return new AddressCreator(customerName, street, city, region, postalCode, isoCountry);
     }
 
     /**
      * Create a AddressDeleter to execute delete.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The SID of the Account that is responsible for the
+     *                       resources to delete
+     * @param pathSid The unique string that identifies the resource
      * @return AddressDeleter capable of executing the delete
      */
-    public static AddressDeleter deleter(final String pathAccountSid, 
+    public static AddressDeleter deleter(final String pathAccountSid,
                                          final String pathSid) {
         return new AddressDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a AddressDeleter to execute delete.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return AddressDeleter capable of executing the delete
      */
     public static AddressDeleter deleter(final String pathSid) {
@@ -103,20 +103,21 @@ public class Address extends Resource {
 
     /**
      * Create a AddressFetcher to execute fetch.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The SID of the Account that is responsible for this
+     *                       address
+     * @param pathSid The unique string that identifies the resource
      * @return AddressFetcher capable of executing the fetch
      */
-    public static AddressFetcher fetcher(final String pathAccountSid, 
+    public static AddressFetcher fetcher(final String pathAccountSid,
                                          final String pathSid) {
         return new AddressFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a AddressFetcher to execute fetch.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return AddressFetcher capable of executing the fetch
      */
     public static AddressFetcher fetcher(final String pathSid) {
@@ -125,20 +126,21 @@ public class Address extends Resource {
 
     /**
      * Create a AddressUpdater to execute update.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The SID of the Account that is responsible for the
+     *                       resource to update
+     * @param pathSid The unique string that identifies the resource
      * @return AddressUpdater capable of executing the update
      */
-    public static AddressUpdater updater(final String pathAccountSid, 
+    public static AddressUpdater updater(final String pathAccountSid,
                                          final String pathSid) {
         return new AddressUpdater(pathAccountSid, pathSid);
     }
 
     /**
      * Create a AddressUpdater to execute update.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return AddressUpdater capable of executing the update
      */
     public static AddressUpdater updater(final String pathSid) {
@@ -147,8 +149,9 @@ public class Address extends Resource {
 
     /**
      * Create a AddressReader to execute read.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The SID of the Account that is responsible for this
+     *                       address
      * @return AddressReader capable of executing the read
      */
     public static AddressReader reader(final String pathAccountSid) {
@@ -157,7 +160,7 @@ public class Address extends Resource {
 
     /**
      * Create a AddressReader to execute read.
-     * 
+     *
      * @return AddressReader capable of executing the read
      */
     public static AddressReader reader() {
@@ -166,7 +169,7 @@ public class Address extends Resource {
 
     /**
      * Converts a JSON String into a Address object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Address object represented by the provided JSON
@@ -185,7 +188,7 @@ public class Address extends Resource {
     /**
      * Converts a JSON InputStream into a Address object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Address object represented by the provided JSON
@@ -215,36 +218,39 @@ public class Address extends Resource {
     private final String uri;
     private final Boolean emergencyEnabled;
     private final Boolean validated;
+    private final Boolean verified;
 
     @JsonCreator
     private Address(@JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("city")
-                    final String city, 
+                    final String city,
                     @JsonProperty("customer_name")
-                    final String customerName, 
+                    final String customerName,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("friendly_name")
-                    final String friendlyName, 
+                    final String friendlyName,
                     @JsonProperty("iso_country")
-                    final String isoCountry, 
+                    final String isoCountry,
                     @JsonProperty("postal_code")
-                    final String postalCode, 
+                    final String postalCode,
                     @JsonProperty("region")
-                    final String region, 
+                    final String region,
                     @JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("street")
-                    final String street, 
+                    final String street,
                     @JsonProperty("uri")
-                    final String uri, 
+                    final String uri,
                     @JsonProperty("emergency_enabled")
-                    final Boolean emergencyEnabled, 
+                    final Boolean emergencyEnabled,
                     @JsonProperty("validated")
-                    final Boolean validated) {
+                    final Boolean validated,
+                    @JsonProperty("verified")
+                    final Boolean verified) {
         this.accountSid = accountSid;
         this.city = city;
         this.customerName = customerName;
@@ -259,137 +265,144 @@ public class Address extends Resource {
         this.uri = uri;
         this.emergencyEnabled = emergencyEnabled;
         this.validated = validated;
+        this.verified = verified;
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this address..
-     * 
-     * @return The unique id of the Account responsible for this address.
+     * Returns The SID of the Account that is responsible for the resource.
+     *
+     * @return The SID of the Account that is responsible for the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The city in which you or your customer is located..
-     * 
-     * @return The city in which you or your customer is located.
+     * Returns The city in which the address is located.
+     *
+     * @return The city in which the address is located
      */
     public final String getCity() {
         return this.city;
     }
 
     /**
-     * Returns The Your name or business name, or that of your customer..
-     * 
-     * @return Your name or business name, or that of your customer.
+     * Returns The name associated with the address.
+     *
+     * @return The name associated with the address
      */
     public final String getCustomerName() {
         return this.customerName;
     }
 
     /**
-     * Returns The The date_created.
-     * 
-     * @return The date_created
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
+     *
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
-     * 
-     * @return The date_updated
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
+     *
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The A human-readable description of the address..
-     * 
-     * @return A human-readable description of the address.
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The ISO country code of your or your customer's address..
-     * 
-     * @return The ISO country code of your or your customer's address.
+     * Returns The ISO country code of the address.
+     *
+     * @return The ISO country code of the address
      */
     public final String getIsoCountry() {
         return this.isoCountry;
     }
 
     /**
-     * Returns The The postal code in which you or your customer is located..
-     * 
-     * @return The postal code in which you or your customer is located.
+     * Returns The postal code of the address.
+     *
+     * @return The postal code of the address
      */
     public final String getPostalCode() {
         return this.postalCode;
     }
 
     /**
-     * Returns The The state or region in which you or your customer is located..
-     * 
-     * @return The state or region in which you or your customer is located.
+     * Returns The state or region of the address.
+     *
+     * @return The state or region of the address
      */
     public final String getRegion() {
         return this.region;
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this address..
-     * 
-     * @return A 34 character string that uniquely identifies this address.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The number and street address where you or your customer is
-     * located..
-     * 
-     * @return The number and street address where you or your customer is located.
+     * Returns The number and street address of the address.
+     *
+     * @return The number and street address of the address
      */
     public final String getStreet() {
         return this.street;
     }
 
     /**
-     * Returns The The URI for this resource, relative to https://api..
-     * 
-     * @return The URI for this resource, relative to https://api.
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
+     *
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;
     }
 
     /**
-     * Returns The This is a value that indicates if emergency calling has been
-     * enabled on this number..
-     * 
-     * @return This is a value that indicates if emergency calling has been enabled
-     *         on this number.
+     * Returns Whether emergency calling has been enabled on this number.
+     *
+     * @return Whether emergency calling has been enabled on this number
      */
     public final Boolean getEmergencyEnabled() {
         return this.emergencyEnabled;
     }
 
     /**
-     * Returns The In some countries, addresses are validated to comply with local
-     * regulation..
-     * 
-     * @return In some countries, addresses are validated to comply with local
-     *         regulation.
+     * Returns Whether the address has been validated to comply with local
+     * regulation.
+     *
+     * @return Whether the address has been validated to comply with local
+     *         regulation
      */
     public final Boolean getValidated() {
         return this.validated;
+    }
+
+    /**
+     * Returns Whether the address has been verified to comply with regulation.
+     *
+     * @return Whether the address has been verified to comply with regulation
+     */
+    public final Boolean getVerified() {
+        return this.verified;
     }
 
     @Override
@@ -404,20 +417,21 @@ public class Address extends Resource {
 
         Address other = (Address) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(city, other.city) && 
-               Objects.equals(customerName, other.customerName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(isoCountry, other.isoCountry) && 
-               Objects.equals(postalCode, other.postalCode) && 
-               Objects.equals(region, other.region) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(street, other.street) && 
-               Objects.equals(uri, other.uri) && 
-               Objects.equals(emergencyEnabled, other.emergencyEnabled) && 
-               Objects.equals(validated, other.validated);
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(city, other.city) &&
+               Objects.equals(customerName, other.customerName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(isoCountry, other.isoCountry) &&
+               Objects.equals(postalCode, other.postalCode) &&
+               Objects.equals(region, other.region) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(street, other.street) &&
+               Objects.equals(uri, other.uri) &&
+               Objects.equals(emergencyEnabled, other.emergencyEnabled) &&
+               Objects.equals(validated, other.validated) &&
+               Objects.equals(verified, other.verified);
     }
 
     @Override
@@ -435,7 +449,8 @@ public class Address extends Resource {
                             street,
                             uri,
                             emergencyEnabled,
-                            validated);
+                            validated,
+                            verified);
     }
 
     @Override
@@ -455,6 +470,7 @@ public class Address extends Resource {
                           .add("uri", uri)
                           .add("emergencyEnabled", emergencyEnabled)
                           .add("validated", validated)
+                          .add("verified", verified)
                           .toString();
     }
 }

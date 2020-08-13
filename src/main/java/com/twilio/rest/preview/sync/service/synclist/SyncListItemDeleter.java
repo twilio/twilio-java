@@ -29,13 +29,13 @@ public class SyncListItemDeleter extends Deleter<SyncListItem> {
 
     /**
      * Construct a new SyncListItemDeleter.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathListSid The list_sid
      * @param pathIndex The index
      */
-    public SyncListItemDeleter(final String pathServiceSid, 
-                               final String pathListSid, 
+    public SyncListItemDeleter(final String pathServiceSid,
+                               final String pathListSid,
                                final Integer pathIndex) {
         this.pathServiceSid = pathServiceSid;
         this.pathListSid = pathListSid;
@@ -44,7 +44,7 @@ public class SyncListItemDeleter extends Deleter<SyncListItem> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -53,8 +53,7 @@ public class SyncListItemDeleter extends Deleter<SyncListItem> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Items/" + this.pathIndex + "",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Items/" + this.pathIndex + ""
         );
 
         Response response = client.request(request);
@@ -66,14 +65,7 @@ public class SyncListItemDeleter extends Deleter<SyncListItem> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

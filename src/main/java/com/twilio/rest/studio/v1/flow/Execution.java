@@ -34,10 +34,6 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Execution extends Resource {
     private static final long serialVersionUID = 259041091594783L;
@@ -69,8 +65,8 @@ public class Execution extends Resource {
 
     /**
      * Create a ExecutionReader to execute read.
-     * 
-     * @param pathFlowSid Flow Sid.
+     *
+     * @param pathFlowSid The SID of the Flow
      * @return ExecutionReader capable of executing the read
      */
     public static ExecutionReader reader(final String pathFlowSid) {
@@ -79,47 +75,61 @@ public class Execution extends Resource {
 
     /**
      * Create a ExecutionFetcher to execute fetch.
-     * 
-     * @param pathFlowSid Flow Sid.
-     * @param pathSid Execution Sid.
+     *
+     * @param pathFlowSid The SID of the Flow
+     * @param pathSid The SID of the Execution resource to fetch
      * @return ExecutionFetcher capable of executing the fetch
      */
-    public static ExecutionFetcher fetcher(final String pathFlowSid, 
+    public static ExecutionFetcher fetcher(final String pathFlowSid,
                                            final String pathSid) {
         return new ExecutionFetcher(pathFlowSid, pathSid);
     }
 
     /**
      * Create a ExecutionCreator to execute create.
-     * 
-     * @param pathFlowSid Flow Sid.
-     * @param to The Contact phone number to start a Studio Flow Execution.
+     *
+     * @param pathFlowSid The SID of the Flow
+     * @param to The Contact phone number to start a Studio Flow Execution
      * @param from The Twilio phone number to send messages or initiate calls from
-     *             during the Flow Execution.
+     *             during the Flow Execution
      * @return ExecutionCreator capable of executing the create
      */
-    public static ExecutionCreator creator(final String pathFlowSid, 
-                                           final com.twilio.type.PhoneNumber to, 
+    public static ExecutionCreator creator(final String pathFlowSid,
+                                           final com.twilio.type.PhoneNumber to,
                                            final com.twilio.type.PhoneNumber from) {
         return new ExecutionCreator(pathFlowSid, to, from);
     }
 
     /**
      * Create a ExecutionDeleter to execute delete.
-     * 
-     * @param pathFlowSid Flow Sid.
-     * @param pathSid Execution Sid.
+     *
+     * @param pathFlowSid The SID of the Flow
+     * @param pathSid The SID of the Execution resource to delete
      * @return ExecutionDeleter capable of executing the delete
      */
-    public static ExecutionDeleter deleter(final String pathFlowSid, 
+    public static ExecutionDeleter deleter(final String pathFlowSid,
                                            final String pathSid) {
         return new ExecutionDeleter(pathFlowSid, pathSid);
     }
 
     /**
+     * Create a ExecutionUpdater to execute update.
+     *
+     * @param pathFlowSid The SID of the Flow
+     * @param pathSid The SID of the Execution resource to update
+     * @param status The status of the Execution
+     * @return ExecutionUpdater capable of executing the update
+     */
+    public static ExecutionUpdater updater(final String pathFlowSid,
+                                           final String pathSid,
+                                           final Execution.Status status) {
+        return new ExecutionUpdater(pathFlowSid, pathSid, status);
+    }
+
+    /**
      * Converts a JSON String into a Execution object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Execution object represented by the provided JSON
@@ -138,7 +148,7 @@ public class Execution extends Resource {
     /**
      * Converts a JSON InputStream into a Execution object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Execution object represented by the provided JSON
@@ -168,25 +178,25 @@ public class Execution extends Resource {
 
     @JsonCreator
     private Execution(@JsonProperty("sid")
-                      final String sid, 
+                      final String sid,
                       @JsonProperty("account_sid")
-                      final String accountSid, 
+                      final String accountSid,
                       @JsonProperty("flow_sid")
-                      final String flowSid, 
+                      final String flowSid,
                       @JsonProperty("contact_sid")
-                      final String contactSid, 
+                      final String contactSid,
                       @JsonProperty("contact_channel_address")
-                      final String contactChannelAddress, 
+                      final String contactChannelAddress,
                       @JsonProperty("context")
-                      final Map<String, Object> context, 
+                      final Map<String, Object> context,
                       @JsonProperty("status")
-                      final Execution.Status status, 
+                      final Execution.Status status,
                       @JsonProperty("date_created")
-                      final String dateCreated, 
+                      final String dateCreated,
                       @JsonProperty("date_updated")
-                      final String dateUpdated, 
+                      final String dateUpdated,
                       @JsonProperty("url")
-                      final URI url, 
+                      final URI url,
                       @JsonProperty("links")
                       final Map<String, String> links) {
         this.sid = sid;
@@ -203,101 +213,101 @@ public class Execution extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Execution..
-     * 
-     * @return A string that uniquely identifies this Execution.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Account Sid..
-     * 
-     * @return Account Sid.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Flow Sid..
-     * 
-     * @return Flow Sid.
+     * Returns The SID of the Flow.
+     *
+     * @return The SID of the Flow
      */
     public final String getFlowSid() {
         return this.flowSid;
     }
 
     /**
-     * Returns The Contact Sid..
-     * 
-     * @return Contact Sid.
+     * Returns The SID of the Contact.
+     *
+     * @return The SID of the Contact
      */
     public final String getContactSid() {
         return this.contactSid;
     }
 
     /**
-     * Returns The The phone number, SIP address or Client identifier that triggered
-     * this Execution..
-     * 
+     * Returns The phone number, SIP address or Client identifier that triggered the
+     * Execution.
+     *
      * @return The phone number, SIP address or Client identifier that triggered
-     *         this Execution.
+     *         the Execution
      */
     public final String getContactChannelAddress() {
         return this.contactChannelAddress;
     }
 
     /**
-     * Returns The Flow state..
-     * 
-     * @return Flow state.
+     * Returns The current state of the flow.
+     *
+     * @return The current state of the flow
      */
     public final Map<String, Object> getContext() {
         return this.context;
     }
 
     /**
-     * Returns The The Status of this Execution.
-     * 
-     * @return The Status of this Execution
+     * Returns The status of the Execution.
+     *
+     * @return The status of the Execution
      */
     public final Execution.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The date this Execution was created.
-     * 
-     * @return The date this Execution was created
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Execution was updated.
-     * 
-     * @return The date this Execution was updated
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL of this resource..
-     * 
-     * @return The URL of this resource.
+     * Returns The absolute URL of the resource.
+     *
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Nested resource URLs..
-     * 
-     * @return Nested resource URLs.
+     * Returns Nested resource URLs.
+     *
+     * @return Nested resource URLs
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -315,16 +325,16 @@ public class Execution extends Resource {
 
         Execution other = (Execution) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(flowSid, other.flowSid) && 
-               Objects.equals(contactSid, other.contactSid) && 
-               Objects.equals(contactChannelAddress, other.contactChannelAddress) && 
-               Objects.equals(context, other.context) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(flowSid, other.flowSid) &&
+               Objects.equals(contactSid, other.contactSid) &&
+               Objects.equals(contactChannelAddress, other.contactChannelAddress) &&
+               Objects.equals(context, other.context) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

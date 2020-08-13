@@ -27,9 +27,9 @@ public class ServiceReader extends Reader<Service> {
     private String friendlyName;
 
     /**
-     * Filter services by FriendlyName.
-     * 
-     * @param friendlyName Filter services by FriendlyName
+     * The string that identifies the Service resources to read..
+     *
+     * @param friendlyName The string that identifies the Service resources to read
      * @return this
      */
     public ServiceReader setFriendlyName(final String friendlyName) {
@@ -39,7 +39,7 @@ public class ServiceReader extends Reader<Service> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Service ResourceSet
      */
@@ -50,7 +50,7 @@ public class ServiceReader extends Reader<Service> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Service ResourceSet
      */
@@ -60,8 +60,7 @@ public class ServiceReader extends Reader<Service> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.NOTIFY.toString(),
-            "/v1/Services",
-            client.getRegion()
+            "/v1/Services"
         );
 
         addQueryParams(request);
@@ -70,7 +69,7 @@ public class ServiceReader extends Reader<Service> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Service ResourceSet
@@ -88,47 +87,41 @@ public class ServiceReader extends Reader<Service> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Service> nextPage(final Page<Service> page, 
+    public Page<Service> nextPage(final Page<Service> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.NOTIFY.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.NOTIFY.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Service> previousPage(final Page<Service> page, 
+    public Page<Service> previousPage(final Page<Service> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.NOTIFY.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.NOTIFY.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Service Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -143,14 +136,7 @@ public class ServiceReader extends Reader<Service> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -163,7 +149,7 @@ public class ServiceReader extends Reader<Service> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

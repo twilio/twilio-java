@@ -42,32 +42,34 @@ public class SyncStream extends Resource {
 
     /**
      * Create a SyncStreamFetcher to execute fetch.
-     * 
-     * @param pathServiceSid Service Instance SID or unique name.
-     * @param pathSid Stream SID or unique name.
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Sync Stream
+     *                       resource to fetch
+     * @param pathSid The SID of the Stream resource to fetch
      * @return SyncStreamFetcher capable of executing the fetch
      */
-    public static SyncStreamFetcher fetcher(final String pathServiceSid, 
+    public static SyncStreamFetcher fetcher(final String pathServiceSid,
                                             final String pathSid) {
         return new SyncStreamFetcher(pathServiceSid, pathSid);
     }
 
     /**
      * Create a SyncStreamDeleter to execute delete.
-     * 
-     * @param pathServiceSid Service Instance SID or unique name.
-     * @param pathSid Stream SID or unique name.
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Sync Stream
+     *                       resource to delete
+     * @param pathSid The SID of the Stream resource to delete
      * @return SyncStreamDeleter capable of executing the delete
      */
-    public static SyncStreamDeleter deleter(final String pathServiceSid, 
+    public static SyncStreamDeleter deleter(final String pathServiceSid,
                                             final String pathSid) {
         return new SyncStreamDeleter(pathServiceSid, pathSid);
     }
 
     /**
      * Create a SyncStreamCreator to execute create.
-     * 
-     * @param pathServiceSid The service_sid
+     *
+     * @param pathServiceSid The SID of the Sync Service to create the new Stream in
      * @return SyncStreamCreator capable of executing the create
      */
     public static SyncStreamCreator creator(final String pathServiceSid) {
@@ -76,20 +78,22 @@ public class SyncStream extends Resource {
 
     /**
      * Create a SyncStreamUpdater to execute update.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Sync Stream
+     *                       resource to update
+     * @param pathSid The SID of the Stream resource to update
      * @return SyncStreamUpdater capable of executing the update
      */
-    public static SyncStreamUpdater updater(final String pathServiceSid, 
+    public static SyncStreamUpdater updater(final String pathServiceSid,
                                             final String pathSid) {
         return new SyncStreamUpdater(pathServiceSid, pathSid);
     }
 
     /**
      * Create a SyncStreamReader to execute read.
-     * 
-     * @param pathServiceSid Service Instance SID or unique name.
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Stream resources
+     *                       to read
      * @return SyncStreamReader capable of executing the read
      */
     public static SyncStreamReader reader(final String pathServiceSid) {
@@ -99,7 +103,7 @@ public class SyncStream extends Resource {
     /**
      * Converts a JSON String into a SyncStream object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SyncStream object represented by the provided JSON
@@ -118,7 +122,7 @@ public class SyncStream extends Resource {
     /**
      * Converts a JSON InputStream into a SyncStream object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SyncStream object represented by the provided JSON
@@ -147,23 +151,23 @@ public class SyncStream extends Resource {
 
     @JsonCreator
     private SyncStream(@JsonProperty("sid")
-                       final String sid, 
+                       final String sid,
                        @JsonProperty("unique_name")
-                       final String uniqueName, 
+                       final String uniqueName,
                        @JsonProperty("account_sid")
-                       final String accountSid, 
+                       final String accountSid,
                        @JsonProperty("service_sid")
-                       final String serviceSid, 
+                       final String serviceSid,
                        @JsonProperty("url")
-                       final URI url, 
+                       final URI url,
                        @JsonProperty("links")
-                       final Map<String, String> links, 
+                       final Map<String, String> links,
                        @JsonProperty("date_expires")
-                       final String dateExpires, 
+                       final String dateExpires,
                        @JsonProperty("date_created")
-                       final String dateCreated, 
+                       final String dateCreated,
                        @JsonProperty("date_updated")
-                       final String dateUpdated, 
+                       final String dateUpdated,
                        @JsonProperty("created_by")
                        final String createdBy) {
         this.sid = sid;
@@ -179,90 +183,90 @@ public class SyncStream extends Resource {
     }
 
     /**
-     * Returns The Stream SID..
-     * 
-     * @return Stream SID.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Stream unique name..
-     * 
-     * @return Stream unique name.
+     * Returns An application-defined string that uniquely identifies the resource.
+     *
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The Twilio Account SID..
-     * 
-     * @return Twilio Account SID.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Service Instance SID..
-     * 
-     * @return Service Instance SID.
+     * Returns The SID of the Sync Service that the resource is associated with.
+     *
+     * @return The SID of the Sync Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The URL of this Stream..
-     * 
-     * @return URL of this Stream.
+     * Returns The absolute URL of the Message Stream resource.
+     *
+     * @return The absolute URL of the Message Stream resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Nested resource URLs..
-     * 
-     * @return Nested resource URLs.
+     * Returns The URLs of the Stream's nested resources.
+     *
+     * @return The URLs of the Stream's nested resources
      */
     public final Map<String, String> getLinks() {
         return this.links;
     }
 
     /**
-     * Returns The The date this Stream expires..
-     * 
-     * @return The date this Stream expires.
+     * Returns The ISO 8601 date and time in GMT when the Message Stream expires.
+     *
+     * @return The ISO 8601 date and time in GMT when the Message Stream expires
      */
     public final DateTime getDateExpires() {
         return this.dateExpires;
     }
 
     /**
-     * Returns The The date this Stream was created..
-     * 
-     * @return The date this Stream was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Stream was updated..
-     * 
-     * @return The date this Stream was updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The Identity of the Stream creator..
-     * 
-     * @return Identity of the Stream creator.
+     * Returns The Identity of the Stream's creator.
+     *
+     * @return The Identity of the Stream's creator
      */
     public final String getCreatedBy() {
         return this.createdBy;
@@ -280,15 +284,15 @@ public class SyncStream extends Resource {
 
         SyncStream other = (SyncStream) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(links, other.links) && 
-               Objects.equals(dateExpires, other.dateExpires) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(links, other.links) &&
+               Objects.equals(dateExpires, other.dateExpires) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(createdBy, other.createdBy);
     }
 

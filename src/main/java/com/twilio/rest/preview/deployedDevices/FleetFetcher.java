@@ -27,7 +27,7 @@ public class FleetFetcher extends Fetcher<Fleet> {
 
     /**
      * Construct a new FleetFetcher.
-     * 
+     *
      * @param pathSid A string that uniquely identifies the Fleet.
      */
     public FleetFetcher(final String pathSid) {
@@ -36,7 +36,7 @@ public class FleetFetcher extends Fetcher<Fleet> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Fleet
      */
@@ -46,8 +46,7 @@ public class FleetFetcher extends Fetcher<Fleet> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathSid + "",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -59,14 +58,7 @@ public class FleetFetcher extends Fetcher<Fleet> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Fleet.fromJson(response.getStream(), client.getObjectMapper());

@@ -10,6 +10,7 @@ package com.twilio.rest.studio.v1.flow;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -18,26 +19,53 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import org.joda.time.DateTime;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class ExecutionReader extends Reader<Execution> {
     private final String pathFlowSid;
+    private DateTime dateCreatedFrom;
+    private DateTime dateCreatedTo;
 
     /**
      * Construct a new ExecutionReader.
-     * 
-     * @param pathFlowSid Flow Sid.
+     *
+     * @param pathFlowSid The SID of the Flow
      */
     public ExecutionReader(final String pathFlowSid) {
         this.pathFlowSid = pathFlowSid;
     }
 
     /**
+     * Only show Execution resources starting on or after this [ISO
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as
+     * `YYYY-MM-DDThh:mm:ss-hh:mm`..
+     *
+     * @param dateCreatedFrom Only show Executions that started on or after this
+     *                        ISO 8601 date-time
+     * @return this
+     */
+    public ExecutionReader setDateCreatedFrom(final DateTime dateCreatedFrom) {
+        this.dateCreatedFrom = dateCreatedFrom;
+        return this;
+    }
+
+    /**
+     * Only show Execution resources starting before this [ISO
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as
+     * `YYYY-MM-DDThh:mm:ss-hh:mm`..
+     *
+     * @param dateCreatedTo Only show Executions that started before this ISO 8601
+     *                      date-time
+     * @return this
+     */
+    public ExecutionReader setDateCreatedTo(final DateTime dateCreatedTo) {
+        this.dateCreatedTo = dateCreatedTo;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Execution ResourceSet
      */
@@ -48,7 +76,7 @@ public class ExecutionReader extends Reader<Execution> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Execution ResourceSet
      */
@@ -58,8 +86,7 @@ public class ExecutionReader extends Reader<Execution> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Executions",
-            client.getRegion()
+            "/v1/Flows/" + this.pathFlowSid + "/Executions"
         );
 
         addQueryParams(request);
@@ -68,7 +95,7 @@ public class ExecutionReader extends Reader<Execution> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Execution ResourceSet
@@ -86,47 +113,41 @@ public class ExecutionReader extends Reader<Execution> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Execution> nextPage(final Page<Execution> page, 
+    public Page<Execution> nextPage(final Page<Execution> page,
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.STUDIO.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.STUDIO.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Execution> previousPage(final Page<Execution> page, 
+    public Page<Execution> previousPage(final Page<Execution> page,
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.STUDIO.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.STUDIO.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Execution Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -141,14 +162,7 @@ public class ExecutionReader extends Reader<Execution> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -161,10 +175,18 @@ public class ExecutionReader extends Reader<Execution> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
+        if (dateCreatedFrom != null) {
+            request.addQueryParam("DateCreatedFrom", dateCreatedFrom.toString());
+        }
+
+        if (dateCreatedTo != null) {
+            request.addQueryParam("DateCreatedTo", dateCreatedTo.toString());
+        }
+
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

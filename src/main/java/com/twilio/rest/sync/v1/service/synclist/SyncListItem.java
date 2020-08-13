@@ -94,69 +94,76 @@ public class SyncListItem extends Resource {
 
     /**
      * Create a SyncListItemFetcher to execute fetch.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathListSid The list_sid
-     * @param pathIndex The index
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Sync List Item
+     *                       resource to fetch
+     * @param pathListSid The SID of the Sync List with the Sync List Item resource
+     *                    to fetch
+     * @param pathIndex The index of the Sync List Item resource to fetch
      * @return SyncListItemFetcher capable of executing the fetch
      */
-    public static SyncListItemFetcher fetcher(final String pathServiceSid, 
-                                              final String pathListSid, 
+    public static SyncListItemFetcher fetcher(final String pathServiceSid,
+                                              final String pathListSid,
                                               final Integer pathIndex) {
         return new SyncListItemFetcher(pathServiceSid, pathListSid, pathIndex);
     }
 
     /**
      * Create a SyncListItemDeleter to execute delete.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathListSid The list_sid
-     * @param pathIndex The index
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Sync List Item
+     *                       resource to delete
+     * @param pathListSid The SID of the Sync List with the Sync List Item resource
+     *                    to delete
+     * @param pathIndex The index of the Sync List Item resource to delete
      * @return SyncListItemDeleter capable of executing the delete
      */
-    public static SyncListItemDeleter deleter(final String pathServiceSid, 
-                                              final String pathListSid, 
+    public static SyncListItemDeleter deleter(final String pathServiceSid,
+                                              final String pathListSid,
                                               final Integer pathIndex) {
         return new SyncListItemDeleter(pathServiceSid, pathListSid, pathIndex);
     }
 
     /**
      * Create a SyncListItemCreator to execute create.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathListSid The list_sid
-     * @param data Contains arbitrary user-defined, schema-less data that this List
-     *             Item stores, represented by a JSON object, up to 16KB.
+     *
+     * @param pathServiceSid The SID of the Sync Service to create the List Item in
+     * @param pathListSid The SID of the Sync List to add the new List Item to
+     * @param data A JSON string that represents an arbitrary, schema-less object
+     *             that the List Item stores
      * @return SyncListItemCreator capable of executing the create
      */
-    public static SyncListItemCreator creator(final String pathServiceSid, 
-                                              final String pathListSid, 
+    public static SyncListItemCreator creator(final String pathServiceSid,
+                                              final String pathListSid,
                                               final Map<String, Object> data) {
         return new SyncListItemCreator(pathServiceSid, pathListSid, data);
     }
 
     /**
      * Create a SyncListItemReader to execute read.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathListSid The list_sid
+     *
+     * @param pathServiceSid The SID of the Sync Service with the List Item
+     *                       resources to read
+     * @param pathListSid The SID of the Sync List with the List Items to read
      * @return SyncListItemReader capable of executing the read
      */
-    public static SyncListItemReader reader(final String pathServiceSid, 
+    public static SyncListItemReader reader(final String pathServiceSid,
                                             final String pathListSid) {
         return new SyncListItemReader(pathServiceSid, pathListSid);
     }
 
     /**
      * Create a SyncListItemUpdater to execute update.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathListSid The list_sid
-     * @param pathIndex The index
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Sync List Item
+     *                       resource to update
+     * @param pathListSid The SID of the Sync List with the Sync List Item resource
+     *                    to update
+     * @param pathIndex The index of the Sync List Item resource to update
      * @return SyncListItemUpdater capable of executing the update
      */
-    public static SyncListItemUpdater updater(final String pathServiceSid, 
-                                              final String pathListSid, 
+    public static SyncListItemUpdater updater(final String pathServiceSid,
+                                              final String pathListSid,
                                               final Integer pathIndex) {
         return new SyncListItemUpdater(pathServiceSid, pathListSid, pathIndex);
     }
@@ -164,7 +171,7 @@ public class SyncListItem extends Resource {
     /**
      * Converts a JSON String into a SyncListItem object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SyncListItem object represented by the provided JSON
@@ -183,7 +190,7 @@ public class SyncListItem extends Resource {
     /**
      * Converts a JSON InputStream into a SyncListItem object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SyncListItem object represented by the provided JSON
@@ -213,25 +220,25 @@ public class SyncListItem extends Resource {
 
     @JsonCreator
     private SyncListItem(@JsonProperty("index")
-                         final Integer index, 
+                         final Integer index,
                          @JsonProperty("account_sid")
-                         final String accountSid, 
+                         final String accountSid,
                          @JsonProperty("service_sid")
-                         final String serviceSid, 
+                         final String serviceSid,
                          @JsonProperty("list_sid")
-                         final String listSid, 
+                         final String listSid,
                          @JsonProperty("url")
-                         final URI url, 
+                         final URI url,
                          @JsonProperty("revision")
-                         final String revision, 
+                         final String revision,
                          @JsonProperty("data")
-                         final Map<String, Object> data, 
+                         final Map<String, Object> data,
                          @JsonProperty("date_expires")
-                         final String dateExpires, 
+                         final String dateExpires,
                          @JsonProperty("date_created")
-                         final String dateCreated, 
+                         final String dateCreated,
                          @JsonProperty("date_updated")
-                         final String dateUpdated, 
+                         final String dateUpdated,
                          @JsonProperty("created_by")
                          final String createdBy) {
         this.index = index;
@@ -248,110 +255,99 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Returns The Contains the numeric index of this List Item..
-     * 
-     * @return Contains the numeric index of this List Item.
+     * Returns The automatically generated index of the List Item.
+     *
+     * @return The automatically generated index of the List Item
      */
     public final Integer getIndex() {
         return this.index;
     }
 
     /**
-     * Returns The The unique SID identifier of the Twilio Account..
-     * 
-     * @return The unique SID identifier of the Twilio Account.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique SID identifier of the Service Instance that hosts this
-     * List object..
-     * 
-     * @return The unique SID identifier of the Service Instance that hosts this
-     *         List object.
+     * Returns The SID of the Sync Service that the resource is associated with.
+     *
+     * @return The SID of the Sync Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The unique 34-character SID identifier of the List containing
-     * this Item..
-     * 
-     * @return The unique 34-character SID identifier of the List containing this
-     *         Item.
+     * Returns The SID of the Sync List that contains the List Item.
+     *
+     * @return The SID of the Sync List that contains the List Item
      */
     public final String getListSid() {
         return this.listSid;
     }
 
     /**
-     * Returns The The absolute URL for this item..
-     * 
-     * @return The absolute URL for this item.
+     * Returns The absolute URL of the List Item resource.
+     *
+     * @return The absolute URL of the List Item resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Contains the current revision of this item, represented by a
-     * string identifier..
-     * 
-     * @return Contains the current revision of this item, represented by a string
-     *         identifier.
+     * Returns The current revision of the item, represented as a string.
+     *
+     * @return The current revision of the item, represented as a string
      */
     public final String getRevision() {
         return this.revision;
     }
 
     /**
-     * Returns The Contains arbitrary user-defined, schema-less data that this List
-     * Item stores, represented by a JSON object, up to 16KB..
-     * 
-     * @return Contains arbitrary user-defined, schema-less data that this List
-     *         Item stores, represented by a JSON object, up to 16KB.
+     * Returns An arbitrary, schema-less object that the List Item stores.
+     *
+     * @return An arbitrary, schema-less object that the List Item stores
      */
     public final Map<String, Object> getData() {
         return this.data;
     }
 
     /**
-     * Returns The Contains the date this item expires and gets deleted
-     * automatically..
-     * 
-     * @return Contains the date this item expires and gets deleted automatically.
+     * Returns The ISO 8601 date and time in GMT when the List Item expires.
+     *
+     * @return The ISO 8601 date and time in GMT when the List Item expires
      */
     public final DateTime getDateExpires() {
         return this.dateExpires;
     }
 
     /**
-     * Returns The The date this item was created, given in UTC ISO 8601 format..
-     * 
-     * @return The date this item was created, given in UTC ISO 8601 format.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The Specifies the date this item was last updated, given in UTC ISO
-     * 8601 format..
-     * 
-     * @return Specifies the date this item was last updated, given in UTC ISO 8601
-     *         format.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The identity of this item's creator..
-     * 
-     * @return The identity of this item's creator.
+     * Returns The identity of the List Item's creator.
+     *
+     * @return The identity of the List Item's creator
      */
     public final String getCreatedBy() {
         return this.createdBy;
@@ -369,16 +365,16 @@ public class SyncListItem extends Resource {
 
         SyncListItem other = (SyncListItem) o;
 
-        return Objects.equals(index, other.index) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(listSid, other.listSid) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(revision, other.revision) && 
-               Objects.equals(data, other.data) && 
-               Objects.equals(dateExpires, other.dateExpires) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(index, other.index) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(listSid, other.listSid) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(revision, other.revision) &&
+               Objects.equals(data, other.data) &&
+               Objects.equals(dateExpires, other.dateExpires) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(createdBy, other.createdBy);
     }
 

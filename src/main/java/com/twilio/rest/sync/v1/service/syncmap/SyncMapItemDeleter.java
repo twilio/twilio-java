@@ -28,13 +28,15 @@ public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
 
     /**
      * Construct a new SyncMapItemDeleter.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathMapSid The map_sid
-     * @param pathKey The key
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map Item
+     *                       resource to delete
+     * @param pathMapSid The SID of the Sync Map with the Sync Map Item resource to
+     *                   delete
+     * @param pathKey The key value of the Sync Map Item resource to delete
      */
-    public SyncMapItemDeleter(final String pathServiceSid, 
-                              final String pathMapSid, 
+    public SyncMapItemDeleter(final String pathServiceSid,
+                              final String pathMapSid,
                               final String pathKey) {
         this.pathServiceSid = pathServiceSid;
         this.pathMapSid = pathMapSid;
@@ -43,7 +45,7 @@ public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -52,8 +54,7 @@ public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Items/" + this.pathKey + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Items/" + this.pathKey + ""
         );
 
         Response response = client.request(request);
@@ -65,14 +66,7 @@ public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

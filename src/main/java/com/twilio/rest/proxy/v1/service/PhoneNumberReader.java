@@ -28,8 +28,9 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
 
     /**
      * Construct a new PhoneNumberReader.
-     * 
-     * @param pathServiceSid Service Sid.
+     *
+     * @param pathServiceSid The SID of the parent Service resource of the
+     *                       PhoneNumber resource to read
      */
     public PhoneNumberReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
@@ -37,7 +38,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return PhoneNumber ResourceSet
      */
@@ -48,7 +49,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return PhoneNumber ResourceSet
      */
@@ -58,8 +59,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PROXY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/PhoneNumbers",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/PhoneNumbers"
         );
 
         addQueryParams(request);
@@ -68,7 +68,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return PhoneNumber ResourceSet
@@ -86,47 +86,41 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<PhoneNumber> nextPage(final Page<PhoneNumber> page, 
+    public Page<PhoneNumber> nextPage(final Page<PhoneNumber> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.PROXY.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.PROXY.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<PhoneNumber> previousPage(final Page<PhoneNumber> page, 
+    public Page<PhoneNumber> previousPage(final Page<PhoneNumber> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.PROXY.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.PROXY.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of PhoneNumber Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -141,14 +135,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -161,7 +148,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

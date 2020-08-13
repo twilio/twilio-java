@@ -23,17 +23,18 @@ public class AwsUpdater extends Updater<Aws> {
 
     /**
      * Construct a new AwsUpdater.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      */
     public AwsUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
     /**
-     * The friendly_name.
-     * 
-     * @param friendlyName The friendly_name
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
+     *
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public AwsUpdater setFriendlyName(final String friendlyName) {
@@ -43,7 +44,7 @@ public class AwsUpdater extends Updater<Aws> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Aws
      */
@@ -53,8 +54,7 @@ public class AwsUpdater extends Updater<Aws> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.ACCOUNTS.toString(),
-            "/v1/Credentials/AWS/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Credentials/AWS/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -67,14 +67,7 @@ public class AwsUpdater extends Updater<Aws> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Aws.fromJson(response.getStream(), client.getObjectMapper());
@@ -82,7 +75,7 @@ public class AwsUpdater extends Updater<Aws> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

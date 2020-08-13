@@ -89,32 +89,33 @@ public class Channel extends Resource {
 
     /**
      * Create a ChannelFetcher to execute fetch.
-     * 
-     * @param pathServiceSid Sid of the Service this channel belongs to.
-     * @param pathSid Key that uniquely defines the channel to fetch.
+     *
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathSid The SID of the resource
      * @return ChannelFetcher capable of executing the fetch
      */
-    public static ChannelFetcher fetcher(final String pathServiceSid, 
+    public static ChannelFetcher fetcher(final String pathServiceSid,
                                          final String pathSid) {
         return new ChannelFetcher(pathServiceSid, pathSid);
     }
 
     /**
      * Create a ChannelDeleter to execute delete.
-     * 
-     * @param pathServiceSid Sid of the Service this channel belongs to.
-     * @param pathSid Key that uniquely defines the channel to delete.
+     *
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathSid The SID of the Channel resource to delete
      * @return ChannelDeleter capable of executing the delete
      */
-    public static ChannelDeleter deleter(final String pathServiceSid, 
+    public static ChannelDeleter deleter(final String pathServiceSid,
                                          final String pathSid) {
         return new ChannelDeleter(pathServiceSid, pathSid);
     }
 
     /**
      * Create a ChannelCreator to execute create.
-     * 
-     * @param pathServiceSid Sid of the Service this channel belongs to.
+     *
+     * @param pathServiceSid The SID of the Service to create the Channel resource
+     *                       under
      * @return ChannelCreator capable of executing the create
      */
     public static ChannelCreator creator(final String pathServiceSid) {
@@ -123,8 +124,8 @@ public class Channel extends Resource {
 
     /**
      * Create a ChannelReader to execute read.
-     * 
-     * @param pathServiceSid Sid of the Service this channel belongs to.
+     *
+     * @param pathServiceSid The SID of the Service to read the resources from
      * @return ChannelReader capable of executing the read
      */
     public static ChannelReader reader(final String pathServiceSid) {
@@ -133,19 +134,19 @@ public class Channel extends Resource {
 
     /**
      * Create a ChannelUpdater to execute update.
-     * 
-     * @param pathServiceSid Sid of the Service this channel belongs to.
-     * @param pathSid Key that uniquely defines the channel to fetch.
+     *
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathSid The SID of the Channel resource to update
      * @return ChannelUpdater capable of executing the update
      */
-    public static ChannelUpdater updater(final String pathServiceSid, 
+    public static ChannelUpdater updater(final String pathServiceSid,
                                          final String pathSid) {
         return new ChannelUpdater(pathServiceSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a Channel object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Channel object represented by the provided JSON
@@ -164,7 +165,7 @@ public class Channel extends Resource {
     /**
      * Converts a JSON InputStream into a Channel object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Channel object represented by the provided JSON
@@ -197,31 +198,31 @@ public class Channel extends Resource {
 
     @JsonCreator
     private Channel(@JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("service_sid")
-                    final String serviceSid, 
+                    final String serviceSid,
                     @JsonProperty("friendly_name")
-                    final String friendlyName, 
+                    final String friendlyName,
                     @JsonProperty("unique_name")
-                    final String uniqueName, 
+                    final String uniqueName,
                     @JsonProperty("attributes")
-                    final String attributes, 
+                    final String attributes,
                     @JsonProperty("type")
-                    final Channel.ChannelType type, 
+                    final Channel.ChannelType type,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("created_by")
-                    final String createdBy, 
+                    final String createdBy,
                     @JsonProperty("members_count")
-                    final Integer membersCount, 
+                    final Integer membersCount,
                     @JsonProperty("messages_count")
-                    final Integer messagesCount, 
+                    final Integer messagesCount,
                     @JsonProperty("url")
-                    final URI url, 
+                    final URI url,
                     @JsonProperty("links")
                     final Map<String, String> links) {
         this.sid = sid;
@@ -241,100 +242,98 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
-     * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this channel..
-     * 
-     * @return The unique id of the Account responsible for this channel.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique id of the Service this channel belongs to..
-     * 
-     * @return The unique id of the Service this channel belongs to.
+     * Returns The SID of the Service that the resource is associated with.
+     *
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The human-readable name of this channel..
-     * 
-     * @return The human-readable name of this channel.
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The unique, addressable name of this channel..
-     * 
-     * @return The unique, addressable name of this channel.
+     * Returns An application-defined string that uniquely identifies the resource.
+     *
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The An optional string metadata field you can use to store any data
-     * you wish..
-     * 
-     * @return An optional string metadata field you can use to store any data you
-     *         wish.
+     * Returns The JSON string that stores application-specific data.
+     *
+     * @return The JSON string that stores application-specific data
      */
     public final String getAttributes() {
         return this.attributes;
     }
 
     /**
-     * Returns The The visibility of this channel - either public or private.
-     * 
-     * @return The visibility of this channel - either public or private
+     * Returns The visibility of the channel. Can be: `public` or `private`.
+     *
+     * @return The visibility of the channel. Can be: `public` or `private`
      */
     public final Channel.ChannelType getType() {
         return this.type;
     }
 
     /**
-     * Returns The The date that this resource was created..
-     * 
-     * @return The date that this resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated..
-     * 
-     * @return The date that this resource was last updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The Identity of the channel's creator..
-     * 
-     * @return Identity of the channel's creator.
+     * Returns The identity of the User that created the channel.
+     *
+     * @return The identity of the User that created the channel
      */
     public final String getCreatedBy() {
         return this.createdBy;
     }
 
     /**
-     * Returns The The number of Members in the Channel.
-     * 
+     * Returns The number of Members in the Channel.
+     *
      * @return The number of Members in the Channel
      */
     public final Integer getMembersCount() {
@@ -342,29 +341,29 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The number of Messages in the Channel.
-     * 
-     * @return The number of Messages in the Channel
+     * Returns The number of Messages that have been passed in the Channel.
+     *
+     * @return The number of Messages that have been passed in the Channel
      */
     public final Integer getMessagesCount() {
         return this.messagesCount;
     }
 
     /**
-     * Returns The An absolute URL for this channel..
-     * 
-     * @return An absolute URL for this channel.
+     * Returns The absolute URL of the Channel resource.
+     *
+     * @return The absolute URL of the Channel resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Absolute URLs to access the Members, Messages , Invites and, if
-     * it exists the last Message for this Channel..
-     * 
+     * Returns Absolute URLs to access the Members, Messages , Invites and, if it
+     * exists, the last Message for the Channel.
+     *
      * @return Absolute URLs to access the Members, Messages , Invites and, if it
-     *         exists the last Message for this Channel.
+     *         exists, the last Message for the Channel
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -382,19 +381,19 @@ public class Channel extends Resource {
 
         Channel other = (Channel) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(attributes, other.attributes) && 
-               Objects.equals(type, other.type) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(createdBy, other.createdBy) && 
-               Objects.equals(membersCount, other.membersCount) && 
-               Objects.equals(messagesCount, other.messagesCount) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(attributes, other.attributes) &&
+               Objects.equals(type, other.type) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(createdBy, other.createdBy) &&
+               Objects.equals(membersCount, other.membersCount) &&
+               Objects.equals(messagesCount, other.messagesCount) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

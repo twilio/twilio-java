@@ -41,8 +41,8 @@ public class ExportTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
-                                          "/BulkExports/Exports/pathResourceType");
-            
+                                          "/BulkExports/Exports/resource_type");
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -51,7 +51,7 @@ public class ExportTest {
         }};
 
         try {
-            Export.fetcher("pathResourceType").fetch();
+            Export.fetcher("resource_type").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,6 +65,6 @@ public class ExportTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Export.fetcher("pathResourceType").fetch());
+        assertNotNull(Export.fetcher("resource_type").fetch());
     }
 }

@@ -65,20 +65,21 @@ public class AuthorizedConnectApp extends Resource {
 
     /**
      * Create a AuthorizedConnectAppFetcher to execute fetch.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathConnectAppSid The connect_app_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathConnectAppSid The SID of the Connect App to fetch
      * @return AuthorizedConnectAppFetcher capable of executing the fetch
      */
-    public static AuthorizedConnectAppFetcher fetcher(final String pathAccountSid, 
+    public static AuthorizedConnectAppFetcher fetcher(final String pathAccountSid,
                                                       final String pathConnectAppSid) {
         return new AuthorizedConnectAppFetcher(pathAccountSid, pathConnectAppSid);
     }
 
     /**
      * Create a AuthorizedConnectAppFetcher to execute fetch.
-     * 
-     * @param pathConnectAppSid The connect_app_sid
+     *
+     * @param pathConnectAppSid The SID of the Connect App to fetch
      * @return AuthorizedConnectAppFetcher capable of executing the fetch
      */
     public static AuthorizedConnectAppFetcher fetcher(final String pathConnectAppSid) {
@@ -87,8 +88,9 @@ public class AuthorizedConnectApp extends Resource {
 
     /**
      * Create a AuthorizedConnectAppReader to execute read.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      * @return AuthorizedConnectAppReader capable of executing the read
      */
     public static AuthorizedConnectAppReader reader(final String pathAccountSid) {
@@ -97,7 +99,7 @@ public class AuthorizedConnectApp extends Resource {
 
     /**
      * Create a AuthorizedConnectAppReader to execute read.
-     * 
+     *
      * @return AuthorizedConnectAppReader capable of executing the read
      */
     public static AuthorizedConnectAppReader reader() {
@@ -107,7 +109,7 @@ public class AuthorizedConnectApp extends Resource {
     /**
      * Converts a JSON String into a AuthorizedConnectApp object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AuthorizedConnectApp object represented by the provided JSON
@@ -126,7 +128,7 @@ public class AuthorizedConnectApp extends Resource {
     /**
      * Converts a JSON InputStream into a AuthorizedConnectApp object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AuthorizedConnectApp object represented by the provided JSON
@@ -155,23 +157,23 @@ public class AuthorizedConnectApp extends Resource {
 
     @JsonCreator
     private AuthorizedConnectApp(@JsonProperty("account_sid")
-                                 final String accountSid, 
+                                 final String accountSid,
                                  @JsonProperty("connect_app_company_name")
-                                 final String connectAppCompanyName, 
+                                 final String connectAppCompanyName,
                                  @JsonProperty("connect_app_description")
-                                 final String connectAppDescription, 
+                                 final String connectAppDescription,
                                  @JsonProperty("connect_app_friendly_name")
-                                 final String connectAppFriendlyName, 
+                                 final String connectAppFriendlyName,
                                  @JsonProperty("connect_app_homepage_url")
-                                 final URI connectAppHomepageUrl, 
+                                 final URI connectAppHomepageUrl,
                                  @JsonProperty("connect_app_sid")
-                                 final String connectAppSid, 
+                                 final String connectAppSid,
                                  @JsonProperty("date_created")
-                                 final String dateCreated, 
+                                 final String dateCreated,
                                  @JsonProperty("date_updated")
-                                 final String dateUpdated, 
+                                 final String dateUpdated,
                                  @JsonProperty("permissions")
-                                 final List<AuthorizedConnectApp.Permission> permissions, 
+                                 final List<AuthorizedConnectApp.Permission> permissions,
                                  @JsonProperty("uri")
                                  final String uri) {
         this.accountSid = accountSid;
@@ -187,90 +189,90 @@ public class AuthorizedConnectApp extends Resource {
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
-     * 
-     * @return The unique sid that identifies this account
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The company name set for this Connect App..
-     * 
-     * @return The company name set for this Connect App.
+     * Returns The company name set for the Connect App.
+     *
+     * @return The company name set for the Connect App
      */
     public final String getConnectAppCompanyName() {
         return this.connectAppCompanyName;
     }
 
     /**
-     * Returns The Human readable description of the app.
-     * 
-     * @return Human readable description of the app
+     * Returns A detailed description of the app.
+     *
+     * @return A detailed description of the app
      */
     public final String getConnectAppDescription() {
         return this.connectAppDescription;
     }
 
     /**
-     * Returns The A human readable name for the Connect App..
-     * 
-     * @return A human readable name for the Connect App.
+     * Returns The name of the Connect App.
+     *
+     * @return The name of the Connect App
      */
     public final String getConnectAppFriendlyName() {
         return this.connectAppFriendlyName;
     }
 
     /**
-     * Returns The The public URL for this Connect App..
-     * 
-     * @return The public URL for this Connect App.
+     * Returns The public URL for the Connect App.
+     *
+     * @return The public URL for the Connect App
      */
     public final URI getConnectAppHomepageUrl() {
         return this.connectAppHomepageUrl;
     }
 
     /**
-     * Returns The A string that uniquely identifies this app.
-     * 
-     * @return A string that uniquely identifies this app
+     * Returns The SID that we assigned to the Connect App.
+     *
+     * @return The SID that we assigned to the Connect App
      */
     public final String getConnectAppSid() {
         return this.connectAppSid;
     }
 
     /**
-     * Returns The The date this resource was created.
-     * 
-     * @return The date this resource was created
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
+     *
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this resource was last updated.
-     * 
-     * @return The date this resource was last updated
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
+     *
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The Permissions authorized to this app.
-     * 
-     * @return Permissions authorized to this app
+     * Returns Permissions authorized to the app.
+     *
+     * @return Permissions authorized to the app
      */
     public final List<AuthorizedConnectApp.Permission> getPermissions() {
         return this.permissions;
     }
 
     /**
-     * Returns The The URI for this resource.
-     * 
-     * @return The URI for this resource
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
+     *
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;
@@ -288,15 +290,15 @@ public class AuthorizedConnectApp extends Resource {
 
         AuthorizedConnectApp other = (AuthorizedConnectApp) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(connectAppCompanyName, other.connectAppCompanyName) && 
-               Objects.equals(connectAppDescription, other.connectAppDescription) && 
-               Objects.equals(connectAppFriendlyName, other.connectAppFriendlyName) && 
-               Objects.equals(connectAppHomepageUrl, other.connectAppHomepageUrl) && 
-               Objects.equals(connectAppSid, other.connectAppSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(permissions, other.permissions) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(connectAppCompanyName, other.connectAppCompanyName) &&
+               Objects.equals(connectAppDescription, other.connectAppDescription) &&
+               Objects.equals(connectAppFriendlyName, other.connectAppFriendlyName) &&
+               Objects.equals(connectAppHomepageUrl, other.connectAppHomepageUrl) &&
+               Objects.equals(connectAppSid, other.connectAppSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(permissions, other.permissions) &&
                Objects.equals(uri, other.uri);
     }
 

@@ -24,8 +24,9 @@ public class FeedbackCreator extends Creator<Feedback> {
 
     /**
      * Construct a new FeedbackCreator.
-     * 
-     * @param pathMessageSid The message_sid
+     *
+     * @param pathMessageSid The SID of the Message resource for which the feedback
+     *                       was provided
      */
     public FeedbackCreator(final String pathMessageSid) {
         this.pathMessageSid = pathMessageSid;
@@ -33,20 +34,23 @@ public class FeedbackCreator extends Creator<Feedback> {
 
     /**
      * Construct a new FeedbackCreator.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathMessageSid The message_sid
+     *
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param pathMessageSid The SID of the Message resource for which the feedback
+     *                       was provided
      */
-    public FeedbackCreator(final String pathAccountSid, 
+    public FeedbackCreator(final String pathAccountSid,
                            final String pathMessageSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathMessageSid = pathMessageSid;
     }
 
     /**
-     * The outcome.
-     * 
-     * @param outcome The outcome
+     * Whether the feedback has arrived. Can be: `unconfirmed` or `confirmed`. If
+     * `provide_feedback`=`true` in [the initial HTTP
+     * POST](https://www.twilio.com/docs/sms/api/message-resource#create-a-message-resource), the initial value of this property is `unconfirmed`. After the message arrives, update the value to `confirmed`..
+     *
+     * @param outcome Whether the feedback has arrived
      * @return this
      */
     public FeedbackCreator setOutcome(final Feedback.Outcome outcome) {
@@ -56,7 +60,7 @@ public class FeedbackCreator extends Creator<Feedback> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Feedback
      */
@@ -67,8 +71,7 @@ public class FeedbackCreator extends Creator<Feedback> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Messages/" + this.pathMessageSid + "/Feedback.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Messages/" + this.pathMessageSid + "/Feedback.json"
         );
 
         addPostParams(request);
@@ -81,14 +84,7 @@ public class FeedbackCreator extends Creator<Feedback> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Feedback.fromJson(response.getStream(), client.getObjectMapper());
@@ -96,7 +92,7 @@ public class FeedbackCreator extends Creator<Feedback> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -39,8 +39,8 @@ public class Token extends Resource {
 
     /**
      * Create a TokenCreator to execute create.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The SID of the Account that will create the resource
      * @return TokenCreator capable of executing the create
      */
     public static TokenCreator creator(final String pathAccountSid) {
@@ -49,7 +49,7 @@ public class Token extends Resource {
 
     /**
      * Create a TokenCreator to execute create.
-     * 
+     *
      * @return TokenCreator capable of executing the create
      */
     public static TokenCreator creator() {
@@ -58,7 +58,7 @@ public class Token extends Resource {
 
     /**
      * Converts a JSON String into a Token object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Token object represented by the provided JSON
@@ -77,7 +77,7 @@ public class Token extends Resource {
     /**
      * Converts a JSON InputStream into a Token object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Token object represented by the provided JSON
@@ -103,17 +103,17 @@ public class Token extends Resource {
 
     @JsonCreator
     private Token(@JsonProperty("account_sid")
-                  final String accountSid, 
+                  final String accountSid,
                   @JsonProperty("date_created")
-                  final String dateCreated, 
+                  final String dateCreated,
                   @JsonProperty("date_updated")
-                  final String dateUpdated, 
+                  final String dateUpdated,
                   @JsonProperty("ice_servers")
-                  final List<IceServer> iceServers, 
+                  final List<IceServer> iceServers,
                   @JsonProperty("password")
-                  final String password, 
+                  final String password,
                   @JsonProperty("ttl")
-                  final String ttl, 
+                  final String ttl,
                   @JsonProperty("username")
                   final String username) {
         this.accountSid = accountSid;
@@ -126,35 +126,35 @@ public class Token extends Resource {
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
-     * 
-     * @return The unique sid that identifies this account
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The date this resource was created.
-     * 
-     * @return The date this resource was created
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
+     *
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this resource was last updated.
-     * 
-     * @return The date this resource was last updated
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
+     *
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The An array representing the ephemeral credentials.
-     * 
+     * Returns An array representing the ephemeral credentials.
+     *
      * @return An array representing the ephemeral credentials
      */
     public final List<IceServer> getIceServers() {
@@ -162,8 +162,8 @@ public class Token extends Resource {
     }
 
     /**
-     * Returns The The temporary password used for authenticating.
-     * 
+     * Returns The temporary password used for authenticating.
+     *
      * @return The temporary password used for authenticating
      */
     public final String getPassword() {
@@ -171,8 +171,8 @@ public class Token extends Resource {
     }
 
     /**
-     * Returns The The duration in seconds the credentials are valid.
-     * 
+     * Returns The duration in seconds the credentials are valid.
+     *
      * @return The duration in seconds the credentials are valid
      */
     public final String getTtl() {
@@ -180,9 +180,9 @@ public class Token extends Resource {
     }
 
     /**
-     * Returns The The temporary username that uniquely identifies a Token..
-     * 
-     * @return The temporary username that uniquely identifies a Token.
+     * Returns The temporary username that uniquely identifies a Token.
+     *
+     * @return The temporary username that uniquely identifies a Token
      */
     public final String getUsername() {
         return this.username;
@@ -200,12 +200,12 @@ public class Token extends Resource {
 
         Token other = (Token) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(iceServers, other.iceServers) && 
-               Objects.equals(password, other.password) && 
-               Objects.equals(ttl, other.ttl) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(iceServers, other.iceServers) &&
+               Objects.equals(password, other.password) &&
+               Objects.equals(ttl, other.ttl) &&
                Objects.equals(username, other.username);
     }
 

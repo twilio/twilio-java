@@ -28,8 +28,9 @@ public class SyncStreamReader extends Reader<SyncStream> {
 
     /**
      * Construct a new SyncStreamReader.
-     * 
-     * @param pathServiceSid Service Instance SID or unique name.
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Stream resources
+     *                       to read
      */
     public SyncStreamReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
@@ -37,7 +38,7 @@ public class SyncStreamReader extends Reader<SyncStream> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return SyncStream ResourceSet
      */
@@ -48,7 +49,7 @@ public class SyncStreamReader extends Reader<SyncStream> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return SyncStream ResourceSet
      */
@@ -58,8 +59,7 @@ public class SyncStreamReader extends Reader<SyncStream> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Streams",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Streams"
         );
 
         addQueryParams(request);
@@ -68,7 +68,7 @@ public class SyncStreamReader extends Reader<SyncStream> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return SyncStream ResourceSet
@@ -86,47 +86,41 @@ public class SyncStreamReader extends Reader<SyncStream> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<SyncStream> nextPage(final Page<SyncStream> page, 
+    public Page<SyncStream> nextPage(final Page<SyncStream> page,
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.SYNC.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.SYNC.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<SyncStream> previousPage(final Page<SyncStream> page, 
+    public Page<SyncStream> previousPage(final Page<SyncStream> page,
                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.SYNC.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.SYNC.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of SyncStream Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -141,14 +135,7 @@ public class SyncStreamReader extends Reader<SyncStream> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -161,7 +148,7 @@ public class SyncStreamReader extends Reader<SyncStream> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

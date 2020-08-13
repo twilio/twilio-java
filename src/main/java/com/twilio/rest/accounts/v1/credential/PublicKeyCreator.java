@@ -24,17 +24,18 @@ public class PublicKeyCreator extends Creator<PublicKey> {
 
     /**
      * Construct a new PublicKeyCreator.
-     * 
-     * @param publicKey URL encoded representation of the public key
+     *
+     * @param publicKey A URL encoded representation of the public key
      */
     public PublicKeyCreator(final String publicKey) {
         this.publicKey = publicKey;
     }
 
     /**
-     * A human readable description of this resource, up to 64 characters..
-     * 
-     * @param friendlyName A human readable description of this resource
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
+     *
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public PublicKeyCreator setFriendlyName(final String friendlyName) {
@@ -43,9 +44,9 @@ public class PublicKeyCreator extends Creator<PublicKey> {
     }
 
     /**
-     * The Subaccount this Credential should be associated with. Needs to be a valid
-     * Subaccount of the account issuing the request.
-     * 
+     * The SID of the Subaccount that this Credential should be associated with.
+     * Must be a valid Subaccount of the account issuing the request.
+     *
      * @param accountSid The Subaccount this Credential should be associated with.
      * @return this
      */
@@ -56,7 +57,7 @@ public class PublicKeyCreator extends Creator<PublicKey> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created PublicKey
      */
@@ -66,8 +67,7 @@ public class PublicKeyCreator extends Creator<PublicKey> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.ACCOUNTS.toString(),
-            "/v1/Credentials/PublicKeys",
-            client.getRegion()
+            "/v1/Credentials/PublicKeys"
         );
 
         addPostParams(request);
@@ -80,14 +80,7 @@ public class PublicKeyCreator extends Creator<PublicKey> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return PublicKey.fromJson(response.getStream(), client.getObjectMapper());
@@ -95,7 +88,7 @@ public class PublicKeyCreator extends Creator<PublicKey> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

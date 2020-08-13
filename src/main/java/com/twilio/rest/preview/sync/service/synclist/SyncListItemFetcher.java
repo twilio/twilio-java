@@ -29,13 +29,13 @@ public class SyncListItemFetcher extends Fetcher<SyncListItem> {
 
     /**
      * Construct a new SyncListItemFetcher.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathListSid The list_sid
      * @param pathIndex The index
      */
-    public SyncListItemFetcher(final String pathServiceSid, 
-                               final String pathListSid, 
+    public SyncListItemFetcher(final String pathServiceSid,
+                               final String pathListSid,
                                final Integer pathIndex) {
         this.pathServiceSid = pathServiceSid;
         this.pathListSid = pathListSid;
@@ -44,7 +44,7 @@ public class SyncListItemFetcher extends Fetcher<SyncListItem> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched SyncListItem
      */
@@ -54,8 +54,7 @@ public class SyncListItemFetcher extends Fetcher<SyncListItem> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Items/" + this.pathIndex + "",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Items/" + this.pathIndex + ""
         );
 
         Response response = client.request(request);
@@ -67,14 +66,7 @@ public class SyncListItemFetcher extends Fetcher<SyncListItem> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SyncListItem.fromJson(response.getStream(), client.getObjectMapper());

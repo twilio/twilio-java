@@ -28,11 +28,12 @@ public class NumberTest {
             .statusCallbackEvents(Promoter.listOfOne(Number.Event.INITIATED))
             .statusCallback(URI.create("https://example.com"))
             .statusCallbackMethod(HttpMethod.GET)
+            .byoc("BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
             .build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Number method=\"GET\" sendDigits=\"send_digits\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">+15017122661</Number>",
+            "<Number byoc=\"BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" method=\"GET\" sendDigits=\"send_digits\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">+15017122661</Number>",
             elem.toXml()
         );
     }

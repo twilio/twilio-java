@@ -17,21 +17,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class EngagementDeleter extends Deleter<Engagement> {
     private final String pathFlowSid;
     private final String pathSid;
 
     /**
      * Construct a new EngagementDeleter.
-     * 
-     * @param pathFlowSid Flow Sid.
-     * @param pathSid Engagement Sid.
+     *
+     * @param pathFlowSid The SID of the Flow to delete Engagements from
+     * @param pathSid The SID of the Engagement resource to delete
      */
-    public EngagementDeleter(final String pathFlowSid, 
+    public EngagementDeleter(final String pathFlowSid,
                              final String pathSid) {
         this.pathFlowSid = pathFlowSid;
         this.pathSid = pathSid;
@@ -39,7 +35,7 @@ public class EngagementDeleter extends Deleter<Engagement> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -48,8 +44,7 @@ public class EngagementDeleter extends Deleter<Engagement> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Engagements/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Flows/" + this.pathFlowSid + "/Engagements/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -61,14 +56,7 @@ public class EngagementDeleter extends Deleter<Engagement> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

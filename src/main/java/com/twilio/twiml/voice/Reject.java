@@ -50,7 +50,7 @@ public class Reject extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -66,7 +66,7 @@ public class Reject extends TwiML {
 
     /**
      * Rejection reason
-     * 
+     *
      * @return Rejection reason
      */
     public Reject.Reason getReason() {

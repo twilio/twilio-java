@@ -24,11 +24,13 @@ public class CredentialListMappingCreator extends Creator<CredentialListMapping>
 
     /**
      * Construct a new CredentialListMappingCreator.
-     * 
-     * @param pathDomainSid The domain_sid
-     * @param credentialListSid The credential_list_sid
+     *
+     * @param pathDomainSid A string that identifies the SIP Domain for which the
+     *                      CredentialList resource will be mapped
+     * @param credentialListSid A string that identifies the CredentialList
+     *                          resource to map to the SIP domain
      */
-    public CredentialListMappingCreator(final String pathDomainSid, 
+    public CredentialListMappingCreator(final String pathDomainSid,
                                         final String credentialListSid) {
         this.pathDomainSid = pathDomainSid;
         this.credentialListSid = credentialListSid;
@@ -36,13 +38,15 @@ public class CredentialListMappingCreator extends Creator<CredentialListMapping>
 
     /**
      * Construct a new CredentialListMappingCreator.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param credentialListSid The credential_list_sid
+     *
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathDomainSid A string that identifies the SIP Domain for which the
+     *                      CredentialList resource will be mapped
+     * @param credentialListSid A string that identifies the CredentialList
+     *                          resource to map to the SIP domain
      */
-    public CredentialListMappingCreator(final String pathAccountSid, 
-                                        final String pathDomainSid, 
+    public CredentialListMappingCreator(final String pathAccountSid,
+                                        final String pathDomainSid,
                                         final String credentialListSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
@@ -51,7 +55,7 @@ public class CredentialListMappingCreator extends Creator<CredentialListMapping>
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created CredentialListMapping
      */
@@ -62,8 +66,7 @@ public class CredentialListMappingCreator extends Creator<CredentialListMapping>
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/CredentialListMappings.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/CredentialListMappings.json"
         );
 
         addPostParams(request);
@@ -76,14 +79,7 @@ public class CredentialListMappingCreator extends Creator<CredentialListMapping>
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return CredentialListMapping.fromJson(response.getStream(), client.getObjectMapper());
@@ -91,7 +87,7 @@ public class CredentialListMappingCreator extends Creator<CredentialListMapping>
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

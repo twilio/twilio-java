@@ -29,17 +29,17 @@ public class TokenCreator extends Creator<Token> {
 
     /**
      * Construct a new TokenCreator.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The SID of the Account that will create the resource
      */
     public TokenCreator(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
     /**
-     * The duration in seconds for which the generated credentials are valid, the
+     * The duration in seconds for which the generated credentials are valid. The
      * default value is 86400 (24 hours)..
-     * 
+     *
      * @param ttl The duration in seconds the credentials are valid
      * @return this
      */
@@ -50,7 +50,7 @@ public class TokenCreator extends Creator<Token> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Token
      */
@@ -61,8 +61,7 @@ public class TokenCreator extends Creator<Token> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Tokens.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Tokens.json"
         );
 
         addPostParams(request);
@@ -75,14 +74,7 @@ public class TokenCreator extends Creator<Token> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Token.fromJson(response.getStream(), client.getObjectMapper());
@@ -90,7 +82,7 @@ public class TokenCreator extends Creator<Token> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

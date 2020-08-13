@@ -24,11 +24,12 @@ public class AddOnResultDeleter extends Deleter<AddOnResult> {
 
     /**
      * Construct a new AddOnResultDeleter.
-     * 
-     * @param pathReferenceSid The reference_sid
-     * @param pathSid Delete by unique result Sid
+     *
+     * @param pathReferenceSid The SID of the recording to which the result to
+     *                         delete belongs
+     * @param pathSid The unique string that identifies the resource to delete
      */
-    public AddOnResultDeleter(final String pathReferenceSid, 
+    public AddOnResultDeleter(final String pathReferenceSid,
                               final String pathSid) {
         this.pathReferenceSid = pathReferenceSid;
         this.pathSid = pathSid;
@@ -36,13 +37,15 @@ public class AddOnResultDeleter extends Deleter<AddOnResult> {
 
     /**
      * Construct a new AddOnResultDeleter.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathReferenceSid The reference_sid
-     * @param pathSid Delete by unique result Sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathReferenceSid The SID of the recording to which the result to
+     *                         delete belongs
+     * @param pathSid The unique string that identifies the resource to delete
      */
-    public AddOnResultDeleter(final String pathAccountSid, 
-                              final String pathReferenceSid, 
+    public AddOnResultDeleter(final String pathAccountSid,
+                              final String pathReferenceSid,
                               final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathReferenceSid = pathReferenceSid;
@@ -51,7 +54,7 @@ public class AddOnResultDeleter extends Deleter<AddOnResult> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -61,8 +64,7 @@ public class AddOnResultDeleter extends Deleter<AddOnResult> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings/" + this.pathReferenceSid + "/AddOnResults/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings/" + this.pathReferenceSid + "/AddOnResults/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);
@@ -74,14 +76,7 @@ public class AddOnResultDeleter extends Deleter<AddOnResult> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

@@ -29,14 +29,14 @@ public class SyncListPermissionFetcher extends Fetcher<SyncListPermission> {
 
     /**
      * Construct a new SyncListPermissionFetcher.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathListSid Sync List SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync List Permission
      *                     applies.
      */
-    public SyncListPermissionFetcher(final String pathServiceSid, 
-                                     final String pathListSid, 
+    public SyncListPermissionFetcher(final String pathServiceSid,
+                                     final String pathListSid,
                                      final String pathIdentity) {
         this.pathServiceSid = pathServiceSid;
         this.pathListSid = pathListSid;
@@ -45,7 +45,7 @@ public class SyncListPermissionFetcher extends Fetcher<SyncListPermission> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched SyncListPermission
      */
@@ -55,8 +55,7 @@ public class SyncListPermissionFetcher extends Fetcher<SyncListPermission> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Permissions/" + this.pathIdentity + "",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Permissions/" + this.pathIdentity + ""
         );
 
         Response response = client.request(request);
@@ -68,14 +67,7 @@ public class SyncListPermissionFetcher extends Fetcher<SyncListPermission> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SyncListPermission.fromJson(response.getStream(), client.getObjectMapper());

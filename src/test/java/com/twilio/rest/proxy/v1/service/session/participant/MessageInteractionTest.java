@@ -60,7 +60,7 @@ public class MessageInteractionTest {
     public void testCreateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"service_sid\": \"KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data\": \"body\",\"date_created\": \"2015-07-30T20:00:00Z\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"participant_sid\": \"KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"inbound_participant_sid\": null,\"inbound_resource_sid\": null,\"inbound_resource_status\": null,\"inbound_resource_type\": null,\"inbound_resource_url\": null,\"outbound_participant_sid\": \"KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"outbound_resource_sid\": \"SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"outbound_resource_status\": \"sent\",\"outbound_resource_type\": \"Message\",\"outbound_resource_url\": null,\"sid\": \"KIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"type\": \"message\",\"url\": \"https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Sessions/KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/MessageInteractions/KIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"session_sid\": \"KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            result = new Response("{\"service_sid\": \"KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data\": \"{\\\"body\\\":\\\"some message\\\"}\",\"date_created\": \"2015-07-30T20:00:00Z\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"participant_sid\": \"KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"inbound_participant_sid\": null,\"inbound_resource_sid\": null,\"inbound_resource_status\": null,\"inbound_resource_type\": null,\"inbound_resource_url\": null,\"outbound_participant_sid\": \"KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"outbound_resource_sid\": \"SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"outbound_resource_status\": \"sent\",\"outbound_resource_type\": \"Message\",\"outbound_resource_url\": null,\"sid\": \"KIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"type\": \"message\",\"url\": \"https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Sessions/KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/MessageInteractions/KIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"session_sid\": \"KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -74,7 +74,7 @@ public class MessageInteractionTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PROXY.toString(),
                                           "/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessageInteractions/KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -92,7 +92,7 @@ public class MessageInteractionTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"service_sid\": \"KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data\": \"data\",\"date_created\": \"2015-07-30T20:00:00Z\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"participant_sid\": \"KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"inbound_participant_sid\": null,\"inbound_resource_sid\": null,\"inbound_resource_status\": null,\"inbound_resource_type\": null,\"inbound_resource_url\": null,\"outbound_participant_sid\": \"KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"outbound_resource_sid\": \"SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"outbound_resource_status\": \"sent\",\"outbound_resource_type\": \"Message\",\"outbound_resource_url\": null,\"sid\": \"KIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"type\": \"message\",\"url\": \"https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Sessions/KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/MessageInteractions/KIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"session_sid\": \"KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"service_sid\": \"KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data\": \"{\\\"body\\\":\\\"some message\\\"}\",\"date_created\": \"2015-07-30T20:00:00Z\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"participant_sid\": \"KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"inbound_participant_sid\": null,\"inbound_resource_sid\": null,\"inbound_resource_status\": null,\"inbound_resource_type\": null,\"inbound_resource_url\": null,\"outbound_participant_sid\": \"KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"outbound_resource_sid\": \"SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"outbound_resource_status\": \"sent\",\"outbound_resource_type\": \"Message\",\"outbound_resource_url\": null,\"sid\": \"KIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"type\": \"message\",\"url\": \"https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Sessions/KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/KPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/MessageInteractions/KIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"session_sid\": \"KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -106,7 +106,7 @@ public class MessageInteractionTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PROXY.toString(),
                                           "/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessageInteractions");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

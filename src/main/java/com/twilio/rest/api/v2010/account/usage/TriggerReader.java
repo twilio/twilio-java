@@ -33,19 +33,20 @@ public class TriggerReader extends Reader<Trigger> {
 
     /**
      * Construct a new TriggerReader.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      */
     public TriggerReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
     /**
-     * Only show UsageTriggers that count over this interval.  One of `daily`,
-     * `monthly`, or `yearly`.  To retrieve non-recurring triggers, leave this empty
-     * or use `alltime`..
-     * 
-     * @param recurring Filter by recurring
+     * The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`,
+     * or `yearly` to read recurring UsageTriggers. An empty value or a value of
+     * `alltime` reads non-recurring UsageTriggers..
+     *
+     * @param recurring The frequency of recurring UsageTriggers to read
      * @return this
      */
     public TriggerReader setRecurring(final Trigger.Recurring recurring) {
@@ -54,11 +55,11 @@ public class TriggerReader extends Reader<Trigger> {
     }
 
     /**
-     * Only show UsageTriggers that trigger by this field in the UsageRecord.  Must
-     * be one of: `count`, `usage`, or `price` as described in the [UsageRecords
-     * documentation](https://www.twilio.com/docs/api/rest/usage-records#usage-count-price)..
-     * 
-     * @param triggerBy Filter by trigger by
+     * The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or
+     * `price` as described in the [UsageRecords
+     * documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price)..
+     *
+     * @param triggerBy The trigger field of the UsageTriggers to read
      * @return this
      */
     public TriggerReader setTriggerBy(final Trigger.TriggerField triggerBy) {
@@ -67,11 +68,10 @@ public class TriggerReader extends Reader<Trigger> {
     }
 
     /**
-     * Only show UsageTriggers that watch this usage category.  Must be one of the
-     * supported [usage
-     * categories](https://www.twilio.com/docs/api/rest/usage-records#usage-categories)..
-     * 
-     * @param usageCategory Filter by Usage Category
+     * The usage category of the UsageTriggers to read. Must be a supported [usage
+     * categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories)..
+     *
+     * @param usageCategory The usage category of the UsageTriggers to read
      * @return this
      */
     public TriggerReader setUsageCategory(final Trigger.UsageCategory usageCategory) {
@@ -81,7 +81,7 @@ public class TriggerReader extends Reader<Trigger> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Trigger ResourceSet
      */
@@ -92,7 +92,7 @@ public class TriggerReader extends Reader<Trigger> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Trigger ResourceSet
      */
@@ -103,8 +103,7 @@ public class TriggerReader extends Reader<Trigger> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Usage/Triggers.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Usage/Triggers.json"
         );
 
         addQueryParams(request);
@@ -113,7 +112,7 @@ public class TriggerReader extends Reader<Trigger> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Trigger ResourceSet
@@ -132,47 +131,41 @@ public class TriggerReader extends Reader<Trigger> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Trigger> nextPage(final Page<Trigger> page, 
+    public Page<Trigger> nextPage(final Page<Trigger> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Trigger> previousPage(final Page<Trigger> page, 
+    public Page<Trigger> previousPage(final Page<Trigger> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Trigger Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -187,14 +180,7 @@ public class TriggerReader extends Reader<Trigger> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -207,7 +193,7 @@ public class TriggerReader extends Reader<Trigger> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

@@ -33,10 +33,12 @@ public class RoomCreator extends Creator<Room> {
     private String mediaRegion;
 
     /**
-     * Use Twilio Network Traversal for TURN service. Defaults to true. Only
-     * applicable to Rooms with type `peer-to-peer`..
-     * 
-     * @param enableTurn Use Twilio Network Traversal for TURN service.
+     * Deprecated. Whether to enable [Twilio's Network Traversal TURN
+     * service](https://www.twilio.com/stun-turn). TURN service is used when direct
+     * peer-to-peer media connections cannot be established due to firewall
+     * restrictions. This setting only applies to rooms with type `peer-to-peer`..
+     *
+     * @param enableTurn Enable Twilio's Network Traversal TURN service
      * @return this
      */
     public RoomCreator setEnableTurn(final Boolean enableTurn) {
@@ -45,10 +47,10 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * Type of room, either `peer-to-peer`, `group-small` or `group`. Will be
-     * `group` by default..
-     * 
-     * @param type Type of room, either peer-to-peer, group-small or group.
+     * The type of room. Can be: `peer-to-peer`, `group-small`, or `group`. The
+     * default value is `group`..
+     *
+     * @param type The type of room
      * @return this
      */
     public RoomCreator setType(final Room.RoomType type) {
@@ -57,10 +59,15 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * Name of the Room.  This is unique for `in-progress` rooms. If not provided,
-     * Room name will be set to the Room Sid..
-     * 
-     * @param uniqueName Name of the Room.
+     * An application-defined string that uniquely identifies the resource. It can
+     * be used as a `room_sid` in place of the resource's `sid` in the URL to
+     * address the resource. This value is unique for `in-progress` rooms. SDK
+     * clients can use this name to connect to the room. REST API clients can use
+     * this name in place of the Room SID to interact with the room as long as the
+     * room is `in-progress`..
+     *
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      * @return this
      */
     public RoomCreator setUniqueName(final String uniqueName) {
@@ -69,11 +76,12 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * A URL that Twilio sends asynchronous webhook requests to on every room event.
-     * If not provided, status callback events will not be dispatched..
-     * 
-     * @param statusCallback A URL that Twilio sends asynchronous webhook requests
-     *                       to on every room event.
+     * The URL we should call using the `status_callback_method` to send status
+     * information to your application on every room event. See [Status
+     * Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more
+     * info..
+     *
+     * @param statusCallback The URL to send status information to your application
      * @return this
      */
     public RoomCreator setStatusCallback(final URI statusCallback) {
@@ -82,11 +90,12 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * A URL that Twilio sends asynchronous webhook requests to on every room event.
-     * If not provided, status callback events will not be dispatched..
-     * 
-     * @param statusCallback A URL that Twilio sends asynchronous webhook requests
-     *                       to on every room event.
+     * The URL we should call using the `status_callback_method` to send status
+     * information to your application on every room event. See [Status
+     * Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more
+     * info..
+     *
+     * @param statusCallback The URL to send status information to your application
      * @return this
      */
     public RoomCreator setStatusCallback(final String statusCallback) {
@@ -94,11 +103,11 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * HTTP method Twilio should use when requesting the above URL. Defaults to
-     * `POST`..
-     * 
-     * @param statusCallbackMethod HTTP method Twilio should use when requesting
-     *                             the above URL.
+     * The HTTP method we should use to call `status_callback`. Can be `POST` or
+     * `GET`..
+     *
+     * @param statusCallbackMethod The HTTP method we should use to call
+     *                             status_callback
      * @return this
      */
     public RoomCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
@@ -107,11 +116,12 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * Maximum number of Participants in the Room. Peer-to-peer rooms can have a
-     * maximum of 10 Participants. Small Group rooms can have a max of 4
-     * Participants. Group rooms can have a max of 50 Participants.
-     * 
-     * @param maxParticipants Maximum number of Participants in the Room.
+     * The maximum number of concurrent Participants allowed in the room.
+     * Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have
+     * up to 4 Participants. Group rooms can have up to 50 Participants..
+     *
+     * @param maxParticipants The maximum number of concurrent Participants allowed
+     *                        in the room
      * @return this
      */
     public RoomCreator setMaxParticipants(final Integer maxParticipants) {
@@ -120,11 +130,11 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * Start Participant recording when connected. ***This feature is not available
-     * in `peer-to-peer` rooms.***.
-     * 
-     * @param recordParticipantsOnConnect Start Participant recording when
-     *                                    connected.
+     * Whether to start recording when Participants connect. ***This feature is not
+     * available in `peer-to-peer` rooms.***.
+     *
+     * @param recordParticipantsOnConnect Whether to start recording when
+     *                                    Participants connect
      * @return this
      */
     public RoomCreator setRecordParticipantsOnConnect(final Boolean recordParticipantsOnConnect) {
@@ -133,12 +143,12 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * An array of video codecs supported when publishing a Track in the Room. 
-     * `VP8` and `H264` codecs are supported.  ***This feature is not available in
+     * An array of the video codecs that are supported when publishing a track in
+     * the room.  Can be: `VP8` and `H264`.  ***This feature is not available in
      * `peer-to-peer` rooms***.
-     * 
-     * @param videoCodecs An array of video codecs supported when publishing a
-     *                    Track in the Room.
+     *
+     * @param videoCodecs An array of the video codecs that are supported when
+     *                    publishing a track in the room
      * @return this
      */
     public RoomCreator setVideoCodecs(final List<Room.VideoCodec> videoCodecs) {
@@ -147,12 +157,12 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * An array of video codecs supported when publishing a Track in the Room. 
-     * `VP8` and `H264` codecs are supported.  ***This feature is not available in
+     * An array of the video codecs that are supported when publishing a track in
+     * the room.  Can be: `VP8` and `H264`.  ***This feature is not available in
      * `peer-to-peer` rooms***.
-     * 
-     * @param videoCodecs An array of video codecs supported when publishing a
-     *                    Track in the Room.
+     *
+     * @param videoCodecs An array of the video codecs that are supported when
+     *                    publishing a track in the room
      * @return this
      */
     public RoomCreator setVideoCodecs(final Room.VideoCodec videoCodecs) {
@@ -160,11 +170,11 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * Region for the media server in Group Rooms.  Default region is `us1`.  See
-     * the list of [available Media
-     * Regions.](https://www.twilio.com/docs/api/video/ip-address-whitelisting#group-rooms-media-servers)***This feature is not available in `peer-to-peer` rooms.***.
-     * 
-     * @param mediaRegion Region for the media server in Group Rooms.
+     * The region for the media server in Group Rooms.  Can be: one of the
+     * [available Media
+     * Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***.
+     *
+     * @param mediaRegion The region for the media server in Group Rooms
      * @return this
      */
     public RoomCreator setMediaRegion(final String mediaRegion) {
@@ -174,7 +184,7 @@ public class RoomCreator extends Creator<Room> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Room
      */
@@ -184,8 +194,7 @@ public class RoomCreator extends Creator<Room> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
-            "/v1/Rooms",
-            client.getRegion()
+            "/v1/Rooms"
         );
 
         addPostParams(request);
@@ -198,14 +207,7 @@ public class RoomCreator extends Creator<Room> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Room.fromJson(response.getStream(), client.getObjectMapper());
@@ -213,7 +215,7 @@ public class RoomCreator extends Creator<Room> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

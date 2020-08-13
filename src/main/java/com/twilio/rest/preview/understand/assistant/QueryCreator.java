@@ -26,21 +26,21 @@ public class QueryCreator extends Creator<Query> {
     private final String pathAssistantSid;
     private final String language;
     private final String query;
-    private String intents;
+    private String tasks;
     private String modelBuild;
     private String field;
 
     /**
      * Construct a new QueryCreator.
-     * 
-     * @param pathAssistantSid The assistant_sid
+     *
+     * @param pathAssistantSid The unique ID of the parent Assistant.
      * @param language An ISO language-country string of the sample.
      * @param query A user-provided string that uniquely identifies this resource
      *              as an alternative to the sid. It can be up to 2048 characters
      *              long.
      */
-    public QueryCreator(final String pathAssistantSid, 
-                        final String language, 
+    public QueryCreator(final String pathAssistantSid,
+                        final String language,
                         final String query) {
         this.pathAssistantSid = pathAssistantSid;
         this.language = language;
@@ -48,23 +48,23 @@ public class QueryCreator extends Creator<Query> {
     }
 
     /**
-     * Constraints the query to a set of intents. Useful when you need to constrain
-     * the paths the user can take. Intents should be comma separated
-     * *intent-unique-name-1*, *intent-unique-name-2*.
-     * 
-     * @param intents Constraints the query to a set of intents. Useful when you
-     *                need to constrain the paths the user can take. Intents should
-     *                be comma separated intent-unique-name-1, intent-unique-name-2
+     * Constraints the query to a set of tasks. Useful when you need to constrain
+     * the paths the user can take. Tasks should be comma separated
+     * *task-unique-name-1*, *task-unique-name-2*.
+     *
+     * @param tasks Constraints the query to a set of tasks. Useful when you need
+     *              to constrain the paths the user can take. Tasks should be comma
+     *              separated task-unique-name-1, task-unique-name-2
      * @return this
      */
-    public QueryCreator setIntents(final String intents) {
-        this.intents = intents;
+    public QueryCreator setTasks(final String tasks) {
+        this.tasks = tasks;
         return this;
     }
 
     /**
      * The Model Build Sid or unique name of the Model Build to be queried..
-     * 
+     *
      * @param modelBuild The Model Build Sid or unique name of the Model Build to
      *                   be queried.
      * @return this
@@ -75,13 +75,13 @@ public class QueryCreator extends Creator<Query> {
     }
 
     /**
-     * Constraints the query to a given Field with an intent. Useful when you know
-     * the Field you are expecting. It accepts one field in the format
-     * *intent-unique-name-1*:*field-unique-name*.
-     * 
-     * @param field Constraints the query to a given Field with an intent. Useful
+     * Constraints the query to a given Field with an task. Useful when you know the
+     * Field you are expecting. It accepts one field in the format
+     * *task-unique-name-1*:*field-unique-name*.
+     *
+     * @param field Constraints the query to a given Field with an task. Useful
      *              when you know the Field you are expecting. It accepts one field
-     *              in the format intent-unique-name-1:field-unique-name
+     *              in the format task-unique-name-1:field-unique-name
      * @return this
      */
     public QueryCreator setField(final String field) {
@@ -91,7 +91,7 @@ public class QueryCreator extends Creator<Query> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Query
      */
@@ -101,8 +101,7 @@ public class QueryCreator extends Creator<Query> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/Queries",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/Queries"
         );
 
         addPostParams(request);
@@ -115,14 +114,7 @@ public class QueryCreator extends Creator<Query> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Query.fromJson(response.getStream(), client.getObjectMapper());
@@ -130,7 +122,7 @@ public class QueryCreator extends Creator<Query> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
@@ -142,8 +134,8 @@ public class QueryCreator extends Creator<Query> {
             request.addPostParam("Query", query);
         }
 
-        if (intents != null) {
-            request.addPostParam("Intents", intents);
+        if (tasks != null) {
+            request.addPostParam("Tasks", tasks);
         }
 
         if (modelBuild != null) {

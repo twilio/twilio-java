@@ -35,17 +35,17 @@ public class AuthorizationDocumentCreator extends Creator<AuthorizationDocument>
 
     /**
      * Construct a new AuthorizationDocumentCreator.
-     * 
+     *
      * @param hostedNumberOrderSids A list of HostedNumberOrder sids.
      * @param addressSid Address sid.
      * @param email Email.
      * @param contactTitle Title of signee of this Authorization Document.
      * @param contactPhoneNumber Authorization Document's signee's phone number.
      */
-    public AuthorizationDocumentCreator(final List<String> hostedNumberOrderSids, 
-                                        final String addressSid, 
-                                        final String email, 
-                                        final String contactTitle, 
+    public AuthorizationDocumentCreator(final List<String> hostedNumberOrderSids,
+                                        final String addressSid,
+                                        final String email,
+                                        final String contactTitle,
                                         final String contactPhoneNumber) {
         this.hostedNumberOrderSids = hostedNumberOrderSids;
         this.addressSid = addressSid;
@@ -57,7 +57,7 @@ public class AuthorizationDocumentCreator extends Creator<AuthorizationDocument>
     /**
      * Email recipients who will be informed when an Authorization Document has been
      * sent and signed..
-     * 
+     *
      * @param ccEmails A list of emails.
      * @return this
      */
@@ -69,7 +69,7 @@ public class AuthorizationDocumentCreator extends Creator<AuthorizationDocument>
     /**
      * Email recipients who will be informed when an Authorization Document has been
      * sent and signed..
-     * 
+     *
      * @param ccEmails A list of emails.
      * @return this
      */
@@ -79,7 +79,7 @@ public class AuthorizationDocumentCreator extends Creator<AuthorizationDocument>
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created AuthorizationDocument
      */
@@ -89,8 +89,7 @@ public class AuthorizationDocumentCreator extends Creator<AuthorizationDocument>
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/HostedNumbers/AuthorizationDocuments",
-            client.getRegion()
+            "/HostedNumbers/AuthorizationDocuments"
         );
 
         addPostParams(request);
@@ -103,14 +102,7 @@ public class AuthorizationDocumentCreator extends Creator<AuthorizationDocument>
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return AuthorizationDocument.fromJson(response.getStream(), client.getObjectMapper());
@@ -118,7 +110,7 @@ public class AuthorizationDocumentCreator extends Creator<AuthorizationDocument>
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -32,8 +32,8 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
 
     /**
      * Construct a new InstalledAddOnUpdater.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The SID of the InstalledAddOn resource to update
      */
     public InstalledAddOnUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -41,9 +41,9 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
 
     /**
      * Valid JSON object that conform to the configuration schema exposed by the
-     * associated Available Add-on resource. This is only required by Add-ons that
+     * associated AvailableAddOn resource. This is only required by Add-ons that
      * need to be configured.
-     * 
+     *
      * @param configuration The JSON object representing the configuration
      * @return this
      */
@@ -53,11 +53,11 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
     }
 
     /**
-     * The human-readable string that uniquely identifies this Add-on installation
-     * for an Account..
-     * 
-     * @param uniqueName The string that uniquely identifies this Add-on
-     *                   installation
+     * An application-defined string that uniquely identifies the resource. This
+     * value must be unique within the Account..
+     *
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      * @return this
      */
     public InstalledAddOnUpdater setUniqueName(final String uniqueName) {
@@ -67,7 +67,7 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated InstalledAddOn
      */
@@ -77,8 +77,7 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/marketplace/InstalledAddOns/" + this.pathSid + "",
-            client.getRegion()
+            "/marketplace/InstalledAddOns/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -91,14 +90,7 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return InstalledAddOn.fromJson(response.getStream(), client.getObjectMapper());
@@ -106,7 +98,7 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

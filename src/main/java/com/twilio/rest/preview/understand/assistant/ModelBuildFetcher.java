@@ -28,11 +28,11 @@ public class ModelBuildFetcher extends Fetcher<ModelBuild> {
 
     /**
      * Construct a new ModelBuildFetcher.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      * @param pathSid The sid
      */
-    public ModelBuildFetcher(final String pathAssistantSid, 
+    public ModelBuildFetcher(final String pathAssistantSid,
                              final String pathSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class ModelBuildFetcher extends Fetcher<ModelBuild> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched ModelBuild
      */
@@ -50,8 +50,7 @@ public class ModelBuildFetcher extends Fetcher<ModelBuild> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/ModelBuilds/" + this.pathSid + "",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/ModelBuilds/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -63,14 +62,7 @@ public class ModelBuildFetcher extends Fetcher<ModelBuild> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return ModelBuild.fromJson(response.getStream(), client.getObjectMapper());

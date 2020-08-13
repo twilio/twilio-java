@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 
 /**
  * Twilio Exceptions.
@@ -20,6 +21,7 @@ public class RestException {
     private final String message;
     private final String moreInfo;
     private final Integer status;
+    private final Map<String, Object> details;
 
     /**
      * Initialize a Twilio Rest Exception.
@@ -31,11 +33,13 @@ public class RestException {
      */
     @JsonCreator
     private RestException(@JsonProperty("status") final int status, @JsonProperty("message") final String message,
-                          @JsonProperty("code") final Integer code, @JsonProperty("more_info") final String moreInfo) {
+                          @JsonProperty("code") final Integer code, @JsonProperty("more_info") final String moreInfo,
+                          @JsonProperty("details") final Map<String, Object> details) {
         this.status = status;
         this.message = message;
         this.code = code;
         this.moreInfo = moreInfo;
+        this.details = details;
     }
 
     /**
@@ -70,5 +74,9 @@ public class RestException {
 
     public Integer getStatus() {
         return status;
+    }
+
+    public Map<String, Object> getDetails() {
+        return details;
     }
 }

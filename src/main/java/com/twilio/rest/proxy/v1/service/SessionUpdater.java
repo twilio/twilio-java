@@ -8,9 +8,7 @@
 package com.twilio.rest.proxy.v1.service;
 
 import com.twilio.base.Updater;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
-import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -21,9 +19,6 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import org.joda.time.DateTime;
 
-import java.util.List;
-import java.util.Map;
-
 /**
  * PLEASE NOTE that this class contains beta products that are subject to
  * change. Use them with caution.
@@ -33,26 +28,26 @@ public class SessionUpdater extends Updater<Session> {
     private final String pathSid;
     private DateTime dateExpiry;
     private Integer ttl;
-    private Session.Mode mode;
     private Session.Status status;
-    private List<Map<String, Object>> participants;
+    private Boolean failOnParticipantConflict;
 
     /**
      * Construct a new SessionUpdater.
-     * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Session.
+     *
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathSid The unique string that identifies the resource
      */
-    public SessionUpdater(final String pathServiceSid, 
+    public SessionUpdater(final String pathServiceSid,
                           final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * The date that this Session should expire, given in ISO 8601 format..
-     * 
-     * @param dateExpiry The date this Session should expire
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session
+     * should expire. If this is value is present, it overrides the `ttl` value..
+     *
+     * @param dateExpiry The ISO 8601 date when the Session should expire
      * @return this
      */
     public SessionUpdater setDateExpiry(final DateTime dateExpiry) {
@@ -61,10 +56,10 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * The time, in seconds, after the latest of Session create time or the
-     * Session's last Interaction time at which the session will expire..
-     * 
-     * @param ttl TTL for a Session, in seconds.
+     * The time, in seconds, when the session will expire. The time is measured from
+     * the last Session create or the Session's last Interaction..
+     *
+     * @param ttl When the session will expire
      * @return this
      */
     public SessionUpdater setTtl(final Integer ttl) {
@@ -73,21 +68,10 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * The mode.
-     * 
-     * @param mode The mode
-     * @return this
-     */
-    public SessionUpdater setMode(final Session.Mode mode) {
-        this.mode = mode;
-        return this;
-    }
-
-    /**
-     * The Status of this Session. Set to `in-progress` to re-open a session or
+     * The new status of the resource. Can be: `in-progress` to re-open a session or
      * `closed` to close a session..
-     * 
-     * @param status The Status of this Session
+     *
+     * @param status The new status of the resource
      * @return this
      */
     public SessionUpdater setStatus(final Session.Status status) {
@@ -96,29 +80,27 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * The participants.
-     * 
-     * @param participants The participants
+     * Setting to true (recommended), enables Proxy to return a 400 error (Twilio
+     * error code 80604) when a request to set a Session to in-progress would cause
+     * Participants with the same identifier/proxy_identifier pair to be active in
+     * multiple Sessions. If not provided, or if set to false, requests will be
+     * allowed to succeed and a Debugger event (80801) will be emitted. This causes
+     * calls and messages from affected Participants to be routed incorrectly.
+     * Please note, in a future release, the default behavior will be to reject the
+     * request with a 400 error..
+     *
+     * @param failOnParticipantConflict Opt-in to enable Proxy to return 400 on
+     *                                  detected conflict on re-open request.
      * @return this
      */
-    public SessionUpdater setParticipants(final List<Map<String, Object>> participants) {
-        this.participants = participants;
+    public SessionUpdater setFailOnParticipantConflict(final Boolean failOnParticipantConflict) {
+        this.failOnParticipantConflict = failOnParticipantConflict;
         return this;
     }
 
     /**
-     * The participants.
-     * 
-     * @param participants The participants
-     * @return this
-     */
-    public SessionUpdater setParticipants(final Map<String, Object> participants) {
-        return setParticipants(Promoter.listOfOne(participants));
-    }
-
-    /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Session
      */
@@ -128,8 +110,7 @@ public class SessionUpdater extends Updater<Session> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PROXY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Sessions/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Sessions/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -142,14 +123,7 @@ public class SessionUpdater extends Updater<Session> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Session.fromJson(response.getStream(), client.getObjectMapper());
@@ -157,7 +131,7 @@ public class SessionUpdater extends Updater<Session> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
@@ -169,18 +143,12 @@ public class SessionUpdater extends Updater<Session> {
             request.addPostParam("Ttl", ttl.toString());
         }
 
-        if (mode != null) {
-            request.addPostParam("Mode", mode.toString());
-        }
-
         if (status != null) {
             request.addPostParam("Status", status.toString());
         }
 
-        if (participants != null) {
-            for (Map<String, Object> prop : participants) {
-                request.addPostParam("Participants", Converter.mapToJson(prop));
-            }
+        if (failOnParticipantConflict != null) {
+            request.addPostParam("FailOnParticipantConflict", failOnParticipantConflict.toString());
         }
     }
 }

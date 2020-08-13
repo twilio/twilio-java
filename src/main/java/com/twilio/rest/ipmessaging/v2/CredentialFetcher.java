@@ -22,8 +22,8 @@ public class CredentialFetcher extends Fetcher<Credential> {
 
     /**
      * Construct a new CredentialFetcher.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The SID of the Credential resource to fetch
      */
     public CredentialFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -31,7 +31,7 @@ public class CredentialFetcher extends Fetcher<Credential> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Credential
      */
@@ -41,8 +41,7 @@ public class CredentialFetcher extends Fetcher<Credential> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),
-            "/v2/Credentials/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Credentials/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -54,14 +53,7 @@ public class CredentialFetcher extends Fetcher<Credential> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Credential.fromJson(response.getStream(), client.getObjectMapper());

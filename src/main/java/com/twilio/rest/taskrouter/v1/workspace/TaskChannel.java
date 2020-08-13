@@ -34,24 +34,25 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskChannel extends Resource {
-    private static final long serialVersionUID = 123017740799311L;
+    private static final long serialVersionUID = 87520156212725L;
 
     /**
      * Create a TaskChannelFetcher to execute fetch.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskChannel to
+     *                         fetch
+     * @param pathSid The SID of the TaskChannel resource to fetch
      * @return TaskChannelFetcher capable of executing the fetch
      */
-    public static TaskChannelFetcher fetcher(final String pathWorkspaceSid, 
+    public static TaskChannelFetcher fetcher(final String pathWorkspaceSid,
                                              final String pathSid) {
         return new TaskChannelFetcher(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a TaskChannelReader to execute read.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskChannel to read
      * @return TaskChannelReader capable of executing the read
      */
     public static TaskChannelReader reader(final String pathWorkspaceSid) {
@@ -59,9 +60,51 @@ public class TaskChannel extends Resource {
     }
 
     /**
+     * Create a TaskChannelUpdater to execute update.
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskChannel to
+     *                         update
+     * @param pathSid The SID of the TaskChannel resource to update
+     * @return TaskChannelUpdater capable of executing the update
+     */
+    public static TaskChannelUpdater updater(final String pathWorkspaceSid,
+                                             final String pathSid) {
+        return new TaskChannelUpdater(pathWorkspaceSid, pathSid);
+    }
+
+    /**
+     * Create a TaskChannelDeleter to execute delete.
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskChannel to
+     *                         delete
+     * @param pathSid The SID of the TaskChannel resource to delete
+     * @return TaskChannelDeleter capable of executing the delete
+     */
+    public static TaskChannelDeleter deleter(final String pathWorkspaceSid,
+                                             final String pathSid) {
+        return new TaskChannelDeleter(pathWorkspaceSid, pathSid);
+    }
+
+    /**
+     * Create a TaskChannelCreator to execute create.
+     *
+     * @param pathWorkspaceSid The SID of the Workspace that the new TaskChannel
+     *                         belongs to
+     * @param friendlyName A string to describe the TaskChannel resource
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   TaskChannel
+     * @return TaskChannelCreator capable of executing the create
+     */
+    public static TaskChannelCreator creator(final String pathWorkspaceSid,
+                                             final String friendlyName,
+                                             final String uniqueName) {
+        return new TaskChannelCreator(pathWorkspaceSid, friendlyName, uniqueName);
+    }
+
+    /**
      * Converts a JSON String into a TaskChannel object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return TaskChannel object represented by the provided JSON
@@ -80,7 +123,7 @@ public class TaskChannel extends Resource {
     /**
      * Converts a JSON InputStream into a TaskChannel object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return TaskChannel object represented by the provided JSON
@@ -103,25 +146,31 @@ public class TaskChannel extends Resource {
     private final String sid;
     private final String uniqueName;
     private final String workspaceSid;
+    private final Boolean channelOptimizedRouting;
     private final URI url;
+    private final Map<String, String> links;
 
     @JsonCreator
     private TaskChannel(@JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("date_created")
-                        final String dateCreated, 
+                        final String dateCreated,
                         @JsonProperty("date_updated")
-                        final String dateUpdated, 
+                        final String dateUpdated,
                         @JsonProperty("friendly_name")
-                        final String friendlyName, 
+                        final String friendlyName,
                         @JsonProperty("sid")
-                        final String sid, 
+                        final String sid,
                         @JsonProperty("unique_name")
-                        final String uniqueName, 
+                        final String uniqueName,
                         @JsonProperty("workspace_sid")
-                        final String workspaceSid, 
+                        final String workspaceSid,
+                        @JsonProperty("channel_optimized_routing")
+                        final Boolean channelOptimizedRouting,
                         @JsonProperty("url")
-                        final URI url) {
+                        final URI url,
+                        @JsonProperty("links")
+                        final Map<String, String> links) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
@@ -129,79 +178,101 @@ public class TaskChannel extends Resource {
         this.sid = sid;
         this.uniqueName = uniqueName;
         this.workspaceSid = workspaceSid;
+        this.channelOptimizedRouting = channelOptimizedRouting;
         this.url = url;
+        this.links = links;
     }
 
     /**
-     * Returns The The account_sid.
-     * 
-     * @return The account_sid
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The date_created.
-     * 
-     * @return The date_created
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
-     * 
-     * @return The date_updated
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The friendly_name.
-     * 
-     * @return The friendly_name
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The sid.
-     * 
-     * @return The sid
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique_name.
-     * 
-     * @return The unique_name
+     * Returns An application-defined string that uniquely identifies the
+     * TaskChannel.
+     *
+     * @return An application-defined string that uniquely identifies the
+     *         TaskChannel
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The workspace_sid.
-     * 
-     * @return The workspace_sid
+     * Returns The SID of the Workspace that contains the TaskChannel.
+     *
+     * @return The SID of the Workspace that contains the TaskChannel
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
-     * 
-     * @return The url
+     * Returns Whether the TaskChannel will prioritize Workers that have been idle.
+     *
+     * @return Whether the TaskChannel will prioritize Workers that have been idle
+     */
+    public final Boolean getChannelOptimizedRouting() {
+        return this.channelOptimizedRouting;
+    }
+
+    /**
+     * Returns The absolute URL of the TaskChannel resource.
+     *
+     * @return The absolute URL of the TaskChannel resource
      */
     public final URI getUrl() {
         return this.url;
+    }
+
+    /**
+     * Returns The URLs of related resources.
+     *
+     * @return The URLs of related resources
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
     }
 
     @Override
@@ -216,14 +287,16 @@ public class TaskChannel extends Resource {
 
         TaskChannel other = (TaskChannel) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(workspaceSid, other.workspaceSid) && 
-               Objects.equals(url, other.url);
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(workspaceSid, other.workspaceSid) &&
+               Objects.equals(channelOptimizedRouting, other.channelOptimizedRouting) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(links, other.links);
     }
 
     @Override
@@ -235,7 +308,9 @@ public class TaskChannel extends Resource {
                             sid,
                             uniqueName,
                             workspaceSid,
-                            url);
+                            channelOptimizedRouting,
+                            url,
+                            links);
     }
 
     @Override
@@ -248,7 +323,9 @@ public class TaskChannel extends Resource {
                           .add("sid", sid)
                           .add("uniqueName", uniqueName)
                           .add("workspaceSid", workspaceSid)
+                          .add("channelOptimizedRouting", channelOptimizedRouting)
                           .add("url", url)
+                          .add("links", links)
                           .toString();
     }
 }

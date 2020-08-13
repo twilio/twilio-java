@@ -22,8 +22,8 @@ public class SimFetcher extends Fetcher<Sim> {
 
     /**
      * Construct a new SimFetcher.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The SID of the Sim resource to fetch
      */
     public SimFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -31,7 +31,7 @@ public class SimFetcher extends Fetcher<Sim> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Sim
      */
@@ -41,8 +41,7 @@ public class SimFetcher extends Fetcher<Sim> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.WIRELESS.toString(),
-            "/v1/Sims/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Sims/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -54,14 +53,7 @@ public class SimFetcher extends Fetcher<Sim> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Sim.fromJson(response.getStream(), client.getObjectMapper());

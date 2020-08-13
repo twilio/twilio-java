@@ -31,13 +31,13 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * Construct a new ParticipantCreator.
-     * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
-     * @param identifier The phone number of this Participant.
+     *
+     * @param pathServiceSid The SID of the parent Service resource
+     * @param pathSessionSid The SID of the parent Session resource
+     * @param identifier The phone number of the Participant
      */
-    public ParticipantCreator(final String pathServiceSid, 
-                              final String pathSessionSid, 
+    public ParticipantCreator(final String pathServiceSid,
+                              final String pathSessionSid,
                               final String identifier) {
         this.pathServiceSid = pathServiceSid;
         this.pathSessionSid = pathSessionSid;
@@ -45,10 +45,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * A human-readable description of this resource, up to 64 characters. Should
-     * not include PII..
-     * 
-     * @param friendlyName A human-readable description of this resource.
+     * The string that you assigned to describe the participant. This value must be
+     * 255 characters or fewer. **This value should not have PII.**.
+     *
+     * @param friendlyName The string that you assigned to describe the participant
      * @return this
      */
     public ParticipantCreator setFriendlyName(final String friendlyName) {
@@ -57,10 +57,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The proxy phone number to use for this Participant. If not specified, Proxy
+     * The proxy phone number to use for the Participant. If not specified, Proxy
      * will select a number from the pool..
-     * 
-     * @param proxyIdentifier The proxy phone number to use for this Participant.
+     *
+     * @param proxyIdentifier The proxy phone number to use for the Participant
      * @return this
      */
     public ParticipantCreator setProxyIdentifier(final String proxyIdentifier) {
@@ -69,9 +69,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The proxy_identifier_sid.
-     * 
-     * @param proxyIdentifierSid The proxy_identifier_sid
+     * The SID of the Proxy Identifier to assign to the Participant..
+     *
+     * @param proxyIdentifierSid The Proxy Identifier Sid
      * @return this
      */
     public ParticipantCreator setProxyIdentifierSid(final String proxyIdentifierSid) {
@@ -81,7 +81,7 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Participant
      */
@@ -91,8 +91,7 @@ public class ParticipantCreator extends Creator<Participant> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PROXY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Sessions/" + this.pathSessionSid + "/Participants",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Sessions/" + this.pathSessionSid + "/Participants"
         );
 
         addPostParams(request);
@@ -105,14 +104,7 @@ public class ParticipantCreator extends Creator<Participant> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Participant.fromJson(response.getStream(), client.getObjectMapper());
@@ -120,7 +112,7 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -30,8 +30,9 @@ public class QueueReader extends Reader<Queue> {
 
     /**
      * Construct a new QueueReader.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       fetch
      */
     public QueueReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
@@ -39,7 +40,7 @@ public class QueueReader extends Reader<Queue> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Queue ResourceSet
      */
@@ -50,7 +51,7 @@ public class QueueReader extends Reader<Queue> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Queue ResourceSet
      */
@@ -61,8 +62,7 @@ public class QueueReader extends Reader<Queue> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Queues.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Queues.json"
         );
 
         addQueryParams(request);
@@ -71,7 +71,7 @@ public class QueueReader extends Reader<Queue> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Queue ResourceSet
@@ -90,47 +90,41 @@ public class QueueReader extends Reader<Queue> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Queue> nextPage(final Page<Queue> page, 
+    public Page<Queue> nextPage(final Page<Queue> page,
                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Queue> previousPage(final Page<Queue> page, 
+    public Page<Queue> previousPage(final Page<Queue> page,
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Queue Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -145,14 +139,7 @@ public class QueueReader extends Reader<Queue> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -165,7 +152,7 @@ public class QueueReader extends Reader<Queue> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

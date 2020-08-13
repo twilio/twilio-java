@@ -22,8 +22,8 @@ public class AwsFetcher extends Fetcher<Aws> {
 
     /**
      * Construct a new AwsFetcher.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      */
     public AwsFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -31,7 +31,7 @@ public class AwsFetcher extends Fetcher<Aws> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Aws
      */
@@ -41,8 +41,7 @@ public class AwsFetcher extends Fetcher<Aws> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.ACCOUNTS.toString(),
-            "/v1/Credentials/AWS/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Credentials/AWS/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -54,14 +53,7 @@ public class AwsFetcher extends Fetcher<Aws> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Aws.fromJson(response.getStream(), client.getObjectMapper());

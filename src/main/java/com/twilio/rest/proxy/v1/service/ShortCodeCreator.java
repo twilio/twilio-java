@@ -27,11 +27,11 @@ public class ShortCodeCreator extends Creator<ShortCode> {
 
     /**
      * Construct a new ShortCodeCreator.
-     * 
-     * @param pathServiceSid Service Sid.
-     * @param sid A string that uniquely identifies this Short Code.
+     *
+     * @param pathServiceSid The SID of the parent Service resource
+     * @param sid The SID of a Twilio ShortCode resource
      */
-    public ShortCodeCreator(final String pathServiceSid, 
+    public ShortCodeCreator(final String pathServiceSid,
                             final String sid) {
         this.pathServiceSid = pathServiceSid;
         this.sid = sid;
@@ -39,7 +39,7 @@ public class ShortCodeCreator extends Creator<ShortCode> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created ShortCode
      */
@@ -49,8 +49,7 @@ public class ShortCodeCreator extends Creator<ShortCode> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PROXY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/ShortCodes",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/ShortCodes"
         );
 
         addPostParams(request);
@@ -63,14 +62,7 @@ public class ShortCodeCreator extends Creator<ShortCode> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return ShortCode.fromJson(response.getStream(), client.getObjectMapper());
@@ -78,7 +70,7 @@ public class ShortCodeCreator extends Creator<ShortCode> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

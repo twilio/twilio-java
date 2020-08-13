@@ -31,17 +31,19 @@ public class ChannelCreator extends Creator<Channel> {
 
     /**
      * Construct a new ChannelCreator.
-     * 
-     * @param pathServiceSid Sid of the Service this channel belongs to.
+     *
+     * @param pathServiceSid The SID of the Service to create the Channel resource
+     *                       under
      */
     public ChannelCreator(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
     /**
-     * A human-readable name for the Channel. Optional..
-     * 
-     * @param friendlyName A human-readable name for the Channel.
+     * A descriptive string that you create to describe the new resource. It can be
+     * up to 64 characters long..
+     *
+     * @param friendlyName A string to describe the new resource
      * @return this
      */
     public ChannelCreator setFriendlyName(final String friendlyName) {
@@ -50,9 +52,13 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * A unique, addressable name for the Channel.  Optional..
-     * 
-     * @param uniqueName A unique, addressable name for the Channel.
+     * An application-defined string that uniquely identifies the resource. It can
+     * be used to address the resource in place of the Channel resource's `sid` in
+     * the URL. This value must be 64 characters or less in length and be unique
+     * within the Service..
+     *
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   Channel resource
      * @return this
      */
     public ChannelCreator setUniqueName(final String uniqueName) {
@@ -61,11 +67,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * An optional metadata field you can use to store any data you wish. No
-     * processing or validation is done on this field..
-     * 
-     * @param attributes An optional metadata field you can use to store any data
-     *                   you wish.
+     * A valid JSON string that contains application-specific data..
+     *
+     * @param attributes A valid JSON string that contains application-specific data
      * @return this
      */
     public ChannelCreator setAttributes(final String attributes) {
@@ -74,9 +78,10 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The visibility of the channel - `public` or `private`. Defaults to `public`..
-     * 
-     * @param type The visibility of the channel - public or private.
+     * The visibility of the channel. Can be: `public` or `private` and defaults to
+     * `public`..
+     *
+     * @param type The visibility of the channel
      * @return this
      */
     public ChannelCreator setType(final Channel.ChannelType type) {
@@ -85,13 +90,14 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The optional ISO8601 time specifying the datetime the Channel should be set
-     * as being created.  Will be set to the current time by the Chat service if not
-     * specified.  Note that this should only be used in cases where a a Channel is
-     * being recreated from a backup/separate source.
-     * 
-     * @param dateCreated The optional ISO8601 time specifying the datetime the
-     *                    Channel should be set as being created.
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was created. The default
+     * value is the current time set by the Chat service.  Note that this should
+     * only be used in cases where a Channel is being recreated from a
+     * backup/separate source..
+     *
+     * @param dateCreated The ISO 8601 date and time in GMT when the resource was
+     *                    created
      * @return this
      */
     public ChannelCreator setDateCreated(final DateTime dateCreated) {
@@ -100,14 +106,14 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The optional ISO8601 time specifying the datetime the Channel should be set
-     * as having been last updated.  Will be set to the `null` by the Chat service
-     * if not specified.  Note that this should only be used in cases where a
-     * Channel is being recreated from a backup/separate source  and where a Message
-     * was previously updated..
-     * 
-     * @param dateUpdated The optional ISO8601 time specifying the datetime the
-     *                    Channel should be set as having been last updated.
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was last updated. The
+     * default value is `null`. Note that this parameter should only be used in
+     * cases where a Channel is being recreated from a backup/separate source  and
+     * where a Message was previously updated..
+     *
+     * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
+     *                    updated
      * @return this
      */
     public ChannelCreator setDateUpdated(final DateTime dateUpdated) {
@@ -116,11 +122,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * Optional field to specify the Identity of the User that created the Channel. 
-     * Will be set to "system" if not specified..
-     * 
-     * @param createdBy Optional field to specify the Identity of the User that
-     *                  created the Channel.
+     * The `identity` of the User that created the channel. Default is: `system`..
+     *
+     * @param createdBy The identity of the User that created the Channel
      * @return this
      */
     public ChannelCreator setCreatedBy(final String createdBy) {
@@ -130,7 +134,7 @@ public class ChannelCreator extends Creator<Channel> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Channel
      */
@@ -140,8 +144,7 @@ public class ChannelCreator extends Creator<Channel> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels"
         );
 
         addPostParams(request);
@@ -154,14 +157,7 @@ public class ChannelCreator extends Creator<Channel> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Channel.fromJson(response.getStream(), client.getObjectMapper());
@@ -169,7 +165,7 @@ public class ChannelCreator extends Creator<Channel> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

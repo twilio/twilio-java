@@ -25,8 +25,8 @@ public class MemberReader extends Reader<Member> {
 
     /**
      * Construct a new MemberReader.
-     * 
-     * @param pathQueueSid The Queue in which to find members
+     *
+     * @param pathQueueSid The SID of the Queue in which to find the members
      */
     public MemberReader(final String pathQueueSid) {
         this.pathQueueSid = pathQueueSid;
@@ -34,11 +34,12 @@ public class MemberReader extends Reader<Member> {
 
     /**
      * Construct a new MemberReader.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathQueueSid The Queue in which to find members
+     *
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       read
+     * @param pathQueueSid The SID of the Queue in which to find the members
      */
-    public MemberReader(final String pathAccountSid, 
+    public MemberReader(final String pathAccountSid,
                         final String pathQueueSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathQueueSid = pathQueueSid;
@@ -46,7 +47,7 @@ public class MemberReader extends Reader<Member> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Member ResourceSet
      */
@@ -57,7 +58,7 @@ public class MemberReader extends Reader<Member> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Member ResourceSet
      */
@@ -68,8 +69,7 @@ public class MemberReader extends Reader<Member> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Queues/" + this.pathQueueSid + "/Members.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Queues/" + this.pathQueueSid + "/Members.json"
         );
 
         addQueryParams(request);
@@ -78,7 +78,7 @@ public class MemberReader extends Reader<Member> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Member ResourceSet
@@ -97,47 +97,41 @@ public class MemberReader extends Reader<Member> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Member> nextPage(final Page<Member> page, 
+    public Page<Member> nextPage(final Page<Member> page,
                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Member> previousPage(final Page<Member> page, 
+    public Page<Member> previousPage(final Page<Member> page,
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Member Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -152,14 +146,7 @@ public class MemberReader extends Reader<Member> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -172,7 +159,7 @@ public class MemberReader extends Reader<Member> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

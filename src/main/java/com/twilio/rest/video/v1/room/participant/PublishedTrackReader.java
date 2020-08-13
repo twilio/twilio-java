@@ -25,12 +25,13 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
 
     /**
      * Construct a new PublishedTrackReader.
-     * 
-     * @param pathRoomSid Unique Room identifier where this Track is published.
-     * @param pathParticipantSid Unique Participant identifier that publishes this
-     *                           Track.
+     *
+     * @param pathRoomSid The SID of the Room resource where the Track resources to
+     *                    read are published
+     * @param pathParticipantSid The SID of the Participant resource with the
+     *                           published tracks to read
      */
-    public PublishedTrackReader(final String pathRoomSid, 
+    public PublishedTrackReader(final String pathRoomSid,
                                 final String pathParticipantSid) {
         this.pathRoomSid = pathRoomSid;
         this.pathParticipantSid = pathParticipantSid;
@@ -38,7 +39,7 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return PublishedTrack ResourceSet
      */
@@ -49,7 +50,7 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return PublishedTrack ResourceSet
      */
@@ -59,8 +60,7 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathParticipantSid + "/PublishedTracks",
-            client.getRegion()
+            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathParticipantSid + "/PublishedTracks"
         );
 
         addQueryParams(request);
@@ -69,7 +69,7 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return PublishedTrack ResourceSet
@@ -87,47 +87,41 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<PublishedTrack> nextPage(final Page<PublishedTrack> page, 
+    public Page<PublishedTrack> nextPage(final Page<PublishedTrack> page,
                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.VIDEO.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.VIDEO.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<PublishedTrack> previousPage(final Page<PublishedTrack> page, 
+    public Page<PublishedTrack> previousPage(final Page<PublishedTrack> page,
                                              final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.VIDEO.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.VIDEO.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of PublishedTrack Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -142,14 +136,7 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -162,7 +149,7 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

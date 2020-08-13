@@ -43,7 +43,7 @@ public class Fleet extends Resource {
 
     /**
      * Create a FleetFetcher to execute fetch.
-     * 
+     *
      * @param pathSid A string that uniquely identifies the Fleet.
      * @return FleetFetcher capable of executing the fetch
      */
@@ -53,7 +53,7 @@ public class Fleet extends Resource {
 
     /**
      * Create a FleetDeleter to execute delete.
-     * 
+     *
      * @param pathSid A string that uniquely identifies the Fleet.
      * @return FleetDeleter capable of executing the delete
      */
@@ -63,7 +63,7 @@ public class Fleet extends Resource {
 
     /**
      * Create a FleetCreator to execute create.
-     * 
+     *
      * @return FleetCreator capable of executing the create
      */
     public static FleetCreator creator() {
@@ -72,7 +72,7 @@ public class Fleet extends Resource {
 
     /**
      * Create a FleetReader to execute read.
-     * 
+     *
      * @return FleetReader capable of executing the read
      */
     public static FleetReader reader() {
@@ -81,7 +81,7 @@ public class Fleet extends Resource {
 
     /**
      * Create a FleetUpdater to execute update.
-     * 
+     *
      * @param pathSid A string that uniquely identifies the Fleet.
      * @return FleetUpdater capable of executing the update
      */
@@ -91,7 +91,7 @@ public class Fleet extends Resource {
 
     /**
      * Converts a JSON String into a Fleet object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Fleet object represented by the provided JSON
@@ -110,7 +110,7 @@ public class Fleet extends Resource {
     /**
      * Converts a JSON InputStream into a Fleet object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Fleet object represented by the provided JSON
@@ -138,21 +138,21 @@ public class Fleet extends Resource {
 
     @JsonCreator
     private Fleet(@JsonProperty("sid")
-                  final String sid, 
+                  final String sid,
                   @JsonProperty("url")
-                  final URI url, 
+                  final URI url,
                   @JsonProperty("unique_name")
-                  final String uniqueName, 
+                  final String uniqueName,
                   @JsonProperty("friendly_name")
-                  final String friendlyName, 
+                  final String friendlyName,
                   @JsonProperty("account_sid")
-                  final String accountSid, 
+                  final String accountSid,
                   @JsonProperty("default_deployment_sid")
-                  final String defaultDeploymentSid, 
+                  final String defaultDeploymentSid,
                   @JsonProperty("date_created")
-                  final String dateCreated, 
+                  final String dateCreated,
                   @JsonProperty("date_updated")
-                  final String dateUpdated, 
+                  final String dateUpdated,
                   @JsonProperty("links")
                   final Map<String, String> links) {
         this.sid = sid;
@@ -167,8 +167,8 @@ public class Fleet extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Fleet..
-     * 
+     * Returns A string that uniquely identifies this Fleet..
+     *
      * @return A string that uniquely identifies this Fleet.
      */
     public final String getSid() {
@@ -176,8 +176,8 @@ public class Fleet extends Resource {
     }
 
     /**
-     * Returns The URL of this Fleet..
-     * 
+     * Returns URL of this Fleet..
+     *
      * @return URL of this Fleet.
      */
     public final URI getUrl() {
@@ -185,8 +185,8 @@ public class Fleet extends Resource {
     }
 
     /**
-     * Returns The A unique, addressable name of this Fleet..
-     * 
+     * Returns A unique, addressable name of this Fleet..
+     *
      * @return A unique, addressable name of this Fleet.
      */
     public final String getUniqueName() {
@@ -194,8 +194,8 @@ public class Fleet extends Resource {
     }
 
     /**
-     * Returns The A human readable description for this Fleet..
-     * 
+     * Returns A human readable description for this Fleet..
+     *
      * @return A human readable description for this Fleet.
      */
     public final String getFriendlyName() {
@@ -203,8 +203,8 @@ public class Fleet extends Resource {
     }
 
     /**
-     * Returns The The unique SID that identifies this Account..
-     * 
+     * Returns The unique SID that identifies this Account..
+     *
      * @return The unique SID that identifies this Account.
      */
     public final String getAccountSid() {
@@ -212,8 +212,8 @@ public class Fleet extends Resource {
     }
 
     /**
-     * Returns The The unique SID that identifies this Fleet's default Deployment..
-     * 
+     * Returns The unique SID that identifies this Fleet's default Deployment..
+     *
      * @return The unique SID that identifies this Fleet's default Deployment.
      */
     public final String getDefaultDeploymentSid() {
@@ -221,8 +221,8 @@ public class Fleet extends Resource {
     }
 
     /**
-     * Returns The The date this Fleet was created..
-     * 
+     * Returns The date this Fleet was created..
+     *
      * @return The date this Fleet was created.
      */
     public final DateTime getDateCreated() {
@@ -230,8 +230,8 @@ public class Fleet extends Resource {
     }
 
     /**
-     * Returns The The date this Fleet was updated..
-     * 
+     * Returns The date this Fleet was updated..
+     *
      * @return The date this Fleet was updated.
      */
     public final DateTime getDateUpdated() {
@@ -239,8 +239,8 @@ public class Fleet extends Resource {
     }
 
     /**
-     * Returns The Nested resource URLs..
-     * 
+     * Returns Nested resource URLs..
+     *
      * @return Nested resource URLs.
      */
     public final Map<String, String> getLinks() {
@@ -259,14 +259,14 @@ public class Fleet extends Resource {
 
         Fleet other = (Fleet) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(defaultDeploymentSid, other.defaultDeploymentSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(defaultDeploymentSid, other.defaultDeploymentSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(links, other.links);
     }
 

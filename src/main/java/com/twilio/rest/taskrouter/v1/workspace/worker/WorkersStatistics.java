@@ -37,8 +37,8 @@ public class WorkersStatistics extends Resource {
 
     /**
      * Create a WorkersStatisticsFetcher to execute fetch.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the Worker to fetch
      * @return WorkersStatisticsFetcher capable of executing the fetch
      */
     public static WorkersStatisticsFetcher fetcher(final String pathWorkspaceSid) {
@@ -48,7 +48,7 @@ public class WorkersStatistics extends Resource {
     /**
      * Converts a JSON String into a WorkersStatistics object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return WorkersStatistics object represented by the provided JSON
@@ -67,7 +67,7 @@ public class WorkersStatistics extends Resource {
     /**
      * Converts a JSON InputStream into a WorkersStatistics object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return WorkersStatistics object represented by the provided JSON
@@ -91,13 +91,13 @@ public class WorkersStatistics extends Resource {
 
     @JsonCreator
     private WorkersStatistics(@JsonProperty("realtime")
-                              final Map<String, Object> realtime, 
+                              final Map<String, Object> realtime,
                               @JsonProperty("cumulative")
-                              final Map<String, Object> cumulative, 
+                              final Map<String, Object> cumulative,
                               @JsonProperty("account_sid")
-                              final String accountSid, 
+                              final String accountSid,
                               @JsonProperty("workspace_sid")
-                              final String workspaceSid, 
+                              final String workspaceSid,
                               @JsonProperty("url")
                               final URI url) {
         this.realtime = realtime;
@@ -108,45 +108,45 @@ public class WorkersStatistics extends Resource {
     }
 
     /**
-     * Returns The The realtime.
-     * 
-     * @return The realtime
+     * Returns An object that contains the real-time statistics for the Worker.
+     *
+     * @return An object that contains the real-time statistics for the Worker
      */
     public final Map<String, Object> getRealtime() {
         return this.realtime;
     }
 
     /**
-     * Returns The The cumulative.
-     * 
-     * @return The cumulative
+     * Returns An object that contains the cumulative statistics for the Worker.
+     *
+     * @return An object that contains the cumulative statistics for the Worker
      */
     public final Map<String, Object> getCumulative() {
         return this.cumulative;
     }
 
     /**
-     * Returns The The account_sid.
-     * 
-     * @return The account_sid
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The workspace_sid.
-     * 
-     * @return The workspace_sid
+     * Returns The SID of the Workspace that contains the Worker.
+     *
+     * @return The SID of the Workspace that contains the Worker
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
-     * 
-     * @return The url
+     * Returns The absolute URL of the Worker statistics resource.
+     *
+     * @return The absolute URL of the Worker statistics resource
      */
     public final URI getUrl() {
         return this.url;
@@ -164,10 +164,10 @@ public class WorkersStatistics extends Resource {
 
         WorkersStatistics other = (WorkersStatistics) o;
 
-        return Objects.equals(realtime, other.realtime) && 
-               Objects.equals(cumulative, other.cumulative) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(workspaceSid, other.workspaceSid) && 
+        return Objects.equals(realtime, other.realtime) &&
+               Objects.equals(cumulative, other.cumulative) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(workspaceSid, other.workspaceSid) &&
                Objects.equals(url, other.url);
     }
 

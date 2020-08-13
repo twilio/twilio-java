@@ -30,7 +30,6 @@ import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.net.URI;
 import java.util.Currency;
 import java.util.List;
@@ -39,7 +38,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Message extends Resource {
-    private static final long serialVersionUID = 61377418909039L;
+    private static final long serialVersionUID = 109887542891677L;
 
     public enum Status {
         QUEUED("queued"),
@@ -50,7 +49,10 @@ public class Message extends Resource {
         UNDELIVERED("undelivered"),
         RECEIVING("receiving"),
         RECEIVED("received"),
-        ACCEPTED("accepted");
+        ACCEPTED("accepted"),
+        SCHEDULED("scheduled"),
+        READ("read"),
+        PARTIALLY_DELIVERED("partially_delivered");
 
         private final String value;
 
@@ -101,8 +103,7 @@ public class Message extends Resource {
     }
 
     public enum ContentRetention {
-        RETAIN("retain"),
-        DISCARD("discard");
+        RETAIN("retain");
 
         private final String value;
 
@@ -126,8 +127,7 @@ public class Message extends Resource {
     }
 
     public enum AddressRetention {
-        RETAIN("retain"),
-        DISCARD("discard");
+        RETAIN("retain");
 
         private final String value;
 
@@ -150,150 +150,200 @@ public class Message extends Resource {
         }
     }
 
+    public enum TrafficType {
+        FREE("free");
+
+        private final String value;
+
+        private TrafficType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a TrafficType from a string.
+         * @param value string value
+         * @return generated TrafficType
+         */
+        @JsonCreator
+        public static TrafficType forValue(final String value) {
+            return Promoter.enumFromString(value, TrafficType.values());
+        }
+    }
+
+    public enum ScheduleType {
+        FIXED("fixed"),
+        OPTIMIZE("optimize");
+
+        private final String value;
+
+        private ScheduleType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a ScheduleType from a string.
+         * @param value string value
+         * @return generated ScheduleType
+         */
+        @JsonCreator
+        public static ScheduleType forValue(final String value) {
+            return Promoter.enumFromString(value, ScheduleType.values());
+        }
+    }
+
     /**
      * Create a MessageCreator to execute create.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param to The phone number to receive the message
+     *
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param to The destination phone number
      * @param from The phone number that initiated the message
-     * @param body The text of the message you want to send, limited to 1600
-     *             characters.
+     * @param body The text of the message you want to send. Can be up to 1,600
+     *             characters in length.
      * @return MessageCreator capable of executing the create
      */
-    public static MessageCreator creator(final String pathAccountSid, 
-                                         final com.twilio.type.PhoneNumber to, 
-                                         final com.twilio.type.PhoneNumber from, 
+    public static MessageCreator creator(final String pathAccountSid,
+                                         final com.twilio.type.PhoneNumber to,
+                                         final com.twilio.type.PhoneNumber from,
                                          final String body) {
         return new MessageCreator(pathAccountSid, to, from, body);
     }
 
     /**
      * Create a MessageCreator to execute create.
-     * 
-     * @param to The phone number to receive the message
+     *
+     * @param to The destination phone number
      * @param from The phone number that initiated the message
-     * @param body The text of the message you want to send, limited to 1600
-     *             characters.
+     * @param body The text of the message you want to send. Can be up to 1,600
+     *             characters in length.
      * @return MessageCreator capable of executing the create
      */
-    public static MessageCreator creator(final com.twilio.type.PhoneNumber to, 
-                                         final com.twilio.type.PhoneNumber from, 
+    public static MessageCreator creator(final com.twilio.type.PhoneNumber to,
+                                         final com.twilio.type.PhoneNumber from,
                                          final String body) {
         return new MessageCreator(to, from, body);
     }
 
     /**
      * Create a MessageCreator to execute create.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param to The phone number to receive the message
+     *
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param to The destination phone number
      * @param from The phone number that initiated the message
-     * @param mediaUrl The URL of the media you wish to send out with the message.
+     * @param mediaUrl The URL of the media to send with the message
      * @return MessageCreator capable of executing the create
      */
-    public static MessageCreator creator(final String pathAccountSid, 
-                                         final com.twilio.type.PhoneNumber to, 
-                                         final com.twilio.type.PhoneNumber from, 
+    public static MessageCreator creator(final String pathAccountSid,
+                                         final com.twilio.type.PhoneNumber to,
+                                         final com.twilio.type.PhoneNumber from,
                                          final List<URI> mediaUrl) {
         return new MessageCreator(pathAccountSid, to, from, mediaUrl);
     }
 
     /**
      * Create a MessageCreator to execute create.
-     * 
-     * @param to The phone number to receive the message
+     *
+     * @param to The destination phone number
      * @param from The phone number that initiated the message
-     * @param mediaUrl The URL of the media you wish to send out with the message.
+     * @param mediaUrl The URL of the media to send with the message
      * @return MessageCreator capable of executing the create
      */
-    public static MessageCreator creator(final com.twilio.type.PhoneNumber to, 
-                                         final com.twilio.type.PhoneNumber from, 
+    public static MessageCreator creator(final com.twilio.type.PhoneNumber to,
+                                         final com.twilio.type.PhoneNumber from,
                                          final List<URI> mediaUrl) {
         return new MessageCreator(to, from, mediaUrl);
     }
 
     /**
      * Create a MessageCreator to execute create.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param to The phone number to receive the message
-     * @param messagingServiceSid The 34 character unique id of the Messaging
-     *                            Service you want to associate with this Message.
-     * @param body The text of the message you want to send, limited to 1600
-     *             characters.
+     *
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param to The destination phone number
+     * @param messagingServiceSid The SID of the Messaging Service you want to
+     *                            associate with the message.
+     * @param body The text of the message you want to send. Can be up to 1,600
+     *             characters in length.
      * @return MessageCreator capable of executing the create
      */
-    public static MessageCreator creator(final String pathAccountSid, 
-                                         final com.twilio.type.PhoneNumber to, 
-                                         final String messagingServiceSid, 
+    public static MessageCreator creator(final String pathAccountSid,
+                                         final com.twilio.type.PhoneNumber to,
+                                         final String messagingServiceSid,
                                          final String body) {
         return new MessageCreator(pathAccountSid, to, messagingServiceSid, body);
     }
 
     /**
      * Create a MessageCreator to execute create.
-     * 
-     * @param to The phone number to receive the message
-     * @param messagingServiceSid The 34 character unique id of the Messaging
-     *                            Service you want to associate with this Message.
-     * @param body The text of the message you want to send, limited to 1600
-     *             characters.
+     *
+     * @param to The destination phone number
+     * @param messagingServiceSid The SID of the Messaging Service you want to
+     *                            associate with the message.
+     * @param body The text of the message you want to send. Can be up to 1,600
+     *             characters in length.
      * @return MessageCreator capable of executing the create
      */
-    public static MessageCreator creator(final com.twilio.type.PhoneNumber to, 
-                                         final String messagingServiceSid, 
+    public static MessageCreator creator(final com.twilio.type.PhoneNumber to,
+                                         final String messagingServiceSid,
                                          final String body) {
         return new MessageCreator(to, messagingServiceSid, body);
     }
 
     /**
      * Create a MessageCreator to execute create.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param to The phone number to receive the message
-     * @param messagingServiceSid The 34 character unique id of the Messaging
-     *                            Service you want to associate with this Message.
-     * @param mediaUrl The URL of the media you wish to send out with the message.
+     *
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param to The destination phone number
+     * @param messagingServiceSid The SID of the Messaging Service you want to
+     *                            associate with the message.
+     * @param mediaUrl The URL of the media to send with the message
      * @return MessageCreator capable of executing the create
      */
-    public static MessageCreator creator(final String pathAccountSid, 
-                                         final com.twilio.type.PhoneNumber to, 
-                                         final String messagingServiceSid, 
+    public static MessageCreator creator(final String pathAccountSid,
+                                         final com.twilio.type.PhoneNumber to,
+                                         final String messagingServiceSid,
                                          final List<URI> mediaUrl) {
         return new MessageCreator(pathAccountSid, to, messagingServiceSid, mediaUrl);
     }
 
     /**
      * Create a MessageCreator to execute create.
-     * 
-     * @param to The phone number to receive the message
-     * @param messagingServiceSid The 34 character unique id of the Messaging
-     *                            Service you want to associate with this Message.
-     * @param mediaUrl The URL of the media you wish to send out with the message.
+     *
+     * @param to The destination phone number
+     * @param messagingServiceSid The SID of the Messaging Service you want to
+     *                            associate with the message.
+     * @param mediaUrl The URL of the media to send with the message
      * @return MessageCreator capable of executing the create
      */
-    public static MessageCreator creator(final com.twilio.type.PhoneNumber to, 
-                                         final String messagingServiceSid, 
+    public static MessageCreator creator(final com.twilio.type.PhoneNumber to,
+                                         final String messagingServiceSid,
                                          final List<URI> mediaUrl) {
         return new MessageCreator(to, messagingServiceSid, mediaUrl);
     }
 
     /**
      * Create a MessageDeleter to execute delete.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The message to delete
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathSid The unique string that identifies the resource
      * @return MessageDeleter capable of executing the delete
      */
-    public static MessageDeleter deleter(final String pathAccountSid, 
+    public static MessageDeleter deleter(final String pathAccountSid,
                                          final String pathSid) {
         return new MessageDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a MessageDeleter to execute delete.
-     * 
-     * @param pathSid The message to delete
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return MessageDeleter capable of executing the delete
      */
     public static MessageDeleter deleter(final String pathSid) {
@@ -302,20 +352,21 @@ public class Message extends Resource {
 
     /**
      * Create a MessageFetcher to execute fetch.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique message Sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      * @return MessageFetcher capable of executing the fetch
      */
-    public static MessageFetcher fetcher(final String pathAccountSid, 
+    public static MessageFetcher fetcher(final String pathAccountSid,
                                          final String pathSid) {
         return new MessageFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a MessageFetcher to execute fetch.
-     * 
-     * @param pathSid Fetch by unique message Sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return MessageFetcher capable of executing the fetch
      */
     public static MessageFetcher fetcher(final String pathSid) {
@@ -324,8 +375,9 @@ public class Message extends Resource {
 
     /**
      * Create a MessageReader to execute read.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      * @return MessageReader capable of executing the read
      */
     public static MessageReader reader(final String pathAccountSid) {
@@ -334,7 +386,7 @@ public class Message extends Resource {
 
     /**
      * Create a MessageReader to execute read.
-     * 
+     *
      * @return MessageReader capable of executing the read
      */
     public static MessageReader reader() {
@@ -343,35 +395,34 @@ public class Message extends Resource {
 
     /**
      * Create a MessageUpdater to execute update.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The message to redact
-     * @param body The text of the message you want to send, limited to 1600
-     *             characters.
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       update
+     * @param pathSid The unique string that identifies the resource
+     * @param body The text of the message you want to send
      * @return MessageUpdater capable of executing the update
      */
-    public static MessageUpdater updater(final String pathAccountSid, 
-                                         final String pathSid, 
+    public static MessageUpdater updater(final String pathAccountSid,
+                                         final String pathSid,
                                          final String body) {
         return new MessageUpdater(pathAccountSid, pathSid, body);
     }
 
     /**
      * Create a MessageUpdater to execute update.
-     * 
-     * @param pathSid The message to redact
-     * @param body The text of the message you want to send, limited to 1600
-     *             characters.
+     *
+     * @param pathSid The unique string that identifies the resource
+     * @param body The text of the message you want to send
      * @return MessageUpdater capable of executing the update
      */
-    public static MessageUpdater updater(final String pathSid, 
+    public static MessageUpdater updater(final String pathSid,
                                          final String body) {
         return new MessageUpdater(pathSid, body);
     }
 
     /**
      * Converts a JSON String into a Message object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Message object represented by the provided JSON
@@ -390,7 +441,7 @@ public class Message extends Resource {
     /**
      * Converts a JSON InputStream into a Message object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Message object represented by the provided JSON
@@ -406,148 +457,112 @@ public class Message extends Resource {
         }
     }
 
-    private final String accountSid;
-    private final String apiVersion;
     private final String body;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
-    private final DateTime dateSent;
-    private final Message.Direction direction;
-    private final Integer errorCode;
-    private final String errorMessage;
-    private final com.twilio.type.PhoneNumber from;
-    private final String messagingServiceSid;
-    private final String numMedia;
     private final String numSegments;
-    private final BigDecimal price;
-    private final Currency priceUnit;
-    private final String sid;
-    private final Message.Status status;
-    private final Map<String, String> subresourceUris;
+    private final Message.Direction direction;
+    private final com.twilio.type.PhoneNumber from;
     private final String to;
+    private final DateTime dateUpdated;
+    private final String price;
+    private final String errorMessage;
     private final String uri;
+    private final String accountSid;
+    private final String numMedia;
+    private final Message.Status status;
+    private final String messagingServiceSid;
+    private final String sid;
+    private final DateTime dateSent;
+    private final DateTime dateCreated;
+    private final Integer errorCode;
+    private final Currency priceUnit;
+    private final String apiVersion;
+    private final Map<String, String> subresourceUris;
 
     @JsonCreator
-    private Message(@JsonProperty("account_sid")
-                    final String accountSid, 
-                    @JsonProperty("api_version")
-                    final String apiVersion, 
-                    @JsonProperty("body")
-                    final String body, 
-                    @JsonProperty("date_created")
-                    final String dateCreated, 
-                    @JsonProperty("date_updated")
-                    final String dateUpdated, 
-                    @JsonProperty("date_sent")
-                    final String dateSent, 
-                    @JsonProperty("direction")
-                    final Message.Direction direction, 
-                    @JsonProperty("error_code")
-                    final Integer errorCode, 
-                    @JsonProperty("error_message")
-                    final String errorMessage, 
-                    @JsonProperty("from")
-                    final com.twilio.type.PhoneNumber from, 
-                    @JsonProperty("messaging_service_sid")
-                    final String messagingServiceSid, 
-                    @JsonProperty("num_media")
-                    final String numMedia, 
+    private Message(@JsonProperty("body")
+                    final String body,
                     @JsonProperty("num_segments")
-                    final String numSegments, 
+                    final String numSegments,
+                    @JsonProperty("direction")
+                    final Message.Direction direction,
+                    @JsonProperty("from")
+                    final com.twilio.type.PhoneNumber from,
+                    @JsonProperty("to")
+                    final String to,
+                    @JsonProperty("date_updated")
+                    final String dateUpdated,
                     @JsonProperty("price")
-                    final BigDecimal price, 
+                    final String price,
+                    @JsonProperty("error_message")
+                    final String errorMessage,
+                    @JsonProperty("uri")
+                    final String uri,
+                    @JsonProperty("account_sid")
+                    final String accountSid,
+                    @JsonProperty("num_media")
+                    final String numMedia,
+                    @JsonProperty("status")
+                    final Message.Status status,
+                    @JsonProperty("messaging_service_sid")
+                    final String messagingServiceSid,
+                    @JsonProperty("sid")
+                    final String sid,
+                    @JsonProperty("date_sent")
+                    final String dateSent,
+                    @JsonProperty("date_created")
+                    final String dateCreated,
+                    @JsonProperty("error_code")
+                    final Integer errorCode,
                     @JsonProperty("price_unit")
                     @JsonDeserialize(using = com.twilio.converter.CurrencyDeserializer.class)
-                    final Currency priceUnit, 
-                    @JsonProperty("sid")
-                    final String sid, 
-                    @JsonProperty("status")
-                    final Message.Status status, 
+                    final Currency priceUnit,
+                    @JsonProperty("api_version")
+                    final String apiVersion,
                     @JsonProperty("subresource_uris")
-                    final Map<String, String> subresourceUris, 
-                    @JsonProperty("to")
-                    final String to, 
-                    @JsonProperty("uri")
-                    final String uri) {
-        this.accountSid = accountSid;
-        this.apiVersion = apiVersion;
+                    final Map<String, String> subresourceUris) {
         this.body = body;
-        this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
-        this.dateSent = DateConverter.rfc2822DateTimeFromString(dateSent);
-        this.direction = direction;
-        this.errorCode = errorCode;
-        this.errorMessage = errorMessage;
-        this.from = from;
-        this.messagingServiceSid = messagingServiceSid;
-        this.numMedia = numMedia;
         this.numSegments = numSegments;
-        this.price = price;
-        this.priceUnit = priceUnit;
-        this.sid = sid;
-        this.status = status;
-        this.subresourceUris = subresourceUris;
+        this.direction = direction;
+        this.from = from;
         this.to = to;
+        this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
+        this.price = price;
+        this.errorMessage = errorMessage;
         this.uri = uri;
+        this.accountSid = accountSid;
+        this.numMedia = numMedia;
+        this.status = status;
+        this.messagingServiceSid = messagingServiceSid;
+        this.sid = sid;
+        this.dateSent = DateConverter.rfc2822DateTimeFromString(dateSent);
+        this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
+        this.errorCode = errorCode;
+        this.priceUnit = priceUnit;
+        this.apiVersion = apiVersion;
+        this.subresourceUris = subresourceUris;
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
-     * 
-     * @return The unique sid that identifies this account
-     */
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    /**
-     * Returns The The version of the Twilio API used to process the message..
-     * 
-     * @return The version of the Twilio API used to process the message.
-     */
-    public final String getApiVersion() {
-        return this.apiVersion;
-    }
-
-    /**
-     * Returns The The text body of the message. Up to 1600 characters long..
-     * 
-     * @return The text body of the message. Up to 1600 characters long.
+     * Returns The message text.
+     *
+     * @return The message text
      */
     public final String getBody() {
         return this.body;
     }
 
     /**
-     * Returns The The date this resource was created.
-     * 
-     * @return The date this resource was created
+     * Returns The number of messages used to deliver the message body.
+     *
+     * @return The number of messages used to deliver the message body
      */
-    public final DateTime getDateCreated() {
-        return this.dateCreated;
+    public final String getNumSegments() {
+        return this.numSegments;
     }
 
     /**
-     * Returns The The date this resource was last updated.
-     * 
-     * @return The date this resource was last updated
-     */
-    public final DateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    /**
-     * Returns The The date the message was sent.
-     * 
-     * @return The date the message was sent
-     */
-    public final DateTime getDateSent() {
-        return this.dateSent;
-    }
-
-    /**
-     * Returns The The direction of the message.
-     * 
+     * Returns The direction of the message.
+     *
      * @return The direction of the message
      */
     public final Message.Direction getDirection() {
@@ -555,26 +570,8 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The error code associated with the message.
-     * 
-     * @return The error code associated with the message
-     */
-    public final Integer getErrorCode() {
-        return this.errorCode;
-    }
-
-    /**
-     * Returns The Human readable description of the ErrorCode.
-     * 
-     * @return Human readable description of the ErrorCode
-     */
-    public final String getErrorMessage() {
-        return this.errorMessage;
-    }
-
-    /**
-     * Returns The The phone number that initiated the message.
-     * 
+     * Returns The phone number that initiated the message.
+     *
      * @return The phone number that initiated the message
      */
     public final com.twilio.type.PhoneNumber getFrom() {
@@ -582,80 +579,8 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The unique id of the Messaging Service used with the message..
-     * 
-     * @return The unique id of the Messaging Service used with the message.
-     */
-    public final String getMessagingServiceSid() {
-        return this.messagingServiceSid;
-    }
-
-    /**
-     * Returns The Number of media files associated with the message.
-     * 
-     * @return Number of media files associated with the message
-     */
-    public final String getNumMedia() {
-        return this.numMedia;
-    }
-
-    /**
-     * Returns The Indicates number of messages used to delivery the body.
-     * 
-     * @return Indicates number of messages used to delivery the body
-     */
-    public final String getNumSegments() {
-        return this.numSegments;
-    }
-
-    /**
-     * Returns The The amount billed for the message.
-     * 
-     * @return The amount billed for the message
-     */
-    public final BigDecimal getPrice() {
-        return this.price;
-    }
-
-    /**
-     * Returns The The currency in which Price is measured.
-     * 
-     * @return The currency in which Price is measured
-     */
-    public final Currency getPriceUnit() {
-        return this.priceUnit;
-    }
-
-    /**
-     * Returns The A string that uniquely identifies this message.
-     * 
-     * @return A string that uniquely identifies this message
-     */
-    public final String getSid() {
-        return this.sid;
-    }
-
-    /**
-     * Returns The The status of this message.
-     * 
-     * @return The status of this message
-     */
-    public final Message.Status getStatus() {
-        return this.status;
-    }
-
-    /**
-     * Returns The The URI for any subresources.
-     * 
-     * @return The URI for any subresources
-     */
-    public final Map<String, String> getSubresourceUris() {
-        return this.subresourceUris;
-    }
-
-    /**
-     * Returns The The phone number that received the message.
-     * 
+     * Returns The phone number that received the message.
+     *
      * @return The phone number that received the message
      */
     public final String getTo() {
@@ -663,12 +588,138 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The The URI for this resource.
-     * 
-     * @return The URI for this resource
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
+     *
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
+     */
+    public final DateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    /**
+     * Returns The amount billed for the message.
+     *
+     * @return The amount billed for the message
+     */
+    public final String getPrice() {
+        return this.price;
+    }
+
+    /**
+     * Returns The description of the error_code.
+     *
+     * @return The description of the error_code
+     */
+    public final String getErrorMessage() {
+        return this.errorMessage;
+    }
+
+    /**
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
+     *
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;
+    }
+
+    /**
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
+     */
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    /**
+     * Returns The number of media files associated with the message.
+     *
+     * @return The number of media files associated with the message
+     */
+    public final String getNumMedia() {
+        return this.numMedia;
+    }
+
+    /**
+     * Returns The status of the message.
+     *
+     * @return The status of the message
+     */
+    public final Message.Status getStatus() {
+        return this.status;
+    }
+
+    /**
+     * Returns The SID of the Messaging Service used with the message..
+     *
+     * @return The SID of the Messaging Service used with the message.
+     */
+    public final String getMessagingServiceSid() {
+        return this.messagingServiceSid;
+    }
+
+    /**
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
+     */
+    public final String getSid() {
+        return this.sid;
+    }
+
+    /**
+     * Returns The RFC 2822 date and time in GMT when the message was sent.
+     *
+     * @return The RFC 2822 date and time in GMT when the message was sent
+     */
+    public final DateTime getDateSent() {
+        return this.dateSent;
+    }
+
+    /**
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
+     *
+     * @return The RFC 2822 date and time in GMT that the resource was created
+     */
+    public final DateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    /**
+     * Returns The error code associated with the message.
+     *
+     * @return The error code associated with the message
+     */
+    public final Integer getErrorCode() {
+        return this.errorCode;
+    }
+
+    /**
+     * Returns The currency in which price is measured.
+     *
+     * @return The currency in which price is measured
+     */
+    public final Currency getPriceUnit() {
+        return this.priceUnit;
+    }
+
+    /**
+     * Returns The API version used to process the message.
+     *
+     * @return The API version used to process the message
+     */
+    public final String getApiVersion() {
+        return this.apiVersion;
+    }
+
+    /**
+     * Returns A list of related resources identified by their relative URIs.
+     *
+     * @return A list of related resources identified by their relative URIs
+     */
+    public final Map<String, String> getSubresourceUris() {
+        return this.subresourceUris;
     }
 
     @Override
@@ -683,75 +734,75 @@ public class Message extends Resource {
 
         Message other = (Message) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(apiVersion, other.apiVersion) && 
-               Objects.equals(body, other.body) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(dateSent, other.dateSent) && 
-               Objects.equals(direction, other.direction) && 
-               Objects.equals(errorCode, other.errorCode) && 
-               Objects.equals(errorMessage, other.errorMessage) && 
-               Objects.equals(from, other.from) && 
-               Objects.equals(messagingServiceSid, other.messagingServiceSid) && 
-               Objects.equals(numMedia, other.numMedia) && 
-               Objects.equals(numSegments, other.numSegments) && 
-               Objects.equals(price, other.price) && 
-               Objects.equals(priceUnit, other.priceUnit) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(subresourceUris, other.subresourceUris) && 
-               Objects.equals(to, other.to) && 
-               Objects.equals(uri, other.uri);
+        return Objects.equals(body, other.body) &&
+               Objects.equals(numSegments, other.numSegments) &&
+               Objects.equals(direction, other.direction) &&
+               Objects.equals(from, other.from) &&
+               Objects.equals(to, other.to) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(price, other.price) &&
+               Objects.equals(errorMessage, other.errorMessage) &&
+               Objects.equals(uri, other.uri) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(numMedia, other.numMedia) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(dateSent, other.dateSent) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(errorCode, other.errorCode) &&
+               Objects.equals(priceUnit, other.priceUnit) &&
+               Objects.equals(apiVersion, other.apiVersion) &&
+               Objects.equals(subresourceUris, other.subresourceUris);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid,
-                            apiVersion,
-                            body,
-                            dateCreated,
-                            dateUpdated,
-                            dateSent,
-                            direction,
-                            errorCode,
-                            errorMessage,
-                            from,
-                            messagingServiceSid,
-                            numMedia,
+        return Objects.hash(body,
                             numSegments,
-                            price,
-                            priceUnit,
-                            sid,
-                            status,
-                            subresourceUris,
+                            direction,
+                            from,
                             to,
-                            uri);
+                            dateUpdated,
+                            price,
+                            errorMessage,
+                            uri,
+                            accountSid,
+                            numMedia,
+                            status,
+                            messagingServiceSid,
+                            sid,
+                            dateSent,
+                            dateCreated,
+                            errorCode,
+                            priceUnit,
+                            apiVersion,
+                            subresourceUris);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("apiVersion", apiVersion)
                           .add("body", body)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("dateSent", dateSent)
-                          .add("direction", direction)
-                          .add("errorCode", errorCode)
-                          .add("errorMessage", errorMessage)
-                          .add("from", from)
-                          .add("messagingServiceSid", messagingServiceSid)
-                          .add("numMedia", numMedia)
                           .add("numSegments", numSegments)
-                          .add("price", price)
-                          .add("priceUnit", priceUnit)
-                          .add("sid", sid)
-                          .add("status", status)
-                          .add("subresourceUris", subresourceUris)
+                          .add("direction", direction)
+                          .add("from", from)
                           .add("to", to)
+                          .add("dateUpdated", dateUpdated)
+                          .add("price", price)
+                          .add("errorMessage", errorMessage)
                           .add("uri", uri)
+                          .add("accountSid", accountSid)
+                          .add("numMedia", numMedia)
+                          .add("status", status)
+                          .add("messagingServiceSid", messagingServiceSid)
+                          .add("sid", sid)
+                          .add("dateSent", dateSent)
+                          .add("dateCreated", dateCreated)
+                          .add("errorCode", errorCode)
+                          .add("priceUnit", priceUnit)
+                          .add("apiVersion", apiVersion)
+                          .add("subresourceUris", subresourceUris)
                           .toString();
     }
 }

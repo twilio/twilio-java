@@ -24,14 +24,13 @@ public class MemberFetcher extends Fetcher<Member> {
 
     /**
      * Construct a new MemberFetcher.
-     * 
-     * @param pathServiceSid Sid of the Service this member belongs to.
-     * @param pathChannelSid Key that uniquely defines the channel this member
-     *                       belongs to.
-     * @param pathSid Key that uniquely defines the member to fetch.
+     *
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathChannelSid The SID of the channel the member belongs to
+     * @param pathSid The SID of the Member resource to fetch
      */
-    public MemberFetcher(final String pathServiceSid, 
-                         final String pathChannelSid, 
+    public MemberFetcher(final String pathServiceSid,
+                         final String pathChannelSid,
                          final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -40,7 +39,7 @@ public class MemberFetcher extends Fetcher<Member> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Member
      */
@@ -50,8 +49,7 @@ public class MemberFetcher extends Fetcher<Member> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Members/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Members/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -63,14 +61,7 @@ public class MemberFetcher extends Fetcher<Member> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Member.fromJson(response.getStream(), client.getObjectMapper());

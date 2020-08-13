@@ -22,8 +22,8 @@ public class PublicKeyDeleter extends Deleter<PublicKey> {
 
     /**
      * Construct a new PublicKeyDeleter.
-     * 
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     *
+     * @param pathSid The unique string that identifies the resource
      */
     public PublicKeyDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -31,7 +31,7 @@ public class PublicKeyDeleter extends Deleter<PublicKey> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -40,8 +40,7 @@ public class PublicKeyDeleter extends Deleter<PublicKey> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.ACCOUNTS.toString(),
-            "/v1/Credentials/PublicKeys/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Credentials/PublicKeys/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -53,14 +52,7 @@ public class PublicKeyDeleter extends Deleter<PublicKey> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

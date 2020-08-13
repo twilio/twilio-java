@@ -33,15 +33,15 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
 
     /**
      * Construct a new SyncMapItemUpdater.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathMapSid The map_sid
      * @param pathKey The key
      * @param data The data
      */
-    public SyncMapItemUpdater(final String pathServiceSid, 
-                              final String pathMapSid, 
-                              final String pathKey, 
+    public SyncMapItemUpdater(final String pathServiceSid,
+                              final String pathMapSid,
+                              final String pathKey,
                               final Map<String, Object> data) {
         this.pathServiceSid = pathServiceSid;
         this.pathMapSid = pathMapSid;
@@ -51,7 +51,7 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated SyncMapItem
      */
@@ -61,8 +61,7 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Items/" + this.pathKey + "",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Items/" + this.pathKey + ""
         );
 
         addPostParams(request);
@@ -75,14 +74,7 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SyncMapItem.fromJson(response.getStream(), client.getObjectMapper());
@@ -90,7 +82,7 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

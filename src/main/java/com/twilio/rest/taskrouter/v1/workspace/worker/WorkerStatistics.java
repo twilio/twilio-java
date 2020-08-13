@@ -37,12 +37,13 @@ public class WorkerStatistics extends Resource {
 
     /**
      * Create a WorkerStatisticsFetcher to execute fetch.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathWorkerSid The worker_sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the WorkerChannel to
+     *                         fetch
+     * @param pathWorkerSid The SID of the Worker with the WorkerChannel to fetch
      * @return WorkerStatisticsFetcher capable of executing the fetch
      */
-    public static WorkerStatisticsFetcher fetcher(final String pathWorkspaceSid, 
+    public static WorkerStatisticsFetcher fetcher(final String pathWorkspaceSid,
                                                   final String pathWorkerSid) {
         return new WorkerStatisticsFetcher(pathWorkspaceSid, pathWorkerSid);
     }
@@ -50,7 +51,7 @@ public class WorkerStatistics extends Resource {
     /**
      * Converts a JSON String into a WorkerStatistics object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return WorkerStatistics object represented by the provided JSON
@@ -69,7 +70,7 @@ public class WorkerStatistics extends Resource {
     /**
      * Converts a JSON InputStream into a WorkerStatistics object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return WorkerStatistics object represented by the provided JSON
@@ -93,13 +94,13 @@ public class WorkerStatistics extends Resource {
 
     @JsonCreator
     private WorkerStatistics(@JsonProperty("account_sid")
-                             final String accountSid, 
+                             final String accountSid,
                              @JsonProperty("cumulative")
-                             final Map<String, Object> cumulative, 
+                             final Map<String, Object> cumulative,
                              @JsonProperty("worker_sid")
-                             final String workerSid, 
+                             final String workerSid,
                              @JsonProperty("workspace_sid")
-                             final String workspaceSid, 
+                             final String workspaceSid,
                              @JsonProperty("url")
                              final URI url) {
         this.accountSid = accountSid;
@@ -110,45 +111,45 @@ public class WorkerStatistics extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
-     * 
-     * @return The account_sid
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The cumulative.
-     * 
-     * @return The cumulative
+     * Returns An object that contains the cumulative statistics for the Worker.
+     *
+     * @return An object that contains the cumulative statistics for the Worker
      */
     public final Map<String, Object> getCumulative() {
         return this.cumulative;
     }
 
     /**
-     * Returns The The worker_sid.
-     * 
-     * @return The worker_sid
+     * Returns The SID of the Worker that contains the WorkerChannel.
+     *
+     * @return The SID of the Worker that contains the WorkerChannel
      */
     public final String getWorkerSid() {
         return this.workerSid;
     }
 
     /**
-     * Returns The The workspace_sid.
-     * 
-     * @return The workspace_sid
+     * Returns The SID of the Workspace that contains the WorkerChannel.
+     *
+     * @return The SID of the Workspace that contains the WorkerChannel
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
-     * 
-     * @return The url
+     * Returns The absolute URL of the WorkerChannel statistics resource.
+     *
+     * @return The absolute URL of the WorkerChannel statistics resource
      */
     public final URI getUrl() {
         return this.url;
@@ -166,10 +167,10 @@ public class WorkerStatistics extends Resource {
 
         WorkerStatistics other = (WorkerStatistics) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(cumulative, other.cumulative) && 
-               Objects.equals(workerSid, other.workerSid) && 
-               Objects.equals(workspaceSid, other.workspaceSid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(cumulative, other.cumulative) &&
+               Objects.equals(workerSid, other.workerSid) &&
+               Objects.equals(workspaceSid, other.workspaceSid) &&
                Objects.equals(url, other.url);
     }
 

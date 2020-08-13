@@ -17,21 +17,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class ExecutionContextFetcher extends Fetcher<ExecutionContext> {
     private final String pathFlowSid;
     private final String pathExecutionSid;
 
     /**
      * Construct a new ExecutionContextFetcher.
-     * 
-     * @param pathFlowSid Flow Sid.
-     * @param pathExecutionSid Execution Sid.
+     *
+     * @param pathFlowSid The SID of the Flow
+     * @param pathExecutionSid The SID of the Execution
      */
-    public ExecutionContextFetcher(final String pathFlowSid, 
+    public ExecutionContextFetcher(final String pathFlowSid,
                                    final String pathExecutionSid) {
         this.pathFlowSid = pathFlowSid;
         this.pathExecutionSid = pathExecutionSid;
@@ -39,7 +35,7 @@ public class ExecutionContextFetcher extends Fetcher<ExecutionContext> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched ExecutionContext
      */
@@ -49,8 +45,7 @@ public class ExecutionContextFetcher extends Fetcher<ExecutionContext> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Executions/" + this.pathExecutionSid + "/Context",
-            client.getRegion()
+            "/v1/Flows/" + this.pathFlowSid + "/Executions/" + this.pathExecutionSid + "/Context"
         );
 
         Response response = client.request(request);
@@ -62,14 +57,7 @@ public class ExecutionContextFetcher extends Fetcher<ExecutionContext> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return ExecutionContext.fromJson(response.getStream(), client.getObjectMapper());

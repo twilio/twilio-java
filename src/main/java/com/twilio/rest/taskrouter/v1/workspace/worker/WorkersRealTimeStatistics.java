@@ -38,8 +38,8 @@ public class WorkersRealTimeStatistics extends Resource {
 
     /**
      * Create a WorkersRealTimeStatisticsFetcher to execute fetch.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the resource to fetch
      * @return WorkersRealTimeStatisticsFetcher capable of executing the fetch
      */
     public static WorkersRealTimeStatisticsFetcher fetcher(final String pathWorkspaceSid) {
@@ -49,7 +49,7 @@ public class WorkersRealTimeStatistics extends Resource {
     /**
      * Converts a JSON String into a WorkersRealTimeStatistics object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return WorkersRealTimeStatistics object represented by the provided JSON
@@ -68,7 +68,7 @@ public class WorkersRealTimeStatistics extends Resource {
     /**
      * Converts a JSON InputStream into a WorkersRealTimeStatistics object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return WorkersRealTimeStatistics object represented by the provided JSON
@@ -92,13 +92,13 @@ public class WorkersRealTimeStatistics extends Resource {
 
     @JsonCreator
     private WorkersRealTimeStatistics(@JsonProperty("account_sid")
-                                      final String accountSid, 
+                                      final String accountSid,
                                       @JsonProperty("activity_statistics")
-                                      final List<Map<String, Object>> activityStatistics, 
+                                      final List<Map<String, Object>> activityStatistics,
                                       @JsonProperty("total_workers")
-                                      final Integer totalWorkers, 
+                                      final Integer totalWorkers,
                                       @JsonProperty("workspace_sid")
-                                      final String workspaceSid, 
+                                      final String workspaceSid,
                                       @JsonProperty("url")
                                       final URI url) {
         this.accountSid = accountSid;
@@ -109,26 +109,26 @@ public class WorkersRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
-     * 
-     * @return The account_sid
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The current Worker status count breakdown by Activity.
-     * 
-     * @return The current Worker status count breakdown by Activity
+     * Returns The number of current Workers by Activity.
+     *
+     * @return The number of current Workers by Activity
      */
     public final List<Map<String, Object>> getActivityStatistics() {
         return this.activityStatistics;
     }
 
     /**
-     * Returns The The total number of Workers.
-     * 
+     * Returns The total number of Workers.
+     *
      * @return The total number of Workers
      */
     public final Integer getTotalWorkers() {
@@ -136,18 +136,18 @@ public class WorkersRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The workspace_sid.
-     * 
-     * @return The workspace_sid
+     * Returns The SID of the Workspace that contains the Workers.
+     *
+     * @return The SID of the Workspace that contains the Workers
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
-     * 
-     * @return The url
+     * Returns The absolute URL of the Workers statistics resource.
+     *
+     * @return The absolute URL of the Workers statistics resource
      */
     public final URI getUrl() {
         return this.url;
@@ -165,10 +165,10 @@ public class WorkersRealTimeStatistics extends Resource {
 
         WorkersRealTimeStatistics other = (WorkersRealTimeStatistics) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(activityStatistics, other.activityStatistics) && 
-               Objects.equals(totalWorkers, other.totalWorkers) && 
-               Objects.equals(workspaceSid, other.workspaceSid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(activityStatistics, other.activityStatistics) &&
+               Objects.equals(totalWorkers, other.totalWorkers) &&
+               Objects.equals(workspaceSid, other.workspaceSid) &&
                Objects.equals(url, other.url);
     }
 

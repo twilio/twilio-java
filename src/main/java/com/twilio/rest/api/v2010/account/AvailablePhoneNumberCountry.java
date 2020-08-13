@@ -36,9 +36,9 @@ public class AvailablePhoneNumberCountry extends Resource {
 
     /**
      * Create a AvailablePhoneNumberCountryReader to execute read.
-     * 
-     * @param pathAccountSid The 34 character string that uniquely identifies your
-     *                       account.
+     *
+     * @param pathAccountSid The SID of the Account requesting the available phone
+     *                       number Country resources
      * @return AvailablePhoneNumberCountryReader capable of executing the read
      */
     public static AvailablePhoneNumberCountryReader reader(final String pathAccountSid) {
@@ -47,7 +47,7 @@ public class AvailablePhoneNumberCountry extends Resource {
 
     /**
      * Create a AvailablePhoneNumberCountryReader to execute read.
-     * 
+     *
      * @return AvailablePhoneNumberCountryReader capable of executing the read
      */
     public static AvailablePhoneNumberCountryReader reader() {
@@ -56,20 +56,23 @@ public class AvailablePhoneNumberCountry extends Resource {
 
     /**
      * Create a AvailablePhoneNumberCountryFetcher to execute fetch.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathCountryCode The country_code
+     *
+     * @param pathAccountSid The SID of the Account requesting the available phone
+     *                       number Country resource
+     * @param pathCountryCode The ISO country code of the country to fetch
+     *                        available phone number information about
      * @return AvailablePhoneNumberCountryFetcher capable of executing the fetch
      */
-    public static AvailablePhoneNumberCountryFetcher fetcher(final String pathAccountSid, 
+    public static AvailablePhoneNumberCountryFetcher fetcher(final String pathAccountSid,
                                                              final String pathCountryCode) {
         return new AvailablePhoneNumberCountryFetcher(pathAccountSid, pathCountryCode);
     }
 
     /**
      * Create a AvailablePhoneNumberCountryFetcher to execute fetch.
-     * 
-     * @param pathCountryCode The country_code
+     *
+     * @param pathCountryCode The ISO country code of the country to fetch
+     *                        available phone number information about
      * @return AvailablePhoneNumberCountryFetcher capable of executing the fetch
      */
     public static AvailablePhoneNumberCountryFetcher fetcher(final String pathCountryCode) {
@@ -79,7 +82,7 @@ public class AvailablePhoneNumberCountry extends Resource {
     /**
      * Converts a JSON String into a AvailablePhoneNumberCountry object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AvailablePhoneNumberCountry object represented by the provided JSON
@@ -98,7 +101,7 @@ public class AvailablePhoneNumberCountry extends Resource {
     /**
      * Converts a JSON InputStream into a AvailablePhoneNumberCountry object using
      * the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AvailablePhoneNumberCountry object represented by the provided JSON
@@ -122,13 +125,13 @@ public class AvailablePhoneNumberCountry extends Resource {
 
     @JsonCreator
     private AvailablePhoneNumberCountry(@JsonProperty("country_code")
-                                        final String countryCode, 
+                                        final String countryCode,
                                         @JsonProperty("country")
-                                        final String country, 
+                                        final String country,
                                         @JsonProperty("uri")
-                                        final URI uri, 
+                                        final URI uri,
                                         @JsonProperty("beta")
-                                        final Boolean beta, 
+                                        final Boolean beta,
                                         @JsonProperty("subresource_uris")
                                         final Map<String, String> subresourceUris) {
         this.countryCode = countryCode;
@@ -139,45 +142,48 @@ public class AvailablePhoneNumberCountry extends Resource {
     }
 
     /**
-     * Returns The The ISO Country code to lookup phone numbers for..
-     * 
-     * @return The ISO Country code to lookup phone numbers for.
+     * Returns The ISO-3166-1 country code of the country..
+     *
+     * @return The ISO-3166-1 country code of the country.
      */
     public final String getCountryCode() {
         return this.countryCode;
     }
 
     /**
-     * Returns The The country.
-     * 
-     * @return The country
+     * Returns The name of the country.
+     *
+     * @return The name of the country
      */
     public final String getCountry() {
         return this.country;
     }
 
     /**
-     * Returns The The uri.
-     * 
-     * @return The uri
+     * Returns The URI of the Country resource, relative to
+     * `https://api.twilio.com`.
+     *
+     * @return The URI of the Country resource, relative to `https://api.twilio.com`
      */
     public final URI getUri() {
         return this.uri;
     }
 
     /**
-     * Returns The True if new to Twilio platform..
-     * 
-     * @return True if new to Twilio platform.
+     * Returns Whether all phone numbers available in the country are new to the
+     * Twilio platform..
+     *
+     * @return Whether all phone numbers available in the country are new to the
+     *         Twilio platform.
      */
     public final Boolean getBeta() {
         return this.beta;
     }
 
     /**
-     * Returns The The subresource_uris.
-     * 
-     * @return The subresource_uris
+     * Returns A list of related resources identified by their relative URIs.
+     *
+     * @return A list of related resources identified by their relative URIs
      */
     public final Map<String, String> getSubresourceUris() {
         return this.subresourceUris;
@@ -195,10 +201,10 @@ public class AvailablePhoneNumberCountry extends Resource {
 
         AvailablePhoneNumberCountry other = (AvailablePhoneNumberCountry) o;
 
-        return Objects.equals(countryCode, other.countryCode) && 
-               Objects.equals(country, other.country) && 
-               Objects.equals(uri, other.uri) && 
-               Objects.equals(beta, other.beta) && 
+        return Objects.equals(countryCode, other.countryCode) &&
+               Objects.equals(country, other.country) &&
+               Objects.equals(uri, other.uri) &&
+               Objects.equals(beta, other.beta) &&
                Objects.equals(subresourceUris, other.subresourceUris);
     }
 

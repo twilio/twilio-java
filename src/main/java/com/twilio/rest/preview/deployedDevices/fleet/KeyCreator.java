@@ -29,7 +29,7 @@ public class KeyCreator extends Creator<Key> {
 
     /**
      * Construct a new KeyCreator.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      */
     public KeyCreator(final String pathFleetSid) {
@@ -39,7 +39,7 @@ public class KeyCreator extends Creator<Key> {
     /**
      * Provides a human readable descriptive text for this Key credential, up to 256
      * characters long..
-     * 
+     *
      * @param friendlyName The human readable description for this Key.
      * @return this
      */
@@ -51,7 +51,7 @@ public class KeyCreator extends Creator<Key> {
     /**
      * Provides the unique string identifier of an existing Device to become
      * authenticated with this Key credential..
-     * 
+     *
      * @param deviceSid The unique identifier of a Key to be authenticated.
      * @return this
      */
@@ -62,7 +62,7 @@ public class KeyCreator extends Creator<Key> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Key
      */
@@ -72,8 +72,7 @@ public class KeyCreator extends Creator<Key> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Keys",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Keys"
         );
 
         addPostParams(request);
@@ -86,14 +85,7 @@ public class KeyCreator extends Creator<Key> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Key.fromJson(response.getStream(), client.getObjectMapper());
@@ -101,7 +93,7 @@ public class KeyCreator extends Creator<Key> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

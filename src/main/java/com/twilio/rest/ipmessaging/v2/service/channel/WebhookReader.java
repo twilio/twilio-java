@@ -25,11 +25,11 @@ public class WebhookReader extends Reader<Webhook> {
 
     /**
      * Construct a new WebhookReader.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
+     *
+     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathChannelSid The SID of the Channel the resources to read belong to
      */
-    public WebhookReader(final String pathServiceSid, 
+    public WebhookReader(final String pathServiceSid,
                          final String pathChannelSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -37,7 +37,7 @@ public class WebhookReader extends Reader<Webhook> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Webhook ResourceSet
      */
@@ -48,7 +48,7 @@ public class WebhookReader extends Reader<Webhook> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Webhook ResourceSet
      */
@@ -58,8 +58,7 @@ public class WebhookReader extends Reader<Webhook> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Webhooks",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Webhooks"
         );
 
         addQueryParams(request);
@@ -68,7 +67,7 @@ public class WebhookReader extends Reader<Webhook> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Webhook ResourceSet
@@ -86,47 +85,41 @@ public class WebhookReader extends Reader<Webhook> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Webhook> nextPage(final Page<Webhook> page, 
+    public Page<Webhook> nextPage(final Page<Webhook> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.IPMESSAGING.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.IPMESSAGING.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Webhook> previousPage(final Page<Webhook> page, 
+    public Page<Webhook> previousPage(final Page<Webhook> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.IPMESSAGING.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.IPMESSAGING.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Webhook Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -141,14 +134,7 @@ public class WebhookReader extends Reader<Webhook> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -161,7 +147,7 @@ public class WebhookReader extends Reader<Webhook> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

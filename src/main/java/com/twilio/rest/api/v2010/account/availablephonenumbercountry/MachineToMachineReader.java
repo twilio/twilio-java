@@ -44,8 +44,9 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
 
     /**
      * Construct a new MachineToMachineReader.
-     * 
-     * @param pathCountryCode The country_code
+     *
+     * @param pathCountryCode The ISO Country code of the country from which to
+     *                        read phone numbers
      */
     public MachineToMachineReader(final String pathCountryCode) {
         this.pathCountryCode = pathCountryCode;
@@ -53,21 +54,23 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
 
     /**
      * Construct a new MachineToMachineReader.
-     * 
-     * @param pathAccountSid The 34 character string that uniquely identifies your
-     *                       account.
-     * @param pathCountryCode The country_code
+     *
+     * @param pathAccountSid The SID of the Account requesting the
+     *                       AvailablePhoneNumber resources
+     * @param pathCountryCode The ISO Country code of the country from which to
+     *                        read phone numbers
      */
-    public MachineToMachineReader(final String pathAccountSid, 
+    public MachineToMachineReader(final String pathAccountSid,
                                   final String pathCountryCode) {
         this.pathAccountSid = pathAccountSid;
         this.pathCountryCode = pathCountryCode;
     }
 
     /**
-     * The area_code.
-     * 
-     * @param areaCode The area_code
+     * The area code of the phone numbers to read. Applies to only phone numbers in
+     * the US and Canada..
+     *
+     * @param areaCode The area code of the phone numbers to read
      * @return this
      */
     public MachineToMachineReader setAreaCode(final Integer areaCode) {
@@ -76,9 +79,12 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
     }
 
     /**
-     * The contains.
-     * 
-     * @param contains The contains
+     * The pattern on which to match phone numbers. Valid characters are `*`, `0-9`,
+     * `a-z`, and `A-Z`. The `*` character matches any single digit. For examples,
+     * see [Example
+     * 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters..
+     *
+     * @param contains The pattern on which to match phone numbers
      * @return this
      */
     public MachineToMachineReader setContains(final String contains) {
@@ -87,9 +93,10 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
     }
 
     /**
-     * The sms_enabled.
-     * 
-     * @param smsEnabled The sms_enabled
+     * Whether the phone numbers can receive text messages. Can be: `true` or
+     * `false`..
+     *
+     * @param smsEnabled Whether the phone numbers can receive text messages
      * @return this
      */
     public MachineToMachineReader setSmsEnabled(final Boolean smsEnabled) {
@@ -98,9 +105,10 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
     }
 
     /**
-     * The mms_enabled.
-     * 
-     * @param mmsEnabled The mms_enabled
+     * Whether the phone numbers can receive MMS messages. Can be: `true` or
+     * `false`..
+     *
+     * @param mmsEnabled Whether the phone numbers can receive MMS messages
      * @return this
      */
     public MachineToMachineReader setMmsEnabled(final Boolean mmsEnabled) {
@@ -109,9 +117,9 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
     }
 
     /**
-     * The voice_enabled.
-     * 
-     * @param voiceEnabled The voice_enabled
+     * Whether the phone numbers can receive calls. Can be: `true` or `false`..
+     *
+     * @param voiceEnabled Whether the phone numbers can receive calls.
      * @return this
      */
     public MachineToMachineReader setVoiceEnabled(final Boolean voiceEnabled) {
@@ -120,9 +128,12 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
     }
 
     /**
-     * The exclude_all_address_required.
-     * 
-     * @param excludeAllAddressRequired The exclude_all_address_required
+     * Whether to exclude phone numbers that require an
+     * [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or
+     * `false` and the default is `false`..
+     *
+     * @param excludeAllAddressRequired Whether to exclude phone numbers that
+     *                                  require an Address
      * @return this
      */
     public MachineToMachineReader setExcludeAllAddressRequired(final Boolean excludeAllAddressRequired) {
@@ -131,9 +142,12 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
     }
 
     /**
-     * The exclude_local_address_required.
-     * 
-     * @param excludeLocalAddressRequired The exclude_local_address_required
+     * Whether to exclude phone numbers that require a local
+     * [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or
+     * `false` and the default is `false`..
+     *
+     * @param excludeLocalAddressRequired Whether to exclude phone numbers that
+     *                                    require a local address
      * @return this
      */
     public MachineToMachineReader setExcludeLocalAddressRequired(final Boolean excludeLocalAddressRequired) {
@@ -142,9 +156,12 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
     }
 
     /**
-     * The exclude_foreign_address_required.
-     * 
-     * @param excludeForeignAddressRequired The exclude_foreign_address_required
+     * Whether to exclude phone numbers that require a foreign
+     * [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or
+     * `false` and the default is `false`..
+     *
+     * @param excludeForeignAddressRequired Whether to exclude phone numbers that
+     *                                      require a foreign address
      * @return this
      */
     public MachineToMachineReader setExcludeForeignAddressRequired(final Boolean excludeForeignAddressRequired) {
@@ -153,9 +170,10 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
     }
 
     /**
-     * The beta.
-     * 
-     * @param beta The beta
+     * Whether to read phone numbers that are new to the Twilio platform. Can be:
+     * `true` or `false` and the default is `true`..
+     *
+     * @param beta Whether to read phone numbers new to the Twilio platform
      * @return this
      */
     public MachineToMachineReader setBeta(final Boolean beta) {
@@ -164,9 +182,12 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
     }
 
     /**
-     * The near_number.
-     * 
-     * @param nearNumber The near_number
+     * Given a phone number, find a geographically close number within `distance`
+     * miles. Distance defaults to 25 miles. Applies to only phone numbers in the US
+     * and Canada..
+     *
+     * @param nearNumber Given a phone number, find a geographically close number
+     *                   within distance miles. (US/Canada only)
      * @return this
      */
     public MachineToMachineReader setNearNumber(final com.twilio.type.PhoneNumber nearNumber) {
@@ -175,9 +196,12 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
     }
 
     /**
-     * The near_number.
-     * 
-     * @param nearNumber The near_number
+     * Given a phone number, find a geographically close number within `distance`
+     * miles. Distance defaults to 25 miles. Applies to only phone numbers in the US
+     * and Canada..
+     *
+     * @param nearNumber Given a phone number, find a geographically close number
+     *                   within distance miles. (US/Canada only)
      * @return this
      */
     public MachineToMachineReader setNearNumber(final String nearNumber) {
@@ -185,9 +209,12 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
     }
 
     /**
-     * The near_lat_long.
-     * 
-     * @param nearLatLong The near_lat_long
+     * Given a latitude/longitude pair `lat,long` find geographically close numbers
+     * within `distance` miles. Applies to only phone numbers in the US and Canada..
+     *
+     * @param nearLatLong Given a latitude/longitude pair lat,long find
+     *                    geographically close numbers within distance miles.
+     *                    (US/Canada only)
      * @return this
      */
     public MachineToMachineReader setNearLatLong(final String nearLatLong) {
@@ -196,9 +223,11 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
     }
 
     /**
-     * The distance.
-     * 
-     * @param distance The distance
+     * The search radius, in miles, for a `near_` query.  Can be up to `500` and the
+     * default is `25`. Applies to only phone numbers in the US and Canada..
+     *
+     * @param distance The search radius, in miles, for a near_ query. (US/Canada
+     *                 only)
      * @return this
      */
     public MachineToMachineReader setDistance(final Integer distance) {
@@ -207,9 +236,12 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
     }
 
     /**
-     * The in_postal_code.
-     * 
-     * @param inPostalCode The in_postal_code
+     * Limit results to a particular postal code. Given a phone number, search
+     * within the same postal code as that number. Applies to only phone numbers in
+     * the US and Canada..
+     *
+     * @param inPostalCode Limit results to a particular postal code. (US/Canada
+     *                     only)
      * @return this
      */
     public MachineToMachineReader setInPostalCode(final String inPostalCode) {
@@ -218,9 +250,11 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
     }
 
     /**
-     * The in_region.
-     * 
-     * @param inRegion The in_region
+     * Limit results to a particular region, state, or province. Given a phone
+     * number, search within the same region as that number. Applies to only phone
+     * numbers in the US and Canada..
+     *
+     * @param inRegion Limit results to a particular region. (US/Canada only)
      * @return this
      */
     public MachineToMachineReader setInRegion(final String inRegion) {
@@ -229,9 +263,13 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
     }
 
     /**
-     * The in_rate_center.
-     * 
-     * @param inRateCenter The in_rate_center
+     * Limit results to a specific rate center, or given a phone number search
+     * within the same rate center as that number. Requires `in_lata` to be set as
+     * well. Applies to only phone numbers in the US and Canada..
+     *
+     * @param inRateCenter Limit results to a specific rate center, or given a
+     *                     phone number search within the same rate center as that
+     *                     number. (US/Canada only)
      * @return this
      */
     public MachineToMachineReader setInRateCenter(final String inRateCenter) {
@@ -240,9 +278,14 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
     }
 
     /**
-     * The in_lata.
-     * 
-     * @param inLata The in_lata
+     * Limit results to a specific local access and transport area
+     * ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)).
+     * Given a phone number, search within the same
+     * [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that
+     * number. Applies to only phone numbers in the US and Canada..
+     *
+     * @param inLata Limit results to a specific local access and transport area.
+     *               (US/Canada only)
      * @return this
      */
     public MachineToMachineReader setInLata(final String inLata) {
@@ -251,9 +294,10 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
     }
 
     /**
-     * The in_locality.
-     * 
-     * @param inLocality The in_locality
+     * Limit results to a particular locality or city. Given a phone number, search
+     * within the same Locality as that number..
+     *
+     * @param inLocality Limit results to a particular locality
      * @return this
      */
     public MachineToMachineReader setInLocality(final String inLocality) {
@@ -262,9 +306,9 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
     }
 
     /**
-     * The fax_enabled.
-     * 
-     * @param faxEnabled The fax_enabled
+     * Whether the phone numbers can receive faxes. Can be: `true` or `false`..
+     *
+     * @param faxEnabled Whether the phone numbers can receive faxes
      * @return this
      */
     public MachineToMachineReader setFaxEnabled(final Boolean faxEnabled) {
@@ -274,7 +318,7 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return MachineToMachine ResourceSet
      */
@@ -285,7 +329,7 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return MachineToMachine ResourceSet
      */
@@ -296,8 +340,7 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/AvailablePhoneNumbers/" + this.pathCountryCode + "/MachineToMachine.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/AvailablePhoneNumbers/" + this.pathCountryCode + "/MachineToMachine.json"
         );
 
         addQueryParams(request);
@@ -306,7 +349,7 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return MachineToMachine ResourceSet
@@ -325,47 +368,41 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<MachineToMachine> nextPage(final Page<MachineToMachine> page, 
+    public Page<MachineToMachine> nextPage(final Page<MachineToMachine> page,
                                            final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<MachineToMachine> previousPage(final Page<MachineToMachine> page, 
+    public Page<MachineToMachine> previousPage(final Page<MachineToMachine> page,
                                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of MachineToMachine Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -380,14 +417,7 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -400,7 +430,7 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

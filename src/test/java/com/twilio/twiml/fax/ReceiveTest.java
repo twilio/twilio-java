@@ -38,11 +38,17 @@ public class ReceiveTest {
 
     @Test
     public void testElementWithParams() {
-        Receive elem = new Receive.Builder().action(URI.create("https://example.com")).method(HttpMethod.GET).build();
+        Receive elem = new Receive.Builder()
+            .action(URI.create("https://example.com"))
+            .method(HttpMethod.GET)
+            .mediaType(Receive.MediaType.APPLICATION_PDF)
+            .pageSize(Receive.PageSize.LETTER)
+            .storeMedia(true)
+            .build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Receive action=\"https://example.com\" method=\"GET\"/>",
+            "<Receive action=\"https://example.com\" mediaType=\"application/pdf\" method=\"GET\" pageSize=\"letter\" storeMedia=\"true\"/>",
             elem.toXml()
         );
     }

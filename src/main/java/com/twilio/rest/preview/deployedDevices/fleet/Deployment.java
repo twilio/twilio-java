@@ -43,31 +43,31 @@ public class Deployment extends Resource {
 
     /**
      * Create a DeploymentFetcher to execute fetch.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @param pathSid A string that uniquely identifies the Deployment.
      * @return DeploymentFetcher capable of executing the fetch
      */
-    public static DeploymentFetcher fetcher(final String pathFleetSid, 
+    public static DeploymentFetcher fetcher(final String pathFleetSid,
                                             final String pathSid) {
         return new DeploymentFetcher(pathFleetSid, pathSid);
     }
 
     /**
      * Create a DeploymentDeleter to execute delete.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @param pathSid A string that uniquely identifies the Deployment.
      * @return DeploymentDeleter capable of executing the delete
      */
-    public static DeploymentDeleter deleter(final String pathFleetSid, 
+    public static DeploymentDeleter deleter(final String pathFleetSid,
                                             final String pathSid) {
         return new DeploymentDeleter(pathFleetSid, pathSid);
     }
 
     /**
      * Create a DeploymentCreator to execute create.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @return DeploymentCreator capable of executing the create
      */
@@ -77,7 +77,7 @@ public class Deployment extends Resource {
 
     /**
      * Create a DeploymentReader to execute read.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @return DeploymentReader capable of executing the read
      */
@@ -87,12 +87,12 @@ public class Deployment extends Resource {
 
     /**
      * Create a DeploymentUpdater to execute update.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      * @param pathSid A string that uniquely identifies the Deployment.
      * @return DeploymentUpdater capable of executing the update
      */
-    public static DeploymentUpdater updater(final String pathFleetSid, 
+    public static DeploymentUpdater updater(final String pathFleetSid,
                                             final String pathSid) {
         return new DeploymentUpdater(pathFleetSid, pathSid);
     }
@@ -100,7 +100,7 @@ public class Deployment extends Resource {
     /**
      * Converts a JSON String into a Deployment object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Deployment object represented by the provided JSON
@@ -119,7 +119,7 @@ public class Deployment extends Resource {
     /**
      * Converts a JSON InputStream into a Deployment object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Deployment object represented by the provided JSON
@@ -146,19 +146,19 @@ public class Deployment extends Resource {
 
     @JsonCreator
     private Deployment(@JsonProperty("sid")
-                       final String sid, 
+                       final String sid,
                        @JsonProperty("url")
-                       final URI url, 
+                       final URI url,
                        @JsonProperty("friendly_name")
-                       final String friendlyName, 
+                       final String friendlyName,
                        @JsonProperty("fleet_sid")
-                       final String fleetSid, 
+                       final String fleetSid,
                        @JsonProperty("account_sid")
-                       final String accountSid, 
+                       final String accountSid,
                        @JsonProperty("sync_service_sid")
-                       final String syncServiceSid, 
+                       final String syncServiceSid,
                        @JsonProperty("date_created")
-                       final String dateCreated, 
+                       final String dateCreated,
                        @JsonProperty("date_updated")
                        final String dateUpdated) {
         this.sid = sid;
@@ -172,8 +172,8 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Deployment..
-     * 
+     * Returns A string that uniquely identifies this Deployment..
+     *
      * @return A string that uniquely identifies this Deployment.
      */
     public final String getSid() {
@@ -181,8 +181,8 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The URL of this Deployment..
-     * 
+     * Returns URL of this Deployment..
+     *
      * @return URL of this Deployment.
      */
     public final URI getUrl() {
@@ -190,8 +190,8 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The A human readable description for this Deployment.
-     * 
+     * Returns A human readable description for this Deployment.
+     *
      * @return A human readable description for this Deployment
      */
     public final String getFriendlyName() {
@@ -199,8 +199,8 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The The unique identifier of the Fleet..
-     * 
+     * Returns The unique identifier of the Fleet..
+     *
      * @return The unique identifier of the Fleet.
      */
     public final String getFleetSid() {
@@ -208,8 +208,8 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The The unique SID that identifies this Account..
-     * 
+     * Returns The unique SID that identifies this Account..
+     *
      * @return The unique SID that identifies this Account.
      */
     public final String getAccountSid() {
@@ -217,8 +217,8 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The The unique identifier of the Sync service instance..
-     * 
+     * Returns The unique identifier of the Sync service instance..
+     *
      * @return The unique identifier of the Sync service instance.
      */
     public final String getSyncServiceSid() {
@@ -226,8 +226,8 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The The date this Deployment was created..
-     * 
+     * Returns The date this Deployment was created..
+     *
      * @return The date this Deployment was created.
      */
     public final DateTime getDateCreated() {
@@ -235,8 +235,8 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The The date this Deployment was updated..
-     * 
+     * Returns The date this Deployment was updated..
+     *
      * @return The date this Deployment was updated.
      */
     public final DateTime getDateUpdated() {
@@ -255,13 +255,13 @@ public class Deployment extends Resource {
 
         Deployment other = (Deployment) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(fleetSid, other.fleetSid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(syncServiceSid, other.syncServiceSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(fleetSid, other.fleetSid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(syncServiceSid, other.syncServiceSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated);
     }
 

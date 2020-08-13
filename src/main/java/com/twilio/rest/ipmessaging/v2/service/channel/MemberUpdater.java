@@ -28,17 +28,17 @@ public class MemberUpdater extends Updater<Member> {
     private DateTime lastConsumptionTimestamp;
     private DateTime dateCreated;
     private DateTime dateUpdated;
+    private String attributes;
 
     /**
      * Construct a new MemberUpdater.
-     * 
-     * @param pathServiceSid Sid of the Service this member belongs to.
-     * @param pathChannelSid Key that uniquely defines the channel this member
-     *                       belongs to.
-     * @param pathSid Key that uniquely defines the member to update.
+     *
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param pathChannelSid The SID of the channel the member to update belongs to
+     * @param pathSid The SID of the Member resource to update
      */
-    public MemberUpdater(final String pathServiceSid, 
-                         final String pathChannelSid, 
+    public MemberUpdater(final String pathServiceSid,
+                         final String pathChannelSid,
                          final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -46,10 +46,11 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The role to be assigned to this member. Defaults to the roles specified on
-     * the [Service](https://www.twilio.com/docs/chat/api/services)..
-     * 
-     * @param roleSid The role to be assigned to this member.
+     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to
+     * assign to the member. The default roles are those specified on the
+     * [Service](https://www.twilio.com/docs/chat/rest/service-resource)..
+     *
+     * @param roleSid The SID of the Role to assign to the member
      * @return this
      */
     public MemberUpdater setRoleSid(final String roleSid) {
@@ -58,13 +59,13 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * Field used to specify the last consumed Message index for the Channel for
-     * this Member.  Should only be used when recreating a Member from a
-     * backup/separate source..
-     * 
-     * @param lastConsumedMessageIndex Field used to specify the last consumed
-     *                                 Message index for the Channel for this
-     *                                 Member.
+     * The index of the last
+     * [Message](https://www.twilio.com/docs/chat/rest/message-resource) that the
+     * Member has read within the
+     * [Channel](https://www.twilio.com/docs/chat/channels)..
+     *
+     * @param lastConsumedMessageIndex The index of the last consumed Message for
+     *                                 the Channel for the Member
      * @return this
      */
     public MemberUpdater setLastConsumedMessageIndex(final Integer lastConsumedMessageIndex) {
@@ -73,12 +74,14 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * ISO8601 time indicating the last datetime the Member consumed a Message in
-     * the Channel.  Should only be used when recreating a Member from a
-     * backup/separate source.
-     * 
-     * @param lastConsumptionTimestamp ISO8601 time indicating the last datetime
-     *                                 the Member consumed a Message in the Channel.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last
+     * [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event
+     * for the Member within the
+     * [Channel](https://www.twilio.com/docs/chat/channels)..
+     *
+     * @param lastConsumptionTimestamp The ISO 8601 based timestamp string
+     *                                 representing the datetime of the last Message
+     *                                 read event for the Member within the Channel
      * @return this
      */
     public MemberUpdater setLastConsumptionTimestamp(final DateTime lastConsumptionTimestamp) {
@@ -87,13 +90,14 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The ISO8601 time specifying the datetime the Members should be set as being
-     * created.  Will be set to the current time by the Chat service if not
-     * specified.  Note that this should only be used in cases where a Member is
-     * being recreated from a backup/separate source.
-     * 
-     * @param dateCreated The ISO8601 time specifying the datetime the Members
-     *                    should be set as being created.
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was created. The default
+     * value is the current time set by the Chat service.  Note that this parameter
+     * should only be used when a Member is being recreated from a backup/separate
+     * source..
+     *
+     * @param dateCreated The ISO 8601 date and time in GMT when the resource was
+     *                    created
      * @return this
      */
     public MemberUpdater setDateCreated(final DateTime dateCreated) {
@@ -102,14 +106,11 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The ISO8601 time specifying the datetime the Member should be set as having
-     * been last updated.  Will be set to the `null` by the Chat service if not
-     * specified.  Note that this should only be used in cases where a Member is
-     * being recreated from a backup/separate source  and where a Member was
-     * previously updated..
-     * 
-     * @param dateUpdated The ISO8601 time specifying the datetime the Member
-     *                    should be set as having been last updated.
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was last updated..
+     *
+     * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
+     *                    updated
      * @return this
      */
     public MemberUpdater setDateUpdated(final DateTime dateUpdated) {
@@ -118,8 +119,19 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
+     * A valid JSON string that contains application-specific data..
+     *
+     * @param attributes A valid JSON string that contains application-specific data
+     * @return this
+     */
+    public MemberUpdater setAttributes(final String attributes) {
+        this.attributes = attributes;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Member
      */
@@ -129,8 +141,7 @@ public class MemberUpdater extends Updater<Member> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Members/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Members/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -143,14 +154,7 @@ public class MemberUpdater extends Updater<Member> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Member.fromJson(response.getStream(), client.getObjectMapper());
@@ -158,7 +162,7 @@ public class MemberUpdater extends Updater<Member> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
@@ -180,6 +184,10 @@ public class MemberUpdater extends Updater<Member> {
 
         if (dateUpdated != null) {
             request.addPostParam("DateUpdated", dateUpdated.toString());
+        }
+
+        if (attributes != null) {
+            request.addPostParam("Attributes", attributes);
         }
     }
 }

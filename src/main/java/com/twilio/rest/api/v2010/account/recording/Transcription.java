@@ -67,72 +67,81 @@ public class Transcription extends Resource {
 
     /**
      * Create a TranscriptionFetcher to execute fetch.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathRecordingSid The recording_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathRecordingSid The SID of the recording that created the
+     *                         transcriptions to fetch
+     * @param pathSid The unique string that identifies the resource
      * @return TranscriptionFetcher capable of executing the fetch
      */
-    public static TranscriptionFetcher fetcher(final String pathAccountSid, 
-                                               final String pathRecordingSid, 
+    public static TranscriptionFetcher fetcher(final String pathAccountSid,
+                                               final String pathRecordingSid,
                                                final String pathSid) {
         return new TranscriptionFetcher(pathAccountSid, pathRecordingSid, pathSid);
     }
 
     /**
      * Create a TranscriptionFetcher to execute fetch.
-     * 
-     * @param pathRecordingSid The recording_sid
-     * @param pathSid The sid
+     *
+     * @param pathRecordingSid The SID of the recording that created the
+     *                         transcriptions to fetch
+     * @param pathSid The unique string that identifies the resource
      * @return TranscriptionFetcher capable of executing the fetch
      */
-    public static TranscriptionFetcher fetcher(final String pathRecordingSid, 
+    public static TranscriptionFetcher fetcher(final String pathRecordingSid,
                                                final String pathSid) {
         return new TranscriptionFetcher(pathRecordingSid, pathSid);
     }
 
     /**
      * Create a TranscriptionDeleter to execute delete.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathRecordingSid The recording_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathRecordingSid The SID of the recording that created the
+     *                         transcription to delete
+     * @param pathSid The unique string that identifies the resource
      * @return TranscriptionDeleter capable of executing the delete
      */
-    public static TranscriptionDeleter deleter(final String pathAccountSid, 
-                                               final String pathRecordingSid, 
+    public static TranscriptionDeleter deleter(final String pathAccountSid,
+                                               final String pathRecordingSid,
                                                final String pathSid) {
         return new TranscriptionDeleter(pathAccountSid, pathRecordingSid, pathSid);
     }
 
     /**
      * Create a TranscriptionDeleter to execute delete.
-     * 
-     * @param pathRecordingSid The recording_sid
-     * @param pathSid The sid
+     *
+     * @param pathRecordingSid The SID of the recording that created the
+     *                         transcription to delete
+     * @param pathSid The unique string that identifies the resource
      * @return TranscriptionDeleter capable of executing the delete
      */
-    public static TranscriptionDeleter deleter(final String pathRecordingSid, 
+    public static TranscriptionDeleter deleter(final String pathRecordingSid,
                                                final String pathSid) {
         return new TranscriptionDeleter(pathRecordingSid, pathSid);
     }
 
     /**
      * Create a TranscriptionReader to execute read.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathRecordingSid The recording_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathRecordingSid The SID of the recording that created the
+     *                         transcriptions to read
      * @return TranscriptionReader capable of executing the read
      */
-    public static TranscriptionReader reader(final String pathAccountSid, 
+    public static TranscriptionReader reader(final String pathAccountSid,
                                              final String pathRecordingSid) {
         return new TranscriptionReader(pathAccountSid, pathRecordingSid);
     }
 
     /**
      * Create a TranscriptionReader to execute read.
-     * 
-     * @param pathRecordingSid The recording_sid
+     *
+     * @param pathRecordingSid The SID of the recording that created the
+     *                         transcriptions to read
      * @return TranscriptionReader capable of executing the read
      */
     public static TranscriptionReader reader(final String pathRecordingSid) {
@@ -142,7 +151,7 @@ public class Transcription extends Resource {
     /**
      * Converts a JSON String into a Transcription object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Transcription object represented by the provided JSON
@@ -161,7 +170,7 @@ public class Transcription extends Resource {
     /**
      * Converts a JSON InputStream into a Transcription object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Transcription object represented by the provided JSON
@@ -193,30 +202,30 @@ public class Transcription extends Resource {
 
     @JsonCreator
     private Transcription(@JsonProperty("account_sid")
-                          final String accountSid, 
+                          final String accountSid,
                           @JsonProperty("api_version")
-                          final String apiVersion, 
+                          final String apiVersion,
                           @JsonProperty("date_created")
-                          final String dateCreated, 
+                          final String dateCreated,
                           @JsonProperty("date_updated")
-                          final String dateUpdated, 
+                          final String dateUpdated,
                           @JsonProperty("duration")
-                          final String duration, 
+                          final String duration,
                           @JsonProperty("price")
-                          final BigDecimal price, 
+                          final BigDecimal price,
                           @JsonProperty("price_unit")
                           @JsonDeserialize(using = com.twilio.converter.CurrencyDeserializer.class)
-                          final Currency priceUnit, 
+                          final Currency priceUnit,
                           @JsonProperty("recording_sid")
-                          final String recordingSid, 
+                          final String recordingSid,
                           @JsonProperty("sid")
-                          final String sid, 
+                          final String sid,
                           @JsonProperty("status")
-                          final Transcription.Status status, 
+                          final Transcription.Status status,
                           @JsonProperty("transcription_text")
-                          final String transcriptionText, 
+                          final String transcriptionText,
                           @JsonProperty("type")
-                          final String type, 
+                          final String type,
                           @JsonProperty("uri")
                           final String uri) {
         this.accountSid = accountSid;
@@ -235,117 +244,117 @@ public class Transcription extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
-     * 
-     * @return The account_sid
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The api_version.
-     * 
-     * @return The api_version
+     * Returns The API version used to create the transcription.
+     *
+     * @return The API version used to create the transcription
      */
     public final String getApiVersion() {
         return this.apiVersion;
     }
 
     /**
-     * Returns The The date_created.
-     * 
-     * @return The date_created
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
+     *
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
-     * 
-     * @return The date_updated
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
+     *
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The duration.
-     * 
-     * @return The duration
+     * Returns The duration of the transcribed audio in seconds..
+     *
+     * @return The duration of the transcribed audio in seconds.
      */
     public final String getDuration() {
         return this.duration;
     }
 
     /**
-     * Returns The The price.
-     * 
-     * @return The price
+     * Returns The charge for the transcription.
+     *
+     * @return The charge for the transcription
      */
     public final BigDecimal getPrice() {
         return this.price;
     }
 
     /**
-     * Returns The The price_unit.
-     * 
-     * @return The price_unit
+     * Returns The currency in which price is measured.
+     *
+     * @return The currency in which price is measured
      */
     public final Currency getPriceUnit() {
         return this.priceUnit;
     }
 
     /**
-     * Returns The The recording_sid.
-     * 
-     * @return The recording_sid
+     * Returns The SID that identifies the transcription's recording.
+     *
+     * @return The SID that identifies the transcription's recording
      */
     public final String getRecordingSid() {
         return this.recordingSid;
     }
 
     /**
-     * Returns The The sid.
-     * 
-     * @return The sid
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The status.
-     * 
-     * @return The status
+     * Returns The status of the transcription.
+     *
+     * @return The status of the transcription
      */
     public final Transcription.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The transcription_text.
-     * 
-     * @return The transcription_text
+     * Returns The text content of the transcription..
+     *
+     * @return The text content of the transcription.
      */
     public final String getTranscriptionText() {
         return this.transcriptionText;
     }
 
     /**
-     * Returns The The type.
-     * 
-     * @return The type
+     * Returns The transcription type.
+     *
+     * @return The transcription type
      */
     public final String getType() {
         return this.type;
     }
 
     /**
-     * Returns The The uri.
-     * 
-     * @return The uri
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
+     *
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;
@@ -363,18 +372,18 @@ public class Transcription extends Resource {
 
         Transcription other = (Transcription) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(apiVersion, other.apiVersion) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(duration, other.duration) && 
-               Objects.equals(price, other.price) && 
-               Objects.equals(priceUnit, other.priceUnit) && 
-               Objects.equals(recordingSid, other.recordingSid) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(transcriptionText, other.transcriptionText) && 
-               Objects.equals(type, other.type) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(apiVersion, other.apiVersion) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(duration, other.duration) &&
+               Objects.equals(price, other.price) &&
+               Objects.equals(priceUnit, other.priceUnit) &&
+               Objects.equals(recordingSid, other.recordingSid) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(transcriptionText, other.transcriptionText) &&
+               Objects.equals(type, other.type) &&
                Objects.equals(uri, other.uri);
     }
 

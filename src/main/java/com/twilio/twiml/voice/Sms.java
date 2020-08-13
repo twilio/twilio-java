@@ -48,7 +48,7 @@ public class Sms extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -57,7 +57,7 @@ public class Sms extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -85,7 +85,7 @@ public class Sms extends TwiML {
 
     /**
      * Number to send message to
-     * 
+     *
      * @return Number to send message to
      */
     public com.twilio.type.PhoneNumber getTo() {
@@ -94,7 +94,7 @@ public class Sms extends TwiML {
 
     /**
      * Number to send message from
-     * 
+     *
      * @return Number to send message from
      */
     public com.twilio.type.PhoneNumber getFrom() {
@@ -103,7 +103,7 @@ public class Sms extends TwiML {
 
     /**
      * Action URL
-     * 
+     *
      * @return Action URL
      */
     public URI getAction() {
@@ -112,7 +112,7 @@ public class Sms extends TwiML {
 
     /**
      * Action URL method
-     * 
+     *
      * @return Action URL method
      */
     public HttpMethod getMethod() {
@@ -121,7 +121,7 @@ public class Sms extends TwiML {
 
     /**
      * Status callback URL
-     * 
+     *
      * @return Status callback URL
      */
     public URI getStatusCallback() {
@@ -130,7 +130,7 @@ public class Sms extends TwiML {
 
     /**
      * Message body
-     * 
+     *
      * @return Message body
      */
     public String getMessage() {

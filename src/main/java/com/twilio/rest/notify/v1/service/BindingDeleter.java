@@ -27,11 +27,11 @@ public class BindingDeleter extends Deleter<Binding> {
 
     /**
      * Construct a new BindingDeleter.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathSid The unique string that identifies the resource
      */
-    public BindingDeleter(final String pathServiceSid, 
+    public BindingDeleter(final String pathServiceSid,
                           final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -39,7 +39,7 @@ public class BindingDeleter extends Deleter<Binding> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -48,8 +48,7 @@ public class BindingDeleter extends Deleter<Binding> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.NOTIFY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Bindings/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Bindings/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -61,14 +60,7 @@ public class BindingDeleter extends Deleter<Binding> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

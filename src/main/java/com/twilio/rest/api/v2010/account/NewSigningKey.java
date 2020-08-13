@@ -37,8 +37,9 @@ public class NewSigningKey extends Resource {
 
     /**
      * Create a NewSigningKeyCreator to execute create.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The SID of the Account that will be responsible for
+     *                       the new Key resource
      * @return NewSigningKeyCreator capable of executing the create
      */
     public static NewSigningKeyCreator creator(final String pathAccountSid) {
@@ -47,7 +48,7 @@ public class NewSigningKey extends Resource {
 
     /**
      * Create a NewSigningKeyCreator to execute create.
-     * 
+     *
      * @return NewSigningKeyCreator capable of executing the create
      */
     public static NewSigningKeyCreator creator() {
@@ -57,7 +58,7 @@ public class NewSigningKey extends Resource {
     /**
      * Converts a JSON String into a NewSigningKey object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return NewSigningKey object represented by the provided JSON
@@ -76,7 +77,7 @@ public class NewSigningKey extends Resource {
     /**
      * Converts a JSON InputStream into a NewSigningKey object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return NewSigningKey object represented by the provided JSON
@@ -100,13 +101,13 @@ public class NewSigningKey extends Resource {
 
     @JsonCreator
     private NewSigningKey(@JsonProperty("sid")
-                          final String sid, 
+                          final String sid,
                           @JsonProperty("friendly_name")
-                          final String friendlyName, 
+                          final String friendlyName,
                           @JsonProperty("date_created")
-                          final String dateCreated, 
+                          final String dateCreated,
                           @JsonProperty("date_updated")
-                          final String dateUpdated, 
+                          final String dateUpdated,
                           @JsonProperty("secret")
                           final String secret) {
         this.sid = sid;
@@ -117,45 +118,47 @@ public class NewSigningKey extends Resource {
     }
 
     /**
-     * Returns The The sid.
-     * 
-     * @return The sid
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The friendly_name.
-     * 
-     * @return The friendly_name
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date_created.
-     * 
-     * @return The date_created
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
+     *
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
-     * 
-     * @return The date_updated
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
+     *
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The secret.
-     * 
-     * @return The secret
+     * Returns The secret your application uses to sign Access Tokens and to
+     * authenticate to the REST API..
+     *
+     * @return The secret your application uses to sign Access Tokens and to
+     *         authenticate to the REST API.
      */
     public final String getSecret() {
         return this.secret;
@@ -173,10 +176,10 @@ public class NewSigningKey extends Resource {
 
         NewSigningKey other = (NewSigningKey) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(secret, other.secret);
     }
 

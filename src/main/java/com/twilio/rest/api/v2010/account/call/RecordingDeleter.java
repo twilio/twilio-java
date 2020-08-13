@@ -24,11 +24,11 @@ public class RecordingDeleter extends Deleter<Recording> {
 
     /**
      * Construct a new RecordingDeleter.
-     * 
-     * @param pathCallSid Delete by unique call Sid for the recording
-     * @param pathSid Delete by unique recording Sid
+     *
+     * @param pathCallSid The Call SID of the resources to delete
+     * @param pathSid The unique string that identifies the resource
      */
-    public RecordingDeleter(final String pathCallSid, 
+    public RecordingDeleter(final String pathCallSid,
                             final String pathSid) {
         this.pathCallSid = pathCallSid;
         this.pathSid = pathSid;
@@ -36,13 +36,14 @@ public class RecordingDeleter extends Deleter<Recording> {
 
     /**
      * Construct a new RecordingDeleter.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathCallSid Delete by unique call Sid for the recording
-     * @param pathSid Delete by unique recording Sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathCallSid The Call SID of the resources to delete
+     * @param pathSid The unique string that identifies the resource
      */
-    public RecordingDeleter(final String pathAccountSid, 
-                            final String pathCallSid, 
+    public RecordingDeleter(final String pathAccountSid,
+                            final String pathCallSid,
                             final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathCallSid = pathCallSid;
@@ -51,7 +52,7 @@ public class RecordingDeleter extends Deleter<Recording> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -61,8 +62,7 @@ public class RecordingDeleter extends Deleter<Recording> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathCallSid + "/Recordings/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathCallSid + "/Recordings/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);
@@ -74,14 +74,7 @@ public class RecordingDeleter extends Deleter<Recording> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

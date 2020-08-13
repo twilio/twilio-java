@@ -24,11 +24,12 @@ public class IpAddressFetcher extends Fetcher<IpAddress> {
 
     /**
      * Construct a new IpAddressFetcher.
-     * 
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
-     * @param pathSid The sid
+     *
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid that
+     *                                   identifies the IpAddress resources to fetch
+     * @param pathSid A string that identifies the IpAddress resource to fetch
      */
-    public IpAddressFetcher(final String pathIpAccessControlListSid, 
+    public IpAddressFetcher(final String pathIpAccessControlListSid,
                             final String pathSid) {
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
         this.pathSid = pathSid;
@@ -36,13 +37,14 @@ public class IpAddressFetcher extends Fetcher<IpAddress> {
 
     /**
      * Construct a new IpAddressFetcher.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid that
+     *                                   identifies the IpAddress resources to fetch
+     * @param pathSid A string that identifies the IpAddress resource to fetch
      */
-    public IpAddressFetcher(final String pathAccountSid, 
-                            final String pathIpAccessControlListSid, 
+    public IpAddressFetcher(final String pathAccountSid,
+                            final String pathIpAccessControlListSid,
                             final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
@@ -51,7 +53,7 @@ public class IpAddressFetcher extends Fetcher<IpAddress> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched IpAddress
      */
@@ -62,8 +64,7 @@ public class IpAddressFetcher extends Fetcher<IpAddress> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/IpAccessControlLists/" + this.pathIpAccessControlListSid + "/IpAddresses/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/IpAccessControlLists/" + this.pathIpAccessControlListSid + "/IpAddresses/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);
@@ -75,14 +76,7 @@ public class IpAddressFetcher extends Fetcher<IpAddress> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return IpAddress.fromJson(response.getStream(), client.getObjectMapper());

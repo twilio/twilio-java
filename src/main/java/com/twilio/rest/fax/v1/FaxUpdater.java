@@ -27,18 +27,20 @@ public class FaxUpdater extends Updater<Fax> {
 
     /**
      * Construct a new FaxUpdater.
-     * 
-     * @param pathSid A string that uniquely identifies this fax.
+     *
+     * @param pathSid The unique string that identifies the resource
      */
     public FaxUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
     /**
-     * The updated status of this fax. The only valid option is `canceled`. This may
-     * fail if the status has already started transmission..
-     * 
-     * @param status The updated status of this fax
+     * The new
+     * [status](https://www.twilio.com/docs/fax/api/fax-resource#fax-status-values)
+     * of the resource. Can be only `canceled`. This may fail if transmission has
+     * already started..
+     *
+     * @param status The new status of the resource
      * @return this
      */
     public FaxUpdater setStatus(final Fax.UpdateStatus status) {
@@ -48,7 +50,7 @@ public class FaxUpdater extends Updater<Fax> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Fax
      */
@@ -58,8 +60,7 @@ public class FaxUpdater extends Updater<Fax> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.FAX.toString(),
-            "/v1/Faxes/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Faxes/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -72,14 +73,7 @@ public class FaxUpdater extends Updater<Fax> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Fax.fromJson(response.getStream(), client.getObjectMapper());
@@ -87,7 +81,7 @@ public class FaxUpdater extends Updater<Fax> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

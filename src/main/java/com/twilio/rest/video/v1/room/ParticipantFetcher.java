@@ -23,11 +23,11 @@ public class ParticipantFetcher extends Fetcher<Participant> {
 
     /**
      * Construct a new ParticipantFetcher.
-     * 
-     * @param pathRoomSid The room_sid
-     * @param pathSid The sid
+     *
+     * @param pathRoomSid The SID of the room with the Participant resource to fetch
+     * @param pathSid The SID that identifies the resource to fetch
      */
-    public ParticipantFetcher(final String pathRoomSid, 
+    public ParticipantFetcher(final String pathRoomSid,
                               final String pathSid) {
         this.pathRoomSid = pathRoomSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Participant
      */
@@ -45,8 +45,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -58,14 +57,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Participant.fromJson(response.getStream(), client.getObjectMapper());

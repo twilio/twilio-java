@@ -1,5 +1,7 @@
 package com.twilio.jwt.accesstoken;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * Grant used to access Twilio Conversations.
  *
@@ -35,6 +37,7 @@ public class ConversationsGrant implements Grant {
 
 
     @SuppressWarnings("checkstyle:membername")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public class Payload {
         public final String configuration_profile_sid;
 

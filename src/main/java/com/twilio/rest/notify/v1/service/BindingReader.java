@@ -37,18 +37,18 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * Construct a new BindingReader.
-     * 
-     * @param pathServiceSid The service_sid
+     *
+     * @param pathServiceSid The SID of the Service to read the resource from
      */
     public BindingReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
     /**
-     * Only list Bindings created on or after the given date. Should be formatted as
-     * YYYY-MM-DD. All dates considered in UTC..
-     * 
-     * @param startDate Only list Bindings created on or after the given date.
+     * Only include usage that has occurred on or after this date. Specify the date
+     * in GMT and format as `YYYY-MM-DD`..
+     *
+     * @param startDate Only include usage that has occurred on or after this date
      * @return this
      */
     public BindingReader setStartDate(final LocalDate startDate) {
@@ -57,10 +57,10 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * Only list Bindings created on or before the given date. Should be formatted
-     * as YYYY-MM-DD. All dates considered in UTC..
-     * 
-     * @param endDate Only list Bindings created on or before the given date.
+     * Only include usage that occurred on or before this date. Specify the date in
+     * GMT and format as `YYYY-MM-DD`..
+     *
+     * @param endDate Only include usage that occurred on or before this date
      * @return this
      */
     public BindingReader setEndDate(final LocalDate endDate) {
@@ -69,9 +69,10 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * Only list Bindings that have any of the specified Identities..
-     * 
-     * @param identity Only list Bindings that have any of the specified Identities.
+     * The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity`
+     * value of the resources to read..
+     *
+     * @param identity The `identity` value of the resources to read
      * @return this
      */
     public BindingReader setIdentity(final List<String> identity) {
@@ -80,9 +81,10 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * Only list Bindings that have any of the specified Identities..
-     * 
-     * @param identity Only list Bindings that have any of the specified Identities.
+     * The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity`
+     * value of the resources to read..
+     *
+     * @param identity The `identity` value of the resources to read
      * @return this
      */
     public BindingReader setIdentity(final String identity) {
@@ -91,10 +93,10 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * Only list Bindings that have all of the specified Tags. The following
-     * implicit tags are available: all, apn, fcm, gcm, sms, facebook-messenger.
-     * Maximum 5 tags are allowed..
-     * 
-     * @param tag Only list Bindings that have all of the specified Tags.
+     * implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`,
+     * `facebook-messenger`. Up to 5 tags are allowed..
+     *
+     * @param tag Only list Bindings that have all of the specified Tags
      * @return this
      */
     public BindingReader setTag(final List<String> tag) {
@@ -104,10 +106,10 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * Only list Bindings that have all of the specified Tags. The following
-     * implicit tags are available: all, apn, fcm, gcm, sms, facebook-messenger.
-     * Maximum 5 tags are allowed..
-     * 
-     * @param tag Only list Bindings that have all of the specified Tags.
+     * implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`,
+     * `facebook-messenger`. Up to 5 tags are allowed..
+     *
+     * @param tag Only list Bindings that have all of the specified Tags
      * @return this
      */
     public BindingReader setTag(final String tag) {
@@ -116,7 +118,7 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Binding ResourceSet
      */
@@ -127,7 +129,7 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Binding ResourceSet
      */
@@ -137,8 +139,7 @@ public class BindingReader extends Reader<Binding> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.NOTIFY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Bindings",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Bindings"
         );
 
         addQueryParams(request);
@@ -147,7 +148,7 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Binding ResourceSet
@@ -165,47 +166,41 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Binding> nextPage(final Page<Binding> page, 
+    public Page<Binding> nextPage(final Page<Binding> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.NOTIFY.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.NOTIFY.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Binding> previousPage(final Page<Binding> page, 
+    public Page<Binding> previousPage(final Page<Binding> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.NOTIFY.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.NOTIFY.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Binding Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -220,14 +215,7 @@ public class BindingReader extends Reader<Binding> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -240,7 +228,7 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

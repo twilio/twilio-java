@@ -89,7 +89,7 @@ public class Account extends Resource {
 
     /**
      * Create a AccountCreator to execute create.
-     * 
+     *
      * @return AccountCreator capable of executing the create
      */
     public static AccountCreator creator() {
@@ -98,7 +98,7 @@ public class Account extends Resource {
 
     /**
      * Create a AccountFetcher to execute fetch.
-     * 
+     *
      * @param pathSid Fetch by unique Account Sid
      * @return AccountFetcher capable of executing the fetch
      */
@@ -108,7 +108,7 @@ public class Account extends Resource {
 
     /**
      * Create a AccountFetcher to execute fetch.
-     * 
+     *
      * @return AccountFetcher capable of executing the fetch
      */
     public static AccountFetcher fetcher() {
@@ -117,7 +117,7 @@ public class Account extends Resource {
 
     /**
      * Create a AccountReader to execute read.
-     * 
+     *
      * @return AccountReader capable of executing the read
      */
     public static AccountReader reader() {
@@ -126,8 +126,8 @@ public class Account extends Resource {
 
     /**
      * Create a AccountUpdater to execute update.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid Update by unique Account Sid
      * @return AccountUpdater capable of executing the update
      */
     public static AccountUpdater updater(final String pathSid) {
@@ -136,7 +136,7 @@ public class Account extends Resource {
 
     /**
      * Create a AccountUpdater to execute update.
-     * 
+     *
      * @return AccountUpdater capable of executing the update
      */
     public static AccountUpdater updater() {
@@ -145,7 +145,7 @@ public class Account extends Resource {
 
     /**
      * Converts a JSON String into a Account object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Account object represented by the provided JSON
@@ -164,7 +164,7 @@ public class Account extends Resource {
     /**
      * Converts a JSON InputStream into a Account object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Account object represented by the provided JSON
@@ -193,23 +193,23 @@ public class Account extends Resource {
 
     @JsonCreator
     private Account(@JsonProperty("auth_token")
-                    final String authToken, 
+                    final String authToken,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("friendly_name")
-                    final String friendlyName, 
+                    final String friendlyName,
                     @JsonProperty("owner_account_sid")
-                    final String ownerAccountSid, 
+                    final String ownerAccountSid,
                     @JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("status")
-                    final Account.Status status, 
+                    final Account.Status status,
                     @JsonProperty("subresource_uris")
-                    final Map<String, String> subresourceUris, 
+                    final Map<String, String> subresourceUris,
                     @JsonProperty("type")
-                    final Account.Type type, 
+                    final Account.Type type,
                     @JsonProperty("uri")
                     final String uri) {
         this.authToken = authToken;
@@ -225,8 +225,8 @@ public class Account extends Resource {
     }
 
     /**
-     * Returns The The authorization token for this account.
-     * 
+     * Returns The authorization token for this account.
+     *
      * @return The authorization token for this account
      */
     public final String getAuthToken() {
@@ -234,8 +234,8 @@ public class Account extends Resource {
     }
 
     /**
-     * Returns The The date this account was created.
-     * 
+     * Returns The date this account was created.
+     *
      * @return The date this account was created
      */
     public final DateTime getDateCreated() {
@@ -243,8 +243,8 @@ public class Account extends Resource {
     }
 
     /**
-     * Returns The The date this account was last updated.
-     * 
+     * Returns The date this account was last updated.
+     *
      * @return The date this account was last updated
      */
     public final DateTime getDateUpdated() {
@@ -252,8 +252,8 @@ public class Account extends Resource {
     }
 
     /**
-     * Returns The A human readable description of this account.
-     * 
+     * Returns A human readable description of this account.
+     *
      * @return A human readable description of this account
      */
     public final String getFriendlyName() {
@@ -261,9 +261,8 @@ public class Account extends Resource {
     }
 
     /**
-     * Returns The The unique 34 character id representing the parent of this
-     * account.
-     * 
+     * Returns The unique 34 character id representing the parent of this account.
+     *
      * @return The unique 34 character id representing the parent of this account
      */
     public final String getOwnerAccountSid() {
@@ -271,8 +270,8 @@ public class Account extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
-     * 
+     * Returns A 34 character string that uniquely identifies this resource..
+     *
      * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
@@ -280,8 +279,8 @@ public class Account extends Resource {
     }
 
     /**
-     * Returns The The status of this account.
-     * 
+     * Returns The status of this account.
+     *
      * @return The status of this account
      */
     public final Account.Status getStatus() {
@@ -289,8 +288,8 @@ public class Account extends Resource {
     }
 
     /**
-     * Returns The Account Instance Subresources.
-     * 
+     * Returns Account Instance Subresources.
+     *
      * @return Account Instance Subresources
      */
     public final Map<String, String> getSubresourceUris() {
@@ -298,8 +297,8 @@ public class Account extends Resource {
     }
 
     /**
-     * Returns The The type of this account.
-     * 
+     * Returns The type of this account.
+     *
      * @return The type of this account
      */
     public final Account.Type getType() {
@@ -307,8 +306,8 @@ public class Account extends Resource {
     }
 
     /**
-     * Returns The The URI for this resource, relative to `https://api.twilio.com`.
-     * 
+     * Returns The URI for this resource, relative to `https://api.twilio.com`.
+     *
      * @return The URI for this resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
@@ -327,15 +326,15 @@ public class Account extends Resource {
 
         Account other = (Account) o;
 
-        return Objects.equals(authToken, other.authToken) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(ownerAccountSid, other.ownerAccountSid) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(subresourceUris, other.subresourceUris) && 
-               Objects.equals(type, other.type) && 
+        return Objects.equals(authToken, other.authToken) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(ownerAccountSid, other.ownerAccountSid) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(subresourceUris, other.subresourceUris) &&
+               Objects.equals(type, other.type) &&
                Objects.equals(uri, other.uri);
     }
 

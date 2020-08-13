@@ -38,7 +38,7 @@ public class Aws extends Resource {
 
     /**
      * Create a AwsReader to execute read.
-     * 
+     *
      * @return AwsReader capable of executing the read
      */
     public static AwsReader reader() {
@@ -47,8 +47,10 @@ public class Aws extends Resource {
 
     /**
      * Create a AwsCreator to execute create.
-     * 
-     * @param credentials The credentials
+     *
+     * @param credentials A string that contains the AWS access credentials in the
+     *                    format
+     *                    &lt;AWS_ACCESS_KEY_ID&gt;:&lt;AWS_SECRET_ACCESS_KEY&gt;
      * @return AwsCreator capable of executing the create
      */
     public static AwsCreator creator(final String credentials) {
@@ -57,8 +59,8 @@ public class Aws extends Resource {
 
     /**
      * Create a AwsFetcher to execute fetch.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return AwsFetcher capable of executing the fetch
      */
     public static AwsFetcher fetcher(final String pathSid) {
@@ -67,8 +69,8 @@ public class Aws extends Resource {
 
     /**
      * Create a AwsUpdater to execute update.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return AwsUpdater capable of executing the update
      */
     public static AwsUpdater updater(final String pathSid) {
@@ -77,8 +79,8 @@ public class Aws extends Resource {
 
     /**
      * Create a AwsDeleter to execute delete.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return AwsDeleter capable of executing the delete
      */
     public static AwsDeleter deleter(final String pathSid) {
@@ -87,7 +89,7 @@ public class Aws extends Resource {
 
     /**
      * Converts a JSON String into a Aws object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Aws object represented by the provided JSON
@@ -106,7 +108,7 @@ public class Aws extends Resource {
     /**
      * Converts a JSON InputStream into a Aws object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Aws object represented by the provided JSON
@@ -131,15 +133,15 @@ public class Aws extends Resource {
 
     @JsonCreator
     private Aws(@JsonProperty("sid")
-                final String sid, 
+                final String sid,
                 @JsonProperty("account_sid")
-                final String accountSid, 
+                final String accountSid,
                 @JsonProperty("friendly_name")
-                final String friendlyName, 
+                final String friendlyName,
                 @JsonProperty("date_created")
-                final String dateCreated, 
+                final String dateCreated,
                 @JsonProperty("date_updated")
-                final String dateUpdated, 
+                final String dateUpdated,
                 @JsonProperty("url")
                 final URI url) {
         this.sid = sid;
@@ -151,54 +153,54 @@ public class Aws extends Resource {
     }
 
     /**
-     * Returns The The sid.
-     * 
-     * @return The sid
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The account_sid.
-     * 
-     * @return The account_sid
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The friendly_name.
-     * 
-     * @return The friendly_name
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date_created.
-     * 
-     * @return The date_created
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
+     *
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
-     * 
-     * @return The date_updated
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
+     *
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
-     * 
-     * @return The url
+     * Returns The URI for this resource, relative to `https://accounts.twilio.com`.
+     *
+     * @return The URI for this resource, relative to `https://accounts.twilio.com`
      */
     public final URI getUrl() {
         return this.url;
@@ -216,11 +218,11 @@ public class Aws extends Resource {
 
         Aws other = (Aws) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
     }
 

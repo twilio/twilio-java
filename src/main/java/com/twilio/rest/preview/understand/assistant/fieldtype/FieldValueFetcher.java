@@ -29,13 +29,13 @@ public class FieldValueFetcher extends Fetcher<FieldValue> {
 
     /**
      * Construct a new FieldValueFetcher.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      * @param pathFieldTypeSid The field_type_sid
      * @param pathSid The sid
      */
-    public FieldValueFetcher(final String pathAssistantSid, 
-                             final String pathFieldTypeSid, 
+    public FieldValueFetcher(final String pathAssistantSid,
+                             final String pathFieldTypeSid,
                              final String pathSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathFieldTypeSid = pathFieldTypeSid;
@@ -44,7 +44,7 @@ public class FieldValueFetcher extends Fetcher<FieldValue> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched FieldValue
      */
@@ -54,8 +54,7 @@ public class FieldValueFetcher extends Fetcher<FieldValue> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/FieldTypes/" + this.pathFieldTypeSid + "/FieldValues/" + this.pathSid + "",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/FieldTypes/" + this.pathFieldTypeSid + "/FieldValues/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -67,14 +66,7 @@ public class FieldValueFetcher extends Fetcher<FieldValue> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return FieldValue.fromJson(response.getStream(), client.getObjectMapper());

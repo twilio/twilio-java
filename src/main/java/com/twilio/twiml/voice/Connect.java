@@ -10,7 +10,6 @@ package com.twilio.twiml.voice;
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.TwiML;
-import com.twilio.twiml.video.Room;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -41,7 +40,7 @@ public class Connect extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -60,7 +59,7 @@ public class Connect extends TwiML {
 
     /**
      * Action URL
-     * 
+     *
      * @return Action URL
      */
     public URI getAction() {
@@ -69,7 +68,7 @@ public class Connect extends TwiML {
 
     /**
      * Action URL method
-     * 
+     *
      * @return Action URL method
      */
     public HttpMethod getMethod() {
@@ -112,6 +111,22 @@ public class Connect extends TwiML {
          */
         public Builder room(Room room) {
             this.children.add(room);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <Autopilot>} element
+         */
+        public Builder autopilot(Autopilot autopilot) {
+            this.children.add(autopilot);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <Stream>} element
+         */
+        public Builder stream(Stream stream) {
+            this.children.add(stream);
             return this;
         }
 

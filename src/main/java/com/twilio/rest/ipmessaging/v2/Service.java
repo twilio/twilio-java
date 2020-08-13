@@ -40,8 +40,8 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceFetcher to execute fetch.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The SID of the Service resource to fetch
      * @return ServiceFetcher capable of executing the fetch
      */
     public static ServiceFetcher fetcher(final String pathSid) {
@@ -50,8 +50,8 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceDeleter to execute delete.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The SID of the Service resource to delete
      * @return ServiceDeleter capable of executing the delete
      */
     public static ServiceDeleter deleter(final String pathSid) {
@@ -60,8 +60,8 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceCreator to execute create.
-     * 
-     * @param friendlyName Human-readable name for this service instance
+     *
+     * @param friendlyName A string to describe the resource
      * @return ServiceCreator capable of executing the create
      */
     public static ServiceCreator creator(final String friendlyName) {
@@ -70,7 +70,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceReader to execute read.
-     * 
+     *
      * @return ServiceReader capable of executing the read
      */
     public static ServiceReader reader() {
@@ -79,8 +79,8 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceUpdater to execute update.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The SID of the Service resource to update
      * @return ServiceUpdater capable of executing the update
      */
     public static ServiceUpdater updater(final String pathSid) {
@@ -89,7 +89,7 @@ public class Service extends Resource {
 
     /**
      * Converts a JSON String into a Service object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
@@ -108,7 +108,7 @@ public class Service extends Resource {
     /**
      * Converts a JSON InputStream into a Service object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
@@ -150,49 +150,49 @@ public class Service extends Resource {
 
     @JsonCreator
     private Service(@JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("friendly_name")
-                    final String friendlyName, 
+                    final String friendlyName,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("default_service_role_sid")
-                    final String defaultServiceRoleSid, 
+                    final String defaultServiceRoleSid,
                     @JsonProperty("default_channel_role_sid")
-                    final String defaultChannelRoleSid, 
+                    final String defaultChannelRoleSid,
                     @JsonProperty("default_channel_creator_role_sid")
-                    final String defaultChannelCreatorRoleSid, 
+                    final String defaultChannelCreatorRoleSid,
                     @JsonProperty("read_status_enabled")
-                    final Boolean readStatusEnabled, 
+                    final Boolean readStatusEnabled,
                     @JsonProperty("reachability_enabled")
-                    final Boolean reachabilityEnabled, 
+                    final Boolean reachabilityEnabled,
                     @JsonProperty("typing_indicator_timeout")
-                    final Integer typingIndicatorTimeout, 
+                    final Integer typingIndicatorTimeout,
                     @JsonProperty("consumption_report_interval")
-                    final Integer consumptionReportInterval, 
+                    final Integer consumptionReportInterval,
                     @JsonProperty("limits")
-                    final Map<String, Object> limits, 
+                    final Map<String, Object> limits,
                     @JsonProperty("pre_webhook_url")
-                    final String preWebhookUrl, 
+                    final String preWebhookUrl,
                     @JsonProperty("post_webhook_url")
-                    final String postWebhookUrl, 
+                    final String postWebhookUrl,
                     @JsonProperty("webhook_method")
-                    final String webhookMethod, 
+                    final String webhookMethod,
                     @JsonProperty("webhook_filters")
-                    final List<String> webhookFilters, 
+                    final List<String> webhookFilters,
                     @JsonProperty("pre_webhook_retry_count")
-                    final Integer preWebhookRetryCount, 
+                    final Integer preWebhookRetryCount,
                     @JsonProperty("post_webhook_retry_count")
-                    final Integer postWebhookRetryCount, 
+                    final Integer postWebhookRetryCount,
                     @JsonProperty("notifications")
-                    final Map<String, Object> notifications, 
+                    final Map<String, Object> notifications,
                     @JsonProperty("media")
-                    final Map<String, Object> media, 
+                    final Map<String, Object> media,
                     @JsonProperty("url")
-                    final URI url, 
+                    final URI url,
                     @JsonProperty("links")
                     final Map<String, String> links) {
         this.sid = sid;
@@ -221,225 +221,217 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
-     * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this service..
-     * 
-     * @return The unique id of the Account responsible for this service.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The human-readable name of this service..
-     * 
-     * @return The human-readable name of this service.
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date that this resource was created.
-     * 
-     * @return The date that this resource was created
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
+     *
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated.
-     * 
-     * @return The date that this resource was last updated
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
+     *
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The service role assigned to users when they are added to the
-     * service..
-     * 
-     * @return The service role assigned to users when they are added to the
-     *         service.
+     * Returns The service role assigned to users when they are added to the
+     * service.
+     *
+     * @return The service role assigned to users when they are added to the service
      */
     public final String getDefaultServiceRoleSid() {
         return this.defaultServiceRoleSid;
     }
 
     /**
-     * Returns The The channel role assigned to users when they are added to a
-     * channel..
-     * 
-     * @return The channel role assigned to users when they are added to a channel.
+     * Returns The channel role assigned to users when they are added to a channel.
+     *
+     * @return The channel role assigned to users when they are added to a channel
      */
     public final String getDefaultChannelRoleSid() {
         return this.defaultChannelRoleSid;
     }
 
     /**
-     * Returns The The channel role assigned to a channel creator when joining a new
-     * channel..
-     * 
-     * @return The channel role assigned to a channel creator when joining a new
-     *         channel.
+     * Returns The channel role assigned to a channel creator when they join a new
+     * channel.
+     *
+     * @return The channel role assigned to a channel creator when they join a new
+     *         channel
      */
     public final String getDefaultChannelCreatorRoleSid() {
         return this.defaultChannelCreatorRoleSid;
     }
 
     /**
-     * Returns The Enable the Message Constumption Horizon feature..
-     * 
-     * @return Enable the Message Constumption Horizon feature.
+     * Returns Whether the Message Consumption Horizon feature is enabled.
+     *
+     * @return Whether the Message Consumption Horizon feature is enabled
      */
     public final Boolean getReadStatusEnabled() {
         return this.readStatusEnabled;
     }
 
     /**
-     * Returns The Indicates whether the  the Reachability feature is enabled for
-     * this Service instance..
-     * 
-     * @return Indicates whether the  the Reachability feature is enabled for this
-     *         Service instance.
+     * Returns Whether the Reachability Indicator feature is enabled for this
+     * Service instance.
+     *
+     * @return Whether the Reachability Indicator feature is enabled for this
+     *         Service instance
      */
     public final Boolean getReachabilityEnabled() {
         return this.reachabilityEnabled;
     }
 
     /**
-     * Returns The The amount of time in seconds after a "started typing" event when
-     * clients should assume that user is no longer typing, even if no "ended
-     * typing" message was received..
-     * 
-     * @return The amount of time in seconds after a "started typing" event when
-     *         clients should assume that user is no longer typing, even if no
-     *         "ended typing" message was received.
+     * Returns How long in seconds to wait before assuming the user is no longer
+     * typing.
+     *
+     * @return How long in seconds to wait before assuming the user is no longer
+     *         typing
      */
     public final Integer getTypingIndicatorTimeout() {
         return this.typingIndicatorTimeout;
     }
 
     /**
-     * Returns The DEPRECATED..
-     * 
-     * @return DEPRECATED.
+     * Returns DEPRECATED.
+     *
+     * @return DEPRECATED
      */
     public final Integer getConsumptionReportInterval() {
         return this.consumptionReportInterval;
     }
 
     /**
-     * Returns The Configuration for service instance level limits..
-     * 
-     * @return Configuration for service instance level limits.
+     * Returns An object that describes the limits of the service instance.
+     *
+     * @return An object that describes the limits of the service instance
      */
     public final Map<String, Object> getLimits() {
         return this.limits;
     }
 
     /**
-     * Returns The The webhook URL for PRE-Event webhooks..
-     * 
-     * @return The webhook URL for PRE-Event webhooks.
+     * Returns The webhook URL for pre-event webhooks.
+     *
+     * @return The webhook URL for pre-event webhooks
      */
     public final String getPreWebhookUrl() {
         return this.preWebhookUrl;
     }
 
     /**
-     * Returns The The webhook URL for POST-Event webhooks..
-     * 
-     * @return The webhook URL for POST-Event webhooks.
+     * Returns The URL for post-event webhooks.
+     *
+     * @return The URL for post-event webhooks
      */
     public final String getPostWebhookUrl() {
         return this.postWebhookUrl;
     }
 
     /**
-     * Returns The The webhook request format to use for both PRE and POST
-     * webhooks..
-     * 
-     * @return The webhook request format to use for both PRE and POST webhooks.
+     * Returns The HTTP method  to use for both PRE and POST webhooks.
+     *
+     * @return The HTTP method  to use for both PRE and POST webhooks
      */
     public final String getWebhookMethod() {
         return this.webhookMethod;
     }
 
     /**
-     * Returns The The list of WebHook events that are enabled for this Service
-     * instance..
-     * 
-     * @return The list of WebHook events that are enabled for this Service
-     *         instance.
+     * Returns The list of webhook events that are enabled for this Service
+     * instance.
+     *
+     * @return The list of webhook events that are enabled for this Service instance
      */
     public final List<String> getWebhookFilters() {
         return this.webhookFilters;
     }
 
     /**
-     * Returns The Count of times webhook will be retried in case of timeout or
-     * 429/503/504 HTTP responses..
-     * 
+     * Returns Count of times webhook will be retried in case of timeout or
+     * 429/503/504 HTTP responses.
+     *
      * @return Count of times webhook will be retried in case of timeout or
-     *         429/503/504 HTTP responses.
+     *         429/503/504 HTTP responses
      */
     public final Integer getPreWebhookRetryCount() {
         return this.preWebhookRetryCount;
     }
 
     /**
-     * Returns The Count of times webhook will be retried in case of timeout or
-     * 429/503/504 HTTP responses..
-     * 
-     * @return Count of times webhook will be retried in case of timeout or
-     *         429/503/504 HTTP responses.
+     * Returns The number of times calls to the `post_webhook_url` will be retried.
+     *
+     * @return The number of times calls to the `post_webhook_url` will be retried
      */
     public final Integer getPostWebhookRetryCount() {
         return this.postWebhookRetryCount;
     }
 
     /**
-     * Returns The Notification configuration for the Service instance..
-     * 
-     * @return Notification configuration for the Service instance.
+     * Returns The notification configuration for the Service instance.
+     *
+     * @return The notification configuration for the Service instance
      */
     public final Map<String, Object> getNotifications() {
         return this.notifications;
     }
 
     /**
-     * Returns The The media.
-     * 
-     * @return The media
+     * Returns The properties of the media that the service supports.
+     *
+     * @return The properties of the media that the service supports
      */
     public final Map<String, Object> getMedia() {
         return this.media;
     }
 
     /**
-     * Returns The An absolute URL for this service..
-     * 
-     * @return An absolute URL for this service.
+     * Returns The absolute URL of the Service resource.
+     *
+     * @return The absolute URL of the Service resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The URLs to access the Channels, Roles, and Users for this service..
-     * 
-     * @return URLs to access the Channels, Roles, and Users for this service.
+     * Returns The absolute URLs of the Service's Channels, Roles, and Users.
+     *
+     * @return The absolute URLs of the Service's Channels, Roles, and Users
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -457,28 +449,28 @@ public class Service extends Resource {
 
         Service other = (Service) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(defaultServiceRoleSid, other.defaultServiceRoleSid) && 
-               Objects.equals(defaultChannelRoleSid, other.defaultChannelRoleSid) && 
-               Objects.equals(defaultChannelCreatorRoleSid, other.defaultChannelCreatorRoleSid) && 
-               Objects.equals(readStatusEnabled, other.readStatusEnabled) && 
-               Objects.equals(reachabilityEnabled, other.reachabilityEnabled) && 
-               Objects.equals(typingIndicatorTimeout, other.typingIndicatorTimeout) && 
-               Objects.equals(consumptionReportInterval, other.consumptionReportInterval) && 
-               Objects.equals(limits, other.limits) && 
-               Objects.equals(preWebhookUrl, other.preWebhookUrl) && 
-               Objects.equals(postWebhookUrl, other.postWebhookUrl) && 
-               Objects.equals(webhookMethod, other.webhookMethod) && 
-               Objects.equals(webhookFilters, other.webhookFilters) && 
-               Objects.equals(preWebhookRetryCount, other.preWebhookRetryCount) && 
-               Objects.equals(postWebhookRetryCount, other.postWebhookRetryCount) && 
-               Objects.equals(notifications, other.notifications) && 
-               Objects.equals(media, other.media) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(defaultServiceRoleSid, other.defaultServiceRoleSid) &&
+               Objects.equals(defaultChannelRoleSid, other.defaultChannelRoleSid) &&
+               Objects.equals(defaultChannelCreatorRoleSid, other.defaultChannelCreatorRoleSid) &&
+               Objects.equals(readStatusEnabled, other.readStatusEnabled) &&
+               Objects.equals(reachabilityEnabled, other.reachabilityEnabled) &&
+               Objects.equals(typingIndicatorTimeout, other.typingIndicatorTimeout) &&
+               Objects.equals(consumptionReportInterval, other.consumptionReportInterval) &&
+               Objects.equals(limits, other.limits) &&
+               Objects.equals(preWebhookUrl, other.preWebhookUrl) &&
+               Objects.equals(postWebhookUrl, other.postWebhookUrl) &&
+               Objects.equals(webhookMethod, other.webhookMethod) &&
+               Objects.equals(webhookFilters, other.webhookFilters) &&
+               Objects.equals(preWebhookRetryCount, other.preWebhookRetryCount) &&
+               Objects.equals(postWebhookRetryCount, other.postWebhookRetryCount) &&
+               Objects.equals(notifications, other.notifications) &&
+               Objects.equals(media, other.media) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

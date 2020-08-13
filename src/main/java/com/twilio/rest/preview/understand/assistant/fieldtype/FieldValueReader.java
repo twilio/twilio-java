@@ -31,11 +31,11 @@ public class FieldValueReader extends Reader<FieldValue> {
 
     /**
      * Construct a new FieldValueReader.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      * @param pathFieldTypeSid The field_type_sid
      */
-    public FieldValueReader(final String pathAssistantSid, 
+    public FieldValueReader(final String pathAssistantSid,
                             final String pathFieldTypeSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathFieldTypeSid = pathFieldTypeSid;
@@ -43,7 +43,7 @@ public class FieldValueReader extends Reader<FieldValue> {
 
     /**
      * An ISO language-country string of the value. For example: *en-US*.
-     * 
+     *
      * @param language An ISO language-country string of the value. For example:
      *                 en-US
      * @return this
@@ -55,7 +55,7 @@ public class FieldValueReader extends Reader<FieldValue> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return FieldValue ResourceSet
      */
@@ -66,7 +66,7 @@ public class FieldValueReader extends Reader<FieldValue> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return FieldValue ResourceSet
      */
@@ -76,8 +76,7 @@ public class FieldValueReader extends Reader<FieldValue> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/FieldTypes/" + this.pathFieldTypeSid + "/FieldValues",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/FieldTypes/" + this.pathFieldTypeSid + "/FieldValues"
         );
 
         addQueryParams(request);
@@ -86,7 +85,7 @@ public class FieldValueReader extends Reader<FieldValue> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return FieldValue ResourceSet
@@ -104,47 +103,41 @@ public class FieldValueReader extends Reader<FieldValue> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<FieldValue> nextPage(final Page<FieldValue> page, 
+    public Page<FieldValue> nextPage(final Page<FieldValue> page,
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<FieldValue> previousPage(final Page<FieldValue> page, 
+    public Page<FieldValue> previousPage(final Page<FieldValue> page,
                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of FieldValue Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -159,14 +152,7 @@ public class FieldValueReader extends Reader<FieldValue> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -179,7 +165,7 @@ public class FieldValueReader extends Reader<FieldValue> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

@@ -10,22 +10,32 @@ package com.twilio.rest;
 public enum Domains {
     ACCOUNTS("accounts"),
     API("api"),
+    AUTOPILOT("autopilot"),
     CHAT("chat"),
+    CONVERSATIONS("conversations"),
     FAX("fax"),
+    FLEXAPI("flex-api"),
+    INSIGHTS("insights"),
     IPMESSAGING("chat"),
     LOOKUPS("lookups"),
+    MESSAGING("messaging"),
     MONITOR("monitor"),
     NOTIFY("notify"),
+    NUMBERS("numbers"),
     PREVIEW("preview"),
     PRICING("pricing"),
     PROXY("proxy"),
+    SERVERLESS("serverless"),
+    STUDIO("studio"),
+    SYNC("sync"),
     TASKROUTER("taskrouter"),
     TRUNKING("trunking"),
+    VERIFY("verify"),
     VIDEO("video"),
-    MESSAGING("messaging"),
+    VOICE("voice"),
     WIRELESS("wireless"),
-    SYNC("sync"),
-    STUDIO("studio");
+    SUPERSIM("supersim"),
+    BULKEXPORTS("bulkexports");
 
     private final String value;
 

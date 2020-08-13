@@ -33,10 +33,6 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Flow extends Resource {
     private static final long serialVersionUID = 111627712697750L;
@@ -68,7 +64,7 @@ public class Flow extends Resource {
 
     /**
      * Create a FlowReader to execute read.
-     * 
+     *
      * @return FlowReader capable of executing the read
      */
     public static FlowReader reader() {
@@ -77,8 +73,8 @@ public class Flow extends Resource {
 
     /**
      * Create a FlowFetcher to execute fetch.
-     * 
-     * @param pathSid A string that uniquely identifies this Flow.
+     *
+     * @param pathSid The SID that identifies the resource to fetch
      * @return FlowFetcher capable of executing the fetch
      */
     public static FlowFetcher fetcher(final String pathSid) {
@@ -87,8 +83,8 @@ public class Flow extends Resource {
 
     /**
      * Create a FlowDeleter to execute delete.
-     * 
-     * @param pathSid A string that uniquely identifies this Flow.
+     *
+     * @param pathSid The SID that identifies the resource to delete
      * @return FlowDeleter capable of executing the delete
      */
     public static FlowDeleter deleter(final String pathSid) {
@@ -97,7 +93,7 @@ public class Flow extends Resource {
 
     /**
      * Converts a JSON String into a Flow object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Flow object represented by the provided JSON
@@ -116,7 +112,7 @@ public class Flow extends Resource {
     /**
      * Converts a JSON InputStream into a Flow object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Flow object represented by the provided JSON
@@ -144,21 +140,21 @@ public class Flow extends Resource {
 
     @JsonCreator
     private Flow(@JsonProperty("sid")
-                 final String sid, 
+                 final String sid,
                  @JsonProperty("account_sid")
-                 final String accountSid, 
+                 final String accountSid,
                  @JsonProperty("friendly_name")
-                 final String friendlyName, 
+                 final String friendlyName,
                  @JsonProperty("status")
-                 final Flow.Status status, 
+                 final Flow.Status status,
                  @JsonProperty("version")
-                 final Integer version, 
+                 final Integer version,
                  @JsonProperty("date_created")
-                 final String dateCreated, 
+                 final String dateCreated,
                  @JsonProperty("date_updated")
-                 final String dateUpdated, 
+                 final String dateUpdated,
                  @JsonProperty("url")
-                 final URI url, 
+                 final URI url,
                  @JsonProperty("links")
                  final Map<String, String> links) {
         this.sid = sid;
@@ -173,81 +169,81 @@ public class Flow extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Flow..
-     * 
-     * @return A string that uniquely identifies this Flow.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Account Sid..
-     * 
-     * @return Account Sid.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The A human readable description of this resource..
-     * 
-     * @return A human readable description of this resource.
+     * Returns The string that you assigned to describe the Flow.
+     *
+     * @return The string that you assigned to describe the Flow
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The Status of this Flow.
-     * 
-     * @return The Status of this Flow
+     * Returns The status of the Flow.
+     *
+     * @return The status of the Flow
      */
     public final Flow.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The latest version number of this Flow's definition..
-     * 
-     * @return The latest version number of this Flow's definition.
+     * Returns The latest version number of the Flow's definition.
+     *
+     * @return The latest version number of the Flow's definition
      */
     public final Integer getVersion() {
         return this.version;
     }
 
     /**
-     * Returns The The date this Flow was created.
-     * 
-     * @return The date this Flow was created
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Flow was updated.
-     * 
-     * @return The date this Flow was updated
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL of this resource..
-     * 
-     * @return The URL of this resource.
+     * Returns The absolute URL of the resource.
+     *
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Nested resource URLs..
-     * 
-     * @return Nested resource URLs.
+     * Returns Nested resource URLs.
+     *
+     * @return Nested resource URLs
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -265,14 +261,14 @@ public class Flow extends Resource {
 
         Flow other = (Flow) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(version, other.version) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(version, other.version) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

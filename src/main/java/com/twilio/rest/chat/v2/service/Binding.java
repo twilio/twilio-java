@@ -66,8 +66,8 @@ public class Binding extends Resource {
 
     /**
      * Create a BindingReader to execute read.
-     * 
-     * @param pathServiceSid The service_sid
+     *
+     * @param pathServiceSid The SID of the Service to read the resources from
      * @return BindingReader capable of executing the read
      */
     public static BindingReader reader(final String pathServiceSid) {
@@ -76,31 +76,31 @@ public class Binding extends Resource {
 
     /**
      * Create a BindingFetcher to execute fetch.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathSid The SID of the resource to fetch
      * @return BindingFetcher capable of executing the fetch
      */
-    public static BindingFetcher fetcher(final String pathServiceSid, 
+    public static BindingFetcher fetcher(final String pathServiceSid,
                                          final String pathSid) {
         return new BindingFetcher(pathServiceSid, pathSid);
     }
 
     /**
      * Create a BindingDeleter to execute delete.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathSid The SID of the resource to delete
      * @return BindingDeleter capable of executing the delete
      */
-    public static BindingDeleter deleter(final String pathServiceSid, 
+    public static BindingDeleter deleter(final String pathServiceSid,
                                          final String pathSid) {
         return new BindingDeleter(pathServiceSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a Binding object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Binding object represented by the provided JSON
@@ -119,7 +119,7 @@ public class Binding extends Resource {
     /**
      * Converts a JSON InputStream into a Binding object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Binding object represented by the provided JSON
@@ -150,27 +150,27 @@ public class Binding extends Resource {
 
     @JsonCreator
     private Binding(@JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("service_sid")
-                    final String serviceSid, 
+                    final String serviceSid,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("endpoint")
-                    final String endpoint, 
+                    final String endpoint,
                     @JsonProperty("identity")
-                    final String identity, 
+                    final String identity,
                     @JsonProperty("credential_sid")
-                    final String credentialSid, 
+                    final String credentialSid,
                     @JsonProperty("binding_type")
-                    final Binding.BindingType bindingType, 
+                    final Binding.BindingType bindingType,
                     @JsonProperty("message_types")
-                    final List<String> messageTypes, 
+                    final List<String> messageTypes,
                     @JsonProperty("url")
-                    final URI url, 
+                    final URI url,
                     @JsonProperty("links")
                     final Map<String, String> links) {
         this.sid = sid;
@@ -188,110 +188,108 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
-     * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this binding..
-     * 
-     * @return The unique id of the Account responsible for this binding.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique id of the Service this binding belongs to..
-     * 
-     * @return The unique id of the Service this binding belongs to.
+     * Returns The SID of the Service that the Binding resource is associated with.
+     *
+     * @return The SID of the Service that the Binding resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The date that this resource was created..
-     * 
-     * @return The date that this resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated..
-     * 
-     * @return The date that this resource was last updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The unique endpoint identifier for this Binding..
-     * 
-     * @return The unique endpoint identifier for this Binding.
+     * Returns The unique endpoint identifier for the Binding.
+     *
+     * @return The unique endpoint identifier for the Binding
      */
     public final String getEndpoint() {
         return this.endpoint;
     }
 
     /**
-     * Returns The A unique string identifier for the Binding for this User in this
-     * Service..
-     * 
-     * @return A unique string identifier for the Binding for this User in this
-     *         Service.
+     * Returns The string that identifies the resource's User.
+     *
+     * @return The string that identifies the resource's User
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns The The unique id of the Credential for this binding..
-     * 
-     * @return The unique id of the Credential for this binding.
+     * Returns The SID of the Credential for the binding.
+     *
+     * @return The SID of the Credential for the binding
      */
     public final String getCredentialSid() {
         return this.credentialSid;
     }
 
     /**
-     * Returns The The push technology to use for this binding..
-     * 
-     * @return The push technology to use for this binding.
+     * Returns The push technology to use for the binding.
+     *
+     * @return The push technology to use for the binding
      */
     public final Binding.BindingType getBindingType() {
         return this.bindingType;
     }
 
     /**
-     * Returns The List of message types for this binding..
-     * 
-     * @return List of message types for this binding.
+     * Returns The Programmable Chat message types the binding is subscribed to.
+     *
+     * @return The Programmable Chat message types the binding is subscribed to
      */
     public final List<String> getMessageTypes() {
         return this.messageTypes;
     }
 
     /**
-     * Returns The An absolute URL for this binding..
-     * 
-     * @return An absolute URL for this binding.
+     * Returns The absolute URL of the Binding resource.
+     *
+     * @return The absolute URL of the Binding resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Absolute URLs to access the Users for this Binding..
-     * 
-     * @return Absolute URLs to access the Users for this Binding.
+     * Returns The absolute URLs of the Binding's User.
+     *
+     * @return The absolute URLs of the Binding's User
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -309,17 +307,17 @@ public class Binding extends Resource {
 
         Binding other = (Binding) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(endpoint, other.endpoint) && 
-               Objects.equals(identity, other.identity) && 
-               Objects.equals(credentialSid, other.credentialSid) && 
-               Objects.equals(bindingType, other.bindingType) && 
-               Objects.equals(messageTypes, other.messageTypes) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(endpoint, other.endpoint) &&
+               Objects.equals(identity, other.identity) &&
+               Objects.equals(credentialSid, other.credentialSid) &&
+               Objects.equals(bindingType, other.bindingType) &&
+               Objects.equals(messageTypes, other.messageTypes) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

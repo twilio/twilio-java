@@ -65,48 +65,48 @@ public class Role extends Resource {
 
     /**
      * Create a RoleFetcher to execute fetch.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathSid The SID of the Role resource to fetch
      * @return RoleFetcher capable of executing the fetch
      */
-    public static RoleFetcher fetcher(final String pathServiceSid, 
+    public static RoleFetcher fetcher(final String pathServiceSid,
                                       final String pathSid) {
         return new RoleFetcher(pathServiceSid, pathSid);
     }
 
     /**
      * Create a RoleDeleter to execute delete.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathSid The SID of the Role resource to delete
      * @return RoleDeleter capable of executing the delete
      */
-    public static RoleDeleter deleter(final String pathServiceSid, 
+    public static RoleDeleter deleter(final String pathServiceSid,
                                       final String pathSid) {
         return new RoleDeleter(pathServiceSid, pathSid);
     }
 
     /**
      * Create a RoleCreator to execute create.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param friendlyName The human-readable name of this role.
-     * @param type What kind of role this is.
-     * @param permission A permission this role should have.
+     *
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param friendlyName A string to describe the new resource
+     * @param type The type of role
+     * @param permission A permission the role should have
      * @return RoleCreator capable of executing the create
      */
-    public static RoleCreator creator(final String pathServiceSid, 
-                                      final String friendlyName, 
-                                      final Role.RoleType type, 
+    public static RoleCreator creator(final String pathServiceSid,
+                                      final String friendlyName,
+                                      final Role.RoleType type,
                                       final List<String> permission) {
         return new RoleCreator(pathServiceSid, friendlyName, type, permission);
     }
 
     /**
      * Create a RoleReader to execute read.
-     * 
-     * @param pathServiceSid The service_sid
+     *
+     * @param pathServiceSid The SID of the Service to read the resources from
      * @return RoleReader capable of executing the read
      */
     public static RoleReader reader(final String pathServiceSid) {
@@ -115,21 +115,21 @@ public class Role extends Resource {
 
     /**
      * Create a RoleUpdater to execute update.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
-     * @param permission A permission this role should have.
+     *
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathSid The SID of the Role resource to update
+     * @param permission A permission the role should have
      * @return RoleUpdater capable of executing the update
      */
-    public static RoleUpdater updater(final String pathServiceSid, 
-                                      final String pathSid, 
+    public static RoleUpdater updater(final String pathServiceSid,
+                                      final String pathSid,
                                       final List<String> permission) {
         return new RoleUpdater(pathServiceSid, pathSid, permission);
     }
 
     /**
      * Converts a JSON String into a Role object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Role object represented by the provided JSON
@@ -148,7 +148,7 @@ public class Role extends Resource {
     /**
      * Converts a JSON InputStream into a Role object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Role object represented by the provided JSON
@@ -176,21 +176,21 @@ public class Role extends Resource {
 
     @JsonCreator
     private Role(@JsonProperty("sid")
-                 final String sid, 
+                 final String sid,
                  @JsonProperty("account_sid")
-                 final String accountSid, 
+                 final String accountSid,
                  @JsonProperty("service_sid")
-                 final String serviceSid, 
+                 final String serviceSid,
                  @JsonProperty("friendly_name")
-                 final String friendlyName, 
+                 final String friendlyName,
                  @JsonProperty("type")
-                 final Role.RoleType type, 
+                 final Role.RoleType type,
                  @JsonProperty("permissions")
-                 final List<String> permissions, 
+                 final List<String> permissions,
                  @JsonProperty("date_created")
-                 final String dateCreated, 
+                 final String dateCreated,
                  @JsonProperty("date_updated")
-                 final String dateUpdated, 
+                 final String dateUpdated,
                  @JsonProperty("url")
                  final URI url) {
         this.sid = sid;
@@ -205,81 +205,81 @@ public class Role extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
-     * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this role..
-     * 
-     * @return The unique id of the Account responsible for this role.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique id of the Service this role belongs to..
-     * 
-     * @return The unique id of the Service this role belongs to.
+     * Returns The SID of the Service that the resource is associated with.
+     *
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The human-readable name of this role..
-     * 
-     * @return The human-readable name of this role.
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The What kind of role this is..
-     * 
-     * @return What kind of role this is.
+     * Returns The type of role.
+     *
+     * @return The type of role
      */
     public final Role.RoleType getType() {
         return this.type;
     }
 
     /**
-     * Returns The A JSON array of the permissions this role has..
-     * 
-     * @return A JSON array of the permissions this role has.
+     * Returns An array of the permissions the role has been granted.
+     *
+     * @return An array of the permissions the role has been granted
      */
     public final List<String> getPermissions() {
         return this.permissions;
     }
 
     /**
-     * Returns The The date that this resource was created in ISO 8601 format..
-     * 
-     * @return The date that this resource was created in ISO 8601 format.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated in ISO 8601 format..
-     * 
-     * @return The date that this resource was last updated in ISO 8601 format.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The An absolute URL for this role..
-     * 
-     * @return An absolute URL for this role.
+     * Returns The absolute URL of the Role resource.
+     *
+     * @return The absolute URL of the Role resource
      */
     public final URI getUrl() {
         return this.url;
@@ -297,14 +297,14 @@ public class Role extends Resource {
 
         Role other = (Role) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(type, other.type) && 
-               Objects.equals(permissions, other.permissions) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(type, other.type) &&
+               Objects.equals(permissions, other.permissions) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
     }
 

@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Member extends Resource {
-    private static final long serialVersionUID = 102574959310114L;
+    private static final long serialVersionUID = 35425349237098L;
 
     public enum WebhookEnabledType {
         TRUE("true"),
@@ -64,81 +64,76 @@ public class Member extends Resource {
 
     /**
      * Create a MemberFetcher to execute fetch.
-     * 
-     * @param pathServiceSid Sid of the Service this member belongs to.
-     * @param pathChannelSid Key that uniquely defines the channel this member
-     *                       belongs to.
-     * @param pathSid Key that uniquely defines the member to fetch.
+     *
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathChannelSid The SID of the channel the member belongs to
+     * @param pathSid The SID of the Member resource to fetch
      * @return MemberFetcher capable of executing the fetch
      */
-    public static MemberFetcher fetcher(final String pathServiceSid, 
-                                        final String pathChannelSid, 
+    public static MemberFetcher fetcher(final String pathServiceSid,
+                                        final String pathChannelSid,
                                         final String pathSid) {
         return new MemberFetcher(pathServiceSid, pathChannelSid, pathSid);
     }
 
     /**
      * Create a MemberCreator to execute create.
-     * 
-     * @param pathServiceSid Sid of the Service this member belongs to.
-     * @param pathChannelSid Key that uniquely defines the channel this member
-     *                       belongs to.
-     * @param identity A unique string identifier for this User in this Service.
-     *                 See the access tokens docs for more details.
+     *
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param pathChannelSid The SID of the channel the new member belongs to
+     * @param identity The `identity` value that identifies the new resource's User
      * @return MemberCreator capable of executing the create
      */
-    public static MemberCreator creator(final String pathServiceSid, 
-                                        final String pathChannelSid, 
+    public static MemberCreator creator(final String pathServiceSid,
+                                        final String pathChannelSid,
                                         final String identity) {
         return new MemberCreator(pathServiceSid, pathChannelSid, identity);
     }
 
     /**
      * Create a MemberReader to execute read.
-     * 
-     * @param pathServiceSid Sid of the Service this member belongs to.
-     * @param pathChannelSid Key that uniquely defines the channel this member
-     *                       belongs to.
+     *
+     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathChannelSid The SID of the channel the member belongs to
      * @return MemberReader capable of executing the read
      */
-    public static MemberReader reader(final String pathServiceSid, 
+    public static MemberReader reader(final String pathServiceSid,
                                       final String pathChannelSid) {
         return new MemberReader(pathServiceSid, pathChannelSid);
     }
 
     /**
      * Create a MemberDeleter to execute delete.
-     * 
-     * @param pathServiceSid Sid of the Service this member belongs to.
-     * @param pathChannelSid Key that uniquely defines the channel this member
-     *                       belongs to.
-     * @param pathSid Key that uniquely defines the member to delete.
+     *
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathChannelSid The SID of the channel the Member resource to delete
+     *                       belongs to
+     * @param pathSid The SID of the Member resource to delete
      * @return MemberDeleter capable of executing the delete
      */
-    public static MemberDeleter deleter(final String pathServiceSid, 
-                                        final String pathChannelSid, 
+    public static MemberDeleter deleter(final String pathServiceSid,
+                                        final String pathChannelSid,
                                         final String pathSid) {
         return new MemberDeleter(pathServiceSid, pathChannelSid, pathSid);
     }
 
     /**
      * Create a MemberUpdater to execute update.
-     * 
-     * @param pathServiceSid Sid of the Service this member belongs to.
-     * @param pathChannelSid Key that uniquely defines the channel this member
-     *                       belongs to.
-     * @param pathSid Key that uniquely defines the member to update.
+     *
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param pathChannelSid The SID of the channel the member to update belongs to
+     * @param pathSid The SID of the Member resource to update
      * @return MemberUpdater capable of executing the update
      */
-    public static MemberUpdater updater(final String pathServiceSid, 
-                                        final String pathChannelSid, 
+    public static MemberUpdater updater(final String pathServiceSid,
+                                        final String pathChannelSid,
                                         final String pathSid) {
         return new MemberUpdater(pathServiceSid, pathChannelSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a Member object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Member object represented by the provided JSON
@@ -157,7 +152,7 @@ public class Member extends Resource {
     /**
      * Converts a JSON InputStream into a Member object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Member object represented by the provided JSON
@@ -184,30 +179,33 @@ public class Member extends Resource {
     private final Integer lastConsumedMessageIndex;
     private final DateTime lastConsumptionTimestamp;
     private final URI url;
+    private final String attributes;
 
     @JsonCreator
     private Member(@JsonProperty("sid")
-                   final String sid, 
+                   final String sid,
                    @JsonProperty("account_sid")
-                   final String accountSid, 
+                   final String accountSid,
                    @JsonProperty("channel_sid")
-                   final String channelSid, 
+                   final String channelSid,
                    @JsonProperty("service_sid")
-                   final String serviceSid, 
+                   final String serviceSid,
                    @JsonProperty("identity")
-                   final String identity, 
+                   final String identity,
                    @JsonProperty("date_created")
-                   final String dateCreated, 
+                   final String dateCreated,
                    @JsonProperty("date_updated")
-                   final String dateUpdated, 
+                   final String dateUpdated,
                    @JsonProperty("role_sid")
-                   final String roleSid, 
+                   final String roleSid,
                    @JsonProperty("last_consumed_message_index")
-                   final Integer lastConsumedMessageIndex, 
+                   final Integer lastConsumedMessageIndex,
                    @JsonProperty("last_consumption_timestamp")
-                   final String lastConsumptionTimestamp, 
+                   final String lastConsumptionTimestamp,
                    @JsonProperty("url")
-                   final URI url) {
+                   final URI url,
+                   @JsonProperty("attributes")
+                   final String attributes) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.channelSid = channelSid;
@@ -219,109 +217,119 @@ public class Member extends Resource {
         this.lastConsumedMessageIndex = lastConsumedMessageIndex;
         this.lastConsumptionTimestamp = DateConverter.iso8601DateTimeFromString(lastConsumptionTimestamp);
         this.url = url;
+        this.attributes = attributes;
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
-     * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this member..
-     * 
-     * @return The unique id of the Account responsible for this member.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique id of the Channel for this member..
-     * 
-     * @return The unique id of the Channel for this member.
+     * Returns The SID of the Channel for the member.
+     *
+     * @return The SID of the Channel for the member
      */
     public final String getChannelSid() {
         return this.channelSid;
     }
 
     /**
-     * Returns The The unique id of the Service this member belongs to..
-     * 
-     * @return The unique id of the Service this member belongs to.
+     * Returns The SID of the Service that the resource is associated with.
+     *
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The A unique string identifier for this User in this Service..
-     * 
-     * @return A unique string identifier for this User in this Service.
+     * Returns The string that identifies the resource's User.
+     *
+     * @return The string that identifies the resource's User
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns The The date that this resource was created..
-     * 
-     * @return The date that this resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated..
-     * 
-     * @return The date that this resource was last updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The Role assigned to this member..
-     * 
-     * @return The Role assigned to this member.
+     * Returns The SID of the Role assigned to the member.
+     *
+     * @return The SID of the Role assigned to the member
      */
     public final String getRoleSid() {
         return this.roleSid;
     }
 
     /**
-     * Returns The An Integer representing index of the last Message this Member has
-     * read within this Channel.
-     * 
-     * @return An Integer representing index of the last Message this Member has
-     *         read within this Channel
+     * Returns The index of the last Message that the Member has read within the
+     * Channel.
+     *
+     * @return The index of the last Message that the Member has read within the
+     *         Channel
      */
     public final Integer getLastConsumedMessageIndex() {
         return this.lastConsumedMessageIndex;
     }
 
     /**
-     * Returns The An ISO8601 based timestamp string representing the datetime of
-     * the last Message read event for this Member within this Channel.
-     * 
-     * @return An ISO8601 based timestamp string representing the datetime of the
-     *         last Message read event for this Member within this Channel
+     * Returns The ISO 8601 based timestamp string that represents the datetime of
+     * the last Message read event for the Member within the Channel.
+     *
+     * @return The ISO 8601 based timestamp string that represents the datetime of
+     *         the last Message read event for the Member within the Channel
      */
     public final DateTime getLastConsumptionTimestamp() {
         return this.lastConsumptionTimestamp;
     }
 
     /**
-     * Returns The An absolute URL for this member..
-     * 
-     * @return An absolute URL for this member.
+     * Returns The absolute URL of the Member resource.
+     *
+     * @return The absolute URL of the Member resource
      */
     public final URI getUrl() {
         return this.url;
+    }
+
+    /**
+     * Returns The JSON string that stores application-specific data.
+     *
+     * @return The JSON string that stores application-specific data
+     */
+    public final String getAttributes() {
+        return this.attributes;
     }
 
     @Override
@@ -336,17 +344,18 @@ public class Member extends Resource {
 
         Member other = (Member) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(channelSid, other.channelSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(identity, other.identity) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(roleSid, other.roleSid) && 
-               Objects.equals(lastConsumedMessageIndex, other.lastConsumedMessageIndex) && 
-               Objects.equals(lastConsumptionTimestamp, other.lastConsumptionTimestamp) && 
-               Objects.equals(url, other.url);
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(channelSid, other.channelSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(identity, other.identity) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(roleSid, other.roleSid) &&
+               Objects.equals(lastConsumedMessageIndex, other.lastConsumedMessageIndex) &&
+               Objects.equals(lastConsumptionTimestamp, other.lastConsumptionTimestamp) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(attributes, other.attributes);
     }
 
     @Override
@@ -361,7 +370,8 @@ public class Member extends Resource {
                             roleSid,
                             lastConsumedMessageIndex,
                             lastConsumptionTimestamp,
-                            url);
+                            url,
+                            attributes);
     }
 
     @Override
@@ -378,6 +388,7 @@ public class Member extends Resource {
                           .add("lastConsumedMessageIndex", lastConsumedMessageIndex)
                           .add("lastConsumptionTimestamp", lastConsumptionTimestamp)
                           .add("url", url)
+                          .add("attributes", attributes)
                           .toString();
     }
 }

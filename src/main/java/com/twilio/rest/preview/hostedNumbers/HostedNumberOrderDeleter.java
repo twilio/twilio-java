@@ -27,7 +27,7 @@ public class HostedNumberOrderDeleter extends Deleter<HostedNumberOrder> {
 
     /**
      * Construct a new HostedNumberOrderDeleter.
-     * 
+     *
      * @param pathSid HostedNumberOrder sid.
      */
     public HostedNumberOrderDeleter(final String pathSid) {
@@ -36,7 +36,7 @@ public class HostedNumberOrderDeleter extends Deleter<HostedNumberOrder> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -45,8 +45,7 @@ public class HostedNumberOrderDeleter extends Deleter<HostedNumberOrder> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/HostedNumbers/HostedNumberOrders/" + this.pathSid + "",
-            client.getRegion()
+            "/HostedNumbers/HostedNumberOrders/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -58,14 +57,7 @@ public class HostedNumberOrderDeleter extends Deleter<HostedNumberOrder> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

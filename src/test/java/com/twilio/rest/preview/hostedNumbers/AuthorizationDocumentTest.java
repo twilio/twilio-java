@@ -42,7 +42,7 @@ public class AuthorizationDocumentTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
                                           "/HostedNumbers/AuthorizationDocuments/PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class AuthorizationDocumentTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.PREVIEW.toString(),
                                           "/HostedNumbers/AuthorizationDocuments/PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -106,7 +106,7 @@ public class AuthorizationDocumentTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
                                           "/HostedNumbers/AuthorizationDocuments");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -124,7 +124,7 @@ public class AuthorizationDocumentTest {
     public void testReadEmptyResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"meta\": {\"first_page_url\": \"https://preview.twilio.com/HostedNumbers/AuthorizationDocuments?PageSize=50&Page=0\",\"key\": \"items\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://preview.twilio.com/HostedNumbers/AuthorizationDocuments?PageSize=50&Page=0\"},\"items\": []}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"meta\": {\"first_page_url\": \"https://preview.twilio.com/HostedNumbers/AuthorizationDocuments?Status=signed&Email=test%2Bhosted%40twilio.com&PageSize=50&Page=0\",\"key\": \"items\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://preview.twilio.com/HostedNumbers/AuthorizationDocuments?Status=signed&Email=test%2Bhosted%40twilio.com&PageSize=50&Page=0\"},\"items\": []}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -150,11 +150,11 @@ public class AuthorizationDocumentTest {
                         Request request = new Request(HttpMethod.POST,
                                                       Domains.PREVIEW.toString(),
                                                       "/HostedNumbers/AuthorizationDocuments");
-                        request.addPostParam("HostedNumberOrderSids", serialize(Promoter.listOfOne("hostedNumberOrderSids")));
+                        request.addPostParam("HostedNumberOrderSids", serialize(Promoter.listOfOne("hosted_number_order_sids")));
         request.addPostParam("AddressSid", serialize("ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
         request.addPostParam("Email", serialize("email"));
-        request.addPostParam("ContactTitle", serialize("contactTitle"));
-        request.addPostParam("ContactPhoneNumber", serialize("contactPhoneNumber"));
+        request.addPostParam("ContactTitle", serialize("contact_title"));
+        request.addPostParam("ContactPhoneNumber", serialize("contact_phone_number"));
                         twilioRestClient.request(request);
                         times = 1;
                         result = new Response("", 500);
@@ -163,7 +163,7 @@ public class AuthorizationDocumentTest {
                     }};
 
         try {
-            AuthorizationDocument.creator(Promoter.listOfOne("hostedNumberOrderSids"), "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "email", "contactTitle", "contactPhoneNumber").create();
+            AuthorizationDocument.creator(Promoter.listOfOne("hosted_number_order_sids"), "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "email", "contact_title", "contact_phone_number").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -177,6 +177,6 @@ public class AuthorizationDocumentTest {
             result = new ObjectMapper();
         }};
 
-        AuthorizationDocument.creator(Promoter.listOfOne("hostedNumberOrderSids"), "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "email", "contactTitle", "contactPhoneNumber").create();
+        AuthorizationDocument.creator(Promoter.listOfOne("hosted_number_order_sids"), "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "email", "contact_title", "contact_phone_number").create();
     }
 }

@@ -17,17 +17,13 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class FlowDeleter extends Deleter<Flow> {
     private final String pathSid;
 
     /**
      * Construct a new FlowDeleter.
-     * 
-     * @param pathSid A string that uniquely identifies this Flow.
+     *
+     * @param pathSid The SID that identifies the resource to delete
      */
     public FlowDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -35,7 +31,7 @@ public class FlowDeleter extends Deleter<Flow> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -44,8 +40,7 @@ public class FlowDeleter extends Deleter<Flow> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Flows/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -57,14 +52,7 @@ public class FlowDeleter extends Deleter<Flow> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

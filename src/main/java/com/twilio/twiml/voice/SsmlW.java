@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * TwiML wrapper for {@code <W>}
+ * TwiML wrapper for {@code <w>}
  */
 public class SsmlW extends TwiML {
     private final String role;
@@ -27,7 +27,7 @@ public class SsmlW extends TwiML {
     }
 
     /**
-     * Create a new {@code <SsmlW>} element
+     * Create a new {@code <w>} element
      */
     private SsmlW(Builder b) {
         super("w", b);
@@ -37,7 +37,7 @@ public class SsmlW extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -46,7 +46,7 @@ public class SsmlW extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -63,7 +63,7 @@ public class SsmlW extends TwiML {
     /**
      * Customize the pronunciation of words by specifying the word’s part of speech
      * or alternate meaning
-     * 
+     *
      * @return Customize the pronunciation of words by specifying the word’s part
      *         of speech or alternate meaning
      */
@@ -73,7 +73,7 @@ public class SsmlW extends TwiML {
 
     /**
      * Words to speak
-     * 
+     *
      * @return Words to speak
      */
     public String getWords() {
@@ -81,14 +81,14 @@ public class SsmlW extends TwiML {
     }
 
     /**
-     * Create a new {@code <W>} element
+     * Create a new {@code <w>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
         private String role;
         private String words;
 
         /**
-         * Create a {@code <W>} with words
+         * Create a {@code <w>} with words
          */
         public Builder(String words) {
             this.words = words;
@@ -104,7 +104,7 @@ public class SsmlW extends TwiML {
         }
 
         /**
-         * Create and return resulting {@code <W>} element
+         * Create and return resulting {@code <w>} element
          */
         public SsmlW build() {
             return new SsmlW(this);

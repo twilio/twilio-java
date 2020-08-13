@@ -27,11 +27,12 @@ public class DocumentFetcher extends Fetcher<Document> {
 
     /**
      * Construct a new DocumentFetcher.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Document resource
+     *                       to fetch
+     * @param pathSid The SID of the Document resource to fetch
      */
-    public DocumentFetcher(final String pathServiceSid, 
+    public DocumentFetcher(final String pathServiceSid,
                            final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -39,7 +40,7 @@ public class DocumentFetcher extends Fetcher<Document> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Document
      */
@@ -49,8 +50,7 @@ public class DocumentFetcher extends Fetcher<Document> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Documents/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Documents/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +62,7 @@ public class DocumentFetcher extends Fetcher<Document> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Document.fromJson(response.getStream(), client.getObjectMapper());

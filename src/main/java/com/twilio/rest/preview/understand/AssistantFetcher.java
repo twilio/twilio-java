@@ -27,8 +27,8 @@ public class AssistantFetcher extends Fetcher<Assistant> {
 
     /**
      * Construct a new AssistantFetcher.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public AssistantFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -36,7 +36,7 @@ public class AssistantFetcher extends Fetcher<Assistant> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Assistant
      */
@@ -46,8 +46,7 @@ public class AssistantFetcher extends Fetcher<Assistant> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathSid + "",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -59,14 +58,7 @@ public class AssistantFetcher extends Fetcher<Assistant> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Assistant.fromJson(response.getStream(), client.getObjectMapper());

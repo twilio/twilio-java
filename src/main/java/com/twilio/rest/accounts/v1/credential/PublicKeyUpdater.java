@@ -23,17 +23,18 @@ public class PublicKeyUpdater extends Updater<PublicKey> {
 
     /**
      * Construct a new PublicKeyUpdater.
-     * 
-     * @param pathSid Fetch by unique Credential Sid
+     *
+     * @param pathSid The unique string that identifies the resource
      */
     public PublicKeyUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
     /**
-     * A human readable description of this resource, up to 64 characters..
-     * 
-     * @param friendlyName A human readable description of this resource
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
+     *
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public PublicKeyUpdater setFriendlyName(final String friendlyName) {
@@ -43,7 +44,7 @@ public class PublicKeyUpdater extends Updater<PublicKey> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated PublicKey
      */
@@ -53,8 +54,7 @@ public class PublicKeyUpdater extends Updater<PublicKey> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.ACCOUNTS.toString(),
-            "/v1/Credentials/PublicKeys/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Credentials/PublicKeys/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -67,14 +67,7 @@ public class PublicKeyUpdater extends Updater<PublicKey> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return PublicKey.fromJson(response.getStream(), client.getObjectMapper());
@@ -82,7 +75,7 @@ public class PublicKeyUpdater extends Updater<PublicKey> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

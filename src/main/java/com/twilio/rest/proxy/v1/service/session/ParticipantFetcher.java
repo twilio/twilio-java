@@ -28,13 +28,13 @@ public class ParticipantFetcher extends Fetcher<Participant> {
 
     /**
      * Construct a new ParticipantFetcher.
-     * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
-     * @param pathSid A string that uniquely identifies this Participant.
+     *
+     * @param pathServiceSid The SID of the parent Service of the resource to fetch
+     * @param pathSessionSid The SID of the parent Session of the resource to fetch
+     * @param pathSid The unique string that identifies the resource
      */
-    public ParticipantFetcher(final String pathServiceSid, 
-                              final String pathSessionSid, 
+    public ParticipantFetcher(final String pathServiceSid,
+                              final String pathSessionSid,
                               final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSessionSid = pathSessionSid;
@@ -43,7 +43,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Participant
      */
@@ -53,8 +53,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PROXY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Sessions/" + this.pathSessionSid + "/Participants/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Sessions/" + this.pathSessionSid + "/Participants/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -66,14 +65,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Participant.fromJson(response.getStream(), client.getObjectMapper());

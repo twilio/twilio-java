@@ -23,11 +23,11 @@ public class WorkerFetcher extends Fetcher<Worker> {
 
     /**
      * Construct a new WorkerFetcher.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the Worker to fetch
+     * @param pathSid The SID of the resource to fetch
      */
-    public WorkerFetcher(final String pathWorkspaceSid, 
+    public WorkerFetcher(final String pathWorkspaceSid,
                          final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class WorkerFetcher extends Fetcher<Worker> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Worker
      */
@@ -45,8 +45,7 @@ public class WorkerFetcher extends Fetcher<Worker> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -58,14 +57,7 @@ public class WorkerFetcher extends Fetcher<Worker> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Worker.fromJson(response.getStream(), client.getObjectMapper());

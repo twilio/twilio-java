@@ -32,10 +32,10 @@ public class FaxReader extends Reader<Fax> {
     private DateTime dateCreatedAfter;
 
     /**
-     * Filters the returned list to only include faxes sent from the supplied
-     * number, given in E.164 format..
-     * 
-     * @param from Include only faxes sent from
+     * Retrieve only those faxes sent from this phone number, specified in
+     * [E.164](https://www.twilio.com/docs/glossary/what-e164) format..
+     *
+     * @param from Retrieve only those faxes sent from this phone number
      * @return this
      */
     public FaxReader setFrom(final String from) {
@@ -44,10 +44,10 @@ public class FaxReader extends Reader<Fax> {
     }
 
     /**
-     * Filters the returned list to only include faxes sent to the supplied number,
-     * given in E.164 format..
-     * 
-     * @param to Include only faxes sent to
+     * Retrieve only those faxes sent to this phone number, specified in
+     * [E.164](https://www.twilio.com/docs/glossary/what-e164) format..
+     *
+     * @param to Retrieve only those faxes sent to this phone number
      * @return this
      */
     public FaxReader setTo(final String to) {
@@ -56,10 +56,12 @@ public class FaxReader extends Reader<Fax> {
     }
 
     /**
-     * Filters the returned list to only include faxes created on or before the
-     * supplied date, given in ISO 8601 format..
-     * 
-     * @param dateCreatedOnOrBefore Include only faxes created on or before
+     * Retrieve only those faxes with a `date_created` that is before or equal to
+     * this value, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format..
+     *
+     * @param dateCreatedOnOrBefore Retrieve only faxes created on or before this
+     *                              date
      * @return this
      */
     public FaxReader setDateCreatedOnOrBefore(final DateTime dateCreatedOnOrBefore) {
@@ -68,10 +70,11 @@ public class FaxReader extends Reader<Fax> {
     }
 
     /**
-     * Filters the returned list to only include faxes created after the supplied
-     * date, given in ISO 8601 format..
-     * 
-     * @param dateCreatedAfter Include only faxes created after
+     * Retrieve only those faxes with a `date_created` that is later than this
+     * value, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format..
+     *
+     * @param dateCreatedAfter Retrieve only faxes created after this date
      * @return this
      */
     public FaxReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
@@ -81,7 +84,7 @@ public class FaxReader extends Reader<Fax> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fax ResourceSet
      */
@@ -92,7 +95,7 @@ public class FaxReader extends Reader<Fax> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fax ResourceSet
      */
@@ -102,8 +105,7 @@ public class FaxReader extends Reader<Fax> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.FAX.toString(),
-            "/v1/Faxes",
-            client.getRegion()
+            "/v1/Faxes"
         );
 
         addQueryParams(request);
@@ -112,7 +114,7 @@ public class FaxReader extends Reader<Fax> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Fax ResourceSet
@@ -130,47 +132,41 @@ public class FaxReader extends Reader<Fax> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Fax> nextPage(final Page<Fax> page, 
+    public Page<Fax> nextPage(final Page<Fax> page,
                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.FAX.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.FAX.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Fax> previousPage(final Page<Fax> page, 
+    public Page<Fax> previousPage(final Page<Fax> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.FAX.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.FAX.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Fax Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -185,14 +181,7 @@ public class FaxReader extends Reader<Fax> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -205,7 +194,7 @@ public class FaxReader extends Reader<Fax> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

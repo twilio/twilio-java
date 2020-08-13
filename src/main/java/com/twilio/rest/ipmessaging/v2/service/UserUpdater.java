@@ -26,20 +26,21 @@ public class UserUpdater extends Updater<User> {
 
     /**
      * Construct a new UserUpdater.
-     * 
-     * @param pathServiceSid Sid of the Service this user belongs to.
-     * @param pathSid Key that uniquely defines the user to update.
+     *
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathSid The SID of the User resource to update
      */
-    public UserUpdater(final String pathServiceSid, 
+    public UserUpdater(final String pathServiceSid,
                        final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * The unique id of the [Role][role] assigned to this user..
-     * 
-     * @param roleSid The unique id of the [Role][role] assigned to this user.
+     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to
+     * assign to the User..
+     *
+     * @param roleSid The SID id of the Role assigned to this user
      * @return this
      */
     public UserUpdater setRoleSid(final String roleSid) {
@@ -48,11 +49,9 @@ public class UserUpdater extends Updater<User> {
     }
 
     /**
-     * An optional string used to contain any metadata or other information for the
-     * User.  The string must contain structurally valid JSON if specified..
-     * 
-     * @param attributes An optional string used to contain any metadata or other
-     *                   information for the User.
+     * A valid JSON string that contains application-specific data..
+     *
+     * @param attributes A valid JSON string that contains application-specific data
      * @return this
      */
     public UserUpdater setAttributes(final String attributes) {
@@ -61,10 +60,10 @@ public class UserUpdater extends Updater<User> {
     }
 
     /**
-     * An optional human readable string representing the user.  Often used for
-     * display purposes..
-     * 
-     * @param friendlyName An optional human readable string representing the user.
+     * A descriptive string that you create to describe the resource. It is often
+     * used for display purposes..
+     *
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public UserUpdater setFriendlyName(final String friendlyName) {
@@ -74,7 +73,7 @@ public class UserUpdater extends Updater<User> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated User
      */
@@ -84,8 +83,7 @@ public class UserUpdater extends Updater<User> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Users/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Users/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -98,14 +96,7 @@ public class UserUpdater extends Updater<User> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return User.fromJson(response.getStream(), client.getObjectMapper());
@@ -113,7 +104,7 @@ public class UserUpdater extends Updater<User> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

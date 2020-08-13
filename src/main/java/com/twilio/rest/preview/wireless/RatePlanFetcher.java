@@ -27,7 +27,7 @@ public class RatePlanFetcher extends Fetcher<RatePlan> {
 
     /**
      * Construct a new RatePlanFetcher.
-     * 
+     *
      * @param pathSid The sid
      */
     public RatePlanFetcher(final String pathSid) {
@@ -36,7 +36,7 @@ public class RatePlanFetcher extends Fetcher<RatePlan> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched RatePlan
      */
@@ -46,8 +46,7 @@ public class RatePlanFetcher extends Fetcher<RatePlan> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/wireless/RatePlans/" + this.pathSid + "",
-            client.getRegion()
+            "/wireless/RatePlans/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -59,14 +58,7 @@ public class RatePlanFetcher extends Fetcher<RatePlan> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return RatePlan.fromJson(response.getStream(), client.getObjectMapper());

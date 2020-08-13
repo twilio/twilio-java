@@ -32,7 +32,7 @@ public class DeviceCreator extends Creator<Device> {
 
     /**
      * Construct a new DeviceCreator.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      */
     public DeviceCreator(final String pathFleetSid) {
@@ -42,7 +42,7 @@ public class DeviceCreator extends Creator<Device> {
     /**
      * Provides a unique and addressable name to be assigned to this Device, to be
      * used in addition to SID, up to 128 characters long..
-     * 
+     *
      * @param uniqueName A unique, addressable name of this Device.
      * @return this
      */
@@ -54,7 +54,7 @@ public class DeviceCreator extends Creator<Device> {
     /**
      * Provides a human readable descriptive text to be assigned to this Device, up
      * to 256 characters long..
-     * 
+     *
      * @param friendlyName A human readable description for this Device.
      * @return this
      */
@@ -66,7 +66,7 @@ public class DeviceCreator extends Creator<Device> {
     /**
      * Provides an arbitrary string identifier representing a human user to be
      * associated with this Device, up to 256 characters long..
-     * 
+     *
      * @param identity An identifier of the Device user.
      * @return this
      */
@@ -78,7 +78,7 @@ public class DeviceCreator extends Creator<Device> {
     /**
      * Specifies the unique string identifier of the Deployment group that this
      * Device is going to be associated with..
-     * 
+     *
      * @param deploymentSid The unique SID of the Deployment group.
      * @return this
      */
@@ -89,7 +89,7 @@ public class DeviceCreator extends Creator<Device> {
 
     /**
      * The enabled.
-     * 
+     *
      * @param enabled The enabled
      * @return this
      */
@@ -100,7 +100,7 @@ public class DeviceCreator extends Creator<Device> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Device
      */
@@ -110,8 +110,7 @@ public class DeviceCreator extends Creator<Device> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Devices",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Devices"
         );
 
         addPostParams(request);
@@ -124,14 +123,7 @@ public class DeviceCreator extends Creator<Device> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Device.fromJson(response.getStream(), client.getObjectMapper());
@@ -139,7 +131,7 @@ public class DeviceCreator extends Creator<Device> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

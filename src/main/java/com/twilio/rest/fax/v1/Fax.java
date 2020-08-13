@@ -154,8 +154,8 @@ public class Fax extends Resource {
 
     /**
      * Create a FaxFetcher to execute fetch.
-     * 
-     * @param pathSid A string that uniquely identifies this fax.
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return FaxFetcher capable of executing the fetch
      */
     public static FaxFetcher fetcher(final String pathSid) {
@@ -164,7 +164,7 @@ public class Fax extends Resource {
 
     /**
      * Create a FaxReader to execute read.
-     * 
+     *
      * @return FaxReader capable of executing the read
      */
     public static FaxReader reader() {
@@ -173,20 +173,20 @@ public class Fax extends Resource {
 
     /**
      * Create a FaxCreator to execute create.
-     * 
-     * @param to The phone number or SIP address to send the fax to
-     * @param mediaUrl URL that points to the fax media
+     *
+     * @param to The phone number to receive the fax
+     * @param mediaUrl The URL of the PDF that contains the fax
      * @return FaxCreator capable of executing the create
      */
-    public static FaxCreator creator(final String to, 
+    public static FaxCreator creator(final String to,
                                      final URI mediaUrl) {
         return new FaxCreator(to, mediaUrl);
     }
 
     /**
      * Create a FaxUpdater to execute update.
-     * 
-     * @param pathSid A string that uniquely identifies this fax.
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return FaxUpdater capable of executing the update
      */
     public static FaxUpdater updater(final String pathSid) {
@@ -195,8 +195,8 @@ public class Fax extends Resource {
 
     /**
      * Create a FaxDeleter to execute delete.
-     * 
-     * @param pathSid A string that uniquely identifies this fax.
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return FaxDeleter capable of executing the delete
      */
     public static FaxDeleter deleter(final String pathSid) {
@@ -205,7 +205,7 @@ public class Fax extends Resource {
 
     /**
      * Converts a JSON String into a Fax object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Fax object represented by the provided JSON
@@ -224,7 +224,7 @@ public class Fax extends Resource {
     /**
      * Converts a JSON InputStream into a Fax object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Fax object represented by the provided JSON
@@ -261,40 +261,40 @@ public class Fax extends Resource {
 
     @JsonCreator
     private Fax(@JsonProperty("sid")
-                final String sid, 
+                final String sid,
                 @JsonProperty("account_sid")
-                final String accountSid, 
+                final String accountSid,
                 @JsonProperty("from")
-                final String from, 
+                final String from,
                 @JsonProperty("to")
-                final String to, 
+                final String to,
                 @JsonProperty("quality")
-                final Fax.Quality quality, 
+                final Fax.Quality quality,
                 @JsonProperty("media_sid")
-                final String mediaSid, 
+                final String mediaSid,
                 @JsonProperty("media_url")
-                final String mediaUrl, 
+                final String mediaUrl,
                 @JsonProperty("num_pages")
-                final Integer numPages, 
+                final Integer numPages,
                 @JsonProperty("duration")
-                final Integer duration, 
+                final Integer duration,
                 @JsonProperty("status")
-                final Fax.Status status, 
+                final Fax.Status status,
                 @JsonProperty("direction")
-                final Fax.Direction direction, 
+                final Fax.Direction direction,
                 @JsonProperty("api_version")
-                final String apiVersion, 
+                final String apiVersion,
                 @JsonProperty("price")
-                final BigDecimal price, 
+                final BigDecimal price,
                 @JsonProperty("price_unit")
                 @JsonDeserialize(using = com.twilio.converter.CurrencyDeserializer.class)
-                final Currency priceUnit, 
+                final Currency priceUnit,
                 @JsonProperty("date_created")
-                final String dateCreated, 
+                final String dateCreated,
                 @JsonProperty("date_updated")
-                final String dateUpdated, 
+                final String dateUpdated,
                 @JsonProperty("links")
-                final Map<String, String> links, 
+                final Map<String, String> links,
                 @JsonProperty("url")
                 final URI url) {
         this.sid = sid;
@@ -318,162 +318,166 @@ public class Fax extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this fax..
-     * 
-     * @return A string that uniquely identifies this fax.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Account SID.
-     * 
-     * @return Account SID
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The party that sent the fax.
-     * 
-     * @return The party that sent the fax
+     * Returns The number the fax was sent from.
+     *
+     * @return The number the fax was sent from
      */
     public final String getFrom() {
         return this.from;
     }
 
     /**
-     * Returns The The party that received the fax.
-     * 
-     * @return The party that received the fax
+     * Returns The phone number that received the fax.
+     *
+     * @return The phone number that received the fax
      */
     public final String getTo() {
         return this.to;
     }
 
     /**
-     * Returns The The quality of this fax.
-     * 
-     * @return The quality of this fax
+     * Returns The quality of the fax.
+     *
+     * @return The quality of the fax
      */
     public final Fax.Quality getQuality() {
         return this.quality;
     }
 
     /**
-     * Returns The Media SID.
-     * 
-     * @return Media SID
+     * Returns The SID of the FaxMedia resource that is associated with the Fax.
+     *
+     * @return The SID of the FaxMedia resource that is associated with the Fax
      */
     public final String getMediaSid() {
         return this.mediaSid;
     }
 
     /**
-     * Returns The URL pointing to fax media.
-     * 
-     * @return URL pointing to fax media
+     * Returns The Twilio-hosted URL that can be used to download fax media.
+     *
+     * @return The Twilio-hosted URL that can be used to download fax media
      */
     public final String getMediaUrl() {
         return this.mediaUrl;
     }
 
     /**
-     * Returns The Number of pages.
-     * 
-     * @return Number of pages
+     * Returns The number of pages contained in the fax document.
+     *
+     * @return The number of pages contained in the fax document
      */
     public final Integer getNumPages() {
         return this.numPages;
     }
 
     /**
-     * Returns The The time taken to transmit the fax.
-     * 
-     * @return The time taken to transmit the fax
+     * Returns The time it took to transmit the fax.
+     *
+     * @return The time it took to transmit the fax
      */
     public final Integer getDuration() {
         return this.duration;
     }
 
     /**
-     * Returns The The status of this fax.
-     * 
-     * @return The status of this fax
+     * Returns The status of the fax.
+     *
+     * @return The status of the fax
      */
     public final Fax.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The direction of this fax.
-     * 
-     * @return The direction of this fax
+     * Returns The direction of the fax.
+     *
+     * @return The direction of the fax
      */
     public final Fax.Direction getDirection() {
         return this.direction;
     }
 
     /**
-     * Returns The The API version used.
-     * 
-     * @return The API version used
+     * Returns The API version used to transmit the fax.
+     *
+     * @return The API version used to transmit the fax
      */
     public final String getApiVersion() {
         return this.apiVersion;
     }
 
     /**
-     * Returns The Fax transmission price.
-     * 
-     * @return Fax transmission price
+     * Returns The fax transmission price.
+     *
+     * @return The fax transmission price
      */
     public final BigDecimal getPrice() {
         return this.price;
     }
 
     /**
-     * Returns The Currency used for billing.
-     * 
-     * @return Currency used for billing
+     * Returns The ISO 4217 currency used for billing.
+     *
+     * @return The ISO 4217 currency used for billing
      */
     public final Currency getPriceUnit() {
         return this.priceUnit;
     }
 
     /**
-     * Returns The The date this fax was created.
-     * 
-     * @return The date this fax was created
+     * Returns The ISO 8601 formatted date and time in GMT when the resource was
+     * created.
+     *
+     * @return The ISO 8601 formatted date and time in GMT when the resource was
+     *         created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this fax was updated.
-     * 
-     * @return The date this fax was updated
+     * Returns The ISO 8601 formatted date and time in GMT when the resource was
+     * last updated.
+     *
+     * @return The ISO 8601 formatted date and time in GMT when the resource was
+     *         last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The Nested resource URLs.
-     * 
-     * @return Nested resource URLs
+     * Returns The URLs of the fax's related resources.
+     *
+     * @return The URLs of the fax's related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;
     }
 
     /**
-     * Returns The The URL of this resource.
-     * 
-     * @return The URL of this resource
+     * Returns The absolute URL of the fax resource.
+     *
+     * @return The absolute URL of the fax resource
      */
     public final URI getUrl() {
         return this.url;
@@ -491,23 +495,23 @@ public class Fax extends Resource {
 
         Fax other = (Fax) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(from, other.from) && 
-               Objects.equals(to, other.to) && 
-               Objects.equals(quality, other.quality) && 
-               Objects.equals(mediaSid, other.mediaSid) && 
-               Objects.equals(mediaUrl, other.mediaUrl) && 
-               Objects.equals(numPages, other.numPages) && 
-               Objects.equals(duration, other.duration) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(direction, other.direction) && 
-               Objects.equals(apiVersion, other.apiVersion) && 
-               Objects.equals(price, other.price) && 
-               Objects.equals(priceUnit, other.priceUnit) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(links, other.links) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(from, other.from) &&
+               Objects.equals(to, other.to) &&
+               Objects.equals(quality, other.quality) &&
+               Objects.equals(mediaSid, other.mediaSid) &&
+               Objects.equals(mediaUrl, other.mediaUrl) &&
+               Objects.equals(numPages, other.numPages) &&
+               Objects.equals(duration, other.duration) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(direction, other.direction) &&
+               Objects.equals(apiVersion, other.apiVersion) &&
+               Objects.equals(price, other.price) &&
+               Objects.equals(priceUnit, other.priceUnit) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(links, other.links) &&
                Objects.equals(url, other.url);
     }
 

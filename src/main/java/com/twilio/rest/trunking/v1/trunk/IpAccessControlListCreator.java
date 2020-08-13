@@ -23,12 +23,13 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
 
     /**
      * Construct a new IpAccessControlListCreator.
-     * 
-     * @param pathTrunkSid The trunk_sid
+     *
+     * @param pathTrunkSid The SID of the Trunk to associate the IP Access Control
+     *                     List with
      * @param ipAccessControlListSid The SID of the IP Access Control List that you
-     *                               want to associate with this trunk.
+     *                               want to associate with the trunk
      */
-    public IpAccessControlListCreator(final String pathTrunkSid, 
+    public IpAccessControlListCreator(final String pathTrunkSid,
                                       final String ipAccessControlListSid) {
         this.pathTrunkSid = pathTrunkSid;
         this.ipAccessControlListSid = ipAccessControlListSid;
@@ -36,7 +37,7 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created IpAccessControlList
      */
@@ -46,8 +47,7 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathTrunkSid + "/IpAccessControlLists",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathTrunkSid + "/IpAccessControlLists"
         );
 
         addPostParams(request);
@@ -60,14 +60,7 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return IpAccessControlList.fromJson(response.getStream(), client.getObjectMapper());
@@ -75,7 +68,7 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

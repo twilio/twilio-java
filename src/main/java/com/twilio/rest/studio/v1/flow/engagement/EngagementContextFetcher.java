@@ -17,21 +17,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class EngagementContextFetcher extends Fetcher<EngagementContext> {
     private final String pathFlowSid;
     private final String pathEngagementSid;
 
     /**
      * Construct a new EngagementContextFetcher.
-     * 
-     * @param pathFlowSid Flow Sid.
-     * @param pathEngagementSid Engagement Sid.
+     *
+     * @param pathFlowSid Flow SID
+     * @param pathEngagementSid Engagement SID
      */
-    public EngagementContextFetcher(final String pathFlowSid, 
+    public EngagementContextFetcher(final String pathFlowSid,
                                     final String pathEngagementSid) {
         this.pathFlowSid = pathFlowSid;
         this.pathEngagementSid = pathEngagementSid;
@@ -39,7 +35,7 @@ public class EngagementContextFetcher extends Fetcher<EngagementContext> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched EngagementContext
      */
@@ -49,8 +45,7 @@ public class EngagementContextFetcher extends Fetcher<EngagementContext> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Engagements/" + this.pathEngagementSid + "/Context",
-            client.getRegion()
+            "/v1/Flows/" + this.pathFlowSid + "/Engagements/" + this.pathEngagementSid + "/Context"
         );
 
         Response response = client.request(request);
@@ -62,14 +57,7 @@ public class EngagementContextFetcher extends Fetcher<EngagementContext> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return EngagementContext.fromJson(response.getStream(), client.getObjectMapper());

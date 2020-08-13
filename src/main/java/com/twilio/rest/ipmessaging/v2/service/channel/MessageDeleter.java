@@ -24,14 +24,13 @@ public class MessageDeleter extends Deleter<Message> {
 
     /**
      * Construct a new MessageDeleter.
-     * 
-     * @param pathServiceSid Sid of the Service this message belongs to.
-     * @param pathChannelSid Key that uniquely defines the channel this message
-     *                       belongs to.
-     * @param pathSid Key that uniquely defines the message to delete.
+     *
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathChannelSid The SID of the Channel the message to delete belongs to
+     * @param pathSid The SID of the Message resource to delete
      */
-    public MessageDeleter(final String pathServiceSid, 
-                          final String pathChannelSid, 
+    public MessageDeleter(final String pathServiceSid,
+                          final String pathChannelSid,
                           final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -40,7 +39,7 @@ public class MessageDeleter extends Deleter<Message> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -49,8 +48,7 @@ public class MessageDeleter extends Deleter<Message> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Messages/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Messages/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +60,7 @@ public class MessageDeleter extends Deleter<Message> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

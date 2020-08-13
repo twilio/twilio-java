@@ -30,18 +30,18 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
     /**
      * Construct a new PhoneNumberCreator.
-     * 
-     * @param pathServiceSid Service Sid.
+     *
+     * @param pathServiceSid The SID of the resource's parent Service
      */
     public PhoneNumberCreator(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
     /**
-     * A Twilio
-     * [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incoming-phone-numbers) Sid that represents the Twilio Number you would like to assign to your Proxy Service (e.g. `PN1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d`)..
-     * 
-     * @param sid Phone Number Sid of Twilio Number to assign to your Proxy Service
+     * The SID of a Twilio
+     * [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) resource that represents the Twilio Number you would like to assign to your Proxy Service..
+     *
+     * @param sid The SID of a Twilio IncomingPhoneNumber resource
      * @return this
      */
     public PhoneNumberCreator setSid(final String sid) {
@@ -50,11 +50,11 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
     }
 
     /**
-     * A string that represents the Twilio Number you would like to assign to your
-     * Proxy Service. Provide number in [E.164](https://en.wikipedia.org/wiki/E.164)
-     * format (e.g. `+16175551212`)..
-     * 
-     * @param phoneNumber Twilio Number to assign to your Proxy Service
+     * The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164)
+     * format.  E.164 phone numbers consist of a + followed by the country code and
+     * subscriber number without punctuation characters. For example, +14155551234..
+     *
+     * @param phoneNumber The phone number in E.164 format
      * @return this
      */
     public PhoneNumberCreator setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
@@ -63,11 +63,11 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
     }
 
     /**
-     * A string that represents the Twilio Number you would like to assign to your
-     * Proxy Service. Provide number in [E.164](https://en.wikipedia.org/wiki/E.164)
-     * format (e.g. `+16175551212`)..
-     * 
-     * @param phoneNumber Twilio Number to assign to your Proxy Service
+     * The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164)
+     * format.  E.164 phone numbers consist of a + followed by the country code and
+     * subscriber number without punctuation characters. For example, +14155551234..
+     *
+     * @param phoneNumber The phone number in E.164 format
      * @return this
      */
     public PhoneNumberCreator setPhoneNumber(final String phoneNumber) {
@@ -75,10 +75,12 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
     }
 
     /**
-     * Whether or not the number should be excluded from being assigned to a
-     * participant using proxy pool logic.
-     * 
-     * @param isReserved Reserve for manual assignment to participants only.
+     * Whether the new phone number should be reserved and not be assigned to a
+     * participant using proxy pool logic. See [Reserved Phone
+     * Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more
+     * information..
+     *
+     * @param isReserved Whether the new phone number should be reserved
      * @return this
      */
     public PhoneNumberCreator setIsReserved(final Boolean isReserved) {
@@ -88,7 +90,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created PhoneNumber
      */
@@ -98,8 +100,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PROXY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/PhoneNumbers",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/PhoneNumbers"
         );
 
         addPostParams(request);
@@ -112,14 +113,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return PhoneNumber.fromJson(response.getStream(), client.getObjectMapper());
@@ -127,7 +121,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * TwiML wrapper for {@code <Phoneme>}
+ * TwiML wrapper for {@code <phoneme>}
  */
 public class SsmlPhoneme extends TwiML {
     public enum Alphabet {
@@ -43,7 +43,7 @@ public class SsmlPhoneme extends TwiML {
     }
 
     /**
-     * Create a new {@code <SsmlPhoneme>} element
+     * Create a new {@code <phoneme>} element
      */
     private SsmlPhoneme(Builder b) {
         super("phoneme", b);
@@ -54,7 +54,7 @@ public class SsmlPhoneme extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -63,7 +63,7 @@ public class SsmlPhoneme extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -82,7 +82,7 @@ public class SsmlPhoneme extends TwiML {
 
     /**
      * Specify the phonetic alphabet
-     * 
+     *
      * @return Specify the phonetic alphabet
      */
     public SsmlPhoneme.Alphabet getAlphabet() {
@@ -91,7 +91,7 @@ public class SsmlPhoneme extends TwiML {
 
     /**
      * Specifiy the phonetic symbols for pronunciation
-     * 
+     *
      * @return Specifiy the phonetic symbols for pronunciation
      */
     public String getPh() {
@@ -100,7 +100,7 @@ public class SsmlPhoneme extends TwiML {
 
     /**
      * Words to speak
-     * 
+     *
      * @return Words to speak
      */
     public String getWords() {
@@ -108,7 +108,7 @@ public class SsmlPhoneme extends TwiML {
     }
 
     /**
-     * Create a new {@code <Phoneme>} element
+     * Create a new {@code <phoneme>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
         private SsmlPhoneme.Alphabet alphabet;
@@ -116,7 +116,7 @@ public class SsmlPhoneme extends TwiML {
         private String words;
 
         /**
-         * Create a {@code <Phoneme>} with words
+         * Create a {@code <phoneme>} with words
          */
         public Builder(String words) {
             this.words = words;
@@ -139,7 +139,7 @@ public class SsmlPhoneme extends TwiML {
         }
 
         /**
-         * Create and return resulting {@code <Phoneme>} element
+         * Create and return resulting {@code <phoneme>} element
          */
         public SsmlPhoneme build() {
             return new SsmlPhoneme(this);

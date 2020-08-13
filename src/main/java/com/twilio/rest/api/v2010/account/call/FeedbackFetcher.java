@@ -23,7 +23,7 @@ public class FeedbackFetcher extends Fetcher<Feedback> {
 
     /**
      * Construct a new FeedbackFetcher.
-     * 
+     *
      * @param pathCallSid The call sid that uniquely identifies the call
      */
     public FeedbackFetcher(final String pathCallSid) {
@@ -32,11 +32,11 @@ public class FeedbackFetcher extends Fetcher<Feedback> {
 
     /**
      * Construct a new FeedbackFetcher.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The unique sid that identifies this account
      * @param pathCallSid The call sid that uniquely identifies the call
      */
-    public FeedbackFetcher(final String pathAccountSid, 
+    public FeedbackFetcher(final String pathAccountSid,
                            final String pathCallSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathCallSid = pathCallSid;
@@ -44,7 +44,7 @@ public class FeedbackFetcher extends Fetcher<Feedback> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Feedback
      */
@@ -55,8 +55,7 @@ public class FeedbackFetcher extends Fetcher<Feedback> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathCallSid + "/Feedback.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathCallSid + "/Feedback.json"
         );
 
         Response response = client.request(request);
@@ -68,14 +67,7 @@ public class FeedbackFetcher extends Fetcher<Feedback> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Feedback.fromJson(response.getStream(), client.getObjectMapper());

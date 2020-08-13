@@ -24,11 +24,13 @@ public class ParticipantDeleter extends Deleter<Participant> {
 
     /**
      * Construct a new ParticipantDeleter.
-     * 
-     * @param pathConferenceSid The string that uniquely identifies this conference
-     * @param pathCallSid Delete by unique participant Call Sid
+     *
+     * @param pathConferenceSid The SID of the conference with the participants to
+     *                          delete
+     * @param pathCallSid The Call SID or URL encoded label of the participant to
+     *                    delete
      */
-    public ParticipantDeleter(final String pathConferenceSid, 
+    public ParticipantDeleter(final String pathConferenceSid,
                               final String pathCallSid) {
         this.pathConferenceSid = pathConferenceSid;
         this.pathCallSid = pathCallSid;
@@ -36,13 +38,16 @@ public class ParticipantDeleter extends Deleter<Participant> {
 
     /**
      * Construct a new ParticipantDeleter.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathConferenceSid The string that uniquely identifies this conference
-     * @param pathCallSid Delete by unique participant Call Sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathConferenceSid The SID of the conference with the participants to
+     *                          delete
+     * @param pathCallSid The Call SID or URL encoded label of the participant to
+     *                    delete
      */
-    public ParticipantDeleter(final String pathAccountSid, 
-                              final String pathConferenceSid, 
+    public ParticipantDeleter(final String pathAccountSid,
+                              final String pathConferenceSid,
                               final String pathCallSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathConferenceSid = pathConferenceSid;
@@ -51,7 +56,7 @@ public class ParticipantDeleter extends Deleter<Participant> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -61,8 +66,7 @@ public class ParticipantDeleter extends Deleter<Participant> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathConferenceSid + "/Participants/" + this.pathCallSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathConferenceSid + "/Participants/" + this.pathCallSid + ".json"
         );
 
         Response response = client.request(request);
@@ -74,14 +78,7 @@ public class ParticipantDeleter extends Deleter<Participant> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

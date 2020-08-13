@@ -28,17 +28,18 @@ public class CredentialCreator extends Creator<Credential> {
 
     /**
      * Construct a new CredentialCreator.
-     * 
-     * @param type Credential type, one of "gcm" or "apn"
+     *
+     * @param type The type of push-notification service the credential is for
      */
     public CredentialCreator(final Credential.PushService type) {
         this.type = type;
     }
 
     /**
-     * Friendly name for stored credential.
-     * 
-     * @param friendlyName Friendly name for stored credential
+     * A descriptive string that you create to describe the new resource. It can be
+     * up to 64 characters long..
+     *
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public CredentialCreator setFriendlyName(final String friendlyName) {
@@ -47,11 +48,13 @@ public class CredentialCreator extends Creator<Credential> {
     }
 
     /**
-     * [APN only] URL encoded representation of the certificate, e.g. `-----BEGIN
-     * CERTIFICATE-----MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A==-----END CERTIFICATE-----`.
-     * 
-     * @param certificate [APN only] URL encoded representation of the certificate,
-     *                    e.
+     * [APN only] The URL encoded representation of the certificate. For example,
+     * `-----BEGIN CERTIFICATE-----
+     * MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A==
+     * -----END CERTIFICATE-----`.
+     *
+     * @param certificate [APN only] The URL encoded representation of the
+     *                    certificate
      * @return this
      */
     public CredentialCreator setCertificate(final String certificate) {
@@ -60,12 +63,13 @@ public class CredentialCreator extends Creator<Credential> {
     }
 
     /**
-     * [APN only] URL encoded representation of the private key, e.g. `-----BEGIN
-     * RSA PRIVATE
-     * KEY-----MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR\n.-----END RSA PRIVATE KEY-----`.
-     * 
-     * @param privateKey [APN only] URL encoded representation of the private key,
-     *                   e.
+     * [APN only] The URL encoded representation of the private key. For example,
+     * `-----BEGIN RSA PRIVATE KEY-----
+     * MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR.
+     * -----END RSA PRIVATE KEY-----`.
+     *
+     * @param privateKey [APN only] The URL encoded representation of the private
+     *                   key
      * @return this
      */
     public CredentialCreator setPrivateKey(final String privateKey) {
@@ -74,11 +78,10 @@ public class CredentialCreator extends Creator<Credential> {
     }
 
     /**
-     * [APN only] use this credential for sending to production or sandbox APNs
-     * (string `true` or `false`).
-     * 
-     * @param sandbox [APN only] use this credential for sending to production or
-     *                sandbox APNs
+     * [APN only] Whether to send the credential to sandbox APNs. Can be `true` to
+     * send to sandbox APNs or `false` to send to production..
+     *
+     * @param sandbox [APN only] Whether to send the credential to sandbox APNs
      * @return this
      */
     public CredentialCreator setSandbox(final Boolean sandbox) {
@@ -87,11 +90,12 @@ public class CredentialCreator extends Creator<Credential> {
     }
 
     /**
-     * [GCM only] This is the "API key" for project from Google Developer console
-     * for your GCM Service application credential.
-     * 
-     * @param apiKey [GCM only] This is the "API key" for project from Google
-     *               Developer console for your GCM Service application credential
+     * [GCM only] The API key for the project that was obtained from the Google
+     * Developer console for your GCM Service application credential..
+     *
+     * @param apiKey [GCM only] The API key for the project that was obtained from
+     *               the Google Developer console for your GCM Service application
+     *               credential
      * @return this
      */
     public CredentialCreator setApiKey(final String apiKey) {
@@ -100,9 +104,10 @@ public class CredentialCreator extends Creator<Credential> {
     }
 
     /**
-     * The secret.
-     * 
-     * @param secret The secret
+     * [FCM only] The **Server key** of your project from the Firebase console,
+     * found under Settings / Cloud messaging..
+     *
+     * @param secret [FCM only] The Server key of your project from Firebase console
      * @return this
      */
     public CredentialCreator setSecret(final String secret) {
@@ -112,7 +117,7 @@ public class CredentialCreator extends Creator<Credential> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Credential
      */
@@ -122,8 +127,7 @@ public class CredentialCreator extends Creator<Credential> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
-            "/v1/Credentials",
-            client.getRegion()
+            "/v1/Credentials"
         );
 
         addPostParams(request);
@@ -136,14 +140,7 @@ public class CredentialCreator extends Creator<Credential> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Credential.fromJson(response.getStream(), client.getObjectMapper());
@@ -151,7 +148,7 @@ public class CredentialCreator extends Creator<Credential> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

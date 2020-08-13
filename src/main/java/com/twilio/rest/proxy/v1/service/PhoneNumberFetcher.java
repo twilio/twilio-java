@@ -27,11 +27,12 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
 
     /**
      * Construct a new PhoneNumberFetcher.
-     * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Phone Number.
+     *
+     * @param pathServiceSid The SID of the parent Service resource of the
+     *                       PhoneNumber resource to fetch
+     * @param pathSid The unique string that identifies the resource
      */
-    public PhoneNumberFetcher(final String pathServiceSid, 
+    public PhoneNumberFetcher(final String pathServiceSid,
                               final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -39,7 +40,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched PhoneNumber
      */
@@ -49,8 +50,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PROXY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/PhoneNumbers/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/PhoneNumbers/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +62,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return PhoneNumber.fromJson(response.getStream(), client.getObjectMapper());

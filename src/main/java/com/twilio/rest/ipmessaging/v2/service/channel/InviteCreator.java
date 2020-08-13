@@ -25,13 +25,13 @@ public class InviteCreator extends Creator<Invite> {
 
     /**
      * Construct a new InviteCreator.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param identity A unique string identifier for this User in this Service.
+     *
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param pathChannelSid The SID of the Channel the new resource belongs to
+     * @param identity The `identity` value that identifies the new resource's User
      */
-    public InviteCreator(final String pathServiceSid, 
-                         final String pathChannelSid, 
+    public InviteCreator(final String pathServiceSid,
+                         final String pathChannelSid,
                          final String identity) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -39,10 +39,10 @@ public class InviteCreator extends Creator<Invite> {
     }
 
     /**
-     * The [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this
-     * member..
-     * 
-     * @param roleSid The Role assigned to this member.
+     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource)
+     * assigned to the new member..
+     *
+     * @param roleSid The Role assigned to the new member
      * @return this
      */
     public InviteCreator setRoleSid(final String roleSid) {
@@ -52,7 +52,7 @@ public class InviteCreator extends Creator<Invite> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Invite
      */
@@ -62,8 +62,7 @@ public class InviteCreator extends Creator<Invite> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Invites",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Invites"
         );
 
         addPostParams(request);
@@ -76,14 +75,7 @@ public class InviteCreator extends Creator<Invite> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Invite.fromJson(response.getStream(), client.getObjectMapper());
@@ -91,7 +83,7 @@ public class InviteCreator extends Creator<Invite> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

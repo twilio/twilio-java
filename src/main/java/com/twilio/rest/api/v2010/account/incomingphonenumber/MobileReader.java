@@ -35,18 +35,19 @@ public class MobileReader extends Reader<Mobile> {
 
     /**
      * Construct a new MobileReader.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      */
     public MobileReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
     /**
-     * Include phone numbers new to the Twilio platform. Possible values are either
-     * `true` or `false`. Default is `true`..
-     * 
-     * @param beta Include phone numbers new to the Twilio platform.
+     * Whether to include phone numbers new to the Twilio platform. Can be: `true`
+     * or `false` and the default is `true`..
+     *
+     * @param beta Whether to include new phone numbers
      * @return this
      */
     public MobileReader setBeta(final Boolean beta) {
@@ -55,11 +56,9 @@ public class MobileReader extends Reader<Mobile> {
     }
 
     /**
-     * Only show the incoming phone number resources with friendly names that
-     * exactly match this name..
-     * 
-     * @param friendlyName Only show the incoming phone number resources with
-     *                     friendly names that exactly match this name.
+     * A string that identifies the resources to read..
+     *
+     * @param friendlyName A string that identifies the resources to read
      * @return this
      */
     public MobileReader setFriendlyName(final String friendlyName) {
@@ -68,11 +67,10 @@ public class MobileReader extends Reader<Mobile> {
     }
 
     /**
-     * Only show the incoming phone number resources that match this pattern. You
-     * can specify partial numbers and use '*' as a wildcard for any digit..
-     * 
-     * @param phoneNumber Only show the incoming phone number resources that match
-     *                    this pattern.
+     * The phone numbers of the IncomingPhoneNumber resources to read. You can
+     * specify partial numbers and use '*' as a wildcard for any digit..
+     *
+     * @param phoneNumber The phone numbers of the resources to read
      * @return this
      */
     public MobileReader setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
@@ -81,11 +79,10 @@ public class MobileReader extends Reader<Mobile> {
     }
 
     /**
-     * Only show the incoming phone number resources that match this pattern. You
-     * can specify partial numbers and use '*' as a wildcard for any digit..
-     * 
-     * @param phoneNumber Only show the incoming phone number resources that match
-     *                    this pattern.
+     * The phone numbers of the IncomingPhoneNumber resources to read. You can
+     * specify partial numbers and use '*' as a wildcard for any digit..
+     *
+     * @param phoneNumber The phone numbers of the resources to read
      * @return this
      */
     public MobileReader setPhoneNumber(final String phoneNumber) {
@@ -93,10 +90,10 @@ public class MobileReader extends Reader<Mobile> {
     }
 
     /**
-     * Include phone numbers based on the origin, by default, phone numbers of all
-     * origin are included. Possible values are either `twilio` or `hosted`..
-     * 
-     * @param origin Include phone numbers based on the origin, by default, phone
+     * Whether to include phone numbers based on their origin. Can be: `twilio` or
+     * `hosted`. By default, phone numbers of all origin are included..
+     *
+     * @param origin Include phone numbers based on their origin. By default, phone
      *               numbers of all origin are included.
      * @return this
      */
@@ -107,7 +104,7 @@ public class MobileReader extends Reader<Mobile> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Mobile ResourceSet
      */
@@ -118,7 +115,7 @@ public class MobileReader extends Reader<Mobile> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Mobile ResourceSet
      */
@@ -129,8 +126,7 @@ public class MobileReader extends Reader<Mobile> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/Mobile.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/Mobile.json"
         );
 
         addQueryParams(request);
@@ -139,7 +135,7 @@ public class MobileReader extends Reader<Mobile> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Mobile ResourceSet
@@ -158,47 +154,41 @@ public class MobileReader extends Reader<Mobile> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Mobile> nextPage(final Page<Mobile> page, 
+    public Page<Mobile> nextPage(final Page<Mobile> page,
                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Mobile> previousPage(final Page<Mobile> page, 
+    public Page<Mobile> previousPage(final Page<Mobile> page,
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Mobile Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -213,14 +203,7 @@ public class MobileReader extends Reader<Mobile> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -233,7 +216,7 @@ public class MobileReader extends Reader<Mobile> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

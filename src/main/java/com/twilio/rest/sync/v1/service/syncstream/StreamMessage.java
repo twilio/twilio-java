@@ -40,14 +40,17 @@ public class StreamMessage extends Resource {
 
     /**
      * Create a StreamMessageCreator to execute create.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathStreamSid The stream_sid
-     * @param data Stream Message body.
+     *
+     * @param pathServiceSid The SID of the Sync Service to create the new Stream
+     *                       Message in
+     * @param pathStreamSid The SID of the Sync Stream to create the new Stream
+     *                      Message resource for
+     * @param data A JSON string that represents an arbitrary, schema-less object
+     *             that makes up the Stream Message body
      * @return StreamMessageCreator capable of executing the create
      */
-    public static StreamMessageCreator creator(final String pathServiceSid, 
-                                               final String pathStreamSid, 
+    public static StreamMessageCreator creator(final String pathServiceSid,
+                                               final String pathStreamSid,
                                                final Map<String, Object> data) {
         return new StreamMessageCreator(pathServiceSid, pathStreamSid, data);
     }
@@ -55,7 +58,7 @@ public class StreamMessage extends Resource {
     /**
      * Converts a JSON String into a StreamMessage object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return StreamMessage object represented by the provided JSON
@@ -74,7 +77,7 @@ public class StreamMessage extends Resource {
     /**
      * Converts a JSON InputStream into a StreamMessage object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return StreamMessage object represented by the provided JSON
@@ -95,7 +98,7 @@ public class StreamMessage extends Resource {
 
     @JsonCreator
     private StreamMessage(@JsonProperty("sid")
-                          final String sid, 
+                          final String sid,
                           @JsonProperty("data")
                           final Map<String, Object> data) {
         this.sid = sid;
@@ -103,18 +106,18 @@ public class StreamMessage extends Resource {
     }
 
     /**
-     * Returns The Stream Message SID..
-     * 
-     * @return Stream Message SID.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Stream Message body..
-     * 
-     * @return Stream Message body.
+     * Returns Stream Message body.
+     *
+     * @return Stream Message body
      */
     public final Map<String, Object> getData() {
         return this.data;
@@ -132,7 +135,7 @@ public class StreamMessage extends Resource {
 
         StreamMessage other = (StreamMessage) o;
 
-        return Objects.equals(sid, other.sid) && 
+        return Objects.equals(sid, other.sid) &&
                Objects.equals(data, other.data);
     }
 

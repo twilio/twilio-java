@@ -38,17 +38,18 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Construct a new MessageReader.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      */
     public MessageReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
     /**
-     * Only show messages to this phone number..
-     * 
-     * @param to Filter by messages to this number
+     * Read messages sent to only this phone number..
+     *
+     * @param to Filter by messages sent to this number
      * @return this
      */
     public MessageReader setTo(final com.twilio.type.PhoneNumber to) {
@@ -57,9 +58,9 @@ public class MessageReader extends Reader<Message> {
     }
 
     /**
-     * Only show messages to this phone number..
-     * 
-     * @param to Filter by messages to this number
+     * Read messages sent to only this phone number..
+     *
+     * @param to Filter by messages sent to this number
      * @return this
      */
     public MessageReader setTo(final String to) {
@@ -67,8 +68,8 @@ public class MessageReader extends Reader<Message> {
     }
 
     /**
-     * Only show messages from this phone number or alphanumeric sender ID..
-     * 
+     * Read messages sent from only this phone number or alphanumeric sender ID..
+     *
      * @param from Filter by from number
      * @return this
      */
@@ -78,8 +79,8 @@ public class MessageReader extends Reader<Message> {
     }
 
     /**
-     * Only show messages from this phone number or alphanumeric sender ID..
-     * 
+     * Read messages sent from only this phone number or alphanumeric sender ID..
+     *
      * @param from Filter by from number
      * @return this
      */
@@ -88,13 +89,12 @@ public class MessageReader extends Reader<Message> {
     }
 
     /**
-     * Only show messages sent on this date (in
-     * [GMT](https://en.wikipedia.org/wiki/Greenwich_Mean_Time) format), given as
-     * `YYYY-MM-DD`. Example: `DateSent=2009-07-06`. You can also specify
-     * inequality, such as `DateSent&lt;=YYYY-MM-DD` for messages that were sent on
-     * or before midnight on a date, and `DateSent&gt;=YYYY-MM-DD` for messages sent
-     * on or after midnight on a date..
-     * 
+     * The date of the messages to show. Specify a date as `YYYY-MM-DD` in GMT to
+     * read only messages sent on this date. For example: `2009-07-06`. You can also
+     * specify an inequality, such as `DateSent&lt;=YYYY-MM-DD`, to read messages
+     * sent on or before midnight on a date, and `DateSent&gt;=YYYY-MM-DD` to read
+     * messages sent on or after midnight on a date..
+     *
      * @param absoluteDateSent Filter by date sent
      * @return this
      */
@@ -105,13 +105,12 @@ public class MessageReader extends Reader<Message> {
     }
 
     /**
-     * Only show messages sent on this date (in
-     * [GMT](https://en.wikipedia.org/wiki/Greenwich_Mean_Time) format), given as
-     * `YYYY-MM-DD`. Example: `DateSent=2009-07-06`. You can also specify
-     * inequality, such as `DateSent&lt;=YYYY-MM-DD` for messages that were sent on
-     * or before midnight on a date, and `DateSent&gt;=YYYY-MM-DD` for messages sent
-     * on or after midnight on a date..
-     * 
+     * The date of the messages to show. Specify a date as `YYYY-MM-DD` in GMT to
+     * read only messages sent on this date. For example: `2009-07-06`. You can also
+     * specify an inequality, such as `DateSent&lt;=YYYY-MM-DD`, to read messages
+     * sent on or before midnight on a date, and `DateSent&gt;=YYYY-MM-DD` to read
+     * messages sent on or after midnight on a date..
+     *
      * @param rangeDateSent Filter by date sent
      * @return this
      */
@@ -123,7 +122,7 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Message ResourceSet
      */
@@ -134,7 +133,7 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Message ResourceSet
      */
@@ -145,8 +144,7 @@ public class MessageReader extends Reader<Message> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Messages.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Messages.json"
         );
 
         addQueryParams(request);
@@ -155,7 +153,7 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Message ResourceSet
@@ -174,47 +172,41 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Message> nextPage(final Page<Message> page, 
+    public Page<Message> nextPage(final Page<Message> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Message> previousPage(final Page<Message> page, 
+    public Page<Message> previousPage(final Page<Message> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Message Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -229,14 +221,7 @@ public class MessageReader extends Reader<Message> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -249,7 +234,7 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

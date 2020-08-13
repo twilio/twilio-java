@@ -36,7 +36,7 @@ public class CommandCreator extends Creator<Command> {
 
     /**
      * Construct a new CommandCreator.
-     * 
+     *
      * @param command The command
      */
     public CommandCreator(final String command) {
@@ -45,7 +45,7 @@ public class CommandCreator extends Creator<Command> {
 
     /**
      * The device.
-     * 
+     *
      * @param device The device
      * @return this
      */
@@ -56,7 +56,7 @@ public class CommandCreator extends Creator<Command> {
 
     /**
      * The sim.
-     * 
+     *
      * @param sim The sim
      * @return this
      */
@@ -67,7 +67,7 @@ public class CommandCreator extends Creator<Command> {
 
     /**
      * The callback_method.
-     * 
+     *
      * @param callbackMethod The callback_method
      * @return this
      */
@@ -78,7 +78,7 @@ public class CommandCreator extends Creator<Command> {
 
     /**
      * The callback_url.
-     * 
+     *
      * @param callbackUrl The callback_url
      * @return this
      */
@@ -89,7 +89,7 @@ public class CommandCreator extends Creator<Command> {
 
     /**
      * The callback_url.
-     * 
+     *
      * @param callbackUrl The callback_url
      * @return this
      */
@@ -99,7 +99,7 @@ public class CommandCreator extends Creator<Command> {
 
     /**
      * The command_mode.
-     * 
+     *
      * @param commandMode The command_mode
      * @return this
      */
@@ -110,7 +110,7 @@ public class CommandCreator extends Creator<Command> {
 
     /**
      * The include_sid.
-     * 
+     *
      * @param includeSid The include_sid
      * @return this
      */
@@ -121,7 +121,7 @@ public class CommandCreator extends Creator<Command> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Command
      */
@@ -131,8 +131,7 @@ public class CommandCreator extends Creator<Command> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/wireless/Commands",
-            client.getRegion()
+            "/wireless/Commands"
         );
 
         addPostParams(request);
@@ -145,14 +144,7 @@ public class CommandCreator extends Creator<Command> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Command.fromJson(response.getStream(), client.getObjectMapper());
@@ -160,7 +152,7 @@ public class CommandCreator extends Creator<Command> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

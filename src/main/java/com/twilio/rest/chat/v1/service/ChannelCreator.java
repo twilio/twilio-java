@@ -26,17 +26,18 @@ public class ChannelCreator extends Creator<Channel> {
 
     /**
      * Construct a new ChannelCreator.
-     * 
-     * @param pathServiceSid The service_sid
+     *
+     * @param pathServiceSid The SID of the Service to create the resource under
      */
     public ChannelCreator(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
     /**
-     * A human-readable name for the Channel. Optional..
-     * 
-     * @param friendlyName A human-readable name for the Channel.
+     * A descriptive string that you create to describe the new resource. It can be
+     * up to 64 characters long..
+     *
+     * @param friendlyName A string to describe the new resource
      * @return this
      */
     public ChannelCreator setFriendlyName(final String friendlyName) {
@@ -45,9 +46,13 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * A unique, addressable name for the Channel.  Optional..
-     * 
-     * @param uniqueName A unique, addressable name for the Channel.
+     * An application-defined string that uniquely identifies the resource. It can
+     * be used to address the resource in place of the resource's `sid` in the URL.
+     * This value must be 64 characters or less in length and be unique within the
+     * Service..
+     *
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      * @return this
      */
     public ChannelCreator setUniqueName(final String uniqueName) {
@@ -56,11 +61,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * An optional metadata field you can use to store any data you wish. No
-     * processing or validation is done on this field..
-     * 
-     * @param attributes An optional metadata field you can use to store any data
-     *                   you wish.
+     * A valid JSON string that contains application-specific data..
+     *
+     * @param attributes A valid JSON string that contains application-specific data
      * @return this
      */
     public ChannelCreator setAttributes(final String attributes) {
@@ -69,9 +72,10 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The visibility of the channel - `public` or `private`. Defaults to `public`..
-     * 
-     * @param type The visibility of the channel - public or private.
+     * The visibility of the channel. Can be: `public` or `private` and defaults to
+     * `public`..
+     *
+     * @param type The visibility of the channel
      * @return this
      */
     public ChannelCreator setType(final Channel.ChannelType type) {
@@ -81,7 +85,7 @@ public class ChannelCreator extends Creator<Channel> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Channel
      */
@@ -91,8 +95,7 @@ public class ChannelCreator extends Creator<Channel> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Channels",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Channels"
         );
 
         addPostParams(request);
@@ -105,14 +108,7 @@ public class ChannelCreator extends Creator<Channel> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Channel.fromJson(response.getStream(), client.getObjectMapper());
@@ -120,7 +116,7 @@ public class ChannelCreator extends Creator<Channel> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

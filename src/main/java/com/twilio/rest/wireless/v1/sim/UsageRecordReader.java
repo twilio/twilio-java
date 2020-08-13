@@ -29,18 +29,19 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
     /**
      * Construct a new UsageRecordReader.
-     * 
-     * @param pathSimSid The sim_sid
+     *
+     * @param pathSimSid The SID of the Sim resource to read the usage from
      */
     public UsageRecordReader(final String pathSimSid) {
         this.pathSimSid = pathSimSid;
     }
 
     /**
-     * Only include usage that has occurred on or before this date. Format is [ISO
-     * 8601](http://www.iso.org/iso/home/standards/iso8601.htm)..
-     * 
-     * @param end Only include usage that has occurred on or before this date.
+     * Only include usage that occurred on or before this date, specified in [ISO
+     * 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is
+     * the current time..
+     *
+     * @param end Only include usage that occurred on or before this date
      * @return this
      */
     public UsageRecordReader setEnd(final DateTime end) {
@@ -49,10 +50,11 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     }
 
     /**
-     * Only include usage that has occurred on or after this date. Format is [ISO
-     * 8601](http://www.iso.org/iso/home/standards/iso8601.htm)..
-     * 
-     * @param start Only include usage that has occurred on or after this date.
+     * Only include usage that has occurred on or after this date, specified in [ISO
+     * 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is
+     * one month before the `end` parameter value..
+     *
+     * @param start Only include usage that has occurred on or after this date
      * @return this
      */
     public UsageRecordReader setStart(final DateTime start) {
@@ -61,11 +63,11 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     }
 
     /**
-     * The time-based grouping that results are aggregated by. Valid values are
-     * `daily`, `hourly`, `all`. `all` will return one Usage Record for the entire
-     * period..
-     * 
-     * @param granularity The time-based grouping that results are aggregated by.
+     * How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The
+     * default is `all`. A value of `all` returns one Usage Record that describes
+     * the usage for the entire period..
+     *
+     * @param granularity The time-based grouping that results are aggregated by
      * @return this
      */
     public UsageRecordReader setGranularity(final UsageRecord.Granularity granularity) {
@@ -75,7 +77,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return UsageRecord ResourceSet
      */
@@ -86,7 +88,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return UsageRecord ResourceSet
      */
@@ -96,8 +98,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.WIRELESS.toString(),
-            "/v1/Sims/" + this.pathSimSid + "/UsageRecords",
-            client.getRegion()
+            "/v1/Sims/" + this.pathSimSid + "/UsageRecords"
         );
 
         addQueryParams(request);
@@ -106,7 +107,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return UsageRecord ResourceSet
@@ -124,47 +125,41 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<UsageRecord> nextPage(final Page<UsageRecord> page, 
+    public Page<UsageRecord> nextPage(final Page<UsageRecord> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.WIRELESS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.WIRELESS.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<UsageRecord> previousPage(final Page<UsageRecord> page, 
+    public Page<UsageRecord> previousPage(final Page<UsageRecord> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.WIRELESS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.WIRELESS.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of UsageRecord Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -179,14 +174,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -199,7 +187,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

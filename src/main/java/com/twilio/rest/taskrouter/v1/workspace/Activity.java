@@ -38,44 +38,48 @@ public class Activity extends Resource {
 
     /**
      * Create a ActivityFetcher to execute fetch.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the Activity resources
+     *                         to fetch
+     * @param pathSid The SID of the resource to fetch
      * @return ActivityFetcher capable of executing the fetch
      */
-    public static ActivityFetcher fetcher(final String pathWorkspaceSid, 
+    public static ActivityFetcher fetcher(final String pathWorkspaceSid,
                                           final String pathSid) {
         return new ActivityFetcher(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a ActivityUpdater to execute update.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the Activity resources
+     *                         to update
+     * @param pathSid The SID of the Activity resource to update
      * @return ActivityUpdater capable of executing the update
      */
-    public static ActivityUpdater updater(final String pathWorkspaceSid, 
+    public static ActivityUpdater updater(final String pathWorkspaceSid,
                                           final String pathSid) {
         return new ActivityUpdater(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a ActivityDeleter to execute delete.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the Activity resources
+     *                         to delete
+     * @param pathSid The SID of the Activity resource to delete
      * @return ActivityDeleter capable of executing the delete
      */
-    public static ActivityDeleter deleter(final String pathWorkspaceSid, 
+    public static ActivityDeleter deleter(final String pathWorkspaceSid,
                                           final String pathSid) {
         return new ActivityDeleter(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a ActivityReader to execute read.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the Activity resources
+     *                         to read
      * @return ActivityReader capable of executing the read
      */
     public static ActivityReader reader(final String pathWorkspaceSid) {
@@ -84,13 +88,13 @@ public class Activity extends Resource {
 
     /**
      * Create a ActivityCreator to execute create.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param friendlyName A human-readable name for the Activity, such as 'On
-     *                     Call', 'Break', 'Email', etc.
+     *
+     * @param pathWorkspaceSid The SID of the Workspace that the new Activity
+     *                         belongs to
+     * @param friendlyName A string to describe the Activity resource
      * @return ActivityCreator capable of executing the create
      */
-    public static ActivityCreator creator(final String pathWorkspaceSid, 
+    public static ActivityCreator creator(final String pathWorkspaceSid,
                                           final String friendlyName) {
         return new ActivityCreator(pathWorkspaceSid, friendlyName);
     }
@@ -98,7 +102,7 @@ public class Activity extends Resource {
     /**
      * Converts a JSON String into a Activity object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Activity object represented by the provided JSON
@@ -117,7 +121,7 @@ public class Activity extends Resource {
     /**
      * Converts a JSON InputStream into a Activity object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Activity object represented by the provided JSON
@@ -144,19 +148,19 @@ public class Activity extends Resource {
 
     @JsonCreator
     private Activity(@JsonProperty("account_sid")
-                     final String accountSid, 
+                     final String accountSid,
                      @JsonProperty("available")
-                     final Boolean available, 
+                     final Boolean available,
                      @JsonProperty("date_created")
-                     final String dateCreated, 
+                     final String dateCreated,
                      @JsonProperty("date_updated")
-                     final String dateUpdated, 
+                     final String dateUpdated,
                      @JsonProperty("friendly_name")
-                     final String friendlyName, 
+                     final String friendlyName,
                      @JsonProperty("sid")
-                     final String sid, 
+                     final String sid,
                      @JsonProperty("workspace_sid")
-                     final String workspaceSid, 
+                     final String workspaceSid,
                      @JsonProperty("url")
                      final URI url) {
         this.accountSid = accountSid;
@@ -170,72 +174,74 @@ public class Activity extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that owns this Activity..
-     * 
-     * @return The unique ID of the Account that owns this Activity.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Filter by activities that are available or unavailable..
-     * 
-     * @return Filter by activities that are available or unavailable.
+     * Returns Whether the Worker should be eligible to receive a Task when it
+     * occupies the Activity.
+     *
+     * @return Whether the Worker should be eligible to receive a Task when it
+     *         occupies the Activity
      */
     public final Boolean getAvailable() {
         return this.available;
     }
 
     /**
-     * Returns The The date this Activity was created..
-     * 
-     * @return The date this Activity was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Activity was updated..
-     * 
-     * @return The date this Activity was updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The Filter by an Activity's friendly name.
-     * 
-     * @return Filter by an Activity's friendly name
+     * Returns The string that you assigned to describe the Activity resource.
+     *
+     * @return The string that you assigned to describe the Activity resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The unique ID for this Activity..
-     * 
-     * @return The unique ID for this Activity.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique ID of the Workspace that this Activity belongs to..
-     * 
-     * @return The unique ID of the Workspace that this Activity belongs to.
+     * Returns The SID of the Workspace that contains the Activity.
+     *
+     * @return The SID of the Workspace that contains the Activity
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
-     * 
-     * @return The url
+     * Returns The absolute URL of the Activity resource.
+     *
+     * @return The absolute URL of the Activity resource
      */
     public final URI getUrl() {
         return this.url;
@@ -253,13 +259,13 @@ public class Activity extends Resource {
 
         Activity other = (Activity) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(available, other.available) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(workspaceSid, other.workspaceSid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(available, other.available) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(workspaceSid, other.workspaceSid) &&
                Objects.equals(url, other.url);
     }
 

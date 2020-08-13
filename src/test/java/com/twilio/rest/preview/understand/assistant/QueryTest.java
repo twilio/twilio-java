@@ -42,7 +42,7 @@ public class QueryTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
                                           "/understand/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queries/UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -60,7 +60,7 @@ public class QueryTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"language\": \"language\",\"date_created\": \"2015-07-30T20:00:00Z\",\"model_build_sid\": \"UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"query\": \"query\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"status\": \"status\",\"sample_sid\": \"UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"assistant_sid\": \"UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"results\": {\"intent\": {\"name\": \"name\",\"intent_sid\": \"UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"confidence\": 0.9},\"entities\": [{\"name\": \"name\",\"value\": \"value\",\"type\": \"type\"}]},\"url\": \"https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"sid\": \"UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"source_channel\": \"voice\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"language\": \"language\",\"date_created\": \"2015-07-30T20:00:00Z\",\"model_build_sid\": \"UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"query\": \"query\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"status\": \"status\",\"sample_sid\": \"UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"assistant_sid\": \"UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"results\": {\"task\": {\"name\": \"name\",\"task_sid\": \"UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"confidence\": 0.9},\"entities\": [{\"name\": \"name\",\"value\": \"value\",\"type\": \"type\"}]},\"url\": \"https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"sid\": \"UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"source_channel\": \"voice\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -74,7 +74,7 @@ public class QueryTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
                                           "/understand/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queries");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -92,7 +92,7 @@ public class QueryTest {
     public void testReadEmptyResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"queries\": [],\"meta\": {\"previous_page_url\": null,\"next_page_url\": null,\"first_page_url\": \"https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?PageSize=50&Page=0\",\"page\": 0,\"key\": \"queries\",\"url\": \"https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?PageSize=50&Page=0\",\"page_size\": 50}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"queries\": [],\"meta\": {\"previous_page_url\": null,\"next_page_url\": null,\"first_page_url\": \"https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?Status=status&ModelBuild=UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Language=language&PageSize=50&Page=0\",\"page\": 0,\"key\": \"queries\",\"url\": \"https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?Status=status&ModelBuild=UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Language=language&PageSize=50&Page=0\",\"page_size\": 50}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -104,7 +104,7 @@ public class QueryTest {
     public void testReadFullResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"queries\": [{\"language\": \"language\",\"date_created\": \"2015-07-30T20:00:00Z\",\"model_build_sid\": \"UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"query\": \"query\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"status\": \"status\",\"sample_sid\": \"UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"assistant_sid\": \"UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"results\": {\"intent\": {\"name\": \"name\",\"intent_sid\": \"UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"confidence\": 0.9},\"entities\": [{\"name\": \"name\",\"value\": \"value\",\"type\": \"type\"}]},\"url\": \"https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"sid\": \"UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"source_channel\": null}],\"meta\": {\"previous_page_url\": null,\"next_page_url\": null,\"first_page_url\": \"https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?PageSize=50&Page=0\",\"page\": 0,\"key\": \"queries\",\"url\": \"https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?PageSize=50&Page=0\",\"page_size\": 50}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"queries\": [{\"language\": \"language\",\"date_created\": \"2015-07-30T20:00:00Z\",\"model_build_sid\": \"UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"query\": \"query\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"status\": \"status\",\"sample_sid\": \"UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"assistant_sid\": \"UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"results\": {\"task\": {\"name\": \"name\",\"task_sid\": \"UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"confidence\": 0.9},\"entities\": [{\"name\": \"name\",\"value\": \"value\",\"type\": \"type\"}]},\"url\": \"https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"sid\": \"UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"source_channel\": null}],\"meta\": {\"previous_page_url\": null,\"next_page_url\": null,\"first_page_url\": \"https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?Status=status&ModelBuild=UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Language=language&PageSize=50&Page=0\",\"page\": 0,\"key\": \"queries\",\"url\": \"https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?Status=status&ModelBuild=UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Language=language&PageSize=50&Page=0\",\"page_size\": 50}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -137,7 +137,7 @@ public class QueryTest {
     public void testCreateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"language\": \"language\",\"date_created\": \"2015-07-30T20:00:00Z\",\"model_build_sid\": \"UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"query\": \"query\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"status\": \"status\",\"sample_sid\": \"UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"assistant_sid\": \"UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"results\": {\"intent\": {\"name\": \"name\",\"intent_sid\": \"UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"confidence\": 0.9},\"entities\": [{\"name\": \"name\",\"value\": \"value\",\"type\": \"type\"}]},\"url\": \"https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"sid\": \"UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"source_channel\": \"voice\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            result = new Response("{\"language\": \"language\",\"date_created\": \"2015-07-30T20:00:00Z\",\"model_build_sid\": \"UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"query\": \"query\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"status\": \"status\",\"sample_sid\": \"UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"assistant_sid\": \"UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"results\": {\"task\": {\"name\": \"name\",\"task_sid\": \"UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"confidence\": 0.9},\"entities\": [{\"name\": \"name\",\"value\": \"value\",\"type\": \"type\"}]},\"url\": \"https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"sid\": \"UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"source_channel\": \"voice\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -151,7 +151,7 @@ public class QueryTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.PREVIEW.toString(),
                                           "/understand/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queries/UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -169,7 +169,7 @@ public class QueryTest {
     public void testUpdateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"language\": \"language\",\"date_created\": \"2015-07-30T20:00:00Z\",\"model_build_sid\": \"UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"query\": \"query\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"status\": \"status\",\"sample_sid\": \"UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"assistant_sid\": \"UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"results\": {\"intent\": {\"name\": \"name\",\"intent_sid\": \"UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"confidence\": 0.9},\"entities\": [{\"name\": \"name\",\"value\": \"value\",\"type\": \"type\"}]},\"url\": \"https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"sid\": \"UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"source_channel\": \"sms\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"language\": \"language\",\"date_created\": \"2015-07-30T20:00:00Z\",\"model_build_sid\": \"UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"query\": \"query\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"status\": \"status\",\"sample_sid\": \"UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"assistant_sid\": \"UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"results\": {\"task\": {\"name\": \"name\",\"task_sid\": \"UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"confidence\": 0.9},\"entities\": [{\"name\": \"name\",\"value\": \"value\",\"type\": \"type\"}]},\"url\": \"https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"sid\": \"UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"source_channel\": \"sms\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -183,7 +183,7 @@ public class QueryTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.PREVIEW.toString(),
                                           "/understand/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queries/UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

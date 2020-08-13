@@ -23,7 +23,7 @@ public class SigningKeyDeleter extends Deleter<SigningKey> {
 
     /**
      * Construct a new SigningKeyDeleter.
-     * 
+     *
      * @param pathSid The sid
      */
     public SigningKeyDeleter(final String pathSid) {
@@ -32,11 +32,11 @@ public class SigningKeyDeleter extends Deleter<SigningKey> {
 
     /**
      * Construct a new SigningKeyDeleter.
-     * 
+     *
      * @param pathAccountSid The account_sid
      * @param pathSid The sid
      */
-    public SigningKeyDeleter(final String pathAccountSid, 
+    public SigningKeyDeleter(final String pathAccountSid,
                              final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -44,7 +44,7 @@ public class SigningKeyDeleter extends Deleter<SigningKey> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -54,8 +54,7 @@ public class SigningKeyDeleter extends Deleter<SigningKey> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SigningKeys/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SigningKeys/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);
@@ -67,14 +66,7 @@ public class SigningKeyDeleter extends Deleter<SigningKey> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

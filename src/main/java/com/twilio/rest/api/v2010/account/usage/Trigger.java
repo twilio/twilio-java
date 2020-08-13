@@ -38,6 +38,7 @@ public class Trigger extends Resource {
     private static final long serialVersionUID = 174561249107274L;
 
     public enum UsageCategory {
+        AGENT_CONFERENCE("agent-conference"),
         ANSWERING_MACHINE_DETECTION("answering-machine-detection"),
         AUTHY_AUTHENTICATIONS("authy-authentications"),
         AUTHY_CALLS_OUTBOUND("authy-calls-outbound"),
@@ -55,6 +56,7 @@ public class Trigger extends Resource {
         CALLS_INBOUND_MOBILE("calls-inbound-mobile"),
         CALLS_INBOUND_TOLLFREE("calls-inbound-tollfree"),
         CALLS_OUTBOUND("calls-outbound"),
+        CALLS_PAY_VERB_TRANSACTIONS("calls-pay-verb-transactions"),
         CALLS_RECORDINGS("calls-recordings"),
         CALLS_SIP("calls-sip"),
         CALLS_SIP_INBOUND("calls-sip-inbound"),
@@ -67,8 +69,8 @@ public class Trigger extends Resource {
         CONVERSATIONS_EVENTS("conversations-events"),
         CONVERSATIONS_PARTICIPANT_EVENTS("conversations-participant-events"),
         CONVERSATIONS_PARTICIPANTS("conversations-participants"),
-        FRAUD_LOOKUPS("fraud-lookups"),
         CPS("cps"),
+        FRAUD_LOOKUPS("fraud-lookups"),
         GROUP_ROOMS("group-rooms"),
         GROUP_ROOMS_DATA_TRACK("group-rooms-data-track"),
         GROUP_ROOMS_ENCRYPTED_MEDIA_RECORDED("group-rooms-encrypted-media-recorded"),
@@ -86,17 +88,20 @@ public class Trigger extends Resource {
         LOOKUPS("lookups"),
         MARKETPLACE("marketplace"),
         MARKETPLACE_ALGORITHMIA_NAMED_ENTITY_RECOGNITION("marketplace-algorithmia-named-entity-recognition"),
+        MARKETPLACE_CADENCE_TRANSCRIPTION("marketplace-cadence-transcription"),
+        MARKETPLACE_CADENCE_TRANSLATION("marketplace-cadence-translation"),
+        MARKETPLACE_CAPIO_SPEECH_TO_TEXT("marketplace-capio-speech-to-text"),
+        MARKETPLACE_CONVRIZA_ABABA("marketplace-convriza-ababa"),
+        MARKETPLACE_DEEPGRAM_PHRASE_DETECTOR("marketplace-deepgram-phrase-detector"),
         MARKETPLACE_DIGITAL_SEGMENT_BUSINESS_INFO("marketplace-digital-segment-business-info"),
+        MARKETPLACE_FACEBOOK_OFFLINE_CONVERSIONS("marketplace-facebook-offline-conversions"),
         MARKETPLACE_GOOGLE_SPEECH_TO_TEXT("marketplace-google-speech-to-text"),
         MARKETPLACE_IBM_WATSON_MESSAGE_INSIGHTS("marketplace-ibm-watson-message-insights"),
         MARKETPLACE_IBM_WATSON_MESSAGE_SENTIMENT("marketplace-ibm-watson-message-sentiment"),
         MARKETPLACE_IBM_WATSON_RECORDING_ANALYSIS("marketplace-ibm-watson-recording-analysis"),
+        MARKETPLACE_IBM_WATSON_TONE_ANALYZER("marketplace-ibm-watson-tone-analyzer"),
         MARKETPLACE_ICEHOOK_SYSTEMS_SCOUT("marketplace-icehook-systems-scout"),
         MARKETPLACE_INFOGROUP_DATAAXLE_BIZINFO("marketplace-infogroup-dataaxle-bizinfo"),
-        MARKETPLACE_CADENCE_TRANSCRIPTION("marketplace-cadence-transcription"),
-        MARKETPLACE_CADENCE_TRANSLATION("marketplace-cadence-translation"),
-        MARKETPLACE_CAPIO_SPEECH_TO_TEXT("marketplace-capio-speech-to-text"),
-        MARKETPLACE_FACEBOOK_OFFLINE_CONVERSIONS("marketplace-facebook-offline-conversions"),
         MARKETPLACE_KEEN_IO_CONTACT_CENTER_ANALYTICS("marketplace-keen-io-contact-center-analytics"),
         MARKETPLACE_MARCHEX_CLEANCALL("marketplace-marchex-cleancall"),
         MARKETPLACE_MARCHEX_SENTIMENT_ANALYSIS_FOR_SMS("marketplace-marchex-sentiment-analysis-for-sms"),
@@ -106,29 +111,27 @@ public class Trigger extends Resource {
         MARKETPLACE_NEXTCALLER_ADVANCED_CALLER_IDENTIFICATION("marketplace-nextcaller-advanced-caller-identification"),
         MARKETPLACE_NOMOROBO_SPAM_SCORE("marketplace-nomorobo-spam-score"),
         MARKETPLACE_PAYFONE_TCPA_COMPLIANCE("marketplace-payfone-tcpa-compliance"),
+        MARKETPLACE_REMEETING_AUTOMATIC_SPEECH_RECOGNITION("marketplace-remeeting-automatic-speech-recognition"),
+        MARKETPLACE_TCPA_DEFENSE_SOLUTIONS_BLACKLIST_FEED("marketplace-tcpa-defense-solutions-blacklist-feed"),
         MARKETPLACE_TELO_OPENCNAM("marketplace-telo-opencnam"),
         MARKETPLACE_TRUECNAM_TRUE_SPAM("marketplace-truecnam-true-spam"),
         MARKETPLACE_TWILIO_CALLER_NAME_LOOKUP_US("marketplace-twilio-caller-name-lookup-us"),
         MARKETPLACE_TWILIO_CARRIER_INFORMATION_LOOKUP("marketplace-twilio-carrier-information-lookup"),
         MARKETPLACE_VOICEBASE_PCI("marketplace-voicebase-pci"),
         MARKETPLACE_VOICEBASE_TRANSCRIPTION("marketplace-voicebase-transcription"),
+        MARKETPLACE_VOICEBASE_TRANSCRIPTION_CUSTOM_VOCABULARY("marketplace-voicebase-transcription-custom-vocabulary"),
         MARKETPLACE_WHITEPAGES_PRO_CALLER_IDENTIFICATION("marketplace-whitepages-pro-caller-identification"),
         MARKETPLACE_WHITEPAGES_PRO_PHONE_INTELLIGENCE("marketplace-whitepages-pro-phone-intelligence"),
         MARKETPLACE_WHITEPAGES_PRO_PHONE_REPUTATION("marketplace-whitepages-pro-phone-reputation"),
-        MARKETPLACE_WOLFRAM_SHORT_ANSWER("marketplace-wolfram-short-answer"),
         MARKETPLACE_WOLFARM_SPOKEN_RESULTS("marketplace-wolfarm-spoken-results"),
-        MARKETPLACE_DEEPGRAM_PHRASE_DETECTOR("marketplace-deepgram-phrase-detector"),
-        MARKETPLACE_CONVRIZA_ABABA("marketplace-convriza-ababa"),
-        MARKETPLACE_IBM_WATSON_TONE_ANALYZER("marketplace-ibm-watson-tone-analyzer"),
-        MARKETPLACE_REMEETING_AUTOMATIC_SPEECH_RECOGNITION("marketplace-remeeting-automatic-speech-recognition"),
-        MARKETPLACE_TCPA_DEFENSE_SOLUTIONS_BLACKLIST_FEED("marketplace-tcpa-defense-solutions-blacklist-feed"),
-        MARKETPLACE_VOICEBASE_TRANSCRIPTION_CUSTOM_VOCABULARY("marketplace-voicebase-transcription-custom-vocabulary"),
+        MARKETPLACE_WOLFRAM_SHORT_ANSWER("marketplace-wolfram-short-answer"),
         MARKETPLACE_YTICA_CONTACT_CENTER_REPORTING_ANALYTICS("marketplace-ytica-contact-center-reporting-analytics"),
         MEDIASTORAGE("mediastorage"),
         MMS("mms"),
         MMS_INBOUND("mms-inbound"),
         MMS_INBOUND_LONGCODE("mms-inbound-longcode"),
         MMS_INBOUND_SHORTCODE("mms-inbound-shortcode"),
+        MMS_MESSAGES_CARRIERFEES("mms-messages-carrierfees"),
         MMS_OUTBOUND("mms-outbound"),
         MMS_OUTBOUND_LONGCODE("mms-outbound-longcode"),
         MMS_OUTBOUND_SHORTCODE("mms-outbound-shortcode"),
@@ -142,10 +145,10 @@ public class Trigger extends Resource {
         PCHAT("pchat"),
         PCHAT_ACTIONS("pchat-actions"),
         PCHAT_APS("pchat-aps"),
+        PCHAT_MESSAGES("pchat-messages"),
         PCHAT_NOTIFICATIONS("pchat-notifications"),
         PCHAT_READS("pchat-reads"),
         PCHAT_USERS("pchat-users"),
-        PCHAT_MESSAGES("pchat-messages"),
         PEER_TO_PEER_ROOMS_PARTICIPANT_MINUTES("peer-to-peer-rooms-participant-minutes"),
         PFAX("pfax"),
         PFAX_MINUTES("pfax-minutes"),
@@ -161,6 +164,8 @@ public class Trigger extends Resource {
         PHONENUMBERS_TOLLFREE("phonenumbers-tollfree"),
         PREMIUMSUPPORT("premiumsupport"),
         PROXY("proxy"),
+        PROXY_ACTIVE_SESSIONS("proxy-active-sessions"),
+        PSTNCONNECTIVITY("pstnconnectivity"),
         PV("pv"),
         PV_COMPOSITION_MEDIA_DOWNLOADED("pv-composition-media-downloaded"),
         PV_COMPOSITION_MEDIA_ENCRYPTED("pv-composition-media-encrypted"),
@@ -179,8 +184,8 @@ public class Trigger extends Resource {
         PV_SIP_ENDPOINT_REGISTRATIONS("pv-sip-endpoint-registrations"),
         RECORDINGS("recordings"),
         RECORDINGSTORAGE("recordingstorage"),
-        ROOMS_GROUP_MINUTES("rooms-group-minutes"),
         ROOMS_GROUP_BANDWIDTH("rooms-group-bandwidth"),
+        ROOMS_GROUP_MINUTES("rooms-group-minutes"),
         ROOMS_PEER_TO_PEER_MINUTES("rooms-peer-to-peer-minutes"),
         SHORTCODES("shortcodes"),
         SHORTCODES_CUSTOMEROWNED("shortcodes-customerowned"),
@@ -189,16 +194,20 @@ public class Trigger extends Resource {
         SHORTCODES_RANDOM("shortcodes-random"),
         SHORTCODES_UK("shortcodes-uk"),
         SHORTCODES_VANITY("shortcodes-vanity"),
+        SMALL_GROUP_ROOMS("small-group-rooms"),
+        SMALL_GROUP_ROOMS_DATA_TRACK("small-group-rooms-data-track"),
+        SMALL_GROUP_ROOMS_PARTICIPANT_MINUTES("small-group-rooms-participant-minutes"),
         SMS("sms"),
         SMS_INBOUND("sms-inbound"),
         SMS_INBOUND_LONGCODE("sms-inbound-longcode"),
         SMS_INBOUND_SHORTCODE("sms-inbound-shortcode"),
+        SMS_MESSAGES_CARRIERFEES("sms-messages-carrierfees"),
+        SMS_MESSAGES_FEATURES("sms-messages-features"),
+        SMS_MESSAGES_FEATURES_SENDERID("sms-messages-features-senderid"),
         SMS_OUTBOUND("sms-outbound"),
         SMS_OUTBOUND_CONTENT_INSPECTION("sms-outbound-content-inspection"),
         SMS_OUTBOUND_LONGCODE("sms-outbound-longcode"),
         SMS_OUTBOUND_SHORTCODE("sms-outbound-shortcode"),
-        SMS_MESSAGES_FEATURES("sms-messages-features"),
-        SMS_MESSAGES_FEATURES_SENDERID("sms-messages-features-senderid"),
         SPEECH_RECOGNITION("speech-recognition"),
         STUDIO_ENGAGEMENTS("studio-engagements"),
         SYNC("sync"),
@@ -220,6 +229,7 @@ public class Trigger extends Resource {
         TURNMEGABYTES("turnmegabytes"),
         TURNMEGABYTES_AUSTRALIA("turnmegabytes-australia"),
         TURNMEGABYTES_BRASIL("turnmegabytes-brasil"),
+        TURNMEGABYTES_GERMANY("turnmegabytes-germany"),
         TURNMEGABYTES_INDIA("turnmegabytes-india"),
         TURNMEGABYTES_IRELAND("turnmegabytes-ireland"),
         TURNMEGABYTES_JAPAN("turnmegabytes-japan"),
@@ -272,8 +282,8 @@ public class Trigger extends Resource {
         WIRELESS_USAGE_MRC_INDIVIDUAL("wireless-usage-mrc-individual"),
         WIRELESS_USAGE_MRC_POOLED("wireless-usage-mrc-pooled"),
         WIRELESS_USAGE_MRC_SUSPENDED("wireless-usage-mrc-suspended"),
-        WIRELESS_USAGE_VOICE("wireless-usage-voice"),
-        WIRELESS_USAGE_SMS("wireless-usage-sms");
+        WIRELESS_USAGE_SMS("wireless-usage-sms"),
+        WIRELESS_USAGE_VOICE("wireless-usage-voice");
 
         private final String value;
 
@@ -351,20 +361,21 @@ public class Trigger extends Resource {
 
     /**
      * Create a TriggerFetcher to execute fetch.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique usage-trigger Sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      * @return TriggerFetcher capable of executing the fetch
      */
-    public static TriggerFetcher fetcher(final String pathAccountSid, 
+    public static TriggerFetcher fetcher(final String pathAccountSid,
                                          final String pathSid) {
         return new TriggerFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a TriggerFetcher to execute fetch.
-     * 
-     * @param pathSid Fetch by unique usage-trigger Sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return TriggerFetcher capable of executing the fetch
      */
     public static TriggerFetcher fetcher(final String pathSid) {
@@ -373,20 +384,21 @@ public class Trigger extends Resource {
 
     /**
      * Create a TriggerUpdater to execute update.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       update
+     * @param pathSid The unique string that identifies the resource
      * @return TriggerUpdater capable of executing the update
      */
-    public static TriggerUpdater updater(final String pathAccountSid, 
+    public static TriggerUpdater updater(final String pathAccountSid,
                                          final String pathSid) {
         return new TriggerUpdater(pathAccountSid, pathSid);
     }
 
     /**
      * Create a TriggerUpdater to execute update.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return TriggerUpdater capable of executing the update
      */
     public static TriggerUpdater updater(final String pathSid) {
@@ -395,20 +407,21 @@ public class Trigger extends Resource {
 
     /**
      * Create a TriggerDeleter to execute delete.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathSid The unique string that identifies the resource
      * @return TriggerDeleter capable of executing the delete
      */
-    public static TriggerDeleter deleter(final String pathAccountSid, 
+    public static TriggerDeleter deleter(final String pathAccountSid,
                                          final String pathSid) {
         return new TriggerDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a TriggerDeleter to execute delete.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return TriggerDeleter capable of executing the delete
      */
     public static TriggerDeleter deleter(final String pathSid) {
@@ -417,38 +430,39 @@ public class Trigger extends Resource {
 
     /**
      * Create a TriggerCreator to execute create.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param callbackUrl URL Twilio will request when the trigger fires
-     * @param triggerValue the value at which the trigger will fire
+     *
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param callbackUrl The URL we call when the trigger fires
+     * @param triggerValue The usage value at which the trigger should fire
      * @param usageCategory The usage category the trigger watches
      * @return TriggerCreator capable of executing the create
      */
-    public static TriggerCreator creator(final String pathAccountSid, 
-                                         final URI callbackUrl, 
-                                         final String triggerValue, 
+    public static TriggerCreator creator(final String pathAccountSid,
+                                         final URI callbackUrl,
+                                         final String triggerValue,
                                          final Trigger.UsageCategory usageCategory) {
         return new TriggerCreator(pathAccountSid, callbackUrl, triggerValue, usageCategory);
     }
 
     /**
      * Create a TriggerCreator to execute create.
-     * 
-     * @param callbackUrl URL Twilio will request when the trigger fires
-     * @param triggerValue the value at which the trigger will fire
+     *
+     * @param callbackUrl The URL we call when the trigger fires
+     * @param triggerValue The usage value at which the trigger should fire
      * @param usageCategory The usage category the trigger watches
      * @return TriggerCreator capable of executing the create
      */
-    public static TriggerCreator creator(final URI callbackUrl, 
-                                         final String triggerValue, 
+    public static TriggerCreator creator(final URI callbackUrl,
+                                         final String triggerValue,
                                          final Trigger.UsageCategory usageCategory) {
         return new TriggerCreator(callbackUrl, triggerValue, usageCategory);
     }
 
     /**
      * Create a TriggerReader to execute read.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      * @return TriggerReader capable of executing the read
      */
     public static TriggerReader reader(final String pathAccountSid) {
@@ -457,7 +471,7 @@ public class Trigger extends Resource {
 
     /**
      * Create a TriggerReader to execute read.
-     * 
+     *
      * @return TriggerReader capable of executing the read
      */
     public static TriggerReader reader() {
@@ -466,7 +480,7 @@ public class Trigger extends Resource {
 
     /**
      * Converts a JSON String into a Trigger object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Trigger object represented by the provided JSON
@@ -485,7 +499,7 @@ public class Trigger extends Resource {
     /**
      * Converts a JSON InputStream into a Trigger object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Trigger object represented by the provided JSON
@@ -520,35 +534,35 @@ public class Trigger extends Resource {
 
     @JsonCreator
     private Trigger(@JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("api_version")
-                    final String apiVersion, 
+                    final String apiVersion,
                     @JsonProperty("callback_method")
-                    final HttpMethod callbackMethod, 
+                    final HttpMethod callbackMethod,
                     @JsonProperty("callback_url")
-                    final URI callbackUrl, 
+                    final URI callbackUrl,
                     @JsonProperty("current_value")
-                    final String currentValue, 
+                    final String currentValue,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_fired")
-                    final String dateFired, 
+                    final String dateFired,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("friendly_name")
-                    final String friendlyName, 
+                    final String friendlyName,
                     @JsonProperty("recurring")
-                    final Trigger.Recurring recurring, 
+                    final Trigger.Recurring recurring,
                     @JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("trigger_by")
-                    final Trigger.TriggerField triggerBy, 
+                    final Trigger.TriggerField triggerBy,
                     @JsonProperty("trigger_value")
-                    final String triggerValue, 
+                    final String triggerValue,
                     @JsonProperty("uri")
-                    final String uri, 
+                    final String uri,
                     @JsonProperty("usage_category")
-                    final Trigger.UsageCategory usageCategory, 
+                    final Trigger.UsageCategory usageCategory,
                     @JsonProperty("usage_record_uri")
                     final String usageRecordUri) {
         this.accountSid = accountSid;
@@ -570,134 +584,134 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The account this trigger monitors..
-     * 
-     * @return The account this trigger monitors.
+     * Returns The SID of the Account that this trigger monitors.
+     *
+     * @return The SID of the Account that this trigger monitors
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The api_version.
-     * 
-     * @return The api_version
+     * Returns The API version used to create the resource.
+     *
+     * @return The API version used to create the resource
      */
     public final String getApiVersion() {
         return this.apiVersion;
     }
 
     /**
-     * Returns The HTTP method to use with callback_url.
-     * 
-     * @return HTTP method to use with callback_url
+     * Returns The HTTP method we use to call callback_url.
+     *
+     * @return The HTTP method we use to call callback_url
      */
     public final HttpMethod getCallbackMethod() {
         return this.callbackMethod;
     }
 
     /**
-     * Returns The URL Twilio will request when the trigger fires.
-     * 
-     * @return URL Twilio will request when the trigger fires
+     * Returns he URL we call when the trigger fires.
+     *
+     * @return he URL we call when the trigger fires
      */
     public final URI getCallbackUrl() {
         return this.callbackUrl;
     }
 
     /**
-     * Returns The The current value of the field the trigger is watching..
-     * 
-     * @return The current value of the field the trigger is watching.
+     * Returns The current value of the field the trigger is watching.
+     *
+     * @return The current value of the field the trigger is watching
      */
     public final String getCurrentValue() {
         return this.currentValue;
     }
 
     /**
-     * Returns The The date this resource was created.
-     * 
-     * @return The date this resource was created
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
+     *
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date the trigger was last fired.
-     * 
-     * @return The date the trigger was last fired
+     * Returns The RFC 2822 date and time in GMT that the trigger was last fired.
+     *
+     * @return The RFC 2822 date and time in GMT that the trigger was last fired
      */
     public final DateTime getDateFired() {
         return this.dateFired;
     }
 
     /**
-     * Returns The The date this resource was last updated.
-     * 
-     * @return The date this resource was last updated
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
+     *
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The A user-specified, human-readable name for the trigger..
-     * 
-     * @return A user-specified, human-readable name for the trigger.
+     * Returns The string that you assigned to describe the trigger.
+     *
+     * @return The string that you assigned to describe the trigger
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The How this trigger recurs.
-     * 
-     * @return How this trigger recurs
+     * Returns The frequency of a recurring UsageTrigger.
+     *
+     * @return The frequency of a recurring UsageTrigger
      */
     public final Trigger.Recurring getRecurring() {
         return this.recurring;
     }
 
     /**
-     * Returns The The trigger's unique Sid.
-     * 
-     * @return The trigger's unique Sid
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The field in the UsageRecord that fires the trigger.
-     * 
-     * @return The field in the UsageRecord that fires the trigger
+     * Returns The field in the UsageRecord resource that fires the trigger.
+     *
+     * @return The field in the UsageRecord resource that fires the trigger
      */
     public final Trigger.TriggerField getTriggerBy() {
         return this.triggerBy;
     }
 
     /**
-     * Returns The the value at which the trigger will fire.
-     * 
-     * @return the value at which the trigger will fire
+     * Returns The value at which the trigger will fire.
+     *
+     * @return The value at which the trigger will fire
      */
     public final String getTriggerValue() {
         return this.triggerValue;
     }
 
     /**
-     * Returns The The URI for this resource.
-     * 
-     * @return The URI for this resource
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
+     *
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;
     }
 
     /**
-     * Returns The The usage category the trigger watches.
-     * 
+     * Returns The usage category the trigger watches.
+     *
      * @return The usage category the trigger watches
      */
     public final Trigger.UsageCategory getUsageCategory() {
@@ -705,9 +719,9 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The URI of the UsageRecord this trigger is watching.
-     * 
-     * @return The URI of the UsageRecord this trigger is watching
+     * Returns The URI of the UsageRecord resource this trigger watches.
+     *
+     * @return The URI of the UsageRecord resource this trigger watches
      */
     public final String getUsageRecordUri() {
         return this.usageRecordUri;
@@ -725,21 +739,21 @@ public class Trigger extends Resource {
 
         Trigger other = (Trigger) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(apiVersion, other.apiVersion) && 
-               Objects.equals(callbackMethod, other.callbackMethod) && 
-               Objects.equals(callbackUrl, other.callbackUrl) && 
-               Objects.equals(currentValue, other.currentValue) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateFired, other.dateFired) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(recurring, other.recurring) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(triggerBy, other.triggerBy) && 
-               Objects.equals(triggerValue, other.triggerValue) && 
-               Objects.equals(uri, other.uri) && 
-               Objects.equals(usageCategory, other.usageCategory) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(apiVersion, other.apiVersion) &&
+               Objects.equals(callbackMethod, other.callbackMethod) &&
+               Objects.equals(callbackUrl, other.callbackUrl) &&
+               Objects.equals(currentValue, other.currentValue) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateFired, other.dateFired) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(recurring, other.recurring) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(triggerBy, other.triggerBy) &&
+               Objects.equals(triggerValue, other.triggerValue) &&
+               Objects.equals(uri, other.uri) &&
+               Objects.equals(usageCategory, other.usageCategory) &&
                Objects.equals(usageRecordUri, other.usageRecordUri);
     }
 

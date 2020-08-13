@@ -23,11 +23,12 @@ public class OriginationUrlFetcher extends Fetcher<OriginationUrl> {
 
     /**
      * Construct a new OriginationUrlFetcher.
-     * 
-     * @param pathTrunkSid The trunk_sid
-     * @param pathSid The sid
+     *
+     * @param pathTrunkSid The SID of the Trunk from which to fetch the
+     *                     OriginationUrl
+     * @param pathSid The unique string that identifies the resource
      */
-    public OriginationUrlFetcher(final String pathTrunkSid, 
+    public OriginationUrlFetcher(final String pathTrunkSid,
                                  final String pathSid) {
         this.pathTrunkSid = pathTrunkSid;
         this.pathSid = pathSid;
@@ -35,7 +36,7 @@ public class OriginationUrlFetcher extends Fetcher<OriginationUrl> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched OriginationUrl
      */
@@ -45,8 +46,7 @@ public class OriginationUrlFetcher extends Fetcher<OriginationUrl> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathTrunkSid + "/OriginationUrls/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathTrunkSid + "/OriginationUrls/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -58,14 +58,7 @@ public class OriginationUrlFetcher extends Fetcher<OriginationUrl> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return OriginationUrl.fromJson(response.getStream(), client.getObjectMapper());

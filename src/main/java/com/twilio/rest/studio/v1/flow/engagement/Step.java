@@ -33,43 +33,39 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Step extends Resource {
     private static final long serialVersionUID = 221317830784095L;
 
     /**
      * Create a StepReader to execute read.
-     * 
-     * @param pathFlowSid Flow Sid.
-     * @param pathEngagementSid Engagement Sid.
+     *
+     * @param pathFlowSid The SID of the Flow
+     * @param pathEngagementSid The SID of the Engagement
      * @return StepReader capable of executing the read
      */
-    public static StepReader reader(final String pathFlowSid, 
+    public static StepReader reader(final String pathFlowSid,
                                     final String pathEngagementSid) {
         return new StepReader(pathFlowSid, pathEngagementSid);
     }
 
     /**
      * Create a StepFetcher to execute fetch.
-     * 
-     * @param pathFlowSid Flow Sid.
-     * @param pathEngagementSid Engagement Sid.
-     * @param pathSid Step Sid.
+     *
+     * @param pathFlowSid The SID of the Flow
+     * @param pathEngagementSid The SID of the Engagement
+     * @param pathSid The SID that identifies the resource to fetch
      * @return StepFetcher capable of executing the fetch
      */
-    public static StepFetcher fetcher(final String pathFlowSid, 
-                                      final String pathEngagementSid, 
+    public static StepFetcher fetcher(final String pathFlowSid,
+                                      final String pathEngagementSid,
                                       final String pathSid) {
         return new StepFetcher(pathFlowSid, pathEngagementSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a Step object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Step object represented by the provided JSON
@@ -88,7 +84,7 @@ public class Step extends Resource {
     /**
      * Converts a JSON InputStream into a Step object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Step object represented by the provided JSON
@@ -119,27 +115,27 @@ public class Step extends Resource {
 
     @JsonCreator
     private Step(@JsonProperty("sid")
-                 final String sid, 
+                 final String sid,
                  @JsonProperty("account_sid")
-                 final String accountSid, 
+                 final String accountSid,
                  @JsonProperty("flow_sid")
-                 final String flowSid, 
+                 final String flowSid,
                  @JsonProperty("engagement_sid")
-                 final String engagementSid, 
+                 final String engagementSid,
                  @JsonProperty("name")
-                 final String name, 
+                 final String name,
                  @JsonProperty("context")
-                 final Map<String, Object> context, 
+                 final Map<String, Object> context,
                  @JsonProperty("transitioned_from")
-                 final String transitionedFrom, 
+                 final String transitionedFrom,
                  @JsonProperty("transitioned_to")
-                 final String transitionedTo, 
+                 final String transitionedTo,
                  @JsonProperty("date_created")
-                 final String dateCreated, 
+                 final String dateCreated,
                  @JsonProperty("date_updated")
-                 final String dateUpdated, 
+                 final String dateUpdated,
                  @JsonProperty("url")
-                 final URI url, 
+                 final URI url,
                  @JsonProperty("links")
                  final Map<String, String> links) {
         this.sid = sid;
@@ -157,108 +153,108 @@ public class Step extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Step..
-     * 
-     * @return A string that uniquely identifies this Step.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Account Sid..
-     * 
-     * @return Account Sid.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Flow Sid..
-     * 
-     * @return Flow Sid.
+     * Returns The SID of the Flow.
+     *
+     * @return The SID of the Flow
      */
     public final String getFlowSid() {
         return this.flowSid;
     }
 
     /**
-     * Returns The Engagement Sid..
-     * 
-     * @return Engagement Sid.
+     * Returns The SID of the Engagement.
+     *
+     * @return The SID of the Engagement
      */
     public final String getEngagementSid() {
         return this.engagementSid;
     }
 
     /**
-     * Returns The The event that caused the flow to transition to this Step..
-     * 
-     * @return The event that caused the flow to transition to this Step.
+     * Returns The event that caused the Flow to transition to the Step.
+     *
+     * @return The event that caused the Flow to transition to the Step
      */
     public final String getName() {
         return this.name;
     }
 
     /**
-     * Returns The The context.
-     * 
-     * @return The context
+     * Returns The current state of the flow.
+     *
+     * @return The current state of the flow
      */
     public final Map<String, Object> getContext() {
         return this.context;
     }
 
     /**
-     * Returns The The Widget that preceded the Widget for this Step..
-     * 
-     * @return The Widget that preceded the Widget for this Step.
+     * Returns The Widget that preceded the Widget for the Step.
+     *
+     * @return The Widget that preceded the Widget for the Step
      */
     public final String getTransitionedFrom() {
         return this.transitionedFrom;
     }
 
     /**
-     * Returns The The Widget that will follow the Widget for this Step..
-     * 
-     * @return The Widget that will follow the Widget for this Step.
+     * Returns The Widget that will follow the Widget for the Step.
+     *
+     * @return The Widget that will follow the Widget for the Step
      */
     public final String getTransitionedTo() {
         return this.transitionedTo;
     }
 
     /**
-     * Returns The The date this Step was created.
-     * 
-     * @return The date this Step was created
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Step was updated.
-     * 
-     * @return The date this Step was updated
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL of this resource..
-     * 
-     * @return The URL of this resource.
+     * Returns The absolute URL of the resource.
+     *
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
-     * 
-     * @return The links
+     * Returns The URLs of related resources.
+     *
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -276,17 +272,17 @@ public class Step extends Resource {
 
         Step other = (Step) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(flowSid, other.flowSid) && 
-               Objects.equals(engagementSid, other.engagementSid) && 
-               Objects.equals(name, other.name) && 
-               Objects.equals(context, other.context) && 
-               Objects.equals(transitionedFrom, other.transitionedFrom) && 
-               Objects.equals(transitionedTo, other.transitionedTo) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(flowSid, other.flowSid) &&
+               Objects.equals(engagementSid, other.engagementSid) &&
+               Objects.equals(name, other.name) &&
+               Objects.equals(context, other.context) &&
+               Objects.equals(transitionedFrom, other.transitionedFrom) &&
+               Objects.equals(transitionedTo, other.transitionedTo) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

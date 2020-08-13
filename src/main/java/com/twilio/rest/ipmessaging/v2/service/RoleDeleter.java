@@ -23,11 +23,11 @@ public class RoleDeleter extends Deleter<Role> {
 
     /**
      * Construct a new RoleDeleter.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathSid The SID of the Role resource to delete
      */
-    public RoleDeleter(final String pathServiceSid, 
+    public RoleDeleter(final String pathServiceSid,
                        final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class RoleDeleter extends Deleter<Role> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -44,8 +44,7 @@ public class RoleDeleter extends Deleter<Role> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Roles/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Roles/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -57,14 +56,7 @@ public class RoleDeleter extends Deleter<Role> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

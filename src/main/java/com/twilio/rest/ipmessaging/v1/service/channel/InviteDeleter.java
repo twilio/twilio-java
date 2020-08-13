@@ -24,13 +24,14 @@ public class InviteDeleter extends Deleter<Invite> {
 
     /**
      * Construct a new InviteDeleter.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathChannelSid The SID of the Channel the resource to delete belongs
+     *                       to
+     * @param pathSid The unique string that identifies the resource
      */
-    public InviteDeleter(final String pathServiceSid, 
-                         final String pathChannelSid, 
+    public InviteDeleter(final String pathServiceSid,
+                         final String pathChannelSid,
                          final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -39,7 +40,7 @@ public class InviteDeleter extends Deleter<Invite> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -48,8 +49,7 @@ public class InviteDeleter extends Deleter<Invite> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.IPMESSAGING.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Invites/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Invites/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -61,14 +61,7 @@ public class InviteDeleter extends Deleter<Invite> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

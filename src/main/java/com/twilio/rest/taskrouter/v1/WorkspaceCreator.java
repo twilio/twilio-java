@@ -30,19 +30,20 @@ public class WorkspaceCreator extends Creator<Workspace> {
 
     /**
      * Construct a new WorkspaceCreator.
-     * 
-     * @param friendlyName Human readable description of this workspace
+     *
+     * @param friendlyName A string to describe the Workspace resource
      */
     public WorkspaceCreator(final String friendlyName) {
         this.friendlyName = friendlyName;
     }
 
     /**
-     * If provided, the Workspace will publish events to this URL. You can use this
-     * to gather data for reporting. See Workspace Events for more information..
-     * 
-     * @param eventCallbackUrl If provided, the Workspace will publish events to
-     *                         this URL.
+     * The URL we should call when an event occurs. If provided, the Workspace will
+     * publish events to this URL, for example, to collect data for reporting. See
+     * [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more
+     * information..
+     *
+     * @param eventCallbackUrl The URL we should call when an event occurs
      * @return this
      */
     public WorkspaceCreator setEventCallbackUrl(final URI eventCallbackUrl) {
@@ -51,11 +52,12 @@ public class WorkspaceCreator extends Creator<Workspace> {
     }
 
     /**
-     * If provided, the Workspace will publish events to this URL. You can use this
-     * to gather data for reporting. See Workspace Events for more information..
-     * 
-     * @param eventCallbackUrl If provided, the Workspace will publish events to
-     *                         this URL.
+     * The URL we should call when an event occurs. If provided, the Workspace will
+     * publish events to this URL, for example, to collect data for reporting. See
+     * [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more
+     * information..
+     *
+     * @param eventCallbackUrl The URL we should call when an event occurs
      * @return this
      */
     public WorkspaceCreator setEventCallbackUrl(final String eventCallbackUrl) {
@@ -63,14 +65,13 @@ public class WorkspaceCreator extends Creator<Workspace> {
     }
 
     /**
-     * Use this parameter to receive webhooks on EventCallbackUrl for specific
-     * events on a workspace. For example if
-     * 'EventsFilter=task.created,task.canceled,worker.activity.update', then
-     * TaskRouter will webhook to EventCallbackUrl only when a task is created,
-     * canceled or a worker activity is updated..
-     * 
-     * @param eventsFilter Use this parameter to receive webhooks on
-     *                     EventCallbackUrl for specific events on a workspace.
+     * The list of Workspace events for which to call event_callback_url. For
+     * example if `EventsFilter=task.created,task.canceled,worker.activity.update`,
+     * then TaskRouter will call event_callback_url only when a task is created,
+     * canceled, or a Worker activity is updated..
+     *
+     * @param eventsFilter The list of Workspace events for which to call
+     *                     event_callback_url
      * @return this
      */
     public WorkspaceCreator setEventsFilter(final String eventsFilter) {
@@ -79,15 +80,15 @@ public class WorkspaceCreator extends Creator<Workspace> {
     }
 
     /**
-     * Multi tasking allows workers to handle multiple tasks simultaneously. When
-     * enabled (MultiTaskEnabled=true), each worker will be eligible to receive
-     * parallel reservations up to the per-channel maximums defined in the Workers
-     * section. Default is disabled (MultiTaskEnabled=false), where each worker will
-     * only receive a new reservation when the previous task is completed. Learn
-     * more by visiting [Multitasking][/docs/taskrouter/multitasking]..
-     * 
-     * @param multiTaskEnabled Multi tasking allows workers to handle multiple
-     *                         tasks simultaneously.
+     * Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or
+     * `false` to disable it. The default is `false`. Multi-tasking allows Workers
+     * to handle multiple Tasks simultaneously. When enabled (`true`), each Worker
+     * can receive parallel reservations up to the per-channel maximums defined in
+     * the Workers section. Otherwise, each Worker will only receive a new
+     * reservation when the previous task is completed. Learn more at
+     * [Multitasking][https://www.twilio.com/docs/taskrouter/multitasking]..
+     *
+     * @param multiTaskEnabled Whether multi-tasking is enabled
      * @return this
      */
     public WorkspaceCreator setMultiTaskEnabled(final Boolean multiTaskEnabled) {
@@ -96,14 +97,14 @@ public class WorkspaceCreator extends Creator<Workspace> {
     }
 
     /**
-     * One of the available template names. Will pre-configure this Workspace with
-     * the Workflow and Activities specified in the template. "NONE" will create a
-     * Workspace with a set of default activities and nothing else. "FIFO" will
-     * configure TaskRouter with a set of default activities and a single task queue
-     * for first-in, first-out distribution, useful if you want to see a simple
-     * TaskRouter configuration when getting started. Defaults to "NONE"..
-     * 
-     * @param template One of the available template names.
+     * An available template name. Can be: `NONE` or `FIFO` and the default is
+     * `NONE`. Pre-configures the Workspace with the Workflow and Activities
+     * specified in the template. `NONE` will create a Workspace with only a set of
+     * default activities. `FIFO` will configure TaskRouter with a set of default
+     * activities and a single TaskQueue for first-in, first-out distribution, which
+     * can be useful when you are getting started with TaskRouter..
+     *
+     * @param template An available template name
      * @return this
      */
     public WorkspaceCreator setTemplate(final String template) {
@@ -112,16 +113,13 @@ public class WorkspaceCreator extends Creator<Workspace> {
     }
 
     /**
-     * Use this parameter to configure whether to prioritize LIFO or FIFO when
-     * workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
-     * Default is FIFO. [Click
-     * here][/docs/taskrouter/queue-ordering-last-first-out-lifo] to learn more
-     * about LIFO and the use of the parameter..
-     * 
-     * @param prioritizeQueueOrder Use this parameter to configure whether to
-     *                             prioritize LIFO or FIFO when workers are
-     *                             receiving Tasks from combination of LIFO and FIFO
-     *                             TaskQueues.
+     * The type of TaskQueue to prioritize when Workers are receiving Tasks from
+     * both types of TaskQueues. Can be: `LIFO` or `FIFO` and the default is `FIFO`.
+     * For more information, see [Queue
+     * Ordering][https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo]..
+     *
+     * @param prioritizeQueueOrder The type of TaskQueue to prioritize when Workers
+     *                             are receiving Tasks from both types of TaskQueues
      * @return this
      */
     public WorkspaceCreator setPrioritizeQueueOrder(final Workspace.QueueOrder prioritizeQueueOrder) {
@@ -131,7 +129,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Workspace
      */
@@ -141,8 +139,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces",
-            client.getRegion()
+            "/v1/Workspaces"
         );
 
         addPostParams(request);
@@ -155,14 +152,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Workspace.fromJson(response.getStream(), client.getObjectMapper());
@@ -170,7 +160,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

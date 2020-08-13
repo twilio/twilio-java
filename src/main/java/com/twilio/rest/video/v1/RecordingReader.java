@@ -30,11 +30,13 @@ public class RecordingReader extends Reader<Recording> {
     private List<String> groupingSid;
     private DateTime dateCreatedAfter;
     private DateTime dateCreatedBefore;
+    private Recording.Type mediaType;
 
     /**
-     * Only show Recordings with the given status..
-     * 
-     * @param status Only show Recordings with the given status.
+     * Read only the recordings that have this status. Can be: `processing`,
+     * `completed`, or `deleted`..
+     *
+     * @param status Read only the recordings that have this status
      * @return this
      */
     public RecordingReader setStatus(final Recording.Status status) {
@@ -43,10 +45,9 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * Only show the Recordings with the given source Sid (you can use this to
-     * filter Recordings by `TrackSid` for Video Room Recordings..
-     * 
-     * @param sourceSid Only show the Recordings with the given source Sid.
+     * Read only the recordings that have this `source_sid`..
+     *
+     * @param sourceSid Read only the recordings that have this source_sid
      * @return this
      */
     public RecordingReader setSourceSid(final String sourceSid) {
@@ -55,10 +56,10 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * Only show Recordings that have this GroupingSid, which may include a
-     * ParticipantSid and/or a RoomSid..
-     * 
-     * @param groupingSid Only show Recordings that have this GroupingSid.
+     * Read only recordings with this `grouping_sid`, which may include a
+     * `participant_sid` and/or a `room_sid`..
+     *
+     * @param groupingSid Read only recordings that have this grouping_sid
      * @return this
      */
     public RecordingReader setGroupingSid(final List<String> groupingSid) {
@@ -67,10 +68,10 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * Only show Recordings that have this GroupingSid, which may include a
-     * ParticipantSid and/or a RoomSid..
-     * 
-     * @param groupingSid Only show Recordings that have this GroupingSid.
+     * Read only recordings with this `grouping_sid`, which may include a
+     * `participant_sid` and/or a `room_sid`..
+     *
+     * @param groupingSid Read only recordings that have this grouping_sid
      * @return this
      */
     public RecordingReader setGroupingSid(final String groupingSid) {
@@ -78,11 +79,12 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * Only show Recordings that started on or after this ISO8601 date-time, given
-     * as `YYYY-MM-DDThh:mm:ss-hh:mm`..
-     * 
-     * @param dateCreatedAfter Only show Recordings that started on or after this
-     *                         ISO8601 date-time.
+     * Read only recordings that started on or after this [ISO
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone..
+     *
+     * @param dateCreatedAfter Read only recordings that started on or after this
+     *                         [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     *                         date-time with time zone
      * @return this
      */
     public RecordingReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
@@ -91,11 +93,13 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * Only show Recordings that started before this this ISO8601 date-time, given
-     * as `YYYY-MM-DDThh:mm:ss-hh:mm`..
-     * 
-     * @param dateCreatedBefore Only show Recordings that started before this this
-     *                          ISO8601 date-time.
+     * Read only recordings that started before this [ISO
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given
+     * as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`..
+     *
+     * @param dateCreatedBefore Read only recordings that started before this [ISO
+     *                          8601](https://en.wikipedia.org/wiki/ISO_8601)
+     *                          date-time with time zone
      * @return this
      */
     public RecordingReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
@@ -104,8 +108,20 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
+     * Read only recordings that have this media type. Can be either `audio` or
+     * `video`..
+     *
+     * @param mediaType Read only recordings that have this media type
+     * @return this
+     */
+    public RecordingReader setMediaType(final Recording.Type mediaType) {
+        this.mediaType = mediaType;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Recording ResourceSet
      */
@@ -116,7 +132,7 @@ public class RecordingReader extends Reader<Recording> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Recording ResourceSet
      */
@@ -126,8 +142,7 @@ public class RecordingReader extends Reader<Recording> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/Recordings",
-            client.getRegion()
+            "/v1/Recordings"
         );
 
         addQueryParams(request);
@@ -136,7 +151,7 @@ public class RecordingReader extends Reader<Recording> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Recording ResourceSet
@@ -154,47 +169,41 @@ public class RecordingReader extends Reader<Recording> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Recording> nextPage(final Page<Recording> page, 
+    public Page<Recording> nextPage(final Page<Recording> page,
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.VIDEO.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.VIDEO.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Recording> previousPage(final Page<Recording> page, 
+    public Page<Recording> previousPage(final Page<Recording> page,
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.VIDEO.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.VIDEO.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Recording Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -209,14 +218,7 @@ public class RecordingReader extends Reader<Recording> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -229,7 +231,7 @@ public class RecordingReader extends Reader<Recording> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
@@ -253,6 +255,10 @@ public class RecordingReader extends Reader<Recording> {
 
         if (dateCreatedBefore != null) {
             request.addQueryParam("DateCreatedBefore", dateCreatedBefore.toString());
+        }
+
+        if (mediaType != null) {
+            request.addQueryParam("MediaType", mediaType.toString());
         }
 
         if (getPageSize() != null) {

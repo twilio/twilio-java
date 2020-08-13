@@ -1,10 +1,8 @@
 package com.twilio.http;
 
 import com.twilio.exception.ApiConnectionException;
-import mockit.Expectations;
 import mockit.Mocked;
 import mockit.NonStrictExpectations;
-import mockit.Tested;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.StatusLine;
@@ -12,6 +10,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -26,7 +25,6 @@ import static org.junit.Assert.fail;
 
 public class NetworkHttpClientTest {
 
-    @Tested
     private NetworkHttpClient client;
 
     @Mocked
@@ -50,6 +48,19 @@ public class NetworkHttpClientTest {
     @Mocked
     private HttpEntity mockEntity;
 
+    @Before
+    public void setUp() {
+        new NonStrictExpectations() {{
+            mockBuilder.setDefaultHeaders((Collection<Header>) any);
+            result = mockBuilder;
+
+            mockBuilder.build();
+            result = mockClient;
+        }};
+
+        client = new NetworkHttpClient(mockBuilder);
+    }
+
     private void setup(
         final int statusCode,
         final String content,
@@ -58,13 +69,7 @@ public class NetworkHttpClientTest {
     ) throws IOException {
         final InputStream stream = new ByteArrayInputStream(content.getBytes("UTF-8"));
 
-        new Expectations() {{
-            mockBuilder.setDefaultHeaders((Collection<Header>) any);
-            result = mockBuilder;
-
-            mockBuilder.build();
-            result = mockClient;
-
+        new NonStrictExpectations() {{
             mockRequest.getMethod();
             result = method;
 
@@ -74,14 +79,10 @@ public class NetworkHttpClientTest {
             mockRequest.requiresAuthentication();
             result = requiresAuthentication;
 
-            if (requiresAuthentication) {
-                mockRequest.getAuthString();
-                result = "foo:bar";
-            }
+            mockRequest.getAuthString();
+            result = "foo:bar";
 
-            if (method == HttpMethod.POST) {
-                mockRequest.getPostParams();
-            }
+            mockRequest.getPostParams();
 
             mockClient.execute((HttpUriRequest) any);
             result = mockResponse;
@@ -103,9 +104,6 @@ public class NetworkHttpClientTest {
 
             mockStatusLine.getStatusCode();
             result = statusCode;
-
-            mockResponse.getEntity();
-            result = null;
         }};
     }
 
@@ -113,7 +111,6 @@ public class NetworkHttpClientTest {
     public void testGet() throws IOException {
         setup(200, "frobozz", HttpMethod.GET, false);
 
-        client = new NetworkHttpClient(mockBuilder);
         Response resp = client.makeRequest(mockRequest);
 
         assertEquals(resp.getStatusCode(), 200);
@@ -145,7 +142,6 @@ public class NetworkHttpClientTest {
             result = new ApiConnectionException("foo");
         }};
 
-        client = new NetworkHttpClient(mockBuilder);
         client.makeRequest(mockRequest);
         fail("ApiConnectionException was expected");
     }
@@ -154,7 +150,6 @@ public class NetworkHttpClientTest {
     public void testPost() throws IOException {
         setup(201, "frobozz", HttpMethod.POST, false);
 
-        client = new NetworkHttpClient(mockBuilder);
         Response resp = client.makeRequest(mockRequest);
 
         assertEquals(resp.getStatusCode(), 201);
@@ -163,51 +158,47 @@ public class NetworkHttpClientTest {
 
     @Test
     public void testReliableRequest() {
-        final HttpClient httpClient = new NetworkHttpClient();
         Request request = new Request(HttpMethod.GET, "/uri");
 
-        new NonStrictExpectations(httpClient) {{
-            httpClient.makeRequest((Request) any);
+        new NonStrictExpectations(client) {{
+            client.makeRequest((Request) any);
             result = new Response("", TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT);
         }};
 
-        httpClient.reliableRequest(request);
-        assertNotNull(httpClient.getLastRequest());
-        assertNotNull(httpClient.getLastResponse());
+        client.reliableRequest(request);
+        assertNotNull(client.getLastRequest());
+        assertNotNull(client.getLastResponse());
     }
 
     @Test
     public void testReliableRequestWithRetries() {
-        final HttpClient httpClient = new NetworkHttpClient();
         Request request = new Request(HttpMethod.GET, "/uri");
 
-        new NonStrictExpectations(httpClient) {{
-            httpClient.makeRequest((Request) any);
+        new NonStrictExpectations(client) {{
+            client.makeRequest((Request) any);
             result = null;
             times = 3;
         }};
 
-        httpClient.reliableRequest(request);
+        client.reliableRequest(request);
     }
 
     @Test
-    public void testReliableRequestWithRetries100() throws InterruptedException {
-        final HttpClient httpClient = new NetworkHttpClient();
+    public void testReliableRequestWithRetries100() {
         Request request = new Request(HttpMethod.GET, "/uri");
 
-        new NonStrictExpectations(httpClient) {{
-            httpClient.makeRequest((Request) any);
+        new NonStrictExpectations(client) {{
+            client.makeRequest((Request) any);
             result = new Response("", 500);
         }};
 
-        httpClient.reliableRequest(request);
+        client.reliableRequest(request);
     }
 
     @Test
     public void testDelete() throws IOException {
-        setup(204, "", HttpMethod.DELETE,false);
+        setup(204, "", HttpMethod.DELETE, false);
 
-        client = new NetworkHttpClient(mockBuilder);
         Response resp = client.makeRequest(mockRequest);
 
         assertEquals(resp.getStatusCode(), 204);
@@ -216,9 +207,8 @@ public class NetworkHttpClientTest {
 
     @Test
     public void testAuthedGet() throws IOException {
-        setup(200, "frobozz", HttpMethod.GET,true);
+        setup(200, "frobozz", HttpMethod.GET, true);
 
-        client = new NetworkHttpClient(mockBuilder);
         Response resp = client.makeRequest(mockRequest);
 
         assertEquals(resp.getStatusCode(), 200);
@@ -227,9 +217,8 @@ public class NetworkHttpClientTest {
 
     @Test
     public void testErrorResponse() throws IOException {
-        setup(404, "womp", HttpMethod.GET,false);
+        setup(404, "womp", HttpMethod.GET, false);
 
-        client = new NetworkHttpClient(mockBuilder);
         Response resp = client.makeRequest(mockRequest);
 
         assertEquals(resp.getStatusCode(), 404);

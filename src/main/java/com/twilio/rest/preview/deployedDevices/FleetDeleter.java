@@ -27,7 +27,7 @@ public class FleetDeleter extends Deleter<Fleet> {
 
     /**
      * Construct a new FleetDeleter.
-     * 
+     *
      * @param pathSid A string that uniquely identifies the Fleet.
      */
     public FleetDeleter(final String pathSid) {
@@ -36,7 +36,7 @@ public class FleetDeleter extends Deleter<Fleet> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -45,8 +45,7 @@ public class FleetDeleter extends Deleter<Fleet> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathSid + "",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -58,14 +57,7 @@ public class FleetDeleter extends Deleter<Fleet> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

@@ -32,13 +32,13 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
 
     /**
      * Construct a new SyncListItemCreator.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathListSid The list_sid
      * @param data The data
      */
-    public SyncListItemCreator(final String pathServiceSid, 
-                               final String pathListSid, 
+    public SyncListItemCreator(final String pathServiceSid,
+                               final String pathListSid,
                                final Map<String, Object> data) {
         this.pathServiceSid = pathServiceSid;
         this.pathListSid = pathListSid;
@@ -47,7 +47,7 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created SyncListItem
      */
@@ -57,8 +57,7 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Items",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Items"
         );
 
         addPostParams(request);
@@ -71,14 +70,7 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SyncListItem.fromJson(response.getStream(), client.getObjectMapper());
@@ -86,7 +78,7 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -24,14 +24,15 @@ public class PublishedTrackFetcher extends Fetcher<PublishedTrack> {
 
     /**
      * Construct a new PublishedTrackFetcher.
-     * 
-     * @param pathRoomSid Unique Room identifier where this Track is published.
-     * @param pathParticipantSid Unique Participant identifier that publishes this
-     *                           Track.
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     *
+     * @param pathRoomSid The SID of the Room resource where the Track resource to
+     *                    fetch is published
+     * @param pathParticipantSid The SID of the Participant resource with the
+     *                           published track to fetch
+     * @param pathSid The SID that identifies the resource to fetch
      */
-    public PublishedTrackFetcher(final String pathRoomSid, 
-                                 final String pathParticipantSid, 
+    public PublishedTrackFetcher(final String pathRoomSid,
+                                 final String pathParticipantSid,
                                  final String pathSid) {
         this.pathRoomSid = pathRoomSid;
         this.pathParticipantSid = pathParticipantSid;
@@ -40,7 +41,7 @@ public class PublishedTrackFetcher extends Fetcher<PublishedTrack> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched PublishedTrack
      */
@@ -50,8 +51,7 @@ public class PublishedTrackFetcher extends Fetcher<PublishedTrack> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathParticipantSid + "/PublishedTracks/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathParticipantSid + "/PublishedTracks/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -63,14 +63,7 @@ public class PublishedTrackFetcher extends Fetcher<PublishedTrack> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return PublishedTrack.fromJson(response.getStream(), client.getObjectMapper());

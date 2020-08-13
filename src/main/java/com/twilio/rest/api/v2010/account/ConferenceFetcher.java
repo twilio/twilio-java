@@ -23,8 +23,8 @@ public class ConferenceFetcher extends Fetcher<Conference> {
 
     /**
      * Construct a new ConferenceFetcher.
-     * 
-     * @param pathSid Fetch by unique conference Sid
+     *
+     * @param pathSid The unique string that identifies this resource
      */
     public ConferenceFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -32,11 +32,12 @@ public class ConferenceFetcher extends Fetcher<Conference> {
 
     /**
      * Construct a new ConferenceFetcher.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique conference Sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       fetch
+     * @param pathSid The unique string that identifies this resource
      */
-    public ConferenceFetcher(final String pathAccountSid, 
+    public ConferenceFetcher(final String pathAccountSid,
                              final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -44,7 +45,7 @@ public class ConferenceFetcher extends Fetcher<Conference> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Conference
      */
@@ -55,8 +56,7 @@ public class ConferenceFetcher extends Fetcher<Conference> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);
@@ -68,14 +68,7 @@ public class ConferenceFetcher extends Fetcher<Conference> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Conference.fromJson(response.getStream(), client.getObjectMapper());

@@ -23,8 +23,8 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
 
     /**
      * Construct a new AuthorizedConnectAppFetcher.
-     * 
-     * @param pathConnectAppSid The connect_app_sid
+     *
+     * @param pathConnectAppSid The SID of the Connect App to fetch
      */
     public AuthorizedConnectAppFetcher(final String pathConnectAppSid) {
         this.pathConnectAppSid = pathConnectAppSid;
@@ -32,11 +32,12 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
 
     /**
      * Construct a new AuthorizedConnectAppFetcher.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathConnectAppSid The connect_app_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathConnectAppSid The SID of the Connect App to fetch
      */
-    public AuthorizedConnectAppFetcher(final String pathAccountSid, 
+    public AuthorizedConnectAppFetcher(final String pathAccountSid,
                                        final String pathConnectAppSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathConnectAppSid = pathConnectAppSid;
@@ -44,7 +45,7 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched AuthorizedConnectApp
      */
@@ -55,8 +56,7 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/AuthorizedConnectApps/" + this.pathConnectAppSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/AuthorizedConnectApps/" + this.pathConnectAppSid + ".json"
         );
 
         Response response = client.request(request);
@@ -68,14 +68,7 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return AuthorizedConnectApp.fromJson(response.getStream(), client.getObjectMapper());

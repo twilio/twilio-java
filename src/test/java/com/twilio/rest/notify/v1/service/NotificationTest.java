@@ -42,7 +42,7 @@ public class NotificationTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.NOTIFY.toString(),
                                           "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Notifications");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

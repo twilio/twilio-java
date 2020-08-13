@@ -32,7 +32,7 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
 
     /**
      * Construct a new DocumentPermissionUpdater.
-     * 
+     *
      * @param pathServiceSid Sync Service Instance SID.
      * @param pathDocumentSid Sync Document SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync Document
@@ -41,11 +41,11 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
      * @param write Write access.
      * @param manage Manage access.
      */
-    public DocumentPermissionUpdater(final String pathServiceSid, 
-                                     final String pathDocumentSid, 
-                                     final String pathIdentity, 
-                                     final Boolean read, 
-                                     final Boolean write, 
+    public DocumentPermissionUpdater(final String pathServiceSid,
+                                     final String pathDocumentSid,
+                                     final String pathIdentity,
+                                     final Boolean read,
+                                     final Boolean write,
                                      final Boolean manage) {
         this.pathServiceSid = pathServiceSid;
         this.pathDocumentSid = pathDocumentSid;
@@ -57,7 +57,7 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated DocumentPermission
      */
@@ -67,8 +67,7 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Documents/" + this.pathDocumentSid + "/Permissions/" + this.pathIdentity + "",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Documents/" + this.pathDocumentSid + "/Permissions/" + this.pathIdentity + ""
         );
 
         addPostParams(request);
@@ -81,14 +80,7 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return DocumentPermission.fromJson(response.getStream(), client.getObjectMapper());
@@ -96,7 +88,7 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -28,8 +28,8 @@ public class FaxMediaReader extends Reader<FaxMedia> {
 
     /**
      * Construct a new FaxMediaReader.
-     * 
-     * @param pathFaxSid Fax SID
+     *
+     * @param pathFaxSid The SID of the fax with the FaxMedia resources to read
      */
     public FaxMediaReader(final String pathFaxSid) {
         this.pathFaxSid = pathFaxSid;
@@ -37,7 +37,7 @@ public class FaxMediaReader extends Reader<FaxMedia> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return FaxMedia ResourceSet
      */
@@ -48,7 +48,7 @@ public class FaxMediaReader extends Reader<FaxMedia> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return FaxMedia ResourceSet
      */
@@ -58,8 +58,7 @@ public class FaxMediaReader extends Reader<FaxMedia> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.FAX.toString(),
-            "/v1/Faxes/" + this.pathFaxSid + "/Media",
-            client.getRegion()
+            "/v1/Faxes/" + this.pathFaxSid + "/Media"
         );
 
         addQueryParams(request);
@@ -68,7 +67,7 @@ public class FaxMediaReader extends Reader<FaxMedia> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return FaxMedia ResourceSet
@@ -86,47 +85,41 @@ public class FaxMediaReader extends Reader<FaxMedia> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<FaxMedia> nextPage(final Page<FaxMedia> page, 
+    public Page<FaxMedia> nextPage(final Page<FaxMedia> page,
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.FAX.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.FAX.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<FaxMedia> previousPage(final Page<FaxMedia> page, 
+    public Page<FaxMedia> previousPage(final Page<FaxMedia> page,
                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.FAX.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.FAX.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of FaxMedia Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -141,14 +134,7 @@ public class FaxMediaReader extends Reader<FaxMedia> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -161,7 +147,7 @@ public class FaxMediaReader extends Reader<FaxMedia> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

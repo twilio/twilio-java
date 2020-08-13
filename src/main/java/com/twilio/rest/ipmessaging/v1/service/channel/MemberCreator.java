@@ -25,13 +25,13 @@ public class MemberCreator extends Creator<Member> {
 
     /**
      * Construct a new MemberCreator.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param identity A unique string identifier for this User in this Service.
+     *
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param pathChannelSid The unique ID of the channel the new member belongs to
+     * @param identity The `identity` value that identifies the new resource's User
      */
-    public MemberCreator(final String pathServiceSid, 
-                         final String pathChannelSid, 
+    public MemberCreator(final String pathServiceSid,
+                         final String pathChannelSid,
                          final String identity) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -39,10 +39,11 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * The [Role](https://www.twilio.com/docs/api/chat/rest/v1/roles) assigned to
-     * this member..
-     * 
-     * @param roleSid The Role assigned to this member.
+     * The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to
+     * assign to the member. The default roles are those specified on the
+     * [Service](https://www.twilio.com/docs/chat/api/services)..
+     *
+     * @param roleSid The SID of the Role to assign to the member
      * @return this
      */
     public MemberCreator setRoleSid(final String roleSid) {
@@ -52,7 +53,7 @@ public class MemberCreator extends Creator<Member> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Member
      */
@@ -62,8 +63,7 @@ public class MemberCreator extends Creator<Member> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Members",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Members"
         );
 
         addPostParams(request);
@@ -76,14 +76,7 @@ public class MemberCreator extends Creator<Member> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Member.fromJson(response.getStream(), client.getObjectMapper());
@@ -91,7 +84,7 @@ public class MemberCreator extends Creator<Member> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

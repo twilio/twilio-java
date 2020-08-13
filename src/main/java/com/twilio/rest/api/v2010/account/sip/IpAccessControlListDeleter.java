@@ -23,8 +23,8 @@ public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
 
     /**
      * Construct a new IpAccessControlListDeleter.
-     * 
-     * @param pathSid Delete by unique ip-access-control-list Sid
+     *
+     * @param pathSid A string that identifies the resource to delete
      */
     public IpAccessControlListDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -32,11 +32,11 @@ public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
 
     /**
      * Construct a new IpAccessControlListDeleter.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Delete by unique ip-access-control-list Sid
+     *
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathSid A string that identifies the resource to delete
      */
-    public IpAccessControlListDeleter(final String pathAccountSid, 
+    public IpAccessControlListDeleter(final String pathAccountSid,
                                       final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -44,7 +44,7 @@ public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -54,8 +54,7 @@ public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/IpAccessControlLists/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/IpAccessControlLists/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);
@@ -67,14 +66,7 @@ public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

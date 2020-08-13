@@ -23,8 +23,8 @@ public class RecordingFetcher extends Fetcher<Recording> {
 
     /**
      * Construct a new RecordingFetcher.
-     * 
-     * @param pathSid Fetch by unique recording SID
+     *
+     * @param pathSid The unique string that identifies the resource
      */
     public RecordingFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -32,11 +32,12 @@ public class RecordingFetcher extends Fetcher<Recording> {
 
     /**
      * Construct a new RecordingFetcher.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique recording SID
+     *
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      */
-    public RecordingFetcher(final String pathAccountSid, 
+    public RecordingFetcher(final String pathAccountSid,
                             final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -44,7 +45,7 @@ public class RecordingFetcher extends Fetcher<Recording> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Recording
      */
@@ -55,8 +56,7 @@ public class RecordingFetcher extends Fetcher<Recording> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);
@@ -68,14 +68,7 @@ public class RecordingFetcher extends Fetcher<Recording> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Recording.fromJson(response.getStream(), client.getObjectMapper());

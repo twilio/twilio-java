@@ -23,11 +23,11 @@ public class ChannelFetcher extends Fetcher<Channel> {
 
     /**
      * Construct a new ChannelFetcher.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathSid The unique string that identifies the resource
      */
-    public ChannelFetcher(final String pathServiceSid, 
+    public ChannelFetcher(final String pathServiceSid,
                           final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class ChannelFetcher extends Fetcher<Channel> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Channel
      */
@@ -45,8 +45,7 @@ public class ChannelFetcher extends Fetcher<Channel> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Channels/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Channels/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -58,14 +57,7 @@ public class ChannelFetcher extends Fetcher<Channel> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Channel.fromJson(response.getStream(), client.getObjectMapper());

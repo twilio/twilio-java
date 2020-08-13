@@ -23,11 +23,11 @@ public class RoomUpdater extends Updater<Room> {
 
     /**
      * Construct a new RoomUpdater.
-     * 
-     * @param pathSid The Room Sid or name that uniquely identifies this resource.
-     * @param status Set to completed to end the Room.
+     *
+     * @param pathSid The SID that identifies the resource to update
+     * @param status The new status of the resource
      */
-    public RoomUpdater(final String pathSid, 
+    public RoomUpdater(final String pathSid,
                        final Room.RoomStatus status) {
         this.pathSid = pathSid;
         this.status = status;
@@ -35,7 +35,7 @@ public class RoomUpdater extends Updater<Room> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Room
      */
@@ -45,8 +45,7 @@ public class RoomUpdater extends Updater<Room> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Rooms/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -59,14 +58,7 @@ public class RoomUpdater extends Updater<Room> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Room.fromJson(response.getStream(), client.getObjectMapper());
@@ -74,7 +66,7 @@ public class RoomUpdater extends Updater<Room> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

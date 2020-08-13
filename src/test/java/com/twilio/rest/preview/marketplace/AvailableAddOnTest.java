@@ -42,7 +42,7 @@ public class AvailableAddOnTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
                                           "/marketplace/AvailableAddOns/XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class AvailableAddOnTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
                                           "/marketplace/AvailableAddOns");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

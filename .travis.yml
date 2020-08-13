@@ -1,21 +1,48 @@
 language: java
 sudo: false
-jdk:
-  - oraclejdk8
-  - openjdk7
+before_install:
+  - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import --batch || true
+  - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust --batch || true
+matrix:
+  include:
+    - jdk: openjdk7
+      dist: trusty
+    - jdk: openjdk8
+      dist: xenial
+    - jdk: openjdk11
+      dist: xenial
+    - jdk: oraclejdk7
+      dist: precise
+    - jdk: oraclejdk8
+      dist: trusty
+    - jdk: oraclejdk11
+      dist: trusty
+  allow_failures:
+    - jdk: openjdk7
+    - jdk: oraclejdk7
 services:
   - docker
+install:
+  - mvn --settings .maven.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
+deploy:
+  - provider: script
+    script: make docker-build && make docker-push
+    skip_cleanup: true
+    on:
+      tags: true
+      jdk: openjdk8
+  - provider: script
+    script: mvn clean deploy --settings .maven.xml -DskipTests=true -B -U -Prelease
+    skip_cleanup: true
+    on:
+      tags: true
+      jdk: openjdk8
+
 notifications:
   slack:
-    on_success: change
+    if: branch = main
+    on_pull_requests: false
+    on_success: never
     on_failure: change
     rooms:
-      - secure: MkRPjhMDkLMT0tKhSzSAEEdLxKlFrcEw00FBgpcpIl50kSpe3gxCJsm2bz5+LySblCfY1nI5D1+R++eB5cxJzgZvEBWIXQnGJVAV+X7WW1CI1FBZlv6FNLBe5gVPPzo5kIIM1g3o7AaERcraHK9h9S9N8cpnBRHe+Xf6wTRqmwo=
-      - secure: iRd6XcgHGFSJ/eS1ZwCUgUVTK0a+JAPmyPEx/OdFbma6DvF8WBhWtW5Q1dyrjQ3JWU8DW2Att9jRnGHd9F5wWWcykxYbD9DXrlfqCZpec9pHzEMAud9MG1PqK0d3y2oyjwps/fQ092PJcn9/y7zX6tzdVWKaKUe4iRDs1u1ehUo=
-deploy:
-  provider: script
-  script: make docker-build && make docker-push
-  skip_cleanup: true
-  on:
-    tags: true
-    jdk: "oraclejdk8"
+      - secure: b8z28tzdVU/T3Dt70JQS0Km2dca0ebmL0gGh5g/f5zYHsAzTcPZsayqUWXjJ4tq08N7OlRzx04DSDr9oCErNXSdDPOVlKf46uH3irAeUPHjCDARimRs3uGaUgYwW5X0/xpqjQrVP2YVq9+FDznKEDiULV4ztLFacv5Hx0aMwb2Q=

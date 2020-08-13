@@ -45,11 +45,12 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     private IncomingPhoneNumber.VoiceReceiveMode voiceReceiveMode;
     private String identitySid;
     private String addressSid;
+    private String bundleSid;
 
     /**
      * Construct a new IncomingPhoneNumberUpdater.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      */
     public IncomingPhoneNumberUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -57,22 +58,24 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
 
     /**
      * Construct a new IncomingPhoneNumberUpdater.
-     * 
-     * @param pathAccountSid The new owner of the phone number
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       update
+     * @param pathSid The unique string that identifies the resource
      */
-    public IncomingPhoneNumberUpdater(final String pathAccountSid, 
+    public IncomingPhoneNumberUpdater(final String pathAccountSid,
                                       final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * The unique 34 character id of the account to which you wish to transfer this
-     * phone number. See [Exchanging Numbers Between
+     * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that
+     * created the IncomingPhoneNumber resource to update.  For more information,
+     * see [Exchanging Numbers Between
      * Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers)..
-     * 
-     * @param accountSid The new owner of the phone number
+     *
+     * @param accountSid The SID of the Account that created the resource to update
      * @return this
      */
     public IncomingPhoneNumberUpdater setAccountSid(final String accountSid) {
@@ -81,10 +84,11 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * Calls to this phone number will start a new TwiML session with this API
-     * version. Either `2010-04-01` or `2008-08-01`..
-     * 
-     * @param apiVersion The Twilio REST API version to use
+     * The API version to use for incoming calls made to the phone number. The
+     * default is `2010-04-01`..
+     *
+     * @param apiVersion The API version to use for incoming calls made to the
+     *                   phone number
      * @return this
      */
     public IncomingPhoneNumberUpdater setApiVersion(final String apiVersion) {
@@ -93,11 +97,11 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * A human readable descriptive text for this resource, up to 64 characters
-     * long. By default, the `FriendlyName` is a nicely formatted version of the
+     * A descriptive string that you created to describe this phone number. It can
+     * be up to 64 characters long. By default, this is a formatted version of the
      * phone number..
-     * 
-     * @param friendlyName A human readable description of this resource
+     *
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public IncomingPhoneNumberUpdater setFriendlyName(final String friendlyName) {
@@ -106,10 +110,10 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The 34 character sid of the application Twilio should use to handle SMSs sent
-     * to this number. If a `SmsApplicationSid` is present, Twilio will ignore all
-     * of the SMS urls above and use those set on the application instead..
-     * 
+     * The SID of the application that should handle SMS messages sent to the
+     * number. If an `sms_application_sid` is present, we ignore all of the
+     * `sms_*_url` urls and use those set on the application..
+     *
      * @param smsApplicationSid Unique string that identifies the application
      * @return this
      */
@@ -119,10 +123,10 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The HTTP method that should be used to request the `SmsFallbackUrl`. Either
-     * `GET` or `POST`..
-     * 
-     * @param smsFallbackMethod HTTP method used with sms fallback url
+     * The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET`
+     * or `POST` and defaults to `POST`..
+     *
+     * @param smsFallbackMethod HTTP method used with sms_fallback_url
      * @return this
      */
     public IncomingPhoneNumberUpdater setSmsFallbackMethod(final HttpMethod smsFallbackMethod) {
@@ -131,11 +135,11 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * A URL that Twilio will request if an error occurs requesting or executing the
-     * TwiML defined by `SmsUrl`..
-     * 
-     * @param smsFallbackUrl URL Twilio will request if an error occurs in
-     *                       executing TwiML
+     * The URL that we should call when an error occurs while requesting or
+     * executing the TwiML defined by `sms_url`..
+     *
+     * @param smsFallbackUrl The URL we call when an error occurs while executing
+     *                       TwiML
      * @return this
      */
     public IncomingPhoneNumberUpdater setSmsFallbackUrl(final URI smsFallbackUrl) {
@@ -144,11 +148,11 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * A URL that Twilio will request if an error occurs requesting or executing the
-     * TwiML defined by `SmsUrl`..
-     * 
-     * @param smsFallbackUrl URL Twilio will request if an error occurs in
-     *                       executing TwiML
+     * The URL that we should call when an error occurs while requesting or
+     * executing the TwiML defined by `sms_url`..
+     *
+     * @param smsFallbackUrl The URL we call when an error occurs while executing
+     *                       TwiML
      * @return this
      */
     public IncomingPhoneNumberUpdater setSmsFallbackUrl(final String smsFallbackUrl) {
@@ -156,10 +160,10 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The HTTP method Twilio will use when making requests to the `SmsUrl`. Either
-     * `GET` or `POST`..
-     * 
-     * @param smsMethod HTTP method to use with sms url
+     * The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST`
+     * and defaults to `POST`..
+     *
+     * @param smsMethod The HTTP method to use with sms_url
      * @return this
      */
     public IncomingPhoneNumberUpdater setSmsMethod(final HttpMethod smsMethod) {
@@ -168,10 +172,11 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The URL that Twilio should request when somebody sends an SMS to the new
-     * phone number..
-     * 
-     * @param smsUrl URL Twilio will request when receiving an SMS
+     * The URL we should call when the phone number receives an incoming SMS
+     * message..
+     *
+     * @param smsUrl The URL we should call when the phone number receives an
+     *               incoming SMS message
      * @return this
      */
     public IncomingPhoneNumberUpdater setSmsUrl(final URI smsUrl) {
@@ -180,10 +185,11 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The URL that Twilio should request when somebody sends an SMS to the new
-     * phone number..
-     * 
-     * @param smsUrl URL Twilio will request when receiving an SMS
+     * The URL we should call when the phone number receives an incoming SMS
+     * message..
+     *
+     * @param smsUrl The URL we should call when the phone number receives an
+     *               incoming SMS message
      * @return this
      */
     public IncomingPhoneNumberUpdater setSmsUrl(final String smsUrl) {
@@ -191,10 +197,11 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The URL that Twilio will request to pass status parameters (such as call
-     * ended) to your application..
-     * 
-     * @param statusCallback URL Twilio will use to pass status parameters
+     * The URL we should call using the `status_callback_method` to send status
+     * information to your application..
+     *
+     * @param statusCallback The URL we should call to send status information to
+     *                       your application
      * @return this
      */
     public IncomingPhoneNumberUpdater setStatusCallback(final URI statusCallback) {
@@ -203,10 +210,11 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The URL that Twilio will request to pass status parameters (such as call
-     * ended) to your application..
-     * 
-     * @param statusCallback URL Twilio will use to pass status parameters
+     * The URL we should call using the `status_callback_method` to send status
+     * information to your application..
+     *
+     * @param statusCallback The URL we should call to send status information to
+     *                       your application
      * @return this
      */
     public IncomingPhoneNumberUpdater setStatusCallback(final String statusCallback) {
@@ -214,10 +222,11 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The HTTP method Twilio will use to make requests to the `StatusCallback` URL.
-     * Either `GET` or `POST`..
-     * 
-     * @param statusCallbackMethod HTTP method twilio will use with status callback
+     * The HTTP method we should use to call `status_callback`. Can be: `GET` or
+     * `POST` and defaults to `POST`..
+     *
+     * @param statusCallbackMethod The HTTP method we should use to call
+     *                             status_callback
      * @return this
      */
     public IncomingPhoneNumberUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
@@ -226,13 +235,13 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The 34 character sid of the application Twilio should use to handle phone
-     * calls to this number. If a `VoiceApplicationSid` is present, Twilio will
-     * ignore all of the voice urls above and use those set on the application
-     * instead. Setting a `VoiceApplicationSid` will automatically delete your
-     * `TrunkSid` and vice versa..
-     * 
-     * @param voiceApplicationSid The unique sid of the application to handle this
+     * The SID of the application we should use to handle phone calls to the phone
+     * number. If a `voice_application_sid` is present, we ignore all of the voice
+     * urls and use only those set on the application. Setting a
+     * `voice_application_sid` will automatically delete your `trunk_sid` and vice
+     * versa..
+     *
+     * @param voiceApplicationSid The SID of the application to handle the phone
      *                            number
      * @return this
      */
@@ -242,10 +251,10 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * Look up the caller's caller-ID name from the CNAM database ($0.01 per look
-     * up). Either `true` or `false`..
-     * 
-     * @param voiceCallerIdLookup Look up the caller's caller-ID
+     * Whether to lookup the caller's name from the CNAM database and post it to
+     * your app. Can be: `true` or `false` and defaults to `false`..
+     *
+     * @param voiceCallerIdLookup Whether to lookup the caller's name
      * @return this
      */
     public IncomingPhoneNumberUpdater setVoiceCallerIdLookup(final Boolean voiceCallerIdLookup) {
@@ -254,10 +263,10 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The HTTP method Twilio will use when requesting the `VoiceFallbackUrl`.
-     * Either `GET` or `POST`..
-     * 
-     * @param voiceFallbackMethod HTTP method used with fallback_url
+     * The HTTP method that we should use to call `voice_fallback_url`. Can be:
+     * `GET` or `POST` and defaults to `POST`..
+     *
+     * @param voiceFallbackMethod The HTTP method used with fallback_url
      * @return this
      */
     public IncomingPhoneNumberUpdater setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod) {
@@ -266,10 +275,10 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * A URL that Twilio will request if an error occurs requesting or executing the
-     * TwiML defined by `VoiceUrl`..
-     * 
-     * @param voiceFallbackUrl URL Twilio will request when an error occurs in TwiML
+     * The URL that we should call when an error occurs retrieving or executing the
+     * TwiML requested by `url`..
+     *
+     * @param voiceFallbackUrl The URL we will call when an error occurs in TwiML
      * @return this
      */
     public IncomingPhoneNumberUpdater setVoiceFallbackUrl(final URI voiceFallbackUrl) {
@@ -278,10 +287,10 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * A URL that Twilio will request if an error occurs requesting or executing the
-     * TwiML defined by `VoiceUrl`..
-     * 
-     * @param voiceFallbackUrl URL Twilio will request when an error occurs in TwiML
+     * The URL that we should call when an error occurs retrieving or executing the
+     * TwiML requested by `url`..
+     *
+     * @param voiceFallbackUrl The URL we will call when an error occurs in TwiML
      * @return this
      */
     public IncomingPhoneNumberUpdater setVoiceFallbackUrl(final String voiceFallbackUrl) {
@@ -289,10 +298,10 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The HTTP method Twilio will use when requesting the above `Url`. Either `GET`
-     * or `POST`..
-     * 
-     * @param voiceMethod HTTP method used with the voice url
+     * The HTTP method that we should use to call `voice_url`. Can be: `GET` or
+     * `POST` and defaults to `POST`..
+     *
+     * @param voiceMethod The HTTP method used with the voice_url
      * @return this
      */
     public IncomingPhoneNumberUpdater setVoiceMethod(final HttpMethod voiceMethod) {
@@ -301,11 +310,11 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The URL that Twilio should request when somebody dials the phone number. The
-     * VoiceURL will  no longer be used if a `VoiceApplicationSid` or a `TrunkSid`
+     * The URL that we should call to answer a call to the phone number. The
+     * `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid`
      * is set..
-     * 
-     * @param voiceUrl URL Twilio will request when receiving a call
+     *
+     * @param voiceUrl The URL we should call when the phone number receives a call
      * @return this
      */
     public IncomingPhoneNumberUpdater setVoiceUrl(final URI voiceUrl) {
@@ -314,11 +323,11 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The URL that Twilio should request when somebody dials the phone number. The
-     * VoiceURL will  no longer be used if a `VoiceApplicationSid` or a `TrunkSid`
+     * The URL that we should call to answer a call to the phone number. The
+     * `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid`
      * is set..
-     * 
-     * @param voiceUrl URL Twilio will request when receiving a call
+     *
+     * @param voiceUrl The URL we should call when the phone number receives a call
      * @return this
      */
     public IncomingPhoneNumberUpdater setVoiceUrl(final String voiceUrl) {
@@ -326,9 +335,11 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The emergency_status.
-     * 
-     * @param emergencyStatus The emergency_status
+     * The configuration status parameter that determines whether the phone number
+     * is enabled for emergency calling..
+     *
+     * @param emergencyStatus Whether the phone number is enabled for emergency
+     *                        calling
      * @return this
      */
     public IncomingPhoneNumberUpdater setEmergencyStatus(final IncomingPhoneNumber.EmergencyStatus emergencyStatus) {
@@ -337,9 +348,11 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The emergency_address_sid.
-     * 
-     * @param emergencyAddressSid The emergency_address_sid
+     * The SID of the emergency address configuration to use for emergency calling
+     * from this phone number..
+     *
+     * @param emergencyAddressSid The emergency address configuration to use for
+     *                            emergency calling
      * @return this
      */
     public IncomingPhoneNumberUpdater setEmergencyAddressSid(final String emergencyAddressSid) {
@@ -348,13 +361,12 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The 34 character sid of the Trunk Twilio should use to handle phone calls to
-     * this number. If a `TrunkSid` is present, Twilio will ignore all of the voice
-     * urls  and voice applications above and use those set on the Trunk. Setting a
-     * `TrunkSid` will automatically delete your `VoiceApplicationSid` and vice
-     * versa..
-     * 
-     * @param trunkSid Unique string to identify the trunk
+     * The SID of the Trunk we should use to handle phone calls to the phone number.
+     * If a `trunk_sid` is present, we ignore all of the voice urls and voice
+     * applications and use only those set on the Trunk. Setting a `trunk_sid` will
+     * automatically delete your `voice_application_sid` and vice versa..
+     *
+     * @param trunkSid SID of the trunk to handle phone calls to the phone number
      * @return this
      */
     public IncomingPhoneNumberUpdater setTrunkSid(final String trunkSid) {
@@ -363,9 +375,10 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The voice_receive_mode.
-     * 
-     * @param voiceReceiveMode The voice_receive_mode
+     * The configuration parameter for the phone number to receive incoming voice
+     * calls or faxes. Can be: `fax` or `voice` and defaults to `voice`..
+     *
+     * @param voiceReceiveMode Incoming call type: fax or voice
      * @return this
      */
     public IncomingPhoneNumberUpdater setVoiceReceiveMode(final IncomingPhoneNumber.VoiceReceiveMode voiceReceiveMode) {
@@ -374,9 +387,9 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The 34 character sid of the identity Twilio should use to associate with the
-     * number. Identities are required in some regions to meet local regulations.
-     * 
+     * The SID of the Identity resource that we should associate with the phone
+     * number. Some regions require an identity to meet local regulations..
+     *
      * @param identitySid Unique string that identifies the identity associated
      *                    with number
      * @return this
@@ -387,11 +400,10 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The 34 character sid of the address Twilio should associate with the number.
-     * If the number has address restrictions, only another address that satisfies
-     * the requirement can replace the existing one..
-     * 
-     * @param addressSid Unique string that identifies the address associated with
+     * The SID of the Address resource we should associate with the phone number.
+     * Some regions require addresses to meet local regulations..
+     *
+     * @param addressSid The SID of the Address resource associated with the phone
      *                   number
      * @return this
      */
@@ -401,8 +413,20 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
+     * The SID of the Bundle resource that you associate with the phone number. Some
+     * regions require a Bundle to meet local Regulations..
+     *
+     * @param bundleSid The SID of the Bundle resource associated with number
+     * @return this
+     */
+    public IncomingPhoneNumberUpdater setBundleSid(final String bundleSid) {
+        this.bundleSid = bundleSid;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated IncomingPhoneNumber
      */
@@ -413,8 +437,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/" + this.pathSid + ".json"
         );
 
         addPostParams(request);
@@ -427,14 +450,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return IncomingPhoneNumber.fromJson(response.getStream(), client.getObjectMapper());
@@ -442,7 +458,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
@@ -532,6 +548,10 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
 
         if (addressSid != null) {
             request.addPostParam("AddressSid", addressSid);
+        }
+
+        if (bundleSid != null) {
+            request.addPostParam("BundleSid", bundleSid);
         }
     }
 }

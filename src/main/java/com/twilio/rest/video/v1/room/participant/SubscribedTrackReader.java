@@ -10,7 +10,6 @@ package com.twilio.rest.video.v1.room.participant;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -19,87 +18,28 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
 public class SubscribedTrackReader extends Reader<SubscribedTrack> {
     private final String pathRoomSid;
-    private final String pathSubscriberSid;
-    private DateTime dateCreatedAfter;
-    private DateTime dateCreatedBefore;
-    private String track;
-    private String publisher;
-    private SubscribedTrack.Kind kind;
+    private final String pathParticipantSid;
 
     /**
      * Construct a new SubscribedTrackReader.
-     * 
-     * @param pathRoomSid The room_sid
-     * @param pathSubscriberSid The subscriber_sid
+     *
+     * @param pathRoomSid The SID of the Room resource with the Track resources to
+     *                    read
+     * @param pathParticipantSid The SID of the participant that subscribes to the
+     *                           Track resources to read
      */
-    public SubscribedTrackReader(final String pathRoomSid, 
-                                 final String pathSubscriberSid) {
+    public SubscribedTrackReader(final String pathRoomSid,
+                                 final String pathParticipantSid) {
         this.pathRoomSid = pathRoomSid;
-        this.pathSubscriberSid = pathSubscriberSid;
-    }
-
-    /**
-     * The date_created_after.
-     * 
-     * @param dateCreatedAfter The date_created_after
-     * @return this
-     */
-    public SubscribedTrackReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
-        this.dateCreatedAfter = dateCreatedAfter;
-        return this;
-    }
-
-    /**
-     * The date_created_before.
-     * 
-     * @param dateCreatedBefore The date_created_before
-     * @return this
-     */
-    public SubscribedTrackReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
-        this.dateCreatedBefore = dateCreatedBefore;
-        return this;
-    }
-
-    /**
-     * The track.
-     * 
-     * @param track The track
-     * @return this
-     */
-    public SubscribedTrackReader setTrack(final String track) {
-        this.track = track;
-        return this;
-    }
-
-    /**
-     * The publisher.
-     * 
-     * @param publisher The publisher
-     * @return this
-     */
-    public SubscribedTrackReader setPublisher(final String publisher) {
-        this.publisher = publisher;
-        return this;
-    }
-
-    /**
-     * The kind.
-     * 
-     * @param kind The kind
-     * @return this
-     */
-    public SubscribedTrackReader setKind(final SubscribedTrack.Kind kind) {
-        this.kind = kind;
-        return this;
+        this.pathParticipantSid = pathParticipantSid;
     }
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return SubscribedTrack ResourceSet
      */
@@ -110,7 +50,7 @@ public class SubscribedTrackReader extends Reader<SubscribedTrack> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return SubscribedTrack ResourceSet
      */
@@ -120,8 +60,7 @@ public class SubscribedTrackReader extends Reader<SubscribedTrack> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathSubscriberSid + "/SubscribedTracks",
-            client.getRegion()
+            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathParticipantSid + "/SubscribedTracks"
         );
 
         addQueryParams(request);
@@ -130,7 +69,7 @@ public class SubscribedTrackReader extends Reader<SubscribedTrack> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return SubscribedTrack ResourceSet
@@ -148,47 +87,41 @@ public class SubscribedTrackReader extends Reader<SubscribedTrack> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<SubscribedTrack> nextPage(final Page<SubscribedTrack> page, 
+    public Page<SubscribedTrack> nextPage(final Page<SubscribedTrack> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.VIDEO.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.VIDEO.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<SubscribedTrack> previousPage(final Page<SubscribedTrack> page, 
+    public Page<SubscribedTrack> previousPage(final Page<SubscribedTrack> page,
                                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.VIDEO.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.VIDEO.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of SubscribedTrack Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -203,14 +136,7 @@ public class SubscribedTrackReader extends Reader<SubscribedTrack> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -223,30 +149,10 @@ public class SubscribedTrackReader extends Reader<SubscribedTrack> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (dateCreatedAfter != null) {
-            request.addQueryParam("DateCreatedAfter", dateCreatedAfter.toString());
-        }
-
-        if (dateCreatedBefore != null) {
-            request.addQueryParam("DateCreatedBefore", dateCreatedBefore.toString());
-        }
-
-        if (track != null) {
-            request.addQueryParam("Track", track.toString());
-        }
-
-        if (publisher != null) {
-            request.addQueryParam("Publisher", publisher.toString());
-        }
-
-        if (kind != null) {
-            request.addQueryParam("Kind", kind.toString());
-        }
-
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

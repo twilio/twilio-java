@@ -23,18 +23,19 @@ public class WorkspaceRealTimeStatisticsFetcher extends Fetcher<WorkspaceRealTim
 
     /**
      * Construct a new WorkspaceRealTimeStatisticsFetcher.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace to fetch
      */
     public WorkspaceRealTimeStatisticsFetcher(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     /**
-     * Filter real-time and cumulative statistics by TaskChannel. Takes in a Unique
-     * Name ("voice", "sms", "default", etc.) or a TaskChannelSid..
-     * 
-     * @param taskChannel Filter real-time and cumulative statistics by TaskChannel.
+     * Only calculate real-time statistics on this TaskChannel. Can be the
+     * TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or
+     * `default`..
+     *
+     * @param taskChannel Only calculate real-time statistics on this TaskChannel
      * @return this
      */
     public WorkspaceRealTimeStatisticsFetcher setTaskChannel(final String taskChannel) {
@@ -44,7 +45,7 @@ public class WorkspaceRealTimeStatisticsFetcher extends Fetcher<WorkspaceRealTim
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched WorkspaceRealTimeStatistics
      */
@@ -54,8 +55,7 @@ public class WorkspaceRealTimeStatisticsFetcher extends Fetcher<WorkspaceRealTim
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/RealTimeStatistics",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/RealTimeStatistics"
         );
 
         addQueryParams(request);
@@ -68,14 +68,7 @@ public class WorkspaceRealTimeStatisticsFetcher extends Fetcher<WorkspaceRealTim
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return WorkspaceRealTimeStatistics.fromJson(response.getStream(), client.getObjectMapper());
@@ -83,7 +76,7 @@ public class WorkspaceRealTimeStatisticsFetcher extends Fetcher<WorkspaceRealTim
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

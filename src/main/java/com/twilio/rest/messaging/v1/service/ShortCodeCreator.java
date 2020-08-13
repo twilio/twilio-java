@@ -27,12 +27,11 @@ public class ShortCodeCreator extends Creator<ShortCode> {
 
     /**
      * Construct a new ShortCodeCreator.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param shortCodeSid ShortCodeSid for the Shortcode being added to the
-     *                     Service.
+     *
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param shortCodeSid The SID of the ShortCode being added to the Service
      */
-    public ShortCodeCreator(final String pathServiceSid, 
+    public ShortCodeCreator(final String pathServiceSid,
                             final String shortCodeSid) {
         this.pathServiceSid = pathServiceSid;
         this.shortCodeSid = shortCodeSid;
@@ -40,7 +39,7 @@ public class ShortCodeCreator extends Creator<ShortCode> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created ShortCode
      */
@@ -50,8 +49,7 @@ public class ShortCodeCreator extends Creator<ShortCode> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.MESSAGING.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/ShortCodes",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/ShortCodes"
         );
 
         addPostParams(request);
@@ -64,14 +62,7 @@ public class ShortCodeCreator extends Creator<ShortCode> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return ShortCode.fromJson(response.getStream(), client.getObjectMapper());
@@ -79,7 +70,7 @@ public class ShortCodeCreator extends Creator<ShortCode> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

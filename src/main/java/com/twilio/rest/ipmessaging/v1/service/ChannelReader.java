@@ -28,17 +28,18 @@ public class ChannelReader extends Reader<Channel> {
 
     /**
      * Construct a new ChannelReader.
-     * 
-     * @param pathServiceSid The service_sid
+     *
+     * @param pathServiceSid The SID of the Service to read the resources from
      */
     public ChannelReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
     /**
-     * The type.
-     * 
-     * @param type The type
+     * The visibility of the Channels to read. Can be: `public` or `private` and
+     * defaults to `public`..
+     *
+     * @param type The visibility of the channel to read
      * @return this
      */
     public ChannelReader setType(final List<Channel.ChannelType> type) {
@@ -47,9 +48,10 @@ public class ChannelReader extends Reader<Channel> {
     }
 
     /**
-     * The type.
-     * 
-     * @param type The type
+     * The visibility of the Channels to read. Can be: `public` or `private` and
+     * defaults to `public`..
+     *
+     * @param type The visibility of the channel to read
      * @return this
      */
     public ChannelReader setType(final Channel.ChannelType type) {
@@ -58,7 +60,7 @@ public class ChannelReader extends Reader<Channel> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Channel ResourceSet
      */
@@ -69,7 +71,7 @@ public class ChannelReader extends Reader<Channel> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Channel ResourceSet
      */
@@ -79,8 +81,7 @@ public class ChannelReader extends Reader<Channel> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Channels",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Channels"
         );
 
         addQueryParams(request);
@@ -89,7 +90,7 @@ public class ChannelReader extends Reader<Channel> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Channel ResourceSet
@@ -107,47 +108,41 @@ public class ChannelReader extends Reader<Channel> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Channel> nextPage(final Page<Channel> page, 
+    public Page<Channel> nextPage(final Page<Channel> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.IPMESSAGING.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.IPMESSAGING.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Channel> previousPage(final Page<Channel> page, 
+    public Page<Channel> previousPage(final Page<Channel> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.IPMESSAGING.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.IPMESSAGING.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Channel Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -162,14 +157,7 @@ public class ChannelReader extends Reader<Channel> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -182,7 +170,7 @@ public class ChannelReader extends Reader<Channel> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

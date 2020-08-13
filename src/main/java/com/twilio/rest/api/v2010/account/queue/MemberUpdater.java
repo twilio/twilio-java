@@ -24,50 +24,58 @@ public class MemberUpdater extends Updater<Member> {
     private final String pathQueueSid;
     private final String pathCallSid;
     private final URI url;
-    private final HttpMethod method;
+    private HttpMethod method;
 
     /**
      * Construct a new MemberUpdater.
-     * 
-     * @param pathQueueSid The Queue in which to find the members
-     * @param pathCallSid The call_sid
-     * @param url The url
-     * @param method The method
+     *
+     * @param pathQueueSid The SID of the Queue in which to find the members
+     * @param pathCallSid The Call SID of the resource(s) to update
+     * @param url The absolute URL of the Queue resource
      */
-    public MemberUpdater(final String pathQueueSid, 
-                         final String pathCallSid, 
-                         final URI url, 
-                         final HttpMethod method) {
+    public MemberUpdater(final String pathQueueSid,
+                         final String pathCallSid,
+                         final URI url) {
         this.pathQueueSid = pathQueueSid;
         this.pathCallSid = pathCallSid;
         this.url = url;
-        this.method = method;
     }
 
     /**
      * Construct a new MemberUpdater.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathQueueSid The Queue in which to find the members
-     * @param pathCallSid The call_sid
-     * @param url The url
-     * @param method The method
+     *
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       update
+     * @param pathQueueSid The SID of the Queue in which to find the members
+     * @param pathCallSid The Call SID of the resource(s) to update
+     * @param url The absolute URL of the Queue resource
      */
-    public MemberUpdater(final String pathAccountSid, 
-                         final String pathQueueSid, 
-                         final String pathCallSid, 
-                         final URI url, 
-                         final HttpMethod method) {
+    public MemberUpdater(final String pathAccountSid,
+                         final String pathQueueSid,
+                         final String pathCallSid,
+                         final URI url) {
         this.pathAccountSid = pathAccountSid;
         this.pathQueueSid = pathQueueSid;
         this.pathCallSid = pathCallSid;
         this.url = url;
+    }
+
+    /**
+     * How to pass the update request data. Can be `GET` or `POST` and the default
+     * is `POST`. `POST` sends the data as encoded form data and `GET` sends the
+     * data as query parameters..
+     *
+     * @param method How to pass the update request data
+     * @return this
+     */
+    public MemberUpdater setMethod(final HttpMethod method) {
         this.method = method;
+        return this;
     }
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Member
      */
@@ -78,8 +86,7 @@ public class MemberUpdater extends Updater<Member> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Queues/" + this.pathQueueSid + "/Members/" + this.pathCallSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Queues/" + this.pathQueueSid + "/Members/" + this.pathCallSid + ".json"
         );
 
         addPostParams(request);
@@ -92,14 +99,7 @@ public class MemberUpdater extends Updater<Member> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Member.fromJson(response.getStream(), client.getObjectMapper());
@@ -107,7 +107,7 @@ public class MemberUpdater extends Updater<Member> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

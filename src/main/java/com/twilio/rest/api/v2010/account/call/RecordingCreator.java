@@ -32,8 +32,8 @@ public class RecordingCreator extends Creator<Recording> {
 
     /**
      * Construct a new RecordingCreator.
-     * 
-     * @param pathCallSid The call_sid
+     *
+     * @param pathCallSid The SID of the Call to associate the resource with
      */
     public RecordingCreator(final String pathCallSid) {
         this.pathCallSid = pathCallSid;
@@ -41,20 +41,24 @@ public class RecordingCreator extends Creator<Recording> {
 
     /**
      * Construct a new RecordingCreator.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathCallSid The call_sid
+     *
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param pathCallSid The SID of the Call to associate the resource with
      */
-    public RecordingCreator(final String pathAccountSid, 
+    public RecordingCreator(final String pathAccountSid,
                             final String pathCallSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathCallSid = pathCallSid;
     }
 
     /**
-     * The recording_status_callback_event.
-     * 
-     * @param recordingStatusCallbackEvent The recording_status_callback_event
+     * The recording status events on which we should call the
+     * `recording_status_callback` URL. Can be: `in-progress`, `completed` and
+     * `absent` and the default is `completed`. Separate multiple event values with
+     * a space..
+     *
+     * @param recordingStatusCallbackEvent The recording status changes that should
+     *                                     generate a callback
      * @return this
      */
     public RecordingCreator setRecordingStatusCallbackEvent(final List<String> recordingStatusCallbackEvent) {
@@ -63,9 +67,13 @@ public class RecordingCreator extends Creator<Recording> {
     }
 
     /**
-     * The recording_status_callback_event.
-     * 
-     * @param recordingStatusCallbackEvent The recording_status_callback_event
+     * The recording status events on which we should call the
+     * `recording_status_callback` URL. Can be: `in-progress`, `completed` and
+     * `absent` and the default is `completed`. Separate multiple event values with
+     * a space..
+     *
+     * @param recordingStatusCallbackEvent The recording status changes that should
+     *                                     generate a callback
      * @return this
      */
     public RecordingCreator setRecordingStatusCallbackEvent(final String recordingStatusCallbackEvent) {
@@ -73,9 +81,13 @@ public class RecordingCreator extends Creator<Recording> {
     }
 
     /**
-     * The recording_status_callback.
-     * 
-     * @param recordingStatusCallback The recording_status_callback
+     * The URL we should call using the `recording_status_callback_method` on each
+     * recording event specified in  `recording_status_callback_event`. For more
+     * information, see [RecordingStatusCallback
+     * parameters](https://www.twilio.com/docs/voice/api/recording#recordingstatuscallback)..
+     *
+     * @param recordingStatusCallback The callback URL on each selected recording
+     *                                event
      * @return this
      */
     public RecordingCreator setRecordingStatusCallback(final URI recordingStatusCallback) {
@@ -84,9 +96,13 @@ public class RecordingCreator extends Creator<Recording> {
     }
 
     /**
-     * The recording_status_callback.
-     * 
-     * @param recordingStatusCallback The recording_status_callback
+     * The URL we should call using the `recording_status_callback_method` on each
+     * recording event specified in  `recording_status_callback_event`. For more
+     * information, see [RecordingStatusCallback
+     * parameters](https://www.twilio.com/docs/voice/api/recording#recordingstatuscallback)..
+     *
+     * @param recordingStatusCallback The callback URL on each selected recording
+     *                                event
      * @return this
      */
     public RecordingCreator setRecordingStatusCallback(final String recordingStatusCallback) {
@@ -94,9 +110,11 @@ public class RecordingCreator extends Creator<Recording> {
     }
 
     /**
-     * The recording_status_callback_method.
-     * 
-     * @param recordingStatusCallbackMethod The recording_status_callback_method
+     * The HTTP method we should use to call `recording_status_callback`. Can be:
+     * `GET` or `POST` and the default is `POST`..
+     *
+     * @param recordingStatusCallbackMethod The HTTP method we should use to call
+     *                                      `recording_status_callback`
      * @return this
      */
     public RecordingCreator setRecordingStatusCallbackMethod(final HttpMethod recordingStatusCallbackMethod) {
@@ -105,10 +123,11 @@ public class RecordingCreator extends Creator<Recording> {
     }
 
     /**
-     * Possible values `trim-silence` or `do-not-trim`. `trim-silence` will trim the
-     * silence from the beginning and end of the recording. `do-not-trim` will not
-     * trim the silence. Defaults to `do-not-trim`.
-     * 
+     * Whether to trim any leading and trailing silence in the recording. Can be:
+     * `trim-silence` or `do-not-trim` and the default is `do-not-trim`.
+     * `trim-silence` trims the silence from the beginning and end of the recording
+     * and `do-not-trim` does not..
+     *
      * @param trim Whether to trim the silence in the recording
      * @return this
      */
@@ -118,9 +137,12 @@ public class RecordingCreator extends Creator<Recording> {
     }
 
     /**
-     * The recording_channels.
-     * 
-     * @param recordingChannels The recording_channels
+     * The number of channels used in the recording. Can be: `mono` or `dual` and
+     * the default is `mono`. `mono` records all parties of the call into one
+     * channel. `dual` records each party of a 2-party call into separate channels..
+     *
+     * @param recordingChannels The number of channels that the output recording
+     *                          will be configured with
      * @return this
      */
     public RecordingCreator setRecordingChannels(final String recordingChannels) {
@@ -130,7 +152,7 @@ public class RecordingCreator extends Creator<Recording> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Recording
      */
@@ -141,8 +163,7 @@ public class RecordingCreator extends Creator<Recording> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathCallSid + "/Recordings.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathCallSid + "/Recordings.json"
         );
 
         addPostParams(request);
@@ -155,14 +176,7 @@ public class RecordingCreator extends Creator<Recording> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Recording.fromJson(response.getStream(), client.getObjectMapper());
@@ -170,7 +184,7 @@ public class RecordingCreator extends Creator<Recording> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

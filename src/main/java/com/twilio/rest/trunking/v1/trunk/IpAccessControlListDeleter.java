@@ -23,11 +23,12 @@ public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
 
     /**
      * Construct a new IpAccessControlListDeleter.
-     * 
-     * @param pathTrunkSid The trunk_sid
-     * @param pathSid The sid
+     *
+     * @param pathTrunkSid The SID of the Trunk from which to delete the IP Access
+     *                     Control List
+     * @param pathSid The unique string that identifies the resource
      */
-    public IpAccessControlListDeleter(final String pathTrunkSid, 
+    public IpAccessControlListDeleter(final String pathTrunkSid,
                                       final String pathSid) {
         this.pathTrunkSid = pathTrunkSid;
         this.pathSid = pathSid;
@@ -35,7 +36,7 @@ public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -44,8 +45,7 @@ public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathTrunkSid + "/IpAccessControlLists/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathTrunkSid + "/IpAccessControlLists/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -57,14 +57,7 @@ public class IpAccessControlListDeleter extends Deleter<IpAccessControlList> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

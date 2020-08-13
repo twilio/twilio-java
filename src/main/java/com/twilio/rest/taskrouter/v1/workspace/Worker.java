@@ -38,8 +38,8 @@ public class Worker extends Resource {
 
     /**
      * Create a WorkerReader to execute read.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the Workers to read
      * @return WorkerReader capable of executing the read
      */
     public static WorkerReader reader(final String pathWorkspaceSid) {
@@ -48,55 +48,56 @@ public class Worker extends Resource {
 
     /**
      * Create a WorkerCreator to execute create.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param friendlyName String representing user-friendly name for the Worker.
+     *
+     * @param pathWorkspaceSid The SID of the Workspace that the new Worker belongs
+     *                         to
+     * @param friendlyName A string to describe the resource
      * @return WorkerCreator capable of executing the create
      */
-    public static WorkerCreator creator(final String pathWorkspaceSid, 
+    public static WorkerCreator creator(final String pathWorkspaceSid,
                                         final String friendlyName) {
         return new WorkerCreator(pathWorkspaceSid, friendlyName);
     }
 
     /**
      * Create a WorkerFetcher to execute fetch.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the Worker to fetch
+     * @param pathSid The SID of the resource to fetch
      * @return WorkerFetcher capable of executing the fetch
      */
-    public static WorkerFetcher fetcher(final String pathWorkspaceSid, 
+    public static WorkerFetcher fetcher(final String pathWorkspaceSid,
                                         final String pathSid) {
         return new WorkerFetcher(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a WorkerUpdater to execute update.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the Worker to update
+     * @param pathSid The SID of the resource to update
      * @return WorkerUpdater capable of executing the update
      */
-    public static WorkerUpdater updater(final String pathWorkspaceSid, 
+    public static WorkerUpdater updater(final String pathWorkspaceSid,
                                         final String pathSid) {
         return new WorkerUpdater(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Create a WorkerDeleter to execute delete.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the Worker to delete
+     * @param pathSid The SID of the resource to delete
      * @return WorkerDeleter capable of executing the delete
      */
-    public static WorkerDeleter deleter(final String pathWorkspaceSid, 
+    public static WorkerDeleter deleter(final String pathWorkspaceSid,
                                         final String pathSid) {
         return new WorkerDeleter(pathWorkspaceSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a Worker object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Worker object represented by the provided JSON
@@ -115,7 +116,7 @@ public class Worker extends Resource {
     /**
      * Converts a JSON InputStream into a Worker object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Worker object represented by the provided JSON
@@ -147,29 +148,29 @@ public class Worker extends Resource {
 
     @JsonCreator
     private Worker(@JsonProperty("account_sid")
-                   final String accountSid, 
+                   final String accountSid,
                    @JsonProperty("activity_name")
-                   final String activityName, 
+                   final String activityName,
                    @JsonProperty("activity_sid")
-                   final String activitySid, 
+                   final String activitySid,
                    @JsonProperty("attributes")
-                   final String attributes, 
+                   final String attributes,
                    @JsonProperty("available")
-                   final Boolean available, 
+                   final Boolean available,
                    @JsonProperty("date_created")
-                   final String dateCreated, 
+                   final String dateCreated,
                    @JsonProperty("date_status_changed")
-                   final String dateStatusChanged, 
+                   final String dateStatusChanged,
                    @JsonProperty("date_updated")
-                   final String dateUpdated, 
+                   final String dateUpdated,
                    @JsonProperty("friendly_name")
-                   final String friendlyName, 
+                   final String friendlyName,
                    @JsonProperty("sid")
-                   final String sid, 
+                   final String sid,
                    @JsonProperty("workspace_sid")
-                   final String workspaceSid, 
+                   final String workspaceSid,
                    @JsonProperty("url")
-                   final URI url, 
+                   final URI url,
                    @JsonProperty("links")
                    final Map<String, String> links) {
         this.accountSid = accountSid;
@@ -188,118 +189,117 @@ public class Worker extends Resource {
     }
 
     /**
-     * Returns The The ID of the account that owns this worker.
-     * 
-     * @return The ID of the account that owns this worker
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Filter by workers that are in a particular Activity by Friendly
-     * Name.
-     * 
-     * @return Filter by workers that are in a particular Activity by Friendly Name
+     * Returns The friendly_name of the Worker's current Activity.
+     *
+     * @return The friendly_name of the Worker's current Activity
      */
     public final String getActivityName() {
         return this.activityName;
     }
 
     /**
-     * Returns The Filter by workers that are in a particular Activity by SID.
-     * 
-     * @return Filter by workers that are in a particular Activity by SID
+     * Returns The SID of the Worker's current Activity.
+     *
+     * @return The SID of the Worker's current Activity
      */
     public final String getActivitySid() {
         return this.activitySid;
     }
 
     /**
-     * Returns The JSON object describing this worker..
-     * 
-     * @return JSON object describing this worker.
+     * Returns The JSON string that describes the Worker.
+     *
+     * @return The JSON string that describes the Worker
      */
     public final String getAttributes() {
         return this.attributes;
     }
 
     /**
-     * Returns The Filter by workers that are available or unavailable..
-     * 
-     * @return Filter by workers that are available or unavailable.
+     * Returns Whether the Worker is available to perform tasks.
+     *
+     * @return Whether the Worker is available to perform tasks
      */
     public final Boolean getAvailable() {
         return this.available;
     }
 
     /**
-     * Returns The DateTime this worker was created.
-     * 
-     * @return DateTime this worker was created
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The DateTime of the last change to the Worker's activity..
-     * 
-     * @return DateTime of the last change to the Worker's activity.
+     * Returns The date and time in GMT of the last change to the Worker's activity.
+     *
+     * @return The date and time in GMT of the last change to the Worker's activity
      */
     public final DateTime getDateStatusChanged() {
         return this.dateStatusChanged;
     }
 
     /**
-     * Returns The DateTime of the last update.
-     * 
-     * @return DateTime of the last update
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The Filter by a worker's friendly name.
-     * 
-     * @return Filter by a worker's friendly name
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The unique ID of the worker.
-     * 
-     * @return The unique ID of the worker
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The ID of the Workflow this worker is associated with.
-     * 
-     * @return The ID of the Workflow this worker is associated with
+     * Returns The SID of the Workspace that contains the Worker.
+     *
+     * @return The SID of the Workspace that contains the Worker
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
-     * 
-     * @return The url
+     * Returns The absolute URL of the Worker resource.
+     *
+     * @return The absolute URL of the Worker resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
-     * 
-     * @return The links
+     * Returns The URLs of related resources.
+     *
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -317,18 +317,18 @@ public class Worker extends Resource {
 
         Worker other = (Worker) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(activityName, other.activityName) && 
-               Objects.equals(activitySid, other.activitySid) && 
-               Objects.equals(attributes, other.attributes) && 
-               Objects.equals(available, other.available) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateStatusChanged, other.dateStatusChanged) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(workspaceSid, other.workspaceSid) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(activityName, other.activityName) &&
+               Objects.equals(activitySid, other.activitySid) &&
+               Objects.equals(attributes, other.attributes) &&
+               Objects.equals(available, other.available) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateStatusChanged, other.dateStatusChanged) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(workspaceSid, other.workspaceSid) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

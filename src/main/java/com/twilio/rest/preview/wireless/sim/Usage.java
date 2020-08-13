@@ -42,7 +42,7 @@ public class Usage extends Resource {
 
     /**
      * Create a UsageFetcher to execute fetch.
-     * 
+     *
      * @param pathSimSid The sim_sid
      * @return UsageFetcher capable of executing the fetch
      */
@@ -52,7 +52,7 @@ public class Usage extends Resource {
 
     /**
      * Converts a JSON String into a Usage object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Usage object represented by the provided JSON
@@ -71,7 +71,7 @@ public class Usage extends Resource {
     /**
      * Converts a JSON InputStream into a Usage object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Usage object represented by the provided JSON
@@ -99,21 +99,21 @@ public class Usage extends Resource {
 
     @JsonCreator
     private Usage(@JsonProperty("sim_sid")
-                  final String simSid, 
+                  final String simSid,
                   @JsonProperty("sim_unique_name")
-                  final String simUniqueName, 
+                  final String simUniqueName,
                   @JsonProperty("account_sid")
-                  final String accountSid, 
+                  final String accountSid,
                   @JsonProperty("period")
-                  final Map<String, Object> period, 
+                  final Map<String, Object> period,
                   @JsonProperty("commands_usage")
-                  final Map<String, Object> commandsUsage, 
+                  final Map<String, Object> commandsUsage,
                   @JsonProperty("commands_costs")
-                  final Map<String, Object> commandsCosts, 
+                  final Map<String, Object> commandsCosts,
                   @JsonProperty("data_usage")
-                  final Map<String, Object> dataUsage, 
+                  final Map<String, Object> dataUsage,
                   @JsonProperty("data_costs")
-                  final Map<String, Object> dataCosts, 
+                  final Map<String, Object> dataCosts,
                   @JsonProperty("url")
                   final URI url) {
         this.simSid = simSid;
@@ -128,8 +128,8 @@ public class Usage extends Resource {
     }
 
     /**
-     * Returns The The sim_sid.
-     * 
+     * Returns The sim_sid.
+     *
      * @return The sim_sid
      */
     public final String getSimSid() {
@@ -137,8 +137,8 @@ public class Usage extends Resource {
     }
 
     /**
-     * Returns The The sim_unique_name.
-     * 
+     * Returns The sim_unique_name.
+     *
      * @return The sim_unique_name
      */
     public final String getSimUniqueName() {
@@ -146,8 +146,8 @@ public class Usage extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
-     * 
+     * Returns The account_sid.
+     *
      * @return The account_sid
      */
     public final String getAccountSid() {
@@ -155,8 +155,8 @@ public class Usage extends Resource {
     }
 
     /**
-     * Returns The The period.
-     * 
+     * Returns The period.
+     *
      * @return The period
      */
     public final Map<String, Object> getPeriod() {
@@ -164,8 +164,8 @@ public class Usage extends Resource {
     }
 
     /**
-     * Returns The The commands_usage.
-     * 
+     * Returns The commands_usage.
+     *
      * @return The commands_usage
      */
     public final Map<String, Object> getCommandsUsage() {
@@ -173,8 +173,8 @@ public class Usage extends Resource {
     }
 
     /**
-     * Returns The The commands_costs.
-     * 
+     * Returns The commands_costs.
+     *
      * @return The commands_costs
      */
     public final Map<String, Object> getCommandsCosts() {
@@ -182,8 +182,8 @@ public class Usage extends Resource {
     }
 
     /**
-     * Returns The The data_usage.
-     * 
+     * Returns The data_usage.
+     *
      * @return The data_usage
      */
     public final Map<String, Object> getDataUsage() {
@@ -191,8 +191,8 @@ public class Usage extends Resource {
     }
 
     /**
-     * Returns The The data_costs.
-     * 
+     * Returns The data_costs.
+     *
      * @return The data_costs
      */
     public final Map<String, Object> getDataCosts() {
@@ -200,8 +200,8 @@ public class Usage extends Resource {
     }
 
     /**
-     * Returns The The url.
-     * 
+     * Returns The url.
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -220,14 +220,14 @@ public class Usage extends Resource {
 
         Usage other = (Usage) o;
 
-        return Objects.equals(simSid, other.simSid) && 
-               Objects.equals(simUniqueName, other.simUniqueName) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(period, other.period) && 
-               Objects.equals(commandsUsage, other.commandsUsage) && 
-               Objects.equals(commandsCosts, other.commandsCosts) && 
-               Objects.equals(dataUsage, other.dataUsage) && 
-               Objects.equals(dataCosts, other.dataCosts) && 
+        return Objects.equals(simSid, other.simSid) &&
+               Objects.equals(simUniqueName, other.simUniqueName) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(period, other.period) &&
+               Objects.equals(commandsUsage, other.commandsUsage) &&
+               Objects.equals(commandsCosts, other.commandsCosts) &&
+               Objects.equals(dataUsage, other.dataUsage) &&
+               Objects.equals(dataCosts, other.dataCosts) &&
                Objects.equals(url, other.url);
     }
 

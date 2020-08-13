@@ -29,11 +29,13 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
 
     /**
      * Construct a new SyncMapPermissionReader.
-     * 
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathMapSid Sync Map SID or unique name.
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map
+     *                       Permission resources to read
+     * @param pathMapSid The SID of the Sync Map with the Permission resources to
+     *                   read
      */
-    public SyncMapPermissionReader(final String pathServiceSid, 
+    public SyncMapPermissionReader(final String pathServiceSid,
                                    final String pathMapSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathMapSid = pathMapSid;
@@ -41,7 +43,7 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return SyncMapPermission ResourceSet
      */
@@ -52,7 +54,7 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return SyncMapPermission ResourceSet
      */
@@ -62,8 +64,7 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Permissions",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Permissions"
         );
 
         addQueryParams(request);
@@ -72,7 +73,7 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return SyncMapPermission ResourceSet
@@ -90,47 +91,41 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<SyncMapPermission> nextPage(final Page<SyncMapPermission> page, 
+    public Page<SyncMapPermission> nextPage(final Page<SyncMapPermission> page,
                                             final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.SYNC.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.SYNC.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<SyncMapPermission> previousPage(final Page<SyncMapPermission> page, 
+    public Page<SyncMapPermission> previousPage(final Page<SyncMapPermission> page,
                                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.SYNC.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.SYNC.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of SyncMapPermission Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -145,14 +140,7 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -165,7 +153,7 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

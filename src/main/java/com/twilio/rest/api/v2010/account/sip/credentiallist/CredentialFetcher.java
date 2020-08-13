@@ -24,11 +24,12 @@ public class CredentialFetcher extends Fetcher<Credential> {
 
     /**
      * Construct a new CredentialFetcher.
-     * 
-     * @param pathCredentialListSid The credential_list_sid
-     * @param pathSid The sid
+     *
+     * @param pathCredentialListSid The unique id that identifies the credential
+     *                              list that contains the desired credential
+     * @param pathSid The unique id that identifies the resource to fetch.
      */
-    public CredentialFetcher(final String pathCredentialListSid, 
+    public CredentialFetcher(final String pathCredentialListSid,
                              final String pathSid) {
         this.pathCredentialListSid = pathCredentialListSid;
         this.pathSid = pathSid;
@@ -36,13 +37,15 @@ public class CredentialFetcher extends Fetcher<Credential> {
 
     /**
      * Construct a new CredentialFetcher.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathCredentialListSid The credential_list_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
+     * @param pathCredentialListSid The unique id that identifies the credential
+     *                              list that contains the desired credential
+     * @param pathSid The unique id that identifies the resource to fetch.
      */
-    public CredentialFetcher(final String pathAccountSid, 
-                             final String pathCredentialListSid, 
+    public CredentialFetcher(final String pathAccountSid,
+                             final String pathCredentialListSid,
                              final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathCredentialListSid = pathCredentialListSid;
@@ -51,7 +54,7 @@ public class CredentialFetcher extends Fetcher<Credential> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Credential
      */
@@ -62,8 +65,7 @@ public class CredentialFetcher extends Fetcher<Credential> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/CredentialLists/" + this.pathCredentialListSid + "/Credentials/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/CredentialLists/" + this.pathCredentialListSid + "/Credentials/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);
@@ -75,14 +77,7 @@ public class CredentialFetcher extends Fetcher<Credential> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Credential.fromJson(response.getStream(), client.getObjectMapper());

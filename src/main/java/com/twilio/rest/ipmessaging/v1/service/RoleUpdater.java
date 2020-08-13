@@ -26,13 +26,13 @@ public class RoleUpdater extends Updater<Role> {
 
     /**
      * Construct a new RoleUpdater.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
-     * @param permission A permission this role should have.
+     *
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathSid The unique string that identifies the resource
+     * @param permission A permission the role should have
      */
-    public RoleUpdater(final String pathServiceSid, 
-                       final String pathSid, 
+    public RoleUpdater(final String pathServiceSid,
+                       final String pathSid,
                        final List<String> permission) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -41,7 +41,7 @@ public class RoleUpdater extends Updater<Role> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Role
      */
@@ -51,8 +51,7 @@ public class RoleUpdater extends Updater<Role> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Roles/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Roles/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -65,14 +64,7 @@ public class RoleUpdater extends Updater<Role> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Role.fromJson(response.getStream(), client.getObjectMapper());
@@ -80,7 +72,7 @@ public class RoleUpdater extends Updater<Role> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 38310522618070L;
+    private static final long serialVersionUID = 93456310387892L;
 
     public enum GeoMatchLevel {
         AREA_CODE("area-code"),
@@ -95,8 +95,8 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceFetcher to execute fetch.
-     * 
-     * @param pathSid A string that uniquely identifies this Service.
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return ServiceFetcher capable of executing the fetch
      */
     public static ServiceFetcher fetcher(final String pathSid) {
@@ -105,7 +105,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceReader to execute read.
-     * 
+     *
      * @return ServiceReader capable of executing the read
      */
     public static ServiceReader reader() {
@@ -114,9 +114,9 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceCreator to execute create.
-     * 
-     * @param uniqueName The human-readable string that uniquely identifies this
-     *                   Service.
+     *
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      * @return ServiceCreator capable of executing the create
      */
     public static ServiceCreator creator(final String uniqueName) {
@@ -125,8 +125,8 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceDeleter to execute delete.
-     * 
-     * @param pathSid A string that uniquely identifies this Service.
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return ServiceDeleter capable of executing the delete
      */
     public static ServiceDeleter deleter(final String pathSid) {
@@ -135,8 +135,8 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceUpdater to execute update.
-     * 
-     * @param pathSid A string that uniquely identifies this Service.
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return ServiceUpdater capable of executing the update
      */
     public static ServiceUpdater updater(final String pathSid) {
@@ -145,7 +145,7 @@ public class Service extends Resource {
 
     /**
      * Converts a JSON String into a Service object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
@@ -164,7 +164,7 @@ public class Service extends Resource {
     /**
      * Converts a JSON InputStream into a Service object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
@@ -183,6 +183,7 @@ public class Service extends Resource {
     private final String sid;
     private final String uniqueName;
     private final String accountSid;
+    private final String chatInstanceSid;
     private final URI callbackUrl;
     private final Integer defaultTtl;
     private final Service.NumberSelectionBehavior numberSelectionBehavior;
@@ -196,34 +197,37 @@ public class Service extends Resource {
 
     @JsonCreator
     private Service(@JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("unique_name")
-                    final String uniqueName, 
+                    final String uniqueName,
                     @JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
+                    @JsonProperty("chat_instance_sid")
+                    final String chatInstanceSid,
                     @JsonProperty("callback_url")
-                    final URI callbackUrl, 
+                    final URI callbackUrl,
                     @JsonProperty("default_ttl")
-                    final Integer defaultTtl, 
+                    final Integer defaultTtl,
                     @JsonProperty("number_selection_behavior")
-                    final Service.NumberSelectionBehavior numberSelectionBehavior, 
+                    final Service.NumberSelectionBehavior numberSelectionBehavior,
                     @JsonProperty("geo_match_level")
-                    final Service.GeoMatchLevel geoMatchLevel, 
+                    final Service.GeoMatchLevel geoMatchLevel,
                     @JsonProperty("intercept_callback_url")
-                    final URI interceptCallbackUrl, 
+                    final URI interceptCallbackUrl,
                     @JsonProperty("out_of_session_callback_url")
-                    final URI outOfSessionCallbackUrl, 
+                    final URI outOfSessionCallbackUrl,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("url")
-                    final URI url, 
+                    final URI url,
                     @JsonProperty("links")
                     final Map<String, String> links) {
         this.sid = sid;
         this.uniqueName = uniqueName;
         this.accountSid = accountSid;
+        this.chatInstanceSid = chatInstanceSid;
         this.callbackUrl = callbackUrl;
         this.defaultTtl = defaultTtl;
         this.numberSelectionBehavior = numberSelectionBehavior;
@@ -237,119 +241,130 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Service..
-     * 
-     * @return A string that uniquely identifies this Service.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A human-readable description of this resource..
-     * 
-     * @return A human-readable description of this resource.
+     * Returns An application-defined string that uniquely identifies the resource.
+     *
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The Account Sid..
-     * 
-     * @return Account Sid.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The URL Twilio will send callbacks to.
-     * 
-     * @return URL Twilio will send callbacks to
+     * Returns The SID of the Chat Service Instance.
+     *
+     * @return The SID of the Chat Service Instance
+     */
+    public final String getChatInstanceSid() {
+        return this.chatInstanceSid;
+    }
+
+    /**
+     * Returns The URL we call when the interaction status changes.
+     *
+     * @return The URL we call when the interaction status changes
      */
     public final URI getCallbackUrl() {
         return this.callbackUrl;
     }
 
     /**
-     * Returns The Default TTL for a Session, in seconds..
-     * 
-     * @return Default TTL for a Session, in seconds.
+     * Returns Default TTL for a Session, in seconds.
+     *
+     * @return Default TTL for a Session, in seconds
      */
     public final Integer getDefaultTtl() {
         return this.defaultTtl;
     }
 
     /**
-     * Returns The What behavior to use when choosing a proxy number..
-     * 
-     * @return What behavior to use when choosing a proxy number.
+     * Returns The preference for Proxy Number selection for the Service instance.
+     *
+     * @return The preference for Proxy Number selection for the Service instance
      */
     public final Service.NumberSelectionBehavior getNumberSelectionBehavior() {
         return this.numberSelectionBehavior;
     }
 
     /**
-     * Returns The Whether proxy number selected must be in the same area code as
-     * the participant identifier..
-     * 
-     * @return Whether proxy number selected must be in the same area code as the
-     *         participant identifier.
+     * Returns Where a proxy number must be located relative to the participant
+     * identifier.
+     *
+     * @return Where a proxy number must be located relative to the participant
+     *         identifier
      */
     public final Service.GeoMatchLevel getGeoMatchLevel() {
         return this.geoMatchLevel;
     }
 
     /**
-     * Returns The A URL for Twilio call before each Interaction..
-     * 
-     * @return A URL for Twilio call before each Interaction.
+     * Returns The URL we call on each interaction.
+     *
+     * @return The URL we call on each interaction
      */
     public final URI getInterceptCallbackUrl() {
         return this.interceptCallbackUrl;
     }
 
     /**
-     * Returns The A URL for Twilio call when a new Interaction has no Session..
-     * 
-     * @return A URL for Twilio call when a new Interaction has no Session.
+     * Returns The URL we call when an inbound call or SMS action occurs on a closed
+     * or non-existent Session.
+     *
+     * @return The URL we call when an inbound call or SMS action occurs on a
+     *         closed or non-existent Session
      */
     public final URI getOutOfSessionCallbackUrl() {
         return this.outOfSessionCallbackUrl;
     }
 
     /**
-     * Returns The The date this Service was created.
-     * 
-     * @return The date this Service was created
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Service was last updated.
-     * 
-     * @return The date this Service was last updated
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL of this resource..
-     * 
-     * @return The URL of this resource.
+     * Returns The absolute URL of the Service resource.
+     *
+     * @return The absolute URL of the Service resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Nested resource URLs..
-     * 
-     * @return Nested resource URLs.
+     * Returns The URLs of resources related to the Service.
+     *
+     * @return The URLs of resources related to the Service
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -367,18 +382,19 @@ public class Service extends Resource {
 
         Service other = (Service) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(callbackUrl, other.callbackUrl) && 
-               Objects.equals(defaultTtl, other.defaultTtl) && 
-               Objects.equals(numberSelectionBehavior, other.numberSelectionBehavior) && 
-               Objects.equals(geoMatchLevel, other.geoMatchLevel) && 
-               Objects.equals(interceptCallbackUrl, other.interceptCallbackUrl) && 
-               Objects.equals(outOfSessionCallbackUrl, other.outOfSessionCallbackUrl) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(chatInstanceSid, other.chatInstanceSid) &&
+               Objects.equals(callbackUrl, other.callbackUrl) &&
+               Objects.equals(defaultTtl, other.defaultTtl) &&
+               Objects.equals(numberSelectionBehavior, other.numberSelectionBehavior) &&
+               Objects.equals(geoMatchLevel, other.geoMatchLevel) &&
+               Objects.equals(interceptCallbackUrl, other.interceptCallbackUrl) &&
+               Objects.equals(outOfSessionCallbackUrl, other.outOfSessionCallbackUrl) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 
@@ -387,6 +403,7 @@ public class Service extends Resource {
         return Objects.hash(sid,
                             uniqueName,
                             accountSid,
+                            chatInstanceSid,
                             callbackUrl,
                             defaultTtl,
                             numberSelectionBehavior,
@@ -405,6 +422,7 @@ public class Service extends Resource {
                           .add("sid", sid)
                           .add("uniqueName", uniqueName)
                           .add("accountSid", accountSid)
+                          .add("chatInstanceSid", chatInstanceSid)
                           .add("callbackUrl", callbackUrl)
                           .add("defaultTtl", defaultTtl)
                           .add("numberSelectionBehavior", numberSelectionBehavior)

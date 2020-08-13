@@ -32,7 +32,7 @@ public class DocumentCreator extends Creator<Document> {
 
     /**
      * Construct a new DocumentCreator.
-     * 
+     *
      * @param pathServiceSid The service_sid
      */
     public DocumentCreator(final String pathServiceSid) {
@@ -41,7 +41,7 @@ public class DocumentCreator extends Creator<Document> {
 
     /**
      * The unique_name.
-     * 
+     *
      * @param uniqueName The unique_name
      * @return this
      */
@@ -52,7 +52,7 @@ public class DocumentCreator extends Creator<Document> {
 
     /**
      * The data.
-     * 
+     *
      * @param data The data
      * @return this
      */
@@ -63,7 +63,7 @@ public class DocumentCreator extends Creator<Document> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Document
      */
@@ -73,8 +73,7 @@ public class DocumentCreator extends Creator<Document> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Documents",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Documents"
         );
 
         addPostParams(request);
@@ -87,14 +86,7 @@ public class DocumentCreator extends Creator<Document> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Document.fromJson(response.getStream(), client.getObjectMapper());
@@ -102,7 +94,7 @@ public class DocumentCreator extends Creator<Document> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

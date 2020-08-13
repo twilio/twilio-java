@@ -26,11 +26,13 @@ public class PayloadReader extends Reader<Payload> {
 
     /**
      * Construct a new PayloadReader.
-     * 
-     * @param pathReferenceSid The reference_sid
-     * @param pathAddOnResultSid The add_on_result_sid
+     *
+     * @param pathReferenceSid The SID of the recording to which the AddOnResult
+     *                         resource that contains the payloads to read belongs
+     * @param pathAddOnResultSid The SID of the AddOnResult to which the payloads
+     *                           to read belongs
      */
-    public PayloadReader(final String pathReferenceSid, 
+    public PayloadReader(final String pathReferenceSid,
                          final String pathAddOnResultSid) {
         this.pathReferenceSid = pathReferenceSid;
         this.pathAddOnResultSid = pathAddOnResultSid;
@@ -38,13 +40,16 @@ public class PayloadReader extends Reader<Payload> {
 
     /**
      * Construct a new PayloadReader.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathReferenceSid The reference_sid
-     * @param pathAddOnResultSid The add_on_result_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathReferenceSid The SID of the recording to which the AddOnResult
+     *                         resource that contains the payloads to read belongs
+     * @param pathAddOnResultSid The SID of the AddOnResult to which the payloads
+     *                           to read belongs
      */
-    public PayloadReader(final String pathAccountSid, 
-                         final String pathReferenceSid, 
+    public PayloadReader(final String pathAccountSid,
+                         final String pathReferenceSid,
                          final String pathAddOnResultSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathReferenceSid = pathReferenceSid;
@@ -53,7 +58,7 @@ public class PayloadReader extends Reader<Payload> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Payload ResourceSet
      */
@@ -64,7 +69,7 @@ public class PayloadReader extends Reader<Payload> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Payload ResourceSet
      */
@@ -75,8 +80,7 @@ public class PayloadReader extends Reader<Payload> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings/" + this.pathReferenceSid + "/AddOnResults/" + this.pathAddOnResultSid + "/Payloads.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings/" + this.pathReferenceSid + "/AddOnResults/" + this.pathAddOnResultSid + "/Payloads.json"
         );
 
         addQueryParams(request);
@@ -85,7 +89,7 @@ public class PayloadReader extends Reader<Payload> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Payload ResourceSet
@@ -104,47 +108,41 @@ public class PayloadReader extends Reader<Payload> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Payload> nextPage(final Page<Payload> page, 
+    public Page<Payload> nextPage(final Page<Payload> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Payload> previousPage(final Page<Payload> page, 
+    public Page<Payload> previousPage(final Page<Payload> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Payload Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -159,14 +157,7 @@ public class PayloadReader extends Reader<Payload> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -179,7 +170,7 @@ public class PayloadReader extends Reader<Payload> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

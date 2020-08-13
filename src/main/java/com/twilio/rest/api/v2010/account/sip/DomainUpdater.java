@@ -23,7 +23,6 @@ import java.net.URI;
 public class DomainUpdater extends Updater<Domain> {
     private String pathAccountSid;
     private final String pathSid;
-    private String authType;
     private String friendlyName;
     private HttpMethod voiceFallbackMethod;
     private URI voiceFallbackUrl;
@@ -32,11 +31,16 @@ public class DomainUpdater extends Updater<Domain> {
     private URI voiceStatusCallbackUrl;
     private URI voiceUrl;
     private Boolean sipRegistration;
+    private String domainName;
+    private Boolean emergencyCallingEnabled;
+    private Boolean secure;
+    private String byocTrunkSid;
+    private String emergencyCallerSid;
 
     /**
      * Construct a new DomainUpdater.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      */
     public DomainUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -44,31 +48,22 @@ public class DomainUpdater extends Updater<Domain> {
 
     /**
      * Construct a new DomainUpdater.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       update
+     * @param pathSid The unique string that identifies the resource
      */
-    public DomainUpdater(final String pathAccountSid, 
+    public DomainUpdater(final String pathAccountSid,
                          final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * The auth_type.
-     * 
-     * @param authType The auth_type
-     * @return this
-     */
-    public DomainUpdater setAuthType(final String authType) {
-        this.authType = authType;
-        return this;
-    }
-
-    /**
-     * A user-specified, human-readable name for the trigger..
-     * 
-     * @param friendlyName A user-specified, human-readable name for the trigger.
+     * A descriptive string that you created to describe the resource. It can be up
+     * to 64 characters long..
+     *
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public DomainUpdater setFriendlyName(final String friendlyName) {
@@ -77,9 +72,10 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The voice_fallback_method.
-     * 
-     * @param voiceFallbackMethod The voice_fallback_method
+     * The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or
+     * `POST`..
+     *
+     * @param voiceFallbackMethod The HTTP method used with voice_fallback_url
      * @return this
      */
     public DomainUpdater setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod) {
@@ -88,9 +84,11 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The voice_fallback_url.
-     * 
-     * @param voiceFallbackUrl The voice_fallback_url
+     * The URL that we should call when an error occurs while retrieving or
+     * executing the TwiML requested by `voice_url`..
+     *
+     * @param voiceFallbackUrl The URL we should call when an error occurs in
+     *                         executing TwiML
      * @return this
      */
     public DomainUpdater setVoiceFallbackUrl(final URI voiceFallbackUrl) {
@@ -99,9 +97,11 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The voice_fallback_url.
-     * 
-     * @param voiceFallbackUrl The voice_fallback_url
+     * The URL that we should call when an error occurs while retrieving or
+     * executing the TwiML requested by `voice_url`..
+     *
+     * @param voiceFallbackUrl The URL we should call when an error occurs in
+     *                         executing TwiML
      * @return this
      */
     public DomainUpdater setVoiceFallbackUrl(final String voiceFallbackUrl) {
@@ -109,9 +109,9 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The HTTP method to use with the voice_url.
-     * 
-     * @param voiceMethod HTTP method to use with voice_url
+     * The HTTP method we should use to call `voice_url`.
+     *
+     * @param voiceMethod The HTTP method we should use with voice_url
      * @return this
      */
     public DomainUpdater setVoiceMethod(final HttpMethod voiceMethod) {
@@ -120,9 +120,11 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The voice_status_callback_method.
-     * 
-     * @param voiceStatusCallbackMethod The voice_status_callback_method
+     * The HTTP method we should use to call `voice_status_callback_url`. Can be:
+     * `GET` or `POST`..
+     *
+     * @param voiceStatusCallbackMethod The HTTP method we should use to call
+     *                                  voice_status_callback_url
      * @return this
      */
     public DomainUpdater setVoiceStatusCallbackMethod(final HttpMethod voiceStatusCallbackMethod) {
@@ -131,9 +133,11 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The voice_status_callback_url.
-     * 
-     * @param voiceStatusCallbackUrl The voice_status_callback_url
+     * The URL that we should call to pass status parameters (such as call ended) to
+     * your application..
+     *
+     * @param voiceStatusCallbackUrl The URL that we should call to pass status
+     *                               updates
      * @return this
      */
     public DomainUpdater setVoiceStatusCallbackUrl(final URI voiceStatusCallbackUrl) {
@@ -142,9 +146,11 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The voice_status_callback_url.
-     * 
-     * @param voiceStatusCallbackUrl The voice_status_callback_url
+     * The URL that we should call to pass status parameters (such as call ended) to
+     * your application..
+     *
+     * @param voiceStatusCallbackUrl The URL that we should call to pass status
+     *                               updates
      * @return this
      */
     public DomainUpdater setVoiceStatusCallbackUrl(final String voiceStatusCallbackUrl) {
@@ -152,9 +158,9 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The voice_url.
-     * 
-     * @param voiceUrl The voice_url
+     * The URL we should call when the domain receives a call..
+     *
+     * @param voiceUrl The URL we should call when receiving a call
      * @return this
      */
     public DomainUpdater setVoiceUrl(final URI voiceUrl) {
@@ -163,9 +169,9 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The voice_url.
-     * 
-     * @param voiceUrl The voice_url
+     * The URL we should call when the domain receives a call..
+     *
+     * @param voiceUrl The URL we should call when receiving a call
      * @return this
      */
     public DomainUpdater setVoiceUrl(final String voiceUrl) {
@@ -173,9 +179,11 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The sip_registration.
-     * 
-     * @param sipRegistration The sip_registration
+     * Whether to allow SIP Endpoints to register with the domain to receive calls.
+     * Can be `true` or `false`. `true` allows SIP Endpoints to register with the
+     * domain to receive calls, `false` does not..
+     *
+     * @param sipRegistration Whether SIP registration is allowed
      * @return this
      */
     public DomainUpdater setSipRegistration(final Boolean sipRegistration) {
@@ -184,8 +192,71 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
+     * The unique address you reserve on Twilio to which you route your SIP traffic.
+     * Domain names can contain letters, digits, and "-"..
+     *
+     * @param domainName The unique address on Twilio to route SIP traffic
+     * @return this
+     */
+    public DomainUpdater setDomainName(final String domainName) {
+        this.domainName = domainName;
+        return this;
+    }
+
+    /**
+     * Whether emergency calling is enabled for the domain. If enabled, allows
+     * emergency calls on the domain from phone numbers with validated addresses..
+     *
+     * @param emergencyCallingEnabled Whether emergency calling is enabled for the
+     *                                domain.
+     * @return this
+     */
+    public DomainUpdater setEmergencyCallingEnabled(final Boolean emergencyCallingEnabled) {
+        this.emergencyCallingEnabled = emergencyCallingEnabled;
+        return this;
+    }
+
+    /**
+     * Whether secure SIP is enabled for the domain. If enabled, TLS will be
+     * enforced and SRTP will be negotiated on all incoming calls to this sip
+     * domain..
+     *
+     * @param secure Whether secure SIP is enabled for the domain
+     * @return this
+     */
+    public DomainUpdater setSecure(final Boolean secure) {
+        this.secure = secure;
+        return this;
+    }
+
+    /**
+     * The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip
+     * Domain will be associated with..
+     *
+     * @param byocTrunkSid The SID of the BYOC Trunk resource.
+     * @return this
+     */
+    public DomainUpdater setByocTrunkSid(final String byocTrunkSid) {
+        this.byocTrunkSid = byocTrunkSid;
+        return this;
+    }
+
+    /**
+     * Whether an emergency caller sid is configured for the domain. If present,
+     * this phone number will be used as the callback for the emergency call..
+     *
+     * @param emergencyCallerSid Whether an emergency caller sid is configured for
+     *                           the domain.
+     * @return this
+     */
+    public DomainUpdater setEmergencyCallerSid(final String emergencyCallerSid) {
+        this.emergencyCallerSid = emergencyCallerSid;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Domain
      */
@@ -196,8 +267,7 @@ public class DomainUpdater extends Updater<Domain> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathSid + ".json"
         );
 
         addPostParams(request);
@@ -210,14 +280,7 @@ public class DomainUpdater extends Updater<Domain> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Domain.fromJson(response.getStream(), client.getObjectMapper());
@@ -225,14 +288,10 @@ public class DomainUpdater extends Updater<Domain> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (authType != null) {
-            request.addPostParam("AuthType", authType);
-        }
-
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
         }
@@ -263,6 +322,26 @@ public class DomainUpdater extends Updater<Domain> {
 
         if (sipRegistration != null) {
             request.addPostParam("SipRegistration", sipRegistration.toString());
+        }
+
+        if (domainName != null) {
+            request.addPostParam("DomainName", domainName);
+        }
+
+        if (emergencyCallingEnabled != null) {
+            request.addPostParam("EmergencyCallingEnabled", emergencyCallingEnabled.toString());
+        }
+
+        if (secure != null) {
+            request.addPostParam("Secure", secure.toString());
+        }
+
+        if (byocTrunkSid != null) {
+            request.addPostParam("ByocTrunkSid", byocTrunkSid);
+        }
+
+        if (emergencyCallerSid != null) {
+            request.addPostParam("EmergencyCallerSid", emergencyCallerSid);
         }
     }
 }

@@ -29,13 +29,13 @@ public class FieldTypeCreator extends Creator<FieldType> {
 
     /**
      * Construct a new FieldTypeCreator.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      * @param uniqueName A user-provided string that uniquely identifies this
      *                   resource as an alternative to the sid. Unique up to 64
      *                   characters long.
      */
-    public FieldTypeCreator(final String pathAssistantSid, 
+    public FieldTypeCreator(final String pathAssistantSid,
                             final String uniqueName) {
         this.pathAssistantSid = pathAssistantSid;
         this.uniqueName = uniqueName;
@@ -44,7 +44,7 @@ public class FieldTypeCreator extends Creator<FieldType> {
     /**
      * A user-provided string that identifies this resource. It is non-unique and
      * can up to 255 characters long..
-     * 
+     *
      * @param friendlyName A user-provided string that identifies this resource. It
      *                     is non-unique and can up to 255 characters long.
      * @return this
@@ -56,7 +56,7 @@ public class FieldTypeCreator extends Creator<FieldType> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created FieldType
      */
@@ -66,8 +66,7 @@ public class FieldTypeCreator extends Creator<FieldType> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/FieldTypes",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/FieldTypes"
         );
 
         addPostParams(request);
@@ -80,14 +79,7 @@ public class FieldTypeCreator extends Creator<FieldType> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return FieldType.fromJson(response.getStream(), client.getObjectMapper());
@@ -95,7 +87,7 @@ public class FieldTypeCreator extends Creator<FieldType> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

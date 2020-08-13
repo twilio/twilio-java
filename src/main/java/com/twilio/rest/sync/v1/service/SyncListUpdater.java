@@ -25,24 +25,25 @@ public class SyncListUpdater extends Updater<SyncList> {
     private final String pathServiceSid;
     private final String pathSid;
     private Integer ttl;
+    private Integer collectionTtl;
 
     /**
      * Construct a new SyncListUpdater.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Sync List
+     *                       resource to update
+     * @param pathSid The SID of the Sync List resource to update
      */
-    public SyncListUpdater(final String pathServiceSid, 
+    public SyncListUpdater(final String pathServiceSid,
                            final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * Time-to-live of this List in seconds, defaults to no expiration. In the range
-     * [1, 31 536 000 (1 year)], or 0 for infinity..
-     * 
-     * @param ttl Time-to-live of this List in seconds, defaults to no expiration.
+     * An alias for `collection_ttl`. If both are provided, this value is ignored..
+     *
+     * @param ttl An alias for collection_ttl
      * @return this
      */
     public SyncListUpdater setTtl(final Integer ttl) {
@@ -51,8 +52,24 @@ public class SyncListUpdater extends Updater<SyncList> {
     }
 
     /**
+     * How long, in seconds, before the Sync List expires (time-to-live) and is
+     * deleted. Can be an integer from 0 to 31,536,000 (1 year). The default value
+     * is `0`, which means the Sync List does not expire. The Sync List will be
+     * deleted automatically after it expires, but there can be a delay between the
+     * expiration time and the resources's deletion..
+     *
+     * @param collectionTtl How long, in seconds, before the Sync List expires and
+     *                      is deleted
+     * @return this
+     */
+    public SyncListUpdater setCollectionTtl(final Integer collectionTtl) {
+        this.collectionTtl = collectionTtl;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated SyncList
      */
@@ -62,8 +79,7 @@ public class SyncListUpdater extends Updater<SyncList> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Lists/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Lists/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -76,14 +92,7 @@ public class SyncListUpdater extends Updater<SyncList> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SyncList.fromJson(response.getStream(), client.getObjectMapper());
@@ -91,12 +100,16 @@ public class SyncListUpdater extends Updater<SyncList> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
         if (ttl != null) {
             request.addPostParam("Ttl", ttl.toString());
+        }
+
+        if (collectionTtl != null) {
+            request.addPostParam("CollectionTtl", collectionTtl.toString());
         }
     }
 }

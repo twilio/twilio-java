@@ -40,7 +40,7 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
 
     /**
      * Construct a new HostedNumberOrderUpdater.
-     * 
+     *
      * @param pathSid The sid
      */
     public HostedNumberOrderUpdater(final String pathSid) {
@@ -50,7 +50,7 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
     /**
      * A 64 character string that is a human readable text that describes this
      * resource..
-     * 
+     *
      * @param friendlyName A human readable description of this resource.
      * @return this
      */
@@ -63,7 +63,7 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
      * Provides a unique and addressable name to be assigned to this
      * HostedNumberOrder, assigned by the developer, to be optionally used in
      * addition to SID..
-     * 
+     *
      * @param uniqueName A unique, developer assigned name of this
      *                   HostedNumberOrder.
      * @return this
@@ -75,7 +75,7 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
 
     /**
      * Email of the owner of this phone number that is being hosted..
-     * 
+     *
      * @param email Email.
      * @return this
      */
@@ -87,7 +87,7 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
     /**
      * Optional. A list of emails that LOA document for this HostedNumberOrder will
      * be carbon copied to..
-     * 
+     *
      * @param ccEmails A list of emails.
      * @return this
      */
@@ -99,7 +99,7 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
     /**
      * Optional. A list of emails that LOA document for this HostedNumberOrder will
      * be carbon copied to..
-     * 
+     *
      * @param ccEmails A list of emails.
      * @return this
      */
@@ -111,7 +111,7 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
      * User can only post to `pending-verification` status to transition the
      * HostedNumberOrder to initiate a verification call or verification of
      * ownership with a copy of a phone bill..
-     * 
+     *
      * @param status The Status of this HostedNumberOrder.
      * @return this
      */
@@ -123,7 +123,7 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
     /**
      * A verification code that is given to the user via a phone call to the phone
      * number that is being hosted..
-     * 
+     *
      * @param verificationCode A verification code.
      * @return this
      */
@@ -135,7 +135,7 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
     /**
      * Optional. The method used for verifying ownership of the number to be hosted.
      * One of phone-call (default) or phone-bill..
-     * 
+     *
      * @param verificationType Verification Type.
      * @return this
      */
@@ -148,7 +148,7 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
      * Optional. The unique sid identifier of the Identity Document that represents
      * the document for verifying ownership of the number to be hosted. Required
      * when VerificationType is phone-bill..
-     * 
+     *
      * @param verificationDocumentSid Verification Document Sid
      * @return this
      */
@@ -159,7 +159,7 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
 
     /**
      * Digits to dial after connecting the verification call..
-     * 
+     *
      * @param extension Digits to dial after connecting the verification call.
      * @return this
      */
@@ -171,7 +171,7 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
     /**
      * The number of seconds, between 0 and 60, to delay before initiating the
      * verification call. Defaults to 0..
-     * 
+     *
      * @param callDelay The number of seconds, between 0 and 60, to delay before
      *                  initiating the verification call.
      * @return this
@@ -183,7 +183,7 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated HostedNumberOrder
      */
@@ -193,8 +193,7 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/HostedNumbers/HostedNumberOrders/" + this.pathSid + "",
-            client.getRegion()
+            "/HostedNumbers/HostedNumberOrders/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -207,14 +206,7 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return HostedNumberOrder.fromJson(response.getStream(), client.getObjectMapper());
@@ -222,7 +214,7 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

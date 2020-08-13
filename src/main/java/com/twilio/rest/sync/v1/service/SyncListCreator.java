@@ -25,20 +25,26 @@ public class SyncListCreator extends Creator<SyncList> {
     private final String pathServiceSid;
     private String uniqueName;
     private Integer ttl;
+    private Integer collectionTtl;
 
     /**
      * Construct a new SyncListCreator.
-     * 
-     * @param pathServiceSid The service_sid
+     *
+     * @param pathServiceSid The SID of the Sync Service  to create the new Sync
+     *                       List in
      */
     public SyncListCreator(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
     /**
-     * Human-readable name for this list.
-     * 
-     * @param uniqueName Human-readable name for this list
+     * An application-defined string that uniquely identifies the resource. This
+     * value must be unique within its Service and it can be up to 320 characters
+     * long. The `unique_name` value can be used as an alternative to the `sid` in
+     * the URL path to address the resource..
+     *
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      * @return this
      */
     public SyncListCreator setUniqueName(final String uniqueName) {
@@ -47,10 +53,9 @@ public class SyncListCreator extends Creator<SyncList> {
     }
 
     /**
-     * Time-to-live of this List in seconds, defaults to no expiration. In the range
-     * [1, 31 536 000 (1 year)], or 0 for infinity..
-     * 
-     * @param ttl Time-to-live of this List in seconds, defaults to no expiration.
+     * Alias for collection_ttl. If both are provided, this value is ignored..
+     *
+     * @param ttl Alias for collection_ttl
      * @return this
      */
     public SyncListCreator setTtl(final Integer ttl) {
@@ -59,8 +64,24 @@ public class SyncListCreator extends Creator<SyncList> {
     }
 
     /**
+     * How long, in seconds, before the Sync List expires (time-to-live) and is
+     * deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value
+     * is `0`, which means the Sync List does not expire. The Sync List will be
+     * deleted automatically after it expires, but there can be a delay between the
+     * expiration time and the resources's deletion..
+     *
+     * @param collectionTtl How long, in seconds, before the Sync List expires and
+     *                      is deleted
+     * @return this
+     */
+    public SyncListCreator setCollectionTtl(final Integer collectionTtl) {
+        this.collectionTtl = collectionTtl;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created SyncList
      */
@@ -70,8 +91,7 @@ public class SyncListCreator extends Creator<SyncList> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Lists",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Lists"
         );
 
         addPostParams(request);
@@ -84,14 +104,7 @@ public class SyncListCreator extends Creator<SyncList> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SyncList.fromJson(response.getStream(), client.getObjectMapper());
@@ -99,7 +112,7 @@ public class SyncListCreator extends Creator<SyncList> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
@@ -109,6 +122,10 @@ public class SyncListCreator extends Creator<SyncList> {
 
         if (ttl != null) {
             request.addPostParam("Ttl", ttl.toString());
+        }
+
+        if (collectionTtl != null) {
+            request.addPostParam("CollectionTtl", collectionTtl.toString());
         }
     }
 }

@@ -23,8 +23,8 @@ public class IpAccessControlListFetcher extends Fetcher<IpAccessControlList> {
 
     /**
      * Construct a new IpAccessControlListFetcher.
-     * 
-     * @param pathSid Fetch by unique ip-access-control-list Sid
+     *
+     * @param pathSid A string that identifies the resource to fetch
      */
     public IpAccessControlListFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -32,11 +32,11 @@ public class IpAccessControlListFetcher extends Fetcher<IpAccessControlList> {
 
     /**
      * Construct a new IpAccessControlListFetcher.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique ip-access-control-list Sid
+     *
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathSid A string that identifies the resource to fetch
      */
-    public IpAccessControlListFetcher(final String pathAccountSid, 
+    public IpAccessControlListFetcher(final String pathAccountSid,
                                       final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -44,7 +44,7 @@ public class IpAccessControlListFetcher extends Fetcher<IpAccessControlList> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched IpAccessControlList
      */
@@ -55,8 +55,7 @@ public class IpAccessControlListFetcher extends Fetcher<IpAccessControlList> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/IpAccessControlLists/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/IpAccessControlLists/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);
@@ -68,14 +67,7 @@ public class IpAccessControlListFetcher extends Fetcher<IpAccessControlList> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return IpAccessControlList.fromJson(response.getStream(), client.getObjectMapper());

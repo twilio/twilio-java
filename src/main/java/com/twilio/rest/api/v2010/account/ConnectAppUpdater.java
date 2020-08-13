@@ -35,8 +35,8 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
 
     /**
      * Construct a new ConnectAppUpdater.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      */
     public ConnectAppUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -44,21 +44,23 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
 
     /**
      * Construct a new ConnectAppUpdater.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       update
+     * @param pathSid The unique string that identifies the resource
      */
-    public ConnectAppUpdater(final String pathAccountSid, 
+    public ConnectAppUpdater(final String pathAccountSid,
                              final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * The URL the user's browser will redirect to after Twilio authenticates the
-     * user and obtains authorization for this Connect App..
-     * 
-     * @param authorizeRedirectUrl URIL Twilio sends requests when users authorize
+     * The URL to redirect the user to after we authenticate the user and obtain
+     * authorization to access the Connect App..
+     *
+     * @param authorizeRedirectUrl The URL to redirect the user to after
+     *                             authorization
      * @return this
      */
     public ConnectAppUpdater setAuthorizeRedirectUrl(final URI authorizeRedirectUrl) {
@@ -67,10 +69,11 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     }
 
     /**
-     * The URL the user's browser will redirect to after Twilio authenticates the
-     * user and obtains authorization for this Connect App..
-     * 
-     * @param authorizeRedirectUrl URIL Twilio sends requests when users authorize
+     * The URL to redirect the user to after we authenticate the user and obtain
+     * authorization to access the Connect App..
+     *
+     * @param authorizeRedirectUrl The URL to redirect the user to after
+     *                             authorization
      * @return this
      */
     public ConnectAppUpdater setAuthorizeRedirectUrl(final String authorizeRedirectUrl) {
@@ -78,9 +81,9 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     }
 
     /**
-     * The company name set for this Connect App..
-     * 
-     * @param companyName The company name set for this Connect App.
+     * The company name to set for the Connect App..
+     *
+     * @param companyName The company name to set for the Connect App
      * @return this
      */
     public ConnectAppUpdater setCompanyName(final String companyName) {
@@ -89,11 +92,10 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     }
 
     /**
-     * The HTTP method to be used when making a request to the
-     * `DeauthorizeCallbackUrl`. Either `GET` or `POST`..
-     * 
-     * @param deauthorizeCallbackMethod HTTP method Twilio WIll use making requests
-     *                                  to the url
+     * The HTTP method to use when calling `deauthorize_callback_url`..
+     *
+     * @param deauthorizeCallbackMethod The HTTP method to use when calling
+     *                                  deauthorize_callback_url
      * @return this
      */
     public ConnectAppUpdater setDeauthorizeCallbackMethod(final HttpMethod deauthorizeCallbackMethod) {
@@ -102,11 +104,10 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     }
 
     /**
-     * The URL to which Twilio will send a request when a user de-authorizes this
+     * The URL to call using the `deauthorize_callback_method` to de-authorize the
      * Connect App..
-     * 
-     * @param deauthorizeCallbackUrl URL Twilio will send a request when a user
-     *                               de-authorizes this app
+     *
+     * @param deauthorizeCallbackUrl The URL to call to de-authorize the Connect App
      * @return this
      */
     public ConnectAppUpdater setDeauthorizeCallbackUrl(final URI deauthorizeCallbackUrl) {
@@ -115,11 +116,10 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     }
 
     /**
-     * The URL to which Twilio will send a request when a user de-authorizes this
+     * The URL to call using the `deauthorize_callback_method` to de-authorize the
      * Connect App..
-     * 
-     * @param deauthorizeCallbackUrl URL Twilio will send a request when a user
-     *                               de-authorizes this app
+     *
+     * @param deauthorizeCallbackUrl The URL to call to de-authorize the Connect App
      * @return this
      */
     public ConnectAppUpdater setDeauthorizeCallbackUrl(final String deauthorizeCallbackUrl) {
@@ -127,9 +127,9 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     }
 
     /**
-     * A more detailed human readable description of the Connect App..
-     * 
-     * @param description A more detailed human readable description
+     * A description of the Connect App..
+     *
+     * @param description A description of the Connect App
      * @return this
      */
     public ConnectAppUpdater setDescription(final String description) {
@@ -138,10 +138,10 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     }
 
     /**
-     * A human readable description of the Connect App, with maximum length 64
-     * characters..
-     * 
-     * @param friendlyName A human readable name for the Connect App.
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
+     *
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public ConnectAppUpdater setFriendlyName(final String friendlyName) {
@@ -150,10 +150,9 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     }
 
     /**
-     * The public URL where users can obtain more information about this Connect
-     * App..
-     * 
-     * @param homepageUrl The URL users can obtain more information
+     * A public URL where users can obtain more information about this Connect App..
+     *
+     * @param homepageUrl A public URL where users can obtain more information
      * @return this
      */
     public ConnectAppUpdater setHomepageUrl(final URI homepageUrl) {
@@ -162,10 +161,9 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     }
 
     /**
-     * The public URL where users can obtain more information about this Connect
-     * App..
-     * 
-     * @param homepageUrl The URL users can obtain more information
+     * A public URL where users can obtain more information about this Connect App..
+     *
+     * @param homepageUrl A public URL where users can obtain more information
      * @return this
      */
     public ConnectAppUpdater setHomepageUrl(final String homepageUrl) {
@@ -173,10 +171,10 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     }
 
     /**
-     * A comma-separated list of permssions you will request from users of this
-     * ConnectApp.  Valid permssions are `get-all` or `post-all`..
-     * 
-     * @param permissions The set of permissions that your ConnectApp requests.
+     * A comma-separated list of the permissions you will request from the users of
+     * this ConnectApp.  Can include: `get-all` and `post-all`..
+     *
+     * @param permissions The set of permissions that your ConnectApp will request
      * @return this
      */
     public ConnectAppUpdater setPermissions(final List<ConnectApp.Permission> permissions) {
@@ -185,10 +183,10 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
     }
 
     /**
-     * A comma-separated list of permssions you will request from users of this
-     * ConnectApp.  Valid permssions are `get-all` or `post-all`..
-     * 
-     * @param permissions The set of permissions that your ConnectApp requests.
+     * A comma-separated list of the permissions you will request from the users of
+     * this ConnectApp.  Can include: `get-all` and `post-all`..
+     *
+     * @param permissions The set of permissions that your ConnectApp will request
      * @return this
      */
     public ConnectAppUpdater setPermissions(final ConnectApp.Permission permissions) {
@@ -197,7 +195,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated ConnectApp
      */
@@ -208,8 +206,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/ConnectApps/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/ConnectApps/" + this.pathSid + ".json"
         );
 
         addPostParams(request);
@@ -222,14 +219,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return ConnectApp.fromJson(response.getStream(), client.getObjectMapper());
@@ -237,7 +227,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

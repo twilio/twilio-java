@@ -25,20 +25,24 @@ public class SyncMapCreator extends Creator<SyncMap> {
     private final String pathServiceSid;
     private String uniqueName;
     private Integer ttl;
+    private Integer collectionTtl;
 
     /**
      * Construct a new SyncMapCreator.
-     * 
-     * @param pathServiceSid The service_sid
+     *
+     * @param pathServiceSid The SID of the Sync Service to create the Sync Map in
      */
     public SyncMapCreator(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
     /**
-     * Human-readable name for this map.
-     * 
-     * @param uniqueName Human-readable name for this map
+     * An application-defined string that uniquely identifies the resource. It can
+     * be used as an alternative to the `sid` in the URL path to address the
+     * resource..
+     *
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      * @return this
      */
     public SyncMapCreator setUniqueName(final String uniqueName) {
@@ -47,10 +51,10 @@ public class SyncMapCreator extends Creator<SyncMap> {
     }
 
     /**
-     * Time-to-live of this Map in seconds, defaults to no expiration. In the range
-     * [1, 31 536 000 (1 year)], or 0 for infinity..
-     * 
-     * @param ttl Time-to-live of this Map in seconds, defaults to no expiration.
+     * An alias for `collection_ttl`. If both parameters are provided, this value is
+     * ignored..
+     *
+     * @param ttl An alias for collection_ttl
      * @return this
      */
     public SyncMapCreator setTtl(final Integer ttl) {
@@ -59,8 +63,24 @@ public class SyncMapCreator extends Creator<SyncMap> {
     }
 
     /**
+     * How long, in seconds, before the Sync Map expires (time-to-live) and is
+     * deleted. Can be an integer from 0 to 31,536,000 (1 year). The default value
+     * is `0`, which means the Sync Map does not expire. The Sync Map will be
+     * deleted automatically after it expires, but there can be a delay between the
+     * expiration time and the resources's deletion..
+     *
+     * @param collectionTtl How long, in seconds, before the Sync Map expires and
+     *                      is deleted
+     * @return this
+     */
+    public SyncMapCreator setCollectionTtl(final Integer collectionTtl) {
+        this.collectionTtl = collectionTtl;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created SyncMap
      */
@@ -70,8 +90,7 @@ public class SyncMapCreator extends Creator<SyncMap> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Maps",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Maps"
         );
 
         addPostParams(request);
@@ -84,14 +103,7 @@ public class SyncMapCreator extends Creator<SyncMap> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SyncMap.fromJson(response.getStream(), client.getObjectMapper());
@@ -99,7 +111,7 @@ public class SyncMapCreator extends Creator<SyncMap> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
@@ -109,6 +121,10 @@ public class SyncMapCreator extends Creator<SyncMap> {
 
         if (ttl != null) {
             request.addPostParam("Ttl", ttl.toString());
+        }
+
+        if (collectionTtl != null) {
+            request.addPostParam("CollectionTtl", collectionTtl.toString());
         }
     }
 }

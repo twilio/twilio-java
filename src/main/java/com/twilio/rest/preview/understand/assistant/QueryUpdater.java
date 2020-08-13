@@ -30,20 +30,20 @@ public class QueryUpdater extends Updater<Query> {
 
     /**
      * Construct a new QueryUpdater.
-     * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     *
+     * @param pathAssistantSid The unique ID of the parent Assistant.
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      */
-    public QueryUpdater(final String pathAssistantSid, 
+    public QueryUpdater(final String pathAssistantSid,
                         final String pathSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * The sample_sid.
-     * 
-     * @param sampleSid The sample_sid
+     * An optional reference to the Sample created from this query..
+     *
+     * @param sampleSid An optional reference to the Sample created from this query.
      * @return this
      */
     public QueryUpdater setSampleSid(final String sampleSid) {
@@ -54,7 +54,7 @@ public class QueryUpdater extends Updater<Query> {
     /**
      * A string that described the query status. The values can be: pending_review,
      * reviewed, discarded.
-     * 
+     *
      * @param status A string that described the query status. The values can be:
      *               pending_review, reviewed, discarded
      * @return this
@@ -66,7 +66,7 @@ public class QueryUpdater extends Updater<Query> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Query
      */
@@ -76,8 +76,7 @@ public class QueryUpdater extends Updater<Query> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/Queries/" + this.pathSid + "",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/Queries/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -90,14 +89,7 @@ public class QueryUpdater extends Updater<Query> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Query.fromJson(response.getStream(), client.getObjectMapper());
@@ -105,7 +97,7 @@ public class QueryUpdater extends Updater<Query> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

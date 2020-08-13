@@ -27,9 +27,8 @@ public class CompositionFetcher extends Fetcher<Composition> {
 
     /**
      * Construct a new CompositionFetcher.
-     * 
-     * @param pathSid The Composition Sid that uniquely identifies the Composition
-     *                to fetch.
+     *
+     * @param pathSid The SID that identifies the resource to fetch
      */
     public CompositionFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -37,7 +36,7 @@ public class CompositionFetcher extends Fetcher<Composition> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Composition
      */
@@ -47,8 +46,7 @@ public class CompositionFetcher extends Fetcher<Composition> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/Compositions/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Compositions/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -60,14 +58,7 @@ public class CompositionFetcher extends Fetcher<Composition> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Composition.fromJson(response.getStream(), client.getObjectMapper());

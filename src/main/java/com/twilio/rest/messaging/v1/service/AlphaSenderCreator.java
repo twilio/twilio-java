@@ -27,11 +27,11 @@ public class AlphaSenderCreator extends Creator<AlphaSender> {
 
     /**
      * Construct a new AlphaSenderCreator.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param alphaSender An Alphanumeric Sender ID string, up to 11 characters.
+     *
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param alphaSender The Alphanumeric Sender ID string
      */
-    public AlphaSenderCreator(final String pathServiceSid, 
+    public AlphaSenderCreator(final String pathServiceSid,
                               final String alphaSender) {
         this.pathServiceSid = pathServiceSid;
         this.alphaSender = alphaSender;
@@ -39,7 +39,7 @@ public class AlphaSenderCreator extends Creator<AlphaSender> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created AlphaSender
      */
@@ -49,8 +49,7 @@ public class AlphaSenderCreator extends Creator<AlphaSender> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.MESSAGING.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/AlphaSenders",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/AlphaSenders"
         );
 
         addPostParams(request);
@@ -63,14 +62,7 @@ public class AlphaSenderCreator extends Creator<AlphaSender> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return AlphaSender.fromJson(response.getStream(), client.getObjectMapper());
@@ -78,7 +70,7 @@ public class AlphaSenderCreator extends Creator<AlphaSender> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

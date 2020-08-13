@@ -33,19 +33,18 @@ public class AddressReader extends Reader<Address> {
 
     /**
      * Construct a new AddressReader.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The SID of the Account that is responsible for this
+     *                       address
      */
     public AddressReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
     /**
-     * Only return the Address resources with customer names that exactly match this
-     * name..
-     * 
-     * @param customerName Only return the Address resources with customer names
-     *                     that exactly match this name.
+     * The `customer_name` of the Address resources to read..
+     *
+     * @param customerName The `customer_name` of the Address resources to read
      * @return this
      */
     public AddressReader setCustomerName(final String customerName) {
@@ -54,11 +53,9 @@ public class AddressReader extends Reader<Address> {
     }
 
     /**
-     * Only return the Address resources with friendly names that exactly match this
-     * name..
-     * 
-     * @param friendlyName Only return the Address resources with friendly names
-     *                     that exactly match this name.
+     * The string that identifies the Address resources to read..
+     *
+     * @param friendlyName The string that identifies the Address resources to read
      * @return this
      */
     public AddressReader setFriendlyName(final String friendlyName) {
@@ -67,9 +64,9 @@ public class AddressReader extends Reader<Address> {
     }
 
     /**
-     * Only return the Address resources in this country..
-     * 
-     * @param isoCountry Only return the Address resources in this country.
+     * The ISO country code of the Address resources to read..
+     *
+     * @param isoCountry The ISO country code of the Address resources to read
      * @return this
      */
     public AddressReader setIsoCountry(final String isoCountry) {
@@ -79,7 +76,7 @@ public class AddressReader extends Reader<Address> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Address ResourceSet
      */
@@ -90,7 +87,7 @@ public class AddressReader extends Reader<Address> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Address ResourceSet
      */
@@ -101,8 +98,7 @@ public class AddressReader extends Reader<Address> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Addresses.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Addresses.json"
         );
 
         addQueryParams(request);
@@ -111,7 +107,7 @@ public class AddressReader extends Reader<Address> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Address ResourceSet
@@ -130,47 +126,41 @@ public class AddressReader extends Reader<Address> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Address> nextPage(final Page<Address> page, 
+    public Page<Address> nextPage(final Page<Address> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Address> previousPage(final Page<Address> page, 
+    public Page<Address> previousPage(final Page<Address> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Address Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -185,14 +175,7 @@ public class AddressReader extends Reader<Address> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -205,7 +188,7 @@ public class AddressReader extends Reader<Address> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

@@ -23,11 +23,13 @@ public class CommandReader extends Reader<Command> {
     private String sim;
     private Command.Status status;
     private Command.Direction direction;
+    private Command.Transport transport;
 
     /**
-     * Only return Commands to or from this SIM..
-     * 
-     * @param sim Only return Commands to or from this SIM.
+     * The `sid` or `unique_name` of the [Sim
+     * resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read..
+     *
+     * @param sim The sid or unique_name of the Sim resources to read
      * @return this
      */
     public CommandReader setSim(final String sim) {
@@ -36,9 +38,10 @@ public class CommandReader extends Reader<Command> {
     }
 
     /**
-     * Only return Commands with this status value..
-     * 
-     * @param status Only return Commands with this status value.
+     * The status of the resources to read. Can be: `queued`, `sent`, `delivered`,
+     * `received`, or `failed`..
+     *
+     * @param status The status of the resources to read
      * @return this
      */
     public CommandReader setStatus(final Command.Status status) {
@@ -48,8 +51,8 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * Only return Commands with this direction value..
-     * 
-     * @param direction Only return Commands with this direction value.
+     *
+     * @param direction Only return Commands with this direction value
      * @return this
      */
     public CommandReader setDirection(final Command.Direction direction) {
@@ -58,8 +61,19 @@ public class CommandReader extends Reader<Command> {
     }
 
     /**
+     * Only return Commands with this transport value. Can be: `sms` or `ip`..
+     *
+     * @param transport Only return Commands with this transport value
+     * @return this
+     */
+    public CommandReader setTransport(final Command.Transport transport) {
+        this.transport = transport;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Command ResourceSet
      */
@@ -70,7 +84,7 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Command ResourceSet
      */
@@ -80,8 +94,7 @@ public class CommandReader extends Reader<Command> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.WIRELESS.toString(),
-            "/v1/Commands",
-            client.getRegion()
+            "/v1/Commands"
         );
 
         addQueryParams(request);
@@ -90,7 +103,7 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Command ResourceSet
@@ -108,47 +121,41 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Command> nextPage(final Page<Command> page, 
+    public Page<Command> nextPage(final Page<Command> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.WIRELESS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.WIRELESS.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Command> previousPage(final Page<Command> page, 
+    public Page<Command> previousPage(final Page<Command> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.WIRELESS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.WIRELESS.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Command Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -163,14 +170,7 @@ public class CommandReader extends Reader<Command> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -183,7 +183,7 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
@@ -197,6 +197,10 @@ public class CommandReader extends Reader<Command> {
 
         if (direction != null) {
             request.addQueryParam("Direction", direction.toString());
+        }
+
+        if (transport != null) {
+            request.addQueryParam("Transport", transport.toString());
         }
 
         if (getPageSize() != null) {

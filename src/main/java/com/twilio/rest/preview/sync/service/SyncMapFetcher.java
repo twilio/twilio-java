@@ -28,11 +28,11 @@ public class SyncMapFetcher extends Fetcher<SyncMap> {
 
     /**
      * Construct a new SyncMapFetcher.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathSid The sid
      */
-    public SyncMapFetcher(final String pathServiceSid, 
+    public SyncMapFetcher(final String pathServiceSid,
                           final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class SyncMapFetcher extends Fetcher<SyncMap> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched SyncMap
      */
@@ -50,8 +50,7 @@ public class SyncMapFetcher extends Fetcher<SyncMap> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Maps/" + this.pathSid + "",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Maps/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -63,14 +62,7 @@ public class SyncMapFetcher extends Fetcher<SyncMap> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SyncMap.fromJson(response.getStream(), client.getObjectMapper());

@@ -27,8 +27,8 @@ public class AssistantDeleter extends Deleter<Assistant> {
 
     /**
      * Construct a new AssistantDeleter.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public AssistantDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -36,7 +36,7 @@ public class AssistantDeleter extends Deleter<Assistant> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -45,8 +45,7 @@ public class AssistantDeleter extends Deleter<Assistant> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathSid + "",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -58,14 +57,7 @@ public class AssistantDeleter extends Deleter<Assistant> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

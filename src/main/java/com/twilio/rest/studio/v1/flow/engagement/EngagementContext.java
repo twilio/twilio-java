@@ -31,22 +31,18 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EngagementContext extends Resource {
     private static final long serialVersionUID = 165571935124227L;
 
     /**
      * Create a EngagementContextFetcher to execute fetch.
-     * 
-     * @param pathFlowSid Flow Sid.
-     * @param pathEngagementSid Engagement Sid.
+     *
+     * @param pathFlowSid Flow SID
+     * @param pathEngagementSid Engagement SID
      * @return EngagementContextFetcher capable of executing the fetch
      */
-    public static EngagementContextFetcher fetcher(final String pathFlowSid, 
+    public static EngagementContextFetcher fetcher(final String pathFlowSid,
                                                    final String pathEngagementSid) {
         return new EngagementContextFetcher(pathFlowSid, pathEngagementSid);
     }
@@ -54,7 +50,7 @@ public class EngagementContext extends Resource {
     /**
      * Converts a JSON String into a EngagementContext object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return EngagementContext object represented by the provided JSON
@@ -73,7 +69,7 @@ public class EngagementContext extends Resource {
     /**
      * Converts a JSON InputStream into a EngagementContext object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return EngagementContext object represented by the provided JSON
@@ -97,13 +93,13 @@ public class EngagementContext extends Resource {
 
     @JsonCreator
     private EngagementContext(@JsonProperty("account_sid")
-                              final String accountSid, 
+                              final String accountSid,
                               @JsonProperty("context")
-                              final Map<String, Object> context, 
+                              final Map<String, Object> context,
                               @JsonProperty("engagement_sid")
-                              final String engagementSid, 
+                              final String engagementSid,
                               @JsonProperty("flow_sid")
-                              final String flowSid, 
+                              final String flowSid,
                               @JsonProperty("url")
                               final URI url) {
         this.accountSid = accountSid;
@@ -114,45 +110,45 @@ public class EngagementContext extends Resource {
     }
 
     /**
-     * Returns The Account Sid..
-     * 
-     * @return Account Sid.
+     * Returns Account SID.
+     *
+     * @return Account SID
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Flow state..
-     * 
-     * @return Flow state.
+     * Returns Flow state.
+     *
+     * @return Flow state
      */
     public final Map<String, Object> getContext() {
         return this.context;
     }
 
     /**
-     * Returns The Engagement Sid..
-     * 
-     * @return Engagement Sid.
+     * Returns Engagement SID.
+     *
+     * @return Engagement SID
      */
     public final String getEngagementSid() {
         return this.engagementSid;
     }
 
     /**
-     * Returns The Flow Sid..
-     * 
-     * @return Flow Sid.
+     * Returns Flow SID.
+     *
+     * @return Flow SID
      */
     public final String getFlowSid() {
         return this.flowSid;
     }
 
     /**
-     * Returns The The URL of this resource..
-     * 
-     * @return The URL of this resource.
+     * Returns The URL of the resource.
+     *
+     * @return The URL of the resource
      */
     public final URI getUrl() {
         return this.url;
@@ -170,10 +166,10 @@ public class EngagementContext extends Resource {
 
         EngagementContext other = (EngagementContext) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(context, other.context) && 
-               Objects.equals(engagementSid, other.engagementSid) && 
-               Objects.equals(flowSid, other.flowSid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(context, other.context) &&
+               Objects.equals(engagementSid, other.engagementSid) &&
+               Objects.equals(flowSid, other.flowSid) &&
                Objects.equals(url, other.url);
     }
 

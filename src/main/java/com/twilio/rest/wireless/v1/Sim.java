@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Sim extends Resource {
-    private static final long serialVersionUID = 120029106133082L;
+    private static final long serialVersionUID = 225971057340770L;
 
     public enum Status {
         NEW("new"),
@@ -68,10 +68,34 @@ public class Sim extends Resource {
         }
     }
 
+    public enum ResetStatus {
+        RESETTING("resetting");
+
+        private final String value;
+
+        private ResetStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a ResetStatus from a string.
+         * @param value string value
+         * @return generated ResetStatus
+         */
+        @JsonCreator
+        public static ResetStatus forValue(final String value) {
+            return Promoter.enumFromString(value, ResetStatus.values());
+        }
+    }
+
     /**
      * Create a SimFetcher to execute fetch.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The SID of the Sim resource to fetch
      * @return SimFetcher capable of executing the fetch
      */
     public static SimFetcher fetcher(final String pathSid) {
@@ -80,7 +104,7 @@ public class Sim extends Resource {
 
     /**
      * Create a SimReader to execute read.
-     * 
+     *
      * @return SimReader capable of executing the read
      */
     public static SimReader reader() {
@@ -89,8 +113,8 @@ public class Sim extends Resource {
 
     /**
      * Create a SimUpdater to execute update.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The SID of the Sim resource to update
      * @return SimUpdater capable of executing the update
      */
     public static SimUpdater updater(final String pathSid) {
@@ -98,8 +122,18 @@ public class Sim extends Resource {
     }
 
     /**
+     * Create a SimDeleter to execute delete.
+     *
+     * @param pathSid The SID of the Sim Resource to delete
+     * @return SimDeleter capable of executing the delete
+     */
+    public static SimDeleter deleter(final String pathSid) {
+        return new SimDeleter(pathSid);
+    }
+
+    /**
      * Converts a JSON String into a Sim object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Sim object represented by the provided JSON
@@ -118,7 +152,7 @@ public class Sim extends Resource {
     /**
      * Converts a JSON InputStream into a Sim object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Sim object represented by the provided JSON
@@ -142,6 +176,7 @@ public class Sim extends Resource {
     private final String iccid;
     private final String eId;
     private final Sim.Status status;
+    private final Sim.ResetStatus resetStatus;
     private final URI commandsCallbackUrl;
     private final HttpMethod commandsCallbackMethod;
     private final HttpMethod smsFallbackMethod;
@@ -160,49 +195,51 @@ public class Sim extends Resource {
 
     @JsonCreator
     private Sim(@JsonProperty("sid")
-                final String sid, 
+                final String sid,
                 @JsonProperty("unique_name")
-                final String uniqueName, 
+                final String uniqueName,
                 @JsonProperty("account_sid")
-                final String accountSid, 
+                final String accountSid,
                 @JsonProperty("rate_plan_sid")
-                final String ratePlanSid, 
+                final String ratePlanSid,
                 @JsonProperty("friendly_name")
-                final String friendlyName, 
+                final String friendlyName,
                 @JsonProperty("iccid")
-                final String iccid, 
+                final String iccid,
                 @JsonProperty("e_id")
-                final String eId, 
+                final String eId,
                 @JsonProperty("status")
-                final Sim.Status status, 
+                final Sim.Status status,
+                @JsonProperty("reset_status")
+                final Sim.ResetStatus resetStatus,
                 @JsonProperty("commands_callback_url")
-                final URI commandsCallbackUrl, 
+                final URI commandsCallbackUrl,
                 @JsonProperty("commands_callback_method")
-                final HttpMethod commandsCallbackMethod, 
+                final HttpMethod commandsCallbackMethod,
                 @JsonProperty("sms_fallback_method")
-                final HttpMethod smsFallbackMethod, 
+                final HttpMethod smsFallbackMethod,
                 @JsonProperty("sms_fallback_url")
-                final URI smsFallbackUrl, 
+                final URI smsFallbackUrl,
                 @JsonProperty("sms_method")
-                final HttpMethod smsMethod, 
+                final HttpMethod smsMethod,
                 @JsonProperty("sms_url")
-                final URI smsUrl, 
+                final URI smsUrl,
                 @JsonProperty("voice_fallback_method")
-                final HttpMethod voiceFallbackMethod, 
+                final HttpMethod voiceFallbackMethod,
                 @JsonProperty("voice_fallback_url")
-                final URI voiceFallbackUrl, 
+                final URI voiceFallbackUrl,
                 @JsonProperty("voice_method")
-                final HttpMethod voiceMethod, 
+                final HttpMethod voiceMethod,
                 @JsonProperty("voice_url")
-                final URI voiceUrl, 
+                final URI voiceUrl,
                 @JsonProperty("date_created")
-                final String dateCreated, 
+                final String dateCreated,
                 @JsonProperty("date_updated")
-                final String dateUpdated, 
+                final String dateUpdated,
                 @JsonProperty("url")
-                final URI url, 
+                final URI url,
                 @JsonProperty("links")
-                final Map<String, String> links, 
+                final Map<String, String> links,
                 @JsonProperty("ip_address")
                 final String ipAddress) {
         this.sid = sid;
@@ -213,6 +250,7 @@ public class Sim extends Resource {
         this.iccid = iccid;
         this.eId = eId;
         this.status = status;
+        this.resetStatus = resetStatus;
         this.commandsCallbackUrl = commandsCallbackUrl;
         this.commandsCallbackMethod = commandsCallbackMethod;
         this.smsFallbackMethod = smsFallbackMethod;
@@ -231,230 +269,226 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
-     * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * Returns The unique string that identifies the Sim resource.
+     *
+     * @return The unique string that identifies the Sim resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A user-provided string that uniquely identifies this resource as
-     * an alternative to the sid..
-     * 
-     * @return A user-provided string that uniquely identifies this resource as an
-     *         alternative to the sid.
+     * Returns An application-defined string that uniquely identifies the resource.
+     *
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The unique id of the Account that this Sim belongs to..
-     * 
-     * @return The unique id of the Account that this Sim belongs to.
+     * Returns The SID of the Account to which the Sim resource belongs.
+     *
+     * @return The SID of the Account to which the Sim resource belongs
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique ID of the Rate Plan configured for this Sim..
-     * 
-     * @return The unique ID of the Rate Plan configured for this Sim.
+     * Returns The SID of the RatePlan resource to which the Sim resource is
+     * assigned..
+     *
+     * @return The SID of the RatePlan resource to which the Sim resource is
+     *         assigned.
      */
     public final String getRatePlanSid() {
         return this.ratePlanSid;
     }
 
     /**
-     * Returns The A user-provided string that identifies this resource..
-     * 
-     * @return A user-provided string that identifies this resource.
+     * Returns The string that you assigned to describe the Sim resource.
+     *
+     * @return The string that you assigned to describe the Sim resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The ICCID associated with the SIM..
-     * 
-     * @return The ICCID associated with the SIM.
+     * Returns The ICCID associated with the SIM.
+     *
+     * @return The ICCID associated with the SIM
      */
     public final String getIccid() {
         return this.iccid;
     }
 
     /**
-     * Returns The The e_id.
-     * 
-     * @return The e_id
+     * Returns Deprecated.
+     *
+     * @return Deprecated
      */
     public final String getEId() {
         return this.eId;
     }
 
     /**
-     * Returns The A string representing the status of the Sim..
-     * 
-     * @return A string representing the status of the Sim.
+     * Returns The status of the Sim resource.
+     *
+     * @return The status of the Sim resource
      */
     public final Sim.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The URL that will receive a webhook when this Sim originates a
-     * machine-to-machine Command..
-     * 
-     * @return The URL that will receive a webhook when this Sim originates a
-     *         machine-to-machine Command.
+     * Returns The connectivity reset status of the SIM.
+     *
+     * @return The connectivity reset status of the SIM
+     */
+    public final Sim.ResetStatus getResetStatus() {
+        return this.resetStatus;
+    }
+
+    /**
+     * Returns The URL we call when the SIM originates a machine-to-machine Command.
+     *
+     * @return The URL we call when the SIM originates a machine-to-machine Command
      */
     public final URI getCommandsCallbackUrl() {
         return this.commandsCallbackUrl;
     }
 
     /**
-     * Returns The A string representing the HTTP method to use when making a
-     * request to commands_callback_url..
-     * 
-     * @return A string representing the HTTP method to use when making a request
-     *         to commands_callback_url.
+     * Returns The HTTP method we use to call commands_callback_url.
+     *
+     * @return The HTTP method we use to call commands_callback_url
      */
     public final HttpMethod getCommandsCallbackMethod() {
         return this.commandsCallbackMethod;
     }
 
     /**
-     * Returns The The HTTP method Twilio will use when requesting the
-     * sms_fallback_url..
-     * 
-     * @return The HTTP method Twilio will use when requesting the sms_fallback_url.
+     * Returns The HTTP method we use to call sms_fallback_url.
+     *
+     * @return The HTTP method we use to call sms_fallback_url
      */
     public final HttpMethod getSmsFallbackMethod() {
         return this.smsFallbackMethod;
     }
 
     /**
-     * Returns The The URL that Twilio will request if an error occurs retrieving or
-     * executing the TwiML requested by sms_url..
-     * 
-     * @return The URL that Twilio will request if an error occurs retrieving or
-     *         executing the TwiML requested by sms_url.
+     * Returns The URL we call when an error occurs while retrieving or executing
+     * the TwiML requested from the sms_url.
+     *
+     * @return The URL we call when an error occurs while retrieving or executing
+     *         the TwiML requested from the sms_url
      */
     public final URI getSmsFallbackUrl() {
         return this.smsFallbackUrl;
     }
 
     /**
-     * Returns The The HTTP method Twilio will use when requesting the above Url..
-     * 
-     * @return The HTTP method Twilio will use when requesting the above Url.
+     * Returns The HTTP method we use to call sms_url.
+     *
+     * @return The HTTP method we use to call sms_url
      */
     public final HttpMethod getSmsMethod() {
         return this.smsMethod;
     }
 
     /**
-     * Returns The The URL Twilio will request when the SIM-connected device send an
-     * SMS that is not a Command..
-     * 
-     * @return The URL Twilio will request when the SIM-connected device send an
-     *         SMS that is not a Command.
+     * Returns The URL we call when the SIM-connected device sends an SMS message
+     * that is not a Command.
+     *
+     * @return The URL we call when the SIM-connected device sends an SMS message
+     *         that is not a Command
      */
     public final URI getSmsUrl() {
         return this.smsUrl;
     }
 
     /**
-     * Returns The The HTTP method Twilio will use when requesting the
-     * voice_fallback_url..
-     * 
-     * @return The HTTP method Twilio will use when requesting the
-     *         voice_fallback_url.
+     * Returns The HTTP method we use to call voice_fallback_url.
+     *
+     * @return The HTTP method we use to call voice_fallback_url
      */
     public final HttpMethod getVoiceFallbackMethod() {
         return this.voiceFallbackMethod;
     }
 
     /**
-     * Returns The The URL that Twilio will request if an error occurs retrieving or
-     * executing the TwiML requested by voice_url..
-     * 
-     * @return The URL that Twilio will request if an error occurs retrieving or
-     *         executing the TwiML requested by voice_url.
+     * Returns The URL we call when an error occurs while retrieving or executing
+     * the TwiML requested from voice_url.
+     *
+     * @return The URL we call when an error occurs while retrieving or executing
+     *         the TwiML requested from voice_url
      */
     public final URI getVoiceFallbackUrl() {
         return this.voiceFallbackUrl;
     }
 
     /**
-     * Returns The The HTTP method Twilio will use when requesting the above Url..
-     * 
-     * @return The HTTP method Twilio will use when requesting the above Url.
+     * Returns The HTTP method we use to call voice_url.
+     *
+     * @return The HTTP method we use to call voice_url
      */
     public final HttpMethod getVoiceMethod() {
         return this.voiceMethod;
     }
 
     /**
-     * Returns The The URL Twilio will request when the SIM-connected device makes a
-     * call..
-     * 
-     * @return The URL Twilio will request when the SIM-connected device makes a
-     *         call.
+     * Returns The URL we call when the SIM-connected device makes a voice call.
+     *
+     * @return The URL we call when the SIM-connected device makes a voice call
      */
     public final URI getVoiceUrl() {
         return this.voiceUrl;
     }
 
     /**
-     * Returns The The date that this resource was created, given as GMT in ISO 8601
-     * format..
-     * 
-     * @return The date that this resource was created, given as GMT in ISO 8601
-     *         format.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated, given as GMT in ISO
-     * 8601 format..
-     * 
-     * @return The date that this resource was last updated, given as GMT in ISO
-     *         8601 format.
+     * Returns The ISO 8601 date and time in GMT when the Sim resource was last
+     * updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the Sim resource was last
+     *         updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL for this resource..
-     * 
-     * @return The URL for this resource.
+     * Returns The absolute URL of the resource.
+     *
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Each Sim instance resource supports a few subresources, listed
-     * here for convenience..
-     * 
-     * @return Each Sim instance resource supports a few subresources, listed here
-     *         for convenience.
+     * Returns The URLs of related subresources.
+     *
+     * @return The URLs of related subresources
      */
     public final Map<String, String> getLinks() {
         return this.links;
     }
 
     /**
-     * Returns The The ip_address.
-     * 
-     * @return The ip_address
+     * Returns Deprecated.
+     *
+     * @return Deprecated
      */
     public final String getIpAddress() {
         return this.ipAddress;
@@ -472,28 +506,29 @@ public class Sim extends Resource {
 
         Sim other = (Sim) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(ratePlanSid, other.ratePlanSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(iccid, other.iccid) && 
-               Objects.equals(eId, other.eId) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(commandsCallbackUrl, other.commandsCallbackUrl) && 
-               Objects.equals(commandsCallbackMethod, other.commandsCallbackMethod) && 
-               Objects.equals(smsFallbackMethod, other.smsFallbackMethod) && 
-               Objects.equals(smsFallbackUrl, other.smsFallbackUrl) && 
-               Objects.equals(smsMethod, other.smsMethod) && 
-               Objects.equals(smsUrl, other.smsUrl) && 
-               Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) && 
-               Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) && 
-               Objects.equals(voiceMethod, other.voiceMethod) && 
-               Objects.equals(voiceUrl, other.voiceUrl) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(links, other.links) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(ratePlanSid, other.ratePlanSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(iccid, other.iccid) &&
+               Objects.equals(eId, other.eId) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(resetStatus, other.resetStatus) &&
+               Objects.equals(commandsCallbackUrl, other.commandsCallbackUrl) &&
+               Objects.equals(commandsCallbackMethod, other.commandsCallbackMethod) &&
+               Objects.equals(smsFallbackMethod, other.smsFallbackMethod) &&
+               Objects.equals(smsFallbackUrl, other.smsFallbackUrl) &&
+               Objects.equals(smsMethod, other.smsMethod) &&
+               Objects.equals(smsUrl, other.smsUrl) &&
+               Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) &&
+               Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) &&
+               Objects.equals(voiceMethod, other.voiceMethod) &&
+               Objects.equals(voiceUrl, other.voiceUrl) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(links, other.links) &&
                Objects.equals(ipAddress, other.ipAddress);
     }
 
@@ -507,6 +542,7 @@ public class Sim extends Resource {
                             iccid,
                             eId,
                             status,
+                            resetStatus,
                             commandsCallbackUrl,
                             commandsCallbackMethod,
                             smsFallbackMethod,
@@ -535,6 +571,7 @@ public class Sim extends Resource {
                           .add("iccid", iccid)
                           .add("eId", eId)
                           .add("status", status)
+                          .add("resetStatus", resetStatus)
                           .add("commandsCallbackUrl", commandsCallbackUrl)
                           .add("commandsCallbackMethod", commandsCallbackMethod)
                           .add("smsFallbackMethod", smsFallbackMethod)

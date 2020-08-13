@@ -41,8 +41,8 @@ public class ExportConfigurationTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
-                                          "/BulkExports/Exports/pathResourceType/Configuration");
-            
+                                          "/BulkExports/Exports/resource_type/Configuration");
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -51,7 +51,7 @@ public class ExportConfigurationTest {
         }};
 
         try {
-            ExportConfiguration.fetcher("pathResourceType").fetch();
+            ExportConfiguration.fetcher("resource_type").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class ExportConfigurationTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(ExportConfiguration.fetcher("pathResourceType").fetch());
+        assertNotNull(ExportConfiguration.fetcher("resource_type").fetch());
     }
 
     @Test
@@ -73,8 +73,8 @@ public class ExportConfigurationTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.PREVIEW.toString(),
-                                          "/BulkExports/Exports/pathResourceType/Configuration");
-            
+                                          "/BulkExports/Exports/resource_type/Configuration");
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -83,7 +83,7 @@ public class ExportConfigurationTest {
         }};
 
         try {
-            ExportConfiguration.updater("pathResourceType").update();
+            ExportConfiguration.updater("resource_type").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,6 +97,6 @@ public class ExportConfigurationTest {
             result = new ObjectMapper();
         }};
 
-        ExportConfiguration.updater("pathResourceType").update();
+        ExportConfiguration.updater("resource_type").update();
     }
 }

@@ -11,6 +11,7 @@ test:
 	mvn test
 
 docs:
+	rm -rf docs
 	mvn javadoc:javadoc
 
 API_DEFINITIONS_SHA=$(shell git log --oneline | grep Regenerated | head -n1 | cut -d ' ' -f 5)

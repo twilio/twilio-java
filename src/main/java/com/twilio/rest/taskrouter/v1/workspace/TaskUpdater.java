@@ -28,21 +28,21 @@ public class TaskUpdater extends Updater<Task> {
 
     /**
      * Construct a new TaskUpdater.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the Task to update
+     * @param pathSid The SID of the resource to update
      */
-    public TaskUpdater(final String pathWorkspaceSid, 
+    public TaskUpdater(final String pathWorkspaceSid,
                        final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * The user-defined JSON data describing the custom attributes of this task..
-     * 
-     * @param attributes The user-defined JSON data describing the custom
-     *                   attributes of this task.
+     * The JSON string that describes the custom attributes of the task..
+     *
+     * @param attributes The JSON string that describes the custom attributes of
+     *                   the task
      * @return this
      */
     public TaskUpdater setAttributes(final String attributes) {
@@ -51,13 +51,11 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
-     * A 'pending' or 'reserved' Task may be canceled by posting
-     * AssignmentStatus='canceled'. Post AssignmentStatus='wrapping' to move Task to
-     * 'wrapup' state and AssignmentStatus='completed' to move a Task to 'completed'
-     * state..
-     * 
-     * @param assignmentStatus A 'pending' or 'reserved' Task may be canceled by
-     *                         posting AssignmentStatus='canceled'.
+     * The new status of the task. Can be: `canceled`, to cancel a Task that is
+     * currently `pending` or `reserved`; `wrapping`, to move the Task to wrapup
+     * state; or `completed`, to move a Task to the completed state..
+     *
+     * @param assignmentStatus The new status of the task
      * @return this
      */
     public TaskUpdater setAssignmentStatus(final Task.Status assignmentStatus) {
@@ -66,11 +64,11 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
-     * This is only required if the Task is canceled or completed. This logs the
-     * reason the task was either canceled or completed and queues the task for
-     * deletion after 5 minutes..
-     * 
-     * @param reason This is only required if the Task is canceled or completed.
+     * The reason that the Task was canceled or completed. This parameter is
+     * required only if the Task is canceled or completed. Setting this value queues
+     * the task for deletion and logs the reason..
+     *
+     * @param reason The reason that the Task was canceled or complete
      * @return this
      */
     public TaskUpdater setReason(final String reason) {
@@ -79,10 +77,11 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
-     * Override priority for the Task. When supplied, the Task will take on the
-     * given priority unless it matches a Workflow Target with a Priority set..
-     * 
-     * @param priority Override priority for the Task.
+     * The Task's new priority value. When supplied, the Task takes on the specified
+     * priority unless it matches a Workflow Target with a Priority set. Value can
+     * be 0 to 2^31^ (2,147,483,647)..
+     *
+     * @param priority The Task's new priority value
      * @return this
      */
     public TaskUpdater setPriority(final Integer priority) {
@@ -91,9 +90,12 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
-     * The task_channel.
-     * 
-     * @param taskChannel The task_channel
+     * When MultiTasking is enabled, specify the TaskChannel with the task to
+     * update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`,
+     * `sms`, or `default`..
+     *
+     * @param taskChannel When MultiTasking is enabled, specify the TaskChannel
+     *                    with the task to update
      * @return this
      */
     public TaskUpdater setTaskChannel(final String taskChannel) {
@@ -103,7 +105,7 @@ public class TaskUpdater extends Updater<Task> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Task
      */
@@ -113,8 +115,7 @@ public class TaskUpdater extends Updater<Task> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Tasks/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Tasks/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -127,14 +128,7 @@ public class TaskUpdater extends Updater<Task> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Task.fromJson(response.getStream(), client.getObjectMapper());
@@ -142,7 +136,7 @@ public class TaskUpdater extends Updater<Task> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -37,12 +37,13 @@ public class TaskQueueStatistics extends Resource {
 
     /**
      * Create a TaskQueueStatisticsFetcher to execute fetch.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathTaskQueueSid The task_queue_sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskQueue to fetch
+     * @param pathTaskQueueSid The SID of the TaskQueue for which to fetch
+     *                         statistics
      * @return TaskQueueStatisticsFetcher capable of executing the fetch
      */
-    public static TaskQueueStatisticsFetcher fetcher(final String pathWorkspaceSid, 
+    public static TaskQueueStatisticsFetcher fetcher(final String pathWorkspaceSid,
                                                      final String pathTaskQueueSid) {
         return new TaskQueueStatisticsFetcher(pathWorkspaceSid, pathTaskQueueSid);
     }
@@ -50,7 +51,7 @@ public class TaskQueueStatistics extends Resource {
     /**
      * Converts a JSON String into a TaskQueueStatistics object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return TaskQueueStatistics object represented by the provided JSON
@@ -69,7 +70,7 @@ public class TaskQueueStatistics extends Resource {
     /**
      * Converts a JSON InputStream into a TaskQueueStatistics object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return TaskQueueStatistics object represented by the provided JSON
@@ -94,15 +95,15 @@ public class TaskQueueStatistics extends Resource {
 
     @JsonCreator
     private TaskQueueStatistics(@JsonProperty("account_sid")
-                                final String accountSid, 
+                                final String accountSid,
                                 @JsonProperty("cumulative")
-                                final Map<String, Object> cumulative, 
+                                final Map<String, Object> cumulative,
                                 @JsonProperty("realtime")
-                                final Map<String, Object> realtime, 
+                                final Map<String, Object> realtime,
                                 @JsonProperty("task_queue_sid")
-                                final String taskQueueSid, 
+                                final String taskQueueSid,
                                 @JsonProperty("workspace_sid")
-                                final String workspaceSid, 
+                                final String workspaceSid,
                                 @JsonProperty("url")
                                 final URI url) {
         this.accountSid = accountSid;
@@ -114,54 +115,54 @@ public class TaskQueueStatistics extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
-     * 
-     * @return The account_sid
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The cumulative.
-     * 
-     * @return The cumulative
+     * Returns An object that contains the cumulative statistics for the TaskQueue.
+     *
+     * @return An object that contains the cumulative statistics for the TaskQueue
      */
     public final Map<String, Object> getCumulative() {
         return this.cumulative;
     }
 
     /**
-     * Returns The The realtime.
-     * 
-     * @return The realtime
+     * Returns An object that contains the real-time statistics for the TaskQueue.
+     *
+     * @return An object that contains the real-time statistics for the TaskQueue
      */
     public final Map<String, Object> getRealtime() {
         return this.realtime;
     }
 
     /**
-     * Returns The The task_queue_sid.
-     * 
-     * @return The task_queue_sid
+     * Returns The SID of the TaskQueue from which these statistics were calculated.
+     *
+     * @return The SID of the TaskQueue from which these statistics were calculated
      */
     public final String getTaskQueueSid() {
         return this.taskQueueSid;
     }
 
     /**
-     * Returns The The workspace_sid.
-     * 
-     * @return The workspace_sid
+     * Returns The SID of the Workspace that contains the TaskQueue.
+     *
+     * @return The SID of the Workspace that contains the TaskQueue
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
-     * 
-     * @return The url
+     * Returns The absolute URL of the TaskQueue statistics resource.
+     *
+     * @return The absolute URL of the TaskQueue statistics resource
      */
     public final URI getUrl() {
         return this.url;
@@ -179,11 +180,11 @@ public class TaskQueueStatistics extends Resource {
 
         TaskQueueStatistics other = (TaskQueueStatistics) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(cumulative, other.cumulative) && 
-               Objects.equals(realtime, other.realtime) && 
-               Objects.equals(taskQueueSid, other.taskQueueSid) && 
-               Objects.equals(workspaceSid, other.workspaceSid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(cumulative, other.cumulative) &&
+               Objects.equals(realtime, other.realtime) &&
+               Objects.equals(taskQueueSid, other.taskQueueSid) &&
+               Objects.equals(workspaceSid, other.workspaceSid) &&
                Objects.equals(url, other.url);
     }
 

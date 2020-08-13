@@ -23,11 +23,11 @@ public class UserDeleter extends Deleter<User> {
 
     /**
      * Construct a new UserDeleter.
-     * 
-     * @param pathServiceSid Sid of the Service this user belongs to.
-     * @param pathSid Key that uniquely defines the user to delete.
+     *
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathSid The SID of  the User resource to delete
      */
-    public UserDeleter(final String pathServiceSid, 
+    public UserDeleter(final String pathServiceSid,
                        final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class UserDeleter extends Deleter<User> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -44,8 +44,7 @@ public class UserDeleter extends Deleter<User> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Users/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Users/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -57,14 +56,7 @@ public class UserDeleter extends Deleter<User> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

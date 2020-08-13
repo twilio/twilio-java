@@ -32,7 +32,7 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * The device.
-     * 
+     *
      * @param device The device
      * @return this
      */
@@ -43,7 +43,7 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * The sim.
-     * 
+     *
      * @param sim The sim
      * @return this
      */
@@ -54,7 +54,7 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * The status.
-     * 
+     *
      * @param status The status
      * @return this
      */
@@ -65,7 +65,7 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * The direction.
-     * 
+     *
      * @param direction The direction
      * @return this
      */
@@ -76,7 +76,7 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Command ResourceSet
      */
@@ -87,7 +87,7 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Command ResourceSet
      */
@@ -97,8 +97,7 @@ public class CommandReader extends Reader<Command> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/wireless/Commands",
-            client.getRegion()
+            "/wireless/Commands"
         );
 
         addQueryParams(request);
@@ -107,7 +106,7 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Command ResourceSet
@@ -125,47 +124,41 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Command> nextPage(final Page<Command> page, 
+    public Page<Command> nextPage(final Page<Command> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Command> previousPage(final Page<Command> page, 
+    public Page<Command> previousPage(final Page<Command> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Command Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -180,14 +173,7 @@ public class CommandReader extends Reader<Command> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -200,7 +186,7 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

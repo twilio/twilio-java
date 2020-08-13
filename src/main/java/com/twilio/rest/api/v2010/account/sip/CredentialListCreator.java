@@ -23,7 +23,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
 
     /**
      * Construct a new CredentialListCreator.
-     * 
+     *
      * @param friendlyName Human readable descriptive text
      */
     public CredentialListCreator(final String friendlyName) {
@@ -32,11 +32,12 @@ public class CredentialListCreator extends Creator<CredentialList> {
 
     /**
      * Construct a new CredentialListCreator.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
      * @param friendlyName Human readable descriptive text
      */
-    public CredentialListCreator(final String pathAccountSid, 
+    public CredentialListCreator(final String pathAccountSid,
                                  final String friendlyName) {
         this.pathAccountSid = pathAccountSid;
         this.friendlyName = friendlyName;
@@ -44,7 +45,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created CredentialList
      */
@@ -55,8 +56,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/CredentialLists.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/CredentialLists.json"
         );
 
         addPostParams(request);
@@ -69,14 +69,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return CredentialList.fromJson(response.getStream(), client.getObjectMapper());
@@ -84,7 +77,7 @@ public class CredentialListCreator extends Creator<CredentialList> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

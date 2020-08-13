@@ -22,6 +22,7 @@ import mockit.NonStrictExpectations;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class TwilioTest {
@@ -71,6 +72,15 @@ public class TwilioTest {
                 Executors.newCachedThreadPool());
         Twilio.setExecutorService(listeningExecutorService);
         assertEquals(listeningExecutorService, Twilio.getExecutorService());
+    }
+
+    @Test
+    public void testDestroyExecutorService() {
+        ListeningExecutorService listeningExecutorService = MoreExecutors.listeningDecorator(
+                Executors.newCachedThreadPool());
+        Twilio.setExecutorService(listeningExecutorService);
+        Twilio.destroy();
+        assertTrue(Twilio.getExecutorService().isShutdown());
     }
 
     @Test

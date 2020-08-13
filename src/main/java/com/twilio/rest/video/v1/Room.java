@@ -117,8 +117,8 @@ public class Room extends Resource {
 
     /**
      * Create a RoomFetcher to execute fetch.
-     * 
-     * @param pathSid The Room Sid or name that uniquely identifies this resource.
+     *
+     * @param pathSid The SID that identifies the resource to fetch
      * @return RoomFetcher capable of executing the fetch
      */
     public static RoomFetcher fetcher(final String pathSid) {
@@ -127,7 +127,7 @@ public class Room extends Resource {
 
     /**
      * Create a RoomCreator to execute create.
-     * 
+     *
      * @return RoomCreator capable of executing the create
      */
     public static RoomCreator creator() {
@@ -136,7 +136,7 @@ public class Room extends Resource {
 
     /**
      * Create a RoomReader to execute read.
-     * 
+     *
      * @return RoomReader capable of executing the read
      */
     public static RoomReader reader() {
@@ -145,19 +145,19 @@ public class Room extends Resource {
 
     /**
      * Create a RoomUpdater to execute update.
-     * 
-     * @param pathSid The Room Sid or name that uniquely identifies this resource.
-     * @param status Set to completed to end the Room.
+     *
+     * @param pathSid The SID that identifies the resource to update
+     * @param status The new status of the resource
      * @return RoomUpdater capable of executing the update
      */
-    public static RoomUpdater updater(final String pathSid, 
+    public static RoomUpdater updater(final String pathSid,
                                       final Room.RoomStatus status) {
         return new RoomUpdater(pathSid, status);
     }
 
     /**
      * Converts a JSON String into a Room object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Room object represented by the provided JSON
@@ -176,7 +176,7 @@ public class Room extends Resource {
     /**
      * Converts a JSON InputStream into a Room object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Room object represented by the provided JSON
@@ -213,39 +213,39 @@ public class Room extends Resource {
 
     @JsonCreator
     private Room(@JsonProperty("sid")
-                 final String sid, 
+                 final String sid,
                  @JsonProperty("status")
-                 final Room.RoomStatus status, 
+                 final Room.RoomStatus status,
                  @JsonProperty("date_created")
-                 final String dateCreated, 
+                 final String dateCreated,
                  @JsonProperty("date_updated")
-                 final String dateUpdated, 
+                 final String dateUpdated,
                  @JsonProperty("account_sid")
-                 final String accountSid, 
+                 final String accountSid,
                  @JsonProperty("enable_turn")
-                 final Boolean enableTurn, 
+                 final Boolean enableTurn,
                  @JsonProperty("unique_name")
-                 final String uniqueName, 
+                 final String uniqueName,
                  @JsonProperty("status_callback")
-                 final URI statusCallback, 
+                 final URI statusCallback,
                  @JsonProperty("status_callback_method")
-                 final HttpMethod statusCallbackMethod, 
+                 final HttpMethod statusCallbackMethod,
                  @JsonProperty("end_time")
-                 final String endTime, 
+                 final String endTime,
                  @JsonProperty("duration")
-                 final Integer duration, 
+                 final Integer duration,
                  @JsonProperty("type")
-                 final Room.RoomType type, 
+                 final Room.RoomType type,
                  @JsonProperty("max_participants")
-                 final Integer maxParticipants, 
+                 final Integer maxParticipants,
                  @JsonProperty("record_participants_on_connect")
-                 final Boolean recordParticipantsOnConnect, 
+                 final Boolean recordParticipantsOnConnect,
                  @JsonProperty("video_codecs")
-                 final List<Room.VideoCodec> videoCodecs, 
+                 final List<Room.VideoCodec> videoCodecs,
                  @JsonProperty("media_region")
-                 final String mediaRegion, 
+                 final String mediaRegion,
                  @JsonProperty("url")
-                 final URI url, 
+                 final URI url,
                  @JsonProperty("links")
                  final Map<String, String> links) {
         this.sid = sid;
@@ -269,170 +269,164 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The A system-generated 34-character string that uniquely identifies
-     * this resource..
-     * 
-     * @return A system-generated 34-character string that uniquely identifies this
-     *         resource.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A string representing the status of the Room..
-     * 
-     * @return A string representing the status of the Room.
+     * Returns The status of the room.
+     *
+     * @return The status of the room
      */
     public final Room.RoomStatus getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The date that this resource was created, given as a UTC ISO 8601
-     * Timestamp..
-     * 
-     * @return The date that this resource was created, given as a UTC ISO 8601
-     *         Timestamp.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated, given as a UTC ISO
-     * 8601 Timestamp..
-     * 
-     * @return The date that this resource was last updated, given as a UTC ISO
-     *         8601 Timestamp.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The unique ID of the Account associated with this Room..
-     * 
-     * @return The unique ID of the Account associated with this Room.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Enable Twilio's Network Traversal TURN service..
-     * 
-     * @return Enable Twilio's Network Traversal TURN service.
+     * Returns Enable Twilio's Network Traversal TURN service.
+     *
+     * @return Enable Twilio's Network Traversal TURN service
      */
     public final Boolean getEnableTurn() {
         return this.enableTurn;
     }
 
     /**
-     * Returns The A developer-supplied Name of the Room..
-     * 
-     * @return A developer-supplied Name of the Room.
+     * Returns An application-defined string that uniquely identifies the resource.
+     *
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The A URL that Twilio sends asynchronous webhook requests to on every
-     * Room event..
-     * 
-     * @return A URL that Twilio sends asynchronous webhook requests to on every
-     *         Room event.
+     * Returns The URL to send status information to your application.
+     *
+     * @return The URL to send status information to your application
      */
     public final URI getStatusCallback() {
         return this.statusCallback;
     }
 
     /**
-     * Returns The HTTP method Twilio should use when requesting the above URL..
-     * 
-     * @return HTTP method Twilio should use when requesting the above URL.
+     * Returns The HTTP method we use to call status_callback.
+     *
+     * @return The HTTP method we use to call status_callback
      */
     public final HttpMethod getStatusCallbackMethod() {
         return this.statusCallbackMethod;
     }
 
     /**
-     * Returns The The end time of the Room, given as a UTC ISO 8601 Timestamp..
-     * 
-     * @return The end time of the Room, given as a UTC ISO 8601 Timestamp.
+     * Returns The UTC end time of the room in UTC ISO 8601 format.
+     *
+     * @return The UTC end time of the room in UTC ISO 8601 format
      */
     public final DateTime getEndTime() {
         return this.endTime;
     }
 
     /**
-     * Returns The The duration of the Room in seconds..
-     * 
-     * @return The duration of the Room in seconds.
+     * Returns The duration of the room in seconds.
+     *
+     * @return The duration of the room in seconds
      */
     public final Integer getDuration() {
         return this.duration;
     }
 
     /**
-     * Returns The Type of Room, either peer-to-peer, group-small or group..
-     * 
-     * @return Type of Room, either peer-to-peer, group-small or group.
+     * Returns The type of room.
+     *
+     * @return The type of room
      */
     public final Room.RoomType getType() {
         return this.type;
     }
 
     /**
-     * Returns The Maximum number of concurrent Participants allowed in the Room..
-     * 
-     * @return Maximum number of concurrent Participants allowed in the Room.
+     * Returns The maximum number of concurrent Participants allowed in the room.
+     *
+     * @return The maximum number of concurrent Participants allowed in the room
      */
     public final Integer getMaxParticipants() {
         return this.maxParticipants;
     }
 
     /**
-     * Returns The Start recording when Participants connect..
-     * 
-     * @return Start recording when Participants connect.
+     * Returns Whether to start recording when Participants connect.
+     *
+     * @return Whether to start recording when Participants connect
      */
     public final Boolean getRecordParticipantsOnConnect() {
         return this.recordParticipantsOnConnect;
     }
 
     /**
-     * Returns The The video_codecs.
-     * 
-     * @return The video_codecs
+     * Returns An array of the video codecs that are supported when publishing a
+     * track in the room.
+     *
+     * @return An array of the video codecs that are supported when publishing a
+     *         track in the room
      */
     public final List<Room.VideoCodec> getVideoCodecs() {
         return this.videoCodecs;
     }
 
     /**
-     * Returns The Region for the media server in Group Rooms..
-     * 
-     * @return Region for the media server in Group Rooms.
+     * Returns The region for the media server in Group Rooms.
+     *
+     * @return The region for the media server in Group Rooms
      */
     public final String getMediaRegion() {
         return this.mediaRegion;
     }
 
     /**
-     * Returns The The absolute URL for this resource..
-     * 
-     * @return The absolute URL for this resource.
+     * Returns The absolute URL of the resource.
+     *
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
-     * 
-     * @return The links
+     * Returns The URLs of related resources.
+     *
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -450,23 +444,23 @@ public class Room extends Resource {
 
         Room other = (Room) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(enableTurn, other.enableTurn) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(statusCallback, other.statusCallback) && 
-               Objects.equals(statusCallbackMethod, other.statusCallbackMethod) && 
-               Objects.equals(endTime, other.endTime) && 
-               Objects.equals(duration, other.duration) && 
-               Objects.equals(type, other.type) && 
-               Objects.equals(maxParticipants, other.maxParticipants) && 
-               Objects.equals(recordParticipantsOnConnect, other.recordParticipantsOnConnect) && 
-               Objects.equals(videoCodecs, other.videoCodecs) && 
-               Objects.equals(mediaRegion, other.mediaRegion) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(enableTurn, other.enableTurn) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(statusCallback, other.statusCallback) &&
+               Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
+               Objects.equals(endTime, other.endTime) &&
+               Objects.equals(duration, other.duration) &&
+               Objects.equals(type, other.type) &&
+               Objects.equals(maxParticipants, other.maxParticipants) &&
+               Objects.equals(recordParticipantsOnConnect, other.recordParticipantsOnConnect) &&
+               Objects.equals(videoCodecs, other.videoCodecs) &&
+               Objects.equals(mediaRegion, other.mediaRegion) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

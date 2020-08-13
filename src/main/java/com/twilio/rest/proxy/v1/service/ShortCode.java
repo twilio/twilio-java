@@ -43,32 +43,33 @@ public class ShortCode extends Resource {
 
     /**
      * Create a ShortCodeCreator to execute create.
-     * 
-     * @param pathServiceSid Service Sid.
-     * @param sid A string that uniquely identifies this Short Code.
+     *
+     * @param pathServiceSid The SID of the parent Service resource
+     * @param sid The SID of a Twilio ShortCode resource
      * @return ShortCodeCreator capable of executing the create
      */
-    public static ShortCodeCreator creator(final String pathServiceSid, 
+    public static ShortCodeCreator creator(final String pathServiceSid,
                                            final String sid) {
         return new ShortCodeCreator(pathServiceSid, sid);
     }
 
     /**
      * Create a ShortCodeDeleter to execute delete.
-     * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Short Code.
+     *
+     * @param pathServiceSid The SID of the parent Service to delete the ShortCode
+     *                       resource from
+     * @param pathSid The unique string that identifies the resource
      * @return ShortCodeDeleter capable of executing the delete
      */
-    public static ShortCodeDeleter deleter(final String pathServiceSid, 
+    public static ShortCodeDeleter deleter(final String pathServiceSid,
                                            final String pathSid) {
         return new ShortCodeDeleter(pathServiceSid, pathSid);
     }
 
     /**
      * Create a ShortCodeReader to execute read.
-     * 
-     * @param pathServiceSid Service Sid.
+     *
+     * @param pathServiceSid The SID of the parent Service to read the resource from
      * @return ShortCodeReader capable of executing the read
      */
     public static ShortCodeReader reader(final String pathServiceSid) {
@@ -77,24 +78,25 @@ public class ShortCode extends Resource {
 
     /**
      * Create a ShortCodeFetcher to execute fetch.
-     * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Short Code.
+     *
+     * @param pathServiceSid The SID of the parent Service to fetch the resource
+     *                       from
+     * @param pathSid The unique string that identifies the resource
      * @return ShortCodeFetcher capable of executing the fetch
      */
-    public static ShortCodeFetcher fetcher(final String pathServiceSid, 
+    public static ShortCodeFetcher fetcher(final String pathServiceSid,
                                            final String pathSid) {
         return new ShortCodeFetcher(pathServiceSid, pathSid);
     }
 
     /**
      * Create a ShortCodeUpdater to execute update.
-     * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSid A string that uniquely identifies this Short Code.
+     *
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathSid The unique string that identifies the resource
      * @return ShortCodeUpdater capable of executing the update
      */
-    public static ShortCodeUpdater updater(final String pathServiceSid, 
+    public static ShortCodeUpdater updater(final String pathServiceSid,
                                            final String pathSid) {
         return new ShortCodeUpdater(pathServiceSid, pathSid);
     }
@@ -102,7 +104,7 @@ public class ShortCode extends Resource {
     /**
      * Converts a JSON String into a ShortCode object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ShortCode object represented by the provided JSON
@@ -121,7 +123,7 @@ public class ShortCode extends Resource {
     /**
      * Converts a JSON InputStream into a ShortCode object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ShortCode object represented by the provided JSON
@@ -150,23 +152,23 @@ public class ShortCode extends Resource {
 
     @JsonCreator
     private ShortCode(@JsonProperty("sid")
-                      final String sid, 
+                      final String sid,
                       @JsonProperty("account_sid")
-                      final String accountSid, 
+                      final String accountSid,
                       @JsonProperty("service_sid")
-                      final String serviceSid, 
+                      final String serviceSid,
                       @JsonProperty("date_created")
-                      final String dateCreated, 
+                      final String dateCreated,
                       @JsonProperty("date_updated")
-                      final String dateUpdated, 
+                      final String dateUpdated,
                       @JsonProperty("short_code")
-                      final String shortCode, 
+                      final String shortCode,
                       @JsonProperty("iso_country")
-                      final String isoCountry, 
+                      final String isoCountry,
                       @JsonProperty("capabilities")
-                      final PhoneNumberCapabilities capabilities, 
+                      final PhoneNumberCapabilities capabilities,
                       @JsonProperty("url")
-                      final URI url, 
+                      final URI url,
                       @JsonProperty("is_reserved")
                       final Boolean isReserved) {
         this.sid = sid;
@@ -182,90 +184,92 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Short Code..
-     * 
-     * @return A string that uniquely identifies this Short Code.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Account Sid..
-     * 
-     * @return Account Sid.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Service Sid..
-     * 
-     * @return Service Sid.
+     * Returns The SID of the resource's parent Service.
+     *
+     * @return The SID of the resource's parent Service
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The date this Short Code was added to the service.
-     * 
-     * @return The date this Short Code was added to the service
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Short Code was updated.
-     * 
-     * @return The date this Short Code was updated
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The Shortcode..
-     * 
-     * @return Shortcode.
+     * Returns The short code's number.
+     *
+     * @return The short code's number
      */
     public final String getShortCode() {
         return this.shortCode;
     }
 
     /**
-     * Returns The ISO Country Code,.
-     * 
-     * @return ISO Country Code,
+     * Returns The ISO Country Code.
+     *
+     * @return The ISO Country Code
      */
     public final String getIsoCountry() {
         return this.isoCountry;
     }
 
     /**
-     * Returns The A list of capabilities..
-     * 
-     * @return A list of capabilities.
+     * Returns The capabilities of the short code.
+     *
+     * @return The capabilities of the short code
      */
     public final PhoneNumberCapabilities getCapabilities() {
         return this.capabilities;
     }
 
     /**
-     * Returns The The URL of this resource..
-     * 
-     * @return The URL of this resource.
+     * Returns The absolute URL of the ShortCode resource.
+     *
+     * @return The absolute URL of the ShortCode resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Reserve for manual assignment to participants only..
-     * 
-     * @return Reserve for manual assignment to participants only.
+     * Returns Whether the short code should be reserved for manual assignment to
+     * participants only.
+     *
+     * @return Whether the short code should be reserved for manual assignment to
+     *         participants only
      */
     public final Boolean getIsReserved() {
         return this.isReserved;
@@ -283,15 +287,15 @@ public class ShortCode extends Resource {
 
         ShortCode other = (ShortCode) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(shortCode, other.shortCode) && 
-               Objects.equals(isoCountry, other.isoCountry) && 
-               Objects.equals(capabilities, other.capabilities) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(shortCode, other.shortCode) &&
+               Objects.equals(isoCountry, other.isoCountry) &&
+               Objects.equals(capabilities, other.capabilities) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(isReserved, other.isReserved);
     }
 

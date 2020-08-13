@@ -17,10 +17,6 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class ExecutionStepContextFetcher extends Fetcher<ExecutionStepContext> {
     private final String pathFlowSid;
     private final String pathExecutionSid;
@@ -28,13 +24,13 @@ public class ExecutionStepContextFetcher extends Fetcher<ExecutionStepContext> {
 
     /**
      * Construct a new ExecutionStepContextFetcher.
-     * 
-     * @param pathFlowSid Flow Sid.
-     * @param pathExecutionSid Execution Sid.
-     * @param pathStepSid Step Sid.
+     *
+     * @param pathFlowSid The SID of the Flow
+     * @param pathExecutionSid The SID of the Execution
+     * @param pathStepSid Step SID
      */
-    public ExecutionStepContextFetcher(final String pathFlowSid, 
-                                       final String pathExecutionSid, 
+    public ExecutionStepContextFetcher(final String pathFlowSid,
+                                       final String pathExecutionSid,
                                        final String pathStepSid) {
         this.pathFlowSid = pathFlowSid;
         this.pathExecutionSid = pathExecutionSid;
@@ -43,7 +39,7 @@ public class ExecutionStepContextFetcher extends Fetcher<ExecutionStepContext> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched ExecutionStepContext
      */
@@ -53,8 +49,7 @@ public class ExecutionStepContextFetcher extends Fetcher<ExecutionStepContext> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Executions/" + this.pathExecutionSid + "/Steps/" + this.pathStepSid + "/Context",
-            client.getRegion()
+            "/v1/Flows/" + this.pathFlowSid + "/Executions/" + this.pathExecutionSid + "/Steps/" + this.pathStepSid + "/Context"
         );
 
         Response response = client.request(request);
@@ -66,14 +61,7 @@ public class ExecutionStepContextFetcher extends Fetcher<ExecutionStepContext> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return ExecutionStepContext.fromJson(response.getStream(), client.getObjectMapper());

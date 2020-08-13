@@ -36,8 +36,8 @@ public class TaskQueuesStatistics extends Resource {
 
     /**
      * Create a TaskQueuesStatisticsReader to execute read.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskQueues to read
      * @return TaskQueuesStatisticsReader capable of executing the read
      */
     public static TaskQueuesStatisticsReader reader(final String pathWorkspaceSid) {
@@ -47,7 +47,7 @@ public class TaskQueuesStatistics extends Resource {
     /**
      * Converts a JSON String into a TaskQueuesStatistics object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return TaskQueuesStatistics object represented by the provided JSON
@@ -66,7 +66,7 @@ public class TaskQueuesStatistics extends Resource {
     /**
      * Converts a JSON InputStream into a TaskQueuesStatistics object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return TaskQueuesStatistics object represented by the provided JSON
@@ -90,13 +90,13 @@ public class TaskQueuesStatistics extends Resource {
 
     @JsonCreator
     private TaskQueuesStatistics(@JsonProperty("account_sid")
-                                 final String accountSid, 
+                                 final String accountSid,
                                  @JsonProperty("cumulative")
-                                 final Map<String, Object> cumulative, 
+                                 final Map<String, Object> cumulative,
                                  @JsonProperty("realtime")
-                                 final Map<String, Object> realtime, 
+                                 final Map<String, Object> realtime,
                                  @JsonProperty("task_queue_sid")
-                                 final String taskQueueSid, 
+                                 final String taskQueueSid,
                                  @JsonProperty("workspace_sid")
                                  final String workspaceSid) {
         this.accountSid = accountSid;
@@ -107,45 +107,45 @@ public class TaskQueuesStatistics extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
-     * 
-     * @return The account_sid
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The cumulative.
-     * 
-     * @return The cumulative
+     * Returns An object that contains the cumulative statistics for the TaskQueues.
+     *
+     * @return An object that contains the cumulative statistics for the TaskQueues
      */
     public final Map<String, Object> getCumulative() {
         return this.cumulative;
     }
 
     /**
-     * Returns The The realtime.
-     * 
-     * @return The realtime
+     * Returns An object that contains the real-time statistics for the TaskQueues.
+     *
+     * @return An object that contains the real-time statistics for the TaskQueues
      */
     public final Map<String, Object> getRealtime() {
         return this.realtime;
     }
 
     /**
-     * Returns The The task_queue_sid.
-     * 
-     * @return The task_queue_sid
+     * Returns The SID of the TaskQueue from which these statistics were calculated.
+     *
+     * @return The SID of the TaskQueue from which these statistics were calculated
      */
     public final String getTaskQueueSid() {
         return this.taskQueueSid;
     }
 
     /**
-     * Returns The The workspace_sid.
-     * 
-     * @return The workspace_sid
+     * Returns The SID of the Workspace that contains the TaskQueues.
+     *
+     * @return The SID of the Workspace that contains the TaskQueues
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
@@ -163,10 +163,10 @@ public class TaskQueuesStatistics extends Resource {
 
         TaskQueuesStatistics other = (TaskQueuesStatistics) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(cumulative, other.cumulative) && 
-               Objects.equals(realtime, other.realtime) && 
-               Objects.equals(taskQueueSid, other.taskQueueSid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(cumulative, other.cumulative) &&
+               Objects.equals(realtime, other.realtime) &&
+               Objects.equals(taskQueueSid, other.taskQueueSid) &&
                Objects.equals(workspaceSid, other.workspaceSid);
     }
 

@@ -1,5 +1,6 @@
 package com.twilio.jwt.accesstoken;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 /**
  * Grant used to access Twilio Chat.
  *
@@ -63,6 +64,7 @@ public class ChatGrant implements Grant {
     }
 
     @SuppressWarnings("checkstyle:membername")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public class Payload {
         public final String service_sid;
         public final String deployment_role_sid;

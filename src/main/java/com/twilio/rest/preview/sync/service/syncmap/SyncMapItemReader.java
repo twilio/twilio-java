@@ -33,11 +33,11 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     /**
      * Construct a new SyncMapItemReader.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathMapSid The map_sid
      */
-    public SyncMapItemReader(final String pathServiceSid, 
+    public SyncMapItemReader(final String pathServiceSid,
                              final String pathMapSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathMapSid = pathMapSid;
@@ -45,7 +45,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     /**
      * The order.
-     * 
+     *
      * @param order The order
      * @return this
      */
@@ -56,7 +56,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     /**
      * The from.
-     * 
+     *
      * @param from The from
      * @return this
      */
@@ -67,7 +67,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     /**
      * The bounds.
-     * 
+     *
      * @param bounds The bounds
      * @return this
      */
@@ -78,7 +78,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return SyncMapItem ResourceSet
      */
@@ -89,7 +89,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return SyncMapItem ResourceSet
      */
@@ -99,8 +99,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Items",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Items"
         );
 
         addQueryParams(request);
@@ -109,7 +108,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return SyncMapItem ResourceSet
@@ -127,47 +126,41 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<SyncMapItem> nextPage(final Page<SyncMapItem> page, 
+    public Page<SyncMapItem> nextPage(final Page<SyncMapItem> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<SyncMapItem> previousPage(final Page<SyncMapItem> page, 
+    public Page<SyncMapItem> previousPage(final Page<SyncMapItem> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of SyncMapItem Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -182,14 +175,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -202,7 +188,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

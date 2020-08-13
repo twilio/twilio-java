@@ -22,8 +22,8 @@ public class PublicKeyFetcher extends Fetcher<PublicKey> {
 
     /**
      * Construct a new PublicKeyFetcher.
-     * 
-     * @param pathSid Fetch by unique Credential Sid
+     *
+     * @param pathSid The unique string that identifies the resource
      */
     public PublicKeyFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -31,7 +31,7 @@ public class PublicKeyFetcher extends Fetcher<PublicKey> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched PublicKey
      */
@@ -41,8 +41,7 @@ public class PublicKeyFetcher extends Fetcher<PublicKey> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.ACCOUNTS.toString(),
-            "/v1/Credentials/PublicKeys/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Credentials/PublicKeys/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -54,14 +53,7 @@ public class PublicKeyFetcher extends Fetcher<PublicKey> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return PublicKey.fromJson(response.getStream(), client.getObjectMapper());

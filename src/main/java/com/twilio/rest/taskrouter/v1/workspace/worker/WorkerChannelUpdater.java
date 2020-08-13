@@ -26,13 +26,14 @@ public class WorkerChannelUpdater extends Updater<WorkerChannel> {
 
     /**
      * Construct a new WorkerChannelUpdater.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathWorkerSid The worker_sid
-     * @param pathSid The sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the WorkerChannel to
+     *                         update
+     * @param pathWorkerSid The SID of the Worker with the WorkerChannel to update
+     * @param pathSid The SID of the WorkerChannel to update
      */
-    public WorkerChannelUpdater(final String pathWorkspaceSid, 
-                                final String pathWorkerSid, 
+    public WorkerChannelUpdater(final String pathWorkspaceSid,
+                                final String pathWorkerSid,
                                 final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathWorkerSid = pathWorkerSid;
@@ -40,13 +41,13 @@ public class WorkerChannelUpdater extends Updater<WorkerChannel> {
     }
 
     /**
-     * The total number of Tasks worker should handle for this TaskChannel type.
-     * TaskRouter will only create reservations for Tasks of this TaskChannel type
-     * up to the capacity configured. If the capacity is 0, no new reservations will
-     * be created.
-     * 
-     * @param capacity The total number of Tasks worker should handle for this
-     *                 TaskChannel type.
+     * The total number of Tasks that the Worker should handle for the TaskChannel
+     * type. TaskRouter creates reservations for Tasks of this TaskChannel type up
+     * to the specified capacity. If the capacity is 0, no new reservations will be
+     * created..
+     *
+     * @param capacity The total number of Tasks that the Worker should handle for
+     *                 the TaskChannel type
      * @return this
      */
     public WorkerChannelUpdater setCapacity(final Integer capacity) {
@@ -55,10 +56,10 @@ public class WorkerChannelUpdater extends Updater<WorkerChannel> {
     }
 
     /**
-     * Toggle the availability of the WorkerChannel. Set this to 'False' to make
-     * worker unavailable to receive any new Tasks of this TaskChannel type..
-     * 
-     * @param available Toggle the availability of the WorkerChannel.
+     * Whether the WorkerChannel is available. Set to `false` to prevent the Worker
+     * from receiving any new Tasks of this TaskChannel type..
+     *
+     * @param available Whether the WorkerChannel is available
      * @return this
      */
     public WorkerChannelUpdater setAvailable(final Boolean available) {
@@ -68,7 +69,7 @@ public class WorkerChannelUpdater extends Updater<WorkerChannel> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated WorkerChannel
      */
@@ -78,8 +79,7 @@ public class WorkerChannelUpdater extends Updater<WorkerChannel> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/" + this.pathWorkerSid + "/Channels/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/" + this.pathWorkerSid + "/Channels/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -92,14 +92,7 @@ public class WorkerChannelUpdater extends Updater<WorkerChannel> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return WorkerChannel.fromJson(response.getStream(), client.getObjectMapper());
@@ -107,7 +100,7 @@ public class WorkerChannelUpdater extends Updater<WorkerChannel> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -40,11 +40,16 @@ public class MobileCreator extends Creator<Mobile> {
     private URI voiceUrl;
     private String identitySid;
     private String addressSid;
+    private Mobile.EmergencyStatus emergencyStatus;
+    private String emergencyAddressSid;
+    private String trunkSid;
+    private Mobile.VoiceReceiveMode voiceReceiveMode;
+    private String bundleSid;
 
     /**
      * Construct a new MobileCreator.
-     * 
-     * @param phoneNumber The phone number you want to purchase.
+     *
+     * @param phoneNumber The phone number to purchase in E.164 format
      */
     public MobileCreator(final com.twilio.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
@@ -52,22 +57,22 @@ public class MobileCreator extends Creator<Mobile> {
 
     /**
      * Construct a new MobileCreator.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param phoneNumber The phone number you want to purchase.
+     *
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param phoneNumber The phone number to purchase in E.164 format
      */
-    public MobileCreator(final String pathAccountSid, 
+    public MobileCreator(final String pathAccountSid,
                          final com.twilio.type.PhoneNumber phoneNumber) {
         this.pathAccountSid = pathAccountSid;
         this.phoneNumber = phoneNumber;
     }
 
     /**
-     * The Twilio REST API version to use for incoming calls made to this number. If
-     * omitted, uses `2010-04-01`..
-     * 
-     * @param apiVersion The Twilio REST API version to use for incoming calls made
-     *                   to this number.
+     * The API version to use for incoming calls made to the new phone number. The
+     * default is `2010-04-01`..
+     *
+     * @param apiVersion The API version to use for incoming calls made to the new
+     *                   phone number
      * @return this
      */
     public MobileCreator setApiVersion(final String apiVersion) {
@@ -76,11 +81,11 @@ public class MobileCreator extends Creator<Mobile> {
     }
 
     /**
-     * A human readable description of the new incoming phone number. Maximum 64
-     * characters. Defaults to a formatted version of the number..
-     * 
-     * @param friendlyName A human readable description of the new incoming phone
-     *                     number.
+     * A descriptive string that you created to describe the new phone number. It
+     * can be up to 64 characters long. By default, the is a formatted version of
+     * the phone number..
+     *
+     * @param friendlyName A string to describe the new phone number
      * @return this
      */
     public MobileCreator setFriendlyName(final String friendlyName) {
@@ -89,12 +94,11 @@ public class MobileCreator extends Creator<Mobile> {
     }
 
     /**
-     * The 34 character sid of the application Twilio should use to handle SMSs sent
-     * to the new number. If a `SmsApplicationSid` is present, Twilio will ignore
-     * all of the SMS urls above and use those set on the application..
-     * 
-     * @param smsApplicationSid The 34 character sid of the application Twilio
-     *                          should use to handle SMSs sent to the new number.
+     * The SID of the application that should handle SMS messages sent to the new
+     * phone number. If an `sms_application_sid` is present, we ignore all of the
+     * `sms_*_url` urls and use those of the application..
+     *
+     * @param smsApplicationSid The SID of the application to handle SMS messages
      * @return this
      */
     public MobileCreator setSmsApplicationSid(final String smsApplicationSid) {
@@ -103,11 +107,10 @@ public class MobileCreator extends Creator<Mobile> {
     }
 
     /**
-     * The HTTP method that should be used to request the `SmsFallbackUrl`. Must be
-     * either `GET` or `POST`. Defaults to `POST`..
-     * 
-     * @param smsFallbackMethod The HTTP method that should be used to request the
-     *                          SmsFallbackUrl.
+     * The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET`
+     * or `POST` and defaults to `POST`..
+     *
+     * @param smsFallbackMethod HTTP method used with sms_fallback_url
      * @return this
      */
     public MobileCreator setSmsFallbackMethod(final HttpMethod smsFallbackMethod) {
@@ -116,11 +119,11 @@ public class MobileCreator extends Creator<Mobile> {
     }
 
     /**
-     * A URL that Twilio will request if an error occurs requesting or executing the
-     * TwiML defined by `SmsUrl`..
-     * 
-     * @param smsFallbackUrl A URL that Twilio will request if an error occurs
-     *                       requesting or executing the TwiML defined by SmsUrl.
+     * The URL that we should call when an error occurs while requesting or
+     * executing the TwiML defined by `sms_url`..
+     *
+     * @param smsFallbackUrl The URL we call when an error occurs while executing
+     *                       TwiML
      * @return this
      */
     public MobileCreator setSmsFallbackUrl(final URI smsFallbackUrl) {
@@ -129,11 +132,11 @@ public class MobileCreator extends Creator<Mobile> {
     }
 
     /**
-     * A URL that Twilio will request if an error occurs requesting or executing the
-     * TwiML defined by `SmsUrl`..
-     * 
-     * @param smsFallbackUrl A URL that Twilio will request if an error occurs
-     *                       requesting or executing the TwiML defined by SmsUrl.
+     * The URL that we should call when an error occurs while requesting or
+     * executing the TwiML defined by `sms_url`..
+     *
+     * @param smsFallbackUrl The URL we call when an error occurs while executing
+     *                       TwiML
      * @return this
      */
     public MobileCreator setSmsFallbackUrl(final String smsFallbackUrl) {
@@ -141,10 +144,10 @@ public class MobileCreator extends Creator<Mobile> {
     }
 
     /**
-     * The HTTP method that should be used to request the `SmsUrl`. Must be either
-     * `GET` or `POST`. Defaults to `POST`..
-     * 
-     * @param smsMethod The HTTP method that should be used to request the SmsUrl.
+     * The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST`
+     * and defaults to `POST`..
+     *
+     * @param smsMethod The HTTP method to use with sms url
      * @return this
      */
     public MobileCreator setSmsMethod(final HttpMethod smsMethod) {
@@ -153,11 +156,11 @@ public class MobileCreator extends Creator<Mobile> {
     }
 
     /**
-     * The URL that Twilio should request when somebody sends an SMS to the phone
-     * number..
-     * 
-     * @param smsUrl The URL that Twilio should request when somebody sends an SMS
-     *               to the phone number.
+     * The URL we should call when the new phone number receives an incoming SMS
+     * message..
+     *
+     * @param smsUrl The URL we should call when the new phone number receives an
+     *               incoming SMS message
      * @return this
      */
     public MobileCreator setSmsUrl(final URI smsUrl) {
@@ -166,11 +169,11 @@ public class MobileCreator extends Creator<Mobile> {
     }
 
     /**
-     * The URL that Twilio should request when somebody sends an SMS to the phone
-     * number..
-     * 
-     * @param smsUrl The URL that Twilio should request when somebody sends an SMS
-     *               to the phone number.
+     * The URL we should call when the new phone number receives an incoming SMS
+     * message..
+     *
+     * @param smsUrl The URL we should call when the new phone number receives an
+     *               incoming SMS message
      * @return this
      */
     public MobileCreator setSmsUrl(final String smsUrl) {
@@ -178,11 +181,11 @@ public class MobileCreator extends Creator<Mobile> {
     }
 
     /**
-     * The URL that Twilio will request to pass status parameters (such as call
-     * ended) to your application..
-     * 
-     * @param statusCallback The URL that Twilio will request to pass status
-     *                       parameters to your application.
+     * The URL we should call using the `status_callback_method` to send status
+     * information to your application..
+     *
+     * @param statusCallback The URL we should call to send status information to
+     *                       your application
      * @return this
      */
     public MobileCreator setStatusCallback(final URI statusCallback) {
@@ -191,11 +194,11 @@ public class MobileCreator extends Creator<Mobile> {
     }
 
     /**
-     * The URL that Twilio will request to pass status parameters (such as call
-     * ended) to your application..
-     * 
-     * @param statusCallback The URL that Twilio will request to pass status
-     *                       parameters to your application.
+     * The URL we should call using the `status_callback_method` to send status
+     * information to your application..
+     *
+     * @param statusCallback The URL we should call to send status information to
+     *                       your application
      * @return this
      */
     public MobileCreator setStatusCallback(final String statusCallback) {
@@ -203,11 +206,11 @@ public class MobileCreator extends Creator<Mobile> {
     }
 
     /**
-     * The HTTP method Twilio will use to make requests to the `StatusCallback` URL.
-     * Either `GET` or `POST`. Defaults to `POST`..
-     * 
-     * @param statusCallbackMethod The HTTP method Twilio will use to make requests
-     *                             to the StatusCallback URL.
+     * The HTTP method we should use to call `status_callback`. Can be: `GET` or
+     * `POST` and defaults to `POST`..
+     *
+     * @param statusCallbackMethod The HTTP method we should use to call
+     *                             status_callback
      * @return this
      */
     public MobileCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
@@ -216,15 +219,14 @@ public class MobileCreator extends Creator<Mobile> {
     }
 
     /**
-     * The 34 character sid of the application Twilio should use to handle phone
-     * calls to the new number. If a `VoiceApplicationSid` is present, Twilio will
-     * ignore all of the voice urls above and use those set on the application.
-     * Setting a `VoiceApplicationSid` will automatically delete your `TrunkSid` and
-     * vice versa..
-     * 
-     * @param voiceApplicationSid The 34 character sid of the application Twilio
-     *                            should use to handle phone calls to the new
-     *                            number.
+     * The SID of the application we should use to handle calls to the new phone
+     * number. If a `voice_application_sid` is present, we ignore all of the voice
+     * urls and use only those set on the application. Setting a
+     * `voice_application_sid` will automatically delete your `trunk_sid` and vice
+     * versa..
+     *
+     * @param voiceApplicationSid The SID of the application to handle the new
+     *                            phone number
      * @return this
      */
     public MobileCreator setVoiceApplicationSid(final String voiceApplicationSid) {
@@ -233,11 +235,10 @@ public class MobileCreator extends Creator<Mobile> {
     }
 
     /**
-     * Do a lookup of a caller's name from the CNAM database and post it to your
-     * app. Either `true` or `false`. Defaults to `false`..
-     * 
-     * @param voiceCallerIdLookup Do a lookup of a caller's name from the CNAM
-     *                            database and post it to your app.
+     * Whether to lookup the caller's name from the CNAM database and post it to
+     * your app. Can be: `true` or `false` and defaults to `false`..
+     *
+     * @param voiceCallerIdLookup Whether to lookup the caller's name
      * @return this
      */
     public MobileCreator setVoiceCallerIdLookup(final Boolean voiceCallerIdLookup) {
@@ -246,11 +247,10 @@ public class MobileCreator extends Creator<Mobile> {
     }
 
     /**
-     * The HTTP method that should be used to request the `VoiceFallbackUrl`. Either
-     * `GET` or `POST`. Defaults to `POST`..
-     * 
-     * @param voiceFallbackMethod The HTTP method that should be used to request
-     *                            the VoiceFallbackUrl.
+     * The HTTP method that we should use to call `voice_fallback_url`. Can be:
+     * `GET` or `POST` and defaults to `POST`..
+     *
+     * @param voiceFallbackMethod The HTTP method used with voice_fallback_url
      * @return this
      */
     public MobileCreator setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod) {
@@ -259,11 +259,10 @@ public class MobileCreator extends Creator<Mobile> {
     }
 
     /**
-     * A URL that Twilio will request if an error occurs requesting or executing the
-     * TwiML at `Url`..
-     * 
-     * @param voiceFallbackUrl A URL that Twilio will request if an error occurs
-     *                         requesting or executing the TwiML at Url.
+     * The URL that we should call when an error occurs retrieving or executing the
+     * TwiML requested by `url`..
+     *
+     * @param voiceFallbackUrl The URL we will call when an error occurs in TwiML
      * @return this
      */
     public MobileCreator setVoiceFallbackUrl(final URI voiceFallbackUrl) {
@@ -272,11 +271,10 @@ public class MobileCreator extends Creator<Mobile> {
     }
 
     /**
-     * A URL that Twilio will request if an error occurs requesting or executing the
-     * TwiML at `Url`..
-     * 
-     * @param voiceFallbackUrl A URL that Twilio will request if an error occurs
-     *                         requesting or executing the TwiML at Url.
+     * The URL that we should call when an error occurs retrieving or executing the
+     * TwiML requested by `url`..
+     *
+     * @param voiceFallbackUrl The URL we will call when an error occurs in TwiML
      * @return this
      */
     public MobileCreator setVoiceFallbackUrl(final String voiceFallbackUrl) {
@@ -284,11 +282,10 @@ public class MobileCreator extends Creator<Mobile> {
     }
 
     /**
-     * The HTTP method that should be used to request the `VoiceUrl`. Must be either
-     * `GET` or `POST`. Defaults to `POST`..
-     * 
-     * @param voiceMethod The HTTP method that should be used to request the
-     *                    VoiceUrl.
+     * The HTTP method that we should use to call `voice_url`. Can be: `GET` or
+     * `POST` and defaults to `POST`..
+     *
+     * @param voiceMethod The HTTP method used with the voice_url
      * @return this
      */
     public MobileCreator setVoiceMethod(final HttpMethod voiceMethod) {
@@ -297,12 +294,11 @@ public class MobileCreator extends Creator<Mobile> {
     }
 
     /**
-     * The URL that Twilio should request when somebody dials the new phone number.
-     * The VoiceURL will  no longer be used if a `VoiceApplicationSid` or a
-     * `TrunkSid` is set..
-     * 
-     * @param voiceUrl The URL that Twilio should request when somebody dials the
-     *                 new phone number.
+     * The URL that we should call to answer a call to the new phone number. The
+     * `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid`
+     * is set..
+     *
+     * @param voiceUrl The URL we should call when the phone number receives a call
      * @return this
      */
     public MobileCreator setVoiceUrl(final URI voiceUrl) {
@@ -311,12 +307,11 @@ public class MobileCreator extends Creator<Mobile> {
     }
 
     /**
-     * The URL that Twilio should request when somebody dials the new phone number.
-     * The VoiceURL will  no longer be used if a `VoiceApplicationSid` or a
-     * `TrunkSid` is set..
-     * 
-     * @param voiceUrl The URL that Twilio should request when somebody dials the
-     *                 new phone number.
+     * The URL that we should call to answer a call to the new phone number. The
+     * `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid`
+     * is set..
+     *
+     * @param voiceUrl The URL we should call when the phone number receives a call
      * @return this
      */
     public MobileCreator setVoiceUrl(final String voiceUrl) {
@@ -324,9 +319,11 @@ public class MobileCreator extends Creator<Mobile> {
     }
 
     /**
-     * The identity_sid.
-     * 
-     * @param identitySid The identity_sid
+     * The SID of the Identity resource that we should associate with the new phone
+     * number. Some regions require an identity to meet local regulations..
+     *
+     * @param identitySid The SID of the Identity resource to associate with the
+     *                    new phone number
      * @return this
      */
     public MobileCreator setIdentitySid(final String identitySid) {
@@ -335,10 +332,11 @@ public class MobileCreator extends Creator<Mobile> {
     }
 
     /**
-     * The 34 character sid of the address Twilio should associate with the number..
-     * 
-     * @param addressSid The 34 character sid of the address Twilio should
-     *                   associate with the number.
+     * The SID of the Address resource we should associate with the new phone
+     * number. Some regions require addresses to meet local regulations..
+     *
+     * @param addressSid The SID of the Address resource associated with the phone
+     *                   number
      * @return this
      */
     public MobileCreator setAddressSid(final String addressSid) {
@@ -347,8 +345,72 @@ public class MobileCreator extends Creator<Mobile> {
     }
 
     /**
+     * The configuration status parameter that determines whether the new phone
+     * number is enabled for emergency calling..
+     *
+     * @param emergencyStatus Status determining whether the new phone number is
+     *                        enabled for emergency calling
+     * @return this
+     */
+    public MobileCreator setEmergencyStatus(final Mobile.EmergencyStatus emergencyStatus) {
+        this.emergencyStatus = emergencyStatus;
+        return this;
+    }
+
+    /**
+     * The SID of the emergency address configuration to use for emergency calling
+     * from the new phone number..
+     *
+     * @param emergencyAddressSid The emergency address configuration to use for
+     *                            emergency calling
+     * @return this
+     */
+    public MobileCreator setEmergencyAddressSid(final String emergencyAddressSid) {
+        this.emergencyAddressSid = emergencyAddressSid;
+        return this;
+    }
+
+    /**
+     * The SID of the Trunk we should use to handle calls to the new phone number.
+     * If a `trunk_sid` is present, we ignore all of the voice urls and voice
+     * applications and use only those set on the Trunk. Setting a `trunk_sid` will
+     * automatically delete your `voice_application_sid` and vice versa..
+     *
+     * @param trunkSid SID of the trunk to handle calls to the new phone number
+     * @return this
+     */
+    public MobileCreator setTrunkSid(final String trunkSid) {
+        this.trunkSid = trunkSid;
+        return this;
+    }
+
+    /**
+     * The configuration parameter for the new phone number to receive incoming
+     * voice calls or faxes. Can be: `fax` or `voice` and defaults to `voice`..
+     *
+     * @param voiceReceiveMode Incoming call type: fax or voice
+     * @return this
+     */
+    public MobileCreator setVoiceReceiveMode(final Mobile.VoiceReceiveMode voiceReceiveMode) {
+        this.voiceReceiveMode = voiceReceiveMode;
+        return this;
+    }
+
+    /**
+     * The SID of the Bundle resource that you associate with the phone number. Some
+     * regions require a Bundle to meet local Regulations..
+     *
+     * @param bundleSid The SID of the Bundle resource associated with number
+     * @return this
+     */
+    public MobileCreator setBundleSid(final String bundleSid) {
+        this.bundleSid = bundleSid;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Mobile
      */
@@ -359,8 +421,7 @@ public class MobileCreator extends Creator<Mobile> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/Mobile.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/Mobile.json"
         );
 
         addPostParams(request);
@@ -373,14 +434,7 @@ public class MobileCreator extends Creator<Mobile> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Mobile.fromJson(response.getStream(), client.getObjectMapper());
@@ -388,7 +442,7 @@ public class MobileCreator extends Creator<Mobile> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
@@ -462,6 +516,26 @@ public class MobileCreator extends Creator<Mobile> {
 
         if (addressSid != null) {
             request.addPostParam("AddressSid", addressSid);
+        }
+
+        if (emergencyStatus != null) {
+            request.addPostParam("EmergencyStatus", emergencyStatus.toString());
+        }
+
+        if (emergencyAddressSid != null) {
+            request.addPostParam("EmergencyAddressSid", emergencyAddressSid);
+        }
+
+        if (trunkSid != null) {
+            request.addPostParam("TrunkSid", trunkSid);
+        }
+
+        if (voiceReceiveMode != null) {
+            request.addPostParam("VoiceReceiveMode", voiceReceiveMode.toString());
+        }
+
+        if (bundleSid != null) {
+            request.addPostParam("BundleSid", bundleSid);
         }
     }
 }

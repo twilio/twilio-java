@@ -29,12 +29,13 @@ import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SubscribedTrack extends Resource {
-    private static final long serialVersionUID = 222272126385904L;
+    private static final long serialVersionUID = 63596798347062L;
 
     public enum Kind {
         AUDIO("audio"),
@@ -62,59 +63,40 @@ public class SubscribedTrack extends Resource {
         }
     }
 
-    public enum Status {
-        SUBSCRIBE("subscribe"),
-        UNSUBSCRIBE("unsubscribe");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        /**
-         * Generate a Status from a string.
-         * @param value string value
-         * @return generated Status
-         */
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
+    /**
+     * Create a SubscribedTrackFetcher to execute fetch.
+     *
+     * @param pathRoomSid The SID of the Room where the Track resource to fetch is
+     *                    subscribed
+     * @param pathParticipantSid The SID of the participant that subscribes to the
+     *                           Track resource to fetch
+     * @param pathSid The SID that identifies the resource to fetch
+     * @return SubscribedTrackFetcher capable of executing the fetch
+     */
+    public static SubscribedTrackFetcher fetcher(final String pathRoomSid,
+                                                 final String pathParticipantSid,
+                                                 final String pathSid) {
+        return new SubscribedTrackFetcher(pathRoomSid, pathParticipantSid, pathSid);
     }
 
     /**
      * Create a SubscribedTrackReader to execute read.
-     * 
-     * @param pathRoomSid The room_sid
-     * @param pathSubscriberSid The subscriber_sid
+     *
+     * @param pathRoomSid The SID of the Room resource with the Track resources to
+     *                    read
+     * @param pathParticipantSid The SID of the participant that subscribes to the
+     *                           Track resources to read
      * @return SubscribedTrackReader capable of executing the read
      */
-    public static SubscribedTrackReader reader(final String pathRoomSid, 
-                                               final String pathSubscriberSid) {
-        return new SubscribedTrackReader(pathRoomSid, pathSubscriberSid);
-    }
-
-    /**
-     * Create a SubscribedTrackUpdater to execute update.
-     * 
-     * @param pathRoomSid The room_sid
-     * @param pathSubscriberSid The subscriber_sid
-     * @return SubscribedTrackUpdater capable of executing the update
-     */
-    public static SubscribedTrackUpdater updater(final String pathRoomSid, 
-                                                 final String pathSubscriberSid) {
-        return new SubscribedTrackUpdater(pathRoomSid, pathSubscriberSid);
+    public static SubscribedTrackReader reader(final String pathRoomSid,
+                                               final String pathParticipantSid) {
+        return new SubscribedTrackReader(pathRoomSid, pathParticipantSid);
     }
 
     /**
      * Converts a JSON String into a SubscribedTrack object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return SubscribedTrack object represented by the provided JSON
@@ -133,7 +115,7 @@ public class SubscribedTrack extends Resource {
     /**
      * Converts a JSON InputStream into a SubscribedTrack object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return SubscribedTrack object represented by the provided JSON
@@ -150,124 +132,137 @@ public class SubscribedTrack extends Resource {
     }
 
     private final String sid;
+    private final String participantSid;
+    private final String publisherSid;
     private final String roomSid;
     private final String name;
-    private final String publisherSid;
-    private final String subscriberSid;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final Boolean enabled;
     private final SubscribedTrack.Kind kind;
+    private final URI url;
 
     @JsonCreator
     private SubscribedTrack(@JsonProperty("sid")
-                            final String sid, 
-                            @JsonProperty("room_sid")
-                            final String roomSid, 
-                            @JsonProperty("name")
-                            final String name, 
+                            final String sid,
+                            @JsonProperty("participant_sid")
+                            final String participantSid,
                             @JsonProperty("publisher_sid")
-                            final String publisherSid, 
-                            @JsonProperty("subscriber_sid")
-                            final String subscriberSid, 
+                            final String publisherSid,
+                            @JsonProperty("room_sid")
+                            final String roomSid,
+                            @JsonProperty("name")
+                            final String name,
                             @JsonProperty("date_created")
-                            final String dateCreated, 
+                            final String dateCreated,
                             @JsonProperty("date_updated")
-                            final String dateUpdated, 
+                            final String dateUpdated,
                             @JsonProperty("enabled")
-                            final Boolean enabled, 
+                            final Boolean enabled,
                             @JsonProperty("kind")
-                            final SubscribedTrack.Kind kind) {
+                            final SubscribedTrack.Kind kind,
+                            @JsonProperty("url")
+                            final URI url) {
         this.sid = sid;
+        this.participantSid = participantSid;
+        this.publisherSid = publisherSid;
         this.roomSid = roomSid;
         this.name = name;
-        this.publisherSid = publisherSid;
-        this.subscriberSid = subscriberSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.enabled = enabled;
         this.kind = kind;
+        this.url = url;
     }
 
     /**
-     * Returns The The sid.
-     * 
-     * @return The sid
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The room_sid.
-     * 
-     * @return The room_sid
+     * Returns The SID of the participant that subscribes to the track.
+     *
+     * @return The SID of the participant that subscribes to the track
      */
-    public final String getRoomSid() {
-        return this.roomSid;
+    public final String getParticipantSid() {
+        return this.participantSid;
     }
 
     /**
-     * Returns The The name.
-     * 
-     * @return The name
-     */
-    public final String getName() {
-        return this.name;
-    }
-
-    /**
-     * Returns The The publisher_sid.
-     * 
-     * @return The publisher_sid
+     * Returns The SID of the participant that publishes the track.
+     *
+     * @return The SID of the participant that publishes the track
      */
     public final String getPublisherSid() {
         return this.publisherSid;
     }
 
     /**
-     * Returns The The subscriber_sid.
-     * 
-     * @return The subscriber_sid
+     * Returns The SID of the room where the track is published.
+     *
+     * @return The SID of the room where the track is published
      */
-    public final String getSubscriberSid() {
-        return this.subscriberSid;
+    public final String getRoomSid() {
+        return this.roomSid;
     }
 
     /**
-     * Returns The The date_created.
-     * 
-     * @return The date_created
+     * Returns The track name.
+     *
+     * @return The track name
+     */
+    public final String getName() {
+        return this.name;
+    }
+
+    /**
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
-     * 
-     * @return The date_updated
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The enabled.
-     * 
-     * @return The enabled
+     * Returns Whether the track is enabled.
+     *
+     * @return Whether the track is enabled
      */
     public final Boolean getEnabled() {
         return this.enabled;
     }
 
     /**
-     * Returns The The kind.
-     * 
-     * @return The kind
+     * Returns The track type.
+     *
+     * @return The track type
      */
     public final SubscribedTrack.Kind getKind() {
         return this.kind;
+    }
+
+    /**
+     * Returns The absolute URL of the resource.
+     *
+     * @return The absolute URL of the resource
+     */
+    public final URI getUrl() {
+        return this.url;
     }
 
     @Override
@@ -282,42 +277,45 @@ public class SubscribedTrack extends Resource {
 
         SubscribedTrack other = (SubscribedTrack) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(roomSid, other.roomSid) && 
-               Objects.equals(name, other.name) && 
-               Objects.equals(publisherSid, other.publisherSid) && 
-               Objects.equals(subscriberSid, other.subscriberSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(enabled, other.enabled) && 
-               Objects.equals(kind, other.kind);
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(participantSid, other.participantSid) &&
+               Objects.equals(publisherSid, other.publisherSid) &&
+               Objects.equals(roomSid, other.roomSid) &&
+               Objects.equals(name, other.name) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(enabled, other.enabled) &&
+               Objects.equals(kind, other.kind) &&
+               Objects.equals(url, other.url);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(sid,
+                            participantSid,
+                            publisherSid,
                             roomSid,
                             name,
-                            publisherSid,
-                            subscriberSid,
                             dateCreated,
                             dateUpdated,
                             enabled,
-                            kind);
+                            kind,
+                            url);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
                           .add("sid", sid)
+                          .add("participantSid", participantSid)
+                          .add("publisherSid", publisherSid)
                           .add("roomSid", roomSid)
                           .add("name", name)
-                          .add("publisherSid", publisherSid)
-                          .add("subscriberSid", subscriberSid)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("enabled", enabled)
                           .add("kind", kind)
+                          .add("url", url)
                           .toString();
     }
 }

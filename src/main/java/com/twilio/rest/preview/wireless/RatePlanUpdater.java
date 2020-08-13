@@ -29,7 +29,7 @@ public class RatePlanUpdater extends Updater<RatePlan> {
 
     /**
      * Construct a new RatePlanUpdater.
-     * 
+     *
      * @param pathSid The sid
      */
     public RatePlanUpdater(final String pathSid) {
@@ -38,7 +38,7 @@ public class RatePlanUpdater extends Updater<RatePlan> {
 
     /**
      * The unique_name.
-     * 
+     *
      * @param uniqueName The unique_name
      * @return this
      */
@@ -49,7 +49,7 @@ public class RatePlanUpdater extends Updater<RatePlan> {
 
     /**
      * The friendly_name.
-     * 
+     *
      * @param friendlyName The friendly_name
      * @return this
      */
@@ -60,7 +60,7 @@ public class RatePlanUpdater extends Updater<RatePlan> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated RatePlan
      */
@@ -70,8 +70,7 @@ public class RatePlanUpdater extends Updater<RatePlan> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/wireless/RatePlans/" + this.pathSid + "",
-            client.getRegion()
+            "/wireless/RatePlans/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -84,14 +83,7 @@ public class RatePlanUpdater extends Updater<RatePlan> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return RatePlan.fromJson(response.getStream(), client.getObjectMapper());
@@ -99,7 +91,7 @@ public class RatePlanUpdater extends Updater<RatePlan> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

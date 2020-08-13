@@ -37,9 +37,10 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Yesterday extends Resource {
-    private static final long serialVersionUID = 238965611069323L;
+    private static final long serialVersionUID = 99746306378230L;
 
     public enum Category {
+        AGENT_CONFERENCE("agent-conference"),
         ANSWERING_MACHINE_DETECTION("answering-machine-detection"),
         AUTHY_AUTHENTICATIONS("authy-authentications"),
         AUTHY_CALLS_OUTBOUND("authy-calls-outbound"),
@@ -57,6 +58,7 @@ public class Yesterday extends Resource {
         CALLS_INBOUND_MOBILE("calls-inbound-mobile"),
         CALLS_INBOUND_TOLLFREE("calls-inbound-tollfree"),
         CALLS_OUTBOUND("calls-outbound"),
+        CALLS_PAY_VERB_TRANSACTIONS("calls-pay-verb-transactions"),
         CALLS_RECORDINGS("calls-recordings"),
         CALLS_SIP("calls-sip"),
         CALLS_SIP_INBOUND("calls-sip-inbound"),
@@ -88,17 +90,20 @@ public class Yesterday extends Resource {
         LOOKUPS("lookups"),
         MARKETPLACE("marketplace"),
         MARKETPLACE_ALGORITHMIA_NAMED_ENTITY_RECOGNITION("marketplace-algorithmia-named-entity-recognition"),
+        MARKETPLACE_CADENCE_TRANSCRIPTION("marketplace-cadence-transcription"),
+        MARKETPLACE_CADENCE_TRANSLATION("marketplace-cadence-translation"),
+        MARKETPLACE_CAPIO_SPEECH_TO_TEXT("marketplace-capio-speech-to-text"),
+        MARKETPLACE_CONVRIZA_ABABA("marketplace-convriza-ababa"),
+        MARKETPLACE_DEEPGRAM_PHRASE_DETECTOR("marketplace-deepgram-phrase-detector"),
         MARKETPLACE_DIGITAL_SEGMENT_BUSINESS_INFO("marketplace-digital-segment-business-info"),
+        MARKETPLACE_FACEBOOK_OFFLINE_CONVERSIONS("marketplace-facebook-offline-conversions"),
         MARKETPLACE_GOOGLE_SPEECH_TO_TEXT("marketplace-google-speech-to-text"),
         MARKETPLACE_IBM_WATSON_MESSAGE_INSIGHTS("marketplace-ibm-watson-message-insights"),
         MARKETPLACE_IBM_WATSON_MESSAGE_SENTIMENT("marketplace-ibm-watson-message-sentiment"),
         MARKETPLACE_IBM_WATSON_RECORDING_ANALYSIS("marketplace-ibm-watson-recording-analysis"),
+        MARKETPLACE_IBM_WATSON_TONE_ANALYZER("marketplace-ibm-watson-tone-analyzer"),
         MARKETPLACE_ICEHOOK_SYSTEMS_SCOUT("marketplace-icehook-systems-scout"),
         MARKETPLACE_INFOGROUP_DATAAXLE_BIZINFO("marketplace-infogroup-dataaxle-bizinfo"),
-        MARKETPLACE_CADENCE_TRANSCRIPTION("marketplace-cadence-transcription"),
-        MARKETPLACE_CADENCE_TRANSLATION("marketplace-cadence-translation"),
-        MARKETPLACE_CAPIO_SPEECH_TO_TEXT("marketplace-capio-speech-to-text"),
-        MARKETPLACE_FACEBOOK_OFFLINE_CONVERSIONS("marketplace-facebook-offline-conversions"),
         MARKETPLACE_KEEN_IO_CONTACT_CENTER_ANALYTICS("marketplace-keen-io-contact-center-analytics"),
         MARKETPLACE_MARCHEX_CLEANCALL("marketplace-marchex-cleancall"),
         MARKETPLACE_MARCHEX_SENTIMENT_ANALYSIS_FOR_SMS("marketplace-marchex-sentiment-analysis-for-sms"),
@@ -108,29 +113,27 @@ public class Yesterday extends Resource {
         MARKETPLACE_NEXTCALLER_ADVANCED_CALLER_IDENTIFICATION("marketplace-nextcaller-advanced-caller-identification"),
         MARKETPLACE_NOMOROBO_SPAM_SCORE("marketplace-nomorobo-spam-score"),
         MARKETPLACE_PAYFONE_TCPA_COMPLIANCE("marketplace-payfone-tcpa-compliance"),
+        MARKETPLACE_REMEETING_AUTOMATIC_SPEECH_RECOGNITION("marketplace-remeeting-automatic-speech-recognition"),
+        MARKETPLACE_TCPA_DEFENSE_SOLUTIONS_BLACKLIST_FEED("marketplace-tcpa-defense-solutions-blacklist-feed"),
         MARKETPLACE_TELO_OPENCNAM("marketplace-telo-opencnam"),
         MARKETPLACE_TRUECNAM_TRUE_SPAM("marketplace-truecnam-true-spam"),
         MARKETPLACE_TWILIO_CALLER_NAME_LOOKUP_US("marketplace-twilio-caller-name-lookup-us"),
         MARKETPLACE_TWILIO_CARRIER_INFORMATION_LOOKUP("marketplace-twilio-carrier-information-lookup"),
         MARKETPLACE_VOICEBASE_PCI("marketplace-voicebase-pci"),
         MARKETPLACE_VOICEBASE_TRANSCRIPTION("marketplace-voicebase-transcription"),
+        MARKETPLACE_VOICEBASE_TRANSCRIPTION_CUSTOM_VOCABULARY("marketplace-voicebase-transcription-custom-vocabulary"),
         MARKETPLACE_WHITEPAGES_PRO_CALLER_IDENTIFICATION("marketplace-whitepages-pro-caller-identification"),
         MARKETPLACE_WHITEPAGES_PRO_PHONE_INTELLIGENCE("marketplace-whitepages-pro-phone-intelligence"),
         MARKETPLACE_WHITEPAGES_PRO_PHONE_REPUTATION("marketplace-whitepages-pro-phone-reputation"),
-        MARKETPLACE_WOLFRAM_SHORT_ANSWER("marketplace-wolfram-short-answer"),
         MARKETPLACE_WOLFARM_SPOKEN_RESULTS("marketplace-wolfarm-spoken-results"),
-        MARKETPLACE_DEEPGRAM_PHRASE_DETECTOR("marketplace-deepgram-phrase-detector"),
-        MARKETPLACE_CONVRIZA_ABABA("marketplace-convriza-ababa"),
-        MARKETPLACE_IBM_WATSON_TONE_ANALYZER("marketplace-ibm-watson-tone-analyzer"),
-        MARKETPLACE_REMEETING_AUTOMATIC_SPEECH_RECOGNITION("marketplace-remeeting-automatic-speech-recognition"),
-        MARKETPLACE_TCPA_DEFENSE_SOLUTIONS_BLACKLIST_FEED("marketplace-tcpa-defense-solutions-blacklist-feed"),
-        MARKETPLACE_VOICEBASE_TRANSCRIPTION_CUSTOM_VOCABULARY("marketplace-voicebase-transcription-custom-vocabulary"),
+        MARKETPLACE_WOLFRAM_SHORT_ANSWER("marketplace-wolfram-short-answer"),
         MARKETPLACE_YTICA_CONTACT_CENTER_REPORTING_ANALYTICS("marketplace-ytica-contact-center-reporting-analytics"),
         MEDIASTORAGE("mediastorage"),
         MMS("mms"),
         MMS_INBOUND("mms-inbound"),
         MMS_INBOUND_LONGCODE("mms-inbound-longcode"),
         MMS_INBOUND_SHORTCODE("mms-inbound-shortcode"),
+        MMS_MESSAGES_CARRIERFEES("mms-messages-carrierfees"),
         MMS_OUTBOUND("mms-outbound"),
         MMS_OUTBOUND_LONGCODE("mms-outbound-longcode"),
         MMS_OUTBOUND_SHORTCODE("mms-outbound-shortcode"),
@@ -144,10 +147,10 @@ public class Yesterday extends Resource {
         PCHAT("pchat"),
         PCHAT_ACTIONS("pchat-actions"),
         PCHAT_APS("pchat-aps"),
+        PCHAT_MESSAGES("pchat-messages"),
         PCHAT_NOTIFICATIONS("pchat-notifications"),
         PCHAT_READS("pchat-reads"),
         PCHAT_USERS("pchat-users"),
-        PCHAT_MESSAGES("pchat-messages"),
         PEER_TO_PEER_ROOMS_PARTICIPANT_MINUTES("peer-to-peer-rooms-participant-minutes"),
         PFAX("pfax"),
         PFAX_MINUTES("pfax-minutes"),
@@ -163,6 +166,8 @@ public class Yesterday extends Resource {
         PHONENUMBERS_TOLLFREE("phonenumbers-tollfree"),
         PREMIUMSUPPORT("premiumsupport"),
         PROXY("proxy"),
+        PROXY_ACTIVE_SESSIONS("proxy-active-sessions"),
+        PSTNCONNECTIVITY("pstnconnectivity"),
         PV("pv"),
         PV_COMPOSITION_MEDIA_DOWNLOADED("pv-composition-media-downloaded"),
         PV_COMPOSITION_MEDIA_ENCRYPTED("pv-composition-media-encrypted"),
@@ -181,8 +186,8 @@ public class Yesterday extends Resource {
         PV_SIP_ENDPOINT_REGISTRATIONS("pv-sip-endpoint-registrations"),
         RECORDINGS("recordings"),
         RECORDINGSTORAGE("recordingstorage"),
-        ROOMS_GROUP_MINUTES("rooms-group-minutes"),
         ROOMS_GROUP_BANDWIDTH("rooms-group-bandwidth"),
+        ROOMS_GROUP_MINUTES("rooms-group-minutes"),
         ROOMS_PEER_TO_PEER_MINUTES("rooms-peer-to-peer-minutes"),
         SHORTCODES("shortcodes"),
         SHORTCODES_CUSTOMEROWNED("shortcodes-customerowned"),
@@ -191,16 +196,20 @@ public class Yesterday extends Resource {
         SHORTCODES_RANDOM("shortcodes-random"),
         SHORTCODES_UK("shortcodes-uk"),
         SHORTCODES_VANITY("shortcodes-vanity"),
+        SMALL_GROUP_ROOMS("small-group-rooms"),
+        SMALL_GROUP_ROOMS_DATA_TRACK("small-group-rooms-data-track"),
+        SMALL_GROUP_ROOMS_PARTICIPANT_MINUTES("small-group-rooms-participant-minutes"),
         SMS("sms"),
         SMS_INBOUND("sms-inbound"),
         SMS_INBOUND_LONGCODE("sms-inbound-longcode"),
         SMS_INBOUND_SHORTCODE("sms-inbound-shortcode"),
+        SMS_MESSAGES_CARRIERFEES("sms-messages-carrierfees"),
+        SMS_MESSAGES_FEATURES("sms-messages-features"),
+        SMS_MESSAGES_FEATURES_SENDERID("sms-messages-features-senderid"),
         SMS_OUTBOUND("sms-outbound"),
         SMS_OUTBOUND_CONTENT_INSPECTION("sms-outbound-content-inspection"),
         SMS_OUTBOUND_LONGCODE("sms-outbound-longcode"),
         SMS_OUTBOUND_SHORTCODE("sms-outbound-shortcode"),
-        SMS_MESSAGES_FEATURES("sms-messages-features"),
-        SMS_MESSAGES_FEATURES_SENDERID("sms-messages-features-senderid"),
         SPEECH_RECOGNITION("speech-recognition"),
         STUDIO_ENGAGEMENTS("studio-engagements"),
         SYNC("sync"),
@@ -222,6 +231,7 @@ public class Yesterday extends Resource {
         TURNMEGABYTES("turnmegabytes"),
         TURNMEGABYTES_AUSTRALIA("turnmegabytes-australia"),
         TURNMEGABYTES_BRASIL("turnmegabytes-brasil"),
+        TURNMEGABYTES_GERMANY("turnmegabytes-germany"),
         TURNMEGABYTES_INDIA("turnmegabytes-india"),
         TURNMEGABYTES_IRELAND("turnmegabytes-ireland"),
         TURNMEGABYTES_JAPAN("turnmegabytes-japan"),
@@ -274,8 +284,8 @@ public class Yesterday extends Resource {
         WIRELESS_USAGE_MRC_INDIVIDUAL("wireless-usage-mrc-individual"),
         WIRELESS_USAGE_MRC_POOLED("wireless-usage-mrc-pooled"),
         WIRELESS_USAGE_MRC_SUSPENDED("wireless-usage-mrc-suspended"),
-        WIRELESS_USAGE_VOICE("wireless-usage-voice"),
-        WIRELESS_USAGE_SMS("wireless-usage-sms");
+        WIRELESS_USAGE_SMS("wireless-usage-sms"),
+        WIRELESS_USAGE_VOICE("wireless-usage-voice");
 
         private final String value;
 
@@ -300,8 +310,9 @@ public class Yesterday extends Resource {
 
     /**
      * Create a YesterdayReader to execute read.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      * @return YesterdayReader capable of executing the read
      */
     public static YesterdayReader reader(final String pathAccountSid) {
@@ -310,7 +321,7 @@ public class Yesterday extends Resource {
 
     /**
      * Create a YesterdayReader to execute read.
-     * 
+     *
      * @return YesterdayReader capable of executing the read
      */
     public static YesterdayReader reader() {
@@ -320,7 +331,7 @@ public class Yesterday extends Resource {
     /**
      * Converts a JSON String into a Yesterday object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Yesterday object represented by the provided JSON
@@ -339,7 +350,7 @@ public class Yesterday extends Resource {
     /**
      * Converts a JSON InputStream into a Yesterday object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Yesterday object represented by the provided JSON
@@ -357,6 +368,7 @@ public class Yesterday extends Resource {
 
     private final String accountSid;
     private final String apiVersion;
+    private final String asOf;
     private final Yesterday.Category category;
     private final String count;
     private final String countUnit;
@@ -372,36 +384,39 @@ public class Yesterday extends Resource {
 
     @JsonCreator
     private Yesterday(@JsonProperty("account_sid")
-                      final String accountSid, 
+                      final String accountSid,
                       @JsonProperty("api_version")
-                      final String apiVersion, 
+                      final String apiVersion,
+                      @JsonProperty("as_of")
+                      final String asOf,
                       @JsonProperty("category")
-                      final Yesterday.Category category, 
+                      final Yesterday.Category category,
                       @JsonProperty("count")
-                      final String count, 
+                      final String count,
                       @JsonProperty("count_unit")
-                      final String countUnit, 
+                      final String countUnit,
                       @JsonProperty("description")
-                      final String description, 
+                      final String description,
                       @JsonProperty("end_date")
-                      final String endDate, 
+                      final String endDate,
                       @JsonProperty("price")
-                      final BigDecimal price, 
+                      final BigDecimal price,
                       @JsonProperty("price_unit")
                       @JsonDeserialize(using = com.twilio.converter.CurrencyDeserializer.class)
-                      final Currency priceUnit, 
+                      final Currency priceUnit,
                       @JsonProperty("start_date")
-                      final String startDate, 
+                      final String startDate,
                       @JsonProperty("subresource_uris")
-                      final Map<String, String> subresourceUris, 
+                      final Map<String, String> subresourceUris,
                       @JsonProperty("uri")
-                      final String uri, 
+                      final String uri,
                       @JsonProperty("usage")
-                      final String usage, 
+                      final String usage,
                       @JsonProperty("usage_unit")
                       final String usageUnit) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
+        this.asOf = asOf;
         this.category = category;
         this.count = count;
         this.countUnit = countUnit;
@@ -417,133 +432,135 @@ public class Yesterday extends Resource {
     }
 
     /**
-     * Returns The The Account that accrued the usage..
-     * 
-     * @return The Account that accrued the usage.
+     * Returns The SID of the Account accrued the usage.
+     *
+     * @return The SID of the Account accrued the usage
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The api_version.
-     * 
-     * @return The api_version
+     * Returns The API version used to create the resource.
+     *
+     * @return The API version used to create the resource
      */
     public final String getApiVersion() {
         return this.apiVersion;
     }
 
     /**
-     * Returns The The category of usage..
-     * 
-     * @return The category of usage.
+     * Returns Usage records up to date as of this timestamp.
+     *
+     * @return Usage records up to date as of this timestamp
+     */
+    public final String getAsOf() {
+        return this.asOf;
+    }
+
+    /**
+     * Returns The category of usage.
+     *
+     * @return The category of usage
      */
     public final Yesterday.Category getCategory() {
         return this.category;
     }
 
     /**
-     * Returns The The number of usage events..
-     * 
-     * @return The number of usage events.
+     * Returns The number of usage events.
+     *
+     * @return The number of usage events
      */
     public final String getCount() {
         return this.count;
     }
 
     /**
-     * Returns The The units in which Count is measured..
-     * 
-     * @return The units in which Count is measured.
+     * Returns The units in which count is measured.
+     *
+     * @return The units in which count is measured
      */
     public final String getCountUnit() {
         return this.countUnit;
     }
 
     /**
-     * Returns The A human-readable description of the usage category..
-     * 
-     * @return A human-readable description of the usage category.
+     * Returns A plain-language description of the usage category.
+     *
+     * @return A plain-language description of the usage category
      */
     public final String getDescription() {
         return this.description;
     }
 
     /**
-     * Returns The The last date for which usage is included in this UsageRecord,
-     * formatted as YYYY-MM-DD..
-     * 
-     * @return The last date for which usage is included in this UsageRecord,
-     *         formatted as YYYY-MM-DD.
+     * Returns The last date for which usage is included in the UsageRecord.
+     *
+     * @return The last date for which usage is included in the UsageRecord
      */
     public final LocalDate getEndDate() {
         return this.endDate;
     }
 
     /**
-     * Returns The The total price of the usage, in the currency associated with the
-     * account..
-     * 
-     * @return The total price of the usage, in the currency associated with the
-     *         account.
+     * Returns The total price of the usage.
+     *
+     * @return The total price of the usage
      */
     public final BigDecimal getPrice() {
         return this.price;
     }
 
     /**
-     * Returns The The currency in which Price is measured, in ISO 4127 format..
-     * 
-     * @return The currency in which Price is measured, in ISO 4127 format.
+     * Returns The currency in which `price` is measured.
+     *
+     * @return The currency in which `price` is measured
      */
     public final Currency getPriceUnit() {
         return this.priceUnit;
     }
 
     /**
-     * Returns The The first date for which usage is included in this UsageRecord,
-     * formatted as YYYY-MM-DD..
-     * 
-     * @return The first date for which usage is included in this UsageRecord,
-     *         formatted as YYYY-MM-DD.
+     * Returns The first date for which usage is included in this UsageRecord.
+     *
+     * @return The first date for which usage is included in this UsageRecord
      */
     public final LocalDate getStartDate() {
         return this.startDate;
     }
 
     /**
-     * Returns The Subresource Uris for this UsageRecord..
-     * 
-     * @return Subresource Uris for this UsageRecord.
+     * Returns A list of related resources identified by their relative URIs.
+     *
+     * @return A list of related resources identified by their relative URIs
      */
     public final Map<String, String> getSubresourceUris() {
         return this.subresourceUris;
     }
 
     /**
-     * Returns The The URI that returns only this UsageRecord, relative to
-     * https://api..
-     * 
-     * @return The URI that returns only this UsageRecord, relative to https://api.
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
+     *
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;
     }
 
     /**
-     * Returns The The amount of billed usage..
-     * 
-     * @return The amount of billed usage.
+     * Returns The amount of usage.
+     *
+     * @return The amount of usage
      */
     public final String getUsage() {
         return this.usage;
     }
 
     /**
-     * Returns The The units in which Usage is measured..
-     * 
-     * @return The units in which Usage is measured.
+     * Returns The units in which usage is measured.
+     *
+     * @return The units in which usage is measured
      */
     public final String getUsageUnit() {
         return this.usageUnit;
@@ -561,19 +578,20 @@ public class Yesterday extends Resource {
 
         Yesterday other = (Yesterday) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(apiVersion, other.apiVersion) && 
-               Objects.equals(category, other.category) && 
-               Objects.equals(count, other.count) && 
-               Objects.equals(countUnit, other.countUnit) && 
-               Objects.equals(description, other.description) && 
-               Objects.equals(endDate, other.endDate) && 
-               Objects.equals(price, other.price) && 
-               Objects.equals(priceUnit, other.priceUnit) && 
-               Objects.equals(startDate, other.startDate) && 
-               Objects.equals(subresourceUris, other.subresourceUris) && 
-               Objects.equals(uri, other.uri) && 
-               Objects.equals(usage, other.usage) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(apiVersion, other.apiVersion) &&
+               Objects.equals(asOf, other.asOf) &&
+               Objects.equals(category, other.category) &&
+               Objects.equals(count, other.count) &&
+               Objects.equals(countUnit, other.countUnit) &&
+               Objects.equals(description, other.description) &&
+               Objects.equals(endDate, other.endDate) &&
+               Objects.equals(price, other.price) &&
+               Objects.equals(priceUnit, other.priceUnit) &&
+               Objects.equals(startDate, other.startDate) &&
+               Objects.equals(subresourceUris, other.subresourceUris) &&
+               Objects.equals(uri, other.uri) &&
+               Objects.equals(usage, other.usage) &&
                Objects.equals(usageUnit, other.usageUnit);
     }
 
@@ -581,6 +599,7 @@ public class Yesterday extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid,
                             apiVersion,
+                            asOf,
                             category,
                             count,
                             countUnit,
@@ -600,6 +619,7 @@ public class Yesterday extends Resource {
         return MoreObjects.toStringHelper(this)
                           .add("accountSid", accountSid)
                           .add("apiVersion", apiVersion)
+                          .add("asOf", asOf)
                           .add("category", category)
                           .add("count", count)
                           .add("countUnit", countUnit)

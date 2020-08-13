@@ -42,7 +42,7 @@ public class CompositionTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.VIDEO.toString(),
                                           "/v1/Compositions/CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class CompositionTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.VIDEO.toString(),
                                           "/v1/Compositions");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -89,10 +89,22 @@ public class CompositionTest {
     }
 
     @Test
+    public void testReadEnqueuedResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"compositions\": [],\"meta\": {\"page\": 0,\"page_size\": 10,\"first_page_url\": \"https://video.twilio.com/v1/Compositions?Status=enqueued&PageSize=10&Page=0\",\"previous_page_url\": null,\"url\": \"https://video.twilio.com/v1/Compositions?Status=enqueued&PageSize=10&Page=0\",\"next_page_url\": null,\"key\": \"compositions\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        assertNotNull(Composition.reader().read());
+    }
+
+    @Test
     public void testReadEmptyResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"compositions\": [],\"meta\": {\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://video.twilio.com/v1/Compositions?PageSize=50&Page=0\",\"previous_page_url\": null,\"url\": \"https://video.twilio.com/v1/Compositions?PageSize=50&Page=0\",\"next_page_url\": null,\"key\": \"compositions\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"compositions\": [],\"meta\": {\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://video.twilio.com/v1/Compositions?Status=completed&PageSize=50&Page=0\",\"previous_page_url\": null,\"url\": \"https://video.twilio.com/v1/Compositions?Status=completed&PageSize=50&Page=0\",\"next_page_url\": null,\"key\": \"compositions\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -104,7 +116,7 @@ public class CompositionTest {
     public void testReadResultsResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"compositions\": [{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"status\": \"completed\",\"date_created\": \"2015-07-30T20:00:00Z\",\"date_completed\": \"2015-07-30T20:01:33Z\",\"date_deleted\": null,\"sid\": \"CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"room_sid\": \"RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"audio_sources\": [\"RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"user*\"],\"audio_sources_excluded\": [],\"video_layout\": {\"grid\": {\"video_sources\": [\"user*\"],\"video_sources_excluded\": [],\"reuse\": \"show_oldest\",\"x_pos\": 100,\"y_pos\": 600,\"z_pos\": 10,\"width\": 0,\"height\": 0,\"max_columns\": 0,\"max_rows\": 0,\"cells_excluded\": []},\"pip\": {\"video_sources\": [\"RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab\"],\"video_sources_excluded\": [],\"reuse\": \"none\",\"x_pos\": 100,\"y_pos\": 600,\"z_pos\": 10,\"width\": 0,\"height\": 0,\"max_columns\": 0,\"max_rows\": 0,\"cells_excluded\": []}},\"resolution\": \"1280x720\",\"format\": \"webm\",\"bitrate\": 64,\"size\": 4,\"duration\": 6,\"trim\": true,\"media_external_location\": null,\"encryption_key\": null,\"url\": \"https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"links\": {\"media\": \"https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media\"}}],\"meta\": {\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://video.twilio.com/v1/Compositions?PageSize=50&Page=0\",\"previous_page_url\": null,\"url\": \"https://video.twilio.com/v1/Compositions?PageSize=50&Page=0\",\"next_page_url\": null,\"key\": \"compositions\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"compositions\": [{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"status\": \"completed\",\"date_created\": \"2015-07-30T20:00:00Z\",\"date_completed\": \"2015-07-30T20:01:33Z\",\"date_deleted\": null,\"sid\": \"CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"room_sid\": \"RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"audio_sources\": [\"RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"user*\"],\"audio_sources_excluded\": [],\"video_layout\": {\"grid\": {\"video_sources\": [\"user*\"],\"video_sources_excluded\": [],\"reuse\": \"show_oldest\",\"x_pos\": 100,\"y_pos\": 600,\"z_pos\": 10,\"width\": 0,\"height\": 0,\"max_columns\": 0,\"max_rows\": 0,\"cells_excluded\": []},\"pip\": {\"video_sources\": [\"RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab\"],\"video_sources_excluded\": [],\"reuse\": \"none\",\"x_pos\": 100,\"y_pos\": 600,\"z_pos\": 10,\"width\": 0,\"height\": 0,\"max_columns\": 0,\"max_rows\": 0,\"cells_excluded\": []}},\"resolution\": \"1280x720\",\"format\": \"webm\",\"bitrate\": 64,\"size\": 4,\"duration\": 6,\"trim\": true,\"media_external_location\": null,\"encryption_key\": null,\"url\": \"https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"links\": {\"media\": \"https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media\"}}],\"meta\": {\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://video.twilio.com/v1/Compositions?Status=completed&RoomSid=RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&DateCreatedAfter=2017-01-01T00%3A00%3A01Z&DateCreatedBefore=2017-12-31T23%3A59%3A59Z&PageSize=50&Page=0\",\"previous_page_url\": null,\"url\": \"https://video.twilio.com/v1/Compositions?Status=completed&RoomSid=RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&DateCreatedAfter=2017-01-01T00%3A00%3A01Z&DateCreatedBefore=2017-12-31T23%3A59%3A59Z&PageSize=50&Page=0\",\"next_page_url\": null,\"key\": \"compositions\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -118,7 +130,7 @@ public class CompositionTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.VIDEO.toString(),
                                           "/v1/Compositions/CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -150,7 +162,7 @@ public class CompositionTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.VIDEO.toString(),
                                           "/v1/Compositions");
-            
+            request.addPostParam("RoomSid", serialize("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -159,7 +171,7 @@ public class CompositionTest {
         }};
 
         try {
-            Composition.creator().create();
+            Composition.creator("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -173,6 +185,6 @@ public class CompositionTest {
             result = new ObjectMapper();
         }};
 
-        Composition.creator().create();
+        Composition.creator("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
     }
 }

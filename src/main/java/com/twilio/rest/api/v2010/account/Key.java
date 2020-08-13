@@ -37,20 +37,21 @@ public class Key extends Resource {
 
     /**
      * Create a KeyFetcher to execute fetch.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathSid The unique string that identifies the resource
      * @return KeyFetcher capable of executing the fetch
      */
-    public static KeyFetcher fetcher(final String pathAccountSid, 
+    public static KeyFetcher fetcher(final String pathAccountSid,
                                      final String pathSid) {
         return new KeyFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a KeyFetcher to execute fetch.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return KeyFetcher capable of executing the fetch
      */
     public static KeyFetcher fetcher(final String pathSid) {
@@ -59,20 +60,21 @@ public class Key extends Resource {
 
     /**
      * Create a KeyUpdater to execute update.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       update
+     * @param pathSid The unique string that identifies the resource
      * @return KeyUpdater capable of executing the update
      */
-    public static KeyUpdater updater(final String pathAccountSid, 
+    public static KeyUpdater updater(final String pathAccountSid,
                                      final String pathSid) {
         return new KeyUpdater(pathAccountSid, pathSid);
     }
 
     /**
      * Create a KeyUpdater to execute update.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return KeyUpdater capable of executing the update
      */
     public static KeyUpdater updater(final String pathSid) {
@@ -81,20 +83,21 @@ public class Key extends Resource {
 
     /**
      * Create a KeyDeleter to execute delete.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathSid The unique string that identifies the resource
      * @return KeyDeleter capable of executing the delete
      */
-    public static KeyDeleter deleter(final String pathAccountSid, 
+    public static KeyDeleter deleter(final String pathAccountSid,
                                      final String pathSid) {
         return new KeyDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a KeyDeleter to execute delete.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return KeyDeleter capable of executing the delete
      */
     public static KeyDeleter deleter(final String pathSid) {
@@ -103,8 +106,9 @@ public class Key extends Resource {
 
     /**
      * Create a KeyReader to execute read.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      * @return KeyReader capable of executing the read
      */
     public static KeyReader reader(final String pathAccountSid) {
@@ -113,7 +117,7 @@ public class Key extends Resource {
 
     /**
      * Create a KeyReader to execute read.
-     * 
+     *
      * @return KeyReader capable of executing the read
      */
     public static KeyReader reader() {
@@ -122,7 +126,7 @@ public class Key extends Resource {
 
     /**
      * Converts a JSON String into a Key object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Key object represented by the provided JSON
@@ -141,7 +145,7 @@ public class Key extends Resource {
     /**
      * Converts a JSON InputStream into a Key object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Key object represented by the provided JSON
@@ -164,11 +168,11 @@ public class Key extends Resource {
 
     @JsonCreator
     private Key(@JsonProperty("sid")
-                final String sid, 
+                final String sid,
                 @JsonProperty("friendly_name")
-                final String friendlyName, 
+                final String friendlyName,
                 @JsonProperty("date_created")
-                final String dateCreated, 
+                final String dateCreated,
                 @JsonProperty("date_updated")
                 final String dateUpdated) {
         this.sid = sid;
@@ -178,42 +182,36 @@ public class Key extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this API Key..
-     * 
-     * @return A 34 character string that uniquely identifies this API Key.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A descriptive string for this resource, chosen by your
-     * application, up to 64 characters long..
-     * 
-     * @return A descriptive string for this resource, chosen by your application,
-     *         up to 64 characters long.
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date-time this API Key was created, given as a RFC 2822
-     * Timestamp..
-     * 
-     * @return The date-time this API Key was created, given as a RFC 2822
-     *         Timestamp.
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
+     *
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date-time this API Key was most recently updated, given as a 
-     * RFC 2822 Timestamp..
-     * 
-     * @return The date-time this API Key was most recently updated, given as a 
-     *         RFC 2822 Timestamp.
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
+     *
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
@@ -231,9 +229,9 @@ public class Key extends Resource {
 
         Key other = (Key) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated);
     }
 

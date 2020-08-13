@@ -44,22 +44,20 @@ public class InstalledAddOn extends Resource {
 
     /**
      * Create a InstalledAddOnCreator to execute create.
-     * 
-     * @param availableAddOnSid A string that uniquely identifies the Add-on to
-     *                          install
-     * @param acceptTermsOfService A boolean reflecting your acceptance of the
-     *                             Terms of Service
+     *
+     * @param availableAddOnSid The SID of the AvaliableAddOn to install
+     * @param acceptTermsOfService Whether the Terms of Service were accepted
      * @return InstalledAddOnCreator capable of executing the create
      */
-    public static InstalledAddOnCreator creator(final String availableAddOnSid, 
+    public static InstalledAddOnCreator creator(final String availableAddOnSid,
                                                 final Boolean acceptTermsOfService) {
         return new InstalledAddOnCreator(availableAddOnSid, acceptTermsOfService);
     }
 
     /**
      * Create a InstalledAddOnDeleter to execute delete.
-     * 
-     * @param pathSid The Installed Add-on Sid to delete
+     *
+     * @param pathSid The SID of the InstalledAddOn resource to delete
      * @return InstalledAddOnDeleter capable of executing the delete
      */
     public static InstalledAddOnDeleter deleter(final String pathSid) {
@@ -68,8 +66,8 @@ public class InstalledAddOn extends Resource {
 
     /**
      * Create a InstalledAddOnFetcher to execute fetch.
-     * 
-     * @param pathSid The unique Installed Add-on Sid
+     *
+     * @param pathSid The SID of the InstalledAddOn resource to fetch
      * @return InstalledAddOnFetcher capable of executing the fetch
      */
     public static InstalledAddOnFetcher fetcher(final String pathSid) {
@@ -78,8 +76,8 @@ public class InstalledAddOn extends Resource {
 
     /**
      * Create a InstalledAddOnUpdater to execute update.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The SID of the InstalledAddOn resource to update
      * @return InstalledAddOnUpdater capable of executing the update
      */
     public static InstalledAddOnUpdater updater(final String pathSid) {
@@ -88,7 +86,7 @@ public class InstalledAddOn extends Resource {
 
     /**
      * Create a InstalledAddOnReader to execute read.
-     * 
+     *
      * @return InstalledAddOnReader capable of executing the read
      */
     public static InstalledAddOnReader reader() {
@@ -98,7 +96,7 @@ public class InstalledAddOn extends Resource {
     /**
      * Converts a JSON String into a InstalledAddOn object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return InstalledAddOn object represented by the provided JSON
@@ -117,7 +115,7 @@ public class InstalledAddOn extends Resource {
     /**
      * Converts a JSON InputStream into a InstalledAddOn object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return InstalledAddOn object represented by the provided JSON
@@ -146,23 +144,23 @@ public class InstalledAddOn extends Resource {
 
     @JsonCreator
     private InstalledAddOn(@JsonProperty("sid")
-                           final String sid, 
+                           final String sid,
                            @JsonProperty("account_sid")
-                           final String accountSid, 
+                           final String accountSid,
                            @JsonProperty("friendly_name")
-                           final String friendlyName, 
+                           final String friendlyName,
                            @JsonProperty("description")
-                           final String description, 
+                           final String description,
                            @JsonProperty("configuration")
-                           final Map<String, Object> configuration, 
+                           final Map<String, Object> configuration,
                            @JsonProperty("unique_name")
-                           final String uniqueName, 
+                           final String uniqueName,
                            @JsonProperty("date_created")
-                           final String dateCreated, 
+                           final String dateCreated,
                            @JsonProperty("date_updated")
-                           final String dateUpdated, 
+                           final String dateUpdated,
                            @JsonProperty("url")
-                           final URI url, 
+                           final URI url,
                            @JsonProperty("links")
                            final Map<String, String> links) {
         this.sid = sid;
@@ -178,90 +176,92 @@ public class InstalledAddOn extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Add-on installation.
-     * 
-     * @return A string that uniquely identifies this Add-on installation
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The Account id that has installed this Add-on.
-     * 
-     * @return The Account id that has installed this Add-on
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The A description of this Add-on installation.
-     * 
-     * @return A description of this Add-on installation
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The A short description of the Add-on functionality.
-     * 
-     * @return A short description of the Add-on functionality
+     * Returns A short description of the Add-on's functionality.
+     *
+     * @return A short description of the Add-on's functionality
      */
     public final String getDescription() {
         return this.description;
     }
 
     /**
-     * Returns The The JSON object representing the current configuration.
-     * 
-     * @return The JSON object representing the current configuration
+     * Returns The JSON object that represents the current configuration of
+     * installed Add-on.
+     *
+     * @return The JSON object that represents the current configuration of
+     *         installed Add-on
      */
     public final Map<String, Object> getConfiguration() {
         return this.configuration;
     }
 
     /**
-     * Returns The The string that uniquely identifies this Add-on installation.
-     * 
-     * @return The string that uniquely identifies this Add-on installation
+     * Returns An application-defined string that uniquely identifies the resource.
+     *
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The date this Add-on installation was created.
-     * 
-     * @return The date this Add-on installation was created
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Add-on installation was last updated.
-     * 
-     * @return The date this Add-on installation was last updated
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The url.
-     * 
-     * @return The url
+     * Returns The absolute URL of the resource.
+     *
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The A dictionary of URLs for related resource..
-     * 
-     * @return A dictionary of URLs for related resource.
+     * Returns The URLs of related resources.
+     *
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -279,15 +279,15 @@ public class InstalledAddOn extends Resource {
 
         InstalledAddOn other = (InstalledAddOn) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(description, other.description) && 
-               Objects.equals(configuration, other.configuration) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(description, other.description) &&
+               Objects.equals(configuration, other.configuration) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

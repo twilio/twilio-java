@@ -29,13 +29,13 @@ public class SyncMapItemFetcher extends Fetcher<SyncMapItem> {
 
     /**
      * Construct a new SyncMapItemFetcher.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathMapSid The map_sid
      * @param pathKey The key
      */
-    public SyncMapItemFetcher(final String pathServiceSid, 
-                              final String pathMapSid, 
+    public SyncMapItemFetcher(final String pathServiceSid,
+                              final String pathMapSid,
                               final String pathKey) {
         this.pathServiceSid = pathServiceSid;
         this.pathMapSid = pathMapSid;
@@ -44,7 +44,7 @@ public class SyncMapItemFetcher extends Fetcher<SyncMapItem> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched SyncMapItem
      */
@@ -54,8 +54,7 @@ public class SyncMapItemFetcher extends Fetcher<SyncMapItem> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Items/" + this.pathKey + "",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Items/" + this.pathKey + ""
         );
 
         Response response = client.request(request);
@@ -67,14 +66,7 @@ public class SyncMapItemFetcher extends Fetcher<SyncMapItem> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SyncMapItem.fromJson(response.getStream(), client.getObjectMapper());

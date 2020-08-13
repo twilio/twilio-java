@@ -40,7 +40,7 @@ public class Redirect extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -49,7 +49,7 @@ public class Redirect extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -65,7 +65,7 @@ public class Redirect extends TwiML {
 
     /**
      * Redirect URL method
-     * 
+     *
      * @return Redirect URL method
      */
     public HttpMethod getMethod() {
@@ -74,7 +74,7 @@ public class Redirect extends TwiML {
 
     /**
      * Redirect URL
-     * 
+     *
      * @return Redirect URL
      */
     public URI getUrl() {

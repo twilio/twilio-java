@@ -27,12 +27,13 @@ import com.twilio.rest.Domains;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserChannel extends Resource {
-    private static final long serialVersionUID = 254880238496884L;
+    private static final long serialVersionUID = 97342858560464L;
 
     public enum ChannelStatus {
         JOINED("joined"),
@@ -60,22 +61,96 @@ public class UserChannel extends Resource {
         }
     }
 
+    public enum NotificationLevel {
+        DEFAULT("default"),
+        MUTED("muted");
+
+        private final String value;
+
+        private NotificationLevel(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a NotificationLevel from a string.
+         * @param value string value
+         * @return generated NotificationLevel
+         */
+        @JsonCreator
+        public static NotificationLevel forValue(final String value) {
+            return Promoter.enumFromString(value, NotificationLevel.values());
+        }
+    }
+
     /**
      * Create a UserChannelReader to execute read.
-     * 
-     * @param pathServiceSid The unique id of the Service those channels belong to.
-     * @param pathUserSid The unique id of a User.
+     *
+     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathUserSid The SID of the User to fetch the User Channel resources
+     *                    from
      * @return UserChannelReader capable of executing the read
      */
-    public static UserChannelReader reader(final String pathServiceSid, 
+    public static UserChannelReader reader(final String pathServiceSid,
                                            final String pathUserSid) {
         return new UserChannelReader(pathServiceSid, pathUserSid);
     }
 
     /**
+     * Create a UserChannelFetcher to execute fetch.
+     *
+     * @param pathServiceSid The SID of the Service to fetch the User Channel
+     *                       resource from
+     * @param pathUserSid The SID of the User to fetch the User Channel resource
+     *                    from
+     * @param pathChannelSid The SID of the Channel that has the User Channel to
+     *                       fetch
+     * @return UserChannelFetcher capable of executing the fetch
+     */
+    public static UserChannelFetcher fetcher(final String pathServiceSid,
+                                             final String pathUserSid,
+                                             final String pathChannelSid) {
+        return new UserChannelFetcher(pathServiceSid, pathUserSid, pathChannelSid);
+    }
+
+    /**
+     * Create a UserChannelDeleter to execute delete.
+     *
+     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathUserSid The SID of the User to fetch the User Channel resources
+     *                    from
+     * @param pathChannelSid The SID of the Channel the resource belongs to
+     * @return UserChannelDeleter capable of executing the delete
+     */
+    public static UserChannelDeleter deleter(final String pathServiceSid,
+                                             final String pathUserSid,
+                                             final String pathChannelSid) {
+        return new UserChannelDeleter(pathServiceSid, pathUserSid, pathChannelSid);
+    }
+
+    /**
+     * Create a UserChannelUpdater to execute update.
+     *
+     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathUserSid The SID of the User to update the User Channel resource
+     *                    from
+     * @param pathChannelSid The SID of the Channel with the User Channel resource
+     *                       to update
+     * @return UserChannelUpdater capable of executing the update
+     */
+    public static UserChannelUpdater updater(final String pathServiceSid,
+                                             final String pathUserSid,
+                                             final String pathChannelSid) {
+        return new UserChannelUpdater(pathServiceSid, pathUserSid, pathChannelSid);
+    }
+
+    /**
      * Converts a JSON String into a UserChannel object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return UserChannel object represented by the provided JSON
@@ -94,7 +169,7 @@ public class UserChannel extends Resource {
     /**
      * Converts a JSON InputStream into a UserChannel object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return UserChannel object represented by the provided JSON
@@ -113,110 +188,150 @@ public class UserChannel extends Resource {
     private final String accountSid;
     private final String serviceSid;
     private final String channelSid;
+    private final String userSid;
     private final String memberSid;
     private final UserChannel.ChannelStatus status;
     private final Integer lastConsumedMessageIndex;
     private final Integer unreadMessagesCount;
     private final Map<String, String> links;
+    private final URI url;
+    private final UserChannel.NotificationLevel notificationLevel;
 
     @JsonCreator
     private UserChannel(@JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("service_sid")
-                        final String serviceSid, 
+                        final String serviceSid,
                         @JsonProperty("channel_sid")
-                        final String channelSid, 
+                        final String channelSid,
+                        @JsonProperty("user_sid")
+                        final String userSid,
                         @JsonProperty("member_sid")
-                        final String memberSid, 
+                        final String memberSid,
                         @JsonProperty("status")
-                        final UserChannel.ChannelStatus status, 
+                        final UserChannel.ChannelStatus status,
                         @JsonProperty("last_consumed_message_index")
-                        final Integer lastConsumedMessageIndex, 
+                        final Integer lastConsumedMessageIndex,
                         @JsonProperty("unread_messages_count")
-                        final Integer unreadMessagesCount, 
+                        final Integer unreadMessagesCount,
                         @JsonProperty("links")
-                        final Map<String, String> links) {
+                        final Map<String, String> links,
+                        @JsonProperty("url")
+                        final URI url,
+                        @JsonProperty("notification_level")
+                        final UserChannel.NotificationLevel notificationLevel) {
         this.accountSid = accountSid;
         this.serviceSid = serviceSid;
         this.channelSid = channelSid;
+        this.userSid = userSid;
         this.memberSid = memberSid;
         this.status = status;
         this.lastConsumedMessageIndex = lastConsumedMessageIndex;
         this.unreadMessagesCount = unreadMessagesCount;
         this.links = links;
+        this.url = url;
+        this.notificationLevel = notificationLevel;
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this channel..
-     * 
-     * @return The unique id of the Account responsible for this channel.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique id of the Service this channel belongs to..
-     * 
-     * @return The unique id of the Service this channel belongs to.
+     * Returns The SID of the Service that the resource is associated with.
+     *
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The unique id of a Channel..
-     * 
-     * @return The unique id of a Channel.
+     * Returns The SID of the Channel the resource belongs to.
+     *
+     * @return The SID of the Channel the resource belongs to
      */
     public final String getChannelSid() {
         return this.channelSid;
     }
 
     /**
-     * Returns The The unique id of this User as a Member in this Channel..
-     * 
-     * @return The unique id of this User as a Member in this Channel.
+     * Returns The SID of the User the User Channel belongs to.
+     *
+     * @return The SID of the User the User Channel belongs to
+     */
+    public final String getUserSid() {
+        return this.userSid;
+    }
+
+    /**
+     * Returns The SID of the User as a Member in the Channel.
+     *
+     * @return The SID of the User as a Member in the Channel
      */
     public final String getMemberSid() {
         return this.memberSid;
     }
 
     /**
-     * Returns The The status of the User on this Channel..
-     * 
-     * @return The status of the User on this Channel.
+     * Returns The status of the User on the Channel.
+     *
+     * @return The status of the User on the Channel
      */
     public final UserChannel.ChannelStatus getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The index of the last read Message in this Channel for this
-     * User..
-     * 
-     * @return The index of the last read Message in this Channel for this User.
+     * Returns The index of the last Message in the Channel the Member has read.
+     *
+     * @return The index of the last Message in the Channel the Member has read
      */
     public final Integer getLastConsumedMessageIndex() {
         return this.lastConsumedMessageIndex;
     }
 
     /**
-     * Returns The The count of unread Messages in this Channel for this User..
-     * 
-     * @return The count of unread Messages in this Channel for this User.
+     * Returns The number of unread Messages in the Channel for the User.
+     *
+     * @return The number of unread Messages in the Channel for the User
      */
     public final Integer getUnreadMessagesCount() {
         return this.unreadMessagesCount;
     }
 
     /**
-     * Returns The The links.
-     * 
-     * @return The links
+     * Returns Absolute URLs to access the Members, Messages , Invites and, if it
+     * exists, the last Message for the Channel.
+     *
+     * @return Absolute URLs to access the Members, Messages , Invites and, if it
+     *         exists, the last Message for the Channel
      */
     public final Map<String, String> getLinks() {
         return this.links;
+    }
+
+    /**
+     * Returns The absolute URL of the resource.
+     *
+     * @return The absolute URL of the resource
+     */
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    /**
+     * Returns The push notification level of the User for the Channel.
+     *
+     * @return The push notification level of the User for the Channel
+     */
+    public final UserChannel.NotificationLevel getNotificationLevel() {
+        return this.notificationLevel;
     }
 
     @Override
@@ -231,14 +346,17 @@ public class UserChannel extends Resource {
 
         UserChannel other = (UserChannel) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(channelSid, other.channelSid) && 
-               Objects.equals(memberSid, other.memberSid) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(lastConsumedMessageIndex, other.lastConsumedMessageIndex) && 
-               Objects.equals(unreadMessagesCount, other.unreadMessagesCount) && 
-               Objects.equals(links, other.links);
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(channelSid, other.channelSid) &&
+               Objects.equals(userSid, other.userSid) &&
+               Objects.equals(memberSid, other.memberSid) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(lastConsumedMessageIndex, other.lastConsumedMessageIndex) &&
+               Objects.equals(unreadMessagesCount, other.unreadMessagesCount) &&
+               Objects.equals(links, other.links) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(notificationLevel, other.notificationLevel);
     }
 
     @Override
@@ -246,11 +364,14 @@ public class UserChannel extends Resource {
         return Objects.hash(accountSid,
                             serviceSid,
                             channelSid,
+                            userSid,
                             memberSid,
                             status,
                             lastConsumedMessageIndex,
                             unreadMessagesCount,
-                            links);
+                            links,
+                            url,
+                            notificationLevel);
     }
 
     @Override
@@ -259,11 +380,14 @@ public class UserChannel extends Resource {
                           .add("accountSid", accountSid)
                           .add("serviceSid", serviceSid)
                           .add("channelSid", channelSid)
+                          .add("userSid", userSid)
                           .add("memberSid", memberSid)
                           .add("status", status)
                           .add("lastConsumedMessageIndex", lastConsumedMessageIndex)
                           .add("unreadMessagesCount", unreadMessagesCount)
                           .add("links", links)
+                          .add("url", url)
+                          .add("notificationLevel", notificationLevel)
                           .toString();
     }
 }

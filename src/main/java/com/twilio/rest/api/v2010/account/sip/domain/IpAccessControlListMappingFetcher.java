@@ -24,11 +24,12 @@ public class IpAccessControlListMappingFetcher extends Fetcher<IpAccessControlLi
 
     /**
      * Construct a new IpAccessControlListMappingFetcher.
-     * 
-     * @param pathDomainSid The domain_sid
-     * @param pathSid The sid
+     *
+     * @param pathDomainSid A string that uniquely identifies the SIP Domain
+     * @param pathSid A 34 character string that uniquely identifies the resource
+     *                to fetch.
      */
-    public IpAccessControlListMappingFetcher(final String pathDomainSid, 
+    public IpAccessControlListMappingFetcher(final String pathDomainSid,
                                              final String pathSid) {
         this.pathDomainSid = pathDomainSid;
         this.pathSid = pathSid;
@@ -36,13 +37,15 @@ public class IpAccessControlListMappingFetcher extends Fetcher<IpAccessControlLi
 
     /**
      * Construct a new IpAccessControlListMappingFetcher.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
+     * @param pathDomainSid A string that uniquely identifies the SIP Domain
+     * @param pathSid A 34 character string that uniquely identifies the resource
+     *                to fetch.
      */
-    public IpAccessControlListMappingFetcher(final String pathAccountSid, 
-                                             final String pathDomainSid, 
+    public IpAccessControlListMappingFetcher(final String pathAccountSid,
+                                             final String pathDomainSid,
                                              final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
@@ -51,7 +54,7 @@ public class IpAccessControlListMappingFetcher extends Fetcher<IpAccessControlLi
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched IpAccessControlListMapping
      */
@@ -62,8 +65,7 @@ public class IpAccessControlListMappingFetcher extends Fetcher<IpAccessControlLi
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/IpAccessControlListMappings/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/IpAccessControlListMappings/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);
@@ -75,14 +77,7 @@ public class IpAccessControlListMappingFetcher extends Fetcher<IpAccessControlLi
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return IpAccessControlListMapping.fromJson(response.getStream(), client.getObjectMapper());

@@ -26,13 +26,18 @@ public class IpAddressCreator extends Creator<IpAddress> {
 
     /**
      * Construct a new IpAddressCreator.
-     * 
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
-     * @param friendlyName The friendly_name
-     * @param ipAddress The ip_address
+     *
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid with which to
+     *                                   associate the created IpAddress resource
+     * @param friendlyName A human readable descriptive text for this resource, up
+     *                     to 64 characters long.
+     * @param ipAddress An IP address in dotted decimal notation from which you
+     *                  want to accept traffic. Any SIP requests from this IP
+     *                  address will be allowed by Twilio. IPv4 only supported
+     *                  today.
      */
-    public IpAddressCreator(final String pathIpAccessControlListSid, 
-                            final String friendlyName, 
+    public IpAddressCreator(final String pathIpAccessControlListSid,
+                            final String friendlyName,
                             final String ipAddress) {
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
         this.friendlyName = friendlyName;
@@ -41,15 +46,20 @@ public class IpAddressCreator extends Creator<IpAddress> {
 
     /**
      * Construct a new IpAddressCreator.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathIpAccessControlListSid The ip_access_control_list_sid
-     * @param friendlyName The friendly_name
-     * @param ipAddress The ip_address
+     *
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathIpAccessControlListSid The IpAccessControlList Sid with which to
+     *                                   associate the created IpAddress resource
+     * @param friendlyName A human readable descriptive text for this resource, up
+     *                     to 64 characters long.
+     * @param ipAddress An IP address in dotted decimal notation from which you
+     *                  want to accept traffic. Any SIP requests from this IP
+     *                  address will be allowed by Twilio. IPv4 only supported
+     *                  today.
      */
-    public IpAddressCreator(final String pathAccountSid, 
-                            final String pathIpAccessControlListSid, 
-                            final String friendlyName, 
+    public IpAddressCreator(final String pathAccountSid,
+                            final String pathIpAccessControlListSid,
+                            final String friendlyName,
                             final String ipAddress) {
         this.pathAccountSid = pathAccountSid;
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
@@ -58,9 +68,12 @@ public class IpAddressCreator extends Creator<IpAddress> {
     }
 
     /**
-     * The cidr_prefix_length.
-     * 
-     * @param cidrPrefixLength The cidr_prefix_length
+     * An integer representing the length of the CIDR prefix to use with this IP
+     * address when accepting traffic. By default the entire IP address is used..
+     *
+     * @param cidrPrefixLength An integer representing the length of the CIDR
+     *                         prefix to use with this IP address when accepting
+     *                         traffic. By default the entire IP address is used.
      * @return this
      */
     public IpAddressCreator setCidrPrefixLength(final Integer cidrPrefixLength) {
@@ -70,7 +83,7 @@ public class IpAddressCreator extends Creator<IpAddress> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created IpAddress
      */
@@ -81,8 +94,7 @@ public class IpAddressCreator extends Creator<IpAddress> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/IpAccessControlLists/" + this.pathIpAccessControlListSid + "/IpAddresses.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/IpAccessControlLists/" + this.pathIpAccessControlListSid + "/IpAddresses.json"
         );
 
         addPostParams(request);
@@ -95,14 +107,7 @@ public class IpAddressCreator extends Creator<IpAddress> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return IpAddress.fromJson(response.getStream(), client.getObjectMapper());
@@ -110,7 +115,7 @@ public class IpAddressCreator extends Creator<IpAddress> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

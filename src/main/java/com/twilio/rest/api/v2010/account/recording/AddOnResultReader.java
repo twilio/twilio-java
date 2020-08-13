@@ -25,8 +25,9 @@ public class AddOnResultReader extends Reader<AddOnResult> {
 
     /**
      * Construct a new AddOnResultReader.
-     * 
-     * @param pathReferenceSid The reference_sid
+     *
+     * @param pathReferenceSid The SID of the recording to which the result to read
+     *                         belongs
      */
     public AddOnResultReader(final String pathReferenceSid) {
         this.pathReferenceSid = pathReferenceSid;
@@ -34,11 +35,13 @@ public class AddOnResultReader extends Reader<AddOnResult> {
 
     /**
      * Construct a new AddOnResultReader.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathReferenceSid The reference_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathReferenceSid The SID of the recording to which the result to read
+     *                         belongs
      */
-    public AddOnResultReader(final String pathAccountSid, 
+    public AddOnResultReader(final String pathAccountSid,
                              final String pathReferenceSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathReferenceSid = pathReferenceSid;
@@ -46,7 +49,7 @@ public class AddOnResultReader extends Reader<AddOnResult> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return AddOnResult ResourceSet
      */
@@ -57,7 +60,7 @@ public class AddOnResultReader extends Reader<AddOnResult> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return AddOnResult ResourceSet
      */
@@ -68,8 +71,7 @@ public class AddOnResultReader extends Reader<AddOnResult> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings/" + this.pathReferenceSid + "/AddOnResults.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings/" + this.pathReferenceSid + "/AddOnResults.json"
         );
 
         addQueryParams(request);
@@ -78,7 +80,7 @@ public class AddOnResultReader extends Reader<AddOnResult> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return AddOnResult ResourceSet
@@ -97,47 +99,41 @@ public class AddOnResultReader extends Reader<AddOnResult> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<AddOnResult> nextPage(final Page<AddOnResult> page, 
+    public Page<AddOnResult> nextPage(final Page<AddOnResult> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<AddOnResult> previousPage(final Page<AddOnResult> page, 
+    public Page<AddOnResult> previousPage(final Page<AddOnResult> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of AddOnResult Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -152,14 +148,7 @@ public class AddOnResultReader extends Reader<AddOnResult> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -172,7 +161,7 @@ public class AddOnResultReader extends Reader<AddOnResult> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

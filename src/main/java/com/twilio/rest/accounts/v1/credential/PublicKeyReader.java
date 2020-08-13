@@ -22,7 +22,7 @@ import com.twilio.rest.Domains;
 public class PublicKeyReader extends Reader<PublicKey> {
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return PublicKey ResourceSet
      */
@@ -33,7 +33,7 @@ public class PublicKeyReader extends Reader<PublicKey> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return PublicKey ResourceSet
      */
@@ -43,8 +43,7 @@ public class PublicKeyReader extends Reader<PublicKey> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.ACCOUNTS.toString(),
-            "/v1/Credentials/PublicKeys",
-            client.getRegion()
+            "/v1/Credentials/PublicKeys"
         );
 
         addQueryParams(request);
@@ -53,7 +52,7 @@ public class PublicKeyReader extends Reader<PublicKey> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return PublicKey ResourceSet
@@ -71,47 +70,41 @@ public class PublicKeyReader extends Reader<PublicKey> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<PublicKey> nextPage(final Page<PublicKey> page, 
+    public Page<PublicKey> nextPage(final Page<PublicKey> page,
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.ACCOUNTS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.ACCOUNTS.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<PublicKey> previousPage(final Page<PublicKey> page, 
+    public Page<PublicKey> previousPage(final Page<PublicKey> page,
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.ACCOUNTS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.ACCOUNTS.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of PublicKey Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -126,14 +119,7 @@ public class PublicKeyReader extends Reader<PublicKey> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -146,7 +132,7 @@ public class PublicKeyReader extends Reader<PublicKey> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

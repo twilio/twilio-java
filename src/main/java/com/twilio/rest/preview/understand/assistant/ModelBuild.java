@@ -72,19 +72,19 @@ public class ModelBuild extends Resource {
 
     /**
      * Create a ModelBuildFetcher to execute fetch.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      * @param pathSid The sid
      * @return ModelBuildFetcher capable of executing the fetch
      */
-    public static ModelBuildFetcher fetcher(final String pathAssistantSid, 
+    public static ModelBuildFetcher fetcher(final String pathAssistantSid,
                                             final String pathSid) {
         return new ModelBuildFetcher(pathAssistantSid, pathSid);
     }
 
     /**
      * Create a ModelBuildReader to execute read.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      * @return ModelBuildReader capable of executing the read
      */
@@ -94,7 +94,7 @@ public class ModelBuild extends Resource {
 
     /**
      * Create a ModelBuildCreator to execute create.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      * @return ModelBuildCreator capable of executing the create
      */
@@ -104,24 +104,24 @@ public class ModelBuild extends Resource {
 
     /**
      * Create a ModelBuildUpdater to execute update.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      * @param pathSid The sid
      * @return ModelBuildUpdater capable of executing the update
      */
-    public static ModelBuildUpdater updater(final String pathAssistantSid, 
+    public static ModelBuildUpdater updater(final String pathAssistantSid,
                                             final String pathSid) {
         return new ModelBuildUpdater(pathAssistantSid, pathSid);
     }
 
     /**
      * Create a ModelBuildDeleter to execute delete.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      * @param pathSid The sid
      * @return ModelBuildDeleter capable of executing the delete
      */
-    public static ModelBuildDeleter deleter(final String pathAssistantSid, 
+    public static ModelBuildDeleter deleter(final String pathAssistantSid,
                                             final String pathSid) {
         return new ModelBuildDeleter(pathAssistantSid, pathSid);
     }
@@ -129,7 +129,7 @@ public class ModelBuild extends Resource {
     /**
      * Converts a JSON String into a ModelBuild object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ModelBuild object represented by the provided JSON
@@ -148,7 +148,7 @@ public class ModelBuild extends Resource {
     /**
      * Converts a JSON InputStream into a ModelBuild object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ModelBuild object represented by the provided JSON
@@ -177,23 +177,23 @@ public class ModelBuild extends Resource {
 
     @JsonCreator
     private ModelBuild(@JsonProperty("account_sid")
-                       final String accountSid, 
+                       final String accountSid,
                        @JsonProperty("date_created")
-                       final String dateCreated, 
+                       final String dateCreated,
                        @JsonProperty("date_updated")
-                       final String dateUpdated, 
+                       final String dateUpdated,
                        @JsonProperty("assistant_sid")
-                       final String assistantSid, 
+                       final String assistantSid,
                        @JsonProperty("sid")
-                       final String sid, 
+                       final String sid,
                        @JsonProperty("status")
-                       final ModelBuild.Status status, 
+                       final ModelBuild.Status status,
                        @JsonProperty("unique_name")
-                       final String uniqueName, 
+                       final String uniqueName,
                        @JsonProperty("url")
-                       final URI url, 
+                       final URI url,
                        @JsonProperty("build_duration")
-                       final Integer buildDuration, 
+                       final Integer buildDuration,
                        @JsonProperty("error_code")
                        final Integer errorCode) {
         this.accountSid = accountSid;
@@ -209,8 +209,8 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this Model Build..
-     * 
+     * Returns The unique ID of the Account that created this Model Build..
+     *
      * @return The unique ID of the Account that created this Model Build.
      */
     public final String getAccountSid() {
@@ -218,8 +218,8 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was created.
-     * 
+     * Returns The date that this resource was created.
+     *
      * @return The date that this resource was created
      */
     public final DateTime getDateCreated() {
@@ -227,8 +227,8 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was last updated.
-     * 
+     * Returns The date that this resource was last updated.
+     *
      * @return The date that this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -236,8 +236,8 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the parent Assistant..
-     * 
+     * Returns The unique ID of the parent Assistant..
+     *
      * @return The unique ID of the parent Assistant.
      */
     public final String getAssistantSid() {
@@ -245,8 +245,8 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
-     * 
+     * Returns A 34 character string that uniquely identifies this resource..
+     *
      * @return A 34 character string that uniquely identifies this resource.
      */
     public final String getSid() {
@@ -254,9 +254,9 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The A string that described the model build status. The values can
-     * be: enqueued, building, completed, failed.
-     * 
+     * Returns A string that described the model build status. The values can be:
+     * enqueued, building, completed, failed.
+     *
      * @return A string that described the model build status. The values can be:
      *         enqueued, building, completed, failed
      */
@@ -265,9 +265,9 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The A user-provided string that uniquely identifies this resource as
-     * an alternative to the sid. Unique up to 64 characters long..
-     * 
+     * Returns A user-provided string that uniquely identifies this resource as an
+     * alternative to the sid. Unique up to 64 characters long..
+     *
      * @return A user-provided string that uniquely identifies this resource as an
      *         alternative to the sid. Unique up to 64 characters long.
      */
@@ -276,8 +276,8 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The The url.
-     * 
+     * Returns The url.
+     *
      * @return The url
      */
     public final URI getUrl() {
@@ -285,8 +285,8 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The The time in seconds it took to build the model..
-     * 
+     * Returns The time in seconds it took to build the model..
+     *
      * @return The time in seconds it took to build the model.
      */
     public final Integer getBuildDuration() {
@@ -294,8 +294,8 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Returns The The error_code.
-     * 
+     * Returns The error_code.
+     *
      * @return The error_code
      */
     public final Integer getErrorCode() {
@@ -314,15 +314,15 @@ public class ModelBuild extends Resource {
 
         ModelBuild other = (ModelBuild) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(assistantSid, other.assistantSid) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(status, other.status) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(buildDuration, other.buildDuration) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(assistantSid, other.assistantSid) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(buildDuration, other.buildDuration) &&
                Objects.equals(errorCode, other.errorCode);
     }
 

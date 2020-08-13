@@ -29,6 +29,7 @@ public class ParticipantCreator extends Creator<Participant> {
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
     private List<String> statusCallbackEvent;
+    private String label;
     private Integer timeout;
     private Boolean record;
     private Boolean muted;
@@ -54,16 +55,23 @@ public class ParticipantCreator extends Creator<Participant> {
     private HttpMethod conferenceRecordingStatusCallbackMethod;
     private List<String> recordingStatusCallbackEvent;
     private List<String> conferenceRecordingStatusCallbackEvent;
+    private Boolean coaching;
+    private String callSidToCoach;
+    private String jitterBufferSize;
+    private String byoc;
+    private String callerId;
 
     /**
      * Construct a new ParticipantCreator.
-     * 
-     * @param pathConferenceSid The conference_sid
-     * @param from The `from` phone number used to invite a participant.
-     * @param to The number, client id, or sip address of the new participant.
+     *
+     * @param pathConferenceSid The SID of the participant's conference
+     * @param from The phone number, Client identifier, or username portion of SIP
+     *             address that made this call.
+     * @param to The phone number, SIP address or Client identifier that received
+     *           this call.
      */
-    public ParticipantCreator(final String pathConferenceSid, 
-                              final com.twilio.type.PhoneNumber from, 
+    public ParticipantCreator(final String pathConferenceSid,
+                              final com.twilio.type.PhoneNumber from,
                               final com.twilio.type.PhoneNumber to) {
         this.pathConferenceSid = pathConferenceSid;
         this.from = from;
@@ -72,15 +80,17 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * Construct a new ParticipantCreator.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathConferenceSid The conference_sid
-     * @param from The `from` phone number used to invite a participant.
-     * @param to The number, client id, or sip address of the new participant.
+     *
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param pathConferenceSid The SID of the participant's conference
+     * @param from The phone number, Client identifier, or username portion of SIP
+     *             address that made this call.
+     * @param to The phone number, SIP address or Client identifier that received
+     *           this call.
      */
-    public ParticipantCreator(final String pathAccountSid, 
-                              final String pathConferenceSid, 
-                              final com.twilio.type.PhoneNumber from, 
+    public ParticipantCreator(final String pathAccountSid,
+                              final String pathConferenceSid,
+                              final com.twilio.type.PhoneNumber from,
                               final com.twilio.type.PhoneNumber to) {
         this.pathAccountSid = pathAccountSid;
         this.pathConferenceSid = pathConferenceSid;
@@ -89,10 +99,11 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The absolute URL where Twilio should send a webhook with conference event
-     * information that you request with the `StatusCallbackEvent` parameter..
-     * 
-     * @param statusCallback URL for conference event callback.
+     * The URL we should call using the `status_callback_method` to send status
+     * information to your application..
+     *
+     * @param statusCallback The URL we should call to send status information to
+     *                       your application
      * @return this
      */
     public ParticipantCreator setStatusCallback(final URI statusCallback) {
@@ -101,10 +112,11 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The absolute URL where Twilio should send a webhook with conference event
-     * information that you request with the `StatusCallbackEvent` parameter..
-     * 
-     * @param statusCallback URL for conference event callback.
+     * The URL we should call using the `status_callback_method` to send status
+     * information to your application..
+     *
+     * @param statusCallback The URL we should call to send status information to
+     *                       your application
      * @return this
      */
     public ParticipantCreator setStatusCallback(final String statusCallback) {
@@ -112,11 +124,11 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The method Twilio should use when requesting your `StatusCallback` URL.
-     * Options are `GET` and `POST`. Defaults to `POST`..
-     * 
-     * @param statusCallbackMethod Method Twilio should use to reach the status
-     *                             callback URL.
+     * The HTTP method we should use to call `status_callback`. Can be: `GET` and
+     * `POST` and defaults to `POST`..
+     *
+     * @param statusCallbackMethod The HTTP method we should use to call
+     *                             `status_callback`
      * @return this
      */
     public ParticipantCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
@@ -125,13 +137,13 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * Specifies which conference state changes should generate a webhook to the
-     * `StatusCallback` URL. Options are `initiated`, `ringing`, `answered`, and
-     * `completed`. To specify multiple values, separate each with a space. Defaults
-     * to `completed`..
-     * 
+     * The conference state changes that should generate a call to
+     * `status_callback`. Can be: `initiated`, `ringing`, `answered`, and
+     * `completed`. Separate multiple values with a space. The default value is
+     * `completed`..
+     *
      * @param statusCallbackEvent Set state change events that will trigger a
-     *                            callback.
+     *                            callback
      * @return this
      */
     public ParticipantCreator setStatusCallbackEvent(final List<String> statusCallbackEvent) {
@@ -140,13 +152,13 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * Specifies which conference state changes should generate a webhook to the
-     * `StatusCallback` URL. Options are `initiated`, `ringing`, `answered`, and
-     * `completed`. To specify multiple values, separate each with a space. Defaults
-     * to `completed`..
-     * 
+     * The conference state changes that should generate a call to
+     * `status_callback`. Can be: `initiated`, `ringing`, `answered`, and
+     * `completed`. Separate multiple values with a space. The default value is
+     * `completed`..
+     *
      * @param statusCallbackEvent Set state change events that will trigger a
-     *                            callback.
+     *                            callback
      * @return this
      */
     public ParticipantCreator setStatusCallbackEvent(final String statusCallbackEvent) {
@@ -154,13 +166,25 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The number of seconds (integer) that Twilio should allow the phone to ring
-     * before assuming there is no answer. Defaults to 60 seconds. Minimum allowed
-     * timeout is `5`, max is `600`. Twilio always adds a 5-second timeout buffer to
-     * outgoing calls, so if you enter a timeout value of 10 seconds, you will see
-     * an actual timeout closer to 15 seconds..
-     * 
-     * @param timeout Number of seconds Twilio will wait for an answer.
+     * A label for this participant. If one is supplied, it may subsequently be used
+     * to fetch, update or delete the participant..
+     *
+     * @param label The label of this participant
+     * @return this
+     */
+    public ParticipantCreator setLabel(final String label) {
+        this.label = label;
+        return this;
+    }
+
+    /**
+     * The number of seconds that we should allow the phone to ring before assuming
+     * there is no answer. Can be an integer between `5` and `600`, inclusive. The
+     * default value is `60`. We always add a 5-second timeout buffer to outgoing
+     * calls, so  value of 10 would result in an actual timeout that was closer to
+     * 15 seconds..
+     *
+     * @param timeout he number of seconds that we should wait for an answer
      * @return this
      */
     public ParticipantCreator setTimeout(final Integer timeout) {
@@ -169,10 +193,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * Records the agent and their conferences, including downtime between
-     * conferences. Values may be `true` or `false`. Defaults to `false`..
-     * 
-     * @param record Record the agent and their conferences.
+     * Whether to record the participant and their conferences, including the time
+     * between conferences. Can be `true` or `false` and the default is `false`..
+     *
+     * @param record Whether to record the participant and their conferences
      * @return this
      */
     public ParticipantCreator setRecord(final Boolean record) {
@@ -181,10 +205,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * Specify whether the agent can speak in the conference. Values can be `true`
-     * or `false`. Defaults to `false`..
-     * 
-     * @param muted Mute the agent.
+     * Whether the agent is muted in the conference. Can be `true` or `false` and
+     * the default is `false`..
+     *
+     * @param muted Whether to mute the agent
      * @return this
      */
     public ParticipantCreator setMuted(final Boolean muted) {
@@ -193,10 +217,12 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * Play a notification beep to the conference when this participant joins.
-     * Options are `true`, `false`, `onEnter`, or `onExit`. Defaults to `true`..
-     * 
-     * @param beep Play a beep when the participant joins the conference.
+     * Whether to play a notification beep to the conference when the participant
+     * joins. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is
+     * `true`..
+     *
+     * @param beep Whether to play a notification beep to the conference when the
+     *             participant joins
      * @return this
      */
     public ParticipantCreator setBeep(final String beep) {
@@ -205,12 +231,13 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * If the conference has not already begun, `true` will start the conference
-     * when this participant joins. Specifying `false` will mute the participant and
-     * play background music until the conference begins. Defaults to `true`..
-     * 
-     * @param startConferenceOnEnter Begin the conference when the participant
-     *                               joins.
+     * Whether to start the conference when the participant joins, if it has not
+     * already started. Can be: `true` or `false` and the default is `true`. If
+     * `false` and the conference has not started, the participant is muted and
+     * hears background music until another participant starts the conference..
+     *
+     * @param startConferenceOnEnter Whether the conference starts when the
+     *                               participant joins the conference
      * @return this
      */
     public ParticipantCreator setStartConferenceOnEnter(final Boolean startConferenceOnEnter) {
@@ -219,10 +246,11 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * If `true`, will end the conference when this participant leaves. Defaults to
-     * `false`..
-     * 
-     * @param endConferenceOnExit End the conference when the participant leaves.
+     * Whether to end the conference when the participant leaves. Can be: `true` or
+     * `false` and defaults to `false`..
+     *
+     * @param endConferenceOnExit Whether to end the conference when the
+     *                            participant leaves
      * @return this
      */
     public ParticipantCreator setEndConferenceOnExit(final Boolean endConferenceOnExit) {
@@ -231,10 +259,11 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * Specify an absolute URL that hosts music to play before the  conference
-     * starts. Defualts to Twilio's standard [hold
+     * The URL we should call using the `wait_method` for the music to play while
+     * participants are waiting for the conference to start. The default value is
+     * the URL of our standard hold music. [Learn more about hold
      * music](https://www.twilio.com/labs/twimlets/holdmusic)..
-     * 
+     *
      * @param waitUrl URL that hosts pre-conference hold music
      * @return this
      */
@@ -244,10 +273,11 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * Specify an absolute URL that hosts music to play before the  conference
-     * starts. Defualts to Twilio's standard [hold
+     * The URL we should call using the `wait_method` for the music to play while
+     * participants are waiting for the conference to start. The default value is
+     * the URL of our standard hold music. [Learn more about hold
      * music](https://www.twilio.com/labs/twimlets/holdmusic)..
-     * 
+     *
      * @param waitUrl URL that hosts pre-conference hold music
      * @return this
      */
@@ -256,12 +286,11 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * Specify which method, `GET` or `POST`, Twilio should use to request the
-     * `WaitUrl` for this conference. Be sure to use `GET` if you are directly
-     * requesting static audio files so that Twilio properly caches the files.
-     * Defaults to `POST`..
-     * 
-     * @param waitMethod The method Twilio should use to request `WaitUrl`.
+     * The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and
+     * the default is `POST`. When using a static audio file, this should be `GET`
+     * so that we can cache the file..
+     *
+     * @param waitMethod The HTTP method we should use to call `wait_url`
      * @return this
      */
     public ParticipantCreator setWaitMethod(final HttpMethod waitMethod) {
@@ -270,10 +299,11 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * Allow an agent to hear the state of the outbound call, including ringing or
-     * disconnect messages. Can be `true` or `false`. Defaults to `true`..
-     * 
-     * @param earlyMedia Agents can hear the state of the outbound call.
+     * Whether to allow an agent to hear the state of the outbound call, including
+     * ringing or disconnect messages. Can be: `true` or `false` and defaults to
+     * `true`..
+     *
+     * @param earlyMedia Whether agents can hear the state of the outbound call
      * @return this
      */
     public ParticipantCreator setEarlyMedia(final Boolean earlyMedia) {
@@ -282,10 +312,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The maximum number of participants within this agent conference. Values can
-     * be positive integers from `2`-`10`. Defaults to `10`..
-     * 
-     * @param maxParticipants Maximum number of agent conference participants.
+     * The maximum number of participants in the conference. Can be a positive
+     * integer from `2` to `250`. The default value is `250`..
+     *
+     * @param maxParticipants The maximum number of agent conference participants
      * @return this
      */
     public ParticipantCreator setMaxParticipants(final Integer maxParticipants) {
@@ -294,10 +324,12 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * Records the conference that this participant is joining. Options are `true`,
-     * `false`, `record-from-start`, and `do-not-record`. Deafults to `false`.
-     * 
-     * @param conferenceRecord Record the conference.
+     * Whether to record the conference the participant is joining. Can be: `true`,
+     * `false`, `record-from-start`, and `do-not-record`. The default value is
+     * `false`..
+     *
+     * @param conferenceRecord Whether to record the conference the participant is
+     *                         joining
      * @return this
      */
     public ParticipantCreator setConferenceRecord(final String conferenceRecord) {
@@ -306,11 +338,12 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * Specify whether to trim leading and trailing silence from your recorded
-     * conference audio files. Options are `trim-silence` and `do-not-trim`.
-     * Defaults to `trim-silence`.
-     * 
-     * @param conferenceTrim Trim silence from audio files.
+     * Whether to trim leading and trailing silence from your recorded conference
+     * audio files. Can be: `trim-silence` or `do-not-trim` and defaults to
+     * `trim-silence`..
+     *
+     * @param conferenceTrim Whether to trim leading and trailing silence from your
+     *                       recorded conference audio files
      * @return this
      */
     public ParticipantCreator setConferenceTrim(final String conferenceTrim) {
@@ -319,11 +352,12 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The absolute URL Twilio should request with conference events specified in
-     * `ConferenceStatusCallbackEvent`. This value is set by the first Participant
-     * to join the conference, and subsequent callback URLs will be ignored..
-     * 
-     * @param conferenceStatusCallback Callback URL for conference events.
+     * The URL we should call using the `conference_status_callback_method` when the
+     * conference events in `conference_status_callback_event` occur. Only the value
+     * set by the first participant to join the conference is used. Subsequent
+     * `conference_status_callback` values are ignored..
+     *
+     * @param conferenceStatusCallback The callback URL for conference events
      * @return this
      */
     public ParticipantCreator setConferenceStatusCallback(final URI conferenceStatusCallback) {
@@ -332,11 +366,12 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The absolute URL Twilio should request with conference events specified in
-     * `ConferenceStatusCallbackEvent`. This value is set by the first Participant
-     * to join the conference, and subsequent callback URLs will be ignored..
-     * 
-     * @param conferenceStatusCallback Callback URL for conference events.
+     * The URL we should call using the `conference_status_callback_method` when the
+     * conference events in `conference_status_callback_event` occur. Only the value
+     * set by the first participant to join the conference is used. Subsequent
+     * `conference_status_callback` values are ignored..
+     *
+     * @param conferenceStatusCallback The callback URL for conference events
      * @return this
      */
     public ParticipantCreator setConferenceStatusCallback(final String conferenceStatusCallback) {
@@ -344,11 +379,11 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The HTTP method Twilio should use when requesting the
-     * `ConferenceStatusCallback` URL. Either `GET` or `POST`. Defaults to `POST`..
-     * 
+     * The HTTP method we should use to call `conference_status_callback`. Can be:
+     * `GET` or `POST` and defaults to `POST`..
+     *
      * @param conferenceStatusCallbackMethod HTTP method for requesting
-     *                                       `ConferenceStatusCallback` URL.
+     *                                       `conference_status_callback` URL
      * @return this
      */
     public ParticipantCreator setConferenceStatusCallbackMethod(final HttpMethod conferenceStatusCallbackMethod) {
@@ -357,14 +392,14 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * Specifies which conference state changes should generate a webhook to the URL
-     * specified in the `ConferenceStatusCallback` attribute. Available values are
-     * `start`, `end`, `join`, `leave`, `mute`, `hold`, and `speaker`. To specify
-     * multiple values, separate them with a space. Defaults to `start` and `end`..
-     * 
-     * @param conferenceStatusCallbackEvent Set which conference state changes
-     *                                      should webhook to the
-     *                                      `ConferenceStatusCallback`
+     * The conference state changes that should generate a call to
+     * `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`,
+     * `mute`, `hold`, and `speaker`. Separate multiple values with a space.
+     * Defaults to `start end`..
+     *
+     * @param conferenceStatusCallbackEvent The conference state changes that
+     *                                      should generate a call to
+     *                                      `conference_status_callback`
      * @return this
      */
     public ParticipantCreator setConferenceStatusCallbackEvent(final List<String> conferenceStatusCallbackEvent) {
@@ -373,14 +408,14 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * Specifies which conference state changes should generate a webhook to the URL
-     * specified in the `ConferenceStatusCallback` attribute. Available values are
-     * `start`, `end`, `join`, `leave`, `mute`, `hold`, and `speaker`. To specify
-     * multiple values, separate them with a space. Defaults to `start` and `end`..
-     * 
-     * @param conferenceStatusCallbackEvent Set which conference state changes
-     *                                      should webhook to the
-     *                                      `ConferenceStatusCallback`
+     * The conference state changes that should generate a call to
+     * `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`,
+     * `mute`, `hold`, and `speaker`. Separate multiple values with a space.
+     * Defaults to `start end`..
+     *
+     * @param conferenceStatusCallbackEvent The conference state changes that
+     *                                      should generate a call to
+     *                                      `conference_status_callback`
      * @return this
      */
     public ParticipantCreator setConferenceStatusCallbackEvent(final String conferenceStatusCallbackEvent) {
@@ -388,10 +423,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * Set the recording channels for the final agent/conference recording. Either
-     * `mono` or `dual`. Defaults to `mono`..
-     * 
-     * @param recordingChannels Specify `mono` or `dual` recording channels.
+     * The recording channels for the final recording. Can be: `mono` or `dual` and
+     * the default is `mono`..
+     *
+     * @param recordingChannels Specify `mono` or `dual` recording channels
      * @return this
      */
     public ParticipantCreator setRecordingChannels(final String recordingChannels) {
@@ -400,11 +435,12 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * Specifies the `absolute URL` that Twilio should request when the recording is
-     * available if the agent and conference are recorded..
-     * 
-     * @param recordingStatusCallback The absolute URL for Twilio's webhook with
-     *                                recording status information.
+     * The URL that we should call using the `recording_status_callback_method` when
+     * the recording status changes..
+     *
+     * @param recordingStatusCallback The URL that we should call using the
+     *                                `recording_status_callback_method` when the
+     *                                recording status changes
      * @return this
      */
     public ParticipantCreator setRecordingStatusCallback(final URI recordingStatusCallback) {
@@ -413,11 +449,12 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * Specifies the `absolute URL` that Twilio should request when the recording is
-     * available if the agent and conference are recorded..
-     * 
-     * @param recordingStatusCallback The absolute URL for Twilio's webhook with
-     *                                recording status information.
+     * The URL that we should call using the `recording_status_callback_method` when
+     * the recording status changes..
+     *
+     * @param recordingStatusCallback The URL that we should call using the
+     *                                `recording_status_callback_method` when the
+     *                                recording status changes
      * @return this
      */
     public ParticipantCreator setRecordingStatusCallback(final String recordingStatusCallback) {
@@ -425,11 +462,11 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The HTTP method Twilio should use when requesting the
-     * `RecordingStatusCallback`. `GET` or `POST`. Defaults to `POST`..
-     * 
-     * @param recordingStatusCallbackMethod HTTP method for
-     *                                      `RecordingStatusCallback`
+     * The HTTP method we should use when we call `recording_status_callback`. Can
+     * be: `GET` or `POST` and defaults to `POST`..
+     *
+     * @param recordingStatusCallbackMethod The HTTP method we should use when we
+     *                                      call `recording_status_callback`
      * @return this
      */
     public ParticipantCreator setRecordingStatusCallbackMethod(final HttpMethod recordingStatusCallbackMethod) {
@@ -438,9 +475,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * SIP username used for authenticating..
-     * 
-     * @param sipAuthUsername SIP username used for authenticating.
+     * The SIP username used for authentication..
+     *
+     * @param sipAuthUsername The SIP username used for authentication
      * @return this
      */
     public ParticipantCreator setSipAuthUsername(final String sipAuthUsername) {
@@ -449,9 +486,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * SIP password for authentication..
-     * 
-     * @param sipAuthPassword SIP password for authentication.
+     * The SIP password for authentication..
+     *
+     * @param sipAuthPassword The SIP password for authentication
      * @return this
      */
     public ParticipantCreator setSipAuthPassword(final String sipAuthPassword) {
@@ -460,10 +497,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * Specifies the
-     * [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where Twilio should mix the recorded audio. Options are `us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, `jp1`..
-     * 
-     * @param region The region where Twilio should mix the conference audio.
+     * The
+     * [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`..
+     *
+     * @param region The region where we should mix the conference audio
      * @return this
      */
     public ParticipantCreator setRegion(final String region) {
@@ -472,10 +509,12 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The `absolute URL` Twilio should request when the conference recording is
-     * available..
-     * 
-     * @param conferenceRecordingStatusCallback Conference recording callback URL.
+     * The URL we should call using the
+     * `conference_recording_status_callback_method` when the conference recording
+     * is available..
+     *
+     * @param conferenceRecordingStatusCallback The URL we should call using the
+     *                                          `conference_recording_status_callback_method` when the conference recording is available
      * @return this
      */
     public ParticipantCreator setConferenceRecordingStatusCallback(final URI conferenceRecordingStatusCallback) {
@@ -484,10 +523,12 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The `absolute URL` Twilio should request when the conference recording is
-     * available..
-     * 
-     * @param conferenceRecordingStatusCallback Conference recording callback URL.
+     * The URL we should call using the
+     * `conference_recording_status_callback_method` when the conference recording
+     * is available..
+     *
+     * @param conferenceRecordingStatusCallback The URL we should call using the
+     *                                          `conference_recording_status_callback_method` when the conference recording is available
      * @return this
      */
     public ParticipantCreator setConferenceRecordingStatusCallback(final String conferenceRecordingStatusCallback) {
@@ -495,12 +536,12 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The HTTP method Twilio should use when requesting your recording status
-     * callback URL, either `GET` or `POST`. Defaults to `POST`..
-     * 
-     * @param conferenceRecordingStatusCallbackMethod Method Twilio should use to
-     *                                                request the
-     *                                                `ConferenceRecordingStatusCallback` URL.
+     * The HTTP method we should use to call `conference_recording_status_callback`.
+     * Can be: `GET` or `POST` and defaults to `POST`..
+     *
+     * @param conferenceRecordingStatusCallbackMethod The HTTP method we should use
+     *                                                to call
+     *                                                `conference_recording_status_callback`
      * @return this
      */
     public ParticipantCreator setConferenceRecordingStatusCallbackMethod(final HttpMethod conferenceRecordingStatusCallbackMethod) {
@@ -509,9 +550,14 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The recording_status_callback_event.
-     * 
-     * @param recordingStatusCallbackEvent The recording_status_callback_event
+     * The recording state changes that should generate a call to
+     * `recording_status_callback`. Can be: `in-progress`, `completed`, and
+     * `failed`. Separate multiple values with a space. The default value is
+     * `in-progress completed failed`..
+     *
+     * @param recordingStatusCallbackEvent The recording state changes that should
+     *                                     generate a call to
+     *                                     `recording_status_callback`
      * @return this
      */
     public ParticipantCreator setRecordingStatusCallbackEvent(final List<String> recordingStatusCallbackEvent) {
@@ -520,9 +566,14 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The recording_status_callback_event.
-     * 
-     * @param recordingStatusCallbackEvent The recording_status_callback_event
+     * The recording state changes that should generate a call to
+     * `recording_status_callback`. Can be: `in-progress`, `completed`, and
+     * `failed`. Separate multiple values with a space. The default value is
+     * `in-progress completed failed`..
+     *
+     * @param recordingStatusCallbackEvent The recording state changes that should
+     *                                     generate a call to
+     *                                     `recording_status_callback`
      * @return this
      */
     public ParticipantCreator setRecordingStatusCallbackEvent(final String recordingStatusCallbackEvent) {
@@ -530,10 +581,15 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The conference_recording_status_callback_event.
-     * 
-     * @param conferenceRecordingStatusCallbackEvent The
-     *                                               conference_recording_status_callback_event
+     * The conference recording state changes that generate a call to
+     * `conference_recording_status_callback`. Can be: `in-progress`, `completed`,
+     * and `failed`. Separate multiple values with a space. The default value is
+     * `in-progress completed failed`..
+     *
+     * @param conferenceRecordingStatusCallbackEvent The conference recording state
+     *                                               changes that should generate a
+     *                                               call to
+     *                                               `conference_recording_status_callback`
      * @return this
      */
     public ParticipantCreator setConferenceRecordingStatusCallbackEvent(final List<String> conferenceRecordingStatusCallbackEvent) {
@@ -542,10 +598,15 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The conference_recording_status_callback_event.
-     * 
-     * @param conferenceRecordingStatusCallbackEvent The
-     *                                               conference_recording_status_callback_event
+     * The conference recording state changes that generate a call to
+     * `conference_recording_status_callback`. Can be: `in-progress`, `completed`,
+     * and `failed`. Separate multiple values with a space. The default value is
+     * `in-progress completed failed`..
+     *
+     * @param conferenceRecordingStatusCallbackEvent The conference recording state
+     *                                               changes that should generate a
+     *                                               call to
+     *                                               `conference_recording_status_callback`
      * @return this
      */
     public ParticipantCreator setConferenceRecordingStatusCallbackEvent(final String conferenceRecordingStatusCallbackEvent) {
@@ -553,8 +614,82 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
+     * Whether the participant is coaching another call. Can be: `true` or `false`.
+     * If not present, defaults to `false` unless `call_sid_to_coach` is defined. If
+     * `true`, `call_sid_to_coach` must be defined..
+     *
+     * @param coaching Indicates if the participant changed to coach
+     * @return this
+     */
+    public ParticipantCreator setCoaching(final Boolean coaching) {
+        this.coaching = coaching;
+        return this;
+    }
+
+    /**
+     * The SID of the participant who is being `coached`. The participant being
+     * coached is the only participant who can hear the participant who is
+     * `coaching`..
+     *
+     * @param callSidToCoach The SID of the participant who is being `coached`
+     * @return this
+     */
+    public ParticipantCreator setCallSidToCoach(final String callSidToCoach) {
+        this.callSidToCoach = callSidToCoach;
+        return this;
+    }
+
+    /**
+     * Jitter buffer size for the connecting participant. Twilio will use this
+     * setting to apply Jitter Buffer before participant's audio is mixed into the
+     * conference. Can be: `off`, `small`, `medium`, and `large`. Default to
+     * `large`..
+     *
+     * @param jitterBufferSize Jitter Buffer size for the connecting participant
+     * @return this
+     */
+    public ParticipantCreator setJitterBufferSize(final String jitterBufferSize) {
+        this.jitterBufferSize = jitterBufferSize;
+        return this;
+    }
+
+    /**
+     * The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with.
+     * Note that `byoc` is only meaningful when `to` is a phone number; it will
+     * otherwise be ignored. (Beta).
+     *
+     * @param byoc BYOC trunk SID (Beta)
+     * @return this
+     */
+    public ParticipantCreator setByoc(final String byoc) {
+        this.byoc = byoc;
+        return this;
+    }
+
+    /**
+     * The phone number, Client identifier, or username portion of SIP address that
+     * made this call. Phone numbers are in
+     * [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g.,
+     * +16175551212). Client identifiers are formatted `client:name`. If using a
+     * phone number, it must be a Twilio number or a Verified [outgoing caller
+     * id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your
+     * account. If the `to` parameter is a phone number, `callerId` must also be a
+     * phone number. If `to` is sip address, this value of `callerId` should be a
+     * username portion to be used to populate the From header that is passed to the
+     * SIP endpoint..
+     *
+     * @param callerId The phone number, Client identifier, or username portion of
+     *                 SIP address that made this call.
+     * @return this
+     */
+    public ParticipantCreator setCallerId(final String callerId) {
+        this.callerId = callerId;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Participant
      */
@@ -565,8 +700,7 @@ public class ParticipantCreator extends Creator<Participant> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathConferenceSid + "/Participants.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathConferenceSid + "/Participants.json"
         );
 
         addPostParams(request);
@@ -579,14 +713,7 @@ public class ParticipantCreator extends Creator<Participant> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Participant.fromJson(response.getStream(), client.getObjectMapper());
@@ -594,7 +721,7 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
@@ -618,6 +745,10 @@ public class ParticipantCreator extends Creator<Participant> {
             for (String prop : statusCallbackEvent) {
                 request.addPostParam("StatusCallbackEvent", prop);
             }
+        }
+
+        if (label != null) {
+            request.addPostParam("Label", label);
         }
 
         if (timeout != null) {
@@ -724,6 +855,26 @@ public class ParticipantCreator extends Creator<Participant> {
             for (String prop : conferenceRecordingStatusCallbackEvent) {
                 request.addPostParam("ConferenceRecordingStatusCallbackEvent", prop);
             }
+        }
+
+        if (coaching != null) {
+            request.addPostParam("Coaching", coaching.toString());
+        }
+
+        if (callSidToCoach != null) {
+            request.addPostParam("CallSidToCoach", callSidToCoach);
+        }
+
+        if (jitterBufferSize != null) {
+            request.addPostParam("JitterBufferSize", jitterBufferSize);
+        }
+
+        if (byoc != null) {
+            request.addPostParam("Byoc", byoc);
+        }
+
+        if (callerId != null) {
+            request.addPostParam("CallerId", callerId);
         }
     }
 }

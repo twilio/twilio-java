@@ -28,12 +28,11 @@ public class AssignedAddOnCreator extends Creator<AssignedAddOn> {
 
     /**
      * Construct a new AssignedAddOnCreator.
-     * 
-     * @param pathResourceSid The resource_sid
-     * @param installedAddOnSid A string that uniquely identifies the Add-on
-     *                          installation
+     *
+     * @param pathResourceSid The SID of the Phone Number to assign the Add-on
+     * @param installedAddOnSid The SID that identifies the Add-on installation
      */
-    public AssignedAddOnCreator(final String pathResourceSid, 
+    public AssignedAddOnCreator(final String pathResourceSid,
                                 final String installedAddOnSid) {
         this.pathResourceSid = pathResourceSid;
         this.installedAddOnSid = installedAddOnSid;
@@ -41,14 +40,13 @@ public class AssignedAddOnCreator extends Creator<AssignedAddOn> {
 
     /**
      * Construct a new AssignedAddOnCreator.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathResourceSid The resource_sid
-     * @param installedAddOnSid A string that uniquely identifies the Add-on
-     *                          installation
+     *
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param pathResourceSid The SID of the Phone Number to assign the Add-on
+     * @param installedAddOnSid The SID that identifies the Add-on installation
      */
-    public AssignedAddOnCreator(final String pathAccountSid, 
-                                final String pathResourceSid, 
+    public AssignedAddOnCreator(final String pathAccountSid,
+                                final String pathResourceSid,
                                 final String installedAddOnSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathResourceSid = pathResourceSid;
@@ -57,7 +55,7 @@ public class AssignedAddOnCreator extends Creator<AssignedAddOn> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created AssignedAddOn
      */
@@ -68,8 +66,7 @@ public class AssignedAddOnCreator extends Creator<AssignedAddOn> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/" + this.pathResourceSid + "/AssignedAddOns.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/" + this.pathResourceSid + "/AssignedAddOns.json"
         );
 
         addPostParams(request);
@@ -82,14 +79,7 @@ public class AssignedAddOnCreator extends Creator<AssignedAddOn> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return AssignedAddOn.fromJson(response.getStream(), client.getObjectMapper());
@@ -97,7 +87,7 @@ public class AssignedAddOnCreator extends Creator<AssignedAddOn> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

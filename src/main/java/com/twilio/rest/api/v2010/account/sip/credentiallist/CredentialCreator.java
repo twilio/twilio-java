@@ -25,13 +25,14 @@ public class CredentialCreator extends Creator<Credential> {
 
     /**
      * Construct a new CredentialCreator.
-     * 
-     * @param pathCredentialListSid The credential_list_sid
+     *
+     * @param pathCredentialListSid The unique id that identifies the credential
+     *                              list to include the created credential
      * @param username The username for this credential.
      * @param password The password will not be returned in the response.
      */
-    public CredentialCreator(final String pathCredentialListSid, 
-                             final String username, 
+    public CredentialCreator(final String pathCredentialListSid,
+                             final String username,
                              final String password) {
         this.pathCredentialListSid = pathCredentialListSid;
         this.username = username;
@@ -40,15 +41,17 @@ public class CredentialCreator extends Creator<Credential> {
 
     /**
      * Construct a new CredentialCreator.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathCredentialListSid The credential_list_sid
+     *
+     * @param pathAccountSid The unique id of the Account that is responsible for
+     *                       this resource.
+     * @param pathCredentialListSid The unique id that identifies the credential
+     *                              list to include the created credential
      * @param username The username for this credential.
      * @param password The password will not be returned in the response.
      */
-    public CredentialCreator(final String pathAccountSid, 
-                             final String pathCredentialListSid, 
-                             final String username, 
+    public CredentialCreator(final String pathAccountSid,
+                             final String pathCredentialListSid,
+                             final String username,
                              final String password) {
         this.pathAccountSid = pathAccountSid;
         this.pathCredentialListSid = pathCredentialListSid;
@@ -58,7 +61,7 @@ public class CredentialCreator extends Creator<Credential> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Credential
      */
@@ -69,8 +72,7 @@ public class CredentialCreator extends Creator<Credential> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/CredentialLists/" + this.pathCredentialListSid + "/Credentials.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/CredentialLists/" + this.pathCredentialListSid + "/Credentials.json"
         );
 
         addPostParams(request);
@@ -83,14 +85,7 @@ public class CredentialCreator extends Creator<Credential> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Credential.fromJson(response.getStream(), client.getObjectMapper());
@@ -98,7 +93,7 @@ public class CredentialCreator extends Creator<Credential> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

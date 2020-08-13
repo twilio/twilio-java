@@ -22,8 +22,8 @@ public class RatePlanDeleter extends Deleter<RatePlan> {
 
     /**
      * Construct a new RatePlanDeleter.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The SID that identifies the resource to delete
      */
     public RatePlanDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -31,7 +31,7 @@ public class RatePlanDeleter extends Deleter<RatePlan> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -40,8 +40,7 @@ public class RatePlanDeleter extends Deleter<RatePlan> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.WIRELESS.toString(),
-            "/v1/RatePlans/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/RatePlans/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -53,14 +52,7 @@ public class RatePlanDeleter extends Deleter<RatePlan> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

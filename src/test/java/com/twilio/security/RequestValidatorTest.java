@@ -17,8 +17,7 @@ public class RequestValidatorTest {
     private RequestValidator validator = new RequestValidator("12345");
     private String signature = "RSOYDt4T1cUTdK1PDd93/VVr8B8=";
     private String body = "{\"property\": \"value\", \"boolean\": true}";
-    private String bodyHash = "Ch/3Y02as7ldtcmi3+lBbkFQKyg6gMfPGWMmMvluZiA=";
-    private String bodyHashEncoded = bodyHash.replace("+", "%2B").replace("=", "%3D");
+    private String bodyHash = "0a1ff7634d9ab3b95db5c9a2dfe9416e41502b283a80c7cf19632632f96e6620";
 
     @Before
     public void setUp() {
@@ -58,8 +57,8 @@ public class RequestValidatorTest {
 
     @Test
     public void testValidateWithBody() throws URISyntaxException {
-        String url = this.url + "&bodySHA256=" + bodyHashEncoded;
-        String signatureWithHash = "afcFvPLPYT8mg/JyIVkdnqQKa2s=";
+        String url = this.url + "&bodySHA256=" + bodyHash;
+        String signatureWithHash = "a9nBmqA0ju/hNViExpshrM61xv4=";
         boolean isValid = validator.validate(url, body, signatureWithHash);
 
         Assert.assertTrue("Body validation failed", isValid);
@@ -67,8 +66,8 @@ public class RequestValidatorTest {
 
     @Test
     public void testValidateWithNoOtherParameters() throws URISyntaxException {
-        String url = "https://mycompany.com/myapp.php?bodySHA256=" + bodyHashEncoded;
-        String signatureWithHash = "DXnNFCj8DJ/hZmiSg4UzaDHw5Og=";
+        String url = "https://mycompany.com/myapp.php?bodySHA256=" + bodyHash;
+        String signatureWithHash = "y77kIzt2vzLz71DgmJGsen2scGs=";
         boolean isValid = validator.validate(url, body, signatureWithHash);
 
         Assert.assertTrue("Body validation failed", isValid);
@@ -79,6 +78,40 @@ public class RequestValidatorTest {
         boolean isValid = validator.validate(url, body, signature);
 
         Assert.assertFalse("Validation should have failed with no bodySHA256", isValid);
+    }
+
+    @Test
+    public void testValidateRemovesPortHttps() {
+        String url = this.url.replace(".com", ".com:1234");
+        boolean isValid = validator.validate(url, params, signature);
+
+        Assert.assertTrue("Validator did not strip port from url", isValid);
+    }
+
+    @Test
+    public void testValidateRemovesPortHttp() {
+        String url = this.url.replace(".com", ".com:1234").replace("https", "http");
+        String expectedSignature = "Zmvh+3yNM1Phv2jhDCwEM3q5ebU="; // hash of http uri with port 1234
+        boolean isValid = validator.validate(url, params, expectedSignature);
+
+        Assert.assertTrue("Validator did not strip port from url", isValid);
+    }
+
+    @Test
+    public void testValidateAddsPortHttps() {
+        String expectedSignature = "kvajT1Ptam85bY51eRf/AJRuM3w="; // hash of https uri with port 443
+        boolean isValid = validator.validate(url, params, expectedSignature);
+        
+        Assert.assertTrue("Validator did not add port 443 to https url", isValid);
+    }
+    
+    @Test
+    public void testValidateAddsPortHttp() {
+        String url = this.url.replace("https", "http");
+        String expectedSignature = "0ZXoZLH/DfblKGATFgpif+LLRf4="; // hash of http uri with port 80
+        boolean isValid = validator.validate(url, params, expectedSignature);
+
+        Assert.assertTrue("Validator did not add port 80 to http url", isValid);
     }
 
 }

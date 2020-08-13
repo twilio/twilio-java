@@ -42,18 +42,19 @@ public class CallReader extends Reader<Call> {
 
     /**
      * Construct a new CallReader.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       read
      */
     public CallReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
     /**
-     * Only show calls to this phone number, SIP address, Client identifier or SIM
-     * SID..
-     * 
-     * @param to Phone number or Client identifier to filter `to` on
+     * Only show calls made to this phone number, SIP address, Client identifier or
+     * SIM SID..
+     *
+     * @param to Phone number or Client identifier of calls to include
      * @return this
      */
     public CallReader setTo(final com.twilio.type.PhoneNumber to) {
@@ -62,10 +63,10 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls to this phone number, SIP address, Client identifier or SIM
-     * SID..
-     * 
-     * @param to Phone number or Client identifier to filter `to` on
+     * Only show calls made to this phone number, SIP address, Client identifier or
+     * SIM SID..
+     *
+     * @param to Phone number or Client identifier of calls to include
      * @return this
      */
     public CallReader setTo(final String to) {
@@ -73,9 +74,9 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls from this phone number, SIP address, Client identifier or SIM
-     * SID..
-     * 
+     * Only include calls from this phone number, SIP address, Client identifier or
+     * SIM SID..
+     *
      * @param from Phone number or Client identifier to filter `from` on
      * @return this
      */
@@ -85,9 +86,9 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls from this phone number, SIP address, Client identifier or SIM
-     * SID..
-     * 
+     * Only include calls from this phone number, SIP address, Client identifier or
+     * SIM SID..
+     *
      * @param from Phone number or Client identifier to filter `from` on
      * @return this
      */
@@ -96,9 +97,9 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls spawned by the Call with this SID..
-     * 
-     * @param parentCallSid Parent Call Sid to filter on
+     * Only include calls spawned by calls with this SID..
+     *
+     * @param parentCallSid Parent call SID to filter on
      * @return this
      */
     public CallReader setParentCallSid(final String parentCallSid) {
@@ -107,11 +108,10 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls currently in the specified status. May be `queued`,
-     * `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or
-     * `no-answer`..
-     * 
-     * @param status Status to filter on
+     * The status of the calls to include. Can be: `queued`, `ringing`,
+     * `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`..
+     *
+     * @param status The status of the resources to read
      * @return this
      */
     public CallReader setStatus(final Call.Status status) {
@@ -120,12 +120,14 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls that started on this date, given as `YYYY-MM-DD`. Also
-     * supports inequalities, such as `StartTime&lt;=YYYY-MM-DD` for calls that
-     * started at or before midnight on a date, and `StartTime&gt;=YYYY-MM-DD` for
-     * calls that started at or after midnight on a date..
-     * 
-     * @param absoluteStartTime StartTime to filter on
+     * Only include calls that started on this date. Specify a date as `YYYY-MM-DD`
+     * in GMT, for example: `2009-07-06`, to read only calls that started on this
+     * date. You can also specify an inequality, such as `StartTime&lt;=YYYY-MM-DD`,
+     * to read calls that started on or before midnight of this date, and
+     * `StartTime&gt;=YYYY-MM-DD` to read calls that started on or after midnight of
+     * this date..
+     *
+     * @param absoluteStartTime Only include calls that started on this date
      * @return this
      */
     public CallReader setStartTime(final DateTime absoluteStartTime) {
@@ -135,12 +137,14 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls that started on this date, given as `YYYY-MM-DD`. Also
-     * supports inequalities, such as `StartTime&lt;=YYYY-MM-DD` for calls that
-     * started at or before midnight on a date, and `StartTime&gt;=YYYY-MM-DD` for
-     * calls that started at or after midnight on a date..
-     * 
-     * @param rangeStartTime StartTime to filter on
+     * Only include calls that started on this date. Specify a date as `YYYY-MM-DD`
+     * in GMT, for example: `2009-07-06`, to read only calls that started on this
+     * date. You can also specify an inequality, such as `StartTime&lt;=YYYY-MM-DD`,
+     * to read calls that started on or before midnight of this date, and
+     * `StartTime&gt;=YYYY-MM-DD` to read calls that started on or after midnight of
+     * this date..
+     *
+     * @param rangeStartTime Only include calls that started on this date
      * @return this
      */
     public CallReader setStartTime(final Range<DateTime> rangeStartTime) {
@@ -150,9 +154,14 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls that ended on this date.
-     * 
-     * @param absoluteEndTime EndTime to filter on
+     * Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in
+     * GMT, for example: `2009-07-06`, to read only calls that ended on this date.
+     * You can also specify an inequality, such as `EndTime&lt;=YYYY-MM-DD`, to read
+     * calls that ended on or before midnight of this date, and
+     * `EndTime&gt;=YYYY-MM-DD` to read calls that ended on or after midnight of
+     * this date..
+     *
+     * @param absoluteEndTime Only include calls that ended on this date
      * @return this
      */
     public CallReader setEndTime(final DateTime absoluteEndTime) {
@@ -162,9 +171,14 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls that ended on this date.
-     * 
-     * @param rangeEndTime EndTime to filter on
+     * Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in
+     * GMT, for example: `2009-07-06`, to read only calls that ended on this date.
+     * You can also specify an inequality, such as `EndTime&lt;=YYYY-MM-DD`, to read
+     * calls that ended on or before midnight of this date, and
+     * `EndTime&gt;=YYYY-MM-DD` to read calls that ended on or after midnight of
+     * this date..
+     *
+     * @param rangeEndTime Only include calls that ended on this date
      * @return this
      */
     public CallReader setEndTime(final Range<DateTime> rangeEndTime) {
@@ -175,7 +189,7 @@ public class CallReader extends Reader<Call> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Call ResourceSet
      */
@@ -186,7 +200,7 @@ public class CallReader extends Reader<Call> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Call ResourceSet
      */
@@ -197,8 +211,7 @@ public class CallReader extends Reader<Call> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls.json"
         );
 
         addQueryParams(request);
@@ -207,7 +220,7 @@ public class CallReader extends Reader<Call> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Call ResourceSet
@@ -226,47 +239,41 @@ public class CallReader extends Reader<Call> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Call> nextPage(final Page<Call> page, 
+    public Page<Call> nextPage(final Page<Call> page,
                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Call> previousPage(final Page<Call> page, 
+    public Page<Call> previousPage(final Page<Call> page,
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Call Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -281,14 +288,7 @@ public class CallReader extends Reader<Call> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -301,7 +301,7 @@ public class CallReader extends Reader<Call> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

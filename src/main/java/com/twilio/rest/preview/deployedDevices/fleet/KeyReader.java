@@ -30,7 +30,7 @@ public class KeyReader extends Reader<Key> {
 
     /**
      * Construct a new KeyReader.
-     * 
+     *
      * @param pathFleetSid The fleet_sid
      */
     public KeyReader(final String pathFleetSid) {
@@ -40,7 +40,7 @@ public class KeyReader extends Reader<Key> {
     /**
      * Filters the resulting list of Keys by a unique string identifier of an
      * authenticated Device..
-     * 
+     *
      * @param deviceSid Find all Keys authenticating specified Device.
      * @return this
      */
@@ -51,7 +51,7 @@ public class KeyReader extends Reader<Key> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Key ResourceSet
      */
@@ -62,7 +62,7 @@ public class KeyReader extends Reader<Key> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Key ResourceSet
      */
@@ -72,8 +72,7 @@ public class KeyReader extends Reader<Key> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Keys",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Keys"
         );
 
         addQueryParams(request);
@@ -82,7 +81,7 @@ public class KeyReader extends Reader<Key> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Key ResourceSet
@@ -100,47 +99,41 @@ public class KeyReader extends Reader<Key> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Key> nextPage(final Page<Key> page, 
+    public Page<Key> nextPage(final Page<Key> page,
                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Key> previousPage(final Page<Key> page, 
+    public Page<Key> previousPage(final Page<Key> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Key Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -155,14 +148,7 @@ public class KeyReader extends Reader<Key> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -175,7 +161,7 @@ public class KeyReader extends Reader<Key> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

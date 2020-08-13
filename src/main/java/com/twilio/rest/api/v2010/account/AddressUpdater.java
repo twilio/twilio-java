@@ -31,8 +31,8 @@ public class AddressUpdater extends Updater<Address> {
 
     /**
      * Construct a new AddressUpdater.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      */
     public AddressUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -40,20 +40,22 @@ public class AddressUpdater extends Updater<Address> {
 
     /**
      * Construct a new AddressUpdater.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The SID of the Account that is responsible for the
+     *                       resource to update
+     * @param pathSid The unique string that identifies the resource
      */
-    public AddressUpdater(final String pathAccountSid, 
+    public AddressUpdater(final String pathAccountSid,
                           final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * A human-readable description of the address. Maximum 64 characters..
-     * 
-     * @param friendlyName A human-readable description of the address.
+     * A descriptive string that you create to describe the address. It can be up to
+     * 64 characters long..
+     *
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public AddressUpdater setFriendlyName(final String friendlyName) {
@@ -62,9 +64,9 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * Your name or business name, or that of your customer..
-     * 
-     * @param customerName Your name or business name, or that of your customer.
+     * The name to associate with the address..
+     *
+     * @param customerName The name to associate with the address
      * @return this
      */
     public AddressUpdater setCustomerName(final String customerName) {
@@ -73,10 +75,9 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * The number and street address where you or your customer is located..
-     * 
-     * @param street The number and street address where you or your customer is
-     *               located.
+     * The number and street address of the address..
+     *
+     * @param street The number and street address of the address
      * @return this
      */
     public AddressUpdater setStreet(final String street) {
@@ -85,9 +86,9 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * The city in which you or your customer is located..
-     * 
-     * @param city The city in which you or your customer is located.
+     * The city of the address..
+     *
+     * @param city The city of the address
      * @return this
      */
     public AddressUpdater setCity(final String city) {
@@ -96,9 +97,9 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * The state or region in which you or your customer is located..
-     * 
-     * @param region The state or region in which you or your customer is located.
+     * The state or region of the address..
+     *
+     * @param region The state or region of the address
      * @return this
      */
     public AddressUpdater setRegion(final String region) {
@@ -107,9 +108,9 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * The postal code in which you or your customer is located..
-     * 
-     * @param postalCode The postal code in which you or your customer is located.
+     * The postal code of the address..
+     *
+     * @param postalCode The postal code of the address
      * @return this
      */
     public AddressUpdater setPostalCode(final String postalCode) {
@@ -118,9 +119,10 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * The emergency_enabled.
-     * 
-     * @param emergencyEnabled The emergency_enabled
+     * Whether to enable emergency calling on the address. Can be: `true` or
+     * `false`..
+     *
+     * @param emergencyEnabled Whether to enable emergency calling on the address
      * @return this
      */
     public AddressUpdater setEmergencyEnabled(final Boolean emergencyEnabled) {
@@ -129,14 +131,12 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * If you don't set a value for this parameter, or if you set it to `true`, then
-     * the system will, if necessary, auto-correct the address you provide. If you
-     * don't want the system to auto-correct the address, you will explicitly need
-     * to set this value to `false`..
-     * 
-     * @param autoCorrectAddress If you don't set a value for this parameter, or if
-     *                           you set it to true, then the system will, if
-     *                           necessary, auto-correct the address you provide.
+     * Whether we should automatically correct the address. Can be: `true` or
+     * `false` and the default is `true`. If empty or `true`, we will correct the
+     * address you provide if necessary. If `false`, we won't alter the address you
+     * provide..
+     *
+     * @param autoCorrectAddress Whether we should automatically correct the address
      * @return this
      */
     public AddressUpdater setAutoCorrectAddress(final Boolean autoCorrectAddress) {
@@ -146,7 +146,7 @@ public class AddressUpdater extends Updater<Address> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Address
      */
@@ -157,8 +157,7 @@ public class AddressUpdater extends Updater<Address> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Addresses/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Addresses/" + this.pathSid + ".json"
         );
 
         addPostParams(request);
@@ -171,14 +170,7 @@ public class AddressUpdater extends Updater<Address> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Address.fromJson(response.getStream(), client.getObjectMapper());
@@ -186,7 +178,7 @@ public class AddressUpdater extends Updater<Address> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

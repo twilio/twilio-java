@@ -24,11 +24,12 @@ public class AuthCallsIpAccessControlListMappingDeleter extends Deleter<AuthCall
 
     /**
      * Construct a new AuthCallsIpAccessControlListMappingDeleter.
-     * 
-     * @param pathDomainSid The domain_sid
-     * @param pathSid Delete by unique IP Access Control List Sid
+     *
+     * @param pathDomainSid The SID of the SIP domain that contains the resources
+     *                      to delete
+     * @param pathSid The unique string that identifies the resource
      */
-    public AuthCallsIpAccessControlListMappingDeleter(final String pathDomainSid, 
+    public AuthCallsIpAccessControlListMappingDeleter(final String pathDomainSid,
                                                       final String pathSid) {
         this.pathDomainSid = pathDomainSid;
         this.pathSid = pathSid;
@@ -36,13 +37,15 @@ public class AuthCallsIpAccessControlListMappingDeleter extends Deleter<AuthCall
 
     /**
      * Construct a new AuthCallsIpAccessControlListMappingDeleter.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathDomainSid The domain_sid
-     * @param pathSid Delete by unique IP Access Control List Sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       delete
+     * @param pathDomainSid The SID of the SIP domain that contains the resources
+     *                      to delete
+     * @param pathSid The unique string that identifies the resource
      */
-    public AuthCallsIpAccessControlListMappingDeleter(final String pathAccountSid, 
-                                                      final String pathDomainSid, 
+    public AuthCallsIpAccessControlListMappingDeleter(final String pathAccountSid,
+                                                      final String pathDomainSid,
                                                       final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
@@ -51,7 +54,7 @@ public class AuthCallsIpAccessControlListMappingDeleter extends Deleter<AuthCall
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -61,8 +64,7 @@ public class AuthCallsIpAccessControlListMappingDeleter extends Deleter<AuthCall
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/Auth/Calls/IpAccessControlListMappings/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains/" + this.pathDomainSid + "/Auth/Calls/IpAccessControlListMappings/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);
@@ -74,14 +76,7 @@ public class AuthCallsIpAccessControlListMappingDeleter extends Deleter<AuthCall
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

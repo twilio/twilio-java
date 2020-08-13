@@ -21,7 +21,7 @@ public class FaxResponse extends TwiML {
     }
 
     /**
-     * Create a new {@code <FaxResponse>} element
+     * Create a new {@code <Response>} element
      */
     private FaxResponse(Builder b) {
         super("Response", b);

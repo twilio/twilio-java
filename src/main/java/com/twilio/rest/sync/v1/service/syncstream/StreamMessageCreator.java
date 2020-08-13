@@ -31,13 +31,16 @@ public class StreamMessageCreator extends Creator<StreamMessage> {
 
     /**
      * Construct a new StreamMessageCreator.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathStreamSid The stream_sid
-     * @param data Stream Message body.
+     *
+     * @param pathServiceSid The SID of the Sync Service to create the new Stream
+     *                       Message in
+     * @param pathStreamSid The SID of the Sync Stream to create the new Stream
+     *                      Message resource for
+     * @param data A JSON string that represents an arbitrary, schema-less object
+     *             that makes up the Stream Message body
      */
-    public StreamMessageCreator(final String pathServiceSid, 
-                                final String pathStreamSid, 
+    public StreamMessageCreator(final String pathServiceSid,
+                                final String pathStreamSid,
                                 final Map<String, Object> data) {
         this.pathServiceSid = pathServiceSid;
         this.pathStreamSid = pathStreamSid;
@@ -46,7 +49,7 @@ public class StreamMessageCreator extends Creator<StreamMessage> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created StreamMessage
      */
@@ -56,8 +59,7 @@ public class StreamMessageCreator extends Creator<StreamMessage> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Streams/" + this.pathStreamSid + "/Messages",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Streams/" + this.pathStreamSid + "/Messages"
         );
 
         addPostParams(request);
@@ -70,14 +72,7 @@ public class StreamMessageCreator extends Creator<StreamMessage> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return StreamMessage.fromJson(response.getStream(), client.getObjectMapper());
@@ -85,7 +80,7 @@ public class StreamMessageCreator extends Creator<StreamMessage> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

@@ -28,11 +28,11 @@ public class FeedbackUpdater extends Updater<Feedback> {
 
     /**
      * Construct a new FeedbackUpdater.
-     * 
-     * @param pathCallSid The call_sid
-     * @param qualityScore An integer from 1 to 5
+     *
+     * @param pathCallSid The call sid that uniquely identifies the call
+     * @param qualityScore The call quality expressed as an integer from 1 to 5
      */
-    public FeedbackUpdater(final String pathCallSid, 
+    public FeedbackUpdater(final String pathCallSid,
                            final Integer qualityScore) {
         this.pathCallSid = pathCallSid;
         this.qualityScore = qualityScore;
@@ -40,13 +40,13 @@ public class FeedbackUpdater extends Updater<Feedback> {
 
     /**
      * Construct a new FeedbackUpdater.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathCallSid The call_sid
-     * @param qualityScore An integer from 1 to 5
+     *
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathCallSid The call sid that uniquely identifies the call
+     * @param qualityScore The call quality expressed as an integer from 1 to 5
      */
-    public FeedbackUpdater(final String pathAccountSid, 
-                           final String pathCallSid, 
+    public FeedbackUpdater(final String pathAccountSid,
+                           final String pathCallSid,
                            final Integer qualityScore) {
         this.pathAccountSid = pathAccountSid;
         this.pathCallSid = pathCallSid;
@@ -56,8 +56,9 @@ public class FeedbackUpdater extends Updater<Feedback> {
     /**
      * One or more issues experienced during the call. The issues can be:
      * `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`,
-     * `digits-not-captured`, `audio-latency`, or `one-way-audio`..
-     * 
+     * `digits-not-captured`, `audio-latency`, `unsolicited-call`, or
+     * `one-way-audio`..
+     *
      * @param issue Issues experienced during the call
      * @return this
      */
@@ -69,8 +70,9 @@ public class FeedbackUpdater extends Updater<Feedback> {
     /**
      * One or more issues experienced during the call. The issues can be:
      * `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`,
-     * `digits-not-captured`, `audio-latency`, or `one-way-audio`..
-     * 
+     * `digits-not-captured`, `audio-latency`, `unsolicited-call`, or
+     * `one-way-audio`..
+     *
      * @param issue Issues experienced during the call
      * @return this
      */
@@ -80,7 +82,7 @@ public class FeedbackUpdater extends Updater<Feedback> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Feedback
      */
@@ -91,8 +93,7 @@ public class FeedbackUpdater extends Updater<Feedback> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathCallSid + "/Feedback.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathCallSid + "/Feedback.json"
         );
 
         addPostParams(request);
@@ -105,14 +106,7 @@ public class FeedbackUpdater extends Updater<Feedback> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Feedback.fromJson(response.getStream(), client.getObjectMapper());
@@ -120,7 +114,7 @@ public class FeedbackUpdater extends Updater<Feedback> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

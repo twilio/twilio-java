@@ -33,24 +33,25 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Queue extends Resource {
-    private static final long serialVersionUID = 51300543687284L;
+    private static final long serialVersionUID = 115549588553968L;
 
     /**
      * Create a QueueFetcher to execute fetch.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique queue Sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       fetch
+     * @param pathSid The unique string that identifies this resource
      * @return QueueFetcher capable of executing the fetch
      */
-    public static QueueFetcher fetcher(final String pathAccountSid, 
+    public static QueueFetcher fetcher(final String pathAccountSid,
                                        final String pathSid) {
         return new QueueFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a QueueFetcher to execute fetch.
-     * 
-     * @param pathSid Fetch by unique queue Sid
+     *
+     * @param pathSid The unique string that identifies this resource
      * @return QueueFetcher capable of executing the fetch
      */
     public static QueueFetcher fetcher(final String pathSid) {
@@ -59,20 +60,21 @@ public class Queue extends Resource {
 
     /**
      * Create a QueueUpdater to execute update.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       update
+     * @param pathSid The unique string that identifies this resource
      * @return QueueUpdater capable of executing the update
      */
-    public static QueueUpdater updater(final String pathAccountSid, 
+    public static QueueUpdater updater(final String pathAccountSid,
                                        final String pathSid) {
         return new QueueUpdater(pathAccountSid, pathSid);
     }
 
     /**
      * Create a QueueUpdater to execute update.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies this resource
      * @return QueueUpdater capable of executing the update
      */
     public static QueueUpdater updater(final String pathSid) {
@@ -81,20 +83,21 @@ public class Queue extends Resource {
 
     /**
      * Create a QueueDeleter to execute delete.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Delete by unique queue Sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       delete
+     * @param pathSid The unique string that identifies this resource
      * @return QueueDeleter capable of executing the delete
      */
-    public static QueueDeleter deleter(final String pathAccountSid, 
+    public static QueueDeleter deleter(final String pathAccountSid,
                                        final String pathSid) {
         return new QueueDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a QueueDeleter to execute delete.
-     * 
-     * @param pathSid Delete by unique queue Sid
+     *
+     * @param pathSid The unique string that identifies this resource
      * @return QueueDeleter capable of executing the delete
      */
     public static QueueDeleter deleter(final String pathSid) {
@@ -103,8 +106,9 @@ public class Queue extends Resource {
 
     /**
      * Create a QueueReader to execute read.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       fetch
      * @return QueueReader capable of executing the read
      */
     public static QueueReader reader(final String pathAccountSid) {
@@ -113,7 +117,7 @@ public class Queue extends Resource {
 
     /**
      * Create a QueueReader to execute read.
-     * 
+     *
      * @return QueueReader capable of executing the read
      */
     public static QueueReader reader() {
@@ -122,20 +126,20 @@ public class Queue extends Resource {
 
     /**
      * Create a QueueCreator to execute create.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param friendlyName A user-provided string that identifies this queue.
+     *
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param friendlyName A string to describe this resource
      * @return QueueCreator capable of executing the create
      */
-    public static QueueCreator creator(final String pathAccountSid, 
+    public static QueueCreator creator(final String pathAccountSid,
                                        final String friendlyName) {
         return new QueueCreator(pathAccountSid, friendlyName);
     }
 
     /**
      * Create a QueueCreator to execute create.
-     * 
-     * @param friendlyName A user-provided string that identifies this queue.
+     *
+     * @param friendlyName A string to describe this resource
      * @return QueueCreator capable of executing the create
      */
     public static QueueCreator creator(final String friendlyName) {
@@ -144,7 +148,7 @@ public class Queue extends Resource {
 
     /**
      * Converts a JSON String into a Queue object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Queue object represented by the provided JSON
@@ -163,7 +167,7 @@ public class Queue extends Resource {
     /**
      * Converts a JSON InputStream into a Queue object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Queue object represented by the provided JSON
@@ -179,58 +183,95 @@ public class Queue extends Resource {
         }
     }
 
+    private final DateTime dateUpdated;
+    private final Integer currentSize;
+    private final String friendlyName;
+    private final String uri;
     private final String accountSid;
     private final Integer averageWaitTime;
-    private final Integer currentSize;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
-    private final String friendlyName;
-    private final Integer maxSize;
     private final String sid;
-    private final String uri;
+    private final DateTime dateCreated;
+    private final Integer maxSize;
 
     @JsonCreator
-    private Queue(@JsonProperty("account_sid")
-                  final String accountSid, 
-                  @JsonProperty("average_wait_time")
-                  final Integer averageWaitTime, 
+    private Queue(@JsonProperty("date_updated")
+                  final String dateUpdated,
                   @JsonProperty("current_size")
-                  final Integer currentSize, 
-                  @JsonProperty("date_created")
-                  final String dateCreated, 
-                  @JsonProperty("date_updated")
-                  final String dateUpdated, 
+                  final Integer currentSize,
                   @JsonProperty("friendly_name")
-                  final String friendlyName, 
-                  @JsonProperty("max_size")
-                  final Integer maxSize, 
-                  @JsonProperty("sid")
-                  final String sid, 
+                  final String friendlyName,
                   @JsonProperty("uri")
-                  final String uri) {
+                  final String uri,
+                  @JsonProperty("account_sid")
+                  final String accountSid,
+                  @JsonProperty("average_wait_time")
+                  final Integer averageWaitTime,
+                  @JsonProperty("sid")
+                  final String sid,
+                  @JsonProperty("date_created")
+                  final String dateCreated,
+                  @JsonProperty("max_size")
+                  final Integer maxSize) {
+        this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
+        this.currentSize = currentSize;
+        this.friendlyName = friendlyName;
+        this.uri = uri;
         this.accountSid = accountSid;
         this.averageWaitTime = averageWaitTime;
-        this.currentSize = currentSize;
-        this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
-        this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
-        this.friendlyName = friendlyName;
-        this.maxSize = maxSize;
         this.sid = sid;
-        this.uri = uri;
+        this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
+        this.maxSize = maxSize;
     }
 
     /**
-     * Returns The The account_sid.
-     * 
-     * @return The account_sid
+     * Returns The RFC 2822 date and time in GMT that this resource was last
+     * updated.
+     *
+     * @return The RFC 2822 date and time in GMT that this resource was last updated
+     */
+    public final DateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    /**
+     * Returns The number of calls currently in the queue..
+     *
+     * @return The number of calls currently in the queue.
+     */
+    public final Integer getCurrentSize() {
+        return this.currentSize;
+    }
+
+    /**
+     * Returns A string that you assigned to describe this resource.
+     *
+     * @return A string that you assigned to describe this resource
+     */
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    /**
+     * Returns The URI of this resource, relative to `https://api.twilio.com`.
+     *
+     * @return The URI of this resource, relative to `https://api.twilio.com`
+     */
+    public final String getUri() {
+        return this.uri;
+    }
+
+    /**
+     * Returns The SID of the Account that created this resource.
+     *
+     * @return The SID of the Account that created this resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Average wait time of members in the queue.
-     * 
+     * Returns Average wait time of members in the queue.
+     *
      * @return Average wait time of members in the queue
      */
     public final Integer getAverageWaitTime() {
@@ -238,66 +279,30 @@ public class Queue extends Resource {
     }
 
     /**
-     * Returns The The count of calls currently in the queue..
-     * 
-     * @return The count of calls currently in the queue.
-     */
-    public final Integer getCurrentSize() {
-        return this.currentSize;
-    }
-
-    /**
-     * Returns The The date_created.
-     * 
-     * @return The date_created
-     */
-    public final DateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    /**
-     * Returns The The date_updated.
-     * 
-     * @return The date_updated
-     */
-    public final DateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    /**
-     * Returns The A user-provided string that identifies this queue..
-     * 
-     * @return A user-provided string that identifies this queue.
-     */
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    /**
-     * Returns The The max number of calls allowed in the queue.
-     * 
-     * @return The max number of calls allowed in the queue
-     */
-    public final Integer getMaxSize() {
-        return this.maxSize;
-    }
-
-    /**
-     * Returns The A string that uniquely identifies this queue.
-     * 
-     * @return A string that uniquely identifies this queue
+     * Returns The unique string that identifies this resource.
+     *
+     * @return The unique string that identifies this resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The uri.
-     * 
-     * @return The uri
+     * Returns The RFC 2822 date and time in GMT that this resource was created.
+     *
+     * @return The RFC 2822 date and time in GMT that this resource was created
      */
-    public final String getUri() {
-        return this.uri;
+    public final DateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    /**
+     * Returns The max number of calls allowed in the queue.
+     *
+     * @return The max number of calls allowed in the queue
+     */
+    public final Integer getMaxSize() {
+        return this.maxSize;
     }
 
     @Override
@@ -312,42 +317,42 @@ public class Queue extends Resource {
 
         Queue other = (Queue) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(averageWaitTime, other.averageWaitTime) && 
-               Objects.equals(currentSize, other.currentSize) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(maxSize, other.maxSize) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(uri, other.uri);
+        return Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(currentSize, other.currentSize) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(uri, other.uri) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(averageWaitTime, other.averageWaitTime) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(maxSize, other.maxSize);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid,
-                            averageWaitTime,
+        return Objects.hash(dateUpdated,
                             currentSize,
-                            dateCreated,
-                            dateUpdated,
                             friendlyName,
-                            maxSize,
+                            uri,
+                            accountSid,
+                            averageWaitTime,
                             sid,
-                            uri);
+                            dateCreated,
+                            maxSize);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
+                          .add("dateUpdated", dateUpdated)
+                          .add("currentSize", currentSize)
+                          .add("friendlyName", friendlyName)
+                          .add("uri", uri)
                           .add("accountSid", accountSid)
                           .add("averageWaitTime", averageWaitTime)
-                          .add("currentSize", currentSize)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("friendlyName", friendlyName)
-                          .add("maxSize", maxSize)
                           .add("sid", sid)
-                          .add("uri", uri)
+                          .add("dateCreated", dateCreated)
+                          .add("maxSize", maxSize)
                           .toString();
     }
 }

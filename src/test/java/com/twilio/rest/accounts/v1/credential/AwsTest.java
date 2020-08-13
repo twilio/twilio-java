@@ -42,7 +42,7 @@ public class AwsTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.ACCOUNTS.toString(),
                                           "/v1/Credentials/AWS");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -118,7 +118,7 @@ public class AwsTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.ACCOUNTS.toString(),
                                           "/v1/Credentials/AWS/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -150,7 +150,7 @@ public class AwsTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.ACCOUNTS.toString(),
                                           "/v1/Credentials/AWS/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -182,7 +182,7 @@ public class AwsTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.ACCOUNTS.toString(),
                                           "/v1/Credentials/AWS/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

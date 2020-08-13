@@ -31,20 +31,22 @@ public class SyncListPermissionUpdater extends Updater<SyncListPermission> {
 
     /**
      * Construct a new SyncListPermissionUpdater.
-     * 
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathListSid Sync List SID or unique name.
-     * @param pathIdentity Identity of the user to whom the Sync List Permission
-     *                     applies.
-     * @param read Read access.
-     * @param write Write access.
-     * @param manage Manage access.
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Sync List
+     *                       Permission resource to update
+     * @param pathListSid The SID of the Sync List with the Sync List Permission
+     *                    resource to update
+     * @param pathIdentity The application-defined string that uniquely identifies
+     *                     the User's Sync List Permission resource to update
+     * @param read Read access
+     * @param write Write access
+     * @param manage Manage access
      */
-    public SyncListPermissionUpdater(final String pathServiceSid, 
-                                     final String pathListSid, 
-                                     final String pathIdentity, 
-                                     final Boolean read, 
-                                     final Boolean write, 
+    public SyncListPermissionUpdater(final String pathServiceSid,
+                                     final String pathListSid,
+                                     final String pathIdentity,
+                                     final Boolean read,
+                                     final Boolean write,
                                      final Boolean manage) {
         this.pathServiceSid = pathServiceSid;
         this.pathListSid = pathListSid;
@@ -56,7 +58,7 @@ public class SyncListPermissionUpdater extends Updater<SyncListPermission> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated SyncListPermission
      */
@@ -66,8 +68,7 @@ public class SyncListPermissionUpdater extends Updater<SyncListPermission> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Permissions/" + this.pathIdentity + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Permissions/" + this.pathIdentity + ""
         );
 
         addPostParams(request);
@@ -80,14 +81,7 @@ public class SyncListPermissionUpdater extends Updater<SyncListPermission> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SyncListPermission.fromJson(response.getStream(), client.getObjectMapper());
@@ -95,7 +89,7 @@ public class SyncListPermissionUpdater extends Updater<SyncListPermission> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

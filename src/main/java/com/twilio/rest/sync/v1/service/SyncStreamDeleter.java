@@ -27,11 +27,12 @@ public class SyncStreamDeleter extends Deleter<SyncStream> {
 
     /**
      * Construct a new SyncStreamDeleter.
-     * 
-     * @param pathServiceSid Service Instance SID or unique name.
-     * @param pathSid Stream SID or unique name.
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Sync Stream
+     *                       resource to delete
+     * @param pathSid The SID of the Stream resource to delete
      */
-    public SyncStreamDeleter(final String pathServiceSid, 
+    public SyncStreamDeleter(final String pathServiceSid,
                              final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
@@ -39,7 +40,7 @@ public class SyncStreamDeleter extends Deleter<SyncStream> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -48,8 +49,7 @@ public class SyncStreamDeleter extends Deleter<SyncStream> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Streams/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Streams/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -61,14 +61,7 @@ public class SyncStreamDeleter extends Deleter<SyncStream> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

@@ -23,11 +23,11 @@ public class WorkflowDeleter extends Deleter<Workflow> {
 
     /**
      * Construct a new WorkflowDeleter.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     *
+     * @param pathWorkspaceSid The SID of the Workspace with the Workflow to delete
+     * @param pathSid The SID of the Workflow resource to delete
      */
-    public WorkflowDeleter(final String pathWorkspaceSid, 
+    public WorkflowDeleter(final String pathWorkspaceSid,
                            final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class WorkflowDeleter extends Deleter<Workflow> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -44,8 +44,7 @@ public class WorkflowDeleter extends Deleter<Workflow> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workflows/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workflows/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -57,14 +56,7 @@ public class WorkflowDeleter extends Deleter<Workflow> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

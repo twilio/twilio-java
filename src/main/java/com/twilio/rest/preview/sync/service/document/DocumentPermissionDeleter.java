@@ -29,14 +29,14 @@ public class DocumentPermissionDeleter extends Deleter<DocumentPermission> {
 
     /**
      * Construct a new DocumentPermissionDeleter.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathDocumentSid Sync Document SID or unique name.
      * @param pathIdentity Identity of the user to whom the Sync Document
      *                     Permission applies.
      */
-    public DocumentPermissionDeleter(final String pathServiceSid, 
-                                     final String pathDocumentSid, 
+    public DocumentPermissionDeleter(final String pathServiceSid,
+                                     final String pathDocumentSid,
                                      final String pathIdentity) {
         this.pathServiceSid = pathServiceSid;
         this.pathDocumentSid = pathDocumentSid;
@@ -45,7 +45,7 @@ public class DocumentPermissionDeleter extends Deleter<DocumentPermission> {
 
     /**
      * Make the request to the Twilio API to perform the delete.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      */
     @Override
@@ -54,8 +54,7 @@ public class DocumentPermissionDeleter extends Deleter<DocumentPermission> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Documents/" + this.pathDocumentSid + "/Permissions/" + this.pathIdentity + "",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Documents/" + this.pathDocumentSid + "/Permissions/" + this.pathIdentity + ""
         );
 
         Response response = client.request(request);
@@ -67,14 +66,7 @@ public class DocumentPermissionDeleter extends Deleter<DocumentPermission> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

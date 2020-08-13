@@ -24,11 +24,11 @@ public class MemberFetcher extends Fetcher<Member> {
 
     /**
      * Construct a new MemberFetcher.
-     * 
-     * @param pathQueueSid The Queue in which to find the members
-     * @param pathCallSid The call_sid
+     *
+     * @param pathQueueSid The SID of the Queue in which to find the members
+     * @param pathCallSid The Call SID of the resource(s) to fetch
      */
-    public MemberFetcher(final String pathQueueSid, 
+    public MemberFetcher(final String pathQueueSid,
                          final String pathCallSid) {
         this.pathQueueSid = pathQueueSid;
         this.pathCallSid = pathCallSid;
@@ -36,13 +36,14 @@ public class MemberFetcher extends Fetcher<Member> {
 
     /**
      * Construct a new MemberFetcher.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathQueueSid The Queue in which to find the members
-     * @param pathCallSid The call_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       fetch
+     * @param pathQueueSid The SID of the Queue in which to find the members
+     * @param pathCallSid The Call SID of the resource(s) to fetch
      */
-    public MemberFetcher(final String pathAccountSid, 
-                         final String pathQueueSid, 
+    public MemberFetcher(final String pathAccountSid,
+                         final String pathQueueSid,
                          final String pathCallSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathQueueSid = pathQueueSid;
@@ -51,7 +52,7 @@ public class MemberFetcher extends Fetcher<Member> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Member
      */
@@ -62,8 +63,7 @@ public class MemberFetcher extends Fetcher<Member> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Queues/" + this.pathQueueSid + "/Members/" + this.pathCallSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Queues/" + this.pathQueueSid + "/Members/" + this.pathCallSid + ".json"
         );
 
         Response response = client.request(request);
@@ -75,14 +75,7 @@ public class MemberFetcher extends Fetcher<Member> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Member.fromJson(response.getStream(), client.getObjectMapper());

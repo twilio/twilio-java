@@ -29,17 +29,19 @@ public class NewSigningKeyCreator extends Creator<NewSigningKey> {
 
     /**
      * Construct a new NewSigningKeyCreator.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The SID of the Account that will be responsible for
+     *                       the new Key resource
      */
     public NewSigningKeyCreator(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
     /**
-     * The friendly_name.
-     * 
-     * @param friendlyName The friendly_name
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
+     *
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public NewSigningKeyCreator setFriendlyName(final String friendlyName) {
@@ -49,7 +51,7 @@ public class NewSigningKeyCreator extends Creator<NewSigningKey> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created NewSigningKey
      */
@@ -60,8 +62,7 @@ public class NewSigningKeyCreator extends Creator<NewSigningKey> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SigningKeys.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SigningKeys.json"
         );
 
         addPostParams(request);
@@ -74,14 +75,7 @@ public class NewSigningKeyCreator extends Creator<NewSigningKey> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return NewSigningKey.fromJson(response.getStream(), client.getObjectMapper());
@@ -89,7 +83,7 @@ public class NewSigningKeyCreator extends Creator<NewSigningKey> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

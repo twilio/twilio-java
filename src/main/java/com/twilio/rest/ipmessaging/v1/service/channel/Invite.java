@@ -38,61 +38,62 @@ public class Invite extends Resource {
 
     /**
      * Create a InviteFetcher to execute fetch.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathChannelSid The SID of the Channel the resource to fetch belongs to
+     * @param pathSid The unique string that identifies the resource
      * @return InviteFetcher capable of executing the fetch
      */
-    public static InviteFetcher fetcher(final String pathServiceSid, 
-                                        final String pathChannelSid, 
+    public static InviteFetcher fetcher(final String pathServiceSid,
+                                        final String pathChannelSid,
                                         final String pathSid) {
         return new InviteFetcher(pathServiceSid, pathChannelSid, pathSid);
     }
 
     /**
      * Create a InviteCreator to execute create.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param identity A unique string identifier for this User in this Service.
+     *
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param pathChannelSid The SID of the Channel the new resource belongs to
+     * @param identity The `identity` value that identifies the new resource's User
      * @return InviteCreator capable of executing the create
      */
-    public static InviteCreator creator(final String pathServiceSid, 
-                                        final String pathChannelSid, 
+    public static InviteCreator creator(final String pathServiceSid,
+                                        final String pathChannelSid,
                                         final String identity) {
         return new InviteCreator(pathServiceSid, pathChannelSid, identity);
     }
 
     /**
      * Create a InviteReader to execute read.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
+     *
+     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathChannelSid The SID of the Channel the resources to read belong to
      * @return InviteReader capable of executing the read
      */
-    public static InviteReader reader(final String pathServiceSid, 
+    public static InviteReader reader(final String pathServiceSid,
                                       final String pathChannelSid) {
         return new InviteReader(pathServiceSid, pathChannelSid);
     }
 
     /**
      * Create a InviteDeleter to execute delete.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathChannelSid The SID of the Channel the resource to delete belongs
+     *                       to
+     * @param pathSid The unique string that identifies the resource
      * @return InviteDeleter capable of executing the delete
      */
-    public static InviteDeleter deleter(final String pathServiceSid, 
-                                        final String pathChannelSid, 
+    public static InviteDeleter deleter(final String pathServiceSid,
+                                        final String pathChannelSid,
                                         final String pathSid) {
         return new InviteDeleter(pathServiceSid, pathChannelSid, pathSid);
     }
 
     /**
      * Converts a JSON String into a Invite object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Invite object represented by the provided JSON
@@ -111,7 +112,7 @@ public class Invite extends Resource {
     /**
      * Converts a JSON InputStream into a Invite object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Invite object represented by the provided JSON
@@ -140,23 +141,23 @@ public class Invite extends Resource {
 
     @JsonCreator
     private Invite(@JsonProperty("sid")
-                   final String sid, 
+                   final String sid,
                    @JsonProperty("account_sid")
-                   final String accountSid, 
+                   final String accountSid,
                    @JsonProperty("channel_sid")
-                   final String channelSid, 
+                   final String channelSid,
                    @JsonProperty("service_sid")
-                   final String serviceSid, 
+                   final String serviceSid,
                    @JsonProperty("identity")
-                   final String identity, 
+                   final String identity,
                    @JsonProperty("date_created")
-                   final String dateCreated, 
+                   final String dateCreated,
                    @JsonProperty("date_updated")
-                   final String dateUpdated, 
+                   final String dateUpdated,
                    @JsonProperty("role_sid")
-                   final String roleSid, 
+                   final String roleSid,
                    @JsonProperty("created_by")
-                   final String createdBy, 
+                   final String createdBy,
                    @JsonProperty("url")
                    final URI url) {
         this.sid = sid;
@@ -172,91 +173,90 @@ public class Invite extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
-     * 
-     * @return A 34 character string that uniquely identifies this resource.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique id of the Account[/console] responsible for this
-     * member..
-     * 
-     * @return The unique id of the Account[/console] responsible for this member.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique id of the Channel for this member..
-     * 
-     * @return The unique id of the Channel for this member.
+     * Returns The SID of the Channel the new resource belongs to.
+     *
+     * @return The SID of the Channel the new resource belongs to
      */
     public final String getChannelSid() {
         return this.channelSid;
     }
 
     /**
-     * Returns The The unique id of the Service this member belongs to..
-     * 
-     * @return The unique id of the Service this member belongs to.
+     * Returns The SID of the Service that the resource is associated with.
+     *
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The A unique string identifier for this User in this Service..
-     * 
-     * @return A unique string identifier for this User in this Service.
+     * Returns The string that identifies the resource's User.
+     *
+     * @return The string that identifies the resource's User
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns The The date that this resource was created..
-     * 
-     * @return The date that this resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
+     *
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated..
-     * 
-     * @return The date that this resource was last updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
+     *
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The Role assigned to this member..
-     * 
-     * @return The Role assigned to this member.
+     * Returns The SID of the Role assigned to the member.
+     *
+     * @return The SID of the Role assigned to the member
      */
     public final String getRoleSid() {
         return this.roleSid;
     }
 
     /**
-     * Returns The The created_by.
-     * 
-     * @return The created_by
+     * Returns The identity of the User that created the invite.
+     *
+     * @return The identity of the User that created the invite
      */
     public final String getCreatedBy() {
         return this.createdBy;
     }
 
     /**
-     * Returns The An absolute URL for this member..
-     * 
-     * @return An absolute URL for this member.
+     * Returns The absolute URL of the Invite resource.
+     *
+     * @return The absolute URL of the Invite resource
      */
     public final URI getUrl() {
         return this.url;
@@ -274,15 +274,15 @@ public class Invite extends Resource {
 
         Invite other = (Invite) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(channelSid, other.channelSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(identity, other.identity) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(roleSid, other.roleSid) && 
-               Objects.equals(createdBy, other.createdBy) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(channelSid, other.channelSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(identity, other.identity) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(roleSid, other.roleSid) &&
+               Objects.equals(createdBy, other.createdBy) &&
                Objects.equals(url, other.url);
     }
 

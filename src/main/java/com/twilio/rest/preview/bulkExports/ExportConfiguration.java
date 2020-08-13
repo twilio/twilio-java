@@ -41,8 +41,8 @@ public class ExportConfiguration extends Resource {
 
     /**
      * Create a ExportConfigurationFetcher to execute fetch.
-     * 
-     * @param pathResourceType The resource_type
+     *
+     * @param pathResourceType The type of communication – Messages, Calls
      * @return ExportConfigurationFetcher capable of executing the fetch
      */
     public static ExportConfigurationFetcher fetcher(final String pathResourceType) {
@@ -51,8 +51,8 @@ public class ExportConfiguration extends Resource {
 
     /**
      * Create a ExportConfigurationUpdater to execute update.
-     * 
-     * @param pathResourceType The resource_type
+     *
+     * @param pathResourceType The type of communication – Messages, Calls
      * @return ExportConfigurationUpdater capable of executing the update
      */
     public static ExportConfigurationUpdater updater(final String pathResourceType) {
@@ -62,7 +62,7 @@ public class ExportConfiguration extends Resource {
     /**
      * Converts a JSON String into a ExportConfiguration object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ExportConfiguration object represented by the provided JSON
@@ -81,7 +81,7 @@ public class ExportConfiguration extends Resource {
     /**
      * Converts a JSON InputStream into a ExportConfiguration object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ExportConfiguration object represented by the provided JSON
@@ -105,13 +105,13 @@ public class ExportConfiguration extends Resource {
 
     @JsonCreator
     private ExportConfiguration(@JsonProperty("enabled")
-                                final Boolean enabled, 
+                                final Boolean enabled,
                                 @JsonProperty("webhook_url")
-                                final URI webhookUrl, 
+                                final URI webhookUrl,
                                 @JsonProperty("webhook_method")
-                                final String webhookMethod, 
+                                final String webhookMethod,
                                 @JsonProperty("resource_type")
-                                final String resourceType, 
+                                final String resourceType,
                                 @JsonProperty("url")
                                 final URI url) {
         this.enabled = enabled;
@@ -122,45 +122,45 @@ public class ExportConfiguration extends Resource {
     }
 
     /**
-     * Returns The The enabled.
-     * 
-     * @return The enabled
+     * Returns Whether files are automatically generated.
+     *
+     * @return Whether files are automatically generated
      */
     public final Boolean getEnabled() {
         return this.enabled;
     }
 
     /**
-     * Returns The The webhook_url.
-     * 
-     * @return The webhook_url
+     * Returns URL targeted at export.
+     *
+     * @return URL targeted at export
      */
     public final URI getWebhookUrl() {
         return this.webhookUrl;
     }
 
     /**
-     * Returns The The webhook_method.
-     * 
-     * @return The webhook_method
+     * Returns Whether to GET or POST to the webhook url.
+     *
+     * @return Whether to GET or POST to the webhook url
      */
     public final String getWebhookMethod() {
         return this.webhookMethod;
     }
 
     /**
-     * Returns The The resource_type.
-     * 
-     * @return The resource_type
+     * Returns The type of communication – Messages, Calls.
+     *
+     * @return The type of communication – Messages, Calls
      */
     public final String getResourceType() {
         return this.resourceType;
     }
 
     /**
-     * Returns The The url.
-     * 
-     * @return The url
+     * Returns The URL of this resource..
+     *
+     * @return The URL of this resource.
      */
     public final URI getUrl() {
         return this.url;
@@ -178,10 +178,10 @@ public class ExportConfiguration extends Resource {
 
         ExportConfiguration other = (ExportConfiguration) o;
 
-        return Objects.equals(enabled, other.enabled) && 
-               Objects.equals(webhookUrl, other.webhookUrl) && 
-               Objects.equals(webhookMethod, other.webhookMethod) && 
-               Objects.equals(resourceType, other.resourceType) && 
+        return Objects.equals(enabled, other.enabled) &&
+               Objects.equals(webhookUrl, other.webhookUrl) &&
+               Objects.equals(webhookMethod, other.webhookMethod) &&
+               Objects.equals(resourceType, other.resourceType) &&
                Objects.equals(url, other.url);
     }
 

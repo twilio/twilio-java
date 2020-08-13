@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * TwiML wrapper for {@code <Prosody>}
+ * TwiML wrapper for {@code <prosody>}
  */
 public class SsmlProsody extends TwiML {
     private final String volume;
@@ -29,7 +29,7 @@ public class SsmlProsody extends TwiML {
     }
 
     /**
-     * Create a new {@code <SsmlProsody>} element
+     * Create a new {@code <prosody>} element
      */
     private SsmlProsody(Builder b) {
         super("prosody", b);
@@ -41,7 +41,7 @@ public class SsmlProsody extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -50,7 +50,7 @@ public class SsmlProsody extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -73,7 +73,7 @@ public class SsmlProsody extends TwiML {
     /**
      * Specify the volume, available values: default, silent, x-soft, soft, medium,
      * loud, x-loud, +ndB, -ndB
-     * 
+     *
      * @return Specify the volume, available values: default, silent, x-soft, soft,
      *         medium, loud, x-loud, +ndB, -ndB
      */
@@ -83,7 +83,7 @@ public class SsmlProsody extends TwiML {
 
     /**
      * Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
-     * 
+     *
      * @return Specify the rate, available values: x-slow, slow, medium, fast,
      *         x-fast, n%
      */
@@ -94,7 +94,7 @@ public class SsmlProsody extends TwiML {
     /**
      * Specify the pitch, available values: default, x-low, low, medium, high,
      * x-high, +n%, -n%
-     * 
+     *
      * @return Specify the pitch, available values: default, x-low, low, medium,
      *         high, x-high, +n%, -n%
      */
@@ -104,7 +104,7 @@ public class SsmlProsody extends TwiML {
 
     /**
      * Words to speak
-     * 
+     *
      * @return Words to speak
      */
     public String getWords() {
@@ -112,7 +112,7 @@ public class SsmlProsody extends TwiML {
     }
 
     /**
-     * Create a new {@code <Prosody>} element
+     * Create a new {@code <prosody>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
         private String volume;
@@ -121,7 +121,7 @@ public class SsmlProsody extends TwiML {
         private String words;
 
         /**
-         * Create a {@code <Prosody>} with words
+         * Create a {@code <prosody>} with words
          */
         public Builder(String words) {
             this.words = words;
@@ -154,7 +154,7 @@ public class SsmlProsody extends TwiML {
         }
 
         /**
-         * Create and return resulting {@code <Prosody>} element
+         * Create and return resulting {@code <prosody>} element
          */
         public SsmlProsody build() {
             return new SsmlProsody(this);

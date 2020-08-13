@@ -69,9 +69,8 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceCreator to execute create.
-     * 
-     * @param friendlyName A human readable descriptive text for this resource, up
-     *                     to 64 characters.
+     *
+     * @param friendlyName A string to describe the resource
      * @return ServiceCreator capable of executing the create
      */
     public static ServiceCreator creator(final String friendlyName) {
@@ -80,8 +79,8 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceUpdater to execute update.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The SID that identifies the resource to update
      * @return ServiceUpdater capable of executing the update
      */
     public static ServiceUpdater updater(final String pathSid) {
@@ -90,7 +89,7 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceReader to execute read.
-     * 
+     *
      * @return ServiceReader capable of executing the read
      */
     public static ServiceReader reader() {
@@ -99,8 +98,8 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceFetcher to execute fetch.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The SID that identifies the resource to fetch
      * @return ServiceFetcher capable of executing the fetch
      */
     public static ServiceFetcher fetcher(final String pathSid) {
@@ -109,8 +108,8 @@ public class Service extends Resource {
 
     /**
      * Create a ServiceDeleter to execute delete.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The SID that identifies the resource to delete
      * @return ServiceDeleter capable of executing the delete
      */
     public static ServiceDeleter deleter(final String pathSid) {
@@ -119,7 +118,7 @@ public class Service extends Resource {
 
     /**
      * Converts a JSON String into a Service object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
@@ -138,7 +137,7 @@ public class Service extends Resource {
     /**
      * Converts a JSON InputStream into a Service object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Service object represented by the provided JSON
@@ -177,43 +176,43 @@ public class Service extends Resource {
 
     @JsonCreator
     private Service(@JsonProperty("sid")
-                    final String sid, 
+                    final String sid,
                     @JsonProperty("account_sid")
-                    final String accountSid, 
+                    final String accountSid,
                     @JsonProperty("friendly_name")
-                    final String friendlyName, 
+                    final String friendlyName,
                     @JsonProperty("date_created")
-                    final String dateCreated, 
+                    final String dateCreated,
                     @JsonProperty("date_updated")
-                    final String dateUpdated, 
+                    final String dateUpdated,
                     @JsonProperty("inbound_request_url")
-                    final URI inboundRequestUrl, 
+                    final URI inboundRequestUrl,
                     @JsonProperty("inbound_method")
-                    final HttpMethod inboundMethod, 
+                    final HttpMethod inboundMethod,
                     @JsonProperty("fallback_url")
-                    final URI fallbackUrl, 
+                    final URI fallbackUrl,
                     @JsonProperty("fallback_method")
-                    final HttpMethod fallbackMethod, 
+                    final HttpMethod fallbackMethod,
                     @JsonProperty("status_callback")
-                    final URI statusCallback, 
+                    final URI statusCallback,
                     @JsonProperty("sticky_sender")
-                    final Boolean stickySender, 
+                    final Boolean stickySender,
                     @JsonProperty("mms_converter")
-                    final Boolean mmsConverter, 
+                    final Boolean mmsConverter,
                     @JsonProperty("smart_encoding")
-                    final Boolean smartEncoding, 
+                    final Boolean smartEncoding,
                     @JsonProperty("scan_message_content")
-                    final Service.ScanMessageContent scanMessageContent, 
+                    final Service.ScanMessageContent scanMessageContent,
                     @JsonProperty("fallback_to_long_code")
-                    final Boolean fallbackToLongCode, 
+                    final Boolean fallbackToLongCode,
                     @JsonProperty("area_code_geomatch")
-                    final Boolean areaCodeGeomatch, 
+                    final Boolean areaCodeGeomatch,
                     @JsonProperty("synchronous_validation")
-                    final Boolean synchronousValidation, 
+                    final Boolean synchronousValidation,
                     @JsonProperty("validity_period")
-                    final Integer validityPeriod, 
+                    final Integer validityPeriod,
                     @JsonProperty("url")
-                    final URI url, 
+                    final URI url,
                     @JsonProperty("links")
                     final Map<String, String> links) {
         this.sid = sid;
@@ -239,204 +238,190 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Unique 34 character ID of the Service..
-     * 
-     * @return Unique 34 character ID of the Service.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Unique 34 character ID of the Account that created this Service..
-     * 
-     * @return Unique 34 character ID of the Account that created this Service.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The A human readable descriptive text for this resource, up to 64
-     * characters..
-     * 
-     * @return A human readable descriptive text for this resource, up to 64
-     *         characters.
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date that this resource was created..
-     * 
-     * @return The date that this resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated..
-     * 
-     * @return The date that this resource was last updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL Twilio will make a webhook request to when a message is
-     * received by any phone number or short code in your Service..
-     * 
-     * @return The URL Twilio will make a webhook request to when a message is
-     *         received by any phone number or short code in your Service.
+     * Returns The URL we call using inbound_method when a message is received by
+     * any phone number or short code in the Service.
+     *
+     * @return The URL we call using inbound_method when a message is received by
+     *         any phone number or short code in the Service
      */
     public final URI getInboundRequestUrl() {
         return this.inboundRequestUrl;
     }
 
     /**
-     * Returns The The HTTP method Twilio will use when making requests to the
-     * Inbound Request URL..
-     * 
-     * @return The HTTP method Twilio will use when making requests to the Inbound
-     *         Request URL.
+     * Returns The HTTP method we use to call inbound_request_url.
+     *
+     * @return The HTTP method we use to call inbound_request_url
      */
     public final HttpMethod getInboundMethod() {
         return this.inboundMethod;
     }
 
     /**
-     * Returns The The URL that Twilio will request if an error occurs when
-     * retrieving or executing the TwiML from your Inbound Request URL..
-     * 
-     * @return The URL that Twilio will request if an error occurs when retrieving
-     *         or executing the TwiML from your Inbound Request URL.
+     * Returns The URL that we call using fallback_method if an error occurs while
+     * retrieving or executing the TwiML from the Inbound Request URL.
+     *
+     * @return The URL that we call using fallback_method if an error occurs while
+     *         retrieving or executing the TwiML from the Inbound Request URL
      */
     public final URI getFallbackUrl() {
         return this.fallbackUrl;
     }
 
     /**
-     * Returns The The HTTP method Twilio will use when making requests to the
-     * Fallback URL..
-     * 
-     * @return The HTTP method Twilio will use when making requests to the Fallback
-     *         URL.
+     * Returns The HTTP method we use to call fallback_url.
+     *
+     * @return The HTTP method we use to call fallback_url
      */
     public final HttpMethod getFallbackMethod() {
         return this.fallbackMethod;
     }
 
     /**
-     * Returns The The URL Twilio will make a webhook request to when passing you
-     * status updates about the delivery of your messages..
-     * 
-     * @return The URL Twilio will make a webhook request to when passing you
-     *         status updates about the delivery of your messages.
+     * Returns The URL we call to pass status updates about message delivery.
+     *
+     * @return The URL we call to pass status updates about message delivery
      */
     public final URI getStatusCallback() {
         return this.statusCallback;
     }
 
     /**
-     * Returns The Configuration to enable or disable Sticky Sender on your Service
-     * instance..
-     * 
-     * @return Configuration to enable or disable Sticky Sender on your Service
-     *         instance.
+     * Returns Whether to enable Sticky Sender on the Service instance.
+     *
+     * @return Whether to enable Sticky Sender on the Service instance
      */
     public final Boolean getStickySender() {
         return this.stickySender;
     }
 
     /**
-     * Returns The Configuration to enable or disable MMS Converter for messages
-     * sent through your Service instance..
-     * 
-     * @return Configuration to enable or disable MMS Converter for messages sent
-     *         through your Service instance.
+     * Returns Whether to enable the MMS Converter for messages sent through the
+     * Service instance.
+     *
+     * @return Whether to enable the MMS Converter for messages sent through the
+     *         Service instance
      */
     public final Boolean getMmsConverter() {
         return this.mmsConverter;
     }
 
     /**
-     * Returns The Configuration to enable or disable Smart Encoding for messages
-     * sent through your Service instance..
-     * 
-     * @return Configuration to enable or disable Smart Encoding for messages sent
-     *         through your Service instance.
+     * Returns Whether to enable Encoding for messages sent through the Service
+     * instance.
+     *
+     * @return Whether to enable Encoding for messages sent through the Service
+     *         instance
      */
     public final Boolean getSmartEncoding() {
         return this.smartEncoding;
     }
 
     /**
-     * Returns The The scan_message_content.
-     * 
-     * @return The scan_message_content
+     * Returns Reserved.
+     *
+     * @return Reserved
      */
     public final Service.ScanMessageContent getScanMessageContent() {
         return this.scanMessageContent;
     }
 
     /**
-     * Returns The Configuration to enable or disable Fallback to Long Code for
-     * messages sent through your Service instance..
-     * 
-     * @return Configuration to enable or disable Fallback to Long Code for
-     *         messages sent through your Service instance.
+     * Returns Whether to enable Fallback to Long Code for messages sent through the
+     * Service instance.
+     *
+     * @return Whether to enable Fallback to Long Code for messages sent through
+     *         the Service instance
      */
     public final Boolean getFallbackToLongCode() {
         return this.fallbackToLongCode;
     }
 
     /**
-     * Returns The Configuration to enable or disable Area Code Geomatch on your
-     * Service Instance..
-     * 
-     * @return Configuration to enable or disable Area Code Geomatch on your
-     *         Service Instance.
+     * Returns Whether to enable Area Code Geomatch on the Service Instance.
+     *
+     * @return Whether to enable Area Code Geomatch on the Service Instance
      */
     public final Boolean getAreaCodeGeomatch() {
         return this.areaCodeGeomatch;
     }
 
     /**
-     * Returns The The synchronous_validation.
-     * 
-     * @return The synchronous_validation
+     * Returns Reserved.
+     *
+     * @return Reserved
      */
     public final Boolean getSynchronousValidation() {
         return this.synchronousValidation;
     }
 
     /**
-     * Returns The The number of seconds all messages sent from your Service are
-     * valid for..
-     * 
-     * @return The number of seconds all messages sent from your Service are valid
-     *         for.
+     * Returns How long, in seconds, messages sent from the Service are valid.
+     *
+     * @return How long, in seconds, messages sent from the Service are valid
      */
     public final Integer getValidityPeriod() {
         return this.validityPeriod;
     }
 
     /**
-     * Returns The The url.
-     * 
-     * @return The url
+     * Returns The absolute URL of the Service resource.
+     *
+     * @return The absolute URL of the Service resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
-     * 
-     * @return The links
+     * Returns The absolute URLs of related resources.
+     *
+     * @return The absolute URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -454,25 +439,25 @@ public class Service extends Resource {
 
         Service other = (Service) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(inboundRequestUrl, other.inboundRequestUrl) && 
-               Objects.equals(inboundMethod, other.inboundMethod) && 
-               Objects.equals(fallbackUrl, other.fallbackUrl) && 
-               Objects.equals(fallbackMethod, other.fallbackMethod) && 
-               Objects.equals(statusCallback, other.statusCallback) && 
-               Objects.equals(stickySender, other.stickySender) && 
-               Objects.equals(mmsConverter, other.mmsConverter) && 
-               Objects.equals(smartEncoding, other.smartEncoding) && 
-               Objects.equals(scanMessageContent, other.scanMessageContent) && 
-               Objects.equals(fallbackToLongCode, other.fallbackToLongCode) && 
-               Objects.equals(areaCodeGeomatch, other.areaCodeGeomatch) && 
-               Objects.equals(synchronousValidation, other.synchronousValidation) && 
-               Objects.equals(validityPeriod, other.validityPeriod) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(inboundRequestUrl, other.inboundRequestUrl) &&
+               Objects.equals(inboundMethod, other.inboundMethod) &&
+               Objects.equals(fallbackUrl, other.fallbackUrl) &&
+               Objects.equals(fallbackMethod, other.fallbackMethod) &&
+               Objects.equals(statusCallback, other.statusCallback) &&
+               Objects.equals(stickySender, other.stickySender) &&
+               Objects.equals(mmsConverter, other.mmsConverter) &&
+               Objects.equals(smartEncoding, other.smartEncoding) &&
+               Objects.equals(scanMessageContent, other.scanMessageContent) &&
+               Objects.equals(fallbackToLongCode, other.fallbackToLongCode) &&
+               Objects.equals(areaCodeGeomatch, other.areaCodeGeomatch) &&
+               Objects.equals(synchronousValidation, other.synchronousValidation) &&
+               Objects.equals(validityPeriod, other.validityPeriod) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

@@ -28,11 +28,11 @@ public class QueryFetcher extends Fetcher<Query> {
 
     /**
      * Construct a new QueryFetcher.
-     * 
-     * @param pathAssistantSid The assistant_sid
-     * @param pathSid The sid
+     *
+     * @param pathAssistantSid The unique ID of the Assistant.
+     * @param pathSid A 34 character string that uniquely identifies this resource.
      */
-    public QueryFetcher(final String pathAssistantSid, 
+    public QueryFetcher(final String pathAssistantSid,
                         final String pathSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathSid = pathSid;
@@ -40,7 +40,7 @@ public class QueryFetcher extends Fetcher<Query> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Query
      */
@@ -50,8 +50,7 @@ public class QueryFetcher extends Fetcher<Query> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/Queries/" + this.pathSid + "",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/Queries/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -63,14 +62,7 @@ public class QueryFetcher extends Fetcher<Query> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Query.fromJson(response.getStream(), client.getObjectMapper());

@@ -30,14 +30,16 @@ public class WorkflowCreator extends Creator<Workflow> {
 
     /**
      * Construct a new WorkflowCreator.
-     * 
-     * @param pathWorkspaceSid The workspace_sid
-     * @param friendlyName A string representing a human readable name for this
-     *                     Workflow.
-     * @param configuration JSON document configuring the rules for this Workflow.
+     *
+     * @param pathWorkspaceSid The SID of the Workspace that the new Workflow to
+     *                         create belongs to
+     * @param friendlyName  descriptive string that you create to describe the
+     *                     Workflow resource
+     * @param configuration A JSON string that contains the rules to apply to the
+     *                      Workflow
      */
-    public WorkflowCreator(final String pathWorkspaceSid, 
-                           final String friendlyName, 
+    public WorkflowCreator(final String pathWorkspaceSid,
+                           final String friendlyName,
                            final String configuration) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.friendlyName = friendlyName;
@@ -45,12 +47,13 @@ public class WorkflowCreator extends Creator<Workflow> {
     }
 
     /**
-     * A valid URL for the application that will process task assignment events. See
+     * The URL from your application that will process task assignment events. See
      * [Handling Task Assignment
-     * Callback](https://www.twilio.com/docs/api/taskrouter/handling-assignment-callbacks) for more details..
-     * 
-     * @param assignmentCallbackUrl A valid URL for the application that will
-     *                              process task assignment events.
+     * Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks)
+     * for more details..
+     *
+     * @param assignmentCallbackUrl The URL from your application that will process
+     *                              task assignment events
      * @return this
      */
     public WorkflowCreator setAssignmentCallbackUrl(final URI assignmentCallbackUrl) {
@@ -59,12 +62,13 @@ public class WorkflowCreator extends Creator<Workflow> {
     }
 
     /**
-     * A valid URL for the application that will process task assignment events. See
+     * The URL from your application that will process task assignment events. See
      * [Handling Task Assignment
-     * Callback](https://www.twilio.com/docs/api/taskrouter/handling-assignment-callbacks) for more details..
-     * 
-     * @param assignmentCallbackUrl A valid URL for the application that will
-     *                              process task assignment events.
+     * Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks)
+     * for more details..
+     *
+     * @param assignmentCallbackUrl The URL from your application that will process
+     *                              task assignment events
      * @return this
      */
     public WorkflowCreator setAssignmentCallbackUrl(final String assignmentCallbackUrl) {
@@ -72,13 +76,11 @@ public class WorkflowCreator extends Creator<Workflow> {
     }
 
     /**
-     * If the request to the AssignmentCallbackUrl fails, the assignment callback
-     * will be made to this URL..
-     * 
-     * @param fallbackAssignmentCallbackUrl If the request to the
-     *                                      AssignmentCallbackUrl fails, the
-     *                                      assignment callback will be made to this
-     *                                      URL.
+     * The URL that we should call when a call to the `assignment_callback_url`
+     * fails..
+     *
+     * @param fallbackAssignmentCallbackUrl The URL that we should call when a call
+     *                                      to the `assignment_callback_url` fails
      * @return this
      */
     public WorkflowCreator setFallbackAssignmentCallbackUrl(final URI fallbackAssignmentCallbackUrl) {
@@ -87,13 +89,11 @@ public class WorkflowCreator extends Creator<Workflow> {
     }
 
     /**
-     * If the request to the AssignmentCallbackUrl fails, the assignment callback
-     * will be made to this URL..
-     * 
-     * @param fallbackAssignmentCallbackUrl If the request to the
-     *                                      AssignmentCallbackUrl fails, the
-     *                                      assignment callback will be made to this
-     *                                      URL.
+     * The URL that we should call when a call to the `assignment_callback_url`
+     * fails..
+     *
+     * @param fallbackAssignmentCallbackUrl The URL that we should call when a call
+     *                                      to the `assignment_callback_url` fails
      * @return this
      */
     public WorkflowCreator setFallbackAssignmentCallbackUrl(final String fallbackAssignmentCallbackUrl) {
@@ -101,15 +101,13 @@ public class WorkflowCreator extends Creator<Workflow> {
     }
 
     /**
-     * An integer value controlling how long in seconds TaskRouter will wait for a
-     * confirmation response from your application after assigning a Task to a
-     * worker. See Task Assignment Callback for more information. Defaults to 120
-     * seconds. Maximum value is 86400 (24 hours).
-     * 
-     * @param taskReservationTimeout An integer value controlling how long in
-     *                               seconds TaskRouter will wait for a confirmation
-     *                               response from your application after assigning
-     *                               a Task to a worker.
+     * How long TaskRouter will wait for a confirmation response from your
+     * application after it assigns a Task to a Worker. Can be up to `86,400` (24
+     * hours) and the default is `120`..
+     *
+     * @param taskReservationTimeout How long TaskRouter will wait for a
+     *                               confirmation response from your application
+     *                               after it assigns a Task to a Worker
      * @return this
      */
     public WorkflowCreator setTaskReservationTimeout(final Integer taskReservationTimeout) {
@@ -119,7 +117,7 @@ public class WorkflowCreator extends Creator<Workflow> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Workflow
      */
@@ -129,8 +127,7 @@ public class WorkflowCreator extends Creator<Workflow> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workflows",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workflows"
         );
 
         addPostParams(request);
@@ -143,14 +140,7 @@ public class WorkflowCreator extends Creator<Workflow> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Workflow.fromJson(response.getStream(), client.getObjectMapper());
@@ -158,7 +148,7 @@ public class WorkflowCreator extends Creator<Workflow> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

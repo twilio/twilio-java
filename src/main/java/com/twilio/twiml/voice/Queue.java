@@ -46,7 +46,7 @@ public class Queue extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -55,7 +55,7 @@ public class Queue extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -80,7 +80,7 @@ public class Queue extends TwiML {
 
     /**
      * Action URL
-     * 
+     *
      * @return Action URL
      */
     public URI getUrl() {
@@ -89,7 +89,7 @@ public class Queue extends TwiML {
 
     /**
      * Action URL method
-     * 
+     *
      * @return Action URL method
      */
     public HttpMethod getMethod() {
@@ -98,7 +98,7 @@ public class Queue extends TwiML {
 
     /**
      * TaskRouter Reservation SID
-     * 
+     *
      * @return TaskRouter Reservation SID
      */
     public String getReservationSid() {
@@ -107,7 +107,7 @@ public class Queue extends TwiML {
 
     /**
      * TaskRouter Activity SID
-     * 
+     *
      * @return TaskRouter Activity SID
      */
     public String getPostWorkActivitySid() {
@@ -116,7 +116,7 @@ public class Queue extends TwiML {
 
     /**
      * Queue name
-     * 
+     *
      * @return Queue name
      */
     public String getName() {

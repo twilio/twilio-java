@@ -27,7 +27,7 @@ public class HostedNumberOrderFetcher extends Fetcher<HostedNumberOrder> {
 
     /**
      * Construct a new HostedNumberOrderFetcher.
-     * 
+     *
      * @param pathSid HostedNumberOrder sid.
      */
     public HostedNumberOrderFetcher(final String pathSid) {
@@ -36,7 +36,7 @@ public class HostedNumberOrderFetcher extends Fetcher<HostedNumberOrder> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched HostedNumberOrder
      */
@@ -46,8 +46,7 @@ public class HostedNumberOrderFetcher extends Fetcher<HostedNumberOrder> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/HostedNumbers/HostedNumberOrders/" + this.pathSid + "",
-            client.getRegion()
+            "/HostedNumbers/HostedNumberOrders/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -59,14 +58,7 @@ public class HostedNumberOrderFetcher extends Fetcher<HostedNumberOrder> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return HostedNumberOrder.fromJson(response.getStream(), client.getObjectMapper());

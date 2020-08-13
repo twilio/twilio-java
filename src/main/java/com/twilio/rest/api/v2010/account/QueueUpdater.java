@@ -25,8 +25,8 @@ public class QueueUpdater extends Updater<Queue> {
 
     /**
      * Construct a new QueueUpdater.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies this resource
      */
     public QueueUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -34,20 +34,22 @@ public class QueueUpdater extends Updater<Queue> {
 
     /**
      * Construct a new QueueUpdater.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource(s) to
+     *                       update
+     * @param pathSid The unique string that identifies this resource
      */
-    public QueueUpdater(final String pathAccountSid, 
+    public QueueUpdater(final String pathAccountSid,
                         final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * A human readable description of the queue.
-     * 
-     * @param friendlyName A human readable description of the queue
+     * A descriptive string that you created to describe this resource. It can be up
+     * to 64 characters long..
+     *
+     * @param friendlyName A string to describe this resource
      * @return this
      */
     public QueueUpdater setFriendlyName(final String friendlyName) {
@@ -56,9 +58,10 @@ public class QueueUpdater extends Updater<Queue> {
     }
 
     /**
-     * The maximum number of members that can be in the queue at a time.
-     * 
-     * @param maxSize The max number of members allowed in the queue
+     * The maximum number of calls allowed to be in the queue. The default is 100.
+     * The maximum is 5000..
+     *
+     * @param maxSize The max number of calls allowed in the queue
      * @return this
      */
     public QueueUpdater setMaxSize(final Integer maxSize) {
@@ -68,7 +71,7 @@ public class QueueUpdater extends Updater<Queue> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Queue
      */
@@ -79,8 +82,7 @@ public class QueueUpdater extends Updater<Queue> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Queues/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Queues/" + this.pathSid + ".json"
         );
 
         addPostParams(request);
@@ -93,14 +95,7 @@ public class QueueUpdater extends Updater<Queue> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Queue.fromJson(response.getStream(), client.getObjectMapper());
@@ -108,7 +103,7 @@ public class QueueUpdater extends Updater<Queue> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

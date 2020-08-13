@@ -32,11 +32,11 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
 
     /**
      * Construct a new FeedbackSummaryCreator.
-     * 
-     * @param startDate Only include usage that has occurred on or after this date.
-     * @param endDate Only include usage that has occurred on or before this date.
+     *
+     * @param startDate Only include feedback given on or after this date
+     * @param endDate Only include feedback given on or before this date
      */
-    public FeedbackSummaryCreator(final LocalDate startDate, 
+    public FeedbackSummaryCreator(final LocalDate startDate,
                                   final LocalDate endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
@@ -44,13 +44,13 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
 
     /**
      * Construct a new FeedbackSummaryCreator.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param startDate Only include usage that has occurred on or after this date.
-     * @param endDate Only include usage that has occurred on or before this date.
+     *
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param startDate Only include feedback given on or after this date
+     * @param endDate Only include feedback given on or before this date
      */
-    public FeedbackSummaryCreator(final String pathAccountSid, 
-                                  final LocalDate startDate, 
+    public FeedbackSummaryCreator(final String pathAccountSid,
+                                  final LocalDate startDate,
                                   final LocalDate endDate) {
         this.pathAccountSid = pathAccountSid;
         this.startDate = startDate;
@@ -58,12 +58,12 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
     }
 
     /**
-     * true to include feedback entries for the master account and all subaccounts.
-     * false to include feedback entries for the specified account.
-     * IncludeSubaccounts is false by default..
-     * 
-     * @param includeSubaccounts true to include feedback entries for the master
-     *                           account and all subaccounts.
+     * Whether to also include Feedback resources from all subaccounts. `true`
+     * includes feedback from all subaccounts and `false`, the default, includes
+     * feedback from only the specified account..
+     *
+     * @param includeSubaccounts `true` includes feedback from the specified
+     *                           account and its subaccounts
      * @return this
      */
     public FeedbackSummaryCreator setIncludeSubaccounts(final Boolean includeSubaccounts) {
@@ -72,10 +72,10 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
     }
 
     /**
-     * The URL that Twilio will request when the Feedback Summary is completed..
-     * 
-     * @param statusCallback The URL that Twilio will request when the Feedback
-     *                       Summary is completed.
+     * The URL that we will request when the feedback summary is complete..
+     *
+     * @param statusCallback The URL that we will request when the feedback summary
+     *                       is complete
      * @return this
      */
     public FeedbackSummaryCreator setStatusCallback(final URI statusCallback) {
@@ -84,10 +84,10 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
     }
 
     /**
-     * The URL that Twilio will request when the Feedback Summary is completed..
-     * 
-     * @param statusCallback The URL that Twilio will request when the Feedback
-     *                       Summary is completed.
+     * The URL that we will request when the feedback summary is complete..
+     *
+     * @param statusCallback The URL that we will request when the feedback summary
+     *                       is complete
      * @return this
      */
     public FeedbackSummaryCreator setStatusCallback(final String statusCallback) {
@@ -95,11 +95,11 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
     }
 
     /**
-     * The HTTP method Twilio will use to make requests to the StatusCallback URL.
-     * Either GET or POST..
-     * 
-     * @param statusCallbackMethod The HTTP method Twilio will use to make requests
-     *                             to the StatusCallback URL.
+     * The HTTP method (`GET` or `POST`) we use to make the request to the
+     * `StatusCallback` URL..
+     *
+     * @param statusCallbackMethod The HTTP method we use to make requests to the
+     *                             StatusCallback URL
      * @return this
      */
     public FeedbackSummaryCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod) {
@@ -109,7 +109,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created FeedbackSummary
      */
@@ -120,8 +120,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/FeedbackSummary.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/FeedbackSummary.json"
         );
 
         addPostParams(request);
@@ -134,14 +133,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return FeedbackSummary.fromJson(response.getStream(), client.getObjectMapper());
@@ -149,7 +141,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

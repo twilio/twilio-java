@@ -42,8 +42,8 @@ public class AvailableAddOn extends Resource {
 
     /**
      * Create a AvailableAddOnFetcher to execute fetch.
-     * 
-     * @param pathSid The unique Available Add-on Sid
+     *
+     * @param pathSid The SID of the AvailableAddOn resource to fetch
      * @return AvailableAddOnFetcher capable of executing the fetch
      */
     public static AvailableAddOnFetcher fetcher(final String pathSid) {
@@ -52,7 +52,7 @@ public class AvailableAddOn extends Resource {
 
     /**
      * Create a AvailableAddOnReader to execute read.
-     * 
+     *
      * @return AvailableAddOnReader capable of executing the read
      */
     public static AvailableAddOnReader reader() {
@@ -62,7 +62,7 @@ public class AvailableAddOn extends Resource {
     /**
      * Converts a JSON String into a AvailableAddOn object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return AvailableAddOn object represented by the provided JSON
@@ -81,7 +81,7 @@ public class AvailableAddOn extends Resource {
     /**
      * Converts a JSON InputStream into a AvailableAddOn object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return AvailableAddOn object represented by the provided JSON
@@ -107,17 +107,17 @@ public class AvailableAddOn extends Resource {
 
     @JsonCreator
     private AvailableAddOn(@JsonProperty("sid")
-                           final String sid, 
+                           final String sid,
                            @JsonProperty("friendly_name")
-                           final String friendlyName, 
+                           final String friendlyName,
                            @JsonProperty("description")
-                           final String description, 
+                           final String description,
                            @JsonProperty("pricing_type")
-                           final String pricingType, 
+                           final String pricingType,
                            @JsonProperty("configuration_schema")
-                           final Map<String, Object> configurationSchema, 
+                           final Map<String, Object> configurationSchema,
                            @JsonProperty("url")
-                           final URI url, 
+                           final URI url,
                            @JsonProperty("links")
                            final Map<String, String> links) {
         this.sid = sid;
@@ -130,63 +130,65 @@ public class AvailableAddOn extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Add-on.
-     * 
-     * @return A string that uniquely identifies this Add-on
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A description of this Add-on.
-     * 
-     * @return A description of this Add-on
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The A short description of the Add-on functionality.
-     * 
-     * @return A short description of the Add-on functionality
+     * Returns A short description of the Add-on's functionality.
+     *
+     * @return A short description of the Add-on's functionality
      */
     public final String getDescription() {
         return this.description;
     }
 
     /**
-     * Returns The The way customers are charged for using this Add-on.
-     * 
-     * @return The way customers are charged for using this Add-on
+     * Returns How customers are charged for using this Add-on.
+     *
+     * @return How customers are charged for using this Add-on
      */
     public final String getPricingType() {
         return this.pricingType;
     }
 
     /**
-     * Returns The The JSON Schema describing the Add-on's configuration.
-     * 
-     * @return The JSON Schema describing the Add-on's configuration
+     * Returns The JSON object with the configuration that must be provided when
+     * installing a given Add-on.
+     *
+     * @return The JSON object with the configuration that must be provided when
+     *         installing a given Add-on
      */
     public final Map<String, Object> getConfigurationSchema() {
         return this.configurationSchema;
     }
 
     /**
-     * Returns The The url.
-     * 
-     * @return The url
+     * Returns The absolute URL of the resource.
+     *
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
-     * 
-     * @return The links
+     * Returns The URLs of related resources.
+     *
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -204,12 +206,12 @@ public class AvailableAddOn extends Resource {
 
         AvailableAddOn other = (AvailableAddOn) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(description, other.description) && 
-               Objects.equals(pricingType, other.pricingType) && 
-               Objects.equals(configurationSchema, other.configurationSchema) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(description, other.description) &&
+               Objects.equals(pricingType, other.pricingType) &&
+               Objects.equals(configurationSchema, other.configurationSchema) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

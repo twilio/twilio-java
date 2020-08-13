@@ -33,7 +33,7 @@ public class SimReader extends Reader<Sim> {
 
     /**
      * The status.
-     * 
+     *
      * @param status The status
      * @return this
      */
@@ -44,7 +44,7 @@ public class SimReader extends Reader<Sim> {
 
     /**
      * The iccid.
-     * 
+     *
      * @param iccid The iccid
      * @return this
      */
@@ -55,7 +55,7 @@ public class SimReader extends Reader<Sim> {
 
     /**
      * The rate_plan.
-     * 
+     *
      * @param ratePlan The rate_plan
      * @return this
      */
@@ -66,7 +66,7 @@ public class SimReader extends Reader<Sim> {
 
     /**
      * The e_id.
-     * 
+     *
      * @param eId The e_id
      * @return this
      */
@@ -77,7 +77,7 @@ public class SimReader extends Reader<Sim> {
 
     /**
      * The sim_registration_code.
-     * 
+     *
      * @param simRegistrationCode The sim_registration_code
      * @return this
      */
@@ -88,7 +88,7 @@ public class SimReader extends Reader<Sim> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Sim ResourceSet
      */
@@ -99,7 +99,7 @@ public class SimReader extends Reader<Sim> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Sim ResourceSet
      */
@@ -109,8 +109,7 @@ public class SimReader extends Reader<Sim> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/wireless/Sims",
-            client.getRegion()
+            "/wireless/Sims"
         );
 
         addQueryParams(request);
@@ -119,7 +118,7 @@ public class SimReader extends Reader<Sim> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Sim ResourceSet
@@ -137,47 +136,41 @@ public class SimReader extends Reader<Sim> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Sim> nextPage(final Page<Sim> page, 
+    public Page<Sim> nextPage(final Page<Sim> page,
                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Sim> previousPage(final Page<Sim> page, 
+    public Page<Sim> previousPage(final Page<Sim> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Sim Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -192,14 +185,7 @@ public class SimReader extends Reader<Sim> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -212,7 +198,7 @@ public class SimReader extends Reader<Sim> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

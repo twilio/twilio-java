@@ -26,46 +26,22 @@ import com.twilio.rest.Domains;
 public class InteractionReader extends Reader<Interaction> {
     private final String pathServiceSid;
     private final String pathSessionSid;
-    private Interaction.ResourceStatus inboundParticipantStatus;
-    private Interaction.ResourceStatus outboundParticipantStatus;
 
     /**
      * Construct a new InteractionReader.
-     * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
+     *
+     * @param pathServiceSid The SID of the parent Service to read the resource from
+     * @param pathSessionSid The SID of the parent Session to read the resource from
      */
-    public InteractionReader(final String pathServiceSid, 
+    public InteractionReader(final String pathServiceSid,
                              final String pathSessionSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSessionSid = pathSessionSid;
     }
 
     /**
-     * The inbound_participant_status.
-     * 
-     * @param inboundParticipantStatus The inbound_participant_status
-     * @return this
-     */
-    public InteractionReader setInboundParticipantStatus(final Interaction.ResourceStatus inboundParticipantStatus) {
-        this.inboundParticipantStatus = inboundParticipantStatus;
-        return this;
-    }
-
-    /**
-     * The outbound_participant_status.
-     * 
-     * @param outboundParticipantStatus The outbound_participant_status
-     * @return this
-     */
-    public InteractionReader setOutboundParticipantStatus(final Interaction.ResourceStatus outboundParticipantStatus) {
-        this.outboundParticipantStatus = outboundParticipantStatus;
-        return this;
-    }
-
-    /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Interaction ResourceSet
      */
@@ -76,7 +52,7 @@ public class InteractionReader extends Reader<Interaction> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Interaction ResourceSet
      */
@@ -86,8 +62,7 @@ public class InteractionReader extends Reader<Interaction> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PROXY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Sessions/" + this.pathSessionSid + "/Interactions",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Sessions/" + this.pathSessionSid + "/Interactions"
         );
 
         addQueryParams(request);
@@ -96,7 +71,7 @@ public class InteractionReader extends Reader<Interaction> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Interaction ResourceSet
@@ -114,47 +89,41 @@ public class InteractionReader extends Reader<Interaction> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Interaction> nextPage(final Page<Interaction> page, 
+    public Page<Interaction> nextPage(final Page<Interaction> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.PROXY.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.PROXY.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Interaction> previousPage(final Page<Interaction> page, 
+    public Page<Interaction> previousPage(final Page<Interaction> page,
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.PROXY.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.PROXY.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Interaction Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -169,14 +138,7 @@ public class InteractionReader extends Reader<Interaction> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -189,18 +151,10 @@ public class InteractionReader extends Reader<Interaction> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (inboundParticipantStatus != null) {
-            request.addQueryParam("InboundParticipantStatus", inboundParticipantStatus.toString());
-        }
-
-        if (outboundParticipantStatus != null) {
-            request.addQueryParam("OutboundParticipantStatus", outboundParticipantStatus.toString());
-        }
-
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

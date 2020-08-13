@@ -37,8 +37,8 @@ public class IpAccessControlList extends Resource {
 
     /**
      * Create a IpAccessControlListReader to execute read.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The unique sid that identifies this account
      * @return IpAccessControlListReader capable of executing the read
      */
     public static IpAccessControlListReader reader(final String pathAccountSid) {
@@ -47,7 +47,7 @@ public class IpAccessControlList extends Resource {
 
     /**
      * Create a IpAccessControlListReader to execute read.
-     * 
+     *
      * @return IpAccessControlListReader capable of executing the read
      */
     public static IpAccessControlListReader reader() {
@@ -56,19 +56,19 @@ public class IpAccessControlList extends Resource {
 
     /**
      * Create a IpAccessControlListCreator to execute create.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The unique sid that identifies this account
      * @param friendlyName A human readable description of this resource
      * @return IpAccessControlListCreator capable of executing the create
      */
-    public static IpAccessControlListCreator creator(final String pathAccountSid, 
+    public static IpAccessControlListCreator creator(final String pathAccountSid,
                                                      final String friendlyName) {
         return new IpAccessControlListCreator(pathAccountSid, friendlyName);
     }
 
     /**
      * Create a IpAccessControlListCreator to execute create.
-     * 
+     *
      * @param friendlyName A human readable description of this resource
      * @return IpAccessControlListCreator capable of executing the create
      */
@@ -78,20 +78,20 @@ public class IpAccessControlList extends Resource {
 
     /**
      * Create a IpAccessControlListFetcher to execute fetch.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Fetch by unique ip-access-control-list Sid
+     *
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathSid A string that identifies the resource to fetch
      * @return IpAccessControlListFetcher capable of executing the fetch
      */
-    public static IpAccessControlListFetcher fetcher(final String pathAccountSid, 
+    public static IpAccessControlListFetcher fetcher(final String pathAccountSid,
                                                      final String pathSid) {
         return new IpAccessControlListFetcher(pathAccountSid, pathSid);
     }
 
     /**
      * Create a IpAccessControlListFetcher to execute fetch.
-     * 
-     * @param pathSid Fetch by unique ip-access-control-list Sid
+     *
+     * @param pathSid A string that identifies the resource to fetch
      * @return IpAccessControlListFetcher capable of executing the fetch
      */
     public static IpAccessControlListFetcher fetcher(final String pathSid) {
@@ -100,46 +100,46 @@ public class IpAccessControlList extends Resource {
 
     /**
      * Create a IpAccessControlListUpdater to execute update.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathSid A string that identifies the resource to update
      * @param friendlyName A human readable description of this resource
      * @return IpAccessControlListUpdater capable of executing the update
      */
-    public static IpAccessControlListUpdater updater(final String pathAccountSid, 
-                                                     final String pathSid, 
+    public static IpAccessControlListUpdater updater(final String pathAccountSid,
+                                                     final String pathSid,
                                                      final String friendlyName) {
         return new IpAccessControlListUpdater(pathAccountSid, pathSid, friendlyName);
     }
 
     /**
      * Create a IpAccessControlListUpdater to execute update.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid A string that identifies the resource to update
      * @param friendlyName A human readable description of this resource
      * @return IpAccessControlListUpdater capable of executing the update
      */
-    public static IpAccessControlListUpdater updater(final String pathSid, 
+    public static IpAccessControlListUpdater updater(final String pathSid,
                                                      final String friendlyName) {
         return new IpAccessControlListUpdater(pathSid, friendlyName);
     }
 
     /**
      * Create a IpAccessControlListDeleter to execute delete.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid Delete by unique ip-access-control-list Sid
+     *
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathSid A string that identifies the resource to delete
      * @return IpAccessControlListDeleter capable of executing the delete
      */
-    public static IpAccessControlListDeleter deleter(final String pathAccountSid, 
+    public static IpAccessControlListDeleter deleter(final String pathAccountSid,
                                                      final String pathSid) {
         return new IpAccessControlListDeleter(pathAccountSid, pathSid);
     }
 
     /**
      * Create a IpAccessControlListDeleter to execute delete.
-     * 
-     * @param pathSid Delete by unique ip-access-control-list Sid
+     *
+     * @param pathSid A string that identifies the resource to delete
      * @return IpAccessControlListDeleter capable of executing the delete
      */
     public static IpAccessControlListDeleter deleter(final String pathSid) {
@@ -149,7 +149,7 @@ public class IpAccessControlList extends Resource {
     /**
      * Converts a JSON String into a IpAccessControlList object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return IpAccessControlList object represented by the provided JSON
@@ -168,7 +168,7 @@ public class IpAccessControlList extends Resource {
     /**
      * Converts a JSON InputStream into a IpAccessControlList object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return IpAccessControlList object represented by the provided JSON
@@ -194,17 +194,17 @@ public class IpAccessControlList extends Resource {
 
     @JsonCreator
     private IpAccessControlList(@JsonProperty("sid")
-                                final String sid, 
+                                final String sid,
                                 @JsonProperty("account_sid")
-                                final String accountSid, 
+                                final String accountSid,
                                 @JsonProperty("friendly_name")
-                                final String friendlyName, 
+                                final String friendlyName,
                                 @JsonProperty("date_created")
-                                final String dateCreated, 
+                                final String dateCreated,
                                 @JsonProperty("date_updated")
-                                final String dateUpdated, 
+                                final String dateUpdated,
                                 @JsonProperty("subresource_uris")
-                                final Map<String, String> subresourceUris, 
+                                final Map<String, String> subresourceUris,
                                 @JsonProperty("uri")
                                 final String uri) {
         this.sid = sid;
@@ -217,8 +217,8 @@ public class IpAccessControlList extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this resource.
-     * 
+     * Returns A string that uniquely identifies this resource.
+     *
      * @return A string that uniquely identifies this resource
      */
     public final String getSid() {
@@ -226,8 +226,8 @@ public class IpAccessControlList extends Resource {
     }
 
     /**
-     * Returns The The unique sid that identifies this account.
-     * 
+     * Returns The unique sid that identifies this account.
+     *
      * @return The unique sid that identifies this account
      */
     public final String getAccountSid() {
@@ -235,8 +235,8 @@ public class IpAccessControlList extends Resource {
     }
 
     /**
-     * Returns The A human readable description of this resource.
-     * 
+     * Returns A human readable description of this resource.
+     *
      * @return A human readable description of this resource
      */
     public final String getFriendlyName() {
@@ -244,8 +244,8 @@ public class IpAccessControlList extends Resource {
     }
 
     /**
-     * Returns The The date this resource was created.
-     * 
+     * Returns The date this resource was created.
+     *
      * @return The date this resource was created
      */
     public final DateTime getDateCreated() {
@@ -253,8 +253,8 @@ public class IpAccessControlList extends Resource {
     }
 
     /**
-     * Returns The The date this resource was last updated.
-     * 
+     * Returns The date this resource was last updated.
+     *
      * @return The date this resource was last updated
      */
     public final DateTime getDateUpdated() {
@@ -262,17 +262,17 @@ public class IpAccessControlList extends Resource {
     }
 
     /**
-     * Returns The The subresource_uris.
-     * 
-     * @return The subresource_uris
+     * Returns The IP addresses associated with this resource..
+     *
+     * @return The IP addresses associated with this resource.
      */
     public final Map<String, String> getSubresourceUris() {
         return this.subresourceUris;
     }
 
     /**
-     * Returns The The URI for this resource.
-     * 
+     * Returns The URI for this resource.
+     *
      * @return The URI for this resource
      */
     public final String getUri() {
@@ -291,12 +291,12 @@ public class IpAccessControlList extends Resource {
 
         IpAccessControlList other = (IpAccessControlList) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(subresourceUris, other.subresourceUris) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(subresourceUris, other.subresourceUris) &&
                Objects.equals(uri, other.uri);
     }
 

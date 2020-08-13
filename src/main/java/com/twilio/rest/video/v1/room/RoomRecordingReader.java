@@ -30,17 +30,19 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
 
     /**
      * Construct a new RoomRecordingReader.
-     * 
-     * @param pathRoomSid The room_sid
+     *
+     * @param pathRoomSid The SID of the room with the RoomRecording resources to
+     *                    read
      */
     public RoomRecordingReader(final String pathRoomSid) {
         this.pathRoomSid = pathRoomSid;
     }
 
     /**
-     * The status.
-     * 
-     * @param status The status
+     * Read only the recordings with this status. Can be: `processing`, `completed`,
+     * or `deleted`..
+     *
+     * @param status Read only the recordings with this status
      * @return this
      */
     public RoomRecordingReader setStatus(final RoomRecording.Status status) {
@@ -49,9 +51,9 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
     }
 
     /**
-     * The source_sid.
-     * 
-     * @param sourceSid The source_sid
+     * Read only the recordings that have this `source_sid`..
+     *
+     * @param sourceSid Read only the recordings that have this source_sid
      * @return this
      */
     public RoomRecordingReader setSourceSid(final String sourceSid) {
@@ -60,9 +62,11 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
     }
 
     /**
-     * The date_created_after.
-     * 
-     * @param dateCreatedAfter The date_created_after
+     * Read only recordings that started on or after this [ISO
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone..
+     *
+     * @param dateCreatedAfter Read only Recordings that started on or after this
+     *                         ISO 8601 datetime with time zone
      * @return this
      */
     public RoomRecordingReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
@@ -71,9 +75,11 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
     }
 
     /**
-     * The date_created_before.
-     * 
-     * @param dateCreatedBefore The date_created_before
+     * Read only Recordings that started before this [ISO
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone..
+     *
+     * @param dateCreatedBefore Read only Recordings that started before this ISO
+     *                          8601 date-time with time zone
      * @return this
      */
     public RoomRecordingReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
@@ -83,7 +89,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return RoomRecording ResourceSet
      */
@@ -94,7 +100,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return RoomRecording ResourceSet
      */
@@ -104,8 +110,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/Recordings",
-            client.getRegion()
+            "/v1/Rooms/" + this.pathRoomSid + "/Recordings"
         );
 
         addQueryParams(request);
@@ -114,7 +119,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return RoomRecording ResourceSet
@@ -132,47 +137,41 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<RoomRecording> nextPage(final Page<RoomRecording> page, 
+    public Page<RoomRecording> nextPage(final Page<RoomRecording> page,
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.VIDEO.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.VIDEO.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<RoomRecording> previousPage(final Page<RoomRecording> page, 
+    public Page<RoomRecording> previousPage(final Page<RoomRecording> page,
                                             final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.VIDEO.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.VIDEO.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of RoomRecording Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -187,14 +186,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -207,7 +199,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

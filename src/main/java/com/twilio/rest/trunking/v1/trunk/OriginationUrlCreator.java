@@ -29,23 +29,21 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
 
     /**
      * Construct a new OriginationUrlCreator.
-     * 
-     * @param pathTrunkSid The trunk_sid
-     * @param weight Weight is used to determine the share of load when more than
-     *               one URI has the same priority.
-     * @param priority Priority ranks the importance of the URI.
-     * @param enabled A boolean value indicating whether the URL is enabled or
-     *                disabled.
-     * @param friendlyName A human readable descriptive text, up to 64 characters
-     *                     long.
+     *
+     * @param pathTrunkSid The SID of the Trunk to associate the resource with
+     * @param weight The value that determines the relative load the URI should
+     *               receive compared to others with the same priority
+     * @param priority The relative importance of the URI
+     * @param enabled Whether the URL is enabled
+     * @param friendlyName A string to describe the resource
      * @param sipUrl The SIP address you want Twilio to route your Origination
-     *               calls to.
+     *               calls to
      */
-    public OriginationUrlCreator(final String pathTrunkSid, 
-                                 final Integer weight, 
-                                 final Integer priority, 
-                                 final Boolean enabled, 
-                                 final String friendlyName, 
+    public OriginationUrlCreator(final String pathTrunkSid,
+                                 final Integer weight,
+                                 final Integer priority,
+                                 final Boolean enabled,
+                                 final String friendlyName,
                                  final URI sipUrl) {
         this.pathTrunkSid = pathTrunkSid;
         this.weight = weight;
@@ -57,7 +55,7 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created OriginationUrl
      */
@@ -67,8 +65,7 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathTrunkSid + "/OriginationUrls",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathTrunkSid + "/OriginationUrls"
         );
 
         addPostParams(request);
@@ -81,14 +78,7 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return OriginationUrl.fromJson(response.getStream(), client.getObjectMapper());
@@ -96,7 +86,7 @@ public class OriginationUrlCreator extends Creator<OriginationUrl> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

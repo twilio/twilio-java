@@ -22,8 +22,8 @@ public class NumberFetcher extends Fetcher<Number> {
 
     /**
      * Construct a new NumberFetcher.
-     * 
-     * @param pathNumber The number
+     *
+     * @param pathNumber The phone number to fetch
      */
     public NumberFetcher(final com.twilio.type.PhoneNumber pathNumber) {
         this.pathNumber = pathNumber;
@@ -31,7 +31,7 @@ public class NumberFetcher extends Fetcher<Number> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Number
      */
@@ -41,8 +41,7 @@ public class NumberFetcher extends Fetcher<Number> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PRICING.toString(),
-            "/v1/Voice/Numbers/" + this.pathNumber + "",
-            client.getRegion()
+            "/v1/Voice/Numbers/" + this.pathNumber.encode("utf-8") + ""
         );
 
         Response response = client.request(request);
@@ -54,14 +53,7 @@ public class NumberFetcher extends Fetcher<Number> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Number.fromJson(response.getStream(), client.getObjectMapper());

@@ -43,32 +43,35 @@ public class Document extends Resource {
 
     /**
      * Create a DocumentFetcher to execute fetch.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Document resource
+     *                       to fetch
+     * @param pathSid The SID of the Document resource to fetch
      * @return DocumentFetcher capable of executing the fetch
      */
-    public static DocumentFetcher fetcher(final String pathServiceSid, 
+    public static DocumentFetcher fetcher(final String pathServiceSid,
                                           final String pathSid) {
         return new DocumentFetcher(pathServiceSid, pathSid);
     }
 
     /**
      * Create a DocumentDeleter to execute delete.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Document resource
+     *                       to delete
+     * @param pathSid The SID of the Document resource to delete
      * @return DocumentDeleter capable of executing the delete
      */
-    public static DocumentDeleter deleter(final String pathServiceSid, 
+    public static DocumentDeleter deleter(final String pathServiceSid,
                                           final String pathSid) {
         return new DocumentDeleter(pathServiceSid, pathSid);
     }
 
     /**
      * Create a DocumentCreator to execute create.
-     * 
-     * @param pathServiceSid The service_sid
+     *
+     * @param pathServiceSid The SID of the Sync Service to associate the Document
+     *                       resource to create with
      * @return DocumentCreator capable of executing the create
      */
     public static DocumentCreator creator(final String pathServiceSid) {
@@ -77,8 +80,9 @@ public class Document extends Resource {
 
     /**
      * Create a DocumentReader to execute read.
-     * 
-     * @param pathServiceSid The service_sid
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Document
+     *                       resources to read
      * @return DocumentReader capable of executing the read
      */
     public static DocumentReader reader(final String pathServiceSid) {
@@ -87,12 +91,13 @@ public class Document extends Resource {
 
     /**
      * Create a DocumentUpdater to execute update.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Sync Service with the Document resource
+     *                       to update
+     * @param pathSid The SID of the Document resource to update
      * @return DocumentUpdater capable of executing the update
      */
-    public static DocumentUpdater updater(final String pathServiceSid, 
+    public static DocumentUpdater updater(final String pathServiceSid,
                                           final String pathSid) {
         return new DocumentUpdater(pathServiceSid, pathSid);
     }
@@ -100,7 +105,7 @@ public class Document extends Resource {
     /**
      * Converts a JSON String into a Document object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Document object represented by the provided JSON
@@ -119,7 +124,7 @@ public class Document extends Resource {
     /**
      * Converts a JSON InputStream into a Document object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Document object represented by the provided JSON
@@ -150,27 +155,27 @@ public class Document extends Resource {
 
     @JsonCreator
     private Document(@JsonProperty("sid")
-                     final String sid, 
+                     final String sid,
                      @JsonProperty("unique_name")
-                     final String uniqueName, 
+                     final String uniqueName,
                      @JsonProperty("account_sid")
-                     final String accountSid, 
+                     final String accountSid,
                      @JsonProperty("service_sid")
-                     final String serviceSid, 
+                     final String serviceSid,
                      @JsonProperty("url")
-                     final URI url, 
+                     final URI url,
                      @JsonProperty("links")
-                     final Map<String, String> links, 
+                     final Map<String, String> links,
                      @JsonProperty("revision")
-                     final String revision, 
+                     final String revision,
                      @JsonProperty("data")
-                     final Map<String, Object> data, 
+                     final Map<String, Object> data,
                      @JsonProperty("date_expires")
-                     final String dateExpires, 
+                     final String dateExpires,
                      @JsonProperty("date_created")
-                     final String dateCreated, 
+                     final String dateCreated,
                      @JsonProperty("date_updated")
-                     final String dateUpdated, 
+                     final String dateUpdated,
                      @JsonProperty("created_by")
                      final String createdBy) {
         this.sid = sid;
@@ -188,119 +193,110 @@ public class Document extends Resource {
     }
 
     /**
-     * Returns The The unique 34-character SID identifier of the Document..
-     * 
-     * @return The unique 34-character SID identifier of the Document.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique and addressable name of this Document..
-     * 
-     * @return The unique and addressable name of this Document.
+     * Returns An application-defined string that uniquely identifies the resource.
+     *
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The unique SID identifier of the Twilio Account..
-     * 
-     * @return The unique SID identifier of the Twilio Account.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique SID identifier of the Service Instance that hosts this
-     * Document..
-     * 
-     * @return The unique SID identifier of the Service Instance that hosts this
-     *         Document.
+     * Returns The SID of the Sync Service that the resource is associated with.
+     *
+     * @return The SID of the Sync Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The absolute URL for this Document..
-     * 
-     * @return The absolute URL for this Document.
+     * Returns The absolute URL of the Document resource.
+     *
+     * @return The absolute URL of the Document resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The A dictionary of URL links to nested resources of this Document..
-     * 
-     * @return A dictionary of URL links to nested resources of this Document.
+     * Returns The URLs of resources related to the Sync Document.
+     *
+     * @return The URLs of resources related to the Sync Document
      */
     public final Map<String, String> getLinks() {
         return this.links;
     }
 
     /**
-     * Returns The Contains the current revision of this Document, represented by a
-     * string identifier..
-     * 
-     * @return Contains the current revision of this Document, represented by a
-     *         string identifier.
+     * Returns The current revision of the Sync Document, represented by a string
+     * identifier.
+     *
+     * @return The current revision of the Sync Document, represented by a string
+     *         identifier
      */
     public final String getRevision() {
         return this.revision;
     }
 
     /**
-     * Returns The Contains arbitrary user-defined, schema-less data that this
-     * Document stores, represented by a JSON object, up to 16KB..
-     * 
-     * @return Contains arbitrary user-defined, schema-less data that this Document
-     *         stores, represented by a JSON object, up to 16KB.
+     * Returns An arbitrary, schema-less object that the Sync Document stores.
+     *
+     * @return An arbitrary, schema-less object that the Sync Document stores
      */
     public final Map<String, Object> getData() {
         return this.data;
     }
 
     /**
-     * Returns The Contains the date this Document expires and gets deleted
-     * automatically..
-     * 
-     * @return Contains the date this Document expires and gets deleted
-     *         automatically.
+     * Returns The ISO 8601 date and time in GMT when the Sync Document expires.
+     *
+     * @return The ISO 8601 date and time in GMT when the Sync Document expires
      */
     public final DateTime getDateExpires() {
         return this.dateExpires;
     }
 
     /**
-     * Returns The The date this Document was created, given in UTC ISO 8601
-     * format..
-     * 
-     * @return The date this Document was created, given in UTC ISO 8601 format.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The Specifies the date this Document was last updated, given in UTC
-     * ISO 8601 format..
-     * 
-     * @return Specifies the date this Document was last updated, given in UTC ISO
-     *         8601 format.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The identity of the Document creator..
-     * 
-     * @return The identity of the Document creator.
+     * Returns The identity of the Sync Document's creator.
+     *
+     * @return The identity of the Sync Document's creator
      */
     public final String getCreatedBy() {
         return this.createdBy;
@@ -318,17 +314,17 @@ public class Document extends Resource {
 
         Document other = (Document) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(uniqueName, other.uniqueName) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(url, other.url) && 
-               Objects.equals(links, other.links) && 
-               Objects.equals(revision, other.revision) && 
-               Objects.equals(data, other.data) && 
-               Objects.equals(dateExpires, other.dateExpires) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(links, other.links) &&
+               Objects.equals(revision, other.revision) &&
+               Objects.equals(data, other.data) &&
+               Objects.equals(dateExpires, other.dateExpires) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(createdBy, other.createdBy);
     }
 

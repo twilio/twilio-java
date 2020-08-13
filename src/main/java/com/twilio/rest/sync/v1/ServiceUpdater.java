@@ -30,21 +30,23 @@ public class ServiceUpdater extends Updater<Service> {
     private String friendlyName;
     private Boolean reachabilityWebhooksEnabled;
     private Boolean aclEnabled;
+    private Boolean reachabilityDebouncingEnabled;
+    private Integer reachabilityDebouncingWindow;
+    private Boolean webhooksFromRestEnabled;
 
     /**
      * Construct a new ServiceUpdater.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The SID of the Service resource to update
      */
     public ServiceUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
     /**
-     * A URL that will receive event updates when objects are manipulated..
-     * 
-     * @param webhookUrl A URL that will receive event updates when objects are
-     *                   manipulated.
+     * The URL we should call when Sync objects are manipulated..
+     *
+     * @param webhookUrl The URL we should call when Sync objects are manipulated
      * @return this
      */
     public ServiceUpdater setWebhookUrl(final URI webhookUrl) {
@@ -53,10 +55,9 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * A URL that will receive event updates when objects are manipulated..
-     * 
-     * @param webhookUrl A URL that will receive event updates when objects are
-     *                   manipulated.
+     * The URL we should call when Sync objects are manipulated..
+     *
+     * @param webhookUrl The URL we should call when Sync objects are manipulated
      * @return this
      */
     public ServiceUpdater setWebhookUrl(final String webhookUrl) {
@@ -64,9 +65,9 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * Human-readable name for this service instance.
-     * 
-     * @param friendlyName Human-readable name for this service instance
+     * A string that you assign to describe the resource..
+     *
+     * @param friendlyName A string that you assign to describe the resource
      * @return this
      */
     public ServiceUpdater setFriendlyName(final String friendlyName) {
@@ -75,12 +76,12 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * True or false - controls whether this instance fires webhooks when client
-     * endpoints connect to Sync Defaults to false..
-     * 
-     * @param reachabilityWebhooksEnabled True or false - controls whether this
-     *                                    instance fires webhooks when client
-     *                                    endpoints connect to Sync
+     * Whether the service instance should call `webhook_url` when client endpoints
+     * connect to Sync. The default is `false`..
+     *
+     * @param reachabilityWebhooksEnabled Whether the service instance should call
+     *                                    webhook_url when client endpoints connect
+     *                                    to Sync
      * @return this
      */
     public ServiceUpdater setReachabilityWebhooksEnabled(final Boolean reachabilityWebhooksEnabled) {
@@ -89,14 +90,13 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * `true` or `false` - determines whether token identities must be granted
-     * access to Sync objects via the [Permissions
-     * API](https://www.twilio.com/docs/api/sync/rest/sync-rest-api-permissions) in
-     * this Service..
-     * 
-     * @param aclEnabled true or false - determines whether token identities must
-     *                   be granted access to Sync objects via the Permissions API
-     *                   in this Service.
+     * Whether token identities in the Service must be granted access to Sync
+     * objects by using the
+     * [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions)
+     * resource..
+     *
+     * @param aclEnabled Whether token identities in the Service must be granted
+     *                   access to Sync objects by using the Permissions resource
      * @return this
      */
     public ServiceUpdater setAclEnabled(final Boolean aclEnabled) {
@@ -105,8 +105,55 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
+     * Whether every `endpoint_disconnected` event should occur after a configurable
+     * delay. The default is `false`, where the `endpoint_disconnected` event occurs
+     * immediately after disconnection. When `true`, intervening reconnections can
+     * prevent the `endpoint_disconnected` event..
+     *
+     * @param reachabilityDebouncingEnabled Whether every endpoint_disconnected
+     *                                      event occurs after a configurable delay
+     * @return this
+     */
+    public ServiceUpdater setReachabilityDebouncingEnabled(final Boolean reachabilityDebouncingEnabled) {
+        this.reachabilityDebouncingEnabled = reachabilityDebouncingEnabled;
+        return this;
+    }
+
+    /**
+     * The reachability event delay in milliseconds if
+     * `reachability_debouncing_enabled` = `true`.  Must be between 1,000 and 30,000
+     * and defaults to 5,000. This is the number of milliseconds after the last
+     * running client disconnects, and a Sync identity is declared offline, before
+     * the webhook is called if all endpoints remain offline. A reconnection from
+     * the same identity by any endpoint during this interval prevents the webhook
+     * from being called..
+     *
+     * @param reachabilityDebouncingWindow The reachability event delay in
+     *                                     milliseconds
+     * @return this
+     */
+    public ServiceUpdater setReachabilityDebouncingWindow(final Integer reachabilityDebouncingWindow) {
+        this.reachabilityDebouncingWindow = reachabilityDebouncingWindow;
+        return this;
+    }
+
+    /**
+     * Whether the Service instance should call `webhook_url` when the REST API is
+     * used to update Sync objects. The default is `false`..
+     *
+     * @param webhooksFromRestEnabled Whether the Service instance should call
+     *                                webhook_url when the REST API is used to
+     *                                update Sync objects
+     * @return this
+     */
+    public ServiceUpdater setWebhooksFromRestEnabled(final Boolean webhooksFromRestEnabled) {
+        this.webhooksFromRestEnabled = webhooksFromRestEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Service
      */
@@ -116,8 +163,7 @@ public class ServiceUpdater extends Updater<Service> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -130,14 +176,7 @@ public class ServiceUpdater extends Updater<Service> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Service.fromJson(response.getStream(), client.getObjectMapper());
@@ -145,7 +184,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
@@ -163,6 +202,18 @@ public class ServiceUpdater extends Updater<Service> {
 
         if (aclEnabled != null) {
             request.addPostParam("AclEnabled", aclEnabled.toString());
+        }
+
+        if (reachabilityDebouncingEnabled != null) {
+            request.addPostParam("ReachabilityDebouncingEnabled", reachabilityDebouncingEnabled.toString());
+        }
+
+        if (reachabilityDebouncingWindow != null) {
+            request.addPostParam("ReachabilityDebouncingWindow", reachabilityDebouncingWindow.toString());
+        }
+
+        if (webhooksFromRestEnabled != null) {
+            request.addPostParam("WebhooksFromRestEnabled", webhooksFromRestEnabled.toString());
         }
     }
 }

@@ -19,14 +19,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class FlowReader extends Reader<Flow> {
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Flow ResourceSet
      */
@@ -37,7 +33,7 @@ public class FlowReader extends Reader<Flow> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Flow ResourceSet
      */
@@ -47,8 +43,7 @@ public class FlowReader extends Reader<Flow> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.STUDIO.toString(),
-            "/v1/Flows",
-            client.getRegion()
+            "/v1/Flows"
         );
 
         addQueryParams(request);
@@ -57,7 +52,7 @@ public class FlowReader extends Reader<Flow> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Flow ResourceSet
@@ -75,47 +70,41 @@ public class FlowReader extends Reader<Flow> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Flow> nextPage(final Page<Flow> page, 
+    public Page<Flow> nextPage(final Page<Flow> page,
                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.STUDIO.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.STUDIO.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Flow> previousPage(final Page<Flow> page, 
+    public Page<Flow> previousPage(final Page<Flow> page,
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.STUDIO.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.STUDIO.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Flow Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -130,14 +119,7 @@ public class FlowReader extends Reader<Flow> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -150,7 +132,7 @@ public class FlowReader extends Reader<Flow> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

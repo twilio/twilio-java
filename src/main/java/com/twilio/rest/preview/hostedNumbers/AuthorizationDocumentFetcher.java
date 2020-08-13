@@ -27,7 +27,7 @@ public class AuthorizationDocumentFetcher extends Fetcher<AuthorizationDocument>
 
     /**
      * Construct a new AuthorizationDocumentFetcher.
-     * 
+     *
      * @param pathSid AuthorizationDocument sid.
      */
     public AuthorizationDocumentFetcher(final String pathSid) {
@@ -36,7 +36,7 @@ public class AuthorizationDocumentFetcher extends Fetcher<AuthorizationDocument>
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched AuthorizationDocument
      */
@@ -46,8 +46,7 @@ public class AuthorizationDocumentFetcher extends Fetcher<AuthorizationDocument>
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/HostedNumbers/AuthorizationDocuments/" + this.pathSid + "",
-            client.getRegion()
+            "/HostedNumbers/AuthorizationDocuments/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -59,14 +58,7 @@ public class AuthorizationDocumentFetcher extends Fetcher<AuthorizationDocument>
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return AuthorizationDocument.fromJson(response.getStream(), client.getObjectMapper());

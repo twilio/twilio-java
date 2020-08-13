@@ -17,7 +17,7 @@ public class AccessTokenTest {
 
     private static final String ACCOUNT_SID = "AC123";
     private static final String SIGNING_KEY_SID = "SK123";
-    private static final String SECRET = "secret";
+    private static final String SECRET = "secretsecretsecretsecretsecret00";
 
     private void validateToken(Claims claims) {
         Assert.assertEquals(SIGNING_KEY_SID, claims.getIssuer());
@@ -31,17 +31,50 @@ public class AccessTokenTest {
         Assert.assertTrue(claims.getExpiration().getTime() > new Date().getTime());
     }
 
+    private Claims getClaimFromJwtToken(Jwt token) {
+        return Jwts.parser()
+                   .setSigningKey(SECRET.getBytes())
+                   .parseClaimsJws(token.toJwt())
+                   .getBody();
+    } 
+
+    private void testVoiceToken(Boolean allow) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("foo", "bar");
+
+        VoiceGrant pvg = new VoiceGrant()
+            .setOutgoingApplication("AP123", params)
+            .setIncomingAllow(allow);
+
+        Jwt token =
+            new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
+                .grant(pvg)
+                .build();
+
+        Claims claims = getClaimFromJwtToken(token);
+
+        validateToken(claims);
+        Map<String, Object> decodedGrants = (Map<String, Object>) claims.get("grants");
+        Assert.assertEquals(1, decodedGrants.size());
+
+        Map<String, Object> pvgGrant = (Map<String, Object>) decodedGrants.get("voice");
+
+        Map<String, Object> incoming = (Map<String, Object>) pvgGrant.get("incoming");
+        Assert.assertEquals(allow, incoming.get("allow"));
+
+        Map<String, Object> outgoing = (Map<String, Object>) pvgGrant.get("outgoing");
+        Map<String, Object> outgoingParams = (Map<String, Object>) outgoing.get("params");
+        Assert.assertEquals("AP123", outgoing.get("application_sid"));
+        Assert.assertEquals("bar", outgoingParams.get("foo"));
+    }
+
     @Test
     public void testEmptyToken() {
         Jwt token =
             new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
                 .build();
 
-        Claims claims =
-            Jwts.parser()
-                .setSigningKey(SECRET.getBytes())
-                .parseClaimsJws(token.toJwt())
-                .getBody();
+        Claims claims = getClaimFromJwtToken(token);
 
         validateToken(claims);
     }
@@ -54,11 +87,7 @@ public class AccessTokenTest {
                 .nbf(new Date())
                 .build();
 
-        Claims claims =
-            Jwts.parser()
-                .setSigningKey(SECRET.getBytes())
-                .parseClaimsJws(token.toJwt())
-                .getBody();
+        Claims claims = getClaimFromJwtToken(token);
 
         validateToken(claims);
         Assert.assertTrue(claims.getNotBefore().getTime() <= new Date().getTime());
@@ -72,11 +101,7 @@ public class AccessTokenTest {
                 .grant(cg)
                 .build();
 
-        Claims claims =
-            Jwts.parser()
-                .setSigningKey(SECRET.getBytes())
-                .parseClaimsJws(token.toJwt())
-                .getBody();
+        Claims claims = getClaimFromJwtToken(token);
 
         validateToken(claims);
 
@@ -95,11 +120,7 @@ public class AccessTokenTest {
                 .grant(cg)
                 .build();
 
-        Claims claims =
-            Jwts.parser()
-                .setSigningKey(SECRET.getBytes())
-                .parseClaimsJws(token.toJwt())
-                .getBody();
+        Claims claims = getClaimFromJwtToken(token);
 
         validateToken(claims);
 
@@ -122,11 +143,7 @@ public class AccessTokenTest {
                 .grant(ipg)
                 .build();
 
-        Claims claims =
-            Jwts.parser()
-                .setSigningKey(SECRET.getBytes())
-                .parseClaimsJws(token.toJwt())
-                .getBody();
+        Claims claims = getClaimFromJwtToken(token);
 
         validateToken(claims);
 
@@ -152,11 +169,7 @@ public class AccessTokenTest {
                 .grant(cg)
                 .build();
 
-        Claims claims =
-            Jwts.parser()
-                .setSigningKey(SECRET.getBytes())
-                .parseClaimsJws(token.toJwt())
-                .getBody();
+        Claims claims = getClaimFromJwtToken(token);
 
         validateToken(claims);
 
@@ -180,11 +193,7 @@ public class AccessTokenTest {
                         .grant(sg)
                         .build();
 
-        Claims claims =
-                Jwts.parser()
-                        .setSigningKey(SECRET.getBytes())
-                        .parseClaimsJws(token.toJwt())
-                        .getBody();
+        Claims claims = getClaimFromJwtToken(token);
 
         validateToken(claims);
 
@@ -208,11 +217,7 @@ public class AccessTokenTest {
                         .grant(trg)
                         .build();
 
-        Claims claims =
-                Jwts.parser()
-                        .setSigningKey(SECRET.getBytes())
-                        .parseClaimsJws(token.toJwt())
-                        .getBody();
+        Claims claims = getClaimFromJwtToken(token);
 
         validateToken(claims);
 
@@ -242,11 +247,7 @@ public class AccessTokenTest {
                 .nbf(new Date())
                 .build();
 
-        Claims claims =
-            Jwts.parser()
-                .setSigningKey(SECRET.getBytes())
-                .parseClaimsJws(token.toJwt())
-                .getBody();
+        Claims claims = getClaimFromJwtToken(token);
 
         validateToken(claims);
         Assert.assertTrue(claims.getNotBefore().getTime() <= new Date().getTime());
@@ -265,24 +266,25 @@ public class AccessTokenTest {
     }
 
     @Test
-    public void testVoiceToken() {
+    public void testVoiceTokenWithIncoming() {
+      testVoiceToken(true);
+      testVoiceToken(false);
+    }
+
+    @Test
+    public void testVoiceTokenWithoutIncoming() {
         Map<String, Object> params = new HashMap<>();
         params.put("foo", "bar");
 
         VoiceGrant pvg = new VoiceGrant()
-            .setOutgoingApplication("AP123", params)
-            .setIncomingAllow(true);
+            .setOutgoingApplication("AP123", params);
 
         Jwt token =
             new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
                 .grant(pvg)
                 .build();
 
-        Claims claims =
-            Jwts.parser()
-                .setSigningKey(SECRET.getBytes())
-                .parseClaimsJws(token.toJwt())
-                .getBody();
+        Claims claims = getClaimFromJwtToken(token);
 
         validateToken(claims);
         Map<String, Object> decodedGrants = (Map<String, Object>) claims.get("grants");
@@ -290,12 +292,30 @@ public class AccessTokenTest {
 
         Map<String, Object> pvgGrant = (Map<String, Object>) decodedGrants.get("voice");
 
-        Map<String, Object> incoming = (Map<String, Object>) pvgGrant.get("incoming");
-        Assert.assertEquals(true, incoming.get("allow"));
+        Assert.assertEquals(null, pvgGrant.get("incoming"));
 
         Map<String, Object> outgoing = (Map<String, Object>) pvgGrant.get("outgoing");
         Map<String, Object> outgoingParams = (Map<String, Object>) outgoing.get("params");
         Assert.assertEquals("AP123", outgoing.get("application_sid"));
         Assert.assertEquals("bar", outgoingParams.get("foo"));
+    }
+
+    @Test()
+    public void testNullValues() {
+        ChatGrant cg = new ChatGrant().setDeploymentRoleSid("RL123");
+        Jwt token =
+            new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
+                .grant(cg)
+                .build();
+
+        Claims claims = getClaimFromJwtToken(token);
+        
+        validateToken(claims);
+
+        Map<String, Object> decodedGrants = (Map<String, Object>) claims.get("grants");
+        Map<String, Object> grant = (Map<String, Object>) decodedGrants.get("chat");
+
+        Assert.assertEquals("RL123", grant.get("deployment_role_sid"));
+        Assert.assertFalse(grant.containsKey("endpoint_id"));
     }
 }

@@ -42,54 +42,54 @@ public class Participant extends Resource {
 
     /**
      * Create a ParticipantFetcher to execute fetch.
-     * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
-     * @param pathSid A string that uniquely identifies this Participant.
+     *
+     * @param pathServiceSid The SID of the parent Service of the resource to fetch
+     * @param pathSessionSid The SID of the parent Session of the resource to fetch
+     * @param pathSid The unique string that identifies the resource
      * @return ParticipantFetcher capable of executing the fetch
      */
-    public static ParticipantFetcher fetcher(final String pathServiceSid, 
-                                             final String pathSessionSid, 
+    public static ParticipantFetcher fetcher(final String pathServiceSid,
+                                             final String pathSessionSid,
                                              final String pathSid) {
         return new ParticipantFetcher(pathServiceSid, pathSessionSid, pathSid);
     }
 
     /**
      * Create a ParticipantReader to execute read.
-     * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
+     *
+     * @param pathServiceSid The SID of the parent Service of the resource to read
+     * @param pathSessionSid The SID of the parent Session of the resource to read
      * @return ParticipantReader capable of executing the read
      */
-    public static ParticipantReader reader(final String pathServiceSid, 
+    public static ParticipantReader reader(final String pathServiceSid,
                                            final String pathSessionSid) {
         return new ParticipantReader(pathServiceSid, pathSessionSid);
     }
 
     /**
      * Create a ParticipantCreator to execute create.
-     * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
-     * @param identifier The phone number of this Participant.
+     *
+     * @param pathServiceSid The SID of the parent Service resource
+     * @param pathSessionSid The SID of the parent Session resource
+     * @param identifier The phone number of the Participant
      * @return ParticipantCreator capable of executing the create
      */
-    public static ParticipantCreator creator(final String pathServiceSid, 
-                                             final String pathSessionSid, 
+    public static ParticipantCreator creator(final String pathServiceSid,
+                                             final String pathSessionSid,
                                              final String identifier) {
         return new ParticipantCreator(pathServiceSid, pathSessionSid, identifier);
     }
 
     /**
      * Create a ParticipantDeleter to execute delete.
-     * 
-     * @param pathServiceSid Service Sid.
-     * @param pathSessionSid Session Sid.
-     * @param pathSid A string that uniquely identifies this Participant.
+     *
+     * @param pathServiceSid The SID of the parent Service of the resource to delete
+     * @param pathSessionSid The SID of the parent Session of the resource to delete
+     * @param pathSid The unique string that identifies the resource
      * @return ParticipantDeleter capable of executing the delete
      */
-    public static ParticipantDeleter deleter(final String pathServiceSid, 
-                                             final String pathSessionSid, 
+    public static ParticipantDeleter deleter(final String pathServiceSid,
+                                             final String pathSessionSid,
                                              final String pathSid) {
         return new ParticipantDeleter(pathServiceSid, pathSessionSid, pathSid);
     }
@@ -97,7 +97,7 @@ public class Participant extends Resource {
     /**
      * Converts a JSON String into a Participant object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Participant object represented by the provided JSON
@@ -116,7 +116,7 @@ public class Participant extends Resource {
     /**
      * Converts a JSON InputStream into a Participant object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Participant object represented by the provided JSON
@@ -148,29 +148,29 @@ public class Participant extends Resource {
 
     @JsonCreator
     private Participant(@JsonProperty("sid")
-                        final String sid, 
+                        final String sid,
                         @JsonProperty("session_sid")
-                        final String sessionSid, 
+                        final String sessionSid,
                         @JsonProperty("service_sid")
-                        final String serviceSid, 
+                        final String serviceSid,
                         @JsonProperty("account_sid")
-                        final String accountSid, 
+                        final String accountSid,
                         @JsonProperty("friendly_name")
-                        final String friendlyName, 
+                        final String friendlyName,
                         @JsonProperty("identifier")
-                        final String identifier, 
+                        final String identifier,
                         @JsonProperty("proxy_identifier")
-                        final String proxyIdentifier, 
+                        final String proxyIdentifier,
                         @JsonProperty("proxy_identifier_sid")
-                        final String proxyIdentifierSid, 
+                        final String proxyIdentifierSid,
                         @JsonProperty("date_deleted")
-                        final String dateDeleted, 
+                        final String dateDeleted,
                         @JsonProperty("date_created")
-                        final String dateCreated, 
+                        final String dateCreated,
                         @JsonProperty("date_updated")
-                        final String dateUpdated, 
+                        final String dateUpdated,
                         @JsonProperty("url")
-                        final URI url, 
+                        final URI url,
                         @JsonProperty("links")
                         final Map<String, String> links) {
         this.sid = sid;
@@ -189,117 +189,117 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Participant..
-     * 
-     * @return A string that uniquely identifies this Participant.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Session Sid..
-     * 
-     * @return Session Sid.
+     * Returns The SID of the resource's parent Session.
+     *
+     * @return The SID of the resource's parent Session
      */
     public final String getSessionSid() {
         return this.sessionSid;
     }
 
     /**
-     * Returns The Service Sid..
-     * 
-     * @return Service Sid.
+     * Returns The SID of the resource's parent Service.
+     *
+     * @return The SID of the resource's parent Service
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The Account Sid..
-     * 
-     * @return Account Sid.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The A human-readable description of this resource..
-     * 
-     * @return A human-readable description of this resource.
+     * Returns The string that you assigned to describe the participant.
+     *
+     * @return The string that you assigned to describe the participant
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The phone number of this Participant..
-     * 
-     * @return The phone number of this Participant.
+     * Returns The phone number of the Participant.
+     *
+     * @return The phone number of the Participant
      */
     public final String getIdentifier() {
         return this.identifier;
     }
 
     /**
-     * Returns The Proxy Identifier..
-     * 
-     * @return Proxy Identifier.
+     * Returns The phone number or short code of the participant's partner.
+     *
+     * @return The phone number or short code of the participant's partner
      */
     public final String getProxyIdentifier() {
         return this.proxyIdentifier;
     }
 
     /**
-     * Returns The Proxy Identifier Sid..
-     * 
-     * @return Proxy Identifier Sid.
+     * Returns The SID of the Proxy Identifier assigned to the Participant.
+     *
+     * @return The SID of the Proxy Identifier assigned to the Participant
      */
     public final String getProxyIdentifierSid() {
         return this.proxyIdentifierSid;
     }
 
     /**
-     * Returns The The date this Participant was removed.
-     * 
-     * @return The date this Participant was removed
+     * Returns The ISO 8601 date the Participant was removed.
+     *
+     * @return The ISO 8601 date the Participant was removed
      */
     public final DateTime getDateDeleted() {
         return this.dateDeleted;
     }
 
     /**
-     * Returns The The date this Participant was created.
-     * 
-     * @return The date this Participant was created
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Participant was last updated.
-     * 
-     * @return The date this Participant was last updated
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     *
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL of this resource..
-     * 
-     * @return The URL of this resource.
+     * Returns The absolute URL of the Participant resource.
+     *
+     * @return The absolute URL of the Participant resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Nested resource URLs..
-     * 
-     * @return Nested resource URLs.
+     * Returns The URLs to resources related the participant.
+     *
+     * @return The URLs to resources related the participant
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -317,18 +317,18 @@ public class Participant extends Resource {
 
         Participant other = (Participant) o;
 
-        return Objects.equals(sid, other.sid) && 
-               Objects.equals(sessionSid, other.sessionSid) && 
-               Objects.equals(serviceSid, other.serviceSid) && 
-               Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(identifier, other.identifier) && 
-               Objects.equals(proxyIdentifier, other.proxyIdentifier) && 
-               Objects.equals(proxyIdentifierSid, other.proxyIdentifierSid) && 
-               Objects.equals(dateDeleted, other.dateDeleted) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(sessionSid, other.sessionSid) &&
+               Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(identifier, other.identifier) &&
+               Objects.equals(proxyIdentifier, other.proxyIdentifier) &&
+               Objects.equals(proxyIdentifierSid, other.proxyIdentifierSid) &&
+               Objects.equals(dateDeleted, other.dateDeleted) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

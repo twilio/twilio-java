@@ -24,19 +24,19 @@ public class RatePlanUpdater extends Updater<RatePlan> {
 
     /**
      * Construct a new RatePlanUpdater.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The SID that identifies the resource to update
      */
     public RatePlanUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
     /**
-     * A user-provided string that uniquely identifies this resource as an
-     * alternative to the Sid..
-     * 
-     * @param uniqueName A user-provided string that uniquely identifies this
-     *                   resource as an alternative to the Sid.
+     * An application-defined string that uniquely identifies the resource. It can
+     * be used in place of the resource's `sid` in the URL to address the resource..
+     *
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      * @return this
      */
     public RatePlanUpdater setUniqueName(final String uniqueName) {
@@ -45,9 +45,10 @@ public class RatePlanUpdater extends Updater<RatePlan> {
     }
 
     /**
-     * A user-provided string that identifies this resource. Non-unique..
-     * 
-     * @param friendlyName A user-provided string that identifies this resource.
+     * A descriptive string that you create to describe the resource. It does not
+     * have to be unique..
+     *
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public RatePlanUpdater setFriendlyName(final String friendlyName) {
@@ -57,7 +58,7 @@ public class RatePlanUpdater extends Updater<RatePlan> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated RatePlan
      */
@@ -67,8 +68,7 @@ public class RatePlanUpdater extends Updater<RatePlan> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.WIRELESS.toString(),
-            "/v1/RatePlans/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/RatePlans/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -81,14 +81,7 @@ public class RatePlanUpdater extends Updater<RatePlan> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return RatePlan.fromJson(response.getStream(), client.getObjectMapper());
@@ -96,7 +89,7 @@ public class RatePlanUpdater extends Updater<RatePlan> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

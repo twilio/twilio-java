@@ -22,8 +22,8 @@ public class ServiceFetcher extends Fetcher<Service> {
 
     /**
      * Construct a new ServiceFetcher.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      */
     public ServiceFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -31,7 +31,7 @@ public class ServiceFetcher extends Fetcher<Service> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched Service
      */
@@ -41,8 +41,7 @@ public class ServiceFetcher extends Fetcher<Service> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.CHAT.toString(),
-            "/v1/Services/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -54,14 +53,7 @@ public class ServiceFetcher extends Fetcher<Service> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Service.fromJson(response.getStream(), client.getObjectMapper());

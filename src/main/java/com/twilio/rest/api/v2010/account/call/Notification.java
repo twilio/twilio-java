@@ -38,72 +38,48 @@ public class Notification extends Resource {
 
     /**
      * Create a NotificationFetcher to execute fetch.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathCallSid The call_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resource to
+     *                       fetch
+     * @param pathCallSid The Call SID of the resource to fetch
+     * @param pathSid The unique string that identifies the resource
      * @return NotificationFetcher capable of executing the fetch
      */
-    public static NotificationFetcher fetcher(final String pathAccountSid, 
-                                              final String pathCallSid, 
+    public static NotificationFetcher fetcher(final String pathAccountSid,
+                                              final String pathCallSid,
                                               final String pathSid) {
         return new NotificationFetcher(pathAccountSid, pathCallSid, pathSid);
     }
 
     /**
      * Create a NotificationFetcher to execute fetch.
-     * 
-     * @param pathCallSid The call_sid
-     * @param pathSid The sid
+     *
+     * @param pathCallSid The Call SID of the resource to fetch
+     * @param pathSid The unique string that identifies the resource
      * @return NotificationFetcher capable of executing the fetch
      */
-    public static NotificationFetcher fetcher(final String pathCallSid, 
+    public static NotificationFetcher fetcher(final String pathCallSid,
                                               final String pathSid) {
         return new NotificationFetcher(pathCallSid, pathSid);
     }
 
     /**
-     * Create a NotificationDeleter to execute delete.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathCallSid The call_sid
-     * @param pathSid The sid
-     * @return NotificationDeleter capable of executing the delete
-     */
-    public static NotificationDeleter deleter(final String pathAccountSid, 
-                                              final String pathCallSid, 
-                                              final String pathSid) {
-        return new NotificationDeleter(pathAccountSid, pathCallSid, pathSid);
-    }
-
-    /**
-     * Create a NotificationDeleter to execute delete.
-     * 
-     * @param pathCallSid The call_sid
-     * @param pathSid The sid
-     * @return NotificationDeleter capable of executing the delete
-     */
-    public static NotificationDeleter deleter(final String pathCallSid, 
-                                              final String pathSid) {
-        return new NotificationDeleter(pathCallSid, pathSid);
-    }
-
-    /**
      * Create a NotificationReader to execute read.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathCallSid The call_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
+     * @param pathCallSid The Call SID of the resources to read
      * @return NotificationReader capable of executing the read
      */
-    public static NotificationReader reader(final String pathAccountSid, 
+    public static NotificationReader reader(final String pathAccountSid,
                                             final String pathCallSid) {
         return new NotificationReader(pathAccountSid, pathCallSid);
     }
 
     /**
      * Create a NotificationReader to execute read.
-     * 
-     * @param pathCallSid The call_sid
+     *
+     * @param pathCallSid The Call SID of the resources to read
      * @return NotificationReader capable of executing the read
      */
     public static NotificationReader reader(final String pathCallSid) {
@@ -113,7 +89,7 @@ public class Notification extends Resource {
     /**
      * Converts a JSON String into a Notification object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Notification object represented by the provided JSON
@@ -132,7 +108,7 @@ public class Notification extends Resource {
     /**
      * Converts a JSON InputStream into a Notification object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Notification object represented by the provided JSON
@@ -168,37 +144,37 @@ public class Notification extends Resource {
 
     @JsonCreator
     private Notification(@JsonProperty("account_sid")
-                         final String accountSid, 
+                         final String accountSid,
                          @JsonProperty("api_version")
-                         final String apiVersion, 
+                         final String apiVersion,
                          @JsonProperty("call_sid")
-                         final String callSid, 
+                         final String callSid,
                          @JsonProperty("date_created")
-                         final String dateCreated, 
+                         final String dateCreated,
                          @JsonProperty("date_updated")
-                         final String dateUpdated, 
+                         final String dateUpdated,
                          @JsonProperty("error_code")
-                         final String errorCode, 
+                         final String errorCode,
                          @JsonProperty("log")
-                         final String log, 
+                         final String log,
                          @JsonProperty("message_date")
-                         final String messageDate, 
+                         final String messageDate,
                          @JsonProperty("message_text")
-                         final String messageText, 
+                         final String messageText,
                          @JsonProperty("more_info")
-                         final URI moreInfo, 
+                         final URI moreInfo,
                          @JsonProperty("request_method")
-                         final HttpMethod requestMethod, 
+                         final HttpMethod requestMethod,
                          @JsonProperty("request_url")
-                         final URI requestUrl, 
+                         final URI requestUrl,
                          @JsonProperty("request_variables")
-                         final String requestVariables, 
+                         final String requestVariables,
                          @JsonProperty("response_body")
-                         final String responseBody, 
+                         final String responseBody,
                          @JsonProperty("response_headers")
-                         final String responseHeaders, 
+                         final String responseHeaders,
                          @JsonProperty("sid")
-                         final String sid, 
+                         final String sid,
                          @JsonProperty("uri")
                          final String uri) {
         this.accountSid = accountSid;
@@ -221,153 +197,153 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
-     * 
-     * @return The account_sid
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The api_version.
-     * 
-     * @return The api_version
+     * Returns The API version used to create the Call Notification resource.
+     *
+     * @return The API version used to create the Call Notification resource
      */
     public final String getApiVersion() {
         return this.apiVersion;
     }
 
     /**
-     * Returns The The call_sid.
-     * 
-     * @return The call_sid
+     * Returns The SID of the Call the resource is associated with.
+     *
+     * @return The SID of the Call the resource is associated with
      */
     public final String getCallSid() {
         return this.callSid;
     }
 
     /**
-     * Returns The The date_created.
-     * 
-     * @return The date_created
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
+     *
+     * @return The RFC 2822 date and time in GMT that the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
-     * 
-     * @return The date_updated
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
+     *
+     * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The error_code.
-     * 
-     * @return The error_code
+     * Returns A unique error code corresponding to the notification.
+     *
+     * @return A unique error code corresponding to the notification
      */
     public final String getErrorCode() {
         return this.errorCode;
     }
 
     /**
-     * Returns The The log.
-     * 
-     * @return The log
+     * Returns An integer log level.
+     *
+     * @return An integer log level
      */
     public final String getLog() {
         return this.log;
     }
 
     /**
-     * Returns The The message_date.
-     * 
-     * @return The message_date
+     * Returns The date the notification was generated.
+     *
+     * @return The date the notification was generated
      */
     public final DateTime getMessageDate() {
         return this.messageDate;
     }
 
     /**
-     * Returns The The message_text.
-     * 
-     * @return The message_text
+     * Returns The text of the notification.
+     *
+     * @return The text of the notification
      */
     public final String getMessageText() {
         return this.messageText;
     }
 
     /**
-     * Returns The The more_info.
-     * 
-     * @return The more_info
+     * Returns A URL for more information about the error code.
+     *
+     * @return A URL for more information about the error code
      */
     public final URI getMoreInfo() {
         return this.moreInfo;
     }
 
     /**
-     * Returns The The request_method.
-     * 
-     * @return The request_method
+     * Returns HTTP method used with the request url.
+     *
+     * @return HTTP method used with the request url
      */
     public final HttpMethod getRequestMethod() {
         return this.requestMethod;
     }
 
     /**
-     * Returns The The request_url.
-     * 
-     * @return The request_url
+     * Returns URL of the resource that generated the notification.
+     *
+     * @return URL of the resource that generated the notification
      */
     public final URI getRequestUrl() {
         return this.requestUrl;
     }
 
     /**
-     * Returns The The request_variables.
-     * 
-     * @return The request_variables
+     * Returns Twilio-generated HTTP variables sent to the server.
+     *
+     * @return Twilio-generated HTTP variables sent to the server
      */
     public final String getRequestVariables() {
         return this.requestVariables;
     }
 
     /**
-     * Returns The The response_body.
-     * 
-     * @return The response_body
+     * Returns The HTTP body returned by your server.
+     *
+     * @return The HTTP body returned by your server
      */
     public final String getResponseBody() {
         return this.responseBody;
     }
 
     /**
-     * Returns The The response_headers.
-     * 
-     * @return The response_headers
+     * Returns The HTTP headers returned by your server.
+     *
+     * @return The HTTP headers returned by your server
      */
     public final String getResponseHeaders() {
         return this.responseHeaders;
     }
 
     /**
-     * Returns The The sid.
-     * 
-     * @return The sid
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The uri.
-     * 
-     * @return The uri
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
+     *
+     * @return The URI of the resource, relative to `https://api.twilio.com`
      */
     public final String getUri() {
         return this.uri;
@@ -385,22 +361,22 @@ public class Notification extends Resource {
 
         Notification other = (Notification) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(apiVersion, other.apiVersion) && 
-               Objects.equals(callSid, other.callSid) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(errorCode, other.errorCode) && 
-               Objects.equals(log, other.log) && 
-               Objects.equals(messageDate, other.messageDate) && 
-               Objects.equals(messageText, other.messageText) && 
-               Objects.equals(moreInfo, other.moreInfo) && 
-               Objects.equals(requestMethod, other.requestMethod) && 
-               Objects.equals(requestUrl, other.requestUrl) && 
-               Objects.equals(requestVariables, other.requestVariables) && 
-               Objects.equals(responseBody, other.responseBody) && 
-               Objects.equals(responseHeaders, other.responseHeaders) && 
-               Objects.equals(sid, other.sid) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(apiVersion, other.apiVersion) &&
+               Objects.equals(callSid, other.callSid) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(errorCode, other.errorCode) &&
+               Objects.equals(log, other.log) &&
+               Objects.equals(messageDate, other.messageDate) &&
+               Objects.equals(messageText, other.messageText) &&
+               Objects.equals(moreInfo, other.moreInfo) &&
+               Objects.equals(requestMethod, other.requestMethod) &&
+               Objects.equals(requestUrl, other.requestUrl) &&
+               Objects.equals(requestVariables, other.requestVariables) &&
+               Objects.equals(responseBody, other.responseBody) &&
+               Objects.equals(responseHeaders, other.responseHeaders) &&
+               Objects.equals(sid, other.sid) &&
                Objects.equals(uri, other.uri);
     }
 

@@ -78,7 +78,7 @@ public class DialTest {
     public void testElementWithChildren() {
         Dial.Builder builder = new Dial.Builder();
 
-        builder.client(new Client.Builder("name")
+        builder.client(new Client.Builder("identity")
                     .url(URI.create("https://example.com"))
                     .method(HttpMethod.GET)
                     .statusCallbackEvents(Promoter.listOfOne(Client.Event.INITIATED))
@@ -96,14 +96,14 @@ public class DialTest {
                     .maxParticipants(1)
                     .record(Conference.Record.DO_NOT_RECORD)
                     .region(Conference.Region.US1)
-                    .whisper("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+                    .coach("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
                     .trim(Conference.Trim.TRIM_SILENCE)
                     .statusCallbackEvents(Promoter.listOfOne(Conference.Event.START))
                     .statusCallback(URI.create("https://example.com"))
                     .statusCallbackMethod(HttpMethod.GET)
                     .recordingStatusCallback(URI.create("https://example.com"))
                     .recordingStatusCallbackMethod(HttpMethod.GET)
-                    .recordingStatusCallbackEvents(Promoter.listOfOne(Conference.RecordingEvent.STARTED))
+                    .recordingStatusCallbackEvents(Promoter.listOfOne(Conference.RecordingEvent.IN_PROGRESS))
                     .eventCallbackUrl(URI.create("https://example.com"))
                     .build());
 
@@ -114,6 +114,7 @@ public class DialTest {
                     .statusCallbackEvents(Promoter.listOfOne(Number.Event.INITIATED))
                     .statusCallback(URI.create("https://example.com"))
                     .statusCallbackMethod(HttpMethod.GET)
+                    .byoc("BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
                     .build());
 
         builder.queue(new Queue.Builder("name")
@@ -140,9 +141,9 @@ public class DialTest {
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Dial>" +
-                "<Client method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">name</Client>" +
-                "<Conference beep=\"true\" endConferenceOnExit=\"true\" eventCallbackUrl=\"https://example.com\" maxParticipants=\"1\" muted=\"true\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"started\" recordingStatusCallbackMethod=\"GET\" region=\"us1\" startConferenceOnEnter=\"true\" statusCallback=\"https://example.com\" statusCallbackEvent=\"start\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" waitMethod=\"GET\" waitUrl=\"https://example.com\" whisper=\"CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\">name</Conference>" +
-                "<Number method=\"GET\" sendDigits=\"send_digits\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">+15017122661</Number>" +
+                "<Client method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">identity</Client>" +
+                "<Conference beep=\"true\" coach=\"CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" endConferenceOnExit=\"true\" eventCallbackUrl=\"https://example.com\" maxParticipants=\"1\" muted=\"true\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" region=\"us1\" startConferenceOnEnter=\"true\" statusCallback=\"https://example.com\" statusCallbackEvent=\"start\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" waitMethod=\"GET\" waitUrl=\"https://example.com\">name</Conference>" +
+                "<Number byoc=\"BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" method=\"GET\" sendDigits=\"send_digits\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">+15017122661</Number>" +
                 "<Queue method=\"GET\" postWorkActivitySid=\"post_work_activity_sid\" reservationSid=\"reservation_sid\" url=\"https://example.com\">name</Queue>" +
                 "<Sim>DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</Sim>" +
                 "<Sip method=\"GET\" password=\"password\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\" username=\"username\">https://example.com</Sip>" +

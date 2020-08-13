@@ -42,7 +42,7 @@ public class WorkspaceCumulativeStatisticsTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.TASKROUTER.toString(),
                                           "/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CumulativeStatistics");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);

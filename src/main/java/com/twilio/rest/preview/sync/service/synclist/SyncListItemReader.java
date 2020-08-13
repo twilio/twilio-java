@@ -33,11 +33,11 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * Construct a new SyncListItemReader.
-     * 
+     *
      * @param pathServiceSid The service_sid
      * @param pathListSid The list_sid
      */
-    public SyncListItemReader(final String pathServiceSid, 
+    public SyncListItemReader(final String pathServiceSid,
                               final String pathListSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathListSid = pathListSid;
@@ -45,7 +45,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * The order.
-     * 
+     *
      * @param order The order
      * @return this
      */
@@ -56,7 +56,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * The from.
-     * 
+     *
      * @param from The from
      * @return this
      */
@@ -67,7 +67,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * The bounds.
-     * 
+     *
      * @param bounds The bounds
      * @return this
      */
@@ -78,7 +78,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return SyncListItem ResourceSet
      */
@@ -89,7 +89,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return SyncListItem ResourceSet
      */
@@ -99,8 +99,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Items",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Items"
         );
 
         addQueryParams(request);
@@ -109,7 +108,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return SyncListItem ResourceSet
@@ -127,47 +126,41 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<SyncListItem> nextPage(final Page<SyncListItem> page, 
+    public Page<SyncListItem> nextPage(final Page<SyncListItem> page,
                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<SyncListItem> previousPage(final Page<SyncListItem> page, 
+    public Page<SyncListItem> previousPage(final Page<SyncListItem> page,
                                            final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.PREVIEW.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.PREVIEW.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of SyncListItem Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -182,14 +175,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -202,7 +188,7 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

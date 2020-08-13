@@ -29,7 +29,7 @@ public class FleetUpdater extends Updater<Fleet> {
 
     /**
      * Construct a new FleetUpdater.
-     * 
+     *
      * @param pathSid A string that uniquely identifies the Fleet.
      */
     public FleetUpdater(final String pathSid) {
@@ -39,7 +39,7 @@ public class FleetUpdater extends Updater<Fleet> {
     /**
      * Provides a human readable descriptive text for this Fleet, up to 256
      * characters long..
-     * 
+     *
      * @param friendlyName A human readable description for this Fleet.
      * @return this
      */
@@ -51,7 +51,7 @@ public class FleetUpdater extends Updater<Fleet> {
     /**
      * Provides a string identifier of a Deployment that is going to be used as a
      * default one for this Fleet..
-     * 
+     *
      * @param defaultDeploymentSid A default Deployment SID.
      * @return this
      */
@@ -62,7 +62,7 @@ public class FleetUpdater extends Updater<Fleet> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Fleet
      */
@@ -72,8 +72,7 @@ public class FleetUpdater extends Updater<Fleet> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathSid + "",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -86,14 +85,7 @@ public class FleetUpdater extends Updater<Fleet> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Fleet.fromJson(response.getStream(), client.getObjectMapper());
@@ -101,7 +93,7 @@ public class FleetUpdater extends Updater<Fleet> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

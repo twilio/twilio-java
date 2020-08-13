@@ -41,7 +41,7 @@ public class Play extends TwiML {
 
     /**
      * The body of the TwiML element
-     * 
+     *
      * @return Element body as a string if present else null
      */
     protected String getElementBody() {
@@ -50,7 +50,7 @@ public class Play extends TwiML {
 
     /**
      * Attributes to set on the generated XML element
-     * 
+     *
      * @return A Map of attribute keys to values
      */
     protected Map<String, String> getElementAttributes() {
@@ -69,7 +69,7 @@ public class Play extends TwiML {
 
     /**
      * Times to loop media
-     * 
+     *
      * @return Times to loop media
      */
     public Integer getLoop() {
@@ -78,7 +78,7 @@ public class Play extends TwiML {
 
     /**
      * Play DTMF tones for digits
-     * 
+     *
      * @return Play DTMF tones for digits
      */
     public String getDigits() {
@@ -87,7 +87,7 @@ public class Play extends TwiML {
 
     /**
      * Media URL
-     * 
+     *
      * @return Media URL
      */
     public URI getUrl() {

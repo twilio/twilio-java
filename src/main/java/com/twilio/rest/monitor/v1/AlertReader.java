@@ -19,18 +19,18 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.LocalDate;
+import org.joda.time.DateTime;
 
 public class AlertReader extends Reader<Alert> {
     private String logLevel;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private DateTime startDate;
+    private DateTime endDate;
 
     /**
-     * Only show alerts for this log-level.  One of 'error', 'warning', 'notice', or
-     * 'debug'..
-     * 
-     * @param logLevel Only show alerts for this log-level.
+     * Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`,
+     * or `debug`..
+     *
+     * @param logLevel Only show alerts for this log-level
      * @return this
      */
     public AlertReader setLogLevel(final String logLevel) {
@@ -39,38 +39,37 @@ public class AlertReader extends Reader<Alert> {
     }
 
     /**
-     * Only show Alerts on or after this date.  Useful in combination with `EndDate`
-     * to define a date-range of Alerts.  Input is a [UTC ISO 8601
-     * Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC), but time of day is
-     * ignored by the filter. Queries for Alerts older than 30 days are not
-     * supported..
-     * 
-     * @param startDate Only show Alerts on or after this date.
+     * Only include alerts that occurred on or after this date and time. Specify the
+     * date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`.
+     * Queries for alerts older than 30 days are not supported..
+     *
+     * @param startDate Only include alerts that occurred on or after this date and
+     *                  time
      * @return this
      */
-    public AlertReader setStartDate(final LocalDate startDate) {
+    public AlertReader setStartDate(final DateTime startDate) {
         this.startDate = startDate;
         return this;
     }
 
     /**
-     * Only show Alerts on or before this date.  Useful in combination with
-     * `StartDate` to define a date-range of Alerts.  Input is a [UTC ISO 8601
-     * Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC), but time of day is
-     * ignored by the filter. Queries for Alerts older than 30 days are not
+     * Only include alerts that occurred on or before this date and time. Specify
+     * the date and time in GMT and format as `YYYY-MM-DD` or
+     * `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not
      * supported..
-     * 
-     * @param endDate Only show Alerts on or before this date.
+     *
+     * @param endDate Only include alerts that occurred on or before this date and
+     *                time
      * @return this
      */
-    public AlertReader setEndDate(final LocalDate endDate) {
+    public AlertReader setEndDate(final DateTime endDate) {
         this.endDate = endDate;
         return this;
     }
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Alert ResourceSet
      */
@@ -81,7 +80,7 @@ public class AlertReader extends Reader<Alert> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Alert ResourceSet
      */
@@ -91,8 +90,7 @@ public class AlertReader extends Reader<Alert> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.MONITOR.toString(),
-            "/v1/Alerts",
-            client.getRegion()
+            "/v1/Alerts"
         );
 
         addQueryParams(request);
@@ -101,7 +99,7 @@ public class AlertReader extends Reader<Alert> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return Alert ResourceSet
@@ -119,47 +117,41 @@ public class AlertReader extends Reader<Alert> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<Alert> nextPage(final Page<Alert> page, 
+    public Page<Alert> nextPage(final Page<Alert> page,
                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.MONITOR.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.MONITOR.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<Alert> previousPage(final Page<Alert> page, 
+    public Page<Alert> previousPage(final Page<Alert> page,
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.MONITOR.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.MONITOR.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of Alert Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -174,14 +166,7 @@ public class AlertReader extends Reader<Alert> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -194,7 +179,7 @@ public class AlertReader extends Reader<Alert> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
@@ -203,11 +188,11 @@ public class AlertReader extends Reader<Alert> {
         }
 
         if (startDate != null) {
-            request.addQueryParam("StartDate", DateConverter.dateStringFromLocalDate(startDate));
+            request.addQueryParam("StartDate", startDate.toString());
         }
 
         if (endDate != null) {
-            request.addQueryParam("EndDate", DateConverter.dateStringFromLocalDate(endDate));
+            request.addQueryParam("EndDate", endDate.toString());
         }
 
         if (getPageSize() != null) {

@@ -24,7 +24,6 @@ public class DomainCreator extends Creator<Domain> {
     private String pathAccountSid;
     private final String domainName;
     private String friendlyName;
-    private String authType;
     private URI voiceUrl;
     private HttpMethod voiceMethod;
     private URI voiceFallbackUrl;
@@ -32,10 +31,14 @@ public class DomainCreator extends Creator<Domain> {
     private URI voiceStatusCallbackUrl;
     private HttpMethod voiceStatusCallbackMethod;
     private Boolean sipRegistration;
+    private Boolean emergencyCallingEnabled;
+    private Boolean secure;
+    private String byocTrunkSid;
+    private String emergencyCallerSid;
 
     /**
      * Construct a new DomainCreator.
-     * 
+     *
      * @param domainName The unique address on Twilio to route SIP traffic
      */
     public DomainCreator(final String domainName) {
@@ -44,20 +47,21 @@ public class DomainCreator extends Creator<Domain> {
 
     /**
      * Construct a new DomainCreator.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The SID of the Account that will create the resource
      * @param domainName The unique address on Twilio to route SIP traffic
      */
-    public DomainCreator(final String pathAccountSid, 
+    public DomainCreator(final String pathAccountSid,
                          final String domainName) {
         this.pathAccountSid = pathAccountSid;
         this.domainName = domainName;
     }
 
     /**
-     * A human readable descriptive text, up to 64 characters long..
-     * 
-     * @param friendlyName A user-specified, human-readable name for the trigger.
+     * A descriptive string that you created to describe the resource. It can be up
+     * to 64 characters long..
+     *
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public DomainCreator setFriendlyName(final String friendlyName) {
@@ -66,20 +70,9 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The types of authentication you have mapped to your domain.
-     * 
-     * @param authType The types of authentication mapped to the domain
-     * @return this
-     */
-    public DomainCreator setAuthType(final String authType) {
-        this.authType = authType;
-        return this;
-    }
-
-    /**
-     * The URL Twilio will request when this domain receives a call..
-     * 
-     * @param voiceUrl URL Twilio will request when receiving a call
+     * The URL we should when the domain receives a call..
+     *
+     * @param voiceUrl The URL we should call when receiving a call
      * @return this
      */
     public DomainCreator setVoiceUrl(final URI voiceUrl) {
@@ -88,9 +81,9 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The URL Twilio will request when this domain receives a call..
-     * 
-     * @param voiceUrl URL Twilio will request when receiving a call
+     * The URL we should when the domain receives a call..
+     *
+     * @param voiceUrl The URL we should call when receiving a call
      * @return this
      */
     public DomainCreator setVoiceUrl(final String voiceUrl) {
@@ -98,10 +91,9 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The HTTP method Twilio will use when requesting the above Url. Either `GET`
-     * or `POST`..
-     * 
-     * @param voiceMethod HTTP method to use with voice_url
+     * The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`..
+     *
+     * @param voiceMethod The HTTP method to use with voice_url
      * @return this
      */
     public DomainCreator setVoiceMethod(final HttpMethod voiceMethod) {
@@ -110,10 +102,10 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The URL that Twilio will request if an error occurs retrieving or executing
-     * the TwiML requested by VoiceUrl..
-     * 
-     * @param voiceFallbackUrl URL Twilio will request if an error occurs in
+     * The URL that we should call when an error occurs while retrieving or
+     * executing the TwiML from `voice_url`..
+     *
+     * @param voiceFallbackUrl The URL we should call when an error occurs in
      *                         executing TwiML
      * @return this
      */
@@ -123,10 +115,10 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The URL that Twilio will request if an error occurs retrieving or executing
-     * the TwiML requested by VoiceUrl..
-     * 
-     * @param voiceFallbackUrl URL Twilio will request if an error occurs in
+     * The URL that we should call when an error occurs while retrieving or
+     * executing the TwiML from `voice_url`..
+     *
+     * @param voiceFallbackUrl The URL we should call when an error occurs in
      *                         executing TwiML
      * @return this
      */
@@ -135,10 +127,10 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The HTTP method Twilio will use when requesting the VoiceFallbackUrl. Either
-     * `GET` or `POST`..
-     * 
-     * @param voiceFallbackMethod HTTP method used with voice_fallback_url
+     * The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or
+     * `POST`..
+     *
+     * @param voiceFallbackMethod The HTTP method to use with voice_fallback_url
      * @return this
      */
     public DomainCreator setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod) {
@@ -147,10 +139,10 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The URL that Twilio will request to pass status parameters (such as call
-     * ended) to your application..
-     * 
-     * @param voiceStatusCallbackUrl URL that Twilio will request with status
+     * The URL that we should call to pass status parameters (such as call ended) to
+     * your application..
+     *
+     * @param voiceStatusCallbackUrl The URL that we should call to pass status
      *                               updates
      * @return this
      */
@@ -160,10 +152,10 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The URL that Twilio will request to pass status parameters (such as call
-     * ended) to your application..
-     * 
-     * @param voiceStatusCallbackUrl URL that Twilio will request with status
+     * The URL that we should call to pass status parameters (such as call ended) to
+     * your application..
+     *
+     * @param voiceStatusCallbackUrl The URL that we should call to pass status
      *                               updates
      * @return this
      */
@@ -172,11 +164,11 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The HTTP method Twilio will use to make requests to the StatusCallback URL.
-     * Either `GET` or `POST`..
-     * 
-     * @param voiceStatusCallbackMethod The HTTP method Twilio will use to make
-     *                                  requests to the StatusCallback URL.
+     * The HTTP method we should use to call `voice_status_callback_url`. Can be:
+     * `GET` or `POST`..
+     *
+     * @param voiceStatusCallbackMethod The HTTP method we should use to call
+     *                                  `voice_status_callback_url`
      * @return this
      */
     public DomainCreator setVoiceStatusCallbackMethod(final HttpMethod voiceStatusCallbackMethod) {
@@ -185,9 +177,11 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The sip_registration.
-     * 
-     * @param sipRegistration The sip_registration
+     * Whether to allow SIP Endpoints to register with the domain to receive calls.
+     * Can be `true` or `false`. `true` allows SIP Endpoints to register with the
+     * domain to receive calls, `false` does not..
+     *
+     * @param sipRegistration Whether SIP registration is allowed
      * @return this
      */
     public DomainCreator setSipRegistration(final Boolean sipRegistration) {
@@ -196,8 +190,59 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
+     * Whether emergency calling is enabled for the domain. If enabled, allows
+     * emergency calls on the domain from phone numbers with validated addresses..
+     *
+     * @param emergencyCallingEnabled Whether emergency calling is enabled for the
+     *                                domain.
+     * @return this
+     */
+    public DomainCreator setEmergencyCallingEnabled(final Boolean emergencyCallingEnabled) {
+        this.emergencyCallingEnabled = emergencyCallingEnabled;
+        return this;
+    }
+
+    /**
+     * Whether secure SIP is enabled for the domain. If enabled, TLS will be
+     * enforced and SRTP will be negotiated on all incoming calls to this sip
+     * domain..
+     *
+     * @param secure Whether secure SIP is enabled for the domain
+     * @return this
+     */
+    public DomainCreator setSecure(final Boolean secure) {
+        this.secure = secure;
+        return this;
+    }
+
+    /**
+     * The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip
+     * Domain will be associated with..
+     *
+     * @param byocTrunkSid The SID of the BYOC Trunk resource.
+     * @return this
+     */
+    public DomainCreator setByocTrunkSid(final String byocTrunkSid) {
+        this.byocTrunkSid = byocTrunkSid;
+        return this;
+    }
+
+    /**
+     * Whether an emergency caller sid is configured for the domain. If present,
+     * this phone number will be used as the callback for the emergency call..
+     *
+     * @param emergencyCallerSid Whether an emergency caller sid is configured for
+     *                           the domain.
+     * @return this
+     */
+    public DomainCreator setEmergencyCallerSid(final String emergencyCallerSid) {
+        this.emergencyCallerSid = emergencyCallerSid;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Domain
      */
@@ -208,8 +253,7 @@ public class DomainCreator extends Creator<Domain> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/SIP/Domains.json"
         );
 
         addPostParams(request);
@@ -222,14 +266,7 @@ public class DomainCreator extends Creator<Domain> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Domain.fromJson(response.getStream(), client.getObjectMapper());
@@ -237,7 +274,7 @@ public class DomainCreator extends Creator<Domain> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
@@ -247,10 +284,6 @@ public class DomainCreator extends Creator<Domain> {
 
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-        }
-
-        if (authType != null) {
-            request.addPostParam("AuthType", authType);
         }
 
         if (voiceUrl != null) {
@@ -279,6 +312,22 @@ public class DomainCreator extends Creator<Domain> {
 
         if (sipRegistration != null) {
             request.addPostParam("SipRegistration", sipRegistration.toString());
+        }
+
+        if (emergencyCallingEnabled != null) {
+            request.addPostParam("EmergencyCallingEnabled", emergencyCallingEnabled.toString());
+        }
+
+        if (secure != null) {
+            request.addPostParam("Secure", secure.toString());
+        }
+
+        if (byocTrunkSid != null) {
+            request.addPostParam("ByocTrunkSid", byocTrunkSid);
+        }
+
+        if (emergencyCallerSid != null) {
+            request.addPostParam("EmergencyCallerSid", emergencyCallerSid);
         }
     }
 }

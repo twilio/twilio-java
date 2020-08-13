@@ -67,8 +67,8 @@ public class Trunk extends Resource {
 
     /**
      * Create a TrunkFetcher to execute fetch.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return TrunkFetcher capable of executing the fetch
      */
     public static TrunkFetcher fetcher(final String pathSid) {
@@ -77,8 +77,8 @@ public class Trunk extends Resource {
 
     /**
      * Create a TrunkDeleter to execute delete.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return TrunkDeleter capable of executing the delete
      */
     public static TrunkDeleter deleter(final String pathSid) {
@@ -87,7 +87,7 @@ public class Trunk extends Resource {
 
     /**
      * Create a TrunkCreator to execute create.
-     * 
+     *
      * @return TrunkCreator capable of executing the create
      */
     public static TrunkCreator creator() {
@@ -96,7 +96,7 @@ public class Trunk extends Resource {
 
     /**
      * Create a TrunkReader to execute read.
-     * 
+     *
      * @return TrunkReader capable of executing the read
      */
     public static TrunkReader reader() {
@@ -105,8 +105,8 @@ public class Trunk extends Resource {
 
     /**
      * Create a TrunkUpdater to execute update.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid The unique string that identifies the resource
      * @return TrunkUpdater capable of executing the update
      */
     public static TrunkUpdater updater(final String pathSid) {
@@ -115,7 +115,7 @@ public class Trunk extends Resource {
 
     /**
      * Converts a JSON String into a Trunk object using the provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return Trunk object represented by the provided JSON
@@ -134,7 +134,7 @@ public class Trunk extends Resource {
     /**
      * Converts a JSON InputStream into a Trunk object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return Trunk object represented by the provided JSON
@@ -168,33 +168,33 @@ public class Trunk extends Resource {
 
     @JsonCreator
     private Trunk(@JsonProperty("account_sid")
-                  final String accountSid, 
+                  final String accountSid,
                   @JsonProperty("domain_name")
-                  final String domainName, 
+                  final String domainName,
                   @JsonProperty("disaster_recovery_method")
-                  final HttpMethod disasterRecoveryMethod, 
+                  final HttpMethod disasterRecoveryMethod,
                   @JsonProperty("disaster_recovery_url")
-                  final URI disasterRecoveryUrl, 
+                  final URI disasterRecoveryUrl,
                   @JsonProperty("friendly_name")
-                  final String friendlyName, 
+                  final String friendlyName,
                   @JsonProperty("secure")
-                  final Boolean secure, 
+                  final Boolean secure,
                   @JsonProperty("recording")
-                  final Map<String, Object> recording, 
+                  final Map<String, Object> recording,
                   @JsonProperty("cnam_lookup_enabled")
-                  final Boolean cnamLookupEnabled, 
+                  final Boolean cnamLookupEnabled,
                   @JsonProperty("auth_type")
-                  final String authType, 
+                  final String authType,
                   @JsonProperty("auth_type_set")
-                  final List<String> authTypeSet, 
+                  final List<String> authTypeSet,
                   @JsonProperty("date_created")
-                  final String dateCreated, 
+                  final String dateCreated,
                   @JsonProperty("date_updated")
-                  final String dateUpdated, 
+                  final String dateUpdated,
                   @JsonProperty("sid")
-                  final String sid, 
+                  final String sid,
                   @JsonProperty("url")
-                  final URI url, 
+                  final URI url,
                   @JsonProperty("links")
                   final Map<String, String> links) {
         this.accountSid = accountSid;
@@ -215,143 +215,139 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that owns this Trunk..
-     * 
-     * @return The unique ID of the Account that owns this Trunk.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique address you reserve on Twilio to which you route your
-     * SIP traffic..
-     * 
+     * Returns The unique address you reserve on Twilio to which you route your SIP
+     * traffic.
+     *
      * @return The unique address you reserve on Twilio to which you route your SIP
-     *         traffic.
+     *         traffic
      */
     public final String getDomainName() {
         return this.domainName;
     }
 
     /**
-     * Returns The The HTTP method Twilio will use when requesting the
-     * DisasterRecoveryUrl..
-     * 
-     * @return The HTTP method Twilio will use when requesting the
-     *         DisasterRecoveryUrl.
+     * Returns The HTTP method we use to call the disaster_recovery_url.
+     *
+     * @return The HTTP method we use to call the disaster_recovery_url
      */
     public final HttpMethod getDisasterRecoveryMethod() {
         return this.disasterRecoveryMethod;
     }
 
     /**
-     * Returns The The HTTP URL that Twilio will request if an error occurs while
-     * sending SIP traffic towards your configured Origination URL..
-     * 
-     * @return The HTTP URL that Twilio will request if an error occurs while
-     *         sending SIP traffic towards your configured Origination URL.
+     * Returns The HTTP URL that we call if an error occurs while sending SIP
+     * traffic towards your configured Origination URL.
+     *
+     * @return The HTTP URL that we call if an error occurs while sending SIP
+     *         traffic towards your configured Origination URL
      */
     public final URI getDisasterRecoveryUrl() {
         return this.disasterRecoveryUrl;
     }
 
     /**
-     * Returns The A human-readable name for the Trunk..
-     * 
-     * @return A human-readable name for the Trunk.
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The Secure Trunking  settings for this trunk..
-     * 
-     * @return The Secure Trunking  settings for this trunk.
+     * Returns Whether Secure Trunking is enabled for the trunk.
+     *
+     * @return Whether Secure Trunking is enabled for the trunk
      */
     public final Boolean getSecure() {
         return this.secure;
     }
 
     /**
-     * Returns The The recording settings for this trunk..
-     * 
-     * @return The recording settings for this trunk.
+     * Returns The recording settings for the trunk.
+     *
+     * @return The recording settings for the trunk
      */
     public final Map<String, Object> getRecording() {
         return this.recording;
     }
 
     /**
-     * Returns The The Caller ID Name (CNAM) lookup setting for this trunk..
-     * 
-     * @return The Caller ID Name (CNAM) lookup setting for this trunk.
+     * Returns Whether Caller ID Name (CNAM) lookup is enabled for the trunk.
+     *
+     * @return Whether Caller ID Name (CNAM) lookup is enabled for the trunk
      */
     public final Boolean getCnamLookupEnabled() {
         return this.cnamLookupEnabled;
     }
 
     /**
-     * Returns The The types of authentication you have mapped to your domain..
-     * 
-     * @return The types of authentication you have mapped to your domain.
+     * Returns The types of authentication mapped to the domain.
+     *
+     * @return The types of authentication mapped to the domain
      */
     public final String getAuthType() {
         return this.authType;
     }
 
     /**
-     * Returns The The auth_type_set.
-     * 
-     * @return The auth_type_set
+     * Returns Reserved.
+     *
+     * @return Reserved
      */
     public final List<String> getAuthTypeSet() {
         return this.authTypeSet;
     }
 
     /**
-     * Returns The The date this Activity was created..
-     * 
-     * @return The date this Activity was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
+     *
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Activity was updated..
-     * 
-     * @return The date this Activity was updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
+     *
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies the SIP Trunk in
-     * Twilio..
-     * 
-     * @return A 34 character string that uniquely identifies the SIP Trunk in
-     *         Twilio.
+     * Returns The unique string that identifies the resource.
+     *
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The URL for this resource, relative to https://trunking..
-     * 
-     * @return The URL for this resource, relative to https://trunking.
+     * Returns The absolute URL of the resource.
+     *
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
-     * 
-     * @return The links
+     * Returns The URLs of related resources.
+     *
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -369,20 +365,20 @@ public class Trunk extends Resource {
 
         Trunk other = (Trunk) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(domainName, other.domainName) && 
-               Objects.equals(disasterRecoveryMethod, other.disasterRecoveryMethod) && 
-               Objects.equals(disasterRecoveryUrl, other.disasterRecoveryUrl) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(secure, other.secure) && 
-               Objects.equals(recording, other.recording) && 
-               Objects.equals(cnamLookupEnabled, other.cnamLookupEnabled) && 
-               Objects.equals(authType, other.authType) && 
-               Objects.equals(authTypeSet, other.authTypeSet) && 
-               Objects.equals(dateCreated, other.dateCreated) && 
-               Objects.equals(dateUpdated, other.dateUpdated) && 
-               Objects.equals(sid, other.sid) && 
-               Objects.equals(url, other.url) && 
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(domainName, other.domainName) &&
+               Objects.equals(disasterRecoveryMethod, other.disasterRecoveryMethod) &&
+               Objects.equals(disasterRecoveryUrl, other.disasterRecoveryUrl) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(secure, other.secure) &&
+               Objects.equals(recording, other.recording) &&
+               Objects.equals(cnamLookupEnabled, other.cnamLookupEnabled) &&
+               Objects.equals(authType, other.authType) &&
+               Objects.equals(authTypeSet, other.authTypeSet) &&
+               Objects.equals(dateCreated, other.dateCreated) &&
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
 

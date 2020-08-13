@@ -33,17 +33,18 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
 
     /**
      * Construct a new OutgoingCallerIdReader.
-     * 
-     * @param pathAccountSid The account_sid
+     *
+     * @param pathAccountSid The SID of the Account that created the resources to
+     *                       read
      */
     public OutgoingCallerIdReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
     /**
-     * Only show the caller id resource that exactly matches this phone number..
-     * 
-     * @param phoneNumber Filter by phone number
+     * The phone number of the OutgoingCallerId resources to read..
+     *
+     * @param phoneNumber The phone number of the OutgoingCallerId resources to read
      * @return this
      */
     public OutgoingCallerIdReader setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber) {
@@ -52,9 +53,9 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
     }
 
     /**
-     * Only show the caller id resource that exactly matches this phone number..
-     * 
-     * @param phoneNumber Filter by phone number
+     * The phone number of the OutgoingCallerId resources to read..
+     *
+     * @param phoneNumber The phone number of the OutgoingCallerId resources to read
      * @return this
      */
     public OutgoingCallerIdReader setPhoneNumber(final String phoneNumber) {
@@ -62,9 +63,10 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
     }
 
     /**
-     * Only show the caller id resource that exactly matches this name..
-     * 
-     * @param friendlyName Filter by friendly name
+     * The string that identifies the OutgoingCallerId resources to read..
+     *
+     * @param friendlyName The string that identifies the OutgoingCallerId
+     *                     resources to read
      * @return this
      */
     public OutgoingCallerIdReader setFriendlyName(final String friendlyName) {
@@ -74,7 +76,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return OutgoingCallerId ResourceSet
      */
@@ -85,7 +87,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
 
     /**
      * Make the request to the Twilio API to perform the read.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return OutgoingCallerId ResourceSet
      */
@@ -96,8 +98,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/OutgoingCallerIds.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/OutgoingCallerIds.json"
         );
 
         addQueryParams(request);
@@ -106,7 +107,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
 
     /**
      * Retrieve the target page from the Twilio API.
-     * 
+     *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
      * @return OutgoingCallerId ResourceSet
@@ -125,47 +126,41 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
 
     /**
      * Retrieve the next page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Next Page
      */
     @Override
-    public Page<OutgoingCallerId> nextPage(final Page<OutgoingCallerId> page, 
+    public Page<OutgoingCallerId> nextPage(final Page<OutgoingCallerId> page,
                                            final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Retrieve the previous page from the Twilio API.
-     * 
+     *
      * @param page current page
      * @param client TwilioRestClient with which to make the request
      * @return Previous Page
      */
     @Override
-    public Page<OutgoingCallerId> previousPage(final Page<OutgoingCallerId> page, 
+    public Page<OutgoingCallerId> previousPage(final Page<OutgoingCallerId> page,
                                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
      * Generate a Page of OutgoingCallerId Resources for a given request.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
@@ -180,14 +175,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -200,7 +188,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
 
     /**
      * Add the requested query string arguments to the Request.
-     * 
+     *
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {

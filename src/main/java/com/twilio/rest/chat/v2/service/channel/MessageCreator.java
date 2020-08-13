@@ -32,23 +32,21 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Construct a new MessageCreator.
-     * 
-     * @param pathServiceSid Sid of the Service this message belongs to.
-     * @param pathChannelSid Key that uniquely defines the channel this message
-     *                       belongs to.
+     *
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param pathChannelSid The SID of the Channel the new resource belongs to
      */
-    public MessageCreator(final String pathServiceSid, 
+    public MessageCreator(final String pathServiceSid,
                           final String pathChannelSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
     }
 
     /**
-     * The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the
-     * message's author. Defaults to `system`..
-     * 
-     * @param from The identity of the message's author. Defaults to system if not
-     *             specified.
+     * The [Identity](https://www.twilio.com/docs/chat/identity) of the new
+     * message's author. The default value is `system`..
+     *
+     * @param from The Identity of the new message's author
      * @return this
      */
     public MessageCreator setFrom(final String from) {
@@ -57,13 +55,9 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * An string metadata field you can use to store any data you wish. The string
-     * value must contain structurally valid JSON if specified. **Note** that this
-     * will always be null for resources returned via LIST GET operations, but will
-     * be present for single GET operations..
-     * 
-     * @param attributes The attributes metadata field you can use to store any
-     *                   data you wish.
+     * A valid JSON string that contains application-specific data..
+     *
+     * @param attributes A valid JSON string that contains application-specific data
      * @return this
      */
     public MessageCreator setAttributes(final String attributes) {
@@ -72,13 +66,14 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The ISO8601 time specifying the datetime the Message should be set as being
-     * created. Will be set to the current time by the Chat service if not
-     * specified.  Note that this should only be used in cases where a Chat's
-     * history is being recreated from a backup/separate source..
-     * 
-     * @param dateCreated The ISO8601 time specifying the datetime the Message
-     *                    should be set as being created.
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was created. The default
+     * value is the current time set by the Chat service. This parameter should only
+     * be used when a Chat's history is being recreated from a backup/separate
+     * source..
+     *
+     * @param dateCreated The ISO 8601 date and time in GMT when the resource was
+     *                    created
      * @return this
      */
     public MessageCreator setDateCreated(final DateTime dateCreated) {
@@ -87,14 +82,11 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The ISO8601 time specifying the datetime the Message should be set as having
-     * been last updated. Will be set to the `null` by the Chat service if not
-     * specified.  Note that this should only be used in cases where a Chat's
-     * history is being recreated from a backup/separate source  and where a Message
-     * was previously updated..
-     * 
-     * @param dateUpdated The ISO8601 time specifying the datetime the Message
-     *                    should be set as having been last updated.
+     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format, to assign to the resource as the date it was last updated..
+     *
+     * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
+     *                    updated
      * @return this
      */
     public MessageCreator setDateUpdated(final DateTime dateUpdated) {
@@ -103,10 +95,10 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * Specify the Identity of the User that last updated the Message (if relevant).
-     * 
-     * @param lastUpdatedBy Specify the Identity of the User that last updated the
-     *                      Message
+     * The [Identity](https://www.twilio.com/docs/chat/identity) of the User who
+     * last updated the Message, if applicable..
+     *
+     * @param lastUpdatedBy The Identity of the User who last updated the Message
      * @return this
      */
     public MessageCreator setLastUpdatedBy(final String lastUpdatedBy) {
@@ -115,11 +107,11 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * A string message to send to this channel. You can also send structured data
-     * by serializing it into a string. May be empty string or `null`, will be set
-     * as empty string as a result in this cases..
-     * 
-     * @param body The message body string.
+     * The message to send to the channel. Can be an empty string or `null`, which
+     * sets the value as an empty string. You can send structured data in the body
+     * by serializing it as a string..
+     *
+     * @param body The message to send to the channel
      * @return this
      */
     public MessageCreator setBody(final String body) {
@@ -128,10 +120,10 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The [Media](https://www.twilio.com/docs/api/chat/rest/media) Sid to be
-     * attached to this Message..
-     * 
-     * @param mediaSid  The Media Sid to be attached to this Message.
+     * The SID of the [Media](https://www.twilio.com/docs/chat/rest/media) to attach
+     * to the new Message..
+     *
+     * @param mediaSid  The Media Sid to be attached to the new Message
      * @return this
      */
     public MessageCreator setMediaSid(final String mediaSid) {
@@ -141,7 +133,7 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created Message
      */
@@ -151,8 +143,7 @@ public class MessageCreator extends Creator<Message> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Messages",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Messages"
         );
 
         addPostParams(request);
@@ -165,14 +156,7 @@ public class MessageCreator extends Creator<Message> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Message.fromJson(response.getStream(), client.getObjectMapper());
@@ -180,7 +164,7 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

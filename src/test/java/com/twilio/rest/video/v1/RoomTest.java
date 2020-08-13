@@ -42,7 +42,7 @@ public class RoomTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.VIDEO.toString(),
                                           "/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -74,7 +74,7 @@ public class RoomTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.VIDEO.toString(),
                                           "/v1/Rooms");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -106,7 +106,7 @@ public class RoomTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.VIDEO.toString(),
                                           "/v1/Rooms");
-            
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -136,7 +136,7 @@ public class RoomTest {
     public void testReadWithStatusResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"rooms\": [{\"sid\": \"RM4070b618362c1682b2385b1f9982833c\",\"status\": \"completed\",\"date_created\": \"2017-04-03T22:21:49Z\",\"date_updated\": \"2017-04-03T22:21:51Z\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"type\": \"peer-to-peer\",\"enable_turn\": true,\"unique_name\": \"RM4070b618362c1682b2385b1f9982833c\",\"status_callback\": null,\"status_callback_method\": \"POST\",\"end_time\": \"2017-04-03T22:21:51Z\",\"duration\": 2,\"max_participants\": 10,\"record_participants_on_connect\": false,\"video_codecs\": [\"VP8\"],\"media_region\": \"us1\",\"url\": \"https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c\",\"links\": {\"participants\": \"https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Participants\",\"recordings\": \"https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Recordings\"}}],\"meta\": {\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://video.twilio.com/v1/Rooms?PageSize=50&Page=0\",\"previous_page_url\": null,\"url\": \"https://video.twilio.com/v1/Rooms?PageSize=50&Page=0\",\"next_page_url\": null,\"key\": \"rooms\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"rooms\": [{\"sid\": \"RM4070b618362c1682b2385b1f9982833c\",\"status\": \"completed\",\"date_created\": \"2017-04-03T22:21:49Z\",\"date_updated\": \"2017-04-03T22:21:51Z\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"type\": \"peer-to-peer\",\"enable_turn\": true,\"unique_name\": \"RM4070b618362c1682b2385b1f9982833c\",\"status_callback\": null,\"status_callback_method\": \"POST\",\"end_time\": \"2017-04-03T22:21:51Z\",\"duration\": 2,\"max_participants\": 10,\"record_participants_on_connect\": false,\"video_codecs\": [\"VP8\"],\"media_region\": \"us1\",\"url\": \"https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c\",\"links\": {\"participants\": \"https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Participants\",\"recordings\": \"https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Recordings\"}}],\"meta\": {\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://video.twilio.com/v1/Rooms?Status=completed&PageSize=50&Page=0\",\"previous_page_url\": null,\"url\": \"https://video.twilio.com/v1/Rooms?Status=completed&PageSize=50&Page=0\",\"next_page_url\": null,\"key\": \"rooms\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

@@ -23,8 +23,9 @@ public class FeedbackSummaryFetcher extends Fetcher<FeedbackSummary> {
 
     /**
      * Construct a new FeedbackSummaryFetcher.
-     * 
-     * @param pathSid The sid
+     *
+     * @param pathSid A string that uniquely identifies this feedback summary
+     *                resource
      */
     public FeedbackSummaryFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -32,11 +33,12 @@ public class FeedbackSummaryFetcher extends Fetcher<FeedbackSummary> {
 
     /**
      * Construct a new FeedbackSummaryFetcher.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param pathSid The sid
+     *
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathSid A string that uniquely identifies this feedback summary
+     *                resource
      */
-    public FeedbackSummaryFetcher(final String pathAccountSid, 
+    public FeedbackSummaryFetcher(final String pathAccountSid,
                                   final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
@@ -44,7 +46,7 @@ public class FeedbackSummaryFetcher extends Fetcher<FeedbackSummary> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched FeedbackSummary
      */
@@ -55,8 +57,7 @@ public class FeedbackSummaryFetcher extends Fetcher<FeedbackSummary> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/FeedbackSummary/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/FeedbackSummary/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);
@@ -68,14 +69,7 @@ public class FeedbackSummaryFetcher extends Fetcher<FeedbackSummary> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return FeedbackSummary.fromJson(response.getStream(), client.getObjectMapper());

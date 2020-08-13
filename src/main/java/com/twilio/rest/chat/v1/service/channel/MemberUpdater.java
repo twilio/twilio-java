@@ -26,13 +26,14 @@ public class MemberUpdater extends Updater<Member> {
 
     /**
      * Construct a new MemberUpdater.
-     * 
-     * @param pathServiceSid The service_sid
-     * @param pathChannelSid The channel_sid
-     * @param pathSid The sid
+     *
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param pathChannelSid The unique ID of the channel the member to update
+     *                       belongs to
+     * @param pathSid The unique string that identifies the resource
      */
-    public MemberUpdater(final String pathServiceSid, 
-                         final String pathChannelSid, 
+    public MemberUpdater(final String pathServiceSid,
+                         final String pathChannelSid,
                          final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
@@ -40,10 +41,11 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The [Role](https://www.twilio.com/docs/api/chat/rest/v1/roles) assigned to
-     * this member..
-     * 
-     * @param roleSid The Role assigned to this member.
+     * The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to
+     * assign to the member. The default roles are those specified on the
+     * [Service](https://www.twilio.com/docs/chat/api/services)..
+     *
+     * @param roleSid The SID of the Role to assign to the member
      * @return this
      */
     public MemberUpdater setRoleSid(final String roleSid) {
@@ -52,14 +54,13 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * An Integer representing index of the last
-     * [Message](https://www.twilio.com/docs/api/chat/rest/v1/messages) this Member
-     * has read within this
-     * [Channel](https://www.twilio.com/docs/api/chat/rest/v1/channels).
-     * 
-     * @param lastConsumedMessageIndex An Integer representing index of the last
-     *                                 Message this Member has read within this
-     *                                 Channel
+     * The index of the last
+     * [Message](https://www.twilio.com/docs/api/chat/rest/messages) that the Member
+     * has read within the
+     * [Channel](https://www.twilio.com/docs/api/chat/rest/channels)..
+     *
+     * @param lastConsumedMessageIndex The index of the last consumed Message for
+     *                                 the Channel for the Member
      * @return this
      */
     public MemberUpdater setLastConsumedMessageIndex(final Integer lastConsumedMessageIndex) {
@@ -69,7 +70,7 @@ public class MemberUpdater extends Updater<Member> {
 
     /**
      * Make the request to the Twilio API to perform the update.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Updated Member
      */
@@ -79,8 +80,7 @@ public class MemberUpdater extends Updater<Member> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Members/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Members/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -93,14 +93,7 @@ public class MemberUpdater extends Updater<Member> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Member.fromJson(response.getStream(), client.getObjectMapper());
@@ -108,7 +101,7 @@ public class MemberUpdater extends Updater<Member> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

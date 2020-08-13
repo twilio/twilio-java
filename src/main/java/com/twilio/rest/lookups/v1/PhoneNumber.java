@@ -64,8 +64,8 @@ public class PhoneNumber extends Resource {
 
     /**
      * Create a PhoneNumberFetcher to execute fetch.
-     * 
-     * @param pathPhoneNumber The phone_number
+     *
+     * @param pathPhoneNumber The phone number to fetch in E.164 format
      * @return PhoneNumberFetcher capable of executing the fetch
      */
     public static PhoneNumberFetcher fetcher(final com.twilio.type.PhoneNumber pathPhoneNumber) {
@@ -75,7 +75,7 @@ public class PhoneNumber extends Resource {
     /**
      * Converts a JSON String into a PhoneNumber object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return PhoneNumber object represented by the provided JSON
@@ -94,7 +94,7 @@ public class PhoneNumber extends Resource {
     /**
      * Converts a JSON InputStream into a PhoneNumber object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return PhoneNumber object represented by the provided JSON
@@ -120,17 +120,17 @@ public class PhoneNumber extends Resource {
 
     @JsonCreator
     private PhoneNumber(@JsonProperty("caller_name")
-                        final Map<String, String> callerName, 
+                        final Map<String, String> callerName,
                         @JsonProperty("country_code")
-                        final String countryCode, 
+                        final String countryCode,
                         @JsonProperty("phone_number")
-                        final com.twilio.type.PhoneNumber phoneNumber, 
+                        final com.twilio.type.PhoneNumber phoneNumber,
                         @JsonProperty("national_format")
-                        final String nationalFormat, 
+                        final String nationalFormat,
                         @JsonProperty("carrier")
-                        final Map<String, String> carrier, 
+                        final Map<String, String> carrier,
                         @JsonProperty("add_ons")
-                        final Map<String, Object> addOns, 
+                        final Map<String, Object> addOns,
                         @JsonProperty("url")
                         final URI url) {
         this.callerName = callerName;
@@ -143,65 +143,63 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The String indicating the name of the owner of the phone number..
-     * 
-     * @return String indicating the name of the owner of the phone number.
+     * Returns The name of the phone number's owner.
+     *
+     * @return The name of the phone number's owner
      */
     public final Map<String, String> getCallerName() {
         return this.callerName;
     }
 
     /**
-     * Returns The The ISO country code for the phone number..
-     * 
-     * @return The ISO country code for the phone number.
+     * Returns The ISO country code for the phone number.
+     *
+     * @return The ISO country code for the phone number
      */
     public final String getCountryCode() {
         return this.countryCode;
     }
 
     /**
-     * Returns The The phone number, in E..
-     * 
-     * @return The phone number, in E.
+     * Returns The phone number in E.164 format.
+     *
+     * @return The phone number in E.164 format
      */
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 
     /**
-     * Returns The The phone number, in national format..
-     * 
-     * @return The phone number, in national format.
+     * Returns The phone number, in national format.
+     *
+     * @return The phone number, in national format
      */
     public final String getNationalFormat() {
         return this.nationalFormat;
     }
 
     /**
-     * Returns The The carrier.
-     * 
-     * @return The carrier
+     * Returns The telecom company that provides the phone number.
+     *
+     * @return The telecom company that provides the phone number
      */
     public final Map<String, String> getCarrier() {
         return this.carrier;
     }
 
     /**
-     * Returns The Results of any Add-ons you have specified using the AddOn
-     * parameter in the request, as a JSON dictionary..
-     * 
-     * @return Results of any Add-ons you have specified using the AddOn parameter
-     *         in the request, as a JSON dictionary.
+     * Returns A JSON string with the results of the Add-ons you specified.
+     *
+     * @return A JSON string with the results of the Add-ons you specified
      */
     public final Map<String, Object> getAddOns() {
         return this.addOns;
     }
 
     /**
-     * Returns The The url.
-     * 
-     * @return The url
+     * Returns The absolute URL of the resource.
+     *
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
@@ -219,12 +217,12 @@ public class PhoneNumber extends Resource {
 
         PhoneNumber other = (PhoneNumber) o;
 
-        return Objects.equals(callerName, other.callerName) && 
-               Objects.equals(countryCode, other.countryCode) && 
-               Objects.equals(phoneNumber, other.phoneNumber) && 
-               Objects.equals(nationalFormat, other.nationalFormat) && 
-               Objects.equals(carrier, other.carrier) && 
-               Objects.equals(addOns, other.addOns) && 
+        return Objects.equals(callerName, other.callerName) &&
+               Objects.equals(countryCode, other.countryCode) &&
+               Objects.equals(phoneNumber, other.phoneNumber) &&
+               Objects.equals(nationalFormat, other.nationalFormat) &&
+               Objects.equals(carrier, other.carrier) &&
+               Objects.equals(addOns, other.addOns) &&
                Objects.equals(url, other.url);
     }
 

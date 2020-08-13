@@ -17,15 +17,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- */
 public class CompositionSettingsFetcher extends Fetcher<CompositionSettings> {
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched CompositionSettings
      */
@@ -35,8 +30,7 @@ public class CompositionSettingsFetcher extends Fetcher<CompositionSettings> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/CompositionSettings/Default",
-            client.getRegion()
+            "/v1/CompositionSettings/Default"
         );
 
         Response response = client.request(request);
@@ -48,14 +42,7 @@ public class CompositionSettingsFetcher extends Fetcher<CompositionSettings> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return CompositionSettings.fromJson(response.getStream(), client.getObjectMapper());

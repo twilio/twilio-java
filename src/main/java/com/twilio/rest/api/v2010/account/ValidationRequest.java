@@ -31,24 +31,25 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ValidationRequest extends Resource {
-    private static final long serialVersionUID = 227253393242231L;
+    private static final long serialVersionUID = 163352133331334L;
 
     /**
      * Create a ValidationRequestCreator to execute create.
-     * 
-     * @param pathAccountSid The account_sid
-     * @param phoneNumber The phone number to verify.
+     *
+     * @param pathAccountSid The SID of the Account responsible for the new Caller
+     *                       ID
+     * @param phoneNumber The phone number to verify in E.164 format
      * @return ValidationRequestCreator capable of executing the create
      */
-    public static ValidationRequestCreator creator(final String pathAccountSid, 
+    public static ValidationRequestCreator creator(final String pathAccountSid,
                                                    final com.twilio.type.PhoneNumber phoneNumber) {
         return new ValidationRequestCreator(pathAccountSid, phoneNumber);
     }
 
     /**
      * Create a ValidationRequestCreator to execute create.
-     * 
-     * @param phoneNumber The phone number to verify.
+     *
+     * @param phoneNumber The phone number to verify in E.164 format
      * @return ValidationRequestCreator capable of executing the create
      */
     public static ValidationRequestCreator creator(final com.twilio.type.PhoneNumber phoneNumber) {
@@ -58,7 +59,7 @@ public class ValidationRequest extends Resource {
     /**
      * Converts a JSON String into a ValidationRequest object using the provided
      * ObjectMapper.
-     * 
+     *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
      * @return ValidationRequest object represented by the provided JSON
@@ -77,7 +78,7 @@ public class ValidationRequest extends Resource {
     /**
      * Converts a JSON InputStream into a ValidationRequest object using the
      * provided ObjectMapper.
-     * 
+     *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
      * @return ValidationRequest object represented by the provided JSON
@@ -94,76 +95,74 @@ public class ValidationRequest extends Resource {
     }
 
     private final String accountSid;
-    private final com.twilio.type.PhoneNumber phoneNumber;
-    private final String friendlyName;
-    private final Integer validationCode;
     private final String callSid;
+    private final String friendlyName;
+    private final com.twilio.type.PhoneNumber phoneNumber;
+    private final String validationCode;
 
     @JsonCreator
     private ValidationRequest(@JsonProperty("account_sid")
-                              final String accountSid, 
-                              @JsonProperty("phone_number")
-                              final com.twilio.type.PhoneNumber phoneNumber, 
-                              @JsonProperty("friendly_name")
-                              final String friendlyName, 
-                              @JsonProperty("validation_code")
-                              final Integer validationCode, 
+                              final String accountSid,
                               @JsonProperty("call_sid")
-                              final String callSid) {
+                              final String callSid,
+                              @JsonProperty("friendly_name")
+                              final String friendlyName,
+                              @JsonProperty("phone_number")
+                              final com.twilio.type.PhoneNumber phoneNumber,
+                              @JsonProperty("validation_code")
+                              final String validationCode) {
         this.accountSid = accountSid;
-        this.phoneNumber = phoneNumber;
-        this.friendlyName = friendlyName;
-        this.validationCode = validationCode;
         this.callSid = callSid;
+        this.friendlyName = friendlyName;
+        this.phoneNumber = phoneNumber;
+        this.validationCode = validationCode;
     }
 
     /**
-     * Returns The The unique ID of the Account responsible for this Caller Id..
-     * 
-     * @return The unique ID of the Account responsible for this Caller Id.
+     * Returns The SID of the Account that created the resource.
+     *
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The incoming phone number..
-     * 
-     * @return The incoming phone number.
+     * Returns The SID of the Call the resource is associated with.
+     *
+     * @return The SID of the Call the resource is associated with
      */
-    public final com.twilio.type.PhoneNumber getPhoneNumber() {
-        return this.phoneNumber;
+    public final String getCallSid() {
+        return this.callSid;
     }
 
     /**
-     * Returns The A human readable descriptive text for this resource, up to 64
-     * characters long..
-     * 
-     * @return A human readable descriptive text for this resource, up to 64
-     *         characters long.
+     * Returns The string that you assigned to describe the resource.
+     *
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The 6 digit validation code that must be entered via the phone to
-     * validate this phone number for Caller ID..
-     * 
-     * @return The 6 digit validation code that must be entered via the phone to
-     *         validate this phone number for Caller ID.
+     * Returns The phone number to verify in E.164 format.
+     *
+     * @return The phone number to verify in E.164 format
      */
-    public final Integer getValidationCode() {
-        return this.validationCode;
+    public final com.twilio.type.PhoneNumber getPhoneNumber() {
+        return this.phoneNumber;
     }
 
     /**
-     * Returns The The unique id of the Call created for this validation attempt..
-     * 
-     * @return The unique id of the Call created for this validation attempt.
+     * Returns The 6 digit validation code that someone must enter to validate the
+     * Caller ID  when `phone_number` is called.
+     *
+     * @return The 6 digit validation code that someone must enter to validate the
+     *         Caller ID  when `phone_number` is called
      */
-    public final String getCallSid() {
-        return this.callSid;
+    public final String getValidationCode() {
+        return this.validationCode;
     }
 
     @Override
@@ -178,30 +177,30 @@ public class ValidationRequest extends Resource {
 
         ValidationRequest other = (ValidationRequest) o;
 
-        return Objects.equals(accountSid, other.accountSid) && 
-               Objects.equals(phoneNumber, other.phoneNumber) && 
-               Objects.equals(friendlyName, other.friendlyName) && 
-               Objects.equals(validationCode, other.validationCode) && 
-               Objects.equals(callSid, other.callSid);
+        return Objects.equals(accountSid, other.accountSid) &&
+               Objects.equals(callSid, other.callSid) &&
+               Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(phoneNumber, other.phoneNumber) &&
+               Objects.equals(validationCode, other.validationCode);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(accountSid,
-                            phoneNumber,
+                            callSid,
                             friendlyName,
-                            validationCode,
-                            callSid);
+                            phoneNumber,
+                            validationCode);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
                           .add("accountSid", accountSid)
-                          .add("phoneNumber", phoneNumber)
-                          .add("friendlyName", friendlyName)
-                          .add("validationCode", validationCode)
                           .add("callSid", callSid)
+                          .add("friendlyName", friendlyName)
+                          .add("phoneNumber", phoneNumber)
+                          .add("validationCode", validationCode)
                           .toString();
     }
 }

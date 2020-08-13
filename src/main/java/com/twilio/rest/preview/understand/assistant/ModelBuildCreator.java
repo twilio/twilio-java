@@ -32,7 +32,7 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
 
     /**
      * Construct a new ModelBuildCreator.
-     * 
+     *
      * @param pathAssistantSid The assistant_sid
      */
     public ModelBuildCreator(final String pathAssistantSid) {
@@ -41,7 +41,7 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
 
     /**
      * The status_callback.
-     * 
+     *
      * @param statusCallback The status_callback
      * @return this
      */
@@ -52,7 +52,7 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
 
     /**
      * The status_callback.
-     * 
+     *
      * @param statusCallback The status_callback
      * @return this
      */
@@ -63,7 +63,7 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
     /**
      * A user-provided string that uniquely identifies this resource as an
      * alternative to the sid. Unique up to 64 characters long. For example: v0.1.
-     * 
+     *
      * @param uniqueName A user-provided string that uniquely identifies this
      *                   resource as an alternative to the sid. Unique up to 64
      *                   characters long. For example: v0.1
@@ -76,7 +76,7 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
 
     /**
      * Make the request to the Twilio API to perform the create.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Created ModelBuild
      */
@@ -86,8 +86,7 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/ModelBuilds",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/ModelBuilds"
         );
 
         addPostParams(request);
@@ -100,14 +99,7 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return ModelBuild.fromJson(response.getStream(), client.getObjectMapper());
@@ -115,7 +107,7 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
 
     /**
      * Add the requested post parameters to the Request.
-     * 
+     *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {

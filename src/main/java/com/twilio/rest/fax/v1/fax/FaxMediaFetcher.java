@@ -27,11 +27,11 @@ public class FaxMediaFetcher extends Fetcher<FaxMedia> {
 
     /**
      * Construct a new FaxMediaFetcher.
-     * 
-     * @param pathFaxSid Fax SID
-     * @param pathSid A string that uniquely identifies this fax media
+     *
+     * @param pathFaxSid The SID of the fax with the FaxMedia resource to fetch
+     * @param pathSid The unique string that identifies the resource to fetch
      */
-    public FaxMediaFetcher(final String pathFaxSid, 
+    public FaxMediaFetcher(final String pathFaxSid,
                            final String pathSid) {
         this.pathFaxSid = pathFaxSid;
         this.pathSid = pathSid;
@@ -39,7 +39,7 @@ public class FaxMediaFetcher extends Fetcher<FaxMedia> {
 
     /**
      * Make the request to the Twilio API to perform the fetch.
-     * 
+     *
      * @param client TwilioRestClient with which to make the request
      * @return Fetched FaxMedia
      */
@@ -49,8 +49,7 @@ public class FaxMediaFetcher extends Fetcher<FaxMedia> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.FAX.toString(),
-            "/v1/Faxes/" + this.pathFaxSid + "/Media/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Faxes/" + this.pathFaxSid + "/Media/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +61,7 @@ public class FaxMediaFetcher extends Fetcher<FaxMedia> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return FaxMedia.fromJson(response.getStream(), client.getObjectMapper());

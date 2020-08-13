@@ -1,11 +1,11 @@
 package com.twilio.jwt.taskrouter;
 
 import com.google.common.base.Joiner;
-import com.google.common.collect.Lists;
 import com.twilio.http.HttpMethod;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -35,14 +35,14 @@ public class PolicyUtilsTest {
             .method(HttpMethod.GET)
             .allowed(true)
             .build();
-        
+
         Policy workerFetch = new Policy.Builder()
                 .url(UrlUtils.worker(workspaceSid, workerSid))
                 .method(HttpMethod.GET)
                 .allowed(true)
                 .build();
 
-        List<Policy> policies = Lists.newArrayList(activities, tasks, reservations, workerFetch);
+        List<Policy> policies = Arrays.asList(activities, tasks, reservations, workerFetch);
         Assert.assertEquals(
             policies,
             PolicyUtils.defaultWorkerPolicies(workspaceSid, workerSid)
@@ -57,7 +57,7 @@ public class PolicyUtilsTest {
 
         Policy get = new Policy.Builder().url(url).method(HttpMethod.GET).allowed(true).build();
         Policy post = new Policy.Builder().url(url).method(HttpMethod.POST).allowed(true).build();
-        List<Policy> policies = Lists.newArrayList(get, post);
+        List<Policy> policies = Arrays.asList(get, post);
 
         Assert.assertEquals(
             policies,

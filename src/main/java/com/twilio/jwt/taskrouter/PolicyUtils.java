@@ -1,9 +1,9 @@
 package com.twilio.jwt.taskrouter;
 
 import com.google.common.base.Joiner;
-import com.google.common.collect.Lists;
 import com.twilio.http.HttpMethod;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class PolicyUtils {
@@ -37,14 +37,14 @@ public class PolicyUtils {
             .method(HttpMethod.GET)
             .allowed(true)
             .build();
-        
+
         Policy workerFetch = new Policy.Builder()
             .url(UrlUtils.worker(workspaceSid, workerSid))
             .method(HttpMethod.GET)
             .allowed(true)
             .build();
 
-        return Lists.newArrayList(activities, tasks, reservations, workerFetch);
+        return Arrays.asList(activities, tasks, reservations, workerFetch);
     }
 
     /**
@@ -60,6 +60,6 @@ public class PolicyUtils {
         Policy get = new Policy.Builder().url(url).method(HttpMethod.GET).allowed(true).build();
         Policy post = new Policy.Builder().url(url).method(HttpMethod.POST).allowed(true).build();
 
-        return Lists.newArrayList(get, post);
+        return Arrays.asList(get, post);
     }
 }

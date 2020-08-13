@@ -14,6 +14,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -107,7 +108,7 @@ class RequestCanonicalizer {
                 if (combinedHeaders.containsKey(header.getName())) {
                     combinedHeaders.get(header.getName()).add(header.getValue());
                 } else {
-                    combinedHeaders.put(header.getName(), Arrays.asList(header.getValue()));
+                    combinedHeaders.put(header.getName(), new ArrayList<>(Arrays.asList(header.getValue())));
                 }
             }
 

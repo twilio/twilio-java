@@ -1,10 +1,7 @@
 package com.twilio.http;
 
-import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
 import com.twilio.Twilio;
 import com.twilio.exception.ApiException;
-import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
@@ -19,6 +16,7 @@ import org.apache.http.message.BasicHeader;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +44,7 @@ public class NetworkHttpClient extends HttpClient {
      * @param config a RequestConfig.
      */
     public NetworkHttpClient(RequestConfig config) {
-        Collection<Header> headers = Lists.<Header>newArrayList(
+        Collection<BasicHeader> headers = Arrays.asList(
             new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
             new BasicHeader(HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION + " (" + Twilio.JAVA_VERSION + ")"),
             new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
@@ -54,11 +52,11 @@ public class NetworkHttpClient extends HttpClient {
         );
 
         String googleAppEngineVersion = System.getProperty("com.google.appengine.runtime.version");
-        boolean isNotGoogleAppEngine = Strings.isNullOrEmpty(googleAppEngineVersion);
+        boolean isGoogleAppEngine = googleAppEngineVersion != null && !googleAppEngineVersion.isEmpty();
 
         org.apache.http.impl.client.HttpClientBuilder clientBuilder = HttpClientBuilder.create();
 
-        if (isNotGoogleAppEngine) {
+        if (!isGoogleAppEngine) {
             clientBuilder.useSystemProperties();
         }
 
@@ -79,7 +77,7 @@ public class NetworkHttpClient extends HttpClient {
      * @param clientBuilder an HttpClientBuilder.
      */
     public NetworkHttpClient(HttpClientBuilder clientBuilder) {
-        Collection<Header> headers = Lists.<Header>newArrayList(
+        Collection<BasicHeader> headers = Arrays.asList(
                 new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
                 new BasicHeader(
                     HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION + " (" + Twilio.JAVA_VERSION + ") custom"

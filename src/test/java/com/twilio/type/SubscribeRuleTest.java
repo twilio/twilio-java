@@ -1,11 +1,10 @@
 package com.twilio.type;
 
-import com.google.common.collect.Lists;
-
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import static org.junit.Assert.fail;
 
@@ -76,7 +75,7 @@ public class SubscribeRuleTest extends TypeTest {
                 .withPublisher("presenter")
                 .build();
 
-        final SubscribeRulesUpdate update = new SubscribeRulesUpdate(Lists.newArrayList(
+        final SubscribeRulesUpdate update = new SubscribeRulesUpdate(Arrays.asList(
                 allAudio, presenterVideo
         ));
 

@@ -1,7 +1,7 @@
 package com.twilio.type;
 
 
-import com.google.common.base.Objects;
+import java.util.Objects;
 
 public class Sip implements Endpoint {
 
@@ -27,7 +27,7 @@ public class Sip implements Endpoint {
         }
 
         Sip other = (Sip) o;
-        return Objects.equal(sip, other.sip);
+        return Objects.equals(sip, other.sip);
     }
 
     @Override

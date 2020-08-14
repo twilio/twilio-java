@@ -2,11 +2,8 @@ package com.twilio.jwt.validation;
 
 import com.twilio.exception.InvalidRequestException;
 
-import com.google.common.base.Charsets;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
-import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
 import com.google.common.hash.HashFunction;
 
 import org.apache.http.Header;
@@ -16,6 +13,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -35,7 +34,7 @@ class RequestCanonicalizer {
 
     private static final String NEW_LINE = "\n";
     private static final Pattern TOKEN_REPLACE_PATTERN =
-            Pattern.compile(String.format("%s|\\%s|\\%s|%s", "%7E", "+", "*", "%2F"));
+        Pattern.compile(String.format("%s|\\%s|\\%s|%s", "%7E", "+", "*", "%2F"));
 
     private final String method;
     private final String uri;
@@ -82,9 +81,9 @@ class RequestCanonicalizer {
                 Collections.sort(values);
 
                 canonicalRequest.append(lowercase)
-                         .append(":")
-                         .append(Joiner.on(',').join(values))
-                         .append(NEW_LINE);
+                    .append(":")
+                    .append(Joiner.on(',').join(values))
+                    .append(NEW_LINE);
             }
         }
         canonicalRequest.append(NEW_LINE);
@@ -93,8 +92,8 @@ class RequestCanonicalizer {
         canonicalRequest.append(Joiner.on(";").join(sortedIncludedHeaders)).append(NEW_LINE);
 
         // Hash and hex the request payload
-        if (!Strings.isNullOrEmpty(requestBody)) {
-            String hashedPayload = hashFunction.hashString(requestBody, Charsets.UTF_8).toString();
+        if (requestBody != null && !requestBody.isEmpty()) {
+            String hashedPayload = hashFunction.hashString(requestBody, StandardCharsets.UTF_8).toString();
             canonicalRequest.append(hashedPayload);
         }
         return canonicalRequest.toString();
@@ -105,11 +104,11 @@ class RequestCanonicalizer {
         public Map<String, List<String>> apply(Header[] headers) {
             Map<String, List<String>> combinedHeaders = new HashMap<>();
 
-            for (Header header : headers)  {
+            for (Header header : headers) {
                 if (combinedHeaders.containsKey(header.getName())) {
                     combinedHeaders.get(header.getName()).add(header.getValue());
                 } else {
-                    combinedHeaders.put(header.getName(), Lists.newArrayList(header.getValue()));
+                    combinedHeaders.put(header.getName(), new ArrayList<>(Arrays.asList(header.getValue())));
                 }
             }
 
@@ -130,7 +129,7 @@ class RequestCanonicalizer {
     private static Function<String, String> CANONICALIZE_PATH = new Function<String, String>() {
         @Override
         public String apply(String string) {
-            if (Strings.isNullOrEmpty(string)) {
+            if (string == null || string.isEmpty()) {
                 return "/";
             }
 
@@ -193,12 +192,12 @@ class RequestCanonicalizer {
      *
      * Partially copied from https://github.com/aws/aws-sdk-java: com.amazonaws.util.SdkHttpUtils (2017-05-19)
      *
-     * @param string the string to replace characters in
+     * @param string       the string to replace characters in
      * @param replaceSlash whether the encoded '/' should be replaced
      * @return the string after replacements
      */
     private static String replace(String string, boolean replaceSlash) {
-        if (Strings.isNullOrEmpty(string)) {
+        if (string == null || string.isEmpty()) {
             return string;
         }
         StringBuffer buffer = new StringBuffer(string.length());

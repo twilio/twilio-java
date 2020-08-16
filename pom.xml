@@ -283,32 +283,6 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.2.0</version>
-        <configuration>
-          <reportOutputDirectory>.</reportOutputDirectory>
-          <destDir>docs</destDir>
-          <source>7</source>
-          <show>public</show>
-          <nohelp>true</nohelp>
-          <author>true</author>
-          <version>true</version>
-          <use>true</use>
-          <windowtitle>Twilio Java</windowtitle>
-          <doctitle>&lt;h1&gt;Twilio Java&lt;/h1&gt;</doctitle>
-          <bottom>&lt;i&gt;Copyright &amp;#169; 2019 Twilio, Inc. All Rights Reserved.&lt;/i&gt;</bottom>
-        </configuration>
-        <executions>
-          <execution>
-            <id>attach-javadocs</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
         <version>2.5.3</version>
         <configuration>

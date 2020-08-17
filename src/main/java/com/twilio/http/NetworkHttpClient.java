@@ -109,6 +109,12 @@ public class NetworkHttpClient extends HttpClient {
             builder.addHeader(HttpHeaders.AUTHORIZATION, request.getAuthString());
         }
 
+        for (Map.Entry<String, List<String>> entry : request.getHeaderParams().entrySet()) {
+            for (String value : entry.getValue()) {
+                builder.addHeader(entry.getKey(), value);
+            }
+        }
+
         if (method == HttpMethod.POST) {
             builder.addHeader(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded");
 

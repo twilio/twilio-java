@@ -23,6 +23,19 @@ import com.twilio.rest.Domains;
  * access, please contact help@twilio.com.
  */
 public class CpsFetcher extends Fetcher<Cps> {
+    private String xXcnamSensitivePhoneNumber;
+
+    /**
+     * Phone number used to retrieve its corresponding CPS..
+     *
+     * @param xXcnamSensitivePhoneNumber Phone number to retrieve CPS.
+     * @return this
+     */
+    public CpsFetcher setXXcnamSensitivePhoneNumber(final String xXcnamSensitivePhoneNumber) {
+        this.xXcnamSensitivePhoneNumber = xXcnamSensitivePhoneNumber;
+        return this;
+    }
+
     /**
      * Make the request to the Twilio API to perform the fetch.
      *
@@ -38,6 +51,7 @@ public class CpsFetcher extends Fetcher<Cps> {
             "/TrustedComms/CPS"
         );
 
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -51,5 +65,16 @@ public class CpsFetcher extends Fetcher<Cps> {
         }
 
         return Cps.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add post params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xXcnamSensitivePhoneNumber != null) {
+            request.addHeaderParam("X-Xcnam-Sensitive-Phone-Number", xXcnamSensitivePhoneNumber);
+        }
     }
 }

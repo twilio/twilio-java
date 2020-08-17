@@ -23,6 +23,20 @@ import com.twilio.rest.Domains;
  * access, please contact help@twilio.com.
  */
 public class BrandsInformationFetcher extends Fetcher<BrandsInformation> {
+    private String ifNoneMatch;
+
+    /**
+     * Standard `If-None-Match` HTTP header. For more information visit:
+     * https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match..
+     *
+     * @param ifNoneMatch Standard `If-None-Match` HTTP header
+     * @return this
+     */
+    public BrandsInformationFetcher setIfNoneMatch(final String ifNoneMatch) {
+        this.ifNoneMatch = ifNoneMatch;
+        return this;
+    }
+
     /**
      * Make the request to the Twilio API to perform the fetch.
      *
@@ -38,6 +52,7 @@ public class BrandsInformationFetcher extends Fetcher<BrandsInformation> {
             "/TrustedComms/BrandsInformation"
         );
 
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -51,5 +66,16 @@ public class BrandsInformationFetcher extends Fetcher<BrandsInformation> {
         }
 
         return BrandsInformation.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add post params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (ifNoneMatch != null) {
+            request.addHeaderParam("If-None-Match", ifNoneMatch);
+        }
     }
 }

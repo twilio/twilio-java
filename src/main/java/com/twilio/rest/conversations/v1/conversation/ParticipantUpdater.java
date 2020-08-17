@@ -32,6 +32,7 @@ public class ParticipantUpdater extends Updater<Participant> {
     private String roleSid;
     private String messagingBindingProxyAddress;
     private String messagingBindingProjectedAddress;
+    private Participant.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new ParticipantUpdater.
@@ -121,6 +122,17 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
+     * The X-Twilio-Webhook-Enabled HTTP request header.
+     *
+     * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
+     * @return this
+     */
+    public ParticipantUpdater setXTwilioWebhookEnabled(final Participant.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -136,6 +148,7 @@ public class ParticipantUpdater extends Updater<Participant> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -149,6 +162,17 @@ public class ParticipantUpdater extends Updater<Participant> {
         }
 
         return Participant.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add post params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xTwilioWebhookEnabled != null) {
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
+        }
     }
 
     /**

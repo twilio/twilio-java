@@ -38,18 +38,18 @@ public class SupportingDocumentTest {
 
     @Test
     public void testCreateRequest() {
-                    new NonStrictExpectations() {{
-                        Request request = new Request(HttpMethod.POST,
-                                                      Domains.NUMBERS.toString(),
-                                                      "/v2/RegulatoryCompliance/SupportingDocuments");
-                        request.addPostParam("FriendlyName", serialize("friendly_name"));
-        request.addPostParam("Type", serialize("type"));
-                        twilioRestClient.request(request);
-                        times = 1;
-                        result = new Response("", 500);
-                        twilioRestClient.getAccountSid();
-                        result = "AC123";
-                    }};
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          Domains.NUMBERS.toString(),
+                                          "/v2/RegulatoryCompliance/SupportingDocuments");
+            request.addPostParam("FriendlyName", serialize("friendly_name"));
+            request.addPostParam("Type", serialize("type"));
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
 
         try {
             SupportingDocument.creator("friendly_name", "type").create();

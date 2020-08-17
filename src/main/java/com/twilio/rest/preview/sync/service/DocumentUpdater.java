@@ -29,6 +29,7 @@ public class DocumentUpdater extends Updater<Document> {
     private final String pathServiceSid;
     private final String pathSid;
     private final Map<String, Object> data;
+    private String ifMatch;
 
     /**
      * Construct a new DocumentUpdater.
@@ -43,6 +44,17 @@ public class DocumentUpdater extends Updater<Document> {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
         this.data = data;
+    }
+
+    /**
+     * The If-Match HTTP request header.
+     *
+     * @param ifMatch The If-Match HTTP request header
+     * @return this
+     */
+    public DocumentUpdater setIfMatch(final String ifMatch) {
+        this.ifMatch = ifMatch;
+        return this;
     }
 
     /**
@@ -61,6 +73,7 @@ public class DocumentUpdater extends Updater<Document> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -74,6 +87,17 @@ public class DocumentUpdater extends Updater<Document> {
         }
 
         return Document.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add post params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (ifMatch != null) {
+            request.addHeaderParam("If-Match", ifMatch);
+        }
     }
 
     /**

@@ -42,7 +42,7 @@ public class MessageTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.CONVERSATIONS.toString(),
                                           "/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages");
-
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", serialize(Message.WebhookEnabledType.TRUE));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -51,7 +51,7 @@ public class MessageTest {
         }};
 
         try {
-            Message.creator("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            Message.creator("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Message.WebhookEnabledType.TRUE).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class MessageTest {
             result = new ObjectMapper();
         }};
 
-        Message.creator("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        Message.creator("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Message.WebhookEnabledType.TRUE).create();
     }
 
     @Test
@@ -77,7 +77,7 @@ public class MessageTest {
             result = new ObjectMapper();
         }};
 
-        Message.creator("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        Message.creator("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Message.WebhookEnabledType.TRUE).create();
     }
 
     @Test
@@ -89,7 +89,7 @@ public class MessageTest {
             result = new ObjectMapper();
         }};
 
-        Message.creator("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        Message.creator("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Message.WebhookEnabledType.TRUE).create();
     }
 
     @Test
@@ -98,7 +98,7 @@ public class MessageTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.CONVERSATIONS.toString(),
                                           "/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", serialize(Message.WebhookEnabledType.TRUE));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -107,7 +107,7 @@ public class MessageTest {
         }};
 
         try {
-            Message.updater("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
+            Message.updater("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Message.WebhookEnabledType.TRUE).update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -121,7 +121,7 @@ public class MessageTest {
             result = new ObjectMapper();
         }};
 
-        Message.updater("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
+        Message.updater("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Message.WebhookEnabledType.TRUE).update();
     }
 
     @Test
@@ -130,7 +130,7 @@ public class MessageTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.CONVERSATIONS.toString(),
                                           "/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", serialize(Message.WebhookEnabledType.TRUE));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -139,7 +139,7 @@ public class MessageTest {
         }};
 
         try {
-            Message.deleter("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Message.deleter("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Message.WebhookEnabledType.TRUE).delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -153,7 +153,7 @@ public class MessageTest {
             result = new ObjectMapper();
         }};
 
-        Message.deleter("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Message.deleter("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Message.WebhookEnabledType.TRUE).delete();
     }
 
     @Test

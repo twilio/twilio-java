@@ -21,6 +21,7 @@ public class MemberDeleter extends Deleter<Member> {
     private final String pathServiceSid;
     private final String pathChannelSid;
     private final String pathSid;
+    private Member.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new MemberDeleter.
@@ -39,6 +40,17 @@ public class MemberDeleter extends Deleter<Member> {
     }
 
     /**
+     * The X-Twilio-Webhook-Enabled HTTP request header.
+     *
+     * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
+     * @return this
+     */
+    public MemberDeleter setXTwilioWebhookEnabled(final Member.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the delete.
      *
      * @param client TwilioRestClient with which to make the request
@@ -52,6 +64,7 @@ public class MemberDeleter extends Deleter<Member> {
             "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Members/" + this.pathSid + ""
         );
 
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -65,5 +78,16 @@ public class MemberDeleter extends Deleter<Member> {
         }
 
         return response.getStatusCode() == 204;
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add post params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xTwilioWebhookEnabled != null) {
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
+        }
     }
 }

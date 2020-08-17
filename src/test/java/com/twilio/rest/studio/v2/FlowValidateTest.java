@@ -38,19 +38,19 @@ public class FlowValidateTest {
 
     @Test
     public void testUpdateRequest() {
-                    new NonStrictExpectations() {{
-                        Request request = new Request(HttpMethod.POST,
-                                                      Domains.STUDIO.toString(),
-                                                      "/v2/Flows/Validate");
-                        request.addPostParam("FriendlyName", serialize("friendly_name"));
-        request.addPostParam("Status", serialize(FlowValidate.Status.DRAFT));
-        request.addPostParam("Definition", serialize(new java.util.HashMap<String, Object>()));
-                        twilioRestClient.request(request);
-                        times = 1;
-                        result = new Response("", 500);
-                        twilioRestClient.getAccountSid();
-                        result = "AC123";
-                    }};
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          Domains.STUDIO.toString(),
+                                          "/v2/Flows/Validate");
+            request.addPostParam("FriendlyName", serialize("friendly_name"));
+            request.addPostParam("Status", serialize(FlowValidate.Status.DRAFT));
+            request.addPostParam("Definition", serialize(new java.util.HashMap<String, Object>()));
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
 
         try {
             FlowValidate.updater("friendly_name", FlowValidate.Status.DRAFT, new java.util.HashMap<String, Object>()).update();

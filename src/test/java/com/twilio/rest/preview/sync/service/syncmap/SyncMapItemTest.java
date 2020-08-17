@@ -74,7 +74,7 @@ public class SyncMapItemTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.PREVIEW.toString(),
                                           "/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/key");
-
+            request.addHeaderParam("If-Match", serialize("if_match"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -83,7 +83,7 @@ public class SyncMapItemTest {
         }};
 
         try {
-            SyncMapItem.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key").delete();
+            SyncMapItem.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key").setIfMatch("if_match").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,23 +97,23 @@ public class SyncMapItemTest {
             result = new ObjectMapper();
         }};
 
-        SyncMapItem.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key").delete();
+        SyncMapItem.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key").setIfMatch("if_match").delete();
     }
 
     @Test
     public void testCreateRequest() {
-                    new NonStrictExpectations() {{
-                        Request request = new Request(HttpMethod.POST,
-                                                      Domains.PREVIEW.toString(),
-                                                      "/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items");
-                        request.addPostParam("Key", serialize("key"));
-        request.addPostParam("Data", serialize(new java.util.HashMap<String, Object>()));
-                        twilioRestClient.request(request);
-                        times = 1;
-                        result = new Response("", 500);
-                        twilioRestClient.getAccountSid();
-                        result = "AC123";
-                    }};
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          Domains.PREVIEW.toString(),
+                                          "/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items");
+            request.addPostParam("Key", serialize("key"));
+            request.addPostParam("Data", serialize(new java.util.HashMap<String, Object>()));
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
 
         try {
             SyncMapItem.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key", new java.util.HashMap<String, Object>()).create();
@@ -184,6 +184,7 @@ public class SyncMapItemTest {
                                           Domains.PREVIEW.toString(),
                                           "/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Maps/MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/key");
             request.addPostParam("Data", serialize(new java.util.HashMap<String, Object>()));
+            request.addHeaderParam("If-Match", serialize("if_match"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -192,7 +193,7 @@ public class SyncMapItemTest {
         }};
 
         try {
-            SyncMapItem.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key", new java.util.HashMap<String, Object>()).update();
+            SyncMapItem.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key", new java.util.HashMap<String, Object>()).setIfMatch("if_match").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -206,6 +207,6 @@ public class SyncMapItemTest {
             result = new ObjectMapper();
         }};
 
-        SyncMapItem.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key", new java.util.HashMap<String, Object>()).update();
+        SyncMapItem.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key", new java.util.HashMap<String, Object>()).setIfMatch("if_match").update();
     }
 }

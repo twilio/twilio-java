@@ -32,6 +32,7 @@ public class ConversationCreator extends Creator<Conversation> {
     private Conversation.State state;
     private String timersInactive;
     private String timersClosed;
+    private Conversation.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * The human-readable name of this conversation, limited to 256 characters.
@@ -134,6 +135,17 @@ public class ConversationCreator extends Creator<Conversation> {
     }
 
     /**
+     * The X-Twilio-Webhook-Enabled HTTP request header.
+     *
+     * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
+     * @return this
+     */
+    public ConversationCreator setXTwilioWebhookEnabled(final Conversation.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -149,6 +161,7 @@ public class ConversationCreator extends Creator<Conversation> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -162,6 +175,17 @@ public class ConversationCreator extends Creator<Conversation> {
         }
 
         return Conversation.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add post params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xTwilioWebhookEnabled != null) {
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
+        }
     }
 
     /**

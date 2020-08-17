@@ -42,7 +42,7 @@ public class BrandsInformationTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
                                           "/TrustedComms/BrandsInformation");
-
+            request.addHeaderParam("If-None-Match", serialize("if_none_match"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -51,7 +51,7 @@ public class BrandsInformationTest {
         }};
 
         try {
-            BrandsInformation.fetcher().fetch();
+            BrandsInformation.fetcher().setIfNoneMatch("if_none_match").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,6 +65,6 @@ public class BrandsInformationTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(BrandsInformation.fetcher().fetch());
+        assertNotNull(BrandsInformation.fetcher().setIfNoneMatch("if_none_match").fetch());
     }
 }

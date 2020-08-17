@@ -29,6 +29,8 @@ public class FactorCreator extends Creator<Factor> {
     private final String friendlyName;
     private final Factor.FactorTypes factorType;
     private final String config;
+    private String twilioSandboxMode;
+    private String authorization;
 
     /**
      * Construct a new FactorCreator.
@@ -55,6 +57,28 @@ public class FactorCreator extends Creator<Factor> {
     }
 
     /**
+     * The Twilio-Sandbox-Mode HTTP request header.
+     *
+     * @param twilioSandboxMode The Twilio-Sandbox-Mode HTTP request header
+     * @return this
+     */
+    public FactorCreator setTwilioSandboxMode(final String twilioSandboxMode) {
+        this.twilioSandboxMode = twilioSandboxMode;
+        return this;
+    }
+
+    /**
+     * The Authorization HTTP request header.
+     *
+     * @param authorization The Authorization HTTP request header
+     * @return this
+     */
+    public FactorCreator setAuthorization(final String authorization) {
+        this.authorization = authorization;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -70,6 +94,7 @@ public class FactorCreator extends Creator<Factor> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -83,6 +108,21 @@ public class FactorCreator extends Creator<Factor> {
         }
 
         return Factor.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add post params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (twilioSandboxMode != null) {
+            request.addHeaderParam("Twilio-Sandbox-Mode", twilioSandboxMode);
+        }
+
+        if (authorization != null) {
+            request.addHeaderParam("Authorization", authorization);
+        }
     }
 
     /**

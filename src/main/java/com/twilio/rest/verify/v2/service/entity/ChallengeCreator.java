@@ -31,6 +31,7 @@ public class ChallengeCreator extends Creator<Challenge> {
     private DateTime expirationDate;
     private String details;
     private String hiddenDetails;
+    private String twilioSandboxMode;
 
     /**
      * Construct a new ChallengeCreator.
@@ -92,6 +93,17 @@ public class ChallengeCreator extends Creator<Challenge> {
     }
 
     /**
+     * The Twilio-Sandbox-Mode HTTP request header.
+     *
+     * @param twilioSandboxMode The Twilio-Sandbox-Mode HTTP request header
+     * @return this
+     */
+    public ChallengeCreator setTwilioSandboxMode(final String twilioSandboxMode) {
+        this.twilioSandboxMode = twilioSandboxMode;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -107,6 +119,7 @@ public class ChallengeCreator extends Creator<Challenge> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -120,6 +133,17 @@ public class ChallengeCreator extends Creator<Challenge> {
         }
 
         return Challenge.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add post params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (twilioSandboxMode != null) {
+            request.addHeaderParam("Twilio-Sandbox-Mode", twilioSandboxMode);
+        }
     }
 
     /**

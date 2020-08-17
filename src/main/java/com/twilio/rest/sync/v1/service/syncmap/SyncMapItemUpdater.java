@@ -32,6 +32,7 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
     private Integer ttl;
     private Integer itemTtl;
     private Integer collectionTtl;
+    private String ifMatch;
 
     /**
      * Construct a new SyncMapItemUpdater.
@@ -109,6 +110,17 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
     }
 
     /**
+     * The If-Match HTTP request header.
+     *
+     * @param ifMatch The If-Match HTTP request header
+     * @return this
+     */
+    public SyncMapItemUpdater setIfMatch(final String ifMatch) {
+        this.ifMatch = ifMatch;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -124,6 +136,7 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -137,6 +150,17 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
         }
 
         return SyncMapItem.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add post params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (ifMatch != null) {
+            request.addHeaderParam("If-Match", ifMatch);
+        }
     }
 
     /**

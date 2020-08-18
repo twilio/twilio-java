@@ -27,6 +27,7 @@ import com.twilio.rest.Domains;
 public class FactorReader extends Reader<Factor> {
     private final String pathServiceSid;
     private final String pathIdentity;
+    private String twilioSandboxMode;
 
     /**
      * Construct a new FactorReader.
@@ -41,6 +42,17 @@ public class FactorReader extends Reader<Factor> {
     }
 
     /**
+     * The Twilio-Sandbox-Mode HTTP request header.
+     *
+     * @param twilioSandboxMode The Twilio-Sandbox-Mode HTTP request header
+     * @return this
+     */
+    public FactorReader setTwilioSandboxMode(final String twilioSandboxMode) {
+        this.twilioSandboxMode = twilioSandboxMode;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
@@ -49,6 +61,17 @@ public class FactorReader extends Reader<Factor> {
     @Override
     public ResourceSet<Factor> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (twilioSandboxMode != null) {
+            request.addHeaderParam("Twilio-Sandbox-Mode", twilioSandboxMode);
+        }
     }
 
     /**
@@ -67,6 +90,7 @@ public class FactorReader extends Reader<Factor> {
         );
 
         addQueryParams(request);
+        addHeaderParams(request);
         return pageForRequest(client, request);
     }
 

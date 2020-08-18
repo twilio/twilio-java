@@ -38,18 +38,18 @@ public class EndUserTest {
 
     @Test
     public void testCreateRequest() {
-                    new NonStrictExpectations() {{
-                        Request request = new Request(HttpMethod.POST,
-                                                      Domains.NUMBERS.toString(),
-                                                      "/v2/RegulatoryCompliance/EndUsers");
-                        request.addPostParam("FriendlyName", serialize("friendly_name"));
-        request.addPostParam("Type", serialize(EndUser.Type.INDIVIDUAL));
-                        twilioRestClient.request(request);
-                        times = 1;
-                        result = new Response("", 500);
-                        twilioRestClient.getAccountSid();
-                        result = "AC123";
-                    }};
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          Domains.NUMBERS.toString(),
+                                          "/v2/RegulatoryCompliance/EndUsers");
+            request.addPostParam("FriendlyName", serialize("friendly_name"));
+            request.addPostParam("Type", serialize(EndUser.Type.INDIVIDUAL));
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
 
         try {
             EndUser.creator("friendly_name", EndUser.Type.INDIVIDUAL).create();

@@ -29,6 +29,7 @@ public class FactorUpdater extends Updater<Factor> {
     private String authPayload;
     private String friendlyName;
     private String config;
+    private String twilioSandboxMode;
 
     /**
      * Construct a new FactorUpdater.
@@ -81,6 +82,17 @@ public class FactorUpdater extends Updater<Factor> {
     }
 
     /**
+     * The Twilio-Sandbox-Mode HTTP request header.
+     *
+     * @param twilioSandboxMode The Twilio-Sandbox-Mode HTTP request header
+     * @return this
+     */
+    public FactorUpdater setTwilioSandboxMode(final String twilioSandboxMode) {
+        this.twilioSandboxMode = twilioSandboxMode;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -96,6 +108,7 @@ public class FactorUpdater extends Updater<Factor> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -109,6 +122,17 @@ public class FactorUpdater extends Updater<Factor> {
         }
 
         return Factor.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (twilioSandboxMode != null) {
+            request.addHeaderParam("Twilio-Sandbox-Mode", twilioSandboxMode);
+        }
     }
 
     /**

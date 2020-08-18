@@ -102,19 +102,19 @@ public class BindingTest {
 
     @Test
     public void testCreateRequest() {
-                    new NonStrictExpectations() {{
-                        Request request = new Request(HttpMethod.POST,
-                                                      Domains.NOTIFY.toString(),
-                                                      "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings");
-                        request.addPostParam("Identity", serialize("identity"));
-        request.addPostParam("BindingType", serialize(Binding.BindingType.APN));
-        request.addPostParam("Address", serialize("address"));
-                        twilioRestClient.request(request);
-                        times = 1;
-                        result = new Response("", 500);
-                        twilioRestClient.getAccountSid();
-                        result = "AC123";
-                    }};
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          Domains.NOTIFY.toString(),
+                                          "/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings");
+            request.addPostParam("Identity", serialize("identity"));
+            request.addPostParam("BindingType", serialize(Binding.BindingType.APN));
+            request.addPostParam("Address", serialize("address"));
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
 
         try {
             Binding.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", Binding.BindingType.APN, "address").create();

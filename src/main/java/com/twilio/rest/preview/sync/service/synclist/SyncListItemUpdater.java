@@ -30,6 +30,7 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
     private final String pathListSid;
     private final Integer pathIndex;
     private final Map<String, Object> data;
+    private String ifMatch;
 
     /**
      * Construct a new SyncListItemUpdater.
@@ -50,6 +51,17 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
     }
 
     /**
+     * The If-Match HTTP request header.
+     *
+     * @param ifMatch The If-Match HTTP request header
+     * @return this
+     */
+    public SyncListItemUpdater setIfMatch(final String ifMatch) {
+        this.ifMatch = ifMatch;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -65,6 +77,7 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -78,6 +91,17 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
         }
 
         return SyncListItem.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (ifMatch != null) {
+            request.addHeaderParam("If-Match", ifMatch);
+        }
     }
 
     /**

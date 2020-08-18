@@ -43,6 +43,7 @@ public class ChallengeTest {
                                           Domains.VERIFY.toString(),
                                           "/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Challenges");
             request.addPostParam("FactorSid", serialize("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
+            request.addHeaderParam("Twilio-Sandbox-Mode", serialize("twilio_sandbox_mode"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -51,7 +52,7 @@ public class ChallengeTest {
         }};
 
         try {
-            Challenge.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            Challenge.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setTwilioSandboxMode("twilio_sandbox_mode").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +66,7 @@ public class ChallengeTest {
             result = new ObjectMapper();
         }};
 
-        Challenge.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        Challenge.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setTwilioSandboxMode("twilio_sandbox_mode").create();
     }
 
     @Test
@@ -74,7 +75,7 @@ public class ChallengeTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.VERIFY.toString(),
                                           "/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Challenges/YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-
+            request.addHeaderParam("Twilio-Sandbox-Mode", serialize("twilio_sandbox_mode"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -83,7 +84,7 @@ public class ChallengeTest {
         }};
 
         try {
-            Challenge.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Challenge.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setTwilioSandboxMode("twilio_sandbox_mode").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +98,7 @@ public class ChallengeTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Challenge.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Challenge.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setTwilioSandboxMode("twilio_sandbox_mode").fetch());
     }
 
     @Test
@@ -106,7 +107,7 @@ public class ChallengeTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.VERIFY.toString(),
                                           "/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Challenges");
-
+            request.addHeaderParam("Twilio-Sandbox-Mode", serialize("twilio_sandbox_mode"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -115,7 +116,7 @@ public class ChallengeTest {
         }};
 
         try {
-            Challenge.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").read();
+            Challenge.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").setTwilioSandboxMode("twilio_sandbox_mode").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +130,7 @@ public class ChallengeTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Challenge.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").read());
+        assertNotNull(Challenge.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").setTwilioSandboxMode("twilio_sandbox_mode").read());
     }
 
     @Test
@@ -141,7 +142,7 @@ public class ChallengeTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Challenge.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").read());
+        assertNotNull(Challenge.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").setTwilioSandboxMode("twilio_sandbox_mode").read());
     }
 
     @Test
@@ -150,7 +151,7 @@ public class ChallengeTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.VERIFY.toString(),
                                           "/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Challenges/YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-
+            request.addHeaderParam("Twilio-Sandbox-Mode", serialize("twilio_sandbox_mode"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -159,7 +160,7 @@ public class ChallengeTest {
         }};
 
         try {
-            Challenge.updater("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
+            Challenge.updater("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setTwilioSandboxMode("twilio_sandbox_mode").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -173,6 +174,6 @@ public class ChallengeTest {
             result = new ObjectMapper();
         }};
 
-        Challenge.updater("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
+        Challenge.updater("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setTwilioSandboxMode("twilio_sandbox_mode").update();
     }
 }

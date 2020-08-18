@@ -28,6 +28,7 @@ public class Request {
     private final String url;
     private final Map<String, List<String>> queryParams;
     private final Map<String, List<String>> postParams;
+    private final Map<String, List<String>> headerParams;
 
     private String region;
     private String edge;
@@ -45,6 +46,7 @@ public class Request {
         this.url = url;
         this.queryParams = new HashMap<>();
         this.postParams = new HashMap<>();
+        this.headerParams = new HashMap<>();
     }
 
     /**
@@ -77,6 +79,7 @@ public class Request {
         this.region = region;
         this.queryParams = new HashMap<>();
         this.postParams = new HashMap<>();
+        this.headerParams = new HashMap<>();
     }
 
     public HttpMethod getMethod() {
@@ -235,6 +238,16 @@ public class Request {
         addParam(postParams, name, value);
     }
 
+    /**
+     * Add a header parameter.
+     *
+     * @param name  name of parameter
+     * @param value value of parameter
+     */
+    public void addHeaderParam(final String name, final String value) {
+        addParam(headerParams, name, value);
+    }
+
     private void addParam(final Map<String, List<String>> params, final String name, final String value) {
         if (!params.containsKey(name)) {
             params.put(name, new ArrayList<String>());
@@ -310,6 +323,8 @@ public class Request {
         return postParams;
     }
 
+    public Map<String, List<String>> getHeaderParams() { return headerParams; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -326,6 +341,7 @@ public class Request {
                Objects.equals(this.username, other.username) &&
                Objects.equals(this.password, other.password) &&
                Objects.equals(this.queryParams, other.queryParams) &&
-               Objects.equals(this.postParams, other.postParams);
+               Objects.equals(this.postParams, other.postParams) &&
+               Objects.equals(this.headerParams, other.headerParams);
     }
 }

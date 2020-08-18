@@ -38,18 +38,18 @@ public class AccessTokenTest {
 
     @Test
     public void testCreateRequest() {
-                    new NonStrictExpectations() {{
-                        Request request = new Request(HttpMethod.POST,
-                                                      Domains.VERIFY.toString(),
-                                                      "/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AccessTokens");
-                        request.addPostParam("Identity", serialize("identity"));
-        request.addPostParam("FactorType", serialize(AccessToken.FactorTypes.PUSH));
-                        twilioRestClient.request(request);
-                        times = 1;
-                        result = new Response("", 500);
-                        twilioRestClient.getAccountSid();
-                        result = "AC123";
-                    }};
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          Domains.VERIFY.toString(),
+                                          "/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AccessTokens");
+            request.addPostParam("Identity", serialize("identity"));
+            request.addPostParam("FactorType", serialize(AccessToken.FactorTypes.PUSH));
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
 
         try {
             AccessToken.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", AccessToken.FactorTypes.PUSH).create();

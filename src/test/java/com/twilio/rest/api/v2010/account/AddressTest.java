@@ -38,22 +38,22 @@ public class AddressTest {
 
     @Test
     public void testCreateRequest() {
-                    new NonStrictExpectations() {{
-                        Request request = new Request(HttpMethod.POST,
-                                                      Domains.API.toString(),
-                                                      "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Addresses.json");
-                        request.addPostParam("CustomerName", serialize("customer_name"));
-        request.addPostParam("Street", serialize("street"));
-        request.addPostParam("City", serialize("city"));
-        request.addPostParam("Region", serialize("region"));
-        request.addPostParam("PostalCode", serialize("postal_code"));
-        request.addPostParam("IsoCountry", serialize("US"));
-                        twilioRestClient.request(request);
-                        times = 1;
-                        result = new Response("", 500);
-                        twilioRestClient.getAccountSid();
-                        result = "AC123";
-                    }};
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          Domains.API.toString(),
+                                          "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Addresses.json");
+            request.addPostParam("CustomerName", serialize("customer_name"));
+            request.addPostParam("Street", serialize("street"));
+            request.addPostParam("City", serialize("city"));
+            request.addPostParam("Region", serialize("region"));
+            request.addPostParam("PostalCode", serialize("postal_code"));
+            request.addPostParam("IsoCountry", serialize("US"));
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
 
         try {
             Address.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "customer_name", "street", "city", "region", "postal_code", "US").create();

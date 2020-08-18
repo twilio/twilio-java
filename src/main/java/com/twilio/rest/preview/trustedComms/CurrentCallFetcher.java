@@ -23,6 +23,35 @@ import com.twilio.rest.Domains;
  * access, please contact help@twilio.com.
  */
 public class CurrentCallFetcher extends Fetcher<CurrentCall> {
+    private String xXcnamSensitivePhoneNumberFrom;
+    private String xXcnamSensitivePhoneNumberTo;
+
+    /**
+     * The originating Phone Number, given in [E.164
+     * format](https://www.twilio.com/docs/glossary/what-e164). This phone number
+     * should be a Twilio number, otherwise it will return an error with HTTP Status
+     * Code 400..
+     *
+     * @param xXcnamSensitivePhoneNumberFrom The originating Phone Number
+     * @return this
+     */
+    public CurrentCallFetcher setXXcnamSensitivePhoneNumberFrom(final String xXcnamSensitivePhoneNumberFrom) {
+        this.xXcnamSensitivePhoneNumberFrom = xXcnamSensitivePhoneNumberFrom;
+        return this;
+    }
+
+    /**
+     * The terminating Phone Number, given in [E.164
+     * format](https://www.twilio.com/docs/glossary/what-e164)..
+     *
+     * @param xXcnamSensitivePhoneNumberTo The terminating Phone Number
+     * @return this
+     */
+    public CurrentCallFetcher setXXcnamSensitivePhoneNumberTo(final String xXcnamSensitivePhoneNumberTo) {
+        this.xXcnamSensitivePhoneNumberTo = xXcnamSensitivePhoneNumberTo;
+        return this;
+    }
+
     /**
      * Make the request to the Twilio API to perform the fetch.
      *
@@ -38,6 +67,7 @@ public class CurrentCallFetcher extends Fetcher<CurrentCall> {
             "/TrustedComms/CurrentCall"
         );
 
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -51,5 +81,20 @@ public class CurrentCallFetcher extends Fetcher<CurrentCall> {
         }
 
         return CurrentCall.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xXcnamSensitivePhoneNumberFrom != null) {
+            request.addHeaderParam("X-Xcnam-Sensitive-Phone-Number-From", xXcnamSensitivePhoneNumberFrom);
+        }
+
+        if (xXcnamSensitivePhoneNumberTo != null) {
+            request.addHeaderParam("X-Xcnam-Sensitive-Phone-Number-To", xXcnamSensitivePhoneNumberTo);
+        }
     }
 }

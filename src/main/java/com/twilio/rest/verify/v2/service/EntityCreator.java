@@ -25,6 +25,7 @@ import com.twilio.rest.Domains;
 public class EntityCreator extends Creator<Entity> {
     private final String pathServiceSid;
     private final String identity;
+    private String twilioSandboxMode;
 
     /**
      * Construct a new EntityCreator.
@@ -36,6 +37,17 @@ public class EntityCreator extends Creator<Entity> {
                          final String identity) {
         this.pathServiceSid = pathServiceSid;
         this.identity = identity;
+    }
+
+    /**
+     * The Twilio-Sandbox-Mode HTTP request header.
+     *
+     * @param twilioSandboxMode The Twilio-Sandbox-Mode HTTP request header
+     * @return this
+     */
+    public EntityCreator setTwilioSandboxMode(final String twilioSandboxMode) {
+        this.twilioSandboxMode = twilioSandboxMode;
+        return this;
     }
 
     /**
@@ -54,6 +66,7 @@ public class EntityCreator extends Creator<Entity> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -67,6 +80,17 @@ public class EntityCreator extends Creator<Entity> {
         }
 
         return Entity.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (twilioSandboxMode != null) {
+            request.addHeaderParam("Twilio-Sandbox-Mode", twilioSandboxMode);
+        }
     }
 
     /**

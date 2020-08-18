@@ -26,6 +26,7 @@ public class SyncListItemDeleter extends Deleter<SyncListItem> {
     private final String pathServiceSid;
     private final String pathListSid;
     private final Integer pathIndex;
+    private String ifMatch;
 
     /**
      * Construct a new SyncListItemDeleter.
@@ -43,6 +44,17 @@ public class SyncListItemDeleter extends Deleter<SyncListItem> {
     }
 
     /**
+     * The If-Match HTTP request header.
+     *
+     * @param ifMatch The If-Match HTTP request header
+     * @return this
+     */
+    public SyncListItemDeleter setIfMatch(final String ifMatch) {
+        this.ifMatch = ifMatch;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the delete.
      *
      * @param client TwilioRestClient with which to make the request
@@ -56,6 +68,7 @@ public class SyncListItemDeleter extends Deleter<SyncListItem> {
             "/Sync/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Items/" + this.pathIndex + ""
         );
 
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -69,5 +82,16 @@ public class SyncListItemDeleter extends Deleter<SyncListItem> {
         }
 
         return response.getStatusCode() == 204;
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (ifMatch != null) {
+            request.addHeaderParam("If-Match", ifMatch);
+        }
     }
 }

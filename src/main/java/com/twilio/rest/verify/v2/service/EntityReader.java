@@ -26,6 +26,7 @@ import com.twilio.rest.Domains;
  */
 public class EntityReader extends Reader<Entity> {
     private final String pathServiceSid;
+    private String twilioSandboxMode;
 
     /**
      * Construct a new EntityReader.
@@ -37,6 +38,17 @@ public class EntityReader extends Reader<Entity> {
     }
 
     /**
+     * The Twilio-Sandbox-Mode HTTP request header.
+     *
+     * @param twilioSandboxMode The Twilio-Sandbox-Mode HTTP request header
+     * @return this
+     */
+    public EntityReader setTwilioSandboxMode(final String twilioSandboxMode) {
+        this.twilioSandboxMode = twilioSandboxMode;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
@@ -45,6 +57,17 @@ public class EntityReader extends Reader<Entity> {
     @Override
     public ResourceSet<Entity> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (twilioSandboxMode != null) {
+            request.addHeaderParam("Twilio-Sandbox-Mode", twilioSandboxMode);
+        }
     }
 
     /**
@@ -63,6 +86,7 @@ public class EntityReader extends Reader<Entity> {
         );
 
         addQueryParams(request);
+        addHeaderParams(request);
         return pageForRequest(client, request);
     }
 

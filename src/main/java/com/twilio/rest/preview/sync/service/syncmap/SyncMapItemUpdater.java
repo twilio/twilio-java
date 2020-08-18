@@ -96,7 +96,7 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
     /**
      * Add the requested header parameters to the Request.
      *
-     * @param request Request to add post params to
+     * @param request Request to add header params to
      */
     private void addHeaderParams(final Request request) {
         if (ifMatch != null) {

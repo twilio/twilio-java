@@ -80,17 +80,21 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * Setting to true (recommended), enables Proxy to return a 400 error (Twilio
-     * error code 80604) when a request to set a Session to in-progress would cause
-     * Participants with the same identifier/proxy_identifier pair to be active in
-     * multiple Sessions. If not provided, or if set to false, requests will be
-     * allowed to succeed and a Debugger event (80801) will be emitted. This causes
-     * calls and messages from affected Participants to be routed incorrectly.
-     * Please note, in a future release, the default behavior will be to reject the
-     * request with a 400 error..
+     * [Experimental] Setting to true enables early opt-in to allowing Proxy to
+     * return a 400 error (Twilio error code 80604) when a request to set a Session
+     * to in-progress would cause Participants with the same
+     * Identifier/ProxyIdentifier pair to be active in multiple Sessions. If not
+     * provided, or if set to false, requests will be allowed to succeed, and a
+     * Debugger notification (80801) will be emitted. Having multiple, active
+     * Participants with the same Identifier/ProxyIdentifier pair causes calls and
+     * messages from affected Participants to be routed incorrectly. Please note, in
+     * a future release, the default behavior will be to reject the request with a
+     * 400 error unless an exception has been requested..
      *
-     * @param failOnParticipantConflict Opt-in to enable Proxy to return 400 on
-     *                                  detected conflict on re-open request.
+     * @param failOnParticipantConflict An experimental flag that instructs Proxy
+     *                                  to return 400 instead of 200 when it detects
+     *                                  that conflicts would result from re-open
+     *                                  requests.
      * @return this
      */
     public SessionUpdater setFailOnParticipantConflict(final Boolean failOnParticipantConflict) {

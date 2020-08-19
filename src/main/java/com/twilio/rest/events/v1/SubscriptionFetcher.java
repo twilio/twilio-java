@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.video.v1.room.participant;
+package com.twilio.rest.events.v1;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -17,43 +17,42 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class SubscribeRulesFetcher extends Fetcher<SubscribeRules> {
-    private final String pathRoomSid;
-    private final String pathParticipantSid;
+/**
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
+ */
+public class SubscriptionFetcher extends Fetcher<Subscription> {
+    private final String pathSid;
 
     /**
-     * Construct a new SubscribeRulesFetcher.
+     * Construct a new SubscriptionFetcher.
      *
-     * @param pathRoomSid The SID of the Room resource where the subscribe rules to
-     *                    fetch apply
-     * @param pathParticipantSid The SID of the Participant resource with the
-     *                           subscribe rules to fetch
+     * @param pathSid The sid
      */
-    public SubscribeRulesFetcher(final String pathRoomSid,
-                                 final String pathParticipantSid) {
-        this.pathRoomSid = pathRoomSid;
-        this.pathParticipantSid = pathParticipantSid;
+    public SubscriptionFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
      * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched SubscribeRules
+     * @return Fetched Subscription
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public SubscribeRules fetch(final TwilioRestClient client) {
+    public Subscription fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathParticipantSid + "/SubscribeRules"
+            Domains.EVENTS.toString(),
+            "/v1/Subscriptions/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("SubscribeRules fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("Subscription fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -62,6 +61,6 @@ public class SubscribeRulesFetcher extends Fetcher<SubscribeRules> {
             throw new ApiException(restException);
         }
 
-        return SubscribeRules.fromJson(response.getStream(), client.getObjectMapper());
+        return Subscription.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

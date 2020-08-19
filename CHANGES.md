@@ -1,6 +1,33 @@
 twilio-java changelog
 =====================
 
+[2020-08-19] Version 7.55.0
+---------------------------
+**Library - Feature**
+- [PR #568](https://github.com/twilio/twilio-java/pull/568): add support for custom HTTP headers. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Library - Chore**
+- [PR #567](https://github.com/twilio/twilio-java/pull/567): drop some of the Guava usage which is easily replaced. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #565](https://github.com/twilio/twilio-java/pull/565): update GitHub branch references to use HEAD. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Conversations**
+- Allow Identity addition to Participants
+
+**Events**
+- Sinks API Get all Sinks
+
+**Proxy**
+- Clarified usage of FailOnParticipantConflict param as experimental
+- Add FailOnParticipantConflict param to Proxy Session create and Proxy Participant create
+
+**Supersim**
+- Add fleet, network, and isoCountryCode to the UsageRecords resource
+- Change sort order of UsageRecords from ascending to descending with respect to start time field, records are now returned newest to oldest
+
+**Wireless**
+- Removed `Start` and `End` parameters from the Data Sessions list endpoint. **(breaking change)**
+
+
 [2020-08-05] Version 7.54.2
 ---------------------------
 **Messaging**

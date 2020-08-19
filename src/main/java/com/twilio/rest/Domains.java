@@ -13,6 +13,7 @@ public enum Domains {
     AUTOPILOT("autopilot"),
     CHAT("chat"),
     CONVERSATIONS("conversations"),
+    EVENTS("events"),
     FAX("fax"),
     FLEXAPI("flex-api"),
     INSIGHTS("insights"),

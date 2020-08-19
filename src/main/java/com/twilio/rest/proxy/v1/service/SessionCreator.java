@@ -36,6 +36,7 @@ public class SessionCreator extends Creator<Session> {
     private Session.Mode mode;
     private Session.Status status;
     private List<Map<String, Object>> participants;
+    private Boolean failOnParticipantConflict;
 
     /**
      * Construct a new SessionCreator.
@@ -130,6 +131,29 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
+     * [Experimental] Setting to true enables early opt-in to allowing Proxy to
+     * reject a Session create (with Participants) request that could cause the same
+     * Identifier/ProxyIdentifier pair to be active in multiple Sessions. Depending
+     * on the context, this could be a 409 error (Twilio error code 80623) or a 400
+     * error (Twilio error code 80604). If not provided, or if set to false,
+     * requests will be allowed to succeed and a Debugger notification (80802) will
+     * be emitted. Having multiple, active Participants with the same
+     * Identifier/ProxyIdentifier pair causes calls and messages from affected
+     * Participants to be routed incorrectly. Please note, in a future release, the
+     * default behavior will be to reject the request as described unless an
+     * exception has been requested..
+     *
+     * @param failOnParticipantConflict An experimental flag that instructs Proxy
+     *                                  to reject a Session create request when it
+     *                                  detects a Participant conflict.
+     * @return this
+     */
+    public SessionCreator setFailOnParticipantConflict(final Boolean failOnParticipantConflict) {
+        this.failOnParticipantConflict = failOnParticipantConflict;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -190,6 +214,10 @@ public class SessionCreator extends Creator<Session> {
             for (Map<String, Object> prop : participants) {
                 request.addPostParam("Participants", Converter.mapToJson(prop));
             }
+        }
+
+        if (failOnParticipantConflict != null) {
+            request.addPostParam("FailOnParticipantConflict", failOnParticipantConflict.toString());
         }
     }
 }

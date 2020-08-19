@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.supersim.v1;
+package com.twilio.rest.events.v1;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -24,30 +24,15 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class FleetReader extends Reader<Fleet> {
-    private String networkAccessProfile;
-
-    /**
-     * The SID or unique name of the Network Access Profile that controls which
-     * cellular networks the Fleet's SIMs can connect to..
-     *
-     * @param networkAccessProfile The SID or unique name of the Network Access
-     *                             Profile of the Fleet
-     * @return this
-     */
-    public FleetReader setNetworkAccessProfile(final String networkAccessProfile) {
-        this.networkAccessProfile = networkAccessProfile;
-        return this;
-    }
-
+public class SubscriptionReader extends Reader<Subscription> {
     /**
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fleet ResourceSet
+     * @return Subscription ResourceSet
      */
     @Override
-    public ResourceSet<Fleet> read(final TwilioRestClient client) {
+    public ResourceSet<Subscription> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -55,15 +40,15 @@ public class FleetReader extends Reader<Fleet> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fleet ResourceSet
+     * @return Subscription ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Fleet> firstPage(final TwilioRestClient client) {
+    public Page<Subscription> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.SUPERSIM.toString(),
-            "/v1/Fleets"
+            Domains.EVENTS.toString(),
+            "/v1/Subscriptions"
         );
 
         addQueryParams(request);
@@ -75,11 +60,11 @@ public class FleetReader extends Reader<Fleet> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Fleet ResourceSet
+     * @return Subscription ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Fleet> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Subscription> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -96,11 +81,11 @@ public class FleetReader extends Reader<Fleet> {
      * @return Next Page
      */
     @Override
-    public Page<Fleet> nextPage(final Page<Fleet> page,
-                                final TwilioRestClient client) {
+    public Page<Subscription> nextPage(final Page<Subscription> page,
+                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.SUPERSIM.toString())
+            page.getNextPageUrl(Domains.EVENTS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -113,27 +98,27 @@ public class FleetReader extends Reader<Fleet> {
      * @return Previous Page
      */
     @Override
-    public Page<Fleet> previousPage(final Page<Fleet> page,
-                                    final TwilioRestClient client) {
+    public Page<Subscription> previousPage(final Page<Subscription> page,
+                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.SUPERSIM.toString())
+            page.getPreviousPageUrl(Domains.EVENTS.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
-     * Generate a Page of Fleet Resources for a given request.
+     * Generate a Page of Subscription Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Fleet> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Subscription> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Fleet read failed: Unable to connect to server");
+            throw new ApiConnectionException("Subscription read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -143,9 +128,9 @@ public class FleetReader extends Reader<Fleet> {
         }
 
         return Page.fromJson(
-            "fleets",
+            "subscriptions",
             response.getContent(),
-            Fleet.class,
+            Subscription.class,
             client.getObjectMapper()
         );
     }
@@ -156,10 +141,6 @@ public class FleetReader extends Reader<Fleet> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (networkAccessProfile != null) {
-            request.addQueryParam("NetworkAccessProfile", networkAccessProfile.toString());
-        }
-
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

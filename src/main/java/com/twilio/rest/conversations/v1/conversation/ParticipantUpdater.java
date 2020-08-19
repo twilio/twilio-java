@@ -32,6 +32,7 @@ public class ParticipantUpdater extends Updater<Participant> {
     private String roleSid;
     private String messagingBindingProxyAddress;
     private String messagingBindingProjectedAddress;
+    private String identity;
     private Participant.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
@@ -122,6 +123,21 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
+     * A unique string identifier for the conversation participant as [Chat
+     * User](https://www.twilio.com/docs/chat/rest/user-resource). This parameter is
+     * non-null if (and only if) the participant is using the Programmable Chat SDK
+     * to communicate. Limited to 256 characters..
+     *
+     * @param identity A unique string identifier for the conversation participant
+     *                 as Chat User.
+     * @return this
+     */
+    public ParticipantUpdater setIdentity(final String identity) {
+        this.identity = identity;
+        return this;
+    }
+
+    /**
      * The X-Twilio-Webhook-Enabled HTTP request header.
      *
      * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
@@ -203,6 +219,10 @@ public class ParticipantUpdater extends Updater<Participant> {
 
         if (messagingBindingProjectedAddress != null) {
             request.addPostParam("MessagingBinding.ProjectedAddress", messagingBindingProjectedAddress);
+        }
+
+        if (identity != null) {
+            request.addPostParam("Identity", identity);
         }
     }
 }

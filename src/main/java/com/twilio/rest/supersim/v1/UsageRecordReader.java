@@ -28,20 +28,79 @@ import org.joda.time.DateTime;
  */
 public class UsageRecordReader extends Reader<UsageRecord> {
     private String sim;
+    private String fleet;
+    private String network;
+    private String isoCountry;
+    private UsageRecord.Group group;
     private UsageRecord.Granularity granularity;
     private DateTime startTime;
     private DateTime endTime;
 
     /**
-     * SID of a Sim resource. Only show UsageRecords representing usage incurred by
-     * this Super SIM..
+     * SID or unique name of a Sim resource. Only show UsageRecords representing
+     * usage incurred by this Super SIM..
      *
-     * @param sim SID of a Sim resource. Only show UsageRecords representing usage
-     *            incurred by this Super SIM.
+     * @param sim SID or unique name of a Sim resource. Only show UsageRecords
+     *            representing usage incurred by this Super SIM.
      * @return this
      */
     public UsageRecordReader setSim(final String sim) {
         this.sim = sim;
+        return this;
+    }
+
+    /**
+     * SID or unique name of a Fleet resource. Only show UsageRecords representing
+     * usage for Super SIMs belonging to this Fleet resource at the time the usage
+     * occurred..
+     *
+     * @param fleet SID or unique name of a Fleet resource. Only show UsageRecords
+     *              representing usage for Super SIMs belonging to this Fleet
+     *              resource at the time the usage occurred.
+     * @return this
+     */
+    public UsageRecordReader setFleet(final String fleet) {
+        this.fleet = fleet;
+        return this;
+    }
+
+    /**
+     * SID of a Network resource. Only show UsageRecords representing usage on this
+     * network..
+     *
+     * @param network SID of a Network resource. Only show UsageRecords
+     *                representing usage on this network.
+     * @return this
+     */
+    public UsageRecordReader setNetwork(final String network) {
+        this.network = network;
+        return this;
+    }
+
+    /**
+     * Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this
+     * country..
+     *
+     * @param isoCountry Alpha-2 ISO Country Code. Only show UsageRecords
+     *                   representing usage in this country.
+     * @return this
+     */
+    public UsageRecordReader setIsoCountry(final String isoCountry) {
+        this.isoCountry = isoCountry;
+        return this;
+    }
+
+    /**
+     * Dimension over which to aggregate usage records. Can be: `sim`, `fleet`,
+     * `network`, `isoCountry`. Default is to not aggregate across any of these
+     * dimensions, UsageRecords will be aggregated into the time buckets described
+     * by the `Granularity` parameter..
+     *
+     * @param group Dimension over which to aggregate usage records.
+     * @return this
+     */
+    public UsageRecordReader setGroup(final UsageRecord.Group group) {
+        this.group = group;
         return this;
     }
 
@@ -204,6 +263,22 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     private void addQueryParams(final Request request) {
         if (sim != null) {
             request.addQueryParam("Sim", sim.toString());
+        }
+
+        if (fleet != null) {
+            request.addQueryParam("Fleet", fleet.toString());
+        }
+
+        if (network != null) {
+            request.addQueryParam("Network", network);
+        }
+
+        if (isoCountry != null) {
+            request.addQueryParam("IsoCountry", isoCountry);
+        }
+
+        if (group != null) {
+            request.addQueryParam("Group", group.toString());
         }
 
         if (granularity != null) {

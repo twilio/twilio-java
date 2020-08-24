@@ -11,15 +11,8 @@ matrix:
       dist: xenial
     - jdk: openjdk11
       dist: xenial
-    - jdk: oraclejdk7
-      dist: precise
-    - jdk: oraclejdk8
-      dist: trusty
-    - jdk: oraclejdk11
-      dist: trusty
   allow_failures:
     - jdk: openjdk7
-    - jdk: oraclejdk7
 services:
   - docker
 install:

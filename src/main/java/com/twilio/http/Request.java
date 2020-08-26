@@ -14,6 +14,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
@@ -136,6 +137,13 @@ public class Request {
         String stringUri = buildURL();
 
         if (params.length() > 0) {
+            try {
+                System.out.println("Params pre-decode: " + params);
+                params = URLDecoder.decode(params, StandardCharsets.UTF_8.name());
+                System.out.println("Params post-decode: " + params);
+            } catch (final UnsupportedEncodingException e) {
+                throw new ApiException("Could not decode param: " + params, e);
+            }
             stringUri += "?" + params;
         }
 

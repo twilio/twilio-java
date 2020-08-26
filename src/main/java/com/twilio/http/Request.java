@@ -138,9 +138,7 @@ public class Request {
 
         if (params.length() > 0) {
             try {
-                System.out.println("Params pre-decode: " + params);
                 params = URLDecoder.decode(params, StandardCharsets.UTF_8.name());
-                System.out.println("Params post-decode: " + params);
             } catch (final UnsupportedEncodingException e) {
                 throw new ApiException("Could not decode param: " + params, e);
             }

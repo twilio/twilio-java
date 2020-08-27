@@ -14,6 +14,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
@@ -286,7 +287,9 @@ public class Request {
                         continue;
                     }
 
-                    String encodedValue = URLEncoder.encode(value, "UTF-8");
+                    String decodedValue = URLDecoder.decode(value, "UTF-8");
+                    String encodedValue = URLEncoder.encode(decodedValue, "UTF-8");
+                    parameters.add(encodedName + "=" + encodedValue);
                 }
             } catch (final UnsupportedEncodingException e) {
                 throw new InvalidRequestException("Couldn't encode params", entry.getKey(), e);

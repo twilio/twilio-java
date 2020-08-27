@@ -175,6 +175,7 @@ public class Request {
                 host = joinIgnoreNull(".", product, targetEdge, targetRegion, domain);
             }
 
+
             return new URI(parsedUrl.getProtocol(), parsedUrl.getUserInfo(), host, parsedUrl.getPort(),
                     parsedUrl.getPath(), parsedUrl.getQuery(), parsedUrl.getRef()).toURL().toString();
         } catch (final MalformedURLException | URISyntaxException e) {
@@ -285,13 +286,7 @@ public class Request {
                         continue;
                     }
 
-                    String encodedValue;
-                    if (value.startsWith("+")) {
-                        encodedValue = value;
-                    } else {
-                        encodedValue = URLEncoder.encode(value, "UTF-8");
-                    }
-                    parameters.add(encodedName + "=" + encodedValue);
+                    String encodedValue = URLEncoder.encode(value, "UTF-8");
                 }
             } catch (final UnsupportedEncodingException e) {
                 throw new InvalidRequestException("Couldn't encode params", entry.getKey(), e);

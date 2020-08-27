@@ -137,11 +137,6 @@ public class Request {
         String stringUri = buildURL();
 
         if (params.length() > 0) {
-            try {
-                params = URLDecoder.decode(params, StandardCharsets.UTF_8.name());
-            } catch (final UnsupportedEncodingException e) {
-                throw new ApiException("Could not decode param: " + params, e);
-            }
             stringUri += "?" + params;
         }
 
@@ -291,7 +286,12 @@ public class Request {
                         continue;
                     }
 
-                    String encodedValue = URLEncoder.encode(value, "UTF-8");
+                    String encodedValue;
+                    if (value.startsWith("+")) {
+                        encodedValue = value;
+                    } else {
+                        encodedValue = URLEncoder.encode(value, "UTF-8");
+                    }
                     parameters.add(encodedName + "=" + encodedValue);
                 }
             } catch (final UnsupportedEncodingException e) {

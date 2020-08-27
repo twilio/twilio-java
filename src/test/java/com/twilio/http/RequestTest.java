@@ -67,10 +67,18 @@ public class RequestTest {
         Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar");
         r.addQueryParam("baz", "quux");
         r.addQueryParam("garply", "xyzzy");
+        URL url = r.constructURL();
+        URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz=quux&garply=xyzzy");
+        assertUrlsEqual(expected, url);
+    }
+
+    @Test
+    public void testConstructURLWithPlusPrefix() {
+        Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar");
         r.addQueryParam("To", "+18888888888");
         URL url = r.constructURL();
-        URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz=quux&garply=xyzzy&To=+18888888888");
-        assertUrlsEqual(expected, url);
+        String expected = "https://api.twilio.com/2010-04-01/foobar?To=+18888888888";
+        assertUrlsEqual(expected, url.toString());
     }
 
     @Test

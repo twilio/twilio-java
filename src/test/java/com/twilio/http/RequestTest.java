@@ -69,7 +69,7 @@ public class RequestTest {
         r.addQueryParam("garply", "xyzzy");
         r.addQueryParam("To", "+18888888888");
         URL url = r.constructURL();
-        URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz=quux&garply=xyzzy?To=+18888888888");
+        URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz=quux&garply=xyzzy&To=+18888888888");
         assertUrlsEqual(expected, url);
     }
 

@@ -175,11 +175,8 @@ public class Request {
 
                 host = joinIgnoreNull(".", product, targetEdge, targetRegion, domain);
             }
-
-
-            return new URI(parsedUrl.getProtocol(), parsedUrl.getUserInfo(), host, parsedUrl.getPort(),
-                    parsedUrl.getPath(), parsedUrl.getQuery(), parsedUrl.getRef()).toURL().toString();
-        } catch (final MalformedURLException | URISyntaxException e) {
+            return new URL(parsedUrl.getProtocol(), host, parsedUrl.getPort(), parsedUrl.getFile()).toString();
+        } catch (final MalformedURLException e) {
             throw new ApiException("Bad URL: " + url, e);
         }
     }
@@ -286,9 +283,7 @@ public class Request {
                     if (value == null) {
                         continue;
                     }
-
-                    String decodedValue = URLDecoder.decode(value, "UTF-8");
-                    String encodedValue = URLEncoder.encode(decodedValue, "UTF-8");
+                    String encodedValue = URLEncoder.encode(value, "UTF-8");
                     parameters.add(encodedName + "=" + encodedValue);
                 }
             } catch (final UnsupportedEncodingException e) {

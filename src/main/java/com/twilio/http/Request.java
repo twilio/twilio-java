@@ -152,6 +152,7 @@ public class Request {
 
     private String buildURL() {
         try {
+            //String decodedURL = URLDecoder.decode(url, "UTF-8");
             final URL parsedUrl = new URL(url);
             String host = parsedUrl.getHost();
             final String[] pieces = host.split("\\.");
@@ -175,8 +176,15 @@ public class Request {
 
                 host = joinIgnoreNull(".", product, targetEdge, targetRegion, domain);
             }
-            return new URL(parsedUrl.getProtocol(), host, parsedUrl.getPort(), parsedUrl.getFile()).toString();
-        } catch (final MalformedURLException e) {
+            String getQuery = "";
+            if( parsedUrl.getQuery() != null ) {
+                getQuery = "?" + parsedUrl.getQuery();
+            }
+            String constructedURI = new URI(
+                    parsedUrl.getProtocol(), parsedUrl.getUserInfo(), host, parsedUrl.getPort(),
+                    parsedUrl.getPath(), null, parsedUrl.getRef()).toString() + getQuery;
+            return new URI(constructedURI).toString();
+        } catch (final MalformedURLException | URISyntaxException e) {
             throw new ApiException("Bad URL: " + url, e);
         }
     }

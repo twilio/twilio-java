@@ -77,7 +77,7 @@ public class RequestTest {
         Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar");
         r.addQueryParam("To", "+18888888888");
         URL url = r.constructURL();
-        String expected = "https://api.twilio.com/2010-04-01/foobar?To=+18888888888";
+        String expected = "https://api.twilio.com/2010-04-01/foobar?To=%2B18888888888";
         assertEquals(expected, url.toString());
     }
 

@@ -178,9 +178,15 @@ public class Request {
             if( parsedUrl.getQuery() != null ) {
                 getQuery = "?" + parsedUrl.getQuery();
             }
+            String getFragment = "";
+            if( parsedUrl.getRef() != null ) {
+                getFragment = "#" + parsedUrl.getRef();
+            }
+            System.out.println("getQuery: " + getQuery + getFragment);
             String constructedURI = new URI(
                     parsedUrl.getProtocol(), parsedUrl.getUserInfo(), host, parsedUrl.getPort(),
-                    parsedUrl.getPath(), null, parsedUrl.getRef()).toString() + getQuery;
+                    parsedUrl.getPath(), null,null).toString() + getQuery + getFragment;
+            System.out.println("constructedURI: " + constructedURI);
             return new URI(constructedURI).toString();
         } catch (final MalformedURLException | URISyntaxException e) {
             throw new ApiException("Bad URL: " + url, e);

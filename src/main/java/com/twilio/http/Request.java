@@ -14,7 +14,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
@@ -152,7 +151,6 @@ public class Request {
 
     private String buildURL() {
         try {
-            //String decodedURL = URLDecoder.decode(url, "UTF-8");
             final URL parsedUrl = new URL(url);
             String host = parsedUrl.getHost();
             final String[] pieces = host.split("\\.");

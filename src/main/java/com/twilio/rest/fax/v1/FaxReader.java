@@ -19,7 +19,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 /**
  * PLEASE NOTE that this class contains beta products that are subject to
@@ -28,8 +29,8 @@ import org.joda.time.DateTime;
 public class FaxReader extends Reader<Fax> {
     private String from;
     private String to;
-    private DateTime dateCreatedOnOrBefore;
-    private DateTime dateCreatedAfter;
+    private ZonedDateTime dateCreatedOnOrBefore;
+    private ZonedDateTime dateCreatedAfter;
 
     /**
      * Retrieve only those faxes sent from this phone number, specified in <a
@@ -64,7 +65,7 @@ public class FaxReader extends Reader<Fax> {
      *                              date
      * @return this
      */
-    public FaxReader setDateCreatedOnOrBefore(final DateTime dateCreatedOnOrBefore) {
+    public FaxReader setDateCreatedOnOrBefore(final ZonedDateTime dateCreatedOnOrBefore) {
         this.dateCreatedOnOrBefore = dateCreatedOnOrBefore;
         return this;
     }
@@ -77,7 +78,7 @@ public class FaxReader extends Reader<Fax> {
      * @param dateCreatedAfter Retrieve only faxes created after this date
      * @return this
      */
-    public FaxReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
+    public FaxReader setDateCreatedAfter(final ZonedDateTime dateCreatedAfter) {
         this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }

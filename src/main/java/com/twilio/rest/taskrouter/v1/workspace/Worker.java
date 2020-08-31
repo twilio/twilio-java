@@ -24,11 +24,11 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import lombok.ToString;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -138,9 +138,9 @@ public class Worker extends Resource {
     private final String activitySid;
     private final String attributes;
     private final Boolean available;
-    private final DateTime dateCreated;
-    private final DateTime dateStatusChanged;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateStatusChanged;
+    private final ZonedDateTime dateUpdated;
     private final String friendlyName;
     private final String sid;
     private final String workspaceSid;
@@ -239,7 +239,7 @@ public class Worker extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -248,7 +248,7 @@ public class Worker extends Resource {
      *
      * @return The date and time in GMT of the last change to the Worker's activity
      */
-    public final DateTime getDateStatusChanged() {
+    public final ZonedDateTime getDateStatusChanged() {
         return this.dateStatusChanged;
     }
 
@@ -257,7 +257,7 @@ public class Worker extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 

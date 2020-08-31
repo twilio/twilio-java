@@ -26,11 +26,11 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.PhoneNumberCapabilities;
 import lombok.ToString;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -202,8 +202,8 @@ public class HostedNumberOrder extends Resource {
     private final String uniqueName;
     private final HostedNumberOrder.Status status;
     private final String failureReason;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final Integer verificationAttempts;
     private final String email;
     private final List<String> ccEmails;
@@ -391,7 +391,7 @@ public class HostedNumberOrder extends Resource {
      *
      * @return The date this HostedNumberOrder was created.
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -400,7 +400,7 @@ public class HostedNumberOrder extends Resource {
      *
      * @return The date this HostedNumberOrder was updated.
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 

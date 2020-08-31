@@ -20,12 +20,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class RecordingReader extends Reader<Recording> {
     private String pathAccountSid;
-    private DateTime absoluteDateCreated;
-    private Range<DateTime> rangeDateCreated;
+    private ZonedDateTime absoluteDateCreated;
+    private Range<ZonedDateTime> rangeDateCreated;
     private String callSid;
     private String conferenceSid;
 
@@ -57,7 +59,7 @@ public class RecordingReader extends Reader<Recording> {
      *                            date
      * @return this
      */
-    public RecordingReader setDateCreated(final DateTime absoluteDateCreated) {
+    public RecordingReader setDateCreated(final ZonedDateTime absoluteDateCreated) {
         this.rangeDateCreated = null;
         this.absoluteDateCreated = absoluteDateCreated;
         return this;
@@ -75,7 +77,7 @@ public class RecordingReader extends Reader<Recording> {
      *                         date
      * @return this
      */
-    public RecordingReader setDateCreated(final Range<DateTime> rangeDateCreated) {
+    public RecordingReader setDateCreated(final Range<ZonedDateTime> rangeDateCreated) {
         this.absoluteDateCreated = null;
         this.rangeDateCreated = rangeDateCreated;
         return this;
@@ -224,7 +226,7 @@ public class RecordingReader extends Reader<Recording> {
      */
     private void addQueryParams(final Request request) {
         if (absoluteDateCreated != null) {
-            request.addQueryParam("DateCreated", absoluteDateCreated.toString(Request.QUERY_STRING_DATE_TIME_FORMAT));
+            request.addQueryParam("DateCreated", absoluteDateCreated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT)));
         } else if (rangeDateCreated != null) {
             request.addQueryDateTimeRange("DateCreated", rangeDateCreated);
         }

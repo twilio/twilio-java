@@ -17,7 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 /**
  * PLEASE NOTE that this class contains beta products that are subject to
@@ -29,8 +30,8 @@ public class MessageUpdater extends Updater<Message> {
     private final String pathSid;
     private String author;
     private String body;
-    private DateTime dateCreated;
-    private DateTime dateUpdated;
+    private ZonedDateTime dateCreated;
+    private ZonedDateTime dateUpdated;
     private String attributes;
     private Message.WebhookEnabledType xTwilioWebhookEnabled;
 
@@ -80,7 +81,7 @@ public class MessageUpdater extends Updater<Message> {
      * @param dateCreated The date that this resource was created.
      * @return this
      */
-    public MessageUpdater setDateCreated(final DateTime dateCreated) {
+    public MessageUpdater setDateCreated(final ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
@@ -92,7 +93,7 @@ public class MessageUpdater extends Updater<Message> {
      * @param dateUpdated The date that this resource was last updated.
      * @return this
      */
-    public MessageUpdater setDateUpdated(final DateTime dateUpdated) {
+    public MessageUpdater setDateUpdated(final ZonedDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }

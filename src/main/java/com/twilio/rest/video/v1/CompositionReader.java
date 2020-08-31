@@ -19,7 +19,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
@@ -28,8 +29,8 @@ import org.joda.time.DateTime;
  */
 public class CompositionReader extends Reader<Composition> {
     private Composition.Status status;
-    private DateTime dateCreatedAfter;
-    private DateTime dateCreatedBefore;
+    private ZonedDateTime dateCreatedAfter;
+    private ZonedDateTime dateCreatedBefore;
     private String roomSid;
 
     /**
@@ -55,7 +56,7 @@ public class CompositionReader extends Reader<Composition> {
      *                         date-time with time zone
      * @return this
      */
-    public CompositionReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
+    public CompositionReader setDateCreatedAfter(final ZonedDateTime dateCreatedAfter) {
         this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
@@ -68,7 +69,7 @@ public class CompositionReader extends Reader<Composition> {
      *                          ISO 8601 date-time with time zone
      * @return this
      */
-    public CompositionReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
+    public CompositionReader setDateCreatedBefore(final ZonedDateTime dateCreatedBefore) {
         this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }

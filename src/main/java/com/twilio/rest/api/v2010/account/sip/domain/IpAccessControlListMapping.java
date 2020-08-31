@@ -24,10 +24,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import lombok.ToString;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -185,8 +185,8 @@ public class IpAccessControlListMapping extends Resource {
     }
 
     private final String accountSid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String friendlyName;
     private final String sid;
     private final String uri;
@@ -232,7 +232,7 @@ public class IpAccessControlListMapping extends Resource {
      * @return The date that this resource was created, given as GMT in RFC 2822
      *         format.
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -243,7 +243,7 @@ public class IpAccessControlListMapping extends Resource {
      * @return The date that this resource was last updated, given as GMT in RFC
      *         2822 format.
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 

@@ -25,11 +25,11 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import lombok.ToString;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -99,7 +99,7 @@ public class Event extends Resource {
     private final String actorType;
     private final String description;
     private final Map<String, Object> eventData;
-    private final DateTime eventDate;
+    private final ZonedDateTime eventDate;
     private final String eventType;
     private final String resourceSid;
     private final String resourceType;
@@ -206,7 +206,7 @@ public class Event extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the event was recorded
      */
-    public final DateTime getEventDate() {
+    public final ZonedDateTime getEventDate() {
         return this.eventDate;
     }
 

@@ -24,11 +24,11 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import lombok.ToString;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -91,7 +91,7 @@ public class CurrentCall extends Resource {
 
     private final String bgColor;
     private final String caller;
-    private final DateTime createdAt;
+    private final ZonedDateTime createdAt;
     private final String fontColor;
     private final String from;
     private final String logo;
@@ -172,7 +172,7 @@ public class CurrentCall extends Resource {
      *
      * @return The date this current phone call was created
      */
-    public final DateTime getCreatedAt() {
+    public final ZonedDateTime getCreatedAt() {
         return this.createdAt;
     }
 

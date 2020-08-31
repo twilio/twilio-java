@@ -20,7 +20,9 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.LocalDate;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class RecordingReader extends Reader<Recording> {
     private String pathAccountSid;
@@ -201,7 +203,7 @@ public class RecordingReader extends Reader<Recording> {
      */
     private void addQueryParams(final Request request) {
         if (absoluteDateCreated != null) {
-            request.addQueryParam("DateCreated", absoluteDateCreated.toString(Request.QUERY_STRING_DATE_FORMAT));
+            request.addQueryParam("DateCreated", absoluteDateCreated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
         } else if (rangeDateCreated != null) {
             request.addQueryDateRange("DateCreated", rangeDateCreated);
         }

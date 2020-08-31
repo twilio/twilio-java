@@ -25,11 +25,11 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import lombok.ToString;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -192,17 +192,17 @@ public class Session extends Resource {
     private final String sid;
     private final String serviceSid;
     private final String accountSid;
-    private final DateTime dateStarted;
-    private final DateTime dateEnded;
-    private final DateTime dateLastInteraction;
-    private final DateTime dateExpiry;
+    private final ZonedDateTime dateStarted;
+    private final ZonedDateTime dateEnded;
+    private final ZonedDateTime dateLastInteraction;
+    private final ZonedDateTime dateExpiry;
     private final String uniqueName;
     private final Session.Status status;
     private final String closedReason;
     private final Integer ttl;
     private final Session.Mode mode;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final URI url;
     private final Map<String, String> links;
 
@@ -289,7 +289,7 @@ public class Session extends Resource {
      *
      * @return The ISO 8601 date when the Session started
      */
-    public final DateTime getDateStarted() {
+    public final ZonedDateTime getDateStarted() {
         return this.dateStarted;
     }
 
@@ -298,7 +298,7 @@ public class Session extends Resource {
      *
      * @return The ISO 8601 date when the Session ended
      */
-    public final DateTime getDateEnded() {
+    public final ZonedDateTime getDateEnded() {
         return this.dateEnded;
     }
 
@@ -307,7 +307,7 @@ public class Session extends Resource {
      *
      * @return The ISO 8601 date when the Session last had an interaction
      */
-    public final DateTime getDateLastInteraction() {
+    public final ZonedDateTime getDateLastInteraction() {
         return this.dateLastInteraction;
     }
 
@@ -316,7 +316,7 @@ public class Session extends Resource {
      *
      * @return The ISO 8601 date when the Session should expire
      */
-    public final DateTime getDateExpiry() {
+    public final ZonedDateTime getDateExpiry() {
         return this.dateExpiry;
     }
 
@@ -370,7 +370,7 @@ public class Session extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -379,7 +379,7 @@ public class Session extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 

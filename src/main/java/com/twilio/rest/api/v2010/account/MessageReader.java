@@ -21,14 +21,16 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class MessageReader extends Reader<Message> {
     private String pathAccountSid;
     private com.twilio.type.PhoneNumber to;
     private com.twilio.type.PhoneNumber from;
-    private DateTime absoluteDateSent;
-    private Range<DateTime> rangeDateSent;
+    private ZonedDateTime absoluteDateSent;
+    private Range<ZonedDateTime> rangeDateSent;
 
     /**
      * Construct a new MessageReader.
@@ -98,7 +100,7 @@ public class MessageReader extends Reader<Message> {
      * @param absoluteDateSent Filter by date sent
      * @return this
      */
-    public MessageReader setDateSent(final DateTime absoluteDateSent) {
+    public MessageReader setDateSent(final ZonedDateTime absoluteDateSent) {
         this.rangeDateSent = null;
         this.absoluteDateSent = absoluteDateSent;
         return this;
@@ -114,7 +116,7 @@ public class MessageReader extends Reader<Message> {
      * @param rangeDateSent Filter by date sent
      * @return this
      */
-    public MessageReader setDateSent(final Range<DateTime> rangeDateSent) {
+    public MessageReader setDateSent(final Range<ZonedDateTime> rangeDateSent) {
         this.absoluteDateSent = null;
         this.rangeDateSent = rangeDateSent;
         return this;
@@ -247,7 +249,7 @@ public class MessageReader extends Reader<Message> {
         }
 
         if (absoluteDateSent != null) {
-            request.addQueryParam("DateSent", absoluteDateSent.toString(Request.QUERY_STRING_DATE_TIME_FORMAT));
+            request.addQueryParam("DateSent", absoluteDateSent.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT)));
         } else if (rangeDateSent != null) {
             request.addQueryDateTimeRange("DateSent", rangeDateSent);
         }

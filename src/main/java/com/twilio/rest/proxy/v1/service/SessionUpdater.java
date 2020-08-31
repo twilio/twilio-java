@@ -17,7 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 /**
  * PLEASE NOTE that this class contains beta products that are subject to
@@ -26,7 +27,7 @@ import org.joda.time.DateTime;
 public class SessionUpdater extends Updater<Session> {
     private final String pathServiceSid;
     private final String pathSid;
-    private DateTime dateExpiry;
+    private ZonedDateTime dateExpiry;
     private Integer ttl;
     private Session.Status status;
     private Boolean failOnParticipantConflict;
@@ -50,7 +51,7 @@ public class SessionUpdater extends Updater<Session> {
      * @param dateExpiry The ISO 8601 date when the Session should expire
      * @return this
      */
-    public SessionUpdater setDateExpiry(final DateTime dateExpiry) {
+    public SessionUpdater setDateExpiry(final ZonedDateTime dateExpiry) {
         this.dateExpiry = dateExpiry;
         return this;
     }

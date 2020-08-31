@@ -24,11 +24,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -143,9 +143,9 @@ public class Device extends Resource {
     private final String accountSid;
     private final String identity;
     private final String deploymentSid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
-    private final DateTime dateAuthenticated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
+    private final ZonedDateTime dateAuthenticated;
 
     @JsonCreator
     private Device(@JsonProperty("sid")
@@ -272,7 +272,7 @@ public class Device extends Resource {
      *
      * @return The date this Device was created.
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -281,7 +281,7 @@ public class Device extends Resource {
      *
      * @return The date this Device was updated.
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -290,7 +290,7 @@ public class Device extends Resource {
      *
      * @return The date this Device was authenticated.
      */
-    public final DateTime getDateAuthenticated() {
+    public final ZonedDateTime getDateAuthenticated() {
         return this.dateAuthenticated;
     }
 

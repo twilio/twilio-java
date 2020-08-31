@@ -26,12 +26,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Currency;
 import java.util.Map;
 import java.util.Objects;
@@ -254,8 +254,8 @@ public class Fax extends Resource {
     private final String apiVersion;
     private final BigDecimal price;
     private final Currency priceUnit;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final Map<String, String> links;
     private final URI url;
 
@@ -450,7 +450,7 @@ public class Fax extends Resource {
      * @return The ISO 8601 formatted date and time in GMT when the resource was
      *         created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -461,7 +461,7 @@ public class Fax extends Resource {
      * @return The ISO 8601 formatted date and time in GMT when the resource was
      *         last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 

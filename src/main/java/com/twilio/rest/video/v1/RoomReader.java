@@ -19,13 +19,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class RoomReader extends Reader<Room> {
     private Room.RoomStatus status;
     private String uniqueName;
-    private DateTime dateCreatedAfter;
-    private DateTime dateCreatedBefore;
+    private ZonedDateTime dateCreatedAfter;
+    private ZonedDateTime dateCreatedBefore;
 
     /**
      * Read only the rooms with this status. Can be: `in-progress` (default) or
@@ -57,7 +58,7 @@ public class RoomReader extends Reader<Room> {
      *                         given as YYYY-MM-DD
      * @return this
      */
-    public RoomReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
+    public RoomReader setDateCreatedAfter(final ZonedDateTime dateCreatedAfter) {
         this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
@@ -69,7 +70,7 @@ public class RoomReader extends Reader<Room> {
      *                          given as YYYY-MM-DD
      * @return this
      */
-    public RoomReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
+    public RoomReader setDateCreatedBefore(final ZonedDateTime dateCreatedBefore) {
         this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }

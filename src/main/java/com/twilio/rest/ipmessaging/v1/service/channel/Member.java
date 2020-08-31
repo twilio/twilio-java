@@ -24,11 +24,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -148,11 +148,11 @@ public class Member extends Resource {
     private final String channelSid;
     private final String serviceSid;
     private final String identity;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String roleSid;
     private final Integer lastConsumedMessageIndex;
-    private final DateTime lastConsumptionTimestamp;
+    private final ZonedDateTime lastConsumptionTimestamp;
     private final URI url;
 
     @JsonCreator
@@ -241,7 +241,7 @@ public class Member extends Resource {
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -250,7 +250,7 @@ public class Member extends Resource {
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -281,7 +281,7 @@ public class Member extends Resource {
      * @return The ISO 8601 based timestamp string that represents the date-time of
      *         the last Message read event for the Member within the Channel
      */
-    public final DateTime getLastConsumptionTimestamp() {
+    public final ZonedDateTime getLastConsumptionTimestamp() {
         return this.lastConsumptionTimestamp;
     }
 

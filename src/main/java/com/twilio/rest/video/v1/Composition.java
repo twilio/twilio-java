@@ -26,11 +26,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -177,9 +177,9 @@ public class Composition extends Resource {
 
     private final String accountSid;
     private final Composition.Status status;
-    private final DateTime dateCreated;
-    private final DateTime dateCompleted;
-    private final DateTime dateDeleted;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateCompleted;
+    private final ZonedDateTime dateDeleted;
     private final String sid;
     private final String roomSid;
     private final List<String> audioSources;
@@ -274,7 +274,7 @@ public class Composition extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -283,7 +283,7 @@ public class Composition extends Resource {
      *
      * @return Date when the media processing task finished
      */
-    public final DateTime getDateCompleted() {
+    public final ZonedDateTime getDateCompleted() {
         return this.dateCompleted;
     }
 
@@ -294,7 +294,7 @@ public class Composition extends Resource {
      * @return The ISO 8601 date and time in GMT when the composition generated
      *         media was deleted
      */
-    public final DateTime getDateDeleted() {
+    public final ZonedDateTime getDateDeleted() {
         return this.dateDeleted;
     }
 

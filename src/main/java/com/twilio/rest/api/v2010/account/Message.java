@@ -26,11 +26,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Currency;
 import java.util.List;
 import java.util.Map;
@@ -462,7 +462,7 @@ public class Message extends Resource {
     private final Message.Direction direction;
     private final com.twilio.type.PhoneNumber from;
     private final String to;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateUpdated;
     private final String price;
     private final String errorMessage;
     private final String uri;
@@ -471,8 +471,8 @@ public class Message extends Resource {
     private final Message.Status status;
     private final String messagingServiceSid;
     private final String sid;
-    private final DateTime dateSent;
-    private final DateTime dateCreated;
+    private final ZonedDateTime dateSent;
+    private final ZonedDateTime dateCreated;
     private final Integer errorCode;
     private final Currency priceUnit;
     private final String apiVersion;
@@ -592,7 +592,7 @@ public class Message extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -673,7 +673,7 @@ public class Message extends Resource {
      *
      * @return The RFC 2822 date and time in GMT when the message was sent
      */
-    public final DateTime getDateSent() {
+    public final ZonedDateTime getDateSent() {
         return this.dateSent;
     }
 
@@ -682,7 +682,7 @@ public class Message extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 

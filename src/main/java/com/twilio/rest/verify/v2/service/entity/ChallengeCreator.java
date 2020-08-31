@@ -17,7 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
@@ -28,7 +29,7 @@ public class ChallengeCreator extends Creator<Challenge> {
     private final String pathServiceSid;
     private final String pathIdentity;
     private final String factorSid;
-    private DateTime expirationDate;
+    private ZonedDateTime expirationDate;
     private String details;
     private String hiddenDetails;
     private String twilioSandboxMode;
@@ -55,7 +56,7 @@ public class ChallengeCreator extends Creator<Challenge> {
      * @param expirationDate The future date in which this Challenge will expire
      * @return this
      */
-    public ChallengeCreator setExpirationDate(final DateTime expirationDate) {
+    public ChallengeCreator setExpirationDate(final ZonedDateTime expirationDate) {
         this.expirationDate = expirationDate;
         return this;
     }

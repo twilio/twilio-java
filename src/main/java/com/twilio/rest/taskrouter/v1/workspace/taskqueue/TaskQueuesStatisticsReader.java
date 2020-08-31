@@ -19,14 +19,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     private final String pathWorkspaceSid;
-    private DateTime endDate;
+    private ZonedDateTime endDate;
     private String friendlyName;
     private Integer minutes;
-    private DateTime startDate;
+    private ZonedDateTime startDate;
     private String taskChannel;
     private String splitByWaitTime;
 
@@ -46,7 +47,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
      * @param endDate Only calculate statistics from on or before this date
      * @return this
      */
-    public TaskQueuesStatisticsReader setEndDate(final DateTime endDate) {
+    public TaskQueuesStatisticsReader setEndDate(final ZonedDateTime endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -81,7 +82,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
      * @param startDate Only calculate statistics from on or after this date
      * @return this
      */
-    public TaskQueuesStatisticsReader setStartDate(final DateTime startDate) {
+    public TaskQueuesStatisticsReader setStartDate(final ZonedDateTime startDate) {
         this.startDate = startDate;
         return this;
     }

@@ -16,9 +16,9 @@ public class DateConverterTest {
     public void testRfc2822() {
         ZonedDateTime dt = DateConverter.rfc2822DateTimeFromString("Tue, 29 Mar 2016 13:00:05 +0000");
 
-        Assert.assertEquals(2, dt.getDayOfWeek());
+        Assert.assertEquals(2, dt.getDayOfWeek().getValue());
         Assert.assertEquals(29, dt.getDayOfMonth());
-        Assert.assertEquals(3, dt.getMonth());
+        Assert.assertEquals(3, dt.getMonthValue());
         Assert.assertEquals(2016, dt.getYear());
         Assert.assertEquals(13, dt.getHour());
         Assert.assertEquals(0, dt.getMinute());
@@ -36,7 +36,7 @@ public class DateConverterTest {
         ZonedDateTime dt = DateConverter.iso8601DateTimeFromString("2016-01-15T21:49:24Z");
 
         Assert.assertEquals(15, dt.getDayOfMonth());
-        Assert.assertEquals(1, dt.getMonth());
+        Assert.assertEquals(1, dt.getMonthValue());
         Assert.assertEquals(2016, dt.getYear());
         Assert.assertEquals(21, dt.getHour());
         Assert.assertEquals(49, dt.getMinute());
@@ -54,7 +54,7 @@ public class DateConverterTest {
         LocalDate ld = DateConverter.localDateFromString("2016-11-11");
 
         Assert.assertEquals(2016, ld.getYear());
-        Assert.assertEquals(11, ld.getMonth());
+        Assert.assertEquals(11, ld.getMonthValue());
         Assert.assertEquals(11, ld.getDayOfMonth());
     }
 

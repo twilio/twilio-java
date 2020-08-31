@@ -150,8 +150,8 @@ public class RequestTest {
     @Test
     public void testAddQueryDateTimeRangeClosedNotUTC() throws MalformedURLException {
         Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar");
-        r.addQueryDateTimeRange("baz", Range.closed(ZonedDateTime.of(2014, 1, 10, 14, 0, 0, 0, ZoneId.of("CST")),
-              ZonedDateTime.of(2014, 6, 1, 16, 0, 0, 0, ZoneId.of("CST"))));
+        r.addQueryDateTimeRange("baz", Range.closed(ZonedDateTime.of(2014, 1, 10, 14, 0, 0, 0, ZoneId.of("America/Chicago")),
+              ZonedDateTime.of(2014, 6, 1, 16, 0, 0, 0, ZoneId.of("America/Chicago"))));
         URL url = r.constructURL();
         URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz>=2014-01-10T20:00:00&baz<=2014-06-01T21:00:00");
         assertUrlsEqual(expected, url);

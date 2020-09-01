@@ -174,19 +174,25 @@ public class Request {
 
                 host = joinIgnoreNull(".", product, targetEdge, targetRegion, domain);
             }
-            String getQuery = "";
-            if( parsedUrl.getQuery() != null ) {
-                getQuery = "?" + parsedUrl.getQuery();
+
+            int port = -1;
+            String urlPort = null;
+            if (parsedUrl.getPort() != -1) {
+                port = parsedUrl.getPort();
+                urlPort = ":" + port;
             }
-            String getFragment = "";
-            if( parsedUrl.getRef() != null ) {
-                getFragment = "#" + parsedUrl.getRef();
+            String protocol = parsedUrl.getProtocol() + "://";
+            String path = parsedUrl.getPath().replace("|", "%7C");
+            String query = null;
+            if (parsedUrl.getQuery() != null ) {
+                query = "?" + parsedUrl.getQuery();
             }
-            String constructedURI = new URI(
-                    parsedUrl.getProtocol(), parsedUrl.getUserInfo(), host, parsedUrl.getPort(),
-                    parsedUrl.getPath(), null,null).toString() + getQuery + getFragment;
-            return new URI(constructedURI).toString();
-        } catch (final MalformedURLException | URISyntaxException e) {
+            String ref = null;
+            if (parsedUrl.getRef() != null) {
+                ref = "#" + parsedUrl.getRef();
+            }
+            return joinIgnoreNull("", protocol, host, urlPort, path, query, ref);
+        } catch (final MalformedURLException e) {
             throw new ApiException("Bad URL: " + url, e);
         }
     }

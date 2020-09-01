@@ -7,12 +7,11 @@ import java.time.ZonedDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import org.junit.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import java.util.Map;
 
 import static com.twilio.Assert.assertQueryStringsEqual;
 import static com.twilio.Assert.assertUrlsEqual;
@@ -177,8 +176,7 @@ public class RequestTest {
     @Test
     public void testAddQueryDateTimeRangeClosedNotUTC() throws MalformedURLException {
         Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar");
-        Map<String, String> ids = ZoneId.SHORT_IDS;
-        r.addQueryDateTimeRange("baz", Range.closed(ZonedDateTime.of(2014, 1, 10, 14, 0, 0, 0, ZoneId.of(ids.get("CST"))),
+        r.addQueryDateTimeRange("baz", Range.closed(ZonedDateTime.of(2014, 1, 10, 14, 0, 0, 0, ZoneId.of("America/Chicago")),
               ZonedDateTime.of(2014, 6, 1, 16, 0, 0, 0, ZoneId.of("America/Chicago"))));
         URL url = r.constructURL();
         URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz>=2014-01-10T20:00:00&baz<=2014-06-01T21:00:00");

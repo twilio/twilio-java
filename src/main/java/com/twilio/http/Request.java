@@ -184,7 +184,7 @@ public class Request {
             String protocol = parsedUrl.getProtocol() + "://";
             String path = parsedUrl.getPath().replace("|", "%7C");
             String query = null;
-            if (parsedUrl.getQuery() != null ) {
+            if (parsedUrl.getQuery() != null) {
                 query = "?" + parsedUrl.getQuery();
             }
             String ref = null;

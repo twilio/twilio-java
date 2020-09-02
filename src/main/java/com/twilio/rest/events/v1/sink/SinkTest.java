@@ -41,7 +41,7 @@ public class SinkTest extends Resource {
     /**
      * Create a SinkTestCreator to execute create.
      *
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies the Sink to be Tested.
      * @return SinkTestCreator capable of executing the create
      */
     public static SinkTestCreator creator(final String pathSid) {
@@ -95,9 +95,9 @@ public class SinkTest extends Resource {
     }
 
     /**
-     * Returns The result.
+     * Returns Feedback indicating whether the test event was generated..
      *
-     * @return The result
+     * @return Feedback indicating whether the test event was generated.
      */
     public final String getResult() {
         return this.result;

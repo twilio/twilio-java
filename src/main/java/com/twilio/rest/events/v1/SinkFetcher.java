@@ -28,7 +28,7 @@ public class SinkFetcher extends Fetcher<Sink> {
     /**
      * Construct a new SinkFetcher.
      *
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this Sink.
      */
     public SinkFetcher(final String pathSid) {
         this.pathSid = pathSid;

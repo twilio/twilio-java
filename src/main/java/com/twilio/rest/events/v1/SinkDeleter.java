@@ -28,7 +28,7 @@ public class SinkDeleter extends Deleter<Sink> {
     /**
      * Construct a new SinkDeleter.
      *
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this Sink.
      */
     public SinkDeleter(final String pathSid) {
         this.pathSid = pathSid;

@@ -30,9 +30,9 @@ public class SubscribedEventUpdater extends Updater<SubscribedEvent> {
     /**
      * Construct a new SubscribedEventUpdater.
      *
-     * @param pathSubscriptionSid The subscription_sid
-     * @param pathType The type
-     * @param version The version
+     * @param pathSubscriptionSid Subscription SID.
+     * @param pathType Type of event being subscribed to.
+     * @param version The schema version that the subscription should use.
      */
     public SubscribedEventUpdater(final String pathSubscriptionSid,
                                   final String pathType,

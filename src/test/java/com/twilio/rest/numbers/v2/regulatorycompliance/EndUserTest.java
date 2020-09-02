@@ -176,4 +176,36 @@ public class EndUserTest {
 
         EndUser.updater("ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
+
+    @Test
+    public void testDeleteRequest() {
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.DELETE,
+                                          Domains.NUMBERS.toString(),
+                                          "/v2/RegulatoryCompliance/EndUsers/ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
+
+        try {
+            EndUser.deleter("ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            fail("Expected TwilioException to be thrown for 500");
+        } catch (TwilioException e) {}
+    }
+
+    @Test
+    public void testDeleteResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("null", TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        EndUser.deleter("ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+    }
 }

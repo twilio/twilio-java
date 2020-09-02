@@ -30,7 +30,7 @@ public class SubscribedEventReader extends Reader<SubscribedEvent> {
     /**
      * Construct a new SubscribedEventReader.
      *
-     * @param pathSubscriptionSid The subscription_sid
+     * @param pathSubscriptionSid Subscription SID.
      */
     public SubscribedEventReader(final String pathSubscriptionSid) {
         this.pathSubscriptionSid = pathSubscriptionSid;

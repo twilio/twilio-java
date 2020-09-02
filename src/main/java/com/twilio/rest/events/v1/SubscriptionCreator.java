@@ -34,9 +34,9 @@ public class SubscriptionCreator extends Creator<Subscription> {
     /**
      * Construct a new SubscriptionCreator.
      *
-     * @param description The description
-     * @param sinkSid The sink_sid
-     * @param types The types
+     * @param description Subscription description
+     * @param sinkSid Sink SID.
+     * @param types Nested resource URLs.
      */
     public SubscriptionCreator(final String description,
                                final String sinkSid,

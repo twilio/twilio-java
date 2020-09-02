@@ -55,7 +55,7 @@ public class Subscription extends Resource {
     /**
      * Create a SubscriptionFetcher to execute fetch.
      *
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this Subscription.
      * @return SubscriptionFetcher capable of executing the fetch
      */
     public static SubscriptionFetcher fetcher(final String pathSid) {
@@ -65,9 +65,9 @@ public class Subscription extends Resource {
     /**
      * Create a SubscriptionCreator to execute create.
      *
-     * @param description The description
-     * @param sinkSid The sink_sid
-     * @param types The types
+     * @param description Subscription description
+     * @param sinkSid Sink SID.
+     * @param types Nested resource URLs.
      * @return SubscriptionCreator capable of executing the create
      */
     public static SubscriptionCreator creator(final String description,
@@ -79,7 +79,7 @@ public class Subscription extends Resource {
     /**
      * Create a SubscriptionDeleter to execute delete.
      *
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this Subscription.
      * @return SubscriptionDeleter capable of executing the delete
      */
     public static SubscriptionDeleter deleter(final String pathSid) {
@@ -161,72 +161,72 @@ public class Subscription extends Resource {
     }
 
     /**
-     * Returns The account_sid.
+     * Returns Account SID..
      *
-     * @return The account_sid
+     * @return Account SID.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The sid.
+     * Returns A string that uniquely identifies this Subscription..
      *
-     * @return The sid
+     * @return A string that uniquely identifies this Subscription.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The date_created.
+     * Returns The date this Subscription was created.
      *
-     * @return The date_created
+     * @return The date this Subscription was created
      */
     public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The date_updated.
+     * Returns The date this Subscription was updated.
      *
-     * @return The date_updated
+     * @return The date this Subscription was updated
      */
     public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The description.
+     * Returns Subscription description.
      *
-     * @return The description
+     * @return Subscription description
      */
     public final String getDescription() {
         return this.description;
     }
 
     /**
-     * Returns The sink_sid.
+     * Returns Sink SID..
      *
-     * @return The sink_sid
+     * @return Sink SID.
      */
     public final String getSinkSid() {
         return this.sinkSid;
     }
 
     /**
-     * Returns The url.
+     * Returns The URL of this resource..
      *
-     * @return The url
+     * @return The URL of this resource.
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The links.
+     * Returns Nested resource URLs..
      *
-     * @return The links
+     * @return Nested resource URLs.
      */
     public final Map<String, String> getLinks() {
         return this.links;

@@ -97,7 +97,7 @@ public class Sink extends Resource {
     /**
      * Create a SinkFetcher to execute fetch.
      *
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this Sink.
      * @return SinkFetcher capable of executing the fetch
      */
     public static SinkFetcher fetcher(final String pathSid) {
@@ -107,9 +107,9 @@ public class Sink extends Resource {
     /**
      * Create a SinkCreator to execute create.
      *
-     * @param description The description
-     * @param sinkConfiguration The sink_configuration
-     * @param sinkType The sink_type
+     * @param description Sink Description
+     * @param sinkConfiguration JSON Sink configuration.
+     * @param sinkType Sink type.
      * @return SinkCreator capable of executing the create
      */
     public static SinkCreator creator(final String description,
@@ -121,7 +121,7 @@ public class Sink extends Resource {
     /**
      * Create a SinkDeleter to execute delete.
      *
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this Sink.
      * @return SinkDeleter capable of executing the delete
      */
     public static SinkDeleter deleter(final String pathSid) {
@@ -215,81 +215,81 @@ public class Sink extends Resource {
     }
 
     /**
-     * Returns The date_created.
+     * Returns The date this Sink was created.
      *
-     * @return The date_created
+     * @return The date this Sink was created
      */
     public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The date_updated.
+     * Returns The date this Sink was updated.
      *
-     * @return The date_updated
+     * @return The date this Sink was updated
      */
     public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The description.
+     * Returns Sink Description.
      *
-     * @return The description
+     * @return Sink Description
      */
     public final String getDescription() {
         return this.description;
     }
 
     /**
-     * Returns The sid.
+     * Returns A string that uniquely identifies this Sink..
      *
-     * @return The sid
+     * @return A string that uniquely identifies this Sink.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The sink_configuration.
+     * Returns JSON Sink configuration..
      *
-     * @return The sink_configuration
+     * @return JSON Sink configuration.
      */
     public final Map<String, Object> getSinkConfiguration() {
         return this.sinkConfiguration;
     }
 
     /**
-     * Returns The sink_type.
+     * Returns Sink type..
      *
-     * @return The sink_type
+     * @return Sink type.
      */
     public final Sink.SinkType getSinkType() {
         return this.sinkType;
     }
 
     /**
-     * Returns The status.
+     * Returns The Status of this Sink.
      *
-     * @return The status
+     * @return The Status of this Sink
      */
     public final Sink.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The url.
+     * Returns The URL of this resource..
      *
-     * @return The url
+     * @return The URL of this resource.
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The links.
+     * Returns Nested resource URLs..
      *
-     * @return The links
+     * @return Nested resource URLs.
      */
     public final Map<String, String> getLinks() {
         return this.links;

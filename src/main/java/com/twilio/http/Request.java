@@ -3,6 +3,8 @@ package com.twilio.http;
 import com.google.common.collect.Range;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.InvalidRequestException;
+
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -218,12 +220,12 @@ public class Request {
      */
     public void addQueryDateTimeRange(final String name, final Range<ZonedDateTime> range) {
         if (range.hasLowerBound()) {
-            String value = range.lowerEndpoint().format(DateTimeFormatter.ofPattern(QUERY_STRING_DATE_TIME_FORMAT));
+            String value = range.lowerEndpoint().withZoneSameInstant(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern(QUERY_STRING_DATE_TIME_FORMAT));
             addQueryParam(name + ">", value);
         }
 
         if (range.hasUpperBound()) {
-            String value = range.upperEndpoint().format(DateTimeFormatter.ofPattern(QUERY_STRING_DATE_TIME_FORMAT));
+            String value = range.upperEndpoint().withZoneSameInstant(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern(QUERY_STRING_DATE_TIME_FORMAT));
             addQueryParam(name + "<", value);
         }
     }

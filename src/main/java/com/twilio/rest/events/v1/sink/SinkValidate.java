@@ -42,7 +42,8 @@ public class SinkValidate extends Resource {
      * Create a SinkValidateCreator to execute create.
      *
      * @param pathSid The sid
-     * @param testId The test_id
+     * @param testId A string that uniquely identifies the test event for a Sink
+     *               being validated.
      * @return SinkValidateCreator capable of executing the create
      */
     public static SinkValidateCreator creator(final String pathSid,
@@ -97,9 +98,9 @@ public class SinkValidate extends Resource {
     }
 
     /**
-     * Returns The result.
+     * Returns Feedback indicating whether the given Sink was validated..
      *
-     * @return The result
+     * @return Feedback indicating whether the given Sink was validated.
      */
     public final String getResult() {
         return this.result;

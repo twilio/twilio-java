@@ -30,7 +30,8 @@ public class SinkValidateCreator extends Creator<SinkValidate> {
      * Construct a new SinkValidateCreator.
      *
      * @param pathSid The sid
-     * @param testId The test_id
+     * @param testId A string that uniquely identifies the test event for a Sink
+     *               being validated.
      */
     public SinkValidateCreator(final String pathSid,
                                final String testId) {

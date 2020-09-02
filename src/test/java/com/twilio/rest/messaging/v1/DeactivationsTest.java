@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.bulkexports.v1;
+package com.twilio.rest.messaging.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;
@@ -27,7 +27,7 @@ import java.net.URI;
 import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;
 
-public class ExportTest {
+public class DeactivationsTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
@@ -40,8 +40,8 @@ public class ExportTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          Domains.BULKEXPORTS.toString(),
-                                          "/v1/Exports/resource_type");
+                                          Domains.MESSAGING.toString(),
+                                          "/v1/Deactivations");
 
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class ExportTest {
         }};
 
         try {
-            Export.fetcher("resource_type").fetch();
+            Deactivations.fetcher().fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -60,11 +60,11 @@ public class ExportTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"resource_type\": \"Messages\",\"url\": \"https://bulkexports.twilio.com/v1/Exports/Messages\",\"links\": {\"days\": \"https://bulkexports.twilio.com/v1/Exports/Messages/Days\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"redirect_to\": \"https://www.twilio.com\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Export.fetcher("resource_type").fetch());
+        assertNotNull(Deactivations.fetcher().fetch());
     }
 }

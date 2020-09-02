@@ -28,7 +28,7 @@ public class SubscriptionFetcher extends Fetcher<Subscription> {
     /**
      * Construct a new SubscriptionFetcher.
      *
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this Subscription.
      */
     public SubscriptionFetcher(final String pathSid) {
         this.pathSid = pathSid;

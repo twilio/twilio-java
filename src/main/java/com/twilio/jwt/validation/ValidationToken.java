@@ -1,8 +1,5 @@
 package com.twilio.jwt.validation;
 
-import com.google.common.base.Function;
-import com.google.common.base.Joiner;
-import com.google.common.collect.Lists;
 import com.twilio.jwt.Jwt;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -15,7 +12,15 @@ import org.apache.http.HttpRequest;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Collections;
+import java.util.function.Function;
+
 
 
 public class ValidationToken extends Jwt {
@@ -67,8 +72,8 @@ public class ValidationToken extends Jwt {
 
         // Sort the signed headers
         Collections.sort(signedHeaders);
-        List<String> lowercaseSignedHeaders = Lists.transform(signedHeaders, LOWERCASE_STRING);
-        String includedHeaders = Joiner.on(";").join(lowercaseSignedHeaders);
+        signedHeaders.replaceAll(String::toLowerCase);
+        String includedHeaders = String.join(";", signedHeaders);
         payload.put("hrh", includedHeaders);
 
         String canonicalRequest =

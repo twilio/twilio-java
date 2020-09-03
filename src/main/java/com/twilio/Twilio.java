@@ -210,7 +210,7 @@ public class Twilio {
     /**
      * Validate that we can connect to the new SSL certificate posted on api.twilio.com.
      *
-     * @throws com.twilio.exception.CertificateValidationException if the connection fails
+     * @throws CertificateValidationException if the connection fails
      */
     public static void validateSslCertificate() {
         final NetworkHttpClient client = new NetworkHttpClient();
@@ -219,7 +219,7 @@ public class Twilio {
         try {
             final Response response = client.makeRequest(request);
 
-            if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+            if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
                 throw new CertificateValidationException(
                     "Unexpected response from certificate endpoint", request, response
                 );

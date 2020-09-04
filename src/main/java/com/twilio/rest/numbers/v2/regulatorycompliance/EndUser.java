@@ -105,6 +105,16 @@ public class EndUser extends Resource {
     }
 
     /**
+     * Create a EndUserDeleter to execute delete.
+     *
+     * @param pathSid The unique string that identifies the resource
+     * @return EndUserDeleter capable of executing the delete
+     */
+    public static EndUserDeleter deleter(final String pathSid) {
+        return new EndUserDeleter(pathSid);
+    }
+
+    /**
      * Converts a JSON String into a EndUser object using the provided ObjectMapper.
      *
      * @param json Raw JSON String

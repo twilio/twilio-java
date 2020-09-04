@@ -37,7 +37,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Trunk extends Resource {
-    private static final long serialVersionUID = 237038422793901L;
+    private static final long serialVersionUID = 110040442840544L;
 
     public enum RecordingSetting {
         DO_NOT_RECORD("do-not-record"),
@@ -62,6 +62,32 @@ public class Trunk extends Resource {
         @JsonCreator
         public static RecordingSetting forValue(final String value) {
             return Promoter.enumFromString(value, RecordingSetting.values());
+        }
+    }
+
+    public enum TransferSetting {
+        DISABLE_ALL("disable-all"),
+        ENABLE_ALL("enable-all"),
+        SIP_ONLY("sip-only");
+
+        private final String value;
+
+        private TransferSetting(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a TransferSetting from a string.
+         * @param value string value
+         * @return generated TransferSetting
+         */
+        @JsonCreator
+        public static TransferSetting forValue(final String value) {
+            return Promoter.enumFromString(value, TransferSetting.values());
         }
     }
 
@@ -157,6 +183,7 @@ public class Trunk extends Resource {
     private final String friendlyName;
     private final Boolean secure;
     private final Map<String, Object> recording;
+    private final Trunk.TransferSetting transferMode;
     private final Boolean cnamLookupEnabled;
     private final String authType;
     private final List<String> authTypeSet;
@@ -181,6 +208,8 @@ public class Trunk extends Resource {
                   final Boolean secure,
                   @JsonProperty("recording")
                   final Map<String, Object> recording,
+                  @JsonProperty("transfer_mode")
+                  final Trunk.TransferSetting transferMode,
                   @JsonProperty("cnam_lookup_enabled")
                   final Boolean cnamLookupEnabled,
                   @JsonProperty("auth_type")
@@ -204,6 +233,7 @@ public class Trunk extends Resource {
         this.friendlyName = friendlyName;
         this.secure = secure;
         this.recording = recording;
+        this.transferMode = transferMode;
         this.cnamLookupEnabled = cnamLookupEnabled;
         this.authType = authType;
         this.authTypeSet = authTypeSet;
@@ -279,6 +309,15 @@ public class Trunk extends Resource {
      */
     public final Map<String, Object> getRecording() {
         return this.recording;
+    }
+
+    /**
+     * Returns The call transfer settings for the trunk.
+     *
+     * @return The call transfer settings for the trunk
+     */
+    public final Trunk.TransferSetting getTransferMode() {
+        return this.transferMode;
     }
 
     /**
@@ -372,6 +411,7 @@ public class Trunk extends Resource {
                Objects.equals(friendlyName, other.friendlyName) &&
                Objects.equals(secure, other.secure) &&
                Objects.equals(recording, other.recording) &&
+               Objects.equals(transferMode, other.transferMode) &&
                Objects.equals(cnamLookupEnabled, other.cnamLookupEnabled) &&
                Objects.equals(authType, other.authType) &&
                Objects.equals(authTypeSet, other.authTypeSet) &&
@@ -391,6 +431,7 @@ public class Trunk extends Resource {
                             friendlyName,
                             secure,
                             recording,
+                            transferMode,
                             cnamLookupEnabled,
                             authType,
                             authTypeSet,
@@ -411,6 +452,7 @@ public class Trunk extends Resource {
                           .add("friendlyName", friendlyName)
                           .add("secure", secure)
                           .add("recording", recording)
+                          .add("transferMode", transferMode)
                           .add("cnamLookupEnabled", cnamLookupEnabled)
                           .add("authType", authType)
                           .add("authTypeSet", authTypeSet)

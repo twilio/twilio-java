@@ -28,7 +28,7 @@ public class SinkTestCreator extends Creator<SinkTest> {
     /**
      * Construct a new SinkTestCreator.
      *
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies the Sink to be Tested.
      */
     public SinkTestCreator(final String pathSid) {
         this.pathSid = pathSid;

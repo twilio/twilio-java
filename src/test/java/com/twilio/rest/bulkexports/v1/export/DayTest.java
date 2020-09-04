@@ -92,7 +92,7 @@ public class DayTest {
     public void testReadEmptyResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"days\": [],\"meta\": {\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://bulkexports.twilio.com/v1/Exports/Calls/Days?PageSize=50&Page=0\",\"previous_page_url\": null,\"url\": \"https://bulkexports.twilio.com/v1/Exports/Calls/Days?PageSize=50&Page=0\",\"next_page_url\": null,\"key\": \"days\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"days\": [],\"meta\": {\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://bulkexports.twilio.com/v1/Exports/Messages/Days?PageSize=50&Page=0\",\"previous_page_url\": null,\"url\": \"https://bulkexports.twilio.com/v1/Exports/Messages/Days?PageSize=50&Page=0\",\"next_page_url\": null,\"key\": \"days\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -104,7 +104,7 @@ public class DayTest {
     public void testReadFullResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"days\": [{\"day\": \"2017-04-01\",\"size\": 100,\"resource_type\": \"Calls\",\"create_date\": \"2017-04-02\",\"friendly_name\": \"friendly_name\"}],\"meta\": {\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://bulkexports.twilio.com/v1/Exports/Calls/Days?PageSize=50&Page=0\",\"previous_page_url\": null,\"url\": \"https://bulkexports.twilio.com/v1/Exports/Calls/Days?PageSize=50&Page=0\",\"next_page_url\": null,\"key\": \"days\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"days\": [{\"day\": \"2017-04-01\",\"size\": 100,\"resource_type\": \"Messages\",\"create_date\": \"2017-04-02\",\"friendly_name\": \"friendly_name\"}],\"meta\": {\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://bulkexports.twilio.com/v1/Exports/Messages/Days?PageSize=50&Page=0\",\"previous_page_url\": null,\"url\": \"https://bulkexports.twilio.com/v1/Exports/Messages/Days?PageSize=50&Page=0\",\"next_page_url\": null,\"key\": \"days\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

@@ -30,8 +30,8 @@ public class SubscribedEventCreator extends Creator<SubscribedEvent> {
     /**
      * Construct a new SubscribedEventCreator.
      *
-     * @param pathSubscriptionSid The subscription_sid
-     * @param type The type
+     * @param pathSubscriptionSid Subscription SID.
+     * @param type Type of event being subscribed to.
      */
     public SubscribedEventCreator(final String pathSubscriptionSid,
                                   final String type) {
@@ -40,9 +40,9 @@ public class SubscribedEventCreator extends Creator<SubscribedEvent> {
     }
 
     /**
-     * The version.
+     * The schema version that the subscription should use..
      *
-     * @param version The version
+     * @param version The schema version that the subscription should use.
      * @return this
      */
     public SubscribedEventCreator setVersion(final Integer version) {

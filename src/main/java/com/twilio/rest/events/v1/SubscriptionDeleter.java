@@ -28,7 +28,7 @@ public class SubscriptionDeleter extends Deleter<Subscription> {
     /**
      * Construct a new SubscriptionDeleter.
      *
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this Subscription.
      */
     public SubscriptionDeleter(final String pathSid) {
         this.pathSid = pathSid;

@@ -287,7 +287,7 @@ public class Request {
 
     /**
      * Encode the query parameters.
-     * String encodeParameters(
+     *
      * @return url encoded query parameters
      */
     public String encodeQueryParams() {

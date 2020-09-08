@@ -287,7 +287,7 @@ public class Request {
 
     /**
      * Encode the query parameters.
-     *
+     * String encodeParameters(
      * @return url encoded query parameters
      */
     public String encodeQueryParams() {
@@ -304,6 +304,7 @@ public class Request {
                     if (value == null) {
                         continue;
                     }
+
                     String encodedValue = URLEncoder.encode(value, "UTF-8");
                     parameters.add(encodedName + "=" + encodedValue);
                 }

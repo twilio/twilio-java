@@ -196,7 +196,7 @@ public class Request {
             if (parsedUrl.getUserInfo() != null) {
                 credentials = parsedUrl.getUserInfo() + "@";
             }
-            return joinIgnoreNull("", protocol, credentials ,host, urlPort, path, query, ref);
+            return joinIgnoreNull("", protocol, credentials, host, urlPort, path, query, ref);
         } catch (final MalformedURLException | UnsupportedEncodingException e) {
             throw new ApiException("Bad URL: " + url, e);
         }

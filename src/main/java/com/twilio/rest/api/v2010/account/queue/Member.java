@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,6 +23,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Member extends Resource {
     private static final long serialVersionUID = 8025703048462L;
 
@@ -264,17 +265,5 @@ public class Member extends Resource {
                             uri,
                             waitTime,
                             queueSid);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("callSid", callSid)
-                          .add("dateEnqueued", dateEnqueued)
-                          .add("position", position)
-                          .add("uri", uri)
-                          .add("waitTime", waitTime)
-                          .add("queueSid", queueSid)
-                          .toString();
     }
 }

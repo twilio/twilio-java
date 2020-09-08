@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,6 +23,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -38,6 +38,7 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class CurrentCall extends Resource {
     private static final long serialVersionUID = 212286172550611L;
 
@@ -320,25 +321,5 @@ public class CurrentCall extends Resource {
                             to,
                             url,
                             useCase);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("bgColor", bgColor)
-                          .add("caller", caller)
-                          .add("createdAt", createdAt)
-                          .add("fontColor", fontColor)
-                          .add("from", from)
-                          .add("logo", logo)
-                          .add("manager", manager)
-                          .add("reason", reason)
-                          .add("shieldImg", shieldImg)
-                          .add("sid", sid)
-                          .add("status", status)
-                          .add("to", to)
-                          .add("url", url)
-                          .add("useCase", useCase)
-                          .toString();
     }
 }

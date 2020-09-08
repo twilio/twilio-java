@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -25,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -35,6 +35,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class AuthorizedConnectApp extends Resource {
     private static final long serialVersionUID = 67218777245125L;
 
@@ -314,21 +315,5 @@ public class AuthorizedConnectApp extends Resource {
                             dateUpdated,
                             permissions,
                             uri);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("connectAppCompanyName", connectAppCompanyName)
-                          .add("connectAppDescription", connectAppDescription)
-                          .add("connectAppFriendlyName", connectAppFriendlyName)
-                          .add("connectAppHomepageUrl", connectAppHomepageUrl)
-                          .add("connectAppSid", connectAppSid)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("permissions", permissions)
-                          .add("uri", uri)
-                          .toString();
     }
 }

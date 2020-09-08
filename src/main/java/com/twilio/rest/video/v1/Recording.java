@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -26,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -35,6 +35,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Recording extends Resource {
     private static final long serialVersionUID = 75716728838736L;
 
@@ -458,26 +459,5 @@ public class Recording extends Resource {
                             trackName,
                             offset,
                             links);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("status", status)
-                          .add("dateCreated", dateCreated)
-                          .add("sid", sid)
-                          .add("sourceSid", sourceSid)
-                          .add("size", size)
-                          .add("url", url)
-                          .add("type", type)
-                          .add("duration", duration)
-                          .add("containerFormat", containerFormat)
-                          .add("codec", codec)
-                          .add("groupingSids", groupingSids)
-                          .add("trackName", trackName)
-                          .add("offset", offset)
-                          .add("links", links)
-                          .toString();
     }
 }

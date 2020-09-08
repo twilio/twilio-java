@@ -14,7 +14,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -26,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -36,6 +36,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Transcription extends Resource {
     private static final long serialVersionUID = 3308072321352L;
 
@@ -402,24 +403,5 @@ public class Transcription extends Resource {
                             transcriptionText,
                             type,
                             uri);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("apiVersion", apiVersion)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("duration", duration)
-                          .add("price", price)
-                          .add("priceUnit", priceUnit)
-                          .add("recordingSid", recordingSid)
-                          .add("sid", sid)
-                          .add("status", status)
-                          .add("transcriptionText", transcriptionText)
-                          .add("type", type)
-                          .add("uri", uri)
-                          .toString();
     }
 }

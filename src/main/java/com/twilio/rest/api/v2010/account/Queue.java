@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,6 +23,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -32,6 +32,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Queue extends Resource {
     private static final long serialVersionUID = 115549588553968L;
 
@@ -339,20 +340,5 @@ public class Queue extends Resource {
                             sid,
                             dateCreated,
                             maxSize);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("dateUpdated", dateUpdated)
-                          .add("currentSize", currentSize)
-                          .add("friendlyName", friendlyName)
-                          .add("uri", uri)
-                          .add("accountSid", accountSid)
-                          .add("averageWaitTime", averageWaitTime)
-                          .add("sid", sid)
-                          .add("dateCreated", dateCreated)
-                          .add("maxSize", maxSize)
-                          .toString();
     }
 }

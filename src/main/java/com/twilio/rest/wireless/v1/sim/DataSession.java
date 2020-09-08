@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -25,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class DataSession extends Resource {
     private static final long serialVersionUID = 281325626490598L;
 
@@ -364,27 +365,5 @@ public class DataSession extends Resource {
                             start,
                             end,
                             imei);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("simSid", simSid)
-                          .add("accountSid", accountSid)
-                          .add("radioLink", radioLink)
-                          .add("operatorMcc", operatorMcc)
-                          .add("operatorMnc", operatorMnc)
-                          .add("operatorCountry", operatorCountry)
-                          .add("operatorName", operatorName)
-                          .add("cellId", cellId)
-                          .add("cellLocationEstimate", cellLocationEstimate)
-                          .add("packetsUploaded", packetsUploaded)
-                          .add("packetsDownloaded", packetsDownloaded)
-                          .add("lastUpdated", lastUpdated)
-                          .add("start", start)
-                          .add("end", end)
-                          .add("imei", imei)
-                          .toString();
     }
 }

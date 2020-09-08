@@ -54,6 +54,14 @@ public class RequestTest {
     }
 
     @Test
+    public void testConstructURLWithCredentials() throws MalformedURLException {
+        Request r = new Request(HttpMethod.GET, "user:pass@" + Domains.API.toString(), "/2010-04-01/foobar");
+        URL url = r.constructURL();
+        URL expected = new URL("https://user:pass@api.twilio.com/2010-04-01/foobar");
+        assertUrlsEqual(expected, url);
+    }
+
+    @Test
     public void testConstructURLWithParam() throws MalformedURLException {
         Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar");
         r.addQueryParam("baz", "quux");

@@ -175,13 +175,14 @@ public class Request {
                 host = joinIgnoreNull(".", product, targetEdge, targetRegion, domain);
             }
 
-            int port = -1;
             String urlPort = null;
             if (parsedUrl.getPort() != -1) {
-                port = parsedUrl.getPort();
-                urlPort = ":" + port;
+                urlPort = ":" + parsedUrl.getPort();
             }
             String protocol = parsedUrl.getProtocol() + "://";
+            String[] pathPieces = parsedUrl.getPath().split("/", 0);
+            pathPieces[pathPieces.length-1] = URLEncoder.encode(pathPieces[pathPieces.length-1], "UTF-8");
+            String encodedPath = String.join("/", pathPieces);
             String path = parsedUrl.getPath().replace("|", "%7C");
             String query = null;
             if (parsedUrl.getQuery() != null) {
@@ -191,8 +192,12 @@ public class Request {
             if (parsedUrl.getRef() != null) {
                 ref = "#" + parsedUrl.getRef();
             }
-            return joinIgnoreNull("", protocol, host, urlPort, path, query, ref);
-        } catch (final MalformedURLException e) {
+            String credentials = null;
+            if (parsedUrl.getUserInfo() != null) {
+                credentials = parsedUrl.getUserInfo() + "@";
+            }
+            return joinIgnoreNull("", protocol, credentials ,host, urlPort, path, query, ref);
+        } catch (final MalformedURLException | UnsupportedEncodingException e) {
             throw new ApiException("Bad URL: " + url, e);
         }
     }

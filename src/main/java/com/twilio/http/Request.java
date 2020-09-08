@@ -6,6 +6,7 @@ import com.twilio.exception.InvalidRequestException;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
+import org.apache.commons.lang.StringUtils;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.UnsupportedEncodingException;
@@ -182,8 +183,8 @@ public class Request {
             String protocol = parsedUrl.getProtocol() + "://";
             String[] pathPieces = parsedUrl.getPath().split("/", 0);
             pathPieces[pathPieces.length-1] = URLEncoder.encode(pathPieces[pathPieces.length-1], "UTF-8");
-            String encodedPath = String.join("/", pathPieces);
-            String path = parsedUrl.getPath().replace("|", "%7C");
+            // TODO: We can use String.join and drop the apache.commons dependency when we upgrade to Java 8
+            String encodedPath = StringUtils.join(pathPieces, "/");
             String query = null;
             if (parsedUrl.getQuery() != null) {
                 query = "?" + parsedUrl.getQuery();
@@ -196,7 +197,7 @@ public class Request {
             if (parsedUrl.getUserInfo() != null) {
                 credentials = parsedUrl.getUserInfo() + "@";
             }
-            return joinIgnoreNull("", protocol, credentials, host, urlPort, path, query, ref);
+            return joinIgnoreNull("", protocol, credentials, host, urlPort, encodedPath, query, ref);
         } catch (final MalformedURLException | UnsupportedEncodingException e) {
             throw new ApiException("Bad URL: " + url, e);
         }

@@ -26,6 +26,7 @@ public class TrunkCreator extends Creator<Trunk> {
     private URI disasterRecoveryUrl;
     private HttpMethod disasterRecoveryMethod;
     private Trunk.RecordingSetting recording;
+    private Trunk.TransferSetting transferMode;
     private Boolean secure;
     private Boolean cnamLookupEnabled;
 
@@ -124,6 +125,20 @@ public class TrunkCreator extends Creator<Trunk> {
     }
 
     /**
+     * The call transfer settings for the trunk. Can be: `enable-all`, `sip-only`
+     * and `disable-all`. See
+     * [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more
+     * information..
+     *
+     * @param transferMode The call transfer settings for the trunk
+     * @return this
+     */
+    public TrunkCreator setTransferMode(final Trunk.TransferSetting transferMode) {
+        this.transferMode = transferMode;
+        return this;
+    }
+
+    /**
      * Whether Secure Trunking is enabled for the trunk. If enabled, all calls going
      * through the trunk will be secure using SRTP for media and TLS for signaling.
      * If disabled, then RTP will be used for media. See [Secure
@@ -209,6 +224,10 @@ public class TrunkCreator extends Creator<Trunk> {
 
         if (recording != null) {
             request.addPostParam("Recording", recording.toString());
+        }
+
+        if (transferMode != null) {
+            request.addPostParam("TransferMode", transferMode.toString());
         }
 
         if (secure != null) {

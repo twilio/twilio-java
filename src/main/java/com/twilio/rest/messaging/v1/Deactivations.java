@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.events.v1.sink;
+package com.twilio.rest.messaging.v1;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -26,40 +26,35 @@ import com.twilio.rest.Domains;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SinkTest extends Resource {
-    private static final long serialVersionUID = 233814002700195L;
+public class Deactivations extends Resource {
+    private static final long serialVersionUID = 141886233784936L;
 
     /**
-     * Create a SinkTestCreator to execute create.
+     * Create a DeactivationsFetcher to execute fetch.
      *
-     * @param pathSid A string that uniquely identifies the Sink to be Tested.
-     * @return SinkTestCreator capable of executing the create
+     * @return DeactivationsFetcher capable of executing the fetch
      */
-    public static SinkTestCreator creator(final String pathSid) {
-        return new SinkTestCreator(pathSid);
+    public static DeactivationsFetcher fetcher() {
+        return new DeactivationsFetcher();
     }
 
     /**
-     * Converts a JSON String into a SinkTest object using the provided
+     * Converts a JSON String into a Deactivations object using the provided
      * ObjectMapper.
      *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
-     * @return SinkTest object represented by the provided JSON
+     * @return Deactivations object represented by the provided JSON
      */
-    public static SinkTest fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Deactivations fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, SinkTest.class);
+            return objectMapper.readValue(json, Deactivations.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -68,17 +63,17 @@ public class SinkTest extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a SinkTest object using the provided
+     * Converts a JSON InputStream into a Deactivations object using the provided
      * ObjectMapper.
      *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
-     * @return SinkTest object represented by the provided JSON
+     * @return Deactivations object represented by the provided JSON
      */
-    public static SinkTest fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Deactivations fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, SinkTest.class);
+            return objectMapper.readValue(json, Deactivations.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -86,21 +81,21 @@ public class SinkTest extends Resource {
         }
     }
 
-    private final String result;
+    private final URI redirectTo;
 
     @JsonCreator
-    private SinkTest(@JsonProperty("result")
-                     final String result) {
-        this.result = result;
+    private Deactivations(@JsonProperty("redirect_to")
+                          final URI redirectTo) {
+        this.redirectTo = redirectTo;
     }
 
     /**
-     * Returns Feedback indicating whether the test event was generated..
+     * Returns Redirect url to the list of deactivated numbers..
      *
-     * @return Feedback indicating whether the test event was generated.
+     * @return Redirect url to the list of deactivated numbers.
      */
-    public final String getResult() {
-        return this.result;
+    public final URI getRedirectTo() {
+        return this.redirectTo;
     }
 
     @Override
@@ -113,20 +108,20 @@ public class SinkTest extends Resource {
             return false;
         }
 
-        SinkTest other = (SinkTest) o;
+        Deactivations other = (Deactivations) o;
 
-        return Objects.equals(result, other.result);
+        return Objects.equals(redirectTo, other.redirectTo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(result);
+        return Objects.hash(redirectTo);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                          .add("result", result)
+                          .add("redirectTo", redirectTo)
                           .toString();
     }
 }

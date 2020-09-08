@@ -60,7 +60,7 @@ public class ExportConfigurationTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"url\": \"https://bulkexports.twilio.com/v1/Exports/Calls/Configuration\",\"enabled\": true,\"webhook_url\": \"\",\"webhook_method\": \"\",\"resource_type\": \"Calls\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"url\": \"https://bulkexports.twilio.com/v1/Exports/Messages/Configuration\",\"enabled\": true,\"webhook_url\": \"\",\"webhook_method\": \"\",\"resource_type\": \"Messages\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -92,7 +92,7 @@ public class ExportConfigurationTest {
     public void testUpdateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"url\": \"https://bulkexports.twilio.com/v1/Exports/Calls/Configuration\",\"enabled\": true,\"webhook_url\": \"\",\"resource_type\": \"Calls\",\"webhook_method\": \"\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"url\": \"https://bulkexports.twilio.com/v1/Exports/Messages/Configuration\",\"enabled\": true,\"webhook_url\": \"\",\"resource_type\": \"Messages\",\"webhook_method\": \"\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

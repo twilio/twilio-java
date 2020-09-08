@@ -33,9 +33,9 @@ public class SinkCreator extends Creator<Sink> {
     /**
      * Construct a new SinkCreator.
      *
-     * @param description The description
-     * @param sinkConfiguration The sink_configuration
-     * @param sinkType The sink_type
+     * @param description Sink Description
+     * @param sinkConfiguration JSON Sink configuration.
+     * @param sinkType Sink type.
      */
     public SinkCreator(final String description,
                        final Map<String, Object> sinkConfiguration,

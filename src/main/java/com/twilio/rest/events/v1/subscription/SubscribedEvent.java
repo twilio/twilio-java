@@ -42,7 +42,7 @@ public class SubscribedEvent extends Resource {
     /**
      * Create a SubscribedEventReader to execute read.
      *
-     * @param pathSubscriptionSid The subscription_sid
+     * @param pathSubscriptionSid Subscription SID.
      * @return SubscribedEventReader capable of executing the read
      */
     public static SubscribedEventReader reader(final String pathSubscriptionSid) {
@@ -52,8 +52,8 @@ public class SubscribedEvent extends Resource {
     /**
      * Create a SubscribedEventCreator to execute create.
      *
-     * @param pathSubscriptionSid The subscription_sid
-     * @param type The type
+     * @param pathSubscriptionSid Subscription SID.
+     * @param type Type of event being subscribed to.
      * @return SubscribedEventCreator capable of executing the create
      */
     public static SubscribedEventCreator creator(final String pathSubscriptionSid,
@@ -64,9 +64,9 @@ public class SubscribedEvent extends Resource {
     /**
      * Create a SubscribedEventUpdater to execute update.
      *
-     * @param pathSubscriptionSid The subscription_sid
-     * @param pathType The type
-     * @param version The version
+     * @param pathSubscriptionSid Subscription SID.
+     * @param pathType Type of event being subscribed to.
+     * @param version The schema version that the subscription should use.
      * @return SubscribedEventUpdater capable of executing the update
      */
     public static SubscribedEventUpdater updater(final String pathSubscriptionSid,
@@ -78,8 +78,8 @@ public class SubscribedEvent extends Resource {
     /**
      * Create a SubscribedEventDeleter to execute delete.
      *
-     * @param pathSubscriptionSid The subscription_sid
-     * @param pathType The type
+     * @param pathSubscriptionSid Subscription SID.
+     * @param pathType Type of event being subscribed to.
      * @return SubscribedEventDeleter capable of executing the delete
      */
     public static SubscribedEventDeleter deleter(final String pathSubscriptionSid,
@@ -150,45 +150,45 @@ public class SubscribedEvent extends Resource {
     }
 
     /**
-     * Returns The account_sid.
+     * Returns Account SID..
      *
-     * @return The account_sid
+     * @return Account SID.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The type.
+     * Returns Type of event being subscribed to..
      *
-     * @return The type
+     * @return Type of event being subscribed to.
      */
     public final String getType() {
         return this.type;
     }
 
     /**
-     * Returns The version.
+     * Returns The schema version that the subscription should use..
      *
-     * @return The version
+     * @return The schema version that the subscription should use.
      */
     public final Integer getVersion() {
         return this.version;
     }
 
     /**
-     * Returns The subscription_sid.
+     * Returns Subscription SID..
      *
-     * @return The subscription_sid
+     * @return Subscription SID.
      */
     public final String getSubscriptionSid() {
         return this.subscriptionSid;
     }
 
     /**
-     * Returns The url.
+     * Returns The URL of this resource..
      *
-     * @return The url
+     * @return The URL of this resource.
      */
     public final URI getUrl() {
         return this.url;

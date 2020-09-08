@@ -35,7 +35,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ExecutionStep extends Resource {
-    private static final long serialVersionUID = 195243209664043L;
+    private static final long serialVersionUID = 111880953972806L;
 
     /**
      * Create a ExecutionStepReader to execute read.
